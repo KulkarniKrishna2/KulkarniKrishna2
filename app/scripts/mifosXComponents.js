@@ -422,8 +422,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'survey/ViewEntityTypeSurveys',
             'survey/TakeNewSurveyController',
             'bankstatements/ViewGeneratePortfolioTransactionsController',
-            'sales/SalesController',
-            'sales/CreditBureoDetailsController',
             'workflow/WorkflowExecutionController',
             'workflow/WorkflowStepExecutionController',
             'workflow/tasks/datatableTaskController',
