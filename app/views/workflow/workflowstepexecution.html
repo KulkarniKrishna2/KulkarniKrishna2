@@ -1,0 +1,43 @@
+<div ng-controller="WorkflowStepExecutionController" class="well">
+    <div ng-show="canView">
+        <h2 > {{step.name}}</h2>
+        <div ng-include="getTaskView()"></div>
+        <div class="step-action">
+            <span ng-repeat="action in possibleActions" >
+                <button ng-click="doStepAction(action.id)">{{action.value}}</button>
+            </span>
+        </div>
+        <div class="row client" ng-show="step.criteriaResult !== undefined">
+            <form class="well form-inline">
+                <div>
+                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{step.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">Show Detail</a>
+                </div>
+                <div ng-show="showCriteriaResult">
+                    <div >
+                        <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
+                    </div>
+                    <div>
+                        {{step.criteriaResult.criteriaOutput.name}} - {{step.criteriaResult.criteriaOutput.output.bucket}} - {{step.criteriaResult.criteriaOutput.output.value}} - {{step.criteriaResult.criteriaOutput.output.reason}} - {{step.criteriaResult.criteriaOutput.output.error}}
+                        <ul>
+                            <li ng-repeat="dimensionResult in step.criteriaResult.criteriaOutput.ruleResultHierarchy">
+                                {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
+                                <ol>
+                                    <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+                                        {{factorResult.name}} - {{factorResult.output.bucket}} - {{factorResult.output.value}} - {{factorResult.output.reason}} - {{factorResult.output.error}}
+                                </ol>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-offset-4 col-sm-4"><button ng-click="doStepAction(2)">Do Fresh Check</button></div>
+            </form>
+        </div>
+    </div>
+    <div ng-show="canView==false">
+        <p> Don't have access to see </p>
+    </div>
+
+</div>
+
+

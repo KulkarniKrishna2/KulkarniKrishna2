@@ -140,7 +140,7 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
-                    location.path('/viewloanapplicationreference/' + data.resourceId);
+                    location.path('/loanapplication/' + data.resourceId+"/workflow");
                 });
             };
 

@@ -1,0 +1,23 @@
+<div name="viewsalesform" ng-controller="LoanApplicationWorkflowController">
+    <div class="container-fluid">
+        <div class="row well">
+            <ul class="breadcrumb">
+                <li>Pramod Sharma</li>
+                <li>Loan application</li>
+                <li>{{loanApplicationData.loanProductName}}</li>
+            </ul>
+        </div>
+        <div class="row well">
+            <div>
+                <span class="col-md-4"> Applicant Name: loan application details</span>
+                <span class="col-md-4"> Application Reference Number : {{loanApplicationData.loanApplicationReferenceNo}}</span>
+                <span class="col-md-4"> Relationship Officer : {{loanApplicationData.loanOfficerName}}</span>
+            </div>
+            <div>
+                <span class="col-md-4"> Loan Purpose: {{loanApplicationData.loanPurpose.name}}</span>
+                <span class="col-md-4"> Application Date : 15-03-2015</span>
+            </div>
+        </div>
+        <div ng-include="'views/workflow/workflowexecution.html'" class="row well"></div>
+    </div>
+</div>

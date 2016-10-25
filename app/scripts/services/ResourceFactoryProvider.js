@@ -937,7 +937,24 @@
                     }),
                     glimRepaymentScheduleResource :  defineResource(apiVer +"/grouploanindividualmonitoring/viewrepaymentschedule/:glimId", { glimId:'@glimId'},{
                         getRepaymentScheduleById : {method: 'GET',params: { glimId:'@glimId', disbursedAmount: '@disbursedAmount', disbursedDate: '@disbursedDate'}, isArray : false}
-                    })
+                    }),
+                    loanapplicationWorkflowResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationId/workflow",
+                        {loanApplicationId:'@loanApplicationId'}, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    workflowExecutionResource: defineResource(apiVer + "/workflowexecution/:workflowexecutionId",
+                        {workflowexecutionId:'@workflowexecutionId'}, {
+                            get: {method: 'GET', params: {}}
+                        }),
+                    workflowStepExecutionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId",
+                            {workflowstepexecutionId:'@workflowstepexecutionId', action: '@action'}, {
+                            doAction: {method: 'POST', params: {action: '@action'}}
+                        }),
+                    workflowStepExecutionActionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId/actions",
+                        {workflowstepexecutionId:'@workflowstepexecutionId'}, {
+                            getAll: {method: 'GET', params: {}, isArray: true}
+                        })
                 };
             }];
         }

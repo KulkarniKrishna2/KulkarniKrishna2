@@ -1372,6 +1372,12 @@
             })
             .when('/:entityType/:entityId/takesurvey', {
                 templateUrl: 'views/survey/takesurvey.html'
+            })
+            .when('/creditbureauloanproducts',{
+                templateUrl:'views/products/creditbureauloanproducts.html'
+            })
+            .when('/loanapplication/:loanApplicationId/workflow', {
+                templateUrl: 'views/loans/loanapplicationworkflow.html'
             });
         $locationProvider.html5Mode(false);
     };

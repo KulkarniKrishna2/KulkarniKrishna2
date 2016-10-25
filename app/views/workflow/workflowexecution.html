@@ -1,0 +1,41 @@
+<div name="workflowForm" class="row form-horizontal" ng-controller="WorkflowExecutionController">
+    {{workflow.name}}
+        <div class="row well">
+            <div class="col-sm-3">
+                <ul class="nav nav-pills nav-stacked">
+                    <li ng-class="{active:isCurrentStep(step.id), disabled:isDisabled(step.id)}" ng-repeat="step in workflow.steps" ><a href ng-click="showMe(step.id)">{{step.name}}</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <div ng-show="isCurrentStep(step.id)" ng-repeat="step in workflow.steps" ng-include="'/views/workflow/workflowstepexecution.html'"></div>
+            </div>
+
+        </div>
+
+        <hr/>
+
+        <div class="row well">
+            <hr/>
+        </div>
+        <div class="row well">
+            <form>
+                <div class="form-group">
+                    <div class="col-sm-12 col-md-12">
+                        <textarea rows="1" class="form-control marginbottom0px" id="textarea"
+                                  placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
+
+                        <div class="notewrapper col-sm-12 col-md-12">
+		                        <span class="pull-right noteaddbuttonwrapper">
+		                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{'label.button.add' |
+                                        translate}}
+                                    </button>
+		                        </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+
+</div>

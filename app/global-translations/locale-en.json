@@ -1,3 +1,4 @@
+
 {
     "#Common": "....",
 
@@ -5115,5 +5116,12 @@
     "label.button.print" : "Print",
     "label.input.weeksinyears" : "Weeks in Year",
     "label.anchor.generateportfoliotransactions" : "Generate Portfolio Transactions",
-    "label.button.generateportfoliotransactions" : "Generate Portfolio Transactions"
+    "label.button.generateportfoliotransactions" : "Generate Portfolio Transactions",
+
+
+    "":"",
+    "------ start of sales--":"---------",
+    "label.anchor.sales" : "Sales",
+
+    "------ end of tensalation file":"---------"
 }
