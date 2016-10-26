@@ -785,7 +785,7 @@
 			<div class="col-sm-2" data-ng-show="(formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType != -2) || formData.recalculationCompoundingFrequencyType == 3">
 				<select id="recalculationCompoundingFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyDayOfWeekType"
 						ng-options="recalculationCompoundingFrequencyDayOfWeekType.id as recalculationCompoundingFrequencyDayOfWeekType.value for recalculationCompoundingFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
-						value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+						value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}"><option value="">DAY</option></select>&nbsp;
 			</div>
 			<div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType == -2">
 				<select id="recalculationCompoundingFrequencyOnDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyOnDayType"
@@ -836,7 +836,7 @@
 			<div class="col-sm-2" data-ng-show="(formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType != -2) || formData.recalculationRestFrequencyType == 3">
 				<select id="recalculationRestFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationRestFrequencyDayOfWeekType"
 						ng-options="recalculationRestFrequencyDayOfWeekType.id as recalculationRestFrequencyDayOfWeekType.value for recalculationRestFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
-						value="{{recalculationRestFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+						value="{{recalculationRestFrequencyDayOfWeekType.id}}"><option value="">DAY</option></select>&nbsp;
 			</div>
 			<div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType == -2">
 				<select id="recalculationRestFrequencyOnDayType" class="form-control" ng-model="formData.recalculationRestFrequencyOnDayType"
