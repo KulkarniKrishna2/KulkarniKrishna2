@@ -1,9 +1,8 @@
-<div ng-controller="datatableTaskController" class="well">
+<div ng-controller="datatableTaskController">
 
     <!-- Submit form, new data    -->
     <div  ng-show ="status=='ADD'">
-        <form class="form-horizontal well"  ng-submit="submit()">
-
+        <form class="form-horizontal"  ng-submit="submit()">
             <div class="error" ng-show="errorStatus || errorDetails">
                 <label>{{"label.error" | translate}}</label>
                 <label ng-show="errorStatus">{{errorStatus}}</label>
@@ -12,9 +11,6 @@
                 </label>
             </div>
             <fieldset>
-                <legend>{{ 'label.heading.makedatatableentry' | translate }}</legend>
-                <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
-                <hr/>
                 <div class="form-group" ng-repeat="columnHeader in columnHeaders">
                     <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn }}
                         <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
@@ -90,12 +86,11 @@
 
     <!-- View data    -->
 
-    <div class="btn-group pull-right"  ng-show="status=='VIEW'">
-        <a ng-click="editData()"
-        <i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+    <div class="row pull-right"  ng-show="status=='VIEW'">
+        <button type="button" ng-click="editData()" class="btn btn-primary">Edit</button>
     </div>
     <div ng-show="status=='VIEW'">
-        <table class="table well" >
+        <table class="table" data-ng-show="datatabledetails.isMultirow">
             <thead>
             <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName | prettifyDataTableColumn}}</th>
             </thead>
@@ -107,15 +102,19 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-bordered" data-ng-hide="datatabledetails.isMultirow">
-            <tr ng-repeat="value in singleRow">
-                <td class="graybg table-font-nav">{{value.key | prettifyDataTableColumn}}</td>
-                <td><span class="padded-td">{{value.value}}</span></td>
-            </tr>
-        </table>
+
+        <div class="row" data-ng-hide="datatabledetails.isMultirow">
+            <div class="col-md-8">
+                <table class="table width40">
+                    <tr ng-repeat="value in singleRow">
+                        <th>{{value.key | prettifyDataTableColumn}}</th>
+                        <td>{{value.value}}</td>
+                    </tr>
+                </table>  
+            </div>
+            <div class="col-md-4"></div>        
+        </div>
     </div>
-
-
     <!-- Edit data    -->
     <div  ng-show="status =='EDIT'">
         <form class="form-horizontal" ng-submit="editSubmit()">
@@ -150,11 +149,7 @@
                 </table>
             </div>-->
             <div>
-                <h2>{{ 'label.heading.editdatatableentry' | translate }}</h2>
                 <api-validate></api-validate>
-                <fieldset>
-                    <legend>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></legend>
-                </fieldset>
                 <div class="form-group" ng-repeat="columnHeader in columnHeaders">
                     <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn}}
                         <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>

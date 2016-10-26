@@ -1,15 +1,12 @@
-<div ng-controller="loanapplicationapprovalTaskController" class="well">
+<div ng-controller="loanapplicationapprovalTaskController">
 
     <!-- Submit form, new data    -->
     <div class="form-horizontal" ng-show ="status=='SUMMARY'">
         <div id="print">
-            <h3 align="center" class="width100">{{'label.heading.companyname' | translate}}</h3>
-            <h3 align="center" class="width100">{{'label.heading.loanrepaymentschedule' | translate}}</h3>
             <div id="branchName" align="center" class="width100">
                 <h3>{{loanaccountinfo.group.officeName}}</h3>
                 <br>
             </div>
-
             <div id="table2" class="pull-right">
                 <table id="table2" class="table width100">
                     <tbody>
@@ -45,8 +42,6 @@
                     </tbody>
                 </table>
             </div>
-
-
             <div id="table1">
                 <table id="table1" class="table width40">
                     <tbody>
@@ -88,203 +83,14 @@
                 </table>
                 <br>
             </div>
-
-            <div id="table3">
-                <table class="table width100">
-                    <tbody>
-                    <tr>
-                        <th id="heading">{{'label.heading.serialno' | translate}}</th>
-                        <th id="heading">{{'label.heading.disbursaldate' | translate}}</th>
-                        <th id="heading">{{'label.heading.disbursedamount' | translate}}</th>
-                    </tr>
-                    <tr ng-repeat="disbursed in disbursedData">
-                        <td>{{$index+1}}</td>
-                        <td>{{disbursed.dueDate | DateFormat}}</td>
-                        <td>{{disbursed.principalDisbursed}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-            </div>
-
-            <div id="table4">
-                <table class="table width100">
-                    <tbody>
-                    <tr>
-                        <th id="heading">{{'label.heading.serialno' | translate}}</th>
-                        <th id="heading" width="=150">{{'label.heading.date' | translate}}</th>
-                        <th id="heading">{{'label.heading.principaldue' | translate}}</th>
-                        <th id="heading">{{'label.heading.principalbalance' | translate}}</th>
-                        <th id="heading">{{'label.heading.interestdue' | translate}}</th>
-                        <th id="heading">{{'label.heading.due' | translate}}</th>
-                    </tr>
-                    <tr ng-repeat="period in repaymentData">
-                        <td>{{period.period}}</td>
-                        <td width="150">{{period.dueDate | DateFormat}}</td>
-                        <td>{{period.principalDue| number}}</td>
-                        <td>{{period.principalLoanBalanceOutstanding| number}}</td>
-                        <td>{{period.interestDue| number}}</td>
-                        <td>{{period.totalDueForPeriod| number}}</td>
-                    </tr>
-
-                    <br>
-                    <tr>
-                        <td colspan="2">{{'label.heading.total' | translate}}</td>
-                        <td>{{repaymentscheduleinfo.totalPrincipalExpected| number}}</td>
-                        <td></td>
-                        <td>{{repaymentscheduleinfo.totalInterestCharged| number}}</td>
-                        <td>{{repaymentscheduleinfo.totalRepaymentExpected| number}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
-        <button ng-click="printDiv('print');" ng-hide="true">Print Div</button>
-
-        <span><a ng-hide="report"><i class="icon-circle-arrow-left">{{'label.anchor.backtoloaninfo'
-                    | translate}}</i></a><br><br></span>
-
-        <div class="col-md-11 center">
-            <button ng-click="backToLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back'
-                | translate}}
-            </button>
-        </div>
-
-        <div class="form-group" ng-show="viewLoanReport">
-            <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
-                    class="required">*</span></label>
-
-            <div class="col-sm-3">
-                <input id="startDate" class="date-disable form-control" readonly type="text"
-                       datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
-                       max="restrictDate"/>
-            </div>
-            <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
-                    class="required">*</span></label>
-
-            <div class="col-sm-3">
-                <input id="endDate" class="date-disable form-control" readonly type="text"
-                       datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
-                       max="restrictDate"/>
-            </div>
-        </div>
-        <div class="col-md-11 center" ng-show="viewLoanReport">
-            <button ng-click="viewLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back' |
-                translate}}
-            </button>
-            <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">
-                {{'label.button.viewprint' | translate}}
-            </button>
-        </div>
-
-
     </div>
 
     <div  ng-show ="status=='UPDATE'">
         <form class="well form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submit()">
-            <div class="span gray-head">
-                <span class="boldlabel">
-                      <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
-                </span>
-            </div>
-            <div class="col-md-12 well">
-                <div class="col-md-6">
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <td><label>{{ 'label.input.product' | translate }}<span
-                                    class="required">*</span>:&nbsp;
-                            </label>
-                                <i class="icon-question-sign"
-                                   tooltip="{{'label.tooltip.product' | translate}}"></i>
-                            </td>
-                            <td>{{formData.loanProductName}}</td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
-                                <i class="icon-question-sign"
-                                   tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
-                            <td>{{formData.loanPurpose.name}}</td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span
-                                    class="required"></span>:</label></td>
-                            <td>{{formData.numberOfRepayments}}</td>
-                        </tr>
-                        <tr ng-if="false && loanaccountinfo.canDefineInstallmentAmount">
-                            <td><label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
-                            <td>
-                                {{formData.fixedEmiAmount}}&nbsp;{{loanaccountinfo.currency.displaySymbol}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
-                            <td>{{formData.submittedOnDate | DateFormat}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <td><label>{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
-                                <i class="icon-question-sign"
-                                   tooltip="{{'label.tooltip.loanofficer' | translate}}"></i></td>
-                            <td>{{formData.loanOfficerName}}</td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.requested.principal.amount' | translate }}&nbsp;<span
-                                    class="required">*</span>:</label></td>
-                            <td>
-                                {{formData.loanAmountRequested|number}}&nbsp;{{loanaccountinfo.currency.displaySymbol}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.loanterm' | translate }}&nbsp;<span
-                                    class="required"></span>:</label></td>
-                            <td>{{formData.termFrequency}} : {{formData.termPeriodFrequency.value}}</td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span
-                                    class="required"></span></label></td>
-                            <td>{{formData.repayEvery}} : {{formData.repaymentPeriodFrequency.value}}</td>
-                        </tr>
-                        <tr>
-                            <td><label>{{ 'label.input.no.of.tranche' | translate }}</label></td>
-                            <td>{{formData.noOfTranche}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div ng-if="existingCharges.length > 0">
-                    <table class="width100">
-                        <tr class="bottomborder">
-                            <td colspan="5"><strong>{{'label.heading.charges' | translate}}</strong></td>
-                        </tr>
-                        <tr class="bottomborder graybg">
-                            <td>{{'label.heading.name' | translate}}</td>
-                            <td>{{'label.heading.type' | translate}}</td>
-                            <td>{{'label.heading.amount' | translate}}</td>
-                            <td>{{'label.heading.collectedon' | translate}}</td>
-                            <td>{{'label.checkbox.ismandatory' | translate}}</td>
-                        </tr>
-                        <tr ng-repeat="charge in existingCharges">
-                            <td>{{charge.name}}</td>
-                            <td>{{charge.chargeCalculationType.value}}</td>
-                            <td>{{charge.amount|number}}</td>
-                            <td>{{charge.chargeTimeType.value}}</td>
-                            <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5"><br/></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
 
-            <div class="span gray-head">
-                <span class="boldlabel">
-                      <strong>{{ 'label.heading.approve.loanapplication.details' | translate }}</strong>
-                </span>
-            </div>
-            <div class="col-md-12 well">
+            <h4>{{ 'label.heading.approve.loanapplication.details' | translate }}</h4>
+            <div class="col-md-12">
                 <table class="width100">
                     <tr>
                         <td class="width19"><label>{{ 'label.input.approval.amount' | translate
@@ -600,9 +406,6 @@
                 </table>
 
                 <div>
-                        <span>
-                            <a href="javascript:void(0);" ng-click="previewRepayments(true)">{{'label.anchor.repaymentinfo'
-                                | translate}}<i class="icon-circle-arrow-right"></i></a></span>
                     <button type="button" class="btn btn-primary pull-right"
                             ng-show="repaymentscheduleinfo.periods.length > 0 && response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.viewReportButton"
                             ng-click="viewRepaymentDetails()">{{'label.button.viewReport' | translate}}

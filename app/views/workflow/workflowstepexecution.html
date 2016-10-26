@@ -1,10 +1,9 @@
-<div ng-controller="WorkflowStepExecutionController" class="well">
+<div ng-controller="WorkflowStepExecutionController">
     <div ng-show="canView">
-        <h2 > {{step.name}}</h2>
         <div ng-include="getTaskView()"></div>
-        <div class="step-action">
-            <span ng-repeat="action in possibleActions" >
-                <button ng-click="doStepAction(action.id)">{{action.value}}</button>
+        <div class="row step-action">
+            <span ng-repeat="action in possibleActions" class="pull-right">
+                <button class="btn btn-primary" ng-click="doStepAction(action.id)">{{action.value}}</button>
             </span>
         </div>
         <div class="row client" ng-show="step.criteriaResult !== undefined">
@@ -37,7 +36,6 @@
     <div ng-show="canView==false">
         <p> Don't have access to see </p>
     </div>
-
 </div>
 
 
