@@ -174,7 +174,8 @@
                 }
             }
 
-            scope.deleteSlabCharge = function (index) {
+            scope.deleteSlabCharge = function (slab) {
+                var index = scope.formData.slabs.indexOf(slab);
                 scope.formData.slabs.splice(index, 1);
             }
 

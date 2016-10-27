@@ -297,7 +297,6 @@
                             for(var i in data.slabs) {
                                 if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
                                     data.amountOrPercentage = data.slabs[i].amount;
-                                    data.slabs[i].isAmountReadOnly = true;
                                 }
                             }
                         }
@@ -331,6 +330,20 @@
                     scope.temp.syncRepaymentsWithMeeting = true;
                 }
             };
+
+            scope.$watch('formData.principal ', function(){
+                if(scope.formData.principal != '' && scope.formData.principal != undefined){
+                    for(var i in scope.loanaccountinfo.charges){
+                        if(scope.loanaccountinfo.charges[i].chargeCalculationType.id == 6 && scope.loanaccountinfo.charges[i].slabs.length > 0) {
+                            for(var j in scope.charges[i].slabs){
+                                if(scope.formData.principal >= scope.loanaccountinfo.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.loanaccountinfo.charges[i].slabs[j].toLoanAmount) {
+                                    scope.loanaccountinfo.charges[i].amount = scope.loanaccountinfo.charges[i].slabs[j].amount
+                                }
+                            }
+                        }
+                    }
+                }
+            });
 
             scope.addCollateral = function () {
                 if (scope.collateralFormData.collateralIdTemplate && scope.collateralFormData.collateralValueTemplate) {
