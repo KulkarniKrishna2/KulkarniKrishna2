@@ -131,6 +131,20 @@
                 });
             }
 
+            scope.$watch('formData.principal ', function(){
+                if(scope.formData.principal != '' && scope.formData.principal != undefined){
+                    for(var i in scope.charges){
+                        if(scope.charges[i].chargeCalculationType.id == 6 && scope.charges[i].slabs.length > 0) {
+                            for(var j in scope.charges[i].slabs){
+                                if(scope.formData.principal >= scope.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.charges[i].slabs[j].toLoanAmount) {
+                                    scope.charges[i].amount = scope.charges[i].slabs[j].amount
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
                 scope.charges = [];//scope.loanaccountinfo.charges || [];

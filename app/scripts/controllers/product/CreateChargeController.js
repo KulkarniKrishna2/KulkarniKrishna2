@@ -126,9 +126,11 @@
                 }
             }
 
-            scope.deleteSlabCharge = function (index) {
+            scope.deleteSlabCharge = function (slab) {
+                var index = scope.slabs.indexOf(slab);
                 scope.slabs.splice(index, 1);
             }
+
 
             scope.setChoice = function () {
                 if (this.formData.active) {
