@@ -1,0 +1,68 @@
+<div class="col-md-12" ng-controller="clientdocumentTaskController" >
+<form name="clientdocumentform" novalidate="" class="row form-horizontal" 
+      rc-submit="submit()">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
+                       late-Validate/>
+            </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="clientdocumentform" valattribute="name"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.description' | translate}}</label>
+
+            <div class="col-sm-3">
+                <textarea rows="2" ng-model="formData.description" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input type="file" id="file" ng-file-select="onFileSelect($files)">
+            </div>
+        </div>
+
+        <div class="col-md-offset-3">
+            <a id="cancel" href="#/viewclient/{{clientId}}">
+                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+            </a>
+            <button id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.save' | translate}}</button>
+        </div>
+    </fieldset>
+    </form>
+    <br>
+    <table class="table" >
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.description' | translate}}</th>
+            <th>{{'label.heading.filename' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="clientdocument in clientdocuments">
+            <td>{{clientdocument.name}}</td>
+            <td>{{clientdocument.description}}</td>
+            <td>{{clientdocument.fileName}}</td>
+            <td>
+                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
