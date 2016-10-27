@@ -647,7 +647,7 @@
 
                 if (!this.formData.adjustFirstEMIAmount) {
                     this.formData.adjustedInstallmentInMultiplesOf = null;
-                    //
+                }
                     if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
                         this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
                     }
@@ -684,8 +684,6 @@
                     resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                         location.path('/viewloanproduct/' + data.resourceId);
                     });
-                }
-
             }
         }
     });
