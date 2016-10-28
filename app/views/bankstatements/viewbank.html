@@ -17,6 +17,7 @@
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.glaccount' | translate}}</th>
             <th>{{'label.heading.glcode' | translate}}</th>
+            <th>{{'label.heading.supportsimplifiedstatement' | translate}}</th>
             <th>{{'label.heading.actions' | translate}}</th>
         </tr>
         </thead>
@@ -26,6 +27,7 @@
             <td>{{bank.name}}</td>
             <td>{{bank.glAccount}}</td>
             <td>{{bank.glCode}}</td>
+            <td>{{bank.supportSimplifiedStatement}}</td>
             <td>
                 <a  has-permission="UPDATE_BANK" href='#/updatebank/{{bank.id}}' class="btn btn-primary" role="button"><i class="icon-white icon-edit"></i>{{'label.button.updatebank' | translate}}</a>&nbsp;&nbsp;
                 <button type="button" has-permission="DELETE_BANK" ng-click="deleteBank(bank.id)" class="btn btn-primary ng-binding">
