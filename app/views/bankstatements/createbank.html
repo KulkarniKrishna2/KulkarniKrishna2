@@ -37,6 +37,14 @@
                  <form-validate valattributeform="createbankform" valattribute="glAccount"/>
              </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.simplifiedstatementupload' | translate}}
+                </label>
+                <div class="col-sm-3">
+                    <input id="supportSimplifiedStatement" type="checkbox" ng-model="formData.supportSimplifiedStatement">
+                </div>
+            </div>
             <br>
             <div class="col-md-offset-5">
                 <a id="cancel" href="#/viewbank" class="btn btn-default">{{'label.button.cancel' | translate}}</a>

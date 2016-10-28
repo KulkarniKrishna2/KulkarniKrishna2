@@ -4,7 +4,15 @@
             scope.bankStatementDetails  = [];
             scope.bankStatementId = routeParams.bankStatementId;
             scope.isTransactionsCreated = true;
+            scope.isSimplified = false;
+            scope.bankStatementName = "";
+            scope.bankName = "";
 
+            resourceFactory.bankStatementsResource.get({ bankStatementId : routeParams.bankStatementId},function (data) {
+                scope.isSimplified = data.bankData.supportSimplifiedStatement;
+                scope.bankStatementName = data.name;
+                scope.bankName = data.bankData.name;
+            });
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'generatetransactions'},function (data) {
                     scope.bankStatementDetails = data;

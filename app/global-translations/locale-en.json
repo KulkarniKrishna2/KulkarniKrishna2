@@ -5117,6 +5117,10 @@
     "label.input.weeksinyears" : "Weeks in Year",
     "label.anchor.generateportfoliotransactions" : "Generate Portfolio Transactions",
     "label.button.generateportfoliotransactions" : "Generate Portfolio Transactions",
+    "label.input.simplifiedstatementupload" : "Simplified Statement Upload",
+    "label.anchor.updatebank" : "Update Bank",
+    "label.heading.supportsimplifiedstatement" : "Simplified Statement Upload",
+    "label.heading.receiptnumber" : "Receipt Number",
 
 
     "":"",
