@@ -5064,6 +5064,7 @@
     "label.survey.done.by":"Survey done by",
     "label.survey.question":"Question",
     "label.survey.answers":"Answers",
+    "label.button.add.new.option":"Add new option",
 
     "# group fee and glim" : "",
     "label.button.glimapplication" : "GLIM Application",

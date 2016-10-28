@@ -24,6 +24,20 @@
                             resourceFactory.centerResource.get({centerId: scope.entityId}, function (data) {
                                 scope.entityDisplayName = data.name;
                             });
+                        }else if(scope.surveyEntityTypes[i].value === 'OFFICES'){
+                            scope.entityTypeName = 'label.anchor.manageoffices';
+                            scope.entityTypeUrl = 'offices';
+                            scope.backUrl = "viewoffice/"+scope.entityId;
+                            resourceFactory.officeResource.get({officeId: scope.entityId}, function (data) {
+                                scope.entityDisplayName = data.name;
+                            });
+                        }else if(scope.surveyEntityTypes[i].value === 'STAFFS'){
+                            scope.entityTypeName = 'label.anchor.manageemployees';
+                            scope.entityTypeUrl = 'employees';
+                            scope.backUrl = "viewemployee/"+scope.entityId;
+                            resourceFactory.employeeResource.get({staffId: scope.entityId}, function (data) {
+                                scope.entityDisplayName = data.displayName;
+                            });
                         }
                         break;
                     }

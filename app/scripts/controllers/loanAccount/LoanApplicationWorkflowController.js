@@ -13,6 +13,8 @@
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationId}, function (data) {
                 scope.loanApplicationData = data;
+                scope.formData = data;
+                scope.loanProductChange(scope.formData.loanProductId);
                 scope.masterconfig["clientId"] = scope.loanApplicationData.clientId;
                 resourceFactory.loanapplicationWorkflowResource.get({loanApplicationId: scope.loanApplicationId}, function (data) {
                     console.log(data);
@@ -21,6 +23,36 @@
                 });
 
             });
+
+            scope.loanProductChange = function (loanProductId) {
+
+                scope.inparams = {resourceType: 'template', activeOnly: 'true'};
+                if (scope.formData.clientId && scope.formData.groupId) {
+                    scope.inparams.templateType = 'jlg';
+                } else if (scope.formData.groupId) {
+                    scope.inparams.templateType = 'group';
+                } else if (scope.formData.clientId) {
+                    scope.inparams.templateType = 'individual';
+                }
+                if (scope.formData.clientId) {
+                    scope.inparams.clientId = scope.formData.clientId;
+                }
+                if (scope.formData.groupId) {
+                    scope.inparams.groupId = scope.formData.groupId;
+                }
+                scope.inparams.staffInSelectedOfficeOnly = true;
+                scope.inparams.productId = loanProductId;
+
+                resourceFactory.loanResource.get(scope.inparams, function (data) {
+                    scope.loanaccountinfo = data;
+                    if (data.clientName) {
+                        scope.clientName = data.clientName;
+                    }
+                    if (data.group) {
+                        scope.groupName = data.group.name;
+                    }
+                });
+            };
 
 
             // resourceFactory.loanapplicationWorkflowResource.get({loanApplicationId: scope.resourceId},

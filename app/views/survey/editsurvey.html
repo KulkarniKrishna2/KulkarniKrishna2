@@ -80,7 +80,7 @@
                         <legend></legend>
                         <div class="col-md-12" ng-repeat="questionData in componentData.questionDatas track by $index" ng-init="questionIndex = $index">
                             <div class="form-group">
-                                <label class="control-label col-sm-2">Question<span class="required">*</span></label>
+                                <label class="control-label col-sm-2">{{'label.survey.question' | translate}}<span class="required">*</span></label>
                                 <div class="col-sm-3">
                                     <input type="text" id="questionDataKey" name="questionDataKey" ng-model="questionData.key" class="form-control" required
                                            late-Validate maxlength="32" placeholder="Question Key"/>
@@ -90,7 +90,7 @@
                                            late-Validate maxlength="250" placeholder="Question Name"/>
                                 </div>
                                 <div class="col-sm-2 pull-right" ng-if="questionData.key && questionData.text">
-                                    <h4><strong>Add new option</strong>&nbsp;<a ng-click="addNewQuestionOptions(componentIndex, questionIndex)">&nbsp;<i class="icon-plus icon-white"></i></a></h4>
+                                    <h4><strong>{{'label.button.add.new.option' | translate}}</strong>&nbsp;<a ng-click="addNewQuestionOptions(componentIndex, questionIndex)">&nbsp;<i class="icon-plus icon-white"></i></a></h4>
                                 </div>
                             </div>
                             <div class="form-group" ng-hide="questionData.key && questionData.text">

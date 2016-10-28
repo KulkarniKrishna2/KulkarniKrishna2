@@ -13,6 +13,18 @@
                             <a href="#/editoffice/{{office.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="icon-edit icon-white"></i>{{
                                 'label.button.edit' | translate }}</a>
                         </div>
+                        <span class="btn-group dropdown" on-toggle="toggled(open)">
+						    <a class="btn btn-primary dropdown-toggle">
+                                {{ 'label.button.more' | translate}}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="#/offices/{{office.id}}/surveys">{{'label.button.view.surveys' |
+                                        translate }}</a>
+                                </li>
+                            </ul>
+						</span>
                     </div>
                 </div>
                 <h3><strong>{{office.name}}</strong></h3>
