@@ -62,8 +62,20 @@
             		var temp = {};
                     temp.id = scope.available.id;
                     temp.displayName = scope.available.displayName;
-                	scope.addedClients.push(temp);
-            	}
+                    var uniqueClient = true;
+                    if (scope.addedClients.length > 0) {
+                        for (var i = 0; i < scope.addedClients.length; i++) {
+                            if (scope.addedClients[i].id == temp.id) {
+                                var uniqueClient = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (uniqueClient) {
+                        scope.addedClients.push(temp);
+                    }
+                }
+
             };
             scope.sub = function (id) {
             	for (var i = 0; i < scope.addedClients.length; i++) {
