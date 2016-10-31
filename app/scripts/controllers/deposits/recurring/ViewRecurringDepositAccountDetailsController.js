@@ -82,6 +82,12 @@
                             route.reload();
                         });
                         break;
+                    case "unassignfieldofficer":
+                        location.path('/unassignsavingsofficer/' + accountId);
+                        break;
+                    case "assignfieldofficer":
+                        location.path('/assignsavingsofficer/' + accountId);
+                        break;
                 }
             };
 
@@ -168,6 +174,14 @@
                         ]
 
                     };
+
+                    if (!data.fieldOfficerName) {
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.assignfieldofficer",
+                            icon: "icon-user",
+                            taskPermissionName: 'UPDATESTAFF_SAVINGSACCOUNT'
+                        });
+                    }
 
                     if (data.allowWithdrawal == true) {
                         scope.buttons.options.push({

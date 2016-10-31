@@ -6,13 +6,20 @@
             scope.formData = {};
             scope.staffData = {};
             scope.accountNo = routeParams.id;
+            scope.depositType ;
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
                 scope.data = data;
+                scope.depositType = data.depositType.id;
             });
 
             scope.cancel = function () {
-                location.path('/viewsavingaccount/' + scope.accountNo);
+                if(data.depositType.id == 100)
+                    location.path('/viewsavingaccount/' + scope.data.accountNo);
+                else if(data.depositType.id == 200)
+                    location.path('/viewfixeddepositaccount/' + scope.data.accountNo);
+                else if(data.depositType.id == 300)
+                    location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);
             };
 
             scope.submit = function () {
@@ -21,7 +28,12 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.unassignedDate = dateFilter(this.formData.unassignedDate, scope.df);
                 resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignSavingsOfficer'}, this.formData, function (data) {
-                    location.path('/viewsavingaccount/' + scope.accountNo);
+                    if(scope.depositType == 100){
+                        location.path('/viewsavingaccount/' + scope.data.accountNo);}
+                    else if(scope.depositType == 200){
+                        location.path('/viewfixeddepositaccount/' + scope.data.accountNo);}
+                    else if(scope.depositType == 300){
+                        location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);}
                 });
 
             };
