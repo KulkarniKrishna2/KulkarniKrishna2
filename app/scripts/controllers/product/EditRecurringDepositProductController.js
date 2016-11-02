@@ -392,12 +392,17 @@
                 return newChartSlabData;
             }
 
-            removeEmptyValues = function (objArray) {
+                removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
                     //alert(k + ':' + v);
-                    if (_.isNull(v) || _.isUndefined(v) || v === '') {
+                    if(_.isNull(v) || _.isUndefined(v) || v === ''){
                         //alert('remove' + k + ':' + v);
-                        delete objArray[k];
+                        if(k == 'minDepositTerm' || k == 'maxDepositTerm' || k == 'maxDepositAmount' || k == 'minDepositAmount'){
+                            objArray[k] = '';
+                            return objArray;
+                        }else {
+                            delete objArray[k];
+                        }
                     }
 
                 });
@@ -473,6 +478,9 @@
             var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
+                if(!$scope.chartSlab.incentives) {
+                    $scope.chartSlab.incentives = [];
+                }
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };

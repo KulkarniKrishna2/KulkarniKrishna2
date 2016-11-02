@@ -26,6 +26,20 @@
                             resourceFactory.centerResource.get({centerId: scope.entityId}, function (data) {
                                 scope.entityDisplayName = data.name;
                             });
+                        }else if(scope.surveyEntityTypes[i].value === 'OFFICES'){
+                            scope.entityTypeName = 'label.anchor.manageoffices';
+                            scope.entityTypeUrl = 'offices';
+                            scope.backUrl = "viewoffice/"+scope.entityId;
+                            resourceFactory.officeResource.get({officeId: scope.entityId}, function (data) {
+                                scope.entityDisplayName = data.name;
+                            });
+                        }else if(scope.surveyEntityTypes[i].value === 'STAFFS'){
+                            scope.entityTypeName = 'label.anchor.manageemployees';
+                            scope.entityTypeUrl = 'employees';
+                            scope.backUrl = "viewemployee/"+scope.entityId;
+                            resourceFactory.employeeResource.get({staffId: scope.entityId}, function (data) {
+                                scope.entityDisplayName = data.displayName;
+                            });
                         }
                         break;
                     }
@@ -48,7 +62,6 @@
             };
 
             scope.submit = function () {
-                //scope.formData.entityType = scope.entityType;
                 scope.formData.surveyId = scope.surveyId;
                 scope.formData.entityId = scope.entityId;
                 if(!_.isUndefined(scope.formData.scorecardValues)){
@@ -72,9 +85,6 @@
                         }
                     }
                 }
-                //scope.surveyId = scope.formData.surveyId;
-                //delete scope.formData.surveyId;
-                //console.log(JSON.stringify(scope.formData));
                 resourceFactory.takeSurveysResource.post({entityType: scope.entityTypeId,entityId: scope.entityId},scope.formData, function (data) {
                     location.path(locationUrl);
                 });

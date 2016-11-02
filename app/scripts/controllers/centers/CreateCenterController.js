@@ -75,11 +75,22 @@
             };
 
             scope.add = function () {
-                if(scope.available != ""){
+                if (scope.available != "") {
                     var temp = {};
                     temp.id = scope.available.id;
                     temp.name = scope.available.name;
-                    scope.addedGroups.push(temp);
+                    var uniqueGroup = true;
+                    if (scope.addedGroups.length > 0) {
+                        for (var i = 0; i < scope.addedGroups.length; i++) {
+                            if (scope.addedGroups[i].id == temp.id) {
+                                var uniqueGroup = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (uniqueGroup) {
+                        scope.addedGroups.push(temp);
+                    }
                 }
             };
 

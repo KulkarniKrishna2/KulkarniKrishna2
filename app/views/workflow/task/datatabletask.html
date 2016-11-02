@@ -85,9 +85,9 @@
     </div>
 
     <!-- View data    -->
-
-    <div class="row pull-right"  ng-show="status=='VIEW'">
-        <button type="button" ng-click="editData()" class="btn btn-primary">Edit</button>
+    <div class="row pull-right">
+        <button type="button" ng-show="status!=='ADD' && datatabledetails.isMultirow == true" ng-click="addData()" class="btn btn-primary">Add</button>
+        <button type="button" ng-show="status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">Edit</button>
     </div>
     <div ng-show="status=='VIEW'">
         <table class="table" data-ng-show="datatabledetails.isMultirow">

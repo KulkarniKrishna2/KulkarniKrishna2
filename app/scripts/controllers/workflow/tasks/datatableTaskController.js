@@ -47,8 +47,6 @@
                     scope.status = 'ADD';
                     scope.addData();
                 }
-
-
             });
 
             };
@@ -67,6 +65,7 @@
             initTask();
 
             scope.addData = function(){
+                scope.status = 'ADD';
                 scope.fromEntity = 'client';
                 scope.columnHeaders = [];
                 scope.formData = {};
