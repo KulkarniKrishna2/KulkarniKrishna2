@@ -15,6 +15,8 @@
             scope.restrictDate = new Date();
             //this value will be changed within each specific tab
             scope.requestIdentifier = "loanId";
+            scope.rdapprovetemplate = {};
+            scope.rdactivatetemplate = {};
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
@@ -166,6 +168,61 @@
                     this.showMsg = true;
                 }
             };
+            scope.rdApprovalSearch = function(){
+                scope.clients = [];
+                scope.rd = [];
+                scope.checkData = [];
+                scope.loanTemplate = {};
+                scope.rdapprovetemplate = {};
+                scope.approveData = {};
+                scope.formData = {};
+                if(this.officeId) {
+                    this.showMsg = false;
+                    var staffId = this.loanOfficerId;
+                    if (this.centerId || this.groupId) {
+                        staffId = undefined;
+                    }
+                    resourceFactory.rdTasklookupResource.get({
+                        sqlSearch: 'msa.status_enum=100',
+                        officeId: this.officeId,
+                        staffId: staffId,
+                        groupId: this.groupId,
+                        centerId: this.centerId
+                    }, function (data) {
+                        scope.rdapprovedata = data;
+                    });
+                }else{
+                    this.showMsg = true;
+                }
+            };
+
+            scope.rdactivationSearch = function(){
+                scope.clients = [];
+                scope.rd = [];
+                scope.checkData = [];
+                scope.loanTemplate = {};
+                scope.rdactivatetemplate = {};
+                scope.approveData = {};
+                scope.formData = {};
+                if(this.officeId) {
+                    this.showMsg = false;
+                    var staffId = this.loanOfficerId;
+                    if (this.centerId || this.groupId) {
+                        staffId = undefined;
+                    }
+                    resourceFactory.rdTasklookupResource.get({
+                        sqlSearch: 'msa.status_enum=200',
+                        officeId: this.officeId,
+                        staffId: staffId,
+                        groupId: this.groupId,
+                        centerId: this.centerId
+                    }, function (data) {
+                        scope.rdactivatedata = data;
+                    });
+                }else{
+                    this.showMsg = true;
+                }
+            };
             scope.clientApprovalAllCheckBoxesClicked = function() {
                 var newValue = !scope.clientApprovalAllCheckBoxesMet();
                 if(!angular.isUndefined(scope.clientData)) {
@@ -249,6 +306,49 @@
                         }
                     });
                     return (checkBoxesMet===scope.searchData.length);
+                }
+            }
+
+            scope.rdapprovalallcheckboxesclicked = function() {
+                var newValue = !scope.rdapprovalallcheckboxesmet();
+                if(!angular.isUndefined(scope.rdapprovedata)) {
+                    for (var i = scope.rdapprovedata.length - 1; i >= 0; i--) {
+                        scope.rdapprovetemplate[scope.rdapprovedata[i].id] = newValue;
+                    };
+                }
+            }
+            scope.rdapprovalallcheckboxesmet = function() {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.rdapprovedata)) {
+                    _.each(scope.rdapprovedata, function(data) {
+                        if(_.has(scope.rdapprovetemplate, data.id)) {
+                            if(scope.rdapprovetemplate[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===scope.rdapprovedata.length);
+                }
+            }
+            scope.rdactivateallcheckboxesclicked = function() {
+                var newValue = !scope.rdactivateallcheckboxesmet();
+                if(!angular.isUndefined(scope.rdactivatedata)) {
+                    for (var i = scope.rdactivatedata.length - 1; i >= 0; i--) {
+                        scope.rdactivatetemplate[scope.rdactivatedata[i].id] = newValue;
+                    };
+                }
+            }
+            scope.rdactivateallcheckboxesmet = function() {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.rdactivatedata)) {
+                    _.each(scope.rdactivatedata, function(data) {
+                        if(_.has(scope.rdactivatetemplate, data.id)) {
+                            if(scope.rdactivatetemplate[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===scope.rdactivatedata.length);
                 }
             }
             scope.approveOrRejectChecker = function (action) {
@@ -609,6 +709,154 @@
                     });
 
                     scope.loanDisbursalTemplate = {};
+                    $modalInstance.close('delete');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.approverd = function () {
+                if (scope.rdapprovetemplate) {
+                    $modal.open({
+                        templateUrl: 'approverdaccount.html',
+                        controller: approverdctrl,
+                        resolve: {
+                            items: function () {
+                                return scope.rdapprovetemplate;
+                            }
+                        }
+                    });
+                }
+            };
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('.head-affix').css({
+                        "position": "fixed",
+                        "top": "50px"
+                    });
+
+                } else {
+                    $('.head-affix').css({
+                        position: 'static'
+                    });
+                }
+            });
+
+            var approverdctrl = function ($scope, $modalInstance, items) {
+                $scope.restrictDate = new Date();
+                $scope.date = {};
+                $scope.date.actDate = new Date();
+                $scope.rdapprove = function (act) {
+                    var approve = {}
+                    approve.approvedOnDate = dateFilter(act, scope.df);
+                    approve.dateFormat = scope.df;
+                    approve.locale = scope.optlang.code;
+                    var totalrdapproved = 0;
+                    var approveallrdcount = 0;
+                    _.each(items, function (value, key) {
+                        if (value == true) {
+                            totalrdapproved++;
+                        }
+                    });
+
+                    scope.batchRequests = [];
+                    scope.requestIdentifier = "savingsId";
+
+                    var reqId = 1;
+                    _.each(items, function (value, key) {
+                        if (value == true) {
+                            scope.batchRequests.push({requestId: reqId++, relativeUrl: "recurringdepositaccounts/"+key+"?command=approve",
+                                method: "POST", body: JSON.stringify(approve)});
+                        }
+                    });
+                    resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                        for(var i = 0; i < data.length; i++) {
+                            if(data[i].statusCode = '200') {
+                                approveallrdcount++;
+                                if (approveallrdcount == totalrdapproved) {
+                                    route.reload();
+                                }
+                            }
+
+                        }
+                    });
+
+                    scope.rdapprovetemplate = {};
+                    $modalInstance.close('delete');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.activaterd = function () {
+                if (scope.rdactivatetemplate) {
+                    $modal.open({
+                        templateUrl: 'activaterdaccount.html',
+                        controller: activaterdctrl,
+                        resolve: {
+                            items: function () {
+                                return scope.rdactivatetemplate;
+                            }
+                        }
+                    });
+                }
+            };
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('.head-affix').css({
+                        "position": "fixed",
+                        "top": "50px"
+                    });
+
+                } else {
+                    $('.head-affix').css({
+                        position: 'static'
+                    });
+                }
+            });
+
+            var activaterdctrl = function ($scope, $modalInstance, items) {
+                $scope.restrictDate = new Date();
+                $scope.date = {};
+                $scope.date.actDate = new Date();
+                $scope.rdactivate = function (act) {
+                    var activate = {}
+                    activate.activatedOnDate = dateFilter(act, scope.df);
+                    activate.dateFormat = scope.df;
+                    activate.locale = scope.optlang.code;
+                    var totalrdactivated = 0;
+                    var activateallrdcount = 0;
+                    _.each(items, function (value, key) {
+                        if (value == true) {
+                            totalrdactivated++;
+                        }
+                    });
+
+                    scope.batchRequests = [];
+                    scope.requestIdentifier = "savingsId";
+
+                    var reqId = 1;
+                    _.each(items, function (value, key) {
+                        if (value == true) {
+                            scope.batchRequests.push({requestId: reqId++, relativeUrl: "recurringdepositaccounts/"+key+"?command=activate",
+                                method: "POST", body: JSON.stringify(activate)});
+                        }
+                    });
+                    resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                        for(var i = 0; i < data.length; i++) {
+                            if(data[i].statusCode = '200') {
+                                activateallrdcount++;
+                                if (activateallrdcount == totalrdactivated) {
+                                    route.reload();
+                                }
+                            }
+
+                        }
+                    });
+
+                    scope.rdactivatetemplate = {};
                     $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {

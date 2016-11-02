@@ -445,7 +445,216 @@
 				    </div>
 				</tab>
 
-                <tab ng-hide="true" heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
+				<tab heading="{{'label.heading.rdapproval' | translate}}" has-permission='READ_RECURRINGDEPOSITACCOUNT' ng-click="resetsearchparams()">
+					<div class="head-affix">
+						<table class="table condensed-table">
+							<thead>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="offices" id="officeId_rdapproval" ng-model="officeId"
+											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+											ng-change="officeSelected(officeId)"  ng-required="true">
+										<option value="">{{'label.selectoffice' | translate}}</option>
+									</select>
+									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
+									<select chosen="loanOfficers" id="loanOfficerId_rdapproval" ng-model="loanOfficerId"
+											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
+											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
+										<option value="">{{'label.selectloanofficer' | translate}}</option>
+									</select>
+
+								</th>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.center' | translate}}"></i>
+									<select chosen="centers" id="centerId_rdapproval" name="center" ng-model="centerId"
+											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+											ng-change="centerSelected(centerId)" class="form-control">
+										<option value="">{{'label.selectcenter' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
+									<select chosen="groups" id="groupId_rdapproval" ng-model="groupId" ng-options="group.id as group.name for group in groups"
+											value="{{group.id}}" class="form-control">
+										<option value="">{{'label.selectgroup' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<div class="rowleft">
+										<button  class="btn btn-success" data-ng-click="rdApprovalSearch()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i
+												class="icon-ok"></i>{{'label.button.search' | translate}}
+										</button>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th>
+									<input ng-autofocus="true" ng-model="filterText3" type="text" class="input-sm form-control"
+										   placeholder="{{'label.input.filterbyname' | translate}}">
+								</th>
+								<th>
+									<button type="button" class="btn btn-success" data-ng-click="approverd()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i class="icon-ok"></i>{{'label.button.approve'
+										| translate}}
+									</button>
+								</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+					<script type="text/ng-template" id="approverdaccount.html">
+						<div class="modal-header silver">
+							<h3 class="bolder">{{'label.heading.enterrdapprovaldate' |
+								translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+						</div>
+						<div class="modal-body modal-big">
+							<api-validate></api-validate>
+							<br>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+								   max="restrictDate"/>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+							<button class="btn btn-primary" ng-click="rdapprove(date.actDate)">{{'label.button.confirm' | translate}}
+							</button>
+						</div>
+					</script>
+					<div>
+						<table class="table condensed-table" data-ng-show="rdapprovedata">
+							<thead>
+							<tr class="graybg">
+								<th><input type="checkbox" ng-click="rdapprovalallcheckboxesclicked()" ng-checked="rdapprovalallcheckboxesmet()"/></th>
+								<th>{{'label.heading.client' | translate}}</th>
+								<th>{{'label.heading.recurringdepositproduct' | translate}}</th>
+								<th>{{'label.heading.recurringdepositamount' | translate}}</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class="pointer-main"
+								data-ng-repeat="rd in rdapprovedata | filter:filterText3">
+								<td><input type="checkbox" ng-model="rdapprovetemplate[rd.id]"></td>
+								<td class="pointer"><a href="#/viewclient/{{rd.clientId}}">{{rd.clientName}}</a></td>
+								<td class="pointer"><a href="#/viewrecurringdepositaccount/{{rd.id}}">{{rd.depositProductName}}({{rd.accountNo}})</a></td>
+								<td class="pointer"><a href="#/viewrecurringdepositaccount/{{rd.id}}">{{rd.mandatoryRecommendedDepositAmount | number}}</a></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</tab>
+
+				<tab heading="{{'label.heading.rdactivation' | translate}}" has-permission='READ_RECURRINGDEPOSITACCOUNT' ng-click="resetsearchparams()">
+					<div class="head-affix">
+						<table class="table condensed-table">
+							<thead>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="offices" id="officeId_rdactivation" ng-model="officeId"
+											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+											ng-change="officeSelected(officeId)"  ng-required="true">
+										<option value="">{{'label.selectoffice' | translate}}</option>
+									</select>
+									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
+									<select chosen="loanOfficers" id="loanOfficerId_rdactivation" ng-model="loanOfficerId"
+											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
+											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
+										<option value="">{{'label.selectloanofficer' | translate}}</option>
+									</select>
+
+								</th>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.center' | translate}}"></i>
+									<select chosen="centers" id="centerId_rdactivation" name="center" ng-model="centerId"
+											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+											ng-change="centerSelected(centerId)" class="form-control">
+										<option value="">{{'label.selectcenter' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
+									<select chosen="groups" id="groupId_rdactivation" ng-model="groupId" ng-options="group.id as group.name for group in groups"
+											value="{{group.id}}" class="form-control">
+										<option value="">{{'label.selectgroup' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<div class="rowleft">
+										<button  class="btn btn-success" data-ng-click="rdactivationSearch()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i
+												class="icon-ok"></i>{{'label.button.search' | translate}}
+										</button>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th>
+									<input ng-autofocus="true" ng-model="filterText4" type="text" class="input-sm form-control"
+										   placeholder="{{'label.input.filterbyname' | translate}}">
+								</th>
+								<th>
+									<button type="button" class="btn btn-success" data-ng-click="activaterd()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'>
+										<i class="icon-ok"></i>{{'label.button.activate'
+										| translate}}
+									</button>
+								</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+					<script type="text/ng-template" id="activaterdaccount.html">
+						<div class="modal-header silver">
+							<h3 class="bolder">{{'label.heading.enterrdactivationdate' |
+								translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+						</div>
+						<div class="modal-body modal-big">
+							<api-validate></api-validate>
+							<br>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+								   max="restrictDate"/>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+							<button class="btn btn-primary" ng-click="rdactivate(date.actDate)">{{'label.button.confirm' | translate}}
+							</button>
+						</div>
+					</script>
+					<div>
+						<table class="table condensed-table" data-ng-show="rdactivatedata">
+							<thead>
+							<tr class="graybg">
+								<th><input type="checkbox" ng-click="rdactivateallcheckboxesclicked()" ng-checked="rdactivateallcheckboxesmet()"/></th>
+								<th>{{'label.heading.client' | translate}}</th>
+								<th>{{'label.heading.recurringdepositproduct' | translate}}</th>
+								<th>{{'label.heading.recurringdepositamount' | translate}}</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class="pointer-main"
+								data-ng-repeat="rd in rdactivatedata | filter:filterText4">
+								<td><input type="checkbox" ng-model="rdactivatetemplate[rd.id]"></td>
+								<td class="pointer"><a href="#/viewclient/{{rd.clientId}}">{{rd.clientName}}</a></td>
+								<td class="pointer"><a href="#/viewrecurringdepositaccount/{{rd.id}}">{{rd.depositProductName}}({{rd.accountNo}})</a></td>
+								<td class="pointer"><a href="#/viewrecurringdepositaccount/{{rd.id}}">{{rd.mandatoryRecommendedDepositAmount | number}}</a></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</tab>
+
+				<tab ng-hide="true" heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
                     <div class="head-affix">
                         <table class="table condensed-table">
                             <thead>
