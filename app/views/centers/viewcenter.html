@@ -123,7 +123,7 @@
 													</tr>
 												</table>
 											</td>
-											<td class="highlightcol text-right" scope="colgroup" colspan="3"></td>
+											<td class="highlightcol text-right" scope="colgroup" colspan="4"></td>
 										</tr>
 
 										<tr class="graybg" ng-show="!groupMemberAccountList[0].isShowLoanDetailsInCenterPageEnabled">
@@ -132,14 +132,16 @@
 
 										<tbody ng-repeat="group in groupMemberAccountList">
 										<tr ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
-											<th colspan="16" class="pointer" data-ng-click="routeToGroup(group.id)">
+											<th colspan="13" class="pointer" data-ng-click="routeToGroup(group.id)">
 												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
 												<i tooltip-placement="right" tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}"></i>
 												{{group.name}}
 											</th>
-										</tr>
+                                            <th colspan="4">{{ 'label.heading.actions' | translate }}</th>
+
+                                        </tr>
 										<tr ng-show="!group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
-											<th colspan="18" class="pointer" data-ng-click="routeToGroup(group.id)">
+											<th colspan="19" class="pointer" data-ng-click="routeToGroup(group.id)">
 												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
 												<i tooltip-placement="right" tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}"></i>
 												{{group.name}}
@@ -155,8 +157,11 @@
 											<td align="center" colspan="3">
 												<a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
-
 											</td>
+                                            <td>
+                                                <a has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+                                                        class="icon-plus icon-white"></i></a>
+                                            </td>
 										</tr>
 										<tr colspan="16" ng-repeat-end ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer" ng-repeat="loan in client.loanAccountSummaryDatas">
 											<td class="pointer text-right" colspan="7" data-ng-click="routeToLoan(loan.id)">
@@ -186,6 +191,10 @@
 												<a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
+                                            <td>
+                                                <a has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+                                                        class="icon-plus icon-white"></i></a>
+                                            </td>
 										</tr>
 										</tbody>
 									</table>
