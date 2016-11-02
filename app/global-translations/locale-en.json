@@ -2514,6 +2514,7 @@
     "error.msg.meeting.frequency.not.attached.to.group.to.which.client.belongs.to" : "Meeting frequency is not attached to the Group/Center to which the client belongs to.",
 
     "validation.msg.fixeddepositaccount.submittedOnDate.cannot.be.blank":"Submitted on date is mandatory.",
+    "validation.msg.fixeddeposit.annualInterestRate.not.greater.than.specified.number":"Annual interest rate({{params[0].value}}) should be greater than penal interest rate({{params[1].value}}).",
     "error.msg.officeToAccountMapping.not.found":"Mapping for office with Id `{{params[0].value}}` does not exist for an account of type `{{params[1].value}}`",
     "validation.msg.savingsproduct.taxGroupId.cannot.be.blank":"Tax group is required for with hold tax",
 

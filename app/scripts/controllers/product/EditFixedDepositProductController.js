@@ -392,7 +392,12 @@
                     //alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
                         //alert('remove' + k + ':' + v);
-                        delete objArray[k];
+                        if(k == 'minDepositTerm' || k == 'maxDepositTerm' || k == 'maxDepositAmount' || k == 'minDepositAmount'){
+                            objArray[k] = '';
+                            return objArray;
+                        }else {
+                            delete objArray[k];
+                        }
                     }
 
                 });
