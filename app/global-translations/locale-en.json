@@ -5129,5 +5129,15 @@
     "------ start of sales--":"---------",
     "label.anchor.sales" : "Sales",
 
+    "label.heading.savingsactivation":"Savings Activation",
+    "label.heading.savingsapproval":"Savings Approval",
+    "label.heading.rdactivation":"Recurring Deposit Activation",
+    "label.heading.rdapproval":"Recurring Deposit Approval",
+    "label.heading.recurringdepositproduct":"RD Product",
+    "label.heading.recurringdepositamount":"Deposit Amount",
+    "label.heading.enterrdapprovaldate":"Enter Recurring Deposit Account Approval Date",
+    "label.heading.enterrdactivationdate":"Enter Recurring Deposit Account Activation Date",
+    "label.button.assignfieldofficer":"Assign Field Officer",
+
     "------ end of tensalation file":"---------"
 }

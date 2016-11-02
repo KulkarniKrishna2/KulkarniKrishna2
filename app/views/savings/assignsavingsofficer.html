@@ -1,7 +1,9 @@
 <div class="col-md-12" ng-controller="AssignSavingsOfficerController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/viewsavingaccount/{{accountNo}}">{{'label.anchor.viewsavingsaccount' | translate}}</a></li>
+            <li ng-show="depositType == 100"><a href="#/viewsavingaccount/{{accountNo}}">{{'label.anchor.viewsavingsaccount' | translate}}</a></li>
+            <li ng-show="depositType == 200"><a href="#/viewfixeddepositaccount/{{accountNo}}">{{'label.anchor.viewfixeddepositaccount' | translate}}</a></li>
+            <li ng-show="depositType == 300"><a href="#/viewrecurringdepositaccount/{{accountNo}}">{{'label.anchor.viewrecurringdepositaccount' | translate}}</a></li>
             <li class="active">{{'label.anchor.assignsavingsofficer' | translate}}</li>
         </ul>
     </div>

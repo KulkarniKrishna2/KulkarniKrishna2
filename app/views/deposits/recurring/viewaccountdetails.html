@@ -135,14 +135,17 @@
                         &nbsp;
                     </td>
                 </tr>
-                <tr ng-show="savingaccountdetails.minBalanceForInterestCalculation">
-                    <td class="active fontnormal"> {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
-                    <td><span class="padded-td">{{savingaccountdetails.minBalanceForInterestCalculation | number}}</span></td>
+                <tr>
+                    <td  ng-show="savingaccountdetails.minBalanceForInterestCalculation" class="active fontnormal"> {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
+                    <td  ng-show="savingaccountdetails.minBalanceForInterestCalculation" ><span class="padded-td">{{savingaccountdetails.minBalanceForInterestCalculation | number}}</span></td>
+                    <td class="active fontnormal padded-td">&nbsp;{{'label.heading.fieldofficer' | translate}}</td>
                     <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
+                        <span class="padded-td"><span data-ng-hide="savingaccountdetails.fieldOfficerName">{{'label.unassigned' | translate}}</span>{{savingaccountdetails.fieldOfficerName}}&nbsp;
+                                    <span ng-show="savingaccountdetails.fieldOfficerName">
+                                      <a ng-click="clickEvent('unassignfieldofficer', savingaccountdetails.id)"><i
+                                              class="icon-remove"></i></a>
+                                    </span>
+                        </span>
                     </td>
                 </tr>
             </table>
