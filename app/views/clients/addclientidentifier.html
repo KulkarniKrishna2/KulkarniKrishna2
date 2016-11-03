@@ -28,8 +28,8 @@
 
                 <div class="col-sm-3">
                     <select id="status" ng-model="formData.status"
-                            ng-options="status.label as status.label for status in statusTypes"
-                            value="{{status.label}}" required="required" class="form-control">
+                            ng-options="status.id as status.value for status in statusTypes"
+                            value="{{status.id}}" required="required" class="form-control">
                     </select>
                 </div>
             </div>
