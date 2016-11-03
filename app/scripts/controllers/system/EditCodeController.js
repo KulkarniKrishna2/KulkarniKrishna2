@@ -32,7 +32,7 @@
                     errorObj.args = {
                         params: []
                     };
-                    errorObj.args.params.push({value:'label.input.codevalue'});
+                    errorObj.args.params.push({value:'label.input.codevalue.field.required'});
                     scope.errorDetails.push(errorObj);
                 }
 
