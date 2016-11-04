@@ -1,15 +1,16 @@
-<div ng-controller="CreateRoleController">
+<div ng-controller="EditRoleController">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
             <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
-            <li class="active">{{'label.anchor.addrole' | translate}}</li>
+            <li><a href="#/admin/viewrole/{{roleId}}">{{'label.anchor.viewroles' | translate}}</a></li>
+            <li class="active">{{'label.anchor.editrole' | translate}}</li>
         </ul>
     </div>
     <form name="addroleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-            <legend>{{'label.heading.addrole' | translate}}</legend>
+            <legend>{{'label.heading.editrole' | translate}}</legend>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
@@ -57,7 +58,7 @@
             </div>
 
             <div class="col-md-offset-3">
-                <a id="cancel" href="#/admin/roles" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <a id="cancel" href="#/admin/viewrole/{{roleId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ROLE'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>

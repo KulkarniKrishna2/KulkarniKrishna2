@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewRoleController: function (scope, routeParams, resourceFactory, route, $modal) {
-
+            scope.roleId = routeParams.id;
             scope.permissions = [];
             scope.groupings = [];
             scope.formData = {};
