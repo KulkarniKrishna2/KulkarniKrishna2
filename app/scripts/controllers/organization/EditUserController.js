@@ -33,7 +33,7 @@
             });
             scope.getOfficeStaff = function(){
                 resourceFactory.employeeResource.getAllEmployees({officeId:scope.formData.officeId},function (staffs) {
-                    scope.staffs = staffs;
+                    scope.staffs = staffs.pageItems;
                 });
             };
 

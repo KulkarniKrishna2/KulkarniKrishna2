@@ -38,7 +38,7 @@
             scope.officeSelected = function () {
                 clearOfficeSelection();
                 resourceFactory.employeeResource.getAllEmployees({'officeId': scope.officeId}, function (data) {
-                        scope.staffs = data;
+                        scope.staffs = data.pageItems;
                 });
             };
 
