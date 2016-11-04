@@ -60,7 +60,7 @@
                 if (officeId) {
                     this.showMsg = false;
                     resourceFactory.employeeResource.getAllEmployees({officeId: officeId}, function (data) {
-                        scope.loanOfficers = data;
+                        scope.loanOfficers = data.pageItems;
                     });
 
                     resourceFactory.centerResource.getAllCenters({officeId: this.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {

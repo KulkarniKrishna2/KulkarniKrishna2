@@ -62,7 +62,7 @@
 
             scope.getOfficeStaff = function(){
                 resourceFactory.employeeResource.getAllEmployees({officeId:scope.formData.officeId},function (data) {
-                    scope.staffs = data;
+                    scope.staffs = data.pageItems;
                 });
             };
 

@@ -27,7 +27,7 @@
                 scope.officeId = officeId;
                 if (officeId) {
                     resourceFactory.employeeResource.getAllEmployees({officeId: officeId}, function (data) {
-                        scope.loanOfficers = data;
+                        scope.loanOfficers = data.pageItems;
                     });
                 }
             };

@@ -44,7 +44,7 @@
                 scope.officeId = officeId;
                 if (officeId) {
                     resourceFactory.employeeResource.getAllEmployees({officeId: officeId}, function (data) {
-                        scope.loanOfficers = data;
+                        scope.loanOfficers = data.pageItems;
                     });
 
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {

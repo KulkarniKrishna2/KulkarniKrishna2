@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="employee in employees | filter:filterText">
+        <tr class="pointer-main" dir-paginate="employee in employees | filter:filterText | itemsPerPage: staffPerPage" total-items="totalStaff">
             <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
             <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
             <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
@@ -27,4 +27,5 @@
         </tr>
         </tbody>
     </table>
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
