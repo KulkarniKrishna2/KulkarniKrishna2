@@ -1378,6 +1378,9 @@
             })
             .when('/loanapplication/:loanApplicationId/workflow', {
                 templateUrl: 'views/loans/loanapplicationworkflow.html'
+            })
+            .when('/admin/editrole/:id', {
+                templateUrl: 'views/administration/editrole.html'
             });
         $locationProvider.html5Mode(false);
     };

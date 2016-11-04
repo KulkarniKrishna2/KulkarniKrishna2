@@ -2,8 +2,12 @@
     mifosX.controllers = _.extend(module, {
         CreateRoleController: function (scope, location, resourceFactory) {
             scope.formData = {};
+            scope.showRoleBasedLimits = false;
             scope.submit = function () {
-                resourceFactory.roleResource.save(this.formData, function (data) {
+                if(this.formData.roleBasedLimit){
+                    scope.formData.roleBasedLimit.locale = scope.optlang.code;
+                }
+                resourceFactory.roleResource.save(scope.formData, function (data) {
                     location.path("/admin/viewrole/" + data.resourceId);
                 });
             };

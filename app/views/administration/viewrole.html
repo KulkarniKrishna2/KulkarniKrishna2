@@ -54,10 +54,37 @@
                 <tr>
                     <td width="20%">{{'label.heading.name' | translate}}</td>
                     <td width="80%">{{role.name}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#/admin/editrole/{{roleId}}" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="icon-edit icon-white"></i>{{
+                                'label.button.editrole' | translate }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group" ng-if="!isRoleEnable(role.disabled)">
+                            <a data-ng-click="disableRolesConfirmation()" class="btn btn-primary" has-permission='DISABLE_ROLE'><i class="icon-lock icon-white"></i>{{
+                                'label.button.disable' | translate }}</a>
+                        </div>
+                        <div class="btn-group" ng-if="isRoleEnable(role.disabled)">
+                            <a data-ng-click="enableRolesConfirmation()" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="icon-unlock icon-white"></i>{{
+                                'label.button.enable' | translate }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a data-ng-click="deleteRolesConfirmation()" class="btn btn-primary" has-permission='DELETE_ROLE'><i class="icon-trash icon-white"></i>{{
+                                'label.button.delete' | translate }}</a>
+                        </div>
+                    </td>
+
                 </tr>
                 <tr>
                     <td>{{'label.heading.description' | translate}}</td>
                     <td>{{role.description}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
                 </tr>
             </table>
         </div>
@@ -65,21 +92,8 @@
         <div class="pull-right" ng-show="isDisabled">
             <div class="btn-group">
                 <a data-ng-click="editRoles(); backupCheckValues()" class="btn btn-primary" has-permission='UPDATE_ROLE'><i class="icon-edit icon-white"></i>{{
-                    'label.button.edit' | translate }}</a>
+                    'label.button.editpermission' | translate }}</a>
 			</div>
-            <div class="btn-group" ng-if="!isRoleEnable(role.disabled)">
-                <a data-ng-click="disableRolesConfirmation()" class="btn btn-primary" has-permission='DISABLE_ROLE'><i class="icon-trash icon-white"></i>{{
-                    'label.button.disable' | translate }}</a>
-            </div>
-            <div class="btn-group" ng-if="isRoleEnable(role.disabled)">
-                <a data-ng-click="enableRolesConfirmation()" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="icon-trash icon-white"></i>{{
-                    'label.button.enable' | translate }}</a>
-            </div>
-			<div class="btn-group">
-					<a data-ng-click="deleteRolesConfirmation()" class="btn btn-primary" has-permission='DELETE_ROLE'><i class="icon-trash icon-white"></i>{{
-                    'label.button.delete' | translate }}</a>
-            </div>
-			
         </div>
 		<div class="btn-group" ng-show="!isDisabled" style="float: right">
                <a data-ng-click="selectAll(false)" class="btn btn-primary"><i class="icon-ok-sign icon-white"></i>{{'label.button.selectAll' | translate}}</a>

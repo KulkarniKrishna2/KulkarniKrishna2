@@ -111,6 +111,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/RoleController',
             'organization/ViewRoleController',
             'organization/CreateRoleController',
+            'organization/EditRoleController',
             'organization/MakerCheckerController',
             'organization/OfficesController',
             'organization/ViewOfficeController',

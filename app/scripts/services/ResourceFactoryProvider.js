@@ -31,7 +31,8 @@
                         getAllRoles: {method: 'GET', params: {}, isArray: true},
                         deleteRoles: {method: 'DELETE'},
                         disableRoles: {method: 'POST'},
-                        enableRoles: {method: 'POST'}
+                        enableRoles: {method: 'POST'},
+                        update: {method: 'PUT'}
                     }),
                     rolePermissionResource: defineResource(apiVer + "/roles/:roleId/permissions", {roleId: '@roleId'}, {
                         get: {method: 'GET', params: {}},
