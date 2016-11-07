@@ -1,0 +1,75 @@
+<div class="col-md-12" ng-controller="ViewAuditReportController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/auditreport">{{'label.anchor.auditreports' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewauditentry' | translate}}</li>
+    </ul>
+    <div class="col-md-12 form-horizontal well">
+        <div class="col-md-12 form-horizontal" align="center">
+            <h2>{{'label.anchor.viewauditentry' | translate}}</h2>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.id' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+                {{reportAudit.id}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.reportname' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                {{reportAudit.reportName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.reporttype' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                {{reportAudit.reportType}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.executiondate' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                {{reportAudit.executionStartDate}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.executedby' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                {{reportAudit.user.username}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.executiontime' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                {{reportAudit.executionTime}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.reportparameters' | translate}}:</label>
+            <div class="col-sm-1"></div>
+            <div>
+                <table class="well col-sm-5" border="1px">
+                    <thead>
+                      <tr  class="graybg">
+                          <th>{{'label.heading.parameter' | translate}}</th>
+                          <th>{{'label.heading.value' | translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="param in params">
+                            <td>{{param.parameter}}</td>
+                            <td>{{param.value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

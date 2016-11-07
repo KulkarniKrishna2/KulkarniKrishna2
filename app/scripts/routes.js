@@ -1381,6 +1381,12 @@
             })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
+            })
+            .when('/auditreport', {
+                templateUrl: 'views/reports/auditreport.html'
+            })
+            .when('/auditreport/:id', {
+                templateUrl: 'views/reports/viewauditreport.html'
             });
         $locationProvider.html5Mode(false);
     };

@@ -1,0 +1,84 @@
+<div class="col-md-12" ng-controller="AuditReportController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.auditreports' | translate}}</li>
+    </ul>
+    <div class="col-md-12 form-horizontal well">
+        <form name="auditreports" novalidate="" class="col-md-12 form-horizontal">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">
+                        {{'label.input.user' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div>
+                            <select chosen="users" id="userId" ng-model="formData.userId"  class="form-control"
+                                    ng-options="user.id as user.username for user in users" value="{{user.id}}">
+                            </select>
+                            <option value=""  style="display:none;">--{{'label.menu.selectuser' | translate}}--</option>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">
+                        {{'label.input.report' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div >
+                            <select chosen="reports" id="reportId" ng-model="formData.reportId"  class="form-control"
+                                    ng-options="report.id as report.reportName for report in reports" value="{{report.id}}">
+                            </select>
+                            <option value=""  style="display:none;">--{{'label.menu.selectreport' | translate}}--</option>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
+                    <div class="col-sm-3">
+                        <input id="startDate" type="text" name="startDate" datepicker-pop="yyyy-MM-dd"
+                               ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-change="checkCriteria()"/>
+                    </div>
+                    <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
+                    <div class="col-sm-3">
+                        <input id="endDate" type="text" name="endDate" datepicker-pop="yyyy-MM-dd" ng-change="checkCriteria()"
+                               ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div align="right">
+                        <button id="save" ng-click="submit()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.search' | translate}}</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <table class="table" ng-show="reportAudits.length>0">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.reportname' | translate}}</th>
+                    <th>{{'label.heading.reporttype' | translate}}</th>
+                    <th>{{'label.heading.executiondate' | translate}}</th>
+                    <th>{{'label.heading.executedby' | translate}}</th>
+                    <th>{{'label.heading.executiontime' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr dir-paginate="reportAudit in reportAudits | itemsPerPage: reportPerPage" total-items="totalReportAudit"  pagination-id="reportaudit">
+                    <td>{{reportAudit.id}}</td>
+                    <td>{{reportAudit.reportName}}</td>
+                    <td>{{reportAudit.reportType}}</td>
+                    <td>{{reportAudit.executionStartDate}}</td>
+                    <td>{{reportAudit.user.username}}</td>
+                    <td>{{reportAudit.executionTime}}</td>
+                    <td class="pointer"><a href="#/auditreport/{{reportAudit.id}}" class="icon-eye-open icon-white"></a></td>
+                </tr>
+                </tbody>
+            </table>
+        <dir-pagination-controls boundary-links="true" pagination-id="reportaudit" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)" class="ng-isolate-scope">
+
+    </div>
+</div>

@@ -140,11 +140,12 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         getReport: {method: 'GET', params: {}}
                     }),
-                    reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", {id: '@id', resourceType: '@resourceType'}, {
+                    reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", {id: '@id', resourceType: '@resourceType', usageTrackingEnabledOnly : '@usageTrackingEnabledOnly'}, {
                         get: {method: 'GET', params: {id: '@id'}},
                         getReport: {method: 'GET', params: {id: '@id'}, isArray: true},
                         getReportDetails: {method: 'GET', params: {id: '@id'}},
-                        update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {}},
+                        getAll: {method: 'GET', params: {usageTrackingEnabledOnly : '@usageTrackingEnabledOnly'}, isArray: true}
                     }),
                     xbrlMixtaxonomyResource: defineResource(apiVer + "/mixtaxonomy", {}, {
                         get: {method: 'GET', params: {}, isArray: true}
@@ -958,7 +959,11 @@
                     workflowStepExecutionActionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId/actions",
                         {workflowstepexecutionId:'@workflowstepexecutionId'}, {
                             getAll: {method: 'GET', params: {}, isArray: true}
-                        })
+                        }),
+                    reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id', command: '@command'}, {
+                        getAll: {method: 'GET', params: {command: '@command'}, isArray: true},
+                        get: {method: 'GET', params: {id: '@id'}, isArray: false}
+                    })
                 };
             }];
         }

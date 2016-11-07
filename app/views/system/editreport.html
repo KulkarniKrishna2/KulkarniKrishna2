@@ -53,12 +53,12 @@
                                 </div>
                             </td>
                             <td class="width20 paddedbottom10">
-                            </td>
-                            <td class="width20 paddedbottom10">
                                 <label class="control-label">{{ 'label.input.userreportui' | translate }}</label>
                                 <div class="form-inline">
                                     <input type="checkbox" ng-model="reportdetail.useReport" class="margintopminustenpx">
                                 </div>
+                            </td>
+                            <td class="width20 paddedbottom10">
                             </td>
                         </tr>
                         <tr>
@@ -69,7 +69,11 @@
                                     <textarea rows="2" class="form-control" ng-model="reportdetail.description" ng-disabled="disableFields"></textarea>
                                 </div>
                             </td>
-                            <td class="width20">
+                            <td class="width20 paddedbottom10">
+                                <label class="control-label">{{ 'label.input.trackusage' | translate }}</label>
+                                <label class="checkbox margintopminustenpx">
+                                    <input type="checkbox" ng-model="reportdetail.trackUsage">
+                                </label>
                             </td>
                             <td class="width20">
                             </td>
