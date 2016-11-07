@@ -7,6 +7,7 @@
                 scope.reportdetail = data;
                 scope.reportdetail.reportParameters = data.reportParameters || [];
                 scope.formData.useReport = data.useReport;
+                scope.formData.trackUsage = data.trackUsage;
                 scope.formData.reportType = data.reportType;
                 scope.disableFields = false;
 
@@ -56,6 +57,7 @@
                 if (scope.reportdetail.coreReport === true) {
                     this.formData.reportParameters = scope.temp;
                     this.formData.useReport = scope.reportdetail.useReport;
+                    this.formData.trackUsage = scope.reportdetail.trackUsage;
                 } else {
                     scope.temp = deepCopy(scope.reportdetail.reportParameters);
                     scope.reportdetail.reportParameters = scope.temp;
@@ -72,7 +74,8 @@
                         useReport: scope.reportdetail.useReport,
                         description: scope.reportdetail.description,
                         reportSql: scope.reportdetail.reportSql,
-                        reportParameters: scope.reportdetail.reportParameters
+                        reportParameters: scope.reportdetail.reportParameters,
+                        trackUsage: scope.reportdetail.trackUsage
                     }
                 }
                 resourceFactory.reportsResource.update({id: routeParams.id}, this.formData, function (data) {
