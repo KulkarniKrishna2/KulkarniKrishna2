@@ -206,13 +206,13 @@
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    loanApplicationReferencesCreditBureauReportResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaureport", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                    loanApplicationReferencesCreditBureauReportResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/initiatecreditbureauenquiry", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanApplicationReferencesCreditBureauReportOtherInstituteLoansSummaryResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/otherinstituteloanssummary", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                    loanApplicationReferencesCreditBureauReportOtherInstituteLoansSummaryResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaucheck", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         get: {method: 'GET', params: {sourceId: '@sourceId'}}
                     }),
-                    loanApplicationReferencesCreditBureauReportFileContentResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaureportfile", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                    loanApplicationReferencesCreditBureauReportFileContentResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaureport", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/template", {}, {
