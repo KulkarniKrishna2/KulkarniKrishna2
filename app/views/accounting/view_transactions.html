@@ -125,76 +125,123 @@
         </div>
     </script>
     <div class="well">
-        <div class="text-right form-group">
-            <span><a id="run" ng-click="runReport()" class="btn btn-primary icon-print"></i>&nbsp;&nbsp;{{ 'label.button.print' | translate }}</a></span>
-        </div>
-        <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
-        <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
-    	<div class="row">
-    		<div class="col-md-12">
-		        <h3 class="bolder">{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;{{transactionNumber}}
-		        	<div class="pull-right" ng-show="manualEntry">
+        <div>
+            <tabset tabset-name="journalentryTabset">
+                <tab heading="{{'label.heading.journalentry' | translate}}">
+                    <div class="text-right form-group">
+                        <span><a id="run" ng-click="runReport()" class="btn btn-primary icon-print"></i>&nbsp;&nbsp;{{ 'label.button.print' | translate }}</a></span>
+                    </div>
+                    <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
+                    <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="bolder">{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;{{transactionNumber}}
+                                <div class="pull-right" ng-show="manualEntry">
 			            <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate
-			                }}</strong></span>
-			
-			            <div class="btn-group">
-			                <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
-			            </div>
-			        </div>
-		        </h3>
-		    </div>
+                            }}</strong></span>
 
-		    <table class="width100">
-		        <tr>
-		            <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
-		            <td class="width36">{{transactions[0].officeName}}</td>
-		            <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
-		            <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
-		        </tr>
-		        <tr>
-		            <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
-		            <td class="width36">{{transactions[0].createdByUserName}}</td>
-		            <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
-		            <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
-		        </tr>
-		    </table>
-		    <div class="col-md-12">
-		        <table class="table">
-		            <thead>
-		            <tr class="graybg">
-		                <th>{{'label.heading.entryid' | translate}}</th>
-		                <th>{{'label.heading.type' | translate}}</th>
-		                <th>{{'label.heading.account' | translate}}</th>
-		                <th>{{'label.heading.debit' | translate}}</th>
-		                <th>{{'label.heading.credit' | translate}}</th>
-		            </tr>
-		            </thead>
-		            <tbody>
-		            <tr class="pointer-main" ng-repeat="transaction in transactions">
-		                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.id}}</td>
-		                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountType.value}}</td>
-		                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-		                <td class="pointer" data-ng-click="showTransaction(transaction)">
-		                    <div ng-show="transaction.entryType.value == 'DEBIT'">
-		                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
-		                    </div>
-		                </td>
-		                <td class="pointer" data-ng-click="showTransaction(transaction)">
-		                    <div ng-show="transaction.entryType.value == 'CREDIT'">
-		                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
-		                    </div>
-		                </td>
-		            </tr>
-		            </tbody>
-		        </table>
-		    </div>
-            <div class="center" ng-if="productName != null">
-                <a href="#/viewloanaccount/{{loanId}}"
-                  class="btn btn-primary center"><i
-                    class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
-            <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
-                <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
-            </div>
-    	</div>
+                                    <div class="btn-group">
+                                        <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
+                                    </div>
+                                </div>
+                            </h3>
+                        </div>
+
+                        <table class="width100">
+                            <tr>
+                                <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
+                                <td class="width36">{{transactions[0].officeName}}</td>
+                                <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
+                                <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
+                            </tr>
+                            <tr>
+                                <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
+                                <td class="width36">{{transactions[0].createdByUserName}}</td>
+                                <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
+                                <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
+                            </tr>
+                        </table>
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.entryid' | translate}}</th>
+                                    <th>{{'label.heading.type' | translate}}</th>
+                                    <th>{{'label.heading.account' | translate}}</th>
+                                    <th>{{'label.heading.debit' | translate}}</th>
+                                    <th>{{'label.heading.credit' | translate}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="pointer-main" ng-repeat="transaction in transactions">
+                                    <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.id}}</td>
+                                    <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountType.value}}</td>
+                                    <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                                    <td class="pointer" data-ng-click="showTransaction(transaction)">
+                                        <div ng-show="transaction.entryType.value == 'DEBIT'">
+                                            {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                                        </div>
+                                    </td>
+                                    <td class="pointer" data-ng-click="showTransaction(transaction)">
+                                        <div ng-show="transaction.entryType.value == 'CREDIT'">
+                                            {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="center" ng-if="productName != null">
+                            <a href="#/viewloanaccount/{{loanId}}"
+                               class="btn btn-primary center"><i
+                                    class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
+                    <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
+                        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+                    </div>
+                    </div>
+                </tab>
+                <tab heading="{{journalentrydatatable.registeredTableName}}" ng-repeat="journalentrydatatable in journalentrydatatables" has-permission='READ_{{journalentrydatatable.registeredTableName}}'
+                     select="dataTableChange(journalentrydatatable)">
+                    <div>
+                        <div class="btn-group pull-right">
+                            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+                               ng-click="deleteAll(journalentrydatatable.registeredTableName, transactionIdStringvalue)" has-permission='DELETE_{{journalentrydatatable.registeredTableName}}'><i
+                                    class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                            <a data-ng-show="showDataTableAddButton"
+                               ng-href="#/makedatatableentry/{{journalentrydatatable.registeredTableName}}/{{transactionIdStringvalue}}?fromEntity=journalentry"
+                               class="btn btn-primary" has-permission='CREATE_{{journalentrydatatable.registeredTableName}}'><i
+                                    class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                            <a data-ng-show="showDataTableEditButton"
+                               ng-href="#/viewsingledatatableentry/{{journalentrydatatable.registeredTableName}}/{{transactionIdStringvalue}}?mode=edit&&fromEntity=journalentry"
+                               class="btn btn-primary" has-permission='UPDATE_{{journalentrydatatable.registeredTableName}}'><i
+                                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                        </div>
+                        <br>
+                        <br>
+
+                        <div ng-show="datatabledetails.isData">
+                            <table class="table" data-ng-show="datatabledetails.isMultirow">
+                                <thead>
+                                <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName | prettifyDataTableColumn}}</th>
+                                </thead>
+                                <tbody>
+                                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                                    <td class="pointer" ng-repeat="row in data.row track by $index"
+                                        ng-click="viewDataTable(journalentrydatatable.registeredTableName,data)">{{row}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered width450px" data-ng-hide="datatabledetails.isMultirow">
+                                <tr ng-repeat="value in singleRow">
+                                    <td class="graybg table-font-nav">{{value.key | prettifyDataTableColumn}}</td>
+                                    <td><span class="padded-td">{{value.value}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
     </div>
 </form>

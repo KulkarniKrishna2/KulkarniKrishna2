@@ -16,6 +16,7 @@
             scope.loanproduct = false;
             scope.showSelect = true;
             scope.villageName;
+            scope.dataTableName = '';
 
             if (routeParams.fromEntity == 'client') {
                     scope.clientName = $rootScope.clientname;
@@ -48,6 +49,7 @@
             if(scope.tableName =='Address' && scope.fromEntity == 'client'){
                 scope.showSelect=false;
             }
+
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
                 var colName = data.columnHeaders[0].columnName;
@@ -56,7 +58,10 @@
                 }
 
                 colName = data.columnHeaders[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
+                if (colName == 'gl_journal_entry_id') {
+                    scope.dataTableName = 'acc_gl_journal_entry';
+                }
+                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
                     data.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
@@ -136,6 +141,8 @@
                     location.path('/viewsavingaccount/' + routeParams.entityId).search({});
                 } else if (scope.fromEntity == 'office') {
                     location.path('/viewoffice/' + routeParams.entityId).search({});
+                } else if (scope.fromEntity == 'journalentry') {
+                    location.path('/viewtransactions/' + routeParams.entityId).search({});
                 };
             };
             scope.submit = function () {
@@ -146,7 +153,7 @@
                         }
                     }
                 }
-                var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
+                var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true', command: scope.dataTableName};
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.dateTimeFormat();
                 //below logic, for the input field if data is not entered, this logic will put "", because
@@ -179,6 +186,8 @@
                         } else {
                             destination = '/viewgroup/' + data.groupId;
                         }
+                    } else if (data.transactionId) {
+                        destination = '/viewtransactions/' + data.transactionId;
                     } else if (data.officeId) {
                         destination = '/viewoffice/' + data.officeId;
                     }
