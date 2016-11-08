@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         LoanApplicationWorkflowController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
-
             scope.datatabledetails = "";
             scope.status = 'CREATE';
             scope.view_tab = "tab1";
@@ -9,15 +8,13 @@
             scope.loanApplicationId = routeParams.loanApplicationId;
             scope.masterconfig = {"loanApplicationId": routeParams.loanApplicationId};
             scope.loanApplicationData = {};
-
-
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationId}, function (data) {
                 scope.loanApplicationData = data;
                 scope.formData = data;
                 scope.loanProductChange(scope.formData.loanProductId);
                 scope.masterconfig["clientId"] = scope.loanApplicationData.clientId;
                 resourceFactory.loanapplicationWorkflowResource.get({loanApplicationId: scope.loanApplicationId}, function (data) {
-                    console.log(data);
+                    //console.log(data);
                     var workflowExecutionData = data;
                     scope.$broadcast('initworkflow', {"workflowExecutionData": workflowExecutionData});
                 });

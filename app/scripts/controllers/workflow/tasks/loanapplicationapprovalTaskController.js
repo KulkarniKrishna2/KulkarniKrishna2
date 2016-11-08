@@ -55,6 +55,7 @@
                     }else if(scope.formData.status.id === 200){
                         showEditForm();
                     }
+                    scope.$emit("taskDone",{});
                 });
             }
 
@@ -425,6 +426,7 @@
                     command: 'approve'
                 }, this.submitData, function (data) {
                     scope.status = 'SUMMARY';
+                    scope.$emit("taskDone",{});
                 });
             };
 
