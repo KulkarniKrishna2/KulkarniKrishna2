@@ -430,7 +430,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'workflow/tasks/clientdocumentTaskController',
             'workflow/tasks/existingLoanTaskController',
             'workflow/tasks/creditbureauTaskController',
-            'workflow/tasks/surveyTaskController'
+            'workflow/tasks/surveyTaskController',
+            'workflow/tasks/loanapplicationdisbursalTaskController'
         ],
         filters: [
             'StatusLookup',

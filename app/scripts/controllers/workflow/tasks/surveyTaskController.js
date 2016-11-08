@@ -5,6 +5,7 @@
                 scope.file = $files[0];
             };
             scope.formData = {};
+            scope.entityTypeId = null;
             scope.entityType = 'clients';
             function initTask(){
                 scope.clientId = scope.stepconfig['clientId'];
@@ -12,16 +13,6 @@
                 scope.surveyId = scope.stepconfig['surveyId'];
             };
             initTask();
-            resourceFactory.surveyTemplateResource.get({}, function (data) {
-                scope.surveyEntityTypes = data.surveyEntityTypes;
-                for(var i in scope.surveyEntityTypes){
-                    if(scope.surveyEntityTypes[i].value === scope.entityType.toUpperCase()){
-                        scope.isValidEntityType = true;
-                        scope.entityTypeId = scope.surveyEntityTypes[i].id;
-                        break;
-                    }
-                }
-            });
             scope.isDisplaySurveys = true;
             scope.displaySurveysList = function(){
                 scope.isDisplaySurveys = true;
@@ -32,7 +23,17 @@
                     }
                 });
             };
-            scope.displaySurveysList();
+            resourceFactory.surveyTemplateResource.get({}, function (data) {
+                scope.surveyEntityTypes = data.surveyEntityTypes;
+                for(var i in scope.surveyEntityTypes){
+                    if(scope.surveyEntityTypes[i].value === scope.entityType.toUpperCase()){
+                        scope.isValidEntityType = true;
+                        scope.entityTypeId = scope.surveyEntityTypes[i].id;
+                        scope.displaySurveysList();
+                        break;
+                    }
+                }
+            });
 
             scope.takeNewSurvey = function(){
                 scope.isDisplaySurveys = false;

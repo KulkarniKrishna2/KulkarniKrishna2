@@ -38,6 +38,7 @@
                             if (!scope.datatabledetails.isMultirow) {
                                 var row = {};
                                 row.key = data.columnHeaders[i].columnName;
+                                row.columnDisplayType = data.columnHeaders[i].columnDisplayType;
                                 row.value = data.data[0].row[i];
                                 scope.singleRow.push(row);
                             }
