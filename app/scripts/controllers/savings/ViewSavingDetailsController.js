@@ -280,11 +280,11 @@
                     scope.annualdueDate = new Date(annualdueDate);
                 };
                 scope.convertDateArrayToObject('date');
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account', associatedEntityId: scope.savingaccountdetails.savingsProductId}, function (data) {
+                    scope.savingdatatables = data;
+                });
             });
 
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
-                scope.savingdatatables = data;
-            });
             /*// Saving notes not yet implemented
             resourceFactory.savingsResource.getAllNotes({accountId: routeParams.id,resourceType:'notes'}, function (data) {
                 scope.savingNotes = data;

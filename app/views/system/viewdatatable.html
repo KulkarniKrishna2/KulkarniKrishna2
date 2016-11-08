@@ -50,6 +50,23 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="form-group" ng-show="datatable.scopeCriteriaData != undefined && datatable.scopeCriteriaData != ''">
+                <div class="form-group">
+                    <label>{{'label.input.restrictscope' | translate}}</label>
+                    <div class="form-group">
+                        <div  ng-repeat="scope in datatable.scopeCriteriaData">
+                            <label>{{scope.name}}</label>
+                            <div class="form-group">
+                                <div class="col-sm-3 col-md-3">
+                                    <select multiple ng-model="availableClients" class="form-control clear" >
+                                        <option ng-repeat="allowedValue in scope.allowedValueOptions" value="{{allowedValue.id}}">{{allowedValue.id}} | {{allowedValue.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
