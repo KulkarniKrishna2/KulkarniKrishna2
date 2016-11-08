@@ -5,7 +5,7 @@
             scope.formData = {};
             scope.initialUser = {id:-1,username:"ALL"};
             scope.initialReport = {id:-1,reportName:"ALL"};
-            scope.reportPerPage = 3;
+            scope.reportPerPage = 7;
             scope.getData = function(){
                 resourceFactory.userListResource.getAllUsers(function(data){
                     scope.addAllToList(data,"user");
@@ -37,31 +37,53 @@
             };
 
             scope.submit = function(){
-                scope.searchCriteria = ' where ra.id > -1 ';
-                if(this.formData.userId != -1){
-                    scope.searchCriteria = scope.searchCriteria +' and ra.user_id = '+this.formData.userId;
-                }
-                if(this.formData.reportId != -1){
-                    scope.searchCriteria = scope.searchCriteria +' and ra.report_id = '+this.formData.reportId;
-                }
-                if(this.formData.hasOwnProperty('startDate')){
-                    scope.startDate =  new Date(dateFilter(this.formData.startDate,scope.df)).getTime();
-                    scope.searchCriteria = scope.searchCriteria +' and (UNIX_TIMESTAMP( Date(ra.execution_start_date)) * 1000) >= '+scope.startDate ;
-                }
-                if(this.formData.hasOwnProperty('endDate')){
-                    scope.endDate =  new Date(dateFilter(this.formData.endDate,scope.df)).getTime();
-                    scope.searchCriteria = scope.searchCriteria +' and (UNIX_TIMESTAMP( Date(ra.execution_start_date)) * 1000) < '+ parseInt(parseInt(scope.endDate) + (24*3600*1000) ) ;
-                }
-                resourceFactory.reportAuditResource.getAll({command: scope.searchCriteria},function(data){
-                    scope.totalReportAudit = data.length;
-                });
-                scope.getResultsPage(1);
+                scope.initPage();
             }
 
             scope.getResultsPage = function(pageNumber){
-                scope.paginationCriteria = scope.searchCriteria+ " limit "+scope.reportPerPage +" offset "+((pageNumber - 1) * scope.reportPerPage);
-                resourceFactory.reportAuditResource.getAll({command: scope.paginationCriteria},function(data){
-                    scope.reportAudits = data;
+                var params = {};
+                params.offset = ((pageNumber - 1) * scope.reportPerPage);
+                params.limit = scope.reportPerPage;
+                params.locale = scope.optlang.code;
+                params.dateFormat = scope.df;
+                params.userId = this.formData.userId;
+                params.reportId = this.formData.reportId;
+                params.orderBy = 'id';
+                params.sortOrder = 'ASC';
+                if(this.formData.hasOwnProperty('startDate')){
+                    var fromDate = dateFilter(this.formData.startDate, scope.df);
+                    params.fromDate = fromDate;
+                }
+                if(this.formData.hasOwnProperty('endDate')){
+                    var endDate = dateFilter(this.formData.endDate, scope.df);
+                    params.toDate = endDate;
+                }
+                resourceFactory.reportAuditResource.getAll(params,function (data) {
+                    scope.reportAudits = data.pageItems;
+                });
+            }
+
+            scope.initPage = function () {
+                var params = {};
+                params.offset = 0;
+                params.limit = scope.reportPerPage;
+                params.locale = scope.optlang.code;
+                params.dateFormat = scope.df;
+                params.userId = this.formData.userId;
+                params.reportId = this.formData.reportId;
+                params.orderBy = 'id';
+                params.sortOrder = 'ASC';
+                if(this.formData.hasOwnProperty('startDate')){
+                    var fromDate = dateFilter(this.formData.startDate, scope.df);
+                    params.fromDate = fromDate;
+                }
+                if(this.formData.hasOwnProperty('endDate')){
+                    var endDate = dateFilter(this.formData.endDate, scope.df);
+                    params.toDate = endDate;
+                }
+                var items = resourceFactory.reportAuditResource.getAll(params, function (data) {
+                    scope.totalReportAudit = data.totalFilteredRecords;
+                    scope.reportAudits = data.pageItems;
                 });
             }
 
