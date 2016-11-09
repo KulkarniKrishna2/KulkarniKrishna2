@@ -130,13 +130,12 @@
 				<table ng-show="columns.length > 0" class="table width100">
 					<thead>
 					<tr class="graybg">
-						<th>{{'label.heading.name' | translate}}</th>
-						<th>{{'label.heading.type' | translate}}</th>
-						<th>{{'label.heading.mandatory' | translate}}</th>
-						<th>{{'label.heading.length' | translate}}</th>
-						<th>{{'label.heading.code' | translate}}</th>
-						<th>{{'label.heading.actions' | translate}}</th>
-						<th></th>
+						<th class="col-sm-2" align="center">{{'label.heading.name' | translate}}</th>
+						<th class="col-sm-2" align="center">{{'label.heading.type' | translate}}</th>
+						<th class="col-sm-2" align="center">{{'label.heading.mandatory' | translate}}</th>
+						<th class="col-sm-2" align="center">{{'label.heading.length' | translate}}</th>
+						<th class="col-sm-2" align="center">{{'label.heading.code' | translate}}</th>
+						<th class="col-sm-2" align="center">{{'label.heading.actions' | translate}}</th>
 					</tr>
 					</thead>
 				</table>
@@ -161,7 +160,7 @@
 										<option value="Dropdown">{{'label.dropdown' | translate}}</option>
 									</select>
 								</td>
-								<td  class="col-sm-2" align="center">
+								<td  class="col-sm-2">
 									<input ng-model="column.mandatory" type="checkbox"/>
 								</td>
 								<td class="col-sm-2">
@@ -173,9 +172,9 @@
 											ng-options="code.name as code.name for code in codes" value="{{code.name}}"
 											class="input-sm form-control"/>
 								</td>
-								<td  class="col-sm-2" align="center"><a ng-click="removeColumn($index)"><i class="icon-remove icon-white"></i></a>
+								<td  class="col-sm-1"><a ng-click="removeColumn($index)"><i class="icon-remove icon-white"></i></a>
 								</td>
-								<td>
+								<td class="col-sm-1">
 									<button type="button" ng-click="columnArray[$index].isVisible = !columnArray[$index].isVisible;">
 										<span ng-bind="columnArray[$index].isVisible ? '-' : '+'"></span>
 									</button>
