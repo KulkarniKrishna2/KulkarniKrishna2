@@ -492,6 +492,7 @@
     "label.error.LuhnsAlgorithm.passportnumbervalid":"Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
+    "error.msg.amount.exceeding.approval.limit" : "Approval amount should be lesser than '{{params[0].value}}'",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
