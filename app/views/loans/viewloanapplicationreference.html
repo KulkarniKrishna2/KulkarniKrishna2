@@ -23,7 +23,7 @@
                 </span>
                 <span ng-if="isCBCheckReq == true && formData.status.id < 300">
                     <a href="#/creditbureaureport/{{loanApplicationReferenceId}}"
-                       class="btn btn-primary" ng-show="isCBCheckReq == true"><i
+                       class="btn btn-primary"  has-permission='READ_CREDIT_BUREAU_CHECK'><i
                             class="icon-ok-sign icon-white"></i>Credit Bureau Report</a>
                 </span>
                 <span ng-if="formData.status.id === 200">

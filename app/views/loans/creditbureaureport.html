@@ -23,7 +23,7 @@
                 <div class="col-md-12 well">
                     <div class="col-md-12 pull-right">
                         <div ng-hide="loansSummary && loansSummary.cbStatus">
-                            <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
+                            <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport();"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
                         </div>
                         <div class="row" ng-show="viewCreditBureauReport == false && loansSummary && loansSummary.cbStatus">
                             <div class="col-md-7">
@@ -32,14 +32,14 @@
                                 </h3>
                             </div>
                             <div class="col-md-5">
-                                <button id="getCreditBureauReport" type="button" class="btn btn-primary" ng-click="viewCreditBureauReport = true">Get Rport</button>
+                                <button id="getCreditBureauReport" type="button" class="btn btn-primary" ng-click="viewCreditBureauReport = true">Get Report</button>
                             </div>
                         </div>
                     </div>
                     <div ng-if="viewCreditBureauReport == true">
                         <div class="col-md-12" ng-if="loansSummary && loansSummary.cbStatus && loansSummary.cbStatus.value != 'SUCCESS'">
                             <div ng-show="loansSummary && loansSummary.cbStatus">
-                                <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
+                                <button type="button" class="btn btn-primary" ng-click="creditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                             </div>
                             <table class="table table-bordered table-striped">
                                 <tr>
@@ -57,7 +57,7 @@
                                     <td colspan="2">
                                         <span class="boldlabel"><strong>Other Institute Loans Summary</strong></span>
                                         <div class="pull-right">
-                                            <button id="viewReportFile" type="button" class="btn btn-primary" ng-click="creditBureauReportView();">View Report File</button>
+                                            <button id="viewReportFile" type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>View Report File</button>
                                         </div>
                                     </td>
                                 </tr>
