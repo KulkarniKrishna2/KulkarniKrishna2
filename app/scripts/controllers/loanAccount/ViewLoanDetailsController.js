@@ -485,6 +485,10 @@
                 }
                 //scope.getAllLoanNotes();
                 scope.convertDateArrayToObject('date');
+
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
+                    scope.loandatatables = data;
+                });
             });
 
             scope.isRepaymentSchedule = false;
@@ -616,9 +620,6 @@
                 + scope.glimFeepenaltyOutstandingAmount.toFixed(2);
             }
 
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan'}, function (data) {
-                scope.loandatatables = data;
-            });
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,

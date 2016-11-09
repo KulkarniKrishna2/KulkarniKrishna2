@@ -155,8 +155,13 @@
                     scope.client.ClientSummary = data[0];
                     scope.loancycledetail = data;
                 });
-
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
+                var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
+                if (associatedEntityId == null) {
+                    associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
+                } else if (associatedEntityId == null) {
+                    associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+                }
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client', associatedEntityId: associatedEntityId}, function (data) {
                     scope.clientdatatables = data;
                 });
 

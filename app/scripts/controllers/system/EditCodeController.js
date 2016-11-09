@@ -7,10 +7,16 @@
             scope.errorDetails = [];
             scope.codevalueerror = false;
             scope.newEle.isActive = true;
+	    scope.enableParentOptions = false;
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codeId = data.id;
-
+                if(data.parentId > 0){
+                    scope.enableParentOptions = true;
+                    resourceFactory.codeValueResource.getAllCodeValues({codeId: data.parentId}, function (data) {
+                        scope.parentOptions = data;
+                    });
+                }
             });
             resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id}, function (data) {
                 scope.codevalues = data;

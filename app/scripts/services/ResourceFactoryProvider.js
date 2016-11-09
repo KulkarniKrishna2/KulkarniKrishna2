@@ -159,6 +159,9 @@
                         getTableDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
                     }),
+                    DataTablesTemplateResource: defineResource(apiVer + "/datatables/template", {}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", {resourceType: '@resourceType', loanProductId: '@loanProductId'}, {
                         getAllLoanProducts: {method: 'GET', params: {}, isArray: true},
                         getAllCreditbureauLoanProducts: {method: 'GET', params: {}, isArray: true},
