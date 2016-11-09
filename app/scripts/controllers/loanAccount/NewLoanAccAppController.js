@@ -281,7 +281,8 @@
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
                     for (var i in scope.charges) {
-                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
+                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
+                            upfrontChargesAmount : scope.charges[i].glims});
                     }
                 }
 
