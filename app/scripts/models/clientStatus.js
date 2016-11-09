@@ -23,6 +23,12 @@
                         taskPermissionName: "UPDATE_CLIENT"
                     },
                     {
+                        name: "label.button.newloanapplicationreferences",
+                        href: "#/newloanapplicationreference",
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE"
+                    },
+                    {
                         name: "label.button.activate",
                         href: "#/client",
                         subhref: "activate",

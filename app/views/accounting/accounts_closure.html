@@ -20,7 +20,6 @@
             	<b>{{ 'label.input.filterclosuresbyoffice' | translate }}</b>
             	<select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
                         ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                        <option class="displaynone" value="">{{'label.alloffice' | translate}}</option>
                 </select>
                 <div class=" pull-right">
                 <label>{{'label.input.filterltestclosure' | translate}}</label>

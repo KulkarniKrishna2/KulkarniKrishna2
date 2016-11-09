@@ -432,6 +432,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'workflow/tasks/existingLoanTaskController',
             'workflow/tasks/creditbureauTaskController',
             'workflow/tasks/surveyTaskController',
+            'workflow/tasks/loanapplicationdisbursalTaskController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController'
         ],

@@ -27,6 +27,8 @@
 
             scope.showSelect = true; //
             scope.villageName;
+            scope.isJournalEntry = false;
+            scope.dataTableName = '';
 
             if(routeParams.tableName =="Address"){
                 scope.showSelect=false;
@@ -36,7 +38,7 @@
                 scope.isViewMode = false;
             }
 
-            var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
+            var reqparams = {datatablename: scope.tableName, entityId: scope.entityId.toString(), genericResultSet: 'true', command: scope.dataTableName};
             if (scope.resourceId) {
                 reqparams.resourceId = scope.resourceId;
             }
@@ -71,6 +73,10 @@
             }
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                 for (var i in data.columnHeaders) {
+                    if(data.columnHeaders[i].columnName == 'gl_journal_entry_id'){
+                        scope.isJournalEntry = true;
+                        reqparams.command = 'acc_gl_journal_entry';
+                    }
                     if (data.columnHeaders[i].columnCode) {
                         //logic for display codeValue instead of codeId in view datatable details
                         for (var j in data.columnHeaders[i].columnValues) {
@@ -157,9 +163,11 @@
                 if (colName == 'id') {
                     scope.columnHeaders.splice(0, 1);
                 }
-
                 colName = scope.columnHeaders[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
+                if(colName == 'gl_journal_entry_id'){
+                    scope.dataTableName = 'acc_gl_journal_entry';
+                }
+                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
                     scope.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
@@ -312,6 +320,8 @@
                             } else {
                                 destination = '/viewgroup/' + data.groupId;
                             }
+                        } else if (data.transactionId) {
+                            destination = '/viewtransactions/' + data.transactionId;
                         } else if (data.officeId) {
                             destination = '/viewoffice/' + data.officeId;
                         }
@@ -322,6 +332,10 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+            };
+
+            scope.backButton = function () {
+                    window.history.back();
             };
 
             scope.cancel = function () {
@@ -368,6 +382,8 @@
                         } else {
                             destination = '/viewgroup/' + data.groupId;
                         }
+                    } else if (scope.isJournalEntry) {
+                        destination = '/viewtransactions/' + scope.entityId.toString();
                     } else if (data.officeId) {
                         destination = '/viewoffice/' + data.officeId;
                     }

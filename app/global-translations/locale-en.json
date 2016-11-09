@@ -2190,6 +2190,7 @@
     "label.input.fromloanamount" : "From Loan Amount",
     "label.input.toloanamount" : "To Loan Amount",
     "label.input.chargeamount" : "Charge Amount",
+    "label.input.codevalue.field.required":"Code value field is required ",
 
     "#Buttons": "..",
     "label.button.undo": "Undo",
@@ -2987,6 +2988,7 @@
     "label.selectchecker": "Select checker",
     "label.loan": "Loan",
     "label.savingsaccount": "Savings account",
+    "label.journalentry": "Journal Entry",
     "label.client": "Client",
     "label.group": "Group",
     "label.center": "Center",
@@ -3395,6 +3397,7 @@
     "validation.msg.loanproduct.recalculationCompoundingFrequencyType.must.be.same.as.repayment.frequency":"Compounding frequency type must be same as repayment frequency type",
     "validation.msg.loanproduct.recalculationCompoundingFrequencyInterval.not.in.multiples.of.specified.number":"Compounding frequency must be in multiples of repayment interval",
     "validation.msg.loan.recalculationCompoundingFrequencyDate.is.not.equal.to.date":"Compounding date must be equal to disbursement date",
+    "validation.msg.user.password.does.not.match.regexp":"{{params[2].value}}",
     "label.input.minimum.duration.between.disbursal.and.first.repayment":"Minimum duration between disbursal and first repayment date",
     "label.input.minimum.days.between.disbursal.and.first.repayment":"Minimum days between disbursal and first repayment date",
     "label.input.minimum.period.between.disbursal.and.first.repayment":"Minimum period between disbursal and first repayment date",
@@ -5162,7 +5165,7 @@
     "------ start of sales--":"---------",
     "label.anchor.sales" : "Sales",
 
-    "------ end of tensalation file":"---------",
+    "------ Savings and RD":"---------",
     "label.heading.savingsactivation":"Savings Activation",
     "label.heading.savingsapproval":"Savings Approval",
     "label.heading.rdactivation":"Recurring Deposit Activation",
@@ -5171,4 +5174,8 @@
     "label.heading.recurringdepositamount":"Deposit Amount",
     "label.heading.enterrdapprovaldate":"Enter Recurring Deposit Account Approval Date",
     "label.heading.enterrdactivationdate":"Enter Recurring Deposit Account Activation Date"
+    "label.heading.enterrdactivationdate":"Enter Recurring Deposit Account Activation Date",
+    "label.button.assignfieldofficer":"Assign Field Officer",
+
+    "------ end of tensalation file":"---------"
 }

@@ -154,7 +154,7 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId'}, {
+                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command'}, {
                         getAllDataTables: {method: 'GET', params: {}, isArray: true},
                         getTableDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
