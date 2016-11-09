@@ -36,13 +36,13 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
                     <div class="col-sm-3">
-                        <input id="startDate" type="text" name="startDate" datepicker-pop="yyyy-MM-dd"
-                               ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-change="checkCriteria()"/>
+                        <input id="startDate" type="text" name="startDate" datepicker-pop="{{df}}"
+                               ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened"  max="restrictDate" class="form-control"  ng-change="checkCriteria()"/>
                     </div>
                     <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                     <div class="col-sm-3">
-                        <input id="endDate" type="text" name="endDate" datepicker-pop="yyyy-MM-dd" ng-change="checkCriteria()"
-                               ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        <input id="endDate" type="text" name="endDate" datepicker-pop="{{df}}" ng-change="checkCriteria()"
+                               ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened"  max="restrictDate" class="form-control"/>
                     </div>
                 </div>
 

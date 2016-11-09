@@ -960,8 +960,8 @@
                         {workflowstepexecutionId:'@workflowstepexecutionId'}, {
                             getAll: {method: 'GET', params: {}, isArray: true}
                         }),
-                    reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id', command: '@command'}, {
-                        getAll: {method: 'GET', params: {command: '@command'}, isArray: true},
+                    reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
+                        getAll: {method: 'GET', params: {}, isArray: false},
                         get: {method: 'GET', params: {id: '@id'}, isArray: false}
                     })
                 };
