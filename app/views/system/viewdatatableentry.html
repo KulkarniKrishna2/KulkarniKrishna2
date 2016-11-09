@@ -57,11 +57,11 @@
             <legend>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></legend>
         </fieldset>
         <div class="form-group" ng-repeat="columnHeader in columnHeaders">
-            
-            <label class="control-label col-sm-3" ng-show="column.displayName != undefined && columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
+
+            <label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
                 <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
             </label>
-            <label class="control-label col-sm-3" ng-show="column.displayName != undefined && columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
+            <label class="control-label col-sm-3" ng-show="columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
                 <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
             </label>
             <label class="control-label col-sm-3" ng-if="columnHeader.labelDisplayType == 'false'"></label>
