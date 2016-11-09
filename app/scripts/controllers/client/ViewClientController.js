@@ -522,7 +522,11 @@
                         for (var i in data.columnHeaders) {
                             if (!scope.datatabledetails.isMultirow) {
                                 var row = {};
-                                row.key = data.columnHeaders[i].columnName;
+                                if(data.columnHeaders[i].displayName != undefined && data.columnHeaders[i].displayName != 'null') {
+                                    row.key = data.columnHeaders[i].displayName;
+                                } else {
+                                    row.key = data.columnHeaders[i].columnName;
+                                }
                                 row.columnDisplayType = data.columnHeaders[i].columnDisplayType;
                                 row.value = data.data[0].row[i];
                                 scope.singleRow.push(row);

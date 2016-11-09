@@ -44,7 +44,8 @@
         <hr>
         <table class="width100">
             <tr ng-repeat="column in columnHeaders">
-                <td class="width30">{{column.columnName | prettifyDataTableColumn}}:</td>
+                <td class="width30" ng-show="column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</td>
+                <td class="width30" ng-show="column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</td>
                 <td class="width60" valign="top">{{column.value}}</td>
             </tr>
         </table>
@@ -56,15 +57,12 @@
             <legend>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></legend>
         </fieldset>
         <div class="form-group" ng-repeat="columnHeader in columnHeaders">
-            <div ng-repeat="visibilityCriteria in columnHeader.visibilityCriteria">
-                <div ng-repeat="values in visibilityCriteria.columnValue">
-                    <label class="control-label col-sm-3" ng-if="!values.value">{{ columnHeader.columnName | prettifyDataTableColumn }}
-                        <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
-                    </label>
-                </div>
-            </div>
-            <label class="control-label col-sm-3" ng-show="columnHeader.visibilityCriteria == ''">{{ columnHeader.columnName | prettifyDataTableColumn }}
-                <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
+            
+            <label class="control-label col-sm-3" ng-show="column.displayName != undefined && columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
+                <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
+            </label>
+            <label class="control-label col-sm-3" ng-show="column.displayName != undefined && columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
+                <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
             </label>
             <label class="control-label col-sm-3" ng-if="columnHeader.labelDisplayType == 'false'"></label>
 

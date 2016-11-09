@@ -123,33 +123,33 @@
                         <table ng-show="columns.length > 0" class="table width100">
                             <thead>
                             <tr class="graybg">
-                                <th>{{'label.heading.name' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.newname' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.type' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.mandatory' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.length' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.code' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.newcode' | translate}}</th>
-                                <th class="paddedleft0">{{'label.heading.actions' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.name' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.newname' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.type' | translate}}</th>
+                                <th class="col-sm-1">{{'label.heading.mandatory' | translate}}</th>
+                                <th class="col-sm-1">{{'label.heading.length' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.code' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.newcode' | translate}}</th>
+                                <th class="col-sm-1">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             </thead>
                             </table>
-                            <!--<tbody>-->
+
                         <div class="horizontal"  ng-repeat="column in columns" class="width100">
                             <div  class="width100"  ng-init="columnArray[$index].isVisible = false;">
                                 <table class="table width100">
                                     <tr>
-                                        <td>
+                                        <td class="col-sm-2">
                                             <input ng-model="column.name" class="input-sm form-control" type="text"
                                                    placeholder="{{'label.input.columnname' | translate}}"
                                                    ng-readonly="column.originalName"/>
                                         </td>
-                                        <td class="paddedleft0">
+                                        <td class="col-sm-2">
                                             <input ng-model="column.newName" class="input-sm form-control" type="text"
                                                    placeholder="{{'label.input.columnname' | translate}}"
                                                    ng-show="column.originalName"/>
                                         </td>
-                                        <td class="paddedleft0">
+                                        <td class="col-sm-2">
                                             <select ng-model="column.type" required="required" class="input-sm form-control"
                                                     ng-disabled="column.originalName" ng-change="updateDepenedencies($index)">
                                                 <option class="displaynone" value="">{{'label.selectcolumntype' | translate}}
@@ -164,31 +164,30 @@
                                                 <option value="dropdown">{{'label.dropdown' | translate}}</option>
                                             </select>
                                         </td>
-                                        <td align="center" class="paddedleft0"><input ng-model="column.mandatory" type="checkbox"/></td>
-                                        <td class="paddedleft0">
+                                        <td align="center" class="col-sm-1"><input ng-model="column.mandatory" type="checkbox"/></td>
+                                        <td class="col-sm-1">
                                             <input ng-show="column.type == 'string'" ng-model="column.length" type="text"
                                                    class="input-sm form-control"/>
                                         </td>
-                                        <td class="paddedleft0">
+                                        <td class="col-sm-2">
                                             <select ng-show="column.type == 'dropdown'" ng-model="column.code"
                                                     ng-options="code.name as code.name for code in codes" value="{{code.name}}"
                                                     class="input-sm form-control" ng-disabled="column.originalName"/>
                                         </td>
-                                        <td class="paddedleft0">
+                                        <td class="col-sm-2">
                                             <select ng-show="column.type == 'dropdown'" ng-disabled="!column.originalName"
                                                     ng-model="column.newCode"
                                                     ng-options="code.name as code.name for code in codes" value="{{code.name}}"
                                                     class="input-sm form-control"/>
                                         </td>
-                                        <td class="paddedleft0" align="center"><a ng-click="removeColumn($index)"><i
+                                        <td align="center" class="col-sm-1"><a ng-click="removeColumn($index)"><i
                                                 class="icon-remove icon-white"></i></a></td>
-                                        <td>
+                                        <td >
                                             <button type="button" ng-click="columnArray[$index].isVisible = !columnArray[$index].isVisible;">
                                                 <span ng-bind="columnArray[$index].isVisible ? '-' : '+'"></span>
                                             </button>
                                         </td>
                                     </tr>
-                            <!--</tbody>-->
                                 </table>
                             </div>
                             <div  class="width100" ng-show="columnArray[$index].isVisible">
