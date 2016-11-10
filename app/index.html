@@ -7,7 +7,6 @@
     <title>{{ 'label.heading.finflux' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
     <link rel="stylesheet" href="./styles/dots.css" type="text/css">
-
 </head>
 
 <body  class="preview " id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
@@ -216,12 +215,21 @@
                         <div class="whitebg" ng-view>
 
                         </div>
+
                     </div>
+
+
                     <!-- Footer -->
 
-                    <footer>
+                    <!--<footer>
+                        <md-toolbar class="md-scroll-shrink">
                         <p align="center"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' | translate}} {{releasedate}}</p>
-                    </footer>
+                         </md-toolbar>
+                    </footer>-->
+                </div>
+                <div class="modal-footer">
+                    <p align="center"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' | translate}} {{releasedate}}</p>
+
 
                     <hr>
                 </div> <!-- /row-fluid -->
@@ -229,11 +237,13 @@
         </div><!-- /container -->
     </div>
 
-</div>
+    </div>
 
 <!-- Le javascript -->
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
 </div>
+
+
 </body>
 </html>
 
