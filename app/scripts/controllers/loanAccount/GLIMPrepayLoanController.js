@@ -8,11 +8,17 @@
             scope.formData.locale = scope.optlang.code;
             scope.formData.dateFormat = scope.df;
             scope.formData.transactionDate = dateFilter(new Date(),scope.df);
+            scope.paymentTypes = [];
+            scope.showPaymentDetails = false;
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"prepay"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
                 scope.formData.clientMembers = data.clientMembers;
             });
+
+            resourceFactory.paymentTypeResource.getAll({}, function(data) {
+                scope.paymentTypes = data;
+            })
 
             scope.getTransactionAmount = function(data){
                 var amount = 0;
@@ -30,6 +36,9 @@
 
 
             scope.submit = function(){
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+                this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                 resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'repayment'}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
