@@ -20,11 +20,12 @@
             	<b>{{ 'label.input.filterclosuresbyoffice' | translate }}</b>
             	<select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
                         ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                    <option class="displayName" value="">{{'label.select.one.office' |translate }}</option>
                 </select>
                 <div class=" pull-right">
                 <label>{{'label.input.filterltestclosure' | translate}}</label>
                     <input id="activeCheckbox" type="checkbox" ng-model="formData.limitToOne">
-                <button class="btn btn-primary" ng-click="closedAccountingDetails(formData.officeId, formData.limitToOne)">{{ 'label.button.save' | translate }}</button>
+                <button class="btn btn-primary" ng-click="closedAccountingDetails(formData.limitToOne)">{{ 'label.button.save' | translate }}</button>
                 </div>
             </div>
         </div>

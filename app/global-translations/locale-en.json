@@ -1666,6 +1666,7 @@
     "label.input.syncExpectedWithDisbursementDate":" Validate Actual Disbursement Date Against Expected Disbursement Date?",
     "label.input.isTopup" : "Is Topup Loan",
     "label.input.loanIdToClose" : "Choose loan to close",
+    "label.select.one.office" : "----select one office---",
 
     "#Buttons": "..",
     "label.button.addloancharge": "Add Loan Charge",

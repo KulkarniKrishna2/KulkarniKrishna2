@@ -10,7 +10,7 @@
             var idToNodeMap = {};
             scope.showclosure = true;
             scope.getFetchData = true;
-            scope.tempOfficeId = 1;
+            scope.tempOfficeId = {};
             var params = {}
             scope.showClosure = false;
             scope.accountClosurePerPage = 10;
@@ -79,20 +79,19 @@
                 params.limit = limit;
                 params.paged ='true';
                 params.orderBy = 'name';
-                params.officeId = scope.tempOfficeId;
+                params.officeId = scope.formData.officeId;
                 params.limitToOne = scope.limitToOne;
                 params.sortOrder = 'ASC';
                 resourceFactory.accountingClosureResource.getView(params, callback);
             }
 
 
-            scope.closedAccountingDetails = function (officeId, limitToOne) {
-                scope.tempOfficeId = officeId;
+            scope.closedAccountingDetails = function (limitToOne) {
                 scope.limitToOne = limitToOne;
                 scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
             }
-            scope.fetchData = function (officeId) {
-                scope.tempOfficeId = officeId;
+
+            scope.fetchData = function () {
                 scope.limitToOne = false;
                 scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
                 if( scope.accountClosures) {
