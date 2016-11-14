@@ -9,7 +9,7 @@
         <div class="row client" ng-show="step.criteriaResult !== undefined">
             <form class="well form-inline">
                 <div>
-                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{step.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">Show Detail</a>
+                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{step.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
                 </div>
                 <div ng-show="showCriteriaResult">
                     <div >
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div ng-show="canView==false">
-        <p> Don't have access to see </p>
+        <p> {{'label.input.do.not.have.access.to.see'| translate}} </p>
     </div>
 </div>
 
