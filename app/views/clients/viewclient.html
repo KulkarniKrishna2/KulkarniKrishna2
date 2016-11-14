@@ -144,7 +144,7 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="row primarydiv">
 				    <div class="pull-right">
-						<span ng-repeat="button in buttonsArray.singlebuttons">
+						<span ng-repeat="button in buttonsArray.singlebuttons" ng-hide="button.isEnableButton === false">
 						  <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary"
 						     has-permission='{{button.taskPermissionName}}'><i
 						          class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a>

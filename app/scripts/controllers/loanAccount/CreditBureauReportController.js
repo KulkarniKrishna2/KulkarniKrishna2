@@ -7,6 +7,9 @@
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
                 scope.loanProductChange(scope.formData.loanProductId);
+                resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.formData.loanProductId,associations: 'creditBureaus'},function (data) {
+                    scope.creditbureauLoanProduct = data;
+                });
             });
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
@@ -74,10 +77,20 @@
             };
 
             scope.proceedToNext = function () {
-                location.path('/approveloanapplicationreference/' + scope.loanApplicationReferenceId);
+                resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId,command: 'requestforapproval'},{}, function (data) {
+                    //location.path('/approveloanapplicationreference/' + scope.loanApplicationReferenceId);
+                    location.path('/viewclient/' + scope.formData.clientId);
+                });
             };
 
-
+            scope.rejectApprovalLoanAppRef = function () {
+                resourceFactory.loanApplicationReferencesResource.update({
+                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
+                    command: 'reject'
+                }, {}, function (data) {
+                    location.path('/viewclient/' + scope.formData.clientId);
+                });
+            };
 
         }
     });

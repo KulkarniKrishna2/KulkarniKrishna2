@@ -9,6 +9,14 @@
             scope.riskCheckDone = false;
             scope.showRiskDetail =false;
 
+            resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
+                scope.isWorkFlow = response.enabled;
+            });
+
+            resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
+                scope.isHighMark = response.enabled;
+            });
+
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
                 if(scope.formData.loanProductId && scope.formData.status.id < 300){
@@ -102,12 +110,9 @@
 
             scope.requestApprovalLoanAppRef = function () {
                 resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId,command: 'requestforapproval'},{}, function (data) {
-                    location.path('/viewclient/' + scope.formData.clientId + '/viewloanapplicationreference/'+ scope.loanApplicationReferenceId +'/surveys');
+                    location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
-
-
-
 
             scope.charges = [];
             scope.constructExistingCharges = function (index,chargeId,isMandatory) {

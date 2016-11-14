@@ -440,6 +440,16 @@
                 scope.isBetaEnabled = response.enabled;
             });
 
+            resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
+                scope.isLoanApplication = response.enabled;
+                for(var i in scope.buttonsArray.singlebuttons){
+                    if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                        scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                        break;
+                    }
+                }
+            });
+
             scope.fetchEntityAddress = function () {
                 scope.entityType = "clients";
                 resourceFactory.addressDataResource.getAll({
