@@ -1384,6 +1384,9 @@
             })
             .when('/auditreport/:id', {
                 templateUrl: 'views/reports/viewauditreport.html'
+            })
+            .when('/workflowtaskdashboard', {
+                templateUrl: 'views/dashboard/workflowstepdashboard.html'
             });
         $locationProvider.html5Mode(false);
     };

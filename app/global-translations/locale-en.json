@@ -522,6 +522,7 @@
     "label.heading.welcome.message":"Welcome to Finflux",
     "label.heading.finflux":"FINFLUX",
     "label.heading.dashboard": "Dashboard",
+    "label.heading.task.dashboard": "Workflow Task Dashboard",
     "label.heading.home": "Home",
     "label.heading.welcome": "Welcome",
     "label.heading.navigation.guide": "You can navigate your way through Finflux using",
@@ -580,6 +581,7 @@
     "label.heading.clientnamewithaccountnumber":"Client Name(Account Number)",
     "#Menu Links": "..",
     "label.menu.office": "Office",
+    "label.menu.loan.products": "Loan Products",
 
     "#Anchors": "..",
     "label.anchor.startpage": "Start Page",

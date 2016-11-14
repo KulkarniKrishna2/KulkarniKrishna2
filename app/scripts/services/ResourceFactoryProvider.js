@@ -951,18 +951,15 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    workflowExecutionResource: defineResource(apiVer + "/workflowexecution/:workflowexecutionId",
-                        {workflowexecutionId:'@workflowexecutionId'}, {
-                            get: {method: 'GET', params: {}}
-                        }),
-                    workflowStepExecutionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId",
-                            {workflowstepexecutionId:'@workflowstepexecutionId', action: '@action'}, {
-                            doAction: {method: 'POST', params: {action: '@action'}}
-                        }),
-                    workflowStepExecutionActionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId/actions",
-                        {workflowstepexecutionId:'@workflowstepexecutionId'}, {
-                            getAll: {method: 'GET', params: {}, isArray: true}
-                        }),
+                    workflowExecutionResource: defineResource(apiVer + "/workflowexecution/:workflowexecutionId", {workflowexecutionId: '@workflowexecutionId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    workflowStepExecutionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId",{workflowstepexecutionId: '@workflowstepexecutionId', action: '@action'}, {
+                        doAction: {method: 'POST', params: {action: '@action'}}
+                    }),
+                    workflowStepExecutionActionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId/actions",{workflowstepexecutionId: '@workflowstepexecutionId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
                     reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
                         getAll: {method: 'GET', params: {}, isArray: false},
                         get: {method: 'GET', params: {id: '@id'}, isArray: false}
@@ -970,6 +967,9 @@
                     smartCardDataResource:defineResource(apiVer+"/clients/:entityId/:entityType/smartcard",{entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {}, isArray: true },
                         update: {method: 'POST', parms:{}}
+                    }),
+                    workFlowStepSummaryResource: defineResource(apiVer + "/workflowsteps/summary",{}, {
+                        get: {method: 'GET', params: {}, isArray: true}
                     })
                 };
             }];

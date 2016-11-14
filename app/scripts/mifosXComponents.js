@@ -434,7 +434,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'workflow/tasks/surveyTaskController',
             'workflow/tasks/loanapplicationdisbursalTaskController',
             'reports/AuditReportController',
-            'reports/ViewAuditReportController'
+            'reports/ViewAuditReportController',
+            'dashboard/WorkFlowStepDashboardController'
         ],
         filters: [
             'StatusLookup',
