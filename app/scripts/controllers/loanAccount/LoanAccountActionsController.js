@@ -215,22 +215,27 @@
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
-                        scope.formData.transactionAmount = data.amount;
+                        resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (responseData) {
+                            if (responseData.clientMembers.length>0) {
+                                scope.formData.clientMembers = responseData.clientMembers;
+                                var transactionAmount = 0;
+                                for (var i in responseData.clientMembers) {
+                                    transactionAmount += responseData.clientMembers[i].transactionAmount;
+                                }
+                                scope.isGLIM = true;
+                                scope.formData.transactionAmount = transactionAmount;
+                            } else {
+                                scope.formData.clientMembers = undefined;
+                                scope.formData.transactionAmount = data.amount;
+                                scope.isGLIM = false;
+                            }
+                        });
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
                     });
                     scope.title = 'label.heading.loanwaiveinterest';
                     scope.labelName = 'label.input.interestwaivedon';
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'WAIVEINTERESTPORTION_LOAN';
-                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
-                        if (data.clientMembers.length>0) {
-                            scope.formData.clientMembers = data.clientMembers;
-                            scope.isGLIM = true;
-                        } else {
-                            scope.formData.clientMembers = undefined;
-                            scope.isGLIM = false;
-                        }
-                    });
                     break;
                 case "writeoff":
                     scope.modelName = 'transactionDate';
