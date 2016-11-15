@@ -1,8 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreditBureauReportController: function (scope, routeParams, $modal, resourceFactory, location, dateFilter) {
+        CreditBureauReportController: function (scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json) {
 
             scope.viewCreditBureauReport = false;
+            scope.errorMessage = [];
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
@@ -63,14 +64,23 @@
 
             };
 
-            scope.convertByteToString = function (content) {
+            scope.convertByteToString = function (content, status) {
                 var result = "";
                 if(content != undefined && content != null){
                     for(var i = 0; i < content.length; ++i){
                         result+= (String.fromCharCode(content[i]));
                     }
                 }
-                return result
+                if(status) {
+                    var jsonObj = ngXml2json.parser(result);
+                    if(jsonObj.indvreportfile){
+                        scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
+                    }else{
+                        scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error;
+                    }
+                    return scope.errorMessage;
+                }
+                return result;
             };
 
             scope.proceedToNext = function () {
@@ -81,7 +91,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreditBureauReportController', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreditBureauReportController]).run(function ($log) {
+    mifosX.ng.application.controller('CreditBureauReportController', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter','ngXml2json', mifosX.controllers.CreditBureauReportController]).run(function ($log) {
         $log.info("CreditBureauReportController initialized");
     });
 }(mifosX.controllers || {}));
