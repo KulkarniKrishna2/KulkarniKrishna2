@@ -1244,8 +1244,10 @@
                             <div ng-show="datatabledetails.isData">
                                 <table data-ng-show="datatabledetails.isMultirow" class="table">
                                     <thead>
-                                    <th ng-repeat="column in datatabledetails.columnHeaders" ng-show="column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}</th>
-                                    <th ng-repeat="column in datatabledetails.columnHeaders" ng-show="column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}</th>
+                                    <th ng-repeat="column in datatabledetails.columnHeaders">
+                                        <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}</label>
+                                        <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}</label>
+                                    </th>
                                     </thead>
                                     <tbody>
                                     <tr class="pointer-main" ng-repeat="data in datatabledetails.data">

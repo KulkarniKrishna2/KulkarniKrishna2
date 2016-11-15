@@ -30,25 +30,80 @@
             </script>
             <legend>{{datatable.registeredTableName}}</legend>
             <strong>{{'label.heading.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}
-            <table class="table" ui:sortable>
-                <thead>
-                <tr>
-                    <th>{{'label.heading.fieldname' | translate}}</th>
-                    <th>{{'label.heading.type' | translate}}</th>
-                    <th>{{'label.heading.length' | translate}}</th>
-                    <th>{{'label.heading.code' | translate}}</th>
-                    <th>{{'label.heading.mandatory' | translate}}</th>
+            <table class="table width100">
+                <tr class="form-group">
+                    <td class="width100">
+                        <table class="table width100">
+                            <thead>
+                            <tr>
+                                <th class="col-sm-2">{{'label.heading.fieldname' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.type' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.length' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.code' | translate}}</th>
+                                <th class="col-sm-2">{{'label.heading.mandatory' | translate}}</th>
+                                <th class="col-sm-2"></th>
+                            </tr>
+                        </table>
+                        <div class="horizontal"  ng-repeat="column in datatable.columnHeaderData" class="width100">
+                            <div  class="width100"  ng-init="columnArray[$index].isVisible = false;">
+                                <table class="table width100">
+                                    <tr>
+                                        <td class="col-sm-2">{{column.columnName}}</td>
+                                        <td class="col-sm-2">{{column.columnDisplayType}}</td>
+                                        <td class="col-sm-2">{{column.columnLength}}</td>
+                                        <td class="col-sm-2">{{column.columnCode}}</td>
+                                        <td class="col-sm-2">{{!column.isColumnNullable}}</td>
+                                        <td class="col-sm-2">
+                                            <button type="button" ng-click="columnArray[$index].isVisible = !columnArray[$index].isVisible;">
+                                                <span ng-bind="columnArray[$index].isVisible ? '-' : '+'"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div  class="blockquoteresult width100" ng-show="columnArray[$index].isVisible">
+                                <fieldset>
+                                    <label>{{ 'label.heading.columnsmetadata' | translate }}</label>
+                                    <div class="form-group col-sm-12">
+                                        <label class="col-sm-3">{{ 'label.heading.displayname' | translate }}</label>
+                                        <div class="col-sm-9">
+                                            <label ng-show="column.displayName != undefined && column.displayName != 'null'">
+                                                {{column.displayName | prettifyDataTableColumn}}
+                                            </label>
+                                            <label ng-show="column.displayName == undefined || column.displayName == 'null'">
+                                                {{column.columnName | prettifyDataTableColumn}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12" ng-show="column.orderPosition != undefined && column.orderPosition != 'null'">
+                                        <label class="col-sm-3">{{ 'label.heading.displayposition' | translate }}</label>
+                                        <div class="col-sm-9">
+                                            <label>{{column.orderPosition}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12" ng-show="column.dependsOnColumnName != undefined && column.dependsOnColumnName !='null'">
+                                        <label class=" col-sm-3">{{ 'label.heading.associatewith' | translate }}</label>
+                                        <div class=" col-sm-9">
+                                            <label>{{column.dependsOnColumnName}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12" ng-show="column.visible != undefined && column.visible != 'null'">
+                                        <label class=" col-sm-3">{{ 'label.heading.visible' | translate }}</label>
+                                        <div class=" col-sm-9">
+                                            <label>{{column.visible}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12" ng-show="column.mandatoryIfVisible != undefined && column.mandatoryIfVisible !='null'">
+                                        <label class=" col-sm-3">{{ 'label.heading.mandatoryifvisible' | translate }}</label>
+                                        <div class=" col-sm-9">
+                                            <label>{{column.mandatoryIfVisible}}</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="column in datatable.columnHeaderData">
-                    <td>{{column.columnName}}</td>
-                    <td>{{column.columnDisplayType}}</td>
-                    <td>{{column.columnLength}}</td>
-                    <td>{{column.columnCode}}</td>
-                    <td>{{!column.isColumnNullable}}</td>
-                </tr>
-                </tbody>
             </table>
             <div class="form-group" ng-show="datatable.scopeCriteriaData != undefined && datatable.scopeCriteriaData != ''">
                 <div class="form-group">
