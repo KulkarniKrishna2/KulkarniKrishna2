@@ -54,17 +54,39 @@
                                     <td ng-if="loansSummary.cbLoanEnqResponse">{{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}</td>
                                 </tr>
                                 <tr ng-show="loansSummary.cbStatus.value != 'SUCCESS'">
-                                    <td ng-if="loansSummary.cbResponse" class="error">{{'label.error' | translate}}
+                                    <td ng-if="loansSummary.cbResponse" class="error">
                                         <table>
                                             <tbody>
-                                            <tr ng-repeat="error in convertByteToString(loansSummary.cbResponse, loansSummary.cbStatus.value != 'SUCCESS')">
+                                            <tr>
+                                                <td ng-show="cbResponseError">
+                                                    {{'label.error' | translate}}<br>
+                                                    {{convertByteToString(loansSummary.cbResponse, loansSummary.cbStatus.value != 'SUCCESS')}}
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="!cbResponseError"><td>{{'label.error' | translate}}<br></td></tr>
+                                            <tr ng-show="!cbResponseError" ng-repeat="error in convertByteToString(loansSummary.cbResponse, loansSummary.cbStatus.value != 'SUCCESS')">
                                                 <td>{{error.description}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td ng-if="loansSummary.cbLoanEnqResponse" class="error">{{'label.error' | translate}}<br>
-                                        {{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}
+                                    <td ng-if="loansSummary.cbLoanEnqResponse" class="error">
+                                        <table>
+                                            <tbody>
+                                            <tr >
+                                                <td ng-show="cbLoanEnqResponseError">
+                                                    {{'label.error' | translate}}<br>
+                                                    {{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}
+                                                </td>
+                                            </tr>
+                                            <tr><td ng-show="!cbLoanEnqResponseError">{{'label.error' | translate}}<br></td></tr>
+                                            <tr ng-show="!cbLoanEnqResponseError" ng-repeat="error in convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')">
+                                                <td>{{'label.error' | translate}}<br>
+                                                    {{error.description}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
                                      </td>
                                 </tr>
                             </table>
