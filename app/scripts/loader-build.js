@@ -33,7 +33,8 @@
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
             'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min',
-			'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar'
+			'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
+            'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'], exports: 'angular' },
@@ -64,6 +65,7 @@
             'webcam-directive': {deps: ['angular']},
             'angular-utils-pagination': {deps: ['angular']},
 			'angular-loading-bar': {deps: ['angular']},
+            'angularXml2json': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -92,7 +94,8 @@
                     'tmh.dynamicLocale',
                     'webcam-directive',
                     'angular-utils-pagination',
-					'angular-loading-bar'
+					'angular-loading-bar',
+                    'angularXml2json'
                 ],
                 exports: 'mifosX'
             }

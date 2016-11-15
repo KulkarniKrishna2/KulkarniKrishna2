@@ -45,9 +45,23 @@
                                 <tr>
                                     <td colspan="2"><span class="boldlabel"><strong>Credit Bureau Response Message</strong></span></td>
                                 </tr>
-                                <tr>
-                                    <td ng-if="loansSummary.cbResponse">{{convertByteToString(loansSummary.cbResponse)}}</td>
-                                    <td ng-if="loansSummary.cbLoanEnqResponse">{{convertByteToString(loansSummary.cbLoanEnqResponse)}}</td>
+                                <tr ng-show="loansSummary.cbStatus.value == 'SUCCESS'">
+                                    <td ng-if="loansSummary.cbResponse">{{convertByteToString(loansSummary.cbResponse, loansSummary.cbStatus.value != 'SUCCESS')}}</td>
+                                    <td ng-if="loansSummary.cbLoanEnqResponse">{{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}</td>
+                                </tr>
+                                <tr ng-show="loansSummary.cbStatus.value != 'SUCCESS'">
+                                    <td ng-if="loansSummary.cbResponse" class="error">{{'label.error' | translate}}
+                                        <table>
+                                            <tbody>
+                                            <tr ng-repeat="error in convertByteToString(loansSummary.cbResponse, loansSummary.cbStatus.value != 'SUCCESS')">
+                                                <td>{{error.description}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td ng-if="loansSummary.cbLoanEnqResponse" class="error">{{'label.error' | translate}}<br>
+                                        {{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}
+                                     </td>
                                 </tr>
                             </table>
                         </div>
