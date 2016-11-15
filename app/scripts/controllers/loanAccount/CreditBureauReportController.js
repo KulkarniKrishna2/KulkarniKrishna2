@@ -4,6 +4,8 @@
 
             scope.viewCreditBureauReport = false;
             scope.errorMessage = [];
+            scope.cbResponseError = false;
+            scope.cbLoanEnqResponseError = false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
@@ -77,9 +79,20 @@
                 if(status) {
                     var jsonObj = ngXml2json.parser(result);
                     if(jsonObj.indvreportfile){
-                        scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
+                        if(jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.lenght > 1){
+                            scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error
+                        }else{
+                            scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
+                            scope.cbLoanEnqResponseError = true;
+                        }
                     }else{
-                        scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error;
+                        if(jsonObj.reportfile.inquirystatus.inquiry.errors.error.length > 1){
+                            scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error;
+                        }else{
+                            scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error.description;
+                            scope.cbResponseError = true;
+                        }
+
                     }
                     return scope.errorMessage;
                 }
