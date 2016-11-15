@@ -213,6 +213,10 @@
                 });
             };
 
+            resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
+                scope.isLoanApplication = response.enabled;
+            });
+
         }
     });
     mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {

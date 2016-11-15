@@ -10,7 +10,11 @@
     <div class="col-md-12 col-sm-12">
         <div class="row primarydiv">
             <div class="pull-right">
-
+                <span ng-if="formData.status.id < 400">
+                  <a class="btn btn-primary" data-ng-click="rejectApprovalLoanAppRef();"
+                     has-permission='REJECT_LOANAPPLICATIONREFERENCE'><i
+                          class="icon-remove-circle icon-white"></i>{{'label.button.reject' | translate}}</a>
+                </span>
             </div>
         </div>
         <div class="row client">
@@ -64,6 +68,16 @@
                                      </td>
                                 </tr>
                             </table>
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <span>
+                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
+                                    </span>
+                                    <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true">
+                                        <button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.skip' | translate}}</button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-8" ng-if="loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
                             <table class="table table-bordered table-striped">
@@ -94,7 +108,10 @@
                                 <tr>
                                     <td colspan="2">
                                         <div class="pull-right">
-                                            <button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.proceed.to.next' | translate}}</button>
+                                            <span>
+                                               <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
+                                            </span>
+                                            <span><button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.approve' | translate}}</button></span>
                                         </div>
                                     </td>
                                 </tr>
