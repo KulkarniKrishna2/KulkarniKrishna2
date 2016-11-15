@@ -43,9 +43,11 @@
         <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
         <hr>
         <table class="width100">
-            <tr ng-repeat="column in columnHeaders">
-                <td class="width30" ng-show="column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</td>
-                <td class="width30" ng-show="column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</td>
+            <tr ng-repeat="column in columnHeaders | orderBy:'orderPosition'">
+                <td class="width30">
+                    <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</label>
+                    <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</label>
+                </td>
                 <td class="width60" valign="top">{{column.value}}</td>
             </tr>
         </table>

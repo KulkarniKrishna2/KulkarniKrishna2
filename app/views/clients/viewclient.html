@@ -1211,11 +1211,9 @@
 		        <div ng-show="datatabledetails.isData">
 		            <table class="table" data-ng-show="datatabledetails.isMultirow">
 		                <thead>
-		                <th ng-repeat="column in datatabledetails.columnHeaders track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" ng-show="column.displayName != 'null'">
-							{{column.columnName | prettifyDataTableColumn}}
-						</th>
-						<th ng-repeat="column in datatabledetails.columnHeaders track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" ng-show="column.displayName == 'null'">
-							{{column.columnName | prettifyDataTableColumn}}
+						<th ng-repeat="column in datatabledetails.columnHeaders track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
+							<label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
+							<label ng-if="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}} </label>
 						</th>
 		                </thead>
 		                <tbody>
