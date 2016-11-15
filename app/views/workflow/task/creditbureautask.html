@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-5">
                             <button id="getCreditBureauReport" type="button" class="btn btn-primary"
-                                    ng-click="viewCreditBureauReport = true">Get Rport
+                                    ng-click="viewCreditBureauReport = true">{{'label.button.get.report'| translate}}
                             </button>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         </div>
                         <table class="table table-bordered table-striped">
                             <tr>
-                                <td colspan="2"><span class="boldlabel"><strong>Credit Bureau Response Message</strong></span>
+                                <td colspan="2"><span class="boldlabel"><strong>{{'label.input.credit.bureau.response.message'| translate}}</strong></span>
                                 </td>
                             </tr>
                             <tr>
@@ -59,28 +59,28 @@
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <td colspan="2">
-                                    <span class="boldlabel"><strong>Other Institute Loans Summary</strong></span>
+                                    <span class="boldlabel"><strong>{{'label.input.other.institute.loans.summary' | translate}}</strong></span>
                                     <div class="pull-right">
                                         <button id="viewReportFile" type="button" class="btn btn-primary"
-                                                ng-click="creditBureauReportView();">View Report File
+                                                ng-click="creditBureauReportView();">{{'label.button.view.report.file' | translate}}
                                         </button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>Total Amount Borrowed</label></td>
+                                <td><label>{{'label.input.total.amount.borrowed' | translate}}</label></td>
                                 <td>{{loansSummary.totalAmountBorrowed |number}}</td>
                             </tr>
                             <tr>
-                                <td><label>Total Current Outstanding</label></td>
+                                <td><label>{{'label.input.total.current.outstanding' | translate}}</label></td>
                                 <td>{{loansSummary.totalCurrentOutstanding |number}}</td>
                             </tr>
                             <tr>
-                                <td><label>Total Amount Overdue</label></td>
+                                <td><label>{{'label.input.total.amount.overdue' | translate}}</label></td>
                                 <td>{{loansSummary.totalAmtOverdue |number}}</td>
                             </tr>
                             <tr>
-                                <td><label>Total Installment Amount</label></td>
+                                <td><label>{{'label.input.total.installment.amount' | translate}}</label></td>
                                 <td>{{loansSummary.totalInstallmentAmount |number}}</td>
                             </tr>
                             <tr ng-hide="true">

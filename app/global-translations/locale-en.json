@@ -5178,5 +5178,19 @@
     "label.heading.enterrdactivationdate":"Enter Recurring Deposit Account Activation Date",
     "label.button.assignfieldofficer":"Assign Field Officer",
 
+    "Work Flow":"...........",
+    "label.button.show.detail":"Show Detail",
+    "label.button.get.report":"Get Report",
+    "label.button.view.report.file":"View Report File",
+    "label.input.do.not.have.access.to.see":"Don't have access to see",
+    "label.input.file.description":"File description",
+    "label.input.credit.bureau.response.message":"Credit Bureau Response Message",
+    "label.input.other.institute.loans.summary":"Other Institute Loans Summary",
+    "label.input.total.amount.borrowed":"Total Amount Borrowed",
+    "label.input.total.current.outstanding":"Total Current Outstanding",
+    "label.input.total.amount.overdue":"Total Amount Overdue",
+    "label.input.total.installment.amount":"Total Installment Amount",
+
+
     "------ end of tensalation file":"---------"
 }
