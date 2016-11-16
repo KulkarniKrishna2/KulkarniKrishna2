@@ -539,7 +539,7 @@
             </tr>
         </table>
         <div class="col-md-12" ng-show="charges.length>0">
-            <div ng-repeat="charge in charges " ng-if="charge.chargeTimeType.id == 50" ng-init="outerIndex = $index">
+            <div ng-repeat="charge in charges " ng-show="charge.chargeTimeType.id == 50 && isGLIM" ng-init="outerIndex = $index">
                 <label>{{charge.name}}</label>
 
                 <table class="table" class="width50">
