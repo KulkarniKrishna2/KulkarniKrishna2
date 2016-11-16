@@ -174,6 +174,12 @@
                 }
             }
 
+            scope.sortByFromLoanAmount = function(v1, v2){
+                if (v1 && v2) {
+                    return v1.fromLoanAmount.localeCompare(v2.fromLoanAmount);
+                }
+            }
+
             scope.deleteSlabCharge = function (slab) {
                 var index = scope.formData.slabs.indexOf(slab);
                 scope.formData.slabs.splice(index, 1);

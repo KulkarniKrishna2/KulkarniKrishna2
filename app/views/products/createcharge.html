@@ -115,11 +115,11 @@
                                     <th>{{'label.heading.chargeamount' | translate}}</th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="slab in slabs | orderBy:slab.fromLoanAmount">
-                                    <td>{{slab.fromLoanAmount}}</td>
-                                    <td>{{slab.toLoanAmount}}</td>
-                                    <td>{{slab.amount}}</td>
-                                    <td><a ng-click="deleteSlabCharge(slab)"><i class="icon-remove icon-white"></i></a></td>
+                                <tr ng-repeat="slabData in slabs | orderBy:'-fromLoanAmount'">
+                                    <td>{{slabData.fromLoanAmount}}</td>
+                                    <td>{{slabData.toLoanAmount}}</td>
+                                    <td>{{slabData.amount}}</td>
+                                    <td><a ng-click="deleteSlabCharge(slabData)"><i class="icon-remove icon-white"></i></a></td>
                                 </tr>
                             </table>
                         </div>
