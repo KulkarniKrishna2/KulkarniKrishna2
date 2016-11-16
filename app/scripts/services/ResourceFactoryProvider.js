@@ -966,6 +966,10 @@
                     reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
                         getAll: {method: 'GET', params: {}, isArray: false},
                         get: {method: 'GET', params: {id: '@id'}, isArray: false}
+                    }),
+                    smartCardDataResource:defineResource(apiVer+"/clients/:entityId/:entityType/smartcard",{entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', parms: {}, isArray: true },
+                        update: {method: 'POST', parms:{}}
                     })
                 };
             }];

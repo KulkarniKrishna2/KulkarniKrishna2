@@ -20,6 +20,10 @@
             scope.addressId ;
             scope.enableClientAddress = false;
             scope.loancycledetail = [];
+            scope.smartCardData = [];
+            scope.smartformData = {};
+            scope.showNoteField = false;
+            scope.showSmartcard = true;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -486,6 +490,36 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+            };
+            scope.entityType = "clients";
+            resourceFactory.smartCardDataResource.getAll({
+                entityId: routeParams.id,
+                entityType: scope.entityType
+            }, function (response) {
+                if (response != null) {
+                    scope.smartCardData = response;
+                }
+            });
+
+            scope.inactivate = function (smartCard) {
+                scope.smartCard = smartCard;
+                scope.showNoteField = true;
+                scope.showSmartcard = false;
+            };
+
+            scope.submit = function () {
+                scope.entityType = "clients";
+                scope.smartformData.locale = scope.optlang.code;
+                scope.smartformData.dateFormat = scope.df;
+                scope.smartformData.cardNumber = scope.smartCard.cardNumber;
+                resourceFactory.smartCardDataResource.update({entityId: routeParams.id, entityType: scope.entityType, command: 'inactivate' },scope.smartformData, function (response) {
+                    if(response != null) {
+                        route.reload();
+                    }
+                });
+            };
+            scope.cancel = function () {
+                route.reload();
             };
             scope.getClientIdentityDocuments = function () {
                 resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'}, function (data) {
