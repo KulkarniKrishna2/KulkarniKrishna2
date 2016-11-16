@@ -11,11 +11,7 @@
                 } else if (data.status.value === "Deleted") {
                     scope.holidayStatusDeleted = true;
                 }
-                scope.isExtendRepaymentSchedule = true;
-                if(scope.holiday.isExtendRepaymentReschedule == 1){
-                    scope.isExtendRepaymentSchedule = false;
-                }
-
+                scope.isExtendRepaymentSchedule = scope.holiday.isExtendRepaymentReschedule;
             });
 
             scope.activateHoliday = function () {

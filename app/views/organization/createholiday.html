@@ -62,7 +62,13 @@
 	                <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
 	                       ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control"/>
 	            </div>
-	        </div>    
+	        </div>
+			<div class="form-group">
+			<input id="" class="input-mini-small" type="checkbox"
+				   ng-model="extendRepaymentSchedule"/>
+				<label class="control-label col-sm-2">{{ 'label.input.extendRepaymentSchedule' | translate }}<span
+						class="required">*</span></label>
+			</div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
 	
