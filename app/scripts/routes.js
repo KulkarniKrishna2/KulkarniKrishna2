@@ -1352,9 +1352,6 @@
             .when('/viewglimrepaymentschedule/:glimId', {
                 templateUrl: 'views/loans/viewglimrepaymentschedule.html'
             })
-            .when('/viewglimrepaymentschedule/:glimId', {
-                templateUrl: 'views/loans/viewglimrepaymentschedule.html'
-            })
             .when('/admin/system/surveys', {
                 templateUrl: 'views/survey/surveys.html'
             })
