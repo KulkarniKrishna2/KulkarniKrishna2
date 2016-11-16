@@ -2,9 +2,9 @@
     mifosX.controllers = _.extend(module, {
         CreateCreditBureauLoanProductController: function (scope, routeParams, resourceFactory, location) {
             scope.formData = {};
-            scope.formData.isCreditcheckMandatory = false;
-            scope.formData.skipCreditcheckInFailure = false;
-            scope.formData.isActive = false;
+            scope.formData.isCreditcheckMandatory = true;
+            scope.formData.skipCreditcheckInFailure = true;
+            scope.formData.isActive = true;
             resourceFactory.loanProductResource.getAllLoanProducts(function (data) {
                 scope.products = data;
             });
