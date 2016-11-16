@@ -434,8 +434,8 @@
                     delete this.formData.subsidyFundSourceId ;
                     delete this.formData.subsidyAccountId ;
                 }
-                if(!this.formData.adjustFirstEMIAmount){
-                    this.formData.adjustedInstallmentInMultiplesOf = null;
+                if(this.formData.adjustFirstEMIAmount){
+                    this.formData.adjustInterestForRounding = true;
                 }
 
                 if(this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType){

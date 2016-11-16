@@ -266,7 +266,11 @@
     <td>{{'label.input.adjustfirstinstallmentamount' | translate}}</td>
     <td colspan="3">{{loanproduct.adjustFirstEMIAmount | YesOrNo}}</td>
 </tr>
-<tr ng-show="loanproduct.adjustFirstEMIAmount">
+<tr>
+    <td>{{'label.input.adjustinterestamountforrounding' | translate}}</td>
+    <td colspan="3">{{loanproduct.adjustInterestForRounding | YesOrNo}}</td>
+</tr>
+<tr>
     <td>{{'label.input.firstinstallmentinmultiplesof' | translate}}</td>
     <td colspan="3">{{loanproduct.adjustedInstallmentInMultiplesOf}}</td>
 </tr>

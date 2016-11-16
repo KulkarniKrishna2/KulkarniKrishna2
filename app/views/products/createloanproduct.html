@@ -675,7 +675,7 @@
         </label>
     </div>
 </div>
-<div class="form-group" ng-show="formData.adjustFirstEMIAmount">
+<div class="form-group">
     <label class="control-label col-sm-4">{{ 'label.input.firstinstallmentinmultiplesof' | translate }}</label>
 
     <div class="col-sm-2">
@@ -684,6 +684,15 @@
                ng-model="formData.adjustedInstallmentInMultiplesOf"/>
     </div>
 </div>
+    <div class="form-group" ng-show="!formData.adjustFirstEMIAmount">
+        <label class="control-label col-sm-4">{{ 'label.input.adjustinterestamountforrounding' | translate }}</label>
+
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input type="checkbox" ng-model="formData.adjustInterestForRounding"/>
+            </label>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="control-label col-sm-4">{{ 'label.input.closeLoanOnOverpayment' | translate }}</label>

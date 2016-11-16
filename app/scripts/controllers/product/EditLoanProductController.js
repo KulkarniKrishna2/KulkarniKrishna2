@@ -134,6 +134,7 @@
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
                     canDefineInstallmentAmount: scope.product.canDefineInstallmentAmount,
                     adjustFirstEMIAmount: scope.product.adjustFirstEMIAmount,
+                    adjustInterestForRounding: scope.product.adjustInterestForRounding,
                     adjustedInstallmentInMultiplesOf: scope.product.adjustedInstallmentInMultiplesOf,
                     syncExpectedWithDisbursementDate: scope.product.syncExpectedWithDisbursementDate,
                     closeLoanOnOverpayment: scope.product.closeLoanOnOverpayment,
@@ -645,8 +646,8 @@
                     delete scope.formData.subsidyAccountId;
                 }
 
-                if (!this.formData.adjustFirstEMIAmount) {
-                    this.formData.adjustedInstallmentInMultiplesOf = null;
+                if (this.formData.adjustFirstEMIAmount) {
+                    this.formData.adjustInterestForRounding = true;
                 }
                     if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
                         this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;

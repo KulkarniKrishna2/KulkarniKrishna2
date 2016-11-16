@@ -1662,6 +1662,7 @@
     "label.input.installmentOn" : "Reschedule from Installment On",
     "label.input.applicationdate" : "Application Date",
     "label.input.adjustfirstinstallmentamount":"Adjust first Installment for rounding",
+    "label.input.adjustinterestamountforrounding":"Adjust Interest for rounding",
     "label.input.firstinstallmentinmultiplesof":" First Installment in multiples of",
     "label.input.syncExpectedWithDisbursementDate":" Validate Actual Disbursement Date Against Expected Disbursement Date?",
     "label.input.isTopup" : "Is Topup Loan",
