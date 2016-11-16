@@ -67,7 +67,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <span class="boldlabel"><strong>Other Institute Loans Summary</strong></span>
-                                        <div class="pull-right">
+                                        <div class="pull-right" ng-if="loansSummary.totalAmountBorrowed > 0">
                                             <button id="viewReportFile" type="button" class="btn btn-primary" ng-click="creditBureauReportView();">View Report File</button>
                                         </div>
                                     </td>
