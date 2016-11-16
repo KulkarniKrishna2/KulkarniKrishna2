@@ -189,6 +189,10 @@
     "label.heading.statename":"State",
     "label.heading.districtname":"District",
     "label.heading.pincode":"Pincode",
+    "label.heading.cardnumber":"Card Number",
+    "label.heading.cardtype":"Card Type",
+    "label.heading.registreddate":"Registered Date",
+    "label.heading.closeddate":"Closed Date",
 
 
     "#Menu Links": "..",
@@ -696,6 +700,8 @@
     "label.heading.addclientaddress":"Add address",
     "label.heading.clientaddress":"Address",
     "label.heading.editclientAddress":"Edit address",
+    "label.heading.smartcard":"Smart Card",
+    "label.heading.inactivated": "Inactivate Smartcard",
 
     "#Anchors": "..",
     "label.anchor.clients": "Clients",

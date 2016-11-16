@@ -895,6 +895,49 @@
 		        </tbody>
 		    </table>
 		</tab>
+		<tab heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD'>
+
+			<div class="form-group col-sm-12">
+				<table class="table table-condensed" ng-if="showSmartcard">
+					<tr class="graybg">
+						<th>{{'label.heading.cardnumber' | translate}}</th>
+						<th>{{'label.heading.cardtype' | translate}}</th>
+						<th>{{'label.heading.registreddate' | translate}}</th>
+						<th>{{'label.heading.closeddate' | translate}}</th>
+						<th>{{'label.heading.actions' | translate}}</th>
+					</tr>
+					<tr ng-repeat="smartCard in smartCardData">
+						<td>
+							<i tooltip-placement="right" tooltip="{{smartCard.statusEnumOptionData.value}}"
+							   class="icon-stop {{smartCard.statusEnumOptionData.code | StatusLookup}}">
+							</i>{{smartCard.cardNumber}}</td>
+						<td>{{smartCard.entityEnumOptionData.value}}</td>
+						<td>{{smartCard.createdDate|DateFormat}}</td>
+						<td>{{smartCard.deactivatedDate|DateFormat}}</td>
+						<td>
+							<a tooltip="{{'label.button.inactivate' | translate}}" has-permission='INACTIVATE_SMARTCARD' ng-click="inactivate(smartCard)" class="pull center btn btn-primary">
+								<i class="icon-remove"></i>
+							</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="form-group col-sm-12" ng-if="showNoteField">
+				<label class="control-label col-sm-1" for="note">{{ 'label.input.note' | translate}}</label>
+				<div class="col-sm-3">
+					<textarea id="note" rows="2" class="form-control" ng-model="smartformData.note"></textarea>
+				</div>
+			</div>
+
+			<div class="col-md-offset-2" ng-if="showNoteField" >
+				<a id="cancel" ng-click="cancel()">
+					<button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+				</a>
+				<button id="save" ng-click="submit()" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='INACTIVATE_SMARTCARD'>{{'label.button.save' | translate}}</button>
+				<button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+			</div>
+		</tab>
 
 		<tab heading="{{ 'label.heading.familymember' | translate }}" ng-init="familyDetails()" ng-hide="client.legalForm && client.legalForm.value === 'ENTITY'" ng-if="isBetaEnabled && isBetaEnabled == true">
 		<br/>

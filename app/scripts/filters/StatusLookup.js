@@ -49,7 +49,10 @@
                     "loanApplication.in.approve.stage" : "statuspending",
                     "loanApplication.approved": "statusApproved",
                     "loanApplication.active": "statusactive",
-                    "loanApplication.rejected":"statusrejected"
+                    "loanApplication.rejected":"statusrejected",
+                    "smartCardStatusType.active": "statusactive",
+                    "smartCardStatusType.inactive": "statusclosed",
+                    "smartCardStatusType.pending" : "statuspending"
                 }
 
                 return cssClassNameLookup[input];
