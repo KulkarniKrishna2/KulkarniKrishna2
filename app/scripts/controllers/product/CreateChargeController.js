@@ -27,6 +27,12 @@
                 scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
             });
 
+            scope.sortByFromLoanAmount = function(v1, v2){
+                if (v1 && v2) {
+                    return v1.fromLoanAmount.localeCompare(v2.fromLoanAmount);
+                }
+            }
+
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
                 switch(chargeAppliesId) {
                     case 1:

@@ -94,7 +94,7 @@
                                 <th>{{'label.heading.chargeamount' | translate}}</th>
                                 <th></th>
                             </tr>
-                            <tr ng-repeat="slab in formData.slabs | orderBy : slab.fromLoanAmount">
+                            <tr ng-repeat="slab in formData.slabs | orderBy: '-fromLoanAmount'">
                                 <td>{{slab.fromLoanAmount}}</td>
                                 <td>{{slab.toLoanAmount}}</td>
                                 <td>{{slab.amount}}</td>

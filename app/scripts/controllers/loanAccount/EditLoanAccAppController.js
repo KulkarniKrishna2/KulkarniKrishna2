@@ -147,12 +147,16 @@
 
                     }
                     if(scope.loanaccountinfo.charges[i].chargeCalculationType.id == 6) {
-                        for(var j in scope.loanaccountinfo.charges[i].slabs){
-                            if(scope.formData.principal >= scope.loanaccountinfo.charges[i].slabs[j].fromLoanAmount &&
-                                scope.formData.principal <= scope.loanaccountinfo.charges[i].slabs[j].toLoanAmount) {
-                                scope.loanaccountinfo.charges[i].amountOrPercentage = scope.loanaccountinfo.charges[i].slabs[j].amount;
+                        resourceFactory.chargeResource.get({chargeId: scope.loanaccountinfo.charges[i].chargeId, template: 'true'}, function (data) {
+                            scope.loanaccountinfo.charges[i].slabs = data.slabs;
+                            for(var j in scope.loanaccountinfo.charges[i].slabs){
+                                if(scope.formData.principal >= scope.loanaccountinfo.charges[i].slabs[j].fromLoanAmount &&
+                                    scope.formData.principal <= scope.loanaccountinfo.charges[i].slabs[j].toLoanAmount) {
+                                    scope.loanaccountinfo.charges[i].amountOrPercentage = scope.loanaccountinfo.charges[i].slabs[j].amount;
+                                }
                             }
-                        }
+                        });
+
                     }
                 }
                 scope.charges = scope.loanaccountinfo.charges || [];
@@ -333,11 +337,14 @@
 
             scope.$watch('formData.principal ', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
-                    for(var i in scope.loanaccountinfo.charges){
-                        if(scope.loanaccountinfo.charges[i].chargeCalculationType.id == 6 && scope.loanaccountinfo.charges[i].slabs.length > 0) {
+                    for(var i in scope.charges){
+                        if(scope.charges[i].chargeCalculationType.id == 6 && scope.charges[i].slabs != undefined && scope.charges[i].slabs.length > 0) {
                             for(var j in scope.charges[i].slabs){
-                                if(scope.formData.principal >= scope.loanaccountinfo.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.loanaccountinfo.charges[i].slabs[j].toLoanAmount) {
-                                    scope.loanaccountinfo.charges[i].amount = scope.loanaccountinfo.charges[i].slabs[j].amount
+                                if(scope.formData.principal >= scope.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.charges[i].slabs[j].toLoanAmount) {
+                                    scope.charges[i].amountOrPercentage = scope.charges[i].slabs[j].amount;
+                                    break;
+                                }else {
+                                    scope.charges[i].amountOrPercentage = undefined;
                                 }
                             }
                         }
@@ -370,8 +377,14 @@
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
                     for (var i in scope.charges) {
-                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amountOrPercentage, dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
-                            upfrontChargesAmount : scope.charges[i].glims});
+                        if (scope.charges[i].amountOrPercentage > 0) {
+                            scope.formData.charges.push({
+                                chargeId: scope.charges[i].chargeId,
+                                amount: scope.charges[i].amountOrPercentage,
+                                dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
+                                upfrontChargesAmount: scope.charges[i].glims
+                            });
+                        }
                     }
                 }
 
@@ -424,8 +437,15 @@
                 scope.formData.charges = [];
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
-                        scope.formData.charges.push({id: scope.charges[i].id, chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amountOrPercentage, dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
-                            upfrontChargesAmount : scope.charges[i].glims});
+                        if (scope.charges[i].amountOrPercentage > 0) {
+                            scope.formData.charges.push({
+                                id: scope.charges[i].id,
+                                chargeId: scope.charges[i].chargeId,
+                                amount: scope.charges[i].amountOrPercentage,
+                                dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
+                                upfrontChargesAmount: scope.charges[i].glims
+                            });
+                        }
                     }
                 }
 
