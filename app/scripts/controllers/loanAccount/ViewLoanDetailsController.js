@@ -570,6 +570,15 @@
 
             resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
                 scope.glimClientsDetails = data;
+                for(var i=0;i<data.length;i++){
+                    if(angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)){
+                        scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
+                    }else if(angular.isDefined(scope.glimClientsDetails[i].approvedAmount)){
+                        scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
+                    }else{
+                        scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
+                    }
+                }
                 scope.isGlim = data.length>0;
             });
             scope.getChargeWaiveLink = function(loanId, chargeId){
@@ -602,7 +611,7 @@
 
             scope.routeToRepaymentSchedule = function (glimId, disbursedAmount, clientId, clientName) {
                 $rootScope.principalAmount = disbursedAmount;
-                scope.disbursementDate = new Date(scope.loandetails.timeline.actualDisbursementDate);
+                scope.disbursementDate = angular.isDefined(scope.loandetails.timeline.actualDisbursementDate) ? new Date(scope.loandetails.timeline.actualDisbursementDate):new Date(scope.loandetails.timeline.expectedDisbursementDate);
                 $rootScope.disbursementDate = dateFilter(scope.disbursementDate, scope.df);
                 $rootScope.loanId = scope.loandetails.id;
                 $rootScope.clientName = clientName;
