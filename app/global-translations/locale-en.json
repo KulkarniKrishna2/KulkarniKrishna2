@@ -5204,7 +5204,9 @@
     "label.input.total.current.outstanding":"Total Current Outstanding",
     "label.input.total.amount.overdue":"Total Amount Overdue",
     "label.input.total.installment.amount":"Total Installment Amount",
-
+    "label.button.manualreconciliation" : "Manual Reconciliation",
+    "label.button.manualreconcileddata" : "Manual Reconciled Data",
+    "label.heading.journalentrytransactionid" : "Journal Entry Transaction Id",
 
     "------ end of tensalation file":"---------"
 }

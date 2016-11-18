@@ -6,9 +6,25 @@
             <li class="active">{{'label.anchor.portfoliotransactions' | translate}}</li>
         </ul>
     </div>
-    <div class="pull-right btn-group" ng-show="action =='default'">
-        <a href='#/bankstatementsdetails/{{bankId}}/reconciledtransaction' class="btn btn-primary" role="button">
-            {{'label.button.reconcileddata' | translate }}</a>
+    <div class="form-horizontal" ng-show="action =='default'">
+        <div class="col-sm-6" align="right">
+            <label>{{'label.input.allexactmatch' | translate}}</label>
+            <input type="checkbox" ng-click="selectAll()">
+        </div>
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" ng-click="routeToReconcile(bankId)">{{'label.button.reconcileddata' | translate }}</button>
+            <button type="button" class="btn btn-primary"  ng-click="action ='manualreconciliation'">{{'label.button.manualreconciliation' | translate }}</button>
+        </div>
+    </div>
+    <div class="form-horizontal" ng-show="action =='manualreconciliation'">
+        <div class="col-sm-6" align="right">
+            <label>{{'label.input.selectall' | translate}}</label>
+            <input type="checkbox" ng-click="selectAllManualReconcile()">
+        </div>
+        <div class="col-sm-6 pull-right" align="right">
+            <a  class="btn btn-primary" role="button" ng-click="action ='default'">
+                {{'label.anchor.portfoliotransactions' | translate }}</a>
+        </div>
     </div>
     <div class="form-horizontal" ng-show="action == 'default'" >
         <div style="clear:both"></div>
@@ -90,10 +106,6 @@
                     <a  ng-show="toBulkReconcile.length > 0" align="center" role="button" ng-click="makeBulkBankStatementDetailsReconcile()" class="btn btn-primary">
                         {{'label.button.reconcilebanktransaction' | translate}}
                     </a>
-                </div>
-                <div class="col-sm-2" align="right">
-                    <label>{{'label.input.allexactmatch' | translate}}</label>
-                    <input type="checkbox" ng-click="selectAll()">
                 </div>
             </div>
         </div>
@@ -273,6 +285,52 @@
                 <button  class="btn btn-primary" ng-click="action='default'"><i class="icon-arrow-left icon-white"></i> {{'label.button.back' | translate}}</button>
             </div>
 
+        </div>
+    </div>
+    <!-- manual reconciliation -->
+    <div class="form-horizontal" ng-show="action == 'manualreconciliation'">
+        <br>
+        <br>
+        <div name="manualreconciliation" class="form-horizontal">
+            <fieldset>
+                <table class="table well">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.transactiontype' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.mobilenumber' | translate}}</th>
+                    <th>{{'label.heading.groupexternalid' | translate}}</th>
+                    <th>{{'label.heading.journalentrytransactionid' | translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails" style="height:78px;cursor: pointer;">
+                    <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
+                    <td class="pointer">{{bankStatementDetail.transactionType }}</td>
+                    <td class="pointer">{{bankStatementDetail.amount}}</td>
+                    <td class="pointer">{{bankStatementDetail.mobileNumber}}</td>
+                    <td class="pointer">{{bankStatementDetail.groupExternalId}}</td>
+                    <td>
+                        <input type="text" ng-model="bankStatementDetail.transaction" ng-change="pushTransactionId(bankStatementDetail)">
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-checked="isSelected(bankStatementDetail.id)" ng-click="selectForManualReconcile(bankStatementDetail)" ng-value="isSelected(bankStatementDetail.id)"  name="{{bankStatementDetail.id}}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+                <div  align="center" >
+                    <div class="form-group">
+                        <div class="col-sm-6" align="right" has-permission="RECONCILE_BANKSTATEMENTDETAILS">
+                            <a  align="center" role="button" ng-click="makeManualReconcile()" class="btn btn-primary">
+                                {{'label.button.reconcilebanktransaction' | translate}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
 

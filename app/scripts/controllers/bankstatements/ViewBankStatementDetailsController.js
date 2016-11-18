@@ -12,6 +12,8 @@
             scope.toBulkReconcile = [];
             scope.isSearchedCriteriaMatched = true;
             scope.selectedAll = false;
+            scope.toBulkManualReconcile = [];
+            scope.selectedAllManualReconciled = false;
 
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
@@ -193,6 +195,76 @@
                 });
             };
 
+            scope.selectAllManualReconcile = function(){
+                scope.selectedAllManualReconciled = !scope.selectedAllManualReconciled;
+                if(scope.selectedAllManualReconciled == true){
+                    for(var i=0;i<scope.bankStatementDetails.length; i++){
+                        scope.toBulkManualReconcile[i] = {};
+                        scope.toBulkManualReconcile[i].bankTransctionId = scope.bankStatementDetails[i].id;
+                        scope.toBulkManualReconcile[i].transactionId = scope.bankStatementDetails[i].transaction;
+                    }
+                }else{
+                    scope.toBulkManualReconcile = [];
+                }
+            };
+
+            scope.isSelected = function(id){
+                var bool = false;
+                for(var i=0;i<scope.toBulkManualReconcile.length;i++){
+                    if(scope.toBulkManualReconcile[i].bankTransctionId==id){
+                        bool = true;break;
+                    }
+                }
+                return bool;
+            };
+
+            scope.selectForManualReconcile = function(bankStatementDetail){
+                var bool = scope.isSelected(bankStatementDetail.id)
+                if(bool==true){
+                    var j = -1;
+                    if(scope.toBulkManualReconcile.length>0){
+                        for(var i=0;i<scope.toBulkManualReconcile.length;i++){
+                            if(scope.toBulkManualReconcile[i].bankTransctionId==bankStatementDetail.id){
+                                j = i;break;
+                            }
+                        }
+                    }
+                    if(j>-1){
+                        scope.toBulkManualReconcile.splice(j, 1);
+                    }
+                }else{
+                    scope.toBulkManualReconcile.push({'bankTransctionId' : bankStatementDetail.id, 'transactionId' : bankStatementDetail.transaction});
+                }
+            };
+
+            scope.pushTransactionId = function(bankStatementDetail){
+                var bool = scope.isSelected(bankStatementDetail.id);
+                if(bool==true){
+                    var j = -1;
+                    if(scope.toBulkManualReconcile.length>0){
+                        for(var i=0;i<scope.toBulkManualReconcile.length;i++){
+                            if(scope.toBulkManualReconcile[i].bankTransctionId==bankStatementDetail.id){
+                                j = i;break;
+                            }
+                        }
+                    }
+                    scope.toBulkManualReconcile[j].transactionId = bankStatementDetail.transaction;
+                }
+            };
+
+            scope.makeManualReconcile = function(){
+                var reconcileData = {};
+                reconcileData.transactionData = scope.toBulkManualReconcile;
+                reconcileData.isManualReconcile = true;
+                resourceFactory.bankStatementDetailsResource.reconcileBankStatement({ bankStatementId : routeParams.bankStatementId, command:'reconcile'},reconcileData, function (data) {
+                    location.path('/bankstatementsdetails/'+routeParams.bankStatementId+'/reconciledtransaction');
+                });
+            };
+
+            scope.routeToReconcile = function(id){
+                var uri = '/bankstatementsdetails/'+id+'/reconciledtransaction';
+                location.path(uri);
+            }
         }
     });
     mifosX.ng.application.controller('ViewBankStatementDetailsController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.ViewBankStatementDetailsController]).run(function ($log) {
