@@ -1,0 +1,75 @@
+<div id="expertsearch" class="col-md-12" data-ng-controller="WorkFlowStepDashboardController">
+    <h3 class="paddedleft"><strong>{{'label.heading.task.dashboard' | translate}}</strong>
+        <div class="btn-group pull-right col-md-6">
+            <div class="pull-left col-md-4">
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()"
+                        ng-model="loanProductId"
+                        data-ng-options="loanproduct.id as loanproduct.name for loanproduct in loanproducts"
+                        value="{{loanproduct.id}}">
+                    <option value="">--{{'label.menu.loan.products' | translate}}--</option>
+                </select>
+            </div>
+            <div class="pull-right col-md-4">
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()"
+                        ng-model="officeId"
+                        data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                    <option value="">--{{'label.menu.office' | translate}}--</option>
+                </select>
+            </div>
+        </div>
+    </h3>
+    <hr/>
+    <div id="home" class="row">
+        <div class="col-md-12">
+            <div ng-if="loanProductWorkFlowSummary.length > 0"
+                 ng-repeat="loanProduct in loanProductWorkFlowSummary  track by $index"
+                 ng-init="loanProductIndex = $index">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{loanProduct.name}}</h3>
+                    </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                            <tr ng-repeat="office in loanProduct.loanProductWorkFlowSummary.offices track by $index"
+                                ng-init="officeThIndex = $index" ng-show="officeThIndex === 0">
+                                <th style="width: 150px;">{{'label.heading.officeName' |translate}}</th>
+                                <th style="width: 75px;"
+                                    ng-repeat="workFlow in office.workFlowSummaries track by $index"
+                                    ng-init="workFlowThIndex = $index">
+                                    <label tooltip="{{workFlow.stepName}}">STEP{{workFlowThIndex+1}}</label>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="office in loanProduct.loanProductWorkFlowSummary.offices track by $index"
+                                ng-init="officeIndex = $index">
+                                <td style="width: 150px;">{{office.name}}</td>
+                                <td style="width: 75px;"
+                                    ng-repeat="workFlow in office.workFlowSummaries track by $index"
+                                    ng-init="workFlowIndex = $index"
+                                    ng-mouseover="constructIndividualStepSummaryDetails(loanProductIndex,officeIndex,workFlowIndex)">
+                                    <label tooltip="{{workFlow.stepSummaryData}}">{{workFlow.noOfCount}}</label>
+                                </td>
+                                <
+                            </tr>
+                            <tr class="bolder">
+                                <td style="width: 150px;">{{'label.input.total' | translate}}</td>
+                                <td style="width: 75px;"
+                                    ng-repeat="totalWorkFlowSummary in loanProduct.loanProductWorkFlowSummary.totalWorkFlowSummaries track by $index"
+                                    ng-init="totalWorkFlowSummaryIndex = $index">
+                                    <label>{{totalWorkFlowSummary.noOfCount}}</label>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="individualstepsummary.html">
+    <div id="divindividualstepsummary">{{innerHTMLDisplay}}</div>
+</script>
