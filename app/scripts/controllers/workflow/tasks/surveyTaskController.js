@@ -1,10 +1,16 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        surveyTaskController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        surveyTaskController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, dateFilter) {
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
             scope.formData = {};
+            var userId = scope.currentSession.user.userId;
+            resourceFactory.userListResource.get({userId: userId}, function (data) {
+                scope.formData.surveyedBy = data.staff.id;
+                scope.formData.surveyedOn = new Date();
+            });
+
             scope.entityTypeId = null;
             scope.entityType = 'clients';
             function initTask(){
@@ -13,28 +19,6 @@
                 scope.surveyId = scope.stepconfig['surveyId'];
             };
             initTask();
-            scope.isDisplaySurveys = true;
-            scope.displaySurveysList = function(){
-                scope.isDisplaySurveys = true;
-                resourceFactory.takeSurveysResource.getAll({entityType : scope.entityTypeId,entityId:scope.entityId}, function (surveys) {
-                    scope.surveys = surveys;
-                    if(surveys && surveys.length > 0){
-                        scope.$emit("taskDone",{});
-                    }
-                });
-            };
-            resourceFactory.surveyTemplateResource.get({}, function (data) {
-                scope.surveyEntityTypes = data.surveyEntityTypes;
-                for(var i in scope.surveyEntityTypes){
-                    if(scope.surveyEntityTypes[i].value === scope.entityType.toUpperCase()){
-                        scope.isValidEntityType = true;
-                        scope.entityTypeId = scope.surveyEntityTypes[i].id;
-                        scope.displaySurveysList();
-                        break;
-                    }
-                }
-            });
-
             scope.takeNewSurvey = function(){
                 scope.isDisplaySurveys = false;
                 if(_.isUndefined(scope.loanOfficers)){
@@ -49,6 +33,29 @@
                     });
                 }
             }
+            scope.isDisplaySurveys = true;
+            scope.displaySurveysList = function(){
+                scope.isDisplaySurveys = true;
+                resourceFactory.takeSurveysResource.getAll({entityType : scope.entityTypeId,entityId:scope.entityId}, function (surveys) {
+                    scope.surveys = surveys;
+                    if(surveys && surveys.length > 0){
+                        scope.$emit("taskDone",{});
+                    }else{
+                        scope.takeNewSurvey();
+                    }
+                });
+            };
+            resourceFactory.surveyTemplateResource.get({}, function (data) {
+                scope.surveyEntityTypes = data.surveyEntityTypes;
+                for(var i in scope.surveyEntityTypes){
+                    if(scope.surveyEntityTypes[i].value === scope.entityType.toUpperCase()){
+                        scope.isValidEntityType = true;
+                        scope.entityTypeId = scope.surveyEntityTypes[i].id;
+                        scope.displaySurveysList();
+                        break;
+                    }
+                }
+            });
 
             scope.cancel = function(){
                 scope.isDisplaySurveys = true;
@@ -84,7 +91,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('surveyTaskController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.surveyTaskController]).run(function ($log) {
+    mifosX.ng.application.controller('surveyTaskController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope' ,'dateFilter', mifosX.controllers.surveyTaskController]).run(function ($log) {
         $log.info("surveyTaskController initialized");
     });
 }(mifosX.controllers || {}));

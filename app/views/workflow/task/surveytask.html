@@ -1,7 +1,7 @@
 <div class="col-md-12 col-sm-12" ng-controller="surveyTaskController">
     <div ng-if="isDisplaySurveys" class="row">
         <div>
-            <div class="pull-right">
+            <div class="pull-right" ng-if="surveys && surveys.length > 0">
                 <div class="btn-group">
                     <a id="takesurvey" ng-click="takeNewSurvey()" class="btn btn-primary"><i
                             class="icon-plus-sign icon-white"></i>{{'label.button.take.survey' | translate}}</a>
@@ -32,7 +32,7 @@
         <form name="takesurveyform" novalidate="" class="form-horizontal well" rc-submit="submit()">
             <api-validate></api-validate>
             <fieldset>
-                <div class="form-group">
+                <div class="form-group" ng-if="false">
                     <label class="control-label col-sm-2">{{'label.survey.done.by' | translate}}<span class="required">*</span></label>
                     <div class="col-sm-2">
                         <select id="surveyedBy" name="surveyedBy" ng-model="formData.surveyedBy" class="form-control"
@@ -56,7 +56,6 @@
                 </div>
 
                 <div ng-if="questionDatas && questionDatas.length > 0">
-                    <legend></legend>
                     <div ng-repeat="questionData in questionDatas track by $index" ng-init="questionIndex = $index">
                         <div class="form-group">
                             <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>

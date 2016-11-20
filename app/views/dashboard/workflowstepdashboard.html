@@ -37,7 +37,7 @@
                                 <th style="width: 75px;"
                                     ng-repeat="workFlow in office.workFlowSummaries track by $index"
                                     ng-init="workFlowThIndex = $index">
-                                    <label tooltip="{{workFlow.stepName}}">STEP{{workFlowThIndex+1}}</label>
+                                    <label tooltip="{{workFlow.stepName}}">{{workFlow.stepShortName}}</label>
                                 </th>
                             </tr>
                             </thead>
@@ -51,7 +51,6 @@
                                     ng-mouseover="constructIndividualStepSummaryDetails(loanProductIndex,officeIndex,workFlowIndex)">
                                     <label tooltip="{{workFlow.stepSummaryData}}">{{workFlow.noOfCount}}</label>
                                 </td>
-                                <
                             </tr>
                             <tr class="bolder">
                                 <td style="width: 150px;">{{'label.input.total' | translate}}</td>
