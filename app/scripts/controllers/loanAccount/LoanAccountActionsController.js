@@ -293,6 +293,8 @@
                             scope.paymentTypes = data.paymentTypeOptions || [];
                             scope.formData.transactionAmount = data.amount;
                             scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                            scope.formData.glimTransactions = data.glimTransactions;
+                            scope.isGLIM = (data.glimTransactions.length>0);
                             if (data.paymentDetailData) {
                                 if (data.paymentDetailData.paymentType) {
                                     scope.formData.paymentTypeId = data.paymentDetailData.paymentType.id;
@@ -514,6 +516,14 @@
                 });
             };
 
+            scope.getGlimTransactionAmount = function (glimTransactions) {
+                var amount = 0;
+                for(var i in glimTransactions) {
+                    amount = amount + parseFloat(glimTransactions[i].transactionAmount);
+                }
+                this.formData.transactionAmount = amount;
+            }
+
             scope.submit = function () {
                 scope.processDate = false;
                 var params = {command: scope.action};
@@ -554,7 +564,7 @@
                     }
                     params.loanId = scope.accountId;
                     scope.glimCommandParam = scope.action;
-                    if (scope.isGLIM) {
+                    if (scope.isGLIM && scope.action != "modifytransaction") {
                         this.formData.locale = scope.optlang.code;
                         this.formData.dateFormat = scope.df;
                         if(scope.action == "writeoff") {
@@ -564,6 +574,16 @@
                             location.path('/viewloanaccount/' + params.loanId);
                         });
                     } else {
+                        if (scope.isGLIM && scope.action == "modifytransaction") {
+                            this.formData.clientMembers = [];
+                            for (var i in scope.formData.glimTransactions) {
+                                this.formData.clientMembers.push({
+                                    id: scope.formData.glimTransactions[i].glimId, isClientSelected: true,
+                                    transactionAmount: scope.formData.glimTransactions[i].transactionAmount
+                                });
+                            }
+                        }
+                        delete scope.formData.glimTransactions;
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
                         });

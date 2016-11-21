@@ -107,5 +107,36 @@
                 <td>{{transaction.paymentDetailData.bankNumber}}</td>
             </tr>
         </table>
+        <hr ng-show="glimTransactions"/>
+        <div class="row" ng-show="glimTransactions">
+            <label class="col-sm-1"><strong>{{ 'label.heading.clients' | translate }}&nbsp;:</strong></label>
+            <div class="col-sm-10">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th >{{'label.heading.principalPortion' | translate}}</th>
+                        <th>{{'label.heading.interestPortion' | translate}}</th>
+                        <th>{{'label.heading.feePortion' | translate}}</th>
+                        <th>{{'label.heading.penaltyPortion' | translate}}</th>
+                        <th>{{'label.heading.transactionAmount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="glim in glimTransactions">
+                        <td >{{glim.clientId}}</td>
+                        <td >{{glim.clientName}}</td>
+                        <td >{{glim.principalPortion}}</td>
+                        <td >{{glim.interestPortion}}</td>
+                        <td >{{glim.feePortion}}</td>
+                        <td >{{glim.penaltyPortion}}</td>
+                        <td >{{glim.transactionAmount}}</td>
+                    </tr>
+                    <tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 </div>

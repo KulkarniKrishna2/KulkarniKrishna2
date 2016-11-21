@@ -22,6 +22,17 @@
                         <form-validate valattributeform="loanactionform" valattribute="amount"/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="transactionDate">{{'label.input.transactiondate' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="transactionDate" type="text" name="transactionDate" datepicker-pop="dd MMMM yyyy"
+                               ng-model="formData.transactionDate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="loanactionform" valattribute="transactionDate"/>
+                    </div>
+                </div>
                 <div class="form-group" >
                     <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
                     <div class="col-sm-8">

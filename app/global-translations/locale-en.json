@@ -5170,6 +5170,11 @@
     "label.heading.executiontime" : "Execution Time (h:m:s)",
     "label.anchor.viewauditentry" : "View Audit Entry",
     "label.heading.reportparameters" : "Report Parameters",
+    "label.heading.principalPortion": "Principal Portion",
+    "label.heading.interestPortion": "Interest Portion",
+    "label.heading.feePortion": "Fee Portion",
+    "label.heading.penaltyPortion": "Penalty Portion",
+    "label.heading.transactionAmount": "Transaction Amount",
 
     "":"",
     "------ start of sales--":"---------",
