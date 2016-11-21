@@ -47,11 +47,11 @@
                 </a>
             </td>
             <td>
-                <div class="btn-group" style="background-color: #33ff33;">
-                    <a has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/portfoliotransaction' class="btn" role="button"><i  tooltip="Portfolio Transaction" class="icon-money icon-white"></i></a>
-                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/nonportfoliotransaction' class="btn" role="button"><i tooltip="Non Portfolio Transaction" class="icon-plus-sign icon-white"></i></a>
-                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/miscellaneoustransaction' class="btn" role="button"><i  tooltip="Miscellaneous Transaction" class="icon-exclamation-sign icon-white"></i></a>
-                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/generateportfoliotransactions' class="btn" role="button"><i  tooltip="Generate Portfolio Transaction" class="icon-money icon-white"></i></a>
+                <div class="btn-group">
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'portfoliotransaction')"><i  tooltip="Portfolio Transaction" class="icon-money icon-white"></i></button>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'nonportfoliotransaction')"><i tooltip="Non Portfolio Transaction" class="icon-plus-sign icon-white"></i></button>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'miscellaneoustransaction')"><i  tooltip="Miscellaneous Transaction" class="icon-exclamation-sign icon-white"></i></button>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'generateportfoliotransactions')"><i  tooltip="Generate Portfolio Transaction" class="icon-money icon-white"></i></button>
                 </div>
             </td>
             <td>
