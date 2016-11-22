@@ -186,7 +186,7 @@ module.exports = function(grunt) {
             '**/*min.js', 'ckeditor/**', 'require-css/*.js', 'require-less/*.js',
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**',
             'angular-utils-pagination/dirPagination.tpl.html' , 'angular-translate-finflux/**',
-            'angular-loading-bar/**'
+            'angular-loading-bar/**','angular-xml2json/**'
           ]
         }
         ]
