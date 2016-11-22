@@ -32,13 +32,15 @@
 
             scope.doStepAction = function (actionId) {
                 scope.possibleActions = [];
+
                 resourceFactory.workflowStepExecutionResource.doAction({workflowstepexecutionId:scope.step.id,action:actionId}, function (data) {
                     scope.step = data;
-                    if (scope.step.status.id == 7){
-                        scope.$emit('stepCompleted', {stepId:scope.step.id});
+                    if (scope.step.status.id == 7 || scope.step.status.id == 9) {
+                        scope.$emit('stepCompleted', {stepId: scope.step.id});
                     }
                     populateNextActions();
                 });
+
             };
 
             function populateNextActions(){

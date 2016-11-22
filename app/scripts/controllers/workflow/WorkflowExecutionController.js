@@ -29,10 +29,7 @@
                 scope.currentStepId = scope.workflow.steps[0].id;
                 for(index in scope.workflow.steps){
                     var step = scope.workflow.steps[index];
-                    if(step.status.id == 2){
-                        scope.currentStepId = step.id;
-                        return;
-                    }else if(step.status.id !=1){
+                    if(step.status.id !=1){
                         scope.currentStepId = step.id;
                     }
                 }
@@ -69,7 +66,62 @@
                 }
             };
 
+            scope.isPreviousButtonDisabled = true;
+            scope.isNextButtonDisabled = true;
+            scope.$watch('currentStepId', function (newValue, oldValue, scope) {
+                if(!_.isUndefined(scope.currentStepId)){
+                    populatePreviousStep();
+                    populateNextStep()
+                }
+            });
+            function populatePreviousStep(){
+                for(var index in scope.workflow.steps){
+                    var step = scope.workflow.steps[index];
+                    if(step.id == scope.currentStepId){
+                        if(index == 0){
+                            scope.isPreviousButtonDisabled = true;
+                            scope.previousStepId = undefined;
+                        }else if(step.id ==scope.currentStepId){
+                            var previousStep = scope.workflow.steps[index-1];
+                            scope.isPreviousButtonDisabled = false;
+                            scope.previousStepId = previousStep.id;
+                        }
+                        break;
+                    }
+                }
+            };
 
+            function populateNextStep(){
+                var lastIndex = scope.workflow.steps.length-1;
+                for(var index in scope.workflow.steps){
+                    var step = scope.workflow.steps[index];
+                    if(step.id == scope.currentStepId){
+                        scope.isNextButtonDisabled = true;
+                        scope.nextStepId = undefined;
+                        if(index != lastIndex && step.id ==scope.currentStepId){
+                            var nextIndex = parseInt(index)+1;
+                            var nextStep = scope.workflow.steps[nextIndex];
+                            if(nextStep.status.id != 1){
+                                scope.isNextButtonDisabled = false;
+                                scope.nextStepId = nextStep.id;
+                            }
+                        }
+                        break;
+                    }
+                }
+            };
+
+            scope.moveToPreviousStep = function () {
+                if(!_.isUndefined(scope.previousStepId)){
+                    scope.showMe(scope.previousStepId);
+                }
+            };
+
+            scope.moveToNextStep = function () {
+                if(!_.isUndefined(scope.nextStepId)){
+                    scope.showMe(scope.nextStepId);
+                }
+            };
         }
     });
     mifosX.ng.application.controller('WorkflowExecutionController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.WorkflowExecutionController]).run(function ($log) {

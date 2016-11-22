@@ -54,8 +54,9 @@
                         });
                     }else if(scope.formData.status.id === 200){
                         showEditForm();
+                    }else if(scope.formData.status.id > 200){
+                        scope.$emit("taskDone",{});
                     }
-                    scope.$emit("taskDone",{});
                 });
             }
 

@@ -1,12 +1,21 @@
 <div name="workflowForm" class="row well" ng-controller="WorkflowExecutionController">
-        <div>
-            <div class="col-md-12">
-                <ul class="nav nav-pills nav-wizard">
-                    <li ng-class="{active:isCurrentStep(step.id), disabled:isDisabled(step.id)}" ng-repeat="step in workflow.steps" ><a href ng-click="showMe(step.id)" data-toggle="tab">{{step.name}}</a></li>
-                </ul>
-            </div>
-            <div class="col-md-12 top-buffer">
-                <div ng-show="isCurrentStep(step.id)" ng-repeat="step in workflow.steps" ng-include="'views/workflow/workflowstepexecution.html'"></div>
+    <div>
+        <div class="row col-md-12">
+            <div class="row step-action">
+                <span class="pull-right">
+                    <button class="btn btn-primary" ng-click="moveToPreviousStep()" ng-class="{disabled:isPreviousButtonDisabled}"><i class="icon-chevron-left icon-white"></i></button>
+                    <button class="btn btn-primary" ng-click="moveToNextStep()" ng-class="{disabled:isNextButtonDisabled}"> <i class="icon-chevron-right icon-white"></i></button>
+                </span>
+                <br>
             </div>
         </div>
+        <div class="col-md-12">
+            <ul class="nav nav-pills nav-wizard">
+                <li ng-class="{active:isCurrentStep(step.id), disabled:isDisabled(step.id)}" ng-repeat="step in workflow.steps" ><a href ng-click="showMe(step.id)" data-toggle="tab">{{step.name}}</a></li>
+            </ul>
+        </div>
+        <div class="col-md-12 top-buffer">
+            <div ng-if="isCurrentStep(step.id)" ng-repeat="step in workflow.steps" ng-include="'views/workflow/workflowstepexecution.html'"></div>
+        </div>
+    </div>
 </div>
