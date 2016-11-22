@@ -26,7 +26,8 @@
                         name: "label.button.newloanapplicationreferences",
                         href: "#/newloanapplicationreference",
                         icon: "icon-plus",
-                        taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE"
+                        taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE",
+                        isEnableButton : false
                     },
                     {
                         name: "label.button.activate",
@@ -99,7 +100,8 @@
                         name: "label.button.newloanapplicationreferences",
                         href: "#/newloanapplicationreference",
                         icon: "icon-plus",
-                        taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE"
+                        taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE",
+                        isEnableButton : false
                     },
                     {
                         name: "label.button.newloan",
