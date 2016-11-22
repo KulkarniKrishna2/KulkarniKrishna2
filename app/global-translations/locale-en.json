@@ -5207,6 +5207,8 @@
     "label.button.manualreconciliation" : "Manual Reconciliation",
     "label.button.manualreconcileddata" : "Manual Reconciled Data",
     "label.heading.journalentrytransactionid" : "Journal Entry Transaction Id",
+    "label.heading.bank.statement.reconciliation" : "Bank Statement Reconciliation",
+    "label.create.bank.statement.reconciliation" : "Bank Statement Reconciliation",
 
     "------ end of tensalation file":"---------"
 }
