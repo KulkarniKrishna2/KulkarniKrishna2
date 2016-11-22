@@ -2,8 +2,6 @@
     <ul class="breadcrumb" ng-if="productName == null">
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li ng-show="isFromBankStatement"><a href='#/bankstatementsdetails/{{bankStatementId}}/nonportfoliotransaction'>{{'label.anchor.nonportfoliotransactions' | translate}}</a></li>
-        <li><a href="#/freqposting">{{'label.heading.frequentposting' | translate}}</a></li>
-        <li><a href="#/journalentry">{{'label.heading.addjournalentries' | translate}}</a></li>
         <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
     </ul>
     <ul class="breadcrumb" ng-if="productName != null">
@@ -190,11 +188,10 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div class="text-center form-group">
+                                <span><a id="backpage" ng-click="back()" class="btn btn-primary icon-backward"></i>&nbsp;&nbsp;{{ 'label.button.back' | translate }}</a></span>
+                            </div>
                         </div>
-                        <div class="center" ng-if="productName != null">
-                            <a href="#/viewloanaccount/{{loanId}}"
-                               class="btn btn-primary center"><i
-                                    class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
                     <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
                         <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
                     </div>
