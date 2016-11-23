@@ -7,6 +7,7 @@
             scope.formData = {};
             scope.formData.locale = scope.optlang.code;
             scope.formData.dateFormat = scope.df;
+            scope.formData.transactionDate = new Date ();
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"waivecharge"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
@@ -29,6 +30,10 @@
 
 
             scope.submit = function(){
+                if (scope.formData.transactionDate) {
+                    var reqDate = dateFilter(scope.formData.transactionDate, scope.df);
+                    this.formData.transactionDate = reqDate;
+                }
                 resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'waivecharge'}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
