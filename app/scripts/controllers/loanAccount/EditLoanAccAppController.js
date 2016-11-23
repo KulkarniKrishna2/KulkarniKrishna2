@@ -35,6 +35,12 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
+                if(scope.loanaccountinfo.expectedDisbursalPaymentType){
+                    scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
+                }
+                if(scope.loanaccountinfo.expectedRepaymentPaymentType){
+                    scope.formData.expectedRepaymentPaymentType = scope.loanaccountinfo.expectedRepaymentPaymentType.id;
+                }
                 resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
                     scope.GLIMData = glimData;
                     scope.isGLIM = (glimData.length > 0);
