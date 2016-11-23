@@ -1,5 +1,12 @@
 <div name="viewsalesform" ng-controller="LoanApplicationWorkflowController">
-    <div class="container-fluid">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
+                <li ng-show="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a></li>
+                <li class="active">{{'label.heading.workflow' | translate}}</li>
+            </ul>
+        </div>
         <div class="row well">
             <div class="row">
                 <span class="col-md-2"> Applicant Name: </span>

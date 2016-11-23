@@ -522,7 +522,8 @@
     "label.heading.welcome.message":"Welcome to Finflux",
     "label.heading.finflux":"FINFLUX",
     "label.heading.dashboard": "Dashboard",
-    "label.heading.task.dashboard": "Workflow Task Dashboard",
+    "label.heading.workflow.task.dashboard": "Workflow Task Dashboard",
+    "label.heading.workflow.tasks": "Workflow Tasks",
     "label.heading.home": "Home",
     "label.heading.welcome": "Welcome",
     "label.heading.navigation.guide": "You can navigate your way through Finflux using",
@@ -5206,6 +5207,8 @@
     "label.input.total.current.outstanding":"Total Current Outstanding",
     "label.input.total.amount.overdue":"Total Amount Overdue",
     "label.input.total.installment.amount":"Total Installment Amount",
+    "label.heading.workflow":"Work flow",
+    "label.heading.view.workflow":"View work flow",
 
 
     "------ end of tensalation file":"---------"
