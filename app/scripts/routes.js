@@ -1387,7 +1387,11 @@
             })
             .when('/workflowtaskdashboard', {
                 templateUrl: 'views/dashboard/workflowstepdashboard.html'
+            })
+            .when('/workflowtasks', {
+                templateUrl: 'views/dashboard/workflowtasks.html'
             });
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

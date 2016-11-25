@@ -970,6 +970,9 @@
                     }),
                     workFlowStepSummaryResource: defineResource(apiVer + "/workflowsteps/summary",{}, {
                         get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    workFlowTasksResource: defineResource(apiVer + "/workflowsteps/actions",{}, {
+                        get: {method: 'GET', params: {filterby: '@filterby'}, isArray: true}
                     })
                 };
             }];
