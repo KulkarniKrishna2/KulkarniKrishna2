@@ -93,13 +93,17 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}</label>
+				<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
 				<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 			
 			    <div class="col-sm-3">
 			        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
-			               ng-model="date.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control"/>
-			    </div>
+			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory" ng-late-Validate="isDateOfBirthMandatory"/>
+					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
+				</div>
+				<div class="col-sm-2">
+					<form-validate valattributeform="editclientform" valattribute="dateofbirth"/>
+				</div>
 
 				<div data-ng-switch on="showNonPersonOptions">
 					<div data-ng-switch-when="false">
@@ -126,7 +130,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" ng-hide="hideClientClassification" >
 				<label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
 
 				<div class="col-sm-3">
@@ -215,6 +219,19 @@
 				<div class="col-sm-3">
 					<input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
 				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
+
+				<div class="col-sm-3">
+					<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
+						   ng-pattern="/^[0-9]+$/"  class="form-control"/>
+				</div>
+				<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
+                    <small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
+                        {{'label.mustbenumeric' | translate}}
+                    </small>
+                </span>
 			</div>
 
             <div class="form-group">
