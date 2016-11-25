@@ -5214,6 +5214,11 @@
     "label.heading.journalentrytransactionid" : "Journal Entry Transaction Id",
     "label.heading.bank.statement.reconciliation" : "Bank Statement Reconciliation",
     "label.create.bank.statement.reconciliation" : "Bank Statement Reconciliation",
+    "label.heading.preferredpaymentchannel" : "Preferred Payment Channel",
+    "label.button.disbursal" : "Disbursal",
+    "label.button.repayments" : "Repayments",
+    "label.heading.preferredpaymentchannelfordisbursements" : "Preferred payment channel for disbursements",
+    "label.heading.preferredpaymentchannelforrepayments" : "Preferred payment channel for repayments",
 
     "------ end of tensalation file":"---------"
 }

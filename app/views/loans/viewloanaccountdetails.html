@@ -322,6 +322,18 @@
                             </thead>
                             <tbody>
                             <tr>
+                                <td>{{'label.heading.preferredpaymentchannelfordisbursements' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td"  ng-show="loandetails.expectedDisbursalPaymentType">{{loandetails.expectedDisbursalPaymentType.name}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.preferredpaymentchannelforrepayments' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td"  ng-show="loandetails.expectedRepaymentPaymentType">{{loandetails.expectedRepaymentPaymentType.name}}</span></td>
+                            </tr>
+                            <tr>
                                 <td>{{'label.heading.repaymentstrategy' |
                                     translate}}
                                 </td>
