@@ -131,6 +131,9 @@
                     case "foreclosure":
                         location.path('loanforeclosure/' + accountId);
                         break;
+                    case "refund":
+                        location.path('/loanaccount/' + accountId + '/refund');
+                        break;
                 }
             };
 
@@ -460,6 +463,10 @@
                 if (data.status.value == "Overpaid") {
                     scope.buttons = { singlebuttons: [
                         {
+                            name: "button.refund",
+                            icon: "icon-exchange",
+                            taskPermissionName: 'REFUND_LOAN'
+                        },{
                             name: "button.transferFunds",
                             icon: "icon-exchange",
                             taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
