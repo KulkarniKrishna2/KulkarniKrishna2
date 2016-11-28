@@ -586,7 +586,7 @@
                     passwordPrefResource : defineResource(apiVer + "/passwordpreferences", {}, {
                         put: {method: 'PUT', params:{}}
                     }),
-                    paymentTypeResource: defineResource(apiVer + "/paymenttypes/:paymentTypeId", {paymentTypeId: "@paymentTypeId"}, {
+                    paymentTypeResource: defineResource(apiVer + "/paymenttypes/:paymentTypeId/:resourceType", {paymentTypeId: "@paymentTypeId",resourceType: '@resourceType'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
                         update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
@@ -970,6 +970,13 @@
                     smartCardDataResource:defineResource(apiVer+"/clients/:entityId/:entityType/smartcard",{entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {}, isArray: true },
                         update: {method: 'POST', parms:{}}
+                    }),
+                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'},
+                        get: {method: 'GET' },
+                        update: {method: 'PUT'},
+                        delete: {method: 'DELETE'}
                     })
                 };
             }];
