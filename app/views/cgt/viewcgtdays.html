@@ -1,0 +1,70 @@
+<div class="col-md-12" ng-controller="ViewCgtDaysController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewcgt/{{cgtId}}">{{'label.anchor.viewcgt' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewcgt' | translate}}</li>
+        </ul>
+    </div>
+    <div class="well">
+        <fieldset>
+            <legend>{{'label.heading.viewcgtdays' | translate}}</legend>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <table class="table table-striped table-bold-acc">
+                        <tr>
+                            <td>{{'label.cgtName' | translate }}</td>
+                            <td>{{cgtDays.cgtDayName}}</td>
+                        <tr>
+                            <td>{{'label.location' | translate }}</td>
+                            <td>{{cgtDays.location}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.scheduledate' | translate}}</td>
+                            <td>{{cgtDays.scheduledDate | DateFormat}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.completeddate' | translate}}</td>
+                            <td>{{cgtDays.completedDate | DateFormat}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.loanOfficer' | translate}}</td>
+                            <td>{{cgtDays.loanOfficer.displayName}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <hr>
+
+            <table class="table width100">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.clientaccountnumber' | translate}}</th>
+                    <th>{{'label.heading.clientname' | translate}}</th>
+                    <th>{{'label.heading.attendance' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="cgtday in cgtDays.cgtDayClientData">
+                    <td>{{cgtday.clientData.id}}</td>
+                    <td>{{cgtday.clientData.displayName}}</td>
+                    <td>{{cgtday.attendance.value}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+            <hr ng-show="cgtday.note.lenght >= 1">
+            <div class="form-group" ng-show="cgtday.note.lenght >= 1">
+                <label class="control-label col-sm-2">{{ 'label.input.note' | translate}}</label>
+
+                <div class="col-sm-3" ng-repeat="note in cgtday.note">
+                    {{note}}
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+</div>

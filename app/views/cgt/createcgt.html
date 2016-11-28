@@ -1,0 +1,97 @@
+<div class="col-md-12" ng-controller="CgtCreationController">
+    <ul class="breadcrumb">
+        <li ng-if="centerId"><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createcgt' | translate}}</li>
+    </ul>
+    <form name="createcgtform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createcgt' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanofficer' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="loanOfficerId" ng-model="formData.loanOfficerId" name="loanOfficer"
+                            ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in cgt.loanOfficerOptions  | orderBy:'displayName':reverse"
+                            class="form-control" value="{{loanOfficer.id}}">
+                        <option value="">{{'label.selectloanofficer' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcgtform" valattribute="loanOfficer"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.expectedStartDate' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="expectedStartDate" name="expectedStartDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.expectedStartDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcgtform" valattribute="expectedStartDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.expectedEndDate' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="expectedEndDate" name="expectedEndDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.expectedEndDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcgtform" valattribute="expectedEndDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="location">{{'label.input.location' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="location" name="location" ng-model="formData.location"  class="form-control"/>
+                </div>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.heading.cgtclients' | translate}}</label>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-12 center">{{ 'lable.heading.clientnotcgt' | translate }}</label>
+                    <select multiple ng-model="availableClients" class="form-control clear" >
+                        <option ng-repeat="nonSelectedClient in clientNotInCgt" value="{{nonSelectedClient.id}}">{{nonSelectedClient.id}} | {{nonSelectedClient.displayName}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addClient()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeClient()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-12 center">{{ 'lable.heading.clientscgt' | translate }}</label>
+                    <select multiple ng-model="selectedClients" class="form-control clear">
+                        <option ng-repeat="client in clientMembers" value="{{client.id}}">{{client.id}} | {{client.displayName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="note" rows="2" class="form-control" ng-model="formData.note"></textarea>
+                </div>
+            </div>
+
+
+            <div class="col-md-offset-5">
+                <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CGT'>{{'label.button.save' | translate}}</button>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

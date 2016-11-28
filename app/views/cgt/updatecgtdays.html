@@ -1,0 +1,100 @@
+<div class="col-md-12" ng-controller="updateCgtDayController">
+    <ul class="breadcrumb">
+        <li ng-if="cgtId"><a href="#/viewcgt/{{cgtId}}">{{'label.anchor.viewcgt' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editcgtday' | translate}}</li>
+    </ul>
+    <form name="editcgtdayform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{cgtdays.cgtDayName}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.heading.scheduledate' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="scheduledDate" name="scheduledDate" datepicker-pop="dd MMMM yyyy" ng-readonly="isComplete"
+                           ng-model="formData.scheduledDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcgtdayform" valattribute="scheduledDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanofficer' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="loanOfficerId" ng-model="formData.loanOfficerId" name="loanOfficer" ng-readonly="isComplete"
+                            ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in cgtdays.loanOfficerOptions  | orderBy:'displayName':reverse"
+                            class="form-control" value="{{loanOfficer.id}}">
+                        <option value="">{{'label.selectloanofficer' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcgtdayform" valattribute="loanOfficer"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="location">{{'label.input.location' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="location" name="location" ng-model="formData.location" ng-readonly="isComplete" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="isComplete">
+                <label class="control-label col-sm-2">{{ 'label.heading.completeddate' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="completeddate" name="completedDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.completedDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcgtdayform" valattribute="completedDate"/>
+                </div>
+            </div>
+
+            <hr>
+
+            <table class="table width80 center" ng-show="isComplete">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.clientaccountnumber' | translate}}</th>
+                    <th>{{'label.heading.clientname' | translate}}</th>
+                    <th>{{'label.heading.attendance' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="cgtday in cgtdays.cgtDayClientData">
+                    <td>{{cgtday.clientData.id}}</td>
+                    <td>{{cgtday.clientData.displayName}}</td>
+                    <td>
+                        <select id="attendence" ng-model="cgtday.attendance.id" name="attendence"
+                                ng-options="attendence.id as attendence.value for attendence in cgtdays.attendanceTypeOptions  | orderBy:'value':reverse"
+                                class="form-control" value="{{attendence.id}}">
+                            <option value="">{{'label.selectloanofficer' | translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+
+            <div class="form-group" ng-show="isComplete">
+                <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="note" rows="2" class="form-control" ng-model="formData.note"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-offset-5">
+                <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CGTDAY'>{{'label.button.save' | translate}}</button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

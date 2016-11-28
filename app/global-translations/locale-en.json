@@ -653,6 +653,7 @@
     "label.button.signin": "Sign In",
     "label.button.resetPassword": "Reset Password",
     "label.button.viewpermissions":"View Permissions",
+    "label.button.create.cgt":"Create CGT",
 
     "#Misc Labels": "..",
     "label.youneedtologintoaccessthisarea": "You need to login to access this area",
@@ -1010,6 +1011,55 @@
 
     "#------------": "------------",
 
+    "#Cgt": "....",
+
+    "#Headings": "..",
+    "label.heading.createcgt" : "Create CGT",
+    "label.heading.cgtclients" : "CGT clients",
+    "lable.heading.clientnotcgt": "clients not undergoing CGT",
+    "lable.heading.clientscgt": "clients undergoing CGT",
+    "label.heading.viewcgt": " View CGT",
+    "label.cgtName": "CGT Name",
+    "label.location": "Location",
+    "label.expectedStartDate": "Expected StartDate",
+    "label.expectedEndDate": "Expected EndDate",
+    "label.loanOfficer": "Loan Officer",
+    "label.actualStartDate": "Actual StartDate",
+    "label.actualEndDate": "Actual EndDate",
+    "label.heading.cgtdays": "CGT Days",
+    "label.heading.scheduledate": "Schedule Date",
+    "label.heading.completeddate": "Completed Date",
+    "label.heading.loanofficer": "Loan officer",
+    "label.heading.location": "Location",
+    "label.heading.action": "Actions",
+    "label.heading.status": "Status",
+    "label.heading.editcgtday": "Edit CGT Day",
+    "label.heading.viewcgtdays": "View CGT Day",
+    "label.heading.completecgt": "Complete CGT",
+    "label.heading.rejecteddate": "Reject CGT",
+
+
+    "#Inputs": "..",
+    "label.input.expectedStartDate" : "Expected StartDate",
+    "label.input.expectedEndDate" : "Expected EndDate",
+
+
+    "#Anchors": "..",
+    "label.anchor.createcgt" : "Create Cgt",
+    "label.anchor.viewcgt": "View Cgt",
+    "label.anchor.editcgtday": "Edit CGT Day",
+
+    "#Buttons": "..",
+    "label.button.start": "Start CGT",
+    "label.button.complete": "Complete CGT",
+    "label.button.reject": "Reject CGT",
+    "label.button.editcgtdays" : "Edit",
+    "label.button.completecgtdays" : "Complete",
+    "label.button.viewcgtdays": "View CGT Day",
+    "label.button.addcgtdays": "Add CGT Days",
+
+
+    "#------------": "------------",
     "#Villages": "....",
 
     "#Headings": "..",
@@ -4900,6 +4950,7 @@
     "label.anchor.edit.luc":"Edit Loan Utilization",
     "label.anchor.createluc":"Create Loan Utilization Check",
     "label.anchor.viewgroups":"View Group",
+    "label.anchor.cgt":"CGT",
 
     "#family member":".........",
 

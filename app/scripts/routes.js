@@ -1387,7 +1387,26 @@
             })
             .when('/bankaccountdetails/:entityType/:entityId/', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
-        });
+            })
+            .when('/createcgt', {
+                templateUrl: 'views/cgt/createcgt.html'
+            })
+            .when('/viewcgt/:cgtId', {
+                templateUrl: 'views/cgt/viewcgt.html'
+            })
+            .when('/updatecgtdays/:cgtDayId', {
+                templateUrl: 'views/cgt/updatecgtdays.html'
+            })
+            .when('/viewcgtdays/:cgtDayId', {
+                templateUrl: 'views/cgt/viewcgtdays.html'
+            })
+            .when('/completecgt/:cgtId', {
+                templateUrl: 'views/cgt/cgtcompleteorreject.html'
+            })
+            .when('/rejectcgt/:cgtId', {
+                templateUrl: 'views/cgt/cgtcompleteorreject.html'
+            });
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

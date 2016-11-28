@@ -1586,4 +1586,19 @@ figure {
 
 .top-buffer { margin-top:25px; }
 
- 
+
+.statusnew {
+    color: #FFA500;
+}
+
+.statusinprocess {
+    color: #007FFF;
+}
+
+.statuscompleted {
+    color: #298A08;
+}
+
+.statusreject {
+    color:red;
+}
