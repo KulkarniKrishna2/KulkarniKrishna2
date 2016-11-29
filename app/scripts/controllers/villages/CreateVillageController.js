@@ -14,7 +14,16 @@
             scope.talukas = [];
             scope.formAddressData = {};
             scope.formDataList = [scope.formAddressData];
-
+            scope.pincodeStartDigit = 0;
+            scope.showPicodeStartingDigitError = false;
+            scope.pincodeStartDigitMap =[];
+            scope.stateName = [];
+            scope.picodeValidation = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
+                if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues) {
+                    scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues;
+                }
+            }
             resourceFactory.villageTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
@@ -45,9 +54,10 @@
                     }
 
                     if(scope.states && scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
-                        var stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
+                        scope.stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
                         scope.defaultState = _.filter(scope.states, function (state) {
-                            return state.stateName === stateName;
+                            scope.setPicodeStartDigitForState(scope.defaultState);
+                            return state.stateName === scope.stateName;
 
                         });
                         scope.formAddressData.stateId =  scope.defaultState[0].stateId;
@@ -76,6 +86,44 @@
                 }
             }
 
+            scope.validatePincode = function (stateId) {
+                scope.picodeValidation = true;
+                    if (scope.response && scope.response.uiDisplayConfigurations &&
+                        scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
+                        if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
+                            scope.pincodeStartDigit = scope.pincodeStartDigitMap[scope.stateName];
+                            var pincodeStart = scope.formAddressData.postalCode.substring(0, 1);
+                            if(scope.pincodeStartDigit != pincodeStart){
+                                scope.showPicodeStartingDigitError = true;
+                            }else{
+                                scope.showPicodeStartingDigitError = false;
+                            }
+                        }
+                    }
+            }
+
+            scope.setPicodeStartDigitForState = function(state){
+                if(state) {
+                    scope.stateName = state[0].stateName;
+                    if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
+                        scope.formAddressData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
+                    }
+                }
+            }
+
+            scope.handlePatternPincode = (function() {
+                var regex = /^([1-9])([0-9]){5}$/;
+                return {
+                    test: function(value) {
+                        if (!scope.picodeValidation) {
+                            return true;
+                        } else {
+                            return regex.test(value);
+                        }
+                    }
+                };
+            })();
+
             scope.changeState = function (stateId) {
                 if (stateId != null) {
                     scope.selectState = _.filter(scope.states, function (state) {
@@ -86,6 +134,7 @@
                     }
                     scope.districts = scope.selectState[0].districtDatas;
                     scope.talukas = null;
+                    scope.setPicodeStartDigitForState(scope.selectState);
                 }
             }
             scope.changeDistrict = function (districtId) {
@@ -141,9 +190,11 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
                 this.formData.addresses=scope.formDataList;
-                resourceFactory.villageResource.save(this.formData, function (data) {
-                    location.path('/viewvillage/' + data.resourceId);
-                });
+                if(!scope.isKarnataka && !scope.isMaharashtra) {
+                    resourceFactory.villageResource.save(this.formData, function (data) {
+                        location.path('/viewvillage/' + data.resourceId);
+                    });
+                }
             };
         }
     });
