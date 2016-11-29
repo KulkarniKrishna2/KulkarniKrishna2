@@ -365,6 +365,14 @@
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
 
+                if(scope.formData.expectedDisbursalPaymentType.name){
+                    this.formRequestData.expectedDisbursalPaymentType = scope.formData.expectedDisbursalPaymentType.id;
+                }
+
+                if(scope.formData.expectedRepaymentPaymentType.name){
+                    this.formRequestData.expectedRepaymentPaymentType = scope.formData.expectedDisbursalPaymentType.id;
+                }
+
                 scope.disburseData = {};
                 angular.copy(scope.formRequestData,scope.disburseData);
                 delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;

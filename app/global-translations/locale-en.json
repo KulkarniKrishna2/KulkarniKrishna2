@@ -1681,6 +1681,8 @@
     "label.input.isTopup" : "Is Topup Loan",
     "label.input.loanIdToClose" : "Choose loan to close",
     "label.select.one.office" : "----select one office---",
+    "label.input.mode.of.disburse.payment" : "Mode of Disbursement",
+    "label.input.mode.of.repayment.payment" : "Mode of Repayment",
 
     "#Buttons": "..",
     "label.button.addloancharge": "Add Loan Charge",
