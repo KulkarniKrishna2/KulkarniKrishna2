@@ -106,6 +106,28 @@
                 </td>
             </tr>
             <tr>
+                <td class="width19">
+                    <label>{{ 'label.input.mode.of.disburse.payment' | translate }}:</label>
+                </td>
+                <td class="width31 paddedbottom10">
+                    <select id="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType"
+                            ng-options="paymentOption.id as paymentOption.name for paymentOption in loanaccountinfo.paymentOptions " class="form-control width170px"
+                            value="{{paymentOption.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </td>
+                <td>
+                    <label>{{ 'label.input.mode.of.repayment.payment' | translate }}:</label>
+                </td>
+                <td class="width31">
+                    <select id="expectedRepaymentPaymentType" ng-model="formData.expectedRepaymentPaymentType"
+                            ng-options="paymentOption.id as paymentOption.name for paymentOption in loanaccountinfo.paymentOptions " class="form-control width170px"
+                            value="{{paymentOption.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="4">&nbsp;</td>
             </tr>
             <tr>

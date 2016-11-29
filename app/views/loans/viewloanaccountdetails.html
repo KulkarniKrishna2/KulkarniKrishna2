@@ -322,18 +322,6 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{{'label.heading.preferredpaymentchannelfordisbursements' |
-                                    translate}}
-                                </td>
-                                <td><span class="padded-td"  ng-show="loandetails.expectedDisbursalPaymentType">{{loandetails.expectedDisbursalPaymentType.name}}</span></td>
-                            </tr>
-                            <tr>
-                                <td>{{'label.heading.preferredpaymentchannelforrepayments' |
-                                    translate}}
-                                </td>
-                                <td><span class="padded-td"  ng-show="loandetails.expectedRepaymentPaymentType">{{loandetails.expectedRepaymentPaymentType.name}}</span></td>
-                            </tr>
-                            <tr>
                                 <td>{{'label.heading.repaymentstrategy' |
                                     translate}}
                                 </td>
@@ -453,6 +441,18 @@
                             <tr>
                                 <td>{{'label.input.weeksinyears' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.weeksInYearType.value}}</span></td>
+                            </tr>
+                            <tr ng-show="loandetails.expectedDisbursalPaymentType.name">
+                                <td>{{'label.heading.preferredpaymentchannelfordisbursements' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td"  ng-show="loandetails.expectedDisbursalPaymentType">{{loandetails.expectedDisbursalPaymentType.name}}</span></td>
+                            </tr>
+                            <tr ng-show="loandetails.expectedRepaymentPaymentType.name">
+                                <td>{{'label.heading.preferredpaymentchannelforrepayments' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td"  ng-show="loandetails.expectedRepaymentPaymentType">{{loandetails.expectedRepaymentPaymentType.name}}</span></td>
                             </tr>
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled">
                                 <td>{{ 'label.input.issubsidyapplicable' | translate }}</td>

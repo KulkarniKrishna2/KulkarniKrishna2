@@ -265,6 +265,18 @@
                                                 class="required"></span></label></td>
                                         <td>{{formData.repayEvery}} : {{formData.repaymentPeriodFrequency.value}}</td>
                                     </tr>
+                                    <tr ng-show="formData.expectedDisbursalPaymentType.name">
+                                        <td>{{'label.heading.preferredpaymentchannelfordisbursements' |
+                                            translate}}
+                                        </td>
+                                        <td><span  class="padded-td"  ng-show="formData.expectedDisbursalPaymentType">
+                                    {{formData.expectedDisbursalPaymentType.name}}</span></td>
+                                    </tr>
+                                    <tr ng-show="formData.expectedRepaymentPaymentType.name">
+                                        <td>{{'label.heading.preferredpaymentchannelforrepayments' | translate}}</td>
+                                        <td><span class="padded-td"  ng-show="formData.expectedRepaymentPaymentType">
+                                    {{formData.expectedRepaymentPaymentType.name}}</span></td>
+                                    </tr>
                                     <tr>
                                         <td><label>{{ 'label.input.no.of.tranche' | translate }}</label></td>
                                         <td>{{formData.noOfTranche}}</td>
