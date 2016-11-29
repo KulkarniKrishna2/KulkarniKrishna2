@@ -9,14 +9,13 @@
             resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationId,command: 'requestforapproval'},{}, function (data) {
 
             });
-            scope.masterconfig = {"loanApplicationId": routeParams.loanApplicationId};
+            scope.masterconfig = {};
             scope.loanApplicationData = {};
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationId}, function (data) {
                 scope.loanApplicationData = data;
                 scope.formData = data;
                 scope.loanProductChange(scope.formData.loanProductId);
-                scope.masterconfig["clientId"] = scope.loanApplicationData.clientId;
-                
+
                 resourceFactory.loanapplicationWorkflowResource.get({loanApplicationId: scope.loanApplicationId}, function (data) {
                     var workflowExecutionData = data;
                     scope.$broadcast('initworkflow', {"workflowExecutionData": workflowExecutionData});

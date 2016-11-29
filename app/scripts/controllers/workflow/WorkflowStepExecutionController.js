@@ -14,7 +14,7 @@
             };
 
             function initStep(){
-                scope.stepconfig = _.extend({},scope.masterconfig,scope.step.configValues);
+                scope.stepconfig = _.extend({},scope.step.configValues);
                 scope.showCriteriaResult =false;
                 //viewaction check
                 resourceFactory.workflowStepExecutionResource.doAction({workflowstepexecutionId:scope.step.id,action:10}, function (data) {
