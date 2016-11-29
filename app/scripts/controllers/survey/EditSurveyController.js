@@ -1,37 +1,42 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditSurveyController: function (scope, routeParams, resourceFactory, location) {
+        EditSurveyController: function (scope, routeParams, resourceFactory, location,$modal) {
             scope.surveyId = routeParams.surveyId;
             scope.formData = {};
-            resourceFactory.surveyTemplateResource.get({}, function (data) {
-                scope.surveyEntityTypes = data.surveyEntityTypes;
-                resourceFactory.surveyResource.getBySurveyId({surveyId: scope.surveyId}, function (data) {
-                    scope.surveyData =  {};
-                    angular.copy(data,scope.surveyData);
-                    scope.formData.key = scope.surveyData.key;
-                    scope.formData.name = scope.surveyData.name;
-                    scope.formData.entityTypeId = scope.surveyData.entityTypeId;
-                    if(!_.isUndefined(data.componentDatas)){
-                        if(data.componentDatas.length > 0){
-                            scope.formData.componentDatas = scope.surveyData.componentDatas || [];
+
+            scope.resetAll = function(){
+                resourceFactory.surveyTemplateResource.get({}, function (data) {
+                    scope.surveyEntityTypes = data.surveyEntityTypes;
+                    resourceFactory.surveyResource.getBySurveyId({surveyId: scope.surveyId}, function (data) {
+                        scope.surveyData =  {};
+                        angular.copy(data,scope.surveyData);
+                        scope.formData.key = scope.surveyData.key;
+                        scope.formData.name = scope.surveyData.name;
+                        scope.formData.entityTypeId = scope.surveyData.entityTypeId;
+                        if(!_.isUndefined(data.componentDatas)){
+                            if(data.componentDatas.length > 0){
+                                scope.formData.componentDatas = scope.surveyData.componentDatas || [];
+                            }
                         }
-                    }
-                    if(!_.isUndefined(data.questionDatas)){
-                        for(var i in scope.formData.componentDatas){
-                            var componentKey = scope.formData.componentDatas[i].key;
-                            for(var j in data.questionDatas){
-                                if(componentKey === data.questionDatas[j].componentKey){
-                                    if(_.isUndefined(scope.formData.componentDatas[i].questionDatas)){
-                                        scope.formData.componentDatas[i].questionDatas = [];
+                        if(!_.isUndefined(data.questionDatas)){
+                            for(var i in scope.formData.componentDatas){
+                                var componentKey = scope.formData.componentDatas[i].key;
+                                for(var j in data.questionDatas){
+                                    if(componentKey === data.questionDatas[j].componentKey){
+                                        if(_.isUndefined(scope.formData.componentDatas[i].questionDatas)){
+                                            scope.formData.componentDatas[i].questionDatas = [];
+                                        }
+                                        scope.formData.componentDatas[i].questionDatas.push(data.questionDatas[j]);
                                     }
-                                    scope.formData.componentDatas[i].questionDatas.push(data.questionDatas[j]);
                                 }
                             }
                         }
-                    }
-                    scope.formData.active = scope.surveyData.active;
+                        scope.formData.active = scope.surveyData.active;
+                    });
                 });
-            });
+            };
+
+            scope.resetAll();
 
             scope.addNewComponent = function () {
                 if (_.isUndefined(scope.formData.componentDatas)){
@@ -39,6 +44,7 @@
                 }
                 scope.formData.componentDatas.push({});
             };
+
             scope.addNewQuestion = function (index) {
                 var questionData = {};
                 if (_.isUndefined(scope.formData.componentDatas[index].questionDatas)) {
@@ -47,11 +53,83 @@
                 questionData.componentKey = scope.formData.componentDatas[index].key;
                 scope.formData.componentDatas[index].questionDatas.push(questionData);
             };
+
+
             scope.addNewQuestionOptions = function (componentIndex, questionIndex) {
                 if (_.isUndefined(scope.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas)) {
                     scope.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas = [];
                 }
                 scope.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas.push({});
+            };
+
+            scope.deleteData = function () {
+                scope.isDeleteCalled = true;
+                $modal.open({
+                    templateUrl: 'deletedata.html',
+                    controller: DeleteDataCtrl
+                });
+            };
+
+            var DeleteDataCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    if(scope.isDeleteCalled && scope.dataToBeDelete){
+                        if(scope.dataToBeDelete == 'component'){
+                            scope.formData.componentDatas.splice(scope.deleteComponentIndex, 1);
+                        }else if(scope.dataToBeDelete == 'question'){
+                            scope.formData.componentDatas[scope.deleteComponentIndex].questionDatas.splice(scope.deleteQuestionIndex, 1);
+                        }else if(scope.dataToBeDelete == 'option'){
+                            scope.formData.componentDatas[scope.deleteComponentIndex].questionDatas[scope.deleteQuestionIndex].responseDatas.splice(scope.deleteOptionIndex,1);
+                        }
+                    }
+                    $modalInstance.close('delete');
+                    scope.isDeleteCalled = false;
+                    scope.dataToBeDelete = undefined;
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                    scope.isDeleteCalled = false;
+                    scope.dataToBeDelete = undefined;
+                };
+            };
+
+            scope.isDeleteCalled = false;
+            scope.deleteComponent = function (index) {
+                if(!scope.isDeleteCalled){
+                    scope.dataToBeDelete = "component";
+                    if (_.isUndefined(scope.formData.componentDatas)){
+                        scope.formData.componentDatas = [];
+                    }else{
+                        scope.deleteComponentIndex = index;
+                    }
+                }
+                scope.deleteData();
+            };
+
+            scope.deletQuestion = function (componentIndex, questionIndex) {
+                if(!scope.isDeleteCalled){
+                    scope.dataToBeDelete = "question";
+                    if (_.isUndefined(scope.formData.componentDatas[componentIndex].questionDatas)) {
+                        scope.formData.componentDatas[componentIndex].questionDatas = [];
+                    }else{
+                        scope.deleteComponentIndex = componentIndex;
+                        scope.deleteQuestionIndex = questionIndex;
+                    }
+                }
+                scope.deleteData();
+            };
+
+            scope.deleteQuestionOptions = function (componentIndex, questionIndex, optionIndex) {
+                if(!scope.isDeleteCalled){
+                    scope.dataToBeDelete = "option";
+                    if (_.isUndefined(scope.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas)) {
+                        scope.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas = [];
+                    }else{
+                        scope.deleteComponentIndex = componentIndex;
+                        scope.deleteQuestionIndex = questionIndex;
+                        scope.deleteOptionIndex = optionIndex;
+                    }
+                }
+                scope.deleteData();
             };
 
             var componentDataSequenceNo = 0;
@@ -105,7 +183,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditSurveyController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditSurveyController]).run(function ($log) {
+    mifosX.ng.application.controller('EditSurveyController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', mifosX.controllers.EditSurveyController]).run(function ($log) {
         $log.info("EditSurveyController initialized");
     });
 }(mifosX.controllers || {}));

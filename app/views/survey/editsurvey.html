@@ -32,13 +32,13 @@
                 </div>
                 <div class="col-sm-2">
                     <div ng-hide="formData.key">
-                        <form-validate valattributeform="createsurveyform" valattribute="key"/>
+                        <span class="error" ng-show="submitted && createsurveyform.key.$error.required">{{'label.error.required'|translate}}</span>
                     </div>
                     <div ng-show="formData.key" && ng-hide="formData.name">
-                        <form-validate valattributeform="createsurveyform" valattribute="name"/>
+                        <span class="error" ng-show="submitted && createsurveyform.name.$error.required">{{'label.error.required'|translate}}</span>
                     </div>
                     <div ng-show="formData.key && formData.name" ng-hide="formData.entityTypeId">
-                        <form-validate valattributeform="createsurveyform" valattribute="entityTypeId"/>
+                        <span class="error" ng-show="submitted && createsurveyform.entityTypeId.$error.required">{{'label.error.required'|translate}}</span>
                     </div>
                 </div>
                 <div class="col-sm-2 pull-right" ng-if="formData.key && formData.name && formData.entityTypeId">
@@ -47,66 +47,78 @@
             </div>
 
             <div ng-if="formData.componentDatas.length > 0">
-                <div class="col-md-12 well" ng-repeat="componentData in formData.componentDatas track by $index" ng-init="componentIndex = $index">
+                <div class="col-md-12 well" ng-repeat="componentData in formData.componentDatas track by $index"
+                     ng-init="componentIndex = $index">
                     <div class="form-group">
                         <label class="control-label col-sm-2">
                             Component <span class="required">*</span>
                         </label>
-                        <div class="col-sm-3">
-                            <input type="text" id="componentDataKey" name="componentDataKey" ng-model="componentData.key" class="form-control" required
-                                   late-Validate maxlength="32" placeholder="Component Key"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="text" id="componentDataText" name="componentDataText" ng-model="componentData.text" class="form-control" required
-                                   late-Validate maxlength="250" placeholder="Component Name"/>
-                        </div>
-                        <div class="col-sm-2" ng-if="componentData.key && componentData.text">
-                            <h4><strong>Add new question</strong>&nbsp;<a ng-click="addNewQuestion(componentIndex)">&nbsp;<i class="icon-plus icon-white"></i></a></h4>
-                        </div>
-                    </div>
-                    <div class="form-group" ng-hide="componentData.key && componentData.text">
-                        <label class="control-label col-sm-2">&nbsp;</label>
-                        <div class="col-sm-2">&nbsp;</div>
+                        <ng-form name="formcomponentDataKey" novalidate="" rc-submit="submit()">
+                            <div class="col-sm-3">
+                                <input type="text" id="componentDataKey" name="componentDataKey"
+                                       ng-model="componentData.key" class="form-control" required
+                                       late-Validate maxlength="32" placeholder="Component Key" ng-required="true"/>
+                                <span class="error"
+                                      ng-show="submitted && formcomponentDataKey.componentDataKey.$error.required">{{'label.error.required'|translate}}</span>
+                            </div>
+                        </ng-form>
+                        <ng-form name="formcomponentDataText" novalidate="" rc-submit="submit()">
+                            <div class="col-sm-4">
+                                <input type="text" id="componentDataText" name="componentDataText"
+                                       ng-model="componentData.text" class="form-control" required
+                                       late-Validate maxlength="250" placeholder="Component Name" ng-required="true"/>
+                            <span class="error"
+                                  ng-show="submitted && formcomponentDataText.componentDataText.$error.required">{{'label.error.required'|translate}}</span>
+                            </div>
+                        </ng-form>
                         <div class="col-sm-2">
-                            <form-validate valattributeform="createsurveyform" valattribute="componentDataKey"/>
+                            <h4 ng-if="componentData.key && componentData.text"><strong>Add new
+                                question</strong>&nbsp;<a ng-click="addNewQuestion(componentIndex)">&nbsp;<i
+                                    class="icon-plus icon-white"></i></a></h4>
                         </div>
-                        <label class="control-label col-sm-2">&nbsp;</label>
-                        <div class="col-sm-2">&nbsp;</div>
-                        <div class="col-sm-2">
-                            <form-validate valattributeform="createsurveyform" valattribute="componentDataText"/>
+                        <div class="col-sm-1">
+                            <h4>&nbsp;<a ng-click="deleteComponent(componentIndex)">&nbsp;<i
+                                    class="icon-remove icon-white"></i></a></h4>
                         </div>
                     </div>
                     <div ng-if="componentData.questionDatas.length > 0">
                         <legend></legend>
-                        <div class="col-md-12" ng-repeat="questionData in componentData.questionDatas track by $index" ng-init="questionIndex = $index">
+                        <div class="col-md-12" ng-repeat="questionData in componentData.questionDatas track by $index"
+                             ng-init="questionIndex = $index">
                             <div class="form-group">
-                                <label class="control-label col-sm-2">{{'label.survey.question' | translate}}<span class="required">*</span></label>
-                                <div class="col-sm-3">
-                                    <input type="text" id="questionDataKey" name="questionDataKey" ng-model="questionData.key" class="form-control" required
-                                           late-Validate maxlength="32" placeholder="Question Key"/>
-                                </div>
-                                <div class="col-sm-3">
-                                    <input type="text" id="questionDataText" name="questionDataText" ng-model="questionData.text" class="form-control" required
-                                           late-Validate maxlength="250" placeholder="Question Name"/>
-                                </div>
-                                <div class="col-sm-2 pull-right" ng-if="questionData.key && questionData.text">
-                                    <h4><strong>{{'label.button.add.new.option' | translate}}</strong>&nbsp;<a ng-click="addNewQuestionOptions(componentIndex, questionIndex)">&nbsp;<i class="icon-plus icon-white"></i></a></h4>
-                                </div>
-                            </div>
-                            <div class="form-group" ng-hide="questionData.key && questionData.text">
-                                <label class="control-label col-sm-2">&nbsp;</label>
-                                <div class="col-sm-2">&nbsp;</div>
+                                <label class="control-label col-sm-2">Question<span class="required">*</span></label>
+                                <ng-form name="formquestionDataKey" novalidate="" rc-submit="submit()">
+                                    <div class="col-sm-3">
+                                        <input type="text" id="questionDataKey" name="questionDataKey"
+                                               ng-model="questionData.key" class="form-control" required
+                                               late-Validate maxlength="32" placeholder="Question Key"/>
+                                        <span class="error"
+                                              ng-show="submitted && formquestionDataKey.questionDataKey.$error.required">{{'label.error.required'|translate}}</span>
+                                    </div>
+                                </ng-form>
+                                <ng-form name="formquestionDataText" novalidate="" rc-submit="submit()">
+                                    <div class="col-sm-3">
+                                        <input type="text" id="questionDataText" name="questionDataText"
+                                               ng-model="questionData.text" class="form-control" required
+                                               late-Validate maxlength="250" placeholder="Question Name"/>
+                                        <span class="error"
+                                              ng-show="submitted && formquestionDataText.questionDataText.$error.required">{{'label.error.required'|translate}}</span>
+                                    </div>
+                                </ng-form>
                                 <div class="col-sm-2">
-                                    <form-validate valattributeform="createsurveyform" valattribute="questionDataKey"/>
+                                    <h4 ng-if="questionData.key && questionData.text"><strong>Add new option</strong>&nbsp;<a
+                                            ng-click="addNewQuestionOptions(componentIndex, questionIndex)">&nbsp;<i
+                                            class="icon-plus icon-white"></i></a></h4>
                                 </div>
-                                <label class="control-label col-sm-2">&nbsp;</label>
-                                <div class="col-sm-2">&nbsp;</div>
                                 <div class="col-sm-2">
-                                    <form-validate valattributeform="createsurveyform" valattribute="questionDataText"/>
+                                    <h4 class="pull-right">&nbsp;<a
+                                            ng-click="deletQuestion(componentIndex, questionIndex);">&nbsp;<i
+                                            class="icon-remove icon-white"></i></a></h4>
                                 </div>
                             </div>
                             <div ng-if="questionData.responseDatas.length > 0">
-                                <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
+                                <div ng-repeat="responseData in questionData.responseDatas track by $index"
+                                     ng-init="responseIndex = $index">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-10 well">
                                         <div class="form-group">
@@ -114,22 +126,33 @@
                                             <label class="control-label col-sm-2">
                                                 Name <span class="required">*</span>
                                             </label>
-                                            <div class="col-sm-2">
-                                                <input type="text" id="responseText" name="responseText" ng-model="responseData.text" class="form-control" required
-                                                       late-Validate/>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <form-validate valattributeform="createsurveyform" valattribute="responseText"/>
-                                            </div>
+                                            <ng-form name="formresponseText" novalidate="" rc-submit="submit()">
+                                                <div class="col-sm-2">
+                                                    <input type="text" id="responseText" name="responseText"
+                                                           ng-model="responseData.text" class="form-control" required
+                                                           late-Validate/>
+                                                <span class="error"
+                                                      ng-show="submitted && formresponseText.responseText.$error.required">{{'label.error.required'|translate}}</span>
+                                                </div>
+                                            </ng-form>
+                                            <div class="col-sm-1">&nbsp;</div>
                                             <label class="control-label col-sm-2">
                                                 Score <span class="required">*</span>
                                             </label>
-                                            <div class="col-sm-2">
-                                                <input type="number" maxlength="5" id="responseValue" name="responseValue" ng-model="responseData.value" class="form-control" required
-                                                       late-Validate/>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <form-validate valattributeform="createsurveyform" valattribute="responseValue"/>
+                                            <ng-form name="formresponseValue" novalidate="" rc-submit="submit()">
+                                                <div class="col-sm-2">
+                                                    <input type="number" maxlength="5" id="responseValue"
+                                                           name="responseValue" ng-model="responseData.value"
+                                                           class="form-control" required
+                                                           late-Validate/>
+                                               <span class="error"
+                                                     ng-show="submitted && formresponseValue.responseValue.$error.required">{{'label.error.required'|translate}}</span>
+                                                </div>
+                                            </ng-form>
+                                            <div class="col-sm-3">
+                                                <h4 class="pull-right">&nbsp;<a
+                                                        ng-click="deleteQuestionOptions(componentIndex, questionIndex, responseIndex);">
+                                                    &nbsp;<i class="icon-remove icon-white"></i></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -143,9 +166,22 @@
 
             <div class="col-md-offset-5">
                 <a id="cancel" href="#/admin/system/surveys" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
-                <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                <button id="reset" type="button" ng-click="resetAll()" class="btn btn-silver">{{ 'label.button.reset' | translate }}</button>
+                <button id="save" type="submit" ng-click="submitted=true" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
             </div>
 
         </fieldset>
     </form>
 </div>
+
+<script type="text/ng-template" id="deletedata.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>
