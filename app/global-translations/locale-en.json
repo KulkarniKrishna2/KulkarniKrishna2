@@ -865,6 +865,8 @@
     "label.heading.center":"Center",
     "label.heading.attachmeeting": "Attach Meeting",
     "label.heading.editmeeting": "Edit Meeting",
+    "label.heading.refund":"Refund",
+    "label.button.refund":"Refund",
 
     "#Menu Links": "..",
     "label.menu.selectoffice": "Select Office",
