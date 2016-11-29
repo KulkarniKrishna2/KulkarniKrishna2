@@ -1384,7 +1384,10 @@
             })
             .when('/auditreport/:id', {
                 templateUrl: 'views/reports/viewauditreport.html'
-            });
+            })
+            .when('/bankaccountdetails/:entityType/:entityId/', {
+                templateUrl: 'views/bankaccountdetails/bank_account_details.html'
+        });
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

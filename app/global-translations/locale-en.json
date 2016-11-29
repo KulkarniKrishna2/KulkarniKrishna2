@@ -4279,6 +4279,22 @@
     "label.button.paymenttype":"Add Payment Type",
     "label.input.iscashpayment":"Is Cash Payment?",
     "label.anchor.editpaymenttype":"Edit Payment Type",
+    "label.input.externalservice":"External Service",
+    "label.select.externalserviceid":"Select External Service",
+
+    "#Bank Account Details: ":"......",
+    "label.input.holdername":"Bank Account Holder Name",
+    "label.input.accountnumber":"Bank Account Number",
+    "label.input.ifsccode":"Bank IFSC code",
+    "label.anchor.bankaccountdetails":"Bank Account Details",
+    "label.button.bankaccountdetails":"Bank Account Details",
+    "validation.msg.PAYMENT_TYPE.bankAccountDetails.cannot.be.blank":"Bank Account Details required",
+    "validation.msg.bank.account.detail.accountNumber.cannot.be.blank":"Bank Account Number Required",
+    "validation.msg.bank.account.detail.ifscCode.cannot.be.blank":"Bank IFSC Code required",
+    "validation.msg.bank.account.detail.name.cannot.be.blank":"Bank Account Holder Name required",
+    "validation.msg.PAYMENT_TYPE.bankAccountDetails.not.supported":"Bank Account Details not supported",
+
+
 
 
     "label.externalServices":"External Services Configuration",
