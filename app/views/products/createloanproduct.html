@@ -1247,7 +1247,7 @@
 <div class="col-md-12" ng-show="isAccountingEnabled()">
 <div class="form-group">
     <h4>{{"label.heading.assets" | translate}}</h4>
-    <label class="control-label col-sm-2">{{ 'label.input.fundsource' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.fundsource' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.fundsource' | translate}}"></i>
 
     <div class="col-sm-3">
@@ -1256,7 +1256,7 @@
                 value="{{assetAccount.id}}">
         </select>
     </div>
-    <label class="control-label col-sm-2">{{ 'label.input.loanportfolio' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.loanportfolio' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.loanportfolio' | translate}}"></i></a>
     <div class="col-sm-3">
         <select id="loanPortfolioAccountId" class="form-control" ng-model="formData.loanPortfolioAccountId"
@@ -1300,7 +1300,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-2">{{ 'label.input.transfersinsuspense' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.transfersinsuspense' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white"
        tooltip="{{'label.tooltip.transfersinsuspense' | translate}}"></i></a>
     <div class="col-sm-3">
@@ -1314,7 +1314,7 @@
 <hr>
 <div class="form-group">
     <h4>{{"label.heading.income" | translate}}</h4>
-    <label class="control-label col-sm-2">{{ 'label.input.incomefrominterest' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.incomefrominterest' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefrominterest' | translate}}"></i>
 
     <div class="col-sm-3">
@@ -1324,7 +1324,7 @@
                 value="{{incomeAccount.id}}">
         </select>
     </div>
-    <label class="control-label col-sm-2">{{ 'label.input.incomefromfees' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.incomefromfees' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefromfees' | translate}}"></i></a>
     <div class="col-sm-3">
         <select id="incomeFromFeeAccountId" ng-model="formData.incomeFromFeeAccountId"
@@ -1335,7 +1335,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-2">{{ 'label.input.incomefrompenalties' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.incomefrompenalties' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefrompenalties' | translate}}"></i>
 
     <div class="col-sm-3">
@@ -1345,7 +1345,7 @@
                 value="{{incomeAccount.id}}">
         </select>
     </div>
-    <label class="control-label col-sm-2">{{ 'label.input.recoverypayments' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.recoverypayments' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white"
        tooltip="{{'label.tooltip.recoverypayments' | translate}}"></i></a>
     <div class="col-sm-3">
@@ -1359,7 +1359,7 @@
 <hr>
 <div class="form-group">
     <h4>{{"label.heading.expenses" | translate}}</h4>
-    <label class="control-label col-sm-2">{{ 'label.input.loseswrittenoff' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.loseswrittenoff' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.loseswrittenoff' | translate}}"></i>
 
     <div class="col-sm-3">
@@ -1372,7 +1372,7 @@
 <hr>
 <div class="form-group">
     <h4>{{"label.heading.liabilities" | translate}}</h4>
-    <label class="control-label col-sm-2">{{ 'label.input.overpaymentliability' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.overpaymentliability' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1 icon-white"
        tooltip="{{'label.tooltip.overpaymentliability' | translate}}"></i>
 
@@ -1390,7 +1390,7 @@
     </h3>
 
     <div class="form-group">
-        <label class="control-label col-sm-2">{{ 'label.input.subsidyFundSource' | translate }}</label>
+        <label class="control-label col-sm-2">{{ 'label.input.subsidyFundSource' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.input.subsidyFundSource' | translate}}"></i>
         <div class="col-sm-2">
             <select id="subsidyFundSource" ng-model="formData.subsidyFundSourceId" chosen="liabilityAccountOptions"
@@ -1398,7 +1398,7 @@
                     value="{{liabilityAccount.id}}">
             </select>
         </div>
-        <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.subsidyAccount' | translate }}</label>
+        <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.subsidyAccount' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.input.subsidyAccount' | translate}}"></i>
         <div class="col-sm-2">
             <select id="subsidyAccount" ng-model="formData.subsidyAccountId" chosen="assetAccountOptions"
