@@ -39,7 +39,7 @@
                 scope.isDisplaySurveys = false;
                 if(_.isUndefined(scope.loanOfficers)){
                     resourceFactory.employeeResource.getAllEmployees({loanOfficersOnly: true}, function (loanOfficers) {
-                        scope.loanOfficers = loanOfficers;
+                        scope.loanOfficers = loanOfficers.pageItems;
                     });
                 }
                 if(_.isUndefined(scope.surveyData)) {

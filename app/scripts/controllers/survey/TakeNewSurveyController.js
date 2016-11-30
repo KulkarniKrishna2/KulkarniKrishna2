@@ -46,7 +46,7 @@
                 }
                 if(scope.isValidEntityType){
                     resourceFactory.employeeResource.getAllEmployees({loanOfficersOnly: true}, function (loanOfficers) {
-                        scope.loanOfficers = loanOfficers;
+                        scope.loanOfficers = loanOfficers.pageItems;
                     });
                     resourceFactory.surveyResource.get({entityTypeId : scope.entityTypeId}, function (surveys) {
                         scope.surveys = surveys;
