@@ -8,6 +8,7 @@
             scope.formData = {};
             scope.loanTemplate = {};
             scope.loanDisbursalTemplate = {};
+            scope.bankTransferTemplate = {};
             scope.date = {};
             scope.checkData = [];
             scope.isCollapsed = true;
@@ -870,6 +871,94 @@
 
             scope.routeToLoan = function (id) {
                 location.path('viewloanaccount/' + id);
+            };
+
+            scope.viewTransferDetails = function(traanferData){
+                location.path('/viewbankaccounttransfers/' + traanferData.id);
+            };
+            
+            scope.bankTransferSearch = function () {
+
+                scope.clients = [];
+                scope.loans = [];
+                scope.checkData = [];
+                scope.loanTemplate = {};
+                scope.bankTransferTemplate = {};
+                scope.approveData = {};
+                scope.formData = {};
+                if(this.officeId) {
+                    this.showMsg = false;
+                    var staffId = this.loanOfficerId;
+                    if (this.centerId || this.groupId) {
+                        staffId = undefined;
+                    }
+                    resourceFactory.bankAccountTransferResource.getAll({
+                        sqlSearch: 'bat.status=1 or bat.status=4',
+                        officeId: this.officeId,
+                        staffId: staffId,
+                        groupId: this.groupId,
+                        centerId: this.centerId
+                    }, function (data) {
+                        scope.transferDetails = data;
+                    });
+                }else{
+                    this.showMsg = true;
+                }
+            };
+            scope.bankTransferInitiate = function () {
+                if (scope.loanDisbursalTemplate) {
+                    $modal.open({
+                        templateUrl: 'initiateTransfer.html',
+                        controller: BankTransferCtrl,
+                        resolve: {
+                            items: function () {
+                                return scope.bankTransferTemplate;
+                            }
+                        }
+                    });
+                }
+            };
+
+
+            var BankTransferCtrl = function ($scope, $modalInstance, items) {
+                $scope.initiateTransfer = function () {
+                    var disburse = {}
+                    var totalTransfers = 0;
+                    var transferCount = 0;
+                    _.each(items, function (value, key) {
+                        if (value == true) {
+                            totalTransfers++;
+                        }
+                    });
+
+                    scope.batchRequests = [];
+                    scope.requestIdentifier = "loanId";
+
+                    var reqId = 1;
+                    _.each(items, function (value, key) {
+                        if (value == true) {
+                            scope.batchRequests.push({requestId: reqId++, relativeUrl: "banktransfer/"+key+"?command=initiate",
+                                method: "POST", body: ""});
+                        }
+                    });
+                    resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                        for(var i = 0; i < data.length; i++) {
+                            if(data[i].statusCode = '200') {
+                                transferCount++;
+                                if (transferCount == totalTransfers) {
+                                    route.reload();
+                                }
+                            }
+
+                        }
+                    });
+
+                    scope.bankTransferTemplate = {};
+                    $modalInstance.close('delete');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
         }
     });

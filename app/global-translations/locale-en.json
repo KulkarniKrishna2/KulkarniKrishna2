@@ -4353,6 +4353,19 @@
     "validation.msg.bank.account.detail.name.cannot.be.blank":"Bank Account Holder Name required",
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.not.supported":"Bank Account Details not supported",
 
+    "label.heading.banktransfer":"Bank tansfer",
+    "label.anchor.bankaccounttransferdetails":"Account Tranfer Detail",
+    "label.heading.holdername":"Bank Account Holder Name",
+    "label.heading.accountnumber":"Bank Account Number",
+    "label.heading.ifsccode":"Bank IFSC code",
+    "label.heading.mobilenumber":"Mobile Number",
+    "label.heading.email":"Email",
+    "label.button.initiate":"Initiate Transfer",
+    "label.button.reinitiate":"Re-Initiate Transfer",
+    "label.heading.created.user":"Created User",
+    "label.heading.approved.user":"Approved User",
+    "label.heading.transfertype":"Transfer Type",
+    "label.heading.bankaccounttransferdetails":"Bank Transfer",
 
 
 

@@ -1385,7 +1385,7 @@
             .when('/auditreport/:id', {
                 templateUrl: 'views/reports/viewauditreport.html'
             })
-            .when('/bankaccountdetails/:entityType/:entityId/', {
+            .when('/bankaccountdetails/:entityType/:entityId', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
             })
             .when('/createcgt', {
@@ -1405,8 +1405,10 @@
             })
             .when('/rejectcgt/:cgtId', {
                 templateUrl: 'views/cgt/cgtcompleteorreject.html'
+            })
+            .when('/viewbankaccounttransfers/:entityType/:entityId/:transferId', {
+                templateUrl: 'views/accounttransfers/view_bank_accounttransfer.html'
             });
-
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
