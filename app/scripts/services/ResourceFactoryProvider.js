@@ -974,9 +974,24 @@
                     bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'},
-                        get: {method: 'GET' },
+                        get: {method: 'GET'},
                         update: {method: 'PUT'},
                         delete: {method: 'DELETE'}
+                    }),
+                    cgtTemplateResource:defineResource(apiVer+"/cgt/template", {entityType: '@entityType', entityId: '@entityId'}, {
+                        getAll: {method: 'GET', parms: {entityId : '@entityId'}, isArray: false },
+                        update: {method: 'POST', parms:{}}
+                    }),
+                    cgtResource:defineResource(apiVer+"/cgt/:id", {id: '@id', action: '@action'}, {
+                        getCgtById: {method: 'GET', parms: {}, isArray: false },
+                        getAll: {method: 'GET', parms:{}, isArray: true},
+                        update: {method: 'PUT', parms: {action: '@action'}, isArray: false }
+                    }),
+                    cgtDaysResource:defineResource(apiVer+"/cgt/:id/cgtDay/:cgtDayId", {id: '@id', cgtDayId: '@cgtDayId'}, {
+                        getCgtDayByCgtId: {method: 'GET', parms: {}, isArray: false },
+                        updateCgtDayByCgtId: {method: 'PUT', parms:{}},
+                        completeCgtDay: {method: 'PUT', parms: {action: '@action'}},
+                        getCgtDaysById: {method: 'GET', parms: {}, isArray: false}
                     })
                 };
             }];
