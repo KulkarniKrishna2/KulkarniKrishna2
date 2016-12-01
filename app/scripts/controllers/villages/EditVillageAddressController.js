@@ -74,16 +74,23 @@
                 }
             }
             scope.validatePincode = function (stateId) {
-                scope.picodeValidation = true;
-                if (scope.response && scope.response.uiDisplayConfigurations &&
-                    scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
-                    if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
-                        scope.pincodeStartDigit = scope.pincodeStartDigitMap[scope.stateName];
-                        var pincodeStart = scope.formAddressData.postalCode.substring(0, 1);
-                        if(scope.pincodeStartDigit != pincodeStart){
-                            scope.showPicodeStartingDigitError = true;
-                        }else{
-                            scope.showPicodeStartingDigitError = false;
+                scope.showPicodeStartingDigitError = false;
+                if (stateId != null) {
+                    scope.selectState = _.filter(scope.states, function (state) {
+                        return state.stateId == stateId;
+                    })
+                    scope.stateName = scope.selectState[0].stateName;
+                    scope.picodeValidation = true;
+                    if (scope.response && scope.response.uiDisplayConfigurations &&
+                        scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
+                        if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
+                            scope.pincodeStartDigit = scope.pincodeStartDigitMap[scope.stateName];
+                            var pincodeStart = scope.formData.postalCode.substring(0, 1);
+                            if (scope.pincodeStartDigit != pincodeStart) {
+                                scope.showPicodeStartingDigitError = true;
+                            } else {
+                                scope.showPicodeStartingDigitError = false;
+                            }
                         }
                     }
                 }
@@ -102,15 +109,17 @@
             })();
 
             scope.setPicodeStartDigitForState = function(state){
+                scope.picodeValidation = false;
                 if(state) {
                     scope.stateName = state[0].stateName;
                     if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
-                        scope.formAddressData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
+                        scope.formData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
                     }
                 }
             }
 
             scope.changeState = function (stateId) {
+                scope.showPicodeStartingDigitError = false;
                 if (stateId != null) {
                     scope.selectState = _.filter(scope.states, function (state) {
                         return state.stateId == stateId;
@@ -157,7 +166,7 @@
                     delete scope.formData.talukaId;
                 }
 
-                if (!scope.isKarnataka && !scope.isMaharashtra) {
+                if (!scope.showPicodeStartingDigitError) {
                     resourceFactory.entityAddressResource.update({
                         entityType: scope.entityType,
                         entityId: scope.villageId,
