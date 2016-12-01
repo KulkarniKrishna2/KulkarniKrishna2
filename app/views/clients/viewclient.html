@@ -18,6 +18,9 @@
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
 	            	{{ 'label.input.staff' | translate }}: {{client.staffName}}
 	            </small>
+				<small data-ng-show="client.closureReason">
+					| {{'label.input.closurereason' | translate}}:{{client.closureReason.name}}
+				</small>
 	        </h3>
 	    </div>
 	</div>
