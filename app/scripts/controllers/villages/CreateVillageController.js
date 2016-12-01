@@ -56,10 +56,10 @@
                     if(scope.states && scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
                         scope.stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
                         scope.defaultState = _.filter(scope.states, function (state) {
-                            scope.setPicodeStartDigitForState(scope.defaultState);
                             return state.stateName === scope.stateName;
 
                         });
+                        scope.setPicodeStartDigitForState(scope.defaultState);
                         scope.formAddressData.stateId =  scope.defaultState[0].stateId;
                         scope.districts = scope.defaultState[0].districtDatas;
                     }
@@ -87,6 +87,7 @@
             }
 
             scope.validatePincode = function (stateId) {
+                scope.showPicodeStartingDigitError = false;
                 scope.picodeValidation = true;
                     if (scope.response && scope.response.uiDisplayConfigurations &&
                         scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
@@ -104,6 +105,7 @@
 
             scope.setPicodeStartDigitForState = function(state){
                 if(state) {
+                    scope.picodeValidation = false;
                     scope.stateName = state[0].stateName;
                     if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
                         scope.formAddressData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
@@ -190,7 +192,7 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
                 this.formData.addresses=scope.formDataList;
-                if(!scope.isKarnataka && !scope.isMaharashtra) {
+                if(!scope.showPicodeStartingDigitError) {
                     resourceFactory.villageResource.save(this.formData, function (data) {
                         location.path('/viewvillage/' + data.resourceId);
                     });
