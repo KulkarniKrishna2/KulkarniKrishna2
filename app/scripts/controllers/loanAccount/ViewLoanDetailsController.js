@@ -493,10 +493,18 @@
                 //scope.getAllLoanNotes();
                 scope.convertDateArrayToObject('date');
 
+                if($rootScope.hasPermission('READ_BANKTRANSFER')){
+                    resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
+                        scope.transferDetails = data;
+                    });
+                }
+
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
                     scope.loandatatables = data;
                 });
+
             });
+
 
             scope.isRepaymentSchedule = false;
             scope.istransactions = false;
@@ -928,6 +936,12 @@
 
                 return true;
             };
+
+            scope.viewTransferDetails = function(traanferData){
+                location.path('/viewbankaccounttransfers/' + traanferData.id+'/loans/' + traanferData.entityId);
+            };
+
+
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {

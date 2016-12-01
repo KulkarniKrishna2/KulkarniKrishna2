@@ -992,6 +992,10 @@
                         updateCgtDayByCgtId: {method: 'PUT', parms:{}},
                         completeCgtDay: {method: 'PUT', parms: {action: '@action'}},
                         getCgtDaysById: {method: 'GET', parms: {}, isArray: false}
+                    }),
+                    bankAccountTransferResource: defineResource(apiVer + "/banktransfer/:bankTransferId", {bankTransferId:"@bankTransferId", entityType: "@entityType",entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        save: {method: 'POST'}
                     })
                 };
             }];
