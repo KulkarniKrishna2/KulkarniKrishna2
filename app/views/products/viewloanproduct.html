@@ -410,6 +410,10 @@
     <td>{{'label.input.outstandingloanbalance' | translate}}</td>
     <td colspan="3">{{loanproduct.outstandingLoanBalance}}</td>
 </tr>
+    <tr ng-show="loanproduct.multiDisburseLoan">
+        <td>{{'label.input.enableemibaseddisbursements' | translate}}</td>
+        <td colspan="3">{{loanproduct.isEmiBasedOnDisbursements}}</td>
+    </tr>
 <tr>
     <td colspan="4"><br/></td>
 </tr>

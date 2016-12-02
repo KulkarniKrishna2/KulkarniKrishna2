@@ -126,6 +126,7 @@
                     multiDisburseLoan: scope.product.multiDisburseLoan,
                     maxTrancheCount: scope.product.maxTrancheCount,
                     outstandingLoanBalance: scope.product.outstandingLoanBalance,
+                    isEmiBasedOnDisbursements: scope.product.isEmiBasedOnDisbursements,
                     daysInYearType: scope.product.daysInYearType.id,
                     daysInMonthType: scope.product.daysInMonthType.id,
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
