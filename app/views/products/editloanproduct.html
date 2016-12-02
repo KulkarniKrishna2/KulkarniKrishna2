@@ -939,6 +939,18 @@
 	               name="outstandingLoanBalance" number-format ng-model="formData.outstandingLoanBalance"/>
 	    </div>
 	</div>
+		<div class="form-group" ng-show="formData.multiDisburseLoan">
+			<label class="control-label col-sm-2">{{ 'label.input.enableemibaseddisbursements' | translate }}
+				<i class="icon-question-sign" tooltip="{{'label.tooltip.emibasedondisbursements' | translate}}"
+				   tooltip-append-to-body="true"></i>
+			</label>
+
+			<div class="checkbox col-sm-2">
+				<label>
+					<input type="checkbox" ng-model="formData.isEmiBasedOnDisbursements" />
+				</label>
+			</div>
+		</div>
 		<h3>{{ 'label.heading.configurableAttributes' | translate }}</h3>
 		<hr>
 		<div class="form-group">
