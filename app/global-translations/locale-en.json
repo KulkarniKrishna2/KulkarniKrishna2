@@ -1715,6 +1715,7 @@
     "label.input.graceOnPrincipal" :"Principal Grace Periods",
     "label.input.graceOnInterest":"Interest Grace Periods",
     "label.input.extendRepaymentPeriod":"Extend Repayment Period",
+    "label.input.extendRepaymentSchedule":"Extend Repayment Schedule",
     "label.input.noofnewrepayments":"Number Of new Repayments",
     "label.input.adjustinterestrates":"Adjust interest rates for remainder of loan",
     "label.input.newinterestrate":"New Interest Rate",

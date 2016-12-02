@@ -132,12 +132,12 @@
                 newholiday.name = this.formData.name;
                 newholiday.fromDate = reqFirstDate;
                 newholiday.toDate = reqSecondDate;
-                newholiday.extendRepaymentReschedule = true;
                 if(scope.repaymentSchedulingRuleType && scope.repaymentSchedulingRuleType.value == 'Reschedule to specified date'){
                     newholiday.repaymentsRescheduledTo = reqThirdDate;
-                    newholiday.extendRepaymentReschedule = false;
                 }
                 newholiday.description = this.formData.description;
+                newholiday.extendRepaymentReschedule = scope.extendRepaymentSchedule;
+                newholiday.reshedulingType = scope.repaymentSchedulingRuleType.id;
                 newholiday.offices = [];
                 for (var i in holidayOfficeIdArray) {
                     var temp = new Object();
