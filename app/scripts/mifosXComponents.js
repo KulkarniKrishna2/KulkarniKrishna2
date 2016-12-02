@@ -441,7 +441,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'cgt/updateCgtDayController',
             'cgt/ViewCgtDaysController',
             'cgt/CgtCompleteOrRejectController',
-            'accounttransfers/ViewAccountTransferDetailsController'
+            'accounttransfers/ViewAccountTransferDetailsController',
+            'accounttransfers/ViewBankAccountTransferDetailsController'
         ],
         filters: [
             'StatusLookup',

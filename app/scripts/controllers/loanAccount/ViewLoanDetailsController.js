@@ -493,7 +493,7 @@
                 //scope.getAllLoanNotes();
                 scope.convertDateArrayToObject('date');
 
-                if($rootScope.hasPermission('READ_BANKTRANSFER')){
+                if($rootScope.hasPermission('READ_BANK_TRANSACTION')){
                     resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
                         scope.transferDetails = data;
                     });
@@ -937,8 +937,8 @@
                 return true;
             };
 
-            scope.viewTransferDetails = function(traanferData){
-                location.path('/viewbankaccounttransfers/' + traanferData.id+'/loans/' + traanferData.entityId);
+            scope.viewTransferDetails = function(transferData){
+                location.path('/viewbankaccounttransfers/'+'loans/' + transferData.entityId+'/'+transferData.transactionId);
             };
 
 
