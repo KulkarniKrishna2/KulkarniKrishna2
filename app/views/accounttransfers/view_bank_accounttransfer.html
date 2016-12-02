@@ -11,8 +11,9 @@
      <div class="row paddedtop">
         <div class="pull-right">
             <div class="btn-group">
-                <a class="btn btn-primary" ng-show="transferData.status.id == 1" has-permission="INITIATE_TRANSFER" ng-click="initiate()"><i class="icon-edit icon-white"></i>{{ 'label.button.initiate' | translate }}</a>
-                <a class="btn btn-primary" ng-show="transferData.status.id == 4" has-permission="INITIATE_TRANSFER" ng-click="initiate()"><i class="icon-trash icon-white"></i>{{ 'label.button.reinitiate' | translate}}</a>
+                <a class="btn btn-primary" ng-show="transferData.status.id == 1" has-permission="SUBMIT_TRANSFER" ng-click="submit()"><i class="icon-edit icon-white"></i>{{ 'label.button.initiate' | translate }}</a>
+                <a class="btn btn-primary" ng-show="transferData.status.id == 2" has-permission="INITIATE_TRANSFER" ng-click="initiate()"><i class="icon-edit icon-white"></i>{{ 'label.button.approve' | translate }}</a>
+                <a class="btn btn-primary" ng-show="transferData.status.id == 6" has-permission="SUBMIT_TRANSFER" ng-click="submit()"><i class="icon-trash icon-white"></i>{{ 'label.button.reinitiate' | translate}}</a>
             </div>
         </div>
     </div>
