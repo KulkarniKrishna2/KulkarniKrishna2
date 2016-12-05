@@ -624,6 +624,7 @@
     "label.anchor.keyboardshortcut":"Keyboard Shortcuts",
     "label.anchor.collectionsheet":"Collection sheet",
     "label.anchor.save":"Save",
+    "label.anchor.refund":"Refund",
 
     "#Inputs": "..",
     "label.input.searchbyuser": "Search by user",
