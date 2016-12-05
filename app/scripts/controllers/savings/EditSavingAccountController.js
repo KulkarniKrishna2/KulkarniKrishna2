@@ -55,6 +55,25 @@
                 scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                 scope.formData.minRequiredBalance = data.minRequiredBalance;
                 scope.formData.withHoldTax = data.withHoldTax;
+                scope.formData.allowDpLimit = data.savingsAccountDpDetailsData != '' || data.savingsAccountDpDetailsData != null ? true : false;
+                scope.formData.dpLimitAmount = data.savingsAccountDpDetailsData.dpAmount;
+                if (data.savingsAccountDpDetailsData.frequencyType) {
+                    for (var i in data.savingsDpLimitFrequencyTypeOptions) {
+                        if (angular.equals(angular.lowercase(data.savingsDpLimitFrequencyTypeOptions[i].value), angular.lowercase(data.savingsAccountDpDetailsData.frequencyType))) {
+                            scope.formData.savingsDpLimitFrequencyType = data.savingsDpLimitFrequencyTypeOptions[i].id;
+                        }
+                    }
+                }
+                if (data.savingsAccountDpDetailsData.calculationType) {
+                    for (var i in data.savingsDpLimitCalculationTypeOptions) {
+                        if (angular.equals(angular.lowercase(data.savingsDpLimitCalculationTypeOptions[i].value), angular.lowercase(data.savingsAccountDpDetailsData.calculationType))) {
+                            scope.formData.savingsDpLimitCalculationType = data.savingsDpLimitCalculationTypeOptions[i].id;
+                        }
+                    }
+                }
+                scope.formData.dpLimitReductionEvery = data.savingsAccountDpDetailsData.dpReductionEvery;
+                scope.formData.dpCalculateOnAmount = data.savingsAccountDpDetailsData.amountOrPercentage;
+                scope.formData.dpDuration = data.savingsAccountDpDetailsData.duration;
 
                 if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                 if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
