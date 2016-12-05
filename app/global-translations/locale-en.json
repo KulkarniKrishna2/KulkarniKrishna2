@@ -4302,6 +4302,12 @@
     "label.input.teller.cashiertxn.txnNote": "Notes/Comments",
     "label.button.addpaymentdetail": "Add Payment Detail",
     "label.anchor.individualcollectionsheet": "Individual Collection Sheet",
+    "label.input.allowdplimit": "Is DP Limit allowed",
+    "label.input.dplimit": "DP Limit Amount",
+    "label.input.dplimitfrequency": "DP Limit Frequency",
+    "label.input.dplimitreductionevery": "Dp Reduction Every",
+    "label.input.dplimitcalculationType": "Dp Calculation Type",
+    "label.input.duration" : "Dp Duration",
 
     "------------------": "------------",
 
