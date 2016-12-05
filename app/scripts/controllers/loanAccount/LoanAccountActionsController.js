@@ -189,6 +189,22 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
                     break;
+                case "prepayment":
+                    scope.modelName = 'transactionDate';
+                    scope.formData.transactionDate =  new Date();
+                    resourceFactory.paymentTypeResource.getAll({}, function (data) {
+                        scope.paymentTypes = data;
+                        if (data.length > 0) {
+                            scope.formData.paymentTypeId = data[0].id;
+                        }
+                        scope.formData[scope.modelName] = new Date();
+                    });
+                    scope.title = 'label.heading.loanprepayments';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'PREPAYMENT_LOAN';
+                    break;
                 case "prepayloan":
                     scope.modelName = 'transactionDate';
                     scope.formData.transactionDate =  new Date();
@@ -574,7 +590,7 @@
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
-                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund") {
+                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment") {
 
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';

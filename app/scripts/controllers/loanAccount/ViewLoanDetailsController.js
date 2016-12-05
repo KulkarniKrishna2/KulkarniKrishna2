@@ -72,8 +72,11 @@
                     case "makerepayment":
                         location.path('/loanaccount/' + accountId + '/repayment');
                         break;
-                    case "prepayment":
+                    case "preclose":
                         location.path('/loanaccount/' + accountId + '/prepayloan');
+                        break;
+                    case "prepayment":
+                        location.path('/loanaccount/' + accountId + '/prepayment');
                         break;
                     case "waiveinterest":
                         location.path('/loanaccount/' + accountId + '/waiveinterest');
@@ -393,6 +396,7 @@
                                 name: "button.undolastdisbursal",
                                 taskPermissionName: 'DISBURSALLASTUNDO_LOAN'
                             }
+
                         ]
 
                     };
@@ -448,7 +452,7 @@
                     if(scope.recalculateInterest && scope.loandetails.interestRecalculationData){
                         scope.hideTransactionDetails = scope.loandetails.interestRecalculationData.isCompoundingToBePostedAsTransaction || false;
                         scope.buttons.singlebuttons.splice(1, 0, {
-                            name: "button.prepayment",
+                            name: "button.preclose",
                             icon: "icon-money",
                             taskPermissionName: 'REPAYMENT_LOAN'
                         });
@@ -458,6 +462,13 @@
                             icon: "icon-money",
                             taskPermissionName: 'FORECLOSURE_LOAN'
                         });
+                    }
+                    if(scope.recalculateInterest && scope.loandetails.interestRecalculationData){
+                        scope.buttons.options.push( {
+                            name: "button.prepayment",
+                            taskPermissionName: 'PREPAYMENT_LOAN'
+                        });
+
                     }
                 }
                 if (data.status.value == "Overpaid") {
