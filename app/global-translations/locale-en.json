@@ -1657,6 +1657,7 @@
     "label.anchor.unassignsavingsofficer": "Unassign Savings Officer",
     "label.anchor.rescheduleLoan":"Reschedule Loan",
     "label.anchor.reschedulerequest":"Reschedule Request",
+    "label.anchor.prepayment":"Prepayment",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -2076,6 +2077,7 @@
     "error.msg.cannot.modify.tranches.if.loan.is.pendingapproval.closed.overpaid.writtenoff" : "Disbursement details cannot be modified if the loan account is Pending approval/Closed/Overpaid/WrittenOff",
     "error.msg.loan.repayment.or.waiver.cannot.be.made.before.last.transaction.date":"Payment can not be before last transaction date",
     "error.msg.loan.prepayment.cannot.be.made.before.dues.cleared":"Prepay allowed only after dues cleared",
+    "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanging pricipal",
 
 
     "#-------": "------------",
