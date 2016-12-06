@@ -61,7 +61,7 @@
                 <button id="createcgt" ng-show="cgt.dayDatas.length == 0" type="submit" class="btn btn-primary" ng-click="createCgtDays('startCgtDay')" has-permission='CREATE_CGTDAY'>{{'label.button.start' | translate}}</button>
                 <button id="addCgtDay" ng-show="cgt.dayDatas.length >= 1 && !(cgt.status.value == 'REJECT')" type="submit" class="btn btn-primary" ng-click="createCgtDays('addCgtDay')" has-permission='CREATE_CGTDAY'>{{'label.button.addcgtdays' | translate}}</button>
                 <button id="completecgt" ng-show="canCgtBeCompleted()" type="submit" ng-click="completeCgt(cgt.id)" class="btn btn-primary">{{'label.button.complete' | translate}}</button>
-                <button id="addcgtdays" ng-show="cgt.dayDatas.length >= 1 && !(cgt.status.value == 'COMPLETE' || cgt.status.value == 'REJECT')" type="submit" ng-click="rejectCgt(cgt.id)" class="btn btn-primary">{{'label.button.reject' | translate}}</button>
+                <button id="addcgtdays" ng-show="cgt.dayDatas.length >= 1 && !(cgt.status.value == 'COMPLETE' || cgt.status.value == 'REJECT')" type="submit" ng-click="rejectCgt(cgt.id)" class="btn btn-primary">{{'label.button.rejectcgt' | translate}}</button>
             </div>
         </div>
 

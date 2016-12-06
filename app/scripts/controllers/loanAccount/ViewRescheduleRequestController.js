@@ -39,6 +39,11 @@
                         scope.adjustinterestrates = true;
                     }
 
+                    if(scope.loanTermVariationsData[i].termType.value == "emiAmount") {
+                        scope.loanRescheduleDetails.installmentAmount = scope.loanTermVariationsData[i].decimalValue;
+                        scope.adjustinstallmentamount = true;
+                    }
+
                 }
             });
 
