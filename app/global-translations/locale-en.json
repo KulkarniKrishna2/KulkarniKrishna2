@@ -1053,7 +1053,7 @@
     "#Buttons": "..",
     "label.button.start": "Start CGT",
     "label.button.complete": "Complete CGT",
-    "label.button.reject": "Reject CGT",
+    "label.button.rejectcgt": "Reject CGT",
     "label.button.editcgtdays" : "Edit",
     "label.button.completecgtdays" : "Complete",
     "label.button.viewcgtdays": "View CGT Day",
@@ -1722,6 +1722,8 @@
     "label.input.noofnewrepayments":"Number Of new Repayments",
     "label.input.adjustinterestrates":"Adjust interest rates for remainder of loan",
     "label.input.newinterestrate":"New Interest Rate",
+    "label.input.adjustinstallmentamount":"Adjust installment amount for remainder of loan",
+    "label.input.newinstallmentamount":"New Installment Amount",
     "label.input.recalculateInterest":"Recalculate Interest based on new terms",
     "label.input.approvedOnDate": "Approval On",
     "label.input.rejectedOnDate": "Rejected On",
@@ -2078,6 +2080,7 @@
     "error.msg.loan.repayment.or.waiver.cannot.be.made.before.last.transaction.date":"Payment can not be before last transaction date",
     "error.msg.loan.prepayment.cannot.be.made.before.dues.cleared":"Prepay allowed only after dues cleared",
     "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanging pricipal",
+    "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
 
 
     "#-------": "------------",
