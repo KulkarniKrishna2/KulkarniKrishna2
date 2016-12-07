@@ -5330,6 +5330,16 @@
     "label.button.repayments" : "Repayments",
     "label.heading.preferredpaymentchannelfordisbursements" : "Preferred payment channel for disbursements",
     "label.heading.preferredpaymentchannelforrepayments" : "Preferred payment channel for repayments",
+    "label.heading.cb.report.active.loans.summary" : "Active Loans Summary",
+    "label.heading.name.of.mfi" : "Name of MFI",
+    "label.heading.no.of.active.loans" : "No of Active Loans",
+    "label.heading.total.outstanding.amount" : "Total Outstanding Amount",
+    "label.heading.total.emi.amount" : "Total EMI Amount",
+    "label.heading.overdue.amount":"Overdue Amount",
+    "label.heading.no.of,closed.loans":"No of Closed Loans",
+    "label.heading.total.disbursal.amount": "Total Disbursal Amount",
+    "label.heading.last.closure.date":"Last Closure Date",
+    "label.heading.write.off.amount":"Write off Amount",
 
     "------ end of tensalation file":"---------"
 }
