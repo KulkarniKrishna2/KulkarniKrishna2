@@ -6,19 +6,19 @@
                 <button class="btn btn-primary" ng-click="doStepAction(action.id)">{{action.value}}</button>
             </span>
         </div>
-        <div class="row client" ng-show="step.criteriaResult !== undefined">
+        <div class="row client" ng-show="task.criteriaResult !== undefined">
             <form class="well form-inline">
                 <div>
-                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{step.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
+                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{task.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
                 </div>
                 <div ng-show="showCriteriaResult">
                     <div >
                         <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
                     </div>
                     <div>
-                        {{step.criteriaResult.criteriaOutput.name}} - {{step.criteriaResult.criteriaOutput.output.bucket}} - {{step.criteriaResult.criteriaOutput.output.value}} - {{step.criteriaResult.criteriaOutput.output.reason}} - {{step.criteriaResult.criteriaOutput.output.error}}
+                        {{task.criteriaResult.criteriaOutput.name}} - {{task.criteriaResult.criteriaOutput.output.bucket}} - {{task.criteriaResult.criteriaOutput.output.value}} - {{task.criteriaResult.criteriaOutput.output.reason}} - {{task.criteriaResult.criteriaOutput.output.error}}
                         <ul>
-                            <li ng-repeat="dimensionResult in step.criteriaResult.criteriaOutput.ruleResultHierarchy">
+                            <li ng-repeat="dimensionResult in task.criteriaResult.criteriaOutput.ruleResultHierarchy">
                                 {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
                                 <ol>
                                     <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">

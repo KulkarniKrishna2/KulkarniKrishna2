@@ -6,7 +6,6 @@
             scope.getWorkFlowTaskSummary = function () {
                 resourceFactory.workFlowStepSummaryResource.get({loanProductId : scope.loanProductId,officeId : scope.officeId}, function (data) {
                     scope.loanProductWorkFlowSummary = data;
-                    console.log(JSON.stringify(scope.loanProductWorkFlowSummary));
                     for(var i in scope.loanProductWorkFlowSummary){
                         var loanProduct = scope.loanProductWorkFlowSummary[i];
                         if(loanProduct.loanProductWorkFlowSummary && loanProduct.loanProductWorkFlowSummary.offices){
@@ -35,7 +34,6 @@
                             }
                         }
                     }
-                    console.log(JSON.stringify(scope.loanProductWorkFlowSummary));
                 });
             };
 

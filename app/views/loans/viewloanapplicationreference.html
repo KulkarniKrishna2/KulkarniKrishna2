@@ -9,7 +9,7 @@
     <api-validate></api-validate>
     <div class="col-md-12 col-sm-12">
         <div class="row primarydiv">
-            <div class="pull-right">
+            <div class="pull-right" ng-if="isDisplayActions == true">
                 <span ng-if="formData.status.id === 100">
                   <a href="#/updateloanapplicationreference/{{loanApplicationReferenceId}}"
                      class="btn btn-primary"

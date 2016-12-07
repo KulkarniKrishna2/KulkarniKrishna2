@@ -140,13 +140,10 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
-
-                });
-                resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
                     resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
                         scope.isWorkFlow = response.enabled;
                         if(scope.isWorkFlow && scope.isWorkFlow === true){
-                            location.path('/loanapplication/' + data.resourceId+"/workflow");
+                            location.path('/workflowtask/loanapplication/' + data.resourceId);
                         }else{
                             location.path('/viewloanapplicationreference/' + data.resourceId);
                         }

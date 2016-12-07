@@ -14,6 +14,8 @@
             scope.slabs = [];
             scope.slab = {};
             scope.showSlabBasedCharges = false;
+            scope.chargeTimeTypeOverdueFees = 9;
+            scope.loanChargeCalculationTypePercentageAmountAndFees = 7;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -150,7 +152,8 @@
 
 	    scope.filterChargeCalculations = function(chargeTimeType) {
 		return function (item) {
-			if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
+			if ((chargeTimeType == 12 && ((item.id == 3) || (item.id == 4))) ||
+                (chargeTimeType != scope.chargeTimeTypeOverdueFees && (item.id == scope.loanChargeCalculationTypePercentageAmountAndFees)))
 			{
 				return false;
 			}

@@ -155,6 +155,28 @@
 
                 scope.buttonsArray.singlebuttons = scope.buttons;
 
+                scope.$watch(scope.buttonsArray.singlebuttons, function() {
+                    if(_.isUndefined(scope.isLoanApplication)){
+                        resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
+                            scope.isLoanApplication = response.enabled;
+                            for(var i in scope.buttonsArray.singlebuttons){
+                                if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                                    scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                                    break;
+                                }
+                            }
+                        });
+                    }else{
+                        for(var i in scope.buttonsArray.singlebuttons){
+                            if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                                scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                                break;
+                            }
+                        }
+                    }
+                });
+
+
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                     scope.loancycledetail = data;
@@ -447,16 +469,6 @@
 
             resourceFactory.configurationResource.get({configName: 'enable-beta'}, function (response) {
                 scope.isBetaEnabled = response.enabled;
-            });
-
-            resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
-                scope.isLoanApplication = response.enabled;
-                for(var i in scope.buttonsArray.singlebuttons){
-                    if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                        scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
-                        break;
-                    }
-                }
             });
 
             scope.fetchEntityAddress = function () {

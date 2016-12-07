@@ -5,38 +5,37 @@
             scope.possibleActions = [];
             scope.showCriteriaResult =false;
             scope.getTaskView = function() {
-                var taskView = 'views/workflow/task/'+scope.step.task.identifier.toLowerCase()+'task.html';
+                var taskView = 'views/workflow/task/'+scope.task.taskActivity.identifier.toLowerCase()+'task.html';
                 return taskView;
             };
 
-            scope.isStepActive = function () {
-                return scope.isCurrentStep(scope.step.id);
+            scope.isTaskActive = function () {
+                return scope.isCurrentTask(scope.task.id);
             };
 
-            function initStep(){
-                scope.stepconfig = _.extend({},scope.step.configValues);
+            function initTask(){
+                scope.taskconfig = _.extend({},scope.task.configValues);
                 scope.showCriteriaResult =false;
                 //viewaction check
-                resourceFactory.workflowStepExecutionResource.doAction({workflowstepexecutionId:scope.step.id,action:10}, function (data) {
-                    scope.step = data;
+                resourceFactory.workflowStepExecutionResource.doAction({workflowstepexecutionId:scope.task.id,action:10}, function (data) {
+                    scope.task = data;
                     scope.canView = true;
                     //getpossibleActions
                     populateNextActions();
                 });
-                if(scope.isStepActive()) {
+                if(scope.isTaskActive()) {
                     scope.$broadcast('inittask', {});
                 }
             }
 
-            initStep();
+            initTask();
 
-            scope.doStepAction = function (actionId) {
+            scope.doTaskAction = function (actionId) {
                 scope.possibleActions = [];
-
-                resourceFactory.workflowStepExecutionResource.doAction({workflowstepexecutionId:scope.step.id,action:actionId}, function (data) {
-                    scope.step = data;
-                    if (scope.step.status.id == 7 || scope.step.status.id == 9) {
-                        scope.$emit('stepCompleted', {stepId: scope.step.id});
+                resourceFactory.workflowStepExecutionResource.doAction({workflowstepexecutionId:scope.task.id,action:actionId}, function (data) {
+                    scope.task = data;
+                    if (scope.task.status.id == 7 || scope.task.status.id == 9) {
+                        scope.$emit('taskCompleted', {taskId: scope.task.id});
                     }
                     populateNextActions();
                 });
@@ -44,20 +43,20 @@
             };
 
             function populateNextActions(){
-                resourceFactory.workflowStepExecutionActionResource.getAll({workflowstepexecutionId:scope.step.id}, function (data) {
+                resourceFactory.workflowStepExecutionActionResource.getAll({workflowstepexecutionId:scope.task.id}, function (data) {
                     scope.possibleActions = data;
                 });
             }
 
             scope.$on('taskDone', function (event, data) {
-                if(scope.step.status.id == 2){
-                    scope.doStepAction(1);
+                if(scope.task.status.id == 2){
+                    scope.doTaskAction(1);
                 }
 
             });
 
             scope.$on('taskEdit', function (event, data) {
-                scope.doStepAction(9);
+                scope.doTaskAction(9);
             });
 
             scope.triggerCriteriaResult = function(){
@@ -67,15 +66,6 @@
                     scope.showCriteriaResult = true;
                 }
             }
-
-            //
-            // scope.$on('initstep', function (event, data) {
-            //     console.log("inside init step"); // 'Some data'
-            //
-            //     if(scope.isStepActive()){
-            //
-            //     }
-            // });
 
         }
     });

@@ -4,53 +4,59 @@
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             var curIndex = 0;
+            scope.isDisplayActions = false;
             scope.isCBCheckReq = false;
             scope.riskCaluculation = {};
             scope.riskCheckDone = false;
             scope.showRiskDetail =false;
 
-            resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
-                scope.isWorkFlow = response.enabled;
-            });
-
-            resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
-                scope.isHighMark = response.enabled;
-            });
-
-            resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
-                scope.formData = data;
-                if(scope.formData.loanProductId && scope.formData.status.id < 300){
-                    resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.formData.loanProductId,associations: 'creditBureaus'},function (creditbureauLoanProduct) {
-                        scope.creditbureauLoanProduct = creditbureauLoanProduct;
-                        if(scope.creditbureauLoanProduct.isActive == true){
-                            scope.isCBCheckReq = true;
-                        }
+            scope.initData = function () {
+                resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
+                    scope.isWorkFlow = response.enabled;
+                    resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
+                        scope.isHighMark = response.enabled;
+                        resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
+                            scope.formData = data;
+                            if(scope.formData.loanProductId && scope.formData.status.id < 300){
+                                resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.formData.loanProductId,associations: 'creditBureaus'},function (creditbureauLoanProduct) {
+                                    scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                                    if(scope.creditbureauLoanProduct.isActive == true){
+                                        scope.isCBCheckReq = true;
+                                    }
+                                    scope.isDisplayActions = true;
+                                });
+                            }else{
+                                scope.isDisplayActions = true;
+                            }
+                            scope.loanProductChange(scope.formData.loanProductId);
+                            resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
+                                loanApplicationReferenceId: scope.loanApplicationReferenceId,
+                                command: 'loanapplicationcharges'
+                            }, function (loanAppChargeData) {
+                                scope.loanAppChargeData = loanAppChargeData;
+                                for(var i = 0; i < scope.loanAppChargeData.length; i++){
+                                    if(scope.loanAppChargeData[i].chargeId){
+                                        scope.constructExistingCharges(i,scope.loanAppChargeData[i].chargeId);
+                                    }else{
+                                        curIndex++;
+                                    }
+                                }
+                            });
+                            if(scope.formData.status.id > 200){
+                                resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
+                                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
+                                    command: 'approveddata'
+                                }, function (data) {
+                                    scope.formData.approvedData = {};
+                                    scope.formData.approvedData = data;
+                                });
+                            };
+                        });
                     });
-                }
-                scope.loanProductChange(scope.formData.loanProductId);
-                resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
-                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'loanapplicationcharges'
-                }, function (loanAppChargeData) {
-                    scope.loanAppChargeData = loanAppChargeData;
-                    for(var i = 0; i < scope.loanAppChargeData.length; i++){
-                        if(scope.loanAppChargeData[i].chargeId){
-                            scope.constructExistingCharges(i,scope.loanAppChargeData[i].chargeId);
-                        }else{
-                            curIndex++;
-                        }
-                    }
                 });
-                if(scope.formData.status.id > 200){
-                    resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
-                        loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                        command: 'approveddata'
-                    }, function (data) {
-                        scope.formData.approvedData = {};
-                        scope.formData.approvedData = data;
-                    });
-                };
-            });
+            };
+
+            scope.initData();
 
             function fetchRiskCalculation (){
                 resourceFactory.riskCalculation.getForLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId},

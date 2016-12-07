@@ -109,6 +109,36 @@
                     <label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
+        <hr/>
+        <div  ng-show="loanaccountinfo"  class="width100">
+            <div>
+                <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.preferredpaymentchannel' | translate }}</strong></label>
+            </div>
+            <table ng-show="loanaccountinfo" ng-show="previewRepayment" class="width100">
+                <tr>
+                    <td class="width19">
+                        <label>{{ 'label.button.disbursal' | translate }}:</label>
+                    </td>
+                    <td class="width31 paddedbottom10">
+                        <select id="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType"
+                                ng-options="paymentOption.id as paymentOption.name for paymentOption in loanaccountinfo.paymentOptions " class="form-control width170px"
+                                value="{{paymentOption.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label>{{ 'label.button.repayments' | translate }}:</label>
+                    </td>
+                    <td class="width31">
+                        <select id="expectedRepaymentPaymentType" ng-model="formData.expectedRepaymentPaymentType"
+                                ng-options="paymentOption.id as paymentOption.name for paymentOption in loanaccountinfo.paymentOptions " class="form-control width170px"
+                                value="{{paymentOption.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
             <hr ng-show="loanaccountinfo"/>
         </div>

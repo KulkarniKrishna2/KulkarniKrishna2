@@ -36,6 +36,11 @@
                 });
             };
 
+            scope.routeToTransaction = function(id,action){
+                var uri = '/bankstatementsdetails/'+id+'/'+action
+                location.path(uri);
+            }
+
         }
     });
     mifosX.ng.application.controller('ViewBankStatementController', ['$scope', 'ResourceFactory', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.ViewBankStatementController]).run(function ($log) {

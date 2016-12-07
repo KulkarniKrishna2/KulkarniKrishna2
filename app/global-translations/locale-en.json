@@ -5179,6 +5179,11 @@
     "label.heading.executiontime" : "Execution Time (h:m:s)",
     "label.anchor.viewauditentry" : "View Audit Entry",
     "label.heading.reportparameters" : "Report Parameters",
+    "label.heading.principalPortion": "Principal Portion",
+    "label.heading.interestPortion": "Interest Portion",
+    "label.heading.feePortion": "Fee Portion",
+    "label.heading.penaltyPortion": "Penalty Portion",
+    "label.heading.transactionAmount": "Transaction Amount",
 
     "":"",
     "------ start of sales--":"---------",
@@ -5209,6 +5214,17 @@
     "label.input.total.installment.amount":"Total Installment Amount",
     "label.heading.workflow":"Work flow",
     "label.heading.view.workflow":"View work flow",
+
+    "label.button.manualreconciliation" : "Manual Reconciliation",
+    "label.button.manualreconcileddata" : "Manual Reconciled Data",
+    "label.heading.journalentrytransactionid" : "Journal Entry Transaction Id",
+    "label.heading.bank.statement.reconciliation" : "Bank Statement Reconciliation",
+    "label.create.bank.statement.reconciliation" : "Bank Statement Reconciliation",
+    "label.heading.preferredpaymentchannel" : "Preferred Payment Channel",
+    "label.button.disbursal" : "Disbursal",
+    "label.button.repayments" : "Repayments",
+    "label.heading.preferredpaymentchannelfordisbursements" : "Preferred payment channel for disbursements",
+    "label.heading.preferredpaymentchannelforrepayments" : "Preferred payment channel for repayments",
 
 
     "------ end of tensalation file":"---------"

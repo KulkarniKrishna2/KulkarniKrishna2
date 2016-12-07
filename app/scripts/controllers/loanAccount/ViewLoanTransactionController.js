@@ -2,8 +2,11 @@
     mifosX.controllers = _.extend(module, {
         ViewLoanTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
 
+            scope.glimTransactions = [];
+
             resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                 scope.transaction = data;
+                scope.glimTransactions = data.glimTransactions;
                 scope.transaction.accountId = routeParams.accountId;
                 scope.isUndoEditTrxnEnabled();
             });

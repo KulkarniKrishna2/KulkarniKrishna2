@@ -951,6 +951,15 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    workflowTaskResource: defineResource(apiVer + "/tasks/:entityType/:entityId", {}, {
+                        getTaskDetailsByEntityTypeAndEntityId: {method: 'GET', params: {entityType: '@entityType',entityId: '@entityId'}, isArray: true},
+                        post: {method: 'POST', params: {}}
+                    }),
+                    workflowResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationId/workflow",
+                        {loanApplicationId:'@loanApplicationId'}, {
+                            get: {method: 'GET', params: {}},
+                            update: {method: 'PUT', params: {}}
+                        }),
                     workflowExecutionResource: defineResource(apiVer + "/workflowexecution/:workflowexecutionId", {workflowexecutionId: '@workflowexecutionId'}, {
                         get: {method: 'GET', params: {}}
                     }),

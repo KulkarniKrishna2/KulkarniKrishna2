@@ -1390,8 +1390,10 @@
             })
             .when('/workflowtasks', {
                 templateUrl: 'views/dashboard/workflowtasks.html'
+            })
+            .when('/workflowtask/:entityType/:entityId', {
+                templateUrl: 'views/task/workflowtask.html'
             });
-
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

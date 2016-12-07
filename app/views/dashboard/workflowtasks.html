@@ -12,10 +12,12 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Step Name</th>
+                    <th>Task Name</th>
                     <th>Status</th>
                     <th>Pending Action</th>
                     <th>Assigneed To</th>
+                    <th>Client</th>
+                    <th>Office</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -25,6 +27,8 @@
                         <td>{{workFlowTask.stepStatus}}</td>
                         <td>{{workFlowTask.currentAction}}</td>
                         <td>{{workFlowTask.assignedTo}}</td>
+                        <td>{{workFlowTask.clientName}}</td>
+                        <td>{{workFlowTask.officeName}}</td>
                         <td>
                             <button ng-if="loggedInUserId == workFlowTask.assignedId" class="btn btn-primary" ng-click="moveToNextStep(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
                         </td>

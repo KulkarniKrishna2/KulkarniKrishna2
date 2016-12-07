@@ -156,17 +156,17 @@
 
             scope.cancel = function () {
                 if (scope.fromEntity == 'client') {
-                    location.path('/viewclient/' + routeParams.entityId).search({});
+                    location.path('/viewclient/' + scope.entityId).search({});
                 } else if (scope.fromEntity == 'group') {
-                    location.path('/viewgroup/' + routeParams.entityId).search({});
+                    location.path('/viewgroup/' + scope.entityId).search({});
                 } else if (scope.fromEntity == 'center') {
-                    location.path('/viewcenter/' + routeParams.entityId).search({});
+                    location.path('/viewcenter/' + scope.entityId).search({});
                 } else if (scope.fromEntity == 'loan') {
-                    location.path('/viewloanaccount/' + routeParams.entityId).search({});
+                    location.path('/viewloanaccount/' + scope.entityId).search({});
                 } else if (scope.fromEntity == 'savings') {
-                    location.path('/viewsavingaccount/' + routeParams.entityId).search({});
+                    location.path('/viewsavingaccount/' + scope.entityId).search({});
                 } else if (scope.fromEntity == 'office') {
-                    location.path('/viewoffice/' + routeParams.entityId).search({});
+                    location.path('/viewoffice/' + scope.entityId).search({});
                 };
             };
             scope.submit = function () {
