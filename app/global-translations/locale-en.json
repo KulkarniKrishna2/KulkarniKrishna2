@@ -385,6 +385,7 @@
 
     "#Enumeration & Error Messages": "..",
     "label.error": "Error:  ",
+    "label.error.select.client":"Please select atleast one checkbox ",
     "label.error.pincode.startwith": "pincode should start with ",
     "label.error.required" : "Required Field",
     "error.login.failed": "Please try again, your credentials are not valid.",
@@ -1293,7 +1294,7 @@
     "label.journalentriesmadeattheendofanaccountingperiod": "Journal entries made at the end of an accounting period",
     "label.listsallaccountingrules": "Lists all accounting rules",
     "label.alloffice": "All offices",
-    "label.selectoffice": "Select office",
+    "label.selectoffice": "Select Office",
     "label.selecttag": "Select tag",
     "label.selectparent": "Select parent",
     "label.selectaccountingrule": "Select accounting rule",

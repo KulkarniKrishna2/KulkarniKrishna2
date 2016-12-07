@@ -3,7 +3,8 @@
         <li class="active">{{'label.anchor.tasks' | translate}}</li>
     </ul>
     <unsuccessful-response/></unsuccessful-response>
-    <div class="well">
+	<div class="well">
+		<div style="color:red" ng-show="error">{{'label.error.select.client' | translate}}</div>
 		<fieldset>
 			<legend>{{'label.heading.pendingtasks' | translate}}</legend>
 			<api-validate></api-validate>
@@ -121,26 +122,25 @@
 				    </div>
 				</tab>
 				<tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT' ng-click="resetsearchparams()">
+
 				    <div class="head-affix">
 				        <table class="table condensed-table">
 				            <thead>
 							<tr>
 								<th>
-									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
-											class="required">*</span></label>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
 									<select chosen="offices" id="officeId_client" ng-model="officeId"
 											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-											ng-change="officeSelected(officeId)" required>
-										<option value="">{{'label.selectoffice' | translate}}</option>
+											ng-change="officeSelected(officeId)" >
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
-									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
 								</th>
 								<th>
 									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 									<select chosen="loanOfficers" id="loanOfficerId_client" ng-model="loanOfficerId"
 											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
 											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
-										<option value="">{{'label.selectloanofficer' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 
 								</th>
@@ -151,7 +151,7 @@
 									<select chosen="centers" id="centerId_client" name="center" ng-model="centerId"
 											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
 											ng-change="centerSelected(centerId)" class="form-control">
-										<option value="">{{'label.selectcenter' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
@@ -159,13 +159,13 @@
 									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
 									<select chosen="groups" id="groupId_client" ng-model="groupId" ng-options="group.id as group.name for group in groups"
 											value="{{group.id}}" class="form-control">
-										<option value="">{{'label.selectgroup' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
 									<div class="rowleft">
-									<button  class="btn btn-success" data-ng-click="clientSearch()" has-permission='ACTIVATE_CLIENT'><i
-											class="icon-ok"></i>{{'label.button.search' | translate}}
+									<button  class="btn btn-primary" data-ng-click="clientSearch()" has-permission='ACTIVATE_CLIENT'><i
+											class="icon-search"></i>{{'label.button.search' | translate}}
 									</button>
 										</div>
 								</th>
@@ -212,6 +212,7 @@
 				                        <th>{{'label.heading.name' | translate}}</th>
 				                        <th>{{'label.heading.accnum' | translate}}</th>
 				                        <th>{{'label.heading.staff' | translate}}</th>
+										<th>{{'label.heading.office' | translate}}</th>
 				                    </tr>
 				                    </thead>
 				                    <tbody>
@@ -220,7 +221,9 @@
 				                        <td><input type="checkbox" data-ng-model="approveData[client.id]"/></td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.displayName}}</td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.accountNo}}</td>
-				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.staffName}}</td>									</td>
+				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.staffName}}</td>
+										<td class="pointer" data-ng-click="routeToClient(client.id)">{{client.officeName}}</td>
+
 				                    </tr>
 				                    </tbody>
 				                </table>
@@ -234,21 +237,19 @@
 				            <thead>
 							<tr>
 								<th>
-									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
-											class="required">*</span></label>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
 									<select chosen="offices" id="officeId_loanaprrove" ng-model="officeId"
 											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-											ng-change="officeSelected(officeId)" required>
-										<option value="">{{'label.selectoffice' | translate}}</option>
+											ng-change="officeSelected(officeId)">
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
-									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
 								</th>
 								<th>
 									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 									<select chosen="loanOfficers" id="loanOfficerId_loanapprove" ng-model="loanOfficerId"
 											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
 											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
-										<option value="">{{'label.selectloanofficer' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 
 								</th>
@@ -260,7 +261,7 @@
 									<select chosen="centers" id="centerId_loanapprove" name="center" ng-model="centerId"
 											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
 											ng-change="centerSelected(centerId)" class="form-control">
-										<option value="">{{'label.selectcenter' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 
 									</select>
 								</th>
@@ -269,13 +270,13 @@
 									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
 									<select chosen="groups" id="groupId_loanapprove" ng-model="groupId" ng-options="group.id as group.name for group in groups"
 											value="{{group.id}}" class="form-control">
-										<option value="">{{'label.selectgroup' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
 									<div class="rowleft">
-										<button  class="btn btn-success" data-ng-click="loanApproveSearch()" has-permission='APPROVE_LOAN'><i
-												class="icon-ok"></i>{{'label.button.search' | translate}}
+										<button  class="btn btn-primary" data-ng-click="loanApproveSearch()" has-permission='APPROVE_LOAN'><i
+												class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
@@ -323,7 +324,7 @@
 				                        <th>{{'label.heading.loan' | translate}}</th>
 				                        <th>{{'label.heading.amount' | translate}}</th>
 				                        <th>{{'label.heading.loanpurpose' | translate}}</th>
-				                    </tr>
+									</tr>
 				                    </thead>
 				                    <tbody>
 				                    <tr class="pointer-main"
@@ -334,7 +335,7 @@
 				                        </td>
 				                        <td class="pointer">{{loan.principal | number}}</td>
 				                        <td class="pointer">{{loan.loanPurposeName}}</td>
-				                    </tr>
+									</tr>
 				                    </tbody>
 				                </table>
 				            </td>
@@ -347,21 +348,19 @@
 				            <thead>
 							<tr>
 								<th>
-									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
-											class="required">*</span></label>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
 									<select chosen="offices" id="officeId_loandisburse" ng-model="officeId"
 											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-											ng-change="officeSelected(officeId)"  ng-required="true">
-										<option value="">{{'label.selectoffice' | translate}}</option>
+											ng-change="officeSelected(officeId)" >
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
-									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
 								</th>
 								<th>
 									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 									<select chosen="loanOfficers" id="loanOfficerId_loandisburse" ng-model="loanOfficerId"
 											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
 											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
-										<option value="">{{'label.selectloanofficer' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 
 								</th>
@@ -372,7 +371,7 @@
 									<select chosen="centers" id="centerId_loandisburse" name="center" ng-model="centerId"
 											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
 											ng-change="centerSelected(centerId)" class="form-control">
-										<option value="">{{'label.selectcenter' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
@@ -380,13 +379,13 @@
 									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
 									<select chosen="groups" id="groupId_loandisburse" ng-model="groupId" ng-options="group.id as group.name for group in groups"
 											value="{{group.id}}" class="form-control">
-										<option value="">{{'label.selectgroup' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
 									<div class="rowleft">
-										<button  class="btn btn-success" data-ng-click="loanDisburseSearch()" has-permission='DISBURSE_LOAN'><i
-												class="icon-ok"></i>{{'label.button.search' | translate}}
+										<button  class="btn btn-primary" data-ng-click="loanDisburseSearch()" has-permission='DISBURSE_LOAN'><i
+												class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
@@ -451,21 +450,19 @@
 							<thead>
 							<tr>
 								<th>
-									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
-											class="required">*</span></label>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
 									<select chosen="offices" id="officeId_rdapproval" ng-model="officeId"
 											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-											ng-change="officeSelected(officeId)"  ng-required="true">
-										<option value="">{{'label.selectoffice' | translate}}</option>
+											ng-change="officeSelected(officeId)" >
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
-									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
 								</th>
 								<th>
 									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 									<select chosen="loanOfficers" id="loanOfficerId_rdapproval" ng-model="loanOfficerId"
 											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
 											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
-										<option value="">{{'label.selectloanofficer' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 
 								</th>
@@ -476,7 +473,7 @@
 									<select chosen="centers" id="centerId_rdapproval" name="center" ng-model="centerId"
 											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
 											ng-change="centerSelected(centerId)" class="form-control">
-										<option value="">{{'label.selectcenter' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
@@ -484,13 +481,13 @@
 									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
 									<select chosen="groups" id="groupId_rdapproval" ng-model="groupId" ng-options="group.id as group.name for group in groups"
 											value="{{group.id}}" class="form-control">
-										<option value="">{{'label.selectgroup' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
 									<div class="rowleft">
-										<button  class="btn btn-success" data-ng-click="rdApprovalSearch()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i
-												class="icon-ok"></i>{{'label.button.search' | translate}}
+										<button  class="btn btn-primary" data-ng-click="rdApprovalSearch()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i
+												class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
@@ -555,21 +552,19 @@
 							<thead>
 							<tr>
 								<th>
-									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
-											class="required">*</span></label>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
 									<select chosen="offices" id="officeId_rdactivation" ng-model="officeId"
 											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-											ng-change="officeSelected(officeId)"  ng-required="true">
-										<option value="">{{'label.selectoffice' | translate}}</option>
+											ng-change="officeSelected(officeId)" >
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
-									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
 								</th>
 								<th>
 									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 									<select chosen="loanOfficers" id="loanOfficerId_rdactivation" ng-model="loanOfficerId"
 											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
 											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
-										<option value="">{{'label.selectloanofficer' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 
 								</th>
@@ -580,7 +575,7 @@
 									<select chosen="centers" id="centerId_rdactivation" name="center" ng-model="centerId"
 											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
 											ng-change="centerSelected(centerId)" class="form-control">
-										<option value="">{{'label.selectcenter' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
@@ -588,13 +583,13 @@
 									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
 									<select chosen="groups" id="groupId_rdactivation" ng-model="groupId" ng-options="group.id as group.name for group in groups"
 											value="{{group.id}}" class="form-control">
-										<option value="">{{'label.selectgroup' | translate}}</option>
+										<option value="">{{'label.all' | translate}}</option>
 									</select>
 								</th>
 								<th>
 									<div class="rowleft">
-										<button  class="btn btn-success" data-ng-click="rdactivationSearch()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i
-												class="icon-ok"></i>{{'label.button.search' | translate}}
+										<button  class="btn btn-primary" data-ng-click="rdactivationSearch()" has-permission='APPROVE_RECURRINGDEPOSITACCOUNT'><i
+												class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
@@ -702,7 +697,7 @@
                         </table>
                     </div>
                 </tab>
-				<tab heading="{{'label.heading.bankaccounttransferdetails' | translate}}"  has-permission='INITIATE_TRANSFER' ng-click="resetsearchparams()">
+				<tab ng-hide="true" heading="{{'label.heading.bankaccounttransferdetails' | translate}}"  has-permission='INITIATE_TRANSFER' ng-click="resetsearchparams()">
 					<div class="head-affix">
 						<table class="table condensed-table">
 							<thead>
@@ -746,8 +741,8 @@
 								</th>
 								<th>
 									<div class="rowleft">
-										<button  class="btn btn-success" data-ng-click="bankTransferSearch()" has-permission='INITIATE_TRANSFER'><i
-												class="icon-ok"></i>{{'label.button.search' | translate}}
+										<button  class="btn btn-primary" data-ng-click="bankTransferSearch()" has-permission='INITIATE_TRANSFER'><i
+												class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
