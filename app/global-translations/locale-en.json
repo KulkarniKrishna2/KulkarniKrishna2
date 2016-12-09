@@ -1047,6 +1047,7 @@
     "#Inputs": "..",
     "label.input.expectedStartDate" : "Expected StartDate",
     "label.input.expectedEndDate" : "Expected EndDate",
+    "label.selectattendance": "Select Attendance",
 
 
     "#Anchors": "..",
