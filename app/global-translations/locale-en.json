@@ -500,6 +500,7 @@
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
     "error.msg.amount.exceeding.approval.limit" : "Approval amount should be lesser than '{{params[0].value}}'",
+    "error.msg.calendar.meeting.cannot.be.updated.since.it.has.active.loans":"Calendar meeting cannot be updated since the centre has active loan",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
