@@ -137,6 +137,9 @@
                     case "refund":
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
+                    case "creditbureaureport":
+                        location.path('/creditbureaureport/loan/'+accountId);
+                        break;
                 }
             };
 
@@ -429,6 +432,7 @@
                             icon: "icon-flag",
                             taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
                         });
+                        creditBureauCheckIsRequired();
                     }
                     var count = 0;
                     for(var i in data.disbursementDetails){
@@ -952,9 +956,42 @@
                 location.path('/viewbankaccounttransfers/'+'loans/' + transferData.entityId+'/'+transferData.transactionId);
             };
 
-
+            function creditBureauCheckIsRequired() {
+                scope.isCBCheckReq = false;
+                resourceFactory.configurationResource.get({configName: 'tranche-disbursal-high-mark'}, function (response) {
+                    scope.isTrancheDisbursalHighMark = response.enabled;
+                    if (scope.isTrancheDisbursalHighMark == true) {
+                        resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
+                            scope.isHighMark = response.enabled;
+                            if (scope.isHighMark == true) {
+                                resourceFactory.loanProductResource.getCreditbureauLoanProducts({
+                                    loanProductId: scope.loandetails.loanProductId,
+                                    associations: 'creditBureaus'
+                                }, function (creditbureauLoanProduct) {
+                                    scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                                    if (scope.creditbureauLoanProduct.isActive == true) {
+                                        scope.isCBCheckReq = true;
+                                        var cbButton = {
+                                            name: "button.creditbureaureport",
+                                            icon: "icon-flag",
+                                            taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
+                                        };
+                                        for (var i in scope.buttons.singlebuttons) {
+                                            if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
+                                                scope.buttons.singlebuttons[i] = cbButton;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         }
     });
+
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });
