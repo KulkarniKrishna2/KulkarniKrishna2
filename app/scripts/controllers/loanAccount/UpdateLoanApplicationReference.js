@@ -13,6 +13,12 @@
                 scope.applicationData = applicationData;
                 scope.formData.clientId = applicationData.clientId;
                 scope.formData.groupId = applicationData.groupId;
+                if(scope.applicationData.expectedDisbursalPaymentType){
+                    scope.formData.expectedDisbursalPaymentType = scope.applicationData.expectedDisbursalPaymentType.id;
+                }
+                if(scope.applicationData.expectedRepaymentPaymentType){
+                    scope.formData.expectedRepaymentPaymentType = scope.applicationData.expectedRepaymentPaymentType.id;
+                }
                 scope.loanProductChange(applicationData.loanProductId, false);
             });
 
@@ -33,6 +39,7 @@
                     scope.inparams.groupId = scope.formData.groupId;
                 }
                 scope.inparams.staffInSelectedOfficeOnly = true;
+
 
                 scope.inparams.productId = loanProductId;
 

@@ -206,6 +206,14 @@
             </div>
         </div>
 
+    <div class="form-group" ng-show="showAmountDispaly">
+        <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
+            translate}}<span class="required">*</span></label>
+        <div class="col-sm-3">
+            {{amount | number}}
+        </div>
+    </div>
+
     <div class="form-group" ng-show="principalPortion">
         <label class="control-label col-sm-2" for="principalPortion">{{ 'label.input.principal' | translate}}</label>
 

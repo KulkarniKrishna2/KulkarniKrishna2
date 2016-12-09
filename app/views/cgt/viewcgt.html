@@ -1,0 +1,100 @@
+<div class="col-md-12" ng-controller="ViewCgtController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewcenter/{{cgt.entityId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewcgt' | translate}}</li>
+        </ul>
+    </div>
+    <div class="well">
+        <api-validate></api-validate>
+    <fieldset>
+        <legend>{{'label.heading.viewcgt' | translate}}</legend>
+
+        <div class="row">
+            <div class="col-md-10">
+                <div align="right">
+                    <label>{{'label.heading.status' | translate}}: &nbsp;</label>
+                    <i class="icon-stop {{cgt.status.code | StatusLookup}}" ></i>&nbsp;{{cgt.status.value}}
+                </div>
+                <table class="table table-striped table-bold-acc">
+                    <tr>
+                        <td>{{'label.cgtName' | translate }}</td>
+                        <td>{{cgt.uniqueId}}</td>
+                    <tr>
+                        <td>{{'label.location' | translate }}</td>
+                        <td>{{cgt.location}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.expectedStartDate' | translate}}</td>
+                        <td>{{cgt.expectedStartDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.expectedEndDate' | translate}}</td>
+                        <td>{{cgt.expectedEndDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.actualStartDate' | translate}}</td>
+                        <td>{{cgt.actualStartDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.actualEndDate' | translate}}</td>
+                        <td>{{cgt.actualEndDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.loanOfficer' | translate}}</td>
+                        <td>{{cgt.primaryLoanOfficer.displayName}}</td>
+                    </tr>
+                    <tr ng-show="cgt.note.length >= 1">
+                        <td>{{'label.heading.notes' | translate}}</td>
+                        <td>
+                            <div class="" ng-repeat="cgtnote in cgt.note">
+                                {{cgtnote.note}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="row" ng-hide="cgt.status.value == 'COMPLETE'">
+            <div class="col-md-10" align="right">
+                <button id="createcgt" ng-show="cgt.dayDatas.length == 0" type="submit" class="btn btn-primary" ng-click="createCgtDays('startCgtDay')" has-permission='CREATE_CGTDAY'>{{'label.button.start' | translate}}</button>
+                <button id="addCgtDay" ng-show="cgt.dayDatas.length >= 1 && !(cgt.status.value == 'REJECT')" type="submit" class="btn btn-primary" ng-click="createCgtDays('addCgtDay')" has-permission='CREATE_CGTDAY'>{{'label.button.addcgtdays' | translate}}</button>
+                <button id="completecgt" ng-show="canCgtBeCompleted()" type="submit" ng-click="completeCgt(cgt.id)" class="btn btn-primary">{{'label.button.complete' | translate}}</button>
+                <button id="addcgtdays" ng-show="cgt.dayDatas.length >= 1 && !(cgt.status.value == 'COMPLETE' || cgt.status.value == 'REJECT')" type="submit" ng-click="rejectCgt(cgt.id)" class="btn btn-primary">{{'label.button.rejectcgt' | translate}}</button>
+            </div>
+        </div>
+
+        <table class="table" ng-show="cgt.dayDatas.length >= 1">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.cgtdays' | translate}}</th>
+                <th>{{'label.heading.scheduledate' | translate}}</th>
+                <th>{{'label.heading.completeddate' | translate}}</th>
+                <th>{{'label.heading.loanofficer' | translate}}</th>
+                <th>{{'label.heading.location' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="cgtday in cgt.dayDatas">
+                <td>{{cgtday.cgtDayName}}</td>
+                <td>{{cgtday.scheduledDate | DateFormat}}</td>
+                <td>{{cgtday.completedDate | DateFormat}}</td>
+                <td>{{cgtday.loanOfficer.displayName}}</td>
+                <td>{{cgtday.location}}</td>
+                <td ng-if="cgtday.status != 'COMPLETE' && cgt.status.value != 'COMPLETE' && cgt.status.value != 'REJECT'">
+                    <a href="#/updatecgtdays/{{cgtday.id}}" class="btn btn-primary">{{'label.button.editcgtdays' | translate }}</a>
+                    <a id="complete" ng-click="completeCgtDay(cgtday.id)" class="btn btn-primary">{{'label.button.completecgtdays' | translate}}</a>
+                </td>
+                <td ng-if="cgtday.status == 'COMPLETE' || cgt.status.value == 'COMPLETE' || cgt.status.value == 'REJECT'">
+                    <a href="#/viewcgtdays/{{cgtday.id}}" class="btn btn-primary">{{'label.button.viewcgtdays' | translate }}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        </fieldset>
+    </div>
+</div>

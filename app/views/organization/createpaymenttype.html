@@ -46,6 +46,60 @@
                                   type="text" class="form-control"/>
                     </div>
                 </div>
+                <div class="form-group" data-ng-show="externalservices">
+                    <label class="control-label col-sm-2" >{{'label.input.externalservice' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="externalserviceId" ng-model="formData.externalServiceId"
+                                chosen="externalservices"
+                                ng-options="externalservice.id as externalservice.name for externalservice in externalservices"
+                                value="{{externalservice.id}}">
+                            <option value="">{{'label.select.externalserviceid' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="formData.externalServiceId">
+                    <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input name="bankName" ng-model="formData.bankAccountDetails.name"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="formData.externalServiceId">
+                    <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input name="accountNumber" ng-model="formData.bankAccountDetails.accountNumber"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="formData.externalServiceId">
+                    <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="ifscCode" ng-model="formData.bankAccountDetails.ifscCode"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="formData.externalServiceId">
+                    <label class="control-label col-sm-2" >{{'label.input.mobilenumber' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="mobileNumber" ng-model="formData.bankAccountDetails.mobileNumber"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="formData.externalServiceId">
+                    <label class="control-label col-sm-2" >{{'label.input.email' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="email" ng-model="formData.bankAccountDetails.email"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/viewpaymenttype" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                     <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_PAYMENTTYPE'>{{'label.button.save' | translate}}</button>

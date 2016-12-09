@@ -81,8 +81,15 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode"  class="form-control" required late-validate="" />
+                    <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode"
+                           ng-change="validatePincode(formData.stateId)" class="form-control" ng-pattern="handlePatternPincode" required late-Validate />
                 </div>
+                <span class="required" ng-show="showPicodeStartingDigitError">{{'label.error.pincode.startwith'|translate}}{{pincodeStartDigit}}</span>
+                <span ng-show="editvillageaddressform.pincode.$invalid && editvillageaddressform.pincode.$dirty">
+                    <small class="required" ng-show="editvillageaddressform.pincode.$error.pattern">
+                        {{'label.mustbe6digitnumber' | translate}}
+                    </small>
+                </span>
                 <div class="col-sm-2">
                     <form-validate valattributeform="editvillageaddressform" valattribute="pincode"/>
                 </div>

@@ -126,6 +126,7 @@
                     multiDisburseLoan: scope.product.multiDisburseLoan,
                     maxTrancheCount: scope.product.maxTrancheCount,
                     outstandingLoanBalance: scope.product.outstandingLoanBalance,
+                    isEmiBasedOnDisbursements: scope.product.isEmiBasedOnDisbursements,
                     daysInYearType: scope.product.daysInYearType.id,
                     daysInMonthType: scope.product.daysInMonthType.id,
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
@@ -146,6 +147,10 @@
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
                     weeksInYearType : scope.product.weeksInYearType.id
                 };
+
+                if(scope.product.installmentCalculationPeriodType){
+                    scope.formData.installmentCalculationPeriodType = scope.product.installmentCalculationPeriodType.id
+                }
 
                 if (scope.product.isInterestRecalculationEnabled) {
                     scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;

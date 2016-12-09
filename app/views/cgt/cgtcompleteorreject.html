@@ -1,0 +1,45 @@
+<form class="form-horizontal well" name="completeorrejectcgtform" data-ng-controller="CgtCompleteOrRejectController">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend>{{label}}</legend>
+        <div class="paddedleft">
+            <div class="form-group" ng-show="isCgtComplete">
+                <label class="control-label col-sm-2">{{ 'label.heading.completeddate' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3" >
+                    <input type="text" id="completeddate" name="completedDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.selectedDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="completeorrejectcgtform" valattribute="completedDate"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="!isCgtComplete">
+                <label class="control-label col-sm-2">{{ 'label.heading.rejecteddate' | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-3" >
+                    <input type="text" id="rejecteddate" name="completedDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.selectedDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="completeorrejectcgtform" valattribute="rejectedDate"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="note" rows="2" class="form-control" ng-model="formData.note"></textarea>
+                </div>
+            </div>
+            <br/>
+
+            <div class="col-md-offset-2 paddedleft">
+                <a id="cancel" href="#/viewcgt/{{cgtId}}" class="btn btn-default paddedleft">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="button" class="btn btn-primary" data-ng-click="completeOrRejectCGT()">{{ 'label.button.confirm'
+                    | translate }}
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>

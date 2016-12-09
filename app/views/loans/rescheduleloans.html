@@ -106,6 +106,17 @@
                            ng-model="formData.newInterestRate"></div>
             </div>
 
+            <input type="checkbox" ng-model="adjustinstallmentamount"> &nbsp;<span
+                class="control-label">{{ 'label.input.adjustinstallmentamount' | translate }}&nbsp;</span>
+            <div class="form-group">
+
+                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinstallmentamount">{{ 'label.input.newinstallmentamount' | translate
+                    }}&nbsp;</label>
+                <div class="col-sm-3 paddedbottom10">
+                    <input id="newInstallmentAmount" type="text" ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
+                           ng-model="formData.newInstallmentAmount"></div>
+            </div>
+
             <!--<input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
                 class="control-label">{{ 'label.input.recalculateInterest' +
                     '' | translate }}&nbsp;</span>

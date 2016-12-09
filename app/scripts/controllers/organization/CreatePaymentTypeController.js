@@ -5,9 +5,19 @@
             scope.formData = {};
             scope.isCashPayment =true;
 
+            resourceFactory.paymentTypeResource.get({resourceType: 'template'}, function (data) {
+                scope.externalservices = data.externalServiceOptions;
+                if(scope.externalservices){
+                    scope.formData.bankAccountDetails = {};
+                }
+            });
+
 
             scope.submit = function () {
                 this.formData.isCashPayment = this.formData.isCashPayment || false;
+                if(this.formData.externalServiceId == undefined || this.formData.externalServiceId == null ){
+                    delete  this.formData.bankAccountDetails;
+                }
                 resourceFactory.paymentTypeResource.save(this.formData, function (data) {
                     location.path('/viewpaymenttype/');
                 });

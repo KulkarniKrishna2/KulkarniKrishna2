@@ -12,6 +12,16 @@
             scope.talukas = [];
             scope.formData = {};
             scope.entityType="villages";
+            scope.pincodeStartDigit = 0;
+            scope.showPicodeStartingDigitError = false;
+            scope.pincodeStartDigitMap =[];
+            scope.stateName = [];
+            scope.picodeValidation = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
+                if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues) {
+                    scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues;
+                }
+            }
 
             scope.getVillageAddress = function () {
                 resourceFactory.entityAddressResource.getAddress({
@@ -63,8 +73,53 @@
                     
                 }
             }
+            scope.validatePincode = function (stateId) {
+                scope.showPicodeStartingDigitError = false;
+                if (stateId != null) {
+                    scope.selectState = _.filter(scope.states, function (state) {
+                        return state.stateId == stateId;
+                    })
+                    scope.stateName = scope.selectState[0].stateName;
+                    scope.picodeValidation = true;
+                    if (scope.response && scope.response.uiDisplayConfigurations &&
+                        scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
+                        if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
+                            scope.pincodeStartDigit = scope.pincodeStartDigitMap[scope.stateName];
+                            var pincodeStart = scope.formData.postalCode.substring(0, 1);
+                            if (scope.pincodeStartDigit != pincodeStart) {
+                                scope.showPicodeStartingDigitError = true;
+                            } else {
+                                scope.showPicodeStartingDigitError = false;
+                            }
+                        }
+                    }
+                }
+            }
+            scope.handlePatternPincode = (function() {
+                var regex = /^([1-9])([0-9]){5}$/;
+                return {
+                    test: function(value) {
+                        if (!scope.picodeValidation) {
+                            return true;
+                        } else {
+                            return regex.test(value);
+                        }
+                    }
+                };
+            })();
+
+            scope.setPicodeStartDigitForState = function(state){
+                scope.picodeValidation = false;
+                if(state) {
+                    scope.stateName = state[0].stateName;
+                    if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
+                        scope.formData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
+                    }
+                }
+            }
 
             scope.changeState = function (stateId) {
+                scope.showPicodeStartingDigitError = false;
                 if (stateId != null) {
                     scope.selectState = _.filter(scope.states, function (state) {
                         return state.stateId == stateId;
@@ -74,6 +129,7 @@
                     }
                     scope.districts = scope.selectState[0].districtDatas;
                     scope.talukas = null;
+                    scope.setPicodeStartDigitForState(scope.selectState);
                 }
             }
 
@@ -110,10 +166,17 @@
                     delete scope.formData.talukaId;
                 }
 
-                resourceFactory.entityAddressResource.update({entityType:scope.entityType,entityId :scope.villageId,addressId :scope.addressId }, scope.formData, function (data) {
+                if (!scope.showPicodeStartingDigitError) {
+                    resourceFactory.entityAddressResource.update({
+                        entityType: scope.entityType,
+                        entityId: scope.villageId,
+                        addressId: scope.addressId
+                    }, scope.formData, function (data) {
 
-                    location.path('/viewvillage/' + scope.villageId);
-                });
+                        location.path('/viewvillage/' + scope.villageId);
+                    });
+                }
+
             };
         }
 

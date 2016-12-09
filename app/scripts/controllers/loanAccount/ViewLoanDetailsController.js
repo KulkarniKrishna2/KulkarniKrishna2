@@ -18,7 +18,7 @@
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1
+                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
                     || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId ) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 }
@@ -72,8 +72,11 @@
                     case "makerepayment":
                         location.path('/loanaccount/' + accountId + '/repayment');
                         break;
-                    case "prepayment":
+                    case "preclose":
                         location.path('/loanaccount/' + accountId + '/prepayloan');
+                        break;
+                    case "prepayment":
+                        location.path('/loanaccount/' + accountId + '/prepayment');
                         break;
                     case "waiveinterest":
                         location.path('/loanaccount/' + accountId + '/waiveinterest');
@@ -130,6 +133,9 @@
                         break;
                     case "foreclosure":
                         location.path('loanforeclosure/' + accountId);
+                        break;
+                    case "refund":
+                        location.path('/loanaccount/' + accountId + '/refund');
                         break;
                 }
             };
@@ -390,6 +396,7 @@
                                 name: "button.undolastdisbursal",
                                 taskPermissionName: 'DISBURSALLASTUNDO_LOAN'
                             }
+
                         ]
 
                     };
@@ -445,7 +452,7 @@
                     if(scope.recalculateInterest && scope.loandetails.interestRecalculationData){
                         scope.hideTransactionDetails = scope.loandetails.interestRecalculationData.isCompoundingToBePostedAsTransaction || false;
                         scope.buttons.singlebuttons.splice(1, 0, {
-                            name: "button.prepayment",
+                            name: "button.preclose",
                             icon: "icon-money",
                             taskPermissionName: 'REPAYMENT_LOAN'
                         });
@@ -456,10 +463,21 @@
                             taskPermissionName: 'FORECLOSURE_LOAN'
                         });
                     }
+                    if(scope.recalculateInterest && scope.loandetails.interestRecalculationData){
+                        scope.buttons.options.push( {
+                            name: "button.prepayment",
+                            taskPermissionName: 'PREPAYMENT_LOAN'
+                        });
+
+                    }
                 }
                 if (data.status.value == "Overpaid") {
                     scope.buttons = { singlebuttons: [
                         {
+                            name: "button.refund",
+                            icon: "icon-exchange",
+                            taskPermissionName: 'REFUND_LOAN'
+                        },{
                             name: "button.transferFunds",
                             icon: "icon-exchange",
                             taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
@@ -486,10 +504,18 @@
                 //scope.getAllLoanNotes();
                 scope.convertDateArrayToObject('date');
 
+                if($rootScope.hasPermission('READ_BANK_TRANSACTION')){
+                    resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
+                        scope.transferDetails = data;
+                    });
+                }
+
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
                     scope.loandatatables = data;
                 });
+
             });
+
 
             scope.isRepaymentSchedule = false;
             scope.istransactions = false;
@@ -921,6 +947,12 @@
 
                 return true;
             };
+
+            scope.viewTransferDetails = function(transferData){
+                location.path('/viewbankaccounttransfers/'+'loans/' + transferData.entityId+'/'+transferData.transactionId);
+            };
+
+
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {

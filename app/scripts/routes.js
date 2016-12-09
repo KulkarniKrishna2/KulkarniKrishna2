@@ -1396,6 +1396,30 @@
             })
             .when('/workflowtask/:entityType/:entityId', {
                 templateUrl: 'views/task/workflowtask.html'
+            })
+            .when('/bankaccountdetails/:entityType/:entityId', {
+                templateUrl: 'views/bankaccountdetails/bank_account_details.html'
+            })
+            .when('/createcgt', {
+                templateUrl: 'views/cgt/createcgt.html'
+            })
+            .when('/viewcgt/:cgtId', {
+                templateUrl: 'views/cgt/viewcgt.html'
+            })
+            .when('/updatecgtdays/:cgtDayId', {
+                templateUrl: 'views/cgt/updatecgtdays.html'
+            })
+            .when('/viewcgtdays/:cgtDayId', {
+                templateUrl: 'views/cgt/viewcgtdays.html'
+            })
+            .when('/completecgt/:cgtId', {
+                templateUrl: 'views/cgt/cgtcompleteorreject.html'
+            })
+            .when('/rejectcgt/:cgtId', {
+                templateUrl: 'views/cgt/cgtcompleteorreject.html'
+            })
+            .when('/viewbankaccounttransfers/:entityType/:entityId/:transferId', {
+                templateUrl: 'views/accounttransfers/view_bank_accounttransfer.html'
             });
         $locationProvider.html5Mode(false);
     };
