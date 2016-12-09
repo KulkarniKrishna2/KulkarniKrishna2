@@ -143,7 +143,7 @@
                     resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
                         scope.isWorkFlow = response.enabled;
                         if(scope.isWorkFlow && scope.isWorkFlow === true){
-                            location.path('/workflowtask/loanapplication/' + data.resourceId);
+                            location.path('/loanapplication/' + data.resourceId+'/workflow');
                         }else{
                             location.path('/viewloanapplicationreference/' + data.resourceId);
                         }

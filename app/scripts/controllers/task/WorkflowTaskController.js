@@ -1,30 +1,44 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        WorkflowExecutionController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        WorkflowTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
 
-            scope.$on('initworkflow', function (event, data) {
-                scope.tasks = data.taskExecutionData;
-                initWorkflow();
-                scope.$broadcast('inittask', {});
+            scope.tasks = [];
+
+            scope.$on('initTask', function (event, data) {
+                initTask(data.taskData);
             });
+
+            function initTask(taskData) {
+                if(taskData != undefined){
+                    scope.taskData = taskData;
+                }
+                if(scope.taskData !=undefined && scope.taskData.id !=undefined){
+                    refreshWorkflowTask();
+                }
+            }
+
+            initTask();
 
             scope.$on('taskCompleted', function (event, data) {
-                refreshWorkflow();
+                refreshWorkflowTask();
             });
 
-            function refreshWorkflow(){
-                resourceFactory.workflowTaskResource.getTaskDetailsByEntityTypeAndEntityId({entityType: scope.entityType,entityId : scope.entityId}, function (data) {
-                    scope.tasks =  data;
-                    initWorkflow();
+            function refreshWorkflowTask(){
+                resourceFactory.taskExecutionChildrenResource.getAll({taskId: scope.taskData.id}, function (children) {
+                    scope.tasks =  children;
+                    initWorkflowTask();
                 });
             };
 
-            function initWorkflow(){
-                scope.currentTaskId = scope.tasks[0].id;
-                for(index in scope.tasks){
-                    var task = scope.tasks[index];
-                    if(task.status.id !=1){
-                        scope.currentTaskId = task.id;
+            function initWorkflowTask() {
+                if (scope.tasks != undefined && scope.tasks.length > 0) {
+
+                    scope.currentTaskId = scope.tasks[0].id;
+                    for (index in scope.tasks) {
+                        var task = scope.tasks[index];
+                        if (task.status!= undefined && task.status.id != 1) {
+                            scope.currentTaskId = task.id;
+                        }
                     }
                 }
             };
@@ -118,7 +132,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('WorkflowExecutionController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.WorkflowExecutionController]).run(function ($log) {
-        $log.info("WorkflowExecutionController initialized");
+    mifosX.ng.application.controller('WorkflowTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.WorkflowTaskController]).run(function ($log) {
+        $log.info("WorkflowTaskController initialized");
     });
 }(mifosX.controllers || {}));

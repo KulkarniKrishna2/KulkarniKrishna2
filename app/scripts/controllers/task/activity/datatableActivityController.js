@@ -1,14 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        datatableTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        datatableActivityController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
 
             scope.datatabledetails = "";
             scope.status = 'VIEW';
 
             scope.getDetails = function(){
-                console.log(scope.stepconfig);
-                console.log(scope.tableName);
-                console.log(scope.entityId);
             resourceFactory.DataTablesResource.getTableDetails({datatablename: scope.tableName,
                 entityId: scope.entityId, genericResultSet: 'true'}, function (data) {
                 console.log("Datatable response");
@@ -16,7 +13,7 @@
                 scope.datatabledetails = data;
                 scope.datatabledetails.isData = (data !== undefined && data.data !==undefined && data.data.length > 0);
                 if(scope.datatabledetails.isData){
-                    scope.$emit("taskDone",{});
+                    scope.$emit("activityDone",{});
                     scope.status = 'VIEW';
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
@@ -58,8 +55,8 @@
             });
 
             function initTask(){
-                scope.tableName = scope.stepconfig['datatablename'];
-                scope.entityId = scope.stepconfig['clientId'];
+                scope.tableName = scope.taskconfig['datatablename'];
+                scope.entityId = scope.taskconfig['clientId'];
                 scope.getDetails();
             };
 
@@ -195,7 +192,7 @@
                     }
                 }
                 resourceFactory.DataTablesResource.save(params, this.formData, function (data) {
-                    scope.$emit("taskDone",{});
+                    scope.$emit("activityDone",{});
                     scope.getDetails();
                 });
             };
@@ -235,7 +232,7 @@
                     }
                     scope.columnHeaders = data.columnHeaders;
                     scope.editDatatableEntry();
-                    scope.$emit("taskEdit",{});
+                    scope.$emit("activityEdit",{});
                 });
 
 
@@ -313,7 +310,7 @@
 
         }
     });
-    mifosX.ng.application.controller('datatableTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.datatableTaskController]).run(function ($log) {
-        $log.info("datatableTaskController initialized");
+    mifosX.ng.application.controller('datatableActivityController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.datatableActivityController]).run(function ($log) {
+        $log.info("datatableActivityController initialized");
     });
 }(mifosX.controllers || {}));

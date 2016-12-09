@@ -1,12 +1,12 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        clientdocumentTaskController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        clientdocumentActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
             
             function initTask(){
-                scope.clientId = scope.stepconfig['clientId'];
+                scope.clientId = scope.taskconfig['clientId'];
                 getClientDocuments();
             };
 
@@ -36,13 +36,13 @@
                         if (!scope.$$phase) {
                             scope.$apply();
                         }
-                        scope.$emit("taskDone",{});
+                        scope.$emit("activityDone",{});
                         getClientDocuments();
                     });
             };
         }
     });
-    mifosX.ng.application.controller('clientdocumentTaskController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.clientdocumentTaskController]).run(function ($log) {
+    mifosX.ng.application.controller('clientdocumentActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
         $log.info("ClientDocumentController initialized");
     });
 }(mifosX.controllers || {}));

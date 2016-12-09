@@ -951,22 +951,22 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    workflowTaskResource: defineResource(apiVer + "/tasks/:entityType/:entityId", {}, {
-                        getTaskDetailsByEntityTypeAndEntityId: {method: 'GET', params: {entityType: '@entityType',entityId: '@entityId'}, isArray: true},
-                        post: {method: 'POST', params: {}}
-                    }),
                     workflowResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationId/workflow",
                         {loanApplicationId:'@loanApplicationId'}, {
                             get: {method: 'GET', params: {}},
                             update: {method: 'PUT', params: {}}
                         }),
-                    workflowExecutionResource: defineResource(apiVer + "/workflowexecution/:workflowexecutionId", {workflowexecutionId: '@workflowexecutionId'}, {
-                        get: {method: 'GET', params: {}}
-                    }),
-                    workflowStepExecutionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId",{workflowstepexecutionId: '@workflowstepexecutionId', action: '@action'}, {
+                    taskExecutionResource: defineResource(apiVer + "/taskexecution/:taskId", {taskId: '@taskId'}, {
+                        get: {method: 'GET', params: {}},
                         doAction: {method: 'POST', params: {action: '@action'}}
                     }),
-                    workflowStepExecutionActionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId/actions",{workflowstepexecutionId: '@workflowstepexecutionId'}, {
+                    entityTaskExecutionResource: defineResource(apiVer + "/taskexecution/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    taskExecutionActionResource: defineResource(apiVer + "/taskexecution/:taskId/actions",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    taskExecutionChildrenResource: defineResource(apiVer + "/taskexecution/:taskId/children",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
@@ -977,10 +977,10 @@
                         getAll: {method: 'GET', parms: {}, isArray: true },
                         update: {method: 'POST', parms:{}}
                     }),
-                    workFlowStepSummaryResource: defineResource(apiVer + "/workflowsteps/summary",{}, {
+                    workFlowStepSummaryResource: defineResource(apiVer + "/tasks/summary",{}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
-                    workFlowTasksResource: defineResource(apiVer + "/workflowsteps/actions",{}, {
+                    workFlowTasksResource: defineResource(apiVer + "/tasks/actions",{}, {
                         get: {method: 'GET', params: {filterby: '@filterby'}, isArray: true}
                     })
                 };

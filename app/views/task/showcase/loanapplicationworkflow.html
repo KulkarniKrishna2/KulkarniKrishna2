@@ -27,6 +27,6 @@
                 <span class="col-md-3">{{loanApplicationData.submittedOnDate | DateFormat}}</span>
             </div>
         </div>
-        <div ng-include="'views/workflow/workflowexecution.html'"></div>
+        <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
     </div>
 </div>

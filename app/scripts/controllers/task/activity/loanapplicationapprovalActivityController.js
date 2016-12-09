@@ -1,10 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        loanapplicationapprovalTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        loanapplicationapprovalActivityController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
 
             scope.approveloanapplicationdetails = "";
             scope.status = 'SUMMARY';
-            scope.loanApplicationReferenceId = scope.stepconfig['loanApplicationId'];
+            scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
 
             scope.onApproval = function(){
                 location.path('/approveloanapplicationreference/' + getLoanApplicationId());
@@ -16,7 +16,7 @@
 
 
             function getLoanApplicationId(){
-                return scope.stepconfig['loanApplicationId'];
+                return scope.taskconfig['loanApplicationId'];
             }
 
             scope.restrictDate = new Date();
@@ -55,7 +55,7 @@
                     }else if(scope.formData.status.id === 200){
                         showEditForm();
                     }else if(scope.formData.status.id > 200){
-                        scope.$emit("taskDone",{});
+                        scope.$emit("activityDone",{});
                     }
                 });
             }
@@ -427,7 +427,7 @@
                     command: 'approve'
                 }, this.submitData, function (data) {
                     scope.status = 'SUMMARY';
-                    scope.$emit("taskDone",{});
+                    scope.$emit("activityDone",{});
                 });
             };
 
@@ -508,7 +508,7 @@
 
 
     });
-    mifosX.ng.application.controller('loanapplicationapprovalTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationapprovalTaskController]).run(function ($log) {
-        $log.info("loanapplicationapprovalTaskController initialized");
+    mifosX.ng.application.controller('loanapplicationapprovalActivityController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationapprovalActivityController]).run(function ($log) {
+        $log.info("loanapplicationapprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));

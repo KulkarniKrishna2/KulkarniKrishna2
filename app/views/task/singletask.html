@@ -1,24 +1,24 @@
-<div ng-controller="WorkflowStepExecutionController">
+<div ng-controller="SingleTaskController">
     <div ng-show="canView">
-        <div ng-include="getTaskView()"></div>
-        <div class="row step-action">
+        <div ng-include="getActivityView()"></div>
+        <div class="row task-action">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button class="btn btn-primary" ng-click="doStepAction(action.id)">{{action.value}}</button>
+                <button class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.value}}</button>
             </span>
         </div>
-        <div class="row client" ng-show="task.criteriaResult !== undefined">
+        <div class="row client" ng-show="taskData.criteriaResult !== undefined">
             <form class="well form-inline">
                 <div>
-                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{task.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
+                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{taskData.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
                 </div>
                 <div ng-show="showCriteriaResult">
                     <div >
                         <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
                     </div>
                     <div>
-                        {{task.criteriaResult.criteriaOutput.name}} - {{task.criteriaResult.criteriaOutput.output.bucket}} - {{task.criteriaResult.criteriaOutput.output.value}} - {{task.criteriaResult.criteriaOutput.output.reason}} - {{task.criteriaResult.criteriaOutput.output.error}}
+                        {{taskData.criteriaResult.criteriaOutput.name}} - {{taskData.criteriaResult.criteriaOutput.output.bucket}} - {{taskData.criteriaResult.criteriaOutput.output.value}} - {{taskData.criteriaResult.criteriaOutput.output.reason}} - {{taskData.criteriaResult.criteriaOutput.output.error}}
                         <ul>
-                            <li ng-repeat="dimensionResult in task.criteriaResult.criteriaOutput.ruleResultHierarchy">
+                            <li ng-repeat="dimensionResult in taskData.criteriaResult.criteriaOutput.ruleResultHierarchy">
                                 {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
                                 <ol>
                                     <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-offset-4 col-sm-4"><button ng-click="doStepAction(2)">Do Fresh Check</button></div>
+                <div class="col-sm-offset-4 col-sm-4"><button ng-click="doTaskAction(2)">Do Fresh Check</button></div>
             </form>
         </div>
     </div>

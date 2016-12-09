@@ -1,0 +1,22 @@
+<div name="viewtaskForm" ng-controller="ViewTaskController">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="#/workflowTasks"><strong>{{'label.heading.task.queue' | translate}}</strong></a></li>
+                <li class="active">{{taskData.id}}</li>
+            </ul>
+        </div>
+        <div class="row well">
+            <div ng-if="clientId!=undefined" class="row">
+                <span class="col-md-2"> Client Id: </span>
+                <span class="col-md-4">{{clientId}}</span>
+            </div>
+            <div ng-if="loanApplicationId!=undefined" class="row">
+                <span class="col-md-2"> LoanApplicationId: </span>
+                <span class="col-md-4">{{loanApplicationId}}</span>
+            </div>
+        </div>
+        <div  ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
+        <div  ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
+    </div>
+</div>

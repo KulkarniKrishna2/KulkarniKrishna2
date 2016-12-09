@@ -1,14 +1,14 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        existingLoanTaskController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
+        existingLoanActivityController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
 
             scope.addExistingLoan = false;
             scope.formData = {};
 
             function initTask(){
-                scope.clientId = scope.stepconfig['clientId'];
+                scope.clientId = scope.taskconfig['clientId'];
                 existingLoans();
-                scope.$emit("taskDone",{});
+                scope.$emit("activityDone",{});
             };
 
             initTask();
@@ -53,8 +53,8 @@
 
         }
     });
-    mifosX.ng.application.controller('existingLoanTaskController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.existingLoanTaskController]).run(function ($log) {
-        $log.info("existingLoanTaskController initialized");
+    mifosX.ng.application.controller('existingLoanActivityController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.existingLoanActivityController]).run(function ($log) {
+        $log.info("existingLoanActivityController initialized");
     });
 
 }(mifosX.controllers || {}));

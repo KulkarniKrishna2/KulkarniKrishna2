@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        surveyTaskController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, dateFilter) {
+        surveyActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, dateFilter) {
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
@@ -14,9 +14,9 @@
             scope.entityTypeId = null;
             scope.entityType = 'clients';
             function initTask(){
-                scope.clientId = scope.stepconfig['clientId'];
+                scope.clientId = scope.taskconfig['clientId'];
                 scope.entityId = scope.clientId;
-                scope.surveyId = scope.stepconfig['surveyId'];
+                scope.surveyId = scope.taskconfig['surveyId'];
             };
             initTask();
             scope.takeNewSurvey = function(){
@@ -39,7 +39,7 @@
                 resourceFactory.takeSurveysResource.getAll({entityType : scope.entityTypeId,entityId:scope.entityId}, function (surveys) {
                     scope.surveys = surveys;
                     if(surveys && surveys.length > 0){
-                        scope.$emit("taskDone",{});
+                        scope.$emit("activityDone",{});
                     }else{
                         scope.takeNewSurvey();
                     }
@@ -91,7 +91,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('surveyTaskController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope' ,'dateFilter', mifosX.controllers.surveyTaskController]).run(function ($log) {
-        $log.info("surveyTaskController initialized");
+    mifosX.ng.application.controller('surveyActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope' ,'dateFilter', mifosX.controllers.surveyActivityController]).run(function ($log) {
+        $log.info("surveyActivityController initialized");
     });
 }(mifosX.controllers || {}));

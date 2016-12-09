@@ -11,14 +11,15 @@
             });
             scope.masterconfig = {};
             scope.loanApplicationData = {};
+
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationId}, function (data) {
                 scope.loanApplicationData = data;
                 scope.formData = data;
                 scope.loanProductChange(scope.formData.loanProductId);
 
-                resourceFactory.loanapplicationWorkflowResource.get({loanApplicationId: scope.loanApplicationId}, function (data) {
-                    var workflowExecutionData = data;
-                    scope.$broadcast('initworkflow', {"workflowExecutionData": workflowExecutionData});
+                resourceFactory.entityTaskExecutionResource.get({entityType: "loanApplication",entityId:scope.loanApplicationId}, function (data) {
+                    scope.taskData = data;
+                    //scope.$broadcast('initTask', {"taskData": data});
                 });
             });
 

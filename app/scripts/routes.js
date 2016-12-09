@@ -1374,7 +1374,7 @@
                 templateUrl:'views/products/creditbureauloanproducts.html'
             })
             .when('/loanapplication/:loanApplicationId/workflow', {
-                templateUrl: 'views/loans/loanapplicationworkflow.html'
+                templateUrl: 'views/task/showcase/loanapplicationworkflow.html'
             })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
@@ -1390,6 +1390,9 @@
             })
             .when('/workflowtasks', {
                 templateUrl: 'views/dashboard/workflowtasks.html'
+            })
+            .when('/viewtask/:taskId', {
+                templateUrl: 'views/task/viewtask.html'
             })
             .when('/workflowtask/:entityType/:entityId', {
                 templateUrl: 'views/task/workflowtask.html'

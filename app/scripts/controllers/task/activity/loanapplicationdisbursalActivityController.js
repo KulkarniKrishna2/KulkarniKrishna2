@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        loanapplicationdisbursalTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
-            scope.loanApplicationReferenceId = scope.stepconfig['loanApplicationId'];
+        loanapplicationdisbursalActivityController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+            scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.issubmitted = false;
             scope.restrictDate = new Date();
             scope.formRequestData = {};
@@ -420,7 +420,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('loanapplicationdisbursalTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationdisbursalTaskController]).run(function ($log) {
-        $log.info("loanapplicationdisbursalTaskController initialized");
+    mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {
+        $log.info("loanapplicationdisbursalActivityController initialized");
     });
 }(mifosX.controllers || {}));

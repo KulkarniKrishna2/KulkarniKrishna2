@@ -1,12 +1,12 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        creditbureauTaskController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        creditbureauActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
 
             function initTask(){
-                scope.clientId = scope.stepconfig['clientId'];
+                scope.clientId = scope.taskconfig['clientId'];
             };
 
             initTask();
@@ -18,7 +18,7 @@
                 //scope.viewCreditBureauReport = true;
                 if(scope.loansSummary && scope.loansSummary.cbStatus && scope.loansSummary.cbStatus.value == 'SUCCESS'){
                     scope.viewCreditBureauReport = true;
-                    scope.$emit("taskDone",{});
+                    scope.$emit("activityDone",{});
                 }
             });
 
@@ -27,7 +27,7 @@
                     scope.loansSummary = loansSummary;
                     if(scope.loansSummary && scope.loansSummary.cbStatus && scope.loansSummary.cbStatus.value == 'SUCCESS'){
                         scope.viewCreditBureauReport = true;
-                        scope.$emit("taskDone",{});
+                        scope.$emit("activityDone",{});
                     }
                 });
             }
@@ -63,7 +63,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('creditbureauTaskController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.creditbureauTaskController]).run(function ($log) {
-        $log.info("creditbureauTaskController initialized");
+    mifosX.ng.application.controller('creditbureauActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
+        $log.info("creditbureauActivityController initialized");
     });
 }(mifosX.controllers || {}));
