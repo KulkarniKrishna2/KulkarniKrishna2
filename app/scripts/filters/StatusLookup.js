@@ -52,7 +52,11 @@
                     "loanApplication.rejected":"statusrejected",
                     "smartCardStatusType.active": "statusactive",
                     "smartCardStatusType.inactive": "statusclosed",
-                    "smartCardStatusType.pending" : "statuspending"
+                    "smartCardStatusType.pending" : "statuspending",
+                    "CgtStatusType.new" : "statusnew",
+                    "CgtStatusType.in.progress" : "statusinprocess",
+                    "CgtStatusType.complete" : "statuscompleted",
+                    "CgtStatusType.reject" : "statusreject"
                 }
 
                 return cssClassNameLookup[input];

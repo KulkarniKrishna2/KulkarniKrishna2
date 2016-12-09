@@ -4,12 +4,15 @@
 /*
             scope.formData = {};*/
 
-            resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id}, function (data) {
+            resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id,template: 'true'}, function (data) {
+                scope.externalservices = data.externalServiceOptions;
                 scope.formData = {
                     name: data.name,
                     description: data.description,
                     isCashPayment: data.isCashPayment,
-                    position : data.position
+                    position : data.position,
+                    externalServiceId:data.externalServiceId,
+                    bankAccountDetails:data.bankAccountDetails
                 };
             });
 

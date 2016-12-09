@@ -18,6 +18,9 @@
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
 	            	{{ 'label.input.staff' | translate }}: {{client.staffName}}
 	            </small>
+				<small data-ng-show="client.closureReason">
+					| {{'label.input.closurereason' | translate}}:{{client.closureReason.name}}
+				</small>
 	        </h3>
 	    </div>
 	</div>
@@ -206,6 +209,9 @@
 								</li>
 								<li>
 									<a href="#/clients/{{client.id}}/surveys">{{'label.button.view.surveys' | translate }}</a>
+								</li>
+								<li>
+									<a href="#/bankaccountdetails/clients/{{client.id}}" has-permission='READ_BANKACCOUNTDETAIL'>{{'label.button.bankaccountdetails' | translate }}</a>
 								</li>
 						    </ul>
 						</span>

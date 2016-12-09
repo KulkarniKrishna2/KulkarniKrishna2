@@ -105,8 +105,8 @@
                         getBySurveyId: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, { 
-                        post: {method: 'POST', params: {}, isArray: false}                       
+                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, {
+                        post: {method: 'POST', params: {}, isArray: false}
                     }),
                     takeSurveysResource: defineResource(apiVer + "/:entityType/:entityId/takesurveys", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
@@ -196,8 +196,8 @@
                         update: {method: 'PUT', params: {}},
                         getAllInterestRateCharts: {method: 'GET', params: {productId: '@productId'}, isArray: true}
                     }),
-                    batchResource: defineResource(apiVer + "/batches", {}, { 
-                        post: {method: 'POST', params: {}, isArray: true}                       
+                    batchResource: defineResource(apiVer + "/batches", {}, {
+                        post: {method: 'POST', params: {}, isArray: true}
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
                         getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}}
@@ -586,7 +586,7 @@
                     passwordPrefResource : defineResource(apiVer + "/passwordpreferences", {}, {
                         put: {method: 'PUT', params:{}}
                     }),
-                    paymentTypeResource: defineResource(apiVer + "/paymenttypes/:paymentTypeId", {paymentTypeId: "@paymentTypeId"}, {
+                    paymentTypeResource: defineResource(apiVer + "/paymenttypes/:paymentTypeId/:resourceType", {paymentTypeId: "@paymentTypeId",resourceType: '@resourceType'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
                         update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
@@ -666,7 +666,7 @@
                         collateralDetailId : '@collateralDetailId'}, {
                         delete: {method: 'DELETE', params: {}}
 
-                    }),    
+                    }),
                     taxcomponent: defineResource(apiVer + "/taxes/component/:taxComponentId",{taxComponentId:'@taxComponentId'},{
                         getAll: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params: {}}
@@ -783,7 +783,7 @@
                     entityAddressResource:defineResource(apiVer+"/:entityType/:entityId/addresses/:addressId",{entityType: '@entityType',entityId: '@entityId',addressId: '@addressId'},{
                     delete: {method: 'DELETE',parms: {}},
                     update: {method: 'PUT',parms:{}},
-                    getAddress: {method: 'GET',parms:{}}    
+                    getAddress: {method: 'GET',parms:{}}
                     }),
                     centerLookupResource: defineResource(apiVer + "/centers/:centerId/memberaccountdetails", {centerId:'@centerId'}, {
                         get: {method: 'GET', params: {}, isArray : true}
@@ -982,6 +982,32 @@
                     }),
                     workFlowTasksResource: defineResource(apiVer + "/tasks/actions",{}, {
                         get: {method: 'GET', params: {filterby: '@filterby'}, isArray: true}
+                    }),
+                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'},
+                        get: {method: 'GET'},
+                        update: {method: 'PUT'},
+                        delete: {method: 'DELETE'}
+                    }),
+                    cgtTemplateResource:defineResource(apiVer+"/cgt/template", {entityType: '@entityType', entityId: '@entityId'}, {
+                        getAll: {method: 'GET', parms: {entityId : '@entityId'}, isArray: false },
+                        update: {method: 'POST', parms:{}}
+                    }),
+                    cgtResource:defineResource(apiVer+"/cgt/:id", {id: '@id', action: '@action'}, {
+                        getCgtById: {method: 'GET', parms: {}, isArray: false },
+                        getAll: {method: 'GET', parms:{}, isArray: true},
+                        update: {method: 'PUT', parms: {action: '@action'}, isArray: false }
+                    }),
+                    cgtDaysResource:defineResource(apiVer+"/cgt/:id/cgtDay/:cgtDayId", {id: '@id', cgtDayId: '@cgtDayId'}, {
+                        getCgtDayByCgtId: {method: 'GET', parms: {}, isArray: false },
+                        updateCgtDayByCgtId: {method: 'PUT', parms:{}},
+                        completeCgtDay: {method: 'PUT', parms: {action: '@action'}},
+                        getCgtDaysById: {method: 'GET', parms: {}, isArray: false}
+                    }),
+                    bankAccountTransferResource: defineResource(apiVer + "/banktransaction/:bankTransferId", {bankTransferId:"@bankTransferId", entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        save: {method: 'POST', params: {}}
                     })
                 };
             }];

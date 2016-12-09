@@ -123,6 +123,22 @@
                         {{loanRescheduleDetails.interestRate}}
                     </td>
                 </tr>
+
+                <tr>
+                    <td class ="paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="adjustinstallmentamount"> &nbsp;<span
+                            class="control-label">{{ 'label.input.adjustinstallmentamount' | translate }}&nbsp;</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="adjustinstallmentamount">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.newinstallmentamount' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="adjustinstallmentamount">
+                        {{loanRescheduleDetails.installmentAmount}}
+                    </td>
+                </tr>
                 <!--<tr>
                     <td class = "paddedtop">
                         <input type="checkbox" ng-disabled="true" ng-model="loanRescheduleDetails.recalculateInterest"> &nbsp;<span

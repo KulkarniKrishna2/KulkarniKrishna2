@@ -194,6 +194,10 @@
     <td>{{'label.heading.amortization' | translate}}</td>
     <td colspan="3">{{loanproduct.amortizationType.value}}</td>
 </tr>
+<tr ng-show="loanproduct.amortizationType.id == 1 && loanproduct.installmentCalculationPeriodType">
+    <td>{{'label.heading.installmenttcalculationperiod' | translate}}</td>
+    <td colspan="3">{{loanproduct.installmentCalculationPeriodType.value}}</td>
+</tr>
 <tr>
     <td>{{'label.heading.interestmethod' | translate}}</td>
     <td colspan="3">{{loanproduct.interestType.value}}</td>
@@ -410,6 +414,10 @@
     <td>{{'label.input.outstandingloanbalance' | translate}}</td>
     <td colspan="3">{{loanproduct.outstandingLoanBalance}}</td>
 </tr>
+    <tr ng-show="loanproduct.multiDisburseLoan">
+        <td>{{'label.input.enableemibaseddisbursements' | translate}}</td>
+        <td colspan="3">{{loanproduct.isEmiBasedOnDisbursements}}</td>
+    </tr>
 <tr>
     <td colspan="4"><br/></td>
 </tr>

@@ -454,6 +454,18 @@
                                 <td>{{'label.input.weeksinyears' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.weeksInYearType.value}}</span></td>
                             </tr>
+                            <tr ng-show="loandetails.expectedDisbursalPaymentType.name">
+                                <td>{{'label.heading.preferredpaymentchannelfordisbursements' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td"  ng-show="loandetails.expectedDisbursalPaymentType">{{loandetails.expectedDisbursalPaymentType.name}}</span></td>
+                            </tr>
+                            <tr ng-show="loandetails.expectedRepaymentPaymentType.name">
+                                <td>{{'label.heading.preferredpaymentchannelforrepayments' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td"  ng-show="loandetails.expectedRepaymentPaymentType">{{loandetails.expectedRepaymentPaymentType.name}}</span></td>
+                            </tr>
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled">
                                 <td>{{ 'label.input.issubsidyapplicable' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.interestRecalculationData.isSubsidyApplicable }}</span></td>
@@ -824,6 +836,24 @@
                                 <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                             </div>
                         </div>
+                    </tab>
+
+
+                    <tab ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}">
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.transfertype' | translate}}</th>
+                                <th>{{'label.heading.transactiondate' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.status' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="traanferData in transferDetails" class="pointer-main">
+                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transferType.value}}</td>
+                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transactionDate | DateFormat}}</td>
+                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.amount}}</td>
+                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.status.value}}</td>
+                            </tr>
+                        </table>
                     </tab>
 
                     <tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">

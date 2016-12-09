@@ -437,7 +437,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',
-            'dashboard/WorkFlowTasksController'
+            'dashboard/WorkFlowTasksController',
+            'bankaccountdetails/BankAccountDetailController',
+            'cgt/CgtCreationController',
+            'cgt/ViewCgtController',
+            'cgt/updateCgtDayController',
+            'cgt/ViewCgtDaysController',
+            'cgt/CgtCompleteOrRejectController',
+            'accounttransfers/ViewAccountTransferDetailsController',
+            'accounttransfers/ViewBankAccountTransferDetailsController'
         ],
         filters: [
             'StatusLookup',

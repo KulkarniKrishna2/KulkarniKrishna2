@@ -10,6 +10,43 @@
             scope.opensavingsproduct = 'false';
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
+            scope.isDateOfBirthMandatory = false;
+            if($rootScope.tenantIdentifier == "chaitanya"){
+                scope.isDateOfBirthMandatory = true;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
+                scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+            }
+            scope.minAge = 0;
+            scope.maxAge = 0;
+            scope.dateOfBirthNotInRange = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+
+                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
+                    scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge > 0) {
+                    scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
+                }
+            } else{
+                scope.minAge = 0;
+                scope.maxAge = scope.restrictDate;
+
+            }
+            scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
+            scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
+            function getMaximumRestrictedDate(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
+                return restrictedDate;
+            };
+
+            function getMinimumRestrictedDate(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
+                return restrictedDate;
+            };
+
             resourceFactory.clientResource.get({clientId: routeParams.id, template:'true', staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
@@ -30,6 +67,7 @@
                     staffId: data.staffId,
                     externalId: data.externalId,
                     mobileNo: data.mobileNo,
+                    alternateMobileNo: data.alternateMobileNo,
                     savingsProductId: data.savingsProductId,
                     genderId: data.gender.id,
                     fullname: data.fullname,
@@ -110,37 +148,51 @@
                 if (scope.opensavingsproduct == 'false') {
                     this.formData.savingsProductId = null;
                 }
+
                 if (scope.choice === 1) {
                     if (scope.date.activationDate) {
                         this.formData.activationDate = dateFilter(scope.date.activationDate, scope.df);
                     }
                 }
-                if(scope.date.dateOfBirth){
-                    this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth,  scope.df);
+                if (scope.date.dateOfBirth) {
+                    this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth, scope.df);
                 }
 
-                if(scope.date.submittedOnDate){
-                    this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate,  scope.df);
+                if(scope.date.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                    if(!(scope.date.dateOfBirth < scope.maxDateOfBirth && scope.date.dateOfBirth > scope.minDateOfBirth)){
+                        scope.dateOfBirthNotInRange = true;
+                    } else{
+                        scope.dateOfBirthNotInRange = false;
+                    }
+                } else {
+                    scope.dateOfBirthNotInRange = false;
                 }
 
-                if(scope.date.incorpValidityTillDate){
+                if (scope.date.submittedOnDate) {
+                    this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate, scope.df);
+                }
+
+                if (scope.date.incorpValidityTillDate) {
                     this.formData.clientNonPersonDetails.locale = scope.optlang.code;
                     this.formData.clientNonPersonDetails.dateFormat = scope.df;
-                    this.formData.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.date.incorpValidityTillDate,  scope.df);
+                    this.formData.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.date.incorpValidityTillDate, scope.df);
                 }
 
-                if(this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
+                if (this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
                     delete this.formData.fullname;
-                }else {
+                } else {
                     delete this.formData.firstname;
                     delete this.formData.middlename;
                     delete this.formData.lastname;
                 }
 
+                 if(!scope.dateOfBirthNotInRange ) {
                 resourceFactory.clientResource.update({'clientId': routeParams.id}, this.formData, function (data) {
                     location.path('/viewclient/' + routeParams.id);
                 });
+            }
             };
+
         }
     });
     mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.EditClientController]).run(function ($log) {

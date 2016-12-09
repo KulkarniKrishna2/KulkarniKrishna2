@@ -68,13 +68,23 @@
       "isAutoPopulate": {
         "paymentTypeOption": true
       },
-      "isHiddenFeild":{
-        "newtransactionDate":false
+      "isHiddenFeild": {
+        "newtransactionDate": false
       }
     },
     "createClient": {
       "isReadOnlyField": {
         "staff": true
+      },
+      "isValidateDOBField": {
+        "active": true,
+        "ageCriteria": {
+          "minAge": 18,
+          "maxAge": 60
+        }
+      },
+      "isHiddenField":{
+        "hideClientClassification":true
       }
     },
 
@@ -121,7 +131,15 @@
     "createVillage": {
       "isReadOnlyField": {
         "active": true
+      },
+      "isValidatePinCodeField": {
+        "active": true,
+        "pinCodeValues": {
+          "karnataka": 5,
+          "maharashtra": 4
+        }
       }
+
     }
   }
 }

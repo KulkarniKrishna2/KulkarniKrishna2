@@ -1,0 +1,101 @@
+<div ng-controller="ViewBankAccountTransferDetailsController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a ng-click="cancel()">{{'label.heading.' +entityType | translate}}</a></li>
+            <li class="active">{{'label.anchor.bankaccounttransferdetails' | translate}}</li>
+        </ul>
+    </div>
+    <h3>{{ 'label.heading.viewaccounttransferdetails' | translate}}</h3>
+
+
+     <div class="row paddedtop">
+        <div class="pull-right">
+            <div class="btn-group">
+                <a class="btn btn-primary" ng-show="transferData.status.id == 1" has-permission="SUBMIT_TRANSFER" ng-click="submit()"><i class="icon-edit icon-white"></i>{{ 'label.button.initiate' | translate }}</a>
+                <a class="btn btn-primary" ng-show="transferData.status.id == 2" has-permission="INITIATE_TRANSFER" ng-click="initiate()"><i class="icon-edit icon-white"></i>{{ 'label.button.approve' | translate }}</a>
+                <a class="btn btn-primary" ng-show="transferData.status.id == 6" has-permission="SUBMIT_TRANSFER" ng-click="submit()"><i class="icon-trash icon-white"></i>{{ 'label.button.reinitiate' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span7">
+            <strong>{{ 'label.heading.transactiondetails' | translate}}</strong>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{ 'label.heading.transactionamount' | translate }}</td>
+                    <td width="70%">{{transferData.amount | number}}</td>
+                </tr>
+                <tr ng-show="transferData.transferDate">
+                    <td>{{ 'label.heading.transactiondate' | translate }}</td>
+                    <td>{{transferData.transferDate | DateFormat}}</td>
+                </tr>
+                <tr ng-show="transferData.transferDescription">
+                    <td>{{ 'label.heading.description' | translate }}</td>
+                    <td>{{transferData.transferDescription}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.status' | translate }}</td>
+                    <td>{{transferData.status.value}}</td>
+                </tr>
+                <tr ng-show="transferData.createdBy">
+                    <td>{{ 'label.heading.created.user' | translate }}</td>
+                    <td>{{transferData.createdBy.firstname}} {{transferData.createdBy.lastname}}</td>
+                </tr>
+                <tr ng-show="transferData.approvedBy">
+                    <td>{{ 'label.heading.approved.user' | translate }}</td>
+                    <td>{{transferData.approvedBy.firstname}} {{transferData.approvedBy.lastname}}</td>
+                </tr>
+
+                <tr class="span2"></tr>
+            </table>
+            <strong>{{ 'label.heading.transferredfrom' | translate}}</strong>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{ 'label.heading.holdername' | translate }}</td>
+                    <td width="70%">{{transferData.debiter.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.accountnumber' | translate }}</td>
+                    <td>{{transferData.debiter.accountNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.ifsccode' | translate }}</td>
+                    <td>{{transferData.debiter.ifscCode}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.mobilenumber' | translate }}</td>
+                    <td>{{transferData.debiter.mobileNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.email' | translate }}</td>
+                    <td>{{transferData.debiter.email}}</td>
+                </tr>
+                <tr class="span2"></tr>
+            </table>
+            <strong>{{ 'label.heading.transferredto' | translate}}</strong>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{ 'label.heading.holdername' | translate }}</td>
+                    <td width="70%">{{transferData.beneficiary.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.accountnumber' | translate }}</td>
+                    <td>{{transferData.beneficiary.accountNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.ifsccode' | translate }}</td>
+                    <td>{{transferData.beneficiary.ifscCode}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.mobilenumber' | translate }}</td>
+                    <td>{{transferData.beneficiary.mobileNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.email' | translate }}</td>
+                    <td>{{transferData.beneficiary.email}}</td>
+                </tr>
+                <tr class="span2"></tr>
+            </table>
+        </div>
+    </div>
+</div>

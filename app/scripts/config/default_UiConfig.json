@@ -71,6 +71,16 @@
 	"createClient": {
 	  "isReadOnlyField": {
 		"staff": true
+	  },
+		"isValidateDOBField": {
+			"active": false,
+			"ageCriteria": {
+				"minAge": 18,
+				"maxAge": 60
+			}
+		},
+	  "isHiddenField":{
+		"hideClientClassification":true
 	  }
 	},
 	"createGroup": {
@@ -109,7 +119,14 @@
 	"createVillage": {
 	  "isReadOnlyField": {
 		"active": true
-	  }
+	  },
+		"isValidatePinCodeField": {
+			"active": false,
+			"pinCodeValues": {
+			  "Karnataka":5,
+			  "Maharashtra":4
+			}
+		}
 	},
 	"viewLoanAccountDetails":{
 	  "isHiddenFeild":{
