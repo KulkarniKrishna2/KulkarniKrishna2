@@ -5366,6 +5366,7 @@
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
     "taskEntityType.loan.application" : "Loan Application",
+    "label.button.creditbureaureport" : "Credit Bureau Report",
 
     "------ end of tensalation file":"---------"
 }

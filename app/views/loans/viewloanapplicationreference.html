@@ -22,9 +22,9 @@
                           class="icon-ok-sign icon-white"></i>{{'label.button.request.approval' | translate}}</a>
                 </span>
                 <span ng-if="isHighMark == true && isCBCheckReq == true && formData.status.id < 200">
-                    <a href="#/creditbureaureport/{{loanApplicationReferenceId}}"
+                    <a href="#/creditbureaureport/loanapplication/{{loanApplicationReferenceId}}"
                        class="btn btn-primary"  has-permission='READ_CREDIT_BUREAU_CHECK'><i
-                            class="icon-ok-sign icon-white"></i>Credit Bureau Report</a>
+                            class="icon-ok-sign icon-white"></i>{{'label.button.creditbureaureport' | translate}}</a>
                 </span>
                 <span ng-if="formData.status.id === 200">
                   <a href="#/approveloanapplicationreference/{{loanApplicationReferenceId}}"
