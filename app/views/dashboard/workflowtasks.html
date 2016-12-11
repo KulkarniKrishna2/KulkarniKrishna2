@@ -1,5 +1,7 @@
 <div class="col-md-12" data-ng-controller="WorkFlowTasksController">
-    <h3 class="paddedleft"><strong>{{'label.heading.workflow.tasks' | translate}}</strong>
+    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" placeholder="filter" class="form-control">
+    <h3 class="paddedleft">
+        <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
         <div class = "btn-group pull-right">
             <button type = "button" class = "btn btn-default" ng-click="getWorkFlowTasks('assigneed')">Assigned</button>
             <button type = "button" class = "btn btn-default" ng-click="getWorkFlowTasks('unassigneed')">Un Assigned</button>
@@ -9,32 +11,49 @@
     <hr/>
     <div id="home" class="row">
         <div class="col-md-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Task Name</th>
-                    <th>Status</th>
-                    <th>Pending Action</th>
-                    <th>Assigneed To</th>
-                    <th>Client</th>
-                    <th>Office</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="workFlowTask in workFlowTasks track by $index">
-                        <td>{{workFlowTask.stepName}}</td>
-                        <td>{{workFlowTask.stepStatus}}</td>
-                        <td>{{workFlowTask.currentAction}}</td>
-                        <td>{{workFlowTask.assignedTo}}</td>
-                        <td>{{workFlowTask.clientName}}</td>
-                        <td>{{workFlowTask.officeName}}</td>
-                        <td>
-                            <button ng-if="loggedInUserId == workFlowTask.assignedId" class="btn btn-primary" ng-click="moveToNextStep(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="card-content no-h-padding">
+                <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
+                    <table id="otherTasks" class="table table-striped card-table">
+                        <thead>
+                        <tr>
+                            <th class="col-md-4">Task Details</th>
+                            <th class="col-md-3">Office Details</th>
+                            <th class="col-md-3">Client Details</th>
+                            <th class="col-md-1">Task</th>
+                            <th class="col-md-1">Workflow</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="workFlowTask in workFlowTasks | filter:filterText">
+                            <td class="col-md-4">
+                                Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{workFlowTask.taskName}} #{{workFlowTask.taskId}}<br>
+                                type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;Loan Application<br>
+                                Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{workFlowTask.taskStatus}}<br>
+                                Assigned To&nbsp;:&nbsp;&nbsp;{{workFlowTask.assignedTo}} #{{workFlowTask.assignedId}}<br>
+                            </td>
+                            <td class="col-md-3">
+                                {{workFlowTask.officeData.name}} #{{workFlowTask.officeData.id}}
+                            </td>
+                            <td class="col-md-3">
+                                {{workFlowTask.clientData.displayName}} #{{workFlowTask.clientData.id}}
+                            </td>
+                            <td class="col-md-1">
+                                <button ng-if="loggedInUserId == workFlowTask.assignedId" class="pointer btn btn-primary" ng-click="moveToTask(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
+                            </td>
+                            <td class="col-md-1">
+                                <button ng-if="loggedInUserId == workFlowTask.assignedId" class="pointer btn btn-primary" ng-click="moveToWorkFlow(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="" style="padding:10px;" data-ng-hide="workFlowTasks && workFlowTasks.length > 0">
+                    <div class="alert alert-info" style="border-style: dashed;">
+                        <span class="fa fa-info-circle"></span> Do not have any tasks!
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
