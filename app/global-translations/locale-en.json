@@ -5347,6 +5347,7 @@
     "label.heading.total.disbursal.amount": "Total Disbursal Amount",
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
+    "taskEntityType.loan.application" : "Loan Application",
 
     "------ end of tensalation file":"---------"
 }
