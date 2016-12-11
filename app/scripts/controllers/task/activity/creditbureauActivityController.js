@@ -150,7 +150,6 @@
             scope.creditBureauReport = function(){
                 resourceFactory.loanApplicationReferencesCreditBureauReportResource.get({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (loansSummary) {
                     scope.loansSummary = loansSummary;
-                    scope.$emit("activityDone",{});
                     resourceFactory.clientExistingLoan.getAll({clientId: scope.loanApplicationData.clientId}, function(data){
                         scope.existingLoans = data;
                         constructLoanSummary();

@@ -356,6 +356,7 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'disburse'
                 }, this.formRequestData, function (disburseData) {
+                    scope.$emit("activityDone",{});
                     location.path('/viewclient/' + scope.formData.clientId);
                     //location.path('/loanapplication/'+scope.formData.clientId+'/workflow');
                 });
