@@ -28,6 +28,9 @@
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
+            resourceFactory.paymentTypeResource.getAll( function (data) {
+                scope.paymentTypes = data;
+            });
             scope.viewUser = function (item) {
                 scope.userTypeahead = true;
                 scope.formData.user = item.id;
@@ -160,7 +163,8 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId
+                        centerId: this.centerId,
+                        paymentTypeId: this.paymentTypeId
                     }, function (data) {
                         scope.loanDisburseData = data;
                     });
@@ -252,6 +256,7 @@
                     return (checkBoxesMet===scope.loanApproveData.length);
                 }
             }
+
             scope.loanDisbursalAllCheckBoxesClicked = function() {
                 var newValue = !scope.loanDisbursalAllCheckBoxesMet();
                 if(!angular.isUndefined(scope.loanDisburseData)) {
@@ -702,18 +707,20 @@
                     disburse.locale = scope.optlang.code;
                     var totalDisbursalLoans = 0;
                     var DisbursalloanCount = 0;
-                    _.each(items, function (value, key) {
-                        if (value == true) {
-                            totalDisbursalLoans++;
-                        }
-                    });
 
                     scope.batchRequests = [];
                     scope.requestIdentifier = "loanId";
 
                     var reqId = 1;
                     _.each(items, function (value, key) {
+                        _.each(scope.loanDisburseData, function (data) {
+                            if(data.id == key) {
+                                disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
+                                disburse.receiptNumber = data.receiptNumber;
+                            }
+                        });
                         if (value == true) {
+                            totalDisbursalLoans++;
                             scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=disburse",
                                 method: "POST", body: JSON.stringify(disburse)});
                         }
