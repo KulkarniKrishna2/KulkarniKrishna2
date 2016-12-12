@@ -56,7 +56,7 @@
                 </span>
             </div>
             <table class="table table-bordered table-striped">
-                <tr>
+                <tr ng-hide="response.uiDisplayConfigurations.createVillage.isHiddenField.villageCode">
                     <td>{{ 'label.heading.villageCode' | translate }}</td>
                     <td>{{village.villageCode}}</td>
                 </tr>

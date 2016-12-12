@@ -66,7 +66,7 @@
                 <div class="col-sm-3">
                     <select id="talukaId" name="talukas" ng-model="formData.talukaId" class="form-control"
                             ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
-                            value="{{taluka.talukaId}}" required late-validate="" >
+                            value="{{taluka.talukaId}}" ng-change="pincodeLengthValidation()" required late-validate="" >
                         <option value="">{{'label.menu.selectTaluka' | translate}}</option>
                     </select>
                 </div>
@@ -90,6 +90,7 @@
                         {{'label.mustbe6digitnumber' | translate}}
                     </small>
                 </span>
+                 <span ng-show="!isPincodeLengthSatisfy"><small class="required" >{{'label.mustbe6digitnumber' | translate}}</small></span>
                 <div class="col-sm-2">
                     <form-validate valattributeform="editvillageaddressform" valattribute="pincode"/>
                 </div>
