@@ -14,7 +14,6 @@
 
             };
 
-
             function getLoanApplicationId(){
                 return scope.taskconfig['loanApplicationId'];
             }
