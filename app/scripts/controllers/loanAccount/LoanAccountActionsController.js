@@ -563,6 +563,11 @@
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
                 }
+
+                if (scope.action == "disburse"){
+                    this.formData.skipAuthenticationRule = true;
+                }
+
                 if(scope.action == "approve"){
                     this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
                     if(scope.disbursementDetails != null) {
