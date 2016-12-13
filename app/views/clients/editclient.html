@@ -98,7 +98,7 @@
 			
 			    <div class="col-sm-3">
 			        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
-			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory" ng-late-Validate="isDateOfBirthMandatory"/>
+			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory"/>
 					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 				</div>
 				<div class="col-sm-2">
@@ -130,7 +130,7 @@
 				</div>
 			</div>
 
-			<div class="form-group" ng-hide="hideClientClassification" >
+			<div class="form-group">
 				<label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
 
 				<div class="col-sm-3">
@@ -139,9 +139,9 @@
 						<option value="">--{{'label.menu.clienttype' | translate}}--</option>
 					</select>
 				</div>
-				<label class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
+				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
 
-				<div class="col-sm-3">
+				<div ng-hide="hideClientClassification" class="col-sm-3">
 					<select id="clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
 							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">
 						<option value="">--{{'label.menu.clientclassification' | translate}}--</option>

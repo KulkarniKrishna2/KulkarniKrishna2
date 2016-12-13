@@ -86,7 +86,10 @@
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.formData.legalFormId = scope.clientLegalFormOptions[0].id;
-                scope.formData.genderId = scope.genderOptions[0].id;
+
+                if(scope.genderOptions[0]) {
+                    scope.formData.genderId = scope.genderOptions[0].id;
+                }
                 scope.formData.dateOfBirth = scope.dateOfBirth;
 
                 if(data.postalCode){
@@ -169,6 +172,10 @@
                         });
                         scope.formAddressData.stateId =  scope.defaultState[0].stateId;
                         scope.districts = scope.defaultState[0].districtDatas;
+                    }
+
+                    if(scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.addressType) {
+                        scope.formAddressData.addressTypes[0] = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.addressType;
                     }
 
                 }
