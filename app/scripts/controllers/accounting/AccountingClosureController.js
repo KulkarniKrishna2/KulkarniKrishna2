@@ -64,11 +64,11 @@
 
 
             scope.updateLastClosed = function (officeId) {
-                resourceFactory.accountingClosureResource.get({officeId: officeId, limitToOne: false}, function (data) {
+                resourceFactory.accountingClosureByOfficeResource.getView({officeId: officeId, limitToOne: false}, function (data) {
                     scope.accountClosures = data;
                     scope.lastClosed = undefined;
-                    if (data.length > 0) {
-                        scope.lastClosed = data[0].closingDate;
+                    if (data) {
+                        scope.lastClosed = data.closingDate;
                     }
                 });
             }
@@ -91,8 +91,9 @@
                 scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
             }
 
-            scope.fetchData = function () {
+            scope.fetchData = function (officeId) {
                 scope.limitToOne = false;
+                scope.formData.officeId = officeId;
                 scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
                 if( scope.accountClosures) {
                     scope.showClosure = true;

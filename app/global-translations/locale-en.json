@@ -1319,6 +1319,8 @@
     "accountType.expense": "Expenses",
     "accountUsage.detail": "Detail",
     "accountUsage.header": "Header",
+    "validation.msg.GLClosure.officeId.cannot.be.blank":"officeId cannot be blank",
+    "validation.msg.GLClosure.closingDate.cannot.be.blank":"closingDate cannot be blank",
     "validation.msg.accounttransfer.fromOfficeId.cannot.be.blank": "From office is mandatory.",
     "validation.msg.accounttransfer.fromClientId.cannot.be.blank": "From client is mandatory.",
     "validation.msg.accounttransfer.fromAccountId.cannot.be.blank": "From savings account is mandatory.",

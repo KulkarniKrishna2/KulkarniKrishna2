@@ -9,11 +9,13 @@
             scope.deleteAcc = function () {
                 $modal.open({
                     templateUrl: 'deleteacc.html',
-                    controller: AccDeleteCtrl
+                    controller: AccDeleteCtrl,
+                    windowClass:'my-dialog'
                 });
             };
             var AccDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
+                    $scope.hideActionButton = true;
                     resourceFactory.accountingClosureResource.delete({accId: routeParams.id}, {}, function (data) {
                         $modalInstance.close('delete');
                         location.path('/accounts_closure');
