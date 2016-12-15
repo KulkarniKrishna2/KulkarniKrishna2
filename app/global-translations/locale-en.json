@@ -5341,6 +5341,8 @@
     "label.heading.total.disbursal.amount": "Total Disbursal Amount",
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
+    "label.input.disbursementchannel": "Disbursement Channel",
+    "label.heading.disbursementchannel": "Disbursement Channel",
 
     "------ end of tensalation file":"---------"
 }
