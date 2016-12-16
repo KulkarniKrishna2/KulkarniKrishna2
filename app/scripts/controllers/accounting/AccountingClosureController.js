@@ -92,7 +92,7 @@
             }
 
             scope.fetchData = function (officeId) {
-                scope.limitToOne = false;
+                scope.limitToOne = scope.formData.limitToOne;
                 scope.formData.officeId = officeId;
                 scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
                 if( scope.accountClosures) {

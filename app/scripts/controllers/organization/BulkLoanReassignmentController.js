@@ -55,6 +55,46 @@
                 client.isExpanded = expanded;
             };
 
+            scope.selectAll = function(value){
+                for(var b =0 ; b < scope.centersDataList.length ; b++) {
+                    if(value){
+                        scope.centerData = scope.centersDataList[b].groupMembers;
+                        scope.centersDataList[b].checked = true;
+                        for(var i = 0; i < scope.centerData.length; i++){
+                            scope.groupMemberData = scope.centerData[i].clientMembers;
+                            scope.centerData[i].checked = true;
+                            for(var a = 0; a < scope.groupMemberData.length; a++){
+                                scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                                scope.groupMemberData[a].checked = true;
+                                for(var x = 0; x < scope.clientMemberData.length; x++){
+                                    scope.clientMemberData[x].checked = true;
+                                    loanAccounts.push(scope.clientMemberData[x].id);
+                                }
+                            }
+                        }
+                    }else{
+                        scope.centerData = scope.centersDataList[b].groupMembers;
+                        scope.centersDataList[b].checked = false;
+                        for(var i = 0; i < scope.centerData.length; i++){
+                            scope.groupMemberData = scope.centerData[i].clientMembers;
+                            scope.centerData[i].checked = false;
+                            for(var a = 0; a < scope.groupMemberData.length; a++){
+                                scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                                scope.groupMemberData[a].checked = false;
+                                for(var x = 0; x < scope.clientMemberData.length; x++){
+                                    var loanId = (scope.clientMemberData[x].id);
+                                    scope.clientMemberData[x].checked = false;
+                                    var indexOfLoanId = loanAccounts.indexOf(loanId);
+                                    if(indexOfLoanId){
+                                        loanAccounts.splice(indexOfLoanId, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             scope.centerLevel = function(value,id){
                 for(var b =0 ; b < scope.centersDataList.length ; b++) {
                     if (scope.centersDataList[b].id == id) {
@@ -76,7 +116,6 @@
                         }
                     }
                 } else{
-                    scope.centerSelected = false;
                     for(var i = 0; i < scope.centerData.length; i++){
                         scope.groupMemberData = scope.centerData[i].clientMembers;
                         scope.centerData[i].checked = false;

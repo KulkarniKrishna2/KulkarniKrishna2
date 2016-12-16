@@ -56,7 +56,8 @@
         </ul>
         </div>
     <div ng-show="isTreeView">
-
+        <label>{{'label.input.filterltestclosure' | translate}}</label>
+        <input id="activeCheckbox" type="checkbox" ng-model="formData.limitToOne">
 
 <div ng-show="($root.tempNodeID>=0) && showClosure" class="pull-right col-md-10  divscrollable">
     <table class="table">
