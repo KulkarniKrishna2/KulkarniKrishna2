@@ -3324,6 +3324,7 @@
     "label.heading.amount":"Amount",
     "label.heading.authenticationtype":"Authentication Type",
     "label.heading.createtransactionauthentication":"Create Transaction Authentication",
+    "label.heading.externalId":"External Id",
 
 
     "#Anchors": "..",
@@ -3382,6 +3383,7 @@
     "label.input.enddate": "End date",
     "label.input.closedate": "Close date",
     "label.input.includeinborrowerloancounter": "Include in customer loan counter",
+    "label.input.product.externalId":"External Id",
     "label.input.decimalplace": "Decimal places",
     "label.input.principal": "Principal",
     "label.input.tranche.amount": "Tranche Amount",
@@ -3847,6 +3849,10 @@
     "error.msg.subsidy.amount.for.loan.exceeds.principal.outstanding":"Subsidy amount for the loan exceeds principal outstanding by {{params[0].value}} {{params[1].value}} ",
     "validation.msg.journal.entry.limit.credit.to.one":"multiple credit is not allowed with multiple debit",
     "validation.msg.journal.entry.limit.debit.to.one":"multiple debit is not allowed with multiple credit",
+    "error.msg.product.RD.duplicate.externalId":"RD with externalId already exists",
+    "error.msg.product.FD.duplicate.externalId":"FD with externalId already exists",
+    "error.msg.product.savings.duplicate.externalId":"Savings product with externalId already exists",
+    "error.msg.product.loan.duplicate.externalId":"Loan product with externalId already exists",
 
     "#------------------": "------------",
 
