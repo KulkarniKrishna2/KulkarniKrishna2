@@ -47,6 +47,10 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    if(scope.loanaccountinfo.loanOfficerId){
+                        scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId;
+                    }
+
                     if(scope.loanaccountinfo.loanOfficerOptions){
                         resourceFactory.clientResource.get({clientId: scope.clientId}, function (data) {
                             if(data.staffId != null){

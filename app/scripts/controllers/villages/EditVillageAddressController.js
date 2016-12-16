@@ -17,9 +17,12 @@
             scope.pincodeStartDigitMap =[];
             scope.stateName = [];
             scope.picodeValidation = false;
+            scope.isPincodeLengthSatisfy = true;
+            scope.pincodeLenght = 6;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
-                if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues) {
-                    scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues;
+                if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.startDigit) {
+                    scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.startDigit;
+                    scope.pincodeLenght = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.pincodeLenght;
                 }
             }
 
@@ -75,6 +78,8 @@
             }
             scope.validatePincode = function (stateId) {
                 scope.showPicodeStartingDigitError = false;
+                scope.isPincodeLengthSatisfy = false;
+                scope.pincodeLengthValidation();
                 if (stateId != null) {
                     scope.selectState = _.filter(scope.states, function (state) {
                         return state.stateId == stateId;
@@ -115,6 +120,14 @@
                     if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
                         scope.formData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
                     }
+                }
+            }
+
+            scope.pincodeLengthValidation = function(){
+                if( scope.formData.postalCode &&  scope.formData.postalCode.toString().length != scope.pincodeLenght){
+                    scope.isPincodeLengthSatisfy = false;
+                }else{
+                    scope.isPincodeLengthSatisfy = true;
                 }
             }
 
@@ -166,7 +179,7 @@
                     delete scope.formData.talukaId;
                 }
 
-                if (!scope.showPicodeStartingDigitError) {
+                if (!scope.showPicodeStartingDigitError && scope.isPincodeLengthSatisfy) {
                     resourceFactory.entityAddressResource.update({
                         entityType: scope.entityType,
                         entityId: scope.villageId,

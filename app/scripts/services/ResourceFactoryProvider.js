@@ -317,6 +317,10 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         getView: {method: 'GET', params: {}}
                     }),
+                    accountingClosureByOfficeResource: defineResource(apiVer + "/glclosures/offices/:officeId", {officeId: "@officeId"}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                        getView: {method: 'GET', params: {}}
+                    }),
                     periodicAccrualAccountingResource: defineResource(apiVer + "/runaccruals", {}, {
                         run: {method: 'POST', params: {}}
                     }),

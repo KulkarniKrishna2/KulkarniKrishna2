@@ -93,7 +93,7 @@
 					<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 					<div class="col-sm-3">
 					<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
-						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" ng-late-Validate="isDateOfBirthMandatory"/>
+						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
 					    <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 						<div class="col-sm-2">
 						<form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
@@ -126,7 +126,7 @@
 				</div>
 	        </div>
 
-			<div class="form-group" ng-hide="hideClientClassification">
+			<div class="form-group">
 				<label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
 
 				<div class="col-sm-3">
@@ -136,9 +136,9 @@
 					</select>
 				</div>
 
-				<label class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
+				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
 
-				<div class="col-sm-3">
+				<div class="col-sm-3" ng-hide="hideClientClassification">
 					<select id="clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
 							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">
 						<option value="">{{'label.menu.clientclassification' | translate}}</option>
@@ -204,12 +204,11 @@
                 <div class="col-sm-3">
                     <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
                            ng-pattern="/^[0-9]+$/"  class="form-control"/>
-                </div>
-                <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
+					 <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                     <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
-                        {{'label.mustbenumeric' | translate}}
-                    </small>
-                </span>
+						{{'label.mustbenumeric' | translate}}</small></span>
+                </div>
+
 
 	            <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
 
@@ -223,12 +222,11 @@
 				<div class="col-sm-3">
 					<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
 						   ng-pattern="/^[0-9]+$/"  class="form-control"/>
-				</div>
-				<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
+					<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
                     <small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
-                        {{'label.mustbenumeric' | translate}}
-                    </small>
-                </span>
+						{{'label.mustbenumeric' | translate}}</small></span>
+				</div>
+
 			</div>
 			<div ng-if="enableClientAddress">
 				<legend></legend>
@@ -365,8 +363,8 @@
 					</label>
 
 					<div class="col-sm-3">
-						<input type="text" id="pincode" name="pincode" ng-model="formAddressData.postalCode"
-							   class="form-control" required late-validate=""/>
+						<input  type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode"
+							   name="pincode" ng-model="formAddressData.postalCode" class="form-control" required late-validate=""/>
 					</div>
 					<div class="col-sm-1 paddinglr0px">
 						<form-validate valattributeform="createclientform" valattribute="pincode"/>

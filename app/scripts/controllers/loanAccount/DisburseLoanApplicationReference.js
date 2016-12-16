@@ -373,6 +373,8 @@
                     this.formRequestData.expectedRepaymentPaymentType = scope.formData.expectedDisbursalPaymentType.id;
                 }
 
+                this.formRequestData.disburse.skipAuthenticationRule = true;
+
                 scope.disburseData = {};
                 angular.copy(scope.formRequestData,scope.disburseData);
                 delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;

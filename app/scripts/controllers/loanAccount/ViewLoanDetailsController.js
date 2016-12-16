@@ -16,6 +16,7 @@
             scope.glimClientsDetails = [];
             scope.isGlim = false;
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
+            scope.isGlimTabActive = false;
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
@@ -182,7 +183,6 @@
                 { active: false },
                 { active: false }
             ];
-
 
             /* For multiple disbursement loans, if second loan is due for disbursement, disburse button does not appearing,
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
@@ -643,6 +643,11 @@
                 $rootScope.clientName = clientName;
                 $rootScope.clientId = clientId;
                 location.path('/viewglimrepaymentschedule/' + glimId);
+            }
+
+            if ($rootScope.activeGlimTab != undefined && $rootScope.activeGlimTab) {
+                scope.isGlimTabActive = $rootScope.activeGlimTab;
+                delete $rootScope.activeGlimTab;
             }
 
             scope.getTotalAmount = function (amount1, amount2, amount3, amount4) {

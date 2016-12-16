@@ -863,7 +863,7 @@
                         </table>
                     </tab>
 
-                    <tab heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails.length>0">
+                    <tab active="isGlimTabActive" heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails.length>0">
 
                             <table class="table table-striped" ng-repeat="client in glimClientsDetails" class="pointer-main" ng-show="client.isClientSelected">
                                 <thead>
