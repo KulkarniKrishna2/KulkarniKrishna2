@@ -37,6 +37,11 @@
 	    <div class="col-sm-2">
 	        <form-validate valattributeform="createrecurringdepositproductform" valattribute="description"/>
 	    </div>
+		<label class="control-label col-sm-2">{{ 'label.input.product.externalId' | translate }}</label>
+		<div class="col-sm-2">
+			<input type="text" id="externalId" name="shortName" ng-model="formData.externalId"
+				   class="form-control"/>
+		</div>
 	</div>
 	<h3>{{ 'label.heading.currency' | translate }}</h3>
 	<hr>

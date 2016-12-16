@@ -20,6 +20,7 @@
                     name: data.name,
                     shortName: data.shortName,
                     description: data.description,
+                    externalId: data.externalId,
                     currencyCode: data.currency.code,
                     digitsAfterDecimal: data.currency.decimalPlaces,
                     inMultiplesOf: data.currency.inMultiplesOf,

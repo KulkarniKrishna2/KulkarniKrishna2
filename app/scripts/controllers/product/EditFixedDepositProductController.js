@@ -33,6 +33,7 @@
                     name: data.name,
                     shortName: data.shortName,
                     description: data.description,
+                    externalId: data.externalId,
                     currencyCode: data.currency.code,
                     digitsAfterDecimal: data.currency.decimalPlaces,
                     inMultiplesOf: data.currency.inMultiplesOf,
@@ -392,7 +393,7 @@
                     //alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
                         //alert('remove' + k + ':' + v);
-                        if(k == 'minDepositTerm' || k == 'maxDepositTerm' || k == 'maxDepositAmount' || k == 'minDepositAmount'){
+                        if(k == 'minDepositTerm' || k == 'maxDepositTerm' || k == 'maxDepositAmount' || k == 'minDepositAmount' || k =='externalId'){
                             objArray[k] = '';
                             return objArray;
                         }else {
