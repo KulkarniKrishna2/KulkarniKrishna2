@@ -5345,5 +5345,10 @@
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
 
+    "label.heading.transactions" : "transactions",
+    "label.heading.of" : "of",
+    "label.heading.reconciled" : "reconciled",
+    "label.heading.unreconciled" : "unreconciled",
+
     "------ end of tensalation file":"---------"
 }

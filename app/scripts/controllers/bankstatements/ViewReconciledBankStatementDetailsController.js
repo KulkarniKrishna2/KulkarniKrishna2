@@ -6,10 +6,14 @@
             scope.undoReconcileData = [];
             scope.selectedAll = false;
             scope.bankStatementId = routeParams.bankStatementId;
+            scope.bankName = '';
+            scope.totalTransactions = 0;
 
             scope.getReconciledBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : scope.bankStatementId, command:'reconciled'},function (data) {
-                    scope.reconciledBankStatementDetails = data;
+                    scope.reconciledBankStatementDetails = data.bankStatementDetails;
+                    scope.bankName = data.bankName;
+                    scope.totalTransactions = data.totalTransactions ;
                 });
             };
 
