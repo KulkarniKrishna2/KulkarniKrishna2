@@ -51,7 +51,8 @@
 
             scope.$on('activityDone', function (event, data) {
                 if(scope.taskData.status.id == 2){
-                    scope.doTaskAction(1);
+                    //scope.doTaskAction(1);
+                    //activate the action button if required
                 }
 
             });

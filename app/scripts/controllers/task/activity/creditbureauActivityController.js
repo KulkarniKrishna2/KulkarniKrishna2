@@ -12,9 +12,10 @@
             scope.errorMessage = [];
             scope.cbResponseError = false;
             scope.cbLoanEnqResponseError = false;
-            resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.loanApplicationData.loanProductId,associations: 'creditBureaus'},function (data) {
-                scope.creditbureauLoanProduct = data;
-            });
+
+            // resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.loanApplicationData.loanProductId,associations: 'creditBureaus'},function (data) {
+            //     scope.creditbureauLoanProduct = data;
+            // });
             function constructActiveLoanSummary(){
                 if(scope.existingLoans){
                     for(var i in scope.existingLoans){

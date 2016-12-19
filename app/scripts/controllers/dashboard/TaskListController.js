@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        WorkFlowTasksController: function (scope, resourceFactory, location) {
+        TaskListController: function (scope, resourceFactory, location) {
             scope.loggedInUserId = scope.currentSession.user.userId;
 
             if (!scope.searchCriteria.workFlowT) {
@@ -26,9 +26,15 @@
             scope.moveToWorkFlow = function (workFlowTask) {
                 location.path('/viewtask/' + workFlowTask.parentTaskId);
             };
+            scope.configValue = function(task, config ){
+                    if(task != undefined && task.configValues!=undefined){
+                        return task.configValues[config];
+                    }
+                    return undefined;
+            };
         }
     });
-    mifosX.ng.application.controller('WorkFlowTasksController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.WorkFlowTasksController]).run(function ($log) {
-        $log.info("WorkFlowTasksController initialized");
+    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.TaskListController]).run(function ($log) {
+        $log.info("TaskListController initialized");
     });
 }(mifosX.controllers || {}));
