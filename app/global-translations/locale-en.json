@@ -526,7 +526,7 @@
     "label.heading.finflux":"FINFLUX",
     "label.heading.dashboard": "Dashboard",
     "label.heading.workflow.task.dashboard": "Workflow Task Dashboard",
-    "label.heading.workflow.tasks": "Workflow Tasks",
+    "label.heading.workflow.tasks": "Task List",
     "label.heading.home": "Home",
     "label.heading.welcome": "Welcome",
     "label.heading.navigation.guide": "You can navigate your way through Finflux using",
@@ -5327,6 +5327,23 @@
     "label.input.total.installment.amount":"Total Installment Amount",
     "label.heading.workflow":"Work flow",
     "label.heading.view.workflow":"View work flow",
+
+
+    "taskActionType.taskcomplete":"Task Completed",
+    "taskActionType.review":"Review",
+    "taskActionType.approve":"Approve",
+    "taskActionType.reject":"Reject",
+    "taskActionType.skip":"Skip Task",
+
+
+    "taskStatus.inactive":"Inactive",
+    "taskStatus.initiated":"Initiated",
+    "taskStatus.undercriteriacheck":"Under Rule-Check",
+    "taskStatus.underreview":"Under Review",
+    "taskStatus.underapproval":"Under Approval",
+    "taskStatus.completed":"Completed",
+    "taskStatus.cancelled":"Cancelled",
+    "taskStatus.skipped":"Skipped",
 
     "label.button.manualreconciliation" : "Manual Reconciliation",
     "label.button.manualreconcileddata" : "Manual Reconciled Data",

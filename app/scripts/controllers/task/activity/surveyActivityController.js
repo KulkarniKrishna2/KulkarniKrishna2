@@ -7,7 +7,9 @@
             scope.formData = {};
             var userId = scope.currentSession.user.userId;
             resourceFactory.userListResource.get({userId: userId}, function (data) {
-                scope.formData.surveyedBy = data.staff.id;
+                if(data.staff!=undefined){
+                    scope.formData.surveyedBy = data.staff.id;
+                }
                 scope.formData.surveyedOn = new Date();
             });
 

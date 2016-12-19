@@ -1388,8 +1388,8 @@
             .when('/workflowtaskdashboard', {
                 templateUrl: 'views/dashboard/workflowstepdashboard.html'
             })
-            .when('/workflowtasks', {
-                templateUrl: 'views/dashboard/workflowtasks.html'
+            .when('/tasklist', {
+                templateUrl: 'views/dashboard/tasklist.html'
             })
             .when('/viewtask/:taskId', {
                 templateUrl: 'views/task/viewtask.html'

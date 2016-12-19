@@ -437,7 +437,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',
-            'dashboard/WorkFlowTasksController',
+            'dashboard/TaskListController',
             'bankaccountdetails/BankAccountDetailController',
             'cgt/CgtCreationController',
             'cgt/ViewCgtController',

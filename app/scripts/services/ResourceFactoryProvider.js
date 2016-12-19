@@ -960,6 +960,9 @@
                         get: {method: 'GET', params: {}},
                         doAction: {method: 'POST', params: {action: '@action'}}
                     }),
+                    taskTemplateResource: defineResource(apiVer + "/tasks/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     entityTaskExecutionResource: defineResource(apiVer + "/taskexecution/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),

@@ -1,9 +1,27 @@
 <div ng-controller="SingleTaskController">
-    <div ng-show="canView">
+    <div ng-if="canView">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>{{taskData.name}}</h3>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    Status:&nbsp; {{taskData.status.code | translate}}
+                </div>
+                <div>
+                    Assigned To:&nbsp; {{taskData.assignedTo}}
+                </div>
+                <div>
+                    Created On:&nbsp; {{taskData.createdOn | DateFormat}}
+                </div>
+
+            </div>
+            <legend></legend>
+        </div>
         <div ng-include="getActivityView()"></div>
         <div class="row task-action">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.value}}</button>
+                <button class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>
             </span>
         </div>
         <div class="row client" ng-show="taskData.criteriaResult !== undefined">
