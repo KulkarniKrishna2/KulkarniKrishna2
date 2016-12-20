@@ -390,6 +390,7 @@
     "label.error.required" : "Required Field",
     "error.login.failed": "Please try again, your credentials are not valid.",
     "error.connection.failed": "Couldn't connect to server. Make sure you are using correct settings.",
+    "error.msg.user.account.locked":"Account Locked, please  contact administrator",
     "error.msg.command.unsupported": "Programmer error: The `command` issued is not supported.",
     "error.msg.query.parameter.value.unsupported": "`{{params[1].value}}` is not supported as a value of query parameter `{{params[0].value}}`.",
     "error.msg.not.authorized": "Insufficient privileges to perform this action.",
@@ -2626,6 +2627,7 @@
     "label.heading.officetocharges":"Office access to charges",
     "label.heading.roletoloanproducts":"Role access to loan products",
     "label.heading.roletosavingsproducts":"Role access to savings products",
+    "label.heading.unlockuser":"Unlock User",
 
     "#Anchors": "..",
     "label.anchor.users": "Users",
@@ -2651,6 +2653,7 @@
     "#Buttons": "..",
     "label.button.createuser": "Create User",
     "label.button.changepassword": "Change Password",
+    "label.button.unlock":"unlock",
 
     "#Tooltip" : "..",
     "label.tooltip.overridepasswordexpiry" : "Determines if passwords do not expire for this user even if global configuration for password expiry is enabled",
