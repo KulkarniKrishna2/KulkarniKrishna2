@@ -43,6 +43,17 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
+    <script type="text/ng-template" id="unlockuser.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.unlockuser' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="unlock()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
     <div class="well">
         <div class="pull-right">
             <div class="btn-group">
@@ -53,6 +64,9 @@
                 </button>
                 <button type="button" class="btn btn-primary" data-ng-click="open()" has-permission='UPDATE_USER'><i class="icon-cog icon-white"></i>
                     {{'label.button.changepassword' | translate}}
+                </button>
+                <button type="button" ng-hide="user.accountNonLocked" class="btn btn-primary" data-ng-click="unlockuser()" has-permission='UNLOCK_USER'><i class="icon-cog icon-white"></i>
+                    {{'label.button.unlock' | translate}}
                 </button>
             </div>
         </div>
