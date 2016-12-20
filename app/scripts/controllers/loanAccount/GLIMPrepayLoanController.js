@@ -10,10 +10,11 @@
             scope.formData.transactionDate = dateFilter(new Date(),scope.df);
             scope.paymentTypes = [];
             scope.showPaymentDetails = false;
+            scope.clientMembers = []
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"prepay"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
-                scope.formData.clientMembers = data.clientMembers;
+                scope.clientMembers = data.clientMembers;
             });
 
             resourceFactory.paymentTypeResource.getAll({}, function(data) {
@@ -34,11 +35,25 @@
                 location.path('/viewloanaccount/' + scope.loanId);
             };
 
+            scope.constructGlimClientMembersData = function () {
+                this.formData.clientMembers = [];
+                for(var i in scope.clientMembers) {
+                    if(scope.clientMembers[i].isClientSelected) {
+                        var json = {
+                            id : scope.clientMembers[i].id,
+                            transactionAmount: scope.clientMembers[i].transactionAmount
+                        }
+                        this.formData.clientMembers.push(json);
+                    }
+                }
+            }
+
 
             scope.submit = function(){
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                scope.constructGlimClientMembersData();
                 resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'repayment'}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
