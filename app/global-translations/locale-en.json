@@ -5349,6 +5349,8 @@
     "label.heading.of" : "of",
     "label.heading.reconciled" : "reconciled",
     "label.heading.unreconciled" : "unreconciled",
+    "error.msg.invalid.cif.format.excel.file." : "CPIF File format is not valid.",
+    "error.msg.not.excel.file." : "CPIF File is not Excel file.",
 
     "------ end of tensalation file":"---------"
 }
