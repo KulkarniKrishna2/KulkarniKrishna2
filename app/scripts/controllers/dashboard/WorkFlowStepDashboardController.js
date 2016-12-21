@@ -70,17 +70,17 @@
                     html += '<tbody>';
                     var data = "";
                     for(var i in stepSummaries){
-                        if(stepSummaries[i].stepStatus !== 'INACTIVE'){
+                        if(stepSummaries[i].taskStatus !== 'INACTIVE'){
                             html += '<tr>';
                             html += '<td>';
-                            html += stepSummaries[i].stepStatus;
+                            html += stepSummaries[i].taskStatus;
                             html += '</td>';
                             html += '<td>';
                             html += stepSummaries[i].noOfCount;
                             html += '</td>';
                             html += '</tr>';
 
-                            data += stepSummaries[i].stepStatus + " : " + stepSummaries[i].noOfCount + " ,";
+                            data += stepSummaries[i].taskStatus + " : " + stepSummaries[i].noOfCount + " ,";
                         }
 
                     }

@@ -110,7 +110,8 @@
                     }),
                     takeSurveysResource: defineResource(apiVer + "/:entityType/:entityId/takesurveys", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                        post: {method: 'POST', params: {}}
+                        post: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}}
                     }),
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},

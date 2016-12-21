@@ -328,7 +328,6 @@
                     location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
-
         }
     });
     mifosX.ng.application.controller('CreditBureauReportController', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', mifosX.controllers.CreditBureauReportController]).run(function ($log) {
