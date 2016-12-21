@@ -140,14 +140,11 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
-                    resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
-                        scope.isWorkFlow = response.enabled;
-                        if(scope.isWorkFlow && scope.isWorkFlow === true){
-                            location.path('/loanapplication/' + data.resourceId+'/workflow');
-                        }else{
-                            location.path('/viewloanapplicationreference/' + data.resourceId);
-                        }
-                    });
+                    if(data.changes.isProductMappedToWorkFlow === true){
+                        location.path('/loanapplication/' + data.resourceId+'/workflow');
+                    }else{
+                        location.path('/viewloanapplicationreference/' + data.resourceId);
+                    }
                 });
             };
 

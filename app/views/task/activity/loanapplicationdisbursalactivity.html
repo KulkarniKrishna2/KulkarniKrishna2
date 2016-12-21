@@ -2,7 +2,7 @@
     <api-validate></api-validate>
     <div class="col-md-12 col-sm-12">
         <div class="row client">
-            <div>
+            <div ng-if="!isAlreadyDisbursed">
                 <div class="form-horizontal" ng-show="report">
                     <div id="print">
                         <h3 align="center" class="width100">{{'label.heading.companyname' | translate}}</h3>
@@ -143,7 +143,7 @@
                     </div>
                     <button ng-click="printDiv('print');">Print Div</button>
 
-                <span><a ng-hide="report"><i class="icon-circle-arrow-left">{{'label.anchor.backtoloaninfo'
+                    <span><a ng-hide="report"><i class="icon-circle-arrow-left">{{'label.anchor.backtoloaninfo'
                     | translate}}</i></a><br><br></span>
 
                     <div class="col-md-11 center">
@@ -354,7 +354,8 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div width="width100" ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas.length > 0">
+                                <div width="width100"
+                                     ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas.length > 0">
                                     <table class="width100">
                                         <tr class="bottomborder">
                                             <td colspan="4"><strong>{{'label.heading.tranche' | translate}}</strong>
@@ -427,7 +428,8 @@
                                         <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                                             <td align="center"><input type="checkbox"
                                                                       ng-model="formRequestData.submitApplication.syncRepaymentsWithMeeting"
-                                                                      ng-change="syncRepaymentsWithMeetingchange()" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
+                                                                      ng-change="syncRepaymentsWithMeetingchange()"
+                                                                      ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
                                             </td>
                                             <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
                                             </td>
@@ -707,6 +709,77 @@
                             </tr>
                         </table>
                     </form>
+                </div>
+            </div>
+
+            <div ng-if="isAlreadyDisbursed">
+                <div class="row span" style="margin-left:-1px;margin-top: -20px">
+                    <div class="col-sm-12 col-md-12">
+                        <tr>
+                            <td colspan="2">
+                                <div class="pull-right">
+                                    <span><button type="button" class="btn btn-primary" ng-click="viewLoanDetails();">{{'label.button.viewdetails' | translate}}</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.disbursementdate' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.timeline.actualDisbursementDate | DateFormat}}<span
+                                        data-ng-hide="loandetails.timeline.actualDisbursementDate">{{'label.heading.notavailable' | translate}}</span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.currency' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.currency.name}}</span></td>
+                            </tr>
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.loanofficer' | translate}}</th>
+                                <td><span class="padded-td"><span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span>{{loandetails.loanOfficerName}}&nbsp;
+                                    <span ng-show="loandetails.loanOfficerName">
+                                      <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i
+                                              class="icon-remove"></i></a>
+                                    </span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.loanexternalid' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.externalId}}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.loanpurpose' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.loanPurposeName}}
+                                <span data-ng-hide="loandetails.loanPurposeName">{{'label.heading.notprovided' | translate}}</span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.proposedamount' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.proposedPrincipal | number}}</span></td>
+                            </tr>
+                            <tr ng-show="showApprovedAmountBasedOnStatus()">
+                                <th class="table-bold-loan">{{'label.heading.approvedamount' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.approvedPrincipal | number}}</span></td>
+                            </tr>
+                            <tr ng-show="showDisbursedAmountBasedOnStatus()">
+                                <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.principal | number}}</span></td>
+                            </tr>
+                            <tr>
+                                <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
+                                        data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
                 </div>
             </div>
 

@@ -5204,6 +5204,7 @@
     "label.button.surveys.create" : "Add new survey",
     "label.button.view.surveys" : "View surveys",
     "label.button.take.survey" : "Take a survey",
+    "label.button.edit.survey" : "Edit a survey",
     "label.button.take.new.survey" : "Take new survey",
     "label.survey.taken.date":"Date",
     "label.survey.taken.doneby":"Done by",
@@ -5366,6 +5367,8 @@
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
     "taskEntityType.loan.application" : "Loan Application",
+    "label.button.creditbureaureport" : "Credit Bureau Report",
+    "label.button.viewdetails" : "View Details",
 
     "------ end of tensalation file":"---------"
 }
