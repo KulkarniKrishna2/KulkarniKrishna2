@@ -27,7 +27,7 @@
                         amount= amount + parseFloat(data[i].transactionAmount);
                     }
                 }
-                this.formData.transactionAmount = amount;
+                this.formData.transactionAmount = amount.toFixed(2);;
             };
 
             scope.cancel = function(){
