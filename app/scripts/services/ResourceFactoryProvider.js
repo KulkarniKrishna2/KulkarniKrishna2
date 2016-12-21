@@ -969,6 +969,10 @@
                     taskExecutionActionResource: defineResource(apiVer + "/taskexecution/:taskId/actions",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
+                    taskExecutionNotesResource: defineResource(apiVer + "/taskexecution/:taskId/notes",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'}
+                    }),
                     taskExecutionChildrenResource: defineResource(apiVer + "/taskexecution/:taskId/children",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),

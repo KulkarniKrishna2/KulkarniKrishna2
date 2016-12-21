@@ -1,0 +1,59 @@
+<div ng-controller="bankaccountActivityController">
+
+    <!-- Submit form, new data    -->
+        <form name="bankaccountdetail" novalidate="" class="form-horizontal well">
+            <api-validate></api-validate>
+            <fieldset>
+
+                <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+
+
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="bankName" ng-model="formData.name"
+                               type="text" class="form-control" ng-disabled="!createDetail"/>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="accountNumber" ng-model="formData.accountNumber"
+                               type="text" class="form-control" ng-disabled="!createDetail"/>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="ifscCode" ng-model="formData.ifscCode"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" >{{'label.input.mobilenumber' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="mobileNumber" ng-model="formData.mobileNumber"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" >{{'label.input.email' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="email" ng-model="formData.email"
+                               type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" ng-click="submit()" ng-show="createDetail" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                    <button id="update"  ng-show="!createDetail" class="btn btn-primary" ng-click="update()" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                    <button id="delete" ng-show="!createDetail" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+</div>

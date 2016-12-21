@@ -4,6 +4,8 @@
 
             scope.canView = false;
             scope.possibleActions = [];
+            scope.taskNotes = [];
+            scope.noteData = {};
             scope.showCriteriaResult =false;
             scope.getActivityView = function() {
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
@@ -24,6 +26,7 @@
                         scope.canView = true;
                         //getpossibleActions
                         populateNextActions();
+                        populateTaskNotes();
                     });
                 }
             }
@@ -40,12 +43,23 @@
                     }
                     populateNextActions();
                 });
-
             };
 
             function populateNextActions(){
                 resourceFactory.taskExecutionActionResource.getAll({taskId:scope.taskData.id}, function (data) {
                     scope.possibleActions = data;
+                });
+            }
+
+            function populateTaskNotes(){
+                resourceFactory.taskExecutionNotesResource.getAll({taskId:scope.taskData.id}, function (data) {
+                    scope.taskNotes = data;
+                });
+            }
+
+            scope.addNote = function(){
+                resourceFactory.taskExecutionNotesResource.create({taskId:scope.taskData.id}, scope.noteData,function (data) {
+                    populateTaskNotes();
                 });
             }
 

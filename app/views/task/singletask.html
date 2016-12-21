@@ -25,7 +25,7 @@
             </span>
         </div>
         <div class="row client" ng-show="taskData.criteriaResult !== undefined">
-            <form class="well form-inline">
+            <div class="well form-inline">
                 <div>
                     {{ 'label.heading.request.eligibility.tobe' | translate }} {{taskData.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
                 </div>
@@ -48,7 +48,38 @@
                 </div>
 
                 <div class="col-sm-offset-4 col-sm-4"><button ng-click="doTaskAction(2)">Do Fresh Check</button></div>
+            </div>
+        </div>
+        <div class="row client">
+            <form>
+                <div class="form-group">
+                    <div class="col-sm-12 col-md-12">
+		                <textarea rows="1" class="form-control marginbottom0px" id="textarea"
+                                  placeholder="{{'label.input.enternote' | translate}}" ng-model="noteData.note"></textarea>
+
+                        <div class="notewrapper col-sm-12 col-md-12">
+		                        <span class="pull-right noteaddbuttonwrapper">
+		                            <button class="btn btn-primary" type="button" ng-click="addNote()"
+                                            has-permission='CREATE_TASK_NOTE'>{{'label.button.add' |
+		                                translate}}
+		                            </button>
+		                        </span>
+                        </div>
+                    </div>
+                </div>
             </form>
+            <br/>
+            <div class="col-sm-12 col-md-12">
+                <div ng-repeat="taskNote in taskNotes">
+                    <blockquote>
+                        <p>{{taskNote.note}}</p>
+                        <small>{{'label.createdby' | translate}} :&nbsp;{{taskNote.createdBy}} &nbsp; {{'label.createdon' | translate}} :&nbsp;{{taskNote.createdOn | DateFormat}}</small>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="row client">
+
         </div>
     </div>
     <div ng-show="canView==false">
