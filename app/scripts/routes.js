@@ -151,6 +151,9 @@
             .when('/creditbureaureport/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/creditbureaureport.html'
             })
+            .when('/creditbureaureport/:entityType/:entityId', {
+                templateUrl: 'views/loans/creditbureaureport.html'
+            })
             .when('/disburseloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/disburseloanapplicationreference.html'
             })

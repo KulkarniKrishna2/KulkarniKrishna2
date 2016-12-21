@@ -5344,6 +5344,7 @@
     "label.heading.total.disbursal.amount": "Total Disbursal Amount",
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
+    "label.button.creditbureaureport" : "Credit Bureau Report",
 
     "label.heading.transactions" : "transactions",
     "label.heading.of" : "of",

@@ -209,13 +209,13 @@
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    loanApplicationReferencesCreditBureauReportResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/initiatecreditbureauenquiry", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                    creditBureauReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/initiate", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanApplicationReferencesCreditBureauReportOtherInstituteLoansSummaryResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaucheck", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
-                        get: {method: 'GET', params: {sourceId: '@sourceId'}}
+                    creditBureauReportSummaryResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/summary", {entityType: '@entityType',entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
                     }),
-                    loanApplicationReferencesCreditBureauReportFileContentResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaureport", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                    creditBureauReportFileContentResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/creditbureaureport", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/template", {}, {
