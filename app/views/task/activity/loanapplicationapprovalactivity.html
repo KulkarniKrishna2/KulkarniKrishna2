@@ -1,7 +1,7 @@
 <div ng-controller="loanapplicationapprovalActivityController">
 
     <!-- Submit form, new data    -->
-    <div class="form-horizontal" ng-show ="status=='SUMMARY'">
+    <div class="form-horizontal" ng-show="status=='SUMMARY'">
         <div id="print">
             <div id="branchName" align="center" class="width100">
                 <h3>{{loanaccountinfo.group.officeName}}</h3>
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <div  ng-show ="status=='UPDATE'">
+    <div ng-show="status=='UPDATE'">
         <form class="well form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submit()">
 
             <h4>{{ 'label.heading.approve.loanapplication.details' | translate }}</h4>
@@ -118,15 +118,15 @@
                         <td class="width19"></td>
                         <td class="width31 paddedbottom10">
                             <label>
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="loanAmountApproved"/>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.loanAmountApproved.$error.required">{{'label.error.required' | translate}}</span>
                             </label>
                         </td>
                         <td class="width19"></td>
                         <td class="width31 paddedbottom10">
                             <label>
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="expectedDisbursementDate"/>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.expectedDisbursementDate.$error.required">{{'label.error.required' | translate}}</span>
                             </label>
                         </td>
                     </tr>
@@ -162,19 +162,21 @@
                         <td class="width19"></td>
                         <td class="width31 paddedbottom10">
                             <label>
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="numberOfRepayments"/>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.numberOfRepayments.$error.required">{{'label.error.required' | translate}}</span>
                             </label>
                         </td>
                         <td class="width19"></td>
                         <td class="width31 paddedbottom10">
                             <label>
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="repayEvery"/>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.repayEvery.$error.required">{{'label.error.required' | translate}}</span>
                             </label>
                             <label ng-show="formRequestData.repayEvery">
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="repaymentFrequencyType"/>
+                                <label>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.repaymentFrequencyType.$error.required">{{'label.error.required' | translate}}</span>
+                                </label>
                             </label>
 
                         </td>
@@ -201,19 +203,20 @@
                                    is-open="opened" min="minDate"
                                    max="restrictDate"
                                    class="form-control" required/>
+                        </td>
                     </tr>
 
                     <tr>
                         <td class="width19"></td>
                         <td class="width31 paddedbottom10">
-
+                            <label>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.approvedOnDate.$error.required">{{'label.error.required' | translate}}</span>
+                            </label>
                         </td>
                         <td class="width19"></td>
                         <td class="width31 paddedbottom10">
-                            <label>
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="approvedOnDate"/>
-                            </label>
+
                         </td>
                     </tr>
 
@@ -274,7 +277,8 @@
                     <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                         <td align="center"><input type="checkbox"
                                                   ng-model="formValidationData.syncRepaymentsWithMeeting"
-                                                  ng-change="syncRepaymentsWithMeetingchange()" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
+                                                  ng-change="syncRepaymentsWithMeetingchange()"
+                                                  ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
                         </td>
                         <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
                         </td>
@@ -338,8 +342,11 @@
                                        ng-model="disbursementDetail.expectedTrancheDisbursementDate"
                                        is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
                                        class="form-control" required ng-disabled="$index == 0"/>
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="expectedTrancheDisbursementDate"/>
+
+                                <label>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.expectedTrancheDisbursementDate.$error.required">{{'label.error.required' | translate}}</span>
+                                </label>
                             </td>
                             <td>
                                 <input id="{{disbursementDetail[$index].trancheAmount}}"
@@ -350,8 +357,10 @@
                                        placeholder="{{'label.input.principal' | translate}}" required
                                        late-validate="">
 
-                                <form-validate valattributeform="approveloanapplicationform"
-                                               valattribute="trancheAmount"/>
+                                <label>
+                                <span class="error"
+                                      ng-show="issubmitted && approveloanapplicationform.trancheAmount.$error.required">{{'label.error.required' | translate}}</span>
+                                </label>
                             </td>
                             <td ng-if="false">
                                 <input id="{{disbursementDetail[$index].fixedEmiAmount}}"
@@ -401,7 +410,8 @@
                                    ng-model="charge.dueDate"
                                    is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                         </td>
-                        <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+                        <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i
+                                class="icon-remove icon-white"></i></a></td>
                     </tr>
                 </table>
 
@@ -463,7 +473,7 @@
                     </table>
                 </div>
 
-                <div class="col-md-offset-5">
+                <div class="col-md-offset-5" ng-if="false">
                     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">
                         {{'label.button.cancel' |
                         translate}}

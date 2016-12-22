@@ -35,14 +35,18 @@
             initTask();
 
             scope.doTaskAction = function (actionId) {
-                scope.possibleActions = [];
-                resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionId}, function (data) {
-                    scope.taskData = data;
-                    if (scope.taskData.status.id == 7 || scope.taskData.status.id == 9) {
-                        scope.$emit('taskCompleted', {taskId: scope.taskData.id});
-                    }
-                    populateNextActions();
-                });
+                if(actionId === 4 && scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'){
+                    scope.$broadcast('activityApprove');
+                }else{
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionId}, function (data) {
+                        scope.taskData = data;
+                        if (scope.taskData.status.id == 7 || scope.taskData.status.id == 9) {
+                            scope.$emit('taskCompleted', {taskId: scope.taskData.id});
+                        }
+                        populateNextActions();
+                    });
+                    scope.possibleActions = [];
+                }
             };
 
             function populateNextActions(){
@@ -75,6 +79,17 @@
                 scope.doTaskAction(9);
             });
 
+            scope.$on('activityApproveDone', function (event, data) {
+                resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:4}, function (data) {
+                    scope.taskData = data;
+                    if (scope.taskData.status.id == 7 || scope.taskData.status.id == 9) {
+                        scope.$emit('taskCompleted', {taskId: scope.taskData.id});
+                    }
+                    populateNextActions();
+                });
+            });
+
+
             scope.triggerCriteriaResult = function(){
                 if(scope.showCriteriaResult){
                     scope.showCriteriaResult = false;
@@ -82,7 +97,6 @@
                     scope.showCriteriaResult = true;
                 }
             }
-
         }
     });
     mifosX.ng.application.controller('SingleTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.SingleTaskController]).run(function ($log) {
