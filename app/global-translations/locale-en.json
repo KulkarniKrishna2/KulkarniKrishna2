@@ -5330,11 +5330,12 @@
     "label.heading.view.workflow":"View work flow",
 
 
-    "taskActionType.taskcomplete":"Task Completed",
-    "taskActionType.review":"Review",
+    "taskActionType.taskcomplete":"Task Complete",
+    "taskActionType.review":"Looks Ok",
     "taskActionType.approve":"Approve",
     "taskActionType.reject":"Reject",
     "taskActionType.skip":"Skip Task",
+    "taskActionType.criteriacheck":"Run Criteria Check",
 
 
     "taskStatus.inactive":"Inactive",

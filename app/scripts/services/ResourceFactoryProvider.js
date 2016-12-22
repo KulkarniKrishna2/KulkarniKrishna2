@@ -974,6 +974,10 @@
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'}
                     }),
+                    taskExecutionActionLogResource: defineResource(apiVer + "/taskexecution/:taskId/actionlog",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'}
+                    }),
                     taskExecutionChildrenResource: defineResource(apiVer + "/taskexecution/:taskId/children",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
