@@ -27,8 +27,7 @@
                         <tr ng-repeat="workFlowTask in workFlowTasks | filter:filterText">
                             <td class="col-md-4">
                                 {{workFlowTask.taskName}} #{{workFlowTask.taskId}}<br>
-                                <span ng-if="configValue(workFlowTask,'loanApplicationId')">Loan-application ({{configValue(workFlowTask,'loanApplicationId')}})</span>
-                                <span ng-if="workFlowTask.clientData">{{workFlowTask.clientData.displayName}} ({{workFlowTask.clientData.id}})</span>
+                                <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
 
                             </td>
                             <td class="col-md-3">
