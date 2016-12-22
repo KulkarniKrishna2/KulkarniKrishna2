@@ -46,29 +46,38 @@
                     entityType: scope.entityTypeId,
                     entityId: scope.entityId
                 }, function (surveys) {
-                    scope.surveys = surveys;
+                    scope.surveys = [];
                     if (surveys && surveys.length > 0) {
-                        var survey = surveys[0];
-                        scope.formData.id = survey.id;
-                        scope.formData.surveyedBy = survey.surveyedBy;
-                        scope.formData.surveyedOn = new Date(survey.surveyedOn);
-                        if (survey.scorecardValues && survey.scorecardValues.length > 0) {
-                            for (var s in survey.scorecardValues) {
-                                var id = survey.scorecardValues[s].id;
-                                var questionId = survey.scorecardValues[s].questionId;
-                                var responseId = survey.scorecardValues[s].responseId;
-                                var value = survey.scorecardValues[s].value;
-                                for (var q in scope.questionDatas) {
-                                    if (questionId === scope.questionDatas[q].id) {
-                                        for (var r in scope.questionDatas[q].responseDatas) {
-                                            if (responseId === scope.questionDatas[q].responseDatas[r].id) {
-                                                scope.questionDatas[q].responseDatas[r].existingId = id;
-                                                scope.questionDatas[q].responseDatas[r].responseId = responseId;
+                        for(var i in surveys){
+                            if(scope.surveyId == surveys[i].surveyId){
+                                scope.surveys.push(surveys[i]);
+                            }
+                        }
+                        if (scope.surveys && scope.surveys.length > 0) {
+                            var survey = scope.surveys[0];
+                            scope.formData.id = survey.id;
+                            scope.formData.surveyedBy = survey.surveyedBy;
+                            scope.formData.surveyedOn = new Date(survey.surveyedOn);
+                            if (survey.scorecardValues && survey.scorecardValues.length > 0) {
+                                for (var s in survey.scorecardValues) {
+                                    var id = survey.scorecardValues[s].id;
+                                    var questionId = survey.scorecardValues[s].questionId;
+                                    var responseId = survey.scorecardValues[s].responseId;
+                                    var value = survey.scorecardValues[s].value;
+                                    for (var q in scope.questionDatas) {
+                                        if (questionId === scope.questionDatas[q].id) {
+                                            for (var r in scope.questionDatas[q].responseDatas) {
+                                                if (responseId === scope.questionDatas[q].responseDatas[r].id) {
+                                                    scope.questionDatas[q].responseDatas[r].existingId = id;
+                                                    scope.questionDatas[q].responseDatas[r].responseId = responseId;
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+                        } else {
+                            scope.takeNewSurvey();
                         }
                     } else {
                         scope.takeNewSurvey();
