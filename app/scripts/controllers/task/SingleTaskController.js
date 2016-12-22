@@ -5,6 +5,7 @@
             scope.canView = false;
             scope.possibleActions = [];
             scope.taskNotes = [];
+            scope.actionLogs = [];
             scope.noteData = {};
             scope.showCriteriaResult =false;
             scope.getActivityView = function() {
@@ -21,13 +22,16 @@
                     scope.taskconfig = _.extend({},scope.taskData.configValues);
                     scope.showCriteriaResult =false;
                     //viewaction check
-                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:10}, function (data) {
-                        scope.taskData = data;
-                        scope.canView = true;
-                        //getpossibleActions
-                        populateNextActions();
-                        populateTaskNotes();
-                    });
+                    if(scope.taskData.status.id != 1){
+                        resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:10}, function (data) {
+                            scope.taskData = data;
+                            scope.canView = true;
+                            //getpossibleActions
+                            populateNextActions();
+                            populateTaskNotes();
+                            populateTaskActionLogs();
+                        });
+                    }
                 }
             }
 
@@ -38,14 +42,24 @@
                 if(actionId === 4 && scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'){
                     scope.$broadcast('activityApprove');
                 }else{
+                    scope.possibleActions = [];
                     resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionId}, function (data) {
                         scope.taskData = data;
                         if (scope.taskData.status.id == 7 || scope.taskData.status.id == 9) {
                             scope.$emit('taskCompleted', {taskId: scope.taskData.id});
                         }
                         populateNextActions();
+                        populateTaskActionLogs();
                     });
-                    scope.possibleActions = [];
+
+                }
+            };
+
+            scope.isTaskCompleted = function(){
+                if(scope.taskData.status.id == 7 || scope.taskData.status.id == 9){
+                    return true;
+                } else{
+                    return false;
                 }
             };
 
@@ -58,6 +72,12 @@
             function populateTaskNotes(){
                 resourceFactory.taskExecutionNotesResource.getAll({taskId:scope.taskData.id}, function (data) {
                     scope.taskNotes = data;
+                });
+            }
+
+            function populateTaskActionLogs(){
+                resourceFactory.taskExecutionActionLogResource.getAll({taskId:scope.taskData.id}, function (data) {
+                    scope.actionLogs = data;
                 });
             }
 
@@ -86,6 +106,7 @@
                         scope.$emit('taskCompleted', {taskId: scope.taskData.id});
                     }
                     populateNextActions();
+                    populateTaskActionLogs();
                 });
             });
 

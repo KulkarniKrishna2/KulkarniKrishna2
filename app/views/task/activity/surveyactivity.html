@@ -3,7 +3,7 @@
         <div>
             <div class="pull-right" ng-if="surveys && surveys.length > 0">
                 <div class="btn-group">
-                    <a id="takesurvey" ng-click="takeNewSurvey()" class="btn btn-primary"><i
+                    <a id="takesurvey" ng-if="!isTaskCompleted()" ng-click="takeNewSurvey()" class="btn btn-primary"><i
                             class="icon-edit-sign icon-white"></i>{{'label.button.edit.survey' | translate}}</a>
                 </div>
             </div>
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div ng-if="!isDisplaySurveys" class="row client">
-        <form name="takesurveyform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <form name="takesurveyform" novalidate="" class="form-horizontal " rc-submit="submit()">
             <api-validate></api-validate>
             <fieldset>
                 <div class="form-group" >
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col-md-offset-5">
-                    <a id="cancel"ng-click="cancel()" class="btn btn-default" data-ng-show="false">{{ 'label.button.cancel' |
+                    <a ng-if="false" id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' |
                         translate }}</a>
                     <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>

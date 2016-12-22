@@ -45,7 +45,7 @@
                                 {{'label.input.false' | translate}}
                             </label>
                         </div>
-                <span data-ng-switch on="columnHeader.columnDisplayType">
+                        <span data-ng-switch on="columnHeader.columnDisplayType">
                     <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                             data-ng-switch-when="CODELOOKUP"
                             ng-model="formData[columnHeader.columnName]"
@@ -87,7 +87,7 @@
     <!-- View data    -->
     <div class="row pull-right">
         <button type="button" ng-show="status!=='ADD' && datatabledetails.isMultirow == true" ng-click="addData()" class="btn btn-primary">Add</button>
-        <button type="button" ng-show="status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">Edit</button>
+        <button type="button" ng-if="!isTaskCompleted()" ng-show="status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">Edit</button>
     </div>
     <div ng-show="status=='VIEW'">
         <table class="table" data-ng-show="datatabledetails.isMultirow">
@@ -119,9 +119,9 @@
                             <label ng-if="value.columnDisplayType !== 'DECIMAL' && value.columnDisplayType !== 'DATE'">{{value.value}}</label>
                         </td>
                     </tr>
-                </table>  
+                </table>
             </div>
-            <div class="col-md-4"></div>        
+            <div class="col-md-4"></div>
         </div>
     </div>
     <!-- Edit data    -->
@@ -225,9 +225,9 @@
                     </div>
 
                 </div>
-                <div class="col-md-offset-3">
-                    <a id="cancel" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
-                    <button id="save" type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                <div ng-if="!isTaskCompleted()" class="col-md-offset-3">
+                    <a  ng-if="false" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
+                    <button  type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>
             </div>
         </form>

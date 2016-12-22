@@ -1,54 +1,54 @@
 <div ng-controller="SingleTaskController">
     <div ng-if="canView">
-        <div class="row">
-            <div class="col-md-8">
+        <div class="row well">
+            <div class="col-md-4">
                 <h3>{{taskData.name}}</h3>
             </div>
-            <div class="col-md-4">
-                <div>
-                    Status:&nbsp; {{taskData.status.code | translate}}
-                </div>
-                <div>
-                    Assigned To:&nbsp; {{taskData.assignedTo}}
-                </div>
-                <div>
-                    Created On:&nbsp; {{taskData.createdOn | DateFormat}}
-                </div>
-
+            <div class="col-md-2">
+                Status:&nbsp; {{taskData.status.code | translate}}
             </div>
+            <div class="col-md-3">
+                Assigned To:&nbsp; {{taskData.assignedTo}}
+            </div>
+            <div class="col-md-3">
+                Created On:&nbsp; {{taskData.createdOn | DateFormat}}
+            </div>
+
             <legend></legend>
-        </div>
-        <div ng-include="getActivityView()"></div>
-        <div class="row task-action">
-            <span ng-repeat="action in possibleActions" class="pull-right">
-                <button class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>
-            </span>
-        </div>
-        <div class="row client" ng-show="taskData.criteriaResult !== undefined">
-            <div class="well form-inline">
-                <div>
-                    {{ 'label.heading.request.eligibility.tobe' | translate }} {{taskData.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
-                </div>
-                <div ng-show="showCriteriaResult">
-                    <div >
-                        <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
-                    </div>
-                    <div>
-                        {{taskData.criteriaResult.criteriaOutput.name}} - {{taskData.criteriaResult.criteriaOutput.output.bucket}} - {{taskData.criteriaResult.criteriaOutput.output.value}} - {{taskData.criteriaResult.criteriaOutput.output.reason}} - {{taskData.criteriaResult.criteriaOutput.output.error}}
-                        <ul>
-                            <li ng-repeat="dimensionResult in taskData.criteriaResult.criteriaOutput.ruleResultHierarchy">
-                                {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
-                                <ol>
-                                    <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
-                                        {{factorResult.name}} - {{factorResult.output.bucket}} - {{factorResult.output.value}} - {{factorResult.output.reason}} - {{factorResult.output.error}}
-                                </ol>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
-                <div class="col-sm-offset-4 col-sm-4"><button ng-click="doTaskAction(2)">Do Fresh Check</button></div>
+            <div ng-include="getActivityView()"></div>
+
+            <div class="row" ng-if="taskData.criteriaResult !== undefined">
+                <div class=" col-md-12 form-inline">
+                    <div>
+                        {{ 'label.heading.request.eligibility.tobe' | translate }} {{taskData.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
+                    </div>
+                    <div ng-show="showCriteriaResult">
+                        <div >
+                            <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
+                        </div>
+                        <div>
+                            {{taskData.criteriaResult.criteriaOutput.name}} - {{taskData.criteriaResult.criteriaOutput.output.bucket}} - {{taskData.criteriaResult.criteriaOutput.output.value}} - {{taskData.criteriaResult.criteriaOutput.output.reason}} - {{taskData.criteriaResult.criteriaOutput.output.error}}
+                            <ul>
+                                <li ng-repeat="dimensionResult in taskData.criteriaResult.criteriaOutput.ruleResultHierarchy">
+                                    {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
+                                    <ol>
+                                        <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+                                            {{factorResult.name}} - {{factorResult.output.bucket}} - {{factorResult.output.value}} - {{factorResult.output.reason}} - {{factorResult.output.error}}
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-offset-4 col-sm-4"><button ng-click="doTaskAction(2)">Do Fresh Check</button></div>
+                </div>
             </div>
+        </div>
+        <div class="row task-action">
+                <span ng-repeat="action in possibleActions" class="pull-right">
+                    <button class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
         </div>
         <div class="row client">
             <form>
@@ -78,12 +78,33 @@
                 </div>
             </div>
         </div>
-        <div class="row client">
+
+        <div ng-if="actionLogs" class="row client">
+            <div class="col-md-12">
+                <h4 class="bolder">{{"label.heading.audit" | translate}}</h4>
+                <table class="table table-bordered table-striped" >
+                    <tr>
+                        <th>{{"label.heading.audit.action" | translate}}</th>
+                        <th>{{"label.heading.audit.updateDate"| translate}}</th>
+                        <th>{{"label.heading.audit.updateBy"| translate}}</th>
+                    </tr>
+                    <tr ng-repeat="actionLog in actionLogs">
+                        <td>{{actionLog.action.code | translate}}</td>
+                        <td>{{actionLog.actionOn}}</td>
+                        <td>{{actionLog.actionBy}}</td>
+                    </tr>
+                </table>
+            </div>
 
         </div>
+
     </div>
-    <div ng-show="canView==false">
-        <p> {{'label.input.do.not.have.access.to.see'| translate}} </p>
+    <div ng-if="canView==false" class>
+        <div class="" style="padding:10px;">
+            <div class="alert alert-info" style="border-style: dashed;">
+                <span class="fa fa-info-circle"></span> You do not have any access to see the task.
+            </div>
+        </div>
     </div>
 </div>
 

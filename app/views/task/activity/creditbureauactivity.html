@@ -5,9 +5,9 @@
         </div>
     </div>
     <div class="row client">
-        <form class="well form-inline">
+        <form class="form-inline">
             <div class="span gray-head">
-                    <span class="boldlabel">
+                    <span ng-if="false" class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
                     </span>
                 <div class="pull-right" ng-if="loansSummary.cbStatus.value == 'SUCCESS'">
@@ -16,7 +16,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-12 well">
+            <div class="col-md-12">
                 <div class="col-md-12 pull-right">
                     <div ng-hide="isResponPresent == true && loansSummary && loansSummary.cbStatus">
                         <button id="creditBureauReport" type="button" class="btn btn-primary"
@@ -104,7 +104,7 @@
                         </table>
                         <div class="col-md-12">
                             <div class="pull-right">
-                                    <span>
+                                    <span ng-if="!isTaskCompleted()">
                                         <button type="button" class="btn btn-primary" ng-click="creditBureauReport();"
                                                 has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                                     </span>
@@ -271,7 +271,7 @@
                             <tr>
                                 <td colspan="2">
                                     <div class="pull-right">
-                                            <span>
+                                            <span ng-if="!isTaskCompleted()">
                                                <button type="button" class="btn btn-primary"
                                                        ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                                             </span>
