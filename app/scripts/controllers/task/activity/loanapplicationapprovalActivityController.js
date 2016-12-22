@@ -426,7 +426,7 @@
                     command: 'approve'
                 }, this.submitData, function (data) {
                     scope.status = 'SUMMARY';
-                    scope.$emit("activityDone",{});
+                    scope.$emit("activityApproveDone",{});
                 });
             };
 
@@ -503,6 +503,14 @@
             scope.backToLoanDetails = function () {
                 scope.report = false;
             };
+
+            scope.$on('activityApprove', function (event, data) {
+                if (!_.isUndefined(scope.approveloanapplicationform) && scope.approveloanapplicationform.$valid) {
+                    scope.submit();
+                }else{
+                    scope.issubmitted = true;
+                }
+            });
         }
 
 
