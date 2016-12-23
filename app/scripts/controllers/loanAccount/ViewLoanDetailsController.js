@@ -191,14 +191,18 @@
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
              */
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations: 'all', exclude: 'guarantors'}, function (data) {
+            var multiTranchDataRequest = "multiDisburseDetails";
+
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations: multiTranchDataRequest, exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
                 $rootScope.loanproductName = data.loanProductName;
                 $rootScope.clientId=data.clientId;
                 $rootScope.LoanHolderclientName=data.clientName;
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
-                scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                if(scope.loandetails.repaymentSchedule && scope.loandetails.repaymentSchedule.totalWaived){
+                    scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                }
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
                 scope.date.toDate = new Date();
                 scope.status = data.status.value;
@@ -527,17 +531,23 @@
             scope.isMultiDisburseDetails = false;
             scope.isInterestRatesPeriods = false;
             scope.ischarges = false;
+            scope.isFutureSchedule = false;
             scope.getSpecificData = function (associations){
                 scope.isDataAlreadyFetched = false;
                 if(associations === 'repaymentSchedule'){
-                    associations = "repaymentSchedule,futureSchedule,originalSchedule";
+                    associations = "repaymentSchedule,originalSchedule";
                 }
                 if(associations === 'multiDisburseDetails'){
                     associations = "multiDisburseDetails,emiAmountVariations";
                 }
-                if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,futureSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
+                if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
                     scope.isDataAlreadyFetched = true;
-                }else if(associations === 'transactions' && scope.istransactions === true){
+                }else if((associations === 'futureSchedule'  || associations === 'futureSchedule' )){
+                    associations = 'repaymentSchedule,futureSchedule';
+                    if(scope.isFutureSchedule === true){
+                        scope.isDataAlreadyFetched = true;
+                    }
+                } else if(associations === 'transactions' && scope.istransactions === true){
                     scope.isDataAlreadyFetched = true;
                 }else if(associations === 'collateral' && scope.iscollateral === true){
                     scope.isDataAlreadyFetched = true;
@@ -551,12 +561,17 @@
                 if(!scope.isDataAlreadyFetched){
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations,isFetchSpecificData: true}, function (data) {
                         scope.loanSpecificData = data;
-                        if(associations === 'repaymentSchedule' || associations === 'repaymentSchedule,futureSchedule,originalSchedule'){
+                        if(associations === 'repaymentSchedule' || associations === 'repaymentSchedule,originalSchedule'){
                             scope.isRepaymentSchedule = true;
                             scope.loandetails.originalSchedule = scope.loanSpecificData.originalSchedule;
                             scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
                             scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
-                        }else if(associations === 'transactions'){
+                        }else if(associations === 'futureSchedule'){
+                            associations = 'futureSchedule';
+                            scope.isFutureSchedule = true;
+                            scope.loandetails.futureSchedule = scope.loanSpecificData.repaymentSchedule.futurePeriods;
+                            scope.isWaived = scope.loandetails.futureSchedule.totalWaived > 0;
+                        } else if(associations === 'transactions'){
                             scope.istransactions = true;
                             scope.loandetails.transactions = scope.loanSpecificData.transactions;
                             scope.convertDateArrayToObject('date');
