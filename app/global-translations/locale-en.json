@@ -2087,6 +2087,7 @@
     "error.msg.loan.prepayment.cannot.be.made.before.dues.cleared":"Prepay allowed only after dues cleared",
     "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanging pricipal",
     "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
+    "error.msg.loan.expecteddisbursal.should.be.on.or.after.approval.date" : "Expected disbursal should be on or after approval date",
 
 
     "#-------": "------------",
