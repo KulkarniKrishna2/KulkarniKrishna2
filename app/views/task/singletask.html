@@ -9,6 +9,9 @@
             </div>
             <div class="col-md-3">
                 Assigned To:&nbsp; {{taskData.assignedTo}}
+                <span ng-if="taskData.assignedTo===undefined" ng-repeat="role in taskData.assignedRoles">
+                    {{role.name}},
+                </span>
             </div>
             <div class="col-md-3">
                 Created On:&nbsp; {{taskData.createdOn | DateFormat}}
@@ -47,7 +50,7 @@
         </div>
         <div class="row task-action">
                 <span ng-repeat="action in possibleActions" class="pull-right">
-                    <button class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
         </div>
         <div class="row client">
