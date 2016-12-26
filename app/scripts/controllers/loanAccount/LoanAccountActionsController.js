@@ -556,16 +556,19 @@
             }
 
             scope.constructGlimClientMembersData = function () {
-                this.formData.clientMembers = [];
-                for(var i in scope.clientMembers) {
-                    if(scope.clientMembers[i].isClientSelected) {
-                        var json = {
-                            id : scope.clientMembers[i].id,
-                            transactionAmount: scope.clientMembers[i].transactionAmount
+                if(scope.isGLIM){
+                    this.formData.clientMembers = [];
+                    for(var i in scope.clientMembers) {
+                        if(scope.clientMembers[i].isClientSelected) {
+                            var json = {
+                                id : scope.clientMembers[i].id,
+                                transactionAmount: scope.clientMembers[i].transactionAmount
+                            }
+                            this.formData.clientMembers.push(json);
                         }
-                        this.formData.clientMembers.push(json);
                     }
                 }
+                
             }
 
             scope.submit = function () {
