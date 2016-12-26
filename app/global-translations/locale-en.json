@@ -390,6 +390,7 @@
     "label.error.select.client":"Please select atleast one checkbox ",
     "label.error.pincode.startwith": "pincode should start with ",
     "label.error.required" : "Required Field",
+    "label.error.select.office":"Please select office",
     "error.login.failed": "Please try again, your credentials are not valid.",
     "error.connection.failed": "Couldn't connect to server. Make sure you are using correct settings.",
     "error.msg.command.unsupported": "Programmer error: The `command` issued is not supported.",
