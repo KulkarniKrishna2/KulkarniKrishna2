@@ -53,7 +53,15 @@
                     <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
         </div>
-        <div class="row client">
+
+        <div class="row task-action">
+            <span class="pull-left">
+                <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="isDisplayNotes=true;isDisplayAttachments=false">Notes</button>&nbsp;
+                <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="isDisplayNotes=false;isDisplayAttachments=true">Attachments</button>&nbsp;
+            </span>
+        </div>
+
+        <div class="row client" ng-if="isDisplayNotes">
             <form>
                 <div class="form-group">
                     <div class="col-sm-12 col-md-12">
@@ -79,6 +87,63 @@
                         <small>{{'label.createdby' | translate}} :&nbsp;{{taskNote.createdBy}} &nbsp; {{'label.createdon' | translate}} :&nbsp;{{taskNote.createdOn | DateFormat}}</small>
                     </blockquote>
                 </div>
+            </div>
+        </div>
+
+        <div class="row client" ng-if="isDisplayAttachments">
+            <form name="taskdocumentform" rc-submit="submitTaskDocuments()">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <input ng-autofocus="true" type="text" id="name" name="name" ng-model="docData.name" placeholder="File name" class="form-control" required
+                                   late-Validate/>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <textarea rows="1" cols="15" ng-model="docData.description" class="form-control" placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <input type="file" id="taskfile" name="taskfile" ng-file-select="onTaskFileSelect($files)">
+                        </div>
+
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="taskdocumentform" valattribute="name"/>
+                        </div>
+                        <div class="col-sm-2" ng-if="docData.name">
+                            <form-validate valattributeform="taskdocumentform" valattribute="taskfile"/>
+                        </div>
+
+                        <div class="col-md-2">
+                            <button id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <br/>
+            <div class="col-sm-12 col-md-12" ng-if="taskDocuments.length > 0">
+                <table class="table" >
+                    <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.description' | translate}}</th>
+                        <th>{{'label.heading.filename' | translate}}</th>
+                        <th>{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="document in taskDocuments">
+                        <td>{{document.name}}</td>
+                        <td>{{document.description}}</td>
+                        <td>{{document.fileName}}</td>
+                        <td>
+                            <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                            <a href="javascript:void(0);" ng-click="deleteTaskDocument(document.id,$index)"><i class="icon-remove"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
