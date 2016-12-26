@@ -46,9 +46,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="clientMember in formData.clientMembers" ng-init="outerIndex = $index">
+                            <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index">
                                 <td>
-                                    <input type="checkbox" ng-change="getTransactionAmount(formData.clientMembers)" ng-model="formData.clientMembers[outerIndex].isClientSelected">
+                                    <input type="checkbox" ng-change="getTransactionAmount(clientMembers)" ng-model="clientMembers[outerIndex].isClientSelected">
                                 </td>
                                 <td >{{clientMember.clientId}}</td>
                                 <td >{{clientMember.clientName}}</td>
@@ -56,8 +56,8 @@
                                     <input  type="text"
                                             class="form-control principal"
                                             name="principal"
-                                            ng-model="formData.clientMembers[outerIndex].transactionAmount"
-                                            number-format ng-readonly="true" ng-change="getTransactionAmount(formData.clientMembers)"/>
+                                            ng-model="clientMembers[outerIndex].transactionAmount"
+                                            number-format ng-readonly="true" ng-change="getTransactionAmount(clientMembers)"/>
                                 </td>
                             </tr>
                             <tbody>
