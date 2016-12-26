@@ -5330,7 +5330,7 @@
     "label.heading.view.workflow":"View work flow",
 
 
-    "taskActionType.taskcomplete":"Task Complete",
+    "taskActionType.taskcomplete":"Activity Complete",
     "taskActionType.review":"Looks Ok",
     "taskActionType.approve":"Approve",
     "taskActionType.reject":"Reject",

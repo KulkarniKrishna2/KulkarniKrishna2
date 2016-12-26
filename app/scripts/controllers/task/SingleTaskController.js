@@ -117,7 +117,45 @@
                 }else{
                     scope.showCriteriaResult = true;
                 }
-            }
+            };
+
+            scope.onTaskFileSelect = function ($files) {
+                scope.taskFile = $files[0];
+            };
+
+            scope.docData = {};
+            scope.submitTaskDocuments = function () {
+                $upload.upload({
+                    url: $rootScope.hostUrl + API_VERSION + '/tasks/' + scope.taskData.id + '/documents',
+                    data: scope.docData,
+                    file: scope.taskFile
+                }).then(function (data) {
+                    // to fix IE not refreshing the model
+                    if (!scope.$$phase) {
+                        scope.$apply();
+                    }
+                    getTaskDocuments();
+                });
+            };
+
+            function getTaskDocuments() {
+                resourceFactory.documentsResource.getAllDocuments({entityType : 'tasks',entityId: scope.taskData.id}, function (data) {
+                    for (var l in data) {
+                        var loandocs = {};
+                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                        data[l].docUrl = loandocs;
+                    }
+                    scope.taskDocuments = data;
+                });
+            };
+
+            getTaskDocuments();
+
+            scope.deleteTaskDocument = function (documentId, index) {
+                resourceFactory.documentsResource.delete({entityType : 'tasks',entityId: scope.taskData.id, documentId: documentId}, '', function (data) {
+                    scope.taskDocuments.splice(index, 1);
+                });
+            };
         }
     });
     mifosX.ng.application.controller('SingleTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.SingleTaskController]).run(function ($log) {
