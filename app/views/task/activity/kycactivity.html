@@ -1,0 +1,122 @@
+<div class="col-md-12" ng-controller="kycActivityController">
+    <div class="row client" ng-if="isAddIdentifiers">
+        <form name="clientidentifierform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.heading.addclientidentifier' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="documentTypeId">{{'label.input.identitydocumenttype' |
+                        translate}}<span
+                                class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="documentTypeId" ng-model="formData.documentTypeId"
+                                ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
+                                value="{{documenttype.id}}" required="required" class="form-control">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="status" ng-model="formData.status"
+                                ng-options="status.id as status.value for status in statusTypes"
+                                value="{{status.id}}" required="required" class="form-control">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="documentKey">{{'label.input.uniqueidentification' |
+                        translate}}<span
+                                class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="documentKey" type="text" name="identification" ng-model="formData.documentKey"
+                               required="required" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3" id="col-sm-2">
+                        <button type="button" id="validate" ng-click="validateRsaIdnumber()"
+                                ng-show="response.uiDisplayConfigurations.clientIdentifier.identitiesMatchLuhnsAlgorithm.clientIdentifierValidation">
+                            {{'label.button.validate' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-3" class="block">
+                        <small class="required" ng-show="error">
+                            {{error | translate}}
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">{{'label.input.description' |
+                        translate}}</label>
+
+                    <div class="col-sm-3">
+                        <textarea id="description" rows="2" ng-model="formData.description"
+                                  class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-3">
+                    <a id="cancel">
+                        <button type="reset" ng-click="changeValue(false);" class="btn btn-default">
+                            {{'label.button.cancel' | translate}}
+                        </button>
+                    </a>
+                    <button id="save" type="submit" has-permission='CREATE_CLIENTIDENTIFIER' class="btn btn-primary">
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="row client" ng-if="!isAddIdentifiers">
+        <div class="pull-right btn-group">
+            <a ng-click="changeValue(true);" class="btn btn-primary"
+               has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>
+                {{'label.button.add' | translate }}</a>
+        </div>
+        <br>
+        <table class="table" ng-show="identitydocuments.length > 0">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.id' | translate}}</th>
+                <th>{{'label.heading.description' | translate}}</th>
+                <th>{{'label.heading.type' | translate}}</th>
+                <th>{{'label.heading.identitydocuments' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="document in identitydocuments">
+                <td>{{document.documentKey}}</td>
+                <td>{{document.description}}</td>
+                <td>{{document.documentType.name}}</td>
+                <td>
+		                  <span ng-repeat="file in document.documents">
+		                    {{file.fileName}}&nbsp;&nbsp;
+		                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
+                                    class="icon-cloud-download"></i></a>
+		                  </span>
+                </td>
+                <td>{{document.status | translate}}</td>
+                <td>
+                      <span>
+                          <a href="#/addclientidentifierdocument/{{clientId}}/{{document.id}}"
+                             has-permission='CREATE_DOCUMENT'><i
+                                  class="icon-cloud-upload" data-ng-hide="true"></i></a>&nbsp;
+                          <a ng-click="deleteClientIdentifierDocument(clientId,document.id,$index)"
+                             has-permission='DELETE_CLIENTIDENTIFIER'><i
+                                  class="icon-remove"></i></a>
+                      </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

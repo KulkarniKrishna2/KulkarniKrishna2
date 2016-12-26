@@ -43,6 +43,6 @@
         }
     });
     mifosX.ng.application.controller('clientdocumentActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
-        $log.info("ClientDocumentController initialized");
+        $log.info("clientdocumentActivityController initialized");
     });
 }(mifosX.controllers || {}));
