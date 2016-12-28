@@ -142,7 +142,7 @@
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
                     case "disburse.tranche.creditbureaureport":
-                        location.path('/creditbureaureport/loan/'+accountId);
+                        location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
                         break;
                 }
             };
@@ -1037,6 +1037,23 @@
                                                 if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
                                                     scope.buttons.singlebuttons[i] = cbButton;
                                                     break;
+                                                }
+                                            }
+
+                                            if(!_.isUndefined(scope.loandetails.disbursementDetails)){
+                                                var expectedDisbursementDate = undefined;
+                                                for(var i in scope.loandetails.disbursementDetails){
+                                                    if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
+                                                        if(_.isUndefined(expectedDisbursementDate)){
+                                                            expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                            scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                        }else{
+                                                            if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
+                                                                expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                                scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }

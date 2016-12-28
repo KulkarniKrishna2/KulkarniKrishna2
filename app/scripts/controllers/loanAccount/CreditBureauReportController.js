@@ -8,6 +8,7 @@
             scope.cbLoanEnqResponseError = false;
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
+            scope.trancheDisbursalId = routeParams.trancheDisbursalId;
             if (scope.entityType === 'loanapplication') {
                 scope.loanApplicationReferenceId = scope.entityId;
                 getLoanApplicationData();
@@ -113,8 +114,11 @@
                                             summaty = scope.activeLoan.summaries[j];
                                             isLenderPresent = true;
                                             summaty.noOfActiveLoans += 1;
+                                            if (summaty.customerSince > existingLoan.disbursedDate) {
+                                                summaty.customerSince = existingLoan.disbursedDate;
+                                            }
                                             summaty.totalOutstandingAmount += existingLoan.currentOutstanding;
-                                            summaty.totalEMIAmount += existingLoan.installmentAmount;
+                                            summaty.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
                                             if (summaty.disbursalDate < existingLoan.disbursedDate) {
                                                 summaty.disbursalDate = existingLoan.disbursedDate;
                                             }
@@ -125,16 +129,17 @@
                                     }
                                     if (!isLenderPresent) {
                                         summaty.lenderName = existingLoan.lenderName;
+                                        summaty.customerSince = existingLoan.disbursedDate;
                                         summaty.noOfActiveLoans = 1;
                                         summaty.totalOutstandingAmount = existingLoan.currentOutstanding;
-                                        summaty.totalEMIAmount = existingLoan.installmentAmount;
+                                        summaty.totalEMIAmount = convertEMIAmountToMonthlyAmount(existingLoan);
                                         summaty.disbursalDate = existingLoan.disbursedDate;
                                         summaty.totalOverDueAmount = existingLoan.amtOverdue;
                                         scope.activeLoan.summaries.push(summaty);
                                     }
                                     scope.activeLoan.totalSummary.noOfActiveLoans += 1;
                                     scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
-                                    scope.activeLoan.totalSummary.totalEMIAmount += existingLoan.installmentAmount;
+                                    scope.activeLoan.totalSummary.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
                                     scope.activeLoan.totalSummary.totalOverDueAmount += existingLoan.amtOverdue;
                                 }
                             }
@@ -146,6 +151,26 @@
                         }
                     }
                 }
+            };
+
+            function convertEMIAmountToMonthlyAmount(existingLoan){
+                if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months'){
+                    return existingLoan.installmentAmount;
+                }else if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks'){
+                    return convertWeeklyEMIAmountToMonthly(existingLoan);
+                }else if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days'){
+                    return convertDailyEMIAmountToMonthly(existingLoan);
+                }else{
+                    return 0.00;
+                }
+            };
+
+            function convertWeeklyEMIAmountToMonthly(existingLoan){
+                return (existingLoan.installmentAmount/7) * 30;
+            };
+
+            function convertDailyEMIAmountToMonthly(existingLoan){
+                return existingLoan.installmentAmount * 30;
             };
 
             function constructClosedLoanSummary() {
@@ -178,6 +203,9 @@
                                             summaty = scope.closedLoan.summaries[j];
                                             isLenderPresent = true;
                                             summaty.noOfClosedLoans += 1;
+                                            if (summaty.customerSince > existingLoan.disbursedDate) {
+                                                summaty.customerSince = existingLoan.disbursedDate;
+                                            }
                                             summaty.totalDisbursalAmount += existingLoan.amountBorrowed;
                                             if (summaty.lastClosureDate) {
                                                 if (existingLoan.closedDate && summaty.lastClosureDate < existingLoan.closedDate) {
@@ -193,6 +221,7 @@
                                     }
                                     if (!isLenderPresent) {
                                         summaty.lenderName = existingLoan.lenderName;
+                                        summaty.customerSince = existingLoan.disbursedDate;
                                         summaty.noOfClosedLoans = 1;
                                         summaty.totalDisbursalAmount = existingLoan.amountBorrowed;
                                         if (existingLoan.closedDate) {
@@ -226,6 +255,25 @@
                 }
                 constructActiveLoanSummary();
                 constructClosedLoanSummary();
+                findcustomerSinceFromEachMFI();
+            };
+
+            function findcustomerSinceFromEachMFI() {
+                if(scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0){
+                    if(scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0){
+                        for(var i in scope.activeLoan.summaries){
+                            for(var j in scope.closedLoan.summaries){
+                                if(scope.activeLoan.summaries[i].lenderName === scope.closedLoan.summaries[j].lenderName){
+                                    if (scope.activeLoan.summaries[i].customerSince > scope.closedLoan.summaries[j].customerSince) {
+                                        scope.activeLoan.summaries[i].customerSince = scope.closedLoan.summaries[j].customerSince
+                                    }else if(scope.closedLoan.summaries[j].customerSince > scope.activeLoan.summaries[i].customerSince){
+                                        scope.closedLoan.summaries[i].customerSince = scope.activeLoan.summaries[j].customerSince
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             function getCreditBureauReportSummary() {
@@ -241,7 +289,12 @@
                     } else {
                         scope.isResponPresent = true;
                     }
-                    resourceFactory.clientExistingLoan.getAll({clientId: scope.formData.clientId}, function (data) {
+                    resourceFactory.clientExistingLoan.getAll({
+                        clientId: scope.formData.clientId,
+                        loanApplicationId: scope.loanApplicationReferenceId,
+                        loanId: scope.loanId,
+                        trancheDisbursalId: scope.trancheDisbursalId
+                    }, function (data) {
                         scope.existingLoans = data;
                         constructLoanSummary();
                     });
@@ -255,7 +308,12 @@
                 }, function (loansSummary) {
                     scope.loansSummary = loansSummary;
                     scope.isResponPresent = true;
-                    resourceFactory.clientExistingLoan.getAll({clientId: scope.formData.clientId}, function (data) {
+                    resourceFactory.clientExistingLoan.getAll({
+                        clientId: scope.formData.clientId,
+                        loanApplicationId: scope.loanApplicationReferenceId,
+                        loanId: scope.loanId,
+                        trancheDisbursalId: scope.trancheDisbursalId
+                    }, function (data) {
                         scope.existingLoans = data;
                         constructLoanSummary();
                     });
