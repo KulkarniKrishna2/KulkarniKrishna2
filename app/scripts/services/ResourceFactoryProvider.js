@@ -996,7 +996,7 @@
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
                     workFlowTasksResource: defineResource(apiVer + "/tasks/actions",{}, {
-                        get: {method: 'GET', params: {filterby: '@filterby'}, isArray: true}
+                        get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}}
                     }),
                     bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
@@ -1023,6 +1023,9 @@
                     bankAccountTransferResource: defineResource(apiVer + "/banktransaction/:bankTransferId", {bankTransferId:"@bankTransferId", entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         save: {method: 'POST', params: {}}
+                    }),
+                    taskConfigResource: defineResource(apiVer + "/tasks/config/:withTemplate", {}, {
+                        getTemplate: {method: 'GET', params: {withTemplate:"template", parentConfigId: '@parentConfigId'}}
                     })
                 };
             }];
