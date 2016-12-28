@@ -594,7 +594,7 @@
                     scope.isDataAlreadyFetched = true;
                 }
                 if(!scope.isDataAlreadyFetched){
-                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations, exclude: 'loanBasicDetails', isFetchSpecificData: true}, function (data) {
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations, isFetchSpecificData: true}, function (data) {
                         scope.loanSpecificData = data;
                         if(associations === 'repaymentSchedule' || associations === 'repaymentSchedule,originalSchedule'){
                             scope.isRepaymentSchedule = true;
