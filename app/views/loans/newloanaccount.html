@@ -42,7 +42,7 @@
                     class="form-control width170px" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
-            <span class="error" ng-show="issubmitted && newloanaccountform.loanpurpose.$error.required">{{'label.error.required'|translate}}</span>
+            <form-validate valattributeform="newloanaccountform" valattribute="loanpurpose"/>
         </td>
         <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
@@ -274,7 +274,7 @@
                     <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" name="repaymentsStartingFromDate"
                             ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
-                    <span class="error" ng-show="issubmitted && newloanaccountform.repaymentsStartingFromDate.$error.required">{{'label.error.required' | translate}}</span>
+                    <form-validate valattributeform="newloanaccountform" valattribute="repaymentsStartingFromDate"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label>
                 <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
