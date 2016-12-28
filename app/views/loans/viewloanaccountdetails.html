@@ -665,7 +665,8 @@
 
                                 <td>{{period.totalDueForPeriod | number}}</td>
                                 <td>{{period.totalPaidForPeriod | number}}</td>
-                                <td>{{period.totalPaidInAdvanceForPeriod | number}}</td>
+                                <td data-ng-hide="loandetails.isInterestRecalculationEnabled">{{period.totalPaidInAdvanceForPeriod | number}}</td>
+                                <td data-ng-show="loandetails.isInterestRecalculationEnabled">{{period.advancePaymentAmount | number}}</td>
                                 <td>{{period.totalPaidLateForPeriod | number}}</td>
                                 <td data-ng-show="isWaived">{{period.totalWaivedForPeriod | number}}</td>
                                 <td>{{period.totalOutstandingForPeriod | number}}</td>
@@ -685,7 +686,8 @@
 
                                 <th>{{loandetails.repaymentSchedule.totalRepaymentExpected | number}}</th>
                                 <th>{{loandetails.repaymentSchedule.totalRepayment | number}}</th>
-                                <th>{{loandetails.repaymentSchedule.totalPaidInAdvance | number}}</th>
+                                <th  data-ng-hide="loandetails.isInterestRecalculationEnabled">{{loandetails.repaymentSchedule.totalPaidInAdvance | number}}</th>
+                                <th  data-ng-show="loandetails.isInterestRecalculationEnabled">{{loandetails.repaymentSchedule.totalAdvancePayment | number}}</th>
                                 <th>{{loandetails.repaymentSchedule.totalPaidLate | number}}</th>
                                 <th data-ng-show="isWaived">{{loandetails.repaymentSchedule.totalWaived | number}}</th>
                                 <th>{{loandetails.repaymentSchedule.totalOutstanding | number}}</th>

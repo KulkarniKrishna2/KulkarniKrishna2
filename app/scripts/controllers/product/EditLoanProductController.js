@@ -85,6 +85,7 @@
                     name: scope.product.name,
                     shortName: scope.product.shortName,
                     description: scope.product.description,
+                    externalId:scope.product.externalId,
                     fundId: scope.product.fundId,
                     description: scope.product.description,
                     includeInBorrowerCycle: scope.product.includeInBorrowerCycle,
