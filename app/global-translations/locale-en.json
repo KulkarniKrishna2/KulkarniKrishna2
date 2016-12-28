@@ -5351,6 +5351,7 @@
     "label.heading.preferredpaymentchannelforrepayments" : "Preferred payment channel for repayments",
     "label.heading.cb.report.active.loans.summary" : "Active Loans Summary",
     "label.heading.name.of.mfi" : "Name of MFI",
+    "label.heading.customer.since" : "Customer Since",
     "label.heading.no.of.active.loans" : "No of Active Loans",
     "label.heading.total.outstanding.amount" : "Total Outstanding Amount",
     "label.heading.total.emi.amount" : "Total EMI Amount",
