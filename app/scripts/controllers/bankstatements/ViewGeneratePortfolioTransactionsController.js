@@ -15,7 +15,7 @@
             });
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'generatetransactions'},function (data) {
-                    scope.bankStatementDetails = data;
+                    scope.bankStatementDetails = data.bankStatementDetails;
                 });
             };
 

@@ -561,7 +561,7 @@
                         </table>
                     </tab>
 
-                    <tab heading="{{'label.heading.originalschedule' | translate}}"  ng-show="loandetails.originalSchedule">
+                    <tab active="tabs[2].active" heading="{{'label.heading.originalschedule' | translate}}"  select="getSpecificData('repaymentSchedule')">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -612,7 +612,7 @@
 
                     </tab>
 
-                    <tab heading="{{'label.heading.repaymentschedule' | translate}}">
+                    <tab active="tabs[3].active" heading="{{'label.heading.repaymentschedule' | translate}}" select="getSpecificData('repaymentSchedule')">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus() && response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.viewReportButton"
                                 ng-click="viewRepaymentDetails()">{{'label.button.viewReport' | translate}}</button>
 
@@ -697,9 +697,9 @@
 
                     </tab>
 
-                    <tab heading="{{'label.heading.futureschedule' | translate}}"  ng-show="loandetails.repaymentSchedule.futurePeriods">
+                    <tab active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
 
-                        <table class="table table-striped .width100">
+                        <table class="table table-striped .width100" ng-show="loandetails.repaymentSchedule.futurePeriods">
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
@@ -739,7 +739,8 @@
                     </tab>
 
 
-                    <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
+                    <tab active="tabs[5].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
+                        <div ng-show="loandetails.transactions">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
                         <div class="pull-right">
@@ -826,9 +827,8 @@
                                 <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                             </div>
                         </div>
+                       </div>
                     </tab>
-
-
                     <tab ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
@@ -846,8 +846,8 @@
                         </table>
                     </tab>
 
-                    <tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">
-                        <table class="table">
+                    <tab active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
+                        <table class="table" ng-show="loandetails.collateral">
                             <thead>
                             <th>{{'label.heading.type' | translate}}</th>
                             <th>{{'label.heading.value' | translate}}</th>
@@ -926,7 +926,8 @@
                             </table>
                     </tab>
 
-                    <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
+                    <tab active="tabs[7].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
+                        <div ng-show="loandetails.multiDisburseLoan">
                         <table class="width100">
 
                             <tr>
@@ -989,6 +990,7 @@
                                 <td>{{emiVariations.decimalValue}}</td>
                             </tr>
                         </table>
+                      </div>
                     </tab>
 
                     <tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
@@ -1008,7 +1010,7 @@
                         </table>
                     </tab>
 
-                    <tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
+                    <tab active="tabs[9].active" heading="{{'label.heading.floatinginterestrates' | translate}}" ng-show="loandetails.isLoanProductLinkedToFloatingRate" select="getSpecificData('interestRatesPeriods')">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.fromdate' | translate}}</th>
@@ -1022,7 +1024,8 @@
                     </tab>
 
 
-                    <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
+                    <tab active="tabs[10].active" heading="{{'label.heading.charges' | translate}}" select="getSpecificData('charges')">
+                        <div ng-show="chargeTableShow">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -1063,6 +1066,7 @@
                                 </td>
                             </tr>
                         </table>
+                      </div>
                     </tab>
 
                     <script type="text/ng-template" id="delcharge.html">

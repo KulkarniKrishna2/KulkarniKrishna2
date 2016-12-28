@@ -12,12 +12,13 @@
             scope.date = {};
             scope.isGLIM = false;
             scope.GLIMData = {};
+            scope.clientMembers = [];
 
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
                 for(var i in scope.formData.clientMembers){
-                    if(scope.formData.clientMembers[i].amount){
-                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    if(scope.formData.clientMembers[i].isClientSelected && scope.formData.clientMembers[i].transactionAmount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].transactionAmount);
                     }
                 }
                 scope.formData.principal = totalPrincipalAmount;
@@ -50,16 +51,16 @@
                             scope.formData.clientMembers[i] = {};
                             scope.formData.clientMembers[i].id = glimData[i].clientId;
                             scope.formData.clientMembers[i].glimId = glimData[i].id;
-                            scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                            scope.formData.clientMembers[i].clientName = glimData[i].clientName;
+                            scope.formData.clientMembers[i].clientExternalID = glimData[i].clientExternalID;
+                            scope.formData.clientMembers[i].transactionAmount = glimData[i].proposedAmount;
                             scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
                             scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
                             scope.formData.clientMembers[i].accountNo = glimData[i].clientId;
                             scope.formData.clientMembers[i].displayName = glimData[i].clientName;
                             scope.formData.clientMembers[i].upfrontChargeAmount = glimData[i].chargeAmount;
-                            if (scope.isGLIM) {
-                                scope.clientMembers = data.group.clientMembers;
-                            }
                         }
+
                         scope.templateType = 'glim';
                         scope.glimAutoCalPrincipalAmount();
                         scope.previewClientLoanAccInfo();
@@ -374,6 +375,7 @@
             scope.loanTermCalculation=function(){
                 scope.loanTerm= scope.formData.numberOfRepayments*scope.formData.repaymentEvery;
             }
+
 
             scope.previewRepayments = function () {
                 // Make sure charges and collaterals are empty before initializing.

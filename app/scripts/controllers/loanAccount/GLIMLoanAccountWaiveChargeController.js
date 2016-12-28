@@ -8,10 +8,11 @@
             scope.formData.locale = scope.optlang.code;
             scope.formData.dateFormat = scope.df;
             scope.formData.transactionDate = new Date ();
+            scope.clientMembers = [];
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"waivecharge"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
-                scope.formData.clientMembers = data.clientMembers;
+                scope.clientMembers = data.clientMembers;
             });
 
             scope.getTransactionAmount = function(data){
@@ -21,12 +22,25 @@
                         amount= amount + parseFloat(data[i].transactionAmount);
                     }
                 }
-                this.formData.transactionAmount = amount;
+                this.formData.transactionAmount = amount.toFixed(2);;
             };
 
             scope.cancel = function(){
                 location.path('/viewloanaccount/' + scope.loanId);
             };
+
+            scope.constructGlimClientMembersData = function () {
+                this.formData.clientMembers = [];
+                for(var i in scope.clientMembers) {
+                    if(scope.clientMembers[i].isClientSelected) {
+                        var json = {
+                            id : scope.clientMembers[i].id,
+                            transactionAmount: scope.clientMembers[i].transactionAmount
+                        }
+                        this.formData.clientMembers.push(json);
+                    }
+                }
+            }
 
 
             scope.submit = function(){
@@ -34,6 +48,7 @@
                     var reqDate = dateFilter(scope.formData.transactionDate, scope.df);
                     this.formData.transactionDate = reqDate;
                 }
+                scope.constructGlimClientMembersData();
                 resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'waivecharge'}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });

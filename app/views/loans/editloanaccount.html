@@ -187,7 +187,7 @@
                     <tbody>
                     <tr ng-repeat="clientMember in GLIMData" ng-init="outerIndex = $index">
                         <td>
-                            <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected">
+                            <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected" ng-change="glimAutoCalPrincipalAmount()">
                         </td>
                         <td >{{clientMember.clientId}}</td>
                         <td >{{clientMember.clientName}}</td>
@@ -203,7 +203,7 @@
                             <input  type="text"
                                     class="form-control principal"
                                     name="principal"
-                                    ng-model="formData.clientMembers[outerIndex].amount"
+                                    ng-model="formData.clientMembers[outerIndex].transactionAmount"
                                     number-format ng-keyup="glimAutoCalPrincipalAmount()"/>&nbsp;{{productDetails.currency.displaySymbol}}
                         </td>
                     </tr>

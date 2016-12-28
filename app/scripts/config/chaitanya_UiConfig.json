@@ -30,6 +30,10 @@
         "interestRecalculationSection": true,
         "collateralSection": true
       },
+      "isShowField":{
+        "nextRepaymentDateDisburseScreen": false,
+        "adjustRepaymentDateDisburseScreen": true
+      },
       "isReadOnlyField": {
         "loanTermFrequencyType": true,
         "interestChargedFromDate": true,

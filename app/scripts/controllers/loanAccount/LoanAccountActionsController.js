@@ -22,12 +22,13 @@
             //glim
             scope.isGLIM = false;
             scope.GLIMData = {};
+            scope.clientMembers = [];
 
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
-                for(var i in scope.formData.clientMembers){
-                    if(scope.formData.clientMembers[i].isClientSelected && scope.formData.clientMembers[i].amount){
-                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                for(var i in scope.clientMembers){
+                    if(scope.clientMembers[i].isClientSelected && scope.clientMembers[i].transactionAmount){
+                        totalPrincipalAmount += parseFloat(scope.clientMembers[i].transactionAmount);
                     }
                 }
                 if(scope.action == 'approve'){
@@ -39,26 +40,23 @@
 
             scope.createClientMembersForGLIM = function(){
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
-                    scope.GLIMData = glimData;
+                    scope.clientMembers = glimData;
                     scope.isGLIM = (glimData.length>0);
                     if(scope.isGLIM){
-                        scope.formData.clientMembers = [];
                         for(var i=0;i<glimData.length;i++){
-                            scope.formData.clientMembers[i] = {};
-                            scope.formData.clientMembers[i].id = glimData[i].clientId;
-                            scope.formData.clientMembers[i].glimId = glimData[i].id;
-                            scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                            scope.clientMembers[i].id = glimData[i].id;
+                            scope.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
                             if(scope.action == "approve"){
                                 if(glimData[i].approvedAmount == undefined){
-                                    scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                                    scope.clientMembers[i].transactionAmount = glimData[i].proposedAmount;
                                 }else{
-                                    scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                                    scope.clientMembers[i].transactionAmount = glimData[i].approvedAmount;
                                 }
                             }else{
                                 if(glimData[i].disbursedAmount == undefined){
-                                    scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                                    scope.clientMembers[i].transactionAmount = glimData[i].approvedAmount;
                                 }else{
-                                    scope.formData.clientMembers[i].amount = glimData[i].disbursedAmount;
+                                    scope.clientMembers[i].transactionAmount = glimData[i].disbursedAmount;
                                 }
                             }
                         }
@@ -234,7 +232,7 @@
                         scope.paymentTypes = data.paymentTypeOptions;
                         resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (responseData) {
                             if (responseData.clientMembers.length>0) {
-                                scope.formData.clientMembers = responseData.clientMembers;
+                                scope.clientMembers = responseData.clientMembers;
                                 var transactionAmount = 0;
                                 for (var i in responseData.clientMembers) {
                                     transactionAmount += responseData.clientMembers[i].transactionAmount;
@@ -242,7 +240,7 @@
                                 scope.isGLIM = true;
                                 scope.formData.transactionAmount = transactionAmount;
                             } else {
-                                scope.formData.clientMembers = undefined;
+                                scope.clientMembers = undefined;
                                 scope.formData.transactionAmount = data.amount;
                                 scope.isGLIM = false;
                             }
@@ -267,10 +265,10 @@
                     scope.taskPermissionName = 'WRITEOFF_LOAN';
                     resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
                         if (data.clientMembers.length>0) {
-                            scope.formData.clientMembers = data.clientMembers;
+                            scope.clientMembers = data.clientMembers;
                             scope.isGLIM = true;
                         } else {
-                            scope.formData.clientMembers = undefined;
+                            scope.clientMembers = undefined;
                             scope.isGLIM = false;
                         }
                     });
@@ -557,6 +555,22 @@
                 this.formData.transactionAmount = amount;
             }
 
+            scope.constructGlimClientMembersData = function () {
+                if(scope.isGLIM){
+                    this.formData.clientMembers = [];
+                    for(var i in scope.clientMembers) {
+                        if(scope.clientMembers[i].isClientSelected) {
+                            var json = {
+                                id : scope.clientMembers[i].id,
+                                transactionAmount: scope.clientMembers[i].transactionAmount
+                            }
+                            this.formData.clientMembers.push(json);
+                        }
+                    }
+                }
+                
+            }
+
             scope.submit = function () {
                 scope.processDate = false;
                 var params = {command: scope.action};
@@ -566,6 +580,7 @@
 
                 if (scope.action == "disburse"){
                     this.formData.skipAuthenticationRule = true;
+                    scope.constructGlimClientMembersData();
                 }
 
                 if(scope.action == "approve"){
@@ -584,6 +599,7 @@
                     if(scope.formData.approvedLoanAmount == null){
                         scope.formData.approvedLoanAmount = scope.showTrancheAmountTotal;
                     }
+                    scope.constructGlimClientMembersData();
                 }
 
                 if (this.formData[scope.modelName]) {
@@ -606,6 +622,7 @@
                     if (scope.isGLIM && scope.action != "modifytransaction") {
                         this.formData.locale = scope.optlang.code;
                         this.formData.dateFormat = scope.df;
+                        scope.constructGlimClientMembersData();
                         if(scope.action == "writeoff") {
                             this.formData.transactionAmount = scope.writeOffAmount;
                         }
@@ -614,13 +631,7 @@
                         });
                     } else {
                         if (scope.isGLIM && scope.action == "modifytransaction") {
-                            this.formData.clientMembers = [];
-                            for (var i in scope.formData.glimTransactions) {
-                                this.formData.clientMembers.push({
-                                    id: scope.formData.glimTransactions[i].glimId, isClientSelected: true,
-                                    transactionAmount: scope.formData.glimTransactions[i].transactionAmount
-                                });
-                            }
+                            scope.constructGlimClientMembersData();
                         }
                         delete scope.formData.glimTransactions;
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
@@ -713,7 +724,7 @@
                 var transactionDate = dateFilter(date,  scope.df);
                 resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment', transactionDate: transactionDate}, function (data) {
                     if (data.clientMembers.length>0) {
-                        scope.formData.clientMembers = data.clientMembers;
+                        scope.clientMembers = data.clientMembers;
                         var amount = 0;
                         for (var i=0; i<data.clientMembers.length; i++) {
                             if (angular.isDefined(data.clientMembers[i].transactionAmount)) {
@@ -724,7 +735,7 @@
                             scope.formData.transactionAmount = amount.toFixed(2);
                         }
                     } else {
-                        scope.formData.clientMembers = undefined;
+                        scope.clientMembers = undefined;
                         scope.isGLIM = false;
                     }
                 });
