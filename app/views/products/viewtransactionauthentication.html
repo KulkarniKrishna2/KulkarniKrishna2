@@ -24,6 +24,7 @@
         <thead>
         <tr class="graybg">
             <th>{{ 'label.heading.producttype' | translate }}</th>
+            <th>{{ 'label.heading.product' | translate }}
             <th>{{ 'label.heading.transactiontype' | translate }}</th>
             <th>{{ 'label.heading.paymenttype' | translate }}</th>
             <th>{{ 'label.heading.amount' | translate }}</th>
@@ -35,6 +36,7 @@
         <tbody>
         <tr data-ng-repeat="tansactionAuthentication in transactionAuthentications">
             <td>{{tansactionAuthentication.portfolioType | translate}}</td>
+            <td>{{tansactionAuthentication.productName | translate}}</td>
             <td>{{tansactionAuthentication.transactionType}}</td>
             <td>{{tansactionAuthentication.paymentType.name}}</td>
             <td>{{tansactionAuthentication.amount}}</td>
@@ -52,4 +54,3 @@
     </table>
 
 </div>
-

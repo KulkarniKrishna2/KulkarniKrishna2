@@ -24,6 +24,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="productId">{{'label.input.product.name' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select  id="productId" name="productId" ng-model="formData.productId" class="form-control"
+                                 data-ng-options="productOption.id as productOption.name for productOption in productTypeOptions"
+                                 value="{{productOption.id}}">
+                            <option value="">{{'label.productname' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-sm-2" for="transactionType">{{'label.input.transactiontype' | translate}}</label>
 
                     <div class="col-sm-3">
