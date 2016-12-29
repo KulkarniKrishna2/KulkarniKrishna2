@@ -13,13 +13,17 @@
                     name: data.name,
                     accountNumber: data.accountNumber,
                     ifscCode: data.ifscCode,
+                    bankName: data.bankName,
+                    bankCity: data.bankCity,
                     mobileNumber: data.mobileNumber,
                     email: data.email
+
                 };
                 if(data.accountNumber) {
                     scope.createDetail = false;
                 }
             });
+
 
             scope.submit = function () {
                 resourceFactory.bankAccountDetailResource.create({entityType: routeParams.entityType,entityId: routeParams.entityId},this.formData, function (data) {
