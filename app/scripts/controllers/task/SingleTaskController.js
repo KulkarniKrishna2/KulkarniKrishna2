@@ -3,6 +3,7 @@
         SingleTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, angular) {
 
             scope.canView = false;
+            scope.canComplete = true;
             scope.possibleActions = [];
             scope.taskNotes = [];
             scope.actionLogs = [];
@@ -21,6 +22,9 @@
                 if(scope.taskData != undefined){
                     scope.taskconfig = _.extend({},scope.taskData.configValues);
                     scope.showCriteriaResult =false;
+                    scope.isDisplayNotes=false;
+                    scope.isDisplayAttachments=false;
+                    scope.isDisplayActionLogs=false;
                     //viewaction check
                     if(scope.taskData.status.id != 1){
                         resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:10}, function (data) {
@@ -28,8 +32,6 @@
                             scope.canView = true;
                             //getpossibleActions
                             populateNextActions();
-                            populateTaskNotes();
-                            populateTaskActionLogs();
                         });
                     }
                 }
@@ -56,7 +58,7 @@
             };
 
             scope.isTaskCompleted = function(){
-                if(scope.taskData.status.id == 7 || scope.taskData.status.id == 9){
+                if(scope.taskData.status.id == 7 || scope.taskData.status.id == 9 || scope.taskData.status.id == 8){
                     return true;
                 } else{
                     return false;
@@ -64,21 +66,38 @@
             };
 
             function populateNextActions(){
+                scope.canComplete = true;
                 resourceFactory.taskExecutionActionResource.getAll({taskId:scope.taskData.id}, function (data) {
                     scope.possibleActions = data;
+                    if(scope.taskData.status.id == 2){
+                        if(scope.possibleActions != undefined){
+                            scope.possibleActions.forEach(function (action) {
+                                if(action.id == 1 && !action.hasAccess){
+                                    scope.canComplete = false;
+                                }
+                            });
+                        }
+                    }else{
+                        scope.canComplete = true;
+                    }
+
                 });
             }
 
             function populateTaskNotes(){
-                resourceFactory.taskExecutionNotesResource.getAll({taskId:scope.taskData.id}, function (data) {
-                    scope.taskNotes = data;
-                });
+                if (scope.isDisplayNotes) {
+                    resourceFactory.taskExecutionNotesResource.getAll({taskId: scope.taskData.id}, function (data) {
+                        scope.taskNotes = data;
+                    });
+                }
             }
 
-            function populateTaskActionLogs(){
-                resourceFactory.taskExecutionActionLogResource.getAll({taskId:scope.taskData.id}, function (data) {
-                    scope.actionLogs = data;
-                });
+            function populateTaskActionLogs() {
+                if (scope.isDisplayActionLogs) {
+                    resourceFactory.taskExecutionActionLogResource.getAll({taskId: scope.taskData.id}, function (data) {
+                        scope.actionLogs = data;
+                    });
+                }
             }
 
             scope.addNote = function(){
@@ -138,15 +157,41 @@
                 });
             };
 
+            scope.displayNotes = function () {
+                scope.isDisplayNotes=true;
+                scope.isDisplayAttachments=false;
+                scope.isDisplayActionLogs=false;
+                populateTaskNotes();
+            };
+
+            scope.displayAttachments = function () {
+                scope.isDisplayNotes=false;
+                scope.isDisplayAttachments=true;
+                scope.isDisplayActionLogs=false;
+                getTaskDocuments();
+            };
+
+            scope.displayActionLogs = function () {
+                scope.isDisplayNotes=false;
+                scope.isDisplayAttachments=false;
+                scope.isDisplayActionLogs=true;
+                populateTaskActionLogs();
+            };
+
             function getTaskDocuments() {
-                resourceFactory.documentsResource.getAllDocuments({entityType : 'tasks',entityId: scope.taskData.id}, function (data) {
-                    for (var l in data) {
-                        var loandocs = {};
-                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        data[l].docUrl = loandocs;
-                    }
-                    scope.taskDocuments = data;
-                });
+                if (scope.isDisplayAttachments) {
+                    resourceFactory.documentsResource.getAllDocuments({
+                        entityType: 'tasks',
+                        entityId: scope.taskData.id
+                    }, function (data) {
+                        for (var l in data) {
+                            var loandocs = {};
+                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            data[l].docUrl = loandocs;
+                        }
+                        scope.taskDocuments = data;
+                    });
+                }
             };
 
             getTaskDocuments();
