@@ -1031,6 +1031,15 @@
                     }),
                     taskConfigResource: defineResource(apiVer + "/tasks/config/:withTemplate", {}, {
                         getTemplate: {method: 'GET', params: {withTemplate:"template", parentConfigId: '@parentConfigId'}}
+                    }),
+                    createProfileRatingConfigurationTemplate: defineResource(apiVer + "/profileratingconfigs/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    createProfileRatingConfiguration: defineResource(apiVer + "/profileratingconfigs/:profileRatingConfigId", {profileRatingConfigId:"@profileRatingConfigId"}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}}
                     })
                 };
             }];
