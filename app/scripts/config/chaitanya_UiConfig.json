@@ -31,7 +31,7 @@
         "collateralSection": true
       },
       "isShowField":{
-        "nextRepaymentDateDisburseScreen": false,
+        "nextRepaymentDateDisburseScreen": true,
         "adjustRepaymentDateDisburseScreen": true
       },
       "isReadOnlyField": {
