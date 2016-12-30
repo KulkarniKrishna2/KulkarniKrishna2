@@ -101,6 +101,10 @@
         "countryName":"India",
         "stateName":"Karnataka",
         "addressType" : 14
+      },
+      "paymentType":{
+        "expectedDisbursalPaymentType" : "cash",
+        "expectedRepaymentPaymentType" : "cash"
       }
     },
 
