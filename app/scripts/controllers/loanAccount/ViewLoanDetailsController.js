@@ -17,6 +17,7 @@
             scope.isGlim = false;
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
             scope.isGlimTabActive = false;
+            scope.futurePeriods = [];
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
@@ -580,8 +581,8 @@
                 }
                 if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
                     scope.isDataAlreadyFetched = true;
-                }else if((associations === 'futureSchedule'  || associations === 'futureSchedule' )){
-                    associations = 'repaymentSchedule,futureSchedule';
+                }else if((associations === 'futureSchedule')){
+                    associations = 'futureSchedule';
                     if(scope.isFutureSchedule === true){
                         scope.isDataAlreadyFetched = true;
                     }
@@ -605,10 +606,8 @@
                             scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
                             scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                         }else if(associations === 'futureSchedule'){
-                            associations = 'futureSchedule';
                             scope.isFutureSchedule = true;
-                            scope.loandetails.futureSchedule = scope.loanSpecificData.repaymentSchedule.futurePeriods;
-                            scope.isWaived = scope.loandetails.futureSchedule.totalWaived > 0;
+                            scope.futurePeriods = data.repaymentSchedule.futurePeriods;
                         } else if(associations === 'transactions'){
                             scope.istransactions = true;
                             scope.loandetails.transactions = scope.loanSpecificData.transactions;
