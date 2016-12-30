@@ -26,8 +26,9 @@
             scope.type = "pie";
             scope.restrictedDate = getMaximumRestrictedDate(new Date()) ;
 
-            if(scope.response  && scope.response.reportParameterConfiguration.datePicker.reportNames.indexOf(scope.reportName) > 0) {
-                scope.restrictedDate = scope.response.reportParameterConfiguration.datePicker.restrictedDate;
+            if(scope.response  && scope.response.uiDisplayConfigurations &&
+                scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.reportNames.indexOf(scope.reportName) > 0) {
+                scope.restrictedDate = scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.restrictedDate;
             };
 
             function  getMaximumRestrictedDate (restrictedDate){
