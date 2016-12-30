@@ -9,6 +9,7 @@
             scope.disbursedAmount = $rootScope.principalAmount;
             scope.disbursedDate = $rootScope.disbursementDate;
             scope.glimrepaymentSchedule = {};
+            $rootScope.activeGlimTab = true;
 
             resourceFactory.glimRepaymentScheduleResource.getRepaymentScheduleById({glimId: scope.glimId, 'disbursedAmount': scope.disbursedAmount,
                 'disbursedDate': scope.disbursedDate }, function (data) {

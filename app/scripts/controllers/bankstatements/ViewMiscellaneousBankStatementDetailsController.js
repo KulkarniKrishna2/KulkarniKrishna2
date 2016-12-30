@@ -6,7 +6,7 @@
             scope.inflowAmount = 0;
             scope.outflowAmount = 0;
             resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'miscellaneous'},function (data) {
-                    scope.bankStatementDetails = data;
+                    scope.bankStatementDetails = data.bankStatementDetails;
             });
         }
     });

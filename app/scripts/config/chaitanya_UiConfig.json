@@ -30,6 +30,10 @@
         "interestRecalculationSection": true,
         "collateralSection": true
       },
+      "isShowField":{
+        "nextRepaymentDateDisburseScreen": false,
+        "adjustRepaymentDateDisburseScreen": true
+      },
       "isReadOnlyField": {
         "loanTermFrequencyType": true,
         "interestChargedFromDate": true,
@@ -74,7 +78,8 @@
     },
     "createClient": {
       "isReadOnlyField": {
-        "staff": true
+        "staff": true,
+        "pincode" : true
       },
       "isValidateDOBField": {
         "active": true,
@@ -85,13 +90,17 @@
       },
       "isHiddenField":{
         "hideClientClassification":true
+      },
+      "isMandatoryField":{
+        "dateOfBirth": true
       }
     },
 
     "defaultGISConfig":{
       "address":{
         "countryName":"India",
-        "stateName":"Karnataka"
+        "stateName":"Karnataka",
+        "addressType" : 14
       }
     },
 
@@ -135,10 +144,16 @@
       "isValidatePinCodeField": {
         "active": true,
         "pinCodeValues": {
-          "karnataka": 5,
-          "maharashtra": 4
+          "startDigit": {
+            "Karnataka": 5,
+            "Maharashtra": 4
+          },
+          "pincodeLenght":6
         }
-      }
+      },
+      "isHiddenField": {
+        "villageCode" : true
+    }
 
     }
   }

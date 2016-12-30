@@ -268,7 +268,8 @@
                     }),
                     userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
                         getAllUsers: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT' }
+                        update: { method: 'PUT' },
+                        post:{ method: 'POST' }
                     }),
                     userTemplateResource: defineResource(apiVer + "/users/template", {}, {
                         get: {method: 'GET', params: {}}
@@ -318,6 +319,10 @@
                         search: {method: 'GET', params: {}}
                     }),
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {accId: "@accId"}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                        getView: {method: 'GET', params: {}}
+                    }),
+                    accountingClosureByOfficeResource: defineResource(apiVer + "/glclosures/offices/:officeId", {officeId: "@officeId"}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getView: {method: 'GET', params: {}}
                     }),
@@ -755,7 +760,7 @@
                         createPortfolioTransactions: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
                     }),
                     bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
-                        getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : true},
+                        getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : false},
                         reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId',command:'@command'} }
                     }),
                     bankStatementDocumentResource: defineResource(apiVer + "/bankstatements/document/:documentId", {documentId: '@documentId'}, {

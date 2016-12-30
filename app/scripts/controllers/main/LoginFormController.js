@@ -19,7 +19,11 @@
                     scope.authenticationErrorMessage = 'error.connection.failed';
                     scope.load = false;
                 } else {
-                   scope.authenticationErrorMessage = 'error.login.failed';
+                    if(data.userMessageGlobalisationCode === 'error.msg.user.account.locked'){
+                        scope.authenticationErrorMessage = 'error.msg.user.account.locked';
+                    }else{
+                        scope.authenticationErrorMessage = 'error.login.failed';
+                    }
                    scope.load = false;
                 }
             });

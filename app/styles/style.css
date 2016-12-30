@@ -158,3 +158,13 @@
     100%{
         transform:scale(.3)}
 }
+.my-dialog .modal-dialog {
+    width: 15%;
+    max-width: 400px;
+    position: absolute;
+    margin: auto;
+    top: 20%;
+    left: 20%;
+    bottom: 20%;
+    right: 20%;
+}

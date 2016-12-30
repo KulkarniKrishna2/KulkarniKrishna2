@@ -19,6 +19,7 @@
             function getLoanApplicationData() {
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                     scope.formData = data;
+                    getCreditBureauReportSummary();
                     scope.loanProductChange(scope.formData.loanProductId);
                     getCreditbureauLoanProductData(scope.formData.loanProductId);
                 });
@@ -32,6 +33,7 @@
                 }, function (data) {
                     scope.loandetails = data;
                     scope.formData = scope.loandetails;
+                    getCreditBureauReportSummary();
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                     }
@@ -226,23 +228,25 @@
                 constructClosedLoanSummary();
             };
 
-            resourceFactory.creditBureauReportSummaryResource.get({
-                entityType: scope.entityType,
-                entityId: scope.entityId
-            }, function (loansSummary) {
-                scope.loansSummary = loansSummary;
-                if (scope.loanId) {
-                    if (scope.loansSummary.loanId == scope.loanId) {
+            function getCreditBureauReportSummary() {
+                resourceFactory.creditBureauReportSummaryResource.get({
+                    entityType: scope.entityType,
+                    entityId: scope.entityId
+                }, function (loansSummary) {
+                    scope.loansSummary = loansSummary;
+                    if (scope.loanId) {
+                        if (scope.loansSummary.loanId == scope.loanId) {
+                            scope.isResponPresent = true;
+                        }
+                    } else {
                         scope.isResponPresent = true;
                     }
-                } else {
-                    scope.isResponPresent = true;
-                }
-                resourceFactory.clientExistingLoan.getAll({clientId: scope.formData.clientId}, function (data) {
-                    scope.existingLoans = data;
-                    constructLoanSummary();
+                    resourceFactory.clientExistingLoan.getAll({clientId: scope.formData.clientId}, function (data) {
+                        scope.existingLoans = data;
+                        constructLoanSummary();
+                    });
                 });
-            });
+            };
 
             scope.creditBureauReport = function () {
                 resourceFactory.creditBureauReportResource.get({
@@ -285,22 +289,26 @@
                 }
                 if (status) {
                     var jsonObj = ngXml2json.parser(result);
-
+                    scope.errorMessage = undefined;
                     if (jsonObj.indvreportfile) {
-                        if (jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.lenght > 1) {
+                        if(jsonObj.indvreportfile.inquirystatus.inquiry && _.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)){
+                            scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.description;
+                            scope.cbLoanEnqResponseError = true;
+                        }else if (!_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)
+                            && !_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors.error) &&
+                            jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.lenght > 1) {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error
                         } else {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
                             scope.cbLoanEnqResponseError = true;
                         }
                     } else {
-                        if (jsonObj.reportfile.inquirystatus.inquiry.errors.error.length > 1) {
+                        if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors) && jsonObj.reportfile.inquirystatus.inquiry.errors.error.length > 1) {
                             scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error;
-                        } else {
+                        } else if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors)){
                             scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error.description;
                             scope.cbResponseError = true;
                         }
-
                     }
                     return scope.errorMessage;
                 }
