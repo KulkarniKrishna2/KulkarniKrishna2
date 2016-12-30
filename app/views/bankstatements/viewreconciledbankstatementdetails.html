@@ -83,7 +83,7 @@
                     <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.groupExternalId}}</td>
                     <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.loanAccountNumber}}</td>
                     <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.officeName}}</td>
-                    <td ng-show="bankStatementDetail.isManualReconciled">Manually Reconciled({{bankStatementDetail.transactionId}})</td>
+                    <td ng-show="bankStatementDetail.isManualReconciled">Manually Reconciled(<a ng-click="routeTo(bankStatementDetail.transactionId)">{{bankStatementDetail.transactionId}}</a>)</td>
                     <td ng-show="bankStatementDetail.isManualReconciled"></td>
                     <td ng-show="bankStatementDetail.isManualReconciled"></td>
                     <td ng-show="bankStatementDetail.isManualReconciled"></td>

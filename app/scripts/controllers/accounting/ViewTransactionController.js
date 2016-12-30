@@ -13,8 +13,10 @@
             scope.groupName = routeParams.groupName;
             scope.journalEntryTransactionId = routeParams.transactionId;
             scope.transactionIdStringvalue = routeParams.transactionId.toString();
-            scope.bankStatementId = location.search().id;
-            scope.isFromBankStatement = (scope.bankStatementId != undefined);
+            scope.bankNonPortfolioId = location.search().id;
+            scope.bankPortfolioId = location.search().reconcileId;
+            scope.isFromPortfolio = (scope.bankPortfolioId != undefined);
+            scope.isFromNonPortfolio = (scope.bankNonPortfolioId != undefined);
             scope.hidePentahoReport = true;
             scope.reportName = 'Journal Voucher';
             scope.reportOutputType = 'PDF';
