@@ -3862,6 +3862,7 @@
     "error.msg.product.FD.duplicate.externalId":"FD with externalId already exists",
     "error.msg.product.savings.duplicate.externalId":"Savings product with externalId already exists",
     "error.msg.product.loan.duplicate.externalId":"Loan product with externalId already exists",
+    "error.minimum.one.tranche.required":"Minimum number of Loan Tranche Details should be one for multi disbursal loan",
 
     "#------------------": "------------",
 
