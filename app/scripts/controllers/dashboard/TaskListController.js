@@ -20,6 +20,11 @@
                 scope.offices = data.officeOptions;
             });
 
+            scope.toggleAll = function() {
+                var toggleStatus = !scope.formData.isAllSelected;
+                angular.forEach(scope.workFlowTasks, function(itm){ itm.selected = toggleStatus; });
+            }
+
             if (!scope.searchCriteria.workFlowT) {
                 scope.searchCriteria.workFlowT = null;
                 scope.saveSC();
