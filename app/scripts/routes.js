@@ -1103,6 +1103,9 @@
             .when('/riskrating', {
                 templateUrl: 'views/organization/riskconfig/riskrating.html'
             })
+            .when('/viewprofileratingconfigs', {
+                templateUrl: 'views/organization/profilerating/viewprofileratingconfigs.html'
+            })
             .when('/loanpurposegroups', {
                 templateUrl: 'views/organization/riskconfig/loanpurposegroup.html'
             })
@@ -1423,6 +1426,12 @@
             })
             .when('/viewbankaccounttransfers/:entityType/:entityId/:transferId', {
                 templateUrl: 'views/accounttransfers/view_bank_accounttransfer.html'
+            })
+            .when('/organizations/profieratings/create', {
+                templateUrl: 'views/organization/profilerating/createprofileratingconfiguration.html'
+            })
+            .when('/organizations/profieratings/edit/:profileRatingConfigId', {
+                templateUrl: 'views/organization/profilerating/editprofileratingconfiguration.html'
             });
         $locationProvider.html5Mode(false);
     };

@@ -447,7 +447,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'cgt/ViewCgtDaysController',
             'cgt/CgtCompleteOrRejectController',
             'accounttransfers/ViewAccountTransferDetailsController',
-            'accounttransfers/ViewBankAccountTransferDetailsController'
+            'accounttransfers/ViewBankAccountTransferDetailsController',
+            'organization/profilerating/ViewProfileRatingConfigurationController',
+            'organization/profilerating/CreateProfileRatingConfigurationController',
+            'organization/profilerating/EditProfileRatingConfigurationController'
         ],
         filters: [
             'StatusLookup',

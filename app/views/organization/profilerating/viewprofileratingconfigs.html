@@ -1,0 +1,33 @@
+<div class="col-md-12" ng-controller="ViewProfileRatingConfigurationController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.admin' | translate}}</li>
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.profile.rating' | translate}}</li>
+    </ul>
+
+    <a href="#/organizations/profieratings/create" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>{{'label.button.add.profile' | translate}}</a>
+
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.profile' | translate}}</th>
+            <th>{{'label.heading.criteria' | translate}}</th>
+            <th>{{'label.heading.status' | translate}}</th>
+            <th>{{'label.heading.action' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="profileRatingConfig in profileRatingConfigs">
+            <td>{{profileRatingConfig.type.value}}</td>
+            <td>{{profileRatingConfig.criteriaData.name}}</td>
+            <td>{{profileRatingConfig.isActive==1 ? "Active" : "In Active"}}</td>
+            <td>
+                <a href="#/organizations/profieratings/edit/{{profileRatingConfig.id}}"
+                   class="btn btn-primary"
+                   has-permission='UPDATE_PROFILERATINGCONFIG'><i
+                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

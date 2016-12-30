@@ -4854,6 +4854,7 @@
     "label.anchor.producteligibilitycritaria":"Product Eligibility Critaria",
     "label.anchor.occupationtype":"Occupation",
     "label.anchor.householdexpense":"House Hold Expense",
+    "label.anchor.profile.rating.config":"Profile Rating Configuration",
     "label.anchor.incomegeneratingasset":"Income Generating Asset",
     "label.anchor.loanpurpose.groups":"Loan Purpose Group",
     "label.anchor.incomeexpensehead":"Income Expense Head",
@@ -4874,6 +4875,7 @@
     "label.anchor.expense.catagory":"House Hold Expense Category",
 
     "label.define.householdexpense":"House Hold Expense",
+    "label.define.profile.rating.config":"Profile Rating Configuration",
     "label.define.incomegeneratingasset":"Income Generating Asset",
     "label.define.occupationtype":"Define Cash Flow type",
     "label.define.riskdimensions":"Define risk dimension",
@@ -5222,6 +5224,7 @@
     "label.heading.answername":"Answer",
     "label.heading.createdon":"Created On",
     "label.button.surveys.create" : "Add new survey",
+    "label.button.add.profile" : "Add profile",
     "label.button.view.surveys" : "View surveys",
     "label.button.take.survey" : "Take a survey",
     "label.button.edit.survey" : "Edit a survey",
@@ -5398,6 +5401,16 @@
     "error.msg.not.excel.file." : "CPIF File is not Excel file.",
     "label.input.disbursementchannel": "Disbursement Channel",
     "label.heading.disbursementchannel": "Disbursement Channel",
+
+    "profilerating":".....",
+    "label.anchor.profile.rating":"Profile Ratings",
+    "label.anchor.add.profile.rating": "Add Profile Rating",
+    "label.anchor.edit.profile.rating": "Edit Profile Rating",
+    "label.input.select.profile" : "Select Profile",
+    "label.input.select.criteria" : "Select Criteria",
+    "label.heading.profile" : "Profile",
+    "label.heading.criteria" : "Criteria",
+    "label.heading.profile" : "Profile",
 
     "------ end of tensalation file":"---------"
 }
