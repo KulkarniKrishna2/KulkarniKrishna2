@@ -2,58 +2,96 @@
     <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" placeholder="filter" class="form-control">
     <h3 class="paddedleft">
         <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
-        <div class = "btn-group pull-right">
-            <button type = "button" class = "btn btn-default" ng-click="getWorkFlowTasks('assigneed')">Assigned</button>
-            <button type = "button" class = "btn btn-default" ng-click="getWorkFlowTasks('unassigneed')">Un Assigned</button>
-            <button type = "button" class = "btn btn-default" ng-click="getWorkFlowTasks('all')">All</button>
-        </div>
     </h3>
     <hr/>
+    <div class="form-group">
+        <div class="col-sm-3">
+            <div>
+                <select chosen="offices" id="office" ng-model="formData.officeId"  class="form-control"
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}" data-placeholder="Office">
+                    <option value="">All</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div>
+                <select chosen="parentTaskConfigs" id="workflow" ng-model="formData.parentConfigId"  class="form-control"
+                        ng-options="parentTaskConfig.id as parentTaskConfig.name for parentTaskConfig in parentTaskConfigs" value="{{parentTaskConfig.id}}"
+                data-ng-change="getChildrenTaskConfigs()" data-placeholder="Workflow">
+                    <option value="">All</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3" ng-show="formData.parentConfigId">
+            <div>
+                <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId"  class="form-control"
+                        ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs" value="{{childrenTaskConfig.id}}"
+                        data-placeholder="Stage">
+                    <option value="">All</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div>
+                <button class="btn btn-primary" ng-click="getWorkFlowTasks(filterBy)"><i class="icon-refresh"></i></button>
+            </div>
+        </div>
+    </div>
     <div id="home" class="row">
         <div class="col-md-12">
             <div class="card-content no-h-padding">
-                <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
-                    <table id="otherTasks" class="table table-striped card-table">
-                        <thead>
-                        <tr>
-                            <th class="col-md-4">Task Details</th>
-                            <th class="col-md-3">Office Details</th>
-                            <th class="col-md-3">Details</th>
-                            <th class="col-md-1">Task</th>
-                            <th class="col-md-1">Workflow</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="workFlowTask in workFlowTasks | filter:filterText">
-                            <td class="col-md-4">
-                                {{workFlowTask.taskName}} #{{workFlowTask.taskId}}<br>
-                                <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
+                <tabset class="paddedtop paddedbottom10" tabset-name="testOne">
+                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)">
+                        <tab-heading>
+                            <i class="{{taskType.icon}}"></i> {{taskType.name}}
+                        </tab-heading>
 
-                            </td>
-                            <td class="col-md-3">
-                                {{workFlowTask.officeData.name}} #{{workFlowTask.officeData.id}}
-                            </td>
-                            <td class="col-md-3">
-                                Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;Loan Application<br>
-                                Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{workFlowTask.taskStatus}}<br>
-                                Assigned To&nbsp;:&nbsp;&nbsp;{{workFlowTask.assignedTo}} #{{workFlowTask.assignedId}}<br>
-                            </td>
-                            <td class="col-md-1">
-                                <button  class="pointer btn btn-primary" ng-click="moveToTask(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
-                            </td>
-                            <td class="col-md-1">
-                                <button class="pointer btn btn-primary" ng-click="moveToWorkFlow(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
+                            <table id="otherTasks" class="table table-striped card-table">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-4">Task Details</th>
+                                    <th class="col-md-3">Office Details</th>
+                                    <th class="col-md-3">Details</th>
+                                    <th class="col-md-1">Task</th>
+                                    <th class="col-md-1">Workflow</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="workFlowTask in workFlowTasks | filter:filterText | itemsPerPage: pageSize" total-items="totalTasks" pagination-id="taskType.id">
+                                    <td class="col-md-4">
+                                        {{workFlowTask.taskName}} #{{workFlowTask.taskId}}<br>
+                                        <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
 
-                <div class="" style="padding:10px;" data-ng-hide="workFlowTasks && workFlowTasks.length > 0">
-                    <div class="alert alert-info" style="border-style: dashed;">
-                        <span class="fa fa-info-circle"></span> Do not have any tasks!
-                    </div>
-                </div>
+                                    </td>
+                                    <td class="col-md-3">
+                                        {{workFlowTask.officeData.name}} #{{workFlowTask.officeData.id}}
+                                    </td>
+                                    <td class="col-md-3">
+                                        Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;Loan Application<br>
+                                        Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{workFlowTask.taskStatus}}<br>
+                                        Assigned To&nbsp;:&nbsp;&nbsp;{{workFlowTask.assignedTo}} #{{workFlowTask.assignedId}}<br>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <button  class="pointer btn btn-primary" ng-click="moveToTask(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <button class="pointer btn btn-primary" ng-click="moveToWorkFlow(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls pagination-id="taskType.id" boundary-links="false" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+                        </div>
+
+                        <div class="" style="padding:10px;" data-ng-hide="workFlowTasks && workFlowTasks.length > 0">
+                            <div class="alert alert-info" style="border-style: dashed;">
+                                <span class="fa fa-info-circle"></span> Do not have any tasks!
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
             </div>
         </div>
     </div>
