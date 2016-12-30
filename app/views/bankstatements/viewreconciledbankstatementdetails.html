@@ -5,6 +5,24 @@
             <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
             <li class="active">{{'label.anchor.reconciledtransactions' | translate}}</li>
         </ul>
+    </div>    
+    <div class="form-horizontal">
+        <div>
+            <table class="table well">
+                <thead>
+                <tr class="graybg" style="height:20px;">
+                    <th><span class="col-sm-2">{{'label.heading.bank' | translate}}</span> : {{bankName}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>               
+                <tr class="graybg" style="height:20px;">
+                    <td style="width:100%">{{reconciledBankStatementDetails.length}} {{'label.heading.of' | translate}} {{totalTransactions}}  {{'label.heading.transactions' | translate}}  {{'label.heading.reconciled' | translate}}</td>
+                        <td></td>
+                </tr>
+                </tbody> 
+            </table>
+        </div>
     </div>
     <div class="form-horizontal">
         <div class="col-sm-6" align="right">
@@ -59,7 +77,7 @@
                     <td align="center">
                         <input ng-checked="getAddedIndex(bankStatementDetail.id) > -1" type="checkbox"  ng-click="addDetailsForUndoReconcile(bankStatementDetail.id)" name="{{bankStatementDetail.id}}">
                     </td>
-                    <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.date | DateFormat}}</td>
+                    <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.date.iLocalMillis | DateFormat}}</td>
                     <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.type.value}}</td>
                     <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.amount}}</td>
                     <td ng-show="!bankStatementDetail.isManualReconciled">{{bankStatementDetail.loanTransactionData.groupExternalId}}</td>
@@ -77,7 +95,7 @@
         </div>
         <div  align="center" >
             <div class="form-group">
-                <div class="col-sm-6" align="right" has-permission="UNDORECONCILE_BANKSTATEMENTDETAILS">
+                <div class="col-sm-6" align="right" has-permission="UNDORECONCILE_BANKSTATEMENTDETAILS" ng-show="isTransactionSelected">
                     <a  role="button" ng-click="undoReconcile()" class="btn btn-primary">
                         {{'label.button.undoreconcile' | translate}}
                     </a>

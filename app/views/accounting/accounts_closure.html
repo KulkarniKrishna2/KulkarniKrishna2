@@ -4,10 +4,11 @@
         <li class="active">{{'label.anchor.accountsclosure' | translate}}</li>
     </ul>
 </div>
-<div class="col-md-10" ng-controller="AccountingClosureController">
+<div class="col-md-12" ng-controller="AccountingClosureController">
+    <div style="color:red" ng-show="error">{{'label.error.select.office' | translate}}</div>
     <legend>{{ 'label.heading.accountingclosures' | translate }}
     	<div class="pull-right">
-            <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
+            <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView ; resetoffice()" class="btn btn-primary"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
 	        <a href="#/createclosure" class="btn btn-primary" has-permission='CREATE_GLCLOSURE'><i
 	                class="icon-plus icon-white"></i>{{'label.button.createclosure'
 	            | translate}}</a>
@@ -56,7 +57,11 @@
         </ul>
         </div>
     <div ng-show="isTreeView">
-
+            <div class=" pull-right">
+            <label>{{'label.input.filterltestclosure' | translate}}</label>
+            <input id="activeCheckbox" type="checkbox" ng-model="formData.limitToOne">
+            <button class="btn btn-primary" ng-click="closedAccountingDetails(formData.limitToOne)">{{ 'label.button.save' | translate }}</button>
+        </div>
 
 <div ng-show="($root.tempNodeID>=0) && showClosure" class="pull-right col-md-10  divscrollable">
     <table class="table">
@@ -82,7 +87,7 @@
             | translate}} &rarr; </a></li>
     </ul>
 </div>
-        </div>
+
         <div
                 data-angular-treeview="true"
                 data-tree-id="treeview"
@@ -91,5 +96,6 @@
                 data-node-label="name"
                 data-node-children="children">
         </div>
+    </div>
 </div>
 </div>

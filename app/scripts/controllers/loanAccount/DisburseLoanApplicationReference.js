@@ -365,13 +365,15 @@
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
 
-                if(scope.formData.expectedDisbursalPaymentType.name){
+                if(scope.formData.expectedDisbursalPaymentType && scope.formData.expectedDisbursalPaymentType.name){
                     this.formRequestData.expectedDisbursalPaymentType = scope.formData.expectedDisbursalPaymentType.id;
                 }
 
-                if(scope.formData.expectedRepaymentPaymentType.name){
+                if(scope.formData.expectedRepaymentPaymentType && scope.formData.expectedRepaymentPaymentType.name){
                     this.formRequestData.expectedRepaymentPaymentType = scope.formData.expectedDisbursalPaymentType.id;
                 }
+
+                this.formRequestData.disburse.skipAuthenticationRule = true;
 
                 scope.disburseData = {};
                 angular.copy(scope.formRequestData,scope.disburseData);

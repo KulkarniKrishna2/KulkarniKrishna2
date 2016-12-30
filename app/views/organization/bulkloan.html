@@ -59,6 +59,12 @@
 							<table>
 								<thead></thead>
 								<tbody>
+									<tr><td>
+										<label>{{'label.input.selectall' | translate}}</label>
+									</td>&nbsp;&nbsp;
+										<td><input  type="checkbox"  ng-model="selectAll.checked" ng-change="selectAll(selectAll.checked)">
+										</td>
+									</tr>
 									<tr ng-repeat-start="center in accountSummaryCollection">
 											<td>
 												<button type="button" style="border: 0" ng-click="expandAll(center, allExpanded = !allExpanded)">

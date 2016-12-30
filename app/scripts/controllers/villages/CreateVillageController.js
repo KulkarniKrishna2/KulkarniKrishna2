@@ -19,9 +19,12 @@
             scope.pincodeStartDigitMap =[];
             scope.stateName = [];
             scope.picodeValidation = false;
+            scope.isPincodeLengthSatisfy = true;
+            scope.pincodeLenght = 6;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
-                if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues) {
-                    scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues;
+                if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.startDigit) {
+                    scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.startDigit;
+                    scope.pincodeLenght = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.pincodeLenght;
                 }
             }
             resourceFactory.villageTemplateResource.get(function (data) {
@@ -88,7 +91,9 @@
 
             scope.validatePincode = function (stateId) {
                 scope.showPicodeStartingDigitError = false;
+                scope.isPincodeLengthSatisfy = true;
                 scope.picodeValidation = true;
+                scope.pincodeLengthValidation();
                     if (scope.response && scope.response.uiDisplayConfigurations &&
                         scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
                         if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
@@ -110,6 +115,12 @@
                     if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
                         scope.formAddressData.postalCode = scope.pincodeStartDigitMap[scope.stateName];
                     }
+                }
+            }
+
+            scope.pincodeLengthValidation = function(){
+                if( scope.formAddressData.postalCode &&  scope.formAddressData.postalCode.toString().length != scope.pincodeLenght){
+                    scope.isPincodeLengthSatisfy = false;
                 }
             }
 
@@ -192,7 +203,7 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
                 this.formData.addresses=scope.formDataList;
-                if(!scope.showPicodeStartingDigitError) {
+                if(!scope.showPicodeStartingDigitError && scope.isPincodeLengthSatisfy) {
                     resourceFactory.villageResource.save(this.formData, function (data) {
                         location.path('/viewvillage/' + data.resourceId);
                     });

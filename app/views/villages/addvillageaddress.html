@@ -66,7 +66,7 @@
                 <div class="col-sm-3">
                     <select chosen="talukas" name="talukas" id="talukaId" ng-model="formData.talukaId" class="form-control"
                             ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
-                            value="{{taluka.talukaId}}" required late-validate="">
+                            value="{{taluka.talukaId}}" ng-change="pincodeLengthValidation()" required late-validate="">
                         <option value="">{{'label.menu.selectTaluka' | translate}}</option>
                     </select>
                 </div>
@@ -79,8 +79,14 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control" required late-validate=""/>
+                    <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control"
+                           ng-pattern="handlePatternPincode" ng-change="validatePincode(formData.stateId)" required late-validate=""/>
                 </div>
+                <span class="required" ng-show="showPicodeStartingDigitError">{{'label.error.pincode.startwith'|translate}}{{pincodeStartDigit}}</span>
+                <span ng-show="addvillageaddressform.pincode.$invalid && addvillageaddressform.pincode.$dirty">
+                    <small class="required" ng-show="createvillageform.pincode.$error.pattern">{{'label.mustbe6digitnumber' | translate}}</small>
+                </span>
+                <span ng-show="!isPincodeLengthSatisfy"><small class="required" >{{'label.mustbe6digitnumber' | translate}}</small></span>
                 <div class="col-sm-3">
                     <form-validate valattributeform="addvillageaddressform" valattribute="pincode"/>
                 </div>

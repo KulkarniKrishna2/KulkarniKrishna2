@@ -70,7 +70,8 @@
 	},
 	"createClient": {
 	  "isReadOnlyField": {
-		"staff": true
+		"staff": true,
+		"pincode" : false
 	  },
 		"isValidateDOBField": {
 			"active": false,
@@ -81,6 +82,9 @@
 		},
 	  "isHiddenField":{
 		"hideClientClassification":true
+	  },
+	  "isMandatoryField":{
+		"dateOfBirth": false
 	  }
 	},
 	"createGroup": {
@@ -122,11 +126,17 @@
 	  },
 		"isValidatePinCodeField": {
 			"active": false,
-			"pinCodeValues": {
-			  "Karnataka":5,
-			  "Maharashtra":4
-			}
-		}
+		  "pinCodeValues": {
+			"startDigit": {
+			  "Karnataka": 5,
+			  "Maharashtra": 4
+			},
+			"pincodeLenght":6
+		  }
+		},
+	  "isHiddenField": {
+		"villageCode" : false
+	}
 	},
 	"viewLoanAccountDetails":{
 	  "isHiddenFeild":{

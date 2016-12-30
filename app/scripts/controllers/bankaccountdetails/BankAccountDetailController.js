@@ -13,6 +13,8 @@
                     name: data.name,
                     accountNumber: data.accountNumber,
                     ifscCode: data.ifscCode,
+                    bankName: data.bankName,
+                    bankCity: data.bankCity,
                     mobileNumber: data.mobileNumber,
                     email: data.email
                 };

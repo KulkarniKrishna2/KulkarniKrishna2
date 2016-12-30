@@ -14,10 +14,14 @@
             scope.selectedAll = false;
             scope.toBulkManualReconcile = [];
             scope.selectedAllManualReconciled = false;
+            scope.bankName = '';
+            scope.totalTransactions = 0;
 
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
-                    scope.bankStatementDetails = data;
+                    scope.bankStatementDetails = data.bankStatementDetails;
+                    scope.bankName = data.bankName;
+                    scope.totalTransactions = data.totalTransactions;
                 });
             };
 

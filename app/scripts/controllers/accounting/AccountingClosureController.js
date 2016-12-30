@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, $rootScope, paginatorService) {
+        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, $rootScope, paginatorService, route) {
             scope.first = {};
             scope.formData = {};
             scope.first.date = new Date();
@@ -64,11 +64,11 @@
 
 
             scope.updateLastClosed = function (officeId) {
-                resourceFactory.accountingClosureResource.get({officeId: officeId, limitToOne: false}, function (data) {
+                resourceFactory.accountingClosureByOfficeResource.getView({officeId: officeId, limitToOne: false}, function (data) {
                     scope.accountClosures = data;
                     scope.lastClosed = undefined;
-                    if (data.length > 0) {
-                        scope.lastClosed = data[0].closingDate;
+                    if (data) {
+                        scope.lastClosed = data.closingDate;
                     }
                 });
             }
@@ -85,14 +85,30 @@
                 resourceFactory.accountingClosureResource.getView(params, callback);
             }
 
+            scope.resetoffice = function(){
+                scope.error = false;
+                scope.formData.officeId = '';
+                route.reload();
 
-            scope.closedAccountingDetails = function (limitToOne) {
-                scope.limitToOne = limitToOne;
-                scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
             }
 
-            scope.fetchData = function () {
-                scope.limitToOne = false;
+            scope.closedAccountingDetails = function (limitToOne) {
+                if( scope.formData.officeId) {
+                    scope.error = false;
+
+                scope.limitToOne = limitToOne;
+                scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
+                }
+
+                else {
+                    scope.error = true;
+                }
+            }
+
+            scope.fetchData = function (officeId) {
+                scope.error = false;
+                scope.limitToOne = scope.formData.limitToOne;
+                scope.formData.officeId = officeId;
                 scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
                 if( scope.accountClosures) {
                     scope.showClosure = true;

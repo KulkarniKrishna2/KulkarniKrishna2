@@ -129,7 +129,9 @@
     "label.heading.due.savings.collections":"Due Savings Collections",
     "label.heading.loanamount" : "Original Loan",
     "label.heading.outstandingamount" : "Loan Balance",
+    "label.heading.loanbalance" : "Loan Balance",
     "label.heading.dueamount" : "Amount Paid",
+    "label.heading.amountpaid" : "Amount Paid",
     "label.heading.principal.outstanding": "Principal Outstanding",
     "label.heading.interest.outstanding":"Interest Outstanding",
     "label.heading.interest.paid":"Interest Paid",
@@ -388,8 +390,10 @@
     "label.error.select.client":"Please select atleast one checkbox ",
     "label.error.pincode.startwith": "pincode should start with ",
     "label.error.required" : "Required Field",
+    "label.error.select.office":"Please select office",
     "error.login.failed": "Please try again, your credentials are not valid.",
     "error.connection.failed": "Couldn't connect to server. Make sure you are using correct settings.",
+    "error.msg.user.account.locked":"Account Locked, please  contact administrator",
     "error.msg.command.unsupported": "Programmer error: The `command` issued is not supported.",
     "error.msg.query.parameter.value.unsupported": "`{{params[1].value}}` is not supported as a value of query parameter `{{params[0].value}}`.",
     "error.msg.not.authorized": "Insufficient privileges to perform this action.",
@@ -500,6 +504,7 @@
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
     "error.msg.amount.exceeding.approval.limit" : "Approval amount should be lesser than '{{params[0].value}}'",
+    "error.msg.calendar.meeting.cannot.be.updated.since.it.has.active.loans":"Calendar meeting cannot be updated since the centre has active loan",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -647,6 +652,8 @@
     "label.button.login": "Login",
     "label.button.approve": "Approve",
     "label.button.disburse": "Disburse",
+    "label.button.disburse.tranche": "Disburse Tranche",
+    "label.button.disburse.tranche.creditbureaureport": "Disburse Tranche",
     "label.button.offices": "Offices",
     "label.button.loanofficers": "Loan Officers",
     "label.button.centers": "Centers",
@@ -1322,6 +1329,8 @@
     "accountType.expense": "Expenses",
     "accountUsage.detail": "Detail",
     "accountUsage.header": "Header",
+    "validation.msg.GLClosure.officeId.cannot.be.blank":"officeId cannot be blank",
+    "validation.msg.GLClosure.closingDate.cannot.be.blank":"closingDate cannot be blank",
     "validation.msg.accounttransfer.fromOfficeId.cannot.be.blank": "From office is mandatory.",
     "validation.msg.accounttransfer.fromClientId.cannot.be.blank": "From client is mandatory.",
     "validation.msg.accounttransfer.fromAccountId.cannot.be.blank": "From savings account is mandatory.",
@@ -2086,6 +2095,7 @@
     "error.msg.loan.prepayment.cannot.be.made.before.dues.cleared":"Prepay allowed only after dues cleared",
     "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanging pricipal",
     "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
+    "error.msg.loan.expecteddisbursal.should.be.on.or.after.approval.date" : "Expected disbursal should be on or after approval date",
 
 
     "#-------": "------------",
@@ -2627,6 +2637,7 @@
     "label.heading.officetocharges":"Office access to charges",
     "label.heading.roletoloanproducts":"Role access to loan products",
     "label.heading.roletosavingsproducts":"Role access to savings products",
+    "label.heading.unlockuser":"Unlock User",
 
     "#Anchors": "..",
     "label.anchor.users": "Users",
@@ -2652,6 +2663,7 @@
     "#Buttons": "..",
     "label.button.createuser": "Create User",
     "label.button.changepassword": "Change Password",
+    "label.button.unlock":"unlock",
 
     "#Tooltip" : "..",
     "label.tooltip.overridepasswordexpiry" : "Determines if passwords do not expire for this user even if global configuration for password expiry is enabled",
@@ -3325,6 +3337,7 @@
     "label.heading.amount":"Amount",
     "label.heading.authenticationtype":"Authentication Type",
     "label.heading.createtransactionauthentication":"Create Transaction Authentication",
+    "label.heading.externalId":"External Id",
 
 
     "#Anchors": "..",
@@ -3383,6 +3396,7 @@
     "label.input.enddate": "End date",
     "label.input.closedate": "Close date",
     "label.input.includeinborrowerloancounter": "Include in customer loan counter",
+    "label.input.product.externalId":"External Id",
     "label.input.decimalplace": "Decimal places",
     "label.input.principal": "Principal",
     "label.input.tranche.amount": "Tranche Amount",
@@ -3848,6 +3862,10 @@
     "error.msg.subsidy.amount.for.loan.exceeds.principal.outstanding":"Subsidy amount for the loan exceeds principal outstanding by {{params[0].value}} {{params[1].value}} ",
     "validation.msg.journal.entry.limit.credit.to.one":"multiple credit is not allowed with multiple debit",
     "validation.msg.journal.entry.limit.debit.to.one":"multiple debit is not allowed with multiple credit",
+    "error.msg.product.RD.duplicate.externalId":"RD with externalId already exists",
+    "error.msg.product.FD.duplicate.externalId":"FD with externalId already exists",
+    "error.msg.product.savings.duplicate.externalId":"Savings product with externalId already exists",
+    "error.msg.product.loan.duplicate.externalId":"Loan product with externalId already exists",
 
     "#------------------": "------------",
 
@@ -4372,6 +4390,8 @@
     "label.input.holdername":"Bank Account Holder Name",
     "label.input.accountnumber":"Bank Account Number",
     "label.input.ifsccode":"Bank IFSC code",
+    "label.input.bankname":"Bank Name",
+    "label.input.bankcity":"Bank City",
     "label.anchor.bankaccountdetails":"Bank Account Details",
     "label.button.bankaccountdetails":"Bank Account Details",
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.cannot.be.blank":"Bank Account Details required",
@@ -5368,8 +5388,16 @@
     "label.heading.last.closure.date":"Last Closure Date",
     "label.heading.write.off.amount":"Write off Amount",
     "taskEntityType.loan.application" : "Loan Application",
-    "label.button.creditbureaureport" : "Credit Bureau Report",
     "label.button.viewdetails" : "View Details",
+    "label.button.creditbureaureport" : "Credit Bureau Report",
+    "label.heading.transactions" : "transactions",
+    "label.heading.of" : "of",
+    "label.heading.reconciled" : "reconciled",
+    "label.heading.unreconciled" : "unreconciled",
+    "error.msg.invalid.cif.format.excel.file." : "CPIF File format is not valid.",
+    "error.msg.not.excel.file." : "CPIF File is not Excel file.",
+    "label.input.disbursementchannel": "Disbursement Channel",
+    "label.heading.disbursementchannel": "Disbursement Channel",
 
     "------ end of tensalation file":"---------"
 }
