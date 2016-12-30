@@ -101,7 +101,6 @@
 
                             <!--  when search options -->
                             <td align="center"ng-show = "((bankStatementDetail.optionsLength == 0 || bankStatementDetail.optionsLength > maxPossibleLength) && !bankStatementDetail.hasOwnProperty('loanTransactionData'))">
-                                <a class="btn btn-primary"  role="button" ng-click="goToView($index,'search')"><i class="icon-search icon-white"></i>{{'label.heading.search' | translate}}</a>
                             </td>
                             <!--  when options -->
                             <td align="center"ng-show = "((bankStatementDetail.optionsLength > 1 && bankStatementDetail.optionsLength <= maxPossibleLength )&& !bankStatementDetail.hasOwnProperty('loanTransactionData'))">

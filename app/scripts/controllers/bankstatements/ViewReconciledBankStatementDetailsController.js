@@ -61,6 +61,9 @@
                     scope.getReconciledBankStatementDetails();
                 });
             };
+            scope.routeTo = function (id) {
+                location.path('/viewtransactions/' + id).search('reconcileId',routeParams.bankStatementId);
+            };
         }
     });
     mifosX.ng.application.controller('ViewReconciledBankStatementDetailsController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.ViewReconciledBankStatementDetailsController]).run(function ($log) {
