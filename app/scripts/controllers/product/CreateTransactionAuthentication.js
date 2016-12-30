@@ -12,6 +12,8 @@
             scope.paymentOptions = [];
             scope.transactionTypeOptions = [];
             scope.formdata = {};
+            scope.productOptions = [];
+            scope.productTypeOptions = [];
 
             resourceFactory.transactionAuthenticationTemplateResource.getTemplate(function (data) {
                 scope.transactionAuthenticationAppliesTo = data.transactionAuthenticationAppliesTo;
@@ -19,15 +21,18 @@
                 scope.loanTransactionTypeOptions = data.loanTransactionTypeOptions;
                 scope.savingsTransactionTypeoptions = data.savingsTransactionTypeoptions;
                 scope.availableAuthenticationServices = data.availableAuthenticationServices;
+                scope.productOptions = data.productOptions;
             });
 
             scope.transactionTypeAppliesToSelected = function (transactionTypeAppliesTo) {
                 switch(transactionTypeAppliesTo) {
                     case 1:
                         scope.transactionTypeOptions = scope.loanTransactionTypeOptions;
+                        scope.productTypeOptions = scope.productOptions;
                         break ;
                     case 2:
                         scope.transactionTypeOptions = scope.savingsTransactionTypeoptions;
+                        scope.productTypeOptions = [];
                         break ;
                 }
             }

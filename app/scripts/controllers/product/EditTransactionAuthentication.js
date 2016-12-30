@@ -13,6 +13,8 @@
             scope.availableAuthenticationServices = [];
             scope.paymentOptions = [];
             scope.transactionTypeOptions = [];
+            scope.productOptions = [];
+            scope.productTypeOptions = [];
 
 
 
@@ -22,7 +24,8 @@
                     transactionTypeId: data.transactionTypeId,
                     paymentTypeId: data.paymentTypeId,
                     amount : data.amount,
-                    authenticationTypeId: data.authenticationTypeId
+                    authenticationTypeId: data.authenticationTypeId,
+                    productId: data.productId
                 };
 
                 resourceFactory.transactionAuthenticationTemplateResource.getTemplate({},function(data) {
@@ -32,6 +35,7 @@
                     scope.savingsTransactionTypeoptions = data.savingsTransactionTypeoptions;
                     scope.availableAuthenticationServices = data.availableAuthenticationServices;
                     scope.transactionId = scope.formData.transactionTypeId;
+                    scope.productOptions = data.productOptions;
 
                     Object.keys(scope.transactionAuthenticationAppliesTo).forEach(function(key){
                         console.log(key, scope.transactionAuthenticationAppliesTo[key]);
@@ -39,9 +43,11 @@
                         if(scope.formData.portfolioTypeId == obj.id ) {
                             if (obj.value == "Loans") {
                                 scope.transactionTypeOptions = scope.loanTransactionTypeOptions;
+                                scope.productTypeOptions = scope.productOptions;
                             }
                             if(obj.value == "Savings"){
                                 scope.transactionTypeOptions = scope.savingsTransactionTypeoptions;
+                                scope.productTypeOptions = [];
                             }
                         }
                     });
@@ -53,9 +59,11 @@
                 switch(transactionTypeAppliesTo) {
                     case 1:
                         scope.transactionTypeOptions = scope.loanTransactionTypeOptions;
+                        scope.productTypeOptions = scope.productOptions;
                         break ;
                     case 2:
                         scope.transactionTypeOptions = scope.savingsTransactionTypeoptions;
+                        scope.productTypeOptions = [];
                         break ;
                 }
             }

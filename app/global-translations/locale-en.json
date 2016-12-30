@@ -3328,6 +3328,7 @@
     "label.heading.sharecontrol": "Shares Suspense Control",
     "label.heading.subsidy": "Subsidy",
     "label.heading.producttype":"Product Type",
+    "label.heading.product":"Product",
     "label.heading.transactiontype":"TransactionType",
     "label.heading.paymenttype":"Payment Type",
     "label.heading.amount":"Amount",
@@ -3530,6 +3531,7 @@
     "label.input.paymenttype":"Payment Type",
     "label.input.amount":"Amount",
     "label.input.authenticationtype":"Authentication Type",
+    "label.input.product.name":"Product Name",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",
@@ -3564,6 +3566,7 @@
     "label.voluntary":"Voluntary",
     "label.transactiontype":"Select transaction type",
     "label.producttype":"Select product type",
+    "label.productname":"Select product",
     "label.amount":"Amount",
     "label.amount.greaterthan.or.equalto":"Amount greater than or equal to",
     "label.paymenttype":"Select payment type",
