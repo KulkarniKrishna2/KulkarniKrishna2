@@ -371,10 +371,6 @@
                                 taskPermissionName: 'WAIVEINTERESTPORTION_LOAN'
                             },
                             {
-                                name: "button.reschedule",
-                                taskPermissionName: 'CREATE_RESCHEDULELOAN'
-                            },
-                            {
                                 name: "button.writeoff",
                                 taskPermissionName: 'WRITEOFF_LOAN'
                             },
@@ -415,6 +411,13 @@
 
                     };
 
+                    if(scope.loandetails && !scope.loandetails.isInterestRecalculationEnabled) {
+                        scope.buttons.options.push(
+                            {
+                                name: "button.reschedule",
+                                taskPermissionName: 'CREATE_RESCHEDULELOAN'
+                            });
+                    }
                     if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
                         for(var i = 0; i < scope.loandetails.transactions.length; i++){
                             if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
