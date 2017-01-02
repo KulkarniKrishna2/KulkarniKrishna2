@@ -4262,6 +4262,8 @@
     "label.heading.transactionType":"Transaction Type",
     "label.heading.transactionDate":"Transaction Date",
     "validation.msg.code.value.description.exceeds.max.length":"Description cannot be over {{params[0].value}} characters long..",
+    "validation.msg.loan.update.disbursement.principal.sum.of.multi.disburse.amounts.must.be.equal.to.or.lesser.than.approved.principal": "Sum of multi disburse amounts must be less than or equal to approved principal",
+    "error.msg.loan.days.between.first.repayment.and.disbursal.are.less.than.minimum.days.or.periods.allowed" : "Minimum days between disbursal and first repayment should be {{params[2].value}} ",
 
     "#------------------": "------------",
 
