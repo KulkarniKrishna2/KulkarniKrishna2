@@ -121,6 +121,13 @@
             scope.pincodeLengthValidation = function(){
                 if( scope.formAddressData.postalCode &&  scope.formAddressData.postalCode.toString().length != scope.pincodeLenght){
                     scope.isPincodeLengthSatisfy = false;
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({value: 'label.mustbe6digitnumber'});
+                    scope.errorDetails.push(errorObj);
                 }
             }
 
@@ -178,6 +185,8 @@
                 if(scope.response && scope.response.uiDisplayConfigurations.createVillage.isReadOnlyField.active == true){
                     scope.formData.active = true;
                 }
+
+                scope.pincodeLengthValidation();
 
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activatedOnDate = reqDate;
