@@ -143,6 +143,7 @@
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
                     minimumPeriodsBetweenDisbursalAndFirstRepayment: scope.product.minimumPeriodsBetweenDisbursalAndFirstRepayment,
                     minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType: scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
+                    isMinDurationApplicableForAllDisbursements:scope.product.isMinDurationApplicableForAllDisbursements,
                     canDefineInstallmentAmount: scope.product.canDefineInstallmentAmount,
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,

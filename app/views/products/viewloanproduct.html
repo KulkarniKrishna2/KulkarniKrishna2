@@ -188,6 +188,10 @@
     <td>{{'label.input.minimum.period.between.disbursal.and.first.repayment' | translate}}</td>
     <td colspan="3">{{loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment}}<span>:&nbsp;{{'label.repayment.heading.period' | translate}}</span></td>
 </tr>
+<tr ng-show="minimumPeriodsBetweenDisbursalAndFirstRepaymentShow || minimumDaysBetweenDisbursalAndFirstRepaymentShow">
+    <td>{{'label.input.minDurationapplicableforalldisbursements' | translate}}</td>
+    <td colspan="3">{{loanproduct.isMinDurationApplicableForAllDisbursements}}</td>
+</tr>
 <tr>
     <td colspan="4"><br/></td>
 </tr>
