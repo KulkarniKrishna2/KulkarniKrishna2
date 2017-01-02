@@ -3532,6 +3532,7 @@
     "label.input.amount":"Amount",
     "label.input.authenticationtype":"Authentication Type",
     "label.input.product.name":"Product Name",
+    "label.input.minDurationapplicableforalldisbursements":"Is Minimum duartion check applicable for all disbursements",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",
