@@ -415,12 +415,14 @@
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         for(var i in data.disbursementDetails){
+                            data.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
                             if(routeParams.disbursementId == data.disbursementDetails[i].id){
                                 scope.formData.updatedExpectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
                                 scope.formData.updatedPrincipal = data.disbursementDetails[i].principal;
                                 scope.id = data.disbursementDetails[i].id;
                             }
                         }
+                        scope.disbursementDetails = data.disbursementDetails;
                     });
 
                     scope.title = 'label.heading.editdisbursedate';
