@@ -18,6 +18,7 @@
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
             scope.showAmountDispaly = false;
+            scope.trancheError = false;
 
             //glim
             scope.isGLIM = false;
@@ -545,6 +546,7 @@
             scope.addTranches = function () {
                 scope.disbursementDetails.push({
                 });
+                scope.trancheError = false;
             };
 
             scope.getGlimTransactionAmount = function (glimTransactions) {
@@ -586,6 +588,17 @@
                 if(scope.action == "approve"){
                     this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
                     if(scope.disbursementDetails != null) {
+                        var numberOftranches = scope.disbursementDetails.length;
+                        if( scope.approveTranches  && numberOftranches <= 0) {
+                            scope.trancheError = true;
+                            scope.errorDetails = [];
+                            var errorObj = new Object();
+                            errorObj.args = {
+                                params: []
+                            };
+                            errorObj.args.params.push({value: 'error.minimum.one.tranche.required'});
+                            scope.errorDetails.push(errorObj);
+                        }
                         this.formData.disbursementData = [];
                         for (var i in  scope.disbursementDetails) {
                             this.formData.disbursementData.push({
@@ -702,9 +715,11 @@
                 } else {
                     params.loanId = scope.accountId;
                     this.formData.adjustRepaymentDate = dateFilter(this.formData.adjustRepaymentDate, scope.df);
-                    resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
-                        location.path('/viewloanaccount/' + data.loanId);
-                    });
+                    if(!scope.trancheError) {
+                        resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
+                            location.path('/viewloanaccount/' + data.loanId);
+                        });
+                    }
                 }
             };
 

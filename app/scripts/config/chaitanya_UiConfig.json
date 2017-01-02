@@ -21,17 +21,18 @@
         "transactionProcessingStrategyId": true,
         "graceOnInterestPayment": true,
         "graceOnArrearsAgeing": true,
-        "syncDisbursementDateWithMeeting":true
+        "syncDisbursementDateWithMeeting": true,
+        "recurringMoratoriumOnPrincipalPeriods": true
       },
-      "isMandatory":{
-        "externalId":false
+      "isMandatory": {
+        "externalId": false
       },
       "isHiddenSection": {
         "interestRecalculationSection": true,
         "collateralSection": true
       },
-      "isShowField":{
-        "nextRepaymentDateDisburseScreen": false,
+      "isShowField": {
+        "nextRepaymentDateDisburseScreen": true,
         "adjustRepaymentDateDisburseScreen": true
       },
       "isReadOnlyField": {
@@ -40,10 +41,10 @@
         "displayName": true,
         "interestRatePerPeriod": true,
         "loanPurposeId": true,
-        "syncRepaymentsWithMeeting" : true,
+        "syncRepaymentsWithMeeting": true,
         "repaymentFrequencyType": true
       },
-      "isAutoPopulate":{
+      "isAutoPopulate": {
         "interestChargedFromDate": false
       },
       "isDefaultValue": {
@@ -52,20 +53,20 @@
         "paymentTypeId": 750,
         "considerFutureDisbursmentsInSchedule": false
       },
-      "isMandatory":{
-        "repaymentsStartingFromDate":true,
+      "isMandatory": {
+        "repaymentsStartingFromDate": true,
         "loanPurposeId": true
       }
     },
-    "viewLoanAccountDetails":{
-      "isHiddenFeild":{
-        "viewReportButton":true,
-        "editTranches" :true
+    "viewLoanAccountDetails": {
+      "isHiddenFeild": {
+        "viewReportButton": true,
+        "editTranches": true
       }
     },
-    "clientAccount":{
-      "isMandatory":{
-        "externalId":false
+    "clientAccount": {
+      "isMandatory": {
+        "externalId": false
       }
     },
     "collectionSheet": {
@@ -79,7 +80,7 @@
     "createClient": {
       "isReadOnlyField": {
         "staff": true,
-        "pincode" : true
+        "pincode": true
       },
       "isValidateDOBField": {
         "active": true,
@@ -88,22 +89,24 @@
           "maxAge": 60
         }
       },
-      "isHiddenField":{
-        "hideClientClassification":true
+      "isHiddenField": {
+        "hideClientClassification": true
       },
-      "isMandatoryField":{
+      "isMandatoryField": {
         "dateOfBirth": true
       }
     },
-
-    "defaultGISConfig":{
-      "address":{
-        "countryName":"India",
-        "stateName":"Karnataka",
-        "addressType" : 14
+    "defaultGISConfig": {
+      "address": {
+        "countryName": "India",
+        "stateName": "Karnataka",
+        "addressType": 14
+      },
+      "paymentType": {
+        "expectedDisbursalPaymentType": "cash",
+        "expectedRepaymentPaymentType": "cash"
       }
     },
-
     "createGroup": {
       "isReadOnlyField": {
         "staff": true,
@@ -135,7 +138,7 @@
       }
     },
     "labelChanges": {
-      "calendarChagesEffectiveFrom" : true
+      "calendarChagesEffectiveFrom": true
     },
     "createVillage": {
       "isReadOnlyField": {
@@ -148,13 +151,28 @@
             "Karnataka": 5,
             "Maharashtra": 4
           },
-          "pincodeLenght":6
+          "pincodeLenght": 6
         }
       },
       "isHiddenField": {
-        "villageCode" : true
-    }
-
+        "villageCode": true
+      }
+    },
+    "viewLoanAccountDetails": {
+      "isHiddenFeild": {
+        "viewReportButton": true
+      }
+    },
+    "clientIdentifier": {
+      "identitiesMatchLuhnsAlgorithm": {
+        "clientIdentifierValidation": false
+      }
+    },
+    "reportParameterConfiguration": {
+      "datePicker": {
+        "reportNames": "",
+        "restrictedDate": ""
+      }
     }
   }
 }

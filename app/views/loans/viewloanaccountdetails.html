@@ -699,7 +699,7 @@
 
                     <tab active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
 
-                        <table class="table table-striped .width100" ng-show="loandetails.repaymentSchedule.futurePeriods">
+                        <table class="table table-striped .width100" ng-show="futurePeriods">
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
@@ -722,7 +722,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="period in loandetails.repaymentSchedule.futurePeriods">
+                            <tr ng-repeat="period in futurePeriods">
                                 <td>{{period.dueDate | DateFormat}}</td>
 
                                 <td>{{period.principalDue | number}}</td>

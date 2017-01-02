@@ -3328,6 +3328,7 @@
     "label.heading.sharecontrol": "Shares Suspense Control",
     "label.heading.subsidy": "Subsidy",
     "label.heading.producttype":"Product Type",
+    "label.heading.product":"Product",
     "label.heading.transactiontype":"TransactionType",
     "label.heading.paymenttype":"Payment Type",
     "label.heading.amount":"Amount",
@@ -3530,6 +3531,7 @@
     "label.input.paymenttype":"Payment Type",
     "label.input.amount":"Amount",
     "label.input.authenticationtype":"Authentication Type",
+    "label.input.product.name":"Product Name",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",
@@ -3564,6 +3566,7 @@
     "label.voluntary":"Voluntary",
     "label.transactiontype":"Select transaction type",
     "label.producttype":"Select product type",
+    "label.productname":"Select product",
     "label.amount":"Amount",
     "label.amount.greaterthan.or.equalto":"Amount greater than or equal to",
     "label.paymenttype":"Select payment type",
@@ -3862,6 +3865,7 @@
     "error.msg.product.FD.duplicate.externalId":"FD with externalId already exists",
     "error.msg.product.savings.duplicate.externalId":"Savings product with externalId already exists",
     "error.msg.product.loan.duplicate.externalId":"Loan product with externalId already exists",
+    "error.minimum.one.tranche.required":"Minimum number of Loan Tranche Details should be one for multi disbursal loan",
 
     "#------------------": "------------",
 
@@ -5353,6 +5357,7 @@
     "label.heading.preferredpaymentchannelforrepayments" : "Preferred payment channel for repayments",
     "label.heading.cb.report.active.loans.summary" : "Active Loans Summary",
     "label.heading.name.of.mfi" : "Name of MFI",
+    "label.heading.customer.since" : "Customer Since",
     "label.heading.no.of.active.loans" : "No of Active Loans",
     "label.heading.total.outstanding.amount" : "Total Outstanding Amount",
     "label.heading.total.emi.amount" : "Total EMI Amount",

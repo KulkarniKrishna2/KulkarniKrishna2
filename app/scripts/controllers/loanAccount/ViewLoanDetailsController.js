@@ -17,6 +17,7 @@
             scope.isGlim = false;
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
             scope.isGlimTabActive = false;
+            scope.futurePeriods = [];
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
@@ -142,7 +143,7 @@
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
                     case "disburse.tranche.creditbureaureport":
-                        location.path('/creditbureaureport/loan/'+accountId);
+                        location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
                         break;
                 }
             };
@@ -371,10 +372,6 @@
                                 taskPermissionName: 'WAIVEINTERESTPORTION_LOAN'
                             },
                             {
-                                name: "button.reschedule",
-                                taskPermissionName: 'CREATE_RESCHEDULELOAN'
-                            },
-                            {
                                 name: "button.writeoff",
                                 taskPermissionName: 'WRITEOFF_LOAN'
                             },
@@ -415,6 +412,13 @@
 
                     };
 
+                    if(scope.loandetails && !scope.loandetails.isInterestRecalculationEnabled) {
+                        scope.buttons.options.push(
+                            {
+                                name: "button.reschedule",
+                                taskPermissionName: 'CREATE_RESCHEDULELOAN'
+                            });
+                    }
                     if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
                         for(var i = 0; i < scope.loandetails.transactions.length; i++){
                             if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
@@ -577,8 +581,8 @@
                 }
                 if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
                     scope.isDataAlreadyFetched = true;
-                }else if((associations === 'futureSchedule'  || associations === 'futureSchedule' )){
-                    associations = 'repaymentSchedule,futureSchedule';
+                }else if((associations === 'futureSchedule')){
+                    associations = 'futureSchedule';
                     if(scope.isFutureSchedule === true){
                         scope.isDataAlreadyFetched = true;
                     }
@@ -602,10 +606,8 @@
                             scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
                             scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                         }else if(associations === 'futureSchedule'){
-                            associations = 'futureSchedule';
                             scope.isFutureSchedule = true;
-                            scope.loandetails.futureSchedule = scope.loanSpecificData.repaymentSchedule.futurePeriods;
-                            scope.isWaived = scope.loandetails.futureSchedule.totalWaived > 0;
+                            scope.futurePeriods = data.repaymentSchedule.futurePeriods;
                         } else if(associations === 'transactions'){
                             scope.istransactions = true;
                             scope.loandetails.transactions = scope.loanSpecificData.transactions;
@@ -1037,6 +1039,23 @@
                                                 if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
                                                     scope.buttons.singlebuttons[i] = cbButton;
                                                     break;
+                                                }
+                                            }
+
+                                            if(!_.isUndefined(scope.loandetails.disbursementDetails)){
+                                                var expectedDisbursementDate = undefined;
+                                                for(var i in scope.loandetails.disbursementDetails){
+                                                    if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
+                                                        if(_.isUndefined(expectedDisbursementDate)){
+                                                            expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                            scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                        }else{
+                                                            if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
+                                                                expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                                scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
