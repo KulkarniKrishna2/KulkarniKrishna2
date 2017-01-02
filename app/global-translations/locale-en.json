@@ -375,7 +375,7 @@
     "label.savesuccessfully":"Saved Successfully",
     "label.nodatafound":"No data was found related to the search parameters entered.",
     "label.mustbenumeric":"Must be numeric",
-    "label.mustbe6digitnumber":"Must be a 6 digit number",
+    "label.mustbe6digitnumber":"Pincode Must be a 6 digit number",
     "label.percentage": "Percentage",
     "label.outstanding.amount":"Loan outstanding amount",
     "label.and": "and",
