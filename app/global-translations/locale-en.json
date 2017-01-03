@@ -2832,7 +2832,13 @@
     "validation.msg.tax.group.endDate.can.not.modify.end.date.once.updated":"End date modification is not supported",
     "validation.msg.tax.group.total.percentage.is.greater.than.max":"Group total percentage must be less than 100 at any point of time",
     "validation.msg.tax.component.group.total.percentage.is.greater.than.max":"One of the group total is more than 100 with this modification",
-
+    "validation.msg.mobile.number.should.have.10.digits" : "Mobile number should be 10 digits",
+    "validation.msg.aadhaar.number.invalid.format" : "Aadhaar Number invalid format",
+    "validation.msg.driving.license.number.invalid.format" : "Driving license number invalid format",
+    "validation.msg.panccard.number.invalid.format": "Pancard number invalid format",
+    "validation.msg.passport.number.invalid.format": "Passport number invalid format",
+    "validation.msg.rationcard.number.invalid.format": "Ration card number invalid format",
+    "validation.msg.voter.id.invalid.format" : "Voter Id number invalid format",
     "#--------------": "------------",
 
     "#Admin-System": "....",
