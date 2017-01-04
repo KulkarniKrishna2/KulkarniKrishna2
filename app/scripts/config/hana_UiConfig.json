@@ -91,7 +91,10 @@
 	  "isHiddenFeild":{
 		"viewReportButton":true
 	  }
-	}
+	},
+	  "journalEntryConfiguration": {
+		  "allowMultipleCreditAndDebitEntries":false
+	  }
   },
   "reportParameterConfiguration": {
 	"datePicker": {

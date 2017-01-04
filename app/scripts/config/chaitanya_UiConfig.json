@@ -122,6 +122,9 @@
       "isReadOnlyField": {
         "active": true
       }
+    },
+    "journalEntryConfiguration": {
+      "allowMultipleCreditAndDebitEntries":false
     }
   }
 }
