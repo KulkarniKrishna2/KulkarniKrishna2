@@ -12,7 +12,8 @@
                 <label class="control-label col-sm-2" for="type">{{ 'label.input.select.profile' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-3">
                     <select id="type" name="type" ng-options="type.id as type.value for type in typeOptions"
-                            ng-model="formData.type" class="form-control" value="{{type.id}}" required late-validate="">
+                            ng-model="formData.type" class="form-control" value="{{type.id}}" required late-validate=""
+                            ng-disabled="true">
                         <option value="">{{'label.input.select.profile' | translate}}</option>
                     </select>
                 </div>

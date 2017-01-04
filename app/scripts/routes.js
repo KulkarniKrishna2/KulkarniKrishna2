@@ -1432,6 +1432,9 @@
             })
             .when('/organizations/profieratings/edit/:profileRatingConfigId', {
                 templateUrl: 'views/organization/profilerating/editprofileratingconfiguration.html'
+            })
+            .when('/riskprofileratingcompute', {
+                templateUrl: 'views/organization/profilerating/riskprofileratingcompute.html'
             });
         $locationProvider.html5Mode(false);
     };

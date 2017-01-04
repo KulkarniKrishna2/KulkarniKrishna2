@@ -5411,6 +5411,8 @@
     "label.heading.profile" : "Profile",
     "label.heading.criteria" : "Criteria",
     "label.heading.profile" : "Profile",
+    "label.risk.profile.rating" : "Risk profile rating",
+    "label.risk.profile.rating.batch" : "Compute rating (batch)",
 
     "------ end of tensalation file":"---------"
 }

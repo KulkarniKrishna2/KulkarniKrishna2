@@ -3,13 +3,13 @@
         CreateProfileRatingConfigurationController: function (scope, resourceFactory, location) {
             scope.formData = {};
             scope.formData.isActive = true;
-            resourceFactory.createProfileRatingConfigurationTemplate.get(function (response) {
+            resourceFactory.profileRatingConfigurationTemplate.get(function (response) {
                 scope.typeOptions = response.typeOptions;
                 scope.criteriaOptions = response.criteriaOptions;
             });
             scope.submit = function () {
                 this.formData.locale = "en";
-                resourceFactory.createProfileRatingConfiguration.save(this.formData, function (response) {
+                resourceFactory.profileRatingConfiguration.save(this.formData, function (response) {
                     location.path('/viewprofileratingconfigs')
                 });
             }
