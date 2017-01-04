@@ -663,7 +663,7 @@
                                 <td>{{period.feeChargesDue | number}}</td>
                                 <td>{{period.penaltyChargesDue | number}}</td>
 
-                                <td>{{period.totalDueForPeriod | number}}</td>
+                                <td>{{period.totalDueForPeriod-period.advancePaymentAmount | number}}</td>
                                 <td>{{period.totalPaidForPeriod | number}}</td>
                                 <td data-ng-hide="loandetails.isInterestRecalculationEnabled">{{period.totalPaidInAdvanceForPeriod | number}}</td>
                                 <td data-ng-show="loandetails.isInterestRecalculationEnabled">{{period.advancePaymentAmount | number}}</td>
