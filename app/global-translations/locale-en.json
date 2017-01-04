@@ -148,7 +148,7 @@
     "label.input.differentialrate" : "Differential Rate",
     "label.heading.companyname": "CHAITANYA INDIA FIN CREDIT PVT. LTD.",
     "label.heading.loanrepaymentschedule": "Loan Repayment Schedule",
-
+    "label.heading.fingerprint":"Finger Print",
     "label.heading.audit": "Log Changes",
     "label.heading.audit.action": "Action",
     "label.heading.audit.updateBy": "Update By",
@@ -391,6 +391,7 @@
     "label.error.pincode.startwith": "pincode should start with ",
     "label.error.required" : "Required Field",
     "label.error.select.office":"Please select office",
+    "label.error.capturefp":"Please Capture Finger Print",
     "error.login.failed": "Please try again, your credentials are not valid.",
     "error.connection.failed": "Couldn't connect to server. Make sure you are using correct settings.",
     "error.msg.user.account.locked":"Account Locked, please  contact administrator",
@@ -505,6 +506,7 @@
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
     "error.msg.amount.exceeding.approval.limit" : "Approval amount should be lesser than '{{params[0].value}}'",
     "error.msg.calendar.meeting.cannot.be.updated.since.it.has.active.loans":"Calendar meeting cannot be updated since the centre has active loan",
+    "error.msg.Secondary.Authentication.Service.failed":"2F Authentication failed. Either finger print didn't match or OTP is not correct",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -792,6 +794,7 @@
     "label.zoom":"Show Larger",
     "label.showClientSignature" : "View Client Signature",
     "label.noClientSignature" : "Client Signature is not provided",
+    "label.button.getfingerprint": "Get Finger print",
 
     "#Enumeration & Error Messages": "..",
     "client.search.not.allowed": "Not Allowed to Use Client Search.",
@@ -918,6 +921,7 @@
     "label.input.error":"Error",
     "label.input.invaliddaterange":"Please Select Valid Date Range",
     "label.input.calendar.next.meeting.falls.on":"Next meeting falls on",
+
 
     "#Buttons": "..",
     "label.button.creategroup": "Create Group",
@@ -1264,6 +1268,7 @@
     "label.input.financial.activity.type":"Financial activity",
     "label.input.date.of.opening.balances":"Date of opening balances",
     "label.input.opening.balances.contra.account":"Opening balances contra",
+    "label.input.fingerprint":"Finger Print",
 
     "#journalEntryType code ": ".............",
     "journalEntryType.credit": "Credit",
@@ -1749,6 +1754,7 @@
     "label.select.one.office" : "----select one office---",
     "label.input.mode.of.disburse.payment" : "Mode of Disbursement",
     "label.input.mode.of.repayment.payment" : "Mode of Repayment",
+    "label.input.authentication2f": "2F Authentication",
 
     "#Buttons": "..",
     "label.button.addloancharge": "Add Loan Charge",
