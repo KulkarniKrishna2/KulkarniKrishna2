@@ -120,6 +120,9 @@
 	  "identitiesMatchLuhnsAlgorithm": {
 		"clientIdentifierValidation":false
 	  }
+	},
+	"journalEntryConfiguration": {
+		"allowMultipleCreditAndDebitEntries":false
 	}
   },
   "reportParameterConfiguration": {
@@ -128,4 +131,5 @@
 	  "restrictedDate":""
 	}
   }
+
 }

@@ -14,49 +14,55 @@
         "interestChargedFromDate": false,
         "repaymentsStartingFromDate": false,
         "interestType": true,
-        "amortizationType": false,
-        "interestCalculationPeriodType": false,
-        "inArrearsTolerance": false,
-        "graceOnInterestCharged": false,
-        "transactionProcessingStrategyId": false,
-        "graceOnInterestPayment": false,
-        "graceOnArrearsAgeing": false,
-        "syncDisbursementDateWithMeeting":true
+        "amortizationType": true,
+        "interestCalculationPeriodType": true,
+        "inArrearsTolerance": true,
+        "graceOnInterestCharged": true,
+        "transactionProcessingStrategyId": true,
+        "graceOnInterestPayment": true,
+        "graceOnArrearsAgeing": true,
+        "syncDisbursementDateWithMeeting":true,
+        "recurringMoratoriumOnPrincipalPeriods" : true
       },
       "isMandatory":{
-        "externalId":true
+        "externalId":false
       },
       "isHiddenSection": {
-        "interestRecalculationSection": false,
-        "collateralSection": false
+        "interestRecalculationSection": true,
+        "collateralSection": true
+      },
+      "isShowField":{
+        "nextRepaymentDateDisburseScreen": false,
+        "adjustRepaymentDateDisburseScreen": false
       },
       "isReadOnlyField": {
-        "loanTermFrequencyType": false,
-        "interestChargedFromDate": false,
-        "displayName": false,
-        "interestRatePerPeriod": false,
-        "loanPurposeId": false,
-        "repaymentFrequencyType": false,
-        "syncRepaymentsWithMeeting": false
+        "loanTermFrequencyType": true,
+        "interestChargedFromDate": true,
+        "displayName": true,
+        "interestRatePerPeriod": true,
+        "loanPurposeId": true,
+        "syncRepaymentsWithMeeting": false,
+        "repaymentFrequencyType": false
       },
       "isAutoPopulate":{
-        "interestChargedFromDate": false
+        "interestChargedFromDate": true
       },
       "isDefaultValue": {
-        "fundId": 45,
         "syncDisbursementWithMeeting": false,
-        "considerFutureDisbursmentsInSchedule": true,
-        "syncDisbursementWithMeeting": false
+        "considerFutureDisbursmentsInSchedule": true
+      },
+      "isMandatory":{
+        "loanPurposeId": true
       }
     },
     "clientAccount":{
       "isMandatory":{
-        "externalId":true
+        "externalId":false
       }
     },
     "collectionSheet": {
       "isAutoPopulate": {
-        "paymentTypeOption": false
+        "paymentTypeOption": true
       },
       "isHiddenFeild":{
         "newtransactionDate":false
@@ -64,13 +70,13 @@
     },
     "createClient": {
       "isReadOnlyField": {
-        "staff": false
+        "staff": true
       }
     },
     "createGroup": {
       "isReadOnlyField": {
-        "staff": false,
-        "active": false
+        "staff": true,
+        "active": true
       },
       "isAutoPopulate": {
         "active": true
@@ -78,8 +84,8 @@
     },
     "createCenter": {
       "isReadOnlyField": {
-        "active": false,
-        "name": false
+        "active": true,
+        "name": true
       },
       "isHiddenField": {
         "villageOptions": false
@@ -87,44 +93,43 @@
     },
     "createGroup": {
       "isReadOnlyField": {
-        "staff": false,
-        "active": false
+        "staff": true,
+        "active": true
       },
       "isAutoPopulate": {
-        "active": false
+        "active": true
       },
       "isHiddenMenu": {
-        "attachmeeting": false
+        "attachmeeting": true
       }
     },
     "labelChanges": {
-      "calendarChagesEffectiveFrom" : false
+      "calendarChagesEffectiveFrom" : true
     },
     "createVillage": {
       "isReadOnlyField": {
-        "active": false
+        "active": true
       }
     },
     "viewLoanAccountDetails":{
       "isHiddenFeild":{
-        "viewReportButton":false
+        "viewReportButton":true
       }
     },
     "clientIdentifier":{
       "identitiesMatchLuhnsAlgorithm": {
-        "clientIdentifierValidation":true
+        "clientIdentifierValidation":false
       }
     },
     "journalEntryConfiguration": {
-      "allowMultipleCreditAndDebitEntries":false
+      "allowMultipleCreditAndDebitEntries":true
     }
   },
-    "reportParameterConfiguration": {
-	"datePicker": {
-	  "reportNames": "'Expected Payments By Date - Basic'",
-	  "restrictedDate":""
-	}
+  "reportParameterConfiguration": {
+    "datePicker": {
+      "reportNames": "'Expected Payments By Date - Basic'",
+      "restrictedDate":""
+    }
   }
+
 }
-
-
