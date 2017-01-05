@@ -36,7 +36,7 @@
                     scope.currentTaskId = scope.tasks[0].id;
                     for (index in scope.tasks) {
                         var task = scope.tasks[index];
-                        if (task.status!= undefined && task.status.id != 1) {
+                        if (task.status!= undefined && task.status.value != 'inactive') {
                             scope.currentTaskId = task.id;
                         }
                     }
@@ -52,7 +52,7 @@
 
             scope.isDisabled = function (taskId) {
                 var task = getTask(taskId);
-                if(task == undefined || task.status.id == 1){
+                if(task == undefined || task.status.value == 'inactive'){
                     return true;
                 }
                 return false;
@@ -60,7 +60,7 @@
 
             scope.showMe = function (taskId) {
                 var task = getTask(taskId);
-                if(task!== undefined && task.status.id != 1){
+                if(task!== undefined && task.status.value != 'inactive'){
                     scope.currentTaskId = taskId;
                 }
             };
@@ -109,7 +109,7 @@
                         if(index != lastIndex && task.id ==scope.currentTaskId){
                             var nextIndex = parseInt(index)+1;
                             var nextTask = scope.tasks[nextIndex];
-                            if(nextTask.status.id != 1){
+                            if(nextTask.status.value != 'inactive'){
                                 scope.isNextButtonDisabled = false;
                                 scope.nextTaskId = nextTask.id;
                             }

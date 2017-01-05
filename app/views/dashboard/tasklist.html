@@ -5,26 +5,19 @@
     </h3>
     <hr/>
     <div class="form-group">
-        <div class="col-sm-1">
+        <div class="col-sm-2">
             <div>
                 <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected">
-            </div>
-        </div>
-        <div class="col-sm-1" ng-if="filterBy == 'unassigned'">
-            <div>
-                <button class="btn btn-primary">Assign</button>
-            </div>
-        </div>
-        <div class="col-sm-1" ng-if="filterBy == 'assigned'">
-            <div>
-                <button class="btn btn-primary">Un-assign</button>
+                <button ng-if="filterBy == 'unassigned' && hasAnyRowSelected()" class="btn btn-primary" ng-click="assignMe()">Assign</button>
+                <button ng-if="(filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow') && hasAnyRowSelected()"
+                        class="btn btn-primary" ng-click="unassignMe()">Un-assign</button>
             </div>
         </div>
         <div class="col-sm-3">
             <div>
                 <select chosen="offices" id="office" ng-model="formData.officeId"  class="form-control"
                         ng-options="office.id as office.name for office in offices" value="{{office.id}}" data-placeholder="Office">
-                    <option value="">All</option>
+                    <option value="">All Offices</option>
                 </select>
             </div>
         </div>
@@ -33,7 +26,7 @@
                 <select chosen="parentTaskConfigs" id="workflow" ng-model="formData.parentConfigId"  class="form-control"
                         ng-options="parentTaskConfig.id as parentTaskConfig.name for parentTaskConfig in parentTaskConfigs" value="{{parentTaskConfig.id}}"
                         data-ng-change="getChildrenTaskConfigs()" data-placeholder="Workflow">
-                    <option value="">All</option>
+                    <option value="">All Workflows</option>
                 </select>
             </div>
         </div>
@@ -43,7 +36,7 @@
                 <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId"  class="form-control"
                         ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs" value="{{childrenTaskConfig.id}}"
                         data-placeholder="Stage">
-                    <option value="">All</option>
+                    <option value="">All Stages</option>
                 </select>
             </div>
         </div>
@@ -57,48 +50,39 @@
         <div class="col-md-12">
             <div class="card-content no-h-padding">
                 <tabset class="paddedtop paddedbottom10" tabset-name="testOne">
-                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)">
+                    <tab active="taskType.active" ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)" >
+
                         <tab-heading>
                             <i class="{{taskType.icon}}"></i> {{taskType.name}}
                         </tab-heading>
 
                         <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
                             <table id="otherTasks" class="table table-striped card-table">
-                                <thead>
+                                <thead ng-if="false">
                                 <tr>
                                     <th></th>
-                                    <th class="col-md-4">Task Details</th>
-                                    <th class="col-md-3">Office Details</th>
-                                    <th class="col-md-3">Details</th>
-                                    <th class="col-md-1">Task</th>
-                                    <th class="col-md-1">Workflow</th>
+                                    <th class="col-md-2">Title</th>
+                                    <th class="col-md-7">Description</th>
+                                    <th class="col-md-2">Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr dir-paginate="workFlowTask in workFlowTasks | filter:filterText | itemsPerPage: pageSize" ng-init="workFlowTask.selected = false" total-items="totalTasks" pagination-id="taskType.id">
+                                <tr dir-paginate="workFlowTask in workFlowTasks | filter:filterText | itemsPerPage: pageSize" ng-init="workFlowTask.selected = false" total-items="totalTasks" pagination-id="taskType.id"
+                                >
                                     <td class="col-md-1">
                                         <ng-form>
                                             <input type="checkbox" ng-model="workFlowTask.selected"/>
                                         </ng-form>
                                     </td>
-                                    <td class="col-md-4">
-                                        {{workFlowTask.taskName}} #{{workFlowTask.taskId}}<br>
-                                        <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
+                                    <td class="col-md-2 pointer"  ng-click="goToTask(workFlowTask)">
+                                        #{{workFlowTask.taskId}}&nbsp;{{workFlowTask.taskName}}
 
                                     </td>
-                                    <td class="col-md-3">
-                                        {{workFlowTask.officeData.name}} #{{workFlowTask.officeData.id}}
+                                    <td class="col-md-7 pointer" ng-click="goToTask(workFlowTask)">
+                                        <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
                                     </td>
-                                    <td class="col-md-3">
-                                        Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;Loan Application<br>
-                                        Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{workFlowTask.taskStatus}}<br>
-                                        Assigned To&nbsp;:&nbsp;&nbsp;{{workFlowTask.assignedTo}} #{{workFlowTask.assignedId}}<br>
-                                    </td>
-                                    <td class="col-md-1">
-                                        <button  class="pointer btn btn-primary" ng-click="moveToTask(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
-                                    </td>
-                                    <td class="col-md-1">
-                                        <button class="pointer btn btn-primary" ng-click="moveToWorkFlow(workFlowTask)"> <i class="icon-chevron-right icon-white"></i></button>
+                                    <td class="col-md-2 pointer" ng-click="goToTask(workFlowTask)">
+                                        {{workFlowTask.createdOn}}
                                     </td>
                                 </tr>
                                 </tbody>

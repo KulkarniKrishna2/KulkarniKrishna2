@@ -6,7 +6,7 @@
             scope.isWorkflowTask = false;
             scope.isSingleTask = false;
             function init() {
-                resourceFactory.taskExecutionResource.get({taskId: scope.taskId}, function (data) {
+                resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskId}, function (data) {
                     scope.taskData = data;
                     if (scope.taskData != undefined) {
                         if (scope.taskData.taskType.id == 1) {
