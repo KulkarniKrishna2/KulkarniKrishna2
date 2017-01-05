@@ -1,0 +1,44 @@
+<div class="col-md-12" ng-controller="RiskProfileRatingComputeController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.admin' | translate}}</li>
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/riskrating">{{'label.risk.profile.rating' | translate}}</a></li>
+        <li class="active">{{'label.risk.profile.rating.batch' | translate}}</li>
+    </ul>
+    <form name="riskProfileRatingComputeForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>Compute profile rating</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="officeId">{{ 'label.input.select.profile' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <select id="officeId" name="officeId" ng-options="office.id as office.name for office in officeOptions"
+                            ng-model="formData.scopeEntityId" class="form-control" value="{{office.id}}" required late-validate="">
+                        <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="riskProfileRatingComputeForm" valattribute="officeId"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="entityType">{{ 'label.input.select.profile' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <div ng-repeat="entityType in entityTypeOptions">
+                        <input name="entityType" ng-model="formData.entityType" type="radio" ng-value="entityType.id" />&nbsp;&nbsp;{{entityType.value}}
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="riskProfileRatingComputeForm" valattribute="entityType"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 paddedleft">
+                <a id="cancel" href="#/riskrating" class="btn btn-default">{{'label.button.cancel' |
+                    translate}}</a>
+                <button id="save" class="btn btn-primary">{{'label.button.save' |translate}}</button>
+            </div>
+        </fieldset>
+
+    </form>
+</div>

@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewProfileRatingConfigurationController: function (scope, resourceFactory, location) {
-            resourceFactory.createProfileRatingConfiguration.getAll(function (response) {
+            resourceFactory.profileRatingConfiguration.getAll(function (response) {
                 scope.profileRatingConfigs = response;
             });
         }

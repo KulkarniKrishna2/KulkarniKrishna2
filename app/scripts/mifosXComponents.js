@@ -450,7 +450,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounttransfers/ViewBankAccountTransferDetailsController',
             'organization/profilerating/ViewProfileRatingConfigurationController',
             'organization/profilerating/CreateProfileRatingConfigurationController',
-            'organization/profilerating/EditProfileRatingConfigurationController'
+            'organization/profilerating/EditProfileRatingConfigurationController',
+            'organization/profilerating/RiskProfileRatingComputeController'
         ],
         filters: [
             'StatusLookup',

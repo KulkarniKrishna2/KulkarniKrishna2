@@ -906,6 +906,36 @@
             scope.routeToViewExistingLoan = function(id){
                 location.path('/client/'+scope.id+'/viewclientexistingloan/'+id);
             }
+
+            function getprofileRating(){
+                resourceFactory.profileRating.get({entityType: 1,entityId : routeParams.id}, function (data) {
+                    scope.profileRatingData = data;
+                });
+            };
+            getprofileRating();
+            scope.reComputeProfileRating = function () {
+                scope.profileRatingData = {};
+                resourceFactory.computeProfileRatingTemplate.get(function (response) {
+                    for(var i in response.scopeEntityTypeOptions){
+                        if(response.scopeEntityTypeOptions[i].value === 'OFFICE'){
+                            scope.profileRatingData.scopeEntityType = response.scopeEntityTypeOptions[i].id;
+                            scope.profileRatingData.scopeEntityId =  scope.client.officeId;
+                            break;
+                        }
+                    }
+                    for(var i in response.entityTypeOptions){
+                        if(response.entityTypeOptions[i].value === 'CLIENT'){
+                            scope.profileRatingData.entityType = response.entityTypeOptions[i].id;
+                            scope.profileRatingData.entityId =  routeParams.id;
+                            break;
+                        }
+                    }
+                    scope.profileRatingData.locale = "en";
+                    resourceFactory.computeProfileRating.save(scope.profileRatingData, function (response) {
+                        getprofileRating();
+                    });
+                });
+            };
         }
     });
 
