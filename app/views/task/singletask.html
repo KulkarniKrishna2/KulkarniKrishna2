@@ -56,7 +56,7 @@
             </div>
             <div class="row task-action">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="doTaskAction(action.id)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="doTaskAction(action.value)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </div>
 
@@ -78,7 +78,7 @@
                             <div class="notewrapper col-sm-12 col-md-12">
                             <span class="pull-right noteaddbuttonwrapper">
                                 <button ng-disabled="isTaskCompleted()" class="btn btn-primary" type="button" ng-click="addNote()"
-                                        has-permission='CREATE_TASK_NOTE'>{{'label.button.add' |
+                                        has-permission='CREATE_TASK_EXECUTION_NOTE'>{{'label.button.add' |
                                     translate}}
                                 </button>
                             </span>

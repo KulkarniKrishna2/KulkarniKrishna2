@@ -3,10 +3,14 @@
         TaskListController: function (scope, resourceFactory, location, paginatorService) {
             scope.loggedInUserId = scope.currentSession.user.userId;
             scope.formData = {};
-            scope.taskTypes = [{id: 'tab1', name: 'Assigned', status: 'assigned', icon:'icon-user'}, {id: 'tab2', name: 'Un-Assigned', status: 'unassigned', icon:'icon-user'}, {id: 'tab3', name: 'All', status: 'all', icon:'icon-user'}];
+            scope.taskTypes = [
+                {id: 'tab1', name: 'Workflow', status: 'assigned-workflow', icon:'icon-user',type:'assigned', active:true},
+                {id: 'tab2', name: 'My Task', status: 'assigned-nonworkflow', icon:'icon-user',type:'assigned', active:false},
+                {id: 'tab3', name: 'Roles', status: 'unassigned', icon:'icon-user',type:'unassigned', active:false}];
             scope.pageSize = 15;
             scope.childrenTaskConfigs = [];
-            scope.filterBy = 'all';
+            scope.selectedStatus = 'unassigned';
+            scope.filterBy = 'unassigned';
 
             scope.getChildrenTaskConfigs = function () {
                 scope.formData.childConfigId = null;
@@ -46,7 +50,7 @@
                 params.childConfigId = scope.formData.childConfigId;
                 scope.formParams = params;
 
-                resourceFactory.workFlowTasksResource.get(params, function(data) {
+                resourceFactory.taskListResource.get(params, function(data) {
                     scope.workFlowTasks = data.pageItems;
                     scope.totalTasks = data.totalFilteredRecords;
                 });
@@ -55,7 +59,7 @@
             scope.getResultsPage = function (pageNumber) {
                 scope.formParams.offset = ((pageNumber - 1) * scope.pageSize);
                 scope.formParams.limit = scope.pageSize;
-                resourceFactory.workFlowTasksResource.get(scope.formParams, function (data) {
+                resourceFactory.taskListResource.get(scope.formParams, function (data) {
                     scope.workFlowTasks = data.pageItems;
                 });
             };
@@ -69,23 +73,68 @@
                 }*/
                 scope.workFlowTasks = [];
                 scope.selectedStatus = filterby;
+                scope.formData.isAllSelected = false;
                 paginatorService.paginate(fetchFunction, scope.pageSize);
             };
 
-            scope.getWorkFlowTasks('all');
+            scope.getWorkFlowTasks(scope.filterBy);
 
-            scope.moveToTask = function (workFlowTask) {
-                location.path(workFlowTask.nextActionUrl);
+            scope.goToTask = function (task) {
+                if(task.parentTaskId !=undefined){
+                    location.path('/viewtask/' + task.parentTaskId);
+                }else{
+                    location.path('/viewtask/' + task.id);
+                }
             };
-            scope.moveToWorkFlow = function (workFlowTask) {
-                location.path('/viewtask/' + workFlowTask.parentTaskId);
-            };
+
             scope.configValue = function(task, config ){
                     if(task != undefined && task.configValues!=undefined){
                         return task.configValues[config];
                     }
                     return undefined;
             };
+
+            scope.hasAnyRowSelected = function(){
+                var selectedTasks = [];
+                angular.forEach(scope.workFlowTasks, function(itm){
+                    if(itm.selected == true){
+                        selectedTasks.push(itm.taskId);
+                    }
+                });
+                if(selectedTasks.length>0) {
+                    return true;
+                }else{
+                    return false;
+                }
+            };
+
+            scope.assignMe = function(){
+                var selectedTasks = [];
+                angular.forEach(scope.workFlowTasks, function(itm){
+                    if(itm.selected == true){
+                        selectedTasks.push(itm.taskId);
+                    }
+                });
+                if(selectedTasks.length>0){
+                    resourceFactory.taskListResource.update({command:"assign"}, selectedTasks,function (data) {
+                        scope.getWorkFlowTasks(scope.filterBy);
+                    });
+                }
+            }
+
+            scope.unassignMe = function(){
+                var selectedTasks = [];
+                angular.forEach(scope.workFlowTasks, function(itm){
+                    if(itm.selected == true){
+                        selectedTasks.push(itm.taskId);
+                    }
+                });
+                if(selectedTasks.length>0){
+                    resourceFactory.taskListResource.update({command:"unassign"}, selectedTasks,function (data) {
+                        scope.getWorkFlowTasks(scope.filterBy);
+                    });
+                }
+            }
         }
     });
     mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorService', mifosX.controllers.TaskListController]).run(function ($log) {

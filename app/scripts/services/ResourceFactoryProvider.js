@@ -965,28 +965,30 @@
                             get: {method: 'GET', params: {}},
                             update: {method: 'PUT', params: {}}
                         }),
-                    taskExecutionResource: defineResource(apiVer + "/taskexecution/:taskId", {taskId: '@taskId'}, {
-                        get: {method: 'GET', params: {}},
+                    taskExecutionResource: defineResource(apiVer + "/tasks/:taskId/execute", {taskId: '@taskId'}, {
                         doAction: {method: 'POST', params: {action: '@action'}}
+                    }),
+                    taskExecutionTemplateResource: defineResource(apiVer + "/tasks/:taskId/execute/template", {taskId: '@taskId'}, {
+                        get: {method: 'GET', params: {}}
                     }),
                     taskTemplateResource: defineResource(apiVer + "/tasks/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    entityTaskExecutionResource: defineResource(apiVer + "/taskexecution/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                    entityTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    taskExecutionActionResource: defineResource(apiVer + "/taskexecution/:taskId/actions",{taskId: '@taskId'}, {
+                    taskExecutionActionResource: defineResource(apiVer + "/tasks/:taskId/execute/actions",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
-                    taskExecutionNotesResource: defineResource(apiVer + "/taskexecution/:taskId/notes",{taskId: '@taskId'}, {
+                    taskExecutionNotesResource: defineResource(apiVer + "/tasks/:taskId/execute/notes",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'}
                     }),
-                    taskExecutionActionLogResource: defineResource(apiVer + "/taskexecution/:taskId/actionlog",{taskId: '@taskId'}, {
+                    taskExecutionActionLogResource: defineResource(apiVer + "/tasks/:taskId/execute/actionlog",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'}
                     }),
-                    taskExecutionChildrenResource: defineResource(apiVer + "/taskexecution/:taskId/children",{taskId: '@taskId'}, {
+                    taskExecutionChildrenResource: defineResource(apiVer + "/tasks/:taskId/execute/children",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
@@ -1000,8 +1002,9 @@
                     workFlowStepSummaryResource: defineResource(apiVer + "/tasks/summary",{}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
-                    workFlowTasksResource: defineResource(apiVer + "/tasks/actions",{}, {
-                        get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}}
+                    taskListResource: defineResource(apiVer + "/tasks",{command:'@command'}, {
+                        get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}},
+                        update:{method: 'POST',params:{command:'@command'}}
                     }),
                     bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
