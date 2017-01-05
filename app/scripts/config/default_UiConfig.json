@@ -1,5 +1,5 @@
 {
-  "enableUIDisplayConfiguration": false,
+  "enableUIDisplayConfiguration": true,
   "uiDisplayConfigurations": {
 	"loanAccount": {
 	  "isHiddenField": {
