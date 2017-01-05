@@ -1,0 +1,103 @@
+<div class="col-md-12" data-ng-controller="TaskListController">
+    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" placeholder="filter" class="form-control">
+    <h3 class="paddedleft">
+        <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
+    </h3>
+    <hr/>
+    <div class="form-group">
+        <div class="col-sm-2">
+            <div>
+                <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected">
+                <button ng-if="filterBy == 'unassigned' && hasAnyRowSelected()" class="btn btn-primary" ng-click="assignMe()">Assign</button>
+                <button ng-if="(filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow') && hasAnyRowSelected()"
+                        class="btn btn-primary" ng-click="unassignMe()">Un-assign</button>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div>
+                <select chosen="offices" id="office" ng-model="formData.officeId"  class="form-control"
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}" data-placeholder="Office">
+                    <option value="">All Offices</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div>
+                <select chosen="parentTaskConfigs" id="workflow" ng-model="formData.parentConfigId"  class="form-control"
+                        ng-options="parentTaskConfig.id as parentTaskConfig.name for parentTaskConfig in parentTaskConfigs" value="{{parentTaskConfig.id}}"
+                        data-ng-change="getChildrenTaskConfigs()" data-placeholder="Workflow">
+                    <option value="">All Workflows</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div>
+                <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId"  class="form-control"
+                        ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs" value="{{childrenTaskConfig.id}}"
+                        data-placeholder="Stage">
+                    <option value="">All Stages</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div>
+                <button class="btn btn-primary" ng-click="getWorkFlowTasks(filterBy)"><i class="icon-refresh"></i></button>
+            </div>
+        </div>
+    </div>
+    <div id="home" class="row">
+        <div class="col-md-12">
+            <div class="card-content no-h-padding">
+                <tabset class="paddedtop paddedbottom10" tabset-name="testOne">
+                    <tab active="taskType.active" ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)" >
+
+                        <tab-heading>
+                            <i class="{{taskType.icon}}"></i> {{taskType.name}}
+                        </tab-heading>
+
+                        <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
+                            <table id="otherTasks" class="table table-striped card-table">
+                                <thead ng-if="false">
+                                <tr>
+                                    <th></th>
+                                    <th class="col-md-2">Title</th>
+                                    <th class="col-md-7">Description</th>
+                                    <th class="col-md-2">Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="workFlowTask in workFlowTasks | filter:filterText | itemsPerPage: pageSize" ng-init="workFlowTask.selected = false" total-items="totalTasks" pagination-id="taskType.id"
+                                >
+                                    <td class="col-md-1">
+                                        <ng-form>
+                                            <input type="checkbox" ng-model="workFlowTask.selected"/>
+                                        </ng-form>
+                                    </td>
+                                    <td class="col-md-2 pointer"  ng-click="goToTask(workFlowTask)">
+                                        #{{workFlowTask.taskId}}&nbsp;{{workFlowTask.taskName}}
+
+                                    </td>
+                                    <td class="col-md-7 pointer" ng-click="goToTask(workFlowTask)">
+                                        <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
+                                    </td>
+                                    <td class="col-md-2 pointer" ng-click="goToTask(workFlowTask)">
+                                        {{workFlowTask.createdOn}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls pagination-id="taskType.id" boundary-links="false" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+                        </div>
+
+                        <div class="" style="padding:10px;" data-ng-hide="workFlowTasks && workFlowTasks.length > 0">
+                            <div class="alert alert-info" style="border-style: dashed;">
+                                <span class="fa fa-info-circle"></span> Do not have any tasks!
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

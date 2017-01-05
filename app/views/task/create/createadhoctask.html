@@ -1,0 +1,70 @@
+<div class="col-md-12" ng-controller="CreateAdhocTaskController">
+        <form name="createAdhocTask" novalidate="" class="form-horizontal well">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.anchor.task.adhoc.create' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="title">{{ 'label.input.task.title' | translate
+                        }}<span
+                                class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="title" name="title" ng-model="formData.title"
+                               class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createAdhocTask" valattribute="title"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">
+                        {{'label.input.office' | translate}} <span ng-show="forceOffice == null" class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <div ng-show="forceOffice == null">
+                            <select chosen="offices" id="officeId" ng-model="formData.officeId"  class="form-control"
+                                    ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                                    ng-change="changeOffice(formData.officeId)"></select>
+                        </div>
+                        <div ng-show="forceOffice != null">
+                            <p class="form-control-static">{{forceOffice.name}}</p>
+                        </div>
+                    </div>
+                    <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select chosen="staffs" id="staffId" ng-model="formData.staffId" ng-disabled="formData.staffId != null" class="form-control"
+                                ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                            <option value="">--{{'label.menu.selectloanofficer' | translate}}--</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">{{ 'label.input.task.description' | translate
+                        }}<span
+                                class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="description" name="description" ng-model="formData.description"
+                               class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createAdhocTask" valattribute="description"/>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/tasks" class="btn btn-default">{{'label.button.cancel' |
+                        translate}}</a>
+                    <button id="save" type="submit"  class="btn btn-primary">{{'label.button.create' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+
+        </form>
+</div>

@@ -1106,6 +1106,9 @@
             .when('/riskrating', {
                 templateUrl: 'views/organization/riskconfig/riskrating.html'
             })
+            .when('/viewprofileratingconfigs', {
+                templateUrl: 'views/organization/profilerating/viewprofileratingconfigs.html'
+            })
             .when('/loanpurposegroups', {
                 templateUrl: 'views/organization/riskconfig/loanpurposegroup.html'
             })
@@ -1380,7 +1383,7 @@
                 templateUrl:'views/products/creditbureauloanproducts.html'
             })
             .when('/loanapplication/:loanApplicationId/workflow', {
-                templateUrl: 'views/loans/loanapplicationworkflow.html'
+                templateUrl: 'views/task/showcase/loanapplicationworkflow.html'
             })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
@@ -1390,6 +1393,18 @@
             })
             .when('/auditreport/:id', {
                 templateUrl: 'views/reports/viewauditreport.html'
+            })
+            .when('/workflowtaskdashboard', {
+                templateUrl: 'views/dashboard/workflowstepdashboard.html'
+            })
+            .when('/tasklist', {
+                templateUrl: 'views/dashboard/tasklist.html'
+            })
+            .when('/viewtask/:taskId', {
+                templateUrl: 'views/task/viewtask.html'
+            })
+            .when('/workflowtask/:entityType/:entityId', {
+                templateUrl: 'views/task/workflowtask.html'
             })
             .when('/bankaccountdetails/:entityType/:entityId', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
@@ -1414,6 +1429,15 @@
             })
             .when('/viewbankaccounttransfers/:entityType/:entityId/:transferId', {
                 templateUrl: 'views/accounttransfers/view_bank_accounttransfer.html'
+            })
+            .when('/organizations/profieratings/create', {
+                templateUrl: 'views/organization/profilerating/createprofileratingconfiguration.html'
+            })
+            .when('/organizations/profieratings/edit/:profileRatingConfigId', {
+                templateUrl: 'views/organization/profilerating/editprofileratingconfiguration.html'
+            })
+            .when('/riskprofileratingcompute', {
+                templateUrl: 'views/organization/profilerating/riskprofileratingcompute.html'
             });
         $locationProvider.html5Mode(false);
     };

@@ -9,7 +9,7 @@
     <api-validate></api-validate>
     <div class="col-md-12 col-sm-12">
         <div class="row primarydiv">
-            <div class="pull-right">
+            <div class="pull-right" ng-if="isDisplayActions == true">
                 <span ng-if="formData.status.id === 100">
                   <a href="#/updateloanapplicationreference/{{loanApplicationReferenceId}}"
                      class="btn btn-primary"
@@ -48,10 +48,10 @@
                      has-permission='REJECT_LOANAPPLICATIONREFERENCE'><i
                           class="icon-remove-circle icon-white"></i>{{'label.button.reject' | translate}}</a>
                 </span>
-                <span ng-if="isWorkFlow && isWorkFlow === true">
+                <span ng-if="isWorkFlow && isWorkFlow === true && formData.status.id < 400">
                   <a href="#/loanapplication/{{loanApplicationReferenceId}}/workflow"
                      class="btn btn-primary"><i
-                          class="icon-white"></i>View work flow</a>
+                          class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
                 </span>
             </div>
         </div>

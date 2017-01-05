@@ -1,0 +1,187 @@
+<div ng-controller="SingleTaskController">
+    <div class="row ">
+        <div class="col-md-4">
+            <h3>{{taskData.name}}</h3>
+        </div>
+        <div class="col-md-2">
+            Status:&nbsp; {{taskData.status.code | translate}}
+        </div>
+        <div class="col-md-3">
+            Assigned To:&nbsp; {{taskData.assignedTo}}
+            <span ng-if="taskData.assignedTo===undefined" ng-repeat="role in taskData.assignedRoles">
+                {{role.name}},
+            </span>
+        </div>
+        <div class="col-md-3">
+            Created On:&nbsp; {{taskData.createdOn | DateFormat}}
+        </div>
+
+        <legend></legend>
+        <div ng-if="canView"  class="col-md-12">
+            <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
+
+            <div ng-if="canComplete==false" class="row">
+                <div class="" style="padding:10px;">
+                    <div class="alert alert-info" style="border-style: dashed;">
+                        <span class="fa fa-info-circle"></span> You do not have any access to complete the task.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="taskData.criteriaResult !== undefined">
+                <div class=" col-md-12 form-inline">
+                    <div>
+                        {{ 'label.heading.request.eligibility.tobe' | translate }} {{taskData.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
+                    </div>
+                    <div ng-show="showCriteriaResult">
+                        <div >
+                            <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
+                        </div>
+                        <div>
+                            {{taskData.criteriaResult.criteriaOutput.name}} - {{taskData.criteriaResult.criteriaOutput.output.bucket}} - {{taskData.criteriaResult.criteriaOutput.output.value}} - {{taskData.criteriaResult.criteriaOutput.output.reason}} - {{taskData.criteriaResult.criteriaOutput.output.error}}
+                            <ul>
+                                <li ng-repeat="dimensionResult in taskData.criteriaResult.criteriaOutput.ruleResultHierarchy">
+                                    {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
+                                    <ol>
+                                        <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+                                            {{factorResult.name}} - {{factorResult.output.bucket}} - {{factorResult.output.value}} - {{factorResult.output.reason}} - {{factorResult.output.error}}
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-offset-4 col-sm-4"><button ng-click="doTaskAction(2)">Do Fresh Check</button></div>
+                </div>
+            </div>
+            <div class="row task-action">
+            <span ng-repeat="action in possibleActions" class="pull-right">
+                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="doTaskAction(action.value)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            </div>
+
+            <div class="row task-action">
+        <span class="pull-left">
+            <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="displayNotes()">Notes</button>&nbsp;
+            <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="displayAttachments()">Attachments</button>&nbsp;
+             <button type="button" class="btn btn-link" ng-disabled="isDisplayActionLogs" ng-click="displayActionLogs()">Action Logs</button>&nbsp;
+        </span>
+            </div>
+
+            <div class="row client" ng-if="isDisplayNotes">
+                <form>
+                    <div class="form-group">
+                        <div class="col-sm-12 col-md-12">
+                    <textarea rows="1" class="form-control marginbottom0px" id="textarea"
+                              placeholder="{{'label.input.enternote' | translate}}" ng-model="noteData.note"></textarea>
+
+                            <div class="notewrapper col-sm-12 col-md-12">
+                            <span class="pull-right noteaddbuttonwrapper">
+                                <button ng-disabled="isTaskCompleted()" class="btn btn-primary" type="button" ng-click="addNote()"
+                                        has-permission='CREATE_TASK_EXECUTION_NOTE'>{{'label.button.add' |
+                                    translate}}
+                                </button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+                <div class="col-sm-12 col-md-12">
+                    <div ng-repeat="taskNote in taskNotes">
+                        <blockquote>
+                            <p>{{taskNote.note}}</p>
+                            <small>{{'label.createdby' | translate}} :&nbsp;{{taskNote.createdBy}} &nbsp; {{'label.createdon' | translate}} :&nbsp;{{taskNote.createdOn | DateFormat}}</small>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row client" ng-if="isDisplayAttachments">
+                <form name="taskdocumentform" rc-submit="submitTaskDocuments()">
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="docData.name" placeholder="File name" class="form-control" required
+                                       late-Validate/>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <textarea rows="1" cols="15" ng-model="docData.description" class="form-control" placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <input type="file" id="taskfile" name="taskfile" ng-file-select="onTaskFileSelect($files)">
+                            </div>
+
+                            <div class="col-sm-2">
+                                <form-validate valattributeform="taskdocumentform" valattribute="name"/>
+                            </div>
+                            <div class="col-sm-2" ng-if="docData.name">
+                                <form-validate valattributeform="taskdocumentform" valattribute="taskfile"/>
+                            </div>
+
+                            <div class="col-md-2">
+                                <button ng-disabled="isTaskCompleted()" id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <br/>
+                <div class="col-sm-12 col-md-12" ng-if="taskDocuments.length > 0">
+                    <table class="table" >
+                        <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.description' | translate}}</th>
+                            <th>{{'label.heading.filename' | translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr ng-repeat="document in taskDocuments">
+                            <td>{{document.name}}</td>
+                            <td>{{document.description}}</td>
+                            <td>{{document.fileName}}</td>
+                            <td>
+                                <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                                <a href="javascript:void(0);" ng-click="deleteTaskDocument(document.id,$index)"><i class="icon-remove"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-if="actionLogs && isDisplayActionLogs" class="row client">
+                <div class="col-md-12">
+                    <h4 class="bolder">{{"label.heading.audit" | translate}}</h4>
+                    <table class="table table-bordered table-striped" >
+                        <tr>
+                            <th>{{"label.heading.audit.action" | translate}}</th>
+                            <th>{{"label.heading.audit.updateDate"| translate}}</th>
+                            <th>{{"label.heading.audit.updateBy"| translate}}</th>
+                        </tr>
+                        <tr ng-repeat="actionLog in actionLogs">
+                            <td>{{actionLog.action.code | translate}}</td>
+                            <td>{{actionLog.actionOn}}</td>
+                            <td>{{actionLog.actionBy}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div ng-if="canView==false" class>
+                <div class="" style="padding:10px;">
+                    <div class="alert alert-info" style="border-style: dashed;">
+                        <span class="fa fa-info-circle"></span> You do not have any access to see the task.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

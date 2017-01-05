@@ -73,6 +73,9 @@
                     clientDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {clientId: '@clientId', documentId: '@documentId'}, {
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
+                    documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
+                        getAllDocuments: {method: 'GET', params: {}, isArray: true}
+                    }),
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
                     }),
@@ -110,7 +113,8 @@
                     }),
                     takeSurveysResource: defineResource(apiVer + "/:entityType/:entityId/takesurveys", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                        post: {method: 'POST', params: {}}
+                        post: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}}
                     }),
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
@@ -956,18 +960,37 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    workflowExecutionResource: defineResource(apiVer + "/workflowexecution/:workflowexecutionId",
-                        {workflowexecutionId:'@workflowexecutionId'}, {
-                            get: {method: 'GET', params: {}}
+                    workflowResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationId/workflow",
+                        {loanApplicationId:'@loanApplicationId'}, {
+                            get: {method: 'GET', params: {}},
+                            update: {method: 'PUT', params: {}}
                         }),
-                    workflowStepExecutionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId",
-                            {workflowstepexecutionId:'@workflowstepexecutionId', action: '@action'}, {
-                            doAction: {method: 'POST', params: {action: '@action'}}
-                        }),
-                    workflowStepExecutionActionResource: defineResource(apiVer + "/workflowexecution/step/:workflowstepexecutionId/actions",
-                        {workflowstepexecutionId:'@workflowstepexecutionId'}, {
-                            getAll: {method: 'GET', params: {}, isArray: true}
-                        }),
+                    taskExecutionResource: defineResource(apiVer + "/tasks/:taskId/execute", {taskId: '@taskId'}, {
+                        doAction: {method: 'POST', params: {action: '@action'}}
+                    }),
+                    taskExecutionTemplateResource: defineResource(apiVer + "/tasks/:taskId/execute/template", {taskId: '@taskId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    taskTemplateResource: defineResource(apiVer + "/tasks/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    entityTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    taskExecutionActionResource: defineResource(apiVer + "/tasks/:taskId/execute/actions",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    taskExecutionNotesResource: defineResource(apiVer + "/tasks/:taskId/execute/notes",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'}
+                    }),
+                    taskExecutionActionLogResource: defineResource(apiVer + "/tasks/:taskId/execute/actionlog",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'}
+                    }),
+                    taskExecutionChildrenResource: defineResource(apiVer + "/tasks/:taskId/execute/children",{taskId: '@taskId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
                     reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
                         getAll: {method: 'GET', params: {}, isArray: false},
                         get: {method: 'GET', params: {id: '@id'}, isArray: false}
@@ -975,6 +998,13 @@
                     smartCardDataResource:defineResource(apiVer+"/clients/:entityId/:entityType/smartcard",{entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {}, isArray: true },
                         update: {method: 'POST', parms:{}}
+                    }),
+                    workFlowStepSummaryResource: defineResource(apiVer + "/tasks/summary",{}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    taskListResource: defineResource(apiVer + "/tasks",{command:'@command'}, {
+                        get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}},
+                        update:{method: 'POST',params:{command:'@command'}}
                     }),
                     bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
@@ -1001,6 +1031,27 @@
                     bankAccountTransferResource: defineResource(apiVer + "/banktransaction/:bankTransferId", {bankTransferId:"@bankTransferId", entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         save: {method: 'POST', params: {}}
+                    }),
+                    taskConfigResource: defineResource(apiVer + "/tasks/config/:withTemplate", {}, {
+                        getTemplate: {method: 'GET', params: {withTemplate:"template", parentConfigId: '@parentConfigId'}}
+                    }),
+                    profileRatingConfigurationTemplate: defineResource(apiVer + "/profileratingconfigs/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    profileRatingConfiguration: defineResource(apiVer + "/profileratingconfigs/:profileRatingConfigId", {profileRatingConfigId:"@profileRatingConfigId"}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    computeProfileRatingTemplate: defineResource(apiVer + "/computeprofileratings/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    computeProfileRating: defineResource(apiVer + "/computeprofileratings", {}, {
+                        save: {method: 'POST', params: {}}
+                    }),
+                    profileRating: defineResource(apiVer + "/profileratings/:entityType/:entityId", {entityType: '@entityType', entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];

@@ -1520,6 +1520,7 @@ figure {
   overflow: visible;
   border-right: 15px solid transparent;
   border-left: 15px solid transparent;
+  margin: 5px 0 0 0;
 }
 .nav-pills.nav-wizard > li + li {
   margin-left: 0;

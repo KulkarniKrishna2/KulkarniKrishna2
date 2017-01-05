@@ -1,0 +1,40 @@
+<div name="viewtaskForm" ng-controller="ViewTaskController">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li ng-if="groupName"><a href="#/viewgroup/{{loanApplicationData.groupId}}"><strong>'{{groupName}}'</strong></a>
+                </li>
+                <li ng-if="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a>
+                </li>
+                <li ng-if="isWorkflowTask">{{'label.heading.workflow' | translate}}</li>
+                <li ng-if="isSingleTask">{{'tasks' | translate}}</li>
+                <li class="active">{{taskData.name}}</li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="row well">
+                <div class="row">
+                    <span class="col-md-2"> Applicant Name: </span>
+                    <span class="col-md-4">{{clientName}} ({{loanApplicationData.clientId}})</span>
+                    <span class="col-md-3"> Requested loan amount: </span>
+                    <span class="col-md-3">{{loanApplicationData.loanAmountRequested}} {{loanApplicationData.currency.displaySymbol}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-2"> Application ref num. :</span>
+                    <span class="col-md-4">{{loanApplicationData.loanApplicationReferenceNo}}</span>
+                    <span class="col-md-3"> Loan Purpose:</span>
+                    <span class="col-md-3">{{loanApplicationData.loanPurpose.name}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-2"> Relationship Officer: </span>
+                    <span class="col-md-4">{{loanApplicationData.loanOfficerName}}</span>
+                    <span class="col-md-3"> Application date: </span>
+                    <span class="col-md-3">{{loanApplicationData.submittedOnDate | DateFormat}}</span>
+                </div>
+            </div>
+            <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
+            <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
+        </div>
+
+    </div>
+</div>
