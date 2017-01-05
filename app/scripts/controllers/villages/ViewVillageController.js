@@ -78,9 +78,40 @@
                     route.reload();
                 });
             };
+
             scope.expand = function(data){
                 data.expanded = !data.expanded;
-            }
+            };
+
+            function getprofileRating(){
+                resourceFactory.profileRating.get({entityType: 6,entityId : routeParams.id}, function (data) {
+                    scope.profileRatingData = data;
+                });
+            };
+            getprofileRating();
+            scope.reComputeProfileRating = function () {
+                scope.profileRatingData = {};
+                resourceFactory.computeProfileRatingTemplate.get(function (response) {
+                    for(var i in response.scopeEntityTypeOptions){
+                        if(response.scopeEntityTypeOptions[i].value === 'OFFICE'){
+                            scope.profileRatingData.scopeEntityType = response.scopeEntityTypeOptions[i].id;
+                            scope.profileRatingData.scopeEntityId =  scope.village.officeId;
+                            break;
+                        }
+                    }
+                    for(var i in response.entityTypeOptions){
+                        if(response.entityTypeOptions[i].value === 'VILLAGE'){
+                            scope.profileRatingData.entityType = response.entityTypeOptions[i].id;
+                            scope.profileRatingData.entityId =  routeParams.id;
+                            break;
+                        }
+                    }
+                    scope.profileRatingData.locale = "en";
+                    resourceFactory.computeProfileRating.save(scope.profileRatingData, function (response) {
+                        getprofileRating();
+                    });
+                });
+            };
         }
     });
     mifosX.ng.application.controller('ViewVillageController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', '$route', '$modal', mifosX.controllers.ViewVillageController]).run(function ($log) {
