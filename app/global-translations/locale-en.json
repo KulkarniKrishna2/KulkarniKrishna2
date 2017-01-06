@@ -3395,6 +3395,7 @@
     "label.input.fund": "Fund",
     "label.input.startdate": "Start date",
     "label.input.enddate": "End date",
+    "label.input.isallowedforchildoffices" : "Allowed for Child Offices",
     "label.input.closedate": "Close date",
     "label.input.includeinborrowerloancounter": "Include in customer loan counter",
     "label.input.product.externalId":"External Id",
