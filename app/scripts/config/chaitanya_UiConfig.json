@@ -100,20 +100,11 @@
       "address": {
         "countryName": "India",
         "stateName": "Karnataka",
-        "addressType": 14
+        "addressType": 800
       },
       "paymentType": {
-        "expectedDisbursalPaymentType": "cash",
-        "expectedRepaymentPaymentType": "cash"
-      }
-    },
-    "createGroup": {
-      "isReadOnlyField": {
-        "staff": true,
-        "active": true
-      },
-      "isAutoPopulate": {
-        "active": true
+        "expectedDisbursalPaymentType": "Cash",
+        "expectedRepaymentPaymentType": "Cash"
       }
     },
     "createCenter": {
