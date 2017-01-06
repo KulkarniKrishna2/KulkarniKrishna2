@@ -1,22 +1,19 @@
 <div ng-controller="SingleTaskController">
     <div class="row ">
-        <div class="col-md-4">
-            <h3>{{taskData.name}}</h3>
-        </div>
-        <div class="col-md-2">
-            Status:&nbsp; {{taskData.status.code | translate}}
-        </div>
-        <div class="col-md-3">
-            Assigned To:&nbsp; {{taskData.assignedTo}}
-            <span ng-if="taskData.assignedTo===undefined" ng-repeat="role in taskData.assignedRoles">
-                {{role.name}},
-            </span>
-        </div>
-        <div class="col-md-3">
-            Created On:&nbsp; {{taskData.createdOn | DateFormat}}
+        <div class="col-md-12">
+            <h3 class="client-title">
+                <strong>{{taskData.name}}</strong>
+                <small>Status: {{taskData.status.code | translate}} |</small>
+                <strong></strong>
+                <small>Assigned To:  {{taskData.assignedTo}}
+                    <span ng-if="taskData.assignedTo===undefined" ng-repeat="role in taskData.assignedRoles">
+                    {{role.name}},
+                </span> |
+                </small>
+                <small>Created On:{{taskData.createdOn | DateFormat}}</small>
+            </h3>
         </div>
 
-        <legend></legend>
         <div ng-if="canView"  class="col-md-12">
             <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
 
