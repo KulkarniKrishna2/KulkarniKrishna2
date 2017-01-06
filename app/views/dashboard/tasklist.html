@@ -1,5 +1,4 @@
 <div class="col-md-12" data-ng-controller="TaskListController">
-    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" placeholder="filter" class="form-control">
     <h3 class="paddedleft">
         <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
     </h3>
@@ -61,27 +60,27 @@
                                 <thead ng-if="false">
                                 <tr>
                                     <th></th>
-                                    <th class="col-md-2">Title</th>
-                                    <th class="col-md-7">Description</th>
-                                    <th class="col-md-2">Date</th>
+                                    <th >Title</th>
+                                    <th >Description</th>
+                                    <th >Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr dir-paginate="workFlowTask in workFlowTasks | filter:filterText | itemsPerPage: pageSize" ng-init="workFlowTask.selected = false" total-items="totalTasks" pagination-id="taskType.id"
                                 >
-                                    <td class="col-md-1">
+                                    <td >
                                         <ng-form>
                                             <input type="checkbox" ng-model="workFlowTask.selected"/>
                                         </ng-form>
                                     </td>
-                                    <td class="col-md-2 pointer"  ng-click="goToTask(workFlowTask)">
-                                        #{{workFlowTask.taskId}}&nbsp;{{workFlowTask.taskName}}
+                                    <td class=" pointer"  ng-click="goToTask(workFlowTask)">
+                                        {{workFlowTask.taskName}}
 
                                     </td>
-                                    <td class="col-md-7 pointer" ng-click="goToTask(workFlowTask)">
+                                    <td class=" pointer" ng-click="goToTask(workFlowTask)">
                                         <span ng-if="workFlowTask.description">{{workFlowTask.description}}</span>
                                     </td>
-                                    <td class="col-md-2 pointer" ng-click="goToTask(workFlowTask)">
+                                    <td class=" pointer" ng-click="goToTask(workFlowTask)">
                                         {{workFlowTask.createdOn}}
                                     </td>
                                 </tr>

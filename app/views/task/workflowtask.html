@@ -14,7 +14,7 @@
                 <li ng-class="{active:isCurrentTask(task.id), disabled:isDisabled(task.id)}" ng-repeat="task in tasks" ><a href ng-click="showMe(task.id)" data-toggle="tab">{{task.name}}</a></li>
             </ul>
         </div>
-        <div class="col-md-12 top-buffer">
+        <div class="col-md-12 ">
             <div ng-if="isCurrentTask(taskData.id)" ng-repeat="taskData in tasks" ng-include="'views/task/singletask.html'"></div>
         </div>
     </div>

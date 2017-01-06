@@ -974,7 +974,7 @@
                     taskTemplateResource: defineResource(apiVer + "/tasks/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    entityTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                    entityTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:entityId/execute/template", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     taskExecutionActionResource: defineResource(apiVer + "/tasks/:taskId/execute/actions",{taskId: '@taskId'}, {
