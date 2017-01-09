@@ -143,7 +143,11 @@
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
                     case "disburse.tranche.creditbureaureport":
-                        location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
+                        if(scope.isCBCheckReq === true && scope.loandetails.status.id == 300){
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
+                        }else if(scope.isCBCheckReq === true && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
+                            location.path('/creditbureaureport/loanapplication/'+scope.loandetails.loanApplicationReferenceId);
+                        }
                         break;
                 }
             };
@@ -342,6 +346,7 @@
                         ]
 
                     };
+                    creditBureauCheckIsRequired();
                 }
 
                 if (data.status.value == "Active") {
@@ -1016,56 +1021,61 @@
 
             scope.isCBCheckReq = false;
             function creditBureauCheckIsRequired() {
-                if(scope.isCBCheckReq === false && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0){
-                    resourceFactory.configurationResource.get({configName: 'tranche-disbursal-high-mark'}, function (response) {
-                        scope.isTrancheDisbursalHighMark = response.enabled;
-                        if (scope.isTrancheDisbursalHighMark == true) {
-                            resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
-                                scope.isHighMark = response.enabled;
-                                if (scope.isHighMark == true) {
-                                    resourceFactory.loanProductResource.getCreditbureauLoanProducts({
-                                        loanProductId: scope.loandetails.loanProductId,
-                                        associations: 'creditBureaus'
-                                    }, function (creditbureauLoanProduct) {
-                                        scope.creditbureauLoanProduct = creditbureauLoanProduct;
-                                        if (scope.creditbureauLoanProduct.isActive == true) {
-                                            scope.isCBCheckReq = true;
-                                            var cbButton = {
-                                                name: "button.disburse.tranche.creditbureaureport",
-                                                icon: "icon-flag",
-                                                taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
-                                            };
-                                            for (var i in scope.buttons.singlebuttons) {
-                                                if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
-                                                    scope.buttons.singlebuttons[i] = cbButton;
-                                                    break;
-                                                }
-                                            }
+                if(scope.isCBCheckReq === false && scope.loandetails.status.id == 300){
+                    getCreditBureauCheckIsRequired();
+                }else if(scope.isCBCheckReq === false && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
+                    getCreditBureauCheckIsRequired();
+                }
+            }
 
-                                            if(!_.isUndefined(scope.loandetails.disbursementDetails)){
-                                                var expectedDisbursementDate = undefined;
-                                                for(var i in scope.loandetails.disbursementDetails){
-                                                    if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
-                                                        if(_.isUndefined(expectedDisbursementDate)){
+            function getCreditBureauCheckIsRequired() {
+                resourceFactory.configurationResource.get({configName: 'tranche-disbursal-high-mark'}, function (response) {
+                    scope.isTrancheDisbursalHighMark = response.enabled;
+                    if (scope.isTrancheDisbursalHighMark == true) {
+                        resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
+                            scope.isHighMark = response.enabled;
+                            if (scope.isHighMark == true) {
+                                resourceFactory.loanProductResource.getCreditbureauLoanProducts({
+                                    loanProductId: scope.loandetails.loanProductId,
+                                    associations: 'creditBureaus'
+                                }, function (creditbureauLoanProduct) {
+                                    scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                                    if (scope.creditbureauLoanProduct.isActive == true) {
+                                        scope.isCBCheckReq = true;
+                                        var cbButton = {
+                                            name: "button.disburse.tranche.creditbureaureport",
+                                            icon: "icon-flag",
+                                            taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
+                                        };
+                                        for (var i in scope.buttons.singlebuttons) {
+                                            if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
+                                                scope.buttons.singlebuttons[i] = cbButton;
+                                                break;
+                                            }
+                                        }
+                                        if(!_.isUndefined(scope.loandetails.disbursementDetails)){
+                                            var expectedDisbursementDate = undefined;
+                                            for(var i in scope.loandetails.disbursementDetails){
+                                                if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
+                                                    if(_.isUndefined(expectedDisbursementDate)){
+                                                        expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                        scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                    }else{
+                                                        if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
                                                             expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
                                                             scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                        }else{
-                                                            if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
-                                                                expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                                scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            };
         }
     });
 

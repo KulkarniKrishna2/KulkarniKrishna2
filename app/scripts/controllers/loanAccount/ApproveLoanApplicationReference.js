@@ -41,7 +41,7 @@
                                 if (scope.charges[i].chargeId == scope.loanAppChargeData[j].chargeId) {
                                     scope.charges[i].loanAppChargeId = scope.loanAppChargeData[j].loanAppChargeId;
                                     scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
-                                    scope.charges[i].dueDate = scope.loanAppChargeData[j].dueDate;
+                                    scope.charges[i].dueDate = dateFilter(new Date(scope.loanAppChargeData[j].dueDate), scope.df);
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
                                     scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
                                 }
