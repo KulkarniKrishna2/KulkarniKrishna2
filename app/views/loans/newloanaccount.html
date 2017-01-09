@@ -538,9 +538,11 @@
                                    is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" class="form-control"/>
                         </td>
                         <td>
-                            <input id="{{disbursementDetail[$index].principal}}" class="input-sm form-control" number-format type="text"
+                            <input id="{{disbursementDetail[$index].principal}}"  class="input-sm form-control" number-format type="text"
                                    ng-model="disbursementDetail.principal"
+                                   name="trancheAmount" id="trancheAmount" required=""
                                    placeholder="{{'label.input.principal' | translate}}">
+                            <form-validate valattributeform="newloanaccountform" valattribute="trancheAmount"/>
                         </td>
                         <td><a ng-click="deleteTranches($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>

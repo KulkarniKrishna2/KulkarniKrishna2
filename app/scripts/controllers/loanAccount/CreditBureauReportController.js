@@ -157,7 +157,11 @@
                 if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months'){
                     return existingLoan.installmentAmount;
                 }else if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks'){
-                    return convertWeeklyEMIAmountToMonthly(existingLoan);
+                    if(existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2){
+                        return convertBIWeeklyEMIAmountToMonthly(existingLoan);
+                    } else {
+                        return convertWeeklyEMIAmountToMonthly(existingLoan);
+                    }
                 }else if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days'){
                     return convertDailyEMIAmountToMonthly(existingLoan);
                 }else{
@@ -167,6 +171,10 @@
 
             function convertWeeklyEMIAmountToMonthly(existingLoan){
                 return (existingLoan.installmentAmount/7) * 30;
+            };
+
+            function convertBIWeeklyEMIAmountToMonthly(existingLoan){
+                return (existingLoan.installmentAmount/14) * 30;
             };
 
             function convertDailyEMIAmountToMonthly(existingLoan){
