@@ -2,7 +2,8 @@
 	<div>
 	    <ul class="breadcrumb">
 	        <li><a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a></li>
-	        <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
+			<li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
+			<li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
 	        <li>{{group.name}}</li>
 	    </ul>
 	</div>

@@ -57,7 +57,7 @@
             } ;
 
             scope.haveFile = [];
-            resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
+            resourceFactory.clientResource.get({clientId: routeParams.id, associations:'hierarchyLookup'}, function (data) {
                 scope.client = data;
                 $rootScope.clientname=data.displayName;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
@@ -70,8 +70,9 @@
                         scope.image = imageData.data;
                     });
                 }
-               
-
+                if(data.groups && data.groups.length ==1) {
+                    scope.group = data.groups[0];
+                }
                 http({
                     method: 'GET',
                     url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'

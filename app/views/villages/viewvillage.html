@@ -44,6 +44,66 @@
         </div>
     </script>
 
+    <table class="table table-bordered "  style="width:60%" data-ng-show="village.centers">
+        <tr class="graybg" ng-show="village.centers">
+            <th colspan="14" class="highlightcol text-left"  scope="colgroup" colspan="10">{{'label.heading.centers' | translate}}</th>
+        </tr>
+        <tbody ng-repeat="center in village.centers">
+        <tr class="pointer graybg">
+            <th colspan="13" class="pointer" data-ng-click="routeToCenter(center.id)">
+                <i tooltip="Center"></i>
+                <i tooltip-placement="right" tooltip="{{center.status}}"></i>
+                {{center.name}}
+            </th>
+            <th>
+                <button type="button" class="btn-primary" style="border: 0" ng-click="expand(center)">
+                    <span ng-bind="center.expanded ? '-' : '+'"></span>
+
+                </button>
+            </th>
+        </tr>
+        <tr class="pointer gray-head" ng-show="center.expanded" ng-repeat-start="groups in center.groupMembers">
+            <th colspan="13" class="pointer text-left" data-ng-click="routeToGroup(groups.id)">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <i tooltip="Group" class="icon-group icon-small"></i>
+                <i tooltip-placement="right" tooltip="{{groups.status}}"></i>
+                {{groups.name}}
+            </th>
+            <th>
+                <button type="button" class="btn-primary" style="border: 0" ng-click="expand(groups)">
+                    <span ng-bind="groups.expanded ? '-' : '+'"></span>
+                </button>
+            </th>
+        </tr>
+
+        <tr class="pointer" ng-show="groups.expanded && center.expanded" ng-repeat-start="client in groups.clientMembers">
+            <th colspan="13" class="pointer text-left" data-ng-click="routeToClient(client.id)">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i tooltip="Client" class="icon-user icon-small"></i>
+                <i tooltip-placement="right"></i>
+                {{client.id}} - {{client.displayName}}
+            </th>
+            <th>
+                <button type="button" class="btn-primary" style="border: 0" ng-click="expand(client)">
+                    <span ng-bind="client.expanded ? '-' : '+'"></span>
+                </button>
+            </th>
+        </tr>
+
+        <tr ng-repeat-end ng-show="client.expanded && groups.expanded && center.expanded" class="pointer" ng-repeat="loan in client.loanAccountSummaryDatas">
+            <th class="pointer text-left" colspan="18" data-ng-click="routeToLoan(loan.id)">
+                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {{loan.accountNo}} - {{loan.productName}}
+            </th>
+        </tr>
+    <tr ng-repeat-end ng-hide="true"></tr>
+    <tr ng-repeat-end></tr>
+    </tbody>
+    </table>
+
+
     <div class="row span" style="margin-left:1px;margin-top:20px">
         <div class="col-sm-6 col-md-6">
             <div class="span gray-head">

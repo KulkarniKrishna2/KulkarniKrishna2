@@ -1,9 +1,19 @@
 <div class="col-md-12" ng-controller="ViewLoanDetailsController">
     <div>
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" ng-show="loandetails.clientData">
+            <li><a ng-href="#/viewoffice/{{loandetails.clientData.officeId}}">{{loandetails.clientData.officeName}}</a></li>
+            <li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
+            <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
+            <li ng-show="group.name"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
             <li ng-show="loandetails.clientName"><a
                     ng-href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a></li>
-            <li ng-show="loandetails.group"><a ng-href="#/viewgroup/{{loandetails.group.id}}">{{loandetails.group.name}}</a></li>
+            <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
+        </ul>
+        <ul class="breadcrumb" ng-hide="loandetails.clientData">
+            <li><a ng-href="#/viewoffice/{{loandetails.group.officeId}}">{{loandetails.group.officeName}}</a></li>
+            <li ng-show="loandetails.group.villageData"><a ng-href="#/viewvillage/{{loandetails.group.villageData.villageId}}">{{loandetails.group.villageData.villageName}}</a></li>
+            <li ng-show="loandetails.group.centerName"><a ng-href="#/viewcenter/{{loandetails.group.centerId}}">{{loandetails.group.centerName}}</a></li>
+            <li ng-show="loandetails.group.name"><a ng-href="#/viewgroup/{{loandetails.group.id}}">{{loandetails.group.name}}</a></li>
             <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
         </ul>
     </div>
