@@ -164,6 +164,9 @@
         "reportNames": "",
         "restrictedDate": ""
       }
+    },
+    "journalEntryConfiguration": {
+      "allowMultipleCreditAndDebitEntries":false
     }
   }
 }

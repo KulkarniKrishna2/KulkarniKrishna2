@@ -52,7 +52,7 @@
 
             //events for debits
             scope.addDebitAccount = function () {
-                     scope.limitingDebitToOne();
+                scope.limitingDebitToOne();
             }
 
 
@@ -66,21 +66,34 @@
                 location.path('/viewtransactions/' +scope.transactionnumber );
             }
 
-            scope.limitingCreditToOne = function(){
-                if(scope.numberOfDebits <= 1){
+            scope.limitingCreditToOne = function (){
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.journalEntryConfiguration.allowMultipleCreditAndDebitEntries) {
                     scope.formData.crAccounts.push({});
-                    scope.numberOfCredits = scope.numberOfCredits + 1;
-                } else{
-                    scope.error = "validation.msg.journal.entry.limit.credit.to.one";
+                     scope.numberOfCredits = scope.numberOfCredits + 1;
+                }else {
+                    if (scope.numberOfDebits <= 1) {
+                        scope.formData.crAccounts.push({});
+                        scope.numberOfCredits = scope.numberOfCredits + 1;
+                    }
+                    else {
+                        scope.error = "validation.msg.journal.entry.limit.credit.to.one";
+                    }
                 }
             }
 
-            scope.limitingDebitToOne = function(){
-                if(scope.numberOfCredits <= 1) {
+            scope.limitingDebitToOne = function() {
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.journalEntryConfiguration.allowMultipleCreditAndDebitEntries) {
                     scope.formData.dbAccounts.push({});
                     scope.numberOfDebits = scope.numberOfDebits + 1;
-                } else{
-                    scope.error = "validation.msg.journal.entry.limit.debit.to.one";
+                }else {
+                    if (scope.numberOfCredits <= 1) {
+                        scope.formData.dbAccounts.push({});
+
+                        scope.numberOfDebits = scope.numberOfDebits + 1;
+                    }
+                    else {
+                        scope.error = "validation.msg.journal.entry.limit.debit.to.one";
+                    }
                 }
             }
 

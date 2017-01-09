@@ -161,9 +161,13 @@
 	},
 	"reportParameterConfiguration": {
 	  "datePicker": {
-		"reportNames": "",
+		"reportNames": "'Expected Payments By Date - Basic'",
 		"restrictedDate": ""
 	  }
+	},
+	"journalEntryConfiguration": {
+		"allowMultipleCreditAndDebitEntries":false
 	}
   }
+
 }
