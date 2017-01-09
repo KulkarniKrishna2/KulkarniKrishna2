@@ -132,6 +132,7 @@
                                 <th>{{'loanproducts' | translate}}</th>
                                 <th>{{'label.input.startdate' | translate}}</th>
                                 <th>{{'label.input.enddate' | translate}}</th>
+                                <th>{{'label.input.isallowedforchildoffices' | translate}}</th>
 
                                     <button class="btn btn-primary pull-right icon-plus" ng-click="showAddScreen(selectedMappingType)">{{'label.button.add' | translate}}</button>
 
@@ -142,6 +143,7 @@
                                 <td>{{entityMappingItem.toEntity}}</td>
                                 <td>{{entityMappingItem.startDate | DateFormat }}</td>
                                 <td>{{entityMappingItem.endDate | DateFormat }}</td>
+                                <td>{{entityMappingItem.isAllowedForChildOffices }}</td>
                                 <td><a class="ng-binding" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" class="btn btn-primary" has-permission='UPDATE_ENTITYMAPPING'><i
                                         class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
                                 </a></td>
@@ -160,6 +162,7 @@
                                 <th>{{'savingproducts' | translate}}</th>
                                 <th>{{'label.input.startdate' | translate}}</th>
                                 <th>{{'label.input.enddate' | translate}}</th>
+                                <th>{{'label.input.isallowedforchildoffices' | translate}}</th>
                                 <button class="btn btn-primary pull-right icon-plus" ng-click="showAddScreen(selectedMappingType)">{{'label.button.add' | translate}}</button>
                             </tr>
                             </thead>
@@ -168,6 +171,7 @@
                                 <td>{{entityMappingItem.toEntity}}</td>
                                 <td>{{entityMappingItem.startDate | DateFormat }}</td>
                                 <td>{{entityMappingItem.endDate | DateFormat}}</td>
+                                <td>{{entityMappingItem.isAllowedForChildOffices }}</td>
                                 <td><a class="ng-binding" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" class="btn btn-primary" has-permission='UPDATE_ENTITYMAPPING'><i
                                         class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
                                 </a></td>
@@ -186,6 +190,7 @@
                                 <th>{{'charges' | translate}}</th>
                                 <th>{{'label.input.startdate' | translate}}</th>
                                 <th>{{'label.input.enddate' | translate}}</th>
+                                <th>{{'label.input.isallowedforchildoffices' | translate}}</th>
                                 <button class="btn btn-primary pull-right icon-plus" ng-click="showAddScreen(selectedMappingType)">{{'label.button.add' | translate}}</button>
                             </tr>
                             </thead>
@@ -194,6 +199,7 @@
                                 <td>{{entityMappingItem.toEntity}}</td>
                                 <td>{{entityMappingItem.startDate | DateFormat }}</td>
                                 <td>{{entityMappingItem.endDate | DateFormat }}</td>
+                                <td>{{entityMappingItem.isAllowedForChildOffices }}</td>
                                 <td><a class="ng-binding" data-ng-click="showEditScreen(entityMappingItem.mapId,selectedMappingType)" class="btn btn-primary" has-permission='UPDATE_ENTITYMAPPING'><i
                                         class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
                                 </a></td>
@@ -288,6 +294,16 @@
                                                 </select>
                                             </div><br><br>
                                         </div>
+
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2">{{'label.input.isallowedforchildoffices' | translate}}</label>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" ng-model="addFormData.isAllowedForChildOffices" ng-true-value="true"
+                                                           ng-false-value="false"/>
+                                                </label>
+                                            </div><br><br>
+                                        </div>
                                     </div>
 
                                     <div ng-show="relId == 2">
@@ -310,6 +326,15 @@
                                             </div><br><br>
                                         </div>
 
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2">{{'label.input.isallowedforchildoffices' | translate}}</label>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" ng-model="addFormData.isAllowedForChildOffices" ng-true-value="true"
+                                                           ng-false-value="false"/>
+                                                </label>
+                                            </div><br><br>
+                                        </div>
                                     </div>
 
                                     <div ng-show="relId == 3">
@@ -328,6 +353,15 @@
                                                 <select chosen="charges" name="charge" id="charges" ng-model="addFormData.toId" class="form-control" data-ng-options="charge.id as charge.name for charge in charges">
                                                     <option class="displaynone" value="">--{{'label.selectcharge' | translate}}--</option>
                                                 </select>
+                                            </div><br><br>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2">{{'label.input.isallowedforchildoffices' | translate}}</label>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" ng-model="addFormData.isAllowedForChildOffices" ng-true-value="true"
+                                                           ng-false-value="false"/>
+                                                </label>
                                             </div><br><br>
                                         </div>
                                     </div>
@@ -433,6 +467,15 @@
                                                 </select>
                                             </div><br><br>
                                         </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2">{{'label.input.isallowedforchildoffices' | translate}}</label>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" ng-model="editFormData.isAllowedForChildOffices" ng-true-value="true"
+                                                           ng-false-value="false" ng-checked="editFormData.isAllowedForChildOffices"/>
+                                                </label>
+                                            </div><br><br>
+                                        </div>
                                     </div>
 
                                     <div ng-show="relId == 2">
@@ -455,6 +498,15 @@
                                             </div><br><br>
                                         </div>
 
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2">{{'label.input.isallowedforchildoffices' | translate}}</label>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" ng-model="editFormData.isAllowedForChildOffices" ng-true-value="true"
+                                                           ng-false-value="false" ng-checked="editFormData.isAllowedForChildOffices"/>
+                                                </label>
+                                            </div><br><br>
+                                        </div>
                                     </div>
 
                                     <div ng-show="relId == 3">
@@ -473,6 +525,15 @@
                                                 <select chosen="charges" name="charge" id="charges" ng-model="editFormData.toId" class="form-control" data-ng-options="charge.id as charge.name for charge in charges">
                                                     <option class="displaynone" value="">--{{'label.selectcharge' | translate}}--</option>
                                                 </select>
+                                            </div><br><br>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2">{{'label.input.isallowedforchildoffices' | translate}}</label>
+                                            <div class="checkbox col-sm-3">
+                                                <label>
+                                                    <input type="checkbox" ng-model="editFormData.isAllowedForChildOffices" ng-true-value="true"
+                                                           ng-false-value="false" ng-checked="editFormData.isAllowedForChildOffices"/>
+                                                </label>
                                             </div><br><br>
                                         </div>
                                     </div>

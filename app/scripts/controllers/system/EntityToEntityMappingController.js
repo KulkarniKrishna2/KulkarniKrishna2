@@ -125,6 +125,7 @@
                     scope.entityMap = data;
                     scope.editFormData.fromId =scope.entityMap[0].fromId;
                     scope.editFormData.toId =scope.entityMap[0].toId;
+                    scope.editFormData.isAllowedForChildOffices = scope.entityMap[0].isAllowedForChildOffices;
                     if (scope.entityMap[0].startDate) {
                         var startDate = dateFilter(scope.entityMap[0].startDate, scope.df);
                         scope.editFormData.startDate = new Date(startDate);
@@ -133,7 +134,6 @@
                         var endDate = dateFilter(scope.entityMap[0].endDate, scope.df);
                         scope.editFormData.endDate = new Date(endDate);
                     }
-
                 });
                 scope.fetchRelatedData(scope.relId);
             }
@@ -165,6 +165,7 @@
                 this.addFormData.dateFormat = scope.df;
                 this.addFormData.startDate = startDate;
                 this.addFormData.endDate = endDate;
+                this.addFormData.isAllowedForChildOffices = scope.addFormData.isAllowedForChildOffices;
 
                 resourceFactory.entityMappingResource.save(
                     {mapId:scope.relId},this.addFormData, function (data) {
@@ -181,6 +182,7 @@
                 this.editFormData.dateFormat = scope.df;
                 this.editFormData.startDate = startDate;
                 this.editFormData.endDate = endDate;
+                this.editFormData.isAllowedForChildOffices = scope.editFormData.isAllowedForChildOffices;
 
                 resourceFactory.entityMappingResource.update({'mapId':scope.editMap},this.editFormData, function (data) {
                     scope.showFilteredData();
