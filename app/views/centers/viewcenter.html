@@ -2,7 +2,8 @@
 	<div>
 	    <ul class="breadcrumb">
 	        <li><a ng-href="#/viewoffice/{{center.officeId}}">{{center.officeName}}</a></li>
-	        <li>{{center.name}}</li>
+			<li ng-show="center.villageCounter"><a ng-href="#/viewvillage/{{center.villageCounter.villageId}}">{{center.villageCounter.villageName}}</a></li>
+			<li>{{center.name}}</li>
 	    </ul>
 	</div>
 	<div class="row">

@@ -33,7 +33,7 @@
                 location.path('/viewcgt/' + id);
             };
 
-            resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
+            resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
                 $rootScope.officeName = data.officeName;
                 $rootScope.officeId = data.officeId;

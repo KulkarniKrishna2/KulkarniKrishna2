@@ -28,6 +28,7 @@
             };
             scope.hideTransactionDetails = false;
 
+
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {
@@ -197,8 +198,11 @@
 
             var multiTranchDataRequest = "multiDisburseDetails";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:"multiTranchDataRequest,loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:"multiTranchDataRequest,loanApplicationReferenceId,hierarchyLookup", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                if(data.clientData.groups && data.clientData.groups.length ==1) {
+                    scope.group = data.clientData.groups[0];
+                }
                 $rootScope.loanproductName = data.loanProductName;
                 $rootScope.clientId=data.clientId;
                 $rootScope.LoanHolderclientName=data.clientName;
@@ -212,6 +216,7 @@
                 scope.status = data.status.value;
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
                 scope.decimals = data.currency.decimalPlaces;
+
                 if (scope.loandetails.charges) {
                     scope.charges = scope.loandetails.charges;
                     for (var i in scope.charges) {

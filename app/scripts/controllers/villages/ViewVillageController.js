@@ -4,7 +4,7 @@
             scope.village = {};
             scope.addressId ;
 
-            resourceFactory.villageResource.get({villageId: routeParams.id, associations: 'setOfCenters'}, function (data) {
+            resourceFactory.villageResource.get({villageId: routeParams.id, associations: 'setOfCenters,hierarchy'}, function (data) {
 
                 scope.village = data;
                 scope.activationDate = new Date(scope.village.timeline.activatedOnDate);
@@ -13,6 +13,28 @@
                 scope.village.timeline.submittedOnDate = dateFilter(scope.submittedDate, scope.df);
             });
 
+            scope.expandAll = function (center, expanded) {
+                center.isExpanded = expanded;
+            };
+            scope.expandGroup = function (group, expanded) {
+                group.isExpanded = expanded;
+            };
+            scope.expandClient = function (client, expanded) {
+                client.isExpanded = expanded;
+            };
+
+            scope.routeToCenter = function (id) {
+                location.path('/viewcenter/' + id);
+            };
+            scope.routeToLoan = function (id) {
+                location.path('/viewloanaccount/' + id);
+            };
+            scope.routeToGroup = function (id) {
+                location.path('/viewgroup/' + id);
+            };
+            scope.routeToClient = function (id) {
+                location.path('/viewclient/' + id);
+            };
             scope.deleteVillage = function () {
                 $modal.open({
                     templateUrl: 'deletevillage.html',
@@ -56,6 +78,9 @@
                     route.reload();
                 });
             };
+            scope.expand = function(data){
+                data.expanded = !data.expanded;
+            }
         }
     });
     mifosX.ng.application.controller('ViewVillageController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', '$route', '$modal', mifosX.controllers.ViewVillageController]).run(function ($log) {
