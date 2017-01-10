@@ -2185,7 +2185,7 @@
     "label.heading.fromloanamount" : "From Loan Amount",
     "label.heading.toloanamount" : "To Loan Amount",
     "label.heading.chargeamount" : "Charge Amount",
-
+    "label.heading.bureau" : "Credit Bureau",
     "#Anchors": "..",
     "label.anchor.addsavingcharges": "Add Saving Charges",
     "label.anchor.viewsavingaccount": "View Saving Account",
