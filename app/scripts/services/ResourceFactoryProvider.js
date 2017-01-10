@@ -218,6 +218,9 @@
                     creditBureauReportFileContentResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/creditbureaureport", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    creditLatestBureauReportFileContentResource: defineResource(apiVer + "/enquiry/creditbureau/creditbureaureport",{clientId: '@clientId'},  {
+                        get: {method: 'GET', params: {}}
+                    }),
                     loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),

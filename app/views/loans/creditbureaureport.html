@@ -24,8 +24,8 @@
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
                     </span>
                     <div class="pull-right" ng-if="loansSummary.cbStatus.value == 'SUCCESS'">
-                        <button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
-                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
+                </div>
                 </div>
                 <div class="col-md-12 well">
                     <div class="col-md-12 pull-right">
@@ -115,9 +115,9 @@
                                     <td>
                                         <span><strong>{{'label.heading.name.of.mfi' | translate}}</strong></span>
                                     </td>
-                                   <!-- <td>
+                                    <td>
                                         <span><strong>{{'label.heading.customer.since' | translate}}</strong></span>
-                                    </td> -->
+                                    </td>
                                     <td>
                                         <span><strong>{{'label.heading.no.of.active.loans' | translate}}</strong></span>
                                     </td>
@@ -141,9 +141,9 @@
                                     <td>
                                         <span>{{summary.lenderName}}</span>
                                     </td>
-                                    <!--<td>
+                                    <td>
                                         <span>{{summary.customerSince |DateFormat}}</span>
-                                    </td> -->
+                                    </td> 
                                     <td>
                                         <span>{{summary.noOfActiveLoans}}</span>
                                     </td>
