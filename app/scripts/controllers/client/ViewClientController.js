@@ -197,8 +197,8 @@
             };
 
             function findcustomerSinceFromEachMFI() {
-                if(scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0){
-                    if(scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0){
+                if(scope.activeLoan && scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0){
+                    if(scope.closedLoan && scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0){
                         for(var i in scope.activeLoan.summaries){
                             for(var j in scope.closedLoan.summaries){
                                 if(scope.activeLoan.summaries[i].lenderName === scope.closedLoan.summaries[j].lenderName){
