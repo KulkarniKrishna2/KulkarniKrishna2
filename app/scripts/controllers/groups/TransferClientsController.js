@@ -9,9 +9,9 @@
             scope.destinationGroup = "";
             scope.groupId = routeParams.id;
 
-            resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
+            resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'activeClientMembers'}, function (data) {
                 scope.data = data;
-                scope.allMembers = data.clientMembers;
+                scope.allMembers = data.activeClientMembers;
             });
 
             scope.groups = function(value){
