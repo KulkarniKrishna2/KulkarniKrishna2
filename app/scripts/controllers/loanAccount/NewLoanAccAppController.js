@@ -13,6 +13,10 @@
             scope.date = {};
             scope.formData.isSubsidyApplicable = false;
             scope.glimMembers = [];
+            scope.repeatsOnDayOfMonthOptions = [];
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
             scope.isGLIM = ((location.path()+'').indexOf('newgrouploanindividualmonitoringloanaccount')>-1);
             if(scope.isGLIM){
                 scope.formData.clientMembers = [];
