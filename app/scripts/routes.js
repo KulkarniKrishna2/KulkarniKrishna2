@@ -1340,6 +1340,9 @@
             .when('/client/:clientId/viewclientexistingloan/:existingloanId', {
                 templateUrl: 'views/clients/viewexistingloan.html'
             })
+            .when('/clients/:clientId/guarantees', {
+                templateUrl: 'views/clients/viewclientguarantees.html'
+            })
             .when('/viewclient/:clientId/viewloanapplicationreference/:loanApplicationReferenceId/surveys', {
                 templateUrl: 'views/loans/listsurvey.html'
             })

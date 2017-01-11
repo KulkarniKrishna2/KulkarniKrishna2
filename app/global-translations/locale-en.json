@@ -719,6 +719,7 @@
     "label.heading.editclientAddress":"Edit address",
     "label.heading.smartcard":"Smart Card",
     "label.heading.inactivated": "Inactivate Smartcard",
+    "label.heading.clientguarantees": "Loans Guaranteed",
 
     "#Anchors": "..",
     "label.anchor.clients": "Clients",
@@ -798,6 +799,7 @@
     "label.showClientSignature" : "View Client Signature",
     "label.noClientSignature" : "Client Signature is not provided",
     "label.button.getfingerprint": "Get Finger print",
+    "label.button.viewguarantees": "View Guarantees",
 
     "#Enumeration & Error Messages": "..",
     "client.search.not.allowed": "Not Allowed to Use Client Search.",
