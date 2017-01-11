@@ -9,7 +9,7 @@
     <form ng-submit="submit()" class="well form-horizontal">
         <fieldset>
 	        <legend>{{'label.heading.editmeeting' | translate}}
-                 <span class="pull-right " has-permission='UPDATEFUTUREMEETINGS_CALENDAR'>
+                 <span class="pull-right " ng-hide="formData.repeatsOnNthDayOfMonth" has-permission='UPDATEFUTUREMEETINGS_CALENDAR'>
  <a class="btn btn-primary" href="#/editcalendarbasedonmeetingdates/{{entityType}}/{{groupOrCenterId}}/{{calendarId}}" >{{ 'label.button.editcalendarbasedonmeetingdates' | translate }}</a></span>
             </legend>
 
@@ -54,7 +54,7 @@
                                 value="{{repeatsOnLastWeekdayOfMonth.value}}"><option value=""></option></select>&nbsp;
                     </div>
                     <div class="col-sm-1" data-ng-show="formData.frequency == 3 && formData.repeatsOnNthDayOfMonth == -2">
-                        <select id="repeatsOnDayOfMonth" class="form-control" ng-model="formData.repeatsOnDayOfMonth"
+                        <select id="repeatsOnDayOfMonth" class="form-control multiselectmin" multiple ng-model="formData.repeatsOnDayOfMonth"
                                 ng-options="repeatsOnDayOfMonth as repeatsOnDayOfMonth for repeatsOnDayOfMonth in repeatsOnDayOfMonthOptions"
                                 value="{{repeatsOnDayOfMonth}}"></select>&nbsp;
                     </div>

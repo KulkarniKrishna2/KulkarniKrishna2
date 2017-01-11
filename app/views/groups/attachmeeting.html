@@ -97,7 +97,7 @@
                                 value="{{repeatsOnLastWeekdayOfMonth.value}}"><option value=""></option></select>&nbsp;
                     </td>
                     <td class="col-sm-2" data-ng-show="formData.repeatsOnNthDayOfMonth == -2">
-                        <select id="repeatsOnDayOfMonth" class="form-control" ng-model="formData.repeatsOnDayOfMonth"
+                        <select  id="repeatsOnDayOfMonth"  class="form-control multiselectmin" multiple ng-model="formData.repeatsOnDayOfMonth"
                                 ng-options="repeatsOnDayOfMonth as repeatsOnDayOfMonth for repeatsOnDayOfMonth in repeatsOnDayOfMonthOptions"
                                 value="{{repeatsOnDayOfMonth}}"></select>&nbsp;
                     </td>

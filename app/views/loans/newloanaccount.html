@@ -257,9 +257,12 @@
                             value="{{repaymentFrequencyNthDayType.id}}"/>&nbsp;
                     <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
                             ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
-                            ng-show="formData.repaymentFrequencyType == 2"
+                            ng-show="formData.repaymentFrequencyNthDayType != -2"
                             ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType)"
                             value="{{repaymentFrequencyDayOfWeekType.id}}"/>&nbsp;
+                    <select  data-ng-show="formData.repaymentFrequencyNthDayType == -2" id="repeatsOnDayOfMonth"  class="form-control multiselectmin" multiple ng-model="formData.repeatsOnDayOfMonth"
+                             ng-options="repeatsOnDayOfMonth as repeatsOnDayOfMonth for repeatsOnDayOfMonth in repeatsOnDayOfMonthOptions"
+                             value="{{repeatsOnDayOfMonth}}"></select>&nbsp;
                     <form-validate valattributeform="newloanaccountform" valattribute="repaidevery"/>
                 </td>
                 

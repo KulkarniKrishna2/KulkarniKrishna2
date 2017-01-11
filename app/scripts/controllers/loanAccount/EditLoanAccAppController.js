@@ -13,6 +13,10 @@
             scope.isGLIM = false;
             scope.GLIMData = {};
             scope.clientMembers = [];
+            scope.repeatsOnDayOfMonthOptions = [];
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
 
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
@@ -262,6 +266,16 @@
 
                 if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("centers") || scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
                     scope.temp.syncRepaymentsWithMeeting = true;
+                }
+
+                if (scope.loanaccountinfo.meeting && scope.loanaccountinfo.meeting.title.startsWith("loan_schedule")){
+                    scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.meeting.repeatsOnNthDayOfMonth.id;
+                    if (scope.loanaccountinfo.meeting.repeatsOnDay) {
+                        scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.meeting.repeatsOnDay.id;
+                    }
+                    if (scope.loanaccountinfo.meeting.repeatsOnDayOfMonth) {
+                        scope.formData.repeatsOnDayOfMonth = scope.loanaccountinfo.meeting.repeatsOnDayOfMonth;
+                    }
                 }
 
                 if(scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting){
