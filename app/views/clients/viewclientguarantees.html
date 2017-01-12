@@ -1,0 +1,39 @@
+<div class="col-md-12" ng-controller="ClientGuaranteeController">
+    <ul class="breadcrumb">
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{'label.heading.clientguarantees' | translate}}</li>
+    </ul>
+
+    <br/>
+    <legend>{{'label.heading.clientguarantees' | translate}}</legend>
+
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.loanaccountnumber' | translate}}</th>
+            <th>{{'label.heading.guarantee.status' | translate}}</th>
+            <th>{{'label.input.principalamount' | translate}}</th>
+            <th>{{'label.heading.loanproduct' | translate}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr class="pointer-main" ng-repeat="loan in loans">
+                <td class="pointer" data-ng-click="routeToLoan(loan.LoanId)">
+                    <i class="icon-stop {{loan.LoanStatusKey | StatusLookup}} {{loan.LoanStatusKey | StatusLookup}}overdue"></i>
+                    {{loan.LoanAccountNo}}
+                </td>
+                <td class="pointer" data-ng-click="routeToLoan(loan.LoanId)">{{loan.LoanStatusKey | translate}}</td>
+                <td class="pointer" data-ng-click="routeToLoan(loan.LoanId)">{{loan.LoanAmount | number}}</td>
+                <td class="pointer" data-ng-click="routeToLoan(loan.LoanId)">{{loan.Product}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <div class="col-md-offset-5">
+            <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' |
+                translate}}</a>
+    </div>
+
+</div>
