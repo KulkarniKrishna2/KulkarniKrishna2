@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        DisburseLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        DisburseLoanApplicationReference: function (scope, routeParams, resourceFactory, location, $modal, dateFilter) {
 
             scope.issubmitted = false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
@@ -22,8 +22,12 @@
             scope.date = {};
             var curIndex = 0;
 
-            resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (data) {
+            //2F Authentication
+            scope.catureFP = false ;
+
+            resourceFactory.loanApplicationReferencesTemplateResource.get({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
+                scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions;
                 if (scope.paymentTypes) {
                     scope.formRequestData.disburse.paymentTypeId = scope.paymentTypes[0].id;
                 }
@@ -82,6 +86,103 @@
                 }
                 ;
             });
+
+
+            //2F Authentication
+            scope.catureFP = false ;
+
+            scope.checkBiometricRequired = function() {
+                if( scope.transactionAuthenticationOptions &&  scope.transactionAuthenticationOptions.length > 0) {
+                    for(var i in scope.transactionAuthenticationOptions) {
+                        var paymentTypeId = Number(scope.transactionAuthenticationOptions[i].paymentTypeId) ;
+                        var amount = Number(scope.transactionAuthenticationOptions[i].amount) ;
+                        var authenticationType = scope.transactionAuthenticationOptions[i].authenticationType ;
+                        if(authenticationType === 'Aadhaar fingerprint' && scope.formRequestData.disburse.paymentTypeId === paymentTypeId && scope.formRequestData.disburse.transactionAmount>= amount) {
+                            scope.catureFP = true ;
+                            scope.formRequestData.disburse.authenticationRuleId = scope.transactionAuthenticationOptions[i].authenticationRuleId ;
+                            return ;
+                        }
+                    }
+                }
+                scope.catureFP = false ;
+                delete scope.formData.authenticationRuleId ;
+            };
+
+            var FingerPrintController = function ($scope, $modalInstance) {
+                $scope.isFingerPrintCaptured = false ;
+
+                $scope.submit = function () {
+                    if($scope.isFingerPrintCaptured === true) {
+                        $modalInstance.close('Close');
+                        scope.finalSubmit() ;
+                    }
+                };
+
+                $scope.clearFingerPrint = function() {
+                    imagedata= document.getElementById("biometric");
+                    imagedata.src= "#";
+                    delete scope.formRequestData.disburse.clientAuthData ;
+                    delete scope.formRequestData.disburse.location ;
+                    delete scope.formRequestData.disburse.authenticationType ;
+                    $scope.isFingerPrintCaptured = false ;
+                };
+
+                $scope.captureFingerprint = function() {
+                    //Get this url from platform
+                    var url = "https://localhost:15001/CaptureFingerprint";
+                    if (window.XMLHttpRequest)
+                    {// code for IE7+, Firefox, Chrome, Opera, Safari
+
+                        xmlhttp=new XMLHttpRequest();
+
+                    }
+                    else
+                    {// code for IE6, IE5
+                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+                    }
+                    xmlhttp.onreadystatechange=function()
+                    {
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                        {
+                            fpobject = JSON.parse(xmlhttp.responseText);
+                            imagedata= document.getElementById("biometric");
+                            imagedata.src= "data:image;base64,"+fpobject.Base64BMPIMage;
+                            scope.formRequestData.disburse.clientAuthData = fpobject.Base64ISOTemplate ;
+                            scope.formRequestData.disburse.location = {} ;
+                            scope.formRequestData.disburse.location.locationType = "pincode" ;
+                            scope.formRequestData.disburse.location.pincode = "560010" ;
+                            scope.formRequestData.disburse.authenticationType = "fingerprint" ;
+                            $scope.isFingerPrintCaptured = true ;
+                        }
+
+                        xmlhttp.onerror = function () {
+                            alert("Check If Morpho Service/Utility is Running");
+                        }
+
+                    }
+                    var timeout = 5;
+                    var fingerindex = 1;
+                    xmlhttp.open("POST",url+"?"+timeout+"$"+fingerindex,true);
+                    xmlhttp.send();
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                    delete scope.formRequestData.disburse.clientAuthData ;
+                    delete scope.formRequestData.disburse.location ;
+                    delete scope.formRequestData.disburse.authenticationType ;
+                    $scope.isFingerPrintCaptured = false ;
+                };
+            };
+
+            scope.getFingerPrint = function () {
+                $modal.open({
+                    templateUrl: 'fingerprint.html',
+                    controller: FingerPrintController
+                });
+            };
+
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
@@ -300,7 +401,16 @@
                 }
             }
 
-            scope.submit = function () {
+              scope.submit = function () {
+                scope.checkBiometricRequired() ;
+                if(scope.catureFP==true) {
+                    scope.getFingerPrint() ;
+                }else {
+                    scope.finalSubmit() ;
+                }
+            };
+
+            scope.finalSubmit = function () {
                 scope.previewRepayments(false);
                 if (scope.charges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
@@ -452,7 +562,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('DisburseLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.DisburseLoanApplicationReference]).run(function ($log) {
+    mifosX.ng.application.controller('DisburseLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal','dateFilter', mifosX.controllers.DisburseLoanApplicationReference]).run(function ($log) {
         $log.info("DisburseLoanApplicationReference initialized");
     });
 }(mifosX.controllers || {}));

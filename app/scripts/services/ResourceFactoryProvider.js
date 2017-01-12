@@ -221,7 +221,7 @@
                     creditLatestBureauReportFileContentResource: defineResource(apiVer + "/enquiry/creditbureau/creditbureaureport",{clientId: '@clientId'},  {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/template", {}, {
+                    loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/template", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
