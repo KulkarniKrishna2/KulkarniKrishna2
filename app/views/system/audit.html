@@ -87,10 +87,10 @@
 
         <ul class="pager">
             <li class="previous">
-                <a id="prev" ng-click="audit.previous()" href="" ng-disabled="!audit.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+                <a id="prev" ng-click="audit.previous()" href="" ng-show="audit.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
             </li>
             <li class="next">
-                <a id="next" ng-click="audit.next()" href="" ng-disabled="!audit.hasNext()">{{'label.button.next' | translate}} &rarr;</a>
+                <a id="next" ng-click="audit.next()" href="" ng-show="audit.hasNext()">{{'label.button.next' | translate}} &rarr;</a>
             </li>
         </ul>
 
