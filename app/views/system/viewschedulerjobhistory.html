@@ -39,9 +39,9 @@
     </script>
     <ul class="pager">
         <li class="previous"><a id="prev" ng-click="jobhistory.previous()" href=""
-                                ng-disabled="!jobhistory.hasPrevious()">&larr;{{'label.button.previous' |
+                                ng-show="jobhistory.hasPrevious()">&larr;{{'label.button.previous' |
             translate}}</a></li>
-        <li class="next"><a id="next" ng-click="jobhistory.next()" href="" ng-disabled="!jobhistory.hasNext()">{{'label.button.next'
+        <li class="next"><a id="next" ng-click="jobhistory.next()" href="" ng-show="jobhistory.hasNext()">{{'label.button.next'
             | translate}} &rarr;</a></li>
     </ul>
 </div>
