@@ -81,9 +81,9 @@
             </tbody>
         </table>
         <ul class="pager">
-            <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' |
+            <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-show="transactions.hasPrevious()">&larr; {{'label.button.previous' |
                 translate}}</a></li>
-            <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next'
+            <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-show="transactions.hasNext()">{{'label.button.next'
                 | translate}} &rarr; </a></li>
         </ul>
     </div>

@@ -34,9 +34,9 @@
 
     <ul class="pager">
         <li class="previous"><a id="prev" ng-click="entries.previous()" href=""
-                                ng-disabled="!entries.hasPrevious()">&larr; {{'label.button.previous' |
+                                ng-show="entries.hasPrevious()">&larr; {{'label.button.previous' |
             translate}}</a></li>
-        <li class="next"><a id="next" ng-click="entries.next()" href="" ng-disabled="!entries.hasNext()">{{'label.button.next'
+        <li class="next"><a id="next" ng-click="entries.next()" href="" ng-show="entries.hasNext()">{{'label.button.next'
             | translate}} </a></li>
     </ul>
 </div>

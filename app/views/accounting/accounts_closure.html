@@ -50,9 +50,9 @@
         </tbody>
     </table>
         <ul class="pager">
-            <li class="previous"><a id="prev" ng-click="accountClosures.previous()" href="" ng-disabled="!accountClosures.hasPrevious()">&larr; {{'label.button.previous' |
+            <li class="previous"><a id="prev" ng-click="accountClosures.previous()" href="" ng-show="accountClosures.hasPrevious()">&larr; {{'label.button.previous' |
                 translate}}</a></li>
-            <li class="next"><a id="next" ng-click="accountClosures.next()" href="" ng-disabled="!accountClosures.hasNext()">{{'label.button.next'
+            <li class="next"><a id="next" ng-click="accountClosures.next()" href="" ng-show="accountClosures.hasNext()">{{'label.button.next'
                 | translate}} &rarr; </a></li>
         </ul>
         </div>
@@ -81,9 +81,9 @@
         </tbody>
     </table>
     <ul class="pager">
-        <li class="previous"><a id="prev" ng-click="accountClosures.previous()" href="" ng-disabled="!accountClosures.hasPrevious()">&larr; {{'label.button.previous' |
+        <li class="previous"><a id="prev" ng-click="accountClosures.previous()" href="" ng-show="accountClosures.hasPrevious()">&larr; {{'label.button.previous' |
             translate}}</a></li>
-        <li class="next"><a id="next" ng-click="accountClosures.next()" href="" ng-disabled="!accountClosures.hasNext()">{{'label.button.next'
+        <li class="next"><a id="next" ng-click="accountClosures.next()" href="" ng-show="accountClosures.hasNext()">{{'label.button.next'
             | translate}} &rarr; </a></li>
     </ul>
 </div>
