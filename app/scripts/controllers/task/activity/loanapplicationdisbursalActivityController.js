@@ -360,7 +360,7 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'disburse'
                 }, this.formRequestData, function (data) {
-                    scope.$emit("activityDone",{});
+                    scope.activityDone();
                     getLoanAccountDetails(data.changes.loanId);
                 });
             };

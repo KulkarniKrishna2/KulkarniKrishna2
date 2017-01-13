@@ -437,6 +437,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/loanapplicationdisbursalActivityController',
             'task/activity/bankaccountActivityController',
             'task/activity/kycActivityController',
+            'task/activity/camActivityController',
+            'task/activity/cashflowActivityController',
+            'task/activity/criteriacheckActivityController',
+            'task/activity/existingloanActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',
@@ -465,7 +469,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'FormatNumber',
             'TranslateDataTableColumn',
             'SearchFilter',
-            'AddUpTotalFor'
+            'AddUpTotalFor',
+            'IconLookup'
         ],
         directives: [
             'DialogDirective',

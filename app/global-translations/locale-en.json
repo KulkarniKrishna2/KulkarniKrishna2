@@ -593,6 +593,7 @@
     "#Menu Links": "..",
     "label.menu.office": "Office",
     "label.menu.loan.products": "Loan Products",
+    "label.button.eligibilitycheck":"Run Eligibility Check",
 
     "#Anchors": "..",
     "label.anchor.startpage": "Start Page",
@@ -5219,7 +5220,7 @@
     "label.heading.criterias":"Criterias",
 
     "label.heading.request.eligibility.check":"Eligibilty Check",
-    "label.heading.request.eligibility.tobe":"It is good to be",
+    "label.heading.request.eligibility.tobe":"Criteria Check result: ",
     "label.heading.request.eligibility.detail":"Detail",
 
     "label.input.defaultvalue":"Default Output",

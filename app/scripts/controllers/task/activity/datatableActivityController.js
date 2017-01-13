@@ -196,7 +196,7 @@
                     }
                 }
                 resourceFactory.DataTablesResource.save(params, this.formData, function (data) {
-                    scope.$emit("activityDone", {});
+                    scope.activityDone();
                     scope.getDetails();
                 });
             };
@@ -306,7 +306,7 @@
                 var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
                     scope.getDetails();
-                    scope.$emit("activityEdit", {});
+                    scope.activityEdit();
                 });
             };
         }

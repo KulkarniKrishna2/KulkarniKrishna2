@@ -135,7 +135,7 @@
                         entityType: scope.entityTypeId,
                         entityId: scope.entityId
                     }, scope.formData, function (data) {
-                        scope.$emit("activityDone", {});
+                        scope.activityDone();
                         scope.displaySurveysList();
                     });
                 }else{
@@ -143,7 +143,7 @@
                         entityType: scope.entityTypeId,
                         entityId: scope.entityId
                     }, scope.formData, function (data) {
-                        scope.$emit("activityDone", {});
+                        scope.activityDone();
                         scope.displaySurveysList();
                     });
                 }

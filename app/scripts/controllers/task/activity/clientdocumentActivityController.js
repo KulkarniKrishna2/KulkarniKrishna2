@@ -36,7 +36,7 @@
                         if (!scope.$$phase) {
                             scope.$apply();
                         }
-                        scope.$emit("activityDone",{});
+                        scope.activityDone();
                         getClientDocuments();
                     });
             };
