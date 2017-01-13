@@ -28,27 +28,29 @@
             <div class="row" ng-if="taskData.criteriaResult !== undefined">
                 <div class=" col-md-12 form-inline">
                     <div>
-                        {{ 'label.heading.request.eligibility.tobe' | translate }} {{taskData.criteriaResult.status}}. <a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
+                        <span><i class="{{ taskData.criteriaResult.eligibiltyStatus.code | StatusLookup}} {{taskData.criteriaResult.eligibiltyStatus.code | IconLookup}} icon-large"></i></span>
+                         <span class="strong">{{ 'label.heading.request.eligibility.tobe' | translate }}</span> {{taskData.criteriaResult.status}}.
+                        <a ng-click="doTaskAction('criteriacheck')"><i class="icon-refresh"></i></a>
+                        &nbsp;&nbsp;&nbsp;<a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
+
                     </div>
                     <div ng-show="showCriteriaResult">
-                        <div >
-                            <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
-                        </div>
                         <div>
-                            {{taskData.criteriaResult.criteriaOutput.name}} - {{taskData.criteriaResult.criteriaOutput.output.bucket}} - {{taskData.criteriaResult.criteriaOutput.output.value}} - {{taskData.criteriaResult.criteriaOutput.output.reason}} - {{taskData.criteriaResult.criteriaOutput.output.error}}
+                            <span class="badge {{ 'bucket'+taskData.criteriaResult.criteriaOutput.output.value | StatusLookup}}">{{taskData.criteriaResult.criteriaOutput.output.value}}</span>
+                            {{taskData.criteriaResult.criteriaOutput.output.bucket}}&nbsp;[{{taskData.criteriaResult.criteriaOutput.name}}] <span ng-if="taskData.criteriaResult.criteriaOutput.output.error"> - {{taskData.criteriaResult.criteriaOutput.output.error}}</span>
                             <ul>
                                 <li ng-repeat="dimensionResult in taskData.criteriaResult.criteriaOutput.ruleResultHierarchy">
-                                    {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
+                                    <span class="badge {{ 'bucket'+dimensionResult.output.value | StatusLookup}}">{{dimensionResult.output.value}}</span>
+                                    {{dimensionResult.output.bucket}}&nbsp;[{{dimensionResult.name}}]  <span ng-if="dimensionResult.output.error"> - {{dimensionResult.output.error}}</span>
                                     <ol>
-                                        <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
-                                            {{factorResult.name}} - {{factorResult.output.bucket}} - {{factorResult.output.value}} - {{factorResult.output.reason}} - {{factorResult.output.error}}
+                                        <li  ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+                                            <span class="badge {{ 'bucket'+factorResult.output.value | StatusLookup}}">{{factorResult.output.value}}</span>
+                                             {{factorResult.output.bucket}}&nbsp;[{{factorResult.name}}] <span ng-if="factorResult.output.error"> - {{factorResult.output.error}}</span>
                                     </ol>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-                    <div class="col-sm-offset-4 col-sm-4"><button ng-click="doTaskAction(2)">Do Fresh Check</button></div>
                 </div>
             </div>
             <div class="row task-action">

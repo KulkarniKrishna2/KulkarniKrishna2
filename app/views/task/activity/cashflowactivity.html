@@ -1,0 +1,580 @@
+<div class="col-md-12" ng-controller="cashflowActivityController" >
+    <div ng-if="showSummary">
+
+        <div class="form-horizontal">
+            <h3>{{'label.heading.occupationdetails' | translate}}
+                <button ng-click="addClientoccupationdetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ 'label.heading.occupationname' | translate }}</th>
+                    <th>{{ 'label.heading.quantity' | translate }}</th>
+                    <th>{{ 'label.heading.income' | translate }}</th>
+                    <th>{{ 'label.heading.expense' | translate }}</th>
+                    <th>{{ 'label.heading.net' | translate}}</th>
+                    <th>{{}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                    <td >
+                        {{incomeAndExpense.incomeExpenseData.name}}
+                    </td>
+                    <td data-ng-click="">
+                        {{incomeAndExpense.quintity}}
+                    </td>
+                    <td data-ng-click="">
+                        {{incomeAndExpense.totalIncome}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.totalExpense}}
+                    </td>
+                    <td>
+                        <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+                    </td>
+                    <td class="pull-right">
+                        <button role="button" ng-click="editClientoccupationdetails(incomeAndExpense.id)" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <legend></legend>
+
+        <div class="form-horizontal">
+            <h3>{{'label.heading.assetdetails' | translate}}
+                <button ng-click="addClientassetdetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
+            <br>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ 'label.heading.assetname' | translate }}</th>
+                    <th>{{ 'label.heading.quantity' | translate }}</th>
+                    <th>{{ 'label.heading.income' | translate }}</th>
+                    <th>{{ 'label.heading.expense' | translate }}</th>
+                    <th>{{ 'label.heading.net' | translate}}</th>
+                    <th>{{}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.incomeExpenseData.name}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.quintity}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.totalIncome}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.totalExpense}}
+                    </td>
+                    <td>
+                        <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+                    </td>
+                    <td class="pull-right">
+                        <button role="button" ng-click="editClientassetdetails(incomeAndExpense.id)" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <legend></legend>
+
+        <div class="form-horizontal">
+            <h3>{{'label.heading.householddetails' | translate}}
+                <button ng-click="addClienthouseholddetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
+            <br>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ 'label.heading.expensename' | translate }}</th>
+                    <th>{{ 'label.heading.quantity' | translate }}</th>
+                    <th>{{ 'label.heading.expense' | translate }}</th>
+                    <th>{{}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.incomeExpenseData.name}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.quintity}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.totalExpense}}
+                    </td>
+                    <td class="pull-right">
+                        <button role="button" ng-click="editClienthouseholddetails(incomeAndExpense.id)" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="">
+            <h3 class="bolder">{{'label.view.summary' | translate}}</h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>{{'label.input.occ.income' | translate}}:</td>
+                            <td>{{totalIncomeOcc}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.asset.income' | translate}}:</td>
+                            <td>{{totalIncomeAsset}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.household.expense' | translate}}:</td>
+                            <td>{{totalHouseholdExpense}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.net.surplex' | translate}}:</td>
+                            <td>{{totalIncomeOcc + totalIncomeAsset - totalHouseholdExpense}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="showAddClientoccupationdetailsForm" class="form-horizontal ">
+        <form name="" novalidate="" class="form-horizontal well"
+              ng-submit="submit()">
+            <fieldset>
+                <legend>{{'label.view.add.client.occ' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {categoryEnum : {value : 'Occupation'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id" ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="quantifierLabel">
+                    <label class="control-label col-sm-2">{{quantifierLabel}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number" name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.income' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text"  name="income"
+                               ng-model="formData.totalIncome" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isPrimaryIncome' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="formData.isPrimaryIncome">
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 paddedleft">
+                    <button ng-click="showSummaryView()" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</button>
+                    <button ng-click="addClientoccupationdetailsSubmit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+    <div ng-if="showEditClientoccupationdetailsForm">
+        <form name="" novalidate="" class="form-horizontal well"
+              ng-submit="editClientoccupationdetailsSubmit()">
+            <fieldset>
+                <legend>{{'label.view.edit.client.occ' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {categoryEnum : {value : 'Occupation'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id" ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="isQuantifierNeeded == true">
+                    <label class="control-label col-sm-2">{{ quantifierLabel }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number"  name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.income' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text"  name="income"
+                               ng-model="formData.totalIncome" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isPrimaryIncome' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="formData.isPrimaryIncome">
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 paddedleft">
+
+                    <button  ng-click="showSummaryView()" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-if="showAddClientassetdetailsForm" >
+        <form name="showAddClientassetdetailsForm" novalidate="" class="form-horizontal"
+              ng-submit="addClientassetdetailsSubmit()">
+            <fieldset>
+                <legend>{{'label.view.add.client.asset' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.asset' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {categoryEnum : {value : 'Asset'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.sub.asset' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id" ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="quantifierLabel">
+                    <label class="control-label col-sm-2" >{{quantifierLabel}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number" name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.income' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text"  name="income"
+                               ng-model="formData.totalIncome" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isPrimaryIncome' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="formData.isPrimaryIncome">
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 paddedleft">
+                    <button ng-click="showSummaryView()" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-if="showEditClientassetdetailsForm">
+        <form name="showEditClientassetdetailsForm" novalidate="" class="form-horizontal well"
+              ng-submit="editClientassetdetailsSubmit()">
+            <fieldset>
+                <legend>{{'label.view.edit.client.asset' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.asset' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations |  filter : {categoryEnum : {value : 'Asset'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.sub.asset' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id"  ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="isQuantifierNeeded == true">
+                    <label class="control-label col-sm-2">{{ quantifierLabel }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number" name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.income' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text"  name="income"
+                               ng-model="formData.totalIncome" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isPrimaryIncome' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="formData.isPrimaryIncome">
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 paddedleft">
+                    <button ng-click="showSummaryView()" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-if="showAddClienthouseholddetailsForm" >
+        <form name="showAddClienthouseholddetailsForm" novalidate="" class="form-horizontal"
+              ng-submit="addClienthouseholddetailsSubmit()">
+            <fieldset>
+                <legend>{{'label.view.add.client.household' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.household.expense' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {typeEnum : {value : 'Expense'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expense' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id" ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="quantifierLabel">
+                    <label class="control-label col-sm-2">{{ quantifierLabel }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number"  name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text"  name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <button ng-click="showSummaryView()" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-if="showEditClienthouseholddetailsForm">
+        <form name="showEditClienthouseholddetailsForm" novalidate="" class="form-horizontal"
+              ng-submit="editClienthouseholddetailsSubmit()">
+            <fieldset>
+                <legend>{{'label.view.edit.client.household' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.household.expense' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {typeEnum : {value : 'Expense'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expense' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id" ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="isQuantifierNeeded == true"> {{isQuantifierNeeded}}
+                    <label class="control-label col-sm-2">{{ quantifierLabel }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number" name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <button ng-click="showSummaryView()" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

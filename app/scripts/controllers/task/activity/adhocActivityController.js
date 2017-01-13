@@ -10,7 +10,7 @@
             initTask();
 
             scope.submit = function () {
-                scope.$emit("activityDone",{});
+                scope.activityDone();
             }
         }
     });

@@ -56,7 +56,15 @@
                     "CgtStatusType.new" : "statusnew",
                     "CgtStatusType.in.progress" : "statusinprocess",
                     "CgtStatusType.complete" : "statuscompleted",
-                    "CgtStatusType.reject" : "statusreject"
+                    "CgtStatusType.reject" : "statusreject",
+                    "bucket5" : "statusbucket5",
+                    "bucket4" : "statusbucket4",
+                    "bucket3" : "statusbucket3",
+                    "bucket2" : "statusbucket2",
+                    "bucket1" : "statusbucket1",
+                    "eligibilityStatus.tobereviewed": "statuspending",
+                    "eligibilityStatus.approved": "statusgood",
+                    "eligibilityStatus.rejected": "statusbad"
                 }
 
                 return cssClassNameLookup[input];

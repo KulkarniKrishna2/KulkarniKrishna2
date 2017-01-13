@@ -43,7 +43,8 @@
             initTask();
 
             scope.doTaskAction = function (actionId) {
-                if(actionId === 'approve' && scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'){
+                if(actionId === 'approve' && (scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'||
+                    scope.taskData.taskActivity.identifier.toLowerCase() === 'cam')){
                     scope.$broadcast('activityApprove');
                 }else{
                     scope.possibleActions = [];
@@ -115,22 +116,25 @@
                 });
             }
 
-            scope.$on('activityDone', function (event, data) {
+            scope.activityDone =  function (data) {
                 if(scope.taskData.status.value == 'initiated'){
                     //scope.doTaskAction(1);
                     //activate the action button if required
                 }
 
-            });
+            };
 
-            scope.$on('activityEdit', function (event, data) {
+            scope.activityEdit = function (data) {
                 scope.doTaskAction('taskedit');
-            });
+            };
 
-            scope.$on('activityApproveDone', function (event, data) {
+            scope.activityApproveDone = function (data) {
                 doActionAndRefresh('approve');
-            });
+            };
 
+            scope.taskCriteriaCheck = function(){
+                scope.doTaskAction('criteriacheck');
+            };
 
             scope.triggerCriteriaResult = function(){
                 if(scope.showCriteriaResult){

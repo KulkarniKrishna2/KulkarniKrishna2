@@ -34,7 +34,10 @@
                                 {display: "==", value: "eq"},
                                 {display: "!=", value: "ne"},
                                 {display: "contains", value: "contains"},
-                                {display: "Starts With", value: "startswith"}
+                                {display: "Starts With", value: "startswith"},
+                                {display: "Ends With", value: "endswith"},
+                                {display: "Is Empty", value: "isempty", noinput:"true"},
+                                {display: "Is Not Empty", value: "isnotempty",noinput:"true"}
                             ],
                             "NUMBER": [
                                 {display: "==", value: "eq"},
@@ -61,6 +64,10 @@
                                 }else{
                                     item.comparators = scope.comparators[item.valueType];
                                 }
+                                item.comparatorMap = {};
+                                item.comparators.forEach(function (comparator) {
+                                    item.comparatorMap[comparator.value] = comparator;
+                                });
                                 scope.filterfieldsmap[item.uname] = item;
                             });
                         }

@@ -275,6 +275,26 @@ color: #800080
     color: #298A08;
 }
 
+.statusbucket5 {
+    background-color: #008000;
+}
+
+.statusbucket4 {
+    background-color: #00CE00;
+}
+
+.statusbucket3 {
+    background-color: #FFA500;
+}
+
+.statusbucket2 {
+    background-color: #FF4000;
+}
+
+.statusbucket1 {
+    background-color: #FF0000;
+}
+
 td.labelrow {
     padding: 0 0 10px;
 }

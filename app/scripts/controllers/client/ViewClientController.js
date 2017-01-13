@@ -1067,6 +1067,7 @@
                 });
             };
 
+
             scope.calculateOccupationTotal = function(){
                 var total = 0;
                 angular.forEach(scope.incomeAndExpenses, function(data){

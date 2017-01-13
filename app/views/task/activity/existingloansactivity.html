@@ -15,7 +15,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="pointer-main" ng-repeat="existingLoan in existingLoans">
+					<tr class="pointer-main" ng-if="existingLoan.source && existingLoan.source.name != 'Credit Bureau'"
+						ng-repeat="existingLoan in existingLoans">
 						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
 							{{existingLoan.source.name}}
 						</td>

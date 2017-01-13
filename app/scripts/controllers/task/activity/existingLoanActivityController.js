@@ -8,14 +8,14 @@
             function initTask(){
                 scope.clientId = scope.taskconfig['clientId'];
                 existingLoans();
-                scope.$emit("activityDone",{});
+                scope.activityDone();
             };
 
             initTask();
 
             function existingLoans(){
               resourceFactory.clientExistingLoan.getAll({clientId: scope.clientId}, function(data){
-                    console.log(data);
+                    // console.log(data);
                     scope.existingLoans = data;
               });
             };

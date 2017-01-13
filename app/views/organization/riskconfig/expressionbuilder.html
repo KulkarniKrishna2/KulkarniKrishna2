@@ -20,7 +20,8 @@
                         <span ng-if="filterfieldsmap[childnode.expression.parameter].options !== undefined">
                             <select ng-options="option.key as option.value for option in filterfieldsmap[childnode.expression.parameter].options" ng-model="childnode.expression.value" ></select>
                         </span>
-                        <span ng-if="filterfieldsmap[childnode.expression.parameter].options  == undefined">
+                        <span ng-if="filterfieldsmap[childnode.expression.parameter].options  == undefined && filterfieldsmap[childnode.expression.parameter].comparatorMap[childnode.expression.comparator].noinput != 'true'">
+
                             <input ng-model="childnode.expression.value" type="text" value="{{childnode.expression.value}}" />
                         </span>
                         <button ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><i class="icon-remove icon-white"></i></button>
