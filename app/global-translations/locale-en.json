@@ -1793,7 +1793,7 @@
     "label.button.recreate" : "Recreate",
     "label.button.addsubsidy" : "Add Subsidy",
     "label.button.revokesubsidy" : "Revoke Subsidy",
-    "label.button.foreclosure": "Foreclosure",
+    "label.button.foreclosure": "Preclosure",
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
 
@@ -4819,7 +4819,7 @@
     "RepaymentRescheduleType.move.to.next.working.day":"move to next working day",
     "RepaymentRescheduleType.move.to.next.repayment.meeting.day":"move to next repayment meeting day",
     "RepaymentRescheduleType.move.to.previous.working.day":"move to previous working day",
-    "label.heading.loan.foreclosure": "Loan Foreclosure",
+    "label.heading.loan.foreclosure": "Loan Preclosure",
 
     "# credit bureau configuration ":"-- module name --",
     "label.anchor.creditbureau.loanproducts":"Credit Bureau Loan Products",
