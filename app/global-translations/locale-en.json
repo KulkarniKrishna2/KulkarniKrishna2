@@ -2616,6 +2616,7 @@
     "validation.msg.fixeddeposit.annualInterestRate.not.greater.than.specified.number":"Annual interest rate({{params[0].value}}) should be greater than penal interest rate({{params[1].value}}).",
     "error.msg.officeToAccountMapping.not.found":"Mapping for office with Id `{{params[0].value}}` does not exist for an account of type `{{params[1].value}}`",
     "validation.msg.savingsproduct.taxGroupId.cannot.be.blank":"Tax group is required for with hold tax",
+    "validation.msg.center.name.cannot.be.blank" : "Center Name cannot be blank",
 
     "#-------": "------------",
 
