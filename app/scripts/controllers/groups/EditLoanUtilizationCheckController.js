@@ -6,14 +6,7 @@
             scope.entityId = routeParams.entityId;
             scope.loanId = routeParams.loanId;
             scope.utilizationCheckId = routeParams.utilizationCheckId;
-            scope.utilizationData = {};
-            scope.utilizationData.utilizationDetails = [];
-            scope.loanUtilizationCheckDetails = [];
-
             scope.formData = {};
-            scope.formData.loanUtilizationCheckDetails = {};
-            scope.formData.loanUtilizationCheckDetails.utilizationDetails = [];
-
             if (scope.entityType === "center") {
                 resourceFactory.loanPurposeResource.getAll(function (data) {
                     scope.loanPurposes = data;
@@ -22,14 +15,15 @@
                             loanId: scope.loanId,
                             utilizationCheckId: scope.utilizationCheckId
                         }, function (data) {
-                            scope.loanCenterTemplate = data;
-                            scope.loanUtilizationCheckDatas = data.loanUtilizationCheckDetailData;
-                            scope.formData.auditDoneOn = dateFilter(new Date(data.auditDoneOn), scope.df);
+                            scope.loanUtilizationCheckData = data;
+                            scope.loanUtilizationCheckData.auditDoneOn = dateFilter(new Date(scope.loanUtilizationCheckData.auditDoneOn),scope.df);
+                            scope.loanCenterTemplate = [];
+                            scope.loanCenterTemplate.push(scope.loanUtilizationCheckData);
                         });
                     }
                 });
-            }
-            ;
+            };
+
             if (scope.entityType === "group") {
                 resourceFactory.loanPurposeResource.getAll(function (data) {
                     scope.loanPurposes = data;
@@ -38,97 +32,59 @@
                             loanId: scope.loanId,
                             utilizationCheckId: scope.utilizationCheckId
                         }, function (data) {
-                            scope.loanCenterTemplate = data;
-                            scope.loanUtilizationCheckDatas = data.loanUtilizationCheckDetailData;
-                            scope.formData.auditDoneOn = dateFilter(new Date(data.auditDoneOn), "dd MMMM yyyy");
+                            scope.loanUtilizationCheckData = data;
+                            scope.loanUtilizationCheckData.auditDoneOn = dateFilter(new Date(scope.loanUtilizationCheckData.auditDoneOn),scope.df);
+                            scope.formData.auditDoneOn = scope.loanUtilizationCheckData.auditDoneOn;
+                            scope.loanCenterTemplate = [];
+                            scope.loanCenterTemplate.push(scope.loanUtilizationCheckData);
                         });
                     }
                 });
-            }
-
-            scope.addLoanPurpose = function (parentIndex) {
-                if (scope.loanUtilizationCheckDatas[parentIndex] && angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex])) {
-                    scope.loanUtilizationCheckDetail[parentIndex] = {};
-                }
-                scope.loanUtilizationCheckDatas[parentIndex].loanId = scope.loanUtilizationCheckDatas[parentIndex].loanId;
-                if (angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas)) {
-                    scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas = [];
-                }
-                scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas.push({});
             };
 
-            scope.deleteLoanPurpose = function (parentIndex, index) {
-                if (scope.loanUtilizationCheckDatas[parentIndex] && !angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex])) {
-                    if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas)) {
-                        if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index])) {
-                            scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas.splice(index, 1);
-                            if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas)) {
-                                if (scope.loanUtilizationCheckDatas[parentIndex].length == 0) {
-                                    delete scope.loanUtilizationCheckDatas[parentIndex];
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            scope.percentail = function (parentIndex, index) {
-                if (scope.loanUtilizationCheckDatas[parentIndex] && !angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex])) {
-                    if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas)) {
-                        if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].amount)) {
-                            var principalAmount = scope.loanUtilizationCheckDatas[parentIndex].principalAmount;
-                            var uamount = scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].amount;
+            scope.percentail = function () {
+                if (scope.loanCenterTemplate[0] && scope.loanCenterTemplate[0].loanUtilizationCheckDetailData && !angular.isUndefined(scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData)) {
+                    if (!angular.isUndefined(scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData)) {
+                        if (!angular.isUndefined(scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData.amount)) {
+                            var principalAmount = scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.principalAmount;
+                            var uamount = scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData.amount;
                             var percentailOfUsage = parseFloat(parseFloat(uamount) / parseFloat(principalAmount) * 100.00);
-                            scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].percentailOfUsage = percentailOfUsage;
-                        }
-                    }
-                }
-            };
-
-            scope.checkLoanPurpose = function (parentIndex, index) {
-                if (scope.loanUtilizationCheckDatas[parentIndex] && !angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex])) {
-                    if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas)) {
-                        if (!angular.isUndefined(scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].loanPurposeData)) {
-                            var loanPurposeId = scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].loanPurposeData.id;
-                            var isSameAsOriginalPurpose = false;
-                            if (loanPurposeId == scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].loanPurposeData.id) {
-                                isSameAsOriginalPurpose = true;
-                            }
-                            scope.loanUtilizationCheckDatas[parentIndex].utilizationDetailsDatas[index].loanPurposeData.isSameAsOriginalPurpose = isSameAsOriginalPurpose;
+                            scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData.percentailOfUsage = percentailOfUsage;
+                            return percentailOfUsage;
                         }
                     }
                 }
             };
 
             scope.submit = function () {
-                scope.formData.auditDoneById = scope.currentSession.user.userId;
-                scope.formData.auditDoneOn = dateFilter(new Date(scope.formData.auditDoneOn), scope.df);
-                scope.formData.loanUtilizationCheckDetails = [];
-                for(var i = 0; i < scope.loanUtilizationCheckDatas.length; i++){
-                    if(scope.loanUtilizationCheckDatas[i]){
-                        var loanUtilizationCheckDataObj = scope.loanUtilizationCheckDatas[i];
-                        var loanUtilizationCheckData = {};
-                        loanUtilizationCheckData.loanId = loanUtilizationCheckDataObj.loanId;
-                        if(loanUtilizationCheckDataObj.utilizationDetailsDatas != undefined && loanUtilizationCheckDataObj.utilizationDetailsDatas.length > 0){
-                            loanUtilizationCheckData.utilizationDetails = [];
-                            for(var j = 0; j < loanUtilizationCheckDataObj.utilizationDetailsDatas.length; j++){
-                                var utilizationDetailsData = {};
-                                var utilizationDetailsDataObj = loanUtilizationCheckDataObj.utilizationDetailsDatas[j];
-                                utilizationDetailsData.loanPurposeId = utilizationDetailsDataObj.loanPurposeData.id;
-                                utilizationDetailsData.isSameAsOriginalPurpose = utilizationDetailsDataObj.isSameAsOroginalPurpose;
-                                if(utilizationDetailsDataObj.amount){
-                                    utilizationDetailsData.amount = utilizationDetailsDataObj.amount;
-                                    delete utilizationDetailsDataObj.percentailOfUsage;
-                                }
-                                utilizationDetailsData.comment = utilizationDetailsDataObj.comment;
-                                loanUtilizationCheckData.utilizationDetails.push(utilizationDetailsData);
-                            }
+                if(scope.loanCenterTemplate[0] && scope.loanCenterTemplate[0].loanUtilizationCheckDetailData){
+                    var loanUtilizationCheckData = {};
+                    loanUtilizationCheckData.loanId = scope.loanCenterTemplate[0].loanId;
+                    loanUtilizationCheckData.auditDoneById = scope.currentSession.user.userId;
+                    loanUtilizationCheckData.auditDoneOn = dateFilter(new Date(scope.loanUtilizationCheckData.auditDoneOn), scope.df);
+                    if(scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData != undefined){
+                        var utilizationDetailsDataObj = scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData;
+                        loanUtilizationCheckData.utilizationDetails = {};
+                        var utilizationDetailsData = {};
+                        utilizationDetailsData.loanPurposeId = utilizationDetailsDataObj.loanPurposeData.id;
+                        utilizationDetailsData.isSameAsOriginalPurpose = utilizationDetailsDataObj.isSameAsOroginalPurpose;
+                        if(utilizationDetailsDataObj.amount){
+                            utilizationDetailsData.amount = utilizationDetailsDataObj.amount;
+                            delete utilizationDetailsDataObj.percentailOfUsage;
                         }
-                        scope.formData.loanUtilizationCheckDetails.push(loanUtilizationCheckData);
+                        utilizationDetailsData.comment = utilizationDetailsDataObj.comment;
+                        utilizationDetailsData.locale = scope.optlang.code;
+                        utilizationDetailsData.dateFormat = scope.df;
+                        loanUtilizationCheckData.utilizationDetails = utilizationDetailsData;
                     }
+                    loanUtilizationCheckData.locale = scope.optlang.code;
+                    loanUtilizationCheckData.dateFormat = scope.df;
+                    scope.formData= loanUtilizationCheckData;
                 }
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;
+
+                //console.log(JSON.stringify(scope.formData));
 
                 if (scope.entityType === "center") {
                     resourceFactory.loanUtilizationCheck.update({

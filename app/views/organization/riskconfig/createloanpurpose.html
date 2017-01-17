@@ -35,24 +35,24 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="shortName">{{ 'label.input.shortName' | translate }}<span
+                    <label class="control-label col-sm-2" for="systemCode">{{ 'label.input.shortName' | translate }}<span
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="shortName" name="shortName"
-                               ng-model="formData.shortName" class="form-control" required late-validate/>
+                        <input type="text" id="systemCode" name="systemCode"
+                               ng-model="formData.systemCode" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createLoanPurpose" valattribute="shortName"/>
+                        <form-validate valattributeform="createLoanPurpose" valattribute="systemCode"/>
                     </div>
                 </div>
                 <div class="form-group" ng-if="!entityId">
-                    <label class="control-label col-sm-2">{{ 'label.input.category' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.loan.purpose.group.type' | translate }}</label>
 
                     <div class="col-sm-3">
                         <select id="categoryOption" name="categoryOption" ng-model="uiData.categoryId" class="form-control"
                                 ng-options="categoryOption.id as categoryOption.name for categoryOption in categoryOptions "
-                                value="categoryOption.id">
+                                value="categoryOption.id" data-ng-change="populateClassificationOption();">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="form-group" ng-if="!entityId">
-                    <label class="control-label col-sm-2">{{ 'label.input.classfication' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.loan.purpose.groups' | translate }}</label>
 
                     <div class="col-sm-3">
                         <select id="classfication" name="classfication" ng-model="uiData.classificationId" class="form-control"

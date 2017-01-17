@@ -16,8 +16,7 @@
                         scope.loanPurposes = data[0].loanPurposeDatas;
                     }
                 });
-            }
-            ;
+            };
 
             if (scope.entityType === "group") {
                 resourceFactory.loanUtilizationCheckGroupTemplate.get({groupId: scope.entityId}, function (data) {
@@ -84,6 +83,7 @@
             };
 
             scope.submit = function () {
+                scope.formData.loanUtilizationCheckDetails = [];
                 scope.formData.auditDoneById = scope.currentSession.user.userId;
                 scope.formData.auditDoneOn = dateFilter(scope.formData.auditDoneOn, scope.df);
                 scope.submitData = [];
@@ -100,15 +100,50 @@
                         }
                     }
                 }
-                scope.formData.locale = scope.optlang.code;
-                scope.formData.dateFormat = scope.df;
+                //console.log(JSON.stringify(scope.formData));
+
+                scope.requestFormData = [];
+                for(var i in scope.formData.loanUtilizationCheckDetails){
+                    if(scope.formData.loanUtilizationCheckDetails[i].loanId){
+                        var data = {};
+                        data.loanId = scope.formData.loanUtilizationCheckDetails[i].loanId;
+                        if(scope.formData.auditDoneById){
+                            data.auditDoneById = scope.formData.auditDoneById;
+                        }
+                        if(scope.formData.auditDoneOn){
+                            data.auditDoneOn = scope.formData.auditDoneOn;
+                        }
+                        if(scope.formData.loanUtilizationCheckDetails[i].utilizationDetails.length > 0){
+                            for(var k in scope.formData.loanUtilizationCheckDetails[i].utilizationDetails){
+                                if(scope.formData.loanUtilizationCheckDetails[i].utilizationDetails[k]){
+                                    data.utilizationDetails = {};
+                                    data.utilizationDetails = scope.formData.loanUtilizationCheckDetails[i].utilizationDetails[k];
+                                    if(data.utilizationDetails.percentailOfUsage){
+                                        delete data.utilizationDetails.percentailOfUsage;
+                                    }
+                                    data.locale = scope.optlang.code;
+                                    data.dateFormat = scope.df;
+                                    scope.dataCopy = {};
+                                    angular.copy(data, scope.dataCopy);
+                                    scope.requestFormData.push(scope.dataCopy);
+                                }
+                            }
+                        }
+                    }
+                };
+
+                scope.formReqData = {};
+                scope.formReqData.loanUtilizationChecks = scope.requestFormData || [];
+                scope.formReqData.locale = scope.optlang.code;
+                scope.formReqData.dateFormat = scope.df;
+
                 if (scope.entityType === "center") {
-                    resourceFactory.centerLoanUtilizationCheck.save({centerId: scope.entityId}, scope.formData, function (data) {
+                    resourceFactory.centerLoanUtilizationCheck.save({centerId: scope.entityId}, scope.formReqData, function (data) {
                         location.path('/viewcenter/' + scope.entityId);
                     });
                 }
                 if (scope.entityType === "group") {
-                    resourceFactory.groupLoanUtilizationCheck.save({groupId: scope.entityId}, scope.formData, function (data) {
+                    resourceFactory.groupLoanUtilizationCheck.save({groupId: scope.entityId}, scope.formReqData, function (data) {
                         location.path('/group/' + scope.entityId + '/listgrouploanutillization/');
                     });
                 }

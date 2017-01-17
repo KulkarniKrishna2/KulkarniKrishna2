@@ -27,7 +27,7 @@
             <tbody>
             <tr class="pointer-main" ng-repeat="loanPurpose in loanPurposes track by $index">
                 <td class="pointer" data-ng-click="routeTo(loanPurpose.id)">{{loanPurpose.name}}</td>
-                <td class="pointer" data-ng-click="routeTo(loanPurpose.id)">{{loanPurpose.shortName}}</td>
+                <td class="pointer" data-ng-click="routeTo(loanPurpose.id)">{{loanPurpose.systemCode}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanPurpose.id)">{{loanPurpose.description}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanPurpose.id)">{{loanPurpose.isActive == true ? 'Active' : 'In Active'}}</td>
                 <td>

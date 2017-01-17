@@ -38,7 +38,7 @@
                     <a href="#/viewloanpurposegroups/{{loanpurposegroup.id}}/createloanpurpose" class="btn btn-primary">
                         <i class="icon-plus icon-white"></i>{{'label.button.add.loanpurpose' | translate}}
                     </a>
-                    <a href="#/viewloanpurposegroup/editloanpurposegroup/{{loanpurposegroup.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>
+                    <a ng-if="!loanpurposegroup.isSystemDefined" href="#/viewloanpurposegroup/editloanpurposegroup/{{loanpurposegroup.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>
                         {{'label.button.edit' | translate}}</a>
                     <a role="button" class="btn btn-primary" ng-show="loanpurposegroup.isActive == false"
                             data-ng-click="activateLoanPurposeGroup(loanpurposegroup.id)">
@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td>{{'label.input.shortName' | translate}}:</td>
-                            <td>{{loanpurposegroup.shortName}}</td>
+                            <td>{{loanpurposegroup.systemCode}}</td>
                         </tr>
                         <tr>
                             <td>{{'label.heading.type' | translate}}:</td>

@@ -11,7 +11,7 @@
         <api-validate></api-validate>
     </div>
 
-    <div>
+    <div class="col-sm-12">
 
         <table class="table">
             <thead>
@@ -22,47 +22,44 @@
                 <th>{{ 'label.heading.amount.disb' | translate }}</th>
                 <th>{{ 'label.heading.auditdoneon' | translate }}</th>
                 <th>{{ 'label.heading.loanutilization' | translate }}</th>
-                <th></th>
-                <th></th>
-                <th></th>
-
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="loanUtilizationCheckData in loanUtilizationCheckDatas track by $index"
-                ng-init="parentIndex = $index">
+            <tr data-ng-repeat="centerTemplate in loanCenterTemplate track by $index" ng-init="parentIndex = $index">
                 <td class="col-md-1">
-                    <span>{{loanUtilizationCheckData.groupName}}</span>
+                    <span>{{centerTemplate.loanUtilizationCheckDetailData.groupName}}</span>
                 </td>
                 <td class="col-md-1">
-                    <span>{{loanUtilizationCheckData.clientName}}-{{loanUtilizationCheckData.clientId}}</span>
+                    <span>{{centerTemplate.loanUtilizationCheckDetailData.clientName}}-{{centerTemplate.loanUtilizationCheckDetailData.clientId}}</span>
                 </td>
                 <td class="col-md-1">
-                    <span>{{loanUtilizationCheckData.loanType.value}}-{{loanUtilizationCheckData.loanId}}</span>
+                    <span>{{centerTemplate.loanUtilizationCheckDetailData.loanType.value}}-{{centerTemplate.loanId}}</span>
                 </td>
                 <td class="col-md-1">
-                    <span>{{loanUtilizationCheckData.principalAmount}}</span>
+                    <span>{{centerTemplate.loanUtilizationCheckDetailData.principalAmount}}</span>
                 </td>
                 <td class="col-md-1">
                     <ng-form name="auditDoneOn" rc-submit="submit()">
-                        <input id="auditDoneOn"
+                        <input id="submittedon"
                                type="text"
-                               name="auditDoneOn"
+                               name="submittedon"
                                datepicker-pop="dd MMMM yyyy"
-                               ng-model="formData.auditDoneOn"
-                               is-open="opened1" min="'2000-01-01'"
+                               ng-model="centerTemplate.auditDoneOn"
+                               is-open="opened1"
                                max="restrictDate"
                                class="form-control"/>
+                    </ng-form>
                 </td>
-                <td ng-if="loanUtilizationCheckData">
-                    <table class="table center" ng-if="loanUtilizationCheckData.utilizationDetailsDatas.length > 0">
+                <td ng-if="centerTemplate.loanUtilizationCheckDetailData">
+                    <table class="table center"
+                           ng-if="centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData">
                         <tbody>
-                        <tr data-ng-repeat="utilizationDetail in loanUtilizationCheckData.utilizationDetailsDatas track by $index">
+                        <tr>
                             <td class="col-md-4">
                                 <ng-form name="loanPurposeForm" rc-submit="submit()">
                                     <select id="loanPurposeId"
                                             name="loanPurpose"
-                                            ng-model="utilizationDetail.loanPurposeData.id"
+                                            ng-model="centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData.loanPurposeData.id"
                                             class="form-control"
                                             ng-options="loanPurposeOption.id as loanPurposeOption.name for loanPurposeOption in loanPurposes"
                                             data-placeholder="{{'label.input.selectloanpurpose' | translate}}"
@@ -71,46 +68,35 @@
                                             data-ng-change="checkLoanPurpose(parentIndex,$index)">
                                         <option value=""></option>
                                     </select>
+                                </ng-form>
                             </td>
                             <td class="col-md-2">
                                 <ng-form name="principalAmountForm" rc-submit="submit()">
                                     <input type="text"
                                            id="principalAmountId"
                                            name="principalAmount"
-                                           ng-model="utilizationDetail.amount"
+                                           ng-model="centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData.amount"
                                            class="form-control"
                                            ng-pattern="/^(?!0+$)\d+$/"
                                            maxlength="9"
-                                           ng-change="percentail(parentIndex,$index)"/>
-                                        <span class="red"
-                                              ng-show="(utilizationDetail.amount > loanUtilizationCheckData.principalAmount) && principalAmountForm.principalAmount.$dirty">
-                                                <h4><em>{{'label.input.loan.principalAmount' | translate}}</em></h4>
-                                        </span>
+                                           ng-change=""/>
+                                </ng-form>
                             </td>
                             <td class="col-md-2">
-                                {{utilizationDetail.percentailOfUsage}}%
+                                {{percentail()}}%
                             </td>
                             <td class="col-md-4">
                                 <ng-form name="commentForm" rc-submit="submit()">
                                     <textarea type="text"
                                               id="comment"
                                               name="comment"
-                                              ng-model="utilizationDetail.comment"
+                                              ng-model="centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData.comment"
                                               class="form-control"/>
+                                </ng-form>
                             </td>
-                            <td>
-                                <button class="btn btn-primary" type="submit"
-                                        ng-click="deleteLoanPurpose(parentIndex,$index)"><i
-                                        class="icon-remove icon-white icon-small"></i></button>
-                            </td>
-
                         </tr>
                         </tbody>
                     </table>
-                </td>
-                <td>
-                    <button class="btn btn-primary pull-right" type="submit" ng-click="addLoanPurpose(parentIndex)"><i
-                            class="icon-plus icon-white icon-small"></i></button>
                 </td>
             </tr>
             </tbody>
