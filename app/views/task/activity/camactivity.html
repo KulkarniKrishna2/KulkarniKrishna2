@@ -2,11 +2,11 @@
     <!-- Submit form, new data    -->
     <div id="applicantdetails" class="row">
         <div class="col-md-12">
-            <h3>Applicant Details</h3>
+            <h3>{{'label.camactivity.heading.applicantdetails' | translate}}</h3>
             <legend></legend>
         </div>
         <div class="col-md-3">
-            <h4>Applicant:</h4>
+            <h4>{{'label.heading.applicant' | translate}}</h4>
         </div>
         <div class="col-md-3">
             {{clientName}}
@@ -15,7 +15,7 @@
     <legend></legend>
     <div id="loanterms" class="row">
         <div class="col-md-12">
-            <h3>Loan Terms</h3>
+            <h3>{{'label.camactivity.loanterms' | translate}}</h3>
             <legend></legend>
         </div>
         <div class="col-md-6">
@@ -95,7 +95,7 @@
     <legend></legend>
     <div id="cashflow" class="row">
         <div class="col-md-12">
-            <h3>Cash Flow</h3>
+            <h3>{{'label.heading.cashflow' | translate}}</h3>
             <legend></legend>
         </div>
         <div class="col-md-5">
@@ -122,7 +122,7 @@
     <legend></legend>
     <div id="existing loans" class="row">
         <div class="col-md-12">
-            <h3>Existing Loans</h3>
+            <h3>{{''label.camactivity.existingloans'| translate}}</h3>
             <legend></legend>
         </div>
         <div class="col-md-12"
@@ -210,7 +210,7 @@
             <table class="table table-bordered table-striped" ng-if="closedLoan.summaries.length > 0">
                 <tr>
                     <td colspan="8">
-                        <span class="boldlabel"><strong>Closed Loans Summary</strong></span>
+                        <span class="boldlabel"><strong>{{label.heading.closedLoansSummary | translate}}</strong></span>
                     </td>
                 </tr>
                 <tr>
@@ -280,7 +280,7 @@
     </div>
     <div id="loanapproval" class="row">
         <div class="col-md-12">
-            <h3>Loan Approval</h3>
+            <h3>{{'label.heading.loanapproval'| translate}}</h3>
             <legend></legend>
         </div>
         <div class="form-horizontal" ng-show="status=='SUMMARY'">

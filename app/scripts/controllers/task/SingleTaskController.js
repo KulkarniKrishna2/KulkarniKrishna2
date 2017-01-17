@@ -41,14 +41,13 @@
 
 
             initTask();
-
-            scope.doTaskAction = function (actionId) {
-                if(actionId === 'approve' && (scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'||
+            scope.doTaskAction = function (actionName) {
+                if(actionName === 'approve' && (scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'||
                     scope.taskData.taskActivity.identifier.toLowerCase() === 'cam')){
                     scope.$broadcast('activityApprove');
                 }else{
                     scope.possibleActions = [];
-                    doActionAndRefresh(actionId);
+                    doActionAndRefresh(actionName);
 
                 }
             };
@@ -61,8 +60,8 @@
                 }
             };
 
-            function doActionAndRefresh(actionId){
-                resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionId}, function (data) {
+            function doActionAndRefresh(actionName){
+                resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionName}, function (data) {
                     resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
                         scope.taskData = taskData;
                         if (scope.taskData.status.value == 'completed' || scope.taskData.status.value == 'skipped') {
@@ -82,7 +81,7 @@
                     if(scope.taskData.status.value == 'initiated'){
                         if(scope.possibleActions != undefined){
                             scope.possibleActions.forEach(function (action) {
-                                if(action.id == 1 && !action.hasAccess){
+                                if(action.value == 'activitycomplete' && !action.hasAccess){
                                     scope.canComplete = false;
                                 }
                             });

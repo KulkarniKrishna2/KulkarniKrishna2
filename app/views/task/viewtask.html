@@ -2,22 +2,22 @@
     <div class="col-md-12 col-sm-12">
         <div>
             <ul class="breadcrumb">
-                <li><a href="#/tasklist"><strong>Task List</strong></a></li>
-                <li ng-if="taskData.parentId"><a href="#/viewtask/{{taskData.parentId}}"><strong>Workflow</strong></a></li>
+                <li><a href="#/tasklist"><strong>{{'label.heading.taskList' | translate}}</strong></a></li>
+                <li ng-if="taskData.parentId"><a href="#/viewtask/{{taskData.parentId}}"><strong>{{'label.heading.workflow' | translate}}</strong></a></li>
                 <li class="active">#{{taskData.id}}&nbsp;{{taskData.name}}</li>
             </ul>
         </div>
         <div class="col-md-12 col-sm-12">
             <div class="row well" ng-if="loanApplicationData.loanApplicationReferenceId">
                 <div class="row">
-                    <div class="col-md-4"><span> Applicant Name:&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
-                    <div class="col-md-4"><span> Application Reference:&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
-                    <div class="col-md-4"> Relationship Officer :&nbsp; {{loanApplicationData.loanOfficerName}}</div>
+                    <div class="col-md-4"><span>{{'label.input.applicantname' | translate}}&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
+                    <div class="col-md-4"><span>{{'label.input.applicationReference' | translate}}&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
+                    <div class="col-md-4"> {{'label.heading.relationshipOfficer' | translate}} :&nbsp; {{loanApplicationData.loanOfficerName}}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4"> Loan Amount:&nbsp;{{loanApplicationData.loanAmountRequested}} {{loanApplicationData.currency.displaySymbol}}</div>
-                    <div class="col-md-4"> Loan Purpose:&nbsp;{{loanApplicationData.loanPurpose.name}}</div>
-                    <div class="col-md-4"> Application date:&nbsp;{{loanApplicationData.submittedOnDate | DateFormat}}</div>
+                    <div class="col-md-4"> {{'label.heading.loanAmount' | translate}}:&nbsp;{{loanApplicationData.loanAmountRequested}} {{loanApplicationData.currency.displaySymbol}}</div>
+                    <div class="col-md-4">{{'label.input.loanpurpose' | translate}}&nbsp;{{loanApplicationData.loanPurpose.name}}</div>
+                    <div class="col-md-4"> {{'label.input.applicationdate' | translate}}&nbsp;{{loanApplicationData.submittedOnDate | DateFormat}}</div>
                 </div>
             </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>

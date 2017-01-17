@@ -3,14 +3,14 @@
         <div class="col-md-12">
             <h3 class="client-title">
                 <strong>{{taskData.name}}</strong>
-                <small>Status: {{taskData.status.code | translate}} |</small>
+                <small>{{'label.heading.guarantee.status' | translate}} {{taskData.status.code | translate}} |</small>
                 <strong></strong>
-                <small>Assigned To:  {{taskData.assignedTo}}
+                <small>{{'label.heading.assignedTo' | translate}}  {{taskData.assignedTo}}
                     <span ng-if="taskData.assignedTo===undefined" ng-repeat="role in taskData.assignedRoles">
                     {{role.name}},
                 </span> |
                 </small>
-                <small>Created On:{{taskData.createdOn | DateFormat}}</small>
+                <small>{{'label.heading.createdon' | translate}} {{taskData.createdOn | DateFormat}}</small>
             </h3>
         </div>
 
@@ -20,7 +20,7 @@
             <div ng-if="canComplete==false" class="row">
                 <div class="" style="padding:10px;">
                     <div class="alert alert-info" style="border-style: dashed;">
-                        <span class="fa fa-info-circle"></span> You do not have any access to complete the task.
+                        <span class="fa fa-info-circle"></span> {{'label.error.accessCompleteTask' | translate}}
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div>
                         <span><i class="{{ taskData.criteriaResult.eligibiltyStatus.code | StatusLookup}} {{taskData.criteriaResult.eligibiltyStatus.code | IconLookup}} icon-large"></i></span>
                          <span class="strong">{{ 'label.heading.request.eligibility.tobe' | translate }}</span> {{taskData.criteriaResult.status}}.
-                        <a ng-click="doTaskAction('criteriacheck')"><i class="icon-refresh"></i></a>
+                        <a ng-if="!isTaskCompleted()" ng-click="doTaskAction('criteriacheck')"><i class="icon-refresh"></i></a>
                         &nbsp;&nbsp;&nbsp;<a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
 
                     </div>
@@ -175,7 +175,7 @@
             <div ng-if="canView==false" class>
                 <div class="" style="padding:10px;">
                     <div class="alert alert-info" style="border-style: dashed;">
-                        <span class="fa fa-info-circle"></span> You do not have any access to see the task.
+                        <span class="fa fa-info-circle"></span> {{'label.error.accessSeeTask' | translate}}
                     </div>
                 </div>
             </div>

@@ -12,21 +12,21 @@
         <div class="col-md-12 col-sm-12">
             <div class="row well">
                 <div class="row">
-                    <span class="col-md-2"> Applicant Name: </span>
+                    <span class="col-md-2">{{'label.input.applicantname'| translate}}</span>
                     <span class="col-md-4">{{clientName}} ({{loanApplicationData.clientId}})</span>
-                    <span class="col-md-3"> Requested loan amount: </span>
+                    <span class="col-md-3"> {{'label.input.requestedLoanAmount' | translate}} </span>
                     <span class="col-md-3">{{loanApplicationData.loanAmountRequested}} {{loanApplicationData.currency.displaySymbol}}</span>
                 </div>
                 <div class="row">
-                    <span class="col-md-2"> Application ref num. :</span>
+                    <span class="col-md-2">{{'label.input.applicationReferenceNumber' | translate}}:</span>
                     <span class="col-md-4">{{loanApplicationData.loanApplicationReferenceNo}}</span>
-                    <span class="col-md-3"> Loan Purpose:</span>
+                    <span class="col-md-3">{{'label.heading.loanpurpose' | translate}}</span>
                     <span class="col-md-3">{{loanApplicationData.loanPurpose.name}}</span>
                 </div>
                 <div class="row">
-                    <span class="col-md-2"> Relationship Officer: </span>
+                    <span class="col-md-2">{{'label.heading.relationshipOfficer' | translate}}</span>
                     <span class="col-md-4">{{loanApplicationData.loanOfficerName}}</span>
-                    <span class="col-md-3"> Application date: </span>
+                    <span class="col-md-3">{{'label.input.applicationdate' | translate}}</span>
                     <span class="col-md-3">{{loanApplicationData.submittedOnDate | DateFormat}}</span>
                 </div>
             </div>
