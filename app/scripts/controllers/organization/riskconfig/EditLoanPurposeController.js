@@ -8,41 +8,42 @@
             scope.categoryOptions = [];
             scope.classificationOptions = [];
 
-            resourceFactory.loanPurposesTemplate.get(function (data) {
-                scope.loanPurposeGroupDatas = data.loanPurposeGroupDatas;
-                for (var i = 0; i < scope.loanPurposeGroupDatas.length; i++) {
-                    if (scope.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Grouping") {
-                        scope.categoryOptions.push(scope.loanPurposeGroupDatas[i]);
-                    }
-                    if (scope.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Consumption") {
+            resourceFactory.loanPurposeGroupTemplateResource.get(function (dataType) {
+                scope.categoryOptions = dataType.loanPurposeGroupTypeOptions;
+                resourceFactory.loanPurposesTemplate.get(function (data) {
+                    scope.loanPurposeGroupDatas = data.loanPurposeGroupDatas;
+                    resourceFactory.loanPurposeResource.get({
+                            loanPurposeId: routeParams.id,
+                            isFetchLoanPurposeGroupDatas: true
+                        },
+                        function (data) {
+                            scope.formData = data;
+                            if (!_.isUndefined(scope.formData.loanPurposeGroupDatas)) {
+                                for (var i = 0; i < scope.formData.loanPurposeGroupDatas.length; i++) {
+                                    scope.categoryId = scope.formData.loanPurposeGroupDatas[i].loanPurposeGroupType.id;
+                                    scope.populateClassificationOption();
+                                    scope.classificationId = scope.formData.loanPurposeGroupDatas[i].id;
+                                }
+                                delete scope.formData.loanPurposeGroupDatas;
+                            }
+                        });
+                });
+            });
+
+            scope.populateClassificationOption = function () {
+                scope.classificationOptions = [];
+                scope.classificationId = undefined;
+                for(var i in scope.loanPurposeGroupDatas){
+                    if(scope.loanPurposeGroupDatas[i].loanPurposeGroupType.id == scope.categoryId){
                         scope.classificationOptions.push(scope.loanPurposeGroupDatas[i]);
                     }
                 }
-
-                resourceFactory.loanPurposeResource.get({loanPurposeId: routeParams.id, isFetchLoanPurposeGroupDatas: true},
-                    function (data) {
-                        scope.formData = data;
-                        if (!_.isUndefined(scope.formData.loanPurposeGroupDatas)) {
-                            for (var i = 0; i < scope.formData.loanPurposeGroupDatas.length; i++) {
-                                if (scope.formData.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Grouping") {
-                                    scope.categoryId = scope.formData.loanPurposeGroupDatas[i].id;
-                                }
-                                if (scope.formData.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Consumption") {
-                                    scope.classificationId = scope.formData.loanPurposeGroupDatas[i].id;
-                                }
-                            }
-                            delete scope.formData.loanPurposeGroupDatas;
-                        }
-                    });
-            });
+            };
 
             scope.submit = function () {
                 scope.formData.loanPurposeGroupIds = [];
                 if (scope.formData) {
                     delete scope.formData.id;
-                }
-                if (scope.categoryId != null && !angular.isUndefined(scope.categoryId)) {
-                    scope.formData.loanPurposeGroupIds.push(scope.categoryId);
                 }
                 if (scope.classificationId != null && !angular.isUndefined(scope.classificationId)) {
                     scope.formData.loanPurposeGroupIds.push(scope.classificationId);
@@ -50,14 +51,14 @@
                 if (scope.formData.loanPurposeGroupIds.length == 0) {
                     delete scope.formData.loanPurposeGroupIds;
                 }
-                if (scope.formData.shortName != "") {
-                    delete scope.formData.shortName;
+                if(scope.formData.systemCode){
+                    delete scope.formData.systemCode;
                 }
                 scope.formData.locale = "en";
                 resourceFactory.loanPurposeResource.update({loanPurposeId: routeParams.id},
                     scope.formData, function (data) {
-                    location.path('/loanpurpose/');
-                });
+                        location.path('/loanpurpose/');
+                    });
             };
         }
     });

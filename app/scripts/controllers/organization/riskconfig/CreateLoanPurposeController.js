@@ -10,40 +10,37 @@
             scope.formData.loanPurposeGroupIds = [];
             scope.categoryOptions = [];
             scope.classificationOptions = [];
-            scope.typeOptions = [];
-            scope.loanPurposeGroupTypeOptions = [];
 
             if(scope.entityId != undefined) {
                 resourceFactory.loanPurposeGroupResource.get({
                     loanPurposeGroupsId: scope.entityId
                 }, function (data) {
                     scope.loanPurposeGroupData = data;
-                    if(data.loanPurposeGroupType.name == "Grouping"){
-                        scope.uiData.categoryId = scope.entityId;
-                    } else if(data.loanPurposeGroupType.name == "Consumption"){
-                        scope.uiData.classificationId = scope.entityId;
-                    }
                 });
             } else {
-                resourceFactory.loanPurposesTemplate.get(function (data) {
-                    scope.loanPurposeGroupDatas = data.loanPurposeGroupDatas;
-                    for (var i = 0; i < scope.loanPurposeGroupDatas.length; i++) {
-                        if (scope.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Grouping") {
-                            scope.categoryOptions.push(scope.loanPurposeGroupDatas[i]);
-                        }
-                        if (scope.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Consumption") {
-                            scope.classificationOptions.push(scope.loanPurposeGroupDatas[i]);
-                        }
-                    }
+                resourceFactory.loanPurposeGroupTemplateResource.get(function (dataType) {
+                    scope.categoryOptions = dataType.loanPurposeGroupTypeOptions;
+                    resourceFactory.loanPurposesTemplate.get(function (data) {
+                        scope.loanPurposeGroupDatas = data.loanPurposeGroupDatas;
+                    });
                 });
             }
 
-            scope.submit = function () {
-                if (scope.uiData.categoryId != null) {
-                    scope.formData.loanPurposeGroupIds.push(scope.uiData.categoryId);
+            scope.populateClassificationOption = function () {
+                scope.classificationOptions = [];
+                scope.classificationId = undefined;
+                for(var i in scope.loanPurposeGroupDatas){
+                    if(scope.loanPurposeGroupDatas[i].loanPurposeGroupType.id == scope.uiData.categoryId){
+                        scope.classificationOptions.push(scope.loanPurposeGroupDatas[i]);
+                    }
                 }
+            };
+
+            scope.submit = function () {
                 if (scope.uiData.classificationId != null) {
                     scope.formData.loanPurposeGroupIds.push(scope.uiData.classificationId);
+                }else if (scope.entityId != undefined) {
+                    scope.formData.loanPurposeGroupIds.push(scope.entityId);
                 }
                 if (scope.formData.loanPurposeGroupIds.length == 0) {
                     delete scope.formData.loanPurposeGroupIds;

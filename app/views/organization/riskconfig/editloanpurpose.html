@@ -36,7 +36,7 @@
                     <div class="col-sm-3">
                         <select id="categoryOption" name="categoryOption" ng-model="categoryId" class="form-control"
                                 ng-options="categoryOption.id as categoryOption.name for categoryOption in categoryOptions"
-                                value="categoryOption.id">
+                                value="categoryOption.id" data-ng-change="populateClassificationOption();">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>

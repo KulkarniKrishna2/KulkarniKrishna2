@@ -441,68 +441,66 @@
 
 				</table>
 			</tab>
-			<tab heading="{{'label.anchor.luc' | translate}}">
-			<div>
-				<div class="col-md-12 primarydiv">
-					<div class="btn-group pull-right">
-						<a href="#/center/{{centerId}}/createutilizationcheck" class="btn btn-primary"><i
-								class="icon-plus-sign-alt icon-white"></i>{{'label.button.addluc' | translate }}</a>
-					</div>
-				</div>
-				<br/><br/>
+            <tab heading="{{'label.anchor.luc' | translate}}">
+                <div>
+                    <div class="col-md-12 primarydiv">
+                        <div class="btn-group pull-right">
+                            <a href="#/center/{{centerId}}/createutilizationcheck" class="btn btn-primary"><i
+                                    class="icon-plus-sign-alt icon-white"></i>{{'label.button.addluc' | translate }}</a>
+                        </div>
+                    </div>
+                    <br/><br/>
 
-				<div class="row">
-					<div class="col-sm-12 col-md-12">
-						<table class="table">
-							<thead>
-							<tr class="graybg">
-								<th>{{ 'label.heading.group' | translate }}</th>
-								<th>{{ 'label.heading.client' | translate }}</th>
-								<th>{{ 'label.heading.loan' | translate }}</th>
-								<th>{{ 'label.heading.amount.disb' | translate }}</th>
-								<th>{{ 'label.heading.auditdoneon' | translate }}</th>
-								<th>{{ 'label.heading.list.loanutilization' | translate }}</th>
-								<th></th>
-								<th></th>
-							</tr>
-							</thead>
-							<tbody data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks">
-							<tr class="pointer-main"
-								data-ng-repeat="loanUtilizationCheck in loanUtilizationdetailCheck.loanUtilizationCheckDetailData">
-								<td class="col-md-2 pointer" routeTO="">{{loanUtilizationCheck.groupName}}</td>
-								<td class="col-md-2 pointer" routeTO="">
-									{{loanUtilizationCheck.clientName}}-{{loanUtilizationCheck.clientId}}
-								</td>
-								<td class="col-md-2 pointer" routeTO="">
-									{{loanUtilizationCheck.loanType.value}}-{{loanUtilizationCheck.loanId}}
-								</td>
-								<td class="col-md-2 pointer" routeTO="">{{loanUtilizationCheck.principalAmount}}
-								</td>
-								<td class="col-md-2 pointer" routeTO="">{{auditDoneOn}}
-								</td>
-								<td>
-									<table ng-repeat="loanUtilization in loanUtilizationCheck.utilizationDetailsDatas">
-										<td class="col-md-2 pointer" routeTO="">
-											{{loanUtilization.loanPurposeData.name}}
-										</td>
-										<td class="col-md-2 pointer" routeTO="">{{loanUtilization.amount}}</td>
-										<td class="col-md-2 pointer" routeTO="">{{}}</td>
-
-									</table>
-								</td>
-								<td>
-									<button role="button" ng-click="showEdit(loanUtilizationdetailCheck.id)"
-											class="btn-link ng-binding">
-										<i class="icon-edit icon-white"></i>
-									</button>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</tab>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <table class="table">
+                                <thead>
+                                <tr class="graybg">
+                                    <th>{{ 'label.heading.group' | translate }}</th>
+                                    <th>{{ 'label.heading.client' | translate }}</th>
+                                    <th>{{ 'label.heading.loan' | translate }} : {{ 'label.heading.amount.disb' | translate }}</th>
+                                    <th>{{ 'label.heading.auditdoneon' | translate }}</th>
+                                    <th>{{ 'label.heading.loanutilization' | translate }}</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="pointer-main"
+                                    data-ng-repeat="loanUtilizationCheck in loanUtilizationChecks track by $index">
+                                    <td class="col-md-2 pointer">
+                                        {{loanUtilizationCheck.loanUtilizationCheckDetailData.groupName}}
+                                    </td>
+                                    <td class="col-md-2 pointer">
+                                        {{loanUtilizationCheck.loanUtilizationCheckDetailData.clientName}}-{{loanUtilizationCheck.loanUtilizationCheckDetailData.clientId}}
+                                    </td>
+                                    <td class="col-md-2 pointer">
+                                        {{loanUtilizationCheck.loanUtilizationCheckDetailData.loanType.value}}-{{loanUtilizationCheck.loanId}} : {{loanUtilizationCheck.loanUtilizationCheckDetailData.principalAmount}}
+                                    </td>
+                                    <td class="col-md-2 pointer">
+                                        {{loanUtilizationCheck.auditDoneOn | DateFormat}}
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <td class="col-md-2 pointer">
+                                                {{loanUtilizationCheck.loanUtilizationCheckDetailData.utilizationDetailsData.loanPurposeData.name}}
+                                            </td>
+                                            <td class="col-md-2 pointer">
+                                                {{loanUtilizationCheck.loanUtilizationCheckDetailData.utilizationDetailsData.amount}}
+                                            </td>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <button role="button" ng-click="showEdit($index)" class="btn-link ng-binding">
+                                            <i class="icon-edit icon-white"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
 			<tab heading="{{centerdatatable.registeredTableName}}" ng-repeat="centerdatatable in centerdatatables" has-permission='READ_{{centerdatatable.registeredTableName}}'
 		     select="dataTableChange(centerdatatable)">
 		    <div data-ng-hide="isClosedCenter" class="btn-group pull-right">

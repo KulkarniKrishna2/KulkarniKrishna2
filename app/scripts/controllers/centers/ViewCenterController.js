@@ -187,16 +187,11 @@
 
             resourceFactory.centerLoanUtilizationCheck.getAll({centerId: routeParams.id}, function (data) {
                 scope.loanUtilizationChecks = data;
-                for (var i in scope.loanUtilizationChecks) {
-                    for (var j in scope.loanUtilizationChecks[i].loanUtilizationCheckDetailData) {
-                        scope.loanId = scope.loanUtilizationChecks[i].loanUtilizationCheckDetailData[j].loanId;
-                        scope.auditDoneOn = dateFilter(new Date(scope.loanUtilizationChecks[i].auditDoneOn), scope.df);
-                    }
-                }
             });
 
-            scope.showEdit = function(id) {
-                location.path('/center/'+scope.centerId+'/loans/'+scope.loanId+'/editloanutilization/'+id);
+            scope.showEdit = function(index) {
+                var loanUtilizationCheck = scope.loanUtilizationChecks[index];
+                location.path('/center/'+scope.centerId+'/loans/'+loanUtilizationCheck.loanId+'/editloanutilization/'+loanUtilizationCheck.id);
             }
 
             scope.deleteAll = function (apptableName, entityId) {

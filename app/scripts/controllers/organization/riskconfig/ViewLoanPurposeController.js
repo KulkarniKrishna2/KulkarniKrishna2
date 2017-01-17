@@ -7,12 +7,8 @@
                     scope.loanPurpose = data;
                     scope.loanPurposeData = data.loanPurposeGroupDatas;
                     for (var i in scope.loanPurposeData) {
-                        if (scope.loanPurposeData[i].loanPurposeGroupType.name === "Grouping") {
-                            scope.categoryName = scope.loanPurposeData[i].name;
-                        }
-                        if (scope.loanPurposeData[i].loanPurposeGroupType.name === "Consumption") {
-                            scope.classificationName = scope.loanPurposeData[i].name;
-                        }
+                        scope.categoryName = scope.loanPurposeData[i].loanPurposeGroupType.name;
+                        scope.classificationName = scope.loanPurposeData[i].name;
                     }
                 });
 

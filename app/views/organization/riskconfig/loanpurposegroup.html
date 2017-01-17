@@ -31,7 +31,7 @@
                     <td class="pointer" data-ng-click="routeTo(loanPurposegroup.id)">{{loanPurposegroup.loanPurposeGroupType.name}}</td>
                     <td class="pointer" data-ng-click="routeTo(loanPurposegroup.id)">{{loanPurposegroup.isActive == true ? 'Active' : 'In Active' }}</td>
                     <td>
-                        <button role="button" ng-click="showEdit(loanPurposegroup.id)" class="btn-link ng-binding">
+                        <button role="button" ng-disabled="loanPurposegroup.isSystemDefined" ng-click="showEdit(loanPurposegroup.id)" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
                     </td>

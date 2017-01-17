@@ -51,6 +51,7 @@
                                is-open="opened1"
                                max="restrictDate"
                                class="form-control"/>
+                    </ng-form>
                 </td>
                 <td ng-if="centerTemplate.loanUtilizationCheckDetail">
                     <table class="table center"
@@ -70,6 +71,7 @@
                                             data-ng-change="checkLoanPurpose(parentIndex,$index)">
                                         <option value=""></option>
                                     </select>
+                                </ng-form>
                             </td>
                             <td class="col-md-2">
                                 <ng-form name="principalAmountForm" rc-submit="submit()">
@@ -85,6 +87,7 @@
                                               ng-show="(loanUtilizationCheckDetail.amount > centerTemplate.principalAmount) && principalAmountForm.principalAmount.$dirty">
                                                 <h4><em>{{'label.input.loan.principalAmount' | translate}}</em></h4>
                                         </span>
+                                </ng-form>
                             </td>
                             <td class="col-md-2">
                                 {{utilizationDetails.percentailOfUsage}}%
@@ -96,6 +99,7 @@
                                               name="comment"
                                               ng-model="utilizationDetails.comment"
                                               class="form-control"/>
+                                </ng-form>
                             </td>
                             <td>
                                 <button class="btn btn-primary" type="submit"
