@@ -1,0 +1,29 @@
+<div class="col-md-12" ng-controller="LoanEMIPacksController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.loanemipacks' | translate}}</li>
+    </ul>
+    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}"/>
+
+    <div class="pull-right">
+        <select id="productId" ng-model="loanProductId" class="form-control col-sm-6 width170px"
+                ng-options="loanproducttemp.loanProductId as loanproducttemp.loanProductName for loanproducttemp in loanproductstemplate" value="{{loanproducttemp.loanProductId}}">
+            <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
+        </select>
+        <a href="#/viewloanemipacks/{{loanProductId}}" class="btn btn-primary" ng-disabled="loanProductId === ''" has-permission='CREATE_LOANEMIPACKS'>
+            <i class="icon-plus icon-white"></i>{{'label.button.createloanemipacks' | translate}}</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.productname' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(loanproduct.loanProductId)">{{loanproduct.loanProductName}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

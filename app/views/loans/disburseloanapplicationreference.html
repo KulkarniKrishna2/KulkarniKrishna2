@@ -557,6 +557,7 @@
                                             <td class="width25 paddedbottom10">
                                                 <input type="text" class="form-control" name="transactionAmount"
                                                        ng-model="formRequestData.disburse.transactionAmount"
+                                                       ng-disabled="formData.approvedData.loanEMIPackData"
                                                        number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                             </td>
 
@@ -597,6 +598,7 @@
                                                 ng-if="loanaccountinfo.canDefineInstallmentAmount">
                                                 <input id="fixedEmiAmount" name="fixedEmiAmount" type="text"
                                                        ng-model="formRequestData.disburse.fixedEmiAmount"
+                                                       ng-disabled="formData.approvedData.loanEMIPackData"
                                                        class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                             </td>
 

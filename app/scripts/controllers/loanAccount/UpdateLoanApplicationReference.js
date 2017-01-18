@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        UpdateLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        UpdateLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter, $filter) {
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
 
@@ -45,6 +45,13 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    if(scope.loanaccountinfo.loanEMIPacks){
+                        var len = scope.loanaccountinfo.loanEMIPacks.length;
+                        for(var i = 0; i < len; i++){
+                            scope.loanaccountinfo.loanEMIPacks[i].combinedRepayEvery = scope.loanaccountinfo.loanEMIPacks[i].repaymentEvery
+                                + ' - ' + $filter('translate')(scope.loanaccountinfo.loanEMIPacks[i].repaymentFrequencyType.value);
+                        }
+                    }
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                     }
@@ -59,12 +66,18 @@
                                 }
                             })
                         }
-                        scope.formData.loanAmountRequested = scope.loanaccountinfo.principal;
-                        scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
+                        if(scope.loanaccountinfo.loanEMIPacks){
+                            scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
+                        }else{
+                            scope.formData.loanAmountRequested = scope.loanaccountinfo.principal;
+                            scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
+                            scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
+                            scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
+                            scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
+                        }
+
                         scope.formData.termFrequency = (scope.loanaccountinfo.repaymentEvery * scope.loanaccountinfo.numberOfRepayments);
                         scope.formData.termPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
-                        scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
-                        scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         scope.charges = [];//scope.loanaccountinfo.charges || [];
                         scope.productLoanCharges = data.product.charges || [];
                         if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
@@ -85,18 +98,22 @@
                             }
                         }
                     }else{
+                        if(scope.applicationData.loanEMIPackData){
+                            scope.formData.loanEMIPackId = scope.applicationData.loanEMIPackData.id;
+                        }else{
+                            scope.formData.loanAmountRequested = scope.applicationData.loanAmountRequested;
+                            scope.formData.numberOfRepayments = scope.applicationData.numberOfRepayments;
+                            scope.formData.repaymentPeriodFrequencyEnum = scope.applicationData.repaymentPeriodFrequency.id;
+                            scope.formData.repayEvery = scope.applicationData.repayEvery;
+                            scope.formData.fixedEmiAmount = scope.applicationData.fixedEmiAmount;
+                        }
                         scope.formData.externalIdOne = scope.applicationData.externalIdOne;
                         scope.formData.externalIdTwo = scope.applicationData.externalIdTwo;
                         scope.formData.loanOfficerId = scope.applicationData.loanOfficerId;
                         scope.formData.loanProductId = scope.applicationData.loanProductId;
                         scope.formData.loanPurposeId = scope.applicationData.loanPurposeId;
-                        scope.formData.loanAmountRequested = scope.applicationData.loanAmountRequested;
-                        scope.formData.numberOfRepayments = scope.applicationData.numberOfRepayments;
-                        scope.formData.repaymentPeriodFrequencyEnum = scope.applicationData.repaymentPeriodFrequency.id;
-                        scope.formData.repayEvery = scope.applicationData.repayEvery;
                         scope.formData.termPeriodFrequencyEnum = scope.applicationData.termPeriodFrequency.id;
                         scope.formData.termFrequency = scope.applicationData.termFrequency;
-                        scope.formData.fixedEmiAmount = scope.applicationData.fixedEmiAmount;
                         scope.formData.noOfTranche = scope.applicationData.noOfTranche;
                         scope.formData.submittedOnDate = dateFilter(new Date(scope.applicationData.submittedOnDate),scope.df);
 
@@ -200,7 +217,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('UpdateLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.UpdateLoanApplicationReference]).run(function ($log) {
+    mifosX.ng.application.controller('UpdateLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.UpdateLoanApplicationReference]).run(function ($log) {
         $log.info("UpdateLoanApplicationReference initialized");
     });
 }(mifosX.controllers || {}));

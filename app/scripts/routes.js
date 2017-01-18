@@ -1441,6 +1441,18 @@
             })
             .when('/riskprofileratingcompute', {
                 templateUrl: 'views/organization/profilerating/riskprofileratingcompute.html'
+            })
+            .when('/loanemipacks', {
+                templateUrl: 'views/products/loanemipacks/loanemipacks.html'
+            })
+            .when('/viewloanemipacks/:loanProductId', {
+                templateUrl: 'views/products/loanemipacks/viewloanemipacks.html'
+            })
+            .when('/addloanemipacks/:loanProductId', {
+                templateUrl: 'views/products/loanemipacks/addloanemipacks.html'
+            })
+            .when('/editloanemipacks/:loanProductId/:loanEMIPackId', {
+                templateUrl: 'views/products/loanemipacks/editloanemipacks.html'
             });
         $locationProvider.html5Mode(false);
     };

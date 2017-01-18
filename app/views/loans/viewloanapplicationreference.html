@@ -78,12 +78,12 @@
                                        tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
                                 <td>{{formData.loanPurpose.name}}</td>
                             </tr>
-                            <tr>
+                            <tr ng-hide="formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span
                                         class="required"></span>:</label></td>
                                 <td>{{formData.numberOfRepayments}}</td>
                             </tr>
-                            <tr ng-if="false && loanaccountinfo.canDefineInstallmentAmount">
+                            <tr ng-if="false && loanaccountinfo.canDefineInstallmentAmount && !formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.fixedEmiAmount}}&nbsp;{{loanaccountinfo.currency.displaySymbol}}</td>
                             </tr>
@@ -101,7 +101,7 @@
                                        tooltip="{{'label.tooltip.loanofficer' | translate}}"></i></td>
                                 <td>{{formData.loanOfficerName}}</td>
                             </tr>
-                            <tr>
+                            <tr ng-hide="formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.requested.principal.amount' | translate }}&nbsp;<span
                                         class="required">*</span>:</label></td>
                                 <td>
@@ -113,7 +113,7 @@
                                         class="required"></span>:</label></td>
                                 <td>{{formData.termFrequency}} : {{formData.termPeriodFrequency.value}}</td>
                             </tr>
-                            <tr>
+                            <tr ng-hide="formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span
                                         class="required"></span></label></td>
                                 <td>{{formData.repayEvery}} : {{formData.repaymentPeriodFrequency.value}}</td>
@@ -130,10 +130,54 @@
                                 <td><span class="padded-td"  ng-show="formData.expectedRepaymentPaymentType">
                                     {{formData.expectedRepaymentPaymentType.name}}</span></td>
                             </tr>
-                            <tr>
+                            <tr ng-hide="formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.no.of.tranche' | translate }}</label></td>
                                 <td>{{formData.noOfTranche}}</td>
                             </tr>
+                        </table>
+                    </div>
+                    <div ng-show="formData.loanEMIPackData">
+                        <table class="table  table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount1">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount2">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount3">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount4">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.fixedEmi}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount1">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount2">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount3">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount4">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div ng-hide="formData.status.id > 200" ng-if="charges.length > 0">

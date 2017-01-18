@@ -1055,6 +1055,20 @@
                     }),
                     profileRating: defineResource(apiVer + "/profileratings/:entityType/:entityId", {entityType: '@entityType', entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    loanemipack: defineResource(apiVer + "/loanemipacks/:loanProductId/:loanEMIPackId", {loanProductId: '@loanProductId', loanEMIPackId:'@loanEMIPackId'}, {
+                        getAllProductsWithPacks: {method: 'GET', params: {}, isArray: true},
+                        getEmiPacks: {method:'GET',params:{loanProductId: '@loanProductId'}, isArray: true},
+                        getEmiPack: {method:'GET',params:{loanProductId: '@loanProductId', loanEMIPackId:'@loanEMIPackId'}},
+                        add:{method:'POST',params:{loanProductId: '@loanProductId'}},
+                        update:{method:'PUT',params:{loanProductId: '@loanProductId', loanEMIPackId:'@loanEMIPackId'}},
+                        delete:{method:'DELETE',params:{loanProductId: '@loanProductId', loanEMIPackId:'@loanEMIPackId'}}
+                    }),
+                    loanemipackproducttemplate: defineResource(apiVer + "/loanemipacks/template", {}, {
+                        getAllProductsWithoutPacks: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    loanemipacktemplate: defineResource(apiVer + "/loanemipacks/:loanProductId/template", {loanProductId: '@loanProductId'}, {
+                        getEmiPackTemplate: {method: 'GET', params: {loanProductId: '@loanProductId'}}
                     })
                 };
             }];

@@ -1,0 +1,104 @@
+<div class="col-md-12" ng-controller="ViewLoanEMIPacksController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/loanemipacks">{{'label.anchor.loanemipacks' | translate}}</a></li>
+            <li class="active">{{loanTemplate.loanProductName}}</li>
+        </ul>
+        <api-validate></api-validate>
+    </div>
+
+    <script type="text/ng-template" id="delete.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br/>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="form-horizontal well">
+
+        <div class="row">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/addloanemipacks/{{loanTemplate.loanProductId}}" class="btn btn-primary"  has-permission='CREATE_LOANEMIPACKS'><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                </div>
+            </div>
+            <legend>{{'label.manageloanemipacks' | translate}}</legend>
+        </div>
+        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
+        <div>
+            <table class="table  table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                    <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                    <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                    <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 1">{{ 'label.heading.disbursalEmi2' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 2">{{ 'label.heading.disbursalEmi3' | translate }}</th>
+                    <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 3">{{ 'label.heading.disbursalEmi4' | translate }}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="loanEMIPack in loanEMIPacks | filter:filterText">
+                    <td class="col-md-1">
+                        <span>{{loanEMIPack.combinedRepayEvery}}</span>
+                    </td>
+                    <td class="col-md-1">
+                        <span>{{loanEMIPack.numberOfRepayments}}</span>
+                    </td>
+                    <td class="col-md-1">
+                        <span>{{loanEMIPack.sanctionAmount}}</span>
+                    </td>
+                    <td class="col-md-1">
+                        <span>{{loanEMIPack.fixedEmi}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan">
+                        <span>{{loanEMIPack.disbursalAmount1}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 1">
+                        <span>{{loanEMIPack.disbursalAmount2}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 2">
+                        <span>{{loanEMIPack.disbursalAmount3}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 3">
+                        <span>{{loanEMIPack.disbursalAmount4}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 1">
+                        <span>{{loanEMIPack.disbursalEmi2}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 2">
+                        <span>{{loanEMIPack.disbursalEmi3}}</span>
+                    </td>
+                    <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 3">
+                        <span>{{loanEMIPack.disbursalEmi4}}</span>
+                    </td>
+                    <td class="col-md-1">
+                        <a type="button" has-permission='UPDATE_LOANEMIPACKS'
+                           data-ng-click="showEdit(loanEMIPack.id)"><i
+                                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                    </td>
+                    <td class="col-md-1">
+                        <a  type="button" has-permission='DELETE_LOANEMIPACKS'
+                            data-ng-click="delete(loanEMIPack.id)"><i class="icon-remove icon-white"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
