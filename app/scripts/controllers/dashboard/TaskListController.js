@@ -4,9 +4,9 @@
             scope.loggedInUserId = scope.currentSession.user.userId;
             scope.formData = {};
             scope.taskTypes = [
-                {id: 'tab1', name: 'Workflow', status: 'assigned-workflow', icon:'icon-user',type:'assigned', active:true},
-                {id: 'tab2', name: 'My Task', status: 'assigned-nonworkflow', icon:'icon-user',type:'assigned', active:false},
-                {id: 'tab3', name: 'Roles', status: 'unassigned', icon:'icon-user',type:'unassigned', active:false}];
+                {id: 'tab1', name: 'Workflow', status: 'assigned-workflow', icon:'icon-user',type:'assigned'},
+                {id: 'tab2', name: 'My Task', status: 'assigned-nonworkflow', icon:'icon-user',type:'assigned'},
+                {id: 'tab3', name: 'Roles', status: 'unassigned', icon:'icon-user',type:'unassigned'}];
             scope.pageSize = 15;
             scope.childrenTaskConfigs = [];
             scope.selectedStatus = 'unassigned';

@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-12 pull-right">
-                    <div ng-hide="isResponPresent == true && loansSummary && loansSummary.cbStatus">
+                    <div ng-hide="isResponPresent == true && loansSummary && loansSummary.cbStatus" ng-if="!isTaskCompleted()">
                         <button id="creditBureauReport" type="button" class="btn btn-primary"
                                 ng-click="creditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>
                             {{'label.button.initiatecreditbureauenquiry' | translate}}
@@ -199,7 +199,7 @@
                         <table class="table table-bordered table-striped" ng-if="closedLoan.summaries.length > 0">
                             <tr>
                                 <td colspan="8">
-                                    <span class="boldlabel"><strong>Closed Loans Summary</strong></span>
+                                    <span class="boldlabel"><strong>{{'label.heading.closedLoansSummary' | translate}}</strong></span>
                                 </td>
                             </tr>
                             <tr>

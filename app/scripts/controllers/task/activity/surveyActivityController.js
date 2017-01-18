@@ -6,7 +6,7 @@
             };
             scope.formData = {};
             scope.formData.surveyedOn = new Date();
-
+            scope.showdetails=false;
             scope.entityTypeId = null;
             function initTask() {
                 scope.clientId = scope.taskconfig['clientId'];
@@ -39,6 +39,10 @@
                     });
                 }
             };
+            scope.toggleDetailsView=function()
+            {
+                scope.showdetails=!scope.showdetails;
+            }
             scope.isDisplaySurveys = true;
             scope.displaySurveysList = function () {
                 scope.isDisplaySurveys = true;
@@ -63,6 +67,8 @@
                                     var id = survey.scorecardValues[s].id;
                                     var questionId = survey.scorecardValues[s].questionId;
                                     var responseId = survey.scorecardValues[s].responseId;
+                                    var questionName = survey.scorecardValues[s].questionName;
+                                    var answerName = survey.scorecardValues[s].answerName;
                                     var value = survey.scorecardValues[s].value;
                                     for (var q in scope.questionDatas) {
                                         if (questionId === scope.questionDatas[q].id) {
@@ -98,7 +104,6 @@
                     }
                 });
             };
-
             scope.cancel = function () {
                 scope.isDisplaySurveys = true;
             }

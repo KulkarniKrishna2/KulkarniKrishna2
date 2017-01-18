@@ -8,7 +8,7 @@
                 </div>
             </div>
 
-            <table class="table" ng-show="surveys && surveys.length > 0">
+            <table class="table"  ng-show="surveys && surveys.length > 0">
                 <thead>
                 <tr class="graybg">
                     <th>{{'label.survey.name' | translate}}</th>
@@ -18,14 +18,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" ng-repeat="survey in surveys">
+                <tr class="pointer-main" ng-click="toggleDetailsView()" ng-repeat="survey in surveys">
                     <td>{{survey.surveyName}}</td>
                     <td>{{survey.surveyedOn}}</td>
                     <td>{{survey.surveyedByName}}</td>
                     <td>{{survey.totalScore}}</td>
+
                 </tr>
                 </tbody>
             </table>
+
+            <div>
+                <table class="table" ng-show="surveys && surveys.length > 0 && showdetails">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.questionname' | translate}}</th>
+                    <th>{{'label.heading.answername' | translate}}</th>
+                    <th>{{'label.survey.taken.score' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="scorecard in surveys[0].scorecardValues">
+                    <td>{{scorecard.questionName}}</td>
+                    <td>{{scorecard.answerName}}</td>
+                    <td>{{scorecard.value}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
         </div>
     </div>
     <div ng-if="!isDisplaySurveys" class="row client">

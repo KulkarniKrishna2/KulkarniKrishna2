@@ -1,12 +1,11 @@
 <div class="col-md-12" ng-controller="clientdocumentActivityController" >
-<form name="clientdocumentform" novalidate="" class="row form-horizontal" 
+<form name="clientdocumentform" ng-if="!isTaskCompleted()" novalidate="" class="row form-horizontal" 
       rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
         <div class="form-group">
             <div class="col-sm-2">
-                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" required
-                       late-Validate/>
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" required />
             </div>
 
             <div class="col-sm-2">
@@ -46,7 +45,7 @@
             <td>{{clientdocument.fileName}}</td>
             <td>
                 <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
+                <a ng-if="!isTaskCompleted()" ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
             </td>
         </tr>
         </tbody>

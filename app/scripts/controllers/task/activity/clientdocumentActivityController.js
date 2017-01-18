@@ -8,6 +8,7 @@
             function initTask(){
                 scope.clientId = scope.taskconfig['clientId'];
                 getClientDocuments();
+                scope.formData = {};
             };
 
             initTask();
@@ -25,7 +26,11 @@
                     scope.clientdocuments = data;
                 });
             };
-
+            scope.deleteDocument = function (documentId, index) {
+                resourceFactory.clientDocumentsResource.delete({clientId: scope.clientId, documentId: documentId}, '', function (data) {
+                    scope.clientdocuments.splice(index, 1);
+                });
+            };
             scope.submit = function () {
                 $upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/clients/' + scope.clientId + '/documents',
@@ -38,6 +43,7 @@
                         }
                         scope.activityDone();
                         getClientDocuments();
+                        scope.formData = {};
                     });
             };
         }
