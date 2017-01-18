@@ -315,7 +315,7 @@
                         scope.interestPortion = data.interestPortion;
                         scope.processDate = true;
                     });
-                    scope.title = 'label.heading.prepayloan';
+                    scope.title = 'label.heading.preclose';
                     scope.labelName = 'label.input.transactiondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;

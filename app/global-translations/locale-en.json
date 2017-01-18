@@ -1614,6 +1614,7 @@
     "label.heading.loanoutstanding":"Outstanding",
     "label.heading.recoverypayment":"Recovery Repayment",
     "label.heading.prepayloan":"Prepay Loan",
+    "label.heading.preclose":"Preclose Loan",
     "label.heading.assignsavingsofficer" : "Assign Savings Officer",
     "label.heading.unassignsavingsofficer" : "Unassign Savings Officer",
     "label.heading.savingsLinkage" : "Savings Linkage",
