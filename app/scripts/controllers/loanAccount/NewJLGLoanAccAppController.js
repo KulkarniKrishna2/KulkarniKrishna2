@@ -113,7 +113,7 @@
                                     if(!scope.group.clients[i].charges[j].isDeleted){
                                         var charge = {};
                                         charge.amount = scope.group.clients[i].charges[j].amount;
-                                        charge.chargeId = scope.group.clients[i].charges[j].id;
+                                        charge.chargeId = scope.group.clients[i].charges[j].chargeId;
                                         loanApplication.charges.push(charge);                                        
                                     }
 
