@@ -507,6 +507,7 @@
     "error.msg.amount.exceeding.approval.limit" : "Approval amount should be lesser than '{{params[0].value}}'",
     "error.msg.calendar.meeting.cannot.be.updated.since.it.has.active.loans":"Calendar meeting cannot be updated since the centre has active loan",
     "error.msg.Secondary.Authentication.Service.failed":"2F Authentication failed. Either finger print didn't match or OTP is not correct",
+    "error.msg.holiday.holiday.should.be.on.a.working.day": "Holiday cannot set on a Non Working Day '{{params[0].value}}'",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -2624,6 +2625,7 @@
     "validation.msg.fixeddeposit.annualInterestRate.not.greater.than.specified.number":"Annual interest rate({{params[0].value}}) should be greater than penal interest rate({{params[1].value}}).",
     "error.msg.officeToAccountMapping.not.found":"Mapping for office with Id `{{params[0].value}}` does not exist for an account of type `{{params[1].value}}`",
     "validation.msg.savingsproduct.taxGroupId.cannot.be.blank":"Tax group is required for with hold tax",
+    "validation.msg.center.name.cannot.be.blank" : "Center Name cannot be blank",
 
     "#-------": "------------",
 
@@ -5422,10 +5424,10 @@
     "taskEntityType.loan.application" : "Loan Application",
     "label.button.viewdetails" : "View Details",
     "label.button.creditbureaureport" : "Credit Bureau Report",
-    "label.heading.transactions" : "transactions",
+    "label.heading.transactions" : "Transactions",
     "label.heading.of" : "of",
-    "label.heading.reconciled" : "reconciled",
-    "label.heading.unreconciled" : "unreconciled",
+    "label.heading.reconciled" : "Reconciled",
+    "label.heading.unreconciled" : "Unreconciled",
     "error.msg.invalid.cif.format.excel.file." : "CPIF File format is not valid.",
     "error.msg.not.excel.file." : "CPIF File is not Excel file.",
     "label.input.disbursementchannel": "Disbursement Channel",

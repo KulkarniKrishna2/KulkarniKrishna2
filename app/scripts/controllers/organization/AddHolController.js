@@ -137,7 +137,9 @@
                 }
                 newholiday.description = this.formData.description;
                 newholiday.extendRepaymentReschedule = scope.extendRepaymentSchedule;
-                newholiday.reshedulingType = scope.repaymentSchedulingRuleType.id;
+                if(scope.repaymentSchedulingRuleType) {
+                    newholiday.reshedulingType = scope.repaymentSchedulingRuleType.id;
+                }
                 newholiday.offices = [];
                 for (var i in holidayOfficeIdArray) {
                     var temp = new Object();
