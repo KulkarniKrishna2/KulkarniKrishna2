@@ -53,36 +53,98 @@
                     <form-validate valattributeform="updateloanapplicationform" valattribute="loanPurposeId"/>
                 </td>
 
-                <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
+                <td class="width19" ng-hide="loanaccountinfo.loanEMIPacks"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
-                <td class="width31 paddedbottom10">
+                <td class="width31 paddedbottom10" ng-hide="loanaccountinfo.loanEMIPacks">
                     <input type="text" class="form-control" id="loanAmountRequested" name="loanAmountRequested"
                            ng-model="formData.loanAmountRequested"
-                           number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                           number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="updateloanapplicationform" valattribute="loanAmountRequested"/>
                 </td>
             </tr>
             <tr>
                 <td colspan="4">&nbsp;</td>
             </tr>
-            <tr>
+            <tr ng-hide="loanaccountinfo.loanEMIPacks">
                 <td class="width14"><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
                 <td class="width36 paddedbottom10">
                     <input id="numberOfRepayments" name="numberOfRepayments" class="form-control" type="text"
-                           ng-model="formData.numberOfRepayments" required ng-change="calculateTermFrequency()"/>&nbsp;
+                           ng-model="formData.numberOfRepayments"  ng-change="calculateTermFrequency()"/>&nbsp;
                     <form-validate valattributeform="updateloanapplicationform" valattribute="numberOfRepayments"/>
                 </td>
 
                 <td><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
                 <td class="paddedbottom10 width500px">
                     <input id="repayEvery" name="repayEvery" class="form-control" type="text"
-                           ng-model="formData.repayEvery" required ng-change="calculateTermFrequency()"/>
+                           ng-model="formData.repayEvery" ng-change="calculateTermFrequency()"/>
                     <select id="repaymentFrequencyType" class="form-control"
                             ng-model="formData.repaymentPeriodFrequencyEnum"
                             ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{termFrequencyType.id}}" ng-change="calculateTermFrequency()"/>
                     <form-validate valattributeform="updateloanapplicationform" valattribute="repayEvery"/>
+                </td>
+            </tr>
+            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                <td colspan="4">
+                    <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
+                </td>
+            </tr>
+            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                <td colspan="4">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
+                </td>
+            </tr>
+            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                <td colspan="4">
+                    <div>
+                        <table class="table  table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+                                <td class="col-md-1">
+                                    <input type="radio" ng-model="formData.loanEMIPackId" value="{{loanEMIPack.id}}"/>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.combinedRepayEvery}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.numberOfRepayments}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.fixedEmi}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
+                                    <span>{{loanEMIPack.disbursalAmount1}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
+                                    <span>{{loanEMIPack.disbursalAmount2}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
+                                    <span>{{loanEMIPack.disbursalAmount3}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
+                                    <span>{{loanEMIPack.disbursalAmount4}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -111,9 +173,9 @@
                 <td colspan="4">&nbsp;</td>
             </tr>
             <tr>
-                <td class="width14" ng-if="false && loanaccountinfo.canDefineInstallmentAmount"><label>{{
+                <td class="width14" ng-if="false && loanaccountinfo.canDefineInstallmentAmount" ng-hide="loanaccountinfo.loanEMIPacks"><label>{{
                     'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
-                <td class="width36 paddedbottom10" ng-if="false && loanaccountinfo.canDefineInstallmentAmount">
+                <td class="width36 paddedbottom10" ng-if="false && loanaccountinfo.canDefineInstallmentAmount" ng-hide="loanaccountinfo.loanEMIPacks">
                     <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount"
                            class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                 </td>

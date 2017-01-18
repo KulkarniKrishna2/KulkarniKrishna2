@@ -456,7 +456,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/profilerating/ViewProfileRatingConfigurationController',
             'organization/profilerating/CreateProfileRatingConfigurationController',
             'organization/profilerating/EditProfileRatingConfigurationController',
-            'organization/profilerating/RiskProfileRatingComputeController'
+            'organization/profilerating/RiskProfileRatingComputeController',
+            'product/loanemipacks/LoanEMIPacksController',
+            'product/loanemipacks/ViewLoanEMIPacksController',
+            'product/loanemipacks/AddLoanEMIPacksController',
+            'product/loanemipacks/EditLoanEMIPacksController'
         ],
         filters: [
             'StatusLookup',
