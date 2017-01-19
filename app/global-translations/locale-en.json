@@ -935,6 +935,9 @@
     "label.input.error":"Error",
     "label.input.invaliddaterange":"Please Select Valid Date Range",
     "label.input.calendar.next.meeting.falls.on":"Next meeting falls on",
+    "label.input.selectedmonthdays": "Selected Month Days",
+    "label.input.availablemonthdays": "Available Month Days",
+    "label.input.selectmonthday":"Select Month Day",
 
 
     "#Buttons": "..",

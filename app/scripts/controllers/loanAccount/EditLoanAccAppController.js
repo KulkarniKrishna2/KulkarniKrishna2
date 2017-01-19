@@ -14,6 +14,7 @@
             scope.GLIMData = {};
             scope.clientMembers = [];
             scope.repeatsOnDayOfMonthOptions = [];
+            scope.selectedOnDayOfMonthOptions = [];
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -274,7 +275,7 @@
                         scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.meeting.repeatsOnDay.id;
                     }
                     if (scope.loanaccountinfo.meeting.repeatsOnDayOfMonth) {
-                        scope.formData.repeatsOnDayOfMonth = scope.loanaccountinfo.meeting.repeatsOnDayOfMonth;
+                        scope.selectedOnDayOfMonthOptions = scope.loanaccountinfo.meeting.repeatsOnDayOfMonth;
                     }
                 }
 
@@ -439,6 +440,11 @@
                     delete this.formData.interestRateDifferential ;
                     delete this.formData.isFloatingInterestRate ;
                 }
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                    scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                }else{
+                    scope.formData.repeatsOnDayOfMonth = [];
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -510,6 +516,11 @@
                 if(this.formData.fixedEmiAmount == undefined){
                     //this.formData.fixedEmiAmount = null;
                 }
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                    scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                }else{
+                    scope.formData.repeatsOnDayOfMonth = [];
+                }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -532,6 +543,43 @@
             scope.cancel = function () {
                 location.path('/viewloanaccount/' + routeParams.id);
             }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
+            };
         }
     });
     mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
