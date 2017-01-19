@@ -100,7 +100,7 @@
                             angular.copy(scope.formData.clientMembers,scope.charges[i].glims);
                         }
                     }
-                    if(scope.loanaccountinfo.loanOfficerOptions){
+                    if(scope.loanaccountinfo.loanOfficerOptions && !scope.formData.loanOfficerId){
                         resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
                             if(data.staffId != null){
                                 scope.formData.loanOfficerId =  data.staffId;
@@ -182,14 +182,14 @@
                 scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
                 scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
                 scope.formData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
-				scope.formData.recurringMoratoriumOnPrincipalPeriods = scope.loanaccountinfo.recurringMoratoriumOnPrincipalPeriods;
+                scope.formData.recurringMoratoriumOnPrincipalPeriods = scope.loanaccountinfo.recurringMoratoriumOnPrincipalPeriods;
                 scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
                 scope.formData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
                 scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
                 scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
-                scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId
+                scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId;
 
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
