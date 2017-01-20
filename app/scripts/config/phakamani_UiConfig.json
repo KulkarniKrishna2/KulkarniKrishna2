@@ -21,14 +21,19 @@
         "transactionProcessingStrategyId": false,
         "graceOnInterestPayment": false,
         "graceOnArrearsAgeing": false,
-        "syncDisbursementDateWithMeeting":true
+        "syncDisbursementDateWithMeeting":true,
+        "recurringMoratoriumOnPrincipalPeriods": false
       },
-      "isMandatory":{
-        "externalId":true
+      "isMandatory": {
+        "externalId": true
       },
       "isHiddenSection": {
         "interestRecalculationSection": false,
         "collateralSection": false
+      },
+      "isShowField": {
+        "nextRepaymentDateDisburseScreen": false,
+        "adjustRepaymentDateDisburseScreen": false
       },
       "isReadOnlyField": {
         "loanTermFrequencyType": false,
@@ -36,44 +41,70 @@
         "displayName": false,
         "interestRatePerPeriod": false,
         "loanPurposeId": false,
-        "repaymentFrequencyType": false,
-        "syncRepaymentsWithMeeting": false
+        "syncRepaymentsWithMeeting": false,
+        "repaymentFrequencyType": false
       },
-      "isAutoPopulate":{
+      "isAutoPopulate": {
         "interestChargedFromDate": false
       },
       "isDefaultValue": {
-        "fundId": 45,
         "syncDisbursementWithMeeting": false,
         "considerFutureDisbursmentsInSchedule": true,
-        "syncDisbursementWithMeeting": false
+        "fundId": "",
+        "paymentTypeId": ""
+      },
+      "isMandatory": {
+        "repaymentsStartingFromDate": false,
+        "loanPurposeId": false
       }
     },
-    "clientAccount":{
-      "isMandatory":{
-        "externalId":true
+    "viewLoanAccountDetails": {
+      "isHiddenFeild": {
+        "viewReportButton": false,
+        "editTranches": false
+      }
+    },
+    "clientAccount": {
+      "isMandatory": {
+        "externalId": true
       }
     },
     "collectionSheet": {
       "isAutoPopulate": {
         "paymentTypeOption": false
       },
-      "isHiddenFeild":{
-        "newtransactionDate":false
+      "isHiddenFeild": {
+        "newtransactionDate": false
       }
     },
     "createClient": {
       "isReadOnlyField": {
-        "staff": false
+        "staff": false,
+        "pincode": false
+      },
+      "isValidateDOBField": {
+        "active": false,
+        "ageCriteria": {
+          "minAge": "",
+          "maxAge": ""
+        }
+      },
+      "isHiddenField": {
+        "hideClientClassification": false
+      },
+      "isMandatoryField": {
+        "dateOfBirth": false
       }
     },
-    "createGroup": {
-      "isReadOnlyField": {
-        "staff": false,
-        "active": false
+    "defaultGISConfig": {
+      "address": {
+        "countryName": "",
+        "stateName": "",
+        "addressType": ""
       },
-      "isAutoPopulate": {
-        "active": true
+      "paymentType": {
+        "expectedDisbursalPaymentType": "",
+        "expectedRepaymentPaymentType": ""
       }
     },
     "createCenter": {
@@ -82,7 +113,7 @@
         "name": false
       },
       "isHiddenField": {
-        "villageOptions": false
+        "villageOptions": true
       }
     },
     "createGroup": {
@@ -98,33 +129,47 @@
       }
     },
     "labelChanges": {
-      "calendarChagesEffectiveFrom" : false
+      "calendarChagesEffectiveFrom": false
     },
     "createVillage": {
       "isReadOnlyField": {
         "active": false
+      },
+      "isValidatePinCodeField": {
+        "active": false,
+        "pinCodeValues": {
+          "startDigit": {
+            "Karnataka": "",
+            "Maharashtra": ""
+          },
+          "pincodeLenght": ""
+        }
+      },
+      "isHiddenField": {
+        "villageCode": false
       }
     },
-    "viewLoanAccountDetails":{
-      "isHiddenFeild":{
-        "viewReportButton":false
+    "viewLoanAccountDetails": {
+      "isHiddenFeild": {
+        "viewReportButton": false
       }
     },
-    "clientIdentifier":{
+    "clientIdentifier": {
       "identitiesMatchLuhnsAlgorithm": {
-        "clientIdentifierValidation":true
+        "clientIdentifierValidation": false
+      },
+      "hiddenFields":{
+        "status":false
+      }
+    },
+    "reportParameterConfiguration": {
+      "datePicker": {
+        "reportNames": "'Expected Payments By Date - Basic'",
+        "restrictedDate": ""
       }
     },
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":false
     }
-  },
-    "reportParameterConfiguration": {
-	"datePicker": {
-	  "reportNames": "'Expected Payments By Date - Basic'",
-	  "restrictedDate":""
-	}
   }
 }
-
-

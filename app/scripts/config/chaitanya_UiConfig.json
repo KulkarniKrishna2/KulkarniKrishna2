@@ -157,7 +157,10 @@
     "clientIdentifier": {
       "identitiesMatchLuhnsAlgorithm": {
         "clientIdentifierValidation": false
-      }
+      },
+      "hiddenFields":{
+        "status":true
+    }
     },
     "reportParameterConfiguration": {
       "datePicker": {
