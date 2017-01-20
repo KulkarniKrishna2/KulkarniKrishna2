@@ -8,6 +8,8 @@
                 scope.transaction = data;
                 scope.glimTransactions = data.glimTransactions;
                 scope.transaction.accountId = routeParams.accountId;
+                scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
+                scope.transaction.updatedDate = new Date(scope.transaction.updatedDate.iLocalMillis);
                 scope.isUndoEditTrxnEnabled();
             });
 
