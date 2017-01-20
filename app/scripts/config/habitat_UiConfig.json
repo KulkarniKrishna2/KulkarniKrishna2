@@ -157,6 +157,9 @@
 	"clientIdentifier": {
 	  "identitiesMatchLuhnsAlgorithm": {
 		"clientIdentifierValidation": false
+	  },
+	  "hiddenFields":{
+		"status":false
 	  }
 	},
 	"reportParameterConfiguration": {
@@ -169,5 +172,4 @@
 		"allowMultipleCreditAndDebitEntries":false
 	}
   }
-
 }

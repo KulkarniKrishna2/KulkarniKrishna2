@@ -157,6 +157,9 @@
     "clientIdentifier":{
       "identitiesMatchLuhnsAlgorithm": {
         "clientIdentifierValidation":false
+      },
+      "hiddenFields":{
+        "status":false
       }
     },
     "journalEntryConfiguration": {
