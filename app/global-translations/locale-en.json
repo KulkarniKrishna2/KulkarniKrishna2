@@ -5191,6 +5191,7 @@
     "label.view.riskcriteria":"Risk Criteria",
     "label.anchor.riskcriteria.create":"Create Risk Criteria",
     "label.anchor.riskcriteria":"Risk Criteria",
+    "label.define.riskcriteria":"Risk Criteria",
     "label.view.riskcriteria.edit":"Edit Risk Criteria",
     "label.input.riskcriteria.name":"Name",
     "label.anchor.riskcriteria.edit":"Edit Risk Criteria",
@@ -5471,6 +5472,7 @@
     "label.heading.profile" : "Profile",
     "label.risk.profile.rating" : "Risk profile rating",
     "label.risk.profile.rating.batch" : "Compute rating (batch)",
+    "error.msg.profile.rating.config.type.invalid" : "Profile Rating Config with type `{{params[0].value}}` does not exist",
 
     "..... Loan EMI Packs translations ....":"",
     "label.anchor.loanemipacks":"Loan EMI Packs",

@@ -10,7 +10,7 @@
         <fieldset>
             <legend>Compute profile rating</legend>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="officeId">{{ 'label.input.select.profile' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2" for="officeId">{{ 'label.menu.selectoffice' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-3">
                     <select id="officeId" name="officeId" ng-options="office.id as office.name for office in officeOptions"
                             ng-model="formData.scopeEntityId" class="form-control" value="{{office.id}}" required late-validate="">
