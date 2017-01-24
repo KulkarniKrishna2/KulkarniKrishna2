@@ -863,7 +863,9 @@
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transferType.value}}</td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transactionDate | DateFormat}}</td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.amount}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.status.value}}</td>
+                                <td class="pointer" >{{traanferData.status.value}}
+                                    <button class="btn btn-link" ng-click="retryTransfer(traanferData)" ng-if="traanferData.status.id == 6" has-permission="RETRY_BANK_TRANSACTION">Retry</button>
+                                </td>
                             </tr>
                         </table>
                     </tab>

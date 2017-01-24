@@ -83,7 +83,7 @@
                 if(task.parentTaskId !=undefined){
                     location.path('/viewtask/' + task.parentTaskId);
                 }else{
-                    location.path('/viewtask/' + task.id);
+                    location.path('/viewtask/' + task.taskId);
                 }
             };
 

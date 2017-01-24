@@ -441,6 +441,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/cashflowActivityController',
             'task/activity/criteriacheckActivityController',
             'task/activity/existingloanActivityController',
+            'task/activity/banktransactionActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',

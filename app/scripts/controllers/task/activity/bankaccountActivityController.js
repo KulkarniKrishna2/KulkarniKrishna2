@@ -29,8 +29,7 @@
             }
 
             scope.submit = function () {
-                
-                resourceFactory.bankAccountDetailResource.create({entityType: scope.entityType,entityId: scope.entityId},this.formData, function (data) {
+                resourceFactory.bankAccountDetailResource.create({entityType: scope.entityType,entityId: scope.entityId},scope.formData, function (data) {
                     populateDetails();
                     scope.createDetail = false;
                     scope.isSummary=true;
@@ -43,7 +42,7 @@
             };
 
             scope.update = function () {
-                resourceFactory.bankAccountDetailResource.update({entityType: scope.entityType,entityId: scope.entityId},this.formData, function (data) {
+                resourceFactory.bankAccountDetailResource.update({entityType: scope.entityType,entityId: scope.entityId},scope.formData, function (data) {
                     populateDetails();
                 });
             };
