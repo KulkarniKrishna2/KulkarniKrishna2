@@ -146,8 +146,8 @@
                     case "disburse.tranche.creditbureaureport":
                         if(scope.isCBCheckReq === true && scope.loandetails.status.id == 300){
                             location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
-                        }else if(scope.isCBCheckReq === true && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
-                            location.path('/creditbureaureport/loanapplication/'+scope.loandetails.loanApplicationReferenceId);
+                        }else if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
                         }
                         break;
                 }
@@ -200,9 +200,9 @@
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
              */
 
-            var multiTranchDataRequest = "multiDisburseDetails";
+            var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:"multiTranchDataRequest,loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
                 $rootScope.loanproductName = data.loanProductName;
                 $rootScope.clientId=data.clientId;
