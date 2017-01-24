@@ -68,15 +68,15 @@
             </div>
 
             <div class="row client" ng-if="isDisplayNotes">
-                <form>
+                <form ng-if="!isTaskCompleted()">
                     <div class="form-group">
                         <div class="col-sm-12 col-md-12">
-                    <textarea rows="1" class="form-control marginbottom0px" id="textarea"
+                    <textarea  rows="1" class="form-control marginbottom0px" id="textarea"
                               placeholder="{{'label.input.enternote' | translate}}" ng-model="noteData.note"></textarea>
 
                             <div class="notewrapper col-sm-12 col-md-12">
                             <span class="pull-right noteaddbuttonwrapper">
-                                <button ng-disabled="isTaskCompleted()" class="btn btn-primary" type="button" ng-click="addNote()"
+                                <button  class="btn btn-primary" type="button" ng-click="addNote()"
                                         has-permission='CREATE_TASK_EXECUTION_NOTE'>{{'label.button.add' |
                                     translate}}
                                 </button>
@@ -97,7 +97,8 @@
             </div>
 
             <div class="row client" ng-if="isDisplayAttachments">
-                <form name="taskdocumentform" rc-submit="submitTaskDocuments()">
+                <form name="taskdocumentform" rc-submit="submitTaskDocuments()" 
+                ng-if="!isTaskCompleted()">
                     <fieldset>
                         <div class="form-group">
                             <div class="col-sm-2">
@@ -121,7 +122,7 @@
                             </div>
 
                             <div class="col-md-2">
-                                <button ng-disabled="isTaskCompleted()" id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
+                                <button ng-if="!isTaskCompleted()" id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
                             </div>
                         </div>
                     </fieldset>

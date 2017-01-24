@@ -389,6 +389,11 @@
     "label.relVersion": "Release Version: ",
     "label.select":"Select an Option",
 
+    "#Tab Messages":"..",
+    "label.tab.myworkflowtasks":"My Workflow Tasks",
+    "label.tab.mytasks":"My Other Tasks",
+    "label.tab.role":"Un-Assigned Tasks",
+
     "#Enumeration & Error Messages": "..",
     "label.error": "Error:  ",
     "label.error.select.client":"Please select atleast one checkbox ",
@@ -4916,6 +4921,7 @@
     "label.define.incomegeneratingasset":"Income Generating Asset",
     "label.define.occupationtype":"Define Cash Flow type",
     "label.define.riskdimensions":"Define risk dimension",
+    "label.define.riskcriteria":"Define risk criteria",
     "label.defineriskfactor":"Define risk factor",
     "label.defineauditquestionnaire":"Define audit questionnaire",
     "label.defineproducteligibilitycritaria":"Define producte ligibility critaria",
@@ -5435,6 +5441,7 @@
     "label.heading.write.off.amount":"Write off Amount",
     "taskEntityType.loan.application" : "Loan Application",
     "label.button.viewdetails" : "View Details",
+    "label.button.hidedetails" : "Hide Details",
     "label.button.creditbureaureport" : "Credit Bureau Report",
     "label.heading.transactions" : "transactions",
     "label.heading.of" : "of",

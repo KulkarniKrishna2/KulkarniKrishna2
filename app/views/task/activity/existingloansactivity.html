@@ -15,7 +15,7 @@
 				</thead>
 				<tbody>
 
-					<tr ng-if="existingLoan.source && existingLoan.source.name != 'Credit Bureau'"
+					<tr ng-if="existingLoan.source"
 						ng-repeat="existingLoan in existingLoans">
 						<td ng-click="routeToViewExistingLoan(existingLoan.id)">
 							{{existingLoan.source.name}}
@@ -35,7 +35,7 @@
 						<td ng-click="routeToViewExistingLoan(existingLoan.id)">
 							<span>{{existingLoan.loanStatus.value}}</span>
 						</td>
-						<td class="pull-right">
+						<td >
 							<button role="button" ng-click="showEditClientExistLoan(existingLoan.id)"
 							class="btn-link ng-binding">
 							<i class="icon-edit icon-white"></i>
@@ -45,12 +45,12 @@
 				</tbody>
 			</table>
 		</div>
-		<div ng-if="addExistingLoan" class="form-horizontal well">
+		<div ng-if="addExistingLoan" class="form-horizontal">
 			 <form name="existingLoan" novalidate="" class="form-horizontal" rc-submit="submit()">
 	            <fieldset>
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.source' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <select id="source" name="source" ng-model="formData.sourceId" class="form-control"
 	                                ng-options="existingLoanSource.id as existingLoanSource.name for existingLoanSource in existingLoanSourceOption"
 	                                value="existingLoanSource.id">
@@ -58,7 +58,7 @@
 	                        </select>
 	                    </div>
 	                    <label class="control-label col-sm-2">{{ 'label.input.creditbureau' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <select id="creditbureau" name="creditbureau" ng-model="formData.creditBureauProductId" class="form-control"
 	                                ng-options="creditBureauProduct.creditBureauId as creditBureauProduct.creditBureauName for creditBureauProduct in creditBureauProductsOption"
 	                                value="creditBureauProduct.creditBureauId">
@@ -67,9 +67,9 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.lender' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <select id="lender" name="lender" ng-model="formData.lenderId" class="form-control"
 	                                ng-options="lender.id as lender.name for lender in lenderOption"
 	                                value="lender.id">
@@ -77,15 +77,15 @@
 	                        </select>
 	                    </div>
 	                    <label class="control-label col-sm-2">{{ 'label.input.otherlender' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <input ng-autofocus="true" type="text" id="lenderName" name="lenderName"
 	                               ng-model="formData.lenderName" class="form-control" required late-validate/>
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.loantype' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <select id="loanTypeId" name="loanTypeId" ng-model="formData.loanTypeId" class="form-control"
 	                                ng-options="loanType.id as loanType.name for loanType in loanTypeOption"
 	                                value="loanType.id">
@@ -93,7 +93,7 @@
 	                        </select>
 	                    </div>
 	                    <label class="control-label col-sm-2">{{ 'label.input.loanpurpose' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <select id="externalLoanPurposeId" name="externalLoanPurposeId" ng-model="formData.externalLoanPurposeId" class="form-control"
 	                                ng-options="externalLoanPurpose.id as externalLoanPurpose.name for externalLoanPurpose in externalLoanPurposeOption"
 	                                value="externalLoanPurpose.id">
@@ -102,17 +102,17 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.disbursedate' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <input id="disburseDate" type="text" name="disburseDate" datepicker-pop="dd MMMM yyyy"
 	                               ng-model="formData.disbursedDate" is-open="opened1" max="restrictDate"
 	                               class="form-control"/>
 	                    </div>
 
 	                    <label class="control-label col-sm-2">{{ 'label.input.loan.status' | translate }}</label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <select id="loanStatusId" name="loanStatusId" ng-model="formData.loanStatusId" class="form-control"
 	                                ng-options="loanStatus.id as loanStatus.value for loanStatus in loanStatusOption"
 	                                value="loanStatus.id">
@@ -121,10 +121,10 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.amountborrowed' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <input id="amountBorrowed" type="text" name="amountBorrowed"
 	                               ng-model="formData.amountBorrowed"
 	                                   lass="form-control"/>
@@ -132,16 +132,16 @@
 
 	                    <label class="control-label col-sm-2">{{ 'label.input.gt0dpd3mths' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-2">
+	                    <div class="col-sm-4">
 	                        <input id="gt0dpd3mths" type="text" name="gt0dpd3mths" ng-model="formData.gt0dpd3mths"
 	                               class="form-control"/>
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.outstanding' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <input id="outstanding" type="text" name="outstanding"
 	                               ng-model="formData.currentOutstanding"
 	                               lass="form-control"/>
@@ -155,10 +155,10 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.amtOverdue' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <input id="amtOverdue" type="text" name="amtOverdue"
 	                               ng-model="formData.amtOverdue"
 	                               lass="form-control"/>
@@ -172,10 +172,10 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.WrittenOffAmount' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-3">
+	                    <div class="col-sm-4">
 	                        <input id="WrittenOffAmount" type="text" name="WrittenOffAmount"
 	                               ng-model="formData.writtenOffAmount"
 	                               lass="form-control"/>
@@ -189,7 +189,7 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.installmentAmount' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-2">
@@ -199,16 +199,16 @@
 	                    </div>
 	                </div>
 
-	                <div class="form-group">
+	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.loanTenure' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-1">
+	                    <div class="col-sm-2">
 	                        <input id="loanTenure" type="text"
 	                               name="loanTenure"
 	                               ng-model="formData.loanTenure"
 	                               class="form-control"/>
 	                    </div>
-	                    <div class="col-sm-1">
+	                    <div class="col-sm-2">
 	                        <select id="loanTenaureType" name="loanTenaureType" ng-model="formData.loanTenurePeriodType" class="form-control"
 	                                ng-options="loanTenaure.id as loanTenaure.value  for loanTenaure in loanTenaureOption"
 	                                value="loanTenaure.id">
@@ -216,15 +216,15 @@
 	                        </select>
 	                    </div>
 
-	                    <label class="control-label col-sm-3">{{ 'label.input.repaymentFrequency' | translate }}<span
+	                    <label class="control-label col-sm-2">{{ 'label.input.repaymentFrequency' | translate }}<span
 	                            class="required"></span></label>
-	                    <div class="col-sm-1">
+	                    <div class="col-sm-2">
 	                        <input id="repaymentFrequency" type="text"
 	                               name="repaymentFrequency"
 	                               ng-model="formData.repaymentFrequencyMultipleOf"
 	                               class="form-control"/>
 	                    </div>
-	                    <div class="col-sm-1">
+	                    <div class="col-sm-2">
 	                        <select id="" name="status" ng-model="formData.repaymentFrequency" class="form-control"
 	                                ng-options="termPeriodFrequency.id as termPeriodFrequency.value  for termPeriodFrequency in termPeriodFrequencyType"
 	                                value="termPeriodFrequency.id">
@@ -233,12 +233,14 @@
 	                    </div>
 	                </div>
 	                <br/>
+	                <div class="row">
 	                <div class="col-md-offset-4 paddedleft">
 	                    <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel'
 	                        | translate}}</a>
 	                    <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
 	                        translate}}</a>
 	                </div>
+	            </div>
 	            </fieldset>
 	        </form>
         </div>
@@ -247,9 +249,9 @@
             <fieldset>
                 <legend>{{'label.view.edit.existingloan' | translate}}</legend>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.source' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select id="source" name="source" ng-model="formData.sourceId" class="form-control"
                                 ng-options="existingLoanSource.id as existingLoanSource.name for existingLoanSource in existingLoanSourceOption"
                                 value="existingLoanSource.id">
@@ -257,7 +259,7 @@
                         </select>
                     </div>
                     <label class="control-label col-sm-2">{{ 'label.input.creditbureau' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select id="creditbureau" name="creditbureau" ng-model="formData.creditBureauProductId" class="form-control"
                                 ng-options="creditBureauProduct.creditBureauId as creditBureauProduct.creditBureauName for creditBureauProduct in creditBureauProductsOption"
                                 value="creditBureauProduct.creditBureauId">
@@ -266,9 +268,9 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.lender' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select id="lender" name="lender" ng-model="formData.lenderId" class="form-control"
                                 ng-options="lender.id as lender.name for lender in lenderOption"
                                 value="lender.id">
@@ -276,15 +278,15 @@
                         </select>
                     </div>
                     <label class="control-label col-sm-2">{{ 'label.input.otherlender' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <input ng-autofocus="true" type="text" id="lenderName" name="lenderName"
                                ng-model="formData.lenderName" class="form-control" required late-validate/>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.loantype' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select id="loanTypeId" name="loanTypeId" ng-model="formData.loanTypeId" class="form-control"
                                 ng-options="loanType.id as loanType.name for loanType in loanTypeOption"
                                 value="loanType.id">
@@ -292,7 +294,7 @@
                         </select>
                     </div>
                     <label class="control-label col-sm-2">{{ 'label.input.loanpurpose' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select id="externalLoanPurposeId" name="externalLoanPurposeId" ng-model="formData.externalLoanPurposeId" class="form-control"
                                 ng-options="externalLoanPurpose.id as externalLoanPurpose.name for externalLoanPurpose in externalLoanPurposeOption"
                                 value="externalLoanPurpose.id">
@@ -301,17 +303,17 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.disbursedate' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <input id="disburseDate" type="text" name="disburseDate" datepicker-pop="dd MMMM yyyy"
                                ng-model="formData.disbursedDate" is-open="opened1" max="restrictDate"
                                class="form-control"/>
                     </div>
 
                     <label class="control-label col-sm-2">{{ 'label.input.loan.status' | translate }}</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select id="loanStatusId" name="loanStatusId" ng-model="formData.loanStatusId" class="form-control"
                                 ng-options="loanStatus.id as loanStatus.value for loanStatus in loanStatusOption"
                                 value="loanStatus.id">
@@ -320,10 +322,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.amountborrowed' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <input id="amountBorrowed" type="text" name="amountBorrowed"
                                ng-model="formData.amountBorrowed"
                                lass="form-control"/>
@@ -337,10 +339,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.outstanding' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <input id="outstanding" type="text" name="outstanding"
                                ng-model="formData.currentOutstanding"
                                lass="form-control"/>
@@ -354,10 +356,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.amtOverdue' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <input id="amtOverdue" type="text" name="amtOverdue"
                                ng-model="formData.amtOverdue"
                                lass="form-control"/>
@@ -371,10 +373,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.WrittenOffAmount' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <input id="WrittenOffAmount" type="text" name="WrittenOffAmount"
                                ng-model="formData.writtenOffAmount"
                                lass="form-control"/>
@@ -388,7 +390,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.installmentAmount' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
@@ -398,16 +400,16 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.loanTenure' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <input id="loanTenure" type="text"
                                name="loanTenure"
                                ng-model="formData.loanTenure"
                                class="form-control"/>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <select id="loanTenaureType" name="loanTenaureType" ng-model="formData.loanTenurePeriodType" class="form-control"
                                 ng-options="loanTenaure.id as loanTenaure.value  for loanTenaure in loanTenaureOption"
                                 value="loanTenaure.id">
@@ -415,15 +417,15 @@
                         </select>
                     </div>
 
-                    <label class="control-label col-sm-3">{{ 'label.input.repaymentFrequency' | translate }}<span
+                    <label class="control-label col-sm-2">{{ 'label.input.repaymentFrequency' | translate }}<span
                             class="required"></span></label>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <input id="repaymentFrequency" type="text"
                                name="repaymentFrequency"
                                ng-model="formData.repaymentFrequencyMultipleOf"
                                class="form-control"/>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <select id="" name="status" ng-model="formData.repaymentFrequency" class="form-control"
                                 ng-options="termPeriodFrequency.id as termPeriodFrequency.value  for termPeriodFrequency in termPeriodFrequencyType"
                                 value="termPeriodFrequency.id">
