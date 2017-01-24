@@ -524,9 +524,7 @@
                 scope.convertDateArrayToObject('date');
 
                 if($rootScope.hasPermission('READ_BANK_TRANSACTION')){
-                    resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
-                        scope.transferDetails = data;
-                    });
+                    fetchBankTransferDetails();
                 }
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
@@ -534,6 +532,12 @@
                 });
 
             });
+
+            fetchBankTransferDetails = function(){
+                resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
+                    scope.transferDetails = data;
+                });
+            };
 
             function disbursalSettings(data) {
                 if (data.canDisburse) {
@@ -1021,6 +1025,14 @@
 
             scope.viewTransferDetails = function(transferData){
                 location.path('/viewbankaccounttransfers/'+'loans/' + transferData.entityId+'/'+transferData.transactionId);
+            };
+
+            scope.retryTransfer = function(transferData){
+                if(transferData.status.id==6){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'retry'}, function (data) {
+                        fetchBankTransferDetails();
+                    });
+                }
             };
 
             function constructActiveLoanSummary() {

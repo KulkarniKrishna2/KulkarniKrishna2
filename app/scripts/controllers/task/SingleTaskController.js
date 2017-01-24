@@ -39,11 +39,11 @@
                 }
             }
 
-
             initTask();
             scope.doTaskAction = function (actionName) {
                 if(actionName === 'approve' && (scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'||
-                    scope.taskData.taskActivity.identifier.toLowerCase() === 'cam')){
+                    scope.taskData.taskActivity.identifier.toLowerCase() === 'cam' ||
+                    scope.taskData.taskActivity.identifier.toLowerCase() === 'banktransaction')){
                     scope.$broadcast('activityApprove');
                 }else{
                     scope.possibleActions = [];

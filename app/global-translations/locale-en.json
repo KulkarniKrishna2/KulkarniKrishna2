@@ -4449,12 +4449,15 @@
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.not.supported":"Bank Account Details not supported",
 
     "label.heading.banktransfer":"Bank tansfer",
-    "label.anchor.bankaccounttransferdetails":"Account Tranfer Detail",
+    "label.anchor.bankaccounttransferdetails":"Account Transfer Detail",
+    "label.heading.loans":"Loan",
     "label.heading.holdername":"Bank Account Holder Name",
     "label.heading.accountnumber":"Bank Account Number",
     "label.heading.ifsccode":"Bank IFSC code",
     "label.heading.mobilenumber":"Mobile Number",
     "label.heading.email":"Email",
+    "label.heading.bankcity":"Bank City",
+    "label.heading.bankname":"Bank Name",
     "label.button.initiate":"Initiate Transfer",
     "label.button.reinitiate":"Re-Initiate Transfer",
     "label.heading.created.user":"Created User",
@@ -4463,6 +4466,16 @@
     "label.heading.bankaccounttransferdetails":"Bank Transfer",
 
 
+    "transactionType.ft": "Fund Transfer",
+    "transactionType.imps": "IMPS Transfer",
+    "transactionType.neft": "NEFT Transfer",
+    "transactionType.rtgs": "RTGS Transfer",
+    "label.transfer.type":"Mode of Transfer",
+    "label.heading.transferType":"Mode of Transfer",
+
+    "label.heading.utrNumber":"UTR",
+    "label.heading.poNumber":"PO",
+    "label.heading.referenceNumber":"Reference Number",
 
     "label.externalServices":"External Services Configuration",
     "label.S3.description":"S3 Amazon Service Configuration",

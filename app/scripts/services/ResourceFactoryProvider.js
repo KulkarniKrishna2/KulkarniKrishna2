@@ -1035,6 +1035,9 @@
                         getAll: {method: 'GET', params: {}, isArray: true},
                         save: {method: 'POST', params: {}}
                     }),
+                    bankAccountTransferTemplateResource: defineResource(apiVer + "/banktransaction/:bankTransferId/template", {bankTransferId:"@bankTransferId"}, {
+                        get: {method: 'GET', params: {}},
+                    }),
                     taskConfigResource: defineResource(apiVer + "/tasks/config/:withTemplate", {}, {
                         getTemplate: {method: 'GET', params: {withTemplate:"template", parentConfigId: '@parentConfigId'}}
                     }),
