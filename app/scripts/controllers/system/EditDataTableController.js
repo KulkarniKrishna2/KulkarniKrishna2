@@ -273,9 +273,12 @@
                         this.formData.scope.allowedValues.push(this.selected[i].id);
                     }
                 } else {
-                    delete this.formData.scope.id;
-                    delete this.formData.scopingCriteriaEnum;
-                    delete this.formData.scope.allowedValues;
+                    if(this.formData.scope){
+                        delete this.formData.scope.id;
+                        delete this.formData.scopingCriteriaEnum;
+                        delete this.formData.scope.allowedValues;
+                    }
+
                 }
                 delete this.formData.restrictscope;
                 delete this.formData.clientscopetype;
