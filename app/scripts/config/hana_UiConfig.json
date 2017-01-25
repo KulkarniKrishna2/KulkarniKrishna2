@@ -22,7 +22,8 @@
 		"graceOnInterestPayment": true,
 		"graceOnArrearsAgeing": true,
 		"syncDisbursementDateWithMeeting":true,
-		"recurringMoratoriumOnPrincipalPeriods" : false
+		"recurringMoratoriumOnPrincipalPeriods" : false,
+		"brokenPeriodMethodType":false
 	  },
 	  "isMandatory": {
 		"externalId": false

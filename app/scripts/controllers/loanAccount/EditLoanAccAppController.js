@@ -264,6 +264,11 @@
                 scope.formData.createStandingInstructionAtDisbursement = scope.loanaccountinfo.createStandingInstructionAtDisbursement;
                 scope.formData.isTopup = scope.loanaccountinfo.isTopup;
                 scope.formData.loanIdToClose = scope.loanaccountinfo.closureLoanId;
+                if (scope.loanaccountinfo.brokenPeriodMethodType) {
+                    scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
+                }else{
+                    scope.formData.brokenPeriodMethodType = "";
+                }
 
                 if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("centers") || scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
                     scope.temp.syncRepaymentsWithMeeting = true;

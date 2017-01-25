@@ -538,17 +538,29 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="control-label col-sm-2">{{ 'label.input.repaymentstrategy' | translate }}<span
-            class="required">*</span></label>
 
-    <div class="col-sm-2">
-        <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId"
-                class="form-control"
-                ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
-                value="{{transactionProcessingStrategy.id}}"/>
-    </div>
-</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">{{ 'label.input.repaymentstrategy' | translate }}<span
+				class="required">*</span></label>
+
+		<div class="col-sm-2">
+			<select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId"
+					class="form-control"
+					ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
+					value="{{transactionProcessingStrategy.id}}"/>
+		</div>
+		<label class="control-label col-sm-3 col-sm-offset-1"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">{{ 'label.input.brokenperiodmethodtype' | translate }}
+			<i class="icon-question-sign" tooltip="{{'label.tooltip.brokenperiodmethodtype' | translate}}"
+			   tooltip-append-to-body="true"></i>
+		</label>
+
+		<div class="col-sm-2"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">
+			<select id="brokenPeriodMethodType" ng-model="formData.brokenPeriodMethodType"
+					class="form-control"
+					ng-options="brokenPeriodMethodType.id as brokenPeriodMethodType.value for brokenPeriodMethodType in product.brokenPeriodMethodTypeOptions"
+					value="{{brokenPeriodMethodType.id}}"></select>
+		</div>
+	</div>
     <div class="form-group">
         <label class="control-label col-sm-2">{{ 'label.input.grace' | translate }}</label>
         <div class="col-sm-2">

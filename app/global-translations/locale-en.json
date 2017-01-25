@@ -5514,5 +5514,10 @@
     "label.heading.editloanemipack":"Edit EMI Pack",
     "label.input.filterbytext":"Filter by Text",
     "label.heading.chooseloanemipack":"Choose EMI Pack",
+
+
+    "label.input.brokenperiodmethodtype":"Initial broken-period interest computation",
+    "label.heading.brokenperiodmethodtype":"Initial broken-period interest computation",
+    "label.tooltip.brokenperiodmethodtype":"Will work only for the combination of non interest morotorium, FLAT Loans and Partial period enabled loans",
     "------ end of tensalation file":"---------"
 }
