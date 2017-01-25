@@ -424,6 +424,20 @@
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing" ng-model="formData.graceOnArrearsAgeing">
                 </td>
             </tr>
+            <tr ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType == true"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">
+                <td>
+                    <label>{{ 'label.input.brokenperiodmethodtype' | translate }}
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.brokenperiodmethodtype' | translate}}"
+                        tooltip-append-to-body="true"></i>
+                     </label>
+                </td>
+                <td class="paddedbottom10">
+                    <select id="brokenPeriodMethodType" ng-model="formData.brokenPeriodMethodType"
+                            class="form-control"
+                            ng-options="brokenPeriodMethodType.id as brokenPeriodMethodType.value for brokenPeriodMethodType in loanaccountinfo.brokenPeriodMethodTypeOptions"
+                            value="{{brokenPeriodMethodType.id}}"></select>
+                </td>
+            </tr>
             <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">
                 <td colspan=2>
                     <label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;

@@ -161,16 +161,16 @@
 
                 if (scope.loanaccountinfo.calendarOptions) {
                     scope.temp.syncRepaymentsWithMeeting = true;
-                    if(scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting){
+                    if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
                         scope.formData.syncDisbursementWithMeeting = false;
-                    }else{
+                    } else {
                         scope.formData.syncDisbursementWithMeeting = true;
                     }
 
                 }
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
+                if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
                     scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
-                }else{
+                } else {
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
                 }
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
@@ -195,6 +195,11 @@
                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                 scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId;
+                if (scope.loanaccountinfo.brokenPeriodMethodType) {
+                    scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
+                }else{
+                    scope.formData.brokenPeriodMethodType = "";
+                }
 
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);

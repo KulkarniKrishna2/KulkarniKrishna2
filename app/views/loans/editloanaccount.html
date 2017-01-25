@@ -375,6 +375,7 @@
                     </label>
                 </td>
             </tr>
+
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true"><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true">
@@ -416,6 +417,20 @@
                         <input
                             id="graceOnArrearsAgeing" class="input-mini-small" type="text"
                             ng-model="formData.graceOnArrearsAgeing" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing"></label>
+                </td>
+            </tr>
+            <tr ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType == true"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">
+                <td>
+                    <label>{{ 'label.input.brokenperiodmethodtype' | translate }}
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.brokenperiodmethodtype' | translate}}"
+                           tooltip-append-to-body="true"></i>
+                    </label>
+                </td>
+                <td class="paddedbottom10">
+                    <select id="brokenPeriodMethodType" ng-model="formData.brokenPeriodMethodType"
+                            class="form-control"
+                            ng-options="brokenPeriodMethodType.id as brokenPeriodMethodType.value for brokenPeriodMethodType in loanaccountinfo.brokenPeriodMethodTypeOptions"
+                            value="{{brokenPeriodMethodType.id}}"></select>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">
