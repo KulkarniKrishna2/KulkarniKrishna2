@@ -460,7 +460,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/loanemipacks/LoanEMIPacksController',
             'product/loanemipacks/ViewLoanEMIPacksController',
             'product/loanemipacks/AddLoanEMIPacksController',
-            'product/loanemipacks/EditLoanEMIPacksController'
+            'product/loanemipacks/EditLoanEMIPacksController',
+            'task/config/CreateWorkflowTasksConfigController'
         ],
         filters: [
             'StatusLookup',

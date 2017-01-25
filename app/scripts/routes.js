@@ -1453,6 +1453,9 @@
             })
             .when('/editloanemipacks/:loanProductId/:loanEMIPackId', {
                 templateUrl: 'views/products/loanemipacks/editloanemipacks.html'
+            })
+            .when('/workflowtasksconfig', {
+                templateUrl: 'views/task/config/createworkflowtasksconfig.html'
             });
         $locationProvider.html5Mode(false);
     };
