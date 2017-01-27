@@ -222,12 +222,12 @@
                            number-format required late-Validate ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="newloanaccountform" valattribute="principal"/>
                 </td>
-                <td class="width14"><label>{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>
+                <td class="width14"><label ng-hide="selectedOnDayOfMonthOptions.length > 1">{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>
                 </td>
                 <td class="width36 paddedbottom10">
-                    <input id="loanTermFrequency" class="form-control" name="loanterm" type="text"
+                    <input ng-hide="selectedOnDayOfMonthOptions.length > 1" id="loanTermFrequency" class="form-control" name="loanterm" type="text"
                            ng-model="loanTerm" value="{{loanTermCalculation()}}" required late-Validate/>
-                    <select ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanTermFrequencyType == true" id="loanTermFrequencyType" class="form-control" ng-model="formData.loanTermFrequencyType"
+                    <select ng-hide="selectedOnDayOfMonthOptions.length > 1" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanTermFrequencyType == true" id="loanTermFrequencyType" class="form-control" ng-model="formData.loanTermFrequencyType"
                             ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{termFrequencyType.id}}"/>
                     <form-validate valattributeform="newloanaccountform" valattribute="loanterm"/>
