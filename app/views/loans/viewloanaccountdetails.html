@@ -349,9 +349,14 @@
                                 </td>
                                 <td><span class="padded-td">{{loandetails.transactionProcessingStrategyName}}</span></td>
                             </tr>
-                            <tr>
+                            <tr ng-hide="loandetails.meeting">
                                 <td>{{'label.heading.repayments' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.numberOfRepayments}} every {{loandetails.repaymentEvery}}&nbsp;{{loandetails.repaymentFrequencyType.value}}</span><span ng-show="loandetails.repaymentFrequencyType.id == 2 && loandetails.repaymentFrequencyNthDayType.id != 0 && loandetails.repaymentFrequencyDayOfWeekType.id != 0">&nbsp;on&nbsp;{{loandetails.repaymentFrequencyNthDayType.value}}&nbsp;{{loandetails.repaymentFrequencyDayOfWeekType.value}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="loandetails.meeting">
+                                <td>{{'label.heading.repayments' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.numberOfRepayments}} &nbsp; {{loandetails.meeting.humanReadable}}</span>
                                 </td>
                             </tr>
                             <tr>

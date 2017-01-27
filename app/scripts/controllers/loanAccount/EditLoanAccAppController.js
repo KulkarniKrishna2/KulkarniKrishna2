@@ -280,7 +280,8 @@
                         scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.meeting.repeatsOnDay.id;
                     }
                     if (scope.loanaccountinfo.meeting.repeatsOnDayOfMonth) {
-                        scope.selectedOnDayOfMonthOptions = scope.loanaccountinfo.meeting.repeatsOnDayOfMonth;
+                        scope.available = scope.loanaccountinfo.meeting.repeatsOnDayOfMonth;
+                        scope.addMonthDay();
                     }
                 }
 
