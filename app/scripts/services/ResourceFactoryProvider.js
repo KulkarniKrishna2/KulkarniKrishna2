@@ -295,10 +295,13 @@
                         search: { method: 'POST', isArray: true },
                         getClientDetails : {method: 'POST', params: {clientInfo: true},isArray: true}
                     }),
-                    fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId: '@fundId'}, {
+                    fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId: '@fundId',command:'@command'}, {
                         getAllFunds: {method: 'GET', params: {}, isArray: true},
                         getFund: {method: 'GET', params: {}},
-                        update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {fundId: '@fundId',command:'@command'}},
+                        assign: {method: 'POST', params: {fundId: '@fundId',command:'assign'}},
+                        activate: {method: 'POST', params: {fundId: '@fundId',command:'activate'}},
+                        deactivate: {method: 'POST', params: {fundId: '@fundId',command:'deactivate'}}
                     }),
                     accountingRulesResource: defineResource(apiVer + "/accountingrules/:accountingRuleId", {accountingRuleId: '@accountingRuleId'}, {
                         getAllRules: {method: 'GET', params: {associations: 'all'}, isArray: true},
@@ -346,12 +349,12 @@
                     codeValueByCodeNameResources: defineResource(apiVer + "/codes/codeValues", {}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
-					hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
+                    hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
                         getAllHooks: {method: 'GET', params: {}, isArray: true},
                         getHook: {method: 'GET', params: {}},
-						update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {}}
                     }),
-					hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
+                    hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
                     entityToEntityResource: defineResource(apiVer + "/entitytoentitymapping/:mappingId/:fromId/:toId", {mappingId: '@mappingId'}, {
@@ -1072,6 +1075,15 @@
                     }),
                     loanemipacktemplate: defineResource(apiVer + "/loanemipacks/:loanProductId/template", {loanProductId: '@loanProductId'}, {
                         getEmiPackTemplate: {method: 'GET', params: {loanProductId: '@loanProductId'}}
+                    }),
+                    fundTemplateResource: defineResource(apiVer + "/funds/template", {command: '@command'}, {
+                        getTemplate: {method: 'GET', params: {command: '@command'}}
+                    }),
+                    countryResource: defineResource(apiVer + "/countries/:countryId", {countryId: '@countryId'}, {
+                        getCountryData: {method: 'GET', params: {countryId: '@countryId'}}
+                    }),
+                    fundMappingSearchResource: defineResource(apiVer + "/funds/mapping/loans", {isSummary: '@isSummary'}, {
+                        search: {method: 'POST', params: {isSummary: '@isSummary'}, isArray: false}
                     })
                 };
             }];

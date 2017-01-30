@@ -357,7 +357,7 @@
                 templateUrl: 'views/organization/createemployee.html'
             })
             .when('/managefunds/', {
-                templateUrl: 'views/organization/managefunds.html'
+                templateUrl: 'views/organization/funds/managefunds.html'
             })
             .when('/nav/offices', {
                 templateUrl: 'views/navigation/offices.html'
@@ -1453,6 +1453,24 @@
             })
             .when('/editloanemipacks/:loanProductId/:loanEMIPackId', {
                 templateUrl: 'views/products/loanemipacks/editloanemipacks.html'
+            })
+            .when('/createfund', {
+                templateUrl: 'views/organization/funds/createfund.html'
+            })
+            .when('/viewfunds', {
+                templateUrl: 'views/organization/funds/viewfunds.html'
+            })
+            .when('/viewfund/:fundId', {
+                templateUrl: 'views/organization/funds/viewfund.html'
+            })
+            .when('/editfund/:fundId', {
+                templateUrl: 'views/organization/funds/editfund.html'
+            })
+            .when('/assignfund', {
+                templateUrl: 'views/organization/funds/assignfund.html'
+            })
+            .when('/advancedsearch', {
+                templateUrl: 'views/search/advancedsearch.html'
             });
         $locationProvider.html5Mode(false);
     };

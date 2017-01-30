@@ -1,105 +1,319 @@
-(function (window, document) {
+(function(window, document) {
 
 // Create all modules and define dependencies to make sure they exist
 // and are loaded in the correct order to satisfy dependency injection
 // before all nested files are concatenated by Grunt
 
-// config
-    angular.module('ngCsv.config', []).
-        value('ngCsv.config', {
-            debug: true
-        }).
-        config(['$compileProvider', function ($compileProvider) {
-            if (angular.isDefined($compileProvider.urlSanitizationWhitelist)) {
-                $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|data):/);
-            } else {
-                $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|data):/);
-            }
-        }]);
+// Config
+angular.module('ngCsv.config', []).
+  value('ngCsv.config', {
+      debug: true
+  }).
+  config(['$compileProvider', function($compileProvider){
+    if (angular.isDefined($compileProvider.urlSanitizationWhitelist)) {
+      $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|data):/);
+    } else {
+      $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|data):/);
+    }
+  }]);
 
 // Modules
-    angular.module('ngCsv.directives', []);
-    angular.module('ngCsv',
-        [
-            'ngCsv.config',
-            'ngCsv.directives',
-            'ngSanitize'
-        ]);
+angular.module('ngCsv.directives', ['ngCsv.services']);
+angular.module('ngCsv.services', []);
+angular.module('ngCsv',
+    [
+        'ngCsv.config',
+        'ngCsv.services',
+        'ngCsv.directives',
+        'ngSanitize'
+    ]);
+
+// Common.js package manager support (e.g. ComponentJS, WebPack)
+if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.exports === exports) {
+  module.exports = 'ngCsv';
+}
+/**
+ * Created by asafdav on 15/05/14.
+ */
+angular.module('ngCsv.services').
+  service('CSV', ['$q', function ($q) {
+
+    var EOL = '\r\n';
+    var BOM = "\ufeff";
+
+    var specialChars = {
+      '\\t': '\t',
+      '\\b': '\b',
+      '\\v': '\v',
+      '\\f': '\f',
+      '\\r': '\r'
+    };
+
     /**
-     * ng-csv module
-     * Export Javascript's arrays to csv files from the browser
-     *
-     * Author: asafdav - https://github.com/asafdav
+     * Stringify one field
+     * @param data
+     * @param options
+     * @returns {*}
      */
-    angular.module('ngCsv.directives', []).
-        directive('ngCsv', ['$parse', function ($parse) {
-            return {
-                restrict: 'AC',
-                replace: true,
-                transclude: true,
-                scope: { data: '&ngCsv', filename: '@filename', header: '&csvHeader'},
-                controller: ['$scope', '$element', '$attrs', '$transclude', function ($scope, $element, $attrs, $transclude) {
-                    $scope.csv = "";
-                    $scope.$watch($scope.data, function (newValue, oldValue) {
-                        $scope.buildCsv(newValue);
-                    }, true);
+    this.stringifyField = function (data, options) {
+      if (options.decimalSep === 'locale' && this.isFloat(data)) {
+        return data.toLocaleString();
+      }
 
-                    $scope.buildCsv = function (data) {
-                        var csvContent = "data:text/csv;charset=utf-8,";
+      if (options.decimalSep !== '.' && this.isFloat(data)) {
+        return data.toString().replace('.', options.decimalSep);
+      }
 
-                        // Check if there's a provided header array
-                        if (angular.isDefined($attrs.csvHeader)) {
-                            var header = $scope.$eval($scope.header);
-                            var encodingArray, headerString;
-                            if (angular.isArray(header)) {
-                                encodingArray = header;
-                            } else {
-                                encodingArray = [];
-                                angular.forEach(header, function (title, key) {
-                                    this.push(title);
-                                }, encodingArray);
-                            }
+      if (typeof data === 'string') {
+        data = data.replace(/"/g, '""'); // Escape double qoutes
 
-                            headerString = encodingArray.join(",");
-                            csvContent += headerString + "\n";
-                        }
+        if (options.quoteStrings || data.indexOf(',') > -1 || data.indexOf('\n') > -1 || data.indexOf('\r') > -1) {
+            data = options.txtDelim + data + options.txtDelim;
+        }
 
-                        // Process the data
-                        angular.forEach(data, function (row, index) {
-                            var dataString, infoArray;
+        return data;
+      }
 
-                            if (angular.isArray(row)) {
-                                infoArray = row;
-                            } else {
-                                infoArray = [];
-                                angular.forEach(row, function (field, key) {
-                                    this.push(field);
-                                }, infoArray);
-                            }
+      if (typeof data === 'boolean') {
+        return data ? 'TRUE' : 'FALSE';
+      }
 
-                            dataString = '\"' + infoArray.join('\",\"') + '\"';
-                            csvContent += index < data.length ? dataString + "\n" : dataString;
-                        });
+      return data;
+    };
 
-                        $scope.csv = encodeURI(csvContent);
-                    };
+    /**
+     * Helper function to check if input is float
+     * @param input
+     * @returns {boolean}
+     */
+    this.isFloat = function (input) {
+      return +input === input && (!isFinite(input) || Boolean(input % 1));
+    };
 
-                    $scope.getFilename = function () {
-                        return $scope.filename ? $scope.filename : "download.csv";
-                    };
-                }],
-                template: '<div class="csv-wrap">' +
-                    '<div class="element" ng-transclude></div>' +
-                    '<a class="hidden-link" ng-hide="true" ng-href="{{ csv }}" download="{{ getFilename() }}"></a>' +
-                    '</div>',
-                link: function (scope, element, attrs) {
-                    var subject = angular.element(element.children()[0]),
-                        link = angular.element(element.children()[1]);
+    /**
+     * Creates a csv from a data array
+     * @param data
+     * @param options
+     *  * header - Provide the first row (optional)
+     *  * fieldSep - Field separator, default: ',',
+     *  * addByteOrderMarker - Add Byte order mark, default(false)
+     * @param callback
+     */
+    this.stringify = function (data, options) {
+      var def = $q.defer();
 
-                    subject.bind('click', function (e) {
-                        link[0].click();
-                    });
-                }
+      var that = this;
+      var csv = "";
+      var csvContent = "";
+
+      var dataPromise = $q.when(data).then(function (responseData) {
+        //responseData = angular.copy(responseData);//moved to row creation
+        // Check if there's a provided header array
+        if (angular.isDefined(options.header) && options.header) {
+          var encodingArray, headerString;
+
+          encodingArray = [];
+          angular.forEach(options.header, function (title, key) {
+            this.push(that.stringifyField(title, options));
+          }, encodingArray);
+
+          headerString = encodingArray.join(options.fieldSep ? options.fieldSep : ",");
+          csvContent += headerString + EOL;
+        }
+
+        var arrData = [];
+
+        if (angular.isArray(responseData)) {
+          arrData = responseData;
+        }
+        else if (angular.isFunction(responseData)) {
+          arrData = responseData();
+        }
+
+        // Check if using keys as labels
+        if (angular.isDefined(options.label) && options.label && typeof options.label === 'boolean') {
+            var labelArray, labelString;
+
+            labelArray = [];
+            angular.forEach(arrData[0], function(value, label) {
+                this.push(that.stringifyField(label, options));
+            }, labelArray);
+            labelString = labelArray.join(options.fieldSep ? options.fieldSep : ",");
+            csvContent += labelString + EOL;
+        }
+
+        angular.forEach(arrData, function (oldRow, index) {
+          var row = angular.copy(arrData[index]);
+          var dataString, infoArray;
+
+          infoArray = [];
+
+          var iterator = !!options.columnOrder ? options.columnOrder : row;
+          angular.forEach(iterator, function (field, key) {
+            var val = !!options.columnOrder ? row[field] : field;
+            this.push(that.stringifyField(val, options));
+          }, infoArray);
+
+          dataString = infoArray.join(options.fieldSep ? options.fieldSep : ",");
+          csvContent += index < arrData.length ? dataString + EOL : dataString;
+        });
+
+        // Add BOM if needed
+        if (options.addByteOrderMarker) {
+          csv += BOM;
+        }
+
+        // Append the content and resolve.
+        csv += csvContent;
+        def.resolve(csv);
+      });
+
+      if (typeof dataPromise['catch'] === 'function') {
+        dataPromise['catch'](function (err) {
+          def.reject(err);
+        });
+      }
+
+      return def.promise;
+    };
+
+    /**
+     * Helper function to check if input is really a special character
+     * @param input
+     * @returns {boolean}
+     */
+    this.isSpecialChar = function(input){
+      return specialChars[input] !== undefined;
+    };
+
+    /**
+     * Helper function to get what the special character was supposed to be
+     * since Angular escapes the first backslash
+     * @param input
+     * @returns {special character string}
+     */
+    this.getSpecialChar = function (input) {
+      return specialChars[input];
+    };
+
+
+  }]);
+/**
+ * ng-csv module
+ * Export Javascript's arrays to csv files from the browser
+ *
+ * Author: asafdav - https://github.com/asafdav
+ */
+angular.module('ngCsv.directives').
+  directive('ngCsv', ['$parse', '$q', 'CSV', '$document', '$timeout', function ($parse, $q, CSV, $document, $timeout) {
+    return {
+      restrict: 'AC',
+      scope: {
+        data: '&ngCsv',
+        filename: '@filename',
+        header: '&csvHeader',
+        columnOrder: '&csvColumnOrder',
+        txtDelim: '@textDelimiter',
+        decimalSep: '@decimalSeparator',
+        quoteStrings: '@quoteStrings',
+        fieldSep: '@fieldSeparator',
+        lazyLoad: '@lazyLoad',
+        addByteOrderMarker: "@addBom",
+        ngClick: '&',
+        charset: '@charset',
+        label: '&csvLabel'
+      },
+      controller: [
+        '$scope',
+        '$element',
+        '$attrs',
+        '$transclude',
+        function ($scope, $element, $attrs, $transclude) {
+          $scope.csv = '';
+
+          if (!angular.isDefined($scope.lazyLoad) || $scope.lazyLoad != "true") {
+            if (angular.isArray($scope.data)) {
+              $scope.$watch("data", function (newValue) {
+                $scope.buildCSV();
+              }, true);
+            }
+          }
+
+          $scope.getFilename = function () {
+            return $scope.filename || 'download.csv';
+          };
+
+          function getBuildCsvOptions() {
+            var options = {
+              txtDelim: $scope.txtDelim ? $scope.txtDelim : '"',
+              decimalSep: $scope.decimalSep ? $scope.decimalSep : '.',
+              quoteStrings: $scope.quoteStrings,
+              addByteOrderMarker: $scope.addByteOrderMarker
             };
-        }]);
+            if (angular.isDefined($attrs.csvHeader)) options.header = $scope.$eval($scope.header);
+            if (angular.isDefined($attrs.csvColumnOrder)) options.columnOrder = $scope.$eval($scope.columnOrder);
+            if (angular.isDefined($attrs.csvLabel)) options.label = $scope.$eval($scope.label);
+
+            options.fieldSep = $scope.fieldSep ? $scope.fieldSep : ",";
+
+            // Replaces any badly formatted special character string with correct special character
+            options.fieldSep = CSV.isSpecialChar(options.fieldSep) ? CSV.getSpecialChar(options.fieldSep) : options.fieldSep;
+
+            return options;
+          }
+
+          /**
+           * Creates the CSV and updates the scope
+           * @returns {*}
+           */
+          $scope.buildCSV = function () {
+            var deferred = $q.defer();
+
+            $element.addClass($attrs.ngCsvLoadingClass || 'ng-csv-loading');
+
+            CSV.stringify($scope.data(), getBuildCsvOptions()).then(function (csv) {
+              $scope.csv = csv;
+              $element.removeClass($attrs.ngCsvLoadingClass || 'ng-csv-loading');
+              deferred.resolve(csv);
+            });
+            $scope.$apply(); // Old angular support
+
+            return deferred.promise;
+          };
+        }
+      ],
+      link: function (scope, element, attrs) {
+        function doClick() {
+          var charset = scope.charset || "utf-8";
+          var blob = new Blob([scope.csv], {
+            type: "text/csv;charset="+ charset + ";"
+          });
+
+          if (window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveBlob(blob, scope.getFilename());
+          } else {
+
+            var downloadContainer = angular.element('<div data-tap-disabled="true"><a></a></div>');
+            var downloadLink = angular.element(downloadContainer.children()[0]);
+            downloadLink.attr('href', window.URL.createObjectURL(blob));
+            downloadLink.attr('download', scope.getFilename());
+            downloadLink.attr('target', '_blank');
+
+            $document.find('body').append(downloadContainer);
+            $timeout(function () {
+              downloadLink[0].click();
+              downloadLink.remove();
+            }, null);
+          }
+        }
+
+        element.bind('click', function (e) {
+          scope.buildCSV().then(function (csv) {
+            doClick();
+          });
+          scope.$apply();
+        });
+      }
+    };
+  }]);
 })(window, document);

@@ -1,0 +1,48 @@
+<div class="col-md-12" ng-controller="AssignFundController">
+    <ul class="breadcrumb">
+        <li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.assignfund' | translate}}</li>
+    </ul>
+    <form name="assignfundform" novalidate="" class="form-horizontal well" >
+        <div class="form-horizontal">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">
+                            {{'label.input.fundname' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <div >
+                                <select chosen="funds" id="fund" ng-model="formData.fund"  class="form-control"
+                                        ng-options="fund.id as fund.name for fund in funds" value="{{fund.id}}"
+                                        name="fund" required late-Validate>
+                                    <option value="" style="display:none;">--{{'label.menu.selectfund' | translate}}--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" >
+                            <form-validate valattributeform="createfundform" valattribute="fund"/>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}
+                            <span class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <input type="file" id="file" multiple="multiple" ng-file-select="onFileSelect($files)" accept=".csv" ng-required="true"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <span ng-show="isFileNotSlected && rc.documentform.attempted" class="ng-scope"><small class="error ng-binding">Required Field</small></span>
+                        </div>
+                        <div class="col-sm-1">
+                            <form-validate valattributeform="documentform" valattribute="file"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-3"><!--   -->
+                    <a id="cancel" href="#/organization" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="submit" has-permission='ASSIGN_FUND' ng-click = "submit()" class="btn btn-primary">{{'label.button.assignfund' | translate}}</button>
+                </div>
+            </fieldset>
+            </form>
+        </div>
