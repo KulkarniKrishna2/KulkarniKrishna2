@@ -309,6 +309,10 @@
                             <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.principal | number}}</span></td>
                         </tr>
+                        <tr ng-show="showDisbursedAmountBasedOnStatus() && loandetails.summary && loandetails.summary.principalNetDisbursed < loandetails.principal">
+                            <th class="table-bold-loan">{{'label.heading.netdisburseamount' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.summary.principalNetDisbursed | number}}</span></td>
+                        </tr>
                         <tr>
                             <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
