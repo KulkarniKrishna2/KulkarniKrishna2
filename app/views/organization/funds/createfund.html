@@ -1,0 +1,390 @@
+<div class="col-md-12" ng-controller="CreateFundController">
+    <ul class="breadcrumb">
+        <li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li ><a href="#/managefunds/">{{'label.anchor.managefund' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addfund' | translate}}</li>
+    </ul>
+    <form name="createfundform" novalidate="" class="form-horizontal well" >
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.funddetails' | translate}}</legend>
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span
+                                                                                                    class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input type="text" id="name" name="name" ng-model="formData.name"  class="form-control" required
+                               late-Validate/>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="name"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.facilitytype' | translate}} <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <div >
+                            <select chosen="facilityTypeOptions" id="facilityType" ng-model="formData.facilityType"  class="form-control"
+                                    ng-options="facilityType.id as facilityType.name for facilityType in facilityTypeOptions" value="{{facilityType.id}}"
+                                    name="facilityType" ng-change="isOwnType(formData)" required late-Validate>
+                                <option value="" style="display:none;">--{{'label.menu.selectfacilitytype' | translate}}--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="facilityType"/>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">                
+                <div >
+                    <label class="control-label col-sm-2">
+                        {{'label.input.fundsource' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div ng-hide="isOwn">
+                            <select   chosen="fundSourceOptions"  id="fundSource" ng-model="formData.fundSource"  
+                            class="form-control" ng-options="fundSource.id as fundSource.name for fundSource in fundSourceOptions" 
+                            value="{{fundSource.id}}" name="fundSource" required late-Validate>
+                                <option value="" style="display:none;">--{{'label.menu.selectfundsource' | translate}}--</option>
+                            </select>
+                        </div>
+                        <div ng-show="isOwn">
+                            <select   chosen="fundSourceOptions"  id="fundSourceOptions"> </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="fundSource"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.fundcategory' | translate}} <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <div  ng-hide="isOwn">
+                            <select chosen="categoryOptions" id="fundCategory" ng-model="formData.fundCategory"  class="form-control"
+                                    ng-options="fundCategory.id as fundCategory.name for fundCategory in categoryOptions" value="{{fundCategory.id}}"
+                                    name="fundCategory" required late-Validate>
+                                <option value="" style="display:none;">--{{'label.menu.selectcategory' | translate}}--</option>
+                            </select>
+                        </div>
+                        <div ng-show="isOwn">
+                            <select   chosen="categoryOptions"  id="categoryOptions"> </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="fundCategory"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.assignmentstartdate' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div >
+                            <input id="assignmentStartDate" type="text" name="assignmentStartDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.assignmentStartDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate"  ng-disabled="isOwn"  class="form-control"  required />
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="assignmentStartDate"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.assignmentenddate' | translate}} <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <div >
+                            <input id="assignmentEndDate" type="text" name="assignmentEndDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.assignmentEndDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required/>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="assignmentStartDate"/>
+                    </div>
+                </div>
+
+            </div>
+            <hr/>
+            <div class="form-group">
+                <legend style="margin-bottom:1px;">  {{'label.heading.loandetails' | translate}} </legend>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.sanctionedamount' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="sanctionedAmount" name="sanctionedAmount" ng-model="formData.sanctionedAmount"  class="form-control"  ng-disabled="isOwn"  required late-Validate/>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="sanctionedAmount"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.sanctioneddate' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div >
+                            <input id="sanctionedDate" type="text" name="sanctionedDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.sanctionedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required />
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="sanctionedDate"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.disbursedamount' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="disbursedAmount" name="disbursedAmount" ng-model="formData.disbursedAmount"  class="form-control"  ng-disabled="isOwn" required late-Validate/>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="disbursedAmount"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.disburseddate' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div >
+                            <input id="disbursedDate" type="text" name="disbursedDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.disbursedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required />
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="disbursedDate"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.tenure' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-2">
+                        <input type="text" id="tenure" name="tenure" ng-model="formData.tenure"  class="form-control"  ng-disabled="isOwn" required late-Validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <div ng-hide="isOwn">
+                            <select chosen="periodOptions" id="tenureFrequency" ng-model="formData.tenureFrequency"  class="form-control"
+                                    ng-options="tenureFrequency.id as tenureFrequency.value for tenureFrequency in periodOptions" value="{{tenureFrequency.id}}"
+                                    name="tenureFrequency"  required late-Validate>
+                            </select>
+                        </div>
+                        <div ng-show="isOwn">
+                            <select   chosen="periodOptions"  id="periodOptions"> </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <form-validate valattributeform="createfundform" valattribute="tenureFrequency"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.maturitydate' | translate}} <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <div >
+                            <input id="maturityDate" type="text" name="maturityDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.maturityDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required/>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="maturityDate"/>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.morotoriumperiod' | translate}}
+                    </label>
+                    <div class="col-sm-2">
+                        <input   ng-disabled="isOwn" type="text" id="morotorium" name="morotorium" ng-model="formData.morotorium"  class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <div  ng-hide="isOwn">
+                            <select chosen="periodOptions" id="morotoriumFrequency" ng-model="formData.morotoriumFrequency"  
+                            class="form-control"  ng-options="morotoriumFrequency.id as morotoriumFrequency.value for morotoriumFrequency in periodOptions" value="{{morotoriumFrequency.id}}" ng-hide="isOwn" ng-disabled="isOwn"  name="morotoriumFrequency">
+                            </select>
+                        </div>
+                        <div ng-show="isOwn">
+                            <select   chosen="periodOptions"  id="periodOptionsmorotorium"> </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <form-validate valattributeform="createfundform" valattribute="fundRepaymentFrequency"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.repaymentfrequency' | translate}} <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-1">
+                        <div  ng-hide="isOwn">
+                            <select chosen="repaymentFequencyOptions" id="fundRepaymentFrequency" ng-model="formData.fundRepaymentFrequency"  class="form-control"  ng-options="fundRepaymentFrequency.id as fundRepaymentFrequency.name for fundRepaymentFrequency in repaymentFequencyOptions" value="{{fundRepaymentFrequency.id}}"
+                                     name="category" required late-Validate>
+                            </select>
+                        </div>
+                        <div ng-show="isOwn">
+                            <select   chosen="periodOptions"  id="periodOptionsmorotorium"> </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" >
+                        <form-validate valattributeform="createfundform" valattribute="fundRepaymentFrequency"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.fundloanpurpose' | translate}}<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-2" >
+                        <select ng-model="loanPurposes" class="form-control">
+                                <option ng-repeat="loanPurpose in loanPurposeOptions" value="{{loanPurpose}}" ng-hide="isLoanPurposeSelected(loanPurpose.id)">{{loanPurpose.name}}
+                                </option>
+                            </select>
+                    </div>                    
+                    <div class="col-sm-2">
+                        <input type="text" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
+                        ng-model="loanPurposeAmount"  class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-primary" ng-click="addLoanPurpose(loanPurposes , loanPurposeAmount)">
+                            <i class="icon-plus icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="fundLoanPurposes.length>0"  class="form-group">
+                <div class="col-sm-offset-2">
+                    <table class="well col-sm-5">
+                         <thead>
+                            <tr  class="graybg" style="height:20px;">
+                                <th>{{'label.input.fundloanpurpose' | translate}}</th>
+                                <th>{{'label.heading.percentageloanpurpose' | translate}}</th>
+                                <th></th> 
+                            </tr>
+                         </thead>
+                         <tbody>
+                            <tr  class="graybg" style="height:20px;" ng-repeat="loanPurposes in fundLoanPurposes">
+                                <td>{{loanPurposes.loanPurposeName}}</td>
+                                <td>{{loanPurposes.loanPurposeAmount}}</td>
+                                <td>
+                                    <a class="btn btn-primary" ng-click="removeLoanPurpose($index)">
+                                        <i class="icon-remove icon-white"></i>
+                                    </a>
+                                </td>
+                             </tr>  
+                         </tbody> 
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.rateofinterest' | translate}}<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="interestRate"  ng-disabled="isOwn"  name="interestRate" ng-model="formData.interestRate"  class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3" >
+                        <form-validate valattributeform="createfundform" valattribute="interestRate"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <legend style="margin-bottom:1px;">  {{'label.heading.fee' | translate}} </legend>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.rateoflpfinpercentage' | translate}}
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="loanPortfolioFee"  ng-disabled="isOwn"  name="loanPortfolioFee" ng-model="formData.loanPortfolioFee"  class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <legend style="margin-bottom:1px;">  {{'label.heading.collateralorsecurity' | translate}} </legend>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.bookdebthyphothecationinpercentage' | translate}}
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="bookDebtHypothecation"  ng-disabled="isOwn"  name="bookDebtHypothecation" ng-model="formData.bookDebtHypothecation"  class="form-control"/>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="bookDebtHypothecation"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.cashcollateralinpercentage' | translate}}
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="cashCollateral"  ng-disabled="isOwn"  name="cashCollateral" ng-model="formData.cashCollateral"  class="form-control"/>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="cashCollateral"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-2">
+                        {{'label.input.personalgurantee' | translate}}
+                    </label>
+                    <div class="col-sm-3">
+                        <textarea cols="50" rows="5"id="personalGurantee"  ng-disabled="isOwn"  name="formData.personalGurantee" ng-model="formData.personalGurantee"  class="form-control"></textarea>
+                    </div>
+                    <div class="col-sm-2" >
+                        <form-validate valattributeform="createfundform" valattribute="personalGurantee"/>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/managefunds/" class="btn btn-default">{{'label.button.back' | translate}}</a>
+                <button id="save" type="submit" ng-click="submit()" class="btn btn-primary" >{{'label.button.addfund' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

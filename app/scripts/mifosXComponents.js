@@ -125,7 +125,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/EditEmployeeController',
             'organization/EmployeeController',
             'organization/CreateEmployeeController',
-            'organization/ManageFundsController',
+            'organization/funds/ManageFundsController',
             'organization/ViewPaymentTypeController',
             'organization/CreatePaymentTypeController',
             'organization/EditPaymentTypeController',
@@ -461,7 +461,13 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/loanemipacks/LoanEMIPacksController',
             'product/loanemipacks/ViewLoanEMIPacksController',
             'product/loanemipacks/AddLoanEMIPacksController',
-            'product/loanemipacks/EditLoanEMIPacksController'
+            'product/loanemipacks/EditLoanEMIPacksController',
+            'organization/profilerating/RiskProfileRatingComputeController',
+            'organization/funds/CreateFundController',
+            'organization/funds/ViewFundController',
+            'organization/funds/EditFundController',
+            'organization/funds/AssignFundController',
+            'main/AdvancedSearchController'
         ],
         filters: [
             'StatusLookup',
