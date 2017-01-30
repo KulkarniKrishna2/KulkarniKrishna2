@@ -226,6 +226,7 @@
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
                         scope.formData.transactionAmount = data.amount;
+                        scope.netAmount = data.netDisbursalAmount;
                         scope.nextRepaymentDate = new Date(data.possibleNextRepaymentDate) || new Date();
                         scope.formData[scope.modelName] = new Date();
                         if (data.fixedEmiAmount) {
