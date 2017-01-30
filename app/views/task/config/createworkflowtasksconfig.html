@@ -1,0 +1,80 @@
+<div class="col-md-12" ng-controller="CreateWorkflowTasksConfigController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.admin' | translate}}</li>
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.add.profile.rating' | translate}}</li>
+    </ul>
+
+    <form name="createworkflowtasksconfigform" novalidate="" rc-submit="submit()" class="well form-inline">
+        <api-validate></api-validate>
+        <fieldset>
+            <table class="width100">
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select ng-model="formData.entityId"
+                                class="form-control width170px"
+                                ng-options="product.id as product.name for product in productOptions"
+                                value="{{product.id}}"
+                                required late-validate="" ng-change="getWorkflowTaskTemplate()">
+                            <option value="">{{'label.selectloanproduct' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width14">&nbsp;</td>
+                    <td class="width36 paddedbottom10 right">
+                        <button id="addnewtask" ng-if="formData.entityId" type="button"
+                                data-ng-click="addNewTask();" class="btn btn-primary">
+                            Add Task
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <div ng-if="formData.entityId">
+                <table class="width100">
+                    <thead>
+                    <tr class="graybg">
+                        <th>Order</th>
+                        <th>Task Type</th>
+                        <th>Task Name</th>
+                        <th>Task Short Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="task in formData.tasks track by $index">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            <select ng-model="task.taskActivityId"
+                                    class="form-control"
+                                    ng-options="taskActivity.id as taskActivity.name for taskActivity in taskActivityDatas"
+                                    value="{{taskActivity.id}}"
+                                    required late-validate="">
+                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" id="name" name="name"
+                                   ng-model="task.name" class="form-control" required
+                                   late-Validate maxlength="200"/>
+                        </td>
+                        <td>
+                            <input type="text" id="shortName" name="shortName"
+                                   ng-model="task.shortName" class="form-control" required
+                                   late-Validate maxlength="20"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-offset-5" ng-if="formData.entityId">
+                <a id="cancel" href="#/admin/system/surveys" class="btn btn-default">{{ 'label.button.cancel' |
+                    translate }}</a>
+                <button id="save" type="submit" ng-click="submitted=true" class="btn btn-primary">{{ 'label.button.save'
+                    | translate }}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

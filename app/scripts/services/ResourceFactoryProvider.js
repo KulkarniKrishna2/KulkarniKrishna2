@@ -1069,6 +1069,12 @@
                     }),
                     loanemipacktemplate: defineResource(apiVer + "/loanemipacks/:loanProductId/template", {loanProductId: '@loanProductId'}, {
                         getEmiPackTemplate: {method: 'GET', params: {loanProductId: '@loanProductId'}}
+                    }),
+                    tasksConfigResourceTemplate: defineResource(apiVer + "/tasksconfigurations/:entityType/:entityId/template", {}, {
+                        getTemplate: {method: 'GET', params: {entityType:"@entityType", entityId: '@entityId'}}
+                    }),
+                    tasksConfigResource: defineResource(apiVer + "/tasksconfigurations/:entityType/:entityId", {}, {
+                        create: {method: 'POST', params: {entityType:"@entityType", entityId: '@entityId'}}
                     })
                 };
             }];
