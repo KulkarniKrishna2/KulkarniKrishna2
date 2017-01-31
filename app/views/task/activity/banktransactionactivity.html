@@ -12,6 +12,10 @@
                     <td>{{ 'label.heading.status' | translate }}</td>
                     <td>{{transferData.status.value}}</td>
                 </tr>
+                <tr ng-if="transferData.errorCode!= undefined || transferData.errorMessage != undefined">
+                    <td>{{ 'label.heading.error' | translate }}</td>
+                    <td>{{transferData.errorCode}} - {{transferData.errorMessage}}</td>
+                </tr>
                 <tr>
                     <td>{{ 'label.heading.transferType' | translate }}</td>
                     <td>{{transferData.transferType.code | translate}}</td>

@@ -4467,6 +4467,8 @@
     "label.heading.transfertype":"Transfer Type",
     "label.heading.bankaccounttransferdetails":"Bank Transfer",
 
+    "label.heading.isEncrypted":"Is Encrypted",
+    "externalServiceType.banktransfer":"Bank Transfer",
 
     "transactionType.ft": "Fund Transfer",
     "transactionType.imps": "IMPS Transfer",

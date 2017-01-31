@@ -618,6 +618,13 @@
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
                     }),
+                    otherExternalServicesResource: defineResource(apiVer + "/otherexternalservices/:serviceId", {serviceId: '@serviceId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        get: {method: 'GET', params: {}}
+                    }),
+                    otherExternalServicePropertiesResource: defineResource(apiVer + "/otherexternalservices/:serviceId/properties", {serviceId: '@serviceId'},{
+                        put: {method: 'PUT', params:{}}
+                    }),
                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},
