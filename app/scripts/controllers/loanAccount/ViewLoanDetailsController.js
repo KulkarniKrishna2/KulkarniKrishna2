@@ -205,7 +205,7 @@
             var loanApplicationReferenceId = "loanApplicationReferenceId";
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:"multiTranchDataRequest,loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
-                if(data.clientData.groups && data.clientData.groups.length ==1) {
+                if(data.clientData && data.clientData.groups && data.clientData.groups.length ==1) {
                     scope.group = data.clientData.groups[0];
                 }
                 $rootScope.loanproductName = data.loanProductName;

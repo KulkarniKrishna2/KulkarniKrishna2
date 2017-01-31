@@ -753,6 +753,8 @@
                         if (scope.isGLIM && scope.action == "modifytransaction") {
                             scope.constructGlimClientMembersData();
                         }
+                        scope.constructGlimTransactions(scope.formData.glimTransactions);
+                        scope.formData.clientMembers = scope.glimTransactions;
                         delete scope.formData.glimTransactions;
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
@@ -880,6 +882,15 @@
                         scope.principalPortion = data.principalPortion;
                         scope.interestPortion = data.interestPortion;
                     });
+                }
+            };
+
+            scope.constructGlimTransactions = function(glimTransactions){
+                scope.glimTransactions = [];
+                for(var i=0;i<glimTransactions.length;i++){
+                    scope.glimTransactions[i] = {};
+                   scope.glimTransactions[i].id =glimTransactions[i].glimId;
+                   scope.glimTransactions[i].transactionAmount =glimTransactions[i].transactionAmount;
                 }
             };
         }
