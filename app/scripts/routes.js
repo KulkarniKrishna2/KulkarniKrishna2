@@ -872,6 +872,12 @@
             .when('/externalservices/:externalServicesType/editconfig', {
                 templateUrl: 'views/administration/editExternalServicesConfiguration.html'
             })
+            .when('/otherexternalservices/:serviceId', {
+                templateUrl: 'views/administration/externalservices/viewOtherExternalServicesConfiguration.html'
+            })
+            .when('/otherexternalservices/:serviceId/editconfig', {
+                templateUrl: 'views/administration/externalservices/editOtherExternalServicesConfiguration.html'
+            })
             .when('/loans/:loanId/reschedule/', {
                 templateUrl: 'views/loans/rescheduleloans.html'
             })

@@ -1,0 +1,33 @@
+<div ng-controller="ViewOtherExternalServicesController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+            <li class="active">{{serviceData.displayCode | translate}}</li>
+        </ul>
+    </div>
+    <a href="#/otherexternalservices/{{serviceData.id}}/editconfig" class="btn btn-primary pull-right" has-permission='UPDATE_EXTERNALSERVICES'><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</a>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.value' | translate}}</th>
+            <th>{{'label.heading.isEncrypted' | translate}}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="property in serviceData.properties">
+
+            <td>
+                {{property.name}}
+            </td>
+            <td>{{property.value}}</td>
+            <td>{{property.isEncrypted}}</td>
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>

@@ -8,10 +8,17 @@
             </ul>
         </div>
         <div class="col-md-12 col-sm-12">
+            <div class="row well" ng-if="loanData.id">
+                <div class="row">
+                    <div class="col-md-4"><span>{{'label.input.clientName' | translate}}:&nbsp;</span><span><a href="#/viewclient/{{loanData.clientId}}"> {{loanData.clientName}}</a></span></div>
+                    <div class="col-md-4"><span>{{'label.heading.loanaccountnumber' | translate}}:&nbsp;</span><span><a href="#/viewloanaccount/{{loanData.id}}"> {{loanData.accountNo}}</a></span></div>
+                    <div class="col-md-4"> {{'label.heading.relationshipOfficer' | translate}} :&nbsp; {{loanData.loanOfficerName}}</div>
+                </div>
+            </div>
             <div class="row well" ng-if="loanApplicationData.loanApplicationReferenceId">
                 <div class="row">
-                    <div class="col-md-4"><span>{{'label.input.applicantname' | translate}}&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
-                    <div class="col-md-4"><span>{{'label.input.applicationReference' | translate}}&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
+                    <div class="col-md-4"><span>{{'label.input.applicantname' | translate}}:&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
+                    <div class="col-md-4"><span>{{'label.input.applicationReference' | translate}}:&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
                     <div class="col-md-4"> {{'label.heading.relationshipOfficer' | translate}} :&nbsp; {{loanApplicationData.loanOfficerName}}</div>
                 </div>
                 <div class="row">
@@ -19,6 +26,11 @@
                     <div class="col-md-4">{{'label.input.loanpurpose' | translate}}&nbsp;{{loanApplicationData.loanPurpose.name}}</div>
                     <div class="col-md-4"> {{'label.input.applicationdate' | translate}}&nbsp;{{loanApplicationData.submittedOnDate | DateFormat}}</div>
                 </div>
+            </div>
+
+            <div class="row well" ng-if="loanApplicationData.loanApplicationReferenceId">
+                <div class="col-md-4"><span>{{'label.input.applicantname' | translate}}&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
+                <div class="col-md-4"><span>{{'label.input.applicationReference' | translate}}&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
             </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>

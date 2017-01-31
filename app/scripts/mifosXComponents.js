@@ -293,6 +293,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
             'configurations/ViewExternalServicesController',
+            'configurations/ViewOtherExternalServicesController',
+            'configurations/EditOtherExternalServicesConfigurationController',
             'collaterals/CollateralController',
             'collaterals/CreateCollateralController',
             'collaterals/CollateralQualityStandardsController',
