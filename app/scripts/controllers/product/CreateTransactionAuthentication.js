@@ -14,6 +14,7 @@
             scope.formdata = {};
             scope.productOptions = [];
             scope.productTypeOptions = [];
+            scope.identificationTypeOptions = [];
 
             resourceFactory.transactionAuthenticationTemplateResource.getTemplate(function (data) {
                 scope.transactionAuthenticationAppliesTo = data.transactionAuthenticationAppliesTo;
@@ -22,6 +23,7 @@
                 scope.savingsTransactionTypeoptions = data.savingsTransactionTypeoptions;
                 scope.availableAuthenticationServices = data.availableAuthenticationServices;
                 scope.productOptions = data.productOptions;
+                scope.identificationTypeOptions = data.identificationTypeOptions;
             });
 
             scope.transactionTypeAppliesToSelected = function (transactionTypeAppliesTo) {

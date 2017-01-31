@@ -74,6 +74,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="identificationType">{{'label.input.identificationType' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="identificationType" name="identificationType" ng-model="formData.identificationTypeId" class="form-control"
+                                ng-options="identificationType.id as identificationType.name for identificationType in identificationTypeOptions">
+                            <option value="">{{'label.identificationType' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/viewtransactionauthentication" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                     <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_TRANSACTIONAUTHENTICATIONSERVICE'>{{'label.button.save' | translate}}</button>
