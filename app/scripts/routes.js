@@ -1457,6 +1457,9 @@
             .when('/addloanemipacks/:loanProductId', {
                 templateUrl: 'views/products/loanemipacks/addloanemipacks.html'
             })
+            .when('/dedup', {
+                templateUrl: 'views/administration/dedup.html'
+            })
             .when('/editloanemipacks/:loanProductId/:loanEMIPackId', {
                 templateUrl: 'views/products/loanemipacks/editloanemipacks.html'
             })

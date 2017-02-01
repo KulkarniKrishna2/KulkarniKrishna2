@@ -54,6 +54,9 @@
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),
+                    clientResourceTemplate: defineResource(apiVer + "/clients/:clientId/template", {clientId: '@clientId', command: '@command'}, {
+                        getActivateTemplate: {method: 'GET', params: {command : 'activate'}}
+                    }),
                     clientChargesResource: defineResource(apiVer + "/clients/:clientId/charges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
                         getCharges: {method: 'GET'},
                         waive:{method:'POST' , params:{command : 'waive'}}
@@ -98,7 +101,8 @@
                         get: {method: 'GET', params: {}}
                     }),
                     clientIdenfierResource: defineResource(apiVer + "/clients/:clientId/identifiers/:id", {clientId: '@clientId', id: '@id'}, {
-                        get: {method: 'GET', params: {}}
+                        get: {method: 'GET', params: {}},
+                        getAll:{method: 'GET', params: {}, isArray:true}
                     }),
                     surveyTemplateResource: defineResource(apiVer + "/surveys/template", {}, {
                         get: {method: 'GET', params: {}}
@@ -498,6 +502,10 @@
                     }),
                     configurationResource: defineResource(apiVer + "/configurations/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    dedupResource: defineResource(apiVer + "/clientdedup/weightages/:id", {id: '@id'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
                     cacheResource: defineResource(apiVer + "/caches", {}, {

@@ -1623,3 +1623,7 @@ figure {
 .statusreject {
     color:red;
 }
+
+.highlight {
+    background-color:#98FB98;
+}
