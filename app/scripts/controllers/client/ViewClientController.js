@@ -1158,6 +1158,70 @@
                         getprofileRating();
                     });
                 });
+            }
+            
+            scope.routeToLoanNextAction = function (loan) {
+                var loanId = loan.id;
+                var trancheDisbursalId = undefined;
+                if(loan.productId){
+                    resourceFactory.configurationResource.get({configName: 'tranche-disbursal-high-mark'}, function (response) {
+                        scope.isTrancheDisbursalHighMark = response.enabled;
+                        if (scope.isTrancheDisbursalHighMark == true) {
+                            resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
+                                scope.isHighMark = response.enabled;
+                                if (scope.isHighMark == true) {
+                                    resourceFactory.loanProductResource.getCreditbureauLoanProducts({
+                                        loanProductId: loan.productId,
+                                        associations: 'creditBureaus'
+                                    }, function (creditbureauLoanProduct) {
+                                        scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                                        if (scope.creditbureauLoanProduct.isActive == true) {
+                                            scope.isCBCheckReq = true;
+                                            var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
+                                            var loanApplicationReferenceId = "loanApplicationReferenceId";
+                                            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: loanId,  associations:multiTranchDataRequest+",loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
+                                                scope.loandetails = data;
+                                                if(!_.isUndefined(scope.loandetails.disbursementDetails)){
+                                                    var expectedDisbursementDate = undefined;
+                                                    for(var i in scope.loandetails.disbursementDetails){
+                                                        if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
+                                                            if(_.isUndefined(expectedDisbursementDate)){
+                                                                expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                                trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                            }else{
+                                                                if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
+                                                                    expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                                    trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                                            });
+                                        }else{
+                                            routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                                        }
+                                    });
+                                }else{
+                                    routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                                }
+                            });
+                        }else{
+                            routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                        }
+                    });
+                }else{
+                    routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                }
+            };
+
+            function routeToLoanNextActionUrl(loanId,trancheDisbursalId){
+                if(_.isUndefined(trancheDisbursalId)){
+                    location.path('/loanaccount/'+loanId+'/disburse');
+                }else{
+                    location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId);
+                }
             };
         }
     });

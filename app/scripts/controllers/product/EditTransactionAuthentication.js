@@ -15,6 +15,7 @@
             scope.transactionTypeOptions = [];
             scope.productOptions = [];
             scope.productTypeOptions = [];
+            scope.identificationTypeOptions =[];
 
 
 
@@ -25,7 +26,8 @@
                     paymentTypeId: data.paymentTypeId,
                     amount : data.amount,
                     authenticationTypeId: data.authenticationTypeId,
-                    productId: data.productId
+                    productId: data.productId,
+                    identificationTypeId : data.identificationType.id
                 };
 
                 resourceFactory.transactionAuthenticationTemplateResource.getTemplate({},function(data) {
@@ -36,6 +38,7 @@
                     scope.availableAuthenticationServices = data.availableAuthenticationServices;
                     scope.transactionId = scope.formData.transactionTypeId;
                     scope.productOptions = data.productOptions;
+                    scope.identificationTypeOptions = data.identificationTypeOptions;
 
                     Object.keys(scope.transactionAuthenticationAppliesTo).forEach(function(key){
                         console.log(key, scope.transactionAuthenticationAppliesTo[key]);

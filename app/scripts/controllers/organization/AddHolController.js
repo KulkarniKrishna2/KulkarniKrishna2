@@ -41,7 +41,7 @@
 
                 resourceFactory.holidayTemplateResource.get(function(repaymentSchedulingRulesData){
                     scope.repaymentSchedulingRules = repaymentSchedulingRulesData;
-
+                    scope.repaymentSchedulingRuleType = repaymentSchedulingRulesData[1];
                     angular.forEach(scope.repaymentSchedulingRules, function(repaymentSchedulingRule) {
                         if(repaymentSchedulingRule.value == 'SCHEDULEONLYONDATE'){
                             repaymentSchedulingRule.value = 'Reschedule to specified date';
