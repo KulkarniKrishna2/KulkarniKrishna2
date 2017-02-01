@@ -6,6 +6,7 @@
         ExternalServicesController: function (scope, resourceFactory, location, route) {
             scope.S3Configs = [];
             scope.SMTPConfigs = [];
+            scope.otherExternalServiceList= [];
             resourceFactory.externalServicesS3Resource.get(function (data) {
                 for (var i in data) {
                     if(data[i] != null && data[i].name != null) {
@@ -24,6 +25,10 @@
                         scope.SMTPConfigs.push(data[i])
                     }
                 }
+            });
+
+            resourceFactory.otherExternalServicesResource.getAll(function (data) {
+                scope.otherExternalServiceList = data;
             });
         }
 

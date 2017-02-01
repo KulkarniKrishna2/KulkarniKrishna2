@@ -1,0 +1,57 @@
+<div class="col-md-12" ng-controller="ManageFundsController">
+    <ul class="breadcrumb">
+        <li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managefund' | translate}}</li>
+    </ul>
+    <div class="pull-right btn-group">
+        <a has-permission="CREATE_FUND" href="#/createfund" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
+            'label.button.addfund' | translate }}</a>
+    </div>
+    <br>
+    <div>
+        <table class="table well">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.fundsource' | translate}}</th>
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.category' | translate}}</th>
+                    <th>{{'label.heading.facility' | translate}}</th>
+                    <th>{{'label.heading.disbursementdate' | translate}}</th>
+                    <th>{{'label.heading.maturitydate' | translate}}</th>
+                    <th>{{'label.heading.disbursementamount' | translate}}</th>
+                    <th>{{'label.heading.repaymentfrequency' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="fund in funds"  class="pointer-main pointer">
+
+                    <td   ng-click="routeToFund(fund.id)">{{fund.fundSource.name}}</td>
+                    <td  ng-click="routeToFund(fund.id)">{{fund.name}}</td>
+                    <td  ng-click="routeToFund(fund.id)">{{fund.fundCategory.name}}</td>
+                    <td   ng-click="routeToFund(fund.id)">{{fund.facilityType.name}}</td>
+                    <td  ng-click="routeToFund(fund.id)">
+                        {{fund.disbursedDate | DateFormat}}
+                    </td>
+                    <td  ng-click="routeToFund(fund.id)">
+                        {{fund.maturityDate | DateFormat}}
+                    </td>
+                    <td  ng-click="routeToFund(fund.id)">
+                        {{fund.disbursedAmount}}
+                    </td>
+                    <td  ng-click="routeToFund(fund.id)">
+                        {{fund.fundRepaymentFrequency.name}}
+                    </td  ng-click="routeToFund(fund.id)">
+                    <td>
+                        <a role="button" has-permission="UPDATE_FUND" ng-click="changeStatus(fund.id,fund.isActive)" class="btn btn-danger pull-left" ng-show="!fund.isActive">
+                            <i class="icon-check icon-white"></i> {{'label.button.active' | translate}}
+                        </a>
+                        <a role="button" has-permission="UPDATE_FUND" ng-click="changeStatus(fund.id,fund.isActive)" class="btn btn-primary pull-left"  ng-show="fund.isActive">
+                            <i class="icon-undo icon-white"></i>{{'label.button.inactive' | translate}}
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

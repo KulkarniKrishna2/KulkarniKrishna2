@@ -1,0 +1,128 @@
+<div ng-controller="banktransactionActivityController">
+
+    <div class="row-fluid">
+        <div class="span7">
+            <strong>{{ 'label.heading.transactiondetails' | translate}}</strong>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{ 'label.heading.transactionamount' | translate }}</td>
+                    <td width="70%">{{transferData.amount | number}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.status' | translate }}</td>
+                    <td>{{transferData.status.value}}</td>
+                </tr>
+                <tr ng-if="transferData.errorCode!= undefined || transferData.errorMessage != undefined">
+                    <td>{{ 'label.heading.error' | translate }}</td>
+                    <td>{{transferData.errorCode}} - {{transferData.errorMessage}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.transferType' | translate }}</td>
+                    <td>{{transferData.transferType.code | translate}}</td>
+                </tr>
+                <tr ng-if="transferData.transferDate">
+                    <td>{{ 'label.heading.transactiondate' | translate }}</td>
+                    <td>{{transferData.transferDate}}</td>
+                </tr>
+                <tr ng-if="transferData.referenceNumber ">
+                    <td>{{ 'label.heading.referenceNumber' | translate }}</td>
+                    <td>{{transferData.referenceNumber}}</td>
+                </tr>
+                <tr ng-if="transferData.utrNumber!=undefined || transferData.poNumber!=undefined">
+                    <td>{{ 'label.heading.description' | translate }}</td>
+                    <td><span>{{ 'label.heading.utrNumber' | translate }}:&nbsp;{{transferData.utrNumber}} | </span>
+                        <span>{{ 'label.heading.poNumber' | translate }}:&nbsp;{{transferData.poNumber}}</span>
+                    </td>
+                </tr>
+                <tr class="span2"></tr>
+            </table>
+            <strong>{{ 'label.heading.transferredfrom' | translate}}</strong>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{ 'label.heading.holdername' | translate }}</td>
+                    <td width="70%">{{transferData.debiter.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.accountnumber' | translate }}</td>
+                    <td>{{transferData.debiter.accountNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.ifsccode' | translate }}</td>
+                    <td>{{transferData.debiter.ifscCode}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.bankcity' | translate }}</td>
+                    <td>{{transferData.debiter.bankCity}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.bankname' | translate }}</td>
+                    <td>{{transferData.debiter.bankName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.mobilenumber' | translate }}</td>
+                    <td>{{transferData.debiter.mobileNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.email' | translate }}</td>
+                    <td>{{transferData.debiter.email}}</td>
+                </tr>
+                <tr class="span2"></tr>
+            </table>
+            <strong>{{ 'label.heading.transferredto' | translate}}</strong>
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{ 'label.heading.holdername' | translate }}</td>
+                    <td width="70%">{{transferData.beneficiary.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.accountnumber' | translate }}</td>
+                    <td>{{transferData.beneficiary.accountNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.ifsccode' | translate }}</td>
+                    <td>{{transferData.beneficiary.ifscCode}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.bankcity' | translate }}</td>
+                    <td>{{transferData.beneficiary.bankCity}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.bankname' | translate }}</td>
+                    <td>{{transferData.beneficiary.bankName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.mobilenumber' | translate }}</td>
+                    <td>{{transferData.beneficiary.mobileNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.email' | translate }}</td>
+                    <td>{{transferData.beneficiary.email}}</td>
+                </tr>
+                <tr class="span2"></tr>
+            </table>
+        </div>
+    </div>
+    <div class="row paddedtop" ng-if="transferData.status.id == 1">
+        <form name="banktransactionsubmitform" novalidate="" class="form-horizontal">
+            <fieldset>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2">{{'label.transfer.type' | translate}}<span class="required">*</span></label>
+                    <div class="col-sm-4">
+
+                        <select id="transferType" name="transferType" ng-model="formData.transferType" class="form-control"
+                                required late-validate="" ng-options="transferType.value as (transferType.code | translate) for transferType in transferData.supportedTransferTypes">
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="banktransactionsubmitform" valattribute="transerType"/>
+                    </div>
+                </div>
+
+                <div ng-if="!isTaskCompleted()" class="col-md-offset-2 paddedleft">
+                    <a id="cancel" ng-if="false" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" ng-click="submit()" ng-show="createDetail" class="btn btn-primary" has-permission="SUBMIT_BANK_TRANSACTION">{{'label.button.submit' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

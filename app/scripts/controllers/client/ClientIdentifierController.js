@@ -9,6 +9,10 @@
                 scope.documenttypes = data.allowedDocumentTypes;
                 scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
                 scope.statusTypes = data.clientIdentifierStatusOptions;
+                if(data.clientIdentifierStatusOptions && scope.response &&
+                    scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status){
+                    scope.formData.status = data.clientIdentifierStatusOptions[1].id;
+                }
             });
 
             scope.validateRsaIdnumber=function()

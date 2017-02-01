@@ -171,6 +171,17 @@
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
     </div>
+        <div class="form-group" ng-show="netAmount && netAmount < formData.transactionAmount">
+            <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.heading.netdisbursalamount' |
+                translate}}</label>
+
+            <div class="col-sm-3">
+                {{netAmount |  number}}
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+
         <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest' || action == 'writeoff') && isGLIM">
             <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
             <div class="col-sm-8">

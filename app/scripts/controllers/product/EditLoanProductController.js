@@ -154,6 +154,10 @@
                     scope.formData.installmentCalculationPeriodType = scope.product.installmentCalculationPeriodType.id
                 }
 
+                if(scope.product.brokenPeriodMethodType){
+                    scope.formData.brokenPeriodMethodType = scope.product.brokenPeriodMethodType.id;
+                }
+
                 if (scope.product.isInterestRecalculationEnabled) {
                     scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                     scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;

@@ -309,6 +309,10 @@
                             <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.principal | number}}</span></td>
                         </tr>
+                        <tr ng-show="showDisbursedAmountBasedOnStatus() && loandetails.summary && loandetails.summary.principalNetDisbursed < loandetails.principal">
+                            <th class="table-bold-loan">{{'label.heading.netdisburseamount' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.summary.principalNetDisbursed | number}}</span></td>
+                        </tr>
                         <tr>
                             <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
@@ -349,9 +353,14 @@
                                 </td>
                                 <td><span class="padded-td">{{loandetails.transactionProcessingStrategyName}}</span></td>
                             </tr>
-                            <tr>
+                            <tr ng-hide="loandetails.meeting">
                                 <td>{{'label.heading.repayments' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.numberOfRepayments}} every {{loandetails.repaymentEvery}}&nbsp;{{loandetails.repaymentFrequencyType.value}}</span><span ng-show="loandetails.repaymentFrequencyType.id == 2 && loandetails.repaymentFrequencyNthDayType.id != 0 && loandetails.repaymentFrequencyDayOfWeekType.id != 0">&nbsp;on&nbsp;{{loandetails.repaymentFrequencyNthDayType.value}}&nbsp;{{loandetails.repaymentFrequencyDayOfWeekType.value}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="loandetails.meeting">
+                                <td>{{'label.heading.repayments' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.numberOfRepayments}} &nbsp; {{loandetails.meeting.humanReadable}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -408,6 +417,10 @@
                                     translate}}
                                 </td>
                                 <td><span class="padded-td">{{loandetails.allowPartialPeriodInterestCalcualtion}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.brokenperiodmethodtype' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.brokenPeriodMethodType.value}}</span></td>
                             </tr>
                             <tr>
                                 <td>{{'label.heading.interesttype' | translate}}</td>
@@ -863,7 +876,9 @@
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transferType.value}}</td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transactionDate | DateFormat}}</td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.amount}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.status.value}}</td>
+                                <td class="pointer" >{{traanferData.status.value}}
+                                    <button class="btn btn-link" ng-click="retryTransfer(traanferData)" ng-if="traanferData.status.id == 6" has-permission="RETRY_BANK_TRANSACTION">Retry</button>
+                                </td>
                             </tr>
                         </table>
                     </tab>

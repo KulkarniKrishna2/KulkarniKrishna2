@@ -8,6 +8,13 @@
                 <p class="list-group-item-text">{{'label.addnewofficeormodifyordeactivateofficeormodifyofficeheirarchy'
                     | translate}}</p>
             </a>
+            <a class="list-group-item" href="#/currconfig" has-permission='READ_CURRENCY'>
+                <h4 class="list-group-item-heading"><i class="icon-large icon-cogs"></i>&nbsp;&nbsp;{{'label.anchor.currencyconfig'
+                    | translate}}</h4>
+
+                <p class="list-group-item-text">{{'label.currenciesavailableacrossorganizationfordifferentproducts' |
+                    translate}}</p>
+            </a>
             <a class="list-group-item" href="#/holidays" has-permission='READ_HOLIDAY'>
                 <h4 class="list-group-item-heading"><i class="icon-calendar icon-large"></i>&nbsp;&nbsp;{{'label.anchor.manageholidays'
                     | translate}}</h4>
@@ -26,13 +33,6 @@
                     {{'label.anchor.standinginstruction.history' | translate}}</h4>
 
                 <p class="list-group-item-text">{{'label.view.standinginstructions.history.logging' |
-                    translate}}</p>
-            </a>
-            <a class="list-group-item" href="#/advsearch">
-                <h4 class="list-group-item-heading"><i class="icon-large icon-money"></i>&nbsp;&nbsp;
-                    {{'label.anchor.fund.mapping' | translate}}</h4>
-
-                <p class="list-group-item-text">{{'label.view.advance.search.fund.mapping' |
                     translate}}</p>
             </a>
             <a class="list-group-item" href="#/passwordpreferences" has-permission='READ_PASSWORD_VALIDATION_POLICY'>
@@ -64,19 +64,27 @@
         </div>
     </div>
     <div class="col-sm-6 col-md-6">
-        <div class="list-group">
-            <a class="list-group-item" href="#/currconfig" has-permission='READ_CURRENCY'>
-                <h4 class="list-group-item-heading"><i class="icon-large icon-cogs"></i>&nbsp;&nbsp;{{'label.anchor.currencyconfig'
-                    | translate}}</h4>
+        <div class="list-group">        
+            <a class="list-group-item" href="#/managefunds" has-permission='READ_FUNDMAPPING'>
+                <h4 class="list-group-item-heading"><i class="icon-calendar icon-large"></i>&nbsp;&nbsp;
+                    {{'label.anchor.managefundmapping' | translate}}</h4>
 
-                <p class="list-group-item-text">{{'label.currenciesavailableacrossorganizationfordifferentproducts' |
+                <p class="list-group-item-text">{{'label.view.createandmanagefundmapping' |
+                    translate}}</p>
+            </a>      
+            <a class="list-group-item" href="#/advancedsearch">
+                <h4 class="list-group-item-heading"><i class="icon-large icon-money"></i>&nbsp;&nbsp;
+                    {{'label.anchor.fund.mapping' | translate}}</h4>
+
+                <p class="list-group-item-text">{{'label.view.advance.search.fund.mapping' |
                     translate}}</p>
             </a>
-            <a class="list-group-item" href="#/managefunds" has-permission='READ_FUND'>
-                <h4 class="list-group-item-heading"><i class="icon-large icon-money"></i>&nbsp;&nbsp;{{'label.anchor.managefunds'
-                    | translate}}</h4>
+            <a class="list-group-item" href="#/assignfund" has-permission='ASSIGN_FUNDMAPPING'>
+                <h4 class="list-group-item-heading"><i class="icon-calendar icon-large"></i>&nbsp;&nbsp;
+                    {{'label.anchor.assignfund' | translate}}</h4>
 
-                <p class="list-group-item-text">{{'label.fundsareassociatedwithloans' | translate}}</p>
+                <p class="list-group-item-text">{{'label.view.assignfundforbulkloan' |
+                    translate}}</p>
             </a>
             <a class="list-group-item" href="#/bulkloan" has-permission='BULKREASSIGN_LOAN'>
                 <h4 class="list-group-item-heading"><i class="icon-large icon-double-angle-right"></i>&nbsp;&nbsp;{{

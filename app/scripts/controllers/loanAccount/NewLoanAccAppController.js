@@ -14,6 +14,7 @@
             scope.formData.isSubsidyApplicable = false;
             scope.glimMembers = [];
             scope.repeatsOnDayOfMonthOptions = [];
+            scope.selectedOnDayOfMonthOptions = [];
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -160,16 +161,16 @@
 
                 if (scope.loanaccountinfo.calendarOptions) {
                     scope.temp.syncRepaymentsWithMeeting = true;
-                    if(scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting){
+                    if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
                         scope.formData.syncDisbursementWithMeeting = false;
-                    }else{
+                    } else {
                         scope.formData.syncDisbursementWithMeeting = true;
                     }
 
                 }
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
+                if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
                     scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
-                }else{
+                } else {
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
                 }
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
@@ -194,6 +195,11 @@
                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                 scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId;
+                if (scope.loanaccountinfo.brokenPeriodMethodType) {
+                    scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
+                }else{
+                    scope.formData.brokenPeriodMethodType = "";
+                }
 
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
@@ -329,6 +335,11 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                    scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                }else{
+                    scope.formData.repeatsOnDayOfMonth = [];
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -419,6 +430,11 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                    scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                }else{
+                    scope.formData.repeatsOnDayOfMonth = [];
+                }
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -443,6 +459,43 @@
                     location.path('/viewclient/' + scope.clientId);
                 }
             }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
+            };
         }
     });
     mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewLoanAccAppController]).run(function ($log) {

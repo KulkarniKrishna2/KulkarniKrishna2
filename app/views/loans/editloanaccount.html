@@ -222,13 +222,13 @@
                            number-format required late-Validate ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="editloanaccountform" valattribute="principal"/>
                 </td>
-                <td class="width14"><label>{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>
+                <td class="width14"><label ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1">{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>
                 </td>
                 <td class="width36 paddedbottom10">
-                    <input id="loanTermFrequency" class="form-control" name="loanterm" type="text"
+                    <input id="loanTermFrequency" class="form-control" name="loanterm" type="text" ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1"
                            ng-model="loanTerm" value="{{loanTermCalculation()}}" required late-Validate/>
                     <select ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanTermFrequencyType == true" id="loanTermFrequencyType" class="form-control" ng-model="formData.loanTermFrequencyType"
-                            ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
+                            ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{termFrequencyType.id}}"/>
                     <form-validate valattributeform="editloanaccountform" valattribute="loanterm"/>
                 </td>
@@ -257,14 +257,49 @@
                             value="{{repaymentFrequencyNthDayType.id}}"><option value=""></option></select>&nbsp;
                     <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
                             ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
-                            ng-show="formData.repaymentFrequencyNthDayType != -2"
+                            ng-show="formData.repaymentFrequencyType == 2 && formData.repaymentFrequencyNthDayType != -2"
                             value="{{repaymentFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
-                    <select  data-ng-show="formData.repaymentFrequencyNthDayType == -2" id="repeatsOnDayOfMonth"  class="form-control multiselectmin" multiple ng-model="formData.repeatsOnDayOfMonth"
-                             ng-options="repeatsOnDayOfMonth as repeatsOnDayOfMonth for repeatsOnDayOfMonth in repeatsOnDayOfMonthOptions"
-                             value="{{repeatsOnDayOfMonth}}"></select>&nbsp;
-
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>
                 </td>
+            </tr>
+            <tr data-ng-show="formData.repaymentFrequencyType == 2 && formData.repaymentFrequencyNthDayType == -2">
+                <td colspan="2" >
+                    &nbsp;
+                </td>
+                <td>
+                    <label>{{ 'label.input.selectmonthday' | translate }}</label>
+                </td>
+                <td align="left"  class="paddedbottom10">
+                    <table>
+                        <tr>
+                            <td align="left">
+                                <select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" multiple>
+                                    <option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+                                        {{onday}}
+                                    </option>
+                                </select>
+                                &nbsp;
+                            </td>
+                            <td align="left">
+                                <button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+                                        class="icon-double-angle-right"></i></button>
+                                <br/>
+                                <button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+                                        class="icon-double-angle-left"></i></button>
+                                &nbsp;
+                            </td>
+                            <td align="left">
+                                <select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin" multiple>
+                                    <option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+                                        {{onday}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+
             </tr>
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true"><label>{{ 'label.input.firstrepaymenton' | translate }}
@@ -340,6 +375,7 @@
                     </label>
                 </td>
             </tr>
+
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true"><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true">
@@ -381,6 +417,20 @@
                         <input
                             id="graceOnArrearsAgeing" class="input-mini-small" type="text"
                             ng-model="formData.graceOnArrearsAgeing" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing"></label>
+                </td>
+            </tr>
+            <tr ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType == true"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">
+                <td>
+                    <label>{{ 'label.input.brokenperiodmethodtype' | translate }}
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.brokenperiodmethodtype' | translate}}"
+                           tooltip-append-to-body="true"></i>
+                    </label>
+                </td>
+                <td class="paddedbottom10">
+                    <select id="brokenPeriodMethodType" ng-model="formData.brokenPeriodMethodType"
+                            class="form-control"
+                            ng-options="brokenPeriodMethodType.id as brokenPeriodMethodType.value for brokenPeriodMethodType in loanaccountinfo.brokenPeriodMethodTypeOptions"
+                            value="{{brokenPeriodMethodType.id}}"></select>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">

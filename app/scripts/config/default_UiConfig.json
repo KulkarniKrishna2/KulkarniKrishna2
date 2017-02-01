@@ -22,7 +22,8 @@
 		"graceOnInterestPayment": false,
 		"graceOnArrearsAgeing": false,
 		"syncDisbursementDateWithMeeting": false,
-		"recurringMoratoriumOnPrincipalPeriods": false
+		"recurringMoratoriumOnPrincipalPeriods": false,
+		"brokenPeriodMethodType":false
 	  },
 	  "isMandatory": {
 		"externalId": false
@@ -157,6 +158,9 @@
 	"clientIdentifier": {
 	  "identitiesMatchLuhnsAlgorithm": {
 		"clientIdentifierValidation": false
+	  },
+	  "hiddenFields":{
+		"status":false
 	  }
 	},
 	"reportParameterConfiguration": {
@@ -169,5 +173,4 @@
 		"allowMultipleCreditAndDebitEntries":false
 	}
   }
-
 }

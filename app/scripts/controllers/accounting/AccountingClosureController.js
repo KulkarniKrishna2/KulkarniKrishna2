@@ -37,11 +37,13 @@
                     if (currentObj.children) {
                         currentObj.collapsed = "true";
                     }
-                    if (typeof currentObj.parentId === "undefined") {
+                    if (currentObj.id === data[0].id) {
                         root.push(currentObj);
                     } else {
-                        parentNode = idToNodeMap[currentObj.parentId];
-                        parentNode.children.push(currentObj);
+                        if(!(typeof idToNodeMap[currentObj.parentId] === "undefined")) {
+                            parentNode = idToNodeMap[currentObj.parentId];
+                            parentNode.children.push(currentObj);
+                        }
                     }
                 }
                 scope.treedata = root;

@@ -7,24 +7,16 @@
             scope.entityId = routeParams.entityId;
 
             function init(){
-                resourceFactory.bankAccountTransferResource.get({bankTransferId: routeParams.transferId}, function (data) {
-                    scope.transferData = data;
+                // resourceFactory.bankAccountTransferResource.get({bankTransferId: routeParams.transferId}, function (data) {
+                //     scope.transferData = data;
+                // });
+                resourceFactory.entityTaskExecutionResource.get({entityType: "bankTransaction",entityId:routeParams.transferId}, function (data) {
+                    scope.taskData = data;
+                    //scope.$broadcast('initTask', {"taskData": data});
                 });
             }
 
             init();
-
-            scope.initiate = function () {
-                resourceFactory.bankAccountTransferResource.save({bankTransferId: routeParams.transferId, command: 'initiate'}, function (data) {
-                    scope.cancel();
-                });
-            };
-
-            scope.submit = function () {
-                resourceFactory.bankAccountTransferResource.save({bankTransferId: routeParams.transferId, command: 'submit'}, function (data) {
-                    scope.cancel();
-                });
-            };
 
             scope.cancel = function (){
                 init();

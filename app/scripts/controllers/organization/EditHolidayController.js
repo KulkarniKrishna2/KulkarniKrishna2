@@ -14,12 +14,21 @@
                 return scope.isRepayRescheduleToRequired;
             };
 
+            scope.getData = function(arr,val){
+                for(var i=0;i<arr.length;i++){
+                    if(arr[i].id==val){
+                        return arr[i];
+                    }
+
+                }
+            };
+
             resourceFactory.holValueResource.getholvalues({holId: routeParams.id}, function (data) {
 
                 scope.holiday = data;
-
                 resourceFactory.holidayTemplateResource.get(function(repaymentSchedulingRulesData){
                     scope.repaymentSchedulingRules = repaymentSchedulingRulesData;
+                    scope.repaymentSchedulingRuleType = scope.getData(repaymentSchedulingRulesData,scope.holiday.repaymentSchedulingType);
 
                     angular.forEach(scope.repaymentSchedulingRules, function(repaymentSchedulingRule) {
                         if(repaymentSchedulingRule.value == 'SCHEDULEONLYONDATE'){
@@ -43,6 +52,7 @@
                             }
                         });
                     }
+                    scope.isRepayRescheduleTypeScheduleOnlyOnDate();
                 });
 
                 scope.renameRepaymentScheduleingRuleValue = function(){
@@ -82,13 +92,13 @@
                     this.formData.fromDate = dateFilter(scope.date.fromDate, scope.df);
                     this.formData.toDate = dateFilter(scope.date.toDate, scope.df);
                 }
-                if(scope.repaymentSchedulingRuleType && scope.repaymentSchedulingRuleType.value == 'Reschedule to specified date'){
-                    this.formData.repaymentsRescheduledTo = dateFilter(scope.date.repaymentsRescheduledTo, scope.df);
-                    this.formData.extendRepaymentReschedule = false;
-                }else{
-                    delete this.formData.repaymentsRescheduledTo;
-                    this.formData.extendRepaymentReschedule = true;
+                if(scope.repaymentSchedulingRuleType) {
+                    this.formData.reshedulingType = scope.repaymentSchedulingRuleType.id;
+                    if(scope.repaymentSchedulingRuleType.value == 'Reschedule to specified date'){
+                        this.formData.repaymentsRescheduledTo = dateFilter(scope.date.repaymentsRescheduledTo, scope.df);
+                    }
                 }
+
                 resourceFactory.holValueResource.update({holId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewholiday/' + routeParams.id);
                 });

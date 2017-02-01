@@ -27,6 +27,15 @@
                                type="text" class="form-control" ng-disabled="!createDetail"/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.accounttype' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select id="accountType"  name = "accountType" ng-model="formData.accountTypeId" class="form-control"
+                                ng-options="accountType.id as accountType.value for accountType in bankAccountTypeOptions"
+                                value="{{accountType.id}}">
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group" >
                     <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}</label>
 

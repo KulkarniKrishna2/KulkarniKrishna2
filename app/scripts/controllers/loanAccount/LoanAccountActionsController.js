@@ -226,6 +226,7 @@
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
                         scope.formData.transactionAmount = data.amount;
+                        scope.netAmount = data.netDisbursalAmount;
                         scope.nextRepaymentDate = new Date(data.possibleNextRepaymentDate) || new Date();
                         scope.formData[scope.modelName] = new Date();
                         if (data.fixedEmiAmount) {
@@ -315,7 +316,7 @@
                         scope.interestPortion = data.interestPortion;
                         scope.processDate = true;
                     });
-                    scope.title = 'label.heading.prepayloan';
+                    scope.title = 'label.heading.preclose';
                     scope.labelName = 'label.input.transactiondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;
@@ -752,6 +753,8 @@
                         if (scope.isGLIM && scope.action == "modifytransaction") {
                             scope.constructGlimClientMembersData();
                         }
+                        scope.constructGlimTransactions(scope.formData.glimTransactions);
+                        scope.formData.clientMembers = scope.glimTransactions;
                         delete scope.formData.glimTransactions;
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
@@ -879,6 +882,15 @@
                         scope.principalPortion = data.principalPortion;
                         scope.interestPortion = data.interestPortion;
                     });
+                }
+            };
+
+            scope.constructGlimTransactions = function(glimTransactions){
+                scope.glimTransactions = [];
+                for(var i=0;i<glimTransactions.length;i++){
+                    scope.glimTransactions[i] = {};
+                   scope.glimTransactions[i].id =glimTransactions[i].glimId;
+                   scope.glimTransactions[i].transactionAmount =glimTransactions[i].transactionAmount;
                 }
             };
         }

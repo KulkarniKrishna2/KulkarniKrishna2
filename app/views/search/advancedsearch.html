@@ -1,0 +1,496 @@
+<div class="col-md-12" ng-controller="AdvancedSearchController">
+	<ul class="breadcrumb">
+		<li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+	    <li class="active">{{ 'label.anchor.advsearch' | translate}}</li>
+	</ul>
+	<div class="well" ng-show="view=='search'">
+		<h3 class="bolder">{{'label.heading.adhoc.search.query.for.loans' | translate}}
+	        <a ng-show="showResults" class="btn btn-primary" ng-click="showResults=!showResults">
+	            <i class="icon-plus icon-white"></i>
+	        </a>
+	    </h3>
+	    <hr/>
+	    <api-validate></api-validate>
+	    	<div class="form-horizontal">	        
+			        <div class="form-group">	            
+			            <div class="col-sm-1">
+				                <label  class="control-label">{{'label.office' | translate}}</label>
+				                <input ng-model="includeOffice" class="control-label" ng-change = "addParameter(includeOffice,'offices')" type="checkbox"  class="pull-right">
+				            </div>
+			            <div class="col-sm-3">
+			                <select multiple="" ng-model="formData.offices" class="form-control">
+								<option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+							</select>
+				        </div>
+				    </div>
+				    <hr/>
+				    <div class="form-group">
+			                <legend style="margin-bottom:1px;">  {{'label.heading.clientcategory' | translate}} </legend>
+			        </div>
+				    <div class="form-group">
+					    	<div class="col-sm-1">
+				                <label  class="control-label">{{'label.heading.gender' | translate}}</label>
+				                <input class="control-label" id="includeGender" type="checkbox" ng-model="includeGender" class="pull-right" ng-change = "addParameter(includeGender,'genders')">
+				            </div>
+				            <div class="col-sm-3">
+				                <select multiple="" ng-model="formData.genders" class="form-control">
+									<option ng-repeat="gender in genderOptions" value="{{gender.id}}">{{gender.name}}</option>
+								</select>
+				            </div>
+				            <div class="col-sm-1">
+				                <label  class="control-label">{{'label.heading.clienttype' | translate}}</label>
+				                <input id="includeClientType" type="checkbox" ng-model="includeClientType" class="pull-right" ng-change = "addParameter(includeClientType,'clientTypes')">
+				            </div>
+				            <div class="col-sm-3">
+				                <select multiple="" ng-model="formData.clientTypes" class="form-control">
+									<option ng-repeat="clientType in clientTypeOptions" value="{{clientType.id}}">{{clientType.name}}</option>
+								</select>
+				            </div>
+				            <div class="col-sm-1">
+				                <label  class="control-label">{{'label.heading.clientclassification' | translate}}</label>
+				                <input class="control-label" id="includeClientClassification" type="checkbox" ng-model="includeClientClassification" class="pull-right" 
+				                ng-change = "addParameter(includeClientClassification,'clientClassifications')">
+				            </div>
+				            <div class="col-sm-3">
+				                <select multiple="" ng-model="formData.clientClassifications" class="form-control">
+									<option ng-repeat="clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">{{clientClassification.name}}</option>
+								</select>
+				            </div>
+					</div>
+					<div  class="form-group"></div>
+					<div class="form-group">
+							<div class="col-sm-1">
+								<label  class="control-label">{{'label.heading.state' | translate}}</label>
+				                <input class="control-label" id="includeState" type="checkbox" ng-model="includeState" class="pull-right" ng-change = "addParameter(includeState,'states')">
+				            </div>
+				            <div class="col-sm-3">
+				                <select multiple="" ng-model="formData.states" class="form-control"  ng-change="getDistrictOptions(formData.states)">
+									<option ng-repeat="state in stateOptions" value="{{state.stateId}}">{{state.stateName}}</option>
+								</select>
+				            </div>
+				            <div class="col-sm-1">
+				            	<label  class="control-label">{{'label.heading.district' | translate}}</label>
+				                <input class="control-label" id="includeDistrict" type="checkbox" ng-model="includeDistrict" class="pull-right" ng-change = "addParameter(includeDistrict,'districts')">
+				            </div>
+				            <div class="col-sm-3">
+				                <select multiple="" ng-model="formData.districts" class="form-control">
+									<option ng-repeat="district in districtOptions" value="{{district.districtId}}">{{district.districtName}}</option>
+								</select>
+				            </div>
+					</div>
+			        <hr/>
+			        <div class="form-group">
+		                <legend style="margin-bottom:1px;">  {{'label.heading.loanportfolio' | translate}} </legend>
+		            </div>
+					<div class="form-group">
+						<div class="col-sm-1">
+				            	<label  class="control-label">{{'label.heading.product' | translate}}</label>
+				                <input class="control-label" id="includeProduct" type="checkbox" ng-model="includeProduct" class="pull-right"  ng-change = "addParameter(includeProduct,'loanProducts')">
+				         </div>
+			            <div class="col-sm-3">
+			                <select multiple="" ng-model="formData.loanProducts" class="form-control">
+								<option ng-repeat="loanProduct in loanProducts" value="{{loanProduct.id}}">{{loanProduct.name}}</option>
+							</select>
+			            </div>
+			            <div class="col-sm-1">
+				            	<label  class="col-sm-1 control-label">{{'label.heading.loanpurposecategory' | translate}}</label>
+				                <input class="control-label" id="includeLoanPurposecategory" type="checkbox" 
+				                ng-model="includeLoanPurposecategory" class="pull-right"  
+				                ng-change = "addParameter(includeLoanPurposecategory,'loanPurposeCategories')">
+				         </div>			            
+			            <div class="col-sm-3">
+			                <select multiple="" ng-model="formData.loanPurposeCategories" class="form-control">
+								<option ng-repeat="loanPurposeCategory in loanPurposeCategoryOptions" value="{{loanPurposeCategory.id}}">{{loanPurposeCategory.name}}</option>
+							</select>
+			            </div>
+			            <div class="col-sm-1">
+				            	<label  class="control-label">{{'label.heading.loanpurpose' | translate}}</label>
+				                <input class="control-label" id="includeLoanPurpose" type="checkbox" ng-model="includeLoanPurpose" class="pull-right"  ng-change = "addParameter(includeLoanPurpose,'loanPurposes')">
+				         </div>
+			            
+			            <div class="col-sm-3">
+			                <select multiple="" ng-model="formData.loanPurposes" class="form-control">
+								<option ng-repeat="loanPurpose in loanPurposeOptions" value="{{loanPurpose.id}}">{{loanPurpose.name}}</option>
+							</select>
+			            </div>
+			        </div>
+			        <!-- dates -->
+			        <br/>
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.approveddate" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="includeApprovedDate" type="checkbox" ng-model="includeApprovedDate" ng-change = "addParameter(includeApprovedDate,'approvedDate')" class="pull-right">
+			            </div>
+			            <div class="col-sm-2">
+			                <select ng-model="formData.approvedDate.operator" class="form-control">
+									<option ng-repeat="conditionalOperator in conditionalOperatorOptions" value="{{conditionalOperator.code}}">{{conditionalOperator.value}}</option>
+								</select>
+			            </div>
+			            <div class="col-sm-1">
+			               <label  ng-show="formData.approvedDate.operator" class="col-sm-1 control-label">{{formData.approvedDate.operator}}</label>
+			        	</div>
+			            <div class="col-sm-3">
+			                <input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.approvedDate.min" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control">
+			            </div>
+			            <div class="col-sm-1" ng-show="formData.approvedDate.operator=='between'">
+				            	<label  class="control-label">{{'label.and' | translate}}</label>
+				         </div>
+			            <div class="col-sm-3" ng-show="formData.approvedDate.operator=='between'">
+			            	<input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.approvedDate.max" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
+			            </div>
+			        </div>
+
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.disbursementdate" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="includeDisbursementDate" type="checkbox" ng-model="includeDisbursementDate" ng-change = "addParameter(includeDisbursementDate,'disbursementDate')" class="pull-right">
+			            </div>
+			            <div class="col-sm-2">
+			                <select ng-model="formData.disbursementDate.operator" class="form-control">
+									<option ng-repeat="conditionalOperator in conditionalOperatorOptions" value="{{conditionalOperator.code}}">{{conditionalOperator.value}}</option>
+								</select>
+			            </div>
+			            <div class="col-sm-1">
+			               <label  ng-show="formData.disbursementDate.operator" class="col-sm-1 control-label">{{formData.disbursementDate.operator}}</label>
+			        	</div>
+			            <div class="col-sm-3">
+			                <input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.disbursementDate.min" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control">
+			            </div>
+			            <div class="col-sm-1" ng-show="formData.disbursementDate.operator=='between'">
+				            	<label  class="control-label">{{'label.and' | translate}}</label>
+				         </div>
+			            <div class="col-sm-3" ng-show="formData.disbursementDate.operator=='between'">
+			            	<input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.disbursementDate.max" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
+			            </div>
+			        </div>
+
+			        <!-- end -->
+
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.numberofpendingrepayment" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="includePendingRepayment" type="checkbox" ng-model="includePendingRepayment" ng-change = "addParameter(includePendingRepayment,'pendingRepayment')" class="pull-right">
+			            </div>
+			            <div class="col-sm-2">
+			                <select ng-model="formData.pendingRepayment.operator" class="form-control">
+									<option ng-repeat="conditionalOperator in conditionalOperatorOptions" value="{{conditionalOperator.code}}">{{conditionalOperator.value}}</option>
+								</select>
+			            </div>
+			            <div class="col-sm-1">
+			               <label  ng-show="formData.pendingRepayment.operator" class="col-sm-1 control-label">{{formData.pendingRepayment.operator}}</label>
+			        	</div>
+			            <div class="col-sm-3">
+			                <input type="text" ng-model="formData.pendingRepayment.min" class="input-small form-control">
+			            </div>
+			            <div class="col-sm-1" ng-show="formData.pendingRepayment.operator=='between'">
+				            	<label  class="control-label">{{'label.and' | translate}}</label>
+				         </div>
+			            <div class="col-sm-3" ng-show="formData.pendingRepayment.operator=='between'">
+			            	<input type="text" ng-model="formData.pendingRepayment.max" class="input-small form-control">
+			            </div>
+			        </div>
+
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.numberofpaidrepayment" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="includePaidRepayment" type="checkbox" ng-model="includePaidRepayment" ng-change = "addParameter(includePaidRepayment,'paidRepayment')" class="pull-right">
+			            </div>
+			            <div class="col-sm-2">
+			                <select ng-model="formData.paidRepayment.operator" class="form-control">
+									<option ng-repeat="conditionalOperator in conditionalOperatorOptions" value="{{conditionalOperator.code}}">{{conditionalOperator.value}}</option>
+								</select>
+			            </div>
+			            <div class="col-sm-1">
+			               <label  ng-show="formData.paidRepayment.operator" class="col-sm-1 control-label">{{formData.paidRepayment.operator}}</label>
+			        	</div>
+			            <div class="col-sm-3">
+			                <input type="text" ng-model="formData.paidRepayment.min" class="input-small form-control">
+			            </div>
+			            <div class="col-sm-1" ng-show="formData.paidRepayment.operator=='between'">
+				            	<label  class="control-label">{{'label.and' | translate}}</label>
+				         </div>
+			            <div class="col-sm-3" ng-show="formData.paidRepayment.operator=='between'">
+			            	<input type="text" ng-model="formData.paidRepayment.max" class="input-small form-control">
+			            </div>
+			        </div>
+
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.principaloutstandingamount" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="includePrincipalOutstanding" type="checkbox" ng-model="includePrincipalOutstanding" ng-change = "addParameter(includePrincipalOutstanding,'principalOutstanding')" class="pull-right">
+			            </div>
+			            <div class="col-sm-2">
+			                <select ng-model="formData.principalOutstanding.operator" class="form-control">
+									<option ng-repeat="conditionalOperator in conditionalOperatorOptions" value="{{conditionalOperator.code}}">{{conditionalOperator.value}}</option>
+								</select>
+			            </div>
+			            <div class="col-sm-1">
+			               <label  ng-show="formData.principalOutstanding.operator" class="col-sm-1 control-label">{{formData.principalOutstanding.operator}}</label>
+			        	</div>
+			            <div class="col-sm-3">
+			                <input type="text" ng-model="formData.principalOutstanding.min" class="input-small form-control">
+			            </div>
+			            <div class="col-sm-1" ng-show="formData.principalOutstanding.operator=='between'">
+				            	<label  class="control-label">{{'label.and' | translate}}</label>
+				         </div>
+			            <div class="col-sm-3" ng-show="formData.principalOutstanding.operator=='between'">
+			            	<input type="text" ng-model="formData.principalOutstanding.max" class="input-small form-control">
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.numberofdaysoverdue" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="includeOverDueFromDays" type="checkbox" ng-model="includeOverDueFromDays" ng-change = "addParameter(includeOverDueFromDays,'overDueFromDays')" class="pull-right">
+			            </div>
+			            <div class="col-sm-2">
+			                <select ng-model="formData.overDueFromDays.operator" class="form-control">
+									<option ng-repeat="conditionalOperator in conditionalOperatorOptions" value="{{conditionalOperator.code}}">{{conditionalOperator.value}}</option>
+								</select>
+			            </div>
+			            <div class="col-sm-1">
+			               <label  ng-show="formData.overDueFromDays.operator" class="col-sm-1 control-label">{{formData.overDueFromDays.operator}}</label>
+			        	</div>
+			            <div class="col-sm-3">
+			                <input type="text" ng-model="formData.overDueFromDays.min" class="input-small form-control">
+			            </div>
+			            <div class="col-sm-1" ng-show="formData.overDueFromDays.operator=='between'">
+				            	<label  class="control-label">{{'label.and' | translate}}</label>
+				         </div>
+			            <div class="col-sm-3" ng-show="formData.overDueFromDays.operator=='between'">
+			            	<input type="text" ng-model="formData.overDueFromDays.max" class="input-small form-control">
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <div class="col-sm-1">
+			                <label  class="col-sm-10 control-label">{{"label.input.alltranchedisburse" | translate}}</label>
+			            </div>
+			            <div class="col-sm-1">
+			                <input id="formData" type="checkbox" ng-model="formData.trancheDisburse" ng-change = "addParameter(formData.trancheDisburse,'trancheDisburse')" class="pull-right">
+			            </div>
+			         </div>   
+
+			        <!-- number -->
+			        <div class="form-group">
+		                <legend style="margin-bottom:1px;">  {{'label.heading.fundassignment' | translate}} </legend>
+		            </div>
+					<div class="form-group">
+						<div class="col-sm-1">
+				            	<label  class="control-label">{{'label.heading.fundname' | translate}}</label>
+				                <input class="control-label" id="includeFund" type="checkbox" ng-model="includeFund" class="pull-right" ng-change = "addParameter(includeFund,'funds')">
+				            </div>
+				            <div class="col-sm-3">
+				                <select multiple="" ng-model="formData.funds" class="form-control" >
+									<option ng-repeat="fund in fundOptions" value="{{fund.id}}" ng-hide="(fund.facilityType.name=='Buyout' || fund.facilityType.name=='Secuterization')">{{fund.name}}</option>
+								</select>
+				            </div>
+					</div>
+			        
+			<div class="col-md-offset-5">
+				<button id="save" type="submit" class="btn btn-primary" ng-click="submit()">{{'label.button.summary' | translate}}</button>
+			</div>
+		</div>
+	</div>
+
+	<!--  search results -->
+
+			<form class="well"  ng-show="view=='summary'">
+				<h3 class="bolder">{{'label.heading.adhoc.search.query.result' | translate}}
+			        <a ng-show="showResults" class="btn btn-primary">
+			            <i class="icon-plus icon-white"></i>
+			        </a>
+			    </h3>
+			    <div ng-show="isCsvAvailable==true"  align="right" class="col-fm-5">
+			     <button type="button" ng-csv="csvData" filename="{{fileName}}" csv-header="getHeader()"  class="btn btn-primary" align="right" csv-column-order="getOrder()" ><i class="icon-file icon-white" ></i>{{'label.heading.export' | translate}}</button>	
+			     </div>
+			    <hr/>
+			    <div class="form-horizontal">
+									<div  class="form-group" ng-show="includeApprovedDate">
+								            <div class="col-sm-2">
+								                <label  class="control-label">{{"label.input.approveddate" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1 control-label">
+								            	{{formData.approvedDate.operator}}
+								            </div>
+								            <div class="col-sm-2 control-label">
+								                {{formData.approvedDate.min}}
+								            </div>
+								            <div class="col-sm-2 control-label"  ng-show="formData.approvedDate.operator=='between'">
+								               {{formData.approvedDate.max}}
+								        	</div>
+								    </div>
+								    <div  class="form-group" ng-show="includeDisbursementDate">
+								            <div class="col-sm-2">
+								                <label  class="control-label">{{"label.input.disbursementdate" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1 control-label">
+								            	{{formData.disbursementDate.operator}}
+								            </div>
+								            <div class="col-sm-2 control-label">
+								                {{formData.disbursementDate.min}}
+								            </div>
+								            <div class="col-sm-2 control-label"  ng-show="formData.disbursementDate.operator=='between'">
+								               {{formData.disbursementDate.max}}
+								        	</div>
+								    </div>
+								    <div  class="form-group" ng-show="includePendingRepayment">
+								            <div class="col-sm-2">
+								                <label  class="control-label">{{"label.input.numberofpendingrepayment" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1 control-label">
+								            	{{formData.pendingRepayment.operator}}
+								            </div>
+								            <div class="col-sm-2 control-label">
+								                {{formData.pendingRepayment.min}}
+								            </div>
+								            <div class="col-sm-2 control-label" ng-show="formData.pendingRepayment.operator=='between'">
+								               {{formData.pendingRepayment.max}}
+								        	</div>
+								    </div>
+								    <div  class="form-group" ng-show="includePaidRepayment">
+								            <div class="col-sm-2">
+								                <label  class="control-label">{{"label.input.numberofpaidrepayment" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1 control-label">
+								            	{{formData.paidRepayment.operator}}
+								            </div>
+								            <div class="col-sm-2 control-label">
+								                {{formData.paidRepayment.min}}
+								            </div>
+								            <div class="col-sm-2 control-label"  ng-show="formData.paidRepayment.operator=='between'">
+								               {{formData.paidRepayment.max}}
+								        	</div>
+								    </div>
+
+								    <div  class="form-group" ng-show="includePrincipalOutstanding">
+								            <div class="col-sm-2">
+								                <label  class="control-label">{{"label.input.principaloutstandingamount" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1 control-label">
+								            	{{formData.principalOutstanding.operator}}
+								            </div>
+								            <div class="col-sm-2 control-label">
+								                {{formData.principalOutstanding.min}}
+								            </div>
+								            <div class="col-sm-2 control-label"  ng-show="formData.principalOutstanding.operator=='between'">
+								               {{formData.principalOutstanding.max}}
+								        	</div>
+								    </div>
+								    <div  class="form-group" ng-show="includeOverDueFromDays">
+								            <div class="col-sm-2">
+								                <label  class="control-label">{{"label.input.overDueFromDays" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1 control-label">
+								            	{{formData.overDueFromDays.operator}}
+								            </div>
+								            <div class="col-sm-2 control-label">
+								                {{formData.overDueFromDays.min}}
+								            </div>
+								            <div class="col-sm-2 control-label"  ng-show="formData.overDueFromDays.operator=='between'">
+								               {{formData.overDueFromDays.max}}
+								        	</div>
+								    </div>
+			    </div>
+			    
+	    		<table class="table well">
+				    <thead>
+				        <tr  class="graybg" style="height:20px;">
+				            <th colspan="{{criteriaLength}}">{{'label.heading.searchcriteria' | translate}}</th>
+				            <th style="border-left:3px" colspan="3">{{'label.heading.searchresult' | translate}}</th>
+				        </tr>
+				        <tr  class="graybg" style="height:20px;">
+				            <th ng-show="includeFund">{{'label.heading.fund' | translate}}
+				            </th>
+				            <th ng-show="includeOffice">{{'label.heading.office' | translate}}
+				            </th>
+				            <th ng-show="includeProduct">{{'label.heading.product' | translate}}
+				            </th>
+				            <th ng-show="includeGender">{{'label.heading.gender' | translate}}
+				            </th>
+				            <th ng-show="includeState">{{'label.heading.state' | translate}}
+				            </th>
+				            <th ng-show="includeDistrict">{{'label.heading.ditrict' | translate}}
+				            </th>
+				            <th ng-show="includeClientType">{{'label.heading.clienttype' | translate}}
+				            </th>
+				            <th ng-show="includeClientClassification">{{'label.heading.clientclassification' | translate}}
+				            </th>
+
+				            <th ng-show="includeLoanPurposecategory">{{'label.heading.loanpurposegroup' | translate}}
+				            </th>
+				            <th ng-show="includeLoanPurpose">{{'label.heading.loanpurpose' | translate}}
+				            </th>
+				            <th style="border-left:3px">{{'label.heading.loancount' | translate}}</th>
+				            <th>{{'label.heading.totalloandisbursement' | translate}}</th>
+				            <th>{{'label.heading.totalpos' | translate}}</th>				            
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr ng-repeat="data in searchResults">
+				            <td ng-show="includeFund">{{data.fundName}}</td>
+				            <td ng-show="includeOffice">{{data.officeName}}</td>
+				            <td ng-show="includeProduct">{{data.loanProductName}}</td>
+				            <td ng-show="includeGender">{{data.genderName}}</td>
+				            <td ng-show="includeState">{{data.stateName}}</td>
+				            <td ng-show="includeDistrict">{{data.districtName}}</td>
+				            <td ng-show="includeClientType">{{data.clientTypeName}}</td>
+				            <td ng-show="includeClientClassification">{{data.clientClassificationName}}</td>
+				            <td ng-show="includeLoanPurposecategory">{{data.loanPurposeGroup}}</td>
+				            <td  ng-show="includeLoanPurpose">{{data.loanPurposeName}}</td>	
+				            <td style="border-left:3px">{{data.loanCount}}</td>
+				            <td>{{data.disbursedAmount}}</td>
+				            <td>{{data.principalOutstandingAmount}}</td>
+				         </tr>
+				         <tr  class="graybg" style="height:20px;">
+				            <th colspan="{{criteriaLength-1}}"></th>
+				            <th colspan="1" align="right">{{'label.heading.total' | translate}}</th>
+				            <th style="border-left:3px" colspan="1">{{totalLoanCount}}</th>
+				            <th style="border-left:3px" colspan="1">{{totalDisbursedAmount | number: 2}}</th>
+				            <th style="border-left:3px" colspan="1">{{totalPOS | number: 2}}</th>
+				        </tr>
+				    </tbody>
+				</table>
+
+				<div  class="form-horizontal" >
+					<div class="form-group" >
+								            <div class="col-sm-2">
+								            	<input class="control-label" id="enableAssignment" type="checkbox" ng-model="enableAssignment" class="pull-right">
+								                <label  class="control-label">{{"label.input.enablefundassignment" | translate}}</label>
+								            </div>
+								            <div class="col-sm-1" ng-show="enableAssignment">
+								            	<label  class="control-label">{{'label.heading.fundname' | translate}}</label>
+								            </div>
+								            <div class="col-sm-3" ng-show="enableAssignment">
+								                <select ng-model="fundId" class="form-control">
+													<option ng-repeat="fund in fundOptions" value="{{fund.id}}">{{fund.name}}</option>
+												</select>
+								            </div>
+								            <div class="col-sm-2 control-label" ng-show="enableAssignment">
+								               <button ng-click="assignFund()" class="btn btn-primary"><i class="icon-file icon-white"></i>{{'label.button.assignfund' | translate}}</button>
+
+								        	</div><br/>
+					</div>
+				 </div>
+
+				<div class="form-horizontal">
+					<div class="form-group" >
+
+					<button ng-click="cancel()" class="btn btn-primary col-md-offset-5">Back</button>
+					<button ng-click="getDetails()" class="btn btn-primary"><i class="icon-file icon-white"></i>{{'label.button.detailview' | translate}}</button>
+					</div>
+				</div>
+		    </form>
+	</div>
+
+</div>

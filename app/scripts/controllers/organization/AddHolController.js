@@ -41,7 +41,7 @@
 
                 resourceFactory.holidayTemplateResource.get(function(repaymentSchedulingRulesData){
                     scope.repaymentSchedulingRules = repaymentSchedulingRulesData;
-
+                    scope.repaymentSchedulingRuleType = repaymentSchedulingRulesData[1];
                     angular.forEach(scope.repaymentSchedulingRules, function(repaymentSchedulingRule) {
                         if(repaymentSchedulingRule.value == 'SCHEDULEONLYONDATE'){
                             repaymentSchedulingRule.value = 'Reschedule to specified date';
@@ -73,11 +73,13 @@
                     if (currentObj.children) {
                         currentObj.collapsed = "true";
                     }
-                    if (typeof currentObj.parentId === "undefined") {
+                    if (currentObj.id === data[0].id) {
                         root.push(currentObj);
                     } else {
-                        parentNode = idToNodeMap[currentObj.parentId];
-                        parentNode.children.push(currentObj);
+                        if(!(typeof idToNodeMap[currentObj.parentId] === "undefined")) {
+                            parentNode = idToNodeMap[currentObj.parentId];
+                            parentNode.children.push(currentObj);
+                        }
                     }
                 }
                 scope.treedata = root;

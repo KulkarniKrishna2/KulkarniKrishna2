@@ -5,6 +5,16 @@
             scope.taskData = {};
             scope.isWorkflowTask = false;
             scope.isSingleTask = false;
+
+            function fetchLoanData() {
+                resourceFactory.LoanAccountResource.getLoanAccountDetails({
+                    loanId: scope.loanId,
+                    exclude: 'guarantors'
+                }, function (data) {
+                    scope.loanData = data;
+                });
+            };
+
             function init() {
                 resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskId}, function (data) {
                     scope.taskData = data;
@@ -18,7 +28,11 @@
                             scope.clientId = scope.taskData.configValues.clientId;
                             scope.loanApplicationId = scope.taskData.configValues.loanApplicationId;
                             scope.loanApplicationReferenceId = scope.loanApplicationId;
+                            scope.loanId = scope.taskData.configValues.loanId;
                         }
+                    }
+                    if(scope.loanId){
+                        fetchLoanData();
                     }
                     if(scope.loanApplicationId){
                         resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.taskData.entityId}, function (data) {

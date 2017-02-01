@@ -147,8 +147,8 @@
                     case "disburse.tranche.creditbureaureport":
                         if(scope.isCBCheckReq === true && scope.loandetails.status.id == 300){
                             location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
-                        }else if(scope.isCBCheckReq === true && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
-                            location.path('/creditbureaureport/loanapplication/'+scope.loandetails.loanApplicationReferenceId);
+                        }else if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
                         }
                         break;
                 }
@@ -201,11 +201,11 @@
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
              */
 
-            var multiTranchDataRequest = "multiDisburseDetails";
+            var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:"multiTranchDataRequest,loanApplicationReferenceId,hierarchyLookup", exclude: 'guarantors'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
-                if(data.clientData.groups && data.clientData.groups.length ==1) {
+                if(data.clientData && data.clientData.groups && data.clientData.groups.length ==1) {
                     scope.group = data.clientData.groups[0];
                 }
                 $rootScope.loanproductName = data.loanProductName;
@@ -524,9 +524,7 @@
                 scope.convertDateArrayToObject('date');
 
                 if($rootScope.hasPermission('READ_BANK_TRANSACTION')){
-                    resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
-                        scope.transferDetails = data;
-                    });
+                    fetchBankTransferDetails();
                 }
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
@@ -534,6 +532,12 @@
                 });
 
             });
+
+            fetchBankTransferDetails = function(){
+                resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
+                    scope.transferDetails = data;
+                });
+            };
 
             function disbursalSettings(data) {
                 if (data.canDisburse) {
@@ -1021,6 +1025,14 @@
 
             scope.viewTransferDetails = function(transferData){
                 location.path('/viewbankaccounttransfers/'+'loans/' + transferData.entityId+'/'+transferData.transactionId);
+            };
+
+            scope.retryTransfer = function(transferData){
+                if(transferData.status.id==6){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'retry'}, function (data) {
+                        fetchBankTransferDetails();
+                    });
+                }
             };
 
             function constructActiveLoanSummary() {

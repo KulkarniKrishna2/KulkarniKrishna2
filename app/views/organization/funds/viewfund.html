@@ -1,0 +1,252 @@
+<div class="col-md-12" ng-controller="ViewFundController">
+    <ul class="breadcrumb">
+        <li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li ><a href="#/managefunds/">{{'label.anchor.managefund' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewfund' | translate}}</li>
+    </ul>
+    <form name="viewfund" novalidate="" class="form-horizontal well" >
+
+        <div class="form-group">
+            <legend style="margin-bottom:1px;"> {{fund.fundSource.name}}({{fund.name}})&nbsp;
+                <i class="icon-stop {{fund.isActive | StatusLookup}}"></i>
+            </legend>
+        </div>
+        <fieldset>
+            <legend>{{'label.heading.funddetails' | translate}}</legend>
+            <div class="form-group">
+                <div>
+                    <label align="left"  class="col-sm-3">
+                        {{'label.input.fundcategory' | translate}}
+                    </label>
+                    <div  align="left" class="col-sm-4">
+                        {{fund.fundCategory.name}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div>
+                    <label align="left" class="col-sm-3">
+                        {{'label.input.facilitytype' | translate}}
+                    </label>
+
+                    <div  align="left" class="col-sm-4">
+                        {{fund.facilityType.name}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3">
+                    {{'label.input.assignmentstartdate' | translate}}
+                </label>
+
+                <div class="col-sm-4">
+                    {{fund.assignmentStartDate | DateFormat}}
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div>
+                    <label align="left" class="col-sm-3">
+                        {{'label.input.assignmentenddate' | translate}}
+                    </label>
+
+                    <div class="col-sm-4">
+                        {{fund.assignmentEndDate | DateFormat}}
+                    </div>
+                </div>
+
+            </div>
+            <hr/>
+            <div class="form-group">
+                <legend style="margin-bottom:1px;">  {{'label.heading.loandetails' | translate}} </legend>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label align="left" class="col-sm-3">
+                        {{'label.input.sanctioneddate' | translate}}
+                    </label>
+                    <div align="left" class="col-sm-4">
+                        <div >
+                            {{fund.sanctionedDate | DateFormat}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label align="left"  class="col-sm-3">
+                        {{'label.input.sanctionedamount' | translate}}
+                    </label>
+                    <div align="left"  class="col-sm-4">
+                        {{fund.sanctionedAmount}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label align="left"  class="col-sm-3">
+                        {{'label.input.disbursedamount' | translate}}
+                    </label>
+                    <div  align="left" class="col-sm-4">
+                        {{fund.disbursedAmount}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <div>
+                    <label  align="left"  class="col-sm-3">
+                        {{'label.input.disburseddate' | translate}}
+                    </label>
+                    <div align="left"  class="col-sm-4">
+                        {{fund.disbursedDate | DateFormat}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.tenure' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        {{fund.tenure}} {{fund.tenureFrequency.value}}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.maturitydate' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.maturityDate | DateFormat}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.morotoriumperiod' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.morotorium}} {{fund.morotoriumFrequency.value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.repaymentfrequency' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.fundRepaymentFrequency.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.heading.fundloanpurpose' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <table ng-show="fund.fundLoanPurposeData.length>0">
+                            <tr  ng-repeat="lp in fund.fundLoanPurposeData">
+                                <td>
+                                    {{lp.loanPurpose.name}}({{lp.loanPurposeAmount}}%)
+                                </td> 
+                            </tr>
+                        </table> 
+                    </div>                    
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.rateofinterest' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.interestRate}}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <legend style="margin-bottom:1px;">  {{'label.heading.fee' | translate}} </legend>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.rateoflpfinpercentage' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.loanPortfolioFee}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <legend style="margin-bottom:1px;">  {{'label.heading.collateralorsecurity' | translate}} </legend>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.bookdebthyphothecationinpercentage' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.bookDebtHypothecation}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.cashcollateralinpercentage' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-3">
+                        <div >
+                            {{fund.cashCollateral}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label  align="left"   class="col-sm-3">
+                        {{'label.input.personalgurantee' | translate}}
+                    </label>
+                    <div  align="left"  class="col-sm-4">
+                        <div >
+                            {{fund.personalGurantee}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/managefunds/" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <a id="save"  href='#/editfund/{{fund.id}}' class="btn btn-primary" >{{'label.button.editfund' | translate}}</a>
+            </div>
+        </fieldset>
+    </form>
+</div>
