@@ -81,14 +81,17 @@
 
             scope.getDistrictOptions = function(states){
               scope.districtOptions = [];
-                  for(var i=0;i<states.length;i++){
+              if(states.length==1){
                       for(var j=0;j<scope.stateOptions.length;j++){
-                        if(states[i]==scope.stateOptions[j].stateId && scope.stateOptions[j].districtDatas && scope.stateOptions[j].districtDatas.length>0){
-                          Array.prototype.push.apply(scope.districtOptions, scope.stateOptions[j].districtDatas);
+                        if(states[0]==scope.stateOptions[j].stateId && scope.stateOptions[j].districtDatas && scope.stateOptions[j].districtDatas.length>0){
+                          scope.districtOptions =  scope.stateOptions[j].districtDatas;
                         }
-                        
-                      }
                   }
+              }else{
+                scope.includeState = false;
+                scope.addParameter(includeState,'states');
+              }
+                  
             };
 
             scope.submit = function () {
