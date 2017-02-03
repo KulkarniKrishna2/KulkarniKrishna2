@@ -9,7 +9,9 @@
                 scope.externalservices = data.externalServiceOptions;
                 if(scope.externalservices){
                     scope.formData.bankAccountDetails = {};
+                    scope.formData.bankAccountDetails.locale = scope.optlang.code;
                 }
+                scope.bankAccountTypeOptions  = data.bankAccountTypeOptions;
             });
 
 
