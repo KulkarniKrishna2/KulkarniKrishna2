@@ -1236,8 +1236,9 @@
             };
 
             scope.creditBureauReportView = function () {
-                resourceFactory.creditLatestBureauReportFileContentResource.get({
-                    clientId: $rootScope.clientId
+                resourceFactory.creditBureauReportFileContentResource.get({
+                    entityType: 'client',
+                    entityId: $rootScope.clientId
                 }, function (fileContentData) {
                     if (fileContentData.reportFileType.value == 'HTML') {
                         var result = "";
@@ -1251,8 +1252,6 @@
                     }
                 });
             };
-
-
 
             scope.isCBCheckReq = false;
             function creditBureauCheckIsRequired() {
