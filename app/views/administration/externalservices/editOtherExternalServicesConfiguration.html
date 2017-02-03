@@ -3,8 +3,8 @@
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
             <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
-            <li><a href="#/otherexternalservices/{{serviceData.id}}">{{'label.anchor.externalServices' | translate}}</a></li>
-            <li class="active">{{'label.view.riskcriteria.edit' | translate}}</li>
+            <li><a href="#/otherexternalservices/{{serviceData.id}}">{{serviceData.displayCode | translate}}</a></li>
+            <li class="active">{{'label.input.edit' | translate}}</li>
         </ul>
     </div>
     <form name="editExternalServicesConfigurationForm" novalidate="" class="form-horizontal well" ng-submit="submit()">

@@ -6,7 +6,7 @@
             };
             scope.formData = {};
             scope.formData.surveyedOn = new Date();
-            scope.showdetails=false;
+            scope.showdetails=true;
             scope.entityTypeId = null;
             function initTask() {
                 scope.clientId = scope.taskconfig['clientId'];

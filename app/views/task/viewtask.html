@@ -28,10 +28,6 @@
                 </div>
             </div>
 
-            <div class="row well" ng-if="loanApplicationData.loanApplicationReferenceId">
-                <div class="col-md-4"><span>{{'label.input.applicantname' | translate}}&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
-                <div class="col-md-4"><span>{{'label.input.applicationReference' | translate}}&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
-            </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
         </div>

@@ -6,6 +6,7 @@
 
             resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id,template: 'true'}, function (data) {
                 scope.externalservices = data.externalServiceOptions;
+                scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                 scope.formData = {
                     name: data.name,
                     description: data.description,
@@ -14,6 +15,21 @@
                     externalServiceId:data.externalServiceId,
                     bankAccountDetails:data.bankAccountDetails
                 };
+                if(data.bankAccountDetails){
+                    scope.formData.bankAccountDetails = {
+                        name: data.bankAccountDetails.name,
+                        accountNumber: data.bankAccountDetails.accountNumber,
+                        ifscCode: data.bankAccountDetails.ifscCode,
+                        bankName: data.bankAccountDetails.bankName,
+                        bankCity: data.bankAccountDetails.bankCity,
+                        mobileNumber: data.bankAccountDetails.mobileNumber,
+                        email: data.bankAccountDetails.email
+                    };
+                    if(data.bankAccountDetails.accountType){
+                        scope.formData.bankAccountDetails.accountTypeId = data.bankAccountDetails.accountType.id;
+                    };
+                    scope.formData.bankAccountDetails.locale = scope.optlang.code;
+                }
             });
 
             scope.submit = function () {

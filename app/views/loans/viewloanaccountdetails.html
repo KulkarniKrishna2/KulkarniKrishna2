@@ -867,14 +867,14 @@
                     <tab ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
+                                <th>{{'label.heading.transferid' | translate}}</th>
                                 <th>{{'label.heading.transfertype' | translate}}</th>
-                                <th>{{'label.heading.transactiondate' | translate}}</th>
                                 <th>{{'label.heading.amount' | translate}}</th>
                                 <th>{{'label.heading.status' | translate}}</th>
                             </tr>
                             <tr ng-repeat="traanferData in transferDetails" class="pointer-main">
+                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transactionId}}</td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transferType.value}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transactionDate | DateFormat}}</td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.amount}}</td>
                                 <td class="pointer" >{{traanferData.status.value}}
                                     <button class="btn btn-link" ng-click="retryTransfer(traanferData)" ng-if="traanferData.status.id == 6" has-permission="RETRY_BANK_TRANSACTION">Retry</button>
