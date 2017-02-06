@@ -122,9 +122,9 @@
                             <thead>
                             <tr>
                                 <th></th>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                 <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                                 <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                 <th>{{ 'label.heading.fixedEmi' | translate }}</th>
                                 <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
                                 <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
@@ -138,13 +138,13 @@
                                     <input type="radio" ng-model="formData.loanEMIPackId" value="{{loanEMIPack.id}}"/>
                                 </td>
                                 <td class="col-md-1">
+                                    <span>{{loanEMIPack.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
                                     <span>{{loanEMIPack.combinedRepayEvery}}</span>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.numberOfRepayments}}</span>
-                                </td>
-                                <td class="col-md-1">
-                                    <span>{{loanEMIPack.sanctionAmount}}</span>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.fixedEmi}}</span>
