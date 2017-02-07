@@ -1,0 +1,135 @@
+<div class="col-md-12" ng-controller="DedupController">
+    <div>
+        <ul class="breadcrumb">
+            <li class="active">{{'label.anchor.dedup' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form name="dedupform" novalidate="" class="form-horizontal well">
+        <div class="form-group">
+            <table class="table width100">
+                <tr>
+                    <td class="width50">
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th colspan="2">{{'label.heading.weightagesperson' | translate}}
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" data-ng-hide="editPerson" data-ng-click="editPerson=true" class="btn btn-primary" has-permission='UPDATE_CLIENTDEDUPWEIGHTAGES'><i
+                                                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
+                                            </button>
+                                            <button type="button" data-ng-hide="!editPerson" data-ng-click="updatePerson()" class="btn btn-primary" has-permission='UPDATE_CLIENTDEDUPWEIGHTAGES'><i
+                                                    class="icon-edit icon-white"></i>{{'label.button.save' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{'label.input.firstnameExact' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.firstnameExact}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.firstnameExact" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.firstnameLike' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.firstnameLike}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.firstnameLike" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.middlenameExact' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.middlenameExact}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.middlenameExact" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.middlenameLike' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.middlenameLike}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.middlenameLike" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.lastnameExact' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.lastnameExact}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.lastnameExact" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.lastnameLike' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.lastnameLike}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.lastnameLike" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.mobileNo' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.mobileNo}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.mobileNo" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.dateOfBirth' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.dateOfBirth}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.dateOfBirth" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.genderCvId' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.genderCvId}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.genderCvId" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.clientIdentifier' | translate}}</td>
+                                <td ng-hide="editPerson">{{person.clientIdentifier}}</td>
+                                <td ng-show="editPerson"><input type="number" data-ng-model="person.clientIdentifier" class="form-control"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="width50">
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th colspan="2">{{'label.heading.weightagesentity' | translate}}
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" data-ng-hide="editEntity" data-ng-click="editEntity=true" class="btn btn-primary" has-permission='UPDATE_CLIENTDEDUPWEIGHTAGES'><i
+                                                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
+                                            </button>
+                                            <button type="button" data-ng-hide="!editEntity" data-ng-click="updateEntity()" class="btn btn-primary" has-permission='UPDATE_CLIENTDEDUPWEIGHTAGES'><i
+                                                    class="icon-edit icon-white"></i>{{'label.button.save' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{'label.input.fullnameExact' | translate}}</td>
+                                <td ng-hide="editEntity">{{entity.fullnameExact}}</td>
+                                <td ng-show="editEntity"><input type="number" data-ng-model="entity.fullnameExact" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.fullnameLike' | translate}}</td>
+                                <td ng-hide="editEntity">{{entity.fullnameLike}}</td>
+                                <td ng-show="editEntity"><input type="number" data-ng-model="entity.fullnameLike" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.mobileNo' | translate}}</td>
+                                <td ng-hide="editEntity">{{entity.mobileNo}}</td>
+                                <td ng-show="editEntity"><input type="number" data-ng-model="entity.mobileNo" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.incorpNo' | translate}}</td>
+                                <td ng-hide="editEntity">{{entity.incorpNo}}</td>
+                                <td ng-show="editEntity"><input type="number" data-ng-model="entity.incorpNo" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.clientIdentifier' | translate}}</td>
+                                <td ng-hide="editEntity">{{entity.clientIdentifier}}</td>
+                                <td ng-show="editEntity"><input type="number" data-ng-model="entity.clientIdentifier" class="form-control"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

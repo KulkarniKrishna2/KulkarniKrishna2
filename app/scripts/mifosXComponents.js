@@ -470,7 +470,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/funds/ViewFundController',
             'organization/funds/EditFundController',
             'organization/funds/AssignFundController',
-            'main/AdvancedSearchController'
+            'main/AdvancedSearchController',
+            'configurations/DedupController'
         ],
         filters: [
             'StatusLookup',

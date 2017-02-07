@@ -14,10 +14,20 @@
 
             switch (scope.action) {
                 case "activate":
-                    resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
+                    resourceFactory.clientResourceTemplate.getActivateTemplate({clientId: routeParams.id, command : 'activate'}, function (data) {
                         scope.client = data;
                         if (data.timeline.submittedOnDate) {
                             scope.mindate = new Date(data.timeline.submittedOnDate);
+                        }
+                        if(scope.client.possibleClientMatches){
+                            resourceFactory.clientIdenfierResource.getAll({clientId:scope.client.id}, function(data){
+                                if(data){
+                                    scope.clientIdentities = data.sort(function(a,b) {
+                                        return (a.documentType.id > b.documentType.id) ? 1
+                                            : ((b.documentType.id > a.documentType.id) ? -1 : 0);} );
+                                    scope.client.identitiesCompiled = compileDocuments(scope.clientIdentities);
+                                }
+                            });
                         }
                     });
                     scope.labelName = 'label.input.activationdate';
@@ -176,6 +186,70 @@
                 location.path('/viewclient/' + routeParams.id);
             }
 
+            scope.matchClient = function(clientId){
+                if(scope.client.possibleClientMatches){
+                    var len = scope.client.possibleClientMatches.length;
+                    for(var i=0; i<len; i++){
+                        if(scope.client.possibleClientMatches[i].id === clientId){
+                            scope.possibleMatch = scope.client.possibleClientMatches[i];
+                            break;
+                        }
+                    }
+                }
+                if(scope.possibleMatch){
+                    scope.client.identitiesCompiled = compileDocuments(scope.clientIdentities);
+                    resourceFactory.clientIdenfierResource.getAll({clientId:scope.possibleMatch.id}, function(data){
+                        if(data){
+                            scope.possibleMatchIdentities = data.sort(function(a,b) {
+                                return (a.documentType.id > b.documentType.id) ? 1
+                                    : ((b.documentType.id > a.documentType.id) ? -1 : 0);} );
+                            scope.possibleMatch.identitiesCompiled = "";
+                            var len = scope.possibleMatchIdentities.length;
+                            for(var i=0; i<scope.clientIdentities.length; i++){
+                                var index = containsDocumentType(scope.possibleMatchIdentities,scope.clientIdentities[i]);
+                                if(index < 0){
+                                    scope.possibleMatch.identitiesCompiled += "&nbsp;<br/>";
+                                }else{
+                                    scope.possibleMatch.identitiesCompiled = scope.possibleMatch.identitiesCompiled
+                                        .concat('<b>',scope.possibleMatchIdentities[index].documentType.name, '</b> : ',
+                                            scope.possibleMatchIdentities[index].documentKey, '<br/>');
+                                    scope.possibleMatchIdentities.splice(index,1);
+                                }
+                            }
+                            scope.possibleMatch.identitiesCompiled += compileDocuments(scope.possibleMatchIdentities);
+                            for(var i=0; i < scope.clientIdentities.length; i++){
+                                if(scope.possibleMatch.identitiesCompiled.indexOf(scope.clientIdentities[i].documentKey) >= 0){
+                                    scope.possibleMatch.identitiesCompiled = scope.possibleMatch.identitiesCompiled
+                                        .replace(scope.clientIdentities[i].documentKey,
+                                        '<span class=highlight>'+scope.clientIdentities[i].documentKey+'</span>');
+                                    scope.client.identitiesCompiled = scope.client.identitiesCompiled
+                                        .replace(scope.clientIdentities[i].documentKey,
+                                        '<span class=highlight>'+scope.clientIdentities[i].documentKey+'</span>');
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            function compileDocuments(data) {
+                var len = data.length;
+                var str = "";
+                for (var i = 0; i < len; i++) {
+                    str = str.concat('<b>', data[i].documentType.name, '</b> : ', data[i].documentKey,'<br/>');
+                }
+                return str;
+            }
+
+            function containsDocumentType(a, obj) {
+                for (var i = 0; i < a.length; i++) {
+                    if (a[i].documentType.id === obj.documentType.id) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
@@ -185,7 +259,7 @@
 
                 if (scope.action == "activate") {
                     var queryParams = {clientId: routeParams.id, command: 'activate'};
-                    if(scope.forcedSubmit){
+                    if(scope.forcedSubmit || scope.forceActivate){
                         queryParams = {clientId: routeParams.id, command: 'forceActivate'};
                     }
                     resourceFactory.clientResource.save(queryParams, this.formData, function (data) {
