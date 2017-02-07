@@ -140,9 +140,9 @@
                         <table class="table  table-striped">
                             <thead>
                             <tr>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                 <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                                 <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                 <th>{{ 'label.heading.fixedEmi' | translate }}</th>
                                 <th ng-show="formData.loanEMIPackData.disbursalAmount1">{{ 'label.heading.disbursalAmount1' | translate }}</th>
                                 <th ng-show="formData.loanEMIPackData.disbursalAmount2">{{ 'label.heading.disbursalAmount2' | translate }}</th>
@@ -153,13 +153,13 @@
                             <tbody>
                             <tr>
                                 <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
                                     <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
-                                </td>
-                                <td class="col-md-1">
-                                    <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{formData.loanEMIPackData.fixedEmi}}</span>

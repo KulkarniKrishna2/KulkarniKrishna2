@@ -34,9 +34,9 @@
             <table class="table  table-striped">
                 <thead>
                 <tr>
+                    <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                     <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                     <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-                    <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                     <th>{{ 'label.heading.fixedEmi' | translate }}</th>
                     <th ng-show="loanTemplate.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
                     <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
@@ -52,13 +52,13 @@
                 <tbody>
                 <tr data-ng-repeat="loanEMIPack in loanEMIPacks | filter:filterText">
                     <td class="col-md-1">
+                        <span>{{loanEMIPack.sanctionAmount}}</span>
+                    </td>
+                    <td class="col-md-1">
                         <span>{{loanEMIPack.combinedRepayEvery}}</span>
                     </td>
                     <td class="col-md-1">
                         <span>{{loanEMIPack.numberOfRepayments}}</span>
-                    </td>
-                    <td class="col-md-1">
-                        <span>{{loanEMIPack.sanctionAmount}}</span>
                     </td>
                     <td class="col-md-1">
                         <span>{{loanEMIPack.fixedEmi}}</span>

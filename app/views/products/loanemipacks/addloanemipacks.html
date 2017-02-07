@@ -12,6 +12,15 @@
                 <legend>{{'label.heading.addloanemipack' | translate}}</legend>
 
                 <div class="form-group">
+                    <label class="control-label col-sm-2" >{{'label.heading.sanctionAmount' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input name="sanctionAmount" ng-model="formData.sanctionAmount"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-sm-2" for="repaymentEvery">{{'label.heading.repaymentEvery' | translate}}<span
                             class="required">*</span></label>
 
@@ -32,15 +41,6 @@
 
                     <div class="col-sm-3">
                         <input name="numberOfRepayments" ng-model="formData.numberOfRepayments"
-                               class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" >{{'label.heading.sanctionAmount' | translate}}<span
-                            class="required">*</span></label>
-
-                    <div class="col-sm-3">
-                        <input name="sanctionAmount" ng-model="formData.sanctionAmount"
                                class="form-control"/>
                     </div>
                 </div>

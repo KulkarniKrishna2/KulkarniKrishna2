@@ -287,9 +287,9 @@
                                 <table class="table  table-striped">
                                     <thead>
                                     <tr>
+                                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                         <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                                         <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-                                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                         <th>{{ 'label.heading.fixedEmi' | translate }}</th>
                                         <th ng-show="formData.loanEMIPackData.disbursalAmount1">{{ 'label.heading.disbursalAmount1' | translate }}</th>
                                         <th ng-show="formData.loanEMIPackData.disbursalAmount2">{{ 'label.heading.disbursalAmount2' | translate }}</th>
@@ -300,13 +300,13 @@
                                     <tbody>
                                     <tr>
                                         <td class="col-md-1">
+                                            <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
+                                        </td>
+                                        <td class="col-md-1">
                                             <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
                                         </td>
                                         <td class="col-md-1">
                                             <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
-                                        </td>
-                                        <td class="col-md-1">
-                                            <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
                                         </td>
                                         <td class="col-md-1">
                                             <span>{{formData.loanEMIPackData.fixedEmi}}</span>
@@ -600,12 +600,12 @@
                                 <tr>
                                     <td colspan="4">&nbsp;</td>
                                 </tr>
-                                <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                                <tr ng-show="loanaccountinfo.loanEMIPacks && changeLoanEMIPack" class="width100">
                                     <td colspan="4">
                                         <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
                                     </td>
                                 </tr>
-                                <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                                <tr ng-show="loanaccountinfo.loanEMIPacks && changeLoanEMIPack" class="width100">
                                     <td colspan="4">
                                         <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
                                     </td>
@@ -613,13 +613,62 @@
                                 <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
                                     <td colspan="4">
                                         <div>
-                                            <table class="table  table-striped">
+                                            <div ng-hide="changeLoanEMIPack">
+                                                <table class="table  table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                                        <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                                        <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                                        <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                                        <th ng-show="formData.loanEMIPackData.disbursalAmount1">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                                                        <th ng-show="formData.loanEMIPackData.disbursalAmount2">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                                                        <th ng-show="formData.loanEMIPackData.disbursalAmount3">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                                                        <th ng-show="formData.loanEMIPackData.disbursalAmount4">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="col-md-1">
+                                                            <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
+                                                        </td>
+                                                        <td class="col-md-1">
+                                                            <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                                        </td>
+                                                        <td class="col-md-1">
+                                                            <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
+                                                        </td>
+                                                        <td class="col-md-1">
+                                                            <span>{{formData.loanEMIPackData.fixedEmi}}</span>
+                                                        </td>
+                                                        <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount1">
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
+                                                        </td>
+                                                        <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount2">
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
+                                                        </td>
+                                                        <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount3">
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
+                                                        </td>
+                                                        <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount4">
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div ng-hide="changeLoanEMIPack">
+                                                <button ng-click="changeLoanEMIPack=true" class="btn btn-default ng-binding">{{'label.button.changeemipack'
+                                                    | translate}}
+                                                </button>
+                                            </div>
+                                            <table class="table  table-striped" ng-show="changeLoanEMIPack">
                                                 <thead>
                                                 <tr>
                                                     <th></th>
+                                                    <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                                     <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                                                     <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-                                                    <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                                     <th>{{ 'label.heading.fixedEmi' | translate }}</th>
                                                     <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
                                                     <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
@@ -628,18 +677,19 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+                                                <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText"
+                                                    ng-if="loanEMIPack.sanctionAmount <= formData.loanEMIPackData.sanctionAmount">
                                                     <td class="col-md-1">
                                                         <input type="radio" ng-model="formRequestData.loanEMIPackId" value="{{loanEMIPack.id}}"/>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        <span>{{loanEMIPack.sanctionAmount}}</span>
                                                     </td>
                                                     <td class="col-md-1">
                                                         <span>{{loanEMIPack.combinedRepayEvery}}</span>
                                                     </td>
                                                     <td class="col-md-1">
                                                         <span>{{loanEMIPack.numberOfRepayments}}</span>
-                                                    </td>
-                                                    <td class="col-md-1">
-                                                        <span>{{loanEMIPack.sanctionAmount}}</span>
                                                     </td>
                                                     <td class="col-md-1">
                                                         <span>{{loanEMIPack.fixedEmi}}</span>
