@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">Principle<span class="required"></span></label>
+                <label class="control-label col-sm-2">{{ 'label.heading.principal' | translate }}<span class="required"></span></label>
                 <div class="col-sm-3">
                     <input type="text" id="outstandingPrincipalPortion" name="outstandingPrincipalPortion" ng-model="formData.outstandingPrincipalPortion" class="form-control" number-format readonly/>
                 </div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">Interest<span class="required"></span></label>
+                <label class="control-label col-sm-2">{{ 'label.heading.interest' | translate }}<span class="required"></span></label>
                 <div class="col-sm-3">
                     <input type="text" id="outstandingInterestPortion" name="outstandingInterestPortion" ng-model="formData.outstandingInterestPortion" class="form-control" number-format readonly/>
                 </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">Fee Amount<span class="required"></span></label>
+                <label class="control-label col-sm-2">{{'label.heading.fee.amount' | translate}}<span class="required"></span></label>
                 <div class="col-sm-3">
                     <input type="text" id="outstandingFeeChargesPortion" name="outstandingFeeChargesPortion" ng-model="formData.outstandingFeeChargesPortion" class="form-control" number-format readonly/>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">Penalty amount<span class="required"></span></label>
+                <label class="control-label col-sm-2">{{'label.heading.penalty.amount' | translate}}<span class="required"></span></label>
                 <div class="col-sm-3">
                     <input type="text" id="outstandingPenaltyChargesPortion" name="outstandingPenaltyChargesPortion" ng-model="formData.outstandingPenaltyChargesPortion" class="form-control" number-format readonly/>
                 </div>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">Transaction Amount<span class="required"></span></label>
+                <label class="control-label col-sm-2">{{'label.heading.transactionamount' | translate}}<span class="required"></span></label>
                 <div class="col-sm-3">
                     <input type="text" ng-model="formData.transactionAmount" class="form-control" number-format readonly/>
                 </div>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">Note</label>
+                <label class="control-label col-sm-2">{{'label.input.notes' | translate}}</label>
                 <div class="col-sm-3">
                     <textarea id="note" type="text" rows="2" name="note" ng-model="formData.note" class="form-control" ></textarea>
                 </div>
