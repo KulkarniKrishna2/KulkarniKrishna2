@@ -228,6 +228,14 @@
                                 <option value="" style="display:none;">--{{'label.menu.selectbranch' | translate}}--</option>
                             </select>
                         </div>
+                        <label class="control-label col-sm-2">{{'label.input.paymenttype' | translate}}</label>
+                        <div class="col-sm-3">
+                            <select chosen="paymentTypes" id="paymentTypeId" ng-model="formData.paymentTypeId"
+                                    ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}"
+                                    class="form-control">
+                                <option value="">{{'label.all' | translate}}</option>
+                            </select>
+                            </div>
                     </div>
 
                     <div class="form-group">

@@ -16,6 +16,7 @@
             scope.selectedAllManualReconciled = false;
             scope.bankName = '';
             scope.totalTransactions = 0;
+            scope.paymentTypes = [];
 
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
@@ -37,6 +38,10 @@
                 if(scope.offices.length>0){
                     scope.formData.officeId = scope.offices[0].id;
                 }
+            });
+
+            resourceFactory.paymentTypeResource.getAll(function (data){
+                scope.paymentTypes = data;
             });
 
             scope.isBankTransactionSelected = function(bankTransctionId,loanId){
@@ -78,6 +83,7 @@
                         scope.bankStatementDetails[index].loanTransactionData.loanAccountNumber = loanTransaction.LOAN_ACCOUNT_NO;
                         scope.bankStatementDetails[index].loanTransactionData.type = {};
                         scope.bankStatementDetails[index].loanTransactionData.type.value = loanTransaction.TRANSACTION_TYPE;
+                        scope.bankStatementDetails[index].loanTransactionData.paymentTypeName = loanTransaction.PAYMENTTYPE_ID;
                     }else{
                         scope.bankStatementDetails[index].loanTransactionData = loanTransaction;
                     }
@@ -119,6 +125,7 @@
                 var amountMaxRange = false;
                 var dateRange = false;
                 var groupId = false;
+                var paymentId = false;
                 if(scope.isValidInput('min')){
                     criteria = criteria+ ' and tr.amount >= '+(this.formData.min)+' ';
                     amountMinRange = true;
@@ -132,14 +139,17 @@
                     criteria = criteria+ ' and g.external_id =  \''+this.formData.groupExternalId+'\' ';
                     groupId = true;
                 }
-
+                if(this.formData.paymentTypeId != undefined){
+                    criteria = criteria+ 'and pd.payment_type_id =  \''+this.formData.paymentTypeId+'\' ';
+                    paymentId = true;
+                }
                 if(scope.isValidInput('startDate') && scope.isValidInput('endDate')){
                     var startDate = dateFilter(this.formData.startDate,'yyyy-MM-dd');
                     var endDate = dateFilter(this.formData.endDate,'yyyy-MM-dd');
                     criteria = criteria+ ' and tr.transaction_date between   \''+startDate+'\' and \''+endDate+'\' ';
                     dateRange = true;
                 }
-                if(!amountRange && !dateRange && !groupId){
+                if(!amountRange && !dateRange && !groupId && !paymentId){
                     scope.isSearchedCriteriaMatched = false;
                     return false;
 
@@ -159,6 +169,8 @@
                     scope.isSearchedCriteriaMatched = true;
                 }else if((this.formData.startDate != undefined && this.formData.startDate.length > 0) && (this.formData.endDate != undefined && this.formData.endDate.length > 0)){
                     scope.isSearchedCriteriaMatched = true;
+                }else if(this.formData.paymentTypeId != undefined && this.formData.paymentTypeId.length >0){
+                    scope.isSearchedCriteriaMatched = true;
                 }
             };
 
@@ -171,6 +183,7 @@
                 }else{
                     if(this.formData.hasOwnProperty(property)){
                         if(this.formData[property] != undefined){
+                        alert(this.formData[property].length);
                             return (this.formData[property].length>0);
                         }
                     }
