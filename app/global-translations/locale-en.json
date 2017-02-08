@@ -2218,6 +2218,7 @@
     "label.heading.toloanamount" : "To Loan Amount",
     "label.heading.chargeamount" : "Charge Amount",
     "label.heading.bureau" : "Credit Bureau",
+    "label.heading.foreclosure" : "Preclosure",
     "#Anchors": "..",
     "label.anchor.addsavingcharges": "Add Saving Charges",
     "label.anchor.viewsavingaccount": "View Saving Account",
