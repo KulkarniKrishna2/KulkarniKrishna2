@@ -147,7 +147,8 @@
                     canDefineInstallmentAmount: scope.product.canDefineInstallmentAmount,
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
-                    weeksInYearType : scope.product.weeksInYearType.id
+                    weeksInYearType : scope.product.weeksInYearType.id,
+                    isFlatInterestRate : scope.product.isFlatInterestRate
                 };
 
                 if(scope.product.installmentCalculationPeriodType){
