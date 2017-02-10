@@ -1089,11 +1089,11 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
                                 <td ng-hide="isGlim">
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
-                                       href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
+                                       href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}" has-permission='UPDATE_LOANCHARGE'><i
                                             class="icon-pencil icon-white"></i></a>
                                     <a title="{{'label.delete' | translate}}" class="btn-warning"
                                        data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)"
-                                       title="delete"><i class="icon-remove icon-white"></i></a>
+                                       title="delete" has-permission='DELETE_LOANCHARGE'><i class="icon-remove icon-white"></i></a>
                                     <a class="btn-primary" data-ng-hide="charge.actionFlag"
                                        href="#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}"><i
                                             class="icon-flag icon-white"></i></a>
