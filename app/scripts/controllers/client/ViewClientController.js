@@ -256,8 +256,9 @@
             };
 
             scope.creditBureauReportView = function () {
-                resourceFactory.creditLatestBureauReportFileContentResource.get({
-                    clientId: scope.entityId
+                resourceFactory.creditBureauReportFileContentResource.get({
+                    entityType: 'client',
+                    entityId: scope.entityId
                 }, function (fileContentData) {
                     if (fileContentData.reportFileType.value == 'HTML') {
                         var result = "";
@@ -271,7 +272,6 @@
                     }
                 });
             };
-
 
             scope.routeToShareAccount = function(id) {
                 location.path('/viewshareaccount/'+id)

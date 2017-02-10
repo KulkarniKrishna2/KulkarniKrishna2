@@ -849,7 +849,8 @@
                                     <td>{{charge.chargeCalculationType.value}}</td>
                                     <td><input id="{{charges[$index].amount}}" class="form-control" type="text"
                                                ng-model="charge.amount"
-                                               placeholder="{{'label.input.amount' | translate}}" number-format></td>
+                                               placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
+                        || charge.chargeCalculationType.id == 6"></td>
                                     <td>{{charge.chargeTimeType.value}}</td>
                                     <td>
                                         <input id="charges[{{$index}}].duedate" type="text"
@@ -859,7 +860,7 @@
                                                ng-model="charge.dueDate"
                                                is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                                     </td>
-                                    <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+                                    <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                                 </tr>
                             </table>
 

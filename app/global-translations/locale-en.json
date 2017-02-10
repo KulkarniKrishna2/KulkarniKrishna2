@@ -2219,6 +2219,7 @@
     "label.heading.toloanamount" : "To Loan Amount",
     "label.heading.chargeamount" : "Charge Amount",
     "label.heading.bureau" : "Credit Bureau",
+    "label.heading.foreclosure" : "Preclosure",
     "#Anchors": "..",
     "label.anchor.addsavingcharges": "Add Saving Charges",
     "label.anchor.viewsavingaccount": "View Saving Account",
@@ -4455,6 +4456,9 @@
     "validation.msg.bank.account.detail.name.cannot.be.blank":"Bank Account Holder Name required",
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.not.supported":"Bank Account Details not supported",
 
+    "bankAccountType.savingsaccount":"Savings Account",
+    "bankAccountType.currentaccount":"Current Account",
+
     "label.heading.banktransfer":"Bank tansfer",
     "label.anchor.bankaccounttransferdetails":"Account Transfer Detail",
     "label.heading.loans":"Loan",
@@ -4470,6 +4474,7 @@
     "label.heading.created.user":"Created User",
     "label.heading.approved.user":"Approved User",
     "label.heading.transfertype":"Transfer Type",
+    "label.heading.transferid": "Transfer Id",
     "label.heading.bankaccounttransferdetails":"Bank Transfer",
 
     "label.heading.isEncrypted":"Is Encrypted",
@@ -5398,6 +5403,8 @@
     "label.heading.feePortion": "Fee Portion",
     "label.heading.penaltyPortion": "Penalty Portion",
     "label.heading.transactionAmount": "Transaction Amount",
+    "label.heading.fee.amount":"Fee Amount",
+    "label.heading.penalty.amount":"Penalty amount",
 
     "":"",
     "------ start of sales--":"---------",
@@ -5583,9 +5590,9 @@
     "label.heading.fee" : "Fee",
     "label.input.rateoflpfinpercentage" : "Rate of LPF(%)",
     "label.heading.collateralorsecurity" : "Collateral/Security",
-    "label.input.bookdebthyphothecationinpercentage" : "Book Debt Hyphothecation(%)",
+    "label.input.bookdebthyphothecationinpercentage" : "Book Debt Hypothecation(%)",
     "label.input.cashcollateralinpercentage" : "Cash Collateral(%)",
-    "label.input.personalgurantee" : "Personal Gurantee",
+    "label.input.personalgurantee" : "Personal Guarantee",
     "label.anchor.viewfund" : "View Fund",
     "label.anchor.editfund" : "Edit Fund",
     "label.anchor.assignfund" : "Assign Fund",

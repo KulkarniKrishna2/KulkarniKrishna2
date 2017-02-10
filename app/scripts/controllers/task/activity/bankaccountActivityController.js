@@ -11,6 +11,7 @@
             function populateDetails(){
                 resourceFactory.bankAccountDetailResource.get({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
                     scope.externalservices = data.externalServiceOptions;
+                    scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                     scope.formData = {
                         name: data.name,
                         accountNumber: data.accountNumber,
@@ -20,6 +21,11 @@
                         bankName: data.bankName,
                         bankCity: data.bankCity
                     };
+                    if(data.accountType){
+                        scope.formData.accountTypeId = data.accountType.id;
+                    }else{
+                        scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
+                    }
                     scope.bankAccountData = data;
                     if(data.accountNumber !=undefined) {
                         scope.createDetail = false;
@@ -29,6 +35,7 @@
             }
 
             scope.submit = function () {
+                scope.formData.locale=scope.optlang.code;
                 resourceFactory.bankAccountDetailResource.create({entityType: scope.entityType,entityId: scope.entityId},scope.formData, function (data) {
                     populateDetails();
                     scope.createDetail = false;
@@ -42,6 +49,7 @@
             };
 
             scope.update = function () {
+                scope.formData.locale = scope.optlang.code;
                 resourceFactory.bankAccountDetailResource.update({entityType: scope.entityType,entityId: scope.entityId},scope.formData, function (data) {
                     populateDetails();
                 });

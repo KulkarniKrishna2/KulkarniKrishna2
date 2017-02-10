@@ -31,7 +31,7 @@
                             scope.loanId = scope.taskData.configValues.loanId;
                         }
                     }
-                    if(scope.loanId){
+                    if(scope.loanId!=undefined){
                         fetchLoanData();
                     }
                     if(scope.loanApplicationId){
