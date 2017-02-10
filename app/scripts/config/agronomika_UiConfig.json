@@ -4,7 +4,7 @@
     "loanAccount": {
       "isHiddenField": {
         "fundId": false,
-        "linkAccountId": true,
+        "linkAccountId": false,
         "createStandingInstruction": false,
         "numberOfRepayments": false,
         "repaymentEvery": false,

@@ -1295,7 +1295,7 @@
                                                         expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
                                                         scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
                                                     }else{
-                                                        if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
+                                                        if(new Date(expectedDisbursementDate) > new Date(scope.loandetails.disbursementDetails[i].expectedDisbursementDate)){
                                                             expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
                                                             scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
                                                         }
