@@ -16,6 +16,12 @@
 					[{{client.subStatus.description}}]
 				</small>
 	            <strong>{{client.displayName}} </strong>
+				<small data-ng-show="client.clientType.name">
+					{{ 'label.input.clienttype' | translate }}: {{client.clientType.name}} |
+				</small>
+				<small data-ng-show="client.clientClassification.name">
+					{{ 'label.input.clientclassification' | translate }}: {{client.clientClassification.name}} |
+				</small>
 	            <small>
 	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
