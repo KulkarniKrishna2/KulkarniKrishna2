@@ -26,6 +26,8 @@
                     scope.group = '';
                     scope.client = data;
                     scope.center = '';
+                    scope.entityStatus = '';
+                    scope.reason = '';
                 });
                 resourceFactory.clientAccountResource.get({clientId: clientId}, function (data) {
                     scope.clientAccounts = data;
@@ -40,6 +42,8 @@
                     scope.client = '';
                     scope.center = '';
                     scope.group = data;
+                    scope.entityStatus = '';
+                    scope.reason = '';
                 });
                 resourceFactory.groupAccountResource.get({groupId: groupId}, function (data) {
                     scope.groupAccounts = data;
@@ -54,6 +58,8 @@
                     scope.client = '';
                     scope.group = '';
                     scope.center = data;
+                    scope.entityStatus = '';
+                    scope.reason = '';
                 });
                 resourceFactory.centerAccountResource.get({centerId: centerId}, function (data) {
                     scope.centerAccounts = data;
