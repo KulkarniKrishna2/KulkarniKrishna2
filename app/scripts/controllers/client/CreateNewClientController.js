@@ -30,6 +30,7 @@
             scope.formAddressData.districtId ;
             scope.restrictDate = new Date();
             scope.isDateOfBirthMandatory = false;
+            scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -391,7 +392,13 @@
 
                             });
                         }
-                        location.path('/viewclient/' + data.clientId);
+                        if(scope.loanApplicationReferenceId){
+                            resourceFactory.loanCoApplicantsResource.add({loanApplicationReferenceId: scope.loanApplicationReferenceId, clientId: data.clientId}, function(coappData){
+                                location.path('/viewclient/' + data.clientId+'/'+scope.loanApplicationReferenceId);
+                            });
+                        }else{
+                            location.path('/viewclient/' + data.clientId);
+                        }
                     });
                 }
 

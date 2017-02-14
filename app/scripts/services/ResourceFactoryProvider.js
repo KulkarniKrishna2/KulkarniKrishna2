@@ -217,6 +217,11 @@
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    loanCoApplicantsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/coapplicants/:coApplicantId", {loanApplicationReferenceId: '@loanApplicationReferenceId', coApplicantId: '@coApplicantId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        add: {method: 'POST', params: {clientId:'@clientId'}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
                     creditBureauReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/initiate", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
