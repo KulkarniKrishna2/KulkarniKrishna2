@@ -5034,6 +5034,7 @@
     "label.heading.householdexp.category":"House Hold Expense Category",
     "label.heading.household.exp":"House Hold Expense",
     "label.button.add.asset":"Add Income Generating Asset",
+    "label.heading.reason":"Closure Reason",
 
     "label.input.selectoptions":"select options",
     "label.input.loanpurpose.group":"Loan Purpose Group Name",
