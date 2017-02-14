@@ -32,11 +32,11 @@
                         <td>{{'label.expectedEndDate' | translate}}</td>
                         <td>{{cgt.expectedEndDate | DateFormat}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-show="cgt.actualStartDate">
                         <td>{{'label.actualStartDate' | translate}}</td>
                         <td>{{cgt.actualStartDate | DateFormat}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-show="cgt.actualEndDate">
                         <td>{{'label.actualEndDate' | translate}}</td>
                         <td>{{cgt.actualEndDate | DateFormat}}</td>
                     </tr>
@@ -44,7 +44,7 @@
                         <td>{{'label.loanOfficer' | translate}}</td>
                         <td>{{cgt.primaryLoanOfficer.displayName}}</td>
                     </tr>
-                    <tr ng-show="cgt.note.length >= 1">
+                    <tr>
                         <td>{{'label.heading.notes' | translate}}</td>
                         <td>
                             <div class="" ng-repeat="cgtnote in cgt.note">

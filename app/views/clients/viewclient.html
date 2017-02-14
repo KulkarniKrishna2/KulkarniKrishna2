@@ -5,7 +5,7 @@
 			<li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
 			<li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
 			<li ng-show="group.name"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
-			<li>{{client.staffName}}</li>
+			<li>{{client.displayName}}</li>
 	    </ul>
 	</div>
 	<div class="row">
@@ -16,6 +16,12 @@
 					[{{client.subStatus.description}}]
 				</small>
 	            <strong>{{client.displayName}} </strong>
+				<small data-ng-show="client.clientType.name">
+					{{ 'label.input.clienttype' | translate }}: {{client.clientType.name}} |
+				</small>
+				<small data-ng-show="client.clientClassification.name">
+					{{ 'label.input.clientclassification' | translate }}: {{client.clientClassification.name}} |
+				</small>
 	            <small>
 	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
