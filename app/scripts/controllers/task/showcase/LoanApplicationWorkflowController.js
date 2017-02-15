@@ -7,9 +7,7 @@
             scope.resourceId = routeParams.loanApplicationId;
             scope.loanApplicationId = routeParams.loanApplicationId;
             scope.loanApplicationReferenceId = scope.loanApplicationId;
-            resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationId,command: 'requestforapproval'},{}, function (data) {
 
-            });
             scope.masterconfig = {};
             scope.loanApplicationData = {};
 
