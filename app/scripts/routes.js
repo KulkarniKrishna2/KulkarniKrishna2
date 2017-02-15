@@ -88,6 +88,9 @@
             .when('/viewclient/:id', {
                 templateUrl: 'views/clients/viewclient.html'
             })
+            .when('/viewclient/:id/:loanApplicationReferenceId', {
+                templateUrl: 'views/clients/viewclient.html'
+            })
             .when('/viewclient/:id/addcharge', {
                 templateUrl: 'views/clients/addnewclientcharge.html'
             })
@@ -107,6 +110,9 @@
                 templateUrl: 'views/clients/clientscreenreport.html'
             })
             .when('/client/:id/:action', {
+                templateUrl: 'views/clients/clientactions.html'
+            })
+            .when('/client/:id/:action/:loanApplicationReferenceId', {
                 templateUrl: 'views/clients/clientactions.html'
             })
             .when('/transferclient/:id', {
@@ -144,6 +150,9 @@
             })
             .when('/updateloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/updateloanapplicationreference.html'
+            })
+            .when('/managecoapplicants/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/managecoapplicants.html'
             })
             .when('/approveloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/approveloanapplicationreference.html'

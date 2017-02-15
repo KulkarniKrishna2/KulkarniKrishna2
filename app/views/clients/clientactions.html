@@ -1,8 +1,9 @@
 <div class="col-md-12" ng-controller="ClientActionsController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
-            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li ng-hide="loanApplicationReferenceId"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li ng-hide="loanApplicationReferenceId"><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li ng-if="loanApplicationReferenceId"><a href="#/managecoapplicants/{{loanApplicationReferenceId}}">{{'label.anchor.managecoapplicants' | translate}}</a></li>
             <li class="active">{{breadcrumbName | translate}}</li>
         </ul>
     </div>

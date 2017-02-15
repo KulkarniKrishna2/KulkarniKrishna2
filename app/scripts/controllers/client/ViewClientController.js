@@ -27,6 +27,7 @@
             scope.clientId = routeParams.id;
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.id;
+            scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };

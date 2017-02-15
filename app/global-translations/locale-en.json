@@ -5645,5 +5645,9 @@
     "label.heading.percentageloanpurpose" : "% Loan Purpose",
     "label.heading.fundloanpurpose" :  "Fund Loan Purpose",
 
+	"label.button.managecoapplicants":"Manage Co-Applicants",
+	"label.anchor.managecoapplicants":"Manage Co-Applicants",
+	"label.button.addnewclient":"Add New Client",
+	"label.button.addexistingclients":"Add Existing Client",
     "------ end of tensalation file":"---------"
 }

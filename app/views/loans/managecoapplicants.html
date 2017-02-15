@@ -1,0 +1,96 @@
+<div class="col-md-12" data-ng-controller="ManageCoApplicantsController">
+    <div>
+        <ul class="breadcrumb">
+            <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
+            <li ng-show="clientName"><a href="#/viewclient/{{formData.clientId}}"><strong>'{{clientName}}'</strong></a>
+            </li>
+            <li><a href="#/viewloanapplicationreference/{{loanApplicationReferenceId}}"><strong>{{'label.anchor.viewloanapplication' | translate}}</strong></a>
+            </li>
+            <li class="active">{{'label.anchor.managecoapplicants' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <script type="text/ng-template" id="delete.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="panel-body">
+        <div class="list-group">
+            <div class="col-md-12 primarydiv">
+                <a href="#/createclient?loanApplicationReferenceId={{loanApplicationReferenceId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
+                    <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.addnewclient' | translate }}</a>
+                <a ng-click="addExistingClients=true" class="btn btn-primary pull-right" has-permission='CREATE_COAPPLICANTS'>
+                    <i class="icon-plus-sign-alt icon-white"></i>{{'label.button.addexistingclients' | translate }}</a>
+            </div>
+            <br/>&nbsp;<br/>
+            <div class="col-md-7" ng-show="addExistingClients==true">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{ 'label.input.searchforclient' | translate }}</label>
+                    <div class="col-sm-4 col-md-4">
+                        <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                               typeahead-min-length="3"
+                               typeahead-editable="false"
+                               typeahead="client as client.displayName + ' - ' + client.accountNo for client in clientOptions($viewValue)"
+                               typeahead-on-select="viewClient(available)"/>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                            {{ 'label.button.add' | translate }}</button>
+                    </div>
+                </div>
+                <br/>&nbsp;<br/>
+                <div class="form-group">
+                    <div data-ng-show="available" class="col-md-6 col-md-offset-1">
+                        <table class="table">
+                            <tr>
+                                <td>{{'label.heading.name' | translate}}</td>
+                                <td>{{client.displayName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.id' | translate }}</td>
+                                <td valign="top">{{client.id}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.office' | translate }}</td>
+                                <td>{{client.officeName}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-condensed marginbottom0" style="display:inline-table;" ng-show="coapplicants && coapplicants.length > 0">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.status' | translate }}</th>
+                    <th>{{'label.heading.accnum' | translate}}</th>
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="applicant in coapplicants">
+                    <td class="pointer" data-ng-click="routeToMem(applicant.clientId)">
+                        <i class="icon-stop {{applicant.status.code | StatusLookup}}" tooltip="{{applicant.status.value}}"></i>
+                    </td>
+                    <td class="pointer" data-ng-click="routeToMem(applicant.clientId)">{{applicant.accountNo}}</td>
+                    </td>
+                    <td class="pointer" data-ng-click="routeToMem(applicant.clientId)">{{applicant.displayName}}</td>
+                    </td>
+                    <td>
+                        <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove(applicant.id)" has-permission='DELETE_COAPPLICANTS'>
+                            <i class="icon-remove"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

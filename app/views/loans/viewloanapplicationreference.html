@@ -10,6 +10,12 @@
     <div class="col-md-12 col-sm-12">
         <div class="row primarydiv">
             <div class="pull-right" ng-if="isDisplayActions == true">
+                <span ng-if="formData.status.id < 200">
+                  <a href="#/managecoapplicants/{{loanApplicationReferenceId}}"
+                     class="btn btn-primary"
+                     has-permission='READ_COAPPLICANTS'><i
+                          class="icon-edit icon-white"></i>{{'label.button.managecoapplicants' | translate}}</a>
+                </span>
                 <span ng-if="formData.status.id === 100">
                   <a href="#/updateloanapplicationreference/{{loanApplicationReferenceId}}"
                      class="btn btn-primary"

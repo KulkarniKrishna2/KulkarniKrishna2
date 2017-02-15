@@ -9,6 +9,7 @@
             scope.taskPermissionName = 'ALL_FUNCTIONS';
             scope.forcedSubmit = false;
             scope.forceActivateClientPermission = 'FORCE_ACTIVATE_CLIENT';
+            scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
 
             // Transaction UI Related
 
@@ -263,7 +264,11 @@
                         queryParams = {clientId: routeParams.id, command: 'forceActivate'};
                     }
                     resourceFactory.clientResource.save(queryParams, this.formData, function (data) {
-                        location.path('/viewclient/' + data.clientId);
+                        if(scope.loanApplicationReferenceId){
+                            location.path('/managecoapplicants/' + scope.loanApplicationReferenceId);
+                        }else{
+                            location.path('/viewclient/' + data.clientId);
+                        }
                     },
                         function(data){
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.duplicate.client.entry") {
