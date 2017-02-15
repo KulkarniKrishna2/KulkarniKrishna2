@@ -204,6 +204,12 @@
                 scope.addClientoccupationdetailsSubmit();
             };
 
+            scope.editClientassetdetailsSubmit = function(){
+                scope.editClientoccupationdetailsSubmit();
+            }
+            scope.editClienthouseholddetailsSubmit = function(){
+                scope.editClientoccupationdetailsSubmit();
+            }
             scope.editClientoccupationdetailsSubmit = function () {
                 scope.formData.locale = "en";
                 resourceFactory.incomeExpenseAndHouseHoldExpense.update({clientId: scope.clientId, incomeAndExpenseId: scope.incomeAndExpenseId},

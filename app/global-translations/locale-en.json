@@ -519,6 +519,7 @@
     "error.msg.calendar.meeting.cannot.be.updated.since.it.has.active.loans":"Calendar meeting cannot be updated since the centre has active loan",
     "error.msg.Secondary.Authentication.Service.failed":"2F Authentication failed. Either finger print didn't match or OTP is not correct",
     "error.msg.holiday.holiday.should.be.on.a.working.day": "Holiday cannot set on a Non Working Day '{{params[0].value}}'",
+    "validation.msg.clientincomeexpense.incomeExpenseId.cannot.be.blank":"Sub Type is Manadatory",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
