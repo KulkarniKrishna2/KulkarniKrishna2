@@ -1111,7 +1111,7 @@
                     }),
                     fundMappingSearchResource: defineResource(apiVer + "/funds/mapping/loans", {isSummary: '@isSummary'}, {
                         search: {method: 'POST', params: {isSummary: '@isSummary'}, isArray: false}
-=======             }),
+                    }),
                     taskConfigTemplateCreateResource: defineResource(apiVer + "/taskconfigtemplate/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
@@ -1129,7 +1129,6 @@
                     }),
                     taskConfigTemplateEntityResource: defineResource(apiVer + "/taskconfigtemplate/:templateId/template", {}, {
                         get:{method: 'GET', params: {}}
->>>>>>> Stashed changes
                     })
                 };
             }];
