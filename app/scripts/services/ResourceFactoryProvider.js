@@ -43,6 +43,7 @@
                         update: {method: 'PUT'}
                     }),
                     officeResource: defineResource(apiVer + "/offices/:officeId", {officeId: "@officeId"}, {
+                        getOffice: {method: 'GET', params: {}},
                         getAllOffices: {method: 'GET', params: {}, isArray: true},
                         getAllOfficesInAlphabeticalOrder: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                         update: { method: 'PUT'}
@@ -998,7 +999,7 @@
                         get: {method: 'GET', params: {}}
                     }),
                     taskTemplateResource: defineResource(apiVer + "/tasks/template", {}, {
-                        get: {method: 'GET', params: {}}
+                        getAll: {method: 'GET', params: {},isArray:true}
                     }),
                     entityTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:entityId/execute/template", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
@@ -1110,6 +1111,25 @@
                     }),
                     fundMappingSearchResource: defineResource(apiVer + "/funds/mapping/loans", {isSummary: '@isSummary'}, {
                         search: {method: 'POST', params: {isSummary: '@isSummary'}, isArray: false}
+=======             }),
+                    taskConfigTemplateCreateResource: defineResource(apiVer + "/taskconfigtemplate/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    taskConfigTemplateResource: defineResource(apiVer + "/taskconfigtemplate/:templateId", {templateId:'@templateId'}, {
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get:{method: 'GET', params: {}},
+                        save: {method: 'POST', params:{}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    taskAssignTemplateResource: defineResource(apiVer + "/taskassign/template", {}, {
+                        get:{method: 'GET', params: {}}
+                    }),
+                    taskAssignResource: defineResource(apiVer + "/taskassign", {}, {
+                        save:{method: 'POST', params: {}}
+                    }),
+                    taskConfigTemplateEntityResource: defineResource(apiVer + "/taskconfigtemplate/:templateId/template", {}, {
+                        get:{method: 'GET', params: {}}
+>>>>>>> Stashed changes
                     })
                 };
             }];

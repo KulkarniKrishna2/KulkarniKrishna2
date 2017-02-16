@@ -361,6 +361,7 @@
     "label.button.postdividends": "Post Dividends",
     "label.button.bulk.undo.transactions": "Bulk undo transactions",
     "label.button.preview": "Preview",
+    
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -1216,6 +1217,7 @@
     "label.heading.transferredfrom": "Transferred From",
     "label.heading.createdby":"Created By",
     "label.heading.createdon":"Created On",
+    "label.heading.activity":"Activity",
     "label.heading.journalentry.created":"Journal Entry Created",
     "label.heading.viewreport":"View Report",
     "label.heading.viewjournals":"View Journal Entries",
@@ -2305,7 +2307,7 @@
     "label.input.banknumber": "Bank#",
     "label.input.loanofficer": "Loan officer",
     "label.input.chargepaymentby": "Charge payment by",
-    "label.input.duedate": "Due date",
+    "label.input.duedate": "Due Date",
     "label.input.increasemonthby": "Increase Month By",
     "label.input.dayofmonth": "Day of the Month",
     "label.input.loanpurpose": "Loan purpose",
@@ -2846,6 +2848,7 @@
     "label.view.taxconfiguration" : "Define Tax components and Tax groups",
     "label.view.taxcomponent" : "Define Tax components",
     "label.view.taxgroup" : "Define Tax Groups",
+    "label.view.taskName":"Task Name",
 
     "#Enumeration & Error Messages": "..",
     "validation.msg.currencies.currencies.cannot.be.empty": "You must select at least one currency that is 'allowed' for your organization.",
@@ -3194,6 +3197,7 @@
 
     "#Enumeration & Error Messages": "..",
     "No.Data.Found": "No data found.",
+    "No.TaskTemplate.Found": "No Task Template found.",
     "validation.msg.datatable.name.mandatory": "Data table name is mandatory",
     "error.msg.datatable.registered": "The data table `{{params[0].value}}` is already registered against an application table.",
     "error.msg.permissions.datatable.duplicate": "Permissions for data table `{{params[0].value}}` already exist.",
@@ -4948,6 +4952,9 @@
     "label.anchor.loanpurpose.groups":"Loan Purpose Group",
     "label.anchor.incomeexpensehead":"Income Expense Head",
     "label.anchor.riskrating":"Risk and Fraud Management",
+    "label.anchor.taskconfigtemplate":"Task Template",
+    "label.anchor.taskconfigtemplate.create":"Create Task Template",
+    "label.anchor.taskconfigtemplate.edit":"Edit Task Template",
     "label.anchor.occupation.catagory":"Occupation Category",
     "label.anchor.loanpurpose":"Loan Purpose",
     "label.anchor.loanpurposeandtagging":"Loan Purpose and Tagging",
@@ -4977,6 +4984,7 @@
     "label.defineincomeexpensehead":"Define income expense head",
     "label.define.loanPurpose":"Manage loan purpose and grouping",
     "label.view.riskrating":"Configure risk and fraud management",
+    "label.view.taskconfigtemplate":"Configure and Manage Adhoc Tasks",
     "label.view.incomeexpense.category":"Income Generating Asset Category",
     "label.anchor.edit.income.generating.asset":"Edit Income Generating Asset Category",
     "label.anchor.view.income.asset":"View Income Generating Asset Category",
@@ -5271,8 +5279,10 @@
     "label.view.viewriskfactor":"Risk Factor",
     "label.view.viewriskfactorbucket":"Risk Factor Buckets",
     "label.heading.riskfactor":"Risk Factor",
+    "label.heading.tasktemplate":"Task Template",
     "label.button.createriskfactor":"Create Risk Factor",
-
+    "label.button.createTaskTemplate":"Create Task Template",
+    "label.button.createTask":"Create Task",
 
     "label.define.loanproducteligibility":"Define Loan Product Eligibility",
     "label.heading.minamount":"Min Amount",
@@ -5649,5 +5659,10 @@
 	"label.anchor.managecoapplicants":"Manage Co-Applicants",
 	"label.button.addnewclient":"Add New Client",
 	"label.button.addexistingclients":"Add Existing Client",
+    "taskTemplateEntityType.office":"Office",
+    "taskTemplateEntityType.center":"Center",
+    "taskTemplateEntityType.client":"Client",
+    "taskTemplateEntityType.village":"Village",
+    "taskTemplateEntityType.bank":"Bank",
     "------ end of tensalation file":"---------"
 }

@@ -1,0 +1,50 @@
+<div ng-controller="CreateTaskController">
+	<div class="col-md-12">
+	    <ul class="breadcrumb">
+	        <li><a href="#/tasklist">{{'label.heading.taskList' | translate}}</a></li>
+	        <li class="active"><a href="#/task/assign">{{'label.button.createTask' | translate}}</a></li>
+	    </ul>
+   </div>
+   <div class="row paddedtop"/>
+   <div class="row paddedtop paddedleft">
+   		<div class="col-md-12">
+   			<form novalidate="" class="form-horizontal" rc-submit="submit()">
+   				<div class="form-group col-sm-12">
+					<label class="control-label col-sm-3" for="taskName">{{'label.view.taskName' | translate}}
+						<span class="required">*</span>
+					</label>
+		   			<div>
+		   				<select id="taskName" ng-model="formData.templateId" ng-options="task.id as task.taskName for task in tasks" ng-change="onselect()"></select>
+		   			</div> 
+	   			</div>
+	   			<div class="form-group col-sm-12">
+	   				<label class="control-label col-sm-3" for="user">{{'label.input.user' | translate}}
+	   					<span class="required">*</span>
+					</label>
+		   			<div>
+		   				<select id="user" ng-model="formData.userId" ng-options="user.id as user.username for user in users"></select>
+		   			</div> 
+		   		</div>
+		   		<div class="form-group col-sm-12" ng-if="idAndNames!=undefinded && idAndNames.length>0">
+	   				<label class="control-label  col-sm-3" for="entityType">{{entity.code | translate}}
+					</label>
+		   			<div>
+		   				<select id="entityType" ng-model="formData.entity_id" ng-options="idAndName.id as idAndName.name for idAndName in idAndNames"></select>
+		   			</div> 
+		   		</div>
+		   		<div class="form-group col-sm-12">
+	   				<label class="control-label col-sm-3" for="duedate">{{'label.input.duedate' | translate}}
+					</label>
+		   			<div>
+		   				<input id="duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="restrictDate" max="'2050-01-01'"/>
+		   			</div> 
+		   		</div>
+		   		<div class="col-sm-5 col-md-offset-2">
+		   			<button id="save" type="submit" class="btn btn-primary">
+                        {{'label.button.save' | translate}}
+                    </button>
+		   		</div>
+	   		</form>
+	   	</div>
+	</div>
+</div>
