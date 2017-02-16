@@ -3,7 +3,7 @@
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
             <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
-            <li><a href="#/admin/viewrole/{{roleId}}">{{'label.anchor.viewroles' | translate}}</a></li>
+            <li><a href="#/admin/viewrole/{{roleId}}">{{'label.anchor.viewrole' | translate}}</a></li>
             <li class="active">{{'label.anchor.editrole' | translate}}</li>
         </ul>
     </div>
@@ -49,14 +49,14 @@
                 </div>
             </div>
 
-            <div class="form-group" ng-show="showRoleBasedLimits">
-                <label class="control-label col-sm-2" for="loanApproval">{{'label.input.approvalamountlimit' | translate}}</label>
-
-                <div class="col-sm-3">
-                    <input id="loanApproval" type="text" name="loanApproval" ng-model="formData.roleBasedLimit.loanApproval" class="form-control"/>
+            <div class="form-group" ng-show="showRoleBasedLimits" ng-repeat="roleBasedLimit in roleBasedLimits">
+                <label class="control-label col-sm-2"></label>
+                <div class="col-md-6">
+                    <span class="col-sm-4 nopadding"> <input type="text" disabled ="" placeholder="{{roleBasedLimit.displayLabel}}" class="form-control"/> </span>
+                    <span class="col-sm-6"> <input type="text" number-format ng-model="roleBasedLimit.maxLoanApprovalAmount" placeholder=" {{'label.input.approvalamountlimit' | translate}}" class="form-control"/> </span>
                 </div>
             </div>
-
+            
             <div class="col-md-offset-3">
                 <a id="cancel" href="#/admin/viewrole/{{roleId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ROLE'>{{'label.button.save' | translate}}</button>

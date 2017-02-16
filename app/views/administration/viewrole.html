@@ -9,7 +9,7 @@
     <div ng-hide="isDisabled">
         <ul class="breadcrumb">		
 			<li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
+            <li><a href="#/admin/roles">{{'label.anchor.viewrole' | translate}}</a></li>
             <li class="active">{{ role.name}}</li>
             <li class="active">{{'label.anchor.editrole' | translate}}</li>
         </ul>
@@ -52,8 +52,8 @@
         <div>
             <table width="100%">
                 <tr>
-                    <td width="20%">{{'label.heading.name' | translate}}</td>
-                    <td width="80%">{{role.name}}</td>
+                    <td width="30%">{{'label.heading.name' | translate}}</td>
+                    <td width="70%">{{role.name}}</td>
                     <td>
                         <div class="btn-group">
                             <a href="#/admin/editrole/{{roleId}}" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="icon-edit icon-white"></i>{{
@@ -86,6 +86,20 @@
                     <td></td>
 
                 </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>    
+                <tr>
+                    <td ng-show = "roleBasedLimits" >{{'label.input.approvalamountlimit' | translate}}</td>
+                    <td>
+                        <table>
+                            <tr ng-repeat="roleBasedLimit in roleBasedLimits">
+                                <td class="nopadding">{{roleBasedLimit.currencyData.displayLabel}} &nbsp; &nbsp;&nbsp; {{roleBasedLimit.maxLoanApprovalAmount | number}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </div>
             </table>
         </div>
         <hr>

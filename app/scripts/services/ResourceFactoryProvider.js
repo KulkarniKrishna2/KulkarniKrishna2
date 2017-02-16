@@ -29,6 +29,7 @@
                     }),
                     roleResource: defineResource(apiVer + "/roles/:roleId", {roleId: '@roleId', command: '@command'}, {
                         getAllRoles: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {template: true}},
                         deleteRoles: {method: 'DELETE'},
                         disableRoles: {method: 'POST'},
                         enableRoles: {method: 'POST'},
