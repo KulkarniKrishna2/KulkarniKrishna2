@@ -2,9 +2,41 @@
 
   <!-- Submit form, new data    -->
   <form class="form-horizontal"  ng-submit="submit()">
-    <h3>{{title}}</h3>
-    <h5>{{body}}</h5>
-    <button id="complete" type="submit" class="btn btn-primary" >{{ 'label.button.complete' | translate }}</button>
+    <table class="table">
+    	<tr>
+    		<td>
+    			<label for="entityName">{{activityData.entityType}}:
+				</label>
+			</td>
+			<td>
+				<div id="entityName">
+					{{activityData.entityName}}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+    			<label for="userName">{{'label.heading.user' | translate}}:
+				</label>
+			</td>
+			<td>
+				<div id="userName">
+					{{activityData.assignedTo}}
+				</div>
+			</td>
+    	</tr>
+    	<tr>
+			<td>
+    			<label for="dueDate">{{'label.input.duedate' | translate}}:
+				</label>
+			</td>
+			<td>
+				<div id="dueDate">
+					{{activityData.dueDate}}
+				</div>
+			</td>
+    	</tr>
+    </table>
   </form>
 
   

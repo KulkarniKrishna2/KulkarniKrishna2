@@ -1,3 +1,4 @@
+
 (function (mifosX) {
     var defineRoutes = function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -1492,7 +1493,20 @@
             })
             .when('/advancedsearch', {
                 templateUrl: 'views/search/advancedsearch.html'
+            })
+            .when('/taskconfigtemplate/template', {
+                templateUrl: 'views/task/TaskConfigTemplate/createtaskconfigtemplate.html'
+            })
+            .when('/taskconfigtemplate', {
+                templateUrl: 'views/task/TaskConfigTemplate/taskconfigtemplate.html'
+            })
+            .when('/taskconfigtemplate/edittemplate/:id', {
+                templateUrl: 'views/task/TaskConfigTemplate/edittaskconfigtemplate.html'
+            })
+            .when('/taskcreate', {
+                templateUrl: 'views/task/createtask/createtask.html'
             });
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -1,14 +1,20 @@
 <div class="col-md-12" data-ng-controller="TaskListController">
-    <h3 class="paddedleft">
-        <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
-    </h3>
+    <div>
+        <h3 class="paddedleft">
+            <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
+        
+        <a href="#/taskcreate" class="btn btn-primary pull-right">
+            <i class="icon-plus icon-white"></i>{{'label.button.createTask' | translate}}</a>
+            </h3>
+    </div>
     <hr/>
-    <div class="form-group">
-        <div class="col-sm-2">
+    <div class="row">
+        <div class=" clear-fix col-sm-2">
             <div>
                 <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected">
-                <button ng-if="filterBy == 'unassigned' && hasAnyRowSelected()" class="btn btn-primary" ng-click="assignMe()">{{'label.button.assign' | translate}}</button>
-                <button ng-if="(filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow') && hasAnyRowSelected()"
+                &nbsp;&nbsp;
+                <button ng-if="filterBy == 'unassigned'" ng-disabled="!hasAnyRowSelected()" class="btn btn-primary" ng-click="assignMe()">{{'label.button.assign' | translate}}</button>
+                <button ng-if="filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow'" ng-disabled="!hasAnyRowSelected()"
                         class="btn btn-primary" ng-click="unassignMe()">{{'label.button.unassign' | translate}}</button>
             </div>
         </div>
