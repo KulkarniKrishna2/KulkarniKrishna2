@@ -755,6 +755,8 @@
                             scope.constructGlimTransactions(scope.formData.glimTransactions);
                             scope.formData.clientMembers = scope.glimTransactions;                            
                         }
+                        scope.constructGlimTransactions(scope.formData.glimTransactions);
+                        scope.formData.clientMembers = scope.glimTransactions;
                         delete scope.formData.glimTransactions;
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);

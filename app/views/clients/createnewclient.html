@@ -96,15 +96,15 @@
 					<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
 						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
 					    <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
-						<div class="col-sm-2">
+				</div>
+					<div class="col-sm-2">
 						<form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
 					</div>
-				</div>
                 </div>
 
 				<div data-ng-switch on="showNonPersonOptions">
 					<div data-ng-switch-when="false">
-						<label class="control-label col-sm-2">{{'label.input.gender' | translate}}</label>
+						<label class="control-label col-sm-1">{{'label.input.gender' | translate}}</label>
 
 
 						<div class="col-sm-3">
@@ -137,13 +137,18 @@
 					</select>
 				</div>
 
-				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
+				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}
+				<span class="required">*</span></label>
 
 				<div class="col-sm-3" ng-hide="hideClientClassification">
-					<select id="clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
-							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">
+					<select id="clientClassificationId" name = "clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
+							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions"
+							value="{{clientClassification.id}}" required late-validate="">
 						<option value="">{{'label.menu.clientclassification' | translate}}</option>
 					</select>
+				</div>
+				<div class="col-sm-2">
+					<form-validate valattributeform="createclientform" valattribute="clientClassificationId"/>
 				</div>
 			</div>
 

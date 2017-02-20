@@ -1,7 +1,7 @@
 <div class="col-md-12" ng-controller="ViewClientController" xmlns="http://www.w3.org/1999/html">
 	<div>
 	    <ul class="breadcrumb">
-	        <li ng-hide="loanApplicationReferenceId">{{client.officeName}}</li>
+	        <li ng-hide="loanApplicationReferenceId"><a ng-href="#/viewoffice/{{client.officeId}}">{{client.officeName}}</a></li>
 			<li ng-show="group.villageData && !loanApplicationReferenceId"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
 			<li ng-show="group.centerName && !loanApplicationReferenceId"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
 			<li ng-show="group.name && !loanApplicationReferenceId"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
@@ -1372,7 +1372,7 @@
                     <span class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
                     </span>
-			<div class="pull-right" ng-if="isReportPresent && (activeLoan.summaries.length > 0) || (closedLoan.summaries.length > 0)">
+			<div class="pull-right" ng-disabled="isReportPresent">
 				<button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
 			</div>
 			</div>

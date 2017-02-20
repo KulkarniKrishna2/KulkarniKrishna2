@@ -492,14 +492,7 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'disburse'
                 }, this.formRequestData, function (disburseData) {
-                    resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
-                        scope.isWorkFlow = response.enabled;
-                        if(scope.isWorkFlow && scope.isWorkFlow === true){
-                            location.path('/loanapplication/' + scope.loanApplicationReferenceId+"/workflow");
-                        }else{
-                            location.path('/viewclient/' + scope.formData.clientId);
-                        }
-                    });
+                     location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
 

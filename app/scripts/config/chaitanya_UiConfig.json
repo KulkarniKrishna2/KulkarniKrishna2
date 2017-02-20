@@ -91,7 +91,7 @@
         }
       },
       "isHiddenField": {
-        "hideClientClassification": true
+        "hideClientClassification": false
       },
       "isMandatoryField": {
         "dateOfBirth": true

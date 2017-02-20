@@ -139,13 +139,18 @@
 						<option value="">--{{'label.menu.clienttype' | translate}}--</option>
 					</select>
 				</div>
-				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
+				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}
+					<span class="required">*</span></label>
 
 				<div ng-hide="hideClientClassification" class="col-sm-3">
-					<select id="clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
-							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">
+					<select id="clientClassificationId" name = "clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
+							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions"
+							value="{{clientClassification.id}}" required late-validate="">
 						<option value="">--{{'label.menu.clientclassification' | translate}}--</option>
 					</select>
+				</div>
+				<div class="col-sm-2">
+					<form-validate valattributeform="editclientform" valattribute="clientClassificationId"/>
 				</div>
 			</div>
 
