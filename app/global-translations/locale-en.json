@@ -387,7 +387,10 @@
     "label.today": "Today",
     "label.relDate": "FINFLUX Release Date: ",
     "label.relVersion": "Release Version: ",
+    "label.finflux":"FINFLUX",
     "label.select":"Select an Option",
+    "label.copyright":"Copyright © ",
+    "label.conflux.technologies":" Conflux Technologies",
 
     "#Tab Messages":"..",
     "label.tab.myworkflowtasks":"My Workflow Tasks",
