@@ -1,7 +1,7 @@
 <div class="col-md-12" ng-controller="ViewClientController" xmlns="http://www.w3.org/1999/html">
 	<div>
 	    <ul class="breadcrumb">
-	        <li>{{client.officeName}}</li>
+	        <li><a ng-href="#/viewoffice/{{client.officeId}}">{{client.officeName}}</a></li>
 			<li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
 			<li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
 			<li ng-show="group.name"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
