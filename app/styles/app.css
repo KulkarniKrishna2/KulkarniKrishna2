@@ -1624,6 +1624,10 @@ figure {
     color:red;
 }
 
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
 .highlight {
     background-color:#98FB98;
 }

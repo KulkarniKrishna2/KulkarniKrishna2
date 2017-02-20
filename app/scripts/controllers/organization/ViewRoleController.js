@@ -200,6 +200,10 @@
 
 
             });
+
+            resourceFactory.roleResource.get({roleId: routeParams.id}, function (data) {
+                scope.roleBasedLimits =  data.roleBasedLimits;
+            });
         }
     });
     mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route','$modal', mifosX.controllers.ViewRoleController]).run(function ($log) {
