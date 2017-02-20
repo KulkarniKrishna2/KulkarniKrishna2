@@ -14,8 +14,12 @@
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
+            scope.invalidClassificationId = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
+                scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
             }
             scope.minAge = 0;
             scope.maxAge = 0;
@@ -157,7 +161,18 @@
                 if (scope.date.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth, scope.df);
                 }
-
+                if(scope.clientClassificationId){
+                    this.formData.clientClassificationId = scope.clientClassificationId;
+                }
+                if(scope.formData.clientClassificationId && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification){
+                    if(!(scope.formData.clientClassificationId)){
+                        scope.invalidClassificationId = true;
+                    }else {
+                        scope.invalidClassificationId = false;
+                    }
+                }else {
+                    scope.invalidClassificationId = false;
+                }
                 if(scope.date.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
                     if(!(scope.date.dateOfBirth < scope.maxDateOfBirth && scope.date.dateOfBirth > scope.minDateOfBirth)){
                         scope.dateOfBirthNotInRange = true;
@@ -186,7 +201,7 @@
                     delete this.formData.lastname;
                 }
 
-                 if(!scope.dateOfBirthNotInRange ) {
+                 if(!scope.dateOfBirthNotInRange || !scope.invalidClassificationId) {
                 resourceFactory.clientResource.update({'clientId': routeParams.id}, this.formData, function (data) {
                     location.path('/viewclient/' + routeParams.id);
                 });
