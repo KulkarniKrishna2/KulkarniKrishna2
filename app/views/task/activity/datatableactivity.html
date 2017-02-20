@@ -12,10 +12,14 @@
             </div>
             <fieldset>
                 <div class="form-group" ng-repeat="columnHeader in columnHeaders">
-                    <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn }}
-                        <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
-                    </label>
 
+                    <label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
+                        <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
+                    </label>
+                    <label class="control-label col-sm-3" ng-show="columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
+                        <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
+                    </label>
+       
                     <div class="col-sm-3">
                         <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text"
                                ng-model="formData[columnHeader.columnName]" class="form-control"/>
