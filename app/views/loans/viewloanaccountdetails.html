@@ -1344,7 +1344,7 @@
                     <span class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
                     </span>
-                            <div class="pull-right" ng-if="isReportPresent">
+                            <div class="pull-right" ng-disabled="isReportPresent">
                                 <button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
                             </div>
                         </div>
