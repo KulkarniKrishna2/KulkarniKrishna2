@@ -94,7 +94,8 @@
 		"hideClientClassification": false
 	  },
 	  "isMandatoryField": {
-		"dateOfBirth": false
+		"dateOfBirth": false,
+		"clientClassificationId":false
 	  }
 	},
 	"defaultGISConfig": {
