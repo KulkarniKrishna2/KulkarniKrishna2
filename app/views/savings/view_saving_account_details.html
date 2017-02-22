@@ -411,7 +411,7 @@
 
                     </div>
                 </tab>
-                <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
+                <tab heading="{{savingdatatable.registeredTableDisplayName == null ? savingdatatable.registeredTableName : savingdatatable.registeredTableDisplayName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
                      select="dataTableChange(savingdatatable)">
                     <div data-ng-show="choice" class="btn-group pull-right">
                         <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"

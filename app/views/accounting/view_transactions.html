@@ -198,8 +198,10 @@
                     </div>
                     </div>
                 </tab>
-                <tab heading="{{journalentrydatatable.registeredTableName}}" ng-repeat="journalentrydatatable in journalentrydatatables" has-permission='READ_{{journalentrydatatable.registeredTableName}}'
-                     select="dataTableChange(journalentrydatatable)">
+                <tab heading="{{journalentrydatatable.registeredTableDisplayName == null ? journalentrydatatable.registeredTableName : journalentrydatatable.registeredTableDisplayName}}" 
+                ng-repeat="journalentrydatatable in journalentrydatatables" 
+                select="dataTableChange(journalentrydatatable)" 
+                has-permission='READ_{{journalentrydatatable.registeredTableName}}'>
                     <div>
                         <div class="btn-group pull-right">
                             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"

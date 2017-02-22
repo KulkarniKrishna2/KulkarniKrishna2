@@ -25,6 +25,7 @@
                 scope.datatable = data;
 
                 scope.formData.apptableName = data.applicationTableName;
+                scope.formData.dataTableDisplayName = data.registeredTableDisplayName;
                 if(data.scopingCriteriaEnum != undefined && data.scopingCriteriaEnum != null) {
                     scope.formData.restrictscope = true;
                 }

@@ -501,7 +501,7 @@
                     </div>
                 </div>
             </tab>
-			<tab heading="{{centerdatatable.registeredTableName}}" ng-repeat="centerdatatable in centerdatatables" has-permission='READ_{{centerdatatable.registeredTableName}}'
+			<tab heading="{{centerdatatable.registeredTableDisplayName == null ? centerdatatable.registeredTableName : centerdatatable.registeredTableDisplayName}}" ng-repeat="centerdatatable in centerdatatables" has-permission='READ_{{centerdatatable.registeredTableName}}'
 		     select="dataTableChange(centerdatatable)">
 		    <div data-ng-hide="isClosedCenter" class="btn-group pull-right">
 		        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"

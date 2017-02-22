@@ -20,6 +20,15 @@
 	                <form-validate valattributeform="createdatatableform" valattribute="datatableName"/>
 	            </div>
 	        </div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="dataTableDisplayName">{{ 'label.input.dataTableDisplayName' | translate }}</label>
+
+				<div class="col-sm-3">
+					<input id="dataTableDisplayName" type="text" name="dataTableDisplayName" ng-model="formData.dataTableDisplayName"
+						   class="form-control">
+				</div>
+			</div>
+
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="apptableName">{{ 'label.input.apptablename' | translate }}<span
 	                    class="required">*</span></label>
