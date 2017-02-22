@@ -89,17 +89,13 @@
                     scope.val = false;
                 }, 3000);
             }
-
             scope.getLoanTotalDueAmount = function (loan) {
                 var principalInterestDue = loan.totalDue;
                 var chargesDue = loan.chargesDue;
                 if (isNaN(principalInterestDue)) {
                     principalInterestDue = parseInt(0);
                 }
-                if (isNaN(chargesDue)) {
-                    chargesDue = parseInt(0);
-                }
-                return Math.ceil((Number(principalInterestDue) + Number(chargesDue)) * 100) / 100;
+                return Math.ceil((Number(principalInterestDue)) * 100) / 100;
             };
 
             scope.constructBulkLoanAndSavingsRepaymentTransactions = function () {
@@ -128,24 +124,31 @@
 
                         _.each(client.loans, function (loan) {
                             var totalDue = scope.getLoanTotalDueAmount(loan);
-                            var loanTransaction = {
-                                loanId: loan.loanId,
-                                transactionAmount: totalDue
-                            };
-                            if(loan.showPaymentDetails && loan.paymentTypeId != ""){
+                            if (totalDue != "") {
+                                var loanTransaction = {
+                                    loanId: loan.loanId,
+                                    transactionAmount: totalDue
+                                };
+                            }
+                            if (loan.showPaymentDetails && loan.paymentTypeId != "") {
                                 loanTransaction.paymentTypeId = loan.paymentTypeId;
                                 loanTransaction.accountNumber = loan.accountNumber;
                                 loanTransaction.checkNumber = loan.checkNumber;
-                                loanTransaction.routingCode =loan.routingCode;
+                                loanTransaction.routingCode = loan.routingCode;
                                 loanTransaction.receiptNumber = loan.receiptNumber;
                                 loanTransaction.bankNumber = loan.bankNumber;
                             }
+                            if (loanTransaction != null) {
                             scope.bulkRepaymentTransactions.push(loanTransaction);
+                        }
                         });
                     }
                 );
             };
 
+            scope.cancel = function () {
+                location.path("#/home")
+            }
             scope.submit = function () {
                 var data = {};
                 data.dateFormat = scope.df;
