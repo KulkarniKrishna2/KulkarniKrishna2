@@ -34,8 +34,12 @@
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
+            scope.invalidClassificationId = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
+                scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
             }
             scope.minAge = 0;
             scope.maxAge = 0;
@@ -92,6 +96,7 @@
                     scope.formData.genderId = scope.genderOptions[0].id;
                 }
                 scope.formData.dateOfBirth = scope.dateOfBirth;
+                scope.formData.clientClassificationId = scope.clientClassificationId;
 
                 if(data.postalCode){
                     scope.formData.postalCode =  data.postalCode;
@@ -338,6 +343,9 @@
                 if (scope.first.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
                 }
+                if(scope.formData.clientClassificationId){
+                    this.formData.clientClassificationId = scope.formData.clientClassificationId;
+                }
 
                 if(scope.first.incorpValidityTillDate) {
                     this.formData.clientNonPersonDetails.locale = scope.optlang.code;
@@ -373,6 +381,16 @@
                     this.formData.addresses=scope.formDataList;
                 }
 
+                if(scope.formData.clientClassificationId && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification){
+                   if(!(scope.formData.clientClassificationId)){
+                       scope.invalidClassificationId = true;
+                   }else {
+                       scope.invalidClassificationId = false;
+                   }
+                }else {
+                   scope.invalidClassificationId = false;
+                   }
+
                 if(scope.first.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
                     if(!(scope.first.dateOfBirth < scope.maxDateOfBirth && scope.first.dateOfBirth > scope.minDateOfBirth)){
                         scope.dateOfBirthNotInRange = true;
@@ -382,7 +400,7 @@
                 } else {
                     scope.dateOfBirthNotInRange = false;
                 }
-                if (!scope.dateOfBirthNotInRange) {
+                if (!scope.dateOfBirthNotInRange || !scope.invalidClassificationId) {
 
                     resourceFactory.clientResource.save(this.formData, function (data) {
                         if (routeParams.pledgeId) {

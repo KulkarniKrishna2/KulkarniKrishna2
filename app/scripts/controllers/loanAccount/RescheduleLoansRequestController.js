@@ -5,7 +5,7 @@
             scope.formData = {};
             scope.rejectData = {};
             scope.formData.submittedOnDate = new Date();
-
+            scope.isGLIM = false;
             resourceFactory.loanRescheduleResource.template({scheduleId:'template'},function(data){
                 if (data.length > 0) {
                     scope.formData.rescheduleReasonId = data.rescheduleReasons[0].id;
@@ -15,6 +15,10 @@
             scope.cancel = function () {
                 location.path('/viewloanaccount/' + scope.loanId);
             };
+
+            resourceFactory.glimResource.getAllByLoan({loanId: scope.loanId}, function (glimData) {
+                scope.isGLIM = (glimData.length>0);
+            });
 
             scope.submit = function () {
                 this.formData.loanId = scope.loanId;

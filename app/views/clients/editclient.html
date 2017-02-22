@@ -140,16 +140,16 @@
 					</select>
 				</div>
 				<label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}
-					<span class="required">*</span></label>
+					<span ng-show="isClientClassificationMandatory" class="required">*</span></label>
 
-				<div ng-hide="hideClientClassification" class="col-sm-3">
+				<div ng-if="!hideClientClassification" class="col-sm-3">
 					<select id="clientClassificationId" name = "clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
 							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions"
-							value="{{clientClassification.id}}" required late-validate="">
+							ng-required="isClientClassificationMandatory" value="{{clientClassification.id}}">
 						<option value="">--{{'label.menu.clientclassification' | translate}}--</option>
 					</select>
 				</div>
-				<div class="col-sm-2">
+				<div ng-if="!hideClientClassification" class="col-sm-2">
 					<form-validate valattributeform="editclientform" valattribute="clientClassificationId"/>
 				</div>
 			</div>
