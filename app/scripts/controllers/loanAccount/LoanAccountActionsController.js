@@ -886,11 +886,14 @@
 
             scope.constructGlimTransactions = function(glimTransactions){
                 scope.glimTransactions = [];
-                for(var i=0;i<glimTransactions.length;i++){
+                if(glimTransactions){
+                    for(var i=0;i<glimTransactions.length;i++){
                     scope.glimTransactions[i] = {};
                    scope.glimTransactions[i].id =glimTransactions[i].glimId;
                    scope.glimTransactions[i].transactionAmount =glimTransactions[i].transactionAmount;
                 }
+                }
+                
             };
         }
     });
