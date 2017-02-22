@@ -517,7 +517,7 @@
 			        </table>
 			    </div>
 			</tab>
-			<tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables" has-permission='READ_{{groupdatatable.registeredTableName}}'
+			<tab heading="{{groupdatatable.registeredTableDisplayName == null ? groupdatatable.registeredTableName : groupdatatable.registeredTableDisplayName}}" ng-repeat="groupdatatable in groupdatatables" has-permission='READ_{{groupdatatable.registeredTableName}}'
 		     select="dataTableChange(groupdatatable)">
 		    <div>
 		        <div data-ng-hide="isClosedGroup" class="btn-group pull-right">

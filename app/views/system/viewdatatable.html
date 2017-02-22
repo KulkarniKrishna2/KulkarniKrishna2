@@ -29,6 +29,8 @@
                 </div>
             </script>
             <legend>{{datatable.registeredTableName}}</legend>
+                       
+            <h4 ng-show ="datatable.registeredTableDisplayName">{{'label.heading.displayName'| translate}}: {{datatable.registeredTableDisplayName}}</h4>
             <strong>{{'label.heading.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}
             <table class="table width100">
                 <tr class="form-group">

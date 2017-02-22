@@ -48,7 +48,7 @@
                 </table>
             </div>
         </tab>
-        <tab heading="{{officedatatable.registeredTableName}}" ng-repeat="officedatatable in officedatatables"
+        <tab heading="{{officedatatable.registeredTableDisplayName == null ? officedatatable.registeredTableName : officedatatable.registeredTableDisplayName}}" ng-repeat="officedatatable in officedatatables"
              select="dataTableChange(officedatatable)" has-permission='READ_{{officedatatable.registeredTableName}}'>
             <div>
                 <div class="btn-group pull-right">

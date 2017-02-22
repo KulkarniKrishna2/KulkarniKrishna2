@@ -195,7 +195,7 @@
     "label.heading.cardtype":"Card Type",
     "label.heading.registreddate":"Registered Date",
     "label.heading.closeddate":"Closed Date",
-
+    "label.heading.displayName":"Table Name",
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -2244,6 +2244,7 @@
     "label.heading.chargeamount" : "Charge Amount",
     "label.heading.bureau" : "Credit Bureau",
     "label.heading.foreclosure" : "Preclosure",
+    "label.input.dataTableDisplayName":"Data Table Display Name",
     "#Anchors": "..",
     "label.anchor.addsavingcharges": "Add Saving Charges",
     "label.anchor.viewsavingaccount": "View Saving Account",

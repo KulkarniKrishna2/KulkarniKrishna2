@@ -1300,7 +1300,7 @@
                             </div>
                         </div>
                     </tab>
-                    <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
+                    <tab heading="{{loandatatable.registeredTableDisplayName == null ? loandatatable.registeredTableName : loandatatable.registeredTableDisplayName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
                          select="dataTableChange(loandatatable)">
                         <div>
                             <div data-ng-show="choice" class="btn-group pull-right">
