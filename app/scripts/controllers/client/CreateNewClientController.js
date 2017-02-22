@@ -28,8 +28,10 @@
             scope.villages = [];
             scope.village = {};
             scope.formAddressData.districtId ;
+            scope.clientId = location.search().clientId;
             scope.restrictDate = new Date();
             scope.isDateOfBirthMandatory = false;
+            scope.enableCreateClientLoop = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -319,7 +321,8 @@
                 }
             }
 
-            scope.submit = function () {
+            scope.submit = function (enableCreateClientLoop) {
+                scope.enableCreateClientLoop = enableCreateClientLoop;
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
                 this.formData.locale = scope.optlang.code;
@@ -409,7 +412,14 @@
 
                             });
                         }
-                        location.path('/viewclient/' + data.clientId);
+
+                        if (scope.enableCreateClientLoop){
+                             location.path('/createclient/').search({clientId: data.clientId});
+                        } else{
+                                    
+                            location.path('/viewclient/' + data.clientId).search('');
+                        }   
+                       
                     });
                 }
 
