@@ -29,6 +29,10 @@
             scope.village = {};
             scope.formAddressData.districtId ;
             scope.clientId = location.search().clientId;
+            scope.groupId = location.search().groupId;
+            scope.officeId = location.search().officeId;
+            scope.staffId = location.search().staffId;
+            scope.centerId = location.search().centerId;
             scope.restrictDate = new Date();
             scope.isDateOfBirthMandatory = false;
             scope.enableCreateClientLoop = false;
@@ -408,13 +412,14 @@
                         if (routeParams.pledgeId) {
                             var updatedData = {};
                             updatedData.clientId = data.clientId;
+                         
                             resourceFactory.pledgeResource.update({pledgeId: routeParams.pledgeId}, updatedData, function (pledgeData) {
 
                             });
                         }
 
                         if (scope.enableCreateClientLoop){
-                             location.path('/createclient/').search({clientId: data.clientId});
+                             location.path('/createclient/').search({groupId: scope.groupId,officeId: scope.officeId,staffId: scope.staffId,centerId: scope.centerId,clientId: data.clientId});
                         } else{
                                     
                             location.path('/viewclient/' + data.clientId).search('');

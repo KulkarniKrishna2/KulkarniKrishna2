@@ -5,8 +5,9 @@
         <li ng-if="groupid"><a href="#/viewgroup/{{groupid}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.createclient' | translate}}</li>
     </ul>
-     <div class="alert alert-success" role="alert" ng-show="clientId">{{'label.alert.client.create.message' | translate}}: {{clientId}}</div>
+     
 	<form name="createclientform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+		<div class="alert alert-success" role="alert" ng-show="clientId">{{'label.alert.client.create.message' | translate}}:<a ng-href="#/viewclient/{{clientId}}">{{clientId}}</a> </div>
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{'label.heading.createclient' | translate}}</legend>

@@ -385,7 +385,7 @@
     "label.outstanding.amount":"Loan outstanding amount",
     "label.and": "and",
     "label.message.password.expired":"Your password is expired, please reset your password",
-    "label.alert.client.create.message":" client saved successfully with Id ",
+    "label.alert.client.create.message":" Client created successfully with Id #",
     "label.today": "Today",
     "label.relDate": "FINFLUX Release Date: ",
     "label.relVersion": "Release Version: ",
