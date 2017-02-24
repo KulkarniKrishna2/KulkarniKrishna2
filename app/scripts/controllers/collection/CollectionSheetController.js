@@ -352,14 +352,10 @@
 
             scope.getLoanTotalDueAmount = function(loan){
                 var principalInterestDue = loan.totalDue;
-                var chargesDue = loan.chargesDue;
                 if (isNaN(principalInterestDue)) {
                     principalInterestDue = parseInt(0);
                 }
-                if (isNaN(chargesDue)) {
-                    chargesDue = parseInt(0);
-                }
-                return Math.ceil((Number(principalInterestDue) + Number(chargesDue)) * 100) / 100;
+                return Math.ceil((Number(principalInterestDue)) * 100) / 100;
             };
             /**
              * Sum of savings dues across all groups group by savings product id

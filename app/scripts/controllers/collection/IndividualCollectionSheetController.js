@@ -91,7 +91,6 @@
             }
             scope.getLoanTotalDueAmount = function (loan) {
                 var principalInterestDue = loan.totalDue;
-                var chargesDue = loan.chargesDue;
                 if (isNaN(principalInterestDue)) {
                     principalInterestDue = parseInt(0);
                 }

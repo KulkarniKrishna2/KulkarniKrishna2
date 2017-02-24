@@ -156,13 +156,6 @@
 										   ng-model="loan.totalDue"
 										   ng-change="sumTotalDueCollection()">
 								</div>
-								<span ng-hide="loan.chargesDue">
-								</span>
-								<div class="col-md-5 paddingtop0px">
-									<label></label>
-									<input style="font-weight: bold;" type="text" class="input-sm form-control" number-format ng-model="loan.chargesDue"
-										   ng-change="sumTotalDueCollection()">
-								</div>
 							</span>
 						</td>
 						<td class="width25" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
