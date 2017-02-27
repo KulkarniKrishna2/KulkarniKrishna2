@@ -142,7 +142,11 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
                 resourceFactory.groupResource.save(this.formData, function (data) {
-                    location.path('/viewgroup/' + data.resourceId);
+                    if(data.changes.isWorkflowCreated === true){
+                        location.path('/grouponboarding/' + data.resourceId+'/workflow');
+                    }else{
+                        location.path('/viewgroup/' + data.resourceId);
+                    }
                 });
             };
         }

@@ -162,7 +162,6 @@
                 </table>
             </div>-->
             <div>
-                <api-validate></api-validate>
                 <div class="form-group" ng-repeat="columnHeader in columnHeaders">
                     <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn}}
                         <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>

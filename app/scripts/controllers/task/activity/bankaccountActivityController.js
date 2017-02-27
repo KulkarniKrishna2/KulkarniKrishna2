@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        bankaccountActivityController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
-
+        bankaccountActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.formData = {};
             scope.bankAccountData ={};
             scope.createDetail = true;
@@ -36,7 +36,8 @@
 
             scope.submit = function () {
                 scope.formData.locale=scope.optlang.code;
-                resourceFactory.bankAccountDetailResource.create({entityType: scope.entityType,entityId: scope.entityId},scope.formData, function (data) {
+                resourceFactory.bankAccountDetailResource.create({entityType: scope.entityType,entityId: scope.entityId},scope.formData,
+                    function (data) {
                     populateDetails();
                     scope.createDetail = false;
                     scope.isSummary=true;
@@ -75,7 +76,7 @@
             initTask();
         }
     });
-    mifosX.ng.application.controller('bankaccountActivityController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.bankaccountActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('bankaccountActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.bankaccountActivityController]).run(function ($log) {
         $log.info("bankaccountActivityController initialized");
     });
 }(mifosX.controllers || {}));

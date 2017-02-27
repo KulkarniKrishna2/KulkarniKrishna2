@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        adhocActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, dateFilter) {
+        adhocActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, dateFilter) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.taskId = routeParams.taskId;
             scope.activityData = {};
             function initTask()
@@ -61,7 +62,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('adhocActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope' ,'dateFilter', mifosX.controllers.adhocActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('adhocActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope' ,'dateFilter', mifosX.controllers.adhocActivityController]).run(function ($log) {
         $log.info("adhocActivityController initialized");
     });
 }(mifosX.controllers || {}));

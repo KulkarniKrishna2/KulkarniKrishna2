@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        banktransactionActivityController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
-
+        banktransactionActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.formData = {};
             scope.createDetail = true;
 
@@ -14,8 +14,8 @@
 
             scope.initiate = function () {
                 resourceFactory.bankAccountTransferResource.save({bankTransferId: scope.bankTransferId, command: 'initiate'}, function (data) {
+                    scope.doActionAndRefresh(actionName);
                     scope.cancel();
-                    scope.activityApproveDone();
                 });
             };
 
@@ -29,11 +29,23 @@
                 populateDetails();
             };
 
-            scope.$on('activityApprove', function (event, data) {
-                if (scope.transferData.status.id == 2) {
-                    scope.initiate();
+            scope.doPreTaskActionStep = function(actionName){
+                if(actionName==='approve'){
+                    if (scope.transferData.status.id == 2) {
+                        scope.initiate();
+                    }else{
+                        scope.setTaskActionExecutionError('label.error.banktransaction.notsubmitted');
+                    }
+                }else if(actionName==='activitycomplete'){
+                    if (scope.transferData.status.id == 2) {
+                        scope.doActionAndRefresh(actionName);
+                    }else{
+                        scope.setTaskActionExecutionError('label.error.banktransaction.notsubmitted');
+                    }
+                } else {
+                    scope.doActionAndRefresh(actionName);
                 }
-            });
+            };
 
             function initTask() {
                 scope.bankTransferId = scope.taskconfig['bankTransactionId'];
@@ -44,7 +56,7 @@
             initTask();
         }
     });
-    mifosX.ng.application.controller('banktransactionActivityController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.banktransactionActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('banktransactionActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.banktransactionActivityController]).run(function ($log) {
         $log.info("banktransactionActivityController initialized");
     });
 }(mifosX.controllers || {}));

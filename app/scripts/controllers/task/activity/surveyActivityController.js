@@ -1,6 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        surveyActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, dateFilter) {
+        surveyActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION,
+                                            $upload, $rootScope, dateFilter) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
@@ -165,7 +167,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('surveyActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'dateFilter', mifosX.controllers.surveyActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('surveyActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'dateFilter', mifosX.controllers.surveyActivityController]).run(function ($log) {
         $log.info("surveyActivityController initialized");
     });
 }(mifosX.controllers || {}));

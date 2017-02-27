@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        cashflowActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
-
+        cashflowActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.showSummary = true;
             scope.showAddClientoccupationdetailsForm = false;
             scope.showEditClientoccupationdetailsForm = false;
@@ -219,7 +219,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('cashflowActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.cashflowActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('cashflowActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.cashflowActivityController]).run(function ($log) {
         $log.info("cashflowActivityController initialized");
     });
 }(mifosX.controllers || {}));

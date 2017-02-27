@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        clientdocumentActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        clientdocumentActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
@@ -48,7 +49,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('clientdocumentActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('clientdocumentActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
         $log.info("clientdocumentActivityController initialized");
     });
 }(mifosX.controllers || {}));

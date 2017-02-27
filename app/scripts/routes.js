@@ -1404,6 +1404,9 @@
             .when('/loanapplication/:loanApplicationId/workflow', {
                 templateUrl: 'views/task/showcase/loanapplicationworkflow.html'
             })
+            .when('/grouponboarding/:groupId/workflow', {
+                templateUrl: 'views/task/showcase/grouponboardingworkflow.html'
+            })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
             })
