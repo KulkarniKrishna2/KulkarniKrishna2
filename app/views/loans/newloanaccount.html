@@ -626,8 +626,8 @@
                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                     <td>{{charge.chargeCalculationType.value}}</td>
                     <td><input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount"
-                               placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
-                        || charge.chargeCalculationType.id == 6"></td>
+                               placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || (charge.chargeTimeType.id == 50
+                        && charge.chargeCalculationType.id == 6)"></td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
                         <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
@@ -649,11 +649,13 @@
                             <th>{{'label.input.accountnumber' | translate}}</th>
                             <th>{{'label.heading.amount' | translate}}</th>
                         </tr>
-                        <tr ng-repeat="glim in charge.glims">
+                        <tr ng-repeat="glim in charges[outerIndex].glims">
                             <td>{{glim.displayName}}</td>
                             <td>{{glim.accountNo}}</td>
                             <td><input id="" class="form-control" type="text" ng-model="glim.upfrontChargeAmount"
-                                       placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format></td>
+                                       placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format 
+                                       ng-readonly="charges[outerIndex].chargeTimeType.id == 50 && charges[outerIndex].chargeCalculationType.id == 6">
+                            </td>
                         </tr>
                     </table>
                 </div>
