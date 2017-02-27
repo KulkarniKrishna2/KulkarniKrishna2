@@ -147,12 +147,7 @@
 
                             for (var l = 0; l < loanProductArrayDup.length; l++) {
                                 if (loanProductArrayDup[l].productId == scope.loan.productId) {
-                                    if (scope.loan.chargesDue) {
-                                        loanProductArrayDup[l].transactionAmount = Number(loanProductArrayDup[l].transactionAmount + Number(scope.loan.totalDue) + Number(scope.loan.chargesDue));
-                                        loanProductArrayDup[l].transactionAmount = Math.ceil(loanProductArrayDup[l].transactionAmount * 100) / 100;
-                                    } else {
-                                        loanProductArrayDup[l].transactionAmount = Number(loanProductArrayDup[l].transactionAmount + Number(scope.loan.totalDue));
-                                    }
+                                    loanProductArrayDup[l].transactionAmount = Number(loanProductArrayDup[l].transactionAmount + Number(scope.loan.totalDue));
                                 }
                             }
                         }
