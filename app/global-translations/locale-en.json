@@ -5430,7 +5430,7 @@
     "label.menu.selectuser" : "User",
     "label.heading.executiondate" : "Execution Date",
     "label.heading.executedby" : "Executed By",
-    "label.heading.executiontime" : "Execution Time (h:m:s)",
+    "label.heading.executiontime" : "Execution Time (h:m:s:ms)",
     "label.anchor.viewauditentry" : "View Audit Entry",
     "label.heading.reportparameters" : "Report Parameters",
     "label.heading.principalPortion": "Principal Portion",
