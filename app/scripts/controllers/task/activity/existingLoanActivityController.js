@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        existingLoanActivityController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
-
+        existingLoanActivityController: function ($controller,scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.addExistingLoan = false;
             scope.formData = {};
             scope.editExistingLoan=false;
@@ -137,7 +137,7 @@
 
         }
     });
-    mifosX.ng.application.controller('existingLoanActivityController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.existingLoanActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('existingLoanActivityController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.existingLoanActivityController]).run(function ($log) {
         $log.info("existingLoanActivityController initialized");
     });
 

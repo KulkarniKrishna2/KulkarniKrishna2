@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        camActivityController: function (scope, resourceFactory, API_VERSION, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        camActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.approveloanapplicationdetails = "";
             scope.status = 'SUMMARY';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
@@ -380,7 +381,7 @@
                 }
             });
 
-            scope.submit = function () {
+            scope.submit = function (onComplete) {
                 scope.previewRepayments(false);
                 scope.formRequestData.expectedDisbursementDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
                 scope.formRequestData.repaymentsStartingFromDate =  dateFilter(scope.formRequestData.repaymentsStartingFromDate, scope.df);
@@ -429,7 +430,7 @@
                     command: 'approve'
                 }, this.submitData, function (data) {
                     scope.status = 'SUMMARY';
-                    scope.activityApproveDone();
+                    onComplete();
                 });
             };
 
@@ -514,6 +515,21 @@
                     scope.issubmitted = true;
                 }
             });
+
+            scope.doPreTaskActionStep = function(actionName){
+                if(actionName === 'approve'){
+                    if (!_.isUndefined(scope.approveloanapplicationform) && scope.approveloanapplicationform.$valid) {
+                        scope.submit(function (){
+                            scope.doActionAndRefresh(actionName);
+                        });
+                    }else{
+                        scope.issubmitted = true;
+                        scope.doActionAndRefresh(actionName);
+                    }
+                }else{
+                    scope.doActionAndRefresh(actionName);
+                }
+            };
 
             function incomeAndexpense(){
                 resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({clientId: scope.clientId},function(data){
@@ -720,7 +736,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('camActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', 'dateFilter','$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.camActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('camActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', 'dateFilter','$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.camActivityController]).run(function ($log) {
         $log.info("camActivityController initialized");
     });
 }(mifosX.controllers || {}));

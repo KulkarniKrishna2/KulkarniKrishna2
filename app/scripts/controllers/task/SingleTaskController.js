@@ -40,16 +40,39 @@
             }
 
             initTask();
-            scope.doTaskAction = function (actionName) {
-                if(actionName === 'approve' && (scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'||
-                    scope.taskData.taskActivity.identifier.toLowerCase() === 'cam' ||
-                    scope.taskData.taskActivity.identifier.toLowerCase() === 'banktransaction')){
-                    scope.$broadcast('activityApprove');
-                }else{
-                    scope.possibleActions = [];
-                    doActionAndRefresh(actionName);
 
-                }
+            scope.initiateTaskAction = function(actionName) {
+                scope.taskActionExecutionErrorMessage = null;
+                scope.$broadcast('preTaskAction',{actionName:actionName});
+
+                // if(actionName === 'approve' && (scope.taskData.taskActivity.identifier.toLowerCase() === 'loanapplicationapproval'||
+                //     scope.taskData.taskActivity.identifier.toLowerCase() === 'cam' ||
+                //     scope.taskData.taskActivity.identifier.toLowerCase() === 'banktransaction')){
+                //     scope.$broadcast('activityApprove');
+                // }else{
+                //     scope.possibleActions = [];
+                //     doActionAndRefresh(actionName);
+                //
+                // }
+            };
+
+            scope.setTaskActionExecutionError = function (errorMessage) {
+                scope.taskActionExecutionErrorMessage = errorMessage;
+            };
+
+            scope.doActionAndRefresh = function(actionName){
+                resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionName}, function (data) {
+                    resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
+                        scope.taskData = taskData;
+                        if (scope.taskData.status.value == 'completed' || scope.taskData.status.value == 'skipped') {
+                            scope.$emit('taskCompleted', {taskId: scope.taskData.id});
+                        }
+                        scope.$broadcast('postTaskAction',{actionName:actionName});
+                        populateNextActions();
+                        populateTaskActionLogs();
+                    });
+
+                });
             };
 
             scope.isTaskCompleted = function(){
@@ -60,20 +83,6 @@
                 }
             };
 
-            function doActionAndRefresh(actionName){
-                resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:actionName}, function (data) {
-                    resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
-                        scope.taskData = taskData;
-                        if (scope.taskData.status.value == 'completed' || scope.taskData.status.value == 'skipped') {
-                            scope.$emit('taskCompleted', {taskId: scope.taskData.id});
-                        }
-
-                        populateNextActions();
-                        populateTaskActionLogs();
-                    });
-
-                });
-            }
             function populateNextActions(){
                 scope.canComplete = true;
                 resourceFactory.taskExecutionActionResource.getAll({taskId:scope.taskData.id}, function (data) {
@@ -117,22 +126,22 @@
 
             scope.activityDone =  function (data) {
                 if(scope.taskData.status.value == 'initiated'){
-                    //scope.doTaskAction(1);
+                    //scope.initiateTaskAction(1);
                     //activate the action button if required
                 }
 
             };
 
             scope.activityEdit = function (data) {
-                scope.doTaskAction('taskedit');
+                scope.initiateTaskAction('taskedit');
             };
 
-            scope.activityApproveDone = function (data) {
-                doActionAndRefresh('approve');
-            };
+            // scope.activityApproveDone = function (data) {
+            //     doActionAndRefresh('approve');
+            // };
 
             scope.taskCriteriaCheck = function(){
-                scope.doTaskAction('criteriacheck');
+                scope.initiateTaskAction('criteriacheck');
             };
 
             scope.triggerCriteriaResult = function(){

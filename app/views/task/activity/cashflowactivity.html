@@ -1,6 +1,5 @@
 <div class="col-md-12" ng-controller="cashflowActivityController" >
     <div ng-if="showSummary">
-
         <div class="form-horizontal">
             <h3>{{'label.heading.occupationdetails' | translate}}
                 <button ng-click="addClientoccupationdetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
@@ -148,7 +147,7 @@
         </div>
     </div>
     <div ng-if="showAddClientoccupationdetailsForm" class="form-horizontal ">
-        <api-validate></api-validate>
+        
         <form name="" novalidate="" class="form-horizontal well"
               ng-submit="submit()">
             <fieldset>
@@ -392,7 +391,7 @@
     </div>
 
     <div ng-if="showEditClientassetdetailsForm">
-        <api-validate></api-validate>
+        
         <form name="showEditClientassetdetailsForm" novalidate="" class="form-horizontal well"
               ng-submit="editClientassetdetailsSubmit()">
             <fieldset>

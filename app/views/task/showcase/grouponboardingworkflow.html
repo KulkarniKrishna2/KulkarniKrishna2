@@ -1,0 +1,20 @@
+<div name="viewsalesform" ng-controller="GroupOnboardingWorkflowController">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li ng-show="groupData.name"><a href="#/viewgroup/{{groupData.id}}"><strong>'{{groupData.name}}'</strong></a>
+                </li>
+                <li class="active">{{'label.heading.workflow' | translate}}</li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="row well">
+                <div class="row">
+                    <div class="col-md-4"><span>{{'label.input.groupName' | translate}}:&nbsp;</span><span><a href="#/viewgroup/{{groupData.id}}"> {{groupData.name}}</a></span></div>
+                    <div class="col-md-4"> {{'label.heading.relationshipOfficer' | translate}} :&nbsp; {{groupData.officerName}}</div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
+    </div>
+</div>

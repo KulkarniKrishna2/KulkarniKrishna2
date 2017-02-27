@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        creditbureauActivityController: function (scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json) {
+        creditbureauActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
@@ -331,7 +332,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('creditbureauActivityController', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('creditbureauActivityController', ['$controller','$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
         $log.info("creditbureauActivityController initialized");
     });
 }(mifosX.controllers || {}));

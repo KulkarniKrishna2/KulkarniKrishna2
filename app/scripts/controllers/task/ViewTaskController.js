@@ -27,6 +27,7 @@
                         if (scope.taskData.configValues != undefined) {
                             scope.clientId = scope.taskData.configValues.clientId;
                             scope.loanApplicationId = scope.taskData.configValues.loanApplicationId;
+                            scope.loanApplicationCoApplicantId = scope.taskData.configValues.loanApplicationCoApplicantId;
                             scope.loanApplicationReferenceId = scope.loanApplicationId;
                             scope.loanId = scope.taskData.configValues.loanId;
                         }
@@ -35,37 +36,19 @@
                         fetchLoanData();
                     }
                     if(scope.loanApplicationId){
-                        resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.taskData.entityId}, function (data) {
+                        resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
+                            loanApplicationReferenceId: scope.loanApplicationId},
+                            function (data) {
                             scope.loanApplicationData = data;
-                            scope.loanProductChange(scope.loanApplicationData.loanProductId);
+                            if(scope.loanApplicationCoApplicantId){
+                                resourceFactory.loanCoApplicantsResource.get({loanApplicationReferenceId: scope.loanApplicationId,
+                                    coApplicantId: scope.loanApplicationCoApplicantId}, function (data) {
+                                    scope.loanApplicationCoApplicantData = data;
+                                });
+                            }
                         });
-                        scope.loanProductChange = function (loanProductId) {
-                            scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                            if (scope.loanApplicationData.clientId && scope.loanApplicationData.groupId) {
-                                scope.inparams.templateType = 'jlg';
-                            } else if (scope.loanApplicationData.groupId) {
-                                scope.inparams.templateType = 'group';
-                            } else if (scope.loanApplicationData.clientId) {
-                                scope.inparams.templateType = 'individual';
-                            }
-                            if (scope.loanApplicationData.clientId) {
-                                scope.inparams.clientId = scope.loanApplicationData.clientId;
-                            }
-                            if (scope.loanApplicationData.groupId) {
-                                scope.inparams.groupId = scope.loanApplicationData.groupId;
-                            }
-                            scope.inparams.staffInSelectedOfficeOnly = true;
-                            scope.inparams.productId = loanProductId;
-                            resourceFactory.loanResource.get(scope.inparams, function (data) {
-                                scope.loanaccountinfo = data;
-                                if (data.clientName) {
-                                    scope.clientName = data.clientName;
-                                }
-                                if (data.group) {
-                                    scope.groupName = data.group.name;
-                                }
-                            });
-                        };
+
+
                     };
                 });
             }

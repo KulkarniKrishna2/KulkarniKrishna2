@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        kycActivityController: function (scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        kycActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             function initTask(){
                 scope.clientId = scope.taskconfig['clientId'];
                 getClientIdentifiers();
@@ -144,7 +145,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('kycActivityController', ['$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.kycActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('kycActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.kycActivityController]).run(function ($log) {
         $log.info("kycActivityController initialized");
     });
 }(mifosX.controllers || {}));

@@ -15,9 +15,11 @@
                     <div class="col-md-4"> {{'label.heading.relationshipOfficer' | translate}} :&nbsp; {{loanData.loanOfficerName}}</div>
                 </div>
             </div>
+
             <div class="row well" ng-if="loanApplicationData.loanApplicationReferenceId">
                 <div class="row">
-                    <div class="col-md-4"><span>{{'label.input.applicantname' | translate}}:&nbsp;</span><span><a href="#/viewclient/{{taskData.clientId}}"> {{clientName}}</a></span></div>
+                    <div ng-if="loanApplicationCoApplicantData==undefined" class="col-md-4"><span>{{'label.input.applicantname' | translate}}:&nbsp;</span><span><a href="#/viewclient/{{loanApplicationData.clientId}}"> {{loanApplicationData.clientName}}</a></span></div>
+                    <div ng-if="loanApplicationCoApplicantData!=undefined" class="col-md-4"><span>{{'label.heading.coapplicantname' | translate}}:&nbsp;</span><span><a href="#/viewclient/{{loanApplicationCoApplicantData.clientId}}"> {{loanApplicationCoApplicantData.displayName}}</a></span></div>
                     <div class="col-md-4"><span>{{'label.input.applicationReference' | translate}}:&nbsp;</span><span><a href="#/viewloanapplicationreference/{{loanApplicationData.loanApplicationReferenceId}}"> {{loanApplicationData.loanApplicationReferenceNo}}</a></span></div>
                     <div class="col-md-4"> {{'label.heading.relationshipOfficer' | translate}} :&nbsp; {{loanApplicationData.loanOfficerName}}</div>
                 </div>
@@ -27,7 +29,6 @@
                     <div class="col-md-4"> {{'label.input.applicationdate' | translate}}&nbsp;{{loanApplicationData.submittedOnDate | DateFormat}}</div>
                 </div>
             </div>
-
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
         </div>

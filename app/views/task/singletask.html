@@ -15,6 +15,7 @@
         </div>
 
         <div ng-if="canView"  class="col-md-12">
+            <api-validate></api-validate>
             <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
 
             <div ng-if="canComplete==false" class="row">
@@ -30,7 +31,7 @@
                     <div>
                         <span><i class="{{ taskData.criteriaResult.eligibiltyStatus.code | StatusLookup}} {{taskData.criteriaResult.eligibiltyStatus.code | IconLookup}} icon-large"></i></span>
                          <span class="strong">{{ 'label.heading.request.eligibility.tobe' | translate }}</span> {{taskData.criteriaResult.status}}.
-                        <a ng-if="!isTaskCompleted()" ng-click="doTaskAction('criteriacheck')"><i class="icon-refresh"></i></a>
+                        <a ng-if="!isTaskCompleted()" ng-click="initiateTaskAction('criteriacheck')"><i class="icon-refresh"></i></a>
                         &nbsp;&nbsp;&nbsp;<a ng-click="triggerCriteriaResult()">{{'label.button.show.detail' | translate}}</a>
 
                     </div>
@@ -53,9 +54,12 @@
                     </div>
                 </div>
             </div>
+            <div ng-if="taskActionExecutionErrorMessage" class="row task-error error">
+                <label >{{taskActionExecutionErrorMessage | translate}}</label>
+            </div>
             <div class="row task-action">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="doTaskAction(action.value)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.value)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </div>
 
