@@ -112,15 +112,6 @@
                             }
                         })
                     }
-                    // show only glim charges
-                    /*if(scope.isGLIM) {
-                        for(var i in scope.loanaccountinfo.chargeOptions) {
-                            if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge) {
-                                scope.loanaccountinfo.chargeOptions.splice(i,1);
-                            }
-                        }
-                        console.log(scope.loanaccountinfo.chargeOptions.length);
-                    }*/
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -147,6 +138,7 @@
                                 } else {
                                     scope.charges[i].amount = undefined;
                                 }
+                                scope.updateChargeForSlab(scope.charges[i]);
                             }
                         }
                     }
@@ -227,22 +219,47 @@
                                 }
                             }
                         }
-                        if(scope.isGLIM && scope.formData.clientMembers) {
-                            var clientMembers = scope.formData.clientMembers || [];
-                            data.glims = [];
-                            angular.copy(clientMembers, data.glims);
+
+                        if(scope.isGLIM){
+                            scope.updateChargeForSlab(data);
                         }
-                        if(data.chargeCalculationType.id == 6 && data.slabs.length > 0){
-                            for(var i in data.slabs) {
-                                if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
-                                    data.amount = data.slabs[i].amount;
+                        else {
+                        
+                            if(data.chargeCalculationType.id == 6 && data.slabs.length > 0){
+                                for(var i in data.slabs) {
+                                    if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
+                                        data.amount = data.slabs[i].amount;
+                                    }
                                 }
-                            }
+                            } 
                         }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
                     });
                 }
+            }
+
+            scope.updateChargeForSlab = function(data){
+                if(scope.isGLIM && scope.formData.clientMembers) {
+                    var clientMembers = scope.formData.clientMembers || [];
+                    data.glims = [];
+                    angular.copy(clientMembers, data.glims);
+                    var amount = 0;
+                    for(var i in data.glims){
+                         if (data.slabs){
+                            for(var j in data.slabs){
+                            if(data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
+                                        data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
+                                        amount = amount + data.glims[i].upfrontChargeAmount;
+                                }
+                            }
+                        } else if (data.chargeCalculationType.id == 1){
+                            data.glims[i].upfrontChargeAmount = data.amount;
+                            amount = amount + data.glims[i].upfrontChargeAmount;
+                        }
+                    }
+                }
+                data.amount = amount;
             }
 
             scope.deleteCharge = function (index) {
