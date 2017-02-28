@@ -6,7 +6,9 @@
 		<li ng-if="loanApplicationReferenceId"><a href="#/managecoapplicants/{{loanApplicationReferenceId}}">{{'label.anchor.managecoapplicants' | translate}}</a></li>
         <li class="active">{{'label.anchor.createclient' | translate}}</li>
     </ul>
+     
 	<form name="createclientform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+		<div class="alert alert-success" role="alert" ng-show="clientId">{{'label.alert.client.create.message' | translate}}:<a ng-href="#/viewclient/{{clientId}}">{{clientId}}</a> </div>
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{'label.heading.createclient' | translate}}</legend>
@@ -428,7 +430,8 @@
 		    </div>
 		    <div class="col-md-offset-5">
 	            <a id="cancel" ng-href="{{cancel}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-	            <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
+	            <button id="save" type="button" ng-click = "submit(false)" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
+	             <button id="save" type="button" ng-click = "submit(true)" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT' >{{'label.button.save.enableCreateClientLoop' | translate}}</button>
                 <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
 	        </div>
 	    </fieldset>

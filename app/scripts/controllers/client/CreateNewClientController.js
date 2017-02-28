@@ -28,9 +28,15 @@
             scope.villages = [];
             scope.village = {};
             scope.formAddressData.districtId ;
+            scope.clientId = location.search().clientId;
+            scope.groupId = location.search().groupId;
+            scope.officeId = location.search().officeId;
+            scope.staffId = location.search().staffId;
+            scope.centerId = location.search().centerId;
             scope.restrictDate = new Date();
             scope.isDateOfBirthMandatory = false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
+            scope.enableCreateClientLoop = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -320,7 +326,8 @@
                 }
             }
 
-            scope.submit = function () {
+            scope.submit = function (enableCreateClientLoop) {
+                scope.enableCreateClientLoop = enableCreateClientLoop;
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
                 this.formData.locale = scope.optlang.code;
@@ -406,6 +413,7 @@
                         if (routeParams.pledgeId) {
                             var updatedData = {};
                             updatedData.clientId = data.clientId;
+                         
                             resourceFactory.pledgeResource.update({pledgeId: routeParams.pledgeId}, updatedData, function (pledgeData) {
 
                             });
@@ -418,15 +426,17 @@
                         resourceFactory.entityTaskExecutionResource.get({entityType:'CLIENT_ONBOARDING',entityId:data.clientId}, function (taskData) {
                          if(taskData.id==undefined)
                         {
-                            location.path('/viewclient/' + data.clientId);
+                            if (scope.enableCreateClientLoop){
+                                location.path('/createclient/').search({groupId: scope.groupId,officeId: scope.officeId,staffId: scope.staffId,centerId: scope.centerId,clientId: data.clientId});
+                            } else{
+                                location.path('/viewclient/' + data.clientId).search('');
+                            }
                         }
                         else
                         {
                             location.path('/viewtask/'+ taskData.id);
                         }
                          });
-                        
-                    
                     });
                 }
 
