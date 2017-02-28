@@ -1,0 +1,20 @@
+<div ng-controller="clientActivationActivityController">
+    <div class="col-md-12 col-sm-12">
+        <form novalidate="" class="form-horizontal" ng-submit="submit()">
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.activationdate'| translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <input type="text" datepicker-pop="dd MMMM yyyy" id="activationDate" name="activationDate"
+                       ng-model="firstdate" min="restrictDate"  class="form-control"/>
+                </div>
+            </div>
+            <div class="pull-right">
+                <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+                </button>   
+            </div>
+        </form>
+    </div>
+</div>

@@ -414,9 +414,19 @@
                             resourceFactory.loanCoApplicantsResource.add({loanApplicationReferenceId: scope.loanApplicationReferenceId, clientId: data.clientId}, function(coappData){
                                 location.path('/viewclient/' + data.clientId+'/'+scope.loanApplicationReferenceId);
                             });
-                        }else{
+                        }
+                        resourceFactory.entityTaskExecutionResource.get({entityType:'CLIENT_ONBOARDING',entityId:data.clientId}, function (taskData) {
+                         if(taskData.id==undefined)
+                        {
                             location.path('/viewclient/' + data.clientId);
                         }
+                        else
+                        {
+                            location.path('/viewtask/'+ taskData.id);
+                        }
+                         });
+                        
+                    
                     });
                 }
 
