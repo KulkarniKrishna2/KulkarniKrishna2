@@ -424,6 +424,18 @@
     <td colspan="3">{{loanproduct.multiDisburseLoan}}</td>
 </tr>
 <tr ng-show="loanproduct.multiDisburseLoan">
+    <td>{{'label.input.allownegativeloanbalances' | translate}}</td>
+    <td colspan="3">{{loanproduct.allowNegativeLoanBalance}}</td>
+</tr>
+<tr ng-show="loanproduct.multiDisburseLoan">
+    <td>{{'label.input.considerfuturedisbursementsinloanschedule' | translate}}</td>
+    <td colspan="3">{{loanproduct.considerFutureDisbursementsInSchedule}}</td>
+</tr>
+<tr ng-show="loanproduct.multiDisburseLoan">
+    <td>{{'label.input.consideralldisbursementsinloanschedule' | translate}}</td>
+    <td colspan="3">{{loanproduct.considerAllDisbursementsInSchedule}}</td>
+</tr>
+<tr ng-show="loanproduct.multiDisburseLoan">
     <td>{{'label.input.maxtranchecount' | translate}}</td>
     <td colspan="3">{{loanproduct.maxTrancheCount}}</td>
 </tr>

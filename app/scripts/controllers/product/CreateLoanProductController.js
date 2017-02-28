@@ -78,6 +78,9 @@
                 scope.formData.interestRateVariationsForBorrowerCycle = scope.product.interestRateVariationsForBorrowerCycle;
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
                 scope.formData.multiDisburseLoan = 'false';
+                scope.formData.allowNegativeLoanBalance = false;
+                scope.formData.considerFutureDisbursementsInSchedule = false;
+                scope.formData.considerAllDisbursementsInSchedule = false;
                 scope.formData.accountingRule = '1';
                 scope.formData.daysInYearType = scope.product.daysInYearType.id;
                 scope.formData.daysInMonthType = scope.product.daysInMonthType.id;
