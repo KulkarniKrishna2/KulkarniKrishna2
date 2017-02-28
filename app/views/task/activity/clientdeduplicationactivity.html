@@ -1,0 +1,95 @@
+<div class="col-md-12" ng-controller="ClientDeDuplicationActivityController">
+    <form name="clientactionform" novalidate="" class="form-horizontal" >
+        <div class="form-group width100" ng-show="client.possibleClientMatches==undefined || client.possibleClientMatches.length==0">
+            <label><strong>{{ 'label.heading.no.duplicate.matches' | translate }}</strong></label>
+        </div>
+        <div class="form-group width100"" ng-show="client.possibleClientMatches">
+                <label><strong>{{ 'label.heading.activity.possible.duplicate.matches' | translate }}</strong></label>
+        </div>
+        <div class="form-group col-md-offset-8" ng-show="client.possibleClientMatches">
+                <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.choose.client' | translate }}</label>
+            <div class="col-sm-2">
+                <select id="matchClient"  ng-model="matchClientId" class="form-control"
+                        ng-options="cl.id as cl.id+'-'+cl.displayName for cl in client.possibleClientMatches"
+                        value="{{cl.id}}" ng-change="matchClient(matchClientId)">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-show="client.possibleClientMatches">
+            <table class="table width100">
+                <thead>
+                <tr class="graybg">
+                    <th class="width34">{{'label.heading.matchcriteria' | translate}}</th>
+                    <th class="width34">{{'label.heading.current.client' | translate}}</th>
+                    <th class="width34">{{'label.heading.client.possible.match' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{'label.heading.clientid' | translate}}</td>
+                    <td>{{client.id}}</td>
+                    <td>{{possibleMatch.id}}</td>
+                </tr>
+                <tr ng-hide="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.firstname && possibleMatch.firstname.indexOf(client.firstname) >= 0}">
+                    <td>{{'label.input.firstname' | translate}}</td>
+                    <td>{{client.firstname}}</td>
+                    <td>{{possibleMatch.firstname}}</td>
+                </tr>
+                <tr ng-hide="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.middlename && possibleMatch.middlename.indexOf(client.middlename) >= 0}">
+                    <td>{{'label.input.middlename' | translate}}</td>
+                    <td>{{client.middlename}}</td>
+                    <td>{{possibleMatch.middlename}}</td>
+                </tr>
+                <tr ng-hide="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.lastname && possibleMatch.lastname.indexOf(client.lastname) >= 0}">
+                    <td>{{'label.input.lastname' | translate}}</td>
+                    <td>{{client.lastname}}</td>
+                    <td>{{possibleMatch.lastname}}</td>
+                </tr>
+                <tr ng-show="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.fullname && possibleMatch.fullname.indexOf(client.fullname) >= 0}">
+                    <td>{{'label.input.fullname' | translate}}</td>
+                    <td>{{client.fullname}}</td>
+                    <td>{{possibleMatch.fullname}}</td>
+                </tr>
+                <tr ng-class="{'highlight':possibleMatch.mobileNo && possibleMatch.mobileNo.indexOf(client.mobileNo) >= 0}">
+                    <td>{{'label.input.mobilenumber' | translate}}</td>
+                    <td>{{client.mobileNo}}</td>
+                    <td>{{possibleMatch.mobileNo}}</td>
+                </tr>
+                <tr ng-hide="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.gender && client.gender && possibleMatch.gender.id === client.gender.id}">
+                    <td>{{'label.input.gender' | translate}}</td>
+                    <td>{{client.gender.name | translate}}</td>
+                    <td>{{possibleMatch.gender.name | translate}}</td>
+                </tr>
+                <tr ng-hide="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.dateOfBirth && client.dateOfBirth
+                    && JSON.stringify(possibleMatch.dateOfBirth) == JSON.stringify(client.dateOfBirth)}">
+                    <td>{{'label.input.dateofbirth' | translate}}</td>
+                    <td>{{client.dateOfBirth | DateFormat}}</td>
+                    <td>{{possibleMatch.dateOfBirth | DateFormat}}</td>
+                </tr>
+                <tr ng-show="client.legalForm && client.legalForm.id == 2"
+                    ng-class="{'highlight':possibleMatch.incorpNumber && possibleMatch.incorpNumber.indexOf(client.incorpNumber) >= 0}">
+                    <td>{{'label.input.incorpNumber' | translate}}</td>
+                    <td>{{client.clientNonPersonDetails.incorpNumber}}</td>
+                    <td>{{possibleMatch.clientNonPersonDetails.incorpNumber}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.identities' | translate}}</td>
+                    <td ng-bind-html="client.identitiesCompiled" />
+                    <td ng-bind-html="possibleMatch.identitiesCompiled"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-offset-3" ng-show="client.possibleClientMatches">
+            <button id="cancel" type="reset" ng-click="cancel()" ng-if="!isTaskCompleted()" ng-show="client.possibleClientMatches" class="btn btn-default">{{'label.heading.reject' | translate}}
+            </button>
+        </div>
+    </form>
+</div>

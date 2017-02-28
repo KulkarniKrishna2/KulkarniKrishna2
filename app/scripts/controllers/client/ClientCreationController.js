@@ -140,11 +140,11 @@
                 }
 
                 resourceFactory.clientResource.save(this.formData, function (data) {
-                    if(routeParams.pledgeId){
+                    if(routeParams.pledgeId)
+                    {
                         var updatedData = {};
                         updatedData.clientId = data.clientId;
                         resourceFactory.pledgeResource.update({ pledgeId : routeParams.pledgeId}, updatedData, function(pledgeData){
-
                         });
                     }
                     location.path('/viewclient/' + data.clientId);
