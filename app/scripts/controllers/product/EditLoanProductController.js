@@ -125,6 +125,9 @@
                     interestRateVariationsForBorrowerCycle: [],
                     numberOfRepaymentVariationsForBorrowerCycle: [],
                     multiDisburseLoan: scope.product.multiDisburseLoan,
+                    allowNegativeLoanBalance : scope.product.allowNegativeLoanBalance,
+                    considerFutureDisbursementsInSchedule : scope.product.considerFutureDisbursementsInSchedule,
+                    considerAllDisbursementsInSchedule : scope.product.considerAllDisbursementsInSchedule,
                     maxTrancheCount: scope.product.maxTrancheCount,
                     outstandingLoanBalance: scope.product.outstandingLoanBalance,
                     isEmiBasedOnDisbursements: scope.product.isEmiBasedOnDisbursements,
@@ -500,6 +503,11 @@
             };
 
             scope.submit = function () {
+                if(this.formData.multiDisburseLoan == false) {
+                    this.formData.allowNegativeLoanBalance = false;
+                    this.formData.considerFutureDisbursementsInSchedule = false;
+                    this.formData.considerAllDisbursementsInSchedule = false;
+                }
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
