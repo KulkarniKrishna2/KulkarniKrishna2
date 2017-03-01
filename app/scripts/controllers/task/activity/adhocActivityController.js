@@ -12,7 +12,7 @@
                         scope.activityData.assignedTo=scope.taskData.assignedTo;
                         var reqDate = dateFilter(scope.taskData.dueDate, scope.df);
                         scope.activityData.dueDate=reqDate;
-                        if (scope.taskData.entityType.value=='TEMPLATE_TASK_OFFICE') 
+                        if (scope.taskData.entityType.value=='OFFICE') 
                         {
                             resourceFactory.officeResource.getOffice({officeId: scope.taskData.entityId}, function (data) {
                             scope.activityData.officeData = data;
@@ -20,7 +20,7 @@
                             scope.activityData.entityName=scope.activityData.officeData.name;
                             });
                         }
-                         if (scope.taskData.entityType.value=='TEMPLATE_TASK_VILLAGE') 
+                         if (scope.taskData.entityType.value=='VILLAGE') 
                         {
                             resourceFactory.villageResource.get({villageId: scope.taskData.entityId}, function (data) {
                             scope.activityData.villageData = data;
@@ -28,7 +28,7 @@
                             scope.activityData.entityName=scope.activityData.villageData.villageName;
                             });
                         }
-                         if (scope.taskData.entityType.value=='TEMPLATE_TASK_CENTER') 
+                         if (scope.taskData.entityType.value=='CENTER') 
                         {
                             resourceFactory.centerResource.get({centerId: scope.taskData.entityId}, function (data) {
                             scope.activityData.centerData = data;
@@ -36,7 +36,7 @@
                             scope.activityData.entityName=scope.activityData.centerData.name;
                             });
                         }
-                         if (scope.taskData.entityType.value=='TEMPLATE_TASK_CLIENT') 
+                         if (scope.taskData.entityType.value=='CLIENT') 
                         {
                             resourceFactory.clientResource.get({clientId: scope.taskData.entityId}, function (data) {
                             scope.activityData.clientData = data;
@@ -44,7 +44,7 @@
                             scope.activityData.entityName=scope.activityData.clientData.firstname+" "+scope.activityData.clientData.lastname;
                             });
                         }
-                         if (scope.taskData.entityType.value=='TEMPLATE_TASK_BANK') 
+                         if (scope.taskData.entityType.value=='BANK') 
                         {
                             resourceFactory.bankResource.get({bankId: scope.taskData.entityId}, function (data) {
                             scope.activityData.bankData = data;

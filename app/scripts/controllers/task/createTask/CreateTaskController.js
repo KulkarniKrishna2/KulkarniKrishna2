@@ -7,6 +7,7 @@
                 scope.tasks=data.taskConfigTemplateObject;
                 scope.users=data.user;
                 scope.first={};
+                scope.restrictDate = new Date();
                 });
             }
             scope.formData={};
