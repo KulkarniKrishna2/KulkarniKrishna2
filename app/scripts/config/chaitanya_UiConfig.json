@@ -64,11 +64,6 @@
         "editTranches": true
       }
     },
-    "clientAccount": {
-      "isMandatory": {
-        "externalId": false
-      }
-    },
     "collectionSheet": {
       "isAutoPopulate": {
         "paymentTypeOption": true
@@ -93,7 +88,8 @@
         "hideClientClassification": true
       },
       "isMandatoryField": {
-        "dateOfBirth": true
+        "dateOfBirth": true,
+        "externalId": false
       }
     },
     "defaultGISConfig": {

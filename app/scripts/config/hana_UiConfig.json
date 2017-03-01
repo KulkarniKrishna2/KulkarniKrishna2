@@ -59,7 +59,10 @@
 	"createClient": {
 	  "isReadOnlyField": {
 		"staff": true
-	  }
+	  },
+	  "isMandatoryField": {
+        "externalId": false
+      }
 	},
 	"createGroup": {
 	  "isReadOnlyField": {
