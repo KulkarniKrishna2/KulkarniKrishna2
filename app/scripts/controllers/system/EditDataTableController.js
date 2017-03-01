@@ -272,7 +272,7 @@
                     for (var i = 0; i < scope.selected.length; i++) {
                         this.formData.scope.allowedValues.push(this.selected[i].id);
                     }
-                } else {
+                } else if(this.formData.scope) {
                     delete this.formData.scope.id;
                     delete this.formData.scopingCriteriaEnum;
                     delete this.formData.scope.allowedValues;
