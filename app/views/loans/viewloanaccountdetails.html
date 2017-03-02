@@ -215,7 +215,7 @@
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
+                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="(restrictedGlimFunctionality.indexOf(button.taskPermissionName)>-1) && isGlim">
                           <a ng-show="((button.name && !isGlim) || ((button.taskPermissionName !='CREATE_LOANCHARGE') && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |

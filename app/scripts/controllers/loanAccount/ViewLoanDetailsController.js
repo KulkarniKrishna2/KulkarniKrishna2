@@ -15,6 +15,7 @@
             scope.revokeSubsidyTransactionTypeId = 51;
             scope.glimClientsDetails = [];
             scope.isGlim = false;
+            scope.restrictedGlimFunctionality = ['RECOVERYPAYMENT_LOAN','REFUND_LOAN','CREATE_ACCOUNTTRANSFER'];
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
             scope.isGlimTabActive = false;
             scope.futurePeriods = [];
