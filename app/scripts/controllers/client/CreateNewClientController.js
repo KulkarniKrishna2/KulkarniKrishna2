@@ -36,6 +36,7 @@
             scope.restrictDate = new Date();
             scope.isDateOfBirthMandatory = false;
             scope.enableCreateClientLoop = false;
+            scope.isClientActive = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -99,6 +100,14 @@
 
                 if(scope.genderOptions[0]) {
                     scope.formData.genderId = scope.genderOptions[0].id;
+                }
+                if(scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
+                     scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                     scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                    scope.choice = 1;
+                }else{
+                    scope.choice = 0;
+
                 }
                 scope.formData.dateOfBirth = scope.dateOfBirth;
                 scope.formData.clientClassificationId = scope.clientClassificationId;

@@ -82,7 +82,8 @@
     "createClient": {
       "isReadOnlyField": {
         "staff": false,
-        "pincode": false
+        "pincode": false,
+        "active":true
       },
       "isValidateDOBField": {
         "active": false,
