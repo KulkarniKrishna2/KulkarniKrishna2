@@ -5392,6 +5392,7 @@
     "error.msg.not.excel.file." : "CPIF File is not Excel file.",
     "label.input.disbursementchannel": "Disbursement Channel",
     "label.heading.disbursementchannel": "Disbursement Channel",
+    "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan" : "Loan transaction before last transaction is not allowed for glim loan",
 
     "------ end of tensalation file":"---------"
 }
