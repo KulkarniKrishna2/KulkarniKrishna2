@@ -6,7 +6,17 @@
 
             resourceFactory.familyDetails.getAll({clientId: scope.clientId}, function (data) {
                 scope.familyMembers = data;
+                scope.checkIfFamilyMemberIsExitingCustomer(scope.familyMembers);
             });
+
+            scope.checkIfFamilyMemberIsExitingCustomer = function(familyMembers){
+                for(var i in familyMembers){
+                    familyMembers[i].isExistingCustomer = false;
+                    if(familyMembers[i].clientReference){
+                        familyMembers[i].isExistingCustomer = true;
+                    }
+                }
+            }
 
             scope.routeTo = function (id) {
                 location.path('/clients/' + scope.clientId + '/viewfamilydetails/' + id);
@@ -30,6 +40,13 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+             scope.routeToClientDetails = function (familyMember) {
+                if( familyMember.clientReference ){
+                    location.path('/viewclient/' + familyMember.clientReference);
+                }
+            };
+
             scope.deleteFamilyDetail = function (id) {
                 $modal.open({
                     templateUrl: 'deletefamilydetail.html',

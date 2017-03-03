@@ -9,10 +9,53 @@
         <api-validate></api-validate>
         <div class="clearfix"></div>
 
+        <script type="text/ng-template" id="removeFamilyMemberAssociation.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.remove.association' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+
         <form name="" novalidate="" class="form-horizontal well"
               rc-submit="submit()">
             <fieldset>
                 <legend>{{'label.anchor.edit.familymember' | translate}}</legend>
+                <div class="form-group" ng-show="isExisitingClient == true">
+                    <div class="col-sm-2 col-md-2">
+                        <h3 class="bolder" ng-click="routeTo()"> <a>{{formData.firstname}} {{formData.lastname}} </a></h3>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <button  type="button" class="btn angled-btn btn-primary" data-ng-click="removeAssociation()">
+                            {{ 'label.button.remove.association' | translate }} 
+                        </button>
+                        </div>
+                </div>
+                <div class="form-group" ng-show="isExisitingClient == false">
+                    <div class="col-sm-4 col-md-4">
+                        <input id="isExistingClient" type="checkbox" ng-model="showOrHideSearch" ng-click="showOrHideSearch()"> {{
+                        'label.input.isExisiting.client' | translate }}
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showOrHideSearch == true">
+                     <label class="control-label col-sm-2">{{ 'label.input.searchformember' | translate }}</label>
+                        <div class="col-sm-4 col-md-4">
+                            <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                                   typeahead-min-length="1"
+                                   typeahead-editable="false"
+                                   typeahead="client as client.entityName for client in clientOptions($viewValue)"
+                                   typeahead-on-select="viewClient(available)"/>
+                        </div>
+                        <div class="col-sm-1 col-md-1">
+                            <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                {{ 'label.button.add' | translate }} 
+                                <i class="icon-double-angle-right"></i></button>
+                        </div>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
