@@ -5626,6 +5626,7 @@
     "label.input.fundloanpurpose" : "Fund Loan Purpose",
     "label.heading.percentageloanpurpose" : "% Loan Purpose",
     "label.heading.fundloanpurpose" :  "Fund Loan Purpose",
+    "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan" : "Loan transaction before last transaction is not allowed for glim loan",
 
     "------ end of tensalation file":"---------"
 }
