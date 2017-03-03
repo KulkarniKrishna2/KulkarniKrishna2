@@ -74,6 +74,7 @@
                             scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                             scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                             scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
+                            delete scope.formData.loanEMIPackId;
                         }
 
                         scope.formData.termFrequency = (scope.loanaccountinfo.repaymentEvery * scope.loanaccountinfo.numberOfRepayments);
@@ -106,6 +107,7 @@
                             scope.formData.repaymentPeriodFrequencyEnum = scope.applicationData.repaymentPeriodFrequency.id;
                             scope.formData.repayEvery = scope.applicationData.repayEvery;
                             scope.formData.fixedEmiAmount = scope.applicationData.fixedEmiAmount;
+                            delete scope.formData.loanEMIPackId;
                         }
                         scope.formData.externalIdOne = scope.applicationData.externalIdOne;
                         scope.formData.externalIdTwo = scope.applicationData.externalIdTwo;
