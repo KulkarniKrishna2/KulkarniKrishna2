@@ -752,9 +752,11 @@
                         if (scope.isGLIM && scope.action == "modifytransaction") {
                             scope.constructGlimClientMembersData();
                         }
-                        scope.constructGlimTransactions(scope.formData.glimTransactions);
-                        scope.formData.clientMembers = scope.glimTransactions;
-                        delete scope.formData.glimTransactions;
+                        if (scope.isGLIM){
+                            scope.constructGlimTransactions(scope.formData.glimTransactions);
+                            scope.formData.clientMembers = scope.glimTransactions;
+                            delete scope.formData.glimTransactions;
+                        }
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
                         });

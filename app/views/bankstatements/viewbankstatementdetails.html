@@ -143,7 +143,7 @@
                 </thead>
                 <tbody>
                 <tr style="height:60px;cursor: pointer;">
-                    <td class="pointer">{{bankStatementDetails[searchIndex].transactionDate}}</td>
+                    <td class="pointer">{{bankStatementDetails[searchIndex].transactionDate}} </td>
                     <td class="pointer">{{bankStatementDetails[searchIndex].transactionType }}</td>
                     <td class="pointer">{{bankStatementDetails[searchIndex].amount}}</td>
                     <td class="pointer">{{bankStatementDetails[searchIndex].groupExternalId}}</td>
@@ -172,7 +172,7 @@
                         <input ng-value="isChecked(loanTransactionData.id)" ng-hide="isChecked(loanTransactionData.id)" ng-click="selectedSearchTransaction(searchIndex,loanTransactionData,false)" type="radio" name="{{bankStatementDetail.id}}">
                         <a class="btn btn-primary" role="button" ng-show="isChecked(loanTransactionData.id)"><i class="icon-check icon-white"></i></a>
                     </td>
-                    <td>{{loanTransactionData.date | DateFormat}}</td>
+                    <td>{{loanTransactionData.date.iLocalMillis | DateFormat}}</td>
                     <td>{{loanTransactionData.amount}}</td>
                     <td>{{loanTransactionData.amount}}</td>
                     <td>{{loanTransactionData.groupExternalId}}</td>
