@@ -63,6 +63,7 @@
                         scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                         scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                         scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
+                        delete scope.formData.loanEMIPackId;
                     }
                     if( scope.loanaccountinfo.paymentOptions){
                         scope.paymentOptions = scope.loanaccountinfo.paymentOptions;
