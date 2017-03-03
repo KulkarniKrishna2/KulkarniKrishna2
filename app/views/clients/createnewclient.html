@@ -387,7 +387,8 @@
 	            <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
 
 	            <div class="col-sm-3">
-	                    <input id="activeCheckbox" type="checkbox" ng-model="formData.active" data-ng-change="setChoice()">
+	                     <input id="activeCheckbox" type="checkbox" ng-model="formData.active" data-ng-change="setChoice()"
+                           ng-disabled = "isClientActive" ng-checked = "isClientActive">
 	            </div>
 		        <div data-ng-switch on="choice">
 		            <div data-ng-switch-when="1">
