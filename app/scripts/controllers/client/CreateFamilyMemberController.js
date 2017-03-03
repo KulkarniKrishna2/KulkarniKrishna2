@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateFamilyMemberController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
+        CreateFamilyMemberController: function ($q,scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
 
             scope.clientId = routeParams.clientId;
             scope.salutationOptions = [];
@@ -9,6 +9,8 @@
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
+            scope.isExisitingClient = false;
+            scope.formData = {};
 
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;
@@ -44,9 +46,64 @@
                     location.path('/listfamilydetails/' + scope.clientId)
                 });
             };
+
+            scope.viewClient = function (item) {
+                scope.client = item;
+            };
+
+            scope.showOrHideSearch = function(){
+                if(scope.isExisitingClient){
+                    scope.isExisitingClient = false;
+                } else {
+                    scope.isExisitingClient = true;
+                }
+            }
+
+             scope.clientOptions = function(value){
+                var deferred = $q.defer();
+                resourceFactory.globalSearch.search({query: value, resource: 'clients', exactMatch: routeParams.exactMatch,
+                orderBy : 'displayName',
+                sortOrder : 'ASC',
+                limit:200}, function (data) {
+                    for (var i in data){
+                        if( data[i].entityId == scope.clientId){
+                            data.splice(i,1);
+                            break;
+                        }
+                    }
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            };
+
+             scope.add = function () {
+                if(scope.available != ""){
+                    scope.getClientDetails(scope.available.entityId);
+                }
+            };
+
+            scope.getClientDetails = function (clientId) {
+                scope.selected = clientId;
+                resourceFactory.clientResource.get({clientId: clientId}, function (data) {
+                    if (data){
+                        scope.client = data;
+                        scope.formData.firstname = data.firstname;
+                        scope.formData.lastname = data.lastname;
+                        scope.formData.clientReference = data.id;
+                        scope.genderId = data.gender.id;
+                        if(data.dateOfBirth.length > 0){
+                            var dateOfBirth= dateFilter(new Date(data.dateOfBirth), scope.df);
+                            scope.formData.dateOfBirth  = dateOfBirth;
+                            var age = Math.floor((new Date() - new Date(dateOfBirth)) / (31557600000));
+                            scope.formData.age = age;
+                        }
+                    }
+                });
+            };
+
         }
     });
-    mifosX.ng.application.controller('CreateFamilyMemberController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.CreateFamilyMemberController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateFamilyMemberController', ['$q','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.CreateFamilyMemberController]).run(function ($log) {
         $log.info("CreateFamilyMemberController initialized");
     });
 

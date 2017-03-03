@@ -13,6 +13,27 @@
               rc-submit="submit()">
             <fieldset>
                 <legend>{{'label.view.add.familymember' | translate}}</legend>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-4">
+                        <input id="isExistingClient" type="checkbox" ng-model="isExisitingClient" ng-click="showOrHideSearch()"> {{
+                        'label.input.isExisiting.client' | translate }}
+                    </div>
+                </div>
+                <div class="form-group" ng-show="isExisitingClient == true">
+                    <label class="control-label col-sm-2">{{ 'label.input.searchformember' | translate }}</label>
+                        <div class="col-sm-4 col-md-4">
+                            <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                                   typeahead-min-length="1"
+                                   typeahead-editable="false"
+                                   typeahead="client as client.entityName for client in clientOptions($viewValue)"
+                                   typeahead-on-select="viewClient(available)"/>
+                        </div>
+                        <div class="col-sm-1 col-md-1">
+                            <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                {{ 'label.button.add' | translate }} 
+                                <i class="icon-double-angle-right"></i></button>
+                        </div>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
@@ -161,7 +182,6 @@
                         <form-validate valattributeform="createFamilyDetails" valattribute="education"/>
                     </div>
                 </div>
-
 
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/listfamilydetails/{{clientId}}" class="btn btn-default">{{'label.button.cancel'

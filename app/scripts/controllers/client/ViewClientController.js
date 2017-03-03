@@ -1023,11 +1023,27 @@
             scope.familyDetails = function(){
                 resourceFactory.familyDetails.getAll({clientId: routeParams.id}, function (data) {
                     scope.familyMembers = data;
+                    scope.checkIfFamilyMemberIsExitingCustomer(scope.familyMembers);
                 });
             };
 
+            scope.checkIfFamilyMemberIsExitingCustomer = function(familyMembers){
+                for(var i in familyMembers){
+                    familyMembers[i].isExistingCustomer = false;
+                    if(familyMembers[i].clientReference){
+                        familyMembers[i].isExistingCustomer = true;
+                    }
+                }
+            }
+
             scope.routeTo = function (id) {
                 location.path('/clients/' + routeParams.id + '/viewfamilydetails/' + id);
+            };
+
+            scope.routeToClientDetails = function (familyMember) {
+                if( familyMember.clientReference ){
+                    location.path('/viewclient/' + familyMember.clientReference);
+                }
             };
 
             scope.showEdit = function (id) {

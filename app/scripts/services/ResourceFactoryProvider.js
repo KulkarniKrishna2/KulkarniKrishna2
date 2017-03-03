@@ -908,10 +908,10 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-                    familyDetails: defineResource(apiVer + "/clients/:clientId/familydetails/:familyDetailId", {clientId:'@clientId', familyDetailId:'@familyDetailId'}, {
+                    familyDetails: defineResource(apiVer + "/clients/:clientId/familydetails/:familyDetailId", {clientId:'@clientId', familyDetailId:'@familyDetailId', command:'@command'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET', params: {}},
-                        update: {method: 'PUT', params: {}},
+                        update: {method: 'PUT', params: {command:'@command'}},
                         delete: {method: 'DELETE', params: {}}
                     }),
                     incomeExpenseAndHouseHoldExpense: defineResource(apiVer + "/clients/:clientId/incomesandexpenses/:incomeAndExpenseId", {clientId:'@clientId', incomeAndExpenseId:'@incomeAndExpenseId'}, {

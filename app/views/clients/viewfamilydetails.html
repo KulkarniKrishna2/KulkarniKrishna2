@@ -17,6 +17,8 @@
             </div>
             <h3 class="bolder">{{'label.anchor.viewfamilymember' | translate}} </h3>
 
+            <h3 class="bolder" ng-show="isFamilyMemberExistingCustomer" ng-click="routeTo()"> <a>{{familyDetail.firstname}} {{familyDetail.lastname}} </a></h3>
+
             <div class="row">
                 <div class="col-md-5">
                     <table class="table table-bordered table-striped">

@@ -1023,6 +1023,7 @@
 					<th>{{ 'label.heading.medical.condition' | translate }}</th>
 					<th>{{ 'label.heading.occupation' | translate }}</th>
 					<th>{{ 'label.heading.deceased' | translate }}</th>
+					<th>{{ 'label.heading.existing.customer' | translate }}</th>
 
 					<th></th>
 				</tr>
@@ -1050,6 +1051,10 @@
 					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isDeceased == true ?
 						'Yes' : 'No'}}
 					</td>
+					<td class="pointer" data-ng-click="routeToClientDetails(familyMember)"><a>{{familyMember.isExistingCustomer == true ?
+						('label.heading.client.information' | translate): ''}} </a>
+					</td>
+
 					<td class="pull-right">
 						<button role="button" ng-click="showEdit(familyMember.id)" class="btn-link ng-binding">
 							<i class="icon-edit icon-white"></i>

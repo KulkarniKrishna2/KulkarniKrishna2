@@ -5160,6 +5160,9 @@
     "label.heading.education":"Education",
     "label.heading.output":"Output",
     "label.heading.loanAmount":"Loan Amount",
+    "label.heading.existing.customer":"Existing Customer?",
+    "label.heading.client.information":"View Client Info",
+    "label.heading.remove.association":"Remove Association",
 
     "label.view.familymembersumary":"Family Member Summary",
     "label.view.add.familymember":"Add Family Member Details",
@@ -5179,10 +5182,12 @@
     "label.input.sub.occupation":"Sub Occupation",
     "label.input.education":"Education",
     "label.input.addbucket":"Add a Bucket",
+    "label.input.isExisiting.client":"Exsisting Client",
 
     "label.button.skip":"Skip",
     "label.button.next":"Next",
     "label.button.create.familymembers":"Add Family Member Details",
+    "label.button.remove.association":"Remove Association",
 
     "Client income and cashflow":"......",
 
