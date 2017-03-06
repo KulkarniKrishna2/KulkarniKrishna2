@@ -234,6 +234,10 @@
                             scope.showEMIAmountField = true;
                         }
                     });
+                    scope.showdiscountOnDisburse = false;
+                    if(routeParams.type && routeParams.type == 'flatinterest'){
+                        scope.showdiscountOnDisburse = true;
+                    }
                     scope.title = 'label.heading.disburseloanaccount';
                     scope.labelName = 'label.input.disbursedondate';
                     scope.isTransaction = true;
