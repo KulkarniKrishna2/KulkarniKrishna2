@@ -314,7 +314,7 @@
     <td colspan="3">{{loanproduct.canUseForTopup | YesOrNo}}</td>
 </tr>
 
-<tr>
+<tr ng-show="loanproduct.isFlatInterestRate">
     <td>{{'label.input.collectInterestUpfront' | translate}}</td>
     <td colspan="3">{{loanproduct.collectInterestUpfront | YesOrNo}}</td>
 </tr>
