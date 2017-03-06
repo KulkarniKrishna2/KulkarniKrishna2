@@ -3498,6 +3498,7 @@
     "label.input.issubsidyapplicable": "Is Subsidy Applicable?",
     "label.input.variableinstallments": "Variable Installments",
     "label.input.canUseForTopup": "Is allowed to be used for providing Topup Loans?",
+    "label.input.collectInterestUpfront": "Collect Interest Upfront",
     "label.input.minimumgap": "Minimum gap between Installments",
     "label.input.maximumgap": "Maximum gap between Installments",
     "label.input.minimuminstallmentamount": "Minimum Installment Amount",

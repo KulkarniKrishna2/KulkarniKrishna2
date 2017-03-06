@@ -322,6 +322,7 @@
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
                 scope.formData.canUseForTopup = scope.product.canUseForTopup;
+                scope.formData.collectInterestUpfront = scope.product.collectInterestUpfront;
             });
             scope.variableName = function (minDurationType) {
                 if (minDurationType == 1) {
