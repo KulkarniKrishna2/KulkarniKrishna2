@@ -25,7 +25,9 @@
 		"recurringMoratoriumOnPrincipalPeriods": false
 	  },
 	  "isMandatory": {
-		"externalId": false
+		"externalId": false,
+		"repaymentsStartingFromDate": false,
+		"loanPurposeId": false
 	  },
 	  "isHiddenSection": {
 		"interestRecalculationSection": false,
@@ -52,16 +54,12 @@
 		"considerFutureDisbursmentsInSchedule": true,
 		"fundId": "",
 		"paymentTypeId": ""
-	  },
-	  "isMandatory": {
-		"repaymentsStartingFromDate": false,
-		"loanPurposeId": false
 	  }
 	},
 	"viewLoanAccountDetails": {
 	  "isHiddenFeild": {
 		"viewReportButton": false,
-		"editTranches": false
+        "editTranches": false
 	  }
 	},
 	"collectionSheet": {
@@ -143,11 +141,6 @@
 	  },
 	  "isHiddenField": {
 		"villageCode": false
-	  }
-	},
-	"viewLoanAccountDetails": {
-	  "isHiddenFeild": {
-		"viewReportButton": false
 	  }
 	},
 	"clientIdentifier": {
