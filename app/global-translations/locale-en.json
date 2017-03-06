@@ -2308,6 +2308,7 @@
     "label.input.annualfeetransactiondate": "Annual fee transaction date",
     "label.input.closedon": "Closed on",
     "label.input.transactionamount": "Transaction amount",
+    "label.input.discountondisbursalamount": "Discount on Disbursal amount",
     "label.input.subsidyamountreleased": "Subsidy Amount Released",
     "label.input.withdrawBalance":"Withdraw Balance",
     "label.input.postInterestValidationOnClosure":"Is Interest Posting required  on closure date?",

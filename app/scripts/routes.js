@@ -194,6 +194,9 @@
             .when('/loanaccount/:id/:action', {
                 templateUrl: 'views/loans/loanaccountactions.html'
             })
+            .when('/loanaccount/:id/:action/type/:type', {
+                templateUrl: 'views/loans/loanaccountactions.html'
+            })
             .when('/loanaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/loans/loanaccountactions.html'
             })
