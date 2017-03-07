@@ -428,6 +428,78 @@
                                 scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
                             }
                         }
+
+                    }
+                }
+            });
+
+            scope.$watch('formRequestData.repaymentsStartingFromDate', function () {
+                if(scope.formRequestData.loanEMIPackId){
+                    if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0){
+                        var len = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
+                        for(var i = 0; i < len ; i++){
+                            if(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate){
+                                delete scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate;
+                            }
+                        }
+                    }
+                    var len = scope.loanaccountinfo.loanEMIPacks.length;
+                    var loanEMIPack = {};
+                    for(var i=0; i < len; i++){
+                        if(scope.loanaccountinfo.loanEMIPacks[i].id === scope.formRequestData.loanEMIPackId){
+                            loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
+                            break;
+                        }
+                    }
+                    var disbursalEMIs = [0];
+                    if(loanEMIPack.disbursalAmount2){
+                        disbursalEMIs.push(loanEMIPack.disbursalEmi2)
+                    }
+                    if(loanEMIPack.disbursalAmount3){
+                        disbursalEMIs.push(loanEMIPack.disbursalEmi3)
+                    }
+                    if(loanEMIPack.disbursalAmount4){
+                        disbursalEMIs.push(loanEMIPack.disbursalEmi4)
+                    }
+                    if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
+                        if (scope.formRequestData.repaymentsStartingFromDate != undefined && scope.formRequestData.repaymentsStartingFromDate != '') {
+                            var dateValue = scope.formRequestData.repaymentsStartingFromDate;
+                            var date = new Date(dateValue);
+                            if (date.toString() != 'Invalid Date') {
+                                var len = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
+                                for(var i=0; i < len; i++){
+                                    var emiPackNumber = disbursalEMIs[i];
+                                    if(disbursalEMIs[i] != 0){
+                                        emiPackNumber = disbursalEMIs[i] - 1;
+                                    }else{
+                                        if (scope.formRequestData.expectedDisbursementDate != undefined && scope.formRequestData.expectedDisbursementDate != '') {
+                                            dateValue = scope.formRequestData.expectedDisbursementDate;
+                                            date = new Date(dateValue);
+                                        }
+                                    }
+                                    if(scope.formRequestData.repaymentPeriodFrequencyEnum === 0){
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery)*emiPackNumber));
+                                    }else if(scope.formRequestData.repaymentPeriodFrequencyEnum === 1){
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery)*7*emiPackNumber));
+                                    }else if(scope.formRequestData.repaymentPeriodFrequencyEnum === 2){
+                                        date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery)*emiPackNumber));
+                                    }
+                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    dateValue = scope.formRequestData.repaymentsStartingFromDate;
+                                    date = new Date(dateValue);
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas[0]) {
+                        if (scope.formRequestData.expectedDisbursementDate != undefined && scope.formRequestData.expectedDisbursementDate != '') {
+                            var dateValue = scope.formRequestData.expectedDisbursementDate;
+                            if ((new Date(dateValue)).toString() != 'Invalid Date') {
+                                scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
+                            }
+                        }
+
                     }
                 }
             });
