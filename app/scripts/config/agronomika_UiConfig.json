@@ -158,11 +158,12 @@
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":true
     }
-  },
+ ,
   "reportParameterConfiguration": {
     "datePicker": {
       "reportNames": "",
       "restrictedDate":""
     }
   }
+}
 }
