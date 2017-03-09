@@ -206,29 +206,29 @@
         <table class="width100" ng-show="hasAccounting">
             <tr class="toppadding">
                 <td>{{'label.heading.savingsreference' | translate}}({{'label.heading.assets' | translate}})</td>
-                <td colspan="3">{{depositproduct.accountingMappings.savingsReferenceAccount.name}}</td>
+                <td colspan="3">{{depositproduct.accountingMappings.savingsReferenceAccount.name}}({{depositproduct.accountingMappings.savingsReferenceAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.savingscontrol' | translate}}({{'label.heading.liabilities' | translate}})</td>
-                <td colspan="3">{{depositproduct.accountingMappings.savingsControlAccount.name}}</td>
+                <td colspan="3">{{depositproduct.accountingMappings.savingsControlAccount.name}}({{depositproduct.accountingMappings.savingsControlAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.transfersinsuspenpense' | translate}}({{'label.heading.liabilities' |
                     translate}})
                 </td>
-                <td colspan="3">{{depositproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+                <td colspan="3">{{depositproduct.accountingMappings.transfersInSuspenseAccount.name}}({{depositproduct.accountingMappings.transfersInSuspenseAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' | translate}})</td>
-                <td colspan="3">{{depositproduct.accountingMappings.interestOnSavingsAccount.name}}</td>
+                <td colspan="3">{{depositproduct.accountingMappings.interestOnSavingsAccount.name}}({{depositproduct.accountingMappings.interestOnSavingsAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.incomefromfee' | translate}}({{'label.heading.income' | translate}})</td>
-                <td colspan="3">{{depositproduct.accountingMappings.incomeFromFeeAccount.name}}</td>
+                <td colspan="3">{{depositproduct.accountingMappings.incomeFromFeeAccount.name}}({{depositproduct.accountingMappings.incomeFromFeeAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.incomefrompenalties' | translate}}({{'label.heading.income' | translate}})</td>
-                <td colspan="3">{{depositproduct.accountingMappings.incomeFromPenaltyAccount.name}}</td>
+                <td colspan="3">{{depositproduct.accountingMappings.incomeFromPenaltyAccount.name}}({{depositproduct.accountingMappings.incomeFromPenaltyAccount.glCode}})</td>
             </tr>
 
             <tr>
@@ -249,7 +249,7 @@
             </tr>
             <tr ng-repeat="paymentChannel in depositproduct.paymentChannelToFundSourceMappings">
                 <td>{{paymentChannel.paymentType.name}}</td>
-                <td colspan="3">{{paymentChannel.fundSourceAccount.name}}</td>
+                <td colspan="3">{{paymentChannel.fundSourceAccount.name}}({{paymentChannel.fundSourceAccount.glCode}})</td>
             </tr>
             <tr>
                 <td colspan="4"></td>
@@ -263,7 +263,7 @@
             </tr>
             <tr ng-repeat="feeToIncomeAccount in depositproduct.feeToIncomeAccountMappings">
                 <td>{{feeToIncomeAccount.charge.name}}</td>
-                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}</td>
+                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}({{feeToIncomeAccount.incomeAccount.glCode}})</td>
             </tr>
             <tr>
                 <td colspan="4"></td>
@@ -277,7 +277,7 @@
             </tr>
             <tr ng-repeat="penaltyToIncomeAccount in depositproduct.penaltyToIncomeAccountMappings">
                 <td>{{penaltyToIncomeAccount.charge.name}}</td>
-                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}</td>
+                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}({{penaltyToIncomeAccount.incomeAccount.glCode}})</td>
             </tr>
 
         </table>

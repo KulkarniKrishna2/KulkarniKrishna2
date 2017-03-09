@@ -544,59 +544,59 @@
         <table width="100%" ng-show="isAccountingEnabled">
             <tr class="toppadding">
                 <td>{{'label.heading.fundsource' | translate}}:</td>
-                <td colspan="3" width="40%">{{loanproduct.accountingMappings.fundSourceAccount.name}}</td>
+                <td colspan="3" width="40%">{{loanproduct.accountingMappings.fundSourceAccount.name}}({{loanproduct.accountingMappings.fundSourceAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.loanportfolio' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.loanPortfolioAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.loanPortfolioAccount.name}}({{loanproduct.accountingMappings.loanPortfolioAccount.glCode}})</td>
             </tr>
             <tr ng-show="isAccrualAccountingEnabled">
                 <td>{{'label.heading.receivableinterest' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.receivableInterestAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.receivableInterestAccount.name}}({{loanproduct.accountingMappings.receivableInterestAccount.glCode}})</td>
             </tr>
             <tr ng-show="isAccrualAccountingEnabled">
                 <td>{{'label.heading.receivablefees' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.receivableFeeAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.receivableFeeAccount.name}}({{loanproduct.accountingMappings.receivableFeeAccount.glCode}})</td>
             </tr>
             <tr ng-show="isAccrualAccountingEnabled">
                 <td>{{'label.heading.receivablepenalties' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.receivablePenaltyAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.receivablePenaltyAccount.name}}({{loanproduct.accountingMappings.receivablePenaltyAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.transfersinsuspenpense' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.transfersInSuspenseAccount.name}}({{loanproduct.accountingMappings.transfersInSuspenseAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.incomefrominterest' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.interestOnLoanAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.interestOnLoanAccount.name}}({{loanproduct.accountingMappings.interestOnLoanAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.incomefromfees' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.incomeFromFeeAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.incomeFromFeeAccount.name}}({{loanproduct.accountingMappings.incomeFromFeeAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.incomefrompenalties' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.incomeFromPenaltyAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.incomeFromPenaltyAccount.name}}({{loanproduct.accountingMappings.incomeFromPenaltyAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.recoverypayments' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.incomeFromRecoveryAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.incomeFromRecoveryAccount.name}}({{loanproduct.accountingMappings.incomeFromRecoveryAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.loseswrittenoff' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.writeOffAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.writeOffAccount.name}}({{loanproduct.accountingMappings.writeOffAccount.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.overpaymentliability' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.overpaymentLiabilityAccount.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.overpaymentLiabilityAccount.name}}({{loanproduct.accountingMappings.overpaymentLiabilityAccount.glCode}})</td>
             </tr>
             <tr ng-show="loanproduct.accountingMappings.subsidyFundSourceId ">
                 <td>{{'label.input.subsidyFundSource' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.subsidyFundSourceId.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.subsidyFundSourceId.name}}({{loanproduct.accountingMappings.subsidyFundSourceId.glCode}})</td>
             </tr>
             <tr ng-show="loanproduct.accountingMappings.subsidyAccountId">
                 <td>{{'label.input.subsidyAccount' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.subsidyAccountId.name}}</td>
+                <td colspan="3">{{loanproduct.accountingMappings.subsidyAccountId.name}}({{loanproduct.accountingMappings.subsidyAccountId.glCode}})</td>
             </tr>
             <tr>
                 <td colspan="3"><br/></td>
@@ -615,7 +615,7 @@
             </tr>
             <tr ng-repeat="paymentChannel in loanproduct.paymentChannelToFundSourceMappings">
                 <td>{{paymentChannel.paymentType.name}}</td>
-                <td colspan="3">{{paymentChannel.fundSourceAccount.name}}</td>
+                <td colspan="3">{{paymentChannel.fundSourceAccount.name}}({{paymentChannel.fundSourceAccount.glCode}})</td>
             </tr>
             <tr>
                 <td colspan="4"></td>
@@ -629,7 +629,7 @@
             </tr>
             <tr ng-repeat="feeToIncomeAccount in loanproduct.feeToIncomeAccountMappings">
                 <td>{{feeToIncomeAccount.charge.name}}</td>
-                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}</td>
+                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}({{feeToIncomeAccount.incomeAccount.glCode}})</td>
             </tr>
             <tr>
                 <td colspan="4"></td>
@@ -643,7 +643,7 @@
             </tr>
             <tr ng-repeat="penaltyToIncomeAccount in loanproduct.penaltyToIncomeAccountMappings">
                 <td>{{penaltyToIncomeAccount.charge.name}}</td>
-                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}</td>
+                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}({{penaltyToIncomeAccount.incomeAccount.glCode}})</td>
             </tr>
 
 
@@ -659,7 +659,7 @@
             </tr>
             <tr ng-repeat="codeValueToAccountMapping in loanproduct.codeValueToGLAccountMappings">
                 <td>{{codeValueToAccountMapping.codeValue.name}}</td>
-                <td colspan="3">{{codeValueToAccountMapping.expenseAccount.name}}</td>
+                <td colspan="3">{{codeValueToAccountMapping.expenseAccount.name}}({{codeValueToAccountMapping.expenseAccount.glCode}})</td>
             </tr>
         </table>
     </td>
