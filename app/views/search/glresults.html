@@ -2,56 +2,110 @@
 <div class="row-fluid">
 <label ng-show="showMsg" class="error"><strong>{{'label.search.query.matched.results.exceeds.max.length' |
     translate}}</strong></label>
+		<div class="clearfix"></div>
+		<form  class="form-horizontal">
 
-<div class="span5">
-    <div ng-repeat="result in searchResults">
-        <div class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}">
-            <span ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'">
-                <a href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
-            </span>
-            <span ng-show="result.entityType  == 'CLIENT'">
-                <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
-            </span>
-            <span ng-show="result.entityType  == 'GROUP'">
-                <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
-            </span>
-            <span ng-show="result.entityType  == 'CENTER'">
-                <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
-            </span>
-            <span ng-show="result.entityType  == 'CLIENTIDENTIFIER'">
-                <a href="#/viewclient/{{result.parentId}}">{{result.entityName}}</a>&nbsp;</a>
-            </span>
-            <span ng-show="result.entityType  == 'CLIENT'">
-              <a ng-click="getClientDetails(result.entityId)"
-                 title="{{'label.input.additionalinformation'| translate}}"><i class="icon-zoom-in"></i></a>
-            </span>
-            <span ng-show="result.entityType  == 'GROUP'">
-              <a ng-click="getGroupDetails(result.entityId)" title="{{'label.input.additionalinformation'| translate}}"><i
-                      class="icon-zoom-in"></i></a>
-            </span>
-            <span ng-show="result.entityType  == 'CENTER'">
-              <a ng-click="getCenterDetails(result.entityId)"
-                 title="{{'label.input.additionalinformation'| translate}}"><i class="icon-zoom-in"></i></a>
-            </span>
-            <br>
-            <span data-ng-show="result.entityType  == 'CLIENT' ||result.entityType  == 'GROUP' || result.entityType  == 'CENTER' "><strong>{{'label.heading.entity'
-                | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{ 'label.heading.office' | translate
-                }}</strong>:{{result.parentName}}&nbsp;<a ng-show="result.groupName!=null">|</a>&nbsp;<strong ng-show="result.groupName!=null">{{'label.heading.group' | translate}}</strong><a ng-show="result.groupName!=null">:</a>{{result.groupName}}&nbsp;<a ng-show="result.centerName!=null">|</a>&nbsp;<strong ng-show="result.centerName!=null">{{'label.heading.center' | translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}
-            |&nbsp;<strong>{{'label.heading.status' | translate}}</strong>:{{result.entityStatus.value}}
-            <strong ng-show="result.reason!= null">&nbsp;|&nbsp;{{'label.heading.reason' | translate}}</strong><a ng-show="result.reason!=null">:</a>{{result.reason.name}}</span>
-            <span data-ng-show="result.entityType  == 'CLIENTIDENTIFIER'"><strong>{{'label.heading.entity' |
-                translate}}</strong>:{{'label.heading.clientid' | translate}}&nbsp;|&nbsp;<strong>{{
-                'label.heading.client' | translate }}</strong>:{{result.parentName}}&nbsp;<a ng-show="result.groupName!=null">|</a>&nbsp;<strong>{{'label.heading.group' | translate}}</strong><a ng-show="result.groupName!=null">:</a>{{result.groupName}}&nbsp;<a ng-show="result.centerName!=null">|</a>&nbsp;<strong>{{'label.heading.center' | translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}
-            |&nbsp;<strong>{{'label.heading.status' | translate}}</strong>:{{result.entityStatus.value}}
-            <strong ng-show="result.reason!= null">&nbsp;|&nbsp;{{'label.heading.reason' | translate}}</strong><a ng-show="result.reason!=null">:</a>{{result.reason.name}}</span>
-            <span data-ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'"><strong>{{'label.heading.entity' | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
-                'label.heading.' + result.parentType | translate }}</strong>:{{result.parentName}}&nbsp;<a ng-show="result.officeName!=null">|</a>&nbsp;<strong ng-show="result.officeName!=null">{{'label.heading.office' | translate}}</strong><a ng-show="result.officeName!=null">:</a>{{result.officeName}}&nbsp;<a ng-show="result.groupName!=null">|</a>&nbsp;<strong ng-show="result.groupName!=null">{{'label.heading.group' | translate}}</strong><a ng-show="result.groupName!=null">:</a>{{result.groupName}}&nbsp;<a ng-show="result.centerName!=null">|</a>&nbsp;<strong ng-show="result.centerName!=null">{{'label.heading.center' | translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}</span>
-            <span><br/></span>
-        </div>
-    </div>
-</div>
-<h3 data-ng-show="flag" style="position: absolute;top: 40%;left: 30%;"><strong>{{ 'label.nodatafound' | translate
-    }}</strong></h3>
+			<div class="form-group">
+				<div class="row">
+					<label class="control-label col-sm-2">{{
+						'label.input.searchforclient' | translate }} <span>:</span>
+					</label>
+					<div class="col-sm-3">
+						<input ng-autofocus="true" ng-model="searchText" type="text"
+							class="form-control"
+							placeholder="{{'label.input.filterbyname' | translate}}">
+					</div>
+					<div class="col-sm-3">
+						<select chosen="offices" id="officeId" ng-model="officeId"
+							name="office" class="chzn-select-deselect form-control"
+							ng-options="office.id as office.name for office in offices"
+							value="{{office.id}}" ng-change="officeSelected(officeId)"
+							required>
+							<option value="">{{'label.selectoffice' | translate}}</option>
+						</select>
+						<div ng-show="forceOffice != null">
+							<p class="form-control-static">{{forceOffice.name}}</p>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<span class="input-group-btn">
+							<button class="btn btn-primary form-control" ng-click="search()">
+								<span class="icon-search"> <label>{{
+										'label.button.search' | translate }}</label>
+								</span>
+
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="span5">
+			<div ng-repeat="result in searchResults">
+				<div class="blockquoteresult"
+					ng-class="{grbgcolor: result.entityId == selected}">
+					<span
+						ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'">
+						<a
+						href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
+
+					</span> <span ng-show="result.entityType  == 'CLIENT'"> <a
+						href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
+
+					</span> <span ng-show="result.entityType  == 'GROUP'"> <a
+						href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
+					</span> <span ng-show="result.entityType  == 'CENTER'"> <a
+						href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
+					</span> <span ng-show="result.entityType  == 'CLIENTIDENTIFIER'"> <a
+						href="#/viewclient/{{result.parentId}}">{{result.entityName}}</a>&nbsp;</a>
+					</span> <span ng-show="result.entityType  == 'CLIENT'"> <a
+						ng-click="getClientDetails(result.entityId)"
+						title="{{'label.input.additionalinformation'| translate}}"><i
+							class="icon-zoom-in"></i></a>
+					</span> <span ng-show="result.entityType  == 'GROUP'"> <a
+						ng-click="getGroupDetails(result.entityId)"
+						title="{{'label.input.additionalinformation'| translate}}"><i
+							class="icon-zoom-in"></i></a>
+					</span> <span ng-show="result.entityType  == 'CENTER'"> <a
+						ng-click="getCenterDetails(result.entityId)"
+						title="{{'label.input.additionalinformation'| translate}}"><i
+							class="icon-zoom-in"></i></a>
+					</span> <br> <span
+						data-ng-show="result.entityType  == 'CLIENT' ||result.entityType  == 'GROUP' || result.entityType  == 'CENTER' "><strong>{{'label.heading.entity'
+							| translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
+							'label.heading.office' | translate }}</strong>:{{result.parentName}}&nbsp;<a
+						ng-show="result.groupName!=null">|</a>&nbsp;<strong
+						ng-show="result.groupName!=null">{{'label.heading.group'
+							| translate}}</strong><a ng-show="result.groupName!=null">:</a>{{result.groupName}}&nbsp;<a
+						ng-show="result.centerName!=null">|</a>&nbsp;<strong
+						ng-show="result.centerName!=null">{{'label.heading.center'
+							| translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}</span>
+					<span data-ng-show="result.entityType  == 'CLIENTIDENTIFIER'"><strong>{{'label.heading.entity'
+							| translate}}</strong>:{{'label.heading.clientid' |
+						translate}}&nbsp;|&nbsp;<strong>{{ 'label.heading.client'
+							| translate }}</strong>:{{result.parentName}}&nbsp;<a
+						ng-show="result.groupName!=null">|</a>&nbsp;<strong>{{'label.heading.group'
+							| translate}}</strong><a ng-show="result.groupName!=null">:</a>{{result.groupName}}&nbsp;<a
+						ng-show="result.centerName!=null">|</a>&nbsp;<strong>{{'label.heading.center'
+							| translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}</span>
+					<span
+						data-ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'"><strong>{{'label.heading.entity'
+							| translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
+							'label.heading.' + result.parentType | translate }}</strong>:{{result.parentName}}&nbsp;<a
+						ng-show="result.officeName!=null">|</a>&nbsp;<strong
+						ng-show="result.officeName!=null">{{'label.heading.office'
+							| translate}}</strong><a ng-show="result.officeName!=null">:</a>{{result.officeName}}&nbsp;<a
+						ng-show="result.groupName!=null">|</a>&nbsp;<strong
+						ng-show="result.groupName!=null">{{'label.heading.group'
+							| translate}}</strong><a ng-show="result.groupName!=null">:</a>{{result.groupName}}&nbsp;<a
+						ng-show="result.centerName!=null">|</a>&nbsp;<strong
+						ng-show="result.centerName!=null">{{'label.heading.center'
+							| translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}</span>
+					<span><br /></span>
+				</div>
+			</div>
+		</div>
+		<h3 data-ng-show="flag" style="position: absolute;top: 40%;left: 30%;"><strong>{{ 'label.nodatafound' | translate}}</strong></h3>
 
 <div class="span7">
     <div ng-show="client">
