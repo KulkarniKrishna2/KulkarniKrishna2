@@ -505,6 +505,17 @@
                     ]
                     };
                 }
+                
+                if ((data.status.value == "Overpaid" ||  data.status.value == "Closed (obligations met)") && scope.isGlim ) {
+                    scope.buttons = { singlebuttons: [
+                        {
+                            name: "button.makerepayment",
+                            icon: "icon-dollar",
+                            taskPermissionName: 'REPAYMENT_LOAN'
+                        }
+                    ]
+                    };
+                }
                 if (data.status.value == "Closed (written off)") {
                     scope.buttons = { singlebuttons: [
                         {
