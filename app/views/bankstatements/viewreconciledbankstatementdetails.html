@@ -24,17 +24,27 @@
             </table>
         </div>
     </div>
-    <div class="form-horizontal">
-        <div class="col-sm-6" align="right">
-            <label>{{'label.input.selectall' | translate}}</label>
-            <input type="checkbox" ng-click="selectAll()">
-        </div>
-        <div class="col-sm-6" align="right">
-            <a href='#/bankstatementsdetails/{{bankStatementId}}/portfoliotransaction' class="btn btn-primary" role="button">
-                {{'label.button.unreconcileddata' | translate }}</a>
-        </div>
-    </div>
-    <br/>
+	<div class="row">
+		<div class=col-sm-4 align="left">
+			<input ng-autofocus="true" ng-model="filterText"
+				ng-keyup="onFilter()" type="text" class="form-control"
+				placeholder="{{'label.input.filterbyamount' | translate}}">
+		</div>
+		<div class="col-sm-2" align="right">
+			<label>{{'label.input.allexactmatch' | translate}}</label> <input
+				type="checkbox" ng-click="selectAll()">
+		</div>
+	</div>
+	<div class="form-horizontal">
+
+		<div class="btn-group pull-right">
+			<a
+				href='#/bankstatementsdetails/{{bankStatementId}}/portfoliotransaction'
+				class="btn btn-primary" role="button">
+				{{'label.button.unreconcileddata' | translate }}</a>
+		</div>
+	</div>
+	<br/>
     <div class="form-horizontal width100">
         <div style="clear:both"></div>
         <div style="float:left;max-width:45%;">
@@ -49,7 +59,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in reconciledBankStatementDetails" style="height:60px;cursor: pointer;">
+                <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in reconciledBankStatementDetails | filter:filterText" style="height:60px;cursor: pointer;">
                     <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
                     <td class="pointer">{{bankStatementDetail.transactionType }}</td>
                     <td class="pointer">{{bankStatementDetail.amount}}</td>
@@ -73,7 +83,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="bankStatementDetail in reconciledBankStatementDetails" style="height:60px;" ng-class="bankStatementDetail.isManualReconciled?'danger':($index%2!=0)?'graybg':''">
+                <tr ng-repeat="bankStatementDetail in reconciledBankStatementDetails | filter:filterText" style="height:60px;" ng-class="bankStatementDetail.isManualReconciled?'danger':($index%2!=0)?'graybg':''">
                     <td align="center">
                         <input ng-checked="getAddedIndex(bankStatementDetail.id) > -1" type="checkbox"  ng-click="addDetailsForUndoReconcile(bankStatementDetail.id)" name="{{bankStatementDetail.id}}">
                     </td>
