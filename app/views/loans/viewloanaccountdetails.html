@@ -596,9 +596,9 @@
                         </table>
                     </tab>
 
-                    <tab active="tabs[2].active" heading="{{'label.heading.originalschedule' | translate}}"  select="getSpecificData('repaymentSchedule')">
+                    <tab ng-if="showOriginalSchedule" active="tabs[2].active" heading="{{'label.heading.originalschedule' | translate}}"  select="getSpecificData('repaymentSchedule')">
 
-                        <table class="table table-striped .width100">
+                        <table  class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
@@ -732,7 +732,7 @@
 
                     </tab>
 
-                    <tab active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
+                    <tab ng-if="showFutureSchedule" active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
 
                         <table class="table table-striped .width100" ng-show="futurePeriods">
                             <colgroup span="4"></colgroup>
@@ -883,7 +883,7 @@
                         </table>
                     </tab>
 
-                    <tab active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
+                    <tab ng-if="loandetails.collateral" active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
                         <table class="table" ng-show="loandetails.collateral">
                             <thead>
                             <th>{{'label.heading.type' | translate}}</th>
@@ -963,7 +963,7 @@
                             </table>
                     </tab>
 
-                    <tab active="tabs[7].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
+                    <tab ng-if="loandetails.multiDisburseLoan" active="tabs[7].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
                         <div ng-show="loandetails.multiDisburseLoan">
                         <table class="width100">
 
