@@ -24,17 +24,29 @@
             </table>
         </div>
     </div>
-    <div class="form-horizontal" ng-show="action =='default'">
-        <div class="col-sm-6" align="right">
-            <label>{{'label.input.allexactmatch' | translate}}</label>
-            <input type="checkbox" ng-click="selectAll()">
-        </div>
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-primary" ng-click="routeToReconcile(bankId)">{{'label.button.reconcileddata' | translate }}</button>
-            <button type="button" class="btn btn-primary"  ng-click="action ='manualreconciliation'">{{'label.button.manualreconciliation' | translate }}</button>
-        </div>
-    </div>
-    <div class="form-horizontal" ng-show="action =='manualreconciliation'">
+	<div class="row">
+		<div class=col-sm-4 align="left">
+			<input ng-autofocus="true" ng-model="filterText"
+				ng-keyup="onFilter()" type="text" class="form-control"
+				placeholder="{{'label.input.filterbyamount' | translate}}">
+		</div>
+		<div class="col-sm-2" align="right">
+			<label>{{'label.input.allexactmatch' | translate}}</label> <input
+				type="checkbox" ng-click="selectAll()">
+		</div>
+	</div>
+	<div class="form-horizontal" ng-show="action =='default'">
+
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-primary"
+				ng-click="routeToReconcile(bankId)">{{'label.button.reconcileddata'
+				| translate }}</button>
+			<button type="button" class="btn btn-primary"
+				ng-click="action ='manualreconciliation'">{{'label.button.manualreconciliation'
+				| translate }}</button>
+		</div>
+	</div>
+	<div class="form-horizontal" ng-show="action =='manualreconciliation'">
         <div class="col-sm-6" align="right">
             <label>{{'label.input.selectall' | translate}}</label>
             <input type="checkbox" ng-click="selectAllManualReconcile()">
@@ -46,7 +58,7 @@
     </div>
     <div class="form-horizontal" ng-show="action == 'default'" >
         <div style="clear:both"></div>
-        <div style="float:left;max-width:50%;">
+        <div style="float:left;max-width:45%;">
                 <table class="table well">
                         <thead>
                         <tr class="graybg" style="height:78px;">
@@ -59,7 +71,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails" style="height:78px;cursor: pointer;">
+                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails | filter:filterText" style="height:78px;cursor: pointer;">
                             <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
                             <td class="pointer">{{bankStatementDetail.transactionType }}</td>
                             <td class="pointer">{{bankStatementDetail.amount}}</td>
@@ -73,7 +85,7 @@
                         </tbody>
                 </table>
         </div>
-        <div  style="float:left; width:50%;">
+        <div  style="float:left; width:55%;">
             <table class="table well">
                 <thead>
                 <tr class="graybg" style="height:78px;">
@@ -87,7 +99,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="bankStatementDetail in bankStatementDetails" style="height:78px;"   ng-class="($index%2!=0)?'graybg':''">
+                    <tr ng-repeat="bankStatementDetail in bankStatementDetails | filter:filterText" style="height:78px;"   ng-class="($index%2!=0)?'graybg':''">
                             <td align="center" ng-show = "(bankStatementDetail.hasOwnProperty('loanTransactionData'))">
                                 <input ng-checked="isChecked(bankStatementDetail.loanTransactionData.id)" ng-value="isChecked(bankStatementDetail.loanTransactionData.id)"  type="checkbox"  ng-click="selectedSearchTransaction($index,bankStatementDetail.loanTransactionData,false)" name="{{bankStatementDetail.id}}">
                                 <!--<a ng-click="uncheckOptions($index, bankStatementDetail.loanTransactionData.id)" class="btn btn-primary" role="button" ng-show="isChecked(bankStatementDetail.loanTransactionData.id)"><i class="icon-check icon-white"></i></a>-->

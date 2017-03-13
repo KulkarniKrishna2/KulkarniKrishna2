@@ -789,6 +789,7 @@
     "label.input.dob.not.range" : "Age should between ",
     "label.input.year":" year",
     "label.input.and": " and",
+    "label.input.filterbyamount": "Filter display by Transaction Date, Type, Amount",
     "#Buttons": "..",
     "label.button.createclient": "Create Client",
     "label.button.print": "Print",
