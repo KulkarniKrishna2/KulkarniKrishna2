@@ -20,6 +20,8 @@
             scope.isGlimTabActive = false;
             scope.futurePeriods = [];
             scope.showCreditBureau = false;
+            scope.showFutureSchedule = false;
+            scope.showOriginalSchedule = false;
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
@@ -206,6 +208,12 @@
             var loanApplicationReferenceId = "loanApplicationReferenceId";
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){
+                    scope.showOriginalSchedule = true;
+                    if(scope.loandetails.transactionProcessingStrategyCode == 'rbi-india-strategy'){
+                        scope.showFutureSchedule = true;
+                    }
+                }
                 if(data.clientData && data.clientData.groups && data.clientData.groups.length ==1) {
                     scope.group = data.clientData.groups[0];
                 }
