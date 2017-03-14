@@ -196,7 +196,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index">
+                    <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index" ng-show="(clientMember.isActive || action != 'repayment')">
                         <td ng-hide="action == 'repayment'">
                             <input type="checkbox" ng-model="clientMembers[outerIndex].isClientSelected"
                                    ng-change="getTotalAmount(clientMembers, 'transactionAmount')">
@@ -212,11 +212,52 @@
 
                         </td>
                     </tr>
+
                     <tbody>
                 </table>
+
+            </div>
+        </div>
+        <div class="form-group" ng-show="(action == 'repayment') && isGLIM">
+            <label class="control-label col-sm-2">{{'label.heading.overpaymentsection' | translate}}</label>
+            <div class="col-sm-3">
+                <a class="btn btn-primary" ng-click="changeOverPaymentStatus()">
+                    <i ng-show="showOverPaidSection" class="icon-minus icon-white"></i>
+                    <i ng-show="!showOverPaidSection" class="icon-plus icon-white"></i>
+                </a>
             </div>
         </div>
 
+        <div class="form-group"  ng-show="(action == 'repayment') && isGLIM && showOverPaidSection">
+            <label class="control-label col-sm-2"></label>
+            <div class="col-sm-8">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th>{{'label.heading.installmentamount' | translate}}</th>                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index" ng-show="!clientMember.isActive">
+                        <td >{{clientMember.clientId}}</td>
+                        <td >{{clientMember.clientName}}</td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="clientMembers[outerIndex].transactionAmount"
+                                    number-format ng-change="getTotalAmount(clientMembers, 'transactionAmount')"/>
+
+                        </td>
+                    </tr>
+                    <tbody>
+                </table>
+
+            </div>
+        </div>
+        
         <div class="form-group"  ng-show="action == 'modifytransaction' && isGLIM">
             <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
             <div class="col-sm-8">

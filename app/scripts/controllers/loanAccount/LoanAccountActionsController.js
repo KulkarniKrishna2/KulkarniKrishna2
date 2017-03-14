@@ -24,9 +24,22 @@
             scope.isGLIM = false;
             scope.GLIMData = {};
             scope.clientMembers = [];
+            scope.showOverPaidSection = false;
 
             //2F Authentication
             scope.catureFP = false ;
+
+            scope.changeOverPaymentStatus = function(){
+                if(scope.showOverPaidSection==true){
+                    for(var i=0;i<scope.clientMembers.length;i++){
+                        if(!scope.clientMembers[i].isActive){
+                            scope.clientMembers[i].transactionAmount = 0;
+                        }
+                    }
+                    scope.getTotalAmount(scope.clientMembers, 'transactionAmount');
+                }
+                scope.showOverPaidSection = !scope.showOverPaidSection;
+            };
 
             scope.checkBiometricRequired = function() {
                 if( scope.transactionAuthenticationOptions &&  scope.transactionAuthenticationOptions.length > 0) {
