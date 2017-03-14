@@ -138,7 +138,8 @@
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.collaterals = [];
-                    scope.previewClientLoanAccInfo();
+                    var refreshLoanCharges  = true;
+                    scope.previewClientLoanAccInfo(refreshLoanCharges);
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -146,7 +147,9 @@
                 });
             }
 
-            scope.previewClientLoanAccInfo = function () {
+            scope.previewClientLoanAccInfo = function (refreshLoanCharges) {
+                if ( _.isUndefined(refreshLoanCharges)) {
+                    refreshLoanCharges = false; }
                 scope.previewRepayment = false;
                 for (var i in scope.loanaccountinfo.charges) {
                     if (scope.loanaccountinfo.charges[i].dueDate) {
@@ -172,6 +175,9 @@
                     }
                 }
                 scope.charges = scope.loanaccountinfo.charges || [];
+                if(refreshLoanCharges){
+                    scope.charges = [];
+                }
                 scope.productLoanCharges = scope.loanaccountinfo.product.charges || [];
                 if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                     for(var i in scope.productLoanCharges){
@@ -185,7 +191,7 @@
                                         break;
                                     }
                                 }
-                                if(isChargeAdded == false && scope.productLoanCharges[i].chargeData.penalty == false && scope.productLoanCharges[i].isMandatory == true){
+                                if(refreshLoanCharges  || (isChargeAdded == false && scope.productLoanCharges[i].chargeData.penalty == false && scope.productLoanCharges[i].isMandatory == true)){
                                     var charge = scope.productLoanCharges[i].chargeData;
                                     charge.chargeId = charge.id;
                                     charge.id = null;
@@ -230,14 +236,17 @@
                 if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) {
                     scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate);
                 }
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
-                    scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
-                }else{
+                if(scope.loanaccountinfo.fundId){
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
                 }
+
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
-                scope.formData.principal = scope.loanaccountinfo.principal;
+                if(scope.isGLIM){
+                    scope.glimAutoCalPrincipalAmount();
+                }else{
+                    scope.formData.principal = scope.loanaccountinfo.principal;
+                }
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
