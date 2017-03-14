@@ -25,6 +25,14 @@
             scope.GLIMData = {};
             scope.clientMembers = [];
             scope.showOverPaidSection = false;
+            scope.glimPaymentAsGroup = false;
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';
+            
+            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
+                if(configData){
+                    scope.glimPaymentAsGroup = configData.enabled;
+                }
+            });
 
             //2F Authentication
             scope.catureFP = false ;
@@ -274,13 +282,13 @@
                     scope.modelName = 'transactionDate';
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
-                        scope.isGLIM = (glimData.length>0);
+                        scope.isGLIM = (glimData.length>0 );
                         resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                             scope.paymentTypes = data.paymentTypeOptions;
                             if (data.paymentTypeOptions.length > 0) {
                                 scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                             }
-                            if (scope.isGLIM) {
+                            if (scope.isGLIM && !scope.glimPaymentAsGroup) {
                                 scope.formData[scope.modelName] = new Date();
                             } else {
                                 scope.formData.transactionAmount = data.amount;
@@ -341,7 +349,7 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (responseData) {
-                            if (responseData.clientMembers.length>0) {
+                            if (responseData.clientMembers.length>0 && !scope.glimPaymentAsGroup) {
                                 scope.clientMembers = responseData.clientMembers;
                                 var transactionAmount = 0;
                                 for (var i in responseData.clientMembers) {
@@ -374,7 +382,7 @@
                     scope.labelName = 'label.input.writeoffondate';
                     scope.taskPermissionName = 'WRITEOFF_LOAN';
                     resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
-                        if (data.clientMembers.length>0) {
+                        if (data.clientMembers.length>0 && !scope.glimPaymentAsGroup) {
                             scope.clientMembers = data.clientMembers;
                             scope.isGLIM = true;
                         } else {
@@ -752,7 +760,7 @@
                     }
                     params.loanId = scope.accountId;
                     scope.glimCommandParam = scope.action;
-                    if (scope.isGLIM && scope.action != "modifytransaction") {
+                    if (scope.isGLIM && scope.action != "modifytransaction" && !scope.glimPaymentAsGroup) {
                         this.formData.locale = scope.optlang.code;
                         this.formData.dateFormat = scope.df;
                         scope.constructGlimClientMembersData();
@@ -763,12 +771,12 @@
                             location.path('/viewloanaccount/' + params.loanId);
                         });
                     } else {
-                        if (scope.isGLIM && scope.action == "modifytransaction") {
+                        if (scope.isGLIM && scope.action == "modifytransaction" && !scope.glimPaymentAsGroup) {
                             scope.constructGlimClientMembersData();
                             scope.constructGlimTransactions(scope.formData.glimTransactions);
                             scope.formData.clientMembers = scope.glimTransactions;                            
                         }
-                        if (scope.isGLIM){
+                        if (scope.isGLIM && !scope.glimPaymentAsGroup){
                             scope.constructGlimTransactions(scope.formData.glimTransactions);
                             scope.formData.clientMembers = scope.glimTransactions;
                             delete scope.formData.glimTransactions;
@@ -856,7 +864,7 @@
                 var transactionDate = dateFilter(scope.formData.transactionDate, scope.df);
                 if (tempTransactionDate === "" || (tempTransactionDate != transactionDate)) {
                     tempTransactionDate = transactionDate;
-                    if (scope.isGLIM && scope.action == 'repayment') {
+                    if (scope.isGLIM && scope.action == 'repayment' && !scope.glimPaymentAsGroup) {
                         scope.getRepaymentTemplate(scope.formData.transactionDate);
                     }
                 }

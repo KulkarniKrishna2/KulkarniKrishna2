@@ -165,7 +165,7 @@
         <div class="col-sm-3">
             <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
                    class="form-control"
-                   number-format required late-Validate ng-readonly="(action == 'repayment' || action == 'waiveinterest' || action == 'modifytransaction') && isGLIM">
+                   number-format required late-Validate ng-readonly="(action == 'repayment' || action == 'waiveinterest' || action == 'modifytransaction') && isGLIM && !glimPaymentAsGroup">
         </div>
         <div class="col-sm-3">
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
@@ -182,7 +182,8 @@
             </div>
         </div>
 
-        <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest' || action == 'writeoff') && isGLIM">
+        <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest' || action == 'writeoff') && isGLIM 
+        && !glimPaymentAsGroup">
             <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
             <div class="col-sm-8">
                 <table class="table well">
@@ -218,7 +219,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-show="(action == 'repayment') && isGLIM">
+        <div class="form-group" ng-show="(action == 'repayment') && isGLIM && !glimPaymentAsGroup">
             <label class="control-label col-sm-2">{{'label.heading.overpaymentsection' | translate}}</label>
             <div class="col-sm-3">
                 <a class="btn btn-primary" ng-click="changeOverPaymentStatus()">
@@ -228,7 +229,7 @@
             </div>
         </div>
 
-        <div class="form-group"  ng-show="(action == 'repayment') && isGLIM && showOverPaidSection">
+        <div class="form-group"  ng-show="(action == 'repayment') && isGLIM && showOverPaidSection && !glimPaymentAsGroup">
             <label class="control-label col-sm-2"></label>
             <div class="col-sm-8">
                 <table class="table well">

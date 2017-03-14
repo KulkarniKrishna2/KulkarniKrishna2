@@ -1074,7 +1074,7 @@
                                 <th>{{'label.heading.paid' | translate}}</th>
                                 <th>{{'label.heading.waived' | translate}}</th>
                                 <th>{{'label.heading.outstanding' | translate}}</th>
-                                <th ng-hide="isGlim">{{'label.heading.actions' | translate}}</th>
+                                <th ng-hide="isGlim && !glimPaymentAsGroup">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in charges" class="pointer-main">
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
@@ -1087,7 +1087,7 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
-                                <td ng-hide="isGlim">
+                                <td ng-hide="isGlim && !glimPaymentAsGroup">
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}" has-permission='UPDATE_LOANCHARGE'><i
                                             class="icon-pencil icon-white"></i></a>

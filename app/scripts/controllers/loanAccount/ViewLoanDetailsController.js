@@ -22,6 +22,13 @@
             scope.showCreditBureau = false;
             scope.showFutureSchedule = false;
             scope.showOriginalSchedule = false;
+            scope.glimPaymentAsGroup = false;
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';            
+            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
+                if(configData){
+                    scope.glimPaymentAsGroup = configData.enabled;
+                }
+            });
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
