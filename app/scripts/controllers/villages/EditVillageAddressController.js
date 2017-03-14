@@ -30,7 +30,8 @@
                 resourceFactory.entityAddressResource.getAddress({
                     entityType: scope.entityType,
                     entityId: scope.villageId,
-                    addressId: scope.addressId
+                    addressId: scope.addressId,
+                    template: true
                 }, function (data) {
 
                     if (data.postalCode) {
