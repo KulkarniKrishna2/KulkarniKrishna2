@@ -55,16 +55,24 @@
 
 				<div class="row paddedleft">
 					<div class="col-sm-6 col-md-6">
-						<div class="form-group" data-ng-show="accountSummaryCollection">
+						<div class="form-group" data-ng-hide="accountSummaryCollection == undefined || accountSummaryCollection.length==0">
 							<table>
-								<thead></thead>
 								<tbody>
-									<tr><td>
-										<label>{{'label.input.selectall' | translate}}</label>
-									</td>&nbsp;&nbsp;
-										<td><input  type="checkbox"  ng-model="selectAll.checked" ng-change="selectAll(selectAll.checked)">
+									<tr>
+										<td>
+											<label>{{'label.input.selectall' | translate}}</label>
+										</td>
+										<td class="col-sm-3">
+											<input  type="checkbox"  ng-model="selectAll.checked" ng-change="selectAll(selectAll.checked)">
 										</td>
 									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="form-group" data-ng-show="accountSummaryCollection">
+							<table>
+								<tbody>
+						
 									<tr ng-repeat-start="center in accountSummaryCollection">
 											<td>
 												<button type="button" style="border: 0" ng-click="expandAll(center, allExpanded = !allExpanded)">
@@ -93,6 +101,19 @@
 													<td>
 														<table>
 															<tbody>
+
+																<tr ng-repeat-end ng-if="group.isExpanded && group.loanAccountSummaryDatas.length>0 && group.loanAccountSummaryDatas!=undefined">
+																	<td></td>
+																	<td>
+																		<table>
+																			<tbody>
+																			<tr ng-repeat="loan in group.loanAccountSummaryDatas">
+																				<td><input class="pull-left"  value="loan.id" type="checkbox"  ng-model="loan.checked" ng-change="loanAccountLevelOnlyGroup(loan.checked, center.id, group.id,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																			</tr>
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
 															<tr ng-repeat-start="client in group.clientMembers">
 																<td>
 																	<button type="button" style="border: 0" ng-click="expandClient(client, clientExpanded = !clientExpanded)">

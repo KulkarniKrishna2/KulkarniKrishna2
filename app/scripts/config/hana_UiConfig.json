@@ -26,7 +26,9 @@
 		"brokenPeriodMethodType":false
 	  },
 	  "isMandatory": {
-		"externalId": false
+		"externalId": false,
+		"repaymentsStartingFromDate": false,
+		"loanPurposeId": false
 	  },
 	  "isHiddenSection": {
 		"interestRecalculationSection": true,
@@ -53,15 +55,11 @@
 		"considerFutureDisbursmentsInSchedule": true,
 		"fundId": "",
 		"paymentTypeId": ""
-	  },
-	  "isMandatory": {
-		"repaymentsStartingFromDate": false,
-		"loanPurposeId": false
 	  }
 	},
 	"viewLoanAccountDetails": {
 	  "isHiddenFeild": {
-		"viewReportButton": false,
+		"viewReportButton": true,
 		"editTranches": false
 	  }
 	},
@@ -96,7 +94,8 @@
 	  },
 	  "isMandatoryField": {
 		"dateOfBirth": false,
-		"clientClassificationId":false
+		"clientClassificationId":false,
+		"externalId": false
 	  }
 	},
 	"defaultGISConfig": {
@@ -150,11 +149,6 @@
 	  },
 	  "isHiddenField": {
 		"villageCode": false
-	  }
-	},
-	"viewLoanAccountDetails": {
-	  "isHiddenFeild": {
-		"viewReportButton": true
 	  }
 	},
 	"clientIdentifier": {

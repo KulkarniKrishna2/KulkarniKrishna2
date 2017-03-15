@@ -719,7 +719,9 @@
                     _.each(items, function (value, key) {
                         _.each(scope.loanDisburseData, function (data) {
                             if(data.id == key) {
+                                if(data.expectedDisbursalPaymentType){
                                 disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
+                            }
                                 disburse.receiptNumber = data.receiptNumber;
                             }
                         });

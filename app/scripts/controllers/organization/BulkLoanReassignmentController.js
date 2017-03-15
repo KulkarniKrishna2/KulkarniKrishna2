@@ -12,6 +12,7 @@
             scope.centerData =[];
             scope.groupMemberData = [];
             scope.clientMemberData = [];
+            scope.groupMemberLoanData=[];
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -27,7 +28,8 @@
 
             scope.getOfficerClients = function () {
                 var toOfficers = angular.copy(scope.officers);
-
+                loanAccounts=[];
+                scope.selectAll.checked=false;
                 for (var i in toOfficers) {
                     if (toOfficers[i].id == this.formData.fromLoanOfficerId) {
                         var index = i;
@@ -42,6 +44,7 @@
                     scope.groups = data.accountSummaryCollection.groups;
                     scope.clients = data.accountSummaryCollection.clients;
                     scope.accountSummaryCollection = scope.centersDataList;
+
                 });
             };
             scope.expandAll = function (center, expanded) {
@@ -56,44 +59,65 @@
             };
 
             scope.selectAll = function(value){
-                for(var b =0 ; b < scope.centersDataList.length ; b++) {
-                    if(value){
-                        scope.centerData = scope.centersDataList[b].groupMembers;
-                        scope.centersDataList[b].checked = true;
-                        for(var i = 0; i < scope.centerData.length; i++){
-                            scope.groupMemberData = scope.centerData[i].clientMembers;
-                            scope.centerData[i].checked = true;
-                            for(var a = 0; a < scope.groupMemberData.length; a++){
-                                scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
-                                scope.groupMemberData[a].checked = true;
-                                for(var x = 0; x < scope.clientMemberData.length; x++){
-                                    scope.clientMemberData[x].checked = true;
-                                    loanAccounts.push(scope.clientMemberData[x].id);
+                if(value){
+                        for(var b =0 ; b < scope.centersDataList.length ; b++) {
+                            scope.centerData = scope.centersDataList[b].groupMembers;
+                            scope.centersDataList[b].checked = true;
+                            for(var i = 0; i < scope.centerData.length; i++){
+                                scope.groupMemberData = scope.centerData[i].clientMembers;
+                                scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
+                                scope.centerData[i].checked = true;
+                                for(var a = 0; a < scope.groupMemberData.length; a++){
+                                    scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                                    scope.groupMemberData[a].checked = true;
+                                    for(var x = 0; x < scope.clientMemberData.length; x++){
+                                        scope.clientMemberData[x].checked = true;
+                                        loanAccounts.push(scope.clientMemberData[x].id);
+                                    }
                                 }
+                                if(scope.groupMemberLoanData !=  undefined){
+                                for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                                    scope.groupMemberLoanData[a].checked=true;
+                                    loanAccounts.push(scope.groupMemberLoanData[a].id);
+                                }
+                            }
+
                             }
                         }
                     }else{
-                        scope.centerData = scope.centersDataList[b].groupMembers;
-                        scope.centersDataList[b].checked = false;
-                        for(var i = 0; i < scope.centerData.length; i++){
-                            scope.groupMemberData = scope.centerData[i].clientMembers;
-                            scope.centerData[i].checked = false;
-                            for(var a = 0; a < scope.groupMemberData.length; a++){
-                                scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
-                                scope.groupMemberData[a].checked = false;
-                                for(var x = 0; x < scope.clientMemberData.length; x++){
-                                    var loanId = (scope.clientMemberData[x].id);
-                                    scope.clientMemberData[x].checked = false;
-                                    var indexOfLoanId = loanAccounts.indexOf(loanId);
-                                    if(indexOfLoanId){
-                                        loanAccounts.splice(indexOfLoanId, 1);
+                        for(var b =0 ; b < scope.centersDataList.length ; b++) {
+                            scope.centerData = scope.centersDataList[b].groupMembers;
+                            scope.centersDataList[b].checked = false;
+                            for(var i = 0; i < scope.centerData.length; i++){
+                                scope.groupMemberData = scope.centerData[i].clientMembers;
+                                scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
+                                scope.centerData[i].checked = false;
+                                for(var a = 0; a < scope.groupMemberData.length; a++){
+                                    scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                                    scope.groupMemberData[a].checked = false;
+                                    for(var x = 0; x < scope.clientMemberData.length; x++){
+                                        var loanId = (scope.clientMemberData[x].id);
+                                        scope.clientMemberData[x].checked = false;
+                                        var indexOfLoanId = loanAccounts.indexOf(loanId);
+                                        if(indexOfLoanId){
+                                            loanAccounts.splice(indexOfLoanId, 1);
+                                        }
                                     }
                                 }
+                                if(scope.groupMemberLoanData != undefined){
+                                for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                                    var loanId = (scope.groupMemberLoanData[a].id);
+                                    scope.groupMemberLoanData[a].checked=false;
+                                    var indexOfLoanId = loanAccounts.indexOf(loanId);
+                                        if(indexOfLoanId){
+                                            loanAccounts.splice(indexOfLoanId, 1);
+                                        }
+                                }
+                            }
                             }
                         }
                     }
                 }
-            }
 
             scope.centerLevel = function(value,id){
                 for(var b =0 ; b < scope.centersDataList.length ; b++) {
@@ -105,6 +129,7 @@
                 if(value){
                     for(var i = 0; i < scope.centerData.length; i++){
                         scope.groupMemberData = scope.centerData[i].clientMembers;
+                        scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
                         scope.centerData[i].checked = true;
                         for(var a = 0; a < scope.groupMemberData.length; a++){
                             scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
@@ -114,10 +139,17 @@
                                 loanAccounts.push(scope.clientMemberData[x].id);
                             }
                         }
+                        if(scope.groupMemberLoanData !=  undefined){
+                        for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                            scope.groupMemberLoanData[a].checked = true;
+                                loanAccounts.push(scope.groupMemberLoanData[a].id);
+                        }
+                    }
                     }
                 } else{
                     for(var i = 0; i < scope.centerData.length; i++){
                         scope.groupMemberData = scope.centerData[i].clientMembers;
+                        scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
                         scope.centerData[i].checked = false;
                         for(var a = 0; a < scope.groupMemberData.length; a++){
                             scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
@@ -129,6 +161,16 @@
                                 if(indexOfLoanId){
                                     loanAccounts.splice(indexOfLoanId, 1);
                                 }
+                            }
+                        }
+                        if(scope.groupMemberLoanData !=  undefined){
+                        for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                                var loanId = (scope.groupMemberLoanData[a].id);
+                                scope.groupMemberLoanData[a].checked=false;
+                                var indexOfLoanId = loanAccounts.indexOf(loanId);
+                                    if(indexOfLoanId){
+                                        loanAccounts.splice(indexOfLoanId, 1);
+                                    }
                             }
                         }
                     }
@@ -146,6 +188,7 @@
                 for(var c =0 ; c < scope.centerData.length ; c++){
                     if(scope.centerData[c].id == groupId){
                         scope.groupMemberData = scope.centerData[c].clientMembers;
+                        scope.groupMemberLoanData=scope.centerData[c].loanAccountSummaryDatas;
                         break;
                     }
                 }
@@ -158,6 +201,12 @@
                                 loanAccounts.push(scope.clientMemberData[x].id);
                             }
                         }
+                        if(scope.groupMemberLoanData !=  undefined){
+                    for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                            scope.groupMemberLoanData[a].checked = true;
+                                loanAccounts.push(scope.groupMemberLoanData[a].id);
+                        }
+                    }
                 }else{
                     for(var a = 0; a < scope.groupMemberData.length; a++){
                         scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
@@ -165,6 +214,16 @@
                         for(var x = 0; x < scope.clientMemberData.length; x++){
                             var loanId = (scope.clientMemberData[x].id);
                             scope.clientMemberData[x].checked = false;
+                            var indexOfLoanId = loanAccounts.indexOf(loanId);
+                            if(indexOfLoanId){
+                                loanAccounts.splice(indexOfLoanId, 1);
+                            }
+                        }
+                    }
+                    if(scope.groupMemberLoanData !=  undefined){
+                    for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                        var loanId = (scope.groupMemberLoanData[a].id);
+                            scope.groupMemberLoanData[a].checked = false;
                             var indexOfLoanId = loanAccounts.indexOf(loanId);
                             if(indexOfLoanId){
                                 loanAccounts.splice(indexOfLoanId, 1);
@@ -234,6 +293,35 @@
 
                 for(var x = 0; x <  scope.clientMemberData.length ; x++){
                     if(scope.clientMemberData[x].id == loanId){
+                        if(value){
+                            loanAccounts.push(loanId);
+                        }else{
+                            var indexOfLoanId = loanAccounts.indexOf(loanId);
+                            if(indexOfLoanId){
+                                loanAccounts.splice(indexOfLoanId, 1);
+                            }
+                        }
+                    }
+                }
+            };
+
+            scope.loanAccountLevelOnlyGroup = function(value, centerId, groupId,loanId){
+
+                for(var b =0 ; b < scope.centersDataList.length ; b++) {
+                    if (scope.centersDataList[b].id == centerId) {
+                        scope.centerData = scope.centersDataList[b].groupMembers;
+                        break;
+                    }
+                }
+                for(var c =0 ; c < scope.centerData.length ; c++){
+                    if(scope.centerData[c].id == groupId){
+                        scope.groupMemberData = scope.centerData[c].clientMembers;
+                        break;
+                    }
+                }
+
+                for(var x = 0; x <  scope.groupMemberData.length ; x++){
+                    if(scope.groupMemberData[x].id == loanId){
                         if(value){
                             loanAccounts.push(loanId);
                         }else{

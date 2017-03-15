@@ -146,7 +146,7 @@
     "label.input.defaultfloatinginterestrate" : "Default Interest Rate",
     "label.input.maxfloatinginterestrate" : "Maximum Interest Rate",
     "label.input.differentialrate" : "Differential Rate",
-    "label.heading.companyname": "CHAITANYA INDIA FIN CREDIT PVT. LTD.",
+    "label.heading.companyname": "Finflux",
     "label.heading.loanrepaymentschedule": "Loan Repayment Schedule",
     "label.heading.fingerprint":"Finger Print",
     "label.heading.audit": "Log Changes",
@@ -5509,6 +5509,7 @@
     "error.msg.not.excel.file." : "CPIF File is not Excel file.",
     "label.input.disbursementchannel": "Disbursement Channel",
     "label.heading.disbursementchannel": "Disbursement Channel",
+    "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan" : "Loan transaction before last transaction is not allowed for glim loan",
 
     "task":".....",
     "info.message.activity.kycactivity.nodata":"No KYC data found for the client.",
