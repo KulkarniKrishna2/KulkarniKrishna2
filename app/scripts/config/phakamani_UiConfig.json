@@ -22,12 +22,14 @@
         "graceOnInterestPayment": false,
         "graceOnArrearsAgeing": false,
         "syncDisbursementDateWithMeeting":true,
-        "recurringMoratoriumOnPrincipalPeriods": false,
+        "recurringMoratoriumOnPrincipalPeriods": true,
         "brokenPeriodMethodType":false
 
       },
       "isMandatory": {
-        "externalId": true
+        "externalId":true,
+	    "repaymentsStartingFromDate": false,
+        "loanPurposeId": false
       },
       "isHiddenSection": {
         "interestRecalculationSection": false,
@@ -54,10 +56,6 @@
         "considerFutureDisbursmentsInSchedule": true,
         "fundId": "",
         "paymentTypeId": ""
-      },
-      "isMandatory": {
-        "repaymentsStartingFromDate": false,
-        "loanPurposeId": false
       }
     },
     "viewLoanAccountDetails": {
@@ -81,8 +79,9 @@
     },
     "createClient": {
       "isReadOnlyField": {
-        "staff": false,
-        "pincode": false
+        "staff": true,
+        "pincode": false,
+        "active":true
       },
       "isValidateDOBField": {
         "active": false,
@@ -92,10 +91,11 @@
         }
       },
       "isHiddenField": {
-        "hideClientClassification": false
+        "hideClientClassification": true
       },
       "isMandatoryField": {
         "dateOfBirth": false,
+	    "externalId":true,
         "clientClassificationId":false
       }
     },
@@ -127,6 +127,9 @@
       "isAutoPopulate": {
         "active": false
       },
+	"isMandatory":{
+        "externalId":true
+      },
       "isHiddenMenu": {
         "attachmeeting": false
       }
@@ -152,14 +155,9 @@
         "villageCode": false
       }
     },
-    "viewLoanAccountDetails": {
-      "isHiddenFeild": {
-        "viewReportButton": false
-      }
-    },
     "clientIdentifier": {
       "identitiesMatchLuhnsAlgorithm": {
-        "clientIdentifierValidation": false
+        "clientIdentifierValidation": true
       },
       "hiddenFields":{
         "status":false
@@ -167,7 +165,7 @@
     },
     "reportParameterConfiguration": {
       "datePicker": {
-        "reportNames": "'Expected Payments By Date - Basic'",
+        "reportNames": "",
         "restrictedDate": ""
       }
     },

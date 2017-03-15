@@ -219,10 +219,15 @@
 					</small>
 				</span>
 
-				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:</label>
+				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:
+				 <span ng-show="isExternalIdMandatory" class="required">*</span></label>
 
-				<div class="col-sm-3">
-					<input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
+				 <div class="col-sm-3" >
+				 	<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
+					 ng-required = "isExternalIdMandatory"/>
+				</div>
+				<div class="col-sm-2 paddinglr0px">
+						<form-validate valattributeform="editclientform" valattribute="external"/>
 				</div>
 			</div>
 			<div class="form-group">

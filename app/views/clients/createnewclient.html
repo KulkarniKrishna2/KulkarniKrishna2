@@ -217,12 +217,18 @@
                 </div>
 
 
-	            <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
+	            <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}
+	               <span ng-show="isExternalIdMandatory" class="required">*</span>
+	            </label>
 
-	            <div class="col-sm-3">
-	                <input type="text" id="externalId" name="externalId" ng-model="formData.externalId"  class="form-control"/>
-	            </div>
-            </div>
+	           <div class="col-sm-3" >
+				 	<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
+					 ng-required = "isExternalIdMandatory"/>
+				</div>
+				<div class="col-sm-2 paddinglr0px">
+						<form-validate valattributeform="createclientform" valattribute="external"/>
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
@@ -388,7 +394,8 @@
 	            <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
 
 	            <div class="col-sm-3">
-	                    <input id="activeCheckbox" type="checkbox" ng-model="formData.active" data-ng-change="setChoice()">
+	                     <input id="activeCheckbox" type="checkbox" ng-model="formData.active" data-ng-change="setChoice()"
+                           ng-disabled = "isClientActive" ng-checked = "isClientActive">
 	            </div>
 		        <div data-ng-switch on="choice">
 		            <div data-ng-switch-when="1">

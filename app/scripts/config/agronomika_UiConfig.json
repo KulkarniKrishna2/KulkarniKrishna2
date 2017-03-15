@@ -26,7 +26,9 @@
         "brokenPeriodMethodType":false
       },
       "isMandatory":{
-        "externalId":false
+        "externalId":false,
+        "repaymentsStartingFromDate": false,
+        "loanPurposeId": true
       },
       "isHiddenSection": {
         "interestRecalculationSection": false,
@@ -53,21 +55,12 @@
         "considerFutureDisbursmentsInSchedule": true,
         "fundId": "",
         "paymentTypeId": ""
-      },
-      "isMandatory":{
-        "repaymentsStartingFromDate": false,
-        "loanPurposeId": true
       }
     },
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
-        "viewReportButton": false,
+        "viewReportButton": true,
         "editTranches": false
-      }
-    },
-    "clientAccount":{
-      "isMandatory":{
-        "externalId":false
       }
     },
     "collectionSheet": {
@@ -81,7 +74,8 @@
     "createClient": {
       "isReadOnlyField": {
         "staff": false,
-        "pincode": false
+        "pincode": false,
+        "active":false
       },
       "isValidateDOBField": {
         "active": false,
@@ -95,7 +89,8 @@
       },
       "isMandatoryField": {
         "dateOfBirth": false,
-        "clientClassificationId":false
+        "clientClassificationId":false,
+        "externalId": false
       }
     },
     "defaultGISConfig": {
@@ -151,11 +146,6 @@
         "villageCode": false
       }
     },
-    "viewLoanAccountDetails":{
-      "isHiddenFeild":{
-        "viewReportButton":true
-      }
-    },
     "clientIdentifier":{
       "identitiesMatchLuhnsAlgorithm": {
         "clientIdentifierValidation":false
@@ -167,11 +157,12 @@
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":true
     }
-  },
+ ,
   "reportParameterConfiguration": {
     "datePicker": {
       "reportNames": "",
       "restrictedDate":""
     }
   }
+}
 }

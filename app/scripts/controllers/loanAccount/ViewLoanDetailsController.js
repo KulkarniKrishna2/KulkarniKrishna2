@@ -15,10 +15,20 @@
             scope.revokeSubsidyTransactionTypeId = 51;
             scope.glimClientsDetails = [];
             scope.isGlim = false;
+            scope.restrictedGlimFunctionality = ['RECOVERYPAYMENT_LOAN','REFUND_LOAN','CREATE_ACCOUNTTRANSFER'];
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
             scope.isGlimTabActive = false;
             scope.futurePeriods = [];
             scope.showCreditBureau = false;
+            scope.showFutureSchedule = false;
+            scope.showOriginalSchedule = false;
+            scope.glimPaymentAsGroup = false;
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';            
+            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
+                if(configData){
+                    scope.glimPaymentAsGroup = configData.enabled;
+                }
+            });
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
@@ -213,6 +223,12 @@
             var loanApplicationReferenceId = "loanApplicationReferenceId";
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){
+                    scope.showOriginalSchedule = true;
+                    if(scope.loandetails.transactionProcessingStrategyCode == 'rbi-india-strategy'){
+                        scope.showFutureSchedule = true;
+                    }
+                }
                 if(data.clientData && data.clientData.groups && data.clientData.groups.length ==1) {
                     scope.group = data.clientData.groups[0];
                 }
@@ -508,6 +524,17 @@
                             name: "button.transferFunds",
                             icon: "icon-exchange",
                             taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
+                        }
+                    ]
+                    };
+                }
+                
+                if ((data.status.value == "Overpaid" ||  data.status.value == "Closed (obligations met)") && scope.isGlim ) {
+                    scope.buttons = { singlebuttons: [
+                        {
+                            name: "button.makerepayment",
+                            icon: "icon-dollar",
+                            taskPermissionName: 'REPAYMENT_LOAN'
                         }
                     ]
                     };

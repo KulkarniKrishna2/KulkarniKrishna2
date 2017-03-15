@@ -37,20 +37,32 @@
             scope.isDateOfBirthMandatory = false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.enableCreateClientLoop = false;
+            scope.isClientActive = false;
+            scope.hideClientClassification = false;
+            scope.isClientClassificationMandatory = false;
+            scope.isExternalIdMandatory = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
             scope.invalidClassificationId = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
+                scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isHiddenField && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
             }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
-                scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId){
+                scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId;
             }
             scope.minAge = 0;
             scope.maxAge = 0;
             scope.dateOfBirthNotInRange = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
+                scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
                 if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
                     scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
 
@@ -100,6 +112,14 @@
 
                 if(scope.genderOptions[0]) {
                     scope.formData.genderId = scope.genderOptions[0].id;
+                }
+                if(scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
+                     scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                     scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                    scope.choice = 1;
+                }else{
+                    scope.choice = 0;
+
                 }
                 scope.formData.dateOfBirth = scope.dateOfBirth;
                 scope.formData.clientClassificationId = scope.clientClassificationId;

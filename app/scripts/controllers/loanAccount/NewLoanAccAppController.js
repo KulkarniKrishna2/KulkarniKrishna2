@@ -167,7 +167,11 @@
                 }
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
-                scope.formData.principal = scope.loanaccountinfo.principal;
+                if(scope.isGLIM){
+                    scope.formData.principal = 0;
+                }else{
+                    scope.formData.principal = scope.loanaccountinfo.principal;
+                }
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;

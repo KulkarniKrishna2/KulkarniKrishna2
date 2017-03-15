@@ -73,12 +73,14 @@
                         scope.toBulkReconcile.splice(j, 1);
                     }
                 }else{
+                    
                     if(isFromSearch){
                         scope.bankStatementDetails[index].loanTransactionData = [];
                         scope.bankStatementDetails[index].loanTransactionData.amount = loanTransaction.AMOUNT;
                         scope.bankStatementDetails[index].loanTransactionData.groupExternalId = loanTransaction.GROUP_EXTERNAL_ID;
                         scope.bankStatementDetails[index].loanTransactionData.officeName = loanTransaction.BRANCH;
-                        scope.bankStatementDetails[index].loanTransactionData.date = loanTransaction.TRANSACTION_DATE;
+                        scope.bankStatementDetails[index].loanTransactionData.date = {};
+                        scope.bankStatementDetails[index].loanTransactionData.date.iLocalMillis = loanTransaction.TRANSACTION_DATE;
                         scope.bankStatementDetails[index].loanTransactionData.id = loanTransaction.LOAN_TRANSACTION_NO;
                         scope.bankStatementDetails[index].loanTransactionData.loanAccountNumber = loanTransaction.LOAN_ACCOUNT_NO;
                         scope.bankStatementDetails[index].loanTransactionData.type = {};
@@ -87,7 +89,6 @@
                     }else{
                         scope.bankStatementDetails[index].loanTransactionData = loanTransaction;
                     }
-
                     scope.addBankStatementDetailsForBulkReconcile(scope.bankStatementDetails[index].loanTransactionData.id, scope.bankStatementDetails[index].id);
 
                 }
@@ -183,13 +184,14 @@
                 }else{
                     if(this.formData.hasOwnProperty(property)){
                         if(this.formData[property] != undefined){
-                        alert(this.formData[property].length);
                             return (this.formData[property].length>0);
                         }
                     }
                 }
                 return false;
             };
+
+
 
             scope.selectAll = function(){
                 scope.selectedAll = !scope.selectedAll;

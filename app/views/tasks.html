@@ -386,6 +386,10 @@
 							</tr>
 							<tr>
 								<th>
+									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
+									<input type="text" datepicker-pop="dd MMMM yyyy" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+								</th>
+								<th>
 									<label class="control-label col-sm-3">{{ 'label.input.disbursementchannel' | translate }}</label>
 									<select chosen="paymentTypes" id="disbursementchannel" ng-model="paymentTypeId"
 											ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"

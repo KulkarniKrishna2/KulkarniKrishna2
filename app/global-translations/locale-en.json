@@ -146,7 +146,7 @@
     "label.input.defaultfloatinginterestrate" : "Default Interest Rate",
     "label.input.maxfloatinginterestrate" : "Maximum Interest Rate",
     "label.input.differentialrate" : "Differential Rate",
-    "label.heading.companyname": "CHAITANYA INDIA FIN CREDIT PVT. LTD.",
+    "label.heading.companyname": "Finflux",
     "label.heading.loanrepaymentschedule": "Loan Repayment Schedule",
     "label.heading.fingerprint":"Finger Print",
     "label.heading.audit": "Log Changes",
@@ -792,6 +792,7 @@
     "label.input.dob.not.range" : "Age should between ",
     "label.input.year":" year",
     "label.input.and": " and",
+    "label.input.filterbyamount": "Filter display by Transaction Date, Type, Amount",
     "#Buttons": "..",
     "label.button.createclient": "Create Client",
     "label.button.print": "Print",
@@ -5537,6 +5538,7 @@
     "error.msg.not.excel.file." : "CPIF File is not Excel file.",
     "label.input.disbursementchannel": "Disbursement Channel",
     "label.heading.disbursementchannel": "Disbursement Channel",
+    "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan" : "Loan transaction before last transaction is not allowed for glim loan",
 
     "task":".....",
     "info.message.activity.kyc.nodata":"No KYC data found for the client.",
@@ -5681,6 +5683,8 @@
     "label.input.fundloanpurpose" : "Fund Loan Purpose",
     "label.heading.percentageloanpurpose" : "% Loan Purpose",
     "label.heading.fundloanpurpose" :  "Fund Loan Purpose",
+    "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan" : "Loan transaction before last transaction is not allowed for glim loan",
+    "label.heading.overpaymentsection" : "Overpayments",
 
     "label.error.banktransaction.notsubmitted":"Transaction not yet submitted.",
 

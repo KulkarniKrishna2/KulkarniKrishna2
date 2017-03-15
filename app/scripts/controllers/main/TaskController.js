@@ -154,12 +154,16 @@
                 scope.loanDisbursalTemplate = {};
                 scope.approveData = {};
                 scope.formData = {};
+                sqlSearch = 'ml.loan_status_id=200 ';
+                if(this.expectedDisbursementOn){
+                    sqlSearch = sqlSearch + ' and ml.expected_disbursedon_date = \''+this.expectedDisbursementOn.getFullYear()+'-'+(this.expectedDisbursementOn.getMonth()+1)+'-'+this.expectedDisbursementOn.getDate()+'\'';
+                }
                     var staffId = this.loanOfficerId;
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
                     resourceFactory.tasklookupResource.get({
-                        sqlSearch: 'ml.loan_status_id=200',
+                        sqlSearch: sqlSearch,
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
@@ -715,7 +719,9 @@
                     _.each(items, function (value, key) {
                         _.each(scope.loanDisburseData, function (data) {
                             if(data.id == key) {
+                                if(data.expectedDisbursalPaymentType){
                                 disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
+                            }
                                 disburse.receiptNumber = data.receiptNumber;
                             }
                         });

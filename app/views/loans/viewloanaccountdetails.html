@@ -215,7 +215,7 @@
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
+                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="(restrictedGlimFunctionality.indexOf(button.taskPermissionName)>-1) && isGlim">
                           <a ng-show="((button.name && !isGlim) || ((button.taskPermissionName !='CREATE_LOANCHARGE') && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
@@ -601,9 +601,9 @@
                         </table>
                     </tab>
 
-                    <tab active="tabs[2].active" heading="{{'label.heading.originalschedule' | translate}}"  select="getSpecificData('repaymentSchedule')">
+                    <tab ng-if="showOriginalSchedule" active="tabs[2].active" heading="{{'label.heading.originalschedule' | translate}}"  select="getSpecificData('repaymentSchedule')">
 
-                        <table class="table table-striped .width100">
+                        <table  class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
@@ -737,7 +737,7 @@
 
                     </tab>
 
-                    <tab active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
+                    <tab ng-if="showFutureSchedule" active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
 
                         <table class="table table-striped .width100" ng-show="futurePeriods">
                             <colgroup span="4"></colgroup>
@@ -888,7 +888,7 @@
                         </table>
                     </tab>
 
-                    <tab active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
+                    <tab ng-if="loandetails.collateral" active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
                         <table class="table" ng-show="loandetails.collateral">
                             <thead>
                             <th>{{'label.heading.type' | translate}}</th>
@@ -968,7 +968,7 @@
                             </table>
                     </tab>
 
-                    <tab active="tabs[7].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
+                    <tab ng-if="loandetails.multiDisburseLoan" active="tabs[7].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
                         <div ng-show="loandetails.multiDisburseLoan">
                         <table class="width100">
 
@@ -1079,7 +1079,7 @@
                                 <th>{{'label.heading.paid' | translate}}</th>
                                 <th>{{'label.heading.waived' | translate}}</th>
                                 <th>{{'label.heading.outstanding' | translate}}</th>
-                                <th ng-hide="isGlim">{{'label.heading.actions' | translate}}</th>
+                                <th ng-hide="isGlim && !glimPaymentAsGroup">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in charges" class="pointer-main">
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
@@ -1092,7 +1092,7 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
-                                <td ng-hide="isGlim">
+                                <td ng-hide="isGlim && !glimPaymentAsGroup">
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}" has-permission='UPDATE_LOANCHARGE'><i
                                             class="icon-pencil icon-white"></i></a>
