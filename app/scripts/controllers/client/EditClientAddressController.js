@@ -25,7 +25,8 @@
                 resourceFactory.entityAddressResource.getAddress({
                     entityType: scope.entityType,
                     entityId: scope.clientId,
-                    addressId: scope.addressId
+                    addressId: scope.addressId,
+                    template: true
                 }, function (data) {
 
                     if (data.addressEntityData[0].addressType) {
