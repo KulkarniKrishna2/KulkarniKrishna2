@@ -131,19 +131,41 @@
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
                     for(var i in scope.charges){
                         if(scope.charges[i].chargeCalculationType.id == 6 && scope.charges[i].slabs.length > 0) {
-                            for(var j in scope.charges[i].slabs){
-                                if(scope.formData.principal >= scope.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.charges[i].slabs[j].toLoanAmount) {
-                                    scope.charges[i].amount = scope.charges[i].slabs[j].amount;
-                                    break;
-                                } else {
-                                    scope.charges[i].amount = undefined;
+                                if(scope.isGLIM){
+                                    scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
+                                    scope.updateChargeForSlab(scope.charges[i]);
+                                }else{
+                                    for(var j in scope.charges[i].slabs){
+                                    if(scope.formData.principal >= scope.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.charges[i].slabs[j].toLoanAmount) {
+                                        scope.charges[i].amount = scope.charges[i].slabs[j].amount;
+                                        break;
+                                    } else {
+                                        scope.charges[i].amount = undefined;
+                                    }
+                                    scope.updateChargeForSlab(scope.charges[i]);
                                 }
-                                scope.updateChargeForSlab(scope.charges[i]);
+
                             }
+                            
                         }
                     }
                 }
             });
+
+    scope.updateSlabBasedChargeForGlim = function(chargeData){
+        var clientChargeAmount = 0;
+        for(var j=0;j<scope.formData.clientMembers.length;j++){
+            var clientData = scope.formData.clientMembers[j];
+                if(clientData.isClientSelected==true && clientData.transactionAmount){
+                    for(var i in chargeData.slabs){
+                        if(clientData.transactionAmount >= chargeData.slabs[i].fromLoanAmount && clientData.transactionAmount <= chargeData.slabs[i].toLoanAmount) {
+                            clientChargeAmount = clientChargeAmount + parseFloat(chargeData.slabs[i].amount);
+                        }
+                    }
+                }
+        }
+        return clientChargeAmount;                       
+    }; 
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
@@ -252,7 +274,7 @@
                     for(var i in data.glims){
                          if (data.slabs){
                             for(var j in data.slabs){
-                            if(data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
+                            if(data.glims[i].isClientSelected==true && data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
                                         data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
                                         amount = amount + data.glims[i].upfrontChargeAmount;
                                 }
