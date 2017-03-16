@@ -66,6 +66,7 @@
                 <span data-ng-switch on="columnHeader.columnDisplayType">
                     <select chosen="columnHeader.columnValuesLookup" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                             data-ng-switch-when="CODELOOKUP"
+                            chosen = "columnHeader.columnValues"
                             ng-model="formData[columnHeader.columnName]"
                             ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValuesLookup"
                             value="{{columnValue.id}}" class="form-control" ng-change="getDependencyList(formData[columnHeader.columnName])">
@@ -74,6 +75,7 @@
                     <div  ng-show="showSelect==true">
                         <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                                 data-ng-switch-when="CODEVALUE"
+                                chosen = "columnHeader.columnValues"
                                 ng-model="formData[columnHeader.columnName]"
                                 ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
                                 value="{{columnValue.id}}" class="form-control">
