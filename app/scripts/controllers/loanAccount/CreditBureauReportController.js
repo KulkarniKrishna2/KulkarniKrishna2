@@ -342,10 +342,21 @@
                         popupWin.document.open();
                         popupWin.document.write(result);
                         popupWin.document.close();
+                    }else if (fileContentData.reportFileType.value == 'XML') {
+                        var result = "";
+                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
+                            result += (String.fromCharCode(fileContentData.fileContent[i]));
+                        }
+                        var newWindow = window.open('','_blank','toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=1, copyhistory=1, menuBar=1, width=640, height=480, left=50, top=50', true);
+                        var preEl = newWindow.document.createElement("pre");
+                        var codeEl = newWindow.document.createElement("code");
+                        codeEl.appendChild(newWindow.document.createTextNode(result));
+                        preEl.appendChild(codeEl);
+                        newWindow.document.body.appendChild(preEl);
                     }
                 });
             };
-
+            
             scope.convertByteToString = function (content, status) {
                 var result = "";
                 if (content != undefined && content != null) {
@@ -356,15 +367,20 @@
                 if (status) {
                     var jsonObj = ngXml2json.parser(result);
                     scope.errorMessage = undefined;
-                    if (jsonObj.indvreportfile) {
+                    if(!_.isUndefined(jsonObj.response.reportdata)){
+                        if (!_.isUndefined(jsonObj.response.reportdata.error)) {
+                            scope.errorMessage = jsonObj.response.reportdata.error.errormsg;
+                            scope.cbResponseError = true;
+                        }
+                    }else if (jsonObj.indvreportfile) {
                         if(jsonObj.indvreportfile.inquirystatus.inquiry && _.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)){
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.description;
                             scope.cbLoanEnqResponseError = true;
                         }else if (!_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)
                             && !_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors.error) &&
-                            jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.lenght > 1) {
+                            jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.length > 1) {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error
-                        } else {
+                        }else {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
                             scope.cbLoanEnqResponseError = true;
                         }
