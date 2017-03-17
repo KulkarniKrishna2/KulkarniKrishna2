@@ -5685,6 +5685,8 @@
     "label.heading.fundloanpurpose" :  "Fund Loan Purpose",
     "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan" : "Loan transaction before last transaction is not allowed for glim loan",
     "label.heading.overpaymentsection" : "Overpayments",
+    "label.heading.showdefaultemi" : "Show Default EMI",
+    "label.button.copyemi" : "Copy EMI",
 
     "label.error.banktransaction.notsubmitted":"Transaction not yet submitted.",
 
