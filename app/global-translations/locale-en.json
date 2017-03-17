@@ -2161,6 +2161,7 @@
     "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanging pricipal",
     "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
     "error.msg.loan.expecteddisbursal.should.be.on.or.after.approval.date" : "Expected disbursal should be on or after approval date",
+    "validation.msg.loan.linkAccountId.cannot.be.blank":"Savings account must be provided",
 
 
     "#-------": "------------",
@@ -3500,6 +3501,7 @@
     "label.input.variableinstallments": "Variable Installments",
     "label.input.canUseForTopup": "Is allowed to be used for providing Topup Loans?",
     "label.input.collectInterestUpfront": "Collect Interest Upfront",
+    "label.input.percentageffdisbursementtobetransfered":"Principal (%) To be transferred to savings account",
     "label.input.minimumgap": "Minimum gap between Installments",
     "label.input.maximumgap": "Maximum gap between Installments",
     "label.input.minimuminstallmentamount": "Minimum Installment Amount",
