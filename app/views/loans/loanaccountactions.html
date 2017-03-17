@@ -165,7 +165,7 @@
         <div class="col-sm-3">
             <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
                    class="form-control"
-                   number-format required late-Validate ng-readonly="(action == 'repayment' || action == 'waiveinterest' || action == 'modifytransaction') && isGLIM && !glimPaymentAsGroup">
+                   number-format required late-Validate ng-readonly="showGlimTransactionSection()">
         </div>
         <div class="col-sm-3">
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
@@ -182,8 +182,7 @@
             </div>
         </div>
 
-        <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest' || action == 'writeoff') && isGLIM 
-        && !glimPaymentAsGroup">
+        <div class="form-group"  ng-show="showGlimTransactionSection()">
             <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
             <div class="col-sm-8">
                 <table class="table well">
@@ -219,7 +218,45 @@
 
             </div>
         </div>
-        <div class="form-group" ng-show="(action == 'repayment') && isGLIM && !glimPaymentAsGroup">
+
+        <div class="form-group" ng-show="showDefaultEmiSection()">
+            <label class="control-label col-sm-2">{{'label.heading.showdefaultemi' | translate}}</label>
+            <div class="col-sm-3">
+                <a class="btn btn-primary" ng-click="changeDefaultAmountStatus()">
+                    <i ng-show="isDefaultAmountSection" class="icon-minus icon-white"></i>
+                    <i ng-show="!isDefaultAmountSection" class="icon-plus icon-white"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="form-group"  ng-show="showDefaultEmiSection() && isDefaultAmountSection">
+            <label class="control-label col-sm-2"></label>
+            <div class="col-sm-8">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th>{{'label.heading.installmentamount' | translate}}</th>                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index">
+                        <td >{{clientMember.clientId}}</td>
+                        <td >{{clientMember.clientName}}</td>
+                        <td >{{clientMember.installmentAmount}}</td>
+                    </tr>
+                    <tbody>
+                </table>
+
+            </div>
+            <div class="col-sm-10">
+                <button type= "button" ng-click="copyInstallmentAmount()" class="btn btn-primary pull-right" >
+                   {{ 'label.button.copyemi' | translate}}<i class="icon-arrow-up icon-white"></i></button>
+            </div>
+        </div>
+
+        <div class="form-group" ng-show="showGlimRepaymentSection()">
             <label class="control-label col-sm-2">{{'label.heading.overpaymentsection' | translate}}</label>
             <div class="col-sm-3">
                 <a class="btn btn-primary" ng-click="changeOverPaymentStatus()">
@@ -229,7 +266,7 @@
             </div>
         </div>
 
-        <div class="form-group"  ng-show="(action == 'repayment') && isGLIM && showOverPaidSection && !glimPaymentAsGroup">
+        <div class="form-group"  ng-show="showGlimRepaymentSection() && showOverPaidSection">
             <label class="control-label col-sm-2"></label>
             <div class="col-sm-8">
                 <table class="table well">
@@ -433,7 +470,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index">
+                <tr ng-repeat="clientMember in clientMembers" ng-init="outerIndex = $index" ng-show="clientMember.isClientSelected">
                     <td>
                         <input type="checkbox" ng-model="clientMembers[outerIndex].isClientSelected" ng-change="glimAutoCalPrincipalAmount()">
                     </td>

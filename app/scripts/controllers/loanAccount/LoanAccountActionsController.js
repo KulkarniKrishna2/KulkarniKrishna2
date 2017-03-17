@@ -27,12 +27,39 @@
             scope.showOverPaidSection = false;
             scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
+            scope.isDefaultAmountSection = false;
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
                     scope.glimPaymentAsGroup = configData.enabled;
                 }
             });
+
+            scope.isAnyActiveMember = function(){
+                for(var i=0;i<scope.clientMembers.length;i++){
+                    if(scope.clientMembers[i].isActive){
+                            return true;
+                    }
+                }
+                return false;
+            };
+
+            scope.isGlimEnabled = function(){
+                return scope.isGLIM && !scope.glimPaymentAsGroup;
+            };
+
+            scope.showGlimTransactionSection = function(){
+                return ((scope.action == 'repayment' || scope.action == 'waiveinterest') && scope.isGlimEnabled());
+            };
+
+            scope.showDefaultEmiSection = function(){
+                return scope.showGlimRepaymentSection() && scope.isAnyActiveMember();
+            };
+
+            scope.showGlimRepaymentSection = function(){
+                return (scope.action == 'repayment')  && scope.isGlimEnabled();
+            };
+
 
             //2F Authentication
             scope.catureFP = false ;
@@ -47,6 +74,19 @@
                     scope.getTotalAmount(scope.clientMembers, 'transactionAmount');
                 }
                 scope.showOverPaidSection = !scope.showOverPaidSection;
+            };
+
+            scope.changeDefaultAmountStatus = function(){                
+                scope.isDefaultAmountSection = !scope.isDefaultAmountSection;
+            };
+
+            scope.copyInstallmentAmount = function(){
+                for(var i=0;i<scope.clientMembers.length;i++){
+                    if(scope.clientMembers[i].isActive){
+                        scope.clientMembers[i].transactionAmount = scope.clientMembers[i].installmentAmount;
+                    }
+                }
+                scope.getTotalAmount(scope.clientMembers, 'transactionAmount');
             };
 
             scope.checkBiometricRequired = function() {
@@ -760,7 +800,7 @@
                     }
                     params.loanId = scope.accountId;
                     scope.glimCommandParam = scope.action;
-                    if (scope.isGLIM && scope.action != "modifytransaction" && !scope.glimPaymentAsGroup) {
+                    if (scope.isGlimEnabled() && scope.action != "modifytransaction") {
                         this.formData.locale = scope.optlang.code;
                         this.formData.dateFormat = scope.df;
                         scope.constructGlimClientMembersData();
@@ -771,20 +811,20 @@
                             location.path('/viewloanaccount/' + params.loanId);
                         });
                     } else {
-                        if (scope.isGLIM && scope.action == "modifytransaction" && !scope.glimPaymentAsGroup) {
+                        if (scope.isGlimEnabled() && scope.action == "modifytransaction") {
                             scope.constructGlimClientMembersData();
                             scope.constructGlimTransactions(scope.formData.glimTransactions);
                             scope.formData.clientMembers = scope.glimTransactions;                            
                         }
-                        if (scope.isGLIM && !scope.glimPaymentAsGroup){
+                        if (scope.isGlimEnabled()){
                             scope.constructGlimTransactions(scope.formData.glimTransactions);
                             scope.formData.clientMembers = scope.glimTransactions;
                             delete scope.formData.glimTransactions;
                         }
-                        if (scope.isGLIM){
-                            scope.constructGlimTransactions(scope.formData.glimTransactions);
-                            scope.formData.clientMembers = scope.glimTransactions;
-                            delete scope.formData.glimTransactions;
+                        if(!scope.isGLIM){
+                            if(scope.formData.glimTransactions){
+                                delete scope.formData.glimTransactions;
+                            }                            
                         }
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
