@@ -10,7 +10,30 @@
             if (routeParams.centerEntity) {
                 scope.centerEntity = true;
             }
+            if(scope.response){
+                    scope.showTerm = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.term ;
 
+                    scope.showCurrency = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.currency;
+
+                     scope.showInterestCompoundingPeriod = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.interestCompoundingPeriod;
+
+                     scope.showInterestCalculatedUsing = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.interestCalculatedUsing;
+
+                     scope.showLockinPeriodFrequency = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.lockinPeriodFrequency;
+
+                     scope.showGroupMeeting = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.groupMeeting;
+
+                     scope.showSettings = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.settings;
+
+                     scope.showCharges = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.charges;
+
+                     scope.addCharges = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.addCharges;
+
+                      scope.showInterestRateChat = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.interestRateChat;
+
+                      scope.isMandatoryDepositCheckBox = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.isMandatoryDepositCheckBox;
+
+            }
             //interest rate chart details
             scope.chart = {};
             scope.fromDate = {}; //required for date formatting

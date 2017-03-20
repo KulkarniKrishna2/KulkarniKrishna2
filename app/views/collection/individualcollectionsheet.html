@@ -83,7 +83,7 @@
                     <th>{{'label.heading.clientname' | translate}}</th>
                     <th>{{'label.heading.totaldue' | translate}}</th>
                     <th>{{'label.heading.charges' | translate}}</th>
-                    <th>{{'label.heading.actions' | translate}}</th>
+                    <th ng-show = "paymentDetails">{{'label.heading.actions' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody ng-repeat="client in collectionsheetdata.clients">
@@ -98,7 +98,7 @@
                     <td>
                         <input type="text" class="input-sm form-control" ng-model="loan.chargesDue">
                     </td>
-                    <td>
+                    <td ng-show = "paymentDetails">
                         <button class="btn btn-default" ng-show="!loan.showPaymentDetails"
                                 data-ng-click="showLoanPaymentDetails($parent.$index,$index)"
                                 >{{'label.button.addpaymentdetail'| translate}}
@@ -156,7 +156,8 @@
                     <th>{{'label.heading.productname' | translate}}</th>
                     <th>{{'label.heading.clientname' | translate}}</th>
                     <th>{{'label.heading.totaldue' | translate}}</th>
-                    <th>{{'label.heading.actions' | translate}}</th>
+                    <th ng-show = "paymentDetails">
+                        {{'label.heading.actions' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody ng-repeat="client in collectionsheetdata.clients">
@@ -168,7 +169,7 @@
                         <input id="total" type="text" class="input-sm form-control"
                                ng-model="saving.dueAmount">
                     </td>
-                    <td>
+                    <td  ng-show = "paymentDetails">
                         <button class="btn btn-default" ng-show="!saving.showPaymentDetails"
                                 data-ng-click="showSavingsPaymentDetails($parent.$index,$index)"
                                 >{{'label.button.addpaymentdetail'| translate}}

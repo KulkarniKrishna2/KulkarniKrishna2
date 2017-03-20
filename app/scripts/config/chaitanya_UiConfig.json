@@ -4,6 +4,7 @@
     "loanAccount": {
       "isHiddenField": {
         "fundId": false,
+        "externalId":false,
         "linkAccountId": true,
         "createStandingInstruction": true,
         "numberOfRepayments": false,
@@ -60,7 +61,18 @@
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
         "viewReportButton": true,
-        "editTranches": true
+        "editTranches": true,
+         "term" : false,
+        "currency" : false,
+        "interestCompoundingPeriod" : false,
+        "interestCalculatedUsing" : false,
+        "lockinPeriodFrequency" : false,
+        "isMandatoryDepositCheckBox" : false,
+        "groupMeeting" : false,
+        "settings" : false,
+        "interestRateChat" : false,
+        "charges" : false,
+        "addCharges" : false
       }
     },
     "collectionSheet": {
@@ -68,7 +80,8 @@
         "paymentTypeOption": true
       },
       "isHiddenFeild": {
-        "newtransactionDate": false
+        "newtransactionDate": false,
+        "paymentDetails" : false
       }
     },
     "createClient": {
@@ -85,7 +98,13 @@
         }
       },
       "isHiddenField": {
-        "hideClientClassification": false
+        "hideClientClassification": false,
+      "staff": false,
+    "legalForm" : false,
+    "middleName" : false,
+    "externalId" : false,
+    "submittedOn" : false,
+    "openSavingsProduct" : false
       },
       "isMandatoryField": {
         "dateOfBirth": true,
@@ -110,7 +129,11 @@
         "name": true
       },
       "isHiddenField": {
-        "villageOptions": false
+        "villageOptions": false,
+        "showGroupExternalId" : false,
+      "showSubmittedOn" : false,
+      "showStaff" : false,
+      "addclients" : false
       }
     },
     "createGroup": {
@@ -122,7 +145,11 @@
         "active": true
       },
       "isHiddenMenu": {
-        "attachmeeting": true
+        "attachmeeting": true,
+        "groupExternalId" : false,
+      "submittedOn" : false,
+      "staff" : false,
+      "addclients" : false
       }
     },
     "labelChanges": {

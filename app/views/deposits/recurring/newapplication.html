@@ -2,7 +2,7 @@
 <div>
     <ul class="breadcrumb">
         <li ng-show="centerEntity"><a href="#/viewcenter/{{groupId}}">{{groupName}}</a></li>
-        <li ng-show="groupName&&!centerEntity"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
+        <li ng-show="groupName && !centerEntity"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
         <li class="active">{{'label.anchor.recurringdepositapplication' | translate}}</li>
     </ul>
@@ -47,11 +47,11 @@
     </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
-<label ng-show="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+<label ng-show="data && showTerm"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
 <div ng-show="data">
 <table class="width100">
-    <tr>
+    <tr ng-show = "showCurrency">
         <td class="width14"><label class="control-label">{{ 'label.heading.currency' | translate }}</label>
         </td>
         <td class="width36">
@@ -63,7 +63,7 @@
             <label><b>{{data.currency.decimalPlaces}}</b></label>
         </td>
     </tr>
-    <tr>
+    <tr ng-show="showInterestCompoundingPeriod">
         <td class="width14"><label class="control-label">{{ 'label.input.interestcompoundingperiod' | translate
             }}&nbsp;<span class="required">*</span></label>
         </td>
@@ -82,7 +82,7 @@
                     value="{{type.id}}" class="form-control width170px">
             </select></td>
     </tr>
-    <tr>
+    <tr ng-show="showInterestCalculateDusing">
         <td class="width14"><label class="control-label">{{ 'label.input.interestcalculatedusing' | translate
             }}&nbsp;<span
                     class="required">*</span></label>
@@ -104,7 +104,7 @@
             </select>
         </td>
     </tr>
-    <tr>
+    <tr ng-show="showLockinPeriodFrequency">
         <td class="width14">
             <label class="control-label">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
         </td>
@@ -123,12 +123,12 @@
         <td class="width14"></td>
         <td class="width36 paddedbottom10"></td>
     </tr>
-    <tr>
+    <tr ng-show="showCheckBox">
         <td colspan="4">
             <hr/>
         </td>
     </tr>
-    <tr>
+    <tr ng-show ="isMandatoryDepositCheckBox">
         <td colspan="4" class="paddedbottom20">
             <div class="form-inline">
                 <input id="isMandatoryDeposit" type="checkbox"
@@ -170,7 +170,7 @@
                 </select></div>
         </td>
     </tr>
-    <tr>
+    <tr ng-show="showGroupMeeting">
         <td colspan="4" class="paddedbottom20">
             <div class="form-inline">
                 <input id="isCalendarInherited" type="checkbox"
@@ -205,8 +205,8 @@
     </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
-<label ng-show="data"><strong>{{ 'label.heading.settings' | translate }}</strong></label>
-<table class="width100">
+<label ng-show="data && showSettings"><strong>{{ 'label.heading.settings' | translate }}</strong></label>
+<table class="width100" ng-show="showSettings">
     <tr>
         <td colspan="2" class="width50"><label class="control-label">{{ 'label.input.minimumdepositterm' | translate
             }}:&nbsp;&nbsp;{{formData.minDepositTerm}}-{{data.minDepositTermType.value}}</label>
@@ -252,8 +252,8 @@
     </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
-<label ng-show="data"><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
-<table class="width100">
+<label ng-show="data && showInterestRateChat"><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
+<table class="width100" ng-show = "showInterestRateChat">
     <tr>
         <td class="width50"><label class="control-label">{{ 'label.input.interestratechart.valid.from' |
             translate }}<span class="required">*</span>: {{fromDate.date | DateFormat}}</label>
@@ -291,15 +291,15 @@
         </td>
     </tr>
 </table>
-<hr/>
-<label class="control-label"><strong>{{ 'label.heading.charges' | translate }}</strong></label>
-<select ng-model="chargeId"
+<hr />
+<label class="control-label" ng-show = "showCharges"><strong>{{ 'label.heading.charges' | translate }}</strong></label>
+<select ng-model="chargeId" ng-show = "showCharges"
         ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in chargeOptions|filter:data.currency.code:strict"
         value="{{charge.id}}" class="form-control width170px">
     <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
 </select>
-<a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
-    <span ng-show="errorchargeevent">
+<a ng-click="addCharge(chargeId)" ng-show = "addCharges"><i class="icon-plus icon-white"></i></a>
+    <span ng-show="errorchargeevent && addCharges">
         <small class="error">
             {{'label.'+labelchargeerror | translate}}
         </small>

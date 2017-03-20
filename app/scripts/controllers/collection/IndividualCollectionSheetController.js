@@ -18,6 +18,10 @@
             scope.savingsGroupsTotal = [];
             scope.date.transactionDate = new Date();
             var centerOrGroupResource = '';
+
+            if(scope.response){
+                    scope.paymentDetails = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails;
+            }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
