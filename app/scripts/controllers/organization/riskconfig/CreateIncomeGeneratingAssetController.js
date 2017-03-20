@@ -21,7 +21,7 @@
             scope.submit = function () {
                 this.formData.locale = "en";
                 resourceFactory.cashFlowCategoryResource.save(this.formData, function (response) {
-                    location.path('/incomegeneratingasset')
+                    location.path('/asset/createasset/'+response.resourceId+'/');
                 });
             }
         }
