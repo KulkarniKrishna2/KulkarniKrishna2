@@ -28,7 +28,7 @@
             scope.submit = function () {
                 this.formData.locale = "en";
                 resourceFactory.cashFlowCategoryResource.save(this.formData, function (response) {
-                    location.path('/householdexpense');
+                    location.path('/expense/createexpense/'+response.resourceId+'/');
                 });
             }
         }
