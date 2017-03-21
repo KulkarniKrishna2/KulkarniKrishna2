@@ -179,7 +179,7 @@
 												{{client.accountNo}} - {{client.displayName}}
 											</th>
 											<td align="center" colspan="3">
-												<a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
                                             <td>
@@ -212,7 +212,7 @@
 												{{client.accountNo}} - {{client.displayName}}
 											</th>
 											<td align="center" colspan="3">
-												<a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+												<a has-permission='CREATE_LOAN'class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
                                             <td>
