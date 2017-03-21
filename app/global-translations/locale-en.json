@@ -80,6 +80,7 @@
     "label.heading.accounttype": "Account Type",
     "label.heading.user": "User",
     "label.heading.loan": "Loan",
+    "label.heading.loanid": "Loan ID",
     "label.heading.principal": "Principal",
     "label.heading.loanProductName": "ProductName",
     "label.heading.amount": "Amount",
