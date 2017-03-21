@@ -53,6 +53,10 @@
                 <td><strong>{{details.groupLevelName}}:</strong></td>
                 <td>{{details.groupName}}</td>
             </tr>
+            <tr data-ng-show="details.loanId">
+                <td><strong>{{ 'label.heading.loanid' | translate }}:</strong></td>
+                <td>{{details.loanId}}</td>
+            </tr>
         </table>
     </div>
     <script type="text/ng-template" id="delete.html">
@@ -97,10 +101,20 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <tr data-ng-repeat="json in jsondata">
+            <tbody data-ng-repeat="json in jsondata">
+            <tr data-ng-hide="json.name=='credits' || json.name=='debits' ">
                 <td class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json.name}}</strong></td>
                 <td class="width80">{{json.property}}</td>
+            </tr>
+            <tr data-ng-show="json.name=='credits'" data-ng-repeat="credit in credits">
+                <td data-ng-if="$index == 0" class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json.name}}</strong></td>
+                <td data-ng-if="$index > 0" class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{}}</strong></td>
+                <td class="width80">{{credit.glAccountName}}({{credit.glAccountCode}}) {{ 'label.heading.amount' | translate }}={{credit.glAmount}}</td>
+            </tr>
+            <tr data-ng-show="json.name=='debits'" data-ng-repeat="debit in debits">
+                <td data-ng-if="$index == 0" class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json.name}}</strong></td>
+                <td data-ng-if="$index > 0" class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{}}</strong></td>
+                <td class="width80">{{debit.glAccountName}}({{debit.glAccountCode}}) {{ 'label.heading.amount' | translate }}={{debit.glAmount}}</td>
             </tr>
             </tbody>
         </table>

@@ -6,11 +6,35 @@
                 scope.details = data;
                 scope.commandAsJson = data.commandAsJson;
                 var obj = JSON.parse(scope.commandAsJson);
+                var creditdetails = obj.credits || [];
+                var debitdetails = obj.debits || [];
                 scope.jsondata = [];
                 _.each(obj, function (value, key) {
                     scope.jsondata.push({name: key, property: value});
                 });
+               _.each(creditdetails, function (value) {
+            	scope.credit(value.glAccountId, value.amount);
+                });
+                _.each(debitdetails, function (value) {
+            	scope.debit(value.glAccountId, value.amount);
+               });
             });
+        
+       
+            scope.credit = function (obj, amount) {
+        	scope.credits=[];
+        	resourceFactory.accountCoaResource.get({glAccountId: obj}, function (data) {
+        		scope.credits.push({glAccountCode: data.glCode, glAccountName: data.name, glAmount:amount});
+        	});
+          }
+        
+            scope.debit = function (obj, amount) {
+        	scope.debits=[];
+        	resourceFactory.accountCoaResource.get({glAccountId: obj}, function (data) {
+        		scope.debits.push({glAccountCode: data.glCode, glAccountName: data.name, glAmount:amount});
+        	});
+           }
+            
             scope.checkerApprove = function (action) {
                 $modal.open({
                     templateUrl: 'approve.html',
