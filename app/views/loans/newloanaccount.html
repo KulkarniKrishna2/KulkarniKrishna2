@@ -69,7 +69,7 @@
                    max="'2020-06-22'" class="form-control"/>
         </td>
     </tr>
-    <tr ng-show="formData.productId">
+    <tr ng-show="formData.productId && showExternalId">
         <td><label>{{ 'label.input.loanexternalid' | translate }}&nbsp;<span ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId" class="required">*</span></label></td>
         <td class="paddedbottom10" ng-if ="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
             <input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control"
@@ -249,16 +249,16 @@
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
-                            value="{{repaymentFrequencyType.id}}"/>&nbsp;<span ng-show="formData.repaymentFrequencyType == 2">on</span>
+                            value="{{repaymentFrequencyType.id}}"/>&nbsp;<span ng-show="formData.repaymentFrequencyType == 2 && showRepaymentFrequencyNthDayType">on</span>
                     <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
                             ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
-                            ng-show="formData.repaymentFrequencyType == 2"
+                            ng-show="formData.repaymentFrequencyType == 2 &&showRepaymentFrequencyNthDayType"
                             ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType)"
                             value="{{repaymentFrequencyNthDayType.id}}"/>&nbsp;
                     <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
                             ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
-                            ng-show="formData.repaymentFrequencyType == 2 &&  formData.repaymentFrequencyNthDayType != -2"
-                            ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType)"
+                            ng-show="formData.repaymentFrequencyType == 2 &&  formData.repaymentFrequencyNthDayType != -2 && showRepaymentFrequencyDayOfWeekType"
+                            ng-disabled="(response.uiDisplayCofigurations.loanAccount.isReadOnlyField.repaymentFrequencyType)"
                             value="{{repaymentFrequencyDayOfWeekType.id}}"/>&nbsp;
                     <form-validate valattributeform="newloanaccountform" valattribute="repaidevery"/>
                 </td>

@@ -61,7 +61,18 @@
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
         "viewReportButton": false,
-        "editTranches": false
+        "editTranches": false,
+        "term" : false,
+        "currency" : false,
+        "interestCompoundingPeriod" : false,
+        "interestCalculatedUsing" : false,
+        "lockinPeriodFrequency" : false,
+        "isMandatoryDepositCheckBox" : false,
+        "groupMeeting" : false,
+        "settings" : false,
+        "interestRateChat" : false,
+        "charges" : false,
+        "addCharges" : false
       }
     },
     "clientAccount": {
@@ -74,7 +85,8 @@
         "paymentTypeOption": false
       },
       "isHiddenFeild": {
-        "newtransactionDate": false
+        "newtransactionDate": false,
+        "paymentDetails" : false
       }
     },
     "createClient": {
@@ -91,7 +103,13 @@
         }
       },
       "isHiddenField": {
-        "hideClientClassification": true
+        "hideClientClassification": true,
+      "staff": false,
+    "legalForm" : false,
+    "middleName" : false,
+    "externalId" : false,
+    "submittedOn" : false,
+    "openSavingsProduct" : false
       },
       "isMandatoryField": {
         "dateOfBirth": false,
@@ -131,7 +149,11 @@
         "externalId":true
       },
       "isHiddenMenu": {
-        "attachmeeting": false
+        "attachmeeting": false,
+    "groupExternalId" : false,
+      "submittedOn" : false,
+      "staff" : false,
+      "addclients" : false
       }
     },
     "labelChanges": {

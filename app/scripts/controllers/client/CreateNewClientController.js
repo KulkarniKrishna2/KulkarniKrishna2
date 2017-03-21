@@ -50,6 +50,15 @@
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
+                scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
+                scope.showLegalForm = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
+                scope.showMiddleName = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName;
+                scope.showExternalId = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.externalId;
+                scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.submittedOn;
+                scope.showOpenSavingsProduct = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.openSavingsProduct;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isHiddenField && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
             }
