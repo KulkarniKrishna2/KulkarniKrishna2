@@ -33,18 +33,75 @@
                     <th>{{'label.heading.branch' | translate}}</th>
                     <th>{{'label.heading.glaccount' | translate}}</th>
                     <th>{{'label.heading.glcode' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="bankStatementDetail in bankStatementDetails" ng-class="($index%2!=0)?'graybg':''">
-                    <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail.transactionId)"><a>{{bankStatementDetail.transactionId}}</a></td>
-                    <td ng-show="bankStatementDetail.transactionId == undefined">{{bankStatementDetail.transactionId}}</td>
-                    <td>{{bankStatementDetail.transactionDate}}</td>
-                    <td>{{bankStatementDetail.amount}}</td>
-                    <td>{{bankStatementDetail.accountingType}}</td>
-                    <td>{{bankStatementDetail.branchName}}</td>
+                   <!-- <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail.transactionId)"><a>{{bankStatementDetail.transactionId}}</a></td>-->
+                    <td ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip='Active Loan not found with {{bankStatementDetail.loanAccountNumber}}' class="icon-exclamation-sign" style="color: red"></a></td>
+                    <td ng-show="bankStatementDetail.transactionId != undefined ">{{bankStatementDetail.transactionId}}</td>
+                    <td ng-show="bankStatementDetail.transactionId == undefined && !bankStatementDetail.isError">{{bankStatementDetail.transactionId}}</td>
+
+                    <td>
+                        <div ng-show="bankStatementDetail.editable == undefined || !bankStatementDetail.editable">{{bankStatementDetail.transactionDate}}</div>
+                        <div ng-show="bankStatementDetail.editable != undefined && bankStatementDetail.editable">
+                            <input class="date-disable form-control" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
+                                   ng-model="formData.transactionDate" is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div ng-show="bankStatementDetail.editable == undefined || !bankStatementDetail.editable">{{bankStatementDetail.amount}}</div>
+                        <div ng-show="bankStatementDetail.editable != undefined && bankStatementDetail.editable">
+                            <input type="text" class="input-small form-control" number-format ng-model="formData.amount">
+                        </div>
+                    </td>
+
+                    <td>
+                        <div ng-show="bankStatementDetail.editable == undefined || !bankStatementDetail.editable">{{bankStatementDetail.accountingType}}</div>
+                        <div ng-show="bankStatementDetail.editable != undefined && bankStatementDetail.editable">
+                            <select style="height: auto;width: auto" ng-model="formData.accountingTypeName" class="form-control"
+                                    ng-options="accountType.id as accountType.name for accountType in accountingTypes" value="{{accountType.name}}"></select>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div ng-show="bankStatementDetail.editable == undefined || !bankStatementDetail.editable">{{bankStatementDetail.branchName}}</div>
+                        <div ng-show="bankStatementDetail.editable != undefined && bankStatementDetail.editable">
+                            <select id="offices" chosen="offices" class="form-control" ng-model="formData.officeId"
+                                    ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                            </select>
+                        </div>
+                    </td>
+
                     <td>{{bankStatementDetail.glAccount}}</td>
-                    <td>{{bankStatementDetail.glCode}}</td>
+
+                    <td>
+                        <div ng-show="bankStatementDetail.editable == undefined || !bankStatementDetail.editable">{{bankStatementDetail.glCode}}</div>
+                        <div ng-show="bankStatementDetail.editable != undefined && bankStatementDetail.editable">
+                            <select style=" height: auto;width: auto"  id="glAccounts" chosen="glAccounts"  class="form-control" ng-model="formData.glCode"
+                                    ng-options="glAccount.id as (glAccount.name +'('+ glAccount.glCode +')') for glAccount in glAccounts" value="{{glAccount.id}}">
+                            </select>
+                        </div>
+                     </td>
+                    <td class="width10">
+                        <div  ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError">
+                            <a style="background-color: #cc3300;" ng-show="bankStatementDetail.updateCancelled ||
+                                    bankStatementDetail.showUpdateButton == undefined && !bankStatementDetail.showUpdateButton"
+                                    class="btn" ng-click="editBankDetails($index)">
+                                <i  tooltip="Edit" class="icon-edit icon-white"></i>
+                            </a>
+                            <a ng-show="bankStatementDetail.showUpdateButton != undefined && bankStatementDetail.showUpdateButton"
+                                    ng-click="updateBankStatementDetail(bankStatementDetail.id)"><i  tooltip="Update" class="icon-check icon-green"></i></button>
+                            </a>
+
+                            <a ng-show="bankStatementDetail.showCanceleButton != undefined && bankStatementDetail.showUpdateButton"
+                                    ng-click="cancel($index)"><i  tooltip="Cancel" class="icon-undo icon-red"></i>
+                            </a>
+                        </div>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>
