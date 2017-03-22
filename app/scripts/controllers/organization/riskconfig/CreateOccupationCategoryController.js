@@ -22,7 +22,7 @@
             scope.submit = function () {
                 this.formData.locale = "en";
                 resourceFactory.cashFlowCategoryResource.save(this.formData, function (response) {
-                    location.path('/occupationcatagory/')
+                    location.path('/viewcashflowcategory/createoccupation/'+response.resourceId+'/');
                 });
             }
         }

@@ -362,6 +362,9 @@
     "label.button.postdividends": "Post Dividends",
     "label.button.bulk.undo.transactions": "Bulk undo transactions",
     "label.button.preview": "Preview",
+    "label.button.addsuboccupation": "Add Sub Occupation",
+    "label.button.addassets": "Add Assets",
+    "label.button.addexpenses": "Add Expenses",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -5052,7 +5055,7 @@
     "label.heading.expense":"Expense",
     "label.heading.default.expense":"Default Expense",
     "label.view.add.household.expense":"Add House Hold Expense Category",
-    "label.heading.household":"House Hold Expense Catagory",
+    "label.heading.household":"House Hold Expense Category",
     "label.heading.householdexp.category":"House Hold Expense Category",
     "label.heading.household.exp":"House Hold Expense",
     "label.button.add.asset":"Add Income Generating Asset",
