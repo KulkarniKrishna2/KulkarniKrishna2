@@ -3,46 +3,44 @@
   "uiDisplayConfigurations": {
 	"loanAccount": {
 	  "isHiddenField": {
-		"fundId": true,
+		"fundId": false,
 		"linkAccountId": true,
-		"createStandingInstruction": true,
+		"createStandingInstruction": false,
 		"numberOfRepayments": false,
 		"repaymentEvery": false,
-		"repaymentFrequencyType": true,
-		"repaymentFrequencyNthDayType": true,
-		"repaymentFrequencyDayOfWeekType": true,
+		"repaymentFrequencyType": false,
+		"repaymentFrequencyNthDayType": false,
+		"repaymentFrequencyDayOfWeekType": false,
 		"interestChargedFromDate": false,
 		"repaymentsStartingFromDate": false,
-		"interestType": true,
-		"amortizationType": true,
-		"interestCalculationPeriodType": true,
-		"inArrearsTolerance": true,
-		"graceOnInterestCharged": true,
-		"transactionProcessingStrategyId": true,
-		"graceOnInterestPayment": true,
-		"graceOnArrearsAgeing": true,
-		"syncDisbursementDateWithMeeting":true,
-		"recurringMoratoriumOnPrincipalPeriods" : false,
+		"interestType": false,
+		"amortizationType": false,
+		"interestCalculationPeriodType": false,
+		"inArrearsTolerance": false,
+		"graceOnInterestCharged": false,
+		"transactionProcessingStrategyId": false,
+		"graceOnInterestPayment": false,
+		"graceOnArrearsAgeing": false,
+		"syncDisbursementDateWithMeeting": false,
+		"recurringMoratoriumOnPrincipalPeriods": false,
 		"brokenPeriodMethodType":false
 	  },
 	  "isMandatory": {
-		"externalId": false,
-		"repaymentsStartingFromDate": false,
-		"loanPurposeId": false
+		"externalId": false
 	  },
 	  "isHiddenSection": {
-		"interestRecalculationSection": true,
-		"collateralSection": true
+		"interestRecalculationSection": false,
+		"collateralSection": false
 	  },
 	  "isShowField": {
 		"nextRepaymentDateDisburseScreen": false,
 		"adjustRepaymentDateDisburseScreen": false
 	  },
 	  "isReadOnlyField": {
-		"loanTermFrequencyType": true,
-		"interestChargedFromDate": true,
+		"loanTermFrequencyType": false,
+		"interestChargedFromDate": false,
 		"displayName": false,
-		"interestRatePerPeriod": true,
+		"interestRatePerPeriod": false,
 		"loanPurposeId": false,
 		"syncRepaymentsWithMeeting": false,
 		"repaymentFrequencyType": false
@@ -55,11 +53,15 @@
 		"considerFutureDisbursmentsInSchedule": true,
 		"fundId": "",
 		"paymentTypeId": ""
+	  },
+	  "isMandatory": {
+		"repaymentsStartingFromDate": false,
+		"loanPurposeId": false
 	  }
 	},
 	"viewLoanAccountDetails": {
 	  "isHiddenFeild": {
-		"viewReportButton": true,
+		"viewReportButton": false,
 		"editTranches": false
 	  }
 	},
@@ -78,9 +80,8 @@
 	},
 	"createClient": {
 	  "isReadOnlyField": {
-		"staff": true,
-		"pincode": false,
-		"active":false
+		"staff": false,
+		"pincode": false
 	  },
 	  "isValidateDOBField": {
 		"active": false,
@@ -91,19 +92,18 @@
 	  },
 	  "isHiddenField": {
 		"hideClientClassification": false,
-		"pincode": false
+		"pincode": true
 	  },
 	  "isMandatoryField": {
 		"dateOfBirth": false,
 		"clientClassificationId":false,
-		"externalId": false,
-		"villageTown":false,
+		"villageTown":true,
 		"addressType":false
 	  }
 	},
 	"defaultGISConfig": {
 	  "address": {
-		"countryName": "",
+		"countryName": "Lebanon",
 		"stateName": "",
 		"addressType": ""
 	  },
@@ -112,12 +112,12 @@
 		"expectedRepaymentPaymentType": ""
 	  },
 	  "isReadOnlyField":{
-	  	"countryName":false
+	  	"countryName":true
 	  }
 	},
 	"createCenter": {
 	  "isReadOnlyField": {
-		"active": true,
+		"active": false,
 		"name": false
 	  },
 	  "isHiddenField": {
@@ -126,7 +126,7 @@
 	},
 	"createGroup": {
 	  "isReadOnlyField": {
-		"staff": true,
+		"staff": false,
 		"active": false
 	  },
 	  "isAutoPopulate": {
@@ -141,7 +141,7 @@
 	},
 	"createVillage": {
 	  "isReadOnlyField": {
-		"active": true
+		"active": false
 	  },
 	  "isValidatePinCodeField": {
 		"active": false,
@@ -155,6 +155,11 @@
 	  },
 	  "isHiddenField": {
 		"villageCode": false
+	  }
+	},
+	"viewLoanAccountDetails": {
+	  "isHiddenFeild": {
+		"viewReportButton": false
 	  }
 	},
 	"clientIdentifier": {
@@ -172,11 +177,11 @@
 	  }
 	},
 	"journalEntryConfiguration": {
-	  "allowMultipleCreditAndDebitEntries":false
+		"allowMultipleCreditAndDebitEntries":false
 	},
 	"viewClient": {
 	  "isHiddenField": {
-		"pincode": false
+		"pincode": true
 	  }
 	}
   }

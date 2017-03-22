@@ -13,17 +13,17 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.input.addresstype' | translate}} <span class="required">*</span>
+                    {{'label.input.addresstype' | translate}} <span ng-show ="isAddressTypeMandatory"  class="required">*</span>
                 </label>
 
                 <div class="col-sm-3">
                     <select id="addressId" name="addressType" ng-model="addressTypeId"  class="form-control"
-                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}" required late-validate=""  ng-disabled="true">
+                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}" ng-required="isAddressTypeMandatory"  ng-disabled="true">
                             <option value="">{{'label.menu.addressType' | translate}}</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="editaddressform" valattribute="addressType"/>
+                    <form-validate ng-if ="isAddressTypeMandatory" valattributeform="editaddressform" valattribute="addressType"/>
                 </div>
             </div>
             <div class="form-group">
@@ -44,11 +44,14 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}
-                </label>
+                <span ng-show="isVillageTownMandatory" class="required">*</span></label>
 
                 <div class="col-sm-3">
                     <input type="text" id="villagename" name="villageTown" ng-model="formData.villageTown"
-                           class="form-control"/>
+                           class="form-control" ng-required = "isVillageTownMandatory"/>
+                </div>
+                <div class="col-sm-1 paddinglr0px">
+                        <form-validate valattributeform="editaddressform" valattribute="villageTown"/>
                 </div>
 
             </div>
@@ -60,7 +63,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select id="countryId" name="countries" ng-model="formData.countryId" class="form-control"
+                    <select id="countryId" name="countries" ng-model="formData.countryId" class="form-control" ng-disabled ="isCountryReadOnly"
                             ng-options="country.countryId as country.countryName for country in countries" value="{{country.countryId}}"
                             ng-change="changeCountry(formData.countryId)" required late-validate="">
                         <option value="">{{'label.menu.selectCountry' | translate}}</option>
@@ -120,11 +123,11 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
+                <label  ng-show = "!pincode"  class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
                     <span class="required">*</span>
                 </label>
 
-                <div class="col-sm-3">
+                <div class="col-sm-3" ng-if="!pincode">
                     <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control" required late-validate=""/>
                 </div>
                 <div class="col-sm-2">

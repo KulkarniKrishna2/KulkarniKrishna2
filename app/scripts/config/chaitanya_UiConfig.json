@@ -85,12 +85,15 @@
         }
       },
       "isHiddenField": {
-        "hideClientClassification": false
+        "hideClientClassification": false,
+        "pincode": false
       },
       "isMandatoryField": {
         "dateOfBirth": true,
         "clientClassificationId":true,
-        "externalId": false
+        "externalId": false,
+        "villageTown":false,
+        "addressType":false
       }
     },
     "defaultGISConfig": {
@@ -102,6 +105,9 @@
       "paymentType": {
         "expectedDisbursalPaymentType": "Cash",
         "expectedRepaymentPaymentType": "Cash"
+      },
+      "isReadOnlyField":{
+       "countryName":false
       }
     },
     "createCenter": {
@@ -162,6 +168,11 @@
     },
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":false
+    },
+    "viewClient": {
+      "isHiddenField": {
+        "pincode": false
+      }
     }
   }
 }
