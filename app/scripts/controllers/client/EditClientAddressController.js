@@ -14,7 +14,22 @@
             scope.formData = {};
             scope.formData.addressTypes = [];
             scope.entityType="clients";
-
+            scope.pincode = false;
+            scope.isVillageTownMandatory = false;
+            scope.isCountryReadOnly = false;
+            scope.isAddressTypeMandatory = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
+                scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
+                scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
+                scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
+                scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+            }
             resourceFactory.addressTemplateResource.get({},function (data) {
                 scope.addressType = data.addressTypeOptions;
                 scope.countries = data.countryDatas;

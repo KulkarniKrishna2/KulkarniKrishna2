@@ -893,8 +893,8 @@
 									<span class="padded-td">{{address.districtData.districtName}}</span>
 								</td>
 							</tr>
-							<tr>
-								<th class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
+							<tr  ng-if="!pincode">
+								<th  class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
 								<td>
 									<span class="padded-td">{{address.postalCode}}</span>
 								</td>

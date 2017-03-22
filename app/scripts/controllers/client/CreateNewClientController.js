@@ -41,6 +41,10 @@
             scope.hideClientClassification = false;
             scope.isClientClassificationMandatory = false;
             scope.isExternalIdMandatory = false;
+            scope.pincode = false;
+            scope.isVillageTownMandatory = false;
+            scope.isCountryReadOnly = false;
+            scope.isAddressTypeMandatory = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -57,6 +61,18 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId){
                 scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
+                scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
+                scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
+                scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
+                scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
             }
             scope.minAge = 0;
             scope.maxAge = 0;
@@ -123,7 +139,6 @@
                 }
                 scope.formData.dateOfBirth = scope.dateOfBirth;
                 scope.formData.clientClassificationId = scope.clientClassificationId;
-
                 if(data.postalCode){
                     scope.formData.postalCode =  data.postalCode;
                 }
@@ -346,8 +361,10 @@
                 }
             }
 
-            scope.submit = function (enableCreateClientLoop) {
-                scope.enableCreateClientLoop = enableCreateClientLoop;
+            scope.enableContinue = function(){
+                scope.enableCreateClientLoop = true;
+            }
+            scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
                 this.formData.locale = scope.optlang.code;
@@ -373,7 +390,7 @@
                 if(scope.formData.clientClassificationId){
                     this.formData.clientClassificationId = scope.formData.clientClassificationId;
                 }
-
+              
                 if(scope.first.incorpValidityTillDate) {
                     this.formData.clientNonPersonDetails.locale = scope.optlang.code;
                     this.formData.clientNonPersonDetails.dateFormat = scope.df;
@@ -416,8 +433,8 @@
                    }
                 }else {
                    scope.invalidClassificationId = false;
-                   }
-
+                }
+              
                 if(scope.first.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
                     if(!(scope.first.dateOfBirth < scope.maxDateOfBirth && scope.first.dateOfBirth > scope.minDateOfBirth)){
                         scope.dateOfBirthNotInRange = true;
@@ -427,7 +444,7 @@
                 } else {
                     scope.dateOfBirthNotInRange = false;
                 }
-                if (!scope.dateOfBirthNotInRange || !scope.invalidClassificationId) {
+                if (!scope.dateOfBirthNotInRange || !scope.invalidClassificationId || !scope.pincode || !scope.isVillageTownMandatory || !isCountryReadOnly || !isAddressTypeMandatory) {
 
                     resourceFactory.clientResource.save(this.formData, function (data) {
                         if (routeParams.pledgeId) {

@@ -1,0 +1,16 @@
+{
+  "label.input.houseno": "Building/Floor",
+  "label.input.streetname":"Street",
+  "label.input.villagename":"Address",
+  "label.input.statename":"Mouhafaza",
+  "label.input.districtname":"Qaza",
+  "label.input.talukname":"Village",
+  "label.menu.selectState":"Select Mouhafaza",
+  "label.menu.selectDistrict":"Select Qaza",
+  "label.heading.statename":"Mouhafaza",
+  "label.heading.districtname":"Qaza",
+  "label.heading.houseno":"Building/Floor",
+  "label.heading.villagename":"Address",
+  "label.menu.selectTaluka":"Select Village",
+  "label.heading.talukname":"Village"
+}

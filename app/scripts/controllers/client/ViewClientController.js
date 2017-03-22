@@ -28,6 +28,10 @@
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.id;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
+            scope.pincode = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
+                scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
+            }
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
