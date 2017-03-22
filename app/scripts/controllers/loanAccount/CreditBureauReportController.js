@@ -2,10 +2,10 @@
     mifosX.controllers = _.extend(module, {
         CreditBureauReportController: function (scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json) {
 
+            scope.isResponPresent = false;
             scope.viewCreditBureauReport = false;
             scope.errorMessage = [];
             scope.cbResponseError = false;
-            scope.cbLoanEnqResponseError = false;
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
             scope.trancheDisbursalId = routeParams.trancheDisbursalId;
@@ -20,7 +20,6 @@
             function getLoanApplicationData() {
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                     scope.formData = data;
-                    getCreditBureauReportSummary();
                     scope.loanProductChange(scope.formData.loanProductId);
                     getCreditbureauLoanProductData(scope.formData.loanProductId);
                 });
@@ -34,7 +33,6 @@
                 }, function (data) {
                     scope.loandetails = data;
                     scope.formData = scope.loandetails;
-                    getCreditBureauReportSummary();
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                     }
@@ -51,6 +49,7 @@
                     associations: 'creditBureaus'
                 }, function (data) {
                     scope.creditbureauLoanProduct = data;
+                    getCreditBureauReportSummary();
                 });
             };
 
@@ -153,31 +152,31 @@
                 }
             };
 
-            function convertEMIAmountToMonthlyAmount(existingLoan){
-                if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months'){
+            function convertEMIAmountToMonthlyAmount(existingLoan) {
+                if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
                     return existingLoan.installmentAmount;
-                }else if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks'){
-                    if(existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2){
+                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
+                    if (existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2) {
                         return convertBIWeeklyEMIAmountToMonthly(existingLoan);
                     } else {
                         return convertWeeklyEMIAmountToMonthly(existingLoan);
                     }
-                }else if(existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days'){
+                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days') {
                     return convertDailyEMIAmountToMonthly(existingLoan);
-                }else{
+                } else {
                     return 0.00;
                 }
             };
 
-            function convertWeeklyEMIAmountToMonthly(existingLoan){
-                return (existingLoan.installmentAmount/7) * 30;
+            function convertWeeklyEMIAmountToMonthly(existingLoan) {
+                return (existingLoan.installmentAmount / 7) * 30;
             };
 
-            function convertBIWeeklyEMIAmountToMonthly(existingLoan){
-                return (existingLoan.installmentAmount/14) * 30;
+            function convertBIWeeklyEMIAmountToMonthly(existingLoan) {
+                return (existingLoan.installmentAmount / 14) * 30;
             };
 
-            function convertDailyEMIAmountToMonthly(existingLoan){
+            function convertDailyEMIAmountToMonthly(existingLoan) {
                 return existingLoan.installmentAmount * 30;
             };
 
@@ -267,14 +266,14 @@
             };
 
             function findcustomerSinceFromEachMFI() {
-                if(scope.activeLoan && scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0){
-                    if(scope.closedLoan && scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0){
-                        for(var i in scope.activeLoan.summaries){
-                            for(var j in scope.closedLoan.summaries){
-                                if(scope.activeLoan.summaries[i].lenderName === scope.closedLoan.summaries[j].lenderName){
+                if (scope.activeLoan && scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0) {
+                    if (scope.closedLoan && scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0) {
+                        for (var i in scope.activeLoan.summaries) {
+                            for (var j in scope.closedLoan.summaries) {
+                                if (scope.activeLoan.summaries[i].lenderName === scope.closedLoan.summaries[j].lenderName) {
                                     if (scope.activeLoan.summaries[i].customerSince > scope.closedLoan.summaries[j].customerSince) {
                                         scope.activeLoan.summaries[i].customerSince = scope.closedLoan.summaries[j].customerSince
-                                    }else if(scope.closedLoan.summaries[j].customerSince > scope.activeLoan.summaries[i].customerSince){
+                                    } else if (scope.closedLoan.summaries[j].customerSince > scope.activeLoan.summaries[i].customerSince) {
                                         scope.closedLoan.summaries[i].customerSince = scope.activeLoan.summaries[j].customerSince
                                     }
                                 }
@@ -290,11 +289,12 @@
                     entityId: scope.entityId
                 }, function (loansSummary) {
                     scope.loansSummary = loansSummary;
+                    convertByteToString();
                     if (scope.loanId) {
                         if (scope.loansSummary.loanId == scope.loanId) {
                             scope.isResponPresent = true;
                         }
-                    } else {
+                    } else if (scope.loansSummary && scope.loansSummary.cbStatus) {
                         scope.isResponPresent = true;
                     }
                     resourceFactory.clientExistingLoan.getAll({
@@ -309,13 +309,24 @@
                 });
             };
 
+            scope.cBStatus = function () {
+                var status = undefined;
+                if (scope.loansSummary && scope.loansSummary.cbStatus && scope.loansSummary.cbStatus.value) {
+                    status = scope.loansSummary.cbStatus.value;
+                }
+                return status;
+            };
+
             scope.creditBureauReport = function () {
                 resourceFactory.creditBureauReportResource.get({
                     entityType: scope.entityType,
                     entityId: scope.entityId
                 }, function (loansSummary) {
                     scope.loansSummary = loansSummary;
-                    scope.isResponPresent = true;
+                    if (scope.loansSummary && scope.loansSummary.cbStatus) {
+                        scope.isResponPresent = true;
+                    }
+                    convertByteToString();
                     resourceFactory.clientExistingLoan.getAll({
                         clientId: scope.formData.clientId,
                         loanApplicationId: scope.loanApplicationReferenceId,
@@ -342,12 +353,12 @@
                         popupWin.document.open();
                         popupWin.document.write(result);
                         popupWin.document.close();
-                    }else if (fileContentData.reportFileType.value == 'XML') {
+                    } else if (fileContentData.reportFileType.value == 'XML') {
                         var result = "";
                         for (var i = 0; i < fileContentData.fileContent.length; ++i) {
                             result += (String.fromCharCode(fileContentData.fileContent[i]));
                         }
-                        var newWindow = window.open('','_blank','toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=1, copyhistory=1, menuBar=1, width=640, height=480, left=50, top=50', true);
+                        var newWindow = window.open('', '_blank', 'toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=1, copyhistory=1, menuBar=1, width=640, height=480, left=50, top=50', true);
                         var preEl = newWindow.document.createElement("pre");
                         var codeEl = newWindow.document.createElement("code");
                         codeEl.appendChild(newWindow.document.createTextNode(result));
@@ -356,45 +367,58 @@
                     }
                 });
             };
-            
-            scope.convertByteToString = function (content, status) {
-                var result = "";
+
+            function convertByteToString(content, status) {
+                scope.errorMessage = undefined;
+                if (_.isUndefined(scope.loansSummary.cbResponse) || _.isUndefined(scope.loansSummary.cbStatus.value)) {
+                    return scope.errorMessage;
+                }
+                var status = scope.cBStatus();
+                var content = undefined;
+                if (status === 'PENDING') {
+                    content = scope.loansSummary.cbLoanEnqResponse;
+                } else {
+                    content = scope.loansSummary.cbResponse;
+                }
                 if (content != undefined && content != null) {
                     for (var i = 0; i < content.length; ++i) {
-                        result += (String.fromCharCode(content[i]));
+                        if (_.isUndefined(scope.errorMessage)) {
+                            scope.errorMessage = "";
+                        }
+                        scope.errorMessage += (String.fromCharCode(content[i]));
                     }
                 }
                 if (status) {
-                    var jsonObj = ngXml2json.parser(result);
+                    var jsonObj = ngXml2json.parser(scope.errorMessage);
                     scope.errorMessage = undefined;
-                    if(!_.isUndefined(jsonObj.response.reportdata)){
+                    if (scope.creditbureauLoanProduct && scope.creditbureauLoanProduct.creditBureauData && scope.creditbureauLoanProduct.creditBureauData.creditBureauName !== 'Highmark' && !_.isUndefined(jsonObj.response.reportdata)) {
                         if (!_.isUndefined(jsonObj.response.reportdata.error)) {
                             scope.errorMessage = jsonObj.response.reportdata.error.errormsg;
                             scope.cbResponseError = true;
                         }
-                    }else if (jsonObj.indvreportfile) {
-                        if(jsonObj.indvreportfile.inquirystatus.inquiry && _.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)){
+                    } else if (jsonObj.indvreportfile) {
+                        if (jsonObj.indvreportfile.inquirystatus.inquiry && _.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)) {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.description;
-                            scope.cbLoanEnqResponseError = true;
-                        }else if (!_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)
+                            scope.cbResponseError = true;
+                        } else if (!_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)
                             && !_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors.error) &&
                             jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.length > 1) {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error
-                        }else {
+                        } else {
                             scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
-                            scope.cbLoanEnqResponseError = true;
+                            scope.cbResponseError = true;
                         }
                     } else {
                         if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors) && jsonObj.reportfile.inquirystatus.inquiry.errors.error.length > 1) {
                             scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error;
-                        } else if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors)){
+                        } else if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors)) {
                             scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error.description;
                             scope.cbResponseError = true;
                         }
                     }
                     return scope.errorMessage;
                 }
-                return result;
+                return scope.errorMessage;
             };
 
             scope.proceedToNext = function () {
