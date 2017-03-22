@@ -1176,6 +1176,21 @@
                     });
                 });
             }
+
+            scope.isRefundOption = function(loanaccount){
+                return (loanaccount.status.value =='Overpaid' && loanaccount.loanType.value != 'GLIM');
+            };
+
+            scope.isDisburseOption = function(loanaccount){
+                return (!loanaccount.status.pendingApproval && !loanaccount.status.active  && loanaccount.loanType.value != 'GLIM' && loanaccount.status.value!='Overpaid');
+            };
+
+            scope.isRepaymentOption = function(loanaccount){
+                return (loanaccount.status.active && loanaccount.loanType.value != 'GLIM');
+            };
+            scope.isApproveOption = function(loanaccount){
+                return (loanaccount.status.pendingApproval && loanaccount.loanType.value != 'GLIM');
+            };
             
             scope.routeToLoanNextAction = function (loan) {
                 var loanId = loan.id;
