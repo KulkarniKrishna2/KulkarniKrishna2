@@ -40,9 +40,8 @@
             scope.hideClientClassification = false;
             scope.isClientClassificationMandatory = false;
             scope.isExternalIdMandatory = false;
-            if($rootScope.tenantIdentifier == "chaitanya"){
-                scope.isDateOfBirthMandatory = true;
-            }
+            scope.enableCreateClientLoop = false;
+           
             scope.invalidClassificationId = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
@@ -61,6 +60,10 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isHiddenField && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth) {
+                scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId){
@@ -354,8 +357,8 @@
                 }
             }
 
-            scope.submit = function (enableCreateClientLoop) {
-                scope.enableCreateClientLoop = enableCreateClientLoop;
+            scope.submit = function () {
+                
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
                 this.formData.locale = scope.optlang.code;
