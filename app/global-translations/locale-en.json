@@ -1800,6 +1800,7 @@
     "label.input.adjustinstallmentamount":"Adjust installment amount for remainder of loan",
     "label.input.newinstallmentamount":"New Installment Amount",
     "label.input.recalculateInterest":"Recalculate Interest based on new terms",
+    "label.input.specificToInstallment": "Is specific to Installment",
     "label.input.approvedOnDate": "Approval On",
     "label.input.rejectedOnDate": "Rejected On",
     "label.input.submittedOnDate" : "Submitted On",
