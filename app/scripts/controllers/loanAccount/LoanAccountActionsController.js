@@ -486,7 +486,7 @@
                             scope.paymentTypes = data.paymentTypeOptions || [];
                             scope.formData.transactionAmount = data.amount;
                             scope.formData[scope.modelName] = new Date(data.date) || new Date();
-                            scope.formData.glimTransactions = data.glimTransactions;
+                            scope.glimTransactions = data.glimTransactions;
                             scope.isGLIM = (data.glimTransactions.length>0);
                             if (data.paymentDetailData) {
                                 if (data.paymentDetailData.paymentType) {
@@ -817,18 +817,9 @@
                     } else {
                         if (scope.isGlimEnabled() && scope.action == "modifytransaction") {
                             scope.constructGlimClientMembersData();
-                            scope.constructGlimTransactions(scope.formData.glimTransactions);
-                            scope.formData.clientMembers = scope.glimTransactions;                            
-                        }
-                        if (scope.isGlimEnabled()){
-                            scope.constructGlimTransactions(scope.formData.glimTransactions);
-                            scope.formData.clientMembers = scope.glimTransactions;
-                            delete scope.formData.glimTransactions;
-                        }
-                        if(!scope.isGLIM){
-                            if(scope.formData.glimTransactions){
-                                delete scope.formData.glimTransactions;
-                            }                            
+                            scope.constructGlimTransactions(scope.glimTransactions);                        
+                        }else if (scope.isGlimEnabled()){
+                            scope.constructGlimTransactions(scope.glimTransactions);
                         }
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
@@ -960,14 +951,15 @@
             };
 
             scope.constructGlimTransactions = function(glimTransactions){
-                scope.glimTransactions = [];
+                scope.glimMembers = [];
                 if(glimTransactions){
                     for(var i=0;i<glimTransactions.length;i++){
-                    scope.glimTransactions[i] = {};
-                   scope.glimTransactions[i].id =glimTransactions[i].glimId;
-                   scope.glimTransactions[i].transactionAmount =glimTransactions[i].transactionAmount;
+                        scope.glimMembers[i] = {};
+                       scope.glimMembers[i].id =glimTransactions[i].glimId;
+                       scope.glimMembers[i].transactionAmount =glimTransactions[i].transactionAmount;
+                    }
                 }
-                }
+                scope.formData.clientMembers = scope.glimMembers;
                 
             };
         }

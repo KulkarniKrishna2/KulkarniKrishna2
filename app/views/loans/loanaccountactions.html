@@ -321,7 +321,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="glim in formData.glimTransactions" ng-init="outerIndex = $index">
+                    <tr ng-repeat="glim in glimTransactions" ng-init="outerIndex = $index">
 
                         <td >{{glim.clientId}}</td>
                         <td >{{glim.clientName}}</td>
@@ -329,8 +329,8 @@
                             <input  type="text"
                                     class="form-control principal"
                                     name="principal"
-                                    ng-model="formData.glimTransactions[outerIndex].transactionAmount"
-                                    number-format ng-change="getGlimTransactionAmount(formData.glimTransactions)"/>
+                                    ng-model="glimTransactions[outerIndex].transactionAmount"
+                                    number-format ng-change="getGlimTransactionAmount(glimTransactions)"/>
 
                         </td>
                     </tr>
