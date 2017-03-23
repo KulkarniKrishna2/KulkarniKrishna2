@@ -264,10 +264,17 @@
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
-						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
+						                <td class="pointer center" ng-if="isDisburseOption(loanaccount)">
 						                	<a tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-flag icon-white"></i>
 						                	</a>
+						                </td>
+						                <td class="pointer center" ng-if="isRefundOption(loanaccount)">
+						                	<a tooltip="{{'label.button.refund' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/refund" class="btn btn-xs btn-primary ng-binding">
+						                		<i class="icon-exchange icon-white"></i>
+						                	</a>
+						                </td>
+						                <td class="pointer center" ng-if="isGlimOverpaidOption(loanaccount)">
 						                </td>
 						            </tr>
 					            </tbody>

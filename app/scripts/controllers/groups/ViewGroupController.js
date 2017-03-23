@@ -246,6 +246,18 @@
                     });
                 });
             };
+
+            scope.isRefundOption = function(loanaccount){
+                return (loanaccount.status.value =='Overpaid' && loanaccount.loanType.value != 'GLIM');
+            };
+
+            scope.isDisburseOption = function(loanaccount){
+                return (!loanaccount.status.pendingApproval && !loanaccount.status.active && loanaccount.status.value !='Overpaid');
+            };
+
+            scope.isGlimOverpaidOption = function(loanaccount){
+                return (loanaccount.status.value =='Overpaid' && loanaccount.loanType.value == 'GLIM');
+            };
         }
     });
     mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {
