@@ -151,7 +151,8 @@
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
                     weeksInYearType : scope.product.weeksInYearType.id,
-                    isFlatInterestRate : scope.product.isFlatInterestRate
+                    isFlatInterestRate : scope.product.isFlatInterestRate,
+                    percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred
                 };
 
                 if(scope.product.installmentCalculationPeriodType){
