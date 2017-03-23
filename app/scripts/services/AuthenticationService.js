@@ -48,11 +48,17 @@
             this.authenticateWithUsernamePassword = function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
         		if(SECURITY === 'oauth'){
-	                httpService.post( "/fineract-provider/api/oauth/token?username=" + credentials.username + "&password=" + credentials.password +"&client_id=community-app&grant_type=password&client_secret=123")
+                    var data = {};
+                    data.username = credentials.username;
+                    data.password = credentials.password;
+                    data.client_id ='community-app';
+                    data.grant_type = 'password';
+                    data.client_secret = '123'
+	                httpService.post( "/fineract-provider/api/oauth/token",data)
 	                    .success(getUserDetails)
 	                    .error(onFailure);
         		} else {
-	                httpService.post(apiVer + "/authentication?username=" + credentials.username + "&password=" + credentials.password)
+	                httpService.post(apiVer + "/authentication" , credentials)
 	                    .success(onSuccess)
 	                    .error(onFailure);
         		}
