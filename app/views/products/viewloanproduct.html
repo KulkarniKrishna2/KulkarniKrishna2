@@ -662,7 +662,7 @@
                 <td>{{'label.heading.writeoffreason' | translate}}</td>
                 <td colspan="3">{{'label.heading.expenseaccount' | translate}}</td>
             </tr>
-            <tr ng-repeat="codeValueToAccountMapping in loanproduct.codeValueToGLAccountMappings">
+            <tr ng-repeat="codeValueToAccountMapping in loanproduct.writeOffReasonsToExpenseAccountMappings">
                 <td>{{codeValueToAccountMapping.codeValue.name}}</td>
                 <td colspan="3">{{codeValueToAccountMapping.expenseAccount.name}}({{codeValueToAccountMapping.expenseAccount.glCode}})</td>
             </tr>

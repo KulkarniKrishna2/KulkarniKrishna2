@@ -50,6 +50,13 @@
                 scope.inparams.templateType = 'individual';
             }
 
+             if(scope.response && scope.response.uiDisplayConfigurations.loanAccount){
+                 
+                 scope.showExternalId = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.externalId;
+                 scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
+                 scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
+            }
+
             scope.inparams.staffInSelectedOfficeOnly = true;
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {

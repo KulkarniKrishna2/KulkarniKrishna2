@@ -787,9 +787,10 @@
                     bankStatementGeneratePortfolioResource: defineResource(apiVer + "/bankstatements/:bankStatementId/generatetransactions", {bankStatementId: '@bankStatementId'}, {
                         createPortfolioTransactions: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
                     }),
-                    bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
+                    bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details/:bankStatementDetailId", {bankStatementId: '@bankStatementId',bankStatementDetailId: '@bankStatementDetailId' ,command:'@command'}, {
                         getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : false},
-                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId',command:'@command'} }
+                        update :{method: 'PUT',params: {bankStatementId: '@bankStatementId', bankStatementDetailId: '@bankStatementDetailId'}},
+                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId',command:'@command'}}
                     }),
                     bankStatementDocumentResource: defineResource(apiVer + "/bankstatements/document/:documentId", {documentId: '@documentId'}, {
                         getBankStatementDocument: {method: 'GET', params: {documentId : '@documentId'}}

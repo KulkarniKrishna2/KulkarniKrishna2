@@ -5,6 +5,7 @@
       "isHiddenField": {
         "fundId": false,
         "linkAccountId": false,
+        "externalId":false,
         "createStandingInstruction": false,
         "numberOfRepayments": false,
         "repaymentEvery": false,
@@ -32,7 +33,7 @@
       },
       "isHiddenSection": {
         "interestRecalculationSection": false,
-        "collateralSection": false
+        "collateralSection": false 
       },
       "isShowField":{
         "nextRepaymentDateDisburseScreen": false,
@@ -60,7 +61,18 @@
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
         "viewReportButton": true,
-        "editTranches": false
+        "editTranches": false,
+        "term" : false,
+        "currency" : false,
+        "interestCompoundingPeriod" : false,
+        "interestCalculatedUsing" : false,
+        "lockinPeriodFrequency" : false,
+        "isMandatoryDepositCheckBox" : false,
+        "groupMeeting" : false,
+        "settings" : false,
+        "interestRateChat" : false,
+        "charges" : false,
+        "addCharges" : false
       }
     },
     "collectionSheet": {
@@ -68,7 +80,8 @@
         "paymentTypeOption": true
       },
       "isHiddenFeild":{
-        "newtransactionDate":false
+        "newtransactionDate":false,
+        "paymentDetails" : false
       }
     },
     "createClient": {
@@ -86,7 +99,13 @@
       },
       "isHiddenField": {
         "hideClientClassification": false,
-        "pincode": false
+        "pincode": false,
+        "staff": false,
+        "legalForm" : false,
+        "middleName" : false,
+        "externalId" : false,
+        "submittedOn" : false,
+        "openSavingsProduct" : false
       },
       "isMandatoryField": {
         "dateOfBirth": false,
@@ -128,7 +147,11 @@
         "active": false
       },
       "isHiddenMenu": {
-        "attachmeeting": false
+        "attachmeeting": false,
+     "groupExternalId" : false,
+      "submittedOn" : false,
+      "staff" : false,
+      "addclients" : false
       }
     },
     "labelChanges": {
@@ -175,5 +198,4 @@
       }
     }
   }
-}
 }

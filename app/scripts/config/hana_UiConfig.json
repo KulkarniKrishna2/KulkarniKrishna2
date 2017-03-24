@@ -4,6 +4,7 @@
 	"loanAccount": {
 	  "isHiddenField": {
 		"fundId": true,
+		"externalId":true,
 		"linkAccountId": true,
 		"createStandingInstruction": true,
 		"numberOfRepayments": false,
@@ -26,7 +27,7 @@
 		"brokenPeriodMethodType":false
 	  },
 	  "isMandatory": {
-		"externalId": false,
+		"externalId": true,
 		"repaymentsStartingFromDate": false,
 		"loanPurposeId": false
 	  },
@@ -60,7 +61,18 @@
 	"viewLoanAccountDetails": {
 	  "isHiddenFeild": {
 		"viewReportButton": true,
-		"editTranches": false
+		"editTranches": false,
+		 "term" : true,
+        "currency" : true,
+        "interestCompoundingPeriod" : true,
+        "interestCalculatedUsing" : true,
+        "lockinPeriodFrequency" : true,
+        "isMandatoryDepositCheckBox" : true,
+        "groupMeeting" : true,
+        "settings" : true,
+        "interestRateChat" : true,
+        "charges" : true,
+        "addCharges" : true
 	  }
 	},
 	"clientAccount": {
@@ -73,7 +85,8 @@
 		"paymentTypeOption": true
 	  },
 	  "isHiddenFeild": {
-		"newtransactionDate": false
+		"newtransactionDate": false,
+		"paymentDetails" : true
 	  }
 	},
 	"createClient": {
@@ -91,7 +104,13 @@
 	  },
 	  "isHiddenField": {
 		"hideClientClassification": false,
-		"pincode": false
+		"pincode": false,
+		"staff": true,
+		"legalForm" : true,
+		"middleName" : true,
+		"externalId" : true,
+		"submittedOn" : true,
+		"openSavingsProduct" : true
 	  },
 	  "isMandatoryField": {
 		"dateOfBirth": false,
@@ -133,7 +152,11 @@
 		"active": false
 	  },
 	  "isHiddenMenu": {
-		"attachmeeting": false
+		"attachmeeting": false,
+		"groupExternalId" : true,
+			"submittedOn" : true,
+			"staff" : true,
+			"addclients" : true
 	  }
 	},
 	"labelChanges": {

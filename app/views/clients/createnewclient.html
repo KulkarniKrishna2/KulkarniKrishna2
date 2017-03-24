@@ -28,9 +28,9 @@
 	                    <p class="form-control-static">{{forceOffice.name}}</p>
 	                </div>
 	            </div>
-	            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+	            <label class="control-label col-sm-2" ng-show="showStaff">{{'label.input.staff' | translate}}</label>
 
-	            <div class="col-sm-3">
+	            <div class="col-sm-3" ng-show ="showStaff">
 					<select chosen="staffs" id="staffId" ng-model="formData.staffId" ng-disabled="response.uiDisplayConfigurations.createClient.isReadOnlyField.staff == true && formData.staffId != null" class="form-control"
 							ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
 						<option value="">{{'label.menu.selectloanofficer' | translate}}</option>
@@ -38,7 +38,7 @@
 	            </div>
 	        </div>
 
-			<div class="form-group">
+			<div class="form-group" ng-show="showLegalForm">
 				<label class="control-label col-sm-2">{{'label.input.legalForm' | translate}}</label>
 
 				<div class="col-sm-3">
@@ -61,7 +61,7 @@
                                    ng-model="formData.firstname" class="form-control" ng-required="isFirstnameRequired"/>
                             <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" ng-show="showMiddleName">
                             <input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename"
                                    ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
                             <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
@@ -217,11 +217,11 @@
                 </div>
 
 
-	            <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}
+	            <label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
 	               <span ng-show="isExternalIdMandatory" class="required">*</span>
 	            </label>
 
-	           <div class="col-sm-3" >
+	           <div class="col-sm-3" ng-show="showExternalId">
 				 	<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
 					 ng-required = "isExternalIdMandatory"/>
 				</div>
@@ -413,7 +413,7 @@
 		            </div>
 		        </div>
 	        </div>
-	        <div class="form-group">
+	        <div class="form-group" ng-show = "showSubmittedOn">
 	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
 	            <div class="col-sm-3">
@@ -421,7 +421,7 @@
 	                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
 	            </div>
 	        </div>
-	        <div class="form-group" ng-show="showSavingOptions">
+	        <div class="form-group" ng-show="showSavingOptions && showOpenSavingsProduct">
 	            <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
 
 	            <div class="col-sm-3">
@@ -442,8 +442,8 @@
 		    </div>
 		    <div class="col-md-offset-5">
 	            <a id="cancel" ng-href="{{cancel}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-	            <button id="save" type="submit"  class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
-	             <button id="save" type="submit" ng-click = "enableContinue()" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT' >{{'label.button.save.enableCreateClientLoop' | translate}}</button>
+	            <button id="save" type="submit" ng-click = "enableCreateClientLoop = false" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
+	            <button id="saveandcontinue" type="submit" ng-click = "enableCreateClientLoop = true" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT' >{{'label.button.save.enableCreateClientLoop' | translate}}</button>
                 <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
 	        </div>
 	    </fieldset>

@@ -50,6 +50,13 @@
                     scope.formData.active = true;
                     scope.choice = 1;
                 }
+                 if(scope.response.uiDisplayConfigurations.createGroup){
+                    scope.showGroupExternalId = !scope.response.uiDisplayConfigurations.createGroup.isHiddenMenu.groupExternalId;
+                    scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createGroup.isHiddenMenu.submittedOn;
+                    scope.showStaff = !scope.response.uiDisplayConfigurations.createGroup.isHiddenMenu.staff;
+                    scope.addclients = !scope.response.uiDisplayConfigurations.createGroup.isHiddenMenu.addclients;
+                    
+                }
 
             });
 

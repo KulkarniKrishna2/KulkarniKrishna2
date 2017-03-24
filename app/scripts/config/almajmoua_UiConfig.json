@@ -80,8 +80,14 @@
 	},
 	"createClient": {
 	  "isReadOnlyField": {
+		"hideClientClassification": false,
+		"pincode": false,
 		"staff": false,
-		"pincode": false
+		"legalForm" : false,
+		"middleName" : false,
+		"externalId" : false,
+		"submittedOn" : false,
+		"openSavingsProduct" : false
 	  },
 	  "isValidateDOBField": {
 		"active": false,
