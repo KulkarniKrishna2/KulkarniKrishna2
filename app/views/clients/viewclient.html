@@ -57,6 +57,13 @@
 			</h3>
 		</div>
 	</div>
+	<script type="text/ng-template" id="viewDocument.html">
+	    	 <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+            	<view-document-directive  ng-entity-type="client_identifiers" 
+            	ng-entity-id="{{data.parentEntityId}}"
+            	ng-document-id="{{data.id}}"></view-document-directive>
+        	</div>
+	</script>
 	<script type="text/ng-template" id="deleteClient.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -808,6 +815,8 @@
 		            <td>
 		                  <span ng-repeat="file in document.documents">
 		                    {{file.fileName}}&nbsp;&nbsp;
+		                    <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
+		                           " class="icon-eye-open text-success"></i></a>
 		                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
 		                            class="icon-cloud-download"></i></a>
 		                  </span>
