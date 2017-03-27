@@ -532,6 +532,7 @@
     "error.msg.Secondary.Authentication.Service.failed":"2F Authentication failed. Either finger print didn't match or OTP is not correct",
     "error.msg.holiday.holiday.should.be.on.a.working.day": "Holiday cannot set on a Non Working Day '{{params[0].value}}'",
     "validation.msg.clientincomeexpense.incomeExpenseId.cannot.be.blank":"Sub Type is Manadatory",
+    "error.msg.loan.cannot.be.submit.as.loan.product.is.not.mapped.to.this.office":"Loan cannot be submitted as loanproduct is not mapped to clients office",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
