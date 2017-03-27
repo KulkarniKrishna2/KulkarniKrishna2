@@ -740,6 +740,50 @@
 
             };
 
+            scope.getMandates = function () {
+                resourceFactory.mandateResource.getAll({loanId: routeParams.id}, function (data) {
+                    var activeExists = false;
+                    var inProcessExists = false;
+                    scope.updateCancelPossible = false;
+                    scope.createPossible = false;
+
+                    if(data && data.length > 0){
+                        var len = data.length;
+                        for (var i=0; i < len; i++) {
+                            var d = data[i];
+                            if(d.mandateStatus.code === 'ACTIVE'){
+                                activeExists = true;
+                            }else if(d.mandateStatus.code === 'CREATE_REQUESTED'
+                                || d.mandateStatus.code === 'UPDATE_REQUESTED'
+                                || d.mandateStatus.code === 'CANCEL_REQUESTED'){
+                                inProcessExists = true;
+                                d.editdeletePossible = true;
+                            }else if(d.mandateStatus.code === 'CREATE_INPROCESS'
+                                || d.mandateStatus.code === 'UPDATE_INPROCESS'
+                                || d.mandateStatus.code === 'CANCEL_INPROCESS'){
+                                inProcessExists = true;
+                            }
+                            loandocs = API_VERSION + '/loans/' + d.loanId + '/documents/' + d.scannedDocumentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            d.docUrl = loandocs;
+                        }
+                    }
+                    if(activeExists && !inProcessExists){
+                        scope.updateCancelPossible = true;
+                    }
+                    if(!activeExists && !inProcessExists){
+                        scope.createPossible = true;
+                    }
+                    scope.mandates = data;
+                });
+
+            };
+
+            scope.deleteMandate = function (loanId, mandateId) {
+                resourceFactory.mandateResource.delete({loanId: loanId, mandateId: mandateId}, '', function (data) {
+                    scope.getMandates();
+                });
+            };
+
             scope.routeToRepaymentSchedule = function (glimId, disbursedAmount, clientId, clientName) {
                 $rootScope.principalAmount = disbursedAmount;
                 scope.disbursementDate = angular.isDefined(scope.loandetails.timeline.actualDisbursementDate) ? new Date(scope.loandetails.timeline.actualDisbursementDate):new Date(scope.loandetails.timeline.expectedDisbursementDate);

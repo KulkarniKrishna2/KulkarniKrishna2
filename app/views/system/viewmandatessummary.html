@@ -1,0 +1,139 @@
+<div ng-controller="ViewMandatesSummaryController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/mandates">{{'label.anchor.mandates' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewmandatessummary' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="mandatessummaryform" novalidate="" ng-submit="submit()">
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.requesttype' | translate}}:</label>
+            <div class="col-sm-3">
+                <select id="type" ng-model="formData.type"  class="form-control"
+                        ng-options="requesttype as requesttype for requesttype in requesttypes" value="{{requesttype}}"
+                        name="type" required late-validate>
+                    <option value="" style="display:none;">{{'label.menu.selectrequesttype' | translate}} </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="officeId">{{'label.input.requestoffice' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select id="officeId" ng-model="formData.officeId"  class="form-control"
+                        ng-options="office.id as office.name for office in officeOptions" value="{{office.id}}"
+                        name="officeId"  required late-validate>
+                    <option value="" style="display:none;">{{'label.menu.selectoffice' | translate}} </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.includeChildOffices' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input type="checkbox" ng-model="formData.includeChildOffices"  required late-validate/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.mandatessummary.requestFromDate' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input id="requestFromDate" type="text" name="formData.requestFromDate" datepicker-pop="yyyy-MM-dd"
+                       ng-model="formData.requestFromDate" is-open="opened"  class="form-control" late-validate ng-required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.mandatessummary.requestToDate' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input id="requestToDate" type="text" name="formData.requestToDate" datepicker-pop="yyyy-MM-dd"
+                       ng-model="formData.requestToDate" is-open="opened" class="form-control" late-validate ng-required/>
+            </div>
+        </div>
+        <div class="col-md-offset-3">
+            <a id="cancel" href="#/mandates">
+                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+            </a>
+            <button id="save" type="submit" class="btn btn-primary">
+                {{'label.button.submit' | translate}}
+            </button>
+        </div>
+    </form>
+    <h3 class="bolder" ng-show="nodata">{{'label.nodatafound' | translate}}</h3>
+    <div ng-show="summary.length>0">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.mandatessummary.summary' | translate}}</h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th class="width34">{{ 'label.heading.mandatessummary.status' | translate }}</th>
+                <th class="width34">{{ 'label.heading.mandatessummary.count' | translate }}</th>
+                <th class="width34"  ng-show="type==='transactions'">{{ 'label.heading.mandatessummary.amount' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="smry in summary">
+                <td class="width34 pointer">{{smry.status.code}}</td>
+                <td class="width34 pointer">{{smry.count}}</td>
+                <td class="width34 pointer" ng-show="type==='transactions'">{{smry.amount | currency}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="entries.currentPageItems.length>0">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.mandatessummary.list' | translate}}</h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                <th  style="width:20%;">{{ 'label.header.mandates.loanno' | translate }}</th>
+                <th style="width:20%;">{{ 'label.input.requestdate' | translate }}</th>
+                <th style="width:20%;">{{ 'label.heading.mandate.umrn' | translate }}</th>
+                <th style="width:20%;">{{ 'label.heading.mandate.bankName' | translate }}</th>
+                <th style="width:20%;">{{ 'label.heading.mandate.branchName' | translate }}</th>
+                <th style="width:20%;">{{ 'label.heading.mandate.bankAccountNumber' | translate }}</th>
+                <th style="width:15%;">{{ 'label.heading.mandatessummary.status' | translate }}</th>
+                <th style="width:auto;">{{ 'label.heading.mandate.returnProcessDate' | translate }}</th>
+                <th style="width:auto;" ng-show="type === 'transactions'">{{ 'label.heading.mandate.amount' | translate }}</th>
+                <th style="width:auto;">{{ 'label.header.mandates.faileReason' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="entry in entries.currentPageItems">
+                <td  style="width:5%;" class="pointer">{{entry.id}}</td>
+                <td style="width:auto;" class="pointer">{{entry.loanAccountNo}}</td>
+                <td style="width:20%;" class="pointer">{{entry.requestDate | DateFormat}}</td>
+                <td style="width:20%;" class="pointer">{{entry.umrn}}</td>
+                <td style="width:20%;" class="pointer">{{entry.bankName}}</td>
+                <td style="width:auto;" class="pointer">{{entry.branchName}}</td>
+                <td style="width:auto;" class="pointer">{{entry.bankAccountNumber}}</td>
+                <td style="width:15%;" class="pointer" ng-show="type === 'mandates'">{{entry.mandateStatus.code}}</td>
+                <td style="width:15%;" class="pointer" ng-show="type === 'transactions'">{{entry.status}}</td>
+                <td style="width:15%;" class="pointer">{{entry.returnProcessDate | DateFormat}}</td>
+                <td style="width:15%;" class="pointer" ng-show="type === 'transactions'">{{entry.paymentDueAmount}}</td>
+                <td style="width:15%;" class="pointer">{{entry.returnReason}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li class="previous"><a id="prev" ng-click="entries.previous()" href=""
+                                    ng-show="entries.hasPrevious()">&larr; {{'label.button.previous' |
+                translate}}</a></li>
+            <li class="next"><a id="next" ng-click="entries.next()" href="" ng-show="entries.hasNext()">{{'label.button.next'
+                | translate}} </a></li>
+        </ul>
+    </div>
+</div>

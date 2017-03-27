@@ -1,0 +1,53 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.mandates' | translate}}</li>
+    </ul>
+    <div class="row paddedleft paddedtop">
+        <div class="col-sm-6 col-md-6">
+            <div class="list-group">
+                <a class="list-group-item" href="#/downloadmandates" has-permission='MANDATES_DOWNLOAD_MANDATES'>
+                    <h4 class="list-group-item-heading"><i class="icon-table icon-large"></i>&nbsp;&nbsp;{{'label.anchor.downloadmandates'
+                        | translate}}</h4>
+
+                    <p class="list-group-item-text">{{'label.desc.downloadmandates' |
+                        translate}}</p>
+                </a>
+                <a class="list-group-item" href="#/downloadtransactions" has-permission='TRANSACTIONS_DOWNLOAD_MANDATES'>
+                    <h4 class="list-group-item-heading"><i class="icon-table icon-large"></i>&nbsp;&nbsp;{{'label.anchor.downloadtransactions'
+                        | translate}}</h4>
+
+                    <p class="list-group-item-text">{{'label.desc.downloadtransactions' | translate}}</p>
+                </a>
+                <a class="list-group-item" href="#/viewmandates" has-permission='READ_MANDATES'>
+                    <h4 class="list-group-item-heading"><i class="icon-list-ul icon-large"></i>&nbsp;&nbsp;{{'label.anchor.viewmandates'
+                        | translate}}</h4>
+
+                    <p class="list-group-item-text">{{'label.desc.viewmandates' | translate}}</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="list-group">
+                <a class="list-group-item" href="#/uploadmandates" has-permission='MANDATES_UPLOAD_MANDATES'>
+                    <h4 class="list-group-item-heading"><i class="icon-large icon-file"></i>&nbsp;&nbsp;{{'label.anchor.uploadmandates'
+                        | translate}}</h4>
+
+                    <p class="list-group-item-text">{{'label.desc.uploadmandates' | translate}}</p>
+                </a>
+                <a class="list-group-item" href="#/uploadtransactions" has-permission='TRANSACTIONS_UPLOAD_MANDATES'>
+                    <h4 class="list-group-item-heading"><i class="icon-large icon-file"></i>&nbsp;&nbsp;{{'label.anchor.uploadtransactions'
+                        | translate}}</h4>
+
+                    <p class="list-group-item-text">{{'label.desc.uploadtransactions' | translate}}</p>
+                </a>
+                <a class="list-group-item" href="#/viewmandatessummary" has-permission='READ_MANDATES'>
+                    <h4 class="list-group-item-heading"><i class="icon-list-ul icon-large"></i>&nbsp;&nbsp;{{'label.anchor.viewmandatessummary'
+                        | translate}}</h4>
+
+                    <p class="list-group-item-text">{{'label.desc.viewmandatessummary' | translate}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

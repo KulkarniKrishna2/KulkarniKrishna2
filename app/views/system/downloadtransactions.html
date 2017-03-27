@@ -1,0 +1,96 @@
+<div ng-controller="DownloadTransactionsController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/mandates">{{'label.anchor.mandates' | translate}}</a></li>
+            <li class="active">{{'label.anchor.downloadtransactions' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+        <form class="form-horizontal well" name="downloadtransactionsform" novalidate="" ng-submit="submit()">
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="officeId">{{'label.input.requestoffice' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="officeId" ng-model="formData.officeId"  class="form-control"
+                                ng-options="office.id as office.name for office in officeOptions" value="{{office.id}}"
+                                name="officeId">
+                            <option value="" style="display:none;">{{'label.menu.selectoffice' | translate}} </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="downloadtransactionsform" valattribute="officeId"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.includeChildOffices' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="formData.includeChildOffices"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.paymentDueStartDate' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="requestStartDate" type="text" name="formData.paymentDueStartDate" datepicker-pop="yyyy-MM-dd"
+                               ng-model="formData.paymentDueStartDate" is-open="opened" min="minDate" class="form-control" late-validate ng-required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.paymentDueEndDate' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="requestEndDate" type="text" name="formData.paymentDueEndDate" datepicker-pop="yyyy-MM-dd"
+                               ng-model="formData.paymentDueEndDate" is-open="opened" min="minDate" class="form-control" late-validate ng-required/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="failedTransactionOptions.length>0">
+                    <label class="control-label col-sm-2">{{'label.input.includeFailedTransactions' | translate}}</label>
+                </div>
+                <div ng-show="failedTransactionOptions.length>0">
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width:5%;">{{ 'label.header.mandates.include' | translate }}</th>
+                            <th  style="width:20%;">{{ 'label.header.mandates.loanno' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.header.mandates.payDueDate' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.header.mandates.payDueAmount' | translate }}</th>
+                            <th style="width:15%;">{{ 'label.header.mandates.faileReason' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="failedTr in failedTransactionOptions">
+                            <td  style="width:5%;" class="pointer"><input type="checkbox" type="checkbox"
+                                                                          name="selectedTransactions[]"
+                                                                          value="{{failedTr.id}}"
+                                                                          ng-checked="selection.indexOf(failedTr.id) > -1"
+                                                                          ng-click="toggleSelection(failedTr.id)"/></td>
+                            <td style="width:auto;" class="pointer">{{failedTr.loanAccountNo}}</td>
+                            <td style="width:20%;" class="pointer">{{failedTr.paymentDueDate | DateFormat}}</td>
+                            <td style="width:20%;" class="pointer">{{failedTr.paymentDueAmount | FormatNumber}}</td>
+                            <td style="width:20%;" class="pointer">{{failedTr.returnReason}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/mandates">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" class="btn btn-primary">
+                        {{'label.button.submit' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
