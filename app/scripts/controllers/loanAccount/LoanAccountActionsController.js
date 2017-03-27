@@ -49,7 +49,7 @@
             };
 
             scope.showGlimTransactionSection = function(){
-                return ((scope.action == 'repayment' || scope.action == 'waiveinterest') && scope.isGlimEnabled());
+                return ((scope.action == 'repayment' || scope.action == 'waiveinterest' || scope.action == 'writeoff') && scope.isGlimEnabled());
             };
 
             scope.showDefaultEmiSection = function(){
@@ -58,6 +58,10 @@
 
             scope.showGlimRepaymentSection = function(){
                 return (scope.action == 'repayment')  && scope.isGlimEnabled();
+            };
+
+            scope.editGlimTransaction = function(){
+                 return (scope.action == 'modifytransaction' && scope.isGlimEnabled());
             };
 
 
