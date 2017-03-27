@@ -46,6 +46,9 @@
                 </div>
             </div>
 
+            <input type="checkbox" ng-model="specificToInstallment" > &nbsp;<span
+                class="control-label"><label>{{ 'label.input.specificToInstallment' | translate }}&nbsp;</label></span>
+            <br/><br/>
             <input type="checkbox" ng-model="changeRepaymentDate" > &nbsp;<span
                 class="control-label"><label>{{ 'label.input.changeRepaymentDate' | translate }}&nbsp;</label></span>
             <div class="form-group">
@@ -58,10 +61,10 @@
                 </div>
             </div>
 
-            <input type="checkbox" ng-model="introduceGracePeriods"  ng-hide="isGLIM==true"> &nbsp;<span
-                class="control-label"  ng-hide="isGLIM==true">{{ 'label.input.introduceGracePeriods' | translate }}&nbsp;</span>
+            <input type="checkbox" ng-model="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
+                class="control-label"  ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.introduceGracePeriods' | translate }}&nbsp;</span>
 
-            <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true">
+            <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment">
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnPrincipal' | translate
                     }}&nbsp;</label>
@@ -71,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true">
+            <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment">
                 <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
                     }}&nbsp;</label>
 
@@ -79,11 +82,11 @@
                     <input id="interestgrace" class="form-control" ng-show="introduceGracePeriods" type="text" ng-model="formData.graceOnInterest">
                 </div>
             </div>
-            <div class="form-group" data-ng-hide="introduceGracePeriods"></div>
-            <div class="form-group" data-ng-hide="introduceGracePeriods"></div>
+            <div class="form-group" data-ng-hide="introduceGracePeriods || specificToInstallment"></div>
+            <div class="form-group" data-ng-hide="introduceGracePeriods || specificToInstallment"></div>
 
-            <input type="checkbox" ng-model="extendRepaymentPeriod"   ng-hide="isGLIM==true"> &nbsp;<span
-                class="control-label"  ng-hide="isGLIM==true">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
+            <input type="checkbox" ng-model="extendRepaymentPeriod"   ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
+                class="control-label"  ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
 
             <div class="form-group" >
 
@@ -95,9 +98,9 @@
                 </div>
             </div>
 
-            <input type="checkbox" ng-model="adjustinterestrates"  ng-hide="isGLIM==true"> &nbsp;<span
-                class="control-label"  ng-hide="isGLIM==true">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
-            <div class="form-group"  ng-hide="isGLIM==true">
+            <input type="checkbox" ng-model="adjustinterestrates"  ng-hide="isGLIM==true  || specificToInstallment"> &nbsp;<span
+                class="control-label"  ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
+            <div class="form-group"  ng-hide="isGLIM==true || specificToInstallment">
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
                     }}&nbsp;</label>
@@ -106,9 +109,9 @@
                            ng-model="formData.newInterestRate"></div>
             </div>
 
-            <input type="checkbox" ng-model="adjustinstallmentamount"  ng-hide="isGLIM==true"> &nbsp;<span
-                class="control-label"  ng-hide="isGLIM==true">{{ 'label.input.adjustinstallmentamount' | translate }}&nbsp;</span>
-            <div class="form-group"  ng-hide="isGLIM==true">
+            <input type="checkbox" ng-model="adjustinstallmentamount"  ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
+                class="control-label"  ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.adjustinstallmentamount' | translate }}&nbsp;</span>
+            <div class="form-group"  ng-hide="isGLIM==true || specificToInstallment">
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinstallmentamount">{{ 'label.input.newinstallmentamount' | translate
                     }}&nbsp;</label>

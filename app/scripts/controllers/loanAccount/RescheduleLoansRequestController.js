@@ -28,6 +28,7 @@
                 this.formData.adjustedDueDate = dateFilter(this.formData.adjustedDueDate, scope.df);
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.rescheduleReasonComment = scope.comments;
+                this.formData.specificToInstallment = scope.specificToInstallment;
                 resourceFactory.loanRescheduleResource.put(this.formData, function (data) {
                     scope.requestId = data.resourceId;
                     location.path('/loans/' + scope.loanId + '/viewreschedulerequest/'+ data.resourceId);
@@ -35,6 +36,7 @@
             };
 
         }
+        
     });
     mifosX.ng.application.controller('RescheduleLoansRequestController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.RescheduleLoansRequestController]).run(function ($log) {
         $log.info("RescheduleLoansRequestController initialized");
