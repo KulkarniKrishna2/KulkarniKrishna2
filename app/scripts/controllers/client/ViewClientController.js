@@ -1133,6 +1133,9 @@
                 location.path('/client/'+scope.id+'/editclientasset/'+id);
             };
 
+            scope.editClientIdentifier = function(id){
+                location.path('/clients/'+scope.id+'/identifiers/'+id);
+            };
             scope.showEditClientHouseHoldExpense = function(id){
                 location.path('/client/'+scope.id+'/editclienthouseholdexpense/'+id);
             };

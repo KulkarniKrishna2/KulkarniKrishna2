@@ -131,6 +131,9 @@
             .when('/addclientidentifier/:clientId', {
                 templateUrl: 'views/clients/addclientidentifier.html'
             })
+            .when('/clients/:clientId/identifiers/:id', {
+                templateUrl: 'views/clients/editclientidentifier.html'
+            })
             .when('/addclientidentifierdocument/:clientId/:resourceId', {
                 templateUrl: 'views/clients/addclientidentifierdocument.html'
             })
