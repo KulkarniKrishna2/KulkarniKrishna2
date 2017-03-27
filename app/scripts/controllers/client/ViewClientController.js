@@ -1252,6 +1252,25 @@
                 }
             };
 
+            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+                $scope.data = documentDetail;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+               
+            };
+            scope.openViewDocument = function (documentDetail) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
+                });
+            };
+
             function routeToLoanNextActionUrl(loanId,trancheDisbursalId){
                 if(_.isUndefined(trancheDisbursalId)){
                     location.path('/loanaccount/'+loanId+'/disburse');
