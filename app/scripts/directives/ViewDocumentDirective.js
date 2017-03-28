@@ -41,7 +41,7 @@
                 }],
                 link: function (scope, elm, attr, ctrl) {
                     var template = '<iframe ng-show="showDoc" overflow: hidden;" '+
-                        'style="position:relative;top:0px;width:100%;height:90vh;"'+
+                        'class= "documentview"'+
                         ' ng-src="{{docURL}}" frameborder="0" webkitallowfullscreen="" ' + 
                         ' mozallowfullscreen="" allowfullscreen="" ></iframe>';
                     elm.html('').append($compile(template)(scope));
