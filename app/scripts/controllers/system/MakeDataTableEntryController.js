@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MakeDataTableEntryController: function (scope, location, routeParams, resourceFactory, dateFilter, $rootScope) {
+        MakeDataTableEntryController: function (scope, location, routeParams, resourceFactory, dateFilter, $rootScope, $filter) {
             scope.tableName = routeParams.tableName;
             scope.entityId = routeParams.entityId;
             scope.fromEntity = routeParams.fromEntity;
@@ -84,18 +84,6 @@
                             }
 
                         }
-                        if (data.columnHeaders[i].visibilityCriteria != "" && data.columnHeaders[i].visibilityCriteria != null) {
-                            for (var j in data.columnHeaders[i].visibilityCriteria) {
-                                var columnName = data.columnHeaders[i].visibilityCriteria[j].columnName;
-                                for (var k in data.columnHeaders[i].visibilityCriteria[j].columnValue) {
-                                    if (data.columnHeaders[i].visibilityCriteria[j].columnValue[k].value == "true") {
-                                        scope.enableDependency = false;
-                                    } else {
-                                        scope.enableDependency = true;
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
                 if(scope.newcolumnHeaders != ""){
@@ -104,7 +92,37 @@
                     scope.columnHeaders = data.columnHeaders;
                 }
 
+                _.each(scope.columnHeaders, function(columnHeader){
+                    scope.showVisibleCriterialFields(columnHeader.columnName);
+                    if(columnHeader.visibilityCriteria.length > 0){
+                        columnHeader.hideElement = true;
+                    }else{
+                        columnHeader.hideElement = false;
+                    }
+                });
+
             });
+
+
+            scope.showVisibleCriterialFields = function(registeredColumnName){
+                var columnName = $filter("prettifyDataTableColumn")(registeredColumnName);
+                _.each(scope.columnHeaders, function(column){
+                    if(column.visibilityCriteria.length > 0){
+                        _.each(column.visibilityCriteria, function(criteria){
+                            if(criteria.columnName == columnName){
+                                _.each(criteria.columnValue, function(value){
+                                    if(scope.formData[registeredColumnName] == value.id){
+                                        column.hideElement = false;
+                                    }else{
+                                        column.hideElement = true;
+                                        scope.formData[column.columnName] = undefined;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
 
             // this function fetch all data of particular village id and assign new value to column name of address table
 
@@ -298,7 +316,7 @@
 
         }
     });
-    mifosX.ng.application.controller('MakeDataTableEntryController', ['$scope', '$location', '$routeParams', 'ResourceFactory', 'dateFilter', '$rootScope', mifosX.controllers.MakeDataTableEntryController]).run(function ($log) {
+    mifosX.ng.application.controller('MakeDataTableEntryController', ['$scope', '$location', '$routeParams', 'ResourceFactory', 'dateFilter', '$rootScope', '$filter', mifosX.controllers.MakeDataTableEntryController]).run(function ($log) {
         $log.info("MakeDataTableEntryController initialized");
     });
 }(mifosX.controllers || {}));
