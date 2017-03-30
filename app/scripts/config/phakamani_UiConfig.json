@@ -104,12 +104,12 @@
       },
       "isHiddenField": {
         "hideClientClassification": true,
-      "staff": false,
-    "legalForm" : false,
-    "middleName" : false,
-    "externalId" : false,
-    "submittedOn" : false,
-    "openSavingsProduct" : false
+        "staff": false,
+        "legalForm" : false,
+        "middleName" : false,
+        "externalId" : false,
+        "submittedOn" : false,
+        "openSavingsProduct" : false
       },
       "isMandatoryField": {
         "dateOfBirth": false,
@@ -126,6 +126,9 @@
       "paymentType": {
         "expectedDisbursalPaymentType": "",
         "expectedRepaymentPaymentType": ""
+      },
+      "bankAccountDetails":{
+        "bankName":""
       }
     },
     "createCenter": {
@@ -134,7 +137,11 @@
         "name": false
       },
       "isHiddenField": {
-        "villageOptions": true
+        "villageOptions": true,
+        "showGroupExternalId" : true,
+        "showSubmittedOn" : true,
+        "showStaff" : true,
+        "addclients" : true
       }
     },
     "createGroup": {
@@ -145,15 +152,15 @@
       "isAutoPopulate": {
         "active": false
       },
-	"isMandatory":{
+	 "isMandatory":{
         "externalId":true
       },
       "isHiddenMenu": {
         "attachmeeting": false,
-    "groupExternalId" : false,
-      "submittedOn" : false,
-      "staff" : false,
-      "addclients" : false
+        "groupExternalId" : false,
+        "submittedOn" : false,
+        "staff" : false,
+        "addclients" : false
       }
     },
     "labelChanges": {
@@ -193,6 +200,25 @@
     },
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":false
+    }
+  },
+  "bankAccountDetails": {
+    "isMandatory": {
+      "bankAccountHolderName": true,
+      "bankAccountNumber": true,
+      "accountType": false,
+      "bankIFSCCode": true,
+      "bankName": false,
+      "bankCity": false,
+      "mobileNumber": false,
+      "lastTransactionDate": false
+    },
+    "isHiddenField":{
+      "lastTransactionDate": true
+    },
+    "regexValidations" :{
+      "mobileNumber":"",
+      "bankIFSCCode":""
     }
   }
 }
