@@ -276,6 +276,37 @@
                     LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId: '@loanId', documentId: '@documentId'}, {
                         getLoanDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
+                    mandateTemplateResource: defineResource(apiVer + "/loans/:loanId/mandates/template", {loanId: '@loanId'}, {
+                        getCreateTemplate: {method: 'GET', params: {command:"create"}, isArray: false},
+                        getUpdateTemplate: {method: 'GET', params: {command:"update"}, isArray: false},
+                        getCancelTemplate: {method: 'GET', params: {command:"cancel"}, isArray: false}
+                    }),
+                    mandateResource: defineResource(apiVer + "/loans/:loanId/mandates/:mandateId", {loanId: '@loanId', mandateId: '@mandateId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        getOne: {method: 'GET', params: {}, isArray: false},
+                        post: {method: 'POST', params: {command:"@command"}, isArray: false},
+                        put: {method: 'PUT', params: {}, isArray: false},
+                        delete: {method: 'DELETE', params: {}, isArray: false}
+                    }),
+                    mandatesResource: defineResource(apiVer + "/mandates", {type: '@type', requestDate: '@requestDate', dateFormat: '@dateFormat', officeId:'@officeId', command:"@command"}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        post: {method: 'POST', params: {}, isArray: false}
+                    }),
+                    mandatesSummaryResource: defineResource(apiVer + "/mandates/summary/:type", {type: '@type',
+                        requestFromDate: '@requestFromDate', requestToDate: '@requestToDate', dateFormat: '@dateFormat',
+                        officeId:'@officeId', includeChildOffices:"@includeChildOffices"}, {
+
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    mandatesListResource: defineResource(apiVer + "/mandates/list/:type", {type: '@type',
+                        requestFromDate: '@requestFromDate', requestToDate: '@requestToDate', dateFormat: '@dateFormat',
+                        officeId:'@officeId', includeChildOffices:"@includeChildOffices"}, {
+
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
+                    mandatesTemplateResource: defineResource(apiVer + "/mandates/template", {command: '@command'}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
                     currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
                         get: {method: 'GET', params: {}},
                         update: { method: 'PUT'},

@@ -1,0 +1,217 @@
+<div ng-controller="MandateController">
+    <style>
+        .fixedstyle	{ position:fixed; top:20%; right:10%; width:500px; height: 400px;}
+    </style>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active" ng-show="isCreate">{{'label.anchor.mandate.create' | translate}}</li>
+            <li class="active" ng-show="isUpdate">{{'label.anchor.mandate.update' | translate}}</li>
+            <li class="active" ng-show="isCancel">{{'label.anchor.mandate.cancel' | translate}}</li>
+            <li class="active" ng-show="isEdit">{{'label.anchor.mandate.edit' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="mandateform" novalidate="" ng-submit="submit()">
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="scannedDocumentId">{{'label.heading.mandate.scannedDocumentName' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="scannedDocumentId" ng-model="formData.scannedDocumentId" class="form-control"
+                            ng-options="scannedDocumentOption.id as scannedDocumentOption.code for scannedDocumentOption in scannedDocumentOptions"
+                            value="formData.scannedDocumentId" required late-Validate ng-change="onDocumentChange(formData.scannedDocumentId)" ></select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="scannedDocumentId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="requestDate">{{'label.heading.mandate.requestDate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="requestDate" sort type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.requestDate" is-open="opened" date
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="requestDate"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-hide="isCreate">
+                <label class="control-label col-sm-2">{{'label.heading.mandate.umrn' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="umrn" type="text" name="umrn" ng-model="formData.umrn" class="form-control"
+                           ng-disabled="true"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bankAccountHolderName">{{'label.heading.mandate.bankAccountHolderName' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="bankAccountHolderName" type="text" name="bankAccountHolderName" ng-model="formData.bankAccountHolderName" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="bankAccountHolderName"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bankName">{{'label.heading.mandate.bankName' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="bankName" type="text" name="bankName" ng-model="formData.bankName" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="bankName"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="branchName">{{'label.heading.mandate.branchName' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="branchName" type="text" name="branchName" ng-model="formData.branchName" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="branchName"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bankAccountNumber">{{'label.heading.mandate.bankAccountNumber' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="bankAccountNumber" type="text" name="bankAccountNumber" ng-model="formData.bankAccountNumber" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="bankAccountNumber"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="micr">{{'label.heading.mandate.micr' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="micr" type="text" name="micr" ng-model="formData.micr" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ifsc">{{'label.heading.mandate.ifsc' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="ifsc" type="text" name="ifsc" ng-model="formData.ifsc" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="accountType">{{'label.heading.mandate.accountType' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="accountType" ng-model="formData.accountType" class="form-control"
+                            ng-options="accountTypeOption.id as accountTypeOption.code for accountTypeOption in accountTypeOptions"
+                            value="{{formData.accountType}}" required late-Validate></select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="accountType"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="periodFromDate">{{'label.heading.mandate.periodFromDate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="periodFromDate" sort type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.periodFromDate" is-open="opened"
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="periodFromDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="periodToDate">{{'label.heading.mandate.periodToDate' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="periodToDate" sort type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.periodToDate" is-open="opened"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.mandate.periodUntilCancelled' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="checkbox" ng-model="formData.periodUntilCancelled"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="debitType">{{'label.heading.mandate.debitType' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="debitType" ng-model="formData.debitType" class="form-control"
+                            ng-options="debitTypeOption.id as debitTypeOption.code for debitTypeOption in debitTypeOptions"
+                            value="formData.debitType" required late-Validate></select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="debitType"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="amount">{{'label.heading.mandate.amount' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="amount" type="text"  number-format name="amount" ng-model="formData.amount" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="amount"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="debitFrequency">{{'label.heading.mandate.debitFrequency' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="debitFrequency" ng-model="formData.debitFrequency" class="form-control"
+                            ng-options="debitFrequencyOption.id as debitFrequencyOption.code for debitFrequencyOption in debitFrequencyOptions"
+                            value="formData.debitFrequency" required late-Validate></select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="debitFrequency"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewloanaccount/{{loanId}}">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" class="btn btn-primary">
+                    {{'label.button.submit' | translate}}
+                </button>
+            </div>
+            <div ng-show="showDoc" class="fixedstyle">
+                <iframe ng-src="{{docURL}}" width="500px" height="400px"></iframe>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

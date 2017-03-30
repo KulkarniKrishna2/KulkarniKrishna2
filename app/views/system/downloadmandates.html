@@ -1,0 +1,53 @@
+<div ng-controller="DownloadMandatesController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/mandates">{{'label.anchor.mandates' | translate}}</a></li>
+            <li class="active">{{'label.anchor.downloadmandates' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="downloadmandatesform" novalidate="" ng-submit="submit()">
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="officeId">{{'label.input.requestoffice' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="officeId" ng-model="formData.officeId"  class="form-control"
+                            ng-options="office.id as office.name for office in officeOptions" value="{{office.id}}"
+                            name="officeId">
+                        <option value="" style="display:none;">{{'label.menu.selectoffice' | translate}} </option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="downloadmandatesform" valattribute="officeId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.includeChildOffices' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="checkbox" ng-model="formData.includeChildOffices"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.includeMandateScans' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="checkbox" ng-model="formData.includeMandateScans"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/mandates">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" class="btn btn-primary">
+                    {{'label.button.submit' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

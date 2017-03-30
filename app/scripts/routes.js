@@ -239,6 +239,33 @@
             .when('/addloandocument/:loanId', {
                 templateUrl: 'views/loans/addloandocument.html'
             })
+            .when('/mandate/:loanId/:command/:mandateId', {
+                templateUrl: 'views/loans/mandate.html'
+            })
+            .when('/mandate/:loanId/:command', {
+                templateUrl: 'views/loans/mandate.html'
+            })
+            .when('/mandates', {
+                templateUrl: 'views/system/mandates.html'
+            })
+            .when('/viewmandates', {
+                templateUrl: 'views/system/viewmandates.html'
+            })
+            .when('/viewmandatessummary', {
+                templateUrl: 'views/system/viewmandatessummary.html'
+            })
+            .when('/downloadmandates', {
+                templateUrl: 'views/system/downloadmandates.html'
+            })
+            .when('/uploadmandates', {
+                templateUrl: 'views/system/uploadmandates.html'
+            })
+            .when('/downloadtransactions', {
+                templateUrl: 'views/system/downloadtransactions.html'
+            })
+            .when('/uploadtransactions', {
+                templateUrl: 'views/system/uploadtransactions.html'
+            })
             .when('/viewloantrxn/:accountId/trxnId/:id', {
                 templateUrl: 'views/loans/view_loan_transaction.html'
             })

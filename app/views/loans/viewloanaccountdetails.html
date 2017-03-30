@@ -1269,6 +1269,48 @@
                             </tbody>
                         </table>
                     </tab>
+                    <tab heading="{{'label.anchor.mandate' | translate}}" select="getMandates()">
+                        <div class="pull-right">
+                            <a href="#/mandate/{{loandetails.id}}/CREATE" ng-show="createPossible" class="btn btn-primary">{{'label.button.mandate.create'
+                                | translate}}</a>
+                            <a href="#/mandate/{{loandetails.id}}/UPDATE" ng-show="updateCancelPossible" class="btn btn-primary">{{'label.button.mandate.update'
+                                | translate}}</a>
+                            <a href="#/mandate/{{loandetails.id}}/CANCEL" ng-show="updateCancelPossible" class="btn btn-primary">{{'label.button.mandate.cancel'
+                                | translate}}</a>
+                        </div>
+                        <br>
+                        <table class="table" ng-show="mandates.length > 0">
+                            <thead>
+                            <th>{{'label.heading.mandate.mandateStatus' | translate}}</th>
+                            <th>{{'label.heading.mandate.umrn' | translate}}</th>
+                            <th>{{'label.heading.mandate.bankAccountHolderName' | translate}}</th>
+                            <th>{{'label.heading.mandate.bankName' | translate}}</th>
+                            <th>{{'label.heading.mandate.branchName' | translate}}</th>
+                            <th>{{'label.heading.mandate.returnReason' | translate}}</th>
+                            <th>{{'label.heading.mandate.scannedDocumentName' | translate}}</th>
+                            <th></th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="mandate in mandates">
+                                <td>{{mandate.mandateStatus.code}}</td>
+                                <td>{{mandate.umrn}}</td>
+                                <td>{{mandate.bankAccountHolderName}}</td>
+                                <td>{{mandate.bankName}}</td>
+                                <td>{{mandate.branchName}}</td>
+                                <td>{{mandate.returnReason}}</td>
+                                <td><a href="{{hostUrl}}{{mandate.docUrl}}">{{mandate.scannedDocumentName}}</a></td>
+                                <td>
+                                    <a href="#/mandate/{{loandetails.id}}/EDIT/{{mandate.id}}" ng-show="mandate.editdeletePossible" class="btn btn-primary">{{'label.button.mandate.edit'
+                                        | translate}}</a>
+                                </td>
+                                <td>
+                                    <a ng-click="deleteMandate(loandetails.id,mandate.id)" ng-show="mandate.editdeletePossible"><i class="icon-remove"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </tab>
                     <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
                         <br/>
 
