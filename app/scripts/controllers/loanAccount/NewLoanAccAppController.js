@@ -15,6 +15,10 @@
             scope.glimMembers = [];
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
+            scope.slabBasedCharge = "Slab Based";
+            scope.flatCharge = "Flat";
+            scope.upfrontFee = "Upfront Fee";
+
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -91,7 +95,7 @@
                                             var charge = scope.productLoanCharges[i].chargeData;
                                             charge.chargeId = charge.id;
                                             charge.isMandatory = scope.productLoanCharges[i].isMandatory;
-                                            if(charge.chargeCalculationType.id == 6 && charge.slabs.length > 0){
+                                            if(charge.chargeCalculationType.value == scope.slabBasedCharge && charge.slabs.length > 0){
                                                 for(var i in charge.slabs) {
                                                     if(scope.formData.principal >= charge.slabs[i].fromLoanAmount && scope.formData.principal <= charge.slabs[i].toLoanAmount) {
                                                         charge.amount = charge.slabs[i].amount;
@@ -137,7 +141,7 @@
             scope.$watch('formData.principal ', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
                     for(var i in scope.charges){
-                        if(scope.charges[i].chargeCalculationType.id == 6 && scope.charges[i].slabs.length > 0) {
+                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
                                 if(scope.isGLIM){
                                     scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
                                     scope.updateChargeForSlab(scope.charges[i]);
@@ -242,23 +246,13 @@
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
-                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0) {
-                            for (var i in scope.productLoanCharges) {
-                                if (scope.productLoanCharges[i].chargeData) {
-                                    if (data.chargeId == scope.productLoanCharges[i].chargeData.id) {
-                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
+                        data.isMandatory = false;
                         if(scope.isGLIM){
                             scope.updateChargeForSlab(data);
                         }
                         else {
                         
-                            if(data.chargeCalculationType.id == 6 && data.slabs.length > 0){
+                            if(data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs.length > 0){
                                 for(var i in data.slabs) {
                                     if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
                                         data.amount = data.slabs[i].amount;
@@ -286,7 +280,7 @@
                                         amount = amount + data.glims[i].upfrontChargeAmount;
                                 }
                             }
-                        } else if (data.chargeCalculationType.id == 1){
+                        } else if (data.chargeCalculationType.value == scope.flatCharge){
                             data.glims[i].upfrontChargeAmount = data.amount;
                             amount = amount + data.glims[i].upfrontChargeAmount;
                         }

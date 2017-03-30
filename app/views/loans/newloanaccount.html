@@ -632,7 +632,7 @@
                     <td>
                         <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                               is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
+                               is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate" max="'2020-06-22'"/>
                     </td>
                     <td>{{charge.isCapitalized}}</td>
                     <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
@@ -654,7 +654,7 @@
                             <td>{{glim.accountNo}}</td>
                             <td><input id="" class="form-control" type="text" ng-model="glim.upfrontChargeAmount"
                                        placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format 
-                                       ng-readonly="charges[outerIndex].chargeTimeType.id == 50 && charges[outerIndex].chargeCalculationType.id == 6">
+                                       ng-readonly="charges[outerIndex].chargeTimeType.id == 50 && charges[outerIndex].chargeCalculationType.value == slabBasedCharge">
                             </td>
                         </tr>
                     </table>

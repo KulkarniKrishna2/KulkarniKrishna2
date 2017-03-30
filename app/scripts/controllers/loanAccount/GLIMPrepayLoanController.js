@@ -10,7 +10,14 @@
             scope.formData.transactionDate = dateFilter(new Date(),scope.df);
             scope.paymentTypes = [];
             scope.showPaymentDetails = false;
-            scope.clientMembers = []
+            scope.clientMembers = [];
+            scope.glimPaymentAsGroup = false;
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';            
+            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
+                if(configData){
+                    scope.glimPaymentAsGroup = configData.enabled;
+                }
+            });
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"prepay"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
@@ -53,10 +60,19 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
-                scope.constructGlimClientMembersData();
-                resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'repayment'}, this.formData, function (data) {
-                    location.path('/viewloanaccount/' + scope.loanId);
-                });
+                var param = {loanId: scope.loanId, command: 'repayment'};
+                if(scope.glimPaymentAsGroup){
+                    resourceFactory.loanTrxnsResource.save(param, this.formData, function (data) {
+                            location.path('/viewloanaccount/' + data.loanId);
+                        });
+
+                }else{
+                    scope.constructGlimClientMembersData();
+                    resourceFactory.glimTransactionResource.save(param, this.formData, function (data) {
+                        location.path('/viewloanaccount/' + scope.loanId);
+                    });
+                }
+                
             }
 
         }
