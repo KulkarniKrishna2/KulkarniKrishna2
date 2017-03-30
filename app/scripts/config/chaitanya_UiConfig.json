@@ -62,7 +62,7 @@
       "isHiddenFeild": {
         "viewReportButton": true,
         "editTranches": true,
-         "term" : false,
+        "term" : false,
         "currency" : false,
         "interestCompoundingPeriod" : false,
         "interestCalculatedUsing" : false,
@@ -73,6 +73,11 @@
         "interestRateChat" : false,
         "charges" : false,
         "addCharges" : false
+      }
+    },
+    "clientAccount": {
+      "isMandatory": {
+        "externalId": true
       }
     },
     "collectionSheet": {
@@ -98,13 +103,13 @@
         }
       },
       "isHiddenField": {
-        "hideClientClassification": false,
-      "staff": false,
-    "legalForm" : false,
-    "middleName" : false,
-    "externalId" : false,
-    "submittedOn" : false,
-    "openSavingsProduct" : false
+          "hideClientClassification": false,
+          "staff": false,
+          "legalForm" : false,
+          "middleName" : false,
+          "externalId" : false,
+          "submittedOn" : false,
+          "openSavingsProduct" : false
       },
       "isMandatoryField": {
         "dateOfBirth": true,
@@ -121,6 +126,9 @@
       "paymentType": {
         "expectedDisbursalPaymentType": "Cash",
         "expectedRepaymentPaymentType": "Cash"
+      },
+      "bankAccountDetails":{
+        "bankName":"MASTER"
       }
     },
     "createCenter": {
@@ -144,12 +152,15 @@
       "isAutoPopulate": {
         "active": true
       },
+      "isMandatory":{
+        "externalId":true
+      },
       "isHiddenMenu": {
         "attachmeeting": true,
         "groupExternalId" : false,
-      "submittedOn" : false,
-      "staff" : false,
-      "addclients" : false
+        "submittedOn" : false,
+        "staff" : false,
+        "addclients" : false
       }
     },
     "labelChanges": {
@@ -189,6 +200,25 @@
     },
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":false
+    },
+    "bankAccountDetails": {
+      "isMandatory": {
+        "bankAccountHolderName": true,
+        "bankAccountNumber": true,
+        "accountType": true,
+        "bankIFSCCode": true,
+        "bankName": true,
+        "bankCity": true,
+        "mobileNumber": true,
+        "lastTransactionDate": true
+      },
+      "isHiddenField":{
+        "lastTransactionDate":false
+      },
+      "regexValidations" :{
+        "mobileNumber":"/^[0-9]{10}$/",
+        "bankIFSCCode":"/^[A-Za-z]{4}[0-9]{7}$/"
+      }
     }
   }
 }

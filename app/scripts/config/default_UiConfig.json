@@ -4,7 +4,7 @@
 	"loanAccount": {
 	  "isHiddenField": {
 		"fundId": false,
-		"externalId":false,
+		"externalId": false,
 		"linkAccountId": true,
 		"createStandingInstruction": false,
 		"numberOfRepayments": false,
@@ -24,7 +24,7 @@
 		"graceOnArrearsAgeing": false,
 		"syncDisbursementDateWithMeeting": false,
 		"recurringMoratoriumOnPrincipalPeriods": false,
-		"brokenPeriodMethodType":false
+		"brokenPeriodMethodType": false
 	  },
 	  "isMandatory": {
 		"externalId": false,
@@ -33,8 +33,7 @@
 	  },
 	  "isHiddenSection": {
 		"interestRecalculationSection": false,
-		"collateralSection" : false
-		
+		"collateralSection": false
 	  },
 	  "isShowField": {
 		"nextRepaymentDateDisburseScreen": false,
@@ -62,35 +61,39 @@
 	"viewLoanAccountDetails": {
 	  "isHiddenFeild": {
 		"viewReportButton": false,
-        "editTranches": false,
-        "term" : false,
-        "currency" : false,
-        "interestCompoundingPeriod" : false,
-        "interestCalculatedUsing" : false,
-        "lockinPeriodFrequency" : false,
-        "isMandatoryDepositCheckBox" : false,
-        "groupMeeting" : false,
-        "settings" : false,
-        "interestRateChat" : false,
-        "charges" : false,
-        "addCharges" : false
+		"editTranches": false,
+		"term": false,
+		"currency": false,
+		"interestCompoundingPeriod": false,
+		"interestCalculatedUsing": false,
+		"lockinPeriodFrequency": false,
+		"isMandatoryDepositCheckBox": false,
+		"groupMeeting": false,
+		"settings": false,
+		"interestRateChat": false,
+		"charges": false,
+		"addCharges": false
+	  }
+	},
+	"clientAccount": {
+	  "isMandatory": {
+		"externalId": true
 	  }
 	},
 	"collectionSheet": {
 	  "isAutoPopulate": {
 		"paymentTypeOption": true
-	
 	  },
 	  "isHiddenFeild": {
 		"newtransactionDate": false,
-		"paymentDetails" : false
+		"paymentDetails": false
 	  }
 	},
 	"createClient": {
 	  "isReadOnlyField": {
 		"staff": false,
 		"pincode": false,
-		"active":false
+		"active": false
 	  },
 	  "isValidateDOBField": {
 		"active": false,
@@ -101,16 +104,16 @@
 	  },
 	  "isHiddenField": {
 		"hideClientClassification": false,
-		 "staff": false,
-    "legalForm" : false,
-    "middleName" : false,
-    "externalId" : false,
-    "submittedOn" : false,
-    "openSavingsProduct" : false
+		"staff": false,
+		"legalForm": false,
+		"middleName": false,
+		"externalId": false,
+		"submittedOn": false,
+		"openSavingsProduct": false
 	  },
 	  "isMandatoryField": {
 		"dateOfBirth": false,
-		"clientClassificationId":false,
+		"clientClassificationId": false,
 		"externalId": false
 	  }
 	},
@@ -123,6 +126,9 @@
 	  "paymentType": {
 		"expectedDisbursalPaymentType": "",
 		"expectedRepaymentPaymentType": ""
+	  },
+	  "bankAccountDetails":{
+		"bankName":""
 	  }
 	},
 	"createCenter": {
@@ -131,7 +137,11 @@
 		"name": false
 	  },
 	  "isHiddenField": {
-		"villageOptions": true
+		"villageOptions": true,
+		"showGroupExternalId" : true,
+		"showSubmittedOn" : true,
+		"showStaff" : true,
+		"addclients" : true
 	  }
 	},
 	"createGroup": {
@@ -142,14 +152,15 @@
 	  "isAutoPopulate": {
 		"active": false
 	  },
+	  "isMandatory":{
+		"externalId":true
+	  },
 	  "isHiddenMenu": {
 		"attachmeeting": true,
-		"groupExternalId" : false,
-			"submittedOn" : false,
-			"staff" : false,
-			"addclients" : false
-		}
-
+		"groupExternalId": false,
+		"submittedOn": false,
+		"staff": false,
+		"addclients": false
 	  }
 	},
 	"labelChanges": {
@@ -177,8 +188,8 @@
 	  "identitiesMatchLuhnsAlgorithm": {
 		"clientIdentifierValidation": false
 	  },
-	  "hiddenFields":{
-		"status":false
+	  "hiddenFields": {
+		"status": false
 	  }
 	},
 	"reportParameterConfiguration": {
@@ -188,7 +199,27 @@
 	  }
 	},
 	"journalEntryConfiguration": {
-		"allowMultipleCreditAndDebitEntries":false
+	  "allowMultipleCreditAndDebitEntries": false
+	},
+	"bankAccountDetails": {
+	  "isMandatory": {
+		"bankAccountHolderName": true,
+		"bankAccountNumber": true,
+		"accountType": false,
+		"bankIFSCCode": true,
+		"bankName": false,
+		"bankCity": false,
+		"mobileNumber": false,
+		"lastTransactionDate": false
+	  },
+	  "isHiddenField":{
+		"lastTransactionDate": true
+	  },
+	  "regexValidations" :{
+		"mobileNumber":"",
+		"bankIFSCCode":""
+	  }
 	}
- }	
+  }
+ }
 	
