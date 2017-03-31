@@ -195,6 +195,8 @@
     "label.heading.cardtype":"Card Type",
     "label.heading.registreddate":"Registered Date",
     "label.heading.closeddate":"Closed Date",
+    "label.heading.overpaidby":"Overpaid by",
+    "label.heading.overpaid":"Overpaid",
 
 
     "#Menu Links": "..",
