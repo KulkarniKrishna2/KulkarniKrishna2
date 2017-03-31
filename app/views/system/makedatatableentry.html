@@ -26,21 +26,21 @@
         <hr/>
         <div class="form-group" ng-repeat="columnHeader in columnHeaders | orderBy:'orderPosition'">
 
-            <label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
-                <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
+            <label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null' && !columnHeader.hideElement">{{ columnHeader.displayName | prettifyDataTableColumn }}
+                <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible " class="required">*</span>
             </label>
-            <label class="control-label col-sm-3" ng-show="columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
+            <label class="control-label col-sm-3" ng-show="columnHeader.displayName == 'null' && !columnHeader.hideElement" >{{ columnHeader.columnName | prettifyDataTableColumn }}
                 <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
             </label>
 
 
             <div class="col-sm-3">
-                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && enableDependency" type="text"
+                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && !columnHeader.hideElement" type="text"
                        ng-model="formData[columnHeader.columnName]" class="form-control"/>
-                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && enableDependency" type="text"
+                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && !columnHeader.hideElement" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
-                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
+                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME' && !columnHeader.hideElement" class="form-inline">
                     <div class="form-group">
                         <input type="text" datepicker-pop="dd MMMM yyyy"
                                ng-model="formDat[columnHeader.columnName].date"
@@ -51,7 +51,7 @@
                                ng-model="formDat[columnHeader.columnName].time" class="form-control"/>
                     </div>
                 </div>
-                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
+                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN' && !columnHeader.hideElement">
                     <label class="radio-inline">
                         <input type="radio" ng-model="formData[columnHeader.columnName]"
                                value="true" ng-click="getDependencyColumns(true)"/>
@@ -63,13 +63,13 @@
                         {{'label.input.false' | translate}}
                     </label>
                 </div>
-                <span data-ng-switch on="columnHeader.columnDisplayType">
+                <span data-ng-switch on="columnHeader.columnDisplayType" ng-show="!columnHeader.hideElement">
                     <select chosen="columnHeader.columnValuesLookup" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                             data-ng-switch-when="CODELOOKUP"
                             chosen = "columnHeader.columnValues"
                             ng-model="formData[columnHeader.columnName]"
                             ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValuesLookup"
-                            value="{{columnValue.id}}" class="form-control" ng-change="getDependencyList(formData[columnHeader.columnName])">
+                            value="{{columnValue.id}}" class="form-control" ng-change="getDependencyList(formData[columnHeader.columnName]); showVisibleCriterialFields(columnHeader.columnName)">
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
                     <div  ng-show="showSelect==true">
