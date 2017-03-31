@@ -5640,6 +5640,9 @@
     "label.heading.overpaymentsection" : "Overpayments",
     "label.heading.showdefaultemi" : "Show Default EMI",
     "label.button.copyemi" : "Copy EMI",
+    "label.heading.adhoc.search.query.for.loans":"AdHoc query Search For Loans",
+    "label.heading.fundername" : "Funder Name",
+    "validation.msg.FUND.selectedCriteriaList.cannot.be.empty" : " Selected criteria can not be empty ",
 
     "------ end of tensalation file":"---------"
 }

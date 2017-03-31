@@ -4,7 +4,7 @@
 	    <li class="active">{{ 'label.anchor.advsearch' | translate}}</li>
 	</ul>
 	<div class="well" ng-show="view=='search'">
-		<h3 class="bolder">{{'label.heading.adhoc.search.query.for.loans' | translate}}
+		<h3 class="bolder">{{'label.heading.search.elegible.portfolio.for.fund.assignment' | translate}}
 	        <a ng-show="showResults" class="btn btn-primary" ng-click="showResults=!showResults">
 	            <i class="icon-plus icon-white"></i>
 	        </a>
@@ -287,7 +287,7 @@
 		            </div>
 					<div class="form-group">
 						<div class="col-sm-1">
-				            	<label  class="control-label">{{'label.heading.fundname' | translate}}</label>
+				            	<label  class="control-label">{{'label.heading.fundername' | translate}}</label>
 				                <input class="control-label" id="includeFund" type="checkbox" ng-model="includeFund" class="pull-right" ng-change = "addParameter(includeFund,'funds')">
 				            </div>
 				            <div class="col-sm-3">
@@ -298,7 +298,7 @@
 					</div>
 			        
 			<div class="col-md-offset-5">
-				<button id="save" type="submit" class="btn btn-primary" ng-click="submit()">{{'label.button.summary' | translate}}</button>
+				<button id="save" type="submit" class="btn btn-primary" ng-click="submit()">{{'label.button.search' | translate}}<i class="icon-search icon-white"></i></button>
 			</div>
 		</div>
 	</div>
@@ -453,7 +453,7 @@
 				            <td>{{data.principalOutstandingAmount}}</td>
 				         </tr>
 				         <tr  class="graybg" style="height:20px;">
-				            <th colspan="{{criteriaLength-1}}"></th>
+				         	<th ng-show="criteriaLength>1"  colspan="{{criteriaLength-1}}"></th>
 				            <th colspan="1" align="right">{{'label.heading.total' | translate}}</th>
 				            <th style="border-left:3px" colspan="1">{{totalLoanCount}}</th>
 				            <th style="border-left:3px" colspan="1">{{totalDisbursedAmount | number: 2}}</th>
