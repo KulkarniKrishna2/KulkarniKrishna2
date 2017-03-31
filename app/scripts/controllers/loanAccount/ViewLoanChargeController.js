@@ -4,6 +4,7 @@
 
             scope.loanId = routeParams.loanId;
             scope.chargeId = routeParams.id;
+            scope.upfrontFee = "Upfront Fee";
             if (routeParams.loanstatus == 'Submitted and pending approval') {
                 scope.showEditButtons = true;
             }

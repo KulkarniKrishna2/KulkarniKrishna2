@@ -15,10 +15,12 @@
             scope.clientMembers = [];
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
-            scope.slabCharges = [];
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
+            scope.slabBasedCharge = 'Slab Based';
+            scope.flatCharge = "Flat";
+            scope.upfrontFee = "Upfront Fee";
 
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
@@ -135,12 +137,12 @@
                 }
 
                 inparams.staffInSelectedOfficeOnly = true;
-
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.collaterals = [];
                     var refreshLoanCharges  = true;
                     scope.previewClientLoanAccInfo(refreshLoanCharges);
+                    scope.updateSlabBasedCharges();
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -162,34 +164,16 @@
                         }
 
                     }
-                    if(scope.loanaccountinfo.charges[i].chargeCalculationType.id == 6) {
-                        resourceFactory.chargeResource.get({chargeId: scope.loanaccountinfo.charges[i].chargeId, template: 'true'}, function (data) {
-                            if (data.slabs){
-                                scope.slabCharges.push(data);
-                                for ( var k in scope.loanaccountinfo.charges) {
-                                    if ( scope.loanaccountinfo.charges[k].chargeId == data.id){
-                                        if( !scope.isGLIM){
-                                            for(var j in scope.loanaccountinfo.charges[i].slabs){
-                                                if(scope.formData.principal >= scope.loanaccountinfo.charges[k].slabs[j].fromLoanAmount &&
-                                                    scope.formData.principal <= scope.loanaccountinfo.charges[k].slabs[j].toLoanAmount) {
-                                                    scope.loanaccountinfo.charges[k].amountOrPercentage = scope.loanaccountinfo.charges[k].slabs[j].amount;
-                                                }
-                                            }
-                                        } else {
-                                                scope.updateChargeData( scope.loanaccountinfo.charges[k], data);
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                    if(scope.loanaccountinfo.charges[i].chargeCalculationType.value == scope.slabBasedCharge) {
+                         scope.loanaccountinfo.charges[i] = scope.updateChargeForSlab( scope.loanaccountinfo.charges[i]);                        
 
-                    }else if ( scope.loanaccountinfo.charges[i].chargeCalculationType.id == 1){
+                    }else if ( scope.loanaccountinfo.charges[i].chargeCalculationType.value == scope.flatCharge){
                                resourceFactory.chargeResource.get({chargeId: scope.loanaccountinfo.charges[i].chargeId, template: 'true'}, function (charge) {
                             for ( var k in scope.loanaccountinfo.charges) {
                                     if ( scope.loanaccountinfo.charges[k].chargeId == charge.id){
                                         scope.loanaccountinfo.charges[k].amountOrPercentage = charge.amount;
                                         if (scope.isGLIM){
-                                        scope.updateChargeData(scope.loanaccountinfo.charges[k], charge);
+                                            scope.updateUpfrontChargeData(scope.loanaccountinfo.charges[k],charge);
                                         }
                                 }
                             }
@@ -338,78 +322,39 @@
                         data.chargeId = data.id;
                         data.id = null;
                         data.amountOrPercentage = data.amount;
-                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0) {
-                            for (var i in scope.productLoanCharges) {
-                                if (scope.productLoanCharges[i].chargeData) {
-                                    if (data.chargeId == scope.productLoanCharges[i].chargeData.id) {
-                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        if ( scope.isGLIM){
-                        scope.updateChargeForSlab(data);
-                        } else {   
-                            if(data.slabs != undefined && data.slabs.length > 0){
-                                for(var i in data.slabs) {
-                                    if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
-                                        data.amountOrPercentage = data.slabs[i].amount;
-                                    }
-                                }
-                            }
-                        }
+                        data.isMandatory = false;
+                        data = scope.updateChargeForSlab(data);
+                                                
                         scope.charges.push(data);
+                        
                         scope.chargeFormData.chargeId = undefined;
                     });
                 }
             }
 
-            scope.updateCharge = function(clientMembers, data){
-                data.glims = [];
-                angular.copy(clientMembers, data.glims);
-                var amount = 0;
-                    for(var i in data.glims){
-                        if (data.slabs){
-
-                        for(var j in data.slabs){
-                           if(data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
-                                    data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
-                                    amount = amount + data.glims[i].upfrontChargeAmount;
-                            }
-                        }
-                    } else if (data.chargeCalculationType.id == 1){
-                            data.glims[i].upfrontChargeAmount = data.amount;
-                            amount = amount + data.glims[i].upfrontChargeAmount;
-                        }
-                    }
-                data.amountOrPercentage = amount;
-            }
-
-            scope.updateChargeData = function(data, chargeData){
+            scope.updateUpfrontChargeData = function(data, chargeData){
                 if(scope.isGLIM && scope.formData.clientMembers) {
                     var clientMembers = scope.formData.clientMembers || [];
                     data.glims = [];
                     angular.copy(clientMembers, data.glims);
                     var amount = 0;
                     for(var i in data.glims){
-                        if (chargeData.slabs){
-
-                        for(var j in chargeData.slabs){
-                           if(data.glims[i].transactionAmount >= chargeData.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= chargeData.slabs[j].toLoanAmount){
-                                    data.glims[i].upfrontChargeAmount = chargeData.slabs[j].amount;                                
-                                    amount = amount + data.glims[i].upfrontChargeAmount;
+                        if (chargeData.slabs && data.chargeCalculationType.value == scope.slabBasedCharge){
+                            for(var j in chargeData.slabs){
+                                
+                               if(data.glims[i].transactionAmount >= chargeData.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= chargeData.slabs[j].toLoanAmount){
+                                        data.glims[i].upfrontChargeAmount = chargeData.slabs[j].amount;                                
+                                        amount = amount + data.glims[i].upfrontChargeAmount;
+                                }
+                            }
+                        } else if (data.chargeCalculationType.value == scope.flatCharge){
+                                data.glims[i].upfrontChargeAmount = chargeData.amount;
+                                amount = amount + data.glims[i].upfrontChargeAmount;
                             }
                         }
-                    } else if (data.chargeCalculationType.id == 1){
-                            data.glims[i].upfrontChargeAmount = chargeData.amount;
-                            amount = amount + data.glims[i].upfrontChargeAmount;
-                        }
-                    }
                 }
                 data.amountOrPercentage = amount;
             }
-
             scope.updateChargeForSlab = function(data){
                 if(scope.isGLIM && scope.formData.clientMembers) {
                     var clientMembers = scope.formData.clientMembers || [];
@@ -418,27 +363,47 @@
                     var amount = 0;
                     for(var i in data.glims){
                         if(data.glims[i].isClientSelected){
-                            if (data.slabs){
-                            for(var j in data.slabs){
-                               if(data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
-                                        data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
-                                        amount = amount + data.glims[i].upfrontChargeAmount;
-                                }else{
-                                    data.glims[i].upfrontChargeAmount = undefined;
-                                    amount = undefined;
+                            if(data.chargeCalculationType.value == scope.slabBasedCharge){
+                                if (data.slabs){
+                                    var isInRange = false;
+                                    for(var j in data.slabs){
+                                       if(data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
+                                                data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
+                                                amount = amount + data.glims[i].upfrontChargeAmount;
+                                                isInRange = true;
+                                                break;
+                                        }
+                                    }
+                                    if(!isInRange){
+                                        data.glims[i].upfrontChargeAmount = undefined;
+                                        amount = undefined;
+                                    }
                                 }
+                            
+                            } else if (data.chargeCalculationType.value == scope.flatCharge){                                
+                                    data.glims[i].upfrontChargeAmount = data.amount;
+                                    amount = amount + data.glims[i].upfrontChargeAmount;
+                                    
                             }
-                            data.amountOrPercentage = amount;
-                        }
-                        
-                    } else if (data.chargeCalculationType.id == 1){
-                            data.glims[i].upfrontChargeAmount = data.amount;
-                            amount = amount + data.glims[i].upfrontChargeAmount;
-                            data.amountOrPercentage = amount;
                         }
                     }
+                    data.amountOrPercentage = amount;
 
+                }else{
+                    if(data.chargeCalculationType.value == scope.slabBasedCharge){
+                    
+                        for(var j in data.slabs){
+                            if(scope.formData.principal >= data.slabs[j].fromLoanAmount && scope.formData.principal <= data.slabs[j].toLoanAmount) {
+                                data.amountOrPercentage = data.slabs[j].amount;
+                                 break;
+                            }else {
+                                data.amountOrPercentage = undefined;
+                            }
+                        }
+                    }
+                    
                 }
+                return data;
             }
 
             scope.deleteCharge = function (index) {
@@ -467,29 +432,18 @@
             };
 
             scope.$watch('formData.principal ', function(){
+                scope.updateSlabBasedCharges();
+            });
+
+            scope.updateSlabBasedCharges = function(){         
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
                     for(var i in scope.charges){
-                        if(scope.charges[i].chargeCalculationType.value == "Slab Based") {                            
-                            for(var k in scope.slabCharges){
-                                scope.charges[i].slabs = scope.slabCharges[k].slabs;
-                                if(scope.isGLIM){
-                                    scope.updateChargeForSlab(scope.charges[i]);
-                                }else{
-                                    for(var j in scope.charges[i].slabs){
-                                        if(scope.formData.principal >= scope.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.charges[i].slabs[j].toLoanAmount) {
-                                            scope.charges[i].amountOrPercentage = scope.charges[i].slabs[j].amount;
-                                            break;
-                                        }else {
-                                            scope.charges[i].amountOrPercentage = undefined;
-                                        }
-                                    }
-                                }
-                                    
-                            }
+                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge) {
+                            scope.charges[i] = scope.updateChargeForSlab(scope.charges[i]);
                         }
                     }
                 }
-            });
+            };
 
             scope.addCollateral = function () {
                 if (scope.collateralFormData.collateralIdTemplate && scope.collateralFormData.collateralValueTemplate) {
