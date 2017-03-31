@@ -60,6 +60,10 @@
                 return (scope.action == 'repayment')  && scope.isGlimEnabled();
             };
 
+            scope.editGlimTransaction = function(){
+                 return (scope.action == 'modifytransaction' && scope.isGlimEnabled());
+            };
+
 
             //2F Authentication
             scope.catureFP = false ;
@@ -960,7 +964,6 @@
                     }
                 }
                 scope.formData.clientMembers = scope.glimMembers;
-                
             };
         }
     });

@@ -30,6 +30,21 @@
                 scope.repaymentFequencyOptions = data.fundRepaymentFrequencyOptions ;
                 scope.loanPurposeOptions = data.loanPurposeOptions;
             });
+            scope.updatePercentAmount = function(sanctionedAmount){
+                if(sanctionedAmount && scope.fundLoanPurposes.length>0){
+                    for (var i = scope.fundLoanPurposes.length - 1; i >= 0; i--) {
+                        scope.fundLoanPurposes[i].totalAmount = scope.getPercentage(sanctionedAmount, scope.fundLoanPurposes[i].loanPurposeAmount);
+                    };
+                }
+            };
+            scope.getPercentage = function(sanctionedAmount, percentage){
+                if(sanctionedAmount && percentage){
+                    var amount = parseFloat(sanctionedAmount/100);
+                    totalAmount = parseFloat(amount*percentage);
+                    return totalAmount.toFixed(2);
+                }
+                return 0;
+            };
             scope.isOwnType = function(id){
                 for(var i=0;i<scope.facilityTypeOptions.length;i++){
                             if(scope.facilityTypeOptions[i].id == id){
@@ -86,7 +101,8 @@
                                 for(var i=0; i< scope.formData.fundLoanPurposeData.length;i++){
                                     scope.fundLoanPurposes.push({'loanPurposeId':scope.formData.fundLoanPurposeData[i].loanPurpose.id,
                                         'loanPurposeName':scope.formData.fundLoanPurposeData[i].loanPurpose.name,
-                                        'loanPurposeAmount':scope.formData.fundLoanPurposeData[i].loanPurposeAmount});
+                                        'loanPurposeAmount':scope.formData.fundLoanPurposeData[i].loanPurposeAmount,
+                                        'totalAmount' : scope.formData.fundLoanPurposeData[i].totalAmount});
                                 }
                                 
                             }
@@ -135,7 +151,8 @@
                 var loanPurpose = JSON.parse(lp);
                 scope.loanPurposes = undefined;
                 scope.loanPurposeAmount = undefined;
-                scope.fundLoanPurposes.push({'loanPurposeId':loanPurpose.id,'loanPurposeName':loanPurpose.name,'loanPurposeAmount':amount});
+                var totalAmount = scope.getPercentage(scope.formData.sanctionedAmount, amount);
+                scope.fundLoanPurposes.push({'loanPurposeId':loanPurpose.id,'loanPurposeName':loanPurpose.name,'loanPurposeAmount':amount, 'totalAmount': totalAmount });
             };
 
             scope.removeLoanPurpose = function(index){

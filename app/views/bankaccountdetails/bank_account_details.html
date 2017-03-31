@@ -4,7 +4,7 @@
             <li><a ng-click="cancel()">{{'label.heading.' +entityType | translate}}</a></li>
             <li class="active">{{'label.anchor.bankaccountdetails' | translate}}</li>
         </ul>
-        <form name="bankaccountdetail" novalidate="" class="form-horizontal well">
+        <form name="bankaccountdetail" novalidate="" class="form-horizontal well" rc-submit="submit()">
             <api-validate></api-validate>
             <fieldset>
 
@@ -12,60 +12,97 @@
 
                
                 <div class="form-group" >
-                    <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}</label>
+                    <label class="control-label col-sm-2" >
+                        {{'label.input.holdername' | translate}}<span ng-show="isBankHolderNameMandatory" class="required">*</span>
+                    </label>
 
                     <div class="col-sm-3">
-                        <input name="bankName" ng-model="formData.name"
-                               type="text" class="form-control" ng-disabled="!createDetail"/>
+                        <input  name="holderName" id="holderName" ng-model="formData.name"
+                               type="text" class="form-control" ng-disabled="!createDetail" ng-required="isBankHolderNameMandatory"/>
+                    </div>
+                   <div class="col-sm-2">
+                    <form-validate valattributeform="bankaccountdetail" valattribute="holderName"/>
                     </div>
                 </div>
                 <div class="form-group" >
-                    <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}</label>
+                    <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}
+                        <span ng-show="isBankAccountNumberMandatory" class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input name="accountNumber" ng-model="formData.accountNumber"
-                               type="text" class="form-control" ng-disabled="!createDetail"/>
+                        <input name="accountNumber" id="accountNumber" ng-model="formData.accountNumber"
+                               type="text" class="form-control" ng-disabled="!createDetail" ng-required="isBankAccountNumberMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="bankaccountdetail" valattribute="accountNumber"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{'label.input.accounttype' | translate}}</label>
+                    <label class="control-label col-sm-2">{{'label.input.accounttype' | translate}}
+                        <span ng-show="isAccountTypeMandatory" class="required">*</span></label>
+                    </label>
                     <div class="col-sm-3">
                         <select id="accountType"  name = "accountType" ng-model="formData.accountTypeId" class="form-control"
                                 ng-options="accountType.id as accountType.value for accountType in bankAccountTypeOptions"
-                                value="{{accountType.id}}">
+                                value="{{accountType.id}}" ng-required="isAccountTypeMandatory">
                         </select>
                     </div>
-                </div>
-                <div class="form-group" >
-                    <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}</label>
-
-                    <div class="col-sm-3">
-                        <input name="ifscCode" ng-model="formData.ifscCode"
-                               type="text" class="form-control"/>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="bankaccountdetail" valattribute="accountType"/>
                     </div>
                 </div>
                 <div class="form-group" >
-                    <label class="control-label col-sm-2" >{{'label.input.bankname' | translate}}</label>
+                    <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}
+                        <span ng-show="isIFSCCodeMandatory" class="required">*</span></label>
+                    </label>
 
                     <div class="col-sm-3">
-                        <input name="bankName" ng-model="formData.bankName"
-                               type="text" class="form-control"/>
+                        <input name="ifscCode" id="ifscCode" ng-model="formData.ifscCode"
+                               type="text" ng-pattern="IFSCCodeRegex" class="form-control" ng-required="isIFSCCodeMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <span ng-show="bankaccountdetail.ifscCode.$invalid && bankaccountdetail.ifscCode.$dirty">
+                    <small class="required" ng-show="bankaccountdetail.ifscCode.$error.pattern">
+                        {{'inavalid.ifsc.format' | translate}}</small></span>
+                        <form-validate valattributeform="bankaccountdetail" valattribute="ifscCode"/>
                     </div>
                 </div>
                 <div class="form-group" >
-                    <label class="control-label col-sm-2" >{{'label.input.bankcity' | translate}}</label>
+                    <label class="control-label col-sm-2" >{{'label.input.bankname' | translate}}
+                        <span ng-show="isBankNameMandatory" class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input name="bankCity" ng-model="formData.bankCity"
-                               type="text" class="form-control"/>
+                        <input name="bankName" id="bankName" ng-model="formData.bankName"
+                               type="text" class="form-control" ng-required="isBankNameMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="bankaccountdetail" valattribute="bankName"/>
                     </div>
                 </div>
                 <div class="form-group" >
-                    <label class="control-label col-sm-2" >{{'label.input.mobilenumber' | translate}}</label>
+                    <label class="control-label col-sm-2" >{{'label.input.bankcity' | translate}}
+                        <span ng-show="isBankCityMandatory" class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input name="mobileNumber" ng-model="formData.mobileNumber"
-                               type="text" class="form-control"/>
+                        <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
+                               type="text" class="form-control" ng-required="isBankCityMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="bankaccountdetail" valattribute="bankCity"/>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" >{{'label.input.mobilenumber' | translate}}
+                        <span ng-show="isMobileNumberMandatory" class="required">*</span> </label>
+
+                    <div class="col-sm-3">
+                        <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
+                               type="text"  class="form-control" ng-pattern="mobileNumberRegex" ng-required="isMobileNumberMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                         <span ng-show="bankaccountdetail.mobileNumber.$invalid && bankaccountdetail.mobileNumber.$dirty">
+                    <small class="required" ng-show="bankaccountdetail.mobileNumber.$error.pattern">
+                        {{'label.must.be.ten.digits.numeric' | translate}}</small></span>
+                        <form-validate valattributeform="bankaccountdetail" valattribute="mobileNumber"/>
                     </div>
                 </div>
                 <div class="form-group" >
@@ -76,9 +113,21 @@
                                type="text" class="form-control"/>
                     </div>
                 </div>
+                <div ng-hide="isLastTransactionDateHidden" class="form-group">
+                    <label class="control-label col-sm-2" >{{'label.input.last.transaction.date' | translate}}
+                        <span ng-show="isLastTransactionMandatory" class="required">*</span> </label>
+                    </label>
+                    <div class="col-sm-3">
+                        <input id="dateofbirth" type="text" name="lastTransactionDate" id="lastTransactionDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.lastTransactionDate"
+                               class="form-control" ng-required="isLastTransactionMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="bankaccountdetail" valattribute="lastTransactionDate"/>
+                    </div>
+                </div>
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                    <button id="save" ng-click="submit()" ng-show="createDetail" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                    <button id="save" type="submit" ng-show="createDetail" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
                     <button id="update"  ng-show="!createDetail" class="btn btn-primary" ng-click="update()" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
                     <button id="delete" ng-show="!createDetail" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
                 </div>

@@ -571,6 +571,7 @@
                 if($rootScope.hasPermission('READ_BANK_TRANSACTION')){
                     fetchBankTransferDetails();
                 }
+                scope.isOverPaidOrGLIM();
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
                     scope.loandatatables = data;
@@ -1340,6 +1341,15 @@
                         popupWin.document.close();
                     }
                 });
+            };
+
+            scope.statusCheckforGlim = ["submitted.and.pending.approval","approved",
+                                        "rejected"];     
+            scope.isOverPaidLoan = false;                                          
+            scope.isOverPaidOrGLIM = function(){
+               if ((scope.loandetails.status.value.toLowerCase() == "overpaid") || (scope.isGlim && (scope.statusCheckforGlim.index[scope.loandetails.status.value.toLowerCase()]<0))){
+                scope.isOverPaidLoan = true;
+               }
             };
 
             scope.isCBCheckReq = false;

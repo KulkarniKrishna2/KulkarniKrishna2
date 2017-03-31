@@ -75,6 +75,11 @@
         "addCharges" : false
       }
     },
+    "clientAccount": {
+      "isMandatory": {
+        "externalId": true
+      }
+    },
     "collectionSheet": {
       "isAutoPopulate": {
         "paymentTypeOption": true
@@ -135,7 +140,11 @@
         "name": false
       },
       "isHiddenField": {
-        "villageOptions": true
+        "villageOptions": true,
+        "showGroupExternalId" : true,
+        "showSubmittedOn" : true,
+        "showStaff" : true,
+        "addclients" : true
       }
     },
     "createGroup": {
@@ -146,12 +155,15 @@
       "isAutoPopulate": {
         "active": false
       },
+      "isMandatory":{
+        "externalId":true
+      },
       "isHiddenMenu": {
         "attachmeeting": false,
-     "groupExternalId" : false,
-      "submittedOn" : false,
-      "staff" : false,
-      "addclients" : false
+        "groupExternalId": false,
+        "submittedOn": false,
+        "staff": false,
+        "addclients": false
       }
     },
     "labelChanges": {
@@ -183,6 +195,12 @@
         "status":false
       }
     },
+    "reportParameterConfiguration": {
+      "datePicker": {
+        "reportNames": "",
+        "restrictedDate":""
+      }
+    },
     "journalEntryConfiguration": {
       "allowMultipleCreditAndDebitEntries":true
     },
@@ -191,10 +209,26 @@
        "pincode": false
       }
     },
-    "reportParameterConfiguration": {
-     "datePicker": {
-        "reportNames": "",
-        "restrictedDate":""
+    "bankAccountDetails": {
+      "isMandatory": {
+        "bankAccountHolderName": true,
+        "bankAccountNumber": true,
+        "accountType": false,
+        "bankIFSCCode": true,
+        "bankName": false,
+        "bankCity": false,
+        "mobileNumber": false,
+        "lastTransactionDate": false
+      },
+      "isHiddenField":{
+        "lastTransactionDate": true
+      },
+      "regexValidations" :{
+        "mobileNumber":"",
+        "bankIFSCCode":""
+      },
+      "isAutoPopulate":{
+        "bankName": false
       }
     }
   }

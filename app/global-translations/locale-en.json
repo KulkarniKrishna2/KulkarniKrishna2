@@ -197,6 +197,9 @@
     "label.heading.registreddate":"Registered Date",
     "label.heading.closeddate":"Closed Date",
     "label.heading.displayName":"Table Name",
+    "label.heading.overpaidby":"Overpaid by",
+    "label.heading.overpaid":"Overpaid",
+
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -385,6 +388,8 @@
     "label.savesuccessfully":"Saved Successfully",
     "label.nodatafound":"No data was found related to the search parameters entered.",
     "label.mustbenumeric":"Must be numeric",
+    "label.must.be.ten.digits.numeric":"Must be Ten digits numeric",
+    "inavalid.ifsc.format":"Invalid IFSC code format",
     "label.mustbe6digitnumber":"Pincode Must be a 6 digit number",
     "label.percentage": "Percentage",
     "label.outstanding.amount":"Loan outstanding amount",
@@ -534,6 +539,7 @@
     "error.msg.Secondary.Authentication.Service.failed":"2F Authentication failed. Either finger print didn't match or OTP is not correct",
     "error.msg.holiday.holiday.should.be.on.a.working.day": "Holiday cannot set on a Non Working Day '{{params[0].value}}'",
     "validation.msg.clientincomeexpense.incomeExpenseId.cannot.be.blank":"Sub Type is Manadatory",
+    "error.msg.loan.cannot.be.submit.as.loan.product.is.not.mapped.to.this.office":"Loan cannot be submitted as loanproduct is not mapped to clients office",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -1808,6 +1814,7 @@
     "label.input.adjustinstallmentamount":"Adjust installment amount for remainder of loan",
     "label.input.newinstallmentamount":"New Installment Amount",
     "label.input.recalculateInterest":"Recalculate Interest based on new terms",
+    "label.input.specificToInstallment": "Is specific to Installment",
     "label.input.approvedOnDate": "Approval On",
     "label.input.rejectedOnDate": "Rejected On",
     "label.input.submittedOnDate" : "Submitted On",
@@ -4494,6 +4501,7 @@
     "label.input.ifsccode":"Bank IFSC code",
     "label.input.bankname":"Bank Name",
     "label.input.bankcity":"Bank City",
+    "label.input.last.transaction.date":"Last Transaction Date",
     "label.anchor.bankaccountdetails":"Bank Account Details",
     "label.button.bankaccountdetails":"Bank Account Details",
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.cannot.be.blank":"Bank Account Details required",
@@ -5694,6 +5702,9 @@
     "label.heading.overpaymentsection" : "Overpayments",
     "label.heading.showdefaultemi" : "Show Default EMI",
     "label.button.copyemi" : "Copy EMI",
+    "label.heading.adhoc.search.query.for.loans":"AdHoc query Search For Loans",
+    "label.heading.fundername" : "Funder Name",
+    "validation.msg.FUND.selectedCriteriaList.cannot.be.empty" : " Selected criteria can not be empty ",
 
     "label.error.banktransaction.notsubmitted":"Transaction not yet submitted.",
 

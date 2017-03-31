@@ -44,7 +44,7 @@
                 <label class="text-right  col-sm-2">{{ 'label.input.debitaccount' | translate }}</label>
 
                 <div class="col-sm-2">
-                    {{taxComponent.debitAccount.name}}
+                    {{taxComponent.debitAccount.name}}({{taxComponent.debitAccount.glCode | translate}})
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                 <label class="text-right  col-sm-2">{{ 'label.input.creditaccount' | translate }}</label>
 
                 <div class="col-sm-3">
-                    {{taxComponent.creditAccount.name}}
+                    {{taxComponent.creditAccount.name}}({{taxComponent.creditAccount.glCode | translate}})
                 </div>
             </div>
 

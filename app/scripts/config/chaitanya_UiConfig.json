@@ -51,7 +51,7 @@
       "isAutoPopulate": {
         "interestChargedFromDate": false
       },
-      "isDefaultValue": {
+      "isDefaultValue": { 
         "fundId": 45,
         "syncDisbursementWithMeeting": false,
         "paymentTypeId": 750,
@@ -62,7 +62,7 @@
       "isHiddenFeild": {
         "viewReportButton": true,
         "editTranches": true,
-         "term" : false,
+        "term" : false,
         "currency" : false,
         "interestCompoundingPeriod" : false,
         "interestCalculatedUsing" : false,
@@ -73,6 +73,11 @@
         "interestRateChat" : false,
         "charges" : false,
         "addCharges" : false
+      }
+    },
+    "clientAccount": {
+      "isMandatory": {
+        "externalId": true
       }
     },
     "collectionSheet": {
@@ -150,12 +155,15 @@
       "isAutoPopulate": {
         "active": true
       },
+      "isMandatory":{
+        "externalId":true
+      },
       "isHiddenMenu": {
         "attachmeeting": true,
         "groupExternalId" : false,
-      "submittedOn" : false,
-      "staff" : false,
-      "addclients" : false
+        "submittedOn" : false,
+        "staff" : false,
+        "addclients" : false
       }
     },
     "labelChanges": {
@@ -185,7 +193,7 @@
       },
       "hiddenFields":{
         "status":true
-    }
+      }
     },
     "reportParameterConfiguration": {
       "datePicker": {
@@ -199,6 +207,28 @@
     "viewClient": {
       "isHiddenField": {
         "pincode": false
+      }
+    },
+    "bankAccountDetails": {
+      "isMandatory": {
+        "bankAccountHolderName": true,
+        "bankAccountNumber": true,
+        "accountType": true,
+        "bankIFSCCode": true,
+        "bankName": true,
+        "bankCity": true,
+        "mobileNumber": true,
+        "lastTransactionDate": true
+      },
+      "isHiddenField":{
+        "lastTransactionDate":false
+      },
+      "regexValidations" :{
+        "mobileNumber":"/^[0-9]{10}$/",
+        "bankIFSCCode":"/^[A-Za-z]{4}[0-9]{7}$/"
+      },
+      "isAutoPopulate":{
+        "bankName": "MASTER"
       }
     }
   }

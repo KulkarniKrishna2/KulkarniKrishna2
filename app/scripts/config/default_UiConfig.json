@@ -84,6 +84,11 @@
 				"paymentDetails": false
 			}
 		},
+		"clientAccount": {
+		  "isMandatory": {
+			"externalId": true
+		  }
+		},
 		"createClient": {
 			"isReadOnlyField": {
 				"staff": false,
@@ -135,7 +140,11 @@
 				"name": false
 			},
 			"isHiddenField": {
-				"villageOptions": true
+				"villageOptions": true,
+				"showGroupExternalId" : true,
+				"showSubmittedOn" : true,
+				"showStaff" : true,
+				"addclients" : true
 			}
 		},
 		"createGroup": {
@@ -152,7 +161,10 @@
 				"submittedOn": false,
 				"staff": false,
 				"addclients": false
-			}
+			},
+			"isMandatory":{
+				"externalId":true
+	  		}
 		},
 		"labelChanges": {
 			"calendarChagesEffectiveFrom": true
@@ -196,7 +208,27 @@
 			"isHiddenField": {
 				"pincode": false
 			}
+		},
+		"bankAccountDetails": {
+		  "isMandatory": {
+			"bankAccountHolderName": true,
+			"bankAccountNumber": true,
+			"accountType": false,
+			"bankIFSCCode": true,
+			"bankName": false,
+			"bankCity": false,
+			"mobileNumber": false,
+			"lastTransactionDate": false
+		  },
+		  "isHiddenField":{
+			"lastTransactionDate": true
+		  },
+		  "regexValidations" :{
+			"mobileNumber":"",
+			"bankIFSCCode":""
+		  }
 		}
 	}
 }
+
 	

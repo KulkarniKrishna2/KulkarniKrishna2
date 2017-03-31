@@ -57,7 +57,7 @@
                 <div class="col-sm-3">
                     <select id="debitAcountId" ng-model="formData.debitAcountId" class="form-control"
                             chosen="debitaccounts"
-                            ng-options="account.id as account.name for account in debitaccounts"
+                            ng-options="account.id as account.name +'('+ account.glCode +')' for account in debitaccounts"
                             value="{{account.id}}">
                         <option value="">{{'label.select' | translate}}</option>
                     </select>
@@ -81,7 +81,7 @@
                 <div class="col-sm-3">
                     <select id="creditAcountId" ng-model="formData.creditAcountId" class="form-control"
                             chosen="creditaccounts"
-                            ng-options="account.id as account.name for account in creditaccounts"
+                            ng-options="account.id as account.name +'('+ account.glCode +')' for account in creditaccounts"
                             value="{{account.id}}">
                         <option value="">{{'label.select' | translate}}</option>
                     </select>

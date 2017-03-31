@@ -314,10 +314,16 @@
                             <th class="table-bold-loan">{{'label.heading.netdisburseamount' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.principalNetDisbursed | number}}</span></td>
                         </tr>
-                        <tr>
+                        <tr ng-show="loandetails.summary.totalOverdue>0">
                             <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
                                     data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span>
+                            </td>
+                        </tr>
+                        <tr ng-show="isOverPaidLoan">
+                            <th class="table-bold-loan">{{'label.heading.overpaidby' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.totalOverpaid| number}}<span
+                                    data-ng-hide="loandetails.totalOverpaid>0">{{'label.heading.notprovided' | translate}}</span></span>
                             </td>
                         </tr>
                     </table>
@@ -587,6 +593,15 @@
                                 <td>{{loandetails.summary.penaltyChargesOutstanding | number}}</td>
                                 <td>{{loandetails.summary.penaltyChargesOverdue | number}}</td>
                             </tr>
+                             <tr ng-show="isOverPaidLoan">
+                                <th>{{'label.heading.overpaid' | translate}}</th>
+                                <td>&nbsp;</td>
+                                <td>{{loandetails.totalOverpaid| number}}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
                             </tbody>
                             <tfoot>
                             <tr>
@@ -813,6 +828,7 @@
                                     <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('interestPortion')">{{'label.heading.interest' | translate}}</th>
                                     <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('feeChargesPortion')">{{'label.heading.fees' | translate}}</th>
                                     <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('penaltyChargesPortion')">{{'label.heading.penalities' | translate}}</th>
+                                    <th ng-show="isOverPaidLoan" class="pointer" scope="col" ng-click="changeTransactionSort('overpaymentPortion')">{{'label.heading.overpaid' | translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -844,6 +860,9 @@
                                     </td>
                                     <td ng-hide="hideTransactionDetails" class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.penaltyChargesPortion | number}}
+                                    </td>
+                                    <td ng-show="isOverPaidLoan" class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
+                                        {{transaction.overpaymentPortion | number}}
                                     </td>
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.outstandingLoanBalance | number}}

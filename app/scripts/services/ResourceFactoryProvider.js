@@ -775,24 +775,9 @@
                         approve: {method: 'PUT', params:{command: 'approve'}}
                     }),
                     smsResource: defineResource(apiVer + "/sms/:smsId", {smsId:'@smsId'}, {
-                        getAll: {method: 'GET', params: {}, isArray : true},
+                        getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {smsId: '@smsId'}, isArray : false},
                         update: {method: 'PUT', params: {}}
-                    }),
-                    sentSmsResource: defineResource(apiVer + "/sms/sentSms", {}, {
-                        get: {method: 'GET', params: {}, isArray : true}
-                    }),
-                    failedSmsResource: defineResource(apiVer +"/sms/failedSms", {},{
-                        get: {method: 'GET', params: {}, isArray : true}
-                    }),
-                    deliveredSmsResource: defineResource(apiVer +"/sms/deliveredSms", {},{
-                        get: {method: 'GET', params: {}, isArray : true}
-                    }),
-                    pendingSmsResource: defineResource(apiVer +"/sms/pendingSms", {},{
-                        get: {method: 'GET', params: {}, isArray : true}
-                    }),
-                    searchSmsResource: defineResource(apiVer +"/sms/messageByStatus", {},{
-                        get: {method: 'GET', params: {}, isArray : false}
                     }),
                     smsCampaignResource: defineResource(apiVer +"/sms/campaign/:resourceId", {resourceId:'@resourceId', command: '@command'},{
                         getAll: {method: 'GET', params: {}, isArray : true},

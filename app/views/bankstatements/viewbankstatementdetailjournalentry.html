@@ -40,7 +40,7 @@
                 <tr ng-repeat="bankStatementDetail in bankStatementDetails" ng-class="($index%2!=0)?'graybg':''">
                    <!-- <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail.transactionId)"><a>{{bankStatementDetail.transactionId}}</a></td>-->
                     <td ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip='Active Loan not found with {{bankStatementDetail.loanAccountNumber}}' class="icon-exclamation-sign" style="color: red"></a></td>
-                    <td ng-show="bankStatementDetail.transactionId != undefined ">{{bankStatementDetail.transactionId}}</td>
+                    <td ng-show="bankStatementDetail.transactionId != undefined " ng-click="routeTo(bankStatementDetail.transactionId)"><a>{{bankStatementDetail.transactionId}}</a></td>
                     <td ng-show="bankStatementDetail.transactionId == undefined && !bankStatementDetail.isError">{{bankStatementDetail.transactionId}}</td>
 
                     <td>

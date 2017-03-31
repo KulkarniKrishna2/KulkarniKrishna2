@@ -42,7 +42,7 @@
             </div>
 
 
-            <div class="form-group">                
+            <div class="form-group" ng-hide="isOwn">                
                 <div >
                     <label class="control-label col-sm-2">
                         {{'label.input.fundsource' | translate}} <span class="required">*</span>
@@ -86,7 +86,7 @@
                 </div>
 
             </div>
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.assignmentstartdate' | translate}} <span class="required">*</span>
@@ -118,18 +118,18 @@
                 </div>
 
             </div>
-            <hr/>
-            <div class="form-group">
+            <hr/  ng-hide="isOwn">
+            <div class="form-group"  ng-hide="isOwn">
                 <legend style="margin-bottom:1px;">  {{'label.heading.loandetails' | translate}} </legend>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.sanctionedamount' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="sanctionedAmount" name="sanctionedAmount" ng-model="formData.sanctionedAmount"  class="form-control"  ng-disabled="isOwn"  required late-Validate/>
+                        <input type="text" id="sanctionedAmount" name="sanctionedAmount" ng-model="formData.sanctionedAmount"  class="form-control"  ng-disabled="isOwn" ng-change="updatePercentAmount(formData.sanctionedAmount)" required late-Validate/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="sanctionedAmount"/>
@@ -151,7 +151,7 @@
                 </div>
 
             </div>
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.disbursedamount' | translate}} <span class="required">*</span>
@@ -180,7 +180,7 @@
 
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.tenure' | translate}} <span class="required">*</span>
@@ -194,9 +194,6 @@
                                     ng-options="tenureFrequency.id as tenureFrequency.value for tenureFrequency in periodOptions" value="{{tenureFrequency.id}}"
                                     name="tenureFrequency"  required late-Validate>
                             </select>
-                        </div>
-                        <div ng-show="isOwn">
-                            <select   chosen="periodOptions"  id="periodOptions"> </select>
                         </div>
                     </div>
                     <div class="col-sm-1" >
@@ -221,7 +218,7 @@
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.morotoriumperiod' | translate}}
@@ -230,13 +227,10 @@
                         <input   ng-disabled="isOwn" type="text" id="morotorium" name="morotorium" ng-model="formData.morotorium"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-2">
-                        <div  ng-hide="isOwn">
+                        <div>
                             <select chosen="periodOptions" id="morotoriumFrequency" ng-model="formData.morotoriumFrequency"  
-                            class="form-control"  ng-options="morotoriumFrequency.id as morotoriumFrequency.value for morotoriumFrequency in periodOptions" value="{{morotoriumFrequency.id}}" ng-hide="isOwn" ng-disabled="isOwn"  name="morotoriumFrequency">
+                            class="form-control"  ng-options="morotoriumFrequency.id as morotoriumFrequency.value for morotoriumFrequency in periodOptions" value="{{morotoriumFrequency.id}}" name="morotoriumFrequency">
                             </select>
-                        </div>
-                        <div ng-show="isOwn">
-                            <select   chosen="periodOptions"  id="periodOptionsmorotorium"> </select>
                         </div>
                     </div>
                     <div class="col-sm-1" >
@@ -249,13 +243,10 @@
                     </label>
 
                     <div class="col-sm-1">
-                        <div  ng-hide="isOwn">
+                        <div>
                             <select chosen="repaymentFequencyOptions" id="fundRepaymentFrequency" ng-model="formData.fundRepaymentFrequency"  class="form-control"  ng-options="fundRepaymentFrequency.id as fundRepaymentFrequency.name for fundRepaymentFrequency in repaymentFequencyOptions" value="{{fundRepaymentFrequency.id}}"
                                      name="category" required late-Validate>
                             </select>
-                        </div>
-                        <div ng-show="isOwn">
-                            <select   chosen="periodOptions"  id="periodOptionsmorotorium"> </select>
                         </div>
                     </div>
                     <div class="col-sm-1" >
@@ -264,7 +255,7 @@
                 </div>
 
             </div>
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.fundloanpurpose' | translate}}<span class="required">*</span>
@@ -286,13 +277,14 @@
                     </div>
                 </div>
             </div>
-            <div ng-show="fundLoanPurposes.length>0"  class="form-group">
+            <div ng-show="fundLoanPurposes.length>0 && !isOwn"  class="form-group">
                 <div class="col-sm-offset-2">
                     <table class="well col-sm-5">
                          <thead>
                             <tr  class="graybg" style="height:20px;">
                                 <th>{{'label.input.fundloanpurpose' | translate}}</th>
                                 <th>{{'label.heading.percentageloanpurpose' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th> 
                                 <th></th> 
                             </tr>
                          </thead>
@@ -300,6 +292,7 @@
                             <tr  class="graybg" style="height:20px;" ng-repeat="loanPurposes in fundLoanPurposes">
                                 <td>{{loanPurposes.loanPurposeName}}</td>
                                 <td>{{loanPurposes.loanPurposeAmount}}</td>
+                                <td>{{loanPurposes.totalAmount}}</td>
                                 <td>
                                     <a class="btn btn-primary" ng-click="removeLoanPurpose($index)">
                                         <i class="icon-remove icon-white"></i>
@@ -311,7 +304,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.rateofinterest' | translate}}<span class="required">*</span>
@@ -325,10 +318,10 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <legend style="margin-bottom:1px;">  {{'label.heading.fee' | translate}} </legend>
             </div>
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.rateoflpfinpercentage' | translate}}
@@ -338,11 +331,11 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <legend style="margin-bottom:1px;">  {{'label.heading.collateralorsecurity' | translate}} </legend>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.bookdebthyphothecationinpercentage' | translate}}
@@ -366,7 +359,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group"  ng-hide="isOwn">
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.personalgurantee' | translate}}
