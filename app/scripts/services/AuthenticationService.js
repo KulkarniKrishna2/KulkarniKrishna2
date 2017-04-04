@@ -45,6 +45,7 @@
                     .success(updateAccessDetails);
             }
 
+            var credentialsData = {};
             this.authenticateWithUsernamePassword = function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
         		if(SECURITY === 'oauth'){
@@ -58,10 +59,26 @@
 	                    .success(getUserDetails)
 	                    .error(onFailure);
         		} else {
-	                httpService.post(apiVer + "/authentication" , credentials)
-	                    .success(onSuccess)
-	                    .error(onFailure);
-        		}
+                    angular.copy(credentials,credentialsData);
+                    httpService.post(apiVer + "/authentication?isPasswordEncrypted=true", '{}')
+                        .success(onSuccessPublicKeyData)
+                        .error(onFailure);
+                }
+            };
+
+            var onSuccessPublicKeyData = function (publicKeyData) {
+                scope.publicKey = publicKeyData.keyValue;
+                var encrypt = new JSEncrypt();
+                encrypt.setPublicKey(scope.publicKey);
+                var encryptedPassword = encrypt.encrypt(credentialsData.password);
+                if (encryptedPassword == false) {
+                    onFailure(null);
+                } else {
+                    credentialsData.password = encryptedPassword;
+                    httpService.post(apiVer + "/authentication?isPasswordEncrypted=true", credentialsData)
+                        .success(onSuccess)
+                        .error(onFailure);
+                }
             };
         }
     });
