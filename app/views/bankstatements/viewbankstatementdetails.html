@@ -25,11 +25,21 @@
         </div>
     </div>
 	<div class="row">
-		<div class=col-sm-4 align="left">
-			<input ng-autofocus="true" ng-model="filterText"
-				ng-keyup="onFilter()" type="text" class="form-control"
-				placeholder="{{'label.input.filterbyamount' | translate}}">
-		</div>
+		<div class=col-sm-2 align="left">
+            <input  ng-autofocus="true" ng-model="searchText.amount"
+                type="text" class="form-control"
+                placeholder="{{'label.input.teller.cashier.amount' | translate}}">
+        </div>
+         <div class=col-sm-2 align="left">
+            <input ng-autofocus="true" ng-model="searchText.transactionType"
+                type="text" class="form-control"
+                placeholder="{{'label.heading.transactionType' | translate}}">
+        </div>
+        <div class=col-sm-2 align="left">
+            <input ng-autofocus="true" ng-model="searchText.transactionDate"
+                type="text" class="form-control"
+                placeholder="{{'label.heading.transactionDate' | translate}}">
+        </div>
 		<div class="col-sm-2" align="right">
 			<label>{{'label.input.allexactmatch' | translate}}</label> <input
 				type="checkbox" ng-click="selectAll()">
@@ -71,7 +81,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails | filter:filterText" style="height:78px;cursor: pointer;">
+                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails | filter:searchText" style="height:78px;cursor: pointer;">
                             <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
                             <td class="pointer">{{bankStatementDetail.transactionType }}</td>
                             <td class="pointer">{{bankStatementDetail.amount}}</td>
@@ -99,7 +109,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="bankStatementDetail in bankStatementDetails | filter:filterText" style="height:78px;"   ng-class="($index%2!=0)?'graybg':''">
+                    <tr ng-repeat="bankStatementDetail in bankStatementDetails | filter:searchText" style="height:78px;"   ng-class="($index%2!=0)?'graybg':''">
                             <td align="center" ng-show = "(bankStatementDetail.hasOwnProperty('loanTransactionData'))">
                                 <input ng-checked="isChecked(bankStatementDetail.loanTransactionData.id)" ng-value="isChecked(bankStatementDetail.loanTransactionData.id)"  type="checkbox"  ng-click="selectedSearchTransaction($index,bankStatementDetail.loanTransactionData,false)" name="{{bankStatementDetail.id}}">
                                 <!--<a ng-click="uncheckOptions($index, bankStatementDetail.loanTransactionData.id)" class="btn btn-primary" role="button" ng-show="isChecked(bankStatementDetail.loanTransactionData.id)"><i class="icon-check icon-white"></i></a>-->
