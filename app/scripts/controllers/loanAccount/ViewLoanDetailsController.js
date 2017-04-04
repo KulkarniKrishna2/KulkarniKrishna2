@@ -15,7 +15,7 @@
             scope.revokeSubsidyTransactionTypeId = 51;
             scope.glimClientsDetails = [];
             scope.isGlim = false;
-            scope.restrictedGlimFunctionality = ['RECOVERYPAYMENT_LOAN','REFUND_LOAN','CREATE_ACCOUNTTRANSFER'];
+            scope.restrictedGlimFunctionality = ['FORECLOSURE_LOAN','REFUND_LOAN','CREATE_ACCOUNTTRANSFER'];
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
             scope.isGlimTabActive = false;
             scope.futurePeriods = [];
@@ -29,6 +29,24 @@
                     scope.glimPaymentAsGroup = configData.enabled;
                 }
             });
+            scope.slabBasedCharge = 'Slab Based';
+            scope.flatCharge = "Flat";
+
+            scope.isGlimEnabled = function(){
+                return scope.isGlim && !scope.glimPaymentAsGroup;
+            };
+
+            scope.isGlimActiveLoan = function(isActive){
+                return scope.isGlim && !scope.glimPaymentAsGroup && isActive;
+            };
+
+            scope.isGlimRecovery = function(taskPermission){
+                return (scope.isGlimEnabled() &&  taskPermission =='RECOVERYPAYMENT_LOAN') ;
+            };
+
+            scope.glimAllowedFunctionaility = function(task){
+                return ((scope.restrictedGlimFunctionality.indexOf(task)>-1) && scope.isGlim ) || (task=='RECOVERYPAYMENT_LOAN' && scope.isGlimEnabled());
+            };
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16

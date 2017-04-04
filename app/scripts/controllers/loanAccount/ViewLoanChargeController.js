@@ -4,6 +4,7 @@
 
             scope.loanId = routeParams.loanId;
             scope.chargeId = routeParams.id;
+            scope.slabBasedCharge = "Slab Based";
             if (routeParams.loanstatus == 'Submitted and pending approval') {
                 scope.showEditButtons = true;
             }

@@ -100,7 +100,7 @@
 						<td>{{charge.isCapitalized}}</td>
 					</tr>
 	            </table>
-				<div class="form-group" ng-show="charge.slabs.length>0">
+				<div class="form-group" ng-show="charge.chargeCalculationType.value == slabBasedCharge">
 					<label>{{'label.heading.slabbasedcharges' | translate}}</label><br>
 					<table class="table">
 						<tr class="graybg">

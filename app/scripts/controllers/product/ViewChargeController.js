@@ -3,6 +3,7 @@
         ViewChargeController: function (scope, routeParams, resourceFactory, location, $modal) {
             scope.charge = [];
             scope.choice = 0;
+            scope.slabBasedCharge = 'Slab Based';
             resourceFactory.chargeResource.get({chargeId: routeParams.id}, function (data) {
                 scope.charge = data;
             });
