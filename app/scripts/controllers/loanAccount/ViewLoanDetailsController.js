@@ -36,6 +36,14 @@
                 return scope.isGlim && !scope.glimPaymentAsGroup;
             };
 
+            scope.isGlimActiveLoan = function(isActive){
+                return scope.isGlim && !scope.glimPaymentAsGroup && isActive;
+            };
+
+            scope.isGlimRecovery = function(taskPermission){
+                return (scope.isGlimEnabled() &&  taskPermission =='RECOVERYPAYMENT_LOAN') ;
+            };
+
             scope.glimAllowedFunctionaility = function(task){
                 return ((scope.restrictedGlimFunctionality.indexOf(task)>-1) && scope.isGlim ) || (task=='RECOVERYPAYMENT_LOAN' && scope.isGlimEnabled());
             };

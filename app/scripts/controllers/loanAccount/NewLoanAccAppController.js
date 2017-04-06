@@ -138,7 +138,7 @@
                 });
             }
 
-            scope.$watch('formData.principal ', function(){
+            scope.$watch('formData.principal', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
                     for(var i in scope.charges){
                         if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
@@ -163,20 +163,21 @@
                 }
             });
 
-    scope.updateSlabBasedChargeForGlim = function(chargeData){
-        var clientChargeAmount = 0;
-        for(var j=0;j<scope.formData.clientMembers.length;j++){
-            var clientData = scope.formData.clientMembers[j];
-                if(clientData.isClientSelected==true && clientData.transactionAmount){
-                    for(var i in chargeData.slabs){
-                        if(clientData.transactionAmount >= chargeData.slabs[i].fromLoanAmount && clientData.transactionAmount <= chargeData.slabs[i].toLoanAmount) {
-                            clientChargeAmount = clientChargeAmount + parseFloat(chargeData.slabs[i].amount);
+            scope.updateSlabBasedChargeForGlim = function(chargeData){
+                var clientChargeAmount = 0;
+                for(var j=0;j<scope.formData.clientMembers.length;j++){
+                    var clientData = scope.formData.clientMembers[j];
+                        if(clientData.isClientSelected==true && clientData.transactionAmount){
+                            for(var i in chargeData.slabs){
+                                if(clientData.transactionAmount >= chargeData.slabs[i].fromLoanAmount && clientData.transactionAmount <= chargeData.slabs[i].toLoanAmount) {
+                                    clientChargeAmount = clientChargeAmount + parseFloat(chargeData.slabs[i].amount);
+                                }
+                            }
                         }
-                    }
                 }
-        }
-        return clientChargeAmount;                       
-    }; 
+                return clientChargeAmount;                       
+            }; 
+
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
@@ -251,7 +252,6 @@
                             scope.updateChargeForSlab(data);
                         }
                         else {
-                        
                             if(data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs.length > 0){
                                 for(var i in data.slabs) {
                                     if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
@@ -273,7 +273,7 @@
                     angular.copy(clientMembers, data.glims);
                     var amount = 0;
                     for(var i in data.glims){
-                         if (data.slabs){
+                         if (data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs){
                             for(var j in data.slabs){
                             if(data.glims[i].isClientSelected==true && data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
                                         data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
@@ -281,8 +281,11 @@
                                 }
                             }
                         } else if (data.chargeCalculationType.value == scope.flatCharge){
-                            data.glims[i].upfrontChargeAmount = data.amount;
-                            amount = amount + data.glims[i].upfrontChargeAmount;
+                            if(data.glims[i].isClientSelected==true){
+                                data.glims[i].upfrontChargeAmount = data.amount;
+                                amount = amount + data.glims[i].upfrontChargeAmount;
+                            }
+                            
                         }
                     }
                 }

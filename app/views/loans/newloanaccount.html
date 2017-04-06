@@ -652,9 +652,9 @@
                         <tr ng-repeat="glim in charges[outerIndex].glims">
                             <td>{{glim.displayName}}</td>
                             <td>{{glim.accountNo}}</td>
-                            <td><input id="" class="form-control" type="text" ng-model="glim.upfrontChargeAmount"
+                            <td><input id="" class="form-control" type="text" ng-model="glim.upfrontChargeAmount" 
                                        placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format 
-                                       ng-readonly="charges[outerIndex].chargeTimeType.id == 50 && charges[outerIndex].chargeCalculationType.value == slabBasedCharge">
+                                       ng-readonly="charges[outerIndex].chargeCalculationType.value == slabBasedCharge">
                             </td>
                         </tr>
                     </table>

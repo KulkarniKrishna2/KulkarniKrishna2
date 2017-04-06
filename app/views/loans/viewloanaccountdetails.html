@@ -222,7 +222,7 @@
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
                       </span>
-                    <span ng-repeat="button in buttons.singlebuttons" ng-show="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlimEnabled()">
+                      <span ng-repeat="button in buttons.singlebuttons" ng-show="isGlimRecovery(button.taskPermissionName)">
                           <a class="btn btn-primary" href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
                               <i class="icon-briefcase icon-white"></i>{{'label.button.glimrecoverypayment' | translate}}
                           </a>
@@ -238,7 +238,7 @@
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
                               </li>
-                              <li class="{{button.icon}}" ng-show="isGlimEnabled() && loandetails.status.active==true">
+                              <li class="{{button.icon}}" ng-show="isGlimActiveLoan(loandetails.status.active)">
                                   <a href="#/glimloanaccountcharge/{{loandetails.id}}/waivecharge" has-permission="WAIVEINTERESTPORTION_LOAN">
                                       {{'label.button.waiveglimcharge' | translate}}
                                   </a>
@@ -248,7 +248,7 @@
                                       {{'label.button.glimprepayloan' | translate}}
                                   </a>
                               </li>
-                              <li class="{{button.icon}}" ng-show="isGlimEnabled() && loandetails.status.active==true">
+                              <li class="{{button.icon}}" ng-show="isGlimActiveLoan(loandetails.status.active)">
                                   <a href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
                                       {{'label.button.glimrecoverypayment' | translate}}
                                   </a>
@@ -1113,7 +1113,11 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
                                 <td ng-hide="isGlimEnabled()">
+<<<<<<< HEAD
                                     <a ng-hide="charge.chargeCalculationType.value == slabBasedCharge || charge.chargeCalculationType.value == flatCharge" title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
+=======
+                                    <a ng-hide="charge.chargeCalculationType.value == slabBasedCharge" title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
+>>>>>>> v17.01.1_RC
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}" has-permission='UPDATE_LOANCHARGE'><i
                                             class="icon-pencil icon-white"></i></a>
                                     <a title="{{'label.delete' | translate}}" class="btn-warning"
