@@ -591,16 +591,31 @@
                     if(scope.loandetails.multiDisburseLoan){
                         disburseButtonLabel = 'button.disburse.tranche';
                     }
-                    scope.buttons.singlebuttons.splice(1, 0, {
-                        name: disburseButtonLabel,
-                        icon: "icon-flag",
-                        taskPermissionName: 'DISBURSE_LOAN'
-                    });
+
+                    var addDisburseTrancheButton = true;
+                    var addDisburseToSavingsTrancheButton = true;
+                    for(var i = 0; i < scope.buttons.singlebuttons.length; i++){
+                        if(scope.buttons.singlebuttons[i].name == "button.disburse.tranche"){
+                            addDisburseTrancheButton = false;
+                        }
+                        if(scope.buttons.singlebuttons[i].name == "button.disbursetosavings"){
+                            addDisburseToSavingsTrancheButton = false;
+                        }
+                    }
+                    if(addDisburseTrancheButton) {
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: disburseButtonLabel,
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSE_LOAN'
+                        });
+                    }
+                    if(addDisburseToSavingsTrancheButton) {
                     scope.buttons.singlebuttons.splice(1, 0, {
                         name: "button.disbursetosavings",
                         icon: "icon-flag",
                         taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
                     });
+                    }
                     creditBureauCheckIsRequired();
                 }
                 var count = 0;
@@ -610,7 +625,7 @@
                             count++;
                         }
                         if (!data.canDisburse) {
-                            if(_.isUndefined(data.disbursementDetails[i].actualDisbursementDate)){
+                            if(data.status.value != "Submitted and pending approval" &&   _.isUndefined(data.disbursementDetails[i].actualDisbursementDate)){
                                 scope.loandetails.canDisburse = true;
                                 disbursalSettings(scope.loandetails);
                                 break;
