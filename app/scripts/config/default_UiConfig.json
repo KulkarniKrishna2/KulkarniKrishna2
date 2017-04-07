@@ -134,6 +134,9 @@
 	  },
 	  "bankAccountDetails":{
 		"bankName":""
+	  },
+	  "isReadOnlyField": {
+		"countryName": false
 	  }
 	},
 	"createCenter": {
