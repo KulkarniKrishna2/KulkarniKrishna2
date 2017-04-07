@@ -37,6 +37,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
+                scope.paymentTypeOptions = scope.product.paymentTypeOptions || [];
                 scope.charges = [];
                 for(var i in scope.product.charges){
                     if(scope.product.charges[i].chargeData){
@@ -47,9 +48,7 @@
                 }
                 scope.writeOffReasonOptions = [];
                 if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){
-                    resourceFactory.codeValueByCodeNameResources.get({codeName: "WriteOffReasons", sqlSearch: "cv.is_active = 1"}, function (codeValueData) {
-                        scope.writeOffReasonOptions = scope.getCodeValues(scope.product.codeValueOptions,codeValueData);
-                    });
+                        scope.writeOffReasonOptions = scope.product.codeValueOptions;  
                 }
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
@@ -277,10 +276,8 @@
 
                     _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
                         scope.configureFundOptions.push({
-                            paymentTypeId: fundSource.paymentType.id,
-                            fundSourceAccountId: fundSource.fundSourceAccount.id,
-                            paymentTypeOptions: scope.product.paymentTypeOptions,
-                            assetAccountOptions: scope.assetAccountOptions
+                             paymentTypeId: fundSource.paymentType.id,
+                            fundSourceAccountId: fundSource.fundSourceAccount.id
                         })
                     });
 
@@ -298,7 +295,7 @@
                         })
                     });
 
-                    _.each(scope.product.codeValueToGLAccountMappings, function (codeValues) {
+                    _.each(scope.product.writeOffReasonsToExpenseAccountMappings, function (codeValues) {
                         scope.codeValueSpecificAccountMappings.push({
                             codeValueId: codeValues.codeValue.id,
                             expenseAccountId: codeValues.expenseAccount.id
@@ -375,10 +372,8 @@
                 if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 &&
                     scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
                     scope.configureFundOptions.push({
-                        paymentTypeId: scope.product.paymentTypeOptions[0].id,
-                        fundSourceAccountId: scope.assetAccountOptions[0].id,
-                        paymentTypeOptions: scope.product.paymentTypeOptions,
-                        assetAccountOptions: scope.assetAccountOptions
+                        paymentTypeId:  scope.product.paymentTypeOptions[0].id ,
+                        fundSourceAccountId:  scope.assetAccountOptions[0].id
                     });
                 }
             };
@@ -386,8 +381,8 @@
             scope.mapFees = function () {
                 if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
                     scope.specificIncomeAccountMapping.push({
-                        chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
-                        incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : ''
+                        chargeId:  scope.chargeOptions[0].id ,
+                        incomeAccountId: scope.incomeAndLiabilityAccountOptions[0].id
                     });
                 }
             };
@@ -395,8 +390,8 @@
             scope.mapPenalty = function () {
                 if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
                     scope.penaltySpecificIncomeaccounts.push({
-                        chargeId: scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
-                        incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : ''
+                        chargeId:  scope.penaltyOptions[0].id ,
+                        incomeAccountId:  scope.incomeAccountOptions[0].id
                     });
                 }
             };
@@ -404,8 +399,8 @@
             scope.mapWriteOffReason = function () {
                 if (scope.writeOffReasonOptions && scope.writeOffReasonOptions.length > 0 && scope.expenseAccountOptions && scope.expenseAccountOptions.length > 0) {
                     scope.codeValueSpecificAccountMappings.push({
-                        codeValueId: scope.writeOffReasonOptions.length > 0 ? scope.writeOffReasonOptions[0].id : '',
-                        expenseAccountId: scope.expenseAccountOptions.length > 0 ? scope.expenseAccountOptions[0].id : ''
+                        codeValueId: scope.writeOffReasonOptions[0].id ,
+                        expenseAccountId:  scope.expenseAccountOptions[0].id
                     });
                 }
             };
@@ -444,7 +439,7 @@
 
             scope.deletePrincipalVariation = function (index) {
                 scope.formData.principalVariationsForBorrowerCycle.splice(index, 1);
-            };
+            }; 
 
             scope.deleteInterestRateVariation = function (index) {
                 scope.formData.interestRateVariationsForBorrowerCycle.splice(index, 1);
