@@ -80,6 +80,11 @@
 		"externalId": true
 	  }
 	},
+	"viewClient": {
+	  "isHiddenField": {
+		"pincode": false
+	  	}
+	},
 	"collectionSheet": {
 	  "isAutoPopulate": {
 		"paymentTypeOption": true
