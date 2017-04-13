@@ -1,144 +1,272 @@
 <div class="col-md-12">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li class="active">{{'label.anchor.bulkloanreassignment' | translate}}</li>
-    </ul>
-	<form class="form-horizontal well" ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
-	    <api-validate></api-validate>
-	    <fieldset>
-	        <legend>{{'label.heading.bulkloanreassignment' | translate}}</legend>
-	                    <div class="form-group">
-	                        <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
-	                                class="required">*</span></label>
-	
-	                        <div class="col-sm-3">
-	                            <select chosen="offices" name="office" id="office" ng-model="officeIdTemp"
-	                                    data-ng-options="office.id as office.name for office in offices"
-	                                    data-ng-change="getOfficers()" class="form-control">
-	                                <option value="">{{'label.selectoffice' | translate}}</option>
-	                            </select>
-	                        </div>
-	                    </div>
-	                <div class="form-group">
-	                        <label class="control-label col-sm-2">{{ 'label.input.assignmentdate' | translate }}<span
-	                                class="required">*</span></label>
-	
-	                        <div class="col-sm-3">
-	                            <input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-	                                   is-open="opened" min="minDate" max="'2020-06-22'"
-	                                   date-disabled="disabled(date, mode)" class="form-control" required late-Validate/>
-	                        </div>
-	                    </div>
-	                    <div class="form-group" data-ng-show="officerChoice">
-	                        <label class="control-label col-sm-2">{{ 'label.input.fromloanofficer' | translate }}<span
-	                                class="required">*</span></label>
-	
-	                        <div class="col-sm-3">
-	                            <select chosen="officers" id="fromLoanOfficerId" ng-model="formData.fromLoanOfficerId"
-	                                    data-ng-options="officer.id as officer.displayName for officer in officers"
-	                                    ng-change="getOfficerClients()" class="form-control">
-	                                <option value="">{{'label.selectone' | translate}}</option>
-	                            </select>
-	                        </div>
-	                    </div>
-	                <div class="form-group">
-	                        <label class="control-label col-sm-2">{{ 'label.input.toloanofficer' | translate }}<span
-	                                class="required">*</span></label>
-	
-	                        <div class="col-sm-3">
-	                            <select chosen="toOfficers" id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" class="form-control"
-	                                    data-ng-options="toOfficer.id as toOfficer.displayName for toOfficer in toOfficers">
-	                                <option value="">{{'label.selectone' | translate}}</option>
-	                            </select>
-	                        </div>
-	                    </div>
+	<ul class="breadcrumb">
+		<li><a href="#/organization">{{'label.anchor.organization' |
+				translate}}</a></li>
+		<li class="active">{{'label.anchor.bulkloanreassignment' |
+			translate}}</li>
+	</ul>
+	<form class="form-horizontal well"
+		ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
+		<api-validate></api-validate>
+		<fieldset>
+			<legend>{{'label.heading.bulkloanreassignment' | translate}}</legend>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{
+					'label.input.office' | translate }}<span class="required">*</span>
+				</label>
 
-				<div class="row paddedleft">
-					<div class="col-sm-6 col-md-6">
-						<div class="form-group" data-ng-hide="accountSummaryCollection == undefined || accountSummaryCollection.length==0">
-							<table>
-								<tbody>
-									<tr>
-										<td>
-											<label>{{'label.input.selectall' | translate}}</label>
-										</td>
-										<td class="col-sm-3">
-											<input  type="checkbox"  ng-model="selectAll.checked" ng-change="selectAll(selectAll.checked)">
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="form-group" data-ng-show="accountSummaryCollection">
-							<table>
-								<tbody>
-						
-									<tr ng-repeat-start="center in accountSummaryCollection">
-											<td>
-												<button type="button" style="border: 0" ng-click="expandAll(center, allExpanded = !allExpanded)">
-													<span ng-bind="allExpanded ? '-' : '+'"></span>
-												</button>&nbsp;&nbsp;&nbsp;&nbsp;
-											</td>
-										<td>
-											&nbsp;&nbsp;<input class="pull-left"  type="checkbox" ng-model="center.checked"  ng-change="centerLevel(center.checked,center.id)">&nbsp;&nbsp;<strong>{{center.name}}</strong>
-										</td>
-									</tr>
-									<tr ng-repeat-end ng-show="center.isExpanded">
-										<td></td>
-										<td>
-											<table>
-												<tbody>
+				<div class="col-sm-3">
+					<select chosen="offices" name="office" id="office"
+						ng-model="officeIdTemp"
+						data-ng-options="office.id as office.name for office in offices"
+						data-ng-change="getOfficers()" class="form-control">
+						<option value="">{{'label.selectoffice' | translate}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{
+					'label.input.assignmentdate' | translate }}<span class="required">*</span>
+				</label>
+
+				<div class="col-sm-3">
+					<input id="assignmentDate" type="text"
+						datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+						is-open="opened" min="minDate" max="'2020-06-22'"
+						date-disabled="disabled(date, mode)" class="form-control" required
+						late-Validate />
+				</div>
+			</div>
+			<div class="form-group" data-ng-show="officerChoice">
+				<label class="control-label col-sm-2">{{
+					'label.input.fromloanofficer' | translate }}<span class="required">*</span>
+				</label>
+				<div class="col-sm-3">
+					<select chosen="officers" id="fromLoanOfficerId"
+						ng-model="formData.fromLoanOfficerId"
+						data-ng-options="officer.id as officer.displayName for officer in officers"
+						ng-change="getOfficerClients()" class="form-control">
+						<option value="">{{'label.selectone' | translate}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{
+					'label.input.toloanofficer' | translate }}<span class="required">*</span>
+				</label>
+
+				<div class="col-sm-3">
+					<select chosen="toOfficers" id="toLoanOfficerId"
+						ng-model="formData.toLoanOfficerId" class="form-control"
+						data-ng-options="toOfficer.id as toOfficer.displayName for toOfficer in toOfficers">
+						<option value="">{{'label.selectone' | translate}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row paddedleft">
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group"
+						data-ng-hide="accountSummaryCollection == undefined || accountSummaryCollection.length==0">
+						<table>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" ng-model="selectAll.checked"
+										ng-change="selectAll(selectAll.checked)"></td>
+									<td><label>&nbsp;&nbsp;{{'label.input.selectall' |
+											translate}}</label></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="accountSummaryCollection">
+						<table>
+							<tbody>
+								<tr>
+									<strong>{{'label.heading.centerdetails' | translate}}</strong>
+								</tr>
+								<tr ng-repeat-start="center in accountSummaryCollection">
+									<td>
+										<button type="button" style="border: 0"
+											ng-click="expandAll(center, allExpanded = !allExpanded)">
+											<span ng-bind="allExpanded ? '-' : '+'"></span>
+										</button>&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+									<td>&nbsp;&nbsp;<input class="pull-left" type="checkbox"
+										ng-model="center.checked"
+										ng-change="centerLevel(center.checked,center.id)">&nbsp;&nbsp;<strong>{{center.name}}</strong>
+									</td>
+								</tr>
+								<tr ng-repeat-end ng-show="center.isExpanded">
+									<td></td>
+									<td>
+										<table>
+											<tbody>
 												<tr ng-repeat-start="group in center.groupMembers">
 													<td>
-														<button type="button" style="border: 0" ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
-															<span  style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+														<button type="button" style="border: 0"
+															ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
+															<span style="border: 0"
+																ng-bind="goupExpanded ? '-' : '+'"></span>
 														</button>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td>
-													<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="pull-left"  type="checkbox" ng-model="group.checked"  ng-change="groupLevel(group.checked, center.id, group.id)">&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="pull-left"
+														type="checkbox" ng-model="group.checked"
+														ng-change="groupLevel(group.checked, center.id, group.id)">&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
 												</tr>
 												<tr ng-repeat-end ng-show="group.isExpanded">
 													<td></td>
 													<td>
 														<table>
 															<tbody>
-
-																<tr ng-repeat-end ng-if="group.isExpanded && group.loanAccountSummaryDatas.length>0 && group.loanAccountSummaryDatas!=undefined">
+																<tr ng-repeat-end
+																	ng-if="group.isExpanded && group.loanAccountSummaryDatas.length>0 && group.loanAccountSummaryDatas!=undefined">
 																	<td></td>
 																	<td>
 																		<table>
 																			<tbody>
-																			<tr ng-repeat="loan in group.loanAccountSummaryDatas">
-																				<td><input class="pull-left"  value="loan.id" type="checkbox"  ng-model="loan.checked" ng-change="loanAccountLevelOnlyGroup(loan.checked, center.id, group.id,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
-																			</tr>
+																				<tr
+																					ng-repeat="loan in group.loanAccountSummaryDatas">
+																					<td><input class="pull-left" value="loan.id"
+																						type="checkbox" ng-model="loan.checked"
+																						ng-change="loanAccountLevelOnlyGroup(loan.checked, center.id, group.id,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																				</tr>
 																			</tbody>
 																		</table>
 																	</td>
 																</tr>
-															<tr ng-repeat-start="client in group.clientMembers">
-																<td>
-																	<button type="button" style="border: 0" ng-click="expandClient(client, clientExpanded = !clientExpanded)">
-																		<span ng-bind="clientExpanded ? '-' : '+'"></span>
-																	</button>&nbsp;&nbsp;&nbsp;&nbsp;
-																</td>
-															<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="pull-left"  type="checkbox"   ng-model="client.checked" ng-change="clientLevel(client.checked, center.id, group.id, client.id)">&nbsp;&nbsp;<strong>{{client.displayName}}</strong></td>
-															</tr>
-															<tr ng-repeat-end ng-show="client.isExpanded">
-																<td></td>
-																<td>
-																	<table>
-																		<tbody>
-																		<tr ng-repeat="loan in client.loanAccountSummaryDatas">
-																			<td><input class="pull-left"  value="loan.id" type="checkbox"  ng-model="loan.checked" ng-change="loanAccountLevel(loan.checked, center.id, group.id, client.id, loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
-																		</tr>
-																		</tbody>
-																	</table>
-																</td>
-															</tr>
+																<tr ng-repeat-start="client in group.clientMembers">
+																	<td>
+																		<button type="button" style="border: 0"
+																			ng-click="expandClient(client, clientExpanded = !clientExpanded)">
+																			<span ng-bind="clientExpanded ? '-' : '+'"></span>
+																		</button>&nbsp;&nbsp;&nbsp;&nbsp;
+																	</td>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;<input
+																		class="pull-left" type="checkbox"
+																		ng-model="client.checked"
+																		ng-change="clientLevel(client.checked, center.id, group.id, client.id)">&nbsp;&nbsp;<strong>{{client.displayName}}</strong></td>
+																</tr>
+																<tr ng-repeat-end ng-show="client.isExpanded">
+																	<td></td>
+																	<td>
+																		<table>
+																			<tbody>
+																				<tr
+																					ng-repeat="loan in client.loanAccountSummaryDatas">
+																					<td><input class="pull-left" value="loan.id"
+																						type="checkbox" ng-model="loan.checked"
+																						ng-change="loanAccountLevel(loan.checked, center.id, group.id, client.id, loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																				</tr>
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
 															</tbody>
 														</table>
 													</td>
 												</tr>
-												</tbody>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="groups">
+						<table>
+							<tbody>
+								<tr>
+									<strong>{{'label.heading.groupdetails' | translate}}</strong>
+								</tr>
+												<tr ng-repeat-start="group in groups">
+
+													<td>
+														<button type="button" style="border: 0"
+															ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
+															<span style="border: 0"
+																ng-bind="goupExpanded ? '-' : '+'"></span>
+														</button>&nbsp;&nbsp;&nbsp;&nbsp;
+													</td>
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="pull-left"
+														type="checkbox" ng-model="group.checked"
+														ng-change="groupLevel1(group.checked, group.id)">&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
+												</tr>
+												<tr ng-repeat-end ng-if="group.isExpanded">
+													<td></td>
+													<td>
+														<table>
+															<tbody>
+																<tr ng-repeat-end
+																	ng-if="group.isExpanded && group.loanAccountSummaryDatas.length>0 && group.loanAccountSummaryDatas!=undefined">
+																	<td></td>
+																	<td>
+																		<table>
+																			<tbody>
+																				<tr
+																					ng-repeat="loan in group.loanAccountSummaryDatas">
+																					<td><input class="pull-left" value="loan.id"
+																						type="checkbox" ng-model="loan.checked"
+																						ng-change="loanAccountLevelOnlyGroup1(loan.checked,group.id,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																				</tr>
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
+																<tr ng-repeat-start="client in group.clientMembers">
+																	<td>
+																		<button type="button" style="border: 0"
+																			ng-click="expandClient(client, clientExpanded = !clientExpanded)">
+																			<span ng-bind="clientExpanded ? '-' : '+'"></span>
+																		</button>&nbsp;&nbsp;&nbsp;&nbsp;
+																	</td>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;<input
+																		class="pull-left" type="checkbox"
+																		ng-model="client.checked"
+																		ng-change="clientLevel1(client.checked, group.id, client.id)">&nbsp;&nbsp;<strong>{{client.displayName}}</strong></td>
+																</tr>
+																<tr ng-repeat-end ng-if="client.isExpanded">
+																	<td></td>
+																	<td>
+																		<table>
+																			<tbody>
+																				<tr
+																					ng-repeat="loan in client.loanAccountSummaryDatas">
+																					<td><input class="pull-left" value="loan.id"
+																						type="checkbox" ng-model="loan.checked"
+																						ng-change="loanAccountLevel1(loan.checked,group.id, client.id, loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group" data-ng-show="clients">
+							<table>
+								<tbody>
+									<tr>
+										<strong>{{'label.heading.clientdetails' | translate}}</strong>
+									</tr>
+									<tr ng-repeat="client in clients">
+										<td>
+											<table>
+												<tr>
+													<td><strong>{{client.displayName}}</strong></td>
+												</tr>
+												<tr ng-repeat="loan in client.loanAccountSummaryDatas">
+													<td><input class="pull-left" type="checkbox"
+														ng-model="loan.checked"
+														ng-change="accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+													</td>
+												</tr>
 											</table>
 										</td>
 									</tr>
@@ -147,63 +275,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="row paddedleft">
-					<div class="col-sm-6 col-md-6">
-						<div class="form-group" data-ng-show="clients">
-							<table>
-								<thead>
-								<th>{{'label.heading.clients' | translate}}</th>
-								</thead>
-								<tbody>
-								<tr ng-repeat="client in clients">
-									<td>
-										<table>
-											<tr>
-												<td><strong>{{client.displayName}}</strong></td>
-											</tr>
-											<tr ng-repeat="loan in client.loans">
-												<td><input class="pull-left"  type="checkbox"  ng-model="selectIdividualLoan" ng-change="accounts(selectIdividualLoan,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-					<div class="row paddedleft">
-	            <div class="col-sm-6 col-md-6">
-	                <table data-ng-show="groups">
-	                    <thead>
-	                    <th>{{'label.heading.groups' | translate}}</th>
-	                    </thead>
-	                    <tbody>
-	                    <tr ng-repeat="group in groups">
-	                        <td>
-	                            <table>
-	                                <tr ng-if="group.loans.length > 0">
-	                                    <td><strong>{{group.displayName}}</strong></td>
-	                                </tr>
-	                                <tr ng-repeat="loan in group.loans">
-	                                    <td><input class="pull-left" type="checkbox" ng-model="groupLoans" ng-change="accounts(groupLoans,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
-	                                    </td>
-	                                </tr>
-	                            </table>
-	                        </td>
-	                    </tr>
-	                    </tbody>
-	                </table>
-	            </div>
-	        </div>
-
-	        <div class="col-md-offset-3">
-	            <a href="#/offices">
-	                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
-	            </a>
-	            <button type="submit" class="btn btn-primary" has-permission='BULKREASSIGN_LOAN'>{{'label.button.save' | translate}}</button>
-	        </div>
-	    </fieldset>
+			</div>
+			<div class="col-md-offset-3">
+				<a href="#/offices">
+					<button type="reset" class="btn btn-default">{{'label.button.cancel'
+						| translate}}</button>
+				</a>
+				<button type="submit" class="btn btn-primary"
+					has-permission='BULKREASSIGN_LOAN'>{{'label.button.save' |
+					translate}}</button>
+			</div>
+		</fieldset>
 	</form>
 </div>

@@ -770,6 +770,9 @@
             .when('/bulkloan', {
                 templateUrl: 'views/organization/bulkloan.html'
             })
+             .when('/bulkLoanReschedule', {
+                templateUrl: 'views/organization/bulkloanreschedule.html'
+            })
             .when('/audit', {
                 templateUrl: 'views/system/audit.html'
             })
