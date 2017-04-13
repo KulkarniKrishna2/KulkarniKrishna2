@@ -298,6 +298,11 @@
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
                         }
+                        scope.formData.discountOnDisbursalAmount=data.discountOnDisbursalAmount;
+                        if(data.expectedFirstRepaymentOnDate){
+                            scope.formData.repaymentsStartingFromDate = new Date(data.expectedFirstRepaymentOnDate);
+                            scope.showRepaymentsStartingFromDateField = true;
+                        }
                     });
                     scope.showdiscountOnDisburse = false;
                     if(routeParams.type && routeParams.type == 'flatinterest'){
@@ -893,6 +898,7 @@
                 } else {
                     params.loanId = scope.accountId;
                     this.formData.adjustRepaymentDate = dateFilter(this.formData.adjustRepaymentDate, scope.df);
+                    this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                     if(!scope.trancheError) {
                         resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
