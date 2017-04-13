@@ -1323,7 +1323,7 @@
 	                <select id="configureFundOptions[{{$index}}].paymentTypeId"
 	                        class="form-control"
 	                        ng-model="configureFundOption.paymentTypeId"
-	                        ng-options="paymentType.id as paymentType.name for paymentType in configureFundOption.paymentTypeOptions"
+	                        ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
 	                        value="{{paymentType.id}}">
 	                </select>
 	            </td>
@@ -1332,7 +1332,7 @@
 	                <select id="configureFundOptions[{{$index}}].fundSourceAccountId"
 	                        ng-model="configureFundOption.fundSourceAccountId"
 	                        chosen="configureFundOption.assetAccountOptions"
-	                        ng-options="assetAccount.id as assetAccount.name for assetAccount in configureFundOption.assetAccountOptions"
+	                        ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
 	                        value="{{assetAccount.id}}">
 	                </select>
 	            </td>
@@ -1426,7 +1426,7 @@
 			</tr>
 			<tr ng-repeat="codeValueAccountMapping in codeValueSpecificAccountMappings">
 				<td class="width30">
-					<select id="writeOffSpecificExpenseAccountMappings[{{$index}}].codeValueId"
+					<select id="codeValueSpecificAccountMappings[{{$index}}].codeValueId"
 							ng-model="codeValueAccountMapping.codeValueId" class="form-control"
 							ng-options="writeOffReasonOption.id as writeOffReasonOption.name for writeOffReasonOption in writeOffReasonOptions"
 							value="{{writeOffReasonOption.id}}">
@@ -1436,7 +1436,7 @@
 				<td class="width30">
 					<select id="codeValueSpecificAccountMappings[{{$index}}].expenseAccountId"
 							ng-model="codeValueAccountMapping.expenseAccountId"
-							chosen="expenseAccountOptions"
+							chosen="codeValueAccountMapping.expenseAccountOptions"
 							ng-options="account.id as account.name for account in expenseAccountOptions"
 							value="{{account.id}}">
 					</select>
