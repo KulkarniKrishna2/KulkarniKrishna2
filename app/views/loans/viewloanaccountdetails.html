@@ -1113,11 +1113,7 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
                                 <td ng-hide="isGlimEnabled()">
-<<<<<<< HEAD
-                                    <a ng-hide="charge.chargeCalculationType.value == slabBasedCharge || charge.chargeCalculationType.value == flatCharge" title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
-=======
-                                    <a ng-hide="charge.chargeCalculationType.value == slabBasedCharge" title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
->>>>>>> v17.01.1_RC
+                                    <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval' && charge.chargeCalculationType.value != slabBasedCharge"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}" has-permission='UPDATE_LOANCHARGE'><i
                                             class="icon-pencil icon-white"></i></a>
                                     <a title="{{'label.delete' | translate}}" class="btn-warning"
