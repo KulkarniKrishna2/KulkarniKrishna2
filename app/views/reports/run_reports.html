@@ -30,8 +30,8 @@
                     <select  chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
 							ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
 							value="{{selectOption.id}}"
-							class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
-	                    <option value="">--{{"label.menu.selectone" | translate}}--</option>
+							class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required
+	                    	ng-init="formData[reportParam.inputName]=reportParam.selectOptions[0]['id']">
 	                </select>
 	            </div>
 	        </div>
