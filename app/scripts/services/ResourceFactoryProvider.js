@@ -518,6 +518,14 @@
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    
+                    loanRepaymentRescheduleResource: defineResource(apiVer + "/loans/bulkLoanReschedule/:templateSource", {templateSource: '@templateSource'}, {
+                        get: {method: 'GET', params: {}}
+                    
+                    }),
+                    bulkLoanReschedule:defineResource(apiVer + "/rescheduleloans/bulkCreateAndApprove",  {
+                    	
+                    }),
                     loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId'},{
                      get: {method: 'GET',params:{}},
                      template: {method: 'GET',params:{}},
