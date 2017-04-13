@@ -103,7 +103,7 @@
                     }
                     if (!isExistedRecord) {
                         if(paramData.selectAll == 'Y'){
-                            selectData.push({id: "-1", name: "All"});
+                            selectData.splice(0,0,{id: "-1", name: "All"});
                         }
                         paramData.selectOptions = selectData;
                         scope.reportParams.push(paramData);
