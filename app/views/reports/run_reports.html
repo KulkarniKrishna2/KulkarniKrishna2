@@ -31,7 +31,7 @@
 							ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
 							value="{{selectOption.id}}"
 							class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required
-	                    	ng-init="formData[reportParam.inputName]=reportParam.selectOptions[0]['id']">
+	                    	ng-init="formData[reportParam.inputName]=reportParam.selectOptions[0]['id'];getDependencies(reportParam);">
 	                </select>
 	            </div>
 	        </div>
