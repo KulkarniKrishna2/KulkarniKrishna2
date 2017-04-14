@@ -1801,6 +1801,8 @@
     "label.input.graceOnInterest":"Interest Grace Periods",
     "label.input.extendRepaymentPeriod":"Extend Repayment Period",
     "label.input.extendRepaymentSchedule":"Extend Repayment Schedule",
+    "rescheduletype.rescheduletospecificdate":"Reschedule to specified date",
+    "rescheduletype.rescheduletonextrepaymentdate":"Reschedule to next repayment date",
     "label.input.noofnewrepayments":"Number Of new Repayments",
     "label.input.adjustinterestrates":"Adjust interest rates for remainder of loan",
     "label.input.newinterestrate":"New Interest Rate",
@@ -4910,7 +4912,8 @@
     "day.sunday" : "Sunday",
     "RepaymentRescheduleType.same.day":"same day",
     "RepaymentRescheduleType.move.to.next.working.day":"move to next working day",
-    "RepaymentRescheduleType.move.to.next.repayment.meeting.day":"move to next repayment meeting day",
+    "RepaymentRescheduleType.move.to.next.repayment.day":"move to next repayment day",
+    "RepaymentRescheduleType.move.to.next.meeting.day":"move to next meeting day",
     "RepaymentRescheduleType.move.to.previous.working.day":"move to previous working day",
     "label.heading.loan.foreclosure": "Loan Preclosure",
 

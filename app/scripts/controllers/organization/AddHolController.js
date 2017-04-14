@@ -54,6 +54,18 @@
                             scope.repaymentSchedulingRuleType = repaymentSchedulingRule;
                         }
                     });
+
+                    /**
+                     * As discussed with vishwas and pramod n
+                     * Extend Repayment Schedule check box removed and added to Repayment Scheduling Rule Option List
+                     * This option is generated in UI controller only
+                     */
+                    var extendRepaymentSchedule = {
+                        "id": 3,
+                        "code": "label.input.extendRepaymentSchedule",
+                        "value": "Extend Repayment Schedule"
+                    };
+                    scope.repaymentSchedulingRules.push(extendRepaymentSchedule);
                 });
 
                 scope.offices = scope.deepCopy(data);
@@ -134,8 +146,20 @@
                 newholiday.name = this.formData.name;
                 newholiday.fromDate = reqFirstDate;
                 newholiday.toDate = reqSecondDate;
+                scope.extendRepaymentSchedule = false;
                 if(scope.repaymentSchedulingRuleType && scope.repaymentSchedulingRuleType.value == 'Reschedule to specified date'){
                     newholiday.repaymentsRescheduledTo = reqThirdDate;
+                }
+                //repaymentSchedulingRuleType is Extend Repayment Schedule
+                //Then set repaymentSchedulingRuleType as Reschedule to next repayment date and make it extendRepaymentSchedule = true
+                else if(scope.repaymentSchedulingRuleType && scope.repaymentSchedulingRuleType.value == 'Extend Repayment Schedule'){
+                    for(var i in scope.repaymentSchedulingRules){
+                        if(scope.repaymentSchedulingRules[i].value === 'Reschedule to next repayment date'){
+                            scope.repaymentSchedulingRuleType = scope.repaymentSchedulingRules[i];
+                            scope.extendRepaymentSchedule = true;
+                            break;
+                        }
+                    }
                 }
                 newholiday.description = this.formData.description;
                 newholiday.extendRepaymentReschedule = scope.extendRepaymentSchedule;
