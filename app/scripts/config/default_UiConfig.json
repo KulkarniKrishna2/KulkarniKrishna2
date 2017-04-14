@@ -164,7 +164,7 @@
 		"externalId":true
 	  },
 	  "isHiddenMenu": {
-		"attachmeeting": true,
+		"attachmeeting": false,
 		"groupExternalId": false,
 		"submittedOn": false,
 		"staff": false,
