@@ -227,6 +227,19 @@
 		"mobileNumber":"",
 		"bankIFSCCode":""
 	  }
+	},
+	"savingsAccount":{
+	  "overDraft":{
+		"overdraftLimitHeading":"",
+		"isHiddenField":{
+		  "amountTobePaid":false
+		}
+	  },
+	  "deposit":{
+		"isAutoPopulate" :{
+		  "transactionAmount":false
+		}
+	  }
 	}
   }
  }

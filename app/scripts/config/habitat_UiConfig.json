@@ -220,5 +220,17 @@
 		"mobileNumber": "",
 		"bankIFSCCode": ""
 	  }
+	},
+  "savingsAccount":{
+	"overDraft":{
+	  "isHiddenField":{
+		"amountTobePaid":false
+	  }
+	},
+	"deposit":{
+	  "isAutoPopulate" :{
+		"transactionAmount":false
+	  }
 	}
+  }
   }

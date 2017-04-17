@@ -300,8 +300,13 @@
                                 </td>
                             </tr>
                             <tr data-ng-show="savingaccountdetails.allowOverdraft">
-                                <td class="table-bold-acc fontnormal">{{'label.heading.overdraftlimit' | translate}}</td>
-                                <td><span class="padded-td">{{savingaccountdetails.overdraftLimit| number}}</span>
+                            <td class="table-bold-acc fontnormal">{{'label.heading.overdraftlimit' | translate}}</td>
+                            <td><span class="padded-td">{{savingaccountdetails.overdraftLimit| number}}</span>
+                            </td>
+                            </tr>
+                            <tr data-ng-show=" !hideAmountTobePaid && savingaccountdetails.allowOverdraft">
+                                <td class="table-bold-acc fontnormal">{{'label.heading.amonttobepaid' | translate}}</td>
+                                <td><span class="padded-td">{{amountTobePaid()| number}}</span>
                                 </td>
                             </tr>
                             <tr data-ng-show="savingaccountdetails.allowOverdraft">
