@@ -219,6 +219,18 @@
         "mobileNumber":"/^[0-9]{10}$/",
         "bankIFSCCode":"/^[A-Za-z]{4}[0-9]{7}$/"
       }
+    },
+    "savingsAccount":{
+      "overDraft":{
+        "isHiddenField":{
+          "amountTobePaid":false
+        }
+      },
+      "deposit":{
+        "isAutoPopulate" :{
+          "transactionAmount":false
+        }
+      }
     }
   }
 }

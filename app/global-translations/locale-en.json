@@ -161,6 +161,7 @@
     "label.heading.approvedshares": "Approved Shares",
     "label.heading.pendingforapproval": "Pending for Approval Shares",
     "label.heading.purchasedsharesoverview": "Transactions Overview",
+    "label.heading.amonttobepaid" : "Amount to be paid",
 
     "label.heading.purchasedorredeemedprice":"Purchased/Redeemed Price",
     "label.heading.linkedsavingsaccountnumber":"Linked Savings Account(Dividend Posting)",
