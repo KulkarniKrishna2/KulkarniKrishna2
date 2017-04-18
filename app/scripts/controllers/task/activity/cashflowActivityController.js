@@ -127,6 +127,7 @@
                     scope.formData.totalIncome = data.totalIncome;
                     scope.formData.totalExpense = data.totalExpense;
                     scope.formData.isPrimaryIncome = data.isPrimaryIncome;
+                    scope.formData.isRemmitanceIncome=data.isRemmitanceIncome;
                     scope.isQuantifierNeeded = data.incomeExpenseData.isQuantifierNeeded
                     scope.quantifierLabel = data.incomeExpenseData.quantifierLabel;
                 });
