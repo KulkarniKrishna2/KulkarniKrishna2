@@ -116,7 +116,8 @@
                         }
                     }
                 }
-            }
+                showCapitalizedChargeCheckbox();
+            };
 
             scope.chargeCalculationType = function (chargeCalculationType) {
                 if(chargeCalculationType == 6) {
@@ -124,7 +125,17 @@
                 } else {
                     scope.showSlabBasedCharges = false;
                 }
+                showCapitalizedChargeCheckbox();
             }
+
+            function showCapitalizedChargeCheckbox() {
+                scope.showCapitalizedChargeCheckbox = false;
+                if (scope.showSlabBasedCharges == true && scope.formData.chargeTimeType && scope.formData.chargeTimeType == 8) {
+                    scope.showCapitalizedChargeCheckbox = true;
+                } else {
+                    scope.formData.isCapitalized = false;
+                }
+            };
 
             scope.addSlabCharge = function (slab) {
                 if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {

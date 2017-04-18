@@ -230,9 +230,8 @@
                 </div>
                 <hr>
                 <label>{{'label.heading.advancesetting' | translate}}</label>
-                <div class="form-group" ng-show="showSlabBasedCharges">
+                <div class="form-group" ng-if="showCapitalizedChargeCheckbox">
                     <label class="control-label col-sm-2" for="iscapitalized">{{'label.input.iscapitalize' | translate}}</label>
-
                     <div class="col-sm-3">
                         <label class="checkbox">
                             <input id="iscapitalized" type="checkbox" ng-model="formData.isCapitalized" ng-true-value="true"
