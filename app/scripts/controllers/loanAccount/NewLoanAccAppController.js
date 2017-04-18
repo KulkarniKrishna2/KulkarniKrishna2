@@ -241,6 +241,7 @@
                 if(scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     scope.formData.isFloatingInterestRate = false ;
                 }
+                scope.formData.collectInterestUpfront = scope.loanaccountinfo.product.collectInterestUpfront;
             }
 
             scope.addCharge = function () {

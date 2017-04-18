@@ -315,6 +315,8 @@
                 }
                 scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
                 scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
+                scope.formData.discountOnDisbursalAmount = scope.loanaccountinfo.discountOnDisbursalAmount ;
+                scope.formData.collectInterestUpfront = scope.loanaccountinfo.collectInterestUpfront ;
             }
 
             scope.addCharge = function () {
