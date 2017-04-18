@@ -138,14 +138,14 @@
 
             scope.searchTransaction = function () {
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.transactions = paginatorService.paginate(fetchFunction, 7);
                 scope.isCollapsed = false;
             };
 
             if(location.search().loanId != null){
                 scope.formData.loanaccountId = location.search().loanId;
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.transactions = paginatorService.paginate(fetchFunction, 7);
                 scope.isCollapsed = false;
                 scope.isValid = true;
                 scope.path = "#/viewloanaccount/" + scope.formData.loanaccountId;
@@ -154,7 +154,7 @@
             if(location.search().savingsId != null){
                 scope.formData.savingsaccountId = location.search().savingsId;
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.transactions = paginatorService.paginate(fetchFunction, 7);
                 scope.isCollapsed = false;
                 scope.isValid = true;
                 scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;

@@ -5800,5 +5800,9 @@
 	"label.input.mandatessummary.requestFromDate":"Request From Date",
 	"label.input.mandatessummary.requestToDate":"Request To Date",
 	"label.heading.mandatessummary.repaymentTransactionId":"Repayment Transaction ID",
+
+    "label.heading.journalentryid":"JE Id",
+    "label.button.showentitytransaction":"Show Portfolio Transaction",
+
     "------ end of tensalation file":"---------"
 }

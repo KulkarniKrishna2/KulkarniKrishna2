@@ -11,7 +11,7 @@
         <li class="active">{{productName}}({{accountNo}})</li>
         <li class="active">{{'label.anchor.journalentries' | translate}}</li>
     </ul>
-     <script type="text/ng-template" id="confirmation.html">
+    <script type="text/ng-template" id="confirmation.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.transactionreverse' | translate}}</h3>
             <h4><strong class="required">{{ 'label.heading.transactionnumber' | translate }}&nbsp;:&nbsp;&nbsp;<b>{{transactionnumber}}</b></strong>
@@ -19,92 +19,10 @@
         </div>
         <div class="modal-footer">
             <api-validate></api-validate>
-            <br>        
+            <br>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="redirect()">{{'label.button.redirecttonewtrx' | translate}}
             </button>
-        </div>
-    </script>
-    <script type="text/ng-template" id="viewjournalentry.html">
-        <div class="modal-header silver">
-            <h3 class="bolder">{{'label.heading.viewjournalentry' | translate}}</h3>
-			<legend></legend>
-            <table class="modalwidth600">
-                <tr>
-                    <td class="width31">{{'label.input.office' | translate}}</td>
-                    <td>{{transaction.officeName}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.entryid' | translate}}</td>
-                    <td>{{transaction.id}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.transactionid' | translate}}</td>
-                    <td>{{transaction.transactionId}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.transactiondate' | translate}}</td>
-                    <td>{{transaction.transactionDate | DateFormat}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.type' | translate}}</td>
-                    <td>{{transaction.glAccountType.value}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.account' | translate}}</td>
-                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-                </tr>
-                <tr>
-                    <td>{{transaction.entryType.code | translate}}</td>
-                    <td>{{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}</td>
-                </tr>
-                <tr ng-show="transaction.referenceNumber">
-                    <td>{{'label.input.referencenumber' | translate}}</td>
-                    <td>{{transaction.referenceNumber}}</td>
-                </tr>
-                <tr ng-show="transaction.comments">
-                    <td>{{'label.input.comments' | translate}}</td>
-                    <td>{{transaction.comments}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.heading.paymentdetails' | translate}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.input.paymentypeid' | translate}}</td>
-                    <td> {{transaction.transactionDetails.paymentDetails.paymentType.name}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.accnum' | translate}}</td>
-                    <td>{{transaction.transactionDetails.paymentDetails.accountNumber}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.checknumber' | translate}}</td>
-                    <td>{{transaction.transactionDetails.paymentDetails.checkNumber}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.routingcode' | translate}}</td>
-                    <td>{{transaction.transactionDetails.paymentDetails.routingCode}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.receiptnumber' | translate}}</td>
-                    <td>{{transaction.transactionDetails.paymentDetails.receiptNumber}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.input.banknumber' | translate}}</td>
-                    <td>{{transaction.transactionDetails.paymentDetails.bankNumber}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.createdby' | translate}}</td>
-                    <td>{{transaction.createdByUserName}}</td>
-                </tr>
-                <tr>
-                    <td>{{'label.createdon' | translate}}</td>
-                    <td>{{transaction.createdDate | DateFormat}}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         </div>
     </script>
     <script type="text/ng-template" id="reverseTransaction.html">
@@ -149,22 +67,22 @@
                         <table class="width100">
                             <tr>
                                 <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
-                                <td class="width36">{{transactions[0].officeName}}</td>
+                                <td class="width36">{{transaction.officeName}}</td>
                                 <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
-                                <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
+                                <td class="width31">{{transaction.transactionDate | DateFormat}}</td>
                             </tr>
                             <tr>
                                 <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
-                                <td class="width36">{{transactions[0].createdByUserName}}</td>
+                                <td class="width36">{{transaction.createdByUserName}}</td>
                                 <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
-                                <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
+                                <td class="width31">{{transaction.createdDate | DateFormat}}</td>
                             </tr>
                         </table>
                         <div class="col-md-12">
                             <table class="table">
                                 <thead>
                                 <tr class="graybg">
-                                    <th>{{'label.heading.entryid' | translate}}</th>
+                                    <th>{{'label.heading.journalentryid' | translate}}</th>
                                     <th>{{'label.heading.type' | translate}}</th>
                                     <th>{{'label.heading.account' | translate}}</th>
                                     <th>{{'label.heading.debit' | translate}}</th>
@@ -172,30 +90,86 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="pointer-main" ng-repeat="transaction in transactions">
-                                    <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.id}}</td>
-                                    <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountType.value}}</td>
-                                    <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-                                    <td class="pointer" data-ng-click="showTransaction(transaction)">
-                                        <div ng-show="transaction.entryType.value == 'DEBIT'">
-                                            {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                                <tr class="pointer-main" ng-repeat="transactiondetail in transaction.journalEntryDetails">
+                                    <td class="pointer">{{transaction.transactionId}}</td>
+                                    <td class="pointer">{{transactiondetail.glAccountData.type.value}}</td>
+                                    <td class="pointer"> {{transactiondetail.glAccountData.name}}({{transactiondetail.glAccountData.glCode}})</td>
+                                    <td class="pointer">
+                                        <div ng-show="transactiondetail.entryType.value == 'DEBIT'">
+                                            {{transaction.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
                                         </div>
                                     </td>
-                                    <td class="pointer" data-ng-click="showTransaction(transaction)">
-                                        <div ng-show="transaction.entryType.value == 'CREDIT'">
-                                            {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
+                                    <td class="pointer">
+                                        <div ng-show="transactiondetail.entryType.value == 'CREDIT'">
+                                            {{transaction.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
                                         </div>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <hr/>
+                        <div  class="row paddedleft">
+                            <div class="col-md-12">
+                                <h3 class="bolder">{{ 'label.heading.details' | translate }}&nbsp;:&nbsp;
+                                    <a class="pointer" ng-click="viewentitytransaction(transaction.entityId,transaction.transactionId)" ng-show="transaction.entityId" tooltip="View Journal Entries">
+                                        {{'label.button.showentitytransaction' | translate}}
+                                    </a>
+                                </h3>
+
+                            </div>
+                            <table class="modalwidth600">
+                                <tr ng-show="transaction.referenceNumber">
+                                    <td>{{'label.input.referencenumber' | translate}}</td>
+                                    <td>{{transaction.referenceNumber}}</td>
+                                </tr>
+                                <tr ng-show="transaction.comments">
+                                    <td>{{'label.input.comments' | translate}}</td>
+                                    <td>{{transaction.comments}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails">
+                                    <td class="bolder">{{'label.heading.paymentdetails' | translate}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails.paymentType">
+                                    <td>{{ 'label.input.paymentypeid' | translate}}</td>
+                                    <td> {{transaction.transactionDetails.paymentDetails.paymentType.name}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails.accountNumber">
+                                    <td>{{'label.input.accnum' | translate}}</td>
+                                    <td>{{transaction.transactionDetails.paymentDetails.accountNumber}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails.checkNumber">
+                                    <td>{{'label.input.checknumber' | translate}}</td>
+                                    <td>{{transaction.transactionDetails.paymentDetails.checkNumber}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails.routingCode">
+                                    <td>{{'label.input.routingcode' | translate}}</td>
+                                    <td>{{transaction.transactionDetails.paymentDetails.routingCode}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails.receiptNumber">
+                                    <td>{{'label.input.receiptnumber' | translate}}</td>
+                                    <td>{{transaction.transactionDetails.paymentDetails.receiptNumber}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionDetails.paymentDetails.bankNumber">
+                                    <td>{{'label.input.banknumber' | translate}}</td>
+                                    <td>{{transaction.transactionDetails.paymentDetails.bankNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.createdby' | translate}}</td>
+                                    <td>{{transaction.createdByUserName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.createdon' | translate}}</td>
+                                    <td>{{transaction.createdDate | DateFormat}}</td>
+                                </tr>
+                            </table>
                             <div class="text-center form-group">
                                 <span><a id="backpage" ng-click="back()" class="btn btn-primary icon-backward"></i>&nbsp;&nbsp;{{ 'label.button.back' | translate }}</a></span>
                             </div>
                         </div>
-                    <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
-                        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
-                    </div>
+                        <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
+                            <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+                        </div>
                     </div>
                 </tab>
                 <tab heading="{{journalentrydatatable.registeredTableDisplayName == null ? journalentrydatatable.registeredTableName : journalentrydatatable.registeredTableDisplayName}}" 
