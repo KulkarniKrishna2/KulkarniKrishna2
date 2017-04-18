@@ -82,6 +82,7 @@
                 } else {
                     scope.showSlabBasedCharges = false;
                 }
+                showCapitalizedChargeCheckbox();
 
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
@@ -127,14 +128,12 @@
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
-		if ((chargeTimeType === 12) && (scope.template.chargeAppliesTo.value === "Loan"))
-		{
-			scope.showFrequencyOptions = false;
-		}
-		else
-		{
-			scope.showFrequencyOptions = true;
-		}
+                if ((chargeTimeType === 12) && (scope.template.chargeAppliesTo.value === "Loan")) {
+                    scope.showFrequencyOptions = false;
+                }
+                else {
+                    scope.showFrequencyOptions = true;
+                }
                 if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     for (var i in scope.template.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.template.chargeTimeTypeOptions[i].id) {
@@ -152,6 +151,7 @@
                         }
                     }
                 }
+                showCapitalizedChargeCheckbox();
             }
 
             scope.chargeCalculationType = function (chargeCalculationType) {
@@ -162,7 +162,17 @@
                     scope.showSlabBasedCharges = false;
                     scope.formData.slabs = [];
                 }
-            }
+                showCapitalizedChargeCheckbox();
+            };
+
+            function showCapitalizedChargeCheckbox() {
+                scope.showCapitalizedChargeCheckbox = false;
+                if (scope.showSlabBasedCharges == true && scope.formData.chargeTimeType && scope.formData.chargeTimeType == 8) {
+                    scope.showCapitalizedChargeCheckbox = true;
+                } else {
+                    scope.formData.isCapitalized = false;
+                }
+            };
 
             scope.addSlabCharge = function (slab) {
                 if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {
