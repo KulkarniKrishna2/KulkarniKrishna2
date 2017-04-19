@@ -21,6 +21,7 @@
             scope.futurePeriods = [];
             scope.showCreditBureau = false;
             scope.showFutureSchedule = false;
+            scope.showTransactions = false;
             scope.showOriginalSchedule = false;
             scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';            
@@ -237,6 +238,7 @@
                     scope.showOriginalSchedule = true;
                     if(scope.loandetails.transactionProcessingStrategyCode == 'rbi-india-strategy'){
                         scope.showFutureSchedule = true;
+                        scope.showTransactions = true;
                     }
                 }
                 if(data.clientData && data.clientData.groups && data.clientData.groups.length ==1) {
