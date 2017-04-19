@@ -7,6 +7,7 @@
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
+
 			scope.date = {};
 			scope.date.submittedOnDate = new Date();
             if (routeParams.centerEntity) {
@@ -22,11 +23,7 @@
                 scope.inparams.groupId = scope.groupId
             }
             ;
-            if (scope.centerId) {
-                scope.inparams.centerId = scope.centerId
-            }
-            ;
-
+           
             scope.inparams.staffInSelectedOfficeOnly = true;
             
             resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
@@ -118,7 +115,6 @@
 
                 if (scope.clientId) this.formData.clientId = scope.clientId;
                 if (scope.groupId) this.formData.groupId = scope.groupId;
-                if (scope.centerId) this.formData.centerId = scope.centerId;
 
                 if (scope.charges.length > 0) {
 
