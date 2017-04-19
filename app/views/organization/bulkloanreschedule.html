@@ -186,7 +186,7 @@
 																					ng-repeat="loan in group.loanAccountSummaryDatas">
 																					<td><input class="pull-left" value="loan.id"
 																						type="checkbox" ng-model="loan.checked"
-																						ng-change="loanAccountLevelOnlyGroup(loan.checked, center.id, group.id,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																						ng-change="loanAccountLevelOnlyGroup(loan.checked, center.id, group.id,loan.id);accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
 																				</tr>
 																			</tbody>
 																		</table>
@@ -213,7 +213,7 @@
 																					ng-repeat="loan in client.loanAccountSummaryDatas">
 																					<td><input class="pull-left" value="loan.id"
 																						type="checkbox" ng-model="loan.checked"
-																						ng-change="loanAccountLevel(loan.checked, center.id, group.id, client.id, loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																						ng-change="loanAccountLevel(loan.checked, center.id, group.id, client.id, loan.id);accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
 																				</tr>
 																			</tbody>
 																		</table>
@@ -261,7 +261,7 @@
 																<tr ng-repeat="loan in group.loanAccountSummaryDatas">
 																	<td><input class="pull-left" value="loan.id"
 																		type="checkbox" ng-model="loan.checked"
-																		ng-change="loanAccountLevelOnlyGroup1(loan.checked,group.id,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})																	
+																		ng-change="loanAccountLevelOnlyGroup1(loan.checked,group.id,loan.id);accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})																	
 																</tr>
 															</tbody>
 														</table>
@@ -286,7 +286,7 @@
 																<tr ng-repeat="loan in client.loanAccountSummaryDatas">
 																	<td><input class="pull-left" value="loan.id"
 																		type="checkbox" ng-model="loan.checked"
-																		ng-change="loanAccountLevel1(loan.checked,group.id, client.id, loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+																		ng-change="loanAccountLevel1(loan.checked,group.id, client.id, loan.id);accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
 
 																	</td>
 																</tr>
