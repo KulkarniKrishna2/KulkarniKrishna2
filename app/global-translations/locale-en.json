@@ -5663,5 +5663,8 @@
     "validation.msg.FUND.selectedCriteriaList.cannot.be.empty" : " Selected criteria can not be empty ",
     "validation.msg.rescheduleloan.rescheduleFromDate.repayment.schedule.installment.does.not.exist" : "Installment for reschedule from date does not exist.",
     "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.before.rescheduleFromDate" : "Rescheduled To Date can't be before Reschedule From Date.",
+    "validation.msg.holiday.fromDate.is.less.than.date" : "Holiday from date `{{params[0].value}}` is can not less than current date.",
+    "validation.msg.holiday.repaymentsRescheduledTo.is.less.than.date" : "Holiday repayments rescheduled date `{{params[0].value}}` is can not less than current date.",
+    
     "------ end of tensalation file":"---------"
 }
