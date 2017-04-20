@@ -200,6 +200,7 @@
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
                 if(scope.isGLIM){
                     scope.formData.principal = 0;
+                    scope.glimAutoCalPrincipalAmount();
                 }else{
                     scope.formData.principal = scope.loanaccountinfo.principal;
                 }
