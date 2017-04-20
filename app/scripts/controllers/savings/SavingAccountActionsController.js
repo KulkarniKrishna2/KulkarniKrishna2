@@ -12,7 +12,17 @@
             scope.transactionAmountField = false;
             scope.showPaymentDetails = false;
             scope.paymentTypes = [];
+            scope.amountToBePaid = routeParams.amountToBePaid;
+            scope.isTransactionAmountAutopopulate = true;
 
+            if (scope.response && scope.response.uiDisplayConfigurations &&
+                scope.response.uiDisplayConfigurations.savingsAccount &&
+                scope.response.uiDisplayConfigurations.savingsAccount.deposit &&
+                scope.response.uiDisplayConfigurations.savingsAccount.deposit.isAutoPopulate &&
+                scope.response.uiDisplayConfigurations.savingsAccount.deposit.isAutoPopulate.transactionAmount) {
+                scope.isTransactionAmountAutopopulate =
+                    scope.response.uiDisplayConfigurations.savingsAccount.deposit.isAutoPopulate.transactionAmount;
+            }
             switch (scope.action) {
                 case "approve":
                     scope.title = 'label.heading.approvesavingaccount';
@@ -65,6 +75,10 @@
                     scope.transactionAmountField = true;
                     scope.showPaymentDetails = false;
                     scope.taskPermissionName = 'DEPOSIT_SAVINGSACCOUNT';
+                    if(scope.isTransactionAmountAutopopulate ){
+                        scope.formData.transactionAmount = scope.amountToBePaid;
+                    }
+
                     break;
                 case "postInterestAsOn":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {

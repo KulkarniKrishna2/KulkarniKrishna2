@@ -636,6 +636,9 @@
             .when('/savingaccount/:id/:action', {
                 templateUrl: 'views/savings/saving_account_actions.html'
             })
+            .when('/savingaccount/:id/:action/:amountToBePaid', {
+                templateUrl: 'views/savings/saving_account_actions.html'
+            })
             .when('/savingaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/savings/saving_account_actions.html'
             })
@@ -812,6 +815,9 @@
             })
             .when('/bulkloan', {
                 templateUrl: 'views/organization/bulkloan.html'
+            })
+             .when('/bulkLoanReschedule', {
+                templateUrl: 'views/organization/bulkloanreschedule.html'
             })
             .when('/audit', {
                 templateUrl: 'views/system/audit.html'

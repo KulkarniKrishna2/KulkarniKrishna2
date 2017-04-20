@@ -9,6 +9,15 @@
             scope.staffData = {};
             scope.fieldOfficers = [];
             scope.savingaccountdetails = [];
+            scope.hideAmountTobePaid = true;
+            scope.amountToBePaid = 0;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.savingsAccount &&
+                scope.response.uiDisplayConfigurations.savingsAccount.overDraft) {
+                if(scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField &&
+                !scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField.amountTobePaid) {
+                    scope.hideAmountTobePaid = scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField.amountTobePaid;
+                }
+            }
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
                     || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true;
@@ -59,7 +68,7 @@
                         location.path('/savingaccount/' + accountId + '/activate');
                         break;
                     case "deposit":
-                        location.path('/savingaccount/' + accountId + '/deposit');
+                        location.path('/savingaccount/' + accountId + '/deposit/' +  scope.amountToBePaid);
                         break;
                     case "withdraw":
                         location.path('/savingaccount/' + accountId + '/withdrawal');
@@ -285,6 +294,17 @@
                 });
             });
 
+            scope.amountTobePaid = function(){
+               if( scope.savingaccountdetails.summary.accountBalance < 0 ){
+                   var amount =  (scope.savingaccountdetails.summary.accountBalance + scope.savingaccountdetails.overdraftLimit);
+                   if( amount < 0) {
+                       scope.amountToBePaid = -amount;
+                       return  amount;
+                   }
+                   return 0;
+               }
+                   return 0;
+            };
             /*// Saving notes not yet implemented
             resourceFactory.savingsResource.getAllNotes({accountId: routeParams.id,resourceType:'notes'}, function (data) {
                 scope.savingNotes = data;

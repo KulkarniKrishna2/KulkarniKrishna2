@@ -795,7 +795,7 @@
                     </tab>
 
 
-                    <tab active="tabs[5].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
+                    <tab ng-show="showTransactions" active="tabs[5].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
                         <div ng-show="loandetails.transactions">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>

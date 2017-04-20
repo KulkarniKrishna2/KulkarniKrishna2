@@ -227,9 +227,21 @@
 		"mobileNumber":"",
 		"bankIFSCCode":""
 	  },
-	  "isAutoPopulate":{  
+	  "isAutoPopulate":{
          "bankName":"MASTER"
       }
+	},
+	"savingsAccount":{
+	  "overDraft":{
+		"isHiddenField":{
+		  "amountTobePaid":false
+		}
+	  },
+	  "deposit":{
+		"isAutoPopulate" :{
+		  "transactionAmount":false
+		}
+	  }
 	}
   }
 }

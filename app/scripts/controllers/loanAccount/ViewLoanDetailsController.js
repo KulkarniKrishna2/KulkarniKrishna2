@@ -19,11 +19,13 @@
             scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
             scope.isGlimTabActive = false;
             scope.futurePeriods = [];
+            scope.showTransactions = true;
             scope.showCreditBureau = false;
             scope.showFutureSchedule = false;
             scope.showOriginalSchedule = false;
             scope.glimPaymentAsGroup = false;
-            scope.glimAsGroupConfigName = 'glim-payment-as-group';            
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';   
+
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
                     scope.glimPaymentAsGroup = configData.enabled;
@@ -241,12 +243,17 @@
             var loanApplicationReferenceId = "loanApplicationReferenceId";
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+               
                 if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){
                     scope.showOriginalSchedule = true;
                     if(scope.loandetails.transactionProcessingStrategyCode == 'rbi-india-strategy'){
                         scope.showFutureSchedule = true;
+                       
                     }
                 }
+                 if(data.status.value == "Submitted and pending approval" || data.status.value == "Approved"){
+                    scope.showTransactions = false;  
+                }        
                 if(data.clientData && data.clientData.groups && data.clientData.groups.length ==1) {
                     scope.group = data.clientData.groups[0];
                 }

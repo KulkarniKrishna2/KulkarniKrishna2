@@ -1382,7 +1382,7 @@
 	                <select id="configureFundOptions[{{$index}}].paymentTypeId"
 	                        class="form-control"
 	                        ng-model="configureFundOption.paymentTypeId"
-	                        ng-options="paymentType.id as paymentType.name for paymentType in configureFundOption.paymentTypeOptions"
+	                        ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
 	                        value="{{paymentType.id}}">
 	                </select>
 	            </td>
@@ -1485,7 +1485,7 @@
 			</tr>
 			<tr ng-repeat="codeValueAccountMapping in codeValueSpecificAccountMappings">
 				<td class="width30">
-					<select id="writeOffSpecificExpenseAccountMappings[{{$index}}].codeValueId"
+					<select id="codeValueSpecificAccountMappings[{{$index}}].codeValueId"
 							ng-model="codeValueAccountMapping.codeValueId" class="form-control"
 							ng-options="writeOffReasonOption.id as writeOffReasonOption.name for writeOffReasonOption in writeOffReasonOptions"
 							value="{{writeOffReasonOption.id}}">
@@ -1495,8 +1495,13 @@
 				<td class="width30">
 					<select id="codeValueSpecificAccountMappings[{{$index}}].expenseAccountId"
 							ng-model="codeValueAccountMapping.expenseAccountId"
+<<<<<<< HEAD
 							chosen="expenseAccountOptions"
 							ng-options="account.id as (account.name +'('+ account.glCode +')') for account in expenseAccountOptions"
+=======
+							chosen="codeValueAccountMapping.expenseAccountOptions"
+							ng-options="account.id as account.name for account in expenseAccountOptions"
+>>>>>>> v17.01.1_RC
 							value="{{account.id}}">
 					</select>
 				</td>

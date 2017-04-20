@@ -162,6 +162,7 @@
     "label.heading.approvedshares": "Approved Shares",
     "label.heading.pendingforapproval": "Pending for Approval Shares",
     "label.heading.purchasedsharesoverview": "Transactions Overview",
+    "label.heading.amonttobepaid" : "Amount to be paid",
 
     "label.heading.purchasedorredeemedprice":"Purchased/Redeemed Price",
     "label.heading.linkedsavingsaccountnumber":"Linked Savings Account(Dividend Posting)",
@@ -370,6 +371,7 @@
     "label.button.addsuboccupation": "Add Sub Occupation",
     "label.button.addassets": "Add Assets",
     "label.button.addexpenses": "Add Expenses",
+    "label.button.fetchdetails": "Fetch Details",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -1045,6 +1047,7 @@
     "label.heading.groups": "Groups",
     "label.heading.centers":"Center",
     "label.heading.groupdetails":"Group Details",
+    "label.heading.centerdetails":"Center Details",
     "label.heading.managegroups":"Manage Groups",
     "label.heading.associatenewgroups": "Associate New Groups",
     "label.heading.centermembers": "Center Members (Groups)",
@@ -1808,6 +1811,8 @@
     "label.input.graceOnInterest":"Interest Grace Periods",
     "label.input.extendRepaymentPeriod":"Extend Repayment Period",
     "label.input.extendRepaymentSchedule":"Extend Repayment Schedule",
+    "rescheduletype.rescheduletospecificdate":"Reschedule to specified date",
+    "rescheduletype.rescheduletonextrepaymentdate":"Reschedule to next repayment date",
     "label.input.noofnewrepayments":"Number Of new Repayments",
     "label.input.adjustinterestrates":"Adjust interest rates for remainder of loan",
     "label.input.newinterestrate":"New Interest Rate",
@@ -2774,6 +2779,7 @@
 
     "#Headings": "..",
     "label.heading.bulkloanreassignment": "Bulk Loan Reassignment",
+    "label.heading.bulkLoanReschedule" : "Bulk Loan Reschedule",
     "label.heading.clients": "Clients",
     "label.heading.createemployee": "Create Employee",
     "label.heading.createholiday": "Create Holiday",
@@ -2808,6 +2814,7 @@
     "#Anchors": "..",
     "label.anchor.organization": "Organization",
     "label.anchor.bulkloanreassignment": "Bulk Loan Reassignment",
+    "label.anchor.bulkLoanReschedule": "Bulk Loan Reschedule",
     "label.anchor.bulkjlgloanapplication": "Bulk JLG Loan Application",
     "label.anchor.manageemployees": "Manage Employees",
     "label.anchor.createemployee": "Create Employee",
@@ -2838,6 +2845,9 @@
 
     "#Inputs": "..",
     "label.input.assignmentdate": "Assignment date",
+    "label.input.rescheduleInstallmentOn": "Reschedule Installment From",
+    "label.input.rescheduledTo": "Installment Rescheduled To",
+    "label.input.loanOfficer":"Loan Officer",
     "label.input.fromloanofficer": "From loan officer",
     "label.input.toloanofficer": "To loan officer",
     "label.input.isLoanOfficer": "Is loan officer?",
@@ -2858,6 +2868,8 @@
     "label.input.taxcomponents":"Tax Components",
     "label.input.taxcomponent":"Tax Component",
     "label.input.taxgroup":"Tax Group",
+    "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
+    "label.input.loanOfficer":"Loan Officer",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",
@@ -3998,6 +4010,7 @@
     "createclosure": "Create Closure",
     "audit": "Audit",
     "bulkloan": "Bulk loan Reassign",
+    "bulkLoanReschedule": "Bulk Loan Reschedule",
     "addproductmix": "Add Product Mix",
     "entercollectionsheet": "Collection Sheet",
     "templates": "Templates",
@@ -4922,7 +4935,8 @@
     "day.sunday" : "Sunday",
     "RepaymentRescheduleType.same.day":"same day",
     "RepaymentRescheduleType.move.to.next.working.day":"move to next working day",
-    "RepaymentRescheduleType.move.to.next.repayment.meeting.day":"move to next repayment meeting day",
+    "RepaymentRescheduleType.move.to.next.repayment.day":"move to next repayment day",
+    "RepaymentRescheduleType.move.to.next.meeting.day":"move to next meeting day",
     "RepaymentRescheduleType.move.to.previous.working.day":"move to previous working day",
     "label.heading.loan.foreclosure": "Loan Preclosure",
 
@@ -5019,6 +5033,7 @@
     "label.defineloanpurpose.group":"Define loan purpose group",
     "label.defineincomeexpensehead":"Define income expense head",
     "label.define.loanPurpose":"Manage loan purpose and grouping",
+    "label.define.bulkLoanReschedule":"Manage loans repayment reschedule",
     "label.view.riskrating":"Configure risk and fraud management",
     "label.view.taskconfigtemplate":"Configure and Manage Adhoc Tasks",
     "label.view.incomeexpense.category":"Income Generating Asset Category",
@@ -5225,7 +5240,8 @@
     "label.input.hectares":"Hectares",
     "label.input.income":"Income Amount",
     "label.input.expenses":"Expense Amount",
-    "label.input.isPrimaryIncome":"isPrimaryIncome?",
+    "label.input.isPrimaryIncome":"Primary Income",
+    "label.input.isRemmitanceIncome":"Remittance Income",
     "label.input.asset":"Asset",
     "label.input.sub.asset":"Asset Sub-Type",
     "label.input.occ.income":"Total Occupation Income",
@@ -5803,6 +5819,9 @@
 
     "label.heading.journalentryid":"JE Id",
     "label.button.showentitytransaction":"Show Portfolio Transaction",
+
+    "validation.msg.rescheduleloan.rescheduleFromDate.repayment.schedule.installment.does.not.exist" : "Installment for reschedule from date does not exist.",
+    "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.before.rescheduleFromDate" : "Rescheduled To Date can't be before Reschedule From Date.",
 
     "------ end of tensalation file":"---------"
 }
