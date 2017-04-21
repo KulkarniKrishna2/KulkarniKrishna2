@@ -2095,6 +2095,10 @@
     "error.msg.loan.disbursal.failed": "This loan could not be disbursed as `{{params[0].value}}` and `{{params[1].value}}` are not allowed to co-exist",
     "error.msg.loan.application.repayment.date.on.holiday": "Repayment date should not be a holiday.",
     "error.msg.loan.application.repayment.date.on.non.working.day": "Repayment date should not be a non working day.",
+    "error.msg.loan.application.foreclosure.date.on.holiday": "Transaction date should not be a holiday.",
+    "error.msg.loan.application.foreclosure.date.on.non.working.day": "Transaction date should not be a non working day.",
+    "error.msg.loan.application.writtenoff.date.on.holiday": "Written off date should not be a holiday.",
+    "error.msg.loan.application.writtenoff.date.on.non.working.day": "Written off date should not be a non working day.",
     "error.msg.loan.application.disbursement.date.on.non.working.day": "Disbursement date should not be a non working day.",
     "error.msg.loan.application.disbursement.date.on.holiday": "Disbursement date should not be a holiday.",
     "validation.msg.loanCharge.amount.cannot.be.blank": "Amount is mandatory.",
@@ -5823,5 +5827,8 @@
     "validation.msg.rescheduleloan.rescheduleFromDate.repayment.schedule.installment.does.not.exist" : "Installment for reschedule from date does not exist.",
     "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.before.rescheduleFromDate" : "Rescheduled To Date can't be before Reschedule From Date.",
 
+    "validation.msg.holiday.fromDate.is.less.than.date" : "Holiday from date `{{params[0].value}}` is can not less than current date.",
+    "validation.msg.holiday.repaymentsRescheduledTo.is.less.than.date" : "Holiday repayments rescheduled date `{{params[0].value}}` is can not less than current date.",
+    
     "------ end of tensalation file":"---------"
 }
