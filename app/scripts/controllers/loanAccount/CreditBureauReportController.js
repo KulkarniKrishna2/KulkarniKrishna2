@@ -391,9 +391,9 @@
                 if (status) {
                     var jsonObj = ngXml2json.parser(scope.errorMessage);
                     scope.errorMessage = undefined;
-                    if (scope.creditbureauLoanProduct && scope.creditbureauLoanProduct.creditBureauData && scope.creditbureauLoanProduct.creditBureauData.creditBureauName !== 'Highmark' && !_.isUndefined(jsonObj.response.reportdata)) {
-                        if (!_.isUndefined(jsonObj.response.reportdata.error)) {
-                            scope.errorMessage = jsonObj.response.reportdata.error.errormsg;
+                    if (scope.creditbureauLoanProduct && scope.creditbureauLoanProduct.creditBureauData && scope.creditbureauLoanProduct.creditBureauData.creditBureauName !== 'Highmark' && !_.isUndefined(jsonObj.inquiryresponse.reportdata)) {
+                        if (!_.isUndefined(jsonObj.inquiryresponse.reportdata.error)) {
+                            scope.errorMessage = jsonObj.inquiryresponse.reportdata.error.errormsg;
                             scope.cbResponseError = true;
                         }
                     } else if (jsonObj.indvreportfile) {
