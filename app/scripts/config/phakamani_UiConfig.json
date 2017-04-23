@@ -3,243 +3,60 @@
   "uiDisplayConfigurations": {
     "loanAccount": {
       "isHiddenField": {
-        "fundId": false,
         "linkAccountId": true,
         "createStandingInstruction": true,
-        "numberOfRepayments": false,
-        "repaymentEvery": false,
         "repaymentFrequencyType": true,
         "repaymentFrequencyNthDayType": true,
         "repaymentFrequencyDayOfWeekType": true,
-        "interestChargedFromDate": false,
-        "repaymentsStartingFromDate": false,
         "interestType": true,
-        "amortizationType": false,
-        "interestCalculationPeriodType": false,
-        "inArrearsTolerance": false,
-        "graceOnInterestCharged": false,
-        "transactionProcessingStrategyId": false,
-        "graceOnInterestPayment": false,
-        "graceOnArrearsAgeing": false,
-        "syncDisbursementDateWithMeeting":true,
-        "recurringMoratoriumOnPrincipalPeriods": true,
-        "brokenPeriodMethodType":false
+        "syncDisbursementDateWithMeeting": true,
+        "recurringMoratoriumOnPrincipalPeriods": true
       },
       "isMandatory": {
-        "externalId":true,
-	      "repaymentsStartingFromDate": false,
-        "loanPurposeId": false
-      },
-      "isHiddenSection": {
-        "interestRecalculationSection": false,
-        "collateralSection": false
-      },
-      "isShowField": {
-        "nextRepaymentDateDisburseScreen": false,
-        "adjustRepaymentDateDisburseScreen": false
-      },
-      "isReadOnlyField": {
-        "loanTermFrequencyType": false,
-        "interestChargedFromDate": false,
-        "displayName": false,
-        "interestRatePerPeriod": false,
-        "loanPurposeId": false,
-        "syncRepaymentsWithMeeting": false,
-        "repaymentFrequencyType": false
-      },
-      "isAutoPopulate": {
-        "interestChargedFromDate": false
-      },
-      "isDefaultValue": {
-        "syncDisbursementWithMeeting": false,
-        "considerFutureDisbursmentsInSchedule": true,
-        "fundId": "",
-        "paymentTypeId": ""
-      }
-      },
-      "viewLoanAccountDetails": {
-        "isHiddenFeild": {
-          "viewReportButton": false,
-          "editTranches": false,
-          "term" : false,
-          "currency" : false,
-          "interestCompoundingPeriod" : false,
-          "interestCalculatedUsing" : false,
-          "lockinPeriodFrequency" : false,
-          "isMandatoryDepositCheckBox" : false,
-          "groupMeeting" : false,
-          "settings" : false,
-          "interestRateChat" : false,
-          "charges" : false,
-          "addCharges" : false
-        }
-      },
-      "clientAccount": {
-        "isMandatory": {
-          "externalId": true
-        }
-      },
-      "collectionSheet": {
-        "isAutoPopulate": {
-          "paymentTypeOption": false
-        },
-        "isHiddenFeild": {
-          "newtransactionDate": false,
-          "paymentDetails" : false
-        }
-      },
-      "createClient": {
-        "isReadOnlyField": {
-          "staff": true,
-          "pincode": false,
-          "active":true
-        },
-        "isValidateDOBField": {
-          "active": false,
-          "ageCriteria": {
-            "minAge": "",
-            "maxAge": ""
-          }
-        },
-        "isHiddenField": {
-          "hideClientClassification": true,
-          "pincode": false,
-          "staff": false,
-          "legalForm" : false,
-          "middleName" : false,
-          "externalId" : false,
-          "submittedOn" : false,
-          "openSavingsProduct" : false
-        },
-        "isMandatoryField": {
-          "dateOfBirth": false,
-  	      "externalId":true,
-          "clientClassificationId":false,
-          "villageTown":false,
-          "addressType":false
-        }
-      },
-      "defaultGISConfig": {
-        "address": {
-          "countryName": "",
-          "stateName": "",
-          "addressType": ""
-        },
-        "paymentType": {
-          "expectedDisbursalPaymentType": "",
-          "expectedRepaymentPaymentType": ""
-        },
-        "isReadOnlyField":{
-          "countryName":false
-        }
-      },
-      "createCenter": {
-        "isReadOnlyField": {
-          "active": false,
-          "name": false
-        },
-        "isHiddenField": {
-          "villageOptions": true,
-          "showGroupExternalId" : true,
-          "showSubmittedOn" : true,
-          "showStaff" : true,
-          "addclients" : true
-        }
-      },
-      "createGroup": {
-        "isReadOnlyField": {
-          "staff": false,
-          "active": false
-        },
-        "isAutoPopulate": {
-          "active": false
-        },
-  	 "isMandatory":{
-          "externalId":true
-        },
-        "isHiddenMenu": {
-          "attachmeeting": false,
-          "groupExternalId" : false,
-          "submittedOn" : false,
-          "staff" : false,
-          "addclients" : false
-        }
-      },
-      "labelChanges": {
-        "calendarChagesEffectiveFrom": false
-      },
-      "createVillage": {
-        "isReadOnlyField": {
-          "active": false
-        },
-        "isValidatePinCodeField": {
-          "active": false,
-          "pinCodeValues": {
-            "startDigit": {
-              "Karnataka": "",
-              "Maharashtra": ""
-            },
-            "pincodeLenght": ""
-          }
-        },
-        "isHiddenField": {
-          "villageCode": false
-        }
-      },
-      "clientIdentifier": {
-        "identitiesMatchLuhnsAlgorithm": {
-          "clientIdentifierValidation": true
-        },
-        "hiddenFields":{
-          "status":false
-        }
-      },
-      "reportParameterConfiguration": {
-        "datePicker": {
-          "reportNames": "",
-          "restrictedDate": ""
-        }
-      },
-      "journalEntryConfiguration": {
-        "allowMultipleCreditAndDebitEntries":false
-      },
-      "viewClient": {
-        "isHiddenField": {
-         "pincode": false
-        }
-      },
-      "bankAccountDetails": {
-      "isMandatory": {
-        "bankAccountHolderName": true,
-        "bankAccountNumber": true,
-        "accountType": false,
-        "bankIFSCCode": true,
-        "bankName": false,
-        "bankCity": false,
-        "mobileNumber": false,
-        "lastTransactionDate": false
-      },
-      "isHiddenField":{
-        "lastTransactionDate": true
-      },
-      "regexValidations" :{
-        "mobileNumber":"",
-        "bankIFSCCode":""
-      },
-      "isAutoPopulate":{  
-           "bankName":"MASTER"
-      }
-    }
-  },
-  "savingsAccount":{
-    "overDraft":{
-      "isHiddenField":{
-        "amountTobePaid":false
+        "externalId": true
       }
     },
-    "deposit":{
-      "isAutoPopulate" :{
-        "transactionAmount":false
+
+    "collectionSheet": {
+      "isAutoPopulate": {
+        "paymentTypeOption": false
+      }
+    },
+    "createClient": {
+      "isReadOnlyField": {
+        "staff": true
+      },
+      "isHiddenField": {
+        "hideClientClassification": true
+      },
+      "isMandatoryField": {
+        "externalId": true
+      }
+    },
+    "createGroup": {
+      "isHiddenMenu": {
+        "attachmeeting": false
+      }
+    },
+    "labelChanges": {
+      "calendarChagesEffectiveFrom": false
+    },
+    "clientIdentifier": {
+      "identitiesMatchLuhnsAlgorithm": {
+        "clientIdentifierValidation": true
+      }
+    },
+    "reportParameterConfiguration": {
+      "datePicker": {
+        "reportNames": ""
+      }
+    },
+   "bankAccountDetails": {
+    "isMandatory": {
+      "bankIFSCCode": true
+    },
+    "isAutoPopulate":{
+        "bankName": "MASTER"
       }
     }
   }

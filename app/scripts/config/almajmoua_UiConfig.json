@@ -3,187 +3,24 @@
   "uiDisplayConfigurations": {
 	"loanAccount": {
 	  "isHiddenField": {
-		"fundId": false,
-		"linkAccountId": true,
-		"createStandingInstruction": false,
-		"numberOfRepayments": false,
-		"repaymentEvery": false,
-		"repaymentFrequencyType": false,
-		"repaymentFrequencyNthDayType": false,
-		"repaymentFrequencyDayOfWeekType": false,
-		"interestChargedFromDate": false,
-		"repaymentsStartingFromDate": false,
-		"interestType": false,
-		"amortizationType": false,
-		"interestCalculationPeriodType": false,
-		"inArrearsTolerance": false,
-		"graceOnInterestCharged": false,
-		"transactionProcessingStrategyId": false,
-		"graceOnInterestPayment": false,
-		"graceOnArrearsAgeing": false,
-		"syncDisbursementDateWithMeeting": false,
-		"recurringMoratoriumOnPrincipalPeriods": false,
-		"brokenPeriodMethodType":false
-	  },
-	  "isMandatory": {
-		"externalId": false
-	  },
-	  "isHiddenSection": {
-		"interestRecalculationSection": false,
-		"collateralSection": false
-	  },
-	  "isShowField": {
-		"nextRepaymentDateDisburseScreen": false,
-		"adjustRepaymentDateDisburseScreen": false
-	  },
-	  "isReadOnlyField": {
-		"loanTermFrequencyType": false,
-		"interestChargedFromDate": false,
-		"displayName": false,
-		"interestRatePerPeriod": false,
-		"loanPurposeId": false,
-		"syncRepaymentsWithMeeting": false,
-		"repaymentFrequencyType": false
-	  },
-	  "isAutoPopulate": {
-		"interestChargedFromDate": false
-	  },
-	  "isDefaultValue": {
-		"syncDisbursementWithMeeting": false,
-		"considerFutureDisbursmentsInSchedule": true,
-		"fundId": "",
-		"paymentTypeId": ""
-	  },
-	  "isMandatory": {
-		"repaymentsStartingFromDate": false,
-		"loanPurposeId": false
-	  }
-	},
-	"viewLoanAccountDetails": {
-	  "isHiddenFeild": {
-		"viewReportButton": false,
-		"editTranches": false
-	  }
-	},
-	"clientAccount": {
-	  "isMandatory": {
-		"externalId": false
-	  }
-	},
-	"collectionSheet": {
-	  "isAutoPopulate": {
-		"paymentTypeOption": true
-	  },
-	  "isHiddenFeild": {
-		"newtransactionDate": false
+		"linkAccountId": true
 	  }
 	},
 	"createClient": {
-	  "isReadOnlyField": {
-		"hideClientClassification": false,
-		"pincode": false,
-		"staff": false,
-		"legalForm" : false,
-		"middleName" : false,
-		"externalId" : false,
-		"submittedOn" : false,
-		"openSavingsProduct" : false
-	  },
-	  "isValidateDOBField": {
-		"active": false,
-		"ageCriteria": {
-		  "minAge": "",
-		  "maxAge": ""
-		}
-	  },
 	  "isHiddenField": {
-		"hideClientClassification": false,
 		"pincode": true
 	  },
 	  "isMandatoryField": {
-		"dateOfBirth": false,
-		"clientClassificationId":false,
-		"villageTown":true,
-		"addressType":false
+		"villageTown":true
 	  }
 	},
 	"defaultGISConfig": {
 	  "address": {
-		"countryName": "Lebanon",
-		"stateName": "",
-		"addressType": ""
-	  },
-	  "paymentType": {
-		"expectedDisbursalPaymentType": "",
-		"expectedRepaymentPaymentType": ""
+		"countryName": "Lebanon"
 	  },
 	  "isReadOnlyField":{
 	  	"countryName":true
 	  }
-	},
-	"createCenter": {
-	  "isReadOnlyField": {
-		"active": false,
-		"name": false
-	  },
-	  "isHiddenField": {
-		"villageOptions": true
-	  }
-	},
-	"createGroup": {
-	  "isReadOnlyField": {
-		"staff": false,
-		"active": false
-	  },
-	  "isAutoPopulate": {
-		"active": false
-	  },
-	  "isHiddenMenu": {
-		"attachmeeting": false
-	  }
-	},
-	"labelChanges": {
-	  "calendarChagesEffectiveFrom": true
-	},
-	"createVillage": {
-	  "isReadOnlyField": {
-		"active": false
-	  },
-	  "isValidatePinCodeField": {
-		"active": false,
-		"pinCodeValues": {
-		  "startDigit": {
-			"Karnataka": "",
-			"Maharashtra": ""
-		  },
-		  "pincodeLenght": ""
-		}
-	  },
-	  "isHiddenField": {
-		"villageCode": false
-	  }
-	},
-	"viewLoanAccountDetails": {
-	  "isHiddenFeild": {
-		"viewReportButton": false
-	  }
-	},
-	"clientIdentifier": {
-	  "identitiesMatchLuhnsAlgorithm": {
-		"clientIdentifierValidation": false
-	  },
-	  "hiddenFields":{
-		"status":false
-	  }
-	},
-	"reportParameterConfiguration": {
-	  "datePicker": {
-		"reportNames": "'Expected Payments By Date - Basic'",
-		"restrictedDate": ""
-	  }
-	},
-	"journalEntryConfiguration": {
-		"allowMultipleCreditAndDebitEntries":false
 	},
 	"viewClient": {
 	  "isHiddenField": {

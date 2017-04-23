@@ -3,17 +3,12 @@
   "uiDisplayConfigurations": {
     "loanAccount": {
       "isHiddenField": {
-        "fundId": false,
-        "externalId":false,
         "linkAccountId": true,
         "createStandingInstruction": true,
-        "numberOfRepayments": false,
-        "repaymentEvery": false,
         "repaymentFrequencyType": true,
         "repaymentFrequencyNthDayType": true,
         "repaymentFrequencyDayOfWeekType": true,
         "interestChargedFromDate": true,
-        "repaymentsStartingFromDate": false,
         "interestType": true,
         "amortizationType": true,
         "interestCalculationPeriodType": true,
@@ -27,7 +22,6 @@
         "brokenPeriodMethodType":true
       },
       "isMandatory": {
-        "externalId": false,
         "repaymentsStartingFromDate": true,
         "loanPurposeId": true
       },
@@ -48,12 +42,8 @@
         "syncRepaymentsWithMeeting": true,
         "repaymentFrequencyType": true
       },
-      "isAutoPopulate": {
-        "interestChargedFromDate": false
-      },
       "isDefaultValue": { 
         "fundId": 45,
-        "syncDisbursementWithMeeting": false,
         "paymentTypeId": 750,
         "considerFutureDisbursmentsInSchedule": false
       }
@@ -61,39 +51,13 @@
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
         "viewReportButton": true,
-        "editTranches": true,
-        "term" : false,
-        "currency" : false,
-        "interestCompoundingPeriod" : false,
-        "interestCalculatedUsing" : false,
-        "lockinPeriodFrequency" : false,
-        "isMandatoryDepositCheckBox" : false,
-        "groupMeeting" : false,
-        "settings" : false,
-        "interestRateChat" : false,
-        "charges" : false,
-        "addCharges" : false
-      }
-    },
-    "clientAccount": {
-      "isMandatory": {
-        "externalId": true
-      }
-    },
-    "collectionSheet": {
-      "isAutoPopulate": {
-        "paymentTypeOption": true
-      },
-      "isHiddenFeild": {
-        "newtransactionDate": false,
-        "paymentDetails" : false
+        "editTranches": true
       }
     },
     "createClient": {
       "isReadOnlyField": {
         "staff": true,
-        "pincode": true,
-        "active":false
+        "pincode": true
       },
       "isValidateDOBField": {
         "active": true,
@@ -102,22 +66,9 @@
           "maxAge": 60
         }
       },
-      "isHiddenField": {
-        "hideClientClassification": false,
-        "pincode": false,
-        "staff": false,
-        "legalForm" : false,
-        "middleName" : false,
-        "externalId" : false,
-        "submittedOn" : false,
-        "openSavingsProduct" : false
-      },
       "isMandatoryField": {
         "dateOfBirth": true,
-        "clientClassificationId":true,
-        "externalId": false,
-        "villageTown":false,
-        "addressType":false
+        "clientClassificationId":true
       }
     },
     "defaultGISConfig": {
@@ -129,9 +80,6 @@
       "paymentType": {
         "expectedDisbursalPaymentType": "Cash",
         "expectedRepaymentPaymentType": "Cash"
-      },
-      "isReadOnlyField":{
-       "countryName":false
       }
     },
     "createCenter": {
@@ -155,19 +103,9 @@
       "isAutoPopulate": {
         "active": true
       },
-      "isMandatory":{
-        "externalId":true
-      },
       "isHiddenMenu": {
-        "attachmeeting": true,
-        "groupExternalId" : false,
-        "submittedOn" : false,
-        "staff" : false,
-        "addclients" : false
+        "attachmeeting": true
       }
-    },
-    "labelChanges": {
-      "calendarChagesEffectiveFrom": true
     },
     "createVillage": {
       "isReadOnlyField": {
@@ -188,31 +126,17 @@
       }
     },
     "clientIdentifier": {
-      "identitiesMatchLuhnsAlgorithm": {
-        "clientIdentifierValidation": false
-      },
       "hiddenFields":{
         "status":true
       }
     },
     "reportParameterConfiguration": {
       "datePicker": {
-        "reportNames": "",
-        "restrictedDate": ""
-      }
-    },
-    "journalEntryConfiguration": {
-      "allowMultipleCreditAndDebitEntries":false
-    },
-    "viewClient": {
-      "isHiddenField": {
-        "pincode": false
+        "reportNames": ""
       }
     },
     "bankAccountDetails": {
       "isMandatory": {
-        "bankAccountHolderName": true,
-        "bankAccountNumber": true,
         "accountType": true,
         "bankIFSCCode": true,
         "bankName": true,
@@ -229,18 +153,6 @@
       },
       "isAutoPopulate":{
         "bankName": "MASTER"
-      }
-    },
-    "savingsAccount":{
-      "overDraft":{
-        "isHiddenField":{
-          "amountTobePaid":false
-        }
-      },
-      "deposit":{
-        "isAutoPopulate" :{
-          "transactionAmount":false
-        }
       }
     }
   }
