@@ -218,31 +218,43 @@
 						{{'label.mustbenumeric' | translate}}
 					</small>
 				</span>
-
-				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:
-				 <span ng-show="isExternalIdMandatory" class="required">*</span></label>
-
-				 <div class="col-sm-3" >
-				 	<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
-					 ng-required = "isExternalIdMandatory"/>
-				</div>
-				<div class="col-sm-2 paddinglr0px">
-						<form-validate valattributeform="editclientform" valattribute="external"/>
-				</div>
-			</div>
-			<div class="form-group">
 				<label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
 				<div class="col-sm-3">
 					<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
-						   ng-pattern="/^[0-9]+$/"  class="form-control"/>
+					ng-pattern="/^[0-9]+$/"  class="form-control"/>
 				</div>
 				<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
-                    <small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
-                        {{'label.mustbenumeric' | translate}}
-                    </small>
-                </span>
+					<small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
+						{{'label.mustbenumeric' | translate}}
+					</small>
+				</span>
 			</div>
+
+
+			<div class="form-group">
+	            <label class="control-label col-sm-2" for="EmailAddress">{{'label.input.email' | translate}}</label>
+	
+	            <div class="col-sm-3">
+	               <input name="email" ng-model="formData.email" placeholder="EMAIL ID"
+					type="email" class="form-control"/>
+					<form-validate valattributeform="editclientform" valattribute="email"/>
+	            </div>
+
+				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:
+					<span ng-show="isExternalIdMandatory" class="required">*</span></label>
+
+				<div class="col-sm-3">
+					<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
+						ng-required = "isExternalIdMandatory"/>
+						<form-validate valattributeform="editclientform" valattribute="external"/>
+				</div>
+	        </div>
+
+
+
+
+
 
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:<span

@@ -88,7 +88,8 @@
                     clientNonPersonDetails : {
                         incorpNumber: data.clientNonPersonDetails.incorpNumber,
                         remarks: data.clientNonPersonDetails.remarks
-                    }
+                    },
+                    email: data.emailId
                 };
 
                 if(data.gender){
