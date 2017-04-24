@@ -110,7 +110,7 @@
 	  "isHiddenField": {
 		"hideClientClassification": false,
 		"staff": false,
-    "pincode": false,
+        "pincode": false,
 		"legalForm": false,
 		"middleName": false,
 		"externalId": false,
@@ -121,8 +121,8 @@
 		"dateOfBirth": false,
 		"clientClassificationId": false,
 		"externalId": false,
-    "villageTown":false,
-    "addressType":false
+        "villageTown":false,
+        "addressType":false
 	  }
 	},
 	"defaultGISConfig": {
@@ -229,10 +229,7 @@
 	  "regexValidations" :{
 		"mobileNumber":"",
 		"bankIFSCCode":""
-	  },
-    "isAutoPopulate":{
-        "bankName": ""
-      }
+	  }
 	},
 	"savingsAccount":{
 	  "overDraft":{
