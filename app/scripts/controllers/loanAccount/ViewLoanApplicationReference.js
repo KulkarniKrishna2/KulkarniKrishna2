@@ -13,8 +13,8 @@
             scope.initData = function () {
                 resourceFactory.configurationResource.get({configName: 'work-flow'}, function (response) {
                     scope.isWorkFlow = response.enabled;
-                    resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
-                        scope.isHighMark = response.enabled;
+                    resourceFactory.configurationResource.get({configName: 'credit-check'}, function (response) {
+                        scope.isCreditCheck = response.enabled;
                         resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                             scope.formData = data;
                             if(scope.formData.loanProductId && scope.formData.status.id < 300){
