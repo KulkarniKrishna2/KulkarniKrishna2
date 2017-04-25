@@ -89,19 +89,19 @@
                                     <th>{{'label.heading.credit' | translate}}</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr class="pointer-main" ng-repeat="transactiondetail in transaction.journalEntryDetails">
-                                    <td class="pointer">{{transaction.transactionId}}</td>
+                                <tbody ng-repeat="transactiondetails in transactions">
+                                <tr class="pointer-main" ng-repeat="transactiondetail in transactiondetails.journalEntryDetails">
+                                    <td class="pointer">{{transactiondetails.transactionId}}</td>
                                     <td class="pointer">{{transactiondetail.glAccountData.type.value}}</td>
                                     <td class="pointer"> {{transactiondetail.glAccountData.name}}({{transactiondetail.glAccountData.glCode}})</td>
                                     <td class="pointer">
                                         <div ng-show="transactiondetail.entryType.value == 'DEBIT'">
-                                            {{transaction.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
+                                            {{transactiondetails.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
                                         </div>
                                     </td>
                                     <td class="pointer">
                                         <div ng-show="transactiondetail.entryType.value == 'CREDIT'">
-                                            {{transaction.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
+                                            {{transactiondetails.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
                                         </div>
                                     </td>
                                 </tr>
