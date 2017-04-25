@@ -1203,12 +1203,12 @@
                 var loanId = loan.id;
                 var trancheDisbursalId = undefined;
                 if(loan.productId){
-                    resourceFactory.configurationResource.get({configName: 'tranche-disbursal-high-mark'}, function (response) {
-                        scope.isTrancheDisbursalHighMark = response.enabled;
-                        if (scope.isTrancheDisbursalHighMark == true) {
-                            resourceFactory.configurationResource.get({configName: 'high-mark'}, function (response) {
-                                scope.isHighMark = response.enabled;
-                                if (scope.isHighMark == true) {
+                    resourceFactory.configurationResource.get({configName: 'tranche-disbursal-credit-check'}, function (response) {
+                        scope.isTrancheDisbursalCreditCheck = response.enabled;
+                        if (scope.isTrancheDisbursalCreditCheck == true) {
+                            resourceFactory.configurationResource.get({configName: 'credit-check'}, function (response) {
+                                scope.isCreditCheck = response.enabled;
+                                if (scope.isCreditCheck == true) {
                                     resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                                         loanProductId: loan.productId,
                                         associations: 'creditBureaus'
