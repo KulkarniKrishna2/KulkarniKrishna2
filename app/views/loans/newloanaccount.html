@@ -424,7 +424,7 @@
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing" ng-model="formData.graceOnArrearsAgeing">
                 </td>
             </tr>
-            <tr ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType == true"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">
+            <tr ng-if="showBrokenPeriodType && (formData.interestCalculationPeriodType != 0 && formData.allowPartialPeriodInterestCalcualtion == true)">
                 <td>
                     <label>{{ 'label.input.brokenperiodmethodtype' | translate }}
                         <i class="icon-question-sign" tooltip="{{'label.tooltip.brokenperiodmethodtype' | translate}}"
