@@ -35,7 +35,7 @@
 
 
             <div class="col-sm-3">
-                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && !columnHeader.hideElement" type="text"
+                <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && !columnHeader.hideElement" 
                        ng-model="formData[columnHeader.columnName]" class="form-control"/>
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && !columnHeader.hideElement" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
