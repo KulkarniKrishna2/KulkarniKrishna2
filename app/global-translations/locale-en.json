@@ -3312,6 +3312,7 @@
     "label.tooltip.global.organisation-start-date":"Determine organisation start date.",
     "label.tooltip.global.enable-clients-address":" Enable Create client with address",
     "label.tooltip.global.populate_client_address_from_villages":"Populate the client address fields from villages",
+    "label.tooltip.global.number-of-days-for-ACH-failed-transactions":"Represents number of days to be considered while fetching ACH failed transactions",
 
     "label.tooltip.global.rounding-mode":"Values: 0 - UP, 1 - DOWN, 2 - CEILING, 3 - FLOOR, 4 - HALF_UP, 5 - HALF_DOWN, 6 - HALF_EVEN",
 
