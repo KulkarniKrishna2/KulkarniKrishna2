@@ -1,0 +1,218 @@
+
+{
+
+  "label.input.groupexternalid": "Educational Institution External id",
+
+  "label.input.group": "Educational Institution",
+
+  "validation.msg.loan.calendarId.cannot.be.blank":"Ensure that the parent Educational Institution/Center has a meeting defined before creating this loan application",
+  "validation.msg.collectionsheet.groupId.not.greater.than.zero": "Educational Institution is mandatory to generate collection sheet.",
+
+  "error.msg.entity.transfers.with.active.savings.accounts": "Cannot transfer Clients/Educational Institutions having active Savings accounts",
+  "error.msg.groups.bulk.client.transfers.to.different.office": "Bulk Transfers of clients between Educational Institutions in different branches not allowed ",
+  "error.msg.client.transfers.destination.group.absent": "Destination Educational Institution for transfer of clients originally linked to a group not selected ",
+  "error.msg.client.transfers.with.multiple.group.linkages": "Transfer of clients linked to multiple Educational Institutions is not supported  ",
+  "error.msg.client.transfers.with.active.accounts.between.groups.with.different.meeting.frequency": "Cannot transfer Clients with active accounts between Educational Institutions with different meeting frequency",
+  "error.msg.groups.bulk.client.transfers.to.same.group": "Source and destination Educational Institutions for bulk client transfers should be different",
+  "error.msg.client.transfers.with.active.accounts.to.group.with.no.meeting.frequencys": "Cannot transfer Client with active accounts to a Educational Institutions with no meeting frequency",
+
+  "label.anchor.group": "Educational Institution",
+  "label.anchor.usersgroup": "User Educational Institution",
+  "label.anchor.developergroup": "Developer Educational Institution",
+
+
+
+
+
+  "label.search.scope.groups.and.centers":"Educational Institutions",
+
+
+
+  "label.button.groups": "Educational Institutions",
+
+
+  "validation.msg.collectionsheet.calendarId.cannot.be.blank":"Collection sheet cannot be generated for center/Educational Institution without attach meeting define",
+
+
+
+  "label.heading.groupclosed": "Educational Institution Closed",
+
+  "error.msg.client.member.of.group.and.cannot.update.office": "The client is a member of a Educational Institution so you must update the office of the Educational Institution.",
+
+  "label.heading.creategroup": "Create Educational Institution",
+  "label.heading.editgroup": "Edit Educational Institution",
+
+  "label.heading.groupmembers": "Educational Institution Members",
+  "label.heading.transferclientsbetweengroups": "Transfer Client between Educational Institutions",
+  "label.heading.destinationgroupdetails": "Destination Educational Institution Details",
+
+  "label.heading.groupaccounts": "Educational Institution Accounts",
+
+  "label.menu.selectgroup": "Select Educational Institution",
+
+  "label.anchor.groups": "Educational Institutions",
+  "label.anchor.viewgroup": "View Educational Institution",
+
+  "label.anchor.creategroup": "Create Educational Institution",
+
+  "label.input.inheritgrouploanofficer": "Inherit Educational Institution loan officer",
+  "label.input.destinationgroup": "Destination Educational Institution",
+
+  "label.button.creategroup": "Create Educational Institution",
+  "label.button.groupsavingapplication": "Educational Institution Saving Application",
+  "label.button.grouploanapplication": "Educational Institution Loan Application",
+
+
+  "label.numofactivegrouploans": "Active Educational Institution Loans:",
+  "label.numofactivegroupborrowers": "Active Educational Institution Borrowers:",
+  "label.numofactiveoverduegrouploans": "Active Overdue Educational Institution Loans:",
+
+  "label.selectgroup":"Select Educational Institution",
+
+
+
+  "error.msg.client.attach.to.group.invalid.office": "The Educational Institution and its client's must belong to the same office.",
+  "error.msg.group.disassociate.client.has.group.loan": "Client with identifier `{{params[0].value}}` cannot be disassociated, it has Educational Institution loans.",
+  "validation.msg.group.clientMembers.cannot.be.empty": "No clients are selected for associating with Educational Institution.",
+  "error.msg.group.role.already.exists": "Educational Institution Role with role `{{params[0].value}}` and client `{{params[1].value}}` and Educational Institution `{{params[2].value}}` already exists.",
+  "error.msg.group.activate.date.cannot.be.before.office.activation.date": "The Educational Institution activation date cannot be before the office activation date.",
+
+  "error.msg.group.not.active.exception": "The Educational Institution with id `{{params[0].value}}` is not active.",
+  "error.msg.group.disassociate.client.has.group.saving": "Client with identifier `{{params[0].value}}` cannot be disassociated, it has Educational Institution savings.",
+  "validation.msg.calendar.cannot.be.before.groups.activation.date":"Meeting date cannot be before Educational Institution activation date",
+  "error.msg.Group.close.active.clients.exist":"Cannot close. Educational Institution has active clients",
+  "error.msg.group.members.count.must.be.in.permissible.range":"This action caused a Educational Institution Validation Error: Number of Clients must be between `{{params[1].value}}` and `{{params[2].value}}` ",
+
+  "label.heading.addgroup": "Add Educational Institution",
+
+  "label.heading.groups": "Educational Institutions",
+
+  "label.heading.groupdetails":"Educational Institution Details",
+  "label.heading.managegroups":"Manage Educational Institutions",
+  "label.heading.associatenewgroups": "Associate New Educational Institution",
+  "label.heading.centermembers": "Center Members (Educational Institutions)",
+  "label.heading.group" : "Educational Institution",
+
+  "label.anchor.managegroups":"Manage Educational Institutions",
+
+  "label.button.managegroups":"Manage Educational Institutions",
+
+  "label.input.select.groups":"Select and add Educational Institutions",
+  "label.input.searchforgroup":"Search for a Educational Institution",
+
+  "error.msg.group.duplicate.externalId": "Educational Institution with external id `{{params[0].value}}` already exists.",
+
+  "error.msg.group.duplicate.name": "Educational Institution with name '{{params[0].value}}' already exists",
+
+  "error.msg.group.not.in.syn.with.client.charge.meeting": "Educational Institution calender and client charge frequency are not in sync.",
+  "error.msg.Center.close.active.groups.exist":"Cannot close. Active Educational Institutions exists",
+
+  "label.norepaymentsanddisbursalareavailable":"No repayments and disbursal are available for selected Educational Institution and meeting date",
+
+  "label.heading.groups/clients": "Educational Institutions/Clients",
+
+  "label.input.grouptotal": "Educational Institution total",
+
+  "label.tooltip.loanproduct.fund" : "Loan products may be assigned to a fund set up by your financial institution. If available, the fund field can be used for tracking and reporting on Educational Institutions of loans.",
+
+  "label.tooltip.center": "Search for Educational Institution and JLG Loans",
+  "label.tooltip.group": "Search for Educational Institution and JLG Loans",
+
+  "label.tooltip.loanofficer":"The financial institution representative who has responsibility for, and interacts with, the client/Educational Institution associated with a loan account",
+  "label.tooltip.loanpurpose":"Provides an indication of how the funds provided through the loan will be directed and can be used to Educational Institution loans with the same purpose for reporting",
+
+  "error.msg.loan.submittal.cannot.be.before.group.activation.date": "Submitted on date cannot be before the Educational Institutions activation date.",
+
+  "validation.msg.loan.groupId.cannot.also.be.provided.when.clientId.is.populated": "Educational Institution Id cannot be provided for Individual loan.",
+  "validation.msg.loan.clientId.cannot.also.be.provided.when.groupId.is.populated": "Client Id cannot be provided for Educational Institution loan.",
+
+  "validation.msg.loan.groupId.not.greater.than.zero": "Educational Institution id is mandatory.",
+  "validation.msg.loan.groupId.cannot.be.blank": "Educational Institution id is mandatory.",
+
+  "label.heading.withholdtaxgroup":"Withhold Tax Educational Institution",
+
+  "label.input.applicantgroup": "Applicant Educational Institution",
+
+  "label.input.same.as.group.meeting":"Deposit Frequency Same as Educational Institution/Center meeting",
+
+  "validation.msg.savingsaccount.submittal.cannot.be.before.group.activation.date": "Savings account application submitted on date cannot be earlier than Educational Institution's activation date.",
+
+  "error.msg.recurring.deposit.account.cannot.create.not.belongs.to.any.groups.to.follow.meeting.frequency":"Cannot create Recurring deposit. Client does not belongs to any Educational Institution to follow meeting frequency.",
+  "error.msg.meeting.frequency.not.attached.to.group.to.which.client.belongs.to" : "Meeting frequency is not attached to the Educational Institution/Center to which the client belongs to.",
+
+  "validation.msg.tax.group.total.percentage.is.greater.than.max":"Educational Institution total percentage must be less than 100 at any point of time",
+  "validation.msg.tax.component.group.total.percentage.is.greater.than.max":"One of the Educational Institution total is more than 100 with this modification",
+
+  "GROUPROLE":"Educational Institution Role",
+
+  "GroupClosureReason":"Educational Institution closure reason",
+
+
+  "label.group": "Educational Institution",
+
+
+  "label.tooltip.global.min-clients-in-group":"Determine minimal value of clients in Educational Institution.",
+  "label.tooltip.global.max-clients-in-group":"Determine maximal value of clients in Educational Institution.",
+
+  "groups": "Educational Institutions",
+  "creategroup": "Create Educational Institution",
+  "addmember": "Add Member",
+  "groupattendance": "Educational Institution Attendance",
+  "addgroup": "Add Educational Institution",
+
+  "newgroupsavingapplication": "New Educational Institution Savings",
+
+  "viewgroup": "View Educational Institution",
+  "editgroup": "Edit Educational Institution",
+  "closegroup": "Close Educational Institution",
+
+  "newgrouploanaccount": "Educational Institution Loan Acc",
+
+  "label.heading.groupname": "Educational Institution Name",
+
+  "label.input.groupexternalid" : "Educational Institution External ID",
+  "label.heading.groupexternalid" : "Educational Institution External ID",
+
+  "label.defineloanpurpose.group":"Define loan purpose Educational Institution",
+
+  "label.define.loanPurpose":"Manage loan purpose and grouping",
+
+
+  "label.view.occupation.catagory":"Occupation Catagory",
+  "label.view.loanpurpose.group":"Loan Purpose Educational Institution",
+  "label.view.loanpurpose.group":"View Loan Purpose Educational Institution",
+  "label.view.editloanpurpose.group":"Edit Loan Purpose Educational Institution",
+  "label.view.createloanpurpose.group":"Create Loan Purpose Educational Institution",
+
+  "label.heading.viewloanpurpose.group":"View Loan Purpose Educational Institution",
+  "label.heading.editloanpurpose.group":"Edit Loan Purpose Educational Institution",
+  "label.heading.createloanpurpose.group":"Create Loan Purpose Educational Institution",
+
+  "label.heading.loanpurpose.group":"Loan Purpose Educational Institution",
+
+
+  "label.input.loanpurpose.group":"Loan Purpose Educational Institution Name",
+  "label.input.loan.purpose.group.type":"Educational Institution Type",
+  "label.input.loan.purpose.groups":"Educational Institutions",
+  "label.input.loan.purpose.group":"Educational Institution",
+
+  "label.button.create.loanpurpose.group":"Create Loan Purpose Educational Institution",
+
+  "label.anchor.viewgroups":"View Educational Institution",
+
+  "label.input.clienttype":"Education Qualification",
+
+  "label.menu.clienttype": "Select Education Qualification",
+
+  "InterestIncentiveAttributeName.clientType":"Education Qualification",
+
+  "label.heading.clienttype" : "Education Qualification",
+
+  "label.input.alternateMobilenumber":"Telephone Number",
+
+  "label.input.clientclassification":"Occupation",
+
+  "label.menu.clientclassification": "Select Client Occupation",
+
+  "label.heading.clientclassification" : "Occupation"
+}
