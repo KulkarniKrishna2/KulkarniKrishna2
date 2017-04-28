@@ -1522,6 +1522,7 @@
     "label.button.parameters":"Parameters",
     "label.button.exportcsv":"Export CSV",
     "label.button.export":"Export",
+    "label.buttons.credit.aprisal.report":"Credit Apprisal Memo Details",
 
     "#Misc Labels": "..",
     "label.selectallowedparameter": "Select allowed parameter",

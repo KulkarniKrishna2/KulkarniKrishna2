@@ -1,0 +1,10 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "loanAccount": {
+      "isHiddenField": {
+        "creditApprisalReportButton": false
+      }
+    }
+  }
+}

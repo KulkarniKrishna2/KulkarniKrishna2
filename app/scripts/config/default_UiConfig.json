@@ -24,7 +24,8 @@
 		"graceOnArrearsAgeing": false,
 		"syncDisbursementDateWithMeeting": false,
 		"recurringMoratoriumOnPrincipalPeriods": false,
-		"brokenPeriodMethodType": false
+		"brokenPeriodMethodType": false,
+		"creditApprisalReportButton": true
 	  },
 	  "isMandatory": {
 		"externalId": false,
