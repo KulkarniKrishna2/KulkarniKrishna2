@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, $modal, dateFilter) {
+        LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, $modal, dateFilter, http, API_VERSION, $rootScope, $sce) {
 
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.id;
@@ -28,6 +28,7 @@
             scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
             scope.isDefaultAmountSection = false;
+            scope.showRunReport = false;
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -237,11 +238,18 @@
                         scope.modelName = 'approvedOnDate';
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
+                        if(scope.response  && scope.response.uiDisplayConfigurations &&
+                            scope.response.uiDisplayConfigurations.loanAccount &&
+                            scope.response.uiDisplayConfigurations.loanAccount.isHiddenField &&
+                            !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.creditApprisalReportButton){
+                            scope.showRunReport = true;
+                        }
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
                         scope.createClientMembersForGLIM();
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
+                        scope.clientId = data.clientId;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                             scope.approveTranches = true;
@@ -941,6 +949,30 @@
                 });
             };
 
+            scope.runReport = function(){
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Credit Appraisal Memo");
+                reportURL += "?output-type=" + encodeURIComponent("XLS") + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
+
+                var clientIdParam = "R_clientId="+scope.clientId;
+                var loanIdParam = "R_loanId="+scope.accountId;
+                var reportParms = clientIdParam+"&"+loanIdParam;
+                var inQueryParameters = reportParms;
+                if (inQueryParameters > "") reportURL += "&" + inQueryParameters;
+
+                // Allow untrusted urls for the ajax request.
+                // http://docs.angularjs.org/error/$sce/insecurl
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+
+                http.get(reportURL, {responseType: 'arraybuffer'}).
+                    success(function(data, status, headers, config) {
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], {type: contentType});
+                        var fileContent = URL.createObjectURL(file);
+
+                        // Pass the form data to the iframe as a data url.
+                        scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                    });
+            };
             scope.onDateChange = function(){
                 if(scope.processDate) {
                     var params = {};
@@ -973,7 +1005,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', 'dateFilter', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
         $log.info("LoanAccountActionsController initialized");
     });
 }(mifosX.controllers || {}));
