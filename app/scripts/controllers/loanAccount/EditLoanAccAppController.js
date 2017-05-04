@@ -316,7 +316,7 @@
                 scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
                 scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
                 scope.formData.discountOnDisbursalAmount = scope.loanaccountinfo.discountOnDisbursalAmount ;
-                scope.formData.collectInterestUpfront = scope.loanaccountinfo.collectInterestUpfront ;
+                scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.amountForUpfrontCollection ;
             }
 
             scope.addCharge = function () {
@@ -571,9 +571,13 @@
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 this.formData.loanTermFrequency = scope.loanTerm;
-                if(scope.formData.discountOnDisbursalAmount == undefined){
+                if (scope.loanaccountinfo.product.isFlatInterestRate && scope.formData.discountOnDisbursalAmount == undefined) {
                     this.formData.discountOnDisbursalAmount = null;
                 }
+                if (scope.loanaccountinfo.allowUpfrontCollection && scope.formData.amountForUpfrontCollection == undefined) {
+                    this.formData.amountForUpfrontCollection = null;
+                }
+
                 if (scope.date.recalculationRestFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
