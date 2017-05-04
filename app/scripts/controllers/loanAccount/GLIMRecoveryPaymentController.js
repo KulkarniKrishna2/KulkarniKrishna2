@@ -9,11 +9,18 @@
             scope.formData.dateFormat = scope.df;
             scope.formData.transactionDate = dateFilter(new Date(),scope.df);
             scope.clientMembers = [];
-
+            scope.showPaymentDetails = false;
+            scope.paymentTypes = [];
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"recoverypayment"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
                 scope.clientMembers = data.clientMembers;
             });
+             resourceFactory.paymentTypeResource.getAll({},function (data) {
+                        scope.paymentTypes = data;
+                        if (data.length > 0) {
+                            scope.formData.paymentTypeId = data[0].id;
+                        }
+                    });
 
             scope.getTransactionAmount = function(data){
                 var amount = 0;
