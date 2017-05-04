@@ -571,6 +571,9 @@
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 this.formData.loanTermFrequency = scope.loanTerm;
+                if(scope.formData.discountOnDisbursalAmount == undefined){
+                    this.formData.discountOnDisbursalAmount = null;
+                }
                 if (scope.date.recalculationRestFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
