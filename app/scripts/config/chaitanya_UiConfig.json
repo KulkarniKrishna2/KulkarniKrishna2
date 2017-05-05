@@ -80,6 +80,9 @@
       "paymentType": {
         "expectedDisbursalPaymentType": "Cash",
         "expectedRepaymentPaymentType": "Cash"
+      },
+      "bankAccountDetails":{
+        "bankName":"MASTER"
       }
     },
     "createCenter": {

@@ -35,10 +35,7 @@
       "bankAccountDetails": {
          "isMandatory": {
             "bankIFSCCode": true
-         },
-      "isAutoPopulate":{
-        "bankName": "MASTER"
-       }
+         }
       }
    }
 }

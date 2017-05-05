@@ -20,9 +20,6 @@
 				"graceOnArrearsAgeing": true,
 				"syncDisbursementDateWithMeeting": true
 			},
-			"isMandatory": {
-				"externalId": true
-			},
 			"isHiddenSection": {
 				"interestRecalculationSection": true,
 				"collateralSection": true
@@ -96,10 +93,7 @@
 		"bankAccountDetails": {
 			"isMandatory": {
 				"bankIFSCCode": true
-			},
-		"isAutoPopulate":{
-          "bankName": "MASTER"
-      }
+			}
 		}
 	}
 }
