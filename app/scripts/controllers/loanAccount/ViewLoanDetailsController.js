@@ -51,7 +51,7 @@
             };
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16
+                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16 || transactionTypeId == 8
                     || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId ) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 }
