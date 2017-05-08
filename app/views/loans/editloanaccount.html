@@ -436,13 +436,16 @@
             <tr data-ng-show="loanaccountinfo.product.isFlatInterestRate">
                 <td ><label>{{ 'label.input.discountondisbursalamount' | translate }}</label></td>
                 <td class="paddedbottom10">
-                    <input id="discountOnDisbursalAmount" type="text" name="discountOnDisbursalAmount" ng-model="formData.discountOnDisbursalAmount"
-                           class="form-control"
-                           number-format >
+                    <input id="discountOnDisbursalAmount" type="text" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
                 </td>
-                <td><label>{{ 'label.input.collectInterestUpfront' | translate }}</label></td>
-                <td class="paddedbottom10">
-                    <input id="collectInterestUpfront" type="checkbox" ng-model="formData.collectInterestUpfront">
+            </tr>
+            <tr data-ng-show="loanaccountinfo.allowUpfrontCollection">
+                <td>
+                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                </td>
+                <td>
+                    <input id="amountForUpfrontCollection" type="text" ng-model="formData.amountForUpfrontCollection"
+                           class="form-control" number-format/>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">
