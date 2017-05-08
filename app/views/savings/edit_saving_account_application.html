@@ -90,8 +90,8 @@
             <td class="width36 paddedbottom10">
                 <select id="interestCompoundingPeriodType"
                         ng-model="formData.interestCompoundingPeriodType"
-                        ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions"
-                        value="{{type.id}}" class="form-control width170px"></select>
+                        ng-options="interestCompoundingPeriodType.id as interestCompoundingPeriodType.value for interestCompoundingPeriodType in data.interestCompoundingPeriodTypeOptions"
+                        value="{{interestCompoundingPeriodType.id}}" class="form-control width170px"></select>
             </td>
 
         </tr>
@@ -108,8 +108,8 @@
                         class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
                 <select id="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType"
-                        ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
+                        ng-options="interestPostingPeriodType.id as interestPostingPeriodType.value for interestPostingPeriodType in data.interestPostingPeriodTypeOptions"
+                        value="{{interestPostingPeriodType.id}}" class="form-control width170px">
                 </select></td>
 
         </tr>
@@ -119,16 +119,16 @@
             <td class="width36 paddedbottom10">
                 <select id="interestCalculationType"
                         ng-model="formData.interestCalculationType"
-                        ng-options="type.id as type.value for type in data.interestCalculationTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
+                        ng-options="interestCalculationType.id as interestCalculationType.value for interestCalculationType in data.interestCalculationTypeOptions"
+                        value="{{interestCalculationType.id}}" class="form-control width170px">
                 </select></td>
             <td class="width14"><label class="control-label">{{ 'label.input.daysinyears' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
                 <select id="interestCalculationDaysInYearType"
                         ng-model="formData.interestCalculationDaysInYearType"
-                        ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
+                        ng-options="interestCalculationDaysInYearType.id as interestCalculationDaysInYearType.value for interestCalculationDaysInYearType in data.interestCalculationDaysInYearTypeOptions"
+                        value="{{interestCalculationDaysInYearType.id}}" class="form-control width170px">
                 </select>
             </td>
         </tr>
