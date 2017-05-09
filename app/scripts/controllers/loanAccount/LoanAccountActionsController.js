@@ -292,6 +292,7 @@
                     break;
                 case "disburse":
                     scope.modelName = 'actualDisbursementDate';
+                    scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
@@ -305,6 +306,11 @@
                         if (data.fixedEmiAmount) {
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
+                        }
+                        if(scope.showNetDisbursalAmount && (scope.netAmount && scope.netAmount < scope.formData.transactionAmount)) {
+                            scope.showNetDisbursalAmount = true;
+                        }else{
+                            scope.showNetDisbursalAmount = false;
                         }
                         scope.formData.discountOnDisbursalAmount=data.discountOnDisbursalAmount;
                         if(data.expectedFirstRepaymentOnDate){
