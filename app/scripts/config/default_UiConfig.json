@@ -25,7 +25,8 @@
 		"syncDisbursementDateWithMeeting": false,
 		"recurringMoratoriumOnPrincipalPeriods": false,
 		"brokenPeriodMethodType": false,
-		"creditApprisalReportButton": true
+		"creditApprisalReportButton": true,
+		"netDisbursalAmount":true
 	  },
 	  "isMandatory": {
 		"externalId": false,
