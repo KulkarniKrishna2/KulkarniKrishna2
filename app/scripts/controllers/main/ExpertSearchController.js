@@ -72,6 +72,10 @@
 				}
 			}
 			// retrieved 8 frequent actions
+
+			if (scope.landingPath != undefined && scope.landingPath != "" && scope.landingPath != "/" && scope.landingPath != "/home") {
+				location.path(scope.landingPath);
+			}
             
             scope.searchParams = ['create client', 'clients', 'create group', 'groups', 'centers', 'create center', 'configuration', 'tasks', 'templates', 'system users',
                                   'create template', 'create loan product', 'create saving product', 'roles', 'add role', 'configure maker checker tasks',

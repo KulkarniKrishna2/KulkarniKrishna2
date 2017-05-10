@@ -1,7 +1,16 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http) {
+                  uiConfigService, $http, authenticationService) {
+            scope.hideLoginPannel = false;
+            if(QueryParameters["username"] != "" && QueryParameters["password"] != "" && QueryParameters["landingPath"] != ""){
+                scope.hideLoginPannel = true;
+                scope.landingPath = QueryParameters["landingPath"];
+                var loginCredentials = {};
+                loginCredentials.username = QueryParameters["username"];
+                loginCredentials.password = QueryParameters["password"];
+                authenticationService.authenticateWithUsernamePassword(loginCredentials);
+            }
 
             $http.get('release.json').success(function(data) {
                 scope.version = data.version;
@@ -360,8 +369,22 @@
         'tmhDynamicLocale',
         'UIConfigService',
         '$http',
+        'AuthenticationService',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");
     });
 }(mifosX.controllers || {}));
+
+QueryParameters = (function () {
+    var result = {};
+    if (window.location.search) {
+        // split up the query string and store in an associative array
+        var params = window.location.search.slice(1).split("&");
+        for (var i = 0; i < params.length; i++) {
+            var tmp = params[i].split("=");
+            result[tmp[0]] = unescape(tmp[1]);
+        }
+    }
+    return result;
+}());
