@@ -433,7 +433,7 @@
                             }
                         }
                     }
-                    resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
+                    resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true, chargeStatus:"active"}, function (data) {
                         scope.charges = data.pageItems;
 
 

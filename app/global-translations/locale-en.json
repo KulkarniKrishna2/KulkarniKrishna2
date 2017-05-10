@@ -2645,7 +2645,7 @@
     "validation.msg.savingsaccount.transaction.transactionAmount.cannot.be.blank": "Transaction amount is mandatory.",
     "validation.msg.savingsaccount.transaction.transactionAmount.not.greater.than.zero": "Transaction amount must be greater than zero.",
     "error.msg.savingsaccount.transaction.withdrawals.blocked.during.lockin.period": "Withdrawals blocked until after `{{params[1].value}}`.",
-    "error.msg.savingsaccount.transaction.insufficient.account.balance": "Insufficient funds to complete the  transaction.",
+    "error.msg.savingsaccount.transaction.insufficient.account.balance": "Insufficient funds to complete the  transaction for account `{{params[1].value}}`.",
     "error.msg.savingsaccount.transaction.insufficient.account.balance.withdraw": "Insufficient funds to complete the  transaction(Transaction amount + Withdraw fee).",
     "validation.msg.savingsaccount.applyannualfee.transaction.account.is.not.active": "Transaction is not allowed. Account is not active.",
     "validation.msg.savingsaccount.applyannualfee.no.annualfee.settings": "Cannot apply annual fees to account. No annual fee settings on account.",
