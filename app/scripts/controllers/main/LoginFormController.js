@@ -13,6 +13,7 @@
             };
 
             scope.$on("UserAuthenticationFailureEvent", function (event, data, status) {
+                scope.hideLoginPannel = false;
                 delete scope.loginCredentials.password;
                 scope.authenticationFailed = true;
                 if(status != 401) {
@@ -29,6 +30,7 @@
             });
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
+                scope.hideLoginPannel = false;
                 scope.load = false;
                 timer = $timeout(function(){
                     delete scope.loginCredentials.password;
