@@ -37,6 +37,11 @@
                     {{'label.heading.manage.banks' | translate}}</h4>
                 <p class="list-group-item-text">{{ 'label.heading.define.and.manage.banks' | translate}}</p>
             </a>
+            <a class="list-group-item" href="#/voucherentry" has-permission='READ_VOUCHER'>
+                <h4 class="list-group-item-heading"><i class="icon-book icon-large"></i>&nbsp;&nbsp;
+                    {{'label.heading.voucher.entry' | translate}}</h4>
+                <p class="list-group-item-text">{{ 'label.heading.define.voucher.entry' | translate}}</p>
+            </a>
         </div>
     </div>
     <div class="col-sm-6 col-md-6">
@@ -75,6 +80,12 @@
                 'label.heading.bank.statement.reconciliation' | translate}}</h4>
 
             <p class="list-group-item-text">{{ 'label.create.bank.statement.reconciliation' | translate}}</p>
+        </a>
+        <a class="list-group-item" href="#/searchvoucherentries" has-permission='READ_VOUCHER'>
+            <h4 class="list-group-item-heading"><i class="icon-search icon-large"></i>&nbsp;&nbsp;{{
+                'label.heading.search.voucher.entry' | translate}}</h4>
+
+            <p class="list-group-item-text">{{ 'label.heading.define.search.voucher.entry' | translate}}</p>
         </a>
     </div>
 

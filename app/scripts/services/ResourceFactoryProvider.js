@@ -1156,6 +1156,14 @@
                     }),
                     taskConfigTemplateEntityResource: defineResource(apiVer + "/taskconfigtemplate/:templateId/template", {}, {
                         get:{method: 'GET', params: {}}
+                    }),
+                    voucherTemplateResource: defineResource(apiVer + "/vouchers/template", {}, {
+                        get:{method: 'GET', params: {}}
+                    }),
+                    voucherResource: defineResource(apiVer + "/vouchers/:voucherId", {voucherId:'@voucherId', command: '@command'}, {
+                        getAll: {method: 'GET', params: {}},
+                        create:{method: 'POST', params: {}},
+                        update:{method: 'PUT', params: {}}
                     })
                 };
             }];

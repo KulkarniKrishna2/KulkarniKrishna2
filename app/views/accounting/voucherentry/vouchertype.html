@@ -1,0 +1,36 @@
+<div class="col-md-12" ng-controller="VoucherTypeController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.voucherentry' | translate}}</li>
+    </ul>
+    <form name="vouchertype" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <div class="form-horizontal">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">
+                            {{'label.input.voucher.type' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <select chosen="voucherTypeOptions" name="voucherTypeId" id="voucherTypeId"
+                                    data-ng-options="voucher.id as voucher.value for voucher in voucherTypeOptions"
+                                    class="form-control" ng-model="voucherTypeId" required late-Validate
+                                    value="voucher.id">
+                                <option value="" style="display:none;">{{'label.menu.select.voucher.type' | translate}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="vouchertype" valattribute="voucherTypeId"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/accounting" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.next' | translate}}</button>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>

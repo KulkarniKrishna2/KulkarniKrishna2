@@ -1,0 +1,10 @@
+<div class="col-md-12" ng-controller="ViewVoucherTypeController" xmlns="http://www.w3.org/1999/html">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/voucherentry">{{'label.anchor.voucherentry' | translate}}</a></li>
+            <li class="active">{{voucherType}}</li>
+        </ul>
+    </div>
+    <div ng-if="isDisplayView" ng-include="'views/accounting/voucherentry/viewvouchertypedetails.html'"></div>
+</div>

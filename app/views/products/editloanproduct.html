@@ -1495,13 +1495,8 @@
 				<td class="width30">
 					<select id="codeValueSpecificAccountMappings[{{$index}}].expenseAccountId"
 							ng-model="codeValueAccountMapping.expenseAccountId"
-<<<<<<< HEAD
 							chosen="expenseAccountOptions"
 							ng-options="account.id as (account.name +'('+ account.glCode +')') for account in expenseAccountOptions"
-=======
-							chosen="codeValueAccountMapping.expenseAccountOptions"
-							ng-options="account.id as account.name for account in expenseAccountOptions"
->>>>>>> v17.01.1_RC
 							value="{{account.id}}">
 					</select>
 				</td>

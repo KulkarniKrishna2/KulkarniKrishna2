@@ -1,0 +1,372 @@
+<div class="col-md-12" ng-controller="ViewVoucherTypeDetailsController">
+    <tabset class="overflowhidden marginbottom0" tabset-name="voucherTypetTabset">
+        <tab heading="{{'label.heading.voucher.details' | translate}}">
+            <div class="col-md-12 col-sm-12">
+                <div class="row primarydiv"></div>
+                <div class="row client">
+                    <div class="col-sm-12 col-md-12 paddingleft0px">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td class="width14">{{'label.input.vouchernumber' | translate}}</td>
+                                <td>{{voucherData.voucherNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.voucher.type' | translate}}</td>
+                                <td>{{voucherType}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.currency' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.currency.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.office' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.officeName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.transactionDate' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.transactionDate | DateFormat}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.transactionid' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.transactionId}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.reversed' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.reversed ? 'Yes' : 'No'}}</td>
+                            </tr>
+                            <tr ng-if="voucherData.journalEntryData.reversed">
+                                <td>{{'label.heading.reversal.id' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.reversalId}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.createdby' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.createdByUserName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.createdon' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.createdDate | DateFormat}}</td>
+                            </tr>
+                            <tr ng-if="voucherData.journalEntryData.comments">
+                                <td>{{'label.input.narration' | translate}}</td>
+                                <td>{{voucherData.journalEntryData.comments}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 paddingleft0px"
+                         ng-if="journalEntryDetails && journalEntryDetails.length > 0">
+                        <div class="form-group">
+                            <table width="100%">
+                                <tr class="bottomborder">
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.heading.transactions' | translate}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr class="active">
+                                        <th>{{debitLabel | translate}}( {{'label.heading.debit' | translate}} )</th>
+                                        <th>{{'label.heading.amount' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-if="journalEntryDetail.entryType.value == 'DEBIT'"
+                                        ng-repeat="journalEntryDetail in journalEntryDetails track by $index">
+                                        <td>{{journalEntryDetail.glAccountData.name}}</td>
+                                        <td>{{journalEntryDetail.amount | number}}</td>
+                                    </tr>
+                                    <tr class="success">
+                                        <td>{{'label.heading.total' | translate}}</td>
+                                        <td>{{totalTransactionData.totalDebitAmount | number}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-6">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr class="active">
+                                        <th>{{creditLabel | translate}}( {{'label.heading.credit' | translate}} )</th>
+                                        <th>{{'label.heading.amount' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-if="journalEntryDetail.entryType.value == 'CREDIT'"
+                                        ng-repeat="journalEntryDetail in journalEntryDetails track by $index">
+                                        <td>{{journalEntryDetail.glAccountData.name}}</td>
+                                        <td>{{journalEntryDetail.amount | number}}</td>
+                                    </tr>
+                                    <tr class="success">
+                                        <td>{{'label.heading.total' | translate}}</td>
+                                        <td>{{totalTransactionData.totalCreditAmount | number}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 paddingleft0px"
+                         ng-if="paymentDetails && paymentDetails.id && isUpdatePaymentDetails == false">
+                        <div class="form-group">
+                            <table width="100%">
+                                <tr class="bottomborder">
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.input.instrument.information' | translate}}</td>
+                                    <td>
+                                        <button type="button" class="icon-edit icon-white right"
+                                                ng-click="enableEditPaymentDetails()">{{
+                                            'label.button.edit' | translate }}
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td class="width14">{{'label.heading.instrument.type' | translate}}</td>
+                                <td>{{paymentDetails.paymentType.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.instrument.no' | translate}}</td>
+                                <td>{{paymentDetails.checkNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.instrument.date' | translate}}</td>
+                                <td>{{paymentDetails.transactionDate | DateFormat}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.bank' | translate}}</td>
+                                <td>{{paymentDetails.bankNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.input.branch' | translate}}</td>
+                                <td>{{paymentDetails.branchName}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 paddingleft0px"
+                         ng-if="paymentDetails && paymentDetails.id && isUpdatePaymentDetails == true">
+                        <form name="updateVoucherForm" novalidate="" class="form-horizontal"
+                              rc-submit="submitPaymentDetails()">
+                            <api-validate></api-validate>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">{{ 'label.heading.instrument.type' |
+                                        translate}}
+                                        <span class="required">*</span></label>
+
+                                    <div class="col-sm-3">
+                                        <select id="paymentType" name="paymentType" chosen="paymentOptions"
+                                                ng-options="payment.id as payment.name for payment in paymentOptions"
+                                                ng-model="formData.paymentDetails.paymentType" class="form-control"
+                                                value="{{payment.id}}" required late-validate="">
+                                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="updateVoucherForm" valattribute="paymentType"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">{{ 'label.heading.instrument.no' | translate}}
+                                        <span class="required">*</span></label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="instrumentionNumber"
+                                               name="instrumentionNumber"
+                                               ng-model="formData.paymentDetails.instrumentionNumber" required
+                                               late-validate=""/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="updateVoucherForm"
+                                                       valattribute="instrumentionNumber"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">{{ 'label.heading.instrument.date' | translate
+                                        }}
+                                        <span class="required">*</span></label>
+                                    <div class="col-sm-3">
+                                        <input id="instrumentationDate" name="instrumentationDate" type="text"
+                                               class="form-control" datepicker-pop="dd MMMM yyyy"
+                                               ng-model="formData.paymentDetails.instrumentationDate" is-open="opened"
+                                               min="minDate" max="'2020-06-22'" required late-validate=""/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="updateVoucherForm"
+                                                       valattribute="instrumentationDate"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">{{ 'label.heading.bank' | translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="bankName" name="bankName"
+                                               ng-model="formData.paymentDetails.bankName" required late-validate=""/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="updateVoucherForm" valattribute="bankName"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">{{ 'label.input.branch' | translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="branchName" name="branchName"
+                                               ng-model="formData.paymentDetails.branchName" required late-validate=""/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="updateVoucherForm" valattribute="branchName"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-5">
+                                    <a id="idCancelPaymentDetails" ng-click="cancelPaymentDetails()"
+                                       class="btn btn-default">{{'label.button.cancel'
+                                        | translate}}</a>
+                                    <button id="idUpdatePaymentDetails" type="submit" class="btn btn-primary"
+                                            has-permission='UPDATE_{{voucherCode | uppercase}}_VOUCHER'>
+                                        {{'label.button.update' | translate}}
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab ng-if="isUploadDocuments" heading="{{'label.input.attachments' | translate}}" select="getDocuments()"
+             has-permission='READ_DOCUMENT'>
+            <div class="pull-right" ng-if="!isUploadNewDocuments">
+                <a id="idUploadNewDocuments" ng-click="uploadNewDocuments()" class="btn btn-primary"
+                   has-permission='UPDATE_{{voucherCode | uppercase}}_VOUCHER'><i
+                        class="icon-plus icon-white"></i>
+                    {{'label.button.upload' | translate}}
+                </a>
+            </div>
+            <br>
+            <table class="table" ng-show="documents.length > 0" ng-if="!isUploadNewDocuments">
+                <thead>
+                <tr class="graybg">
+                    <th>#</th>
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.description' | translate}}</th>
+                    <th>{{'label.heading.filename' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="document in documents track by $index">
+                    <td>
+                        {{($index+1)}}
+                    </td>
+                    <td>{{document.name}}</td>
+                    <td>{{document.description}}</td>
+                    <td>{{document.fileName}}</td>
+                    <td>
+                        <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                        <a data-ng-if="false" ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div ng-if="isUploadNewDocuments == true">
+                <form name="uploadDocumentsFrom" novalidate="" class="form-horizontal" rc-submit="uploadDocuments()">
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{'label.input.select.bill' | translate}}<span
+                                    class="required"></span></label>
+                            <div class="col-sm-3">
+                                <input type="text" id="billName" name="billName" ng-model="docData.name"
+                                       class="form-control" placeholder="{{'label.heading.filename'|translate}}"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <textarea rows="1" cols="15" ng-model="docData.description" class="form-control"
+                                          placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                            </div>
+                            <div class="col-sm-2" data-ng-if="docData.name && docData.name != ''">
+                                <input type="file" id="billFile" name="billFile"
+                                       ng-file-select="onFileSelect($files)">
+                            </div>
+                            <div class="col-md-2" data-ng-if="false">
+                                <button id="uploadFile" type="submit" class="btn btn-primary">
+                                    {{'label.button.upload' |
+                                    translate}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">&nbsp;<span class="required"></span></label>
+                            <div class="col-sm-8">
+                                <table class="table">
+                                    <thead>
+                                    <tr class="graybg">
+                                        <th>#</th>
+                                        <th>{{'label.input.bills' | translate}}</th>
+                                        <th>{{'label.input.attachments' | translate}}</th>
+                                        <th ng-if="false">{{'label.heading.actions' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-repeat="document in newDocuments track by $index">
+                                        <td>
+                                            {{($index+1)}}
+                                        </td>
+                                        <td>
+                                            {{document.name}}
+                                        </td>
+                                        <td>
+                                            {{document.fName}}
+                                        </td>
+                                        <td ng-if="false">
+                                            <button role="button" ng-click="viewDocument($index)"
+                                                    class="btn-link ng-binding">
+                                                <i class="icon-eye-open icon-white"></i>
+                                            </button>
+                                            <button role="button" ng-click="deleteDocument($index)"
+                                                    class="btn-link ng-binding">
+                                                <i class="icon-remove icon-white"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-offset-5">
+                            <a id="idCancelDocuments" ng-click="cancelDocuments()"
+                               class="btn btn-default">{{'label.button.cancel'
+                                | translate}}</a>
+                            <button id="idUploadDocuments" type="submit" data-ng-click="validate=true"
+                                    class="btn btn-primary"
+                                    has-permission='UPDATE_{{voucherCode | uppercase}}_VOUCHER'>
+                                {{'label.button.upload' | translate}}
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+        </tab>
+    </tabset>
+</div>

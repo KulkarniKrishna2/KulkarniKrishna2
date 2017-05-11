@@ -1,0 +1,13 @@
+<div class="col-md-12" ng-controller="CreateVoucherTypeController" xmlns="http://www.w3.org/1999/html">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/voucherentry">{{'label.anchor.voucherentry' | translate}}</a></li>
+            <li class="active">{{voucherType}}</li>
+        </ul>
+    </div>
+    <div ng-if="isCommonCreateForm"
+         ng-include="'views/accounting/voucherentry/createvouchertypeform.html'"></div>
+    <div ng-if="!isCommonCreateForm && (voucherCode == 'interbranchcashtransfer' || voucherCode == 'interbranchbanktransfer')"
+         ng-include="'views/accounting/voucherentry/createvouchertypeinterbranchtransfer.html'"></div>
+</div>

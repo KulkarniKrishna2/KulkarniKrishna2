@@ -493,7 +493,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/funds/EditFundController',
             'organization/funds/AssignFundController',
             'main/AdvancedSearchController',
-            'configurations/DedupController'
+            'configurations/DedupController',
+            'accounting/voucherentry/CreateVoucherTypeController',
+            'accounting/voucherentry/CreateVoucherTypeFormController',
+            'accounting/voucherentry/CreateVoucherTypeInterBranchTransferController',
+            'accounting/voucherentry/SearchVoucherController',
+            'accounting/voucherentry/ViewVoucherTypeController',
+            'accounting/voucherentry/ViewVoucherTypeDetailsController',
+            'accounting/voucherentry/VoucherTypeController'
         ],
         filters: [
             'StatusLookup',

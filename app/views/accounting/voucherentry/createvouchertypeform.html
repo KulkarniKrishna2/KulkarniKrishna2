@@ -1,0 +1,393 @@
+<div ng-controller="CreateVoucherTypeFormController">
+    <form name="createVoucherForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="alert alert-success" role="alert" ng-show="showTransactionDetails">
+                <span><h4><strong>{{'label.heading.voucher.created.with.transaction.id' | translate}}&nbsp;:&nbsp;&nbsp;<a href="" ng-click="viewTransaction()">{{voucherData.voucherNumber}}</a></strong></h4></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.voucher.type' | translate}}<span class="required">*</span>
+                </label>
+                <label class="col-sm-3">
+                    {{voucherType}}
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.menu.selectoffice' | translate}}<span
+                        class="required">*</span></label>
+                <div class="col-sm-3">
+                    <select id="officeId" name="officeId" chosen="officeOptions"
+                            ng-options="office.id as office.name for office in officeOptions"
+                            ng-model="formData.officeId" class="form-control" value="{{office.id}}" required
+                            late-validate="">
+                        <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="officeId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="currencyCode" name="currencyCode" chosen="currencyOptions"
+                            ng-model="formData.currencyCode" class="form-control"
+                            ng-options="currency.code as currency.name for currency in currencyOptions"
+                            value="{{currency.code}}" required late-validate="">
+                        <option value="">{{'label.selectcurrency' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="currencyCode"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="transactionDate" name="transactionDate" type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"
+                           min="minDate" max="'2020-06-22'" required late-validate=""/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="transactionDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{debitLabel | translate}}<span class="required">*</span>
+                    <br>
+                    ({{'label.input.debit'| translate}})
+                </label>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary" data-ng-click="addDebitAccount()"><i
+                            class="icon-plus icon-white"></i></a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">&nbsp;</label>
+                <div class="col-sm-10">
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.account' | translate}}</th>
+                            <th>{{'label.heading.amount' | translate}}</th>
+                            <th></th>
+                            <th colspan="2" align="center">{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr data-ng-repeat="account in debitAccounts track by $index">
+                            <td>
+                                <ng-form name="glDAccountsForm{{$index}}">
+                                    <div class="form-group">
+                                        <select id="glDAccounts{{$index}}" name="glDAccounts"
+                                                chosen="debitAccountingOptions" class="form-control"
+                                                ng-model="account.glAccountId"
+                                                ng-options="glAccount.id as glAccount.name + ' ' + glAccount.glCode for
+                                        glAccount in debitAccountingOptions"
+                                                value="{{glAccount.id}}" required late-validate=""
+                                                ng-change="setDebitAccountRunningBalance($index)">
+                                            <option class="displaynone" value="">{{'label.input.selectaccountnameorcode'
+                                                |
+                                                translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div ng-show="validate && glDAccountsForm{{$index}}.glDAccounts.$error.required">
+                                        <span class="error">{{ 'label.requirefield' | translate }}</span>
+                                    </div>
+                                </ng-form>
+                            </td>
+                            <td>
+                                <ng-form name="damountForm{{$index}}">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="damount{{$index}}"
+                                               name="damount"
+                                               ng-model="account.amount"
+                                               number-format required late-validate=""/>
+                                    </div>
+                                    <div ng-show="validate && damountForm{{$index}}.damount.$error.required">
+                                        <span class="error">{{ 'label.requirefield' | translate }}</span>
+                                    </div>
+                                </ng-form>
+                            </td>
+                            <td>
+                                <button data-ng-if="debitAccounts.length > 1" type="button"
+                                        class="btn-link ng-binding">
+                                    <i class="icon-remove icon-white" ng-click="deleteDebitAccount($index)"></i>
+                                </button>
+                            </td>
+                            <td>
+
+                                <a class="btn btn-primary" ng-click="showDebitAccountRunningBalance($index)"
+                                   ng-if="account.glAccountId">
+                                    {{'label.button.show.balance'| translate}}
+                                </a>
+                            </td>
+                            <td>
+
+                                <label ng-if="account.isShowRunningBalance === true">{{account.organizationRunningBalance
+                                    | number}}</label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{creditLabel | translate}}<span class="required">*</span>
+                    <br>
+                    ({{'label.input.credit'| translate}})
+                </label>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary" data-ng-click="addCreditAccount()"><i
+                            class="icon-plus icon-white"></i></a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">&nbsp;</label>
+                <div class="col-sm-10">
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.account' | translate}}</th>
+                            <th>{{'label.heading.amount' | translate}}</th>
+                            <th></th>
+                            <th colspan="2" align="center">{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr data-ng-repeat="account in creditAccounts track by $index">
+                            <td>
+                                <ng-form name="glCAccountsForm{{$index}}">
+                                    <div class="form-group">
+                                        <select id="glCAccounts{{$index}}" name="glCAccounts"
+                                                chosen="creditAccountingOptions" class="form-control"
+                                                ng-model="account.glAccountId"
+                                                ng-options="glAccount.id as glAccount.name + ' ' + glAccount.glCode for glAccount in creditAccountingOptions"
+                                                value="{{glAccount.id}}" required late-validate=""
+                                                ng-change="setCreditAccountRunningBalance($index)">
+                                            <option class="displaynone" value="">{{'label.input.selectaccountnameorcode'
+                                                |
+                                                translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div ng-show="validate && glCAccountsForm{{$index}}.glCAccounts.$error.required">
+                                        <span class="error">{{ 'label.requirefield' | translate }}</span>
+                                    </div>
+                                </ng-form>
+                            </td>
+                            <td>
+                                <ng-form name="camountForm{{$index}}">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="camount{{$index}}"
+                                               name="camount"
+                                               ng-model="account.amount"
+                                               number-format required late-validate=""/>
+                                    </div>
+                                    <div ng-show="validate && camountForm{{$index}}.camount.$error.required">
+                                        <span class="error">{{ 'label.requirefield' | translate }}</span>
+                                    </div>
+                                </ng-form>
+                            </td>
+                            <td>
+                                <button data-ng-if="creditAccounts.length > 1" type="button"
+                                        class="btn-link ng-binding">
+                                    <i class="icon-remove icon-white" ng-click="deleteCreditAccount($index)"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" ng-click="showCreditAccountRunningBalance($index)"
+                                   ng-if="account.glAccountId">
+                                    {{'label.button.show.balance'| translate}}
+                                </a>
+                            </td>
+                            <td>
+                                <label ng-if="account.isShowRunningBalance == true">{{account.organizationRunningBalance
+                                    | number}}</label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-if="isUploadDocuments">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.select.bill' | translate}}<span
+                            class="required"></span></label>
+                    <div class="col-sm-3">
+                        <input type="text" id="billName" name="billName" ng-model="docData.name"
+                               class="form-control" placeholder="{{'label.heading.filename'|translate}}"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <textarea rows="1" cols="15" ng-model="docData.description" class="form-control"
+                                  placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                    </div>
+                    <div class="col-sm-2" data-ng-if="docData.name && docData.name != ''">
+                        <input type="file" id="billFile" name="billFile" ng-file-select="onFileSelect($files)">
+                    </div>
+                    <div class="col-md-2" data-ng-if="false">
+                        <button id="uploadFile" type="submit" class="btn btn-primary">{{'label.button.upload' |
+                            translate}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">&nbsp;<span class="required"></span></label>
+                    <div class="col-sm-8">
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th>#</th>
+                                <th>{{'label.input.bills' | translate}}</th>
+                                <th>{{'label.input.attachments' | translate}}</th>
+                                <th ng-if="false">{{'label.heading.actions' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="document in documents track by $index">
+                                <td>
+                                    {{($index+1)}}
+                                </td>
+                                <td>
+                                    {{document.name}}
+                                </td>
+                                <td>
+                                    {{document.fName}}
+                                </td>
+                                <td ng-if="false">
+                                    <button role="button" ng-click="viewDocument($index)" class="btn-link ng-binding">
+                                        <i class="icon-eye-open icon-white"></i>
+                                    </button>
+                                    <button role="button" ng-click="deleteDocument($index)" class="btn-link ng-binding">
+                                        <i class="icon-remove icon-white"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.narration' | translate}}<span
+                        class="required"></span></label>
+                <div class="col-sm-8">
+                    <textarea id="narration" name="narration" rows="5" ng-model="formData.narration"
+                              class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div ng-if="isCaptureInstrumentInformation">
+                <div class="form-group">
+                    <table width="100%">
+                        <tr class="bottomborder">
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr class="bottomborder graybg">
+                            <td>{{'label.input.instrument.information' | translate}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.instrument.type' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <select id="paymentType" name="paymentType" chosen="paymentOptions"
+                                ng-options="payment.id as payment.name for payment in paymentOptions"
+                                ng-model="formData.paymentDetails.paymentType" class="form-control" value="{{payment.id}}"
+                                required
+                                late-validate="">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createVoucherForm" valattribute="paymentType"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.instrument.no' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="instrumentionNumber"
+                               name="instrumentionNumber"
+                               ng-model="formData.paymentDetails.instrumentionNumber" required late-validate=""/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createVoucherForm" valattribute="instrumentionNumber"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.instrument.date' | translate }}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input id="instrumentationDate" name="instrumentationDate" type="text" class="form-control"
+                               datepicker-pop="dd MMMM yyyy" ng-model="formData.paymentDetails.instrumentationDate"
+                               is-open="opened"
+                               min="minDate" max="'2020-06-22'" required late-validate=""/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createVoucherForm" valattribute="instrumentationDate"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.bank' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="bankName"
+                               name="bankName"
+                               ng-model="formData.paymentDetails.bankName" required late-validate=""/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createVoucherForm" valattribute="bankName"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.branch' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="branchName"
+                               name="branchName"
+                               ng-model="formData.paymentDetails.branchName" required late-validate=""/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createVoucherForm" valattribute="branchName"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-offset-5">
+                <a id="cancel" ng-href="#/voucherentry" class="btn btn-default">{{'label.button.cancel' |
+                    translate}}</a>
+                <button id="save" type="submit" data-ng-click="validate=true" class="btn btn-primary"
+                        has-permission='CREATE_{{voucherCode | uppercase}}_VOUCHER'>
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
