@@ -740,7 +740,7 @@
                                 <th>{{loandetails.repaymentSchedule.totalFeeChargesCharged | number}}</th>
                                 <th>{{loandetails.repaymentSchedule.totalPenaltyChargesCharged | number}}</th>
 
-                                <th>{{loandetails.repaymentSchedule.totalRepaymentExpected | number}}</th>
+                                <th>{{loandetails.repaymentSchedule.totalRepaymentExpected-loandetails.repaymentSchedule.totalAdvancePayment  | number}}</th>
                                 <th>{{loandetails.repaymentSchedule.totalRepayment | number}}</th>
                                 <th  data-ng-hide="loandetails.isInterestRecalculationEnabled">{{loandetails.repaymentSchedule.totalPaidInAdvance | number}}</th>
                                 <th  data-ng-show="loandetails.isInterestRecalculationEnabled">{{loandetails.repaymentSchedule.totalAdvancePayment | number}}</th>
