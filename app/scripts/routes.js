@@ -1547,7 +1547,19 @@
             })
             .when('/taskcreate', {
                 templateUrl: 'views/task/createtask/createtask.html'
-            });
+            })
+            .when('/accounting/voucherentry/:voucherTypeId', {
+                templateUrl: 'views/accounting/voucherentry/createvouchertype.html'
+            })
+            .when('/voucherentry', {
+                templateUrl: 'views/accounting/voucherentry/vouchertype.html'
+            })
+            .when('/searchvoucherentries', {
+                templateUrl: 'views/accounting/voucherentry/searchvoucher.html'
+            })
+            .when('/accounting/view/voucherentry/:voucherCode/:voucherId', {
+                templateUrl: 'views/accounting/voucherentry/viewvouchertype.html'
+            })
 
         $locationProvider.html5Mode(false);
     };
