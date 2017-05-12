@@ -3,7 +3,8 @@
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
                   uiConfigService, $http, authenticationService) {
             scope.hideLoginPannel = false;
-            if(QueryParameters["username"] != "" && QueryParameters["password"] != "" && QueryParameters["landingPath"] != ""){
+            if (QueryParameters["username"] != undefined && QueryParameters["username"] != "" && QueryParameters["password"] != undefined &&
+                QueryParameters["password"] != "" && QueryParameters["landingPath"] != undefined && QueryParameters["landingPath"] != "") {
                 scope.hideLoginPannel = true;
                 scope.landingPath = QueryParameters["landingPath"];
                 var loginCredentials = {};
