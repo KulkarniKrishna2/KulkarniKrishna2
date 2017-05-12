@@ -923,6 +923,7 @@
     "error.msg.cgt.day.cannot.be.bfore.schedule.date" : "Cgt completion date cannot be before schedule date {{params[1].value}}",
     "error.msg.group.submittedOnDate.after.activation.date" : "Activation date cannot be before submission date",
     "error.msg.actual.disbursement.date.does.not.match.with.expected.disbursal.date" : "Actual disbursement date {{params[0].value}} should be equal to Expected disbursal date {{params[1].value}}",
+    "error.msg.loan.application.first.repayment.date.do.not.match.meeting.date" : "First repayment date {{params[0].value}} do not fall on a meeting date",
 
     "#--------": "------------",
 
