@@ -6,6 +6,58 @@
 			
             scope.coadata = [];
             scope.isTreeView = false;
+            scope.accountsPerPage = 100;
+            
+            resourceFactory.accountCoaTemplateResource.get({type: '0'}, function (data) {
+                scope.accountData = data;
+                scope.glClassifications = data.glClassificationTypeOptions;
+                scope.accountTypes = data.accountTypeOptions;
+                scope.usageTypes = data.usageOptions;
+
+            });
+
+            scope.searchAccounts = function () {
+                var searchParams = {
+                    offset: 0,
+                    limit: scope.accountsPerPage,
+                    isPagination: true,
+                    type: scope.accountType,
+                    usage: scope.usageType,
+                    classificationType: scope.classification
+                };
+                resourceFactory.accountCoaResource.getAllAccountCoasPage(searchParams, function (data) {
+                    scope.totalAccounts = data.totalFilteredRecords;
+                    scope.coadatasList = data.pageItems;
+
+                });
+            };
+
+            scope.getResultsPage = function (pageNumber) {
+                var searchParams = {
+                    offset: ((pageNumber - 1) * scope.accountsPerPage),
+                    limit: scope.accountsPerPage,
+                    isPagination: true,
+                    type: scope.accountType,
+                    usage: scope.usageType,
+                    classificationType: scope.classification
+                };
+                var items = resourceFactory.accountCoaResource.getAllAccountCoasPage(searchParams, function (data) {
+                    scope.coadatasList = data.pageItems;
+
+                });
+            };
+
+            scope.changeType = function () {
+                scope.accountType = scope.formData.type;
+            };
+
+            scope.changeUsage = function () {
+                scope.usageType = scope.formData.usage;
+            };
+
+            scope.changeClassificationType = function () {
+                scope.classification = scope.formData.glClassificationType;
+            };
 
             scope.routeTo = function (id) {
                 location.path('/viewglaccount/' + id);
@@ -38,85 +90,86 @@
                     return out;
                 }
                 return obj;
+            };
+
+            scope.treeView = function() {
+                resourceFactory.accountCoaResource.getAllAccountCoas(function (data) {
+                    scope.coadatas = scope.deepCopy(data);
+                    scope.ASSET = translate('ASSET');
+                    scope.LIABILITY = translate('LIABILITY');
+                    scope.EQUITY = translate('EQUITY');
+                    scope.INCOME = translate('INCOME');
+                    scope.EXPENSE = translate('EXPENSE');
+                    scope.Accounting = translate('Accounting');
+
+                    var assetObject = {id: -1, name: scope.ASSET, parentId: -999, children: []};
+                    var liabilitiesObject = {id: -2, name: scope.LIABILITY, parentId: -999, children: []};
+                    var equitiyObject = {id: -3, name: scope.EQUITY, parentId: -999, children: []};
+                    var incomeObject = {id: -4, name: scope.INCOME, parentId: -999, children: []};
+                    var expenseObject = {id: -5, name: scope.EXPENSE, parentId: -999, children: []};
+                    var rootObject = {id: -999, name: scope.Accounting, children: []};
+                    var rootArray = [rootObject, assetObject, liabilitiesObject, equitiyObject, incomeObject, expenseObject];
+
+                    var idToNodeMap = {};
+                    for (var i in rootArray) {
+                        idToNodeMap[rootArray[i].id] = rootArray[i];
+                    }
+
+                    for (i = 0; i < data.length; i++) {
+                        if (data[i].type.value == "ASSET") {
+                            if (data[i].parentId == null)  data[i].parentId = -1;
+                        } else if (data[i].type.value == "LIABILITY") {
+                            if (data[i].parentId == null)  data[i].parentId = -2;
+                        } else if (data[i].type.value == "EQUITY") {
+                            if (data[i].parentId == null)  data[i].parentId = -3;
+                        } else if (data[i].type.value == "INCOME") {
+                            if (data[i].parentId == null)  data[i].parentId = -4;
+                        } else if (data[i].type.value == "EXPENSE") {
+                            if (data[i].parentId == null)  data[i].parentId = -5;
+                        }
+                        delete data[i].disabled;
+                        delete data[i].manualEntriesAllowed;
+                        delete data[i].type;
+                        delete data[i].usage;
+                        delete data[i].description;
+                        delete data[i].nameDecorated;
+                        delete data[i].tagId;
+                        data[i].children = [];
+                        idToNodeMap[data[i].id] = data[i];
+                    }
+
+                    function sortByParentId(a, b) {
+                        return a.parentId - b.parentId;
+                    }
+
+                    function sortGlCode(a, b) {
+                        if (a.glCode < b.glCode) {
+                            return -1;
+                        }
+                        if (a.glCode > b.glCode) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+
+                    data.sort(sortByParentId);
+                    var glAccountsArray = rootArray.concat(data);
+
+                    var root = [];
+                    for (var i = 0; i < glAccountsArray.length; i++) {
+                        var currentObj = glAccountsArray[i];
+                        if (typeof currentObj.parentId === "undefined") {
+                            root.push(currentObj);
+                        } else {
+                            parentNode = idToNodeMap[currentObj.parentId];
+                            parentNode.children.push(currentObj);
+                            currentObj.collapsed = "true";
+                            parentNode.children.sort(sortGlCode);
+                        }
+                    }
+                    scope.treedata = root;
+                });
             }
-
-            resourceFactory.accountCoaResource.getAllAccountCoas(function (data) {
-                scope.coadatas = scope.deepCopy(data);
-                scope.ASSET = translate('ASSET') ;
-                scope.LIABILITY = translate('LIABILITY') ;
-                scope.EQUITY = translate('EQUITY') ;
-                scope.INCOME = translate('INCOME') ;
-                scope.EXPENSE = translate('EXPENSE') ;
-                scope.Accounting = translate('Accounting') ;
-
-                var assetObject = {id: -1, name: scope.ASSET, parentId: -999, children: []};
-                var liabilitiesObject = {id: -2, name: scope.LIABILITY, parentId: -999, children: []};
-                var equitiyObject = {id: -3, name: scope.EQUITY, parentId: -999, children: []};
-                var incomeObject = {id: -4, name: scope.INCOME, parentId: -999, children: []};
-                var expenseObject = {id: -5, name: scope.EXPENSE, parentId: -999, children: []};
-                var rootObject = {id: -999, name: scope.Accounting, children: []};
-                var rootArray = [rootObject, assetObject, liabilitiesObject, equitiyObject, incomeObject, expenseObject];
-				
-                var idToNodeMap = {};
-                for (var i in rootArray) {
-                    idToNodeMap[rootArray[i].id] = rootArray[i];
-                }
-
-                for (i = 0; i < data.length; i++) {
-                    if (data[i].type.value == "ASSET") {
-                        if (data[i].parentId == null)  data[i].parentId = -1;
-                    } else if (data[i].type.value == "LIABILITY") {
-                        if (data[i].parentId == null)  data[i].parentId = -2;
-                    } else if (data[i].type.value == "EQUITY") {
-                        if (data[i].parentId == null)  data[i].parentId = -3;
-                    } else if (data[i].type.value == "INCOME") {
-                        if (data[i].parentId == null)  data[i].parentId = -4;
-                    } else if (data[i].type.value == "EXPENSE") {
-                        if (data[i].parentId == null)  data[i].parentId = -5;
-                    }
-                    delete data[i].disabled;
-                    delete data[i].manualEntriesAllowed;
-                    delete data[i].type;
-                    delete data[i].usage;
-                    delete data[i].description;
-                    delete data[i].nameDecorated;
-                    delete data[i].tagId;
-                    data[i].children = [];
-                    idToNodeMap[data[i].id] = data[i];
-                }
-
-                function sortByParentId(a, b) {
-                    return a.parentId - b.parentId;
-                }
-
-                function sortGlCode(a, b) {
-                    if(a.glCode < b.glCode){
-                        return -1;
-                    }
-                    if(a.glCode > b.glCode){
-                        return 1;
-                    }
-                    return 0;
-                }
-
-                data.sort(sortByParentId);
-                var glAccountsArray = rootArray.concat(data);
-				
-				var root = [];
-                for (var i = 0; i < glAccountsArray.length; i++) {
-                    var currentObj = glAccountsArray[i];
-                    if (typeof currentObj.parentId === "undefined") {
-                        root.push(currentObj);
-                    } else {
-                        parentNode = idToNodeMap[currentObj.parentId];
-                        parentNode.children.push(currentObj);
-                        currentObj.collapsed = "true";
-                        parentNode.children.sort(sortGlCode);
-                    }
-                }
-                scope.treedata = root;
-            });
-			
 			
         }
     });

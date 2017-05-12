@@ -8,13 +8,51 @@
     <h3 class="bolder col-md-12">{{'label.heading.chartofaccounts' | translate}}
         <div class="pull-right">
             <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="icon-list icon-white"></i>{{'label.button.listview' | translate}}</a>
-            <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
+            <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView;treeView()"  class="btn btn-primary btn-sm"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
             <a href="#/createglaccount" class="btn btn-primary btn-sm" has-permission='CREATE_GLACCOUNT'><i class="icon-plus icon-white"></i>{{'label.button.addaccount' | translate}}</a>
         </div>
     </h3>
     <div class="clear"></div>
-    <div ng-hide="isTreeView">
-        <input ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control marginbottom0px" placeholder="{{'label.input.filterbyAccountGlcodeAccounttype' | translate}}">
+    <table class="table" ng-hide="isTreeView">
+        <tr><td>
+            <label class="control-label  " for="type">{{'label.input.accounttype' | translate}}
+            </label>
+        </td><td>
+                <select id="type" ng-model="formData.type" class="form-control" ng-change="changeType()">
+                    <option value="">{{'label.all' | translate}}</option>
+                    <option ng-repeat="accountType in accountTypes" value="{{accountType.id}}">{{''+accountType.code+'' | translate}}</option>
+                </select>
+
+        </td>
+
+        <td>
+            <label class="control-label  " for="usage">{{'label.input.accountusage' | translate}}</label>
+        </td><td>
+                <select id="usage" ng-model="formData.usage" class="form-control" ng-change="changeUsage()">
+                    <option value="">{{'label.all' | translate}}</option>
+                    <option ng-repeat="usageType in usageTypes" value="{{usageType.id}}">{{''+usageType.code+'' | translate}}</option>
+                </select>
+        </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label " for="glClassification">{{'label.input.glClassificationType' |
+                    translate}}</label>
+            </td><td>
+            <select  class="form-control" ng-model="formData.glClassificationType" ng-change="changeClassificationType()">
+                <option value="">{{'label.all' | translate}}</option>
+                <option ng-repeat="glClassification in glClassifications" value="{{glClassification.id}}">{{''+glClassification.value+'' | translate}}</option>
+            </select>
+        </td>
+            </tr>
+        <tr>
+       <td><a ng-click="searchAccounts()" class="btn btn-primary btn-lg btn-space pull-left btn-toolbar">Search<i class="icon-search icon-white"></i></a>
+        </td>
+        </tr>
+    </table>
+    <div ng-if="coadatasList && !isTreeView">
+        <!--<input ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control marginbottom0px" placeholder="{{'label.input.filterbyAccountGlcodeAccounttype' | translate}}">-->
         <table class="table">
             <thead>
             <tr class="graybg">
@@ -28,7 +66,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="coadata in coadatas | orderBy:'type.value' |  orderBy:'glCode' | SearchFilter:filterText">
+            <tr class="pointer-main" dir-paginate="coadata in coadatasList  | orderBy:'type.value' |  orderBy:'glCode'| filter:filterText | itemsPerPage: accountsPerPage" total-items="totalAccounts">
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.glCode}}</td>
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.type.value | translate}}</td>
@@ -39,6 +77,7 @@
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
     </div>
     <div ng-show="isTreeView">
 		<div ng-show="$root.tempNodeID >= 0" class="col-md-6 divscrollable pull-right" >
