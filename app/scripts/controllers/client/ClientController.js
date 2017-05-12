@@ -67,6 +67,7 @@
                                 client.accountNo = result.entityAccountNo;
                                 client.id = result.entityId;
                                 client.officeName = result.parentName;
+                                client.externalId = result.entityExternalId;
                             }else if (result.entityType  == 'CLIENTIDENTIFIER'){
                                 numberOfClients = numberOfClients + 1;
                                 client.displayName = result.parentName;
