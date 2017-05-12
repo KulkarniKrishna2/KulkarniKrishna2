@@ -11,6 +11,11 @@
             init();
             scope.submit = function () 
             {
+                angular.forEach(scope.activityType,function(activity){
+                    if(activity.identifier=='adhoc'){
+                        scope.formData.activity_id=activity.id;
+                    }
+                });
                 resourceFactory.taskConfigTemplateResource.save(scope.formData, function (response) {
                     location.path('/taskconfigtemplate')
                 });

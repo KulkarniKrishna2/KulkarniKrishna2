@@ -33,13 +33,6 @@
 		   				<select id="entityType" ng-model="formData.entity_id" ng-options="entity.id as entity.value for entity in entityOptions"></select>
 		   			</div> 
 		   		</div>
-	   			<div class="form-group">
-	   				<label class="control-label col-sm-2" for="activityType">{{'label.heading.activity' | translate}}
-					</label>
-		   			<div class="col-sm-3">
-		   				<select id="activityType" ng-model="formData.activity_id" ng-options="activity.id as activity.name for activity in activityType" value="activity.id"></select>
-		   			</div> 
-		   		</div>
 		   		<div class="col-sm-5 col-md-offset-2">
 		   			<button id="save" type="submit" class="btn btn-primary">
                         {{'label.button.save' | translate}}
