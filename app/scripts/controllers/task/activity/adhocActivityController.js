@@ -10,6 +10,9 @@
                     {
                         
                         scope.activityData.assignedTo=scope.taskData.assignedTo;
+                        if(scope.taskData.description!=undefined){
+                            scope.activityData.description=scope.taskData.description;
+                        }
                         var reqDate = dateFilter(scope.taskData.dueDate, scope.df);
                         scope.activityData.dueDate=reqDate;
                         if (scope.taskData.entityType.value=='OFFICE') 

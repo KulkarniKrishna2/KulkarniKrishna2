@@ -26,7 +26,7 @@
                 this.formData.duedate = reqDate;
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
-                resourceFactory.taskAssignResource.save(scope.formData, function (response) {
+                resourceFactory.taskAssignResource.save(this.formData, function (response) {
                     location.path('/tasklist')
                 });
             }; 

@@ -36,6 +36,17 @@
 				</div>
 			</td>
     	</tr>
+    	<tr ng-if=activityData.description>
+			<td>
+    			<label for="description">{{'label.heading.description' | translate}}:
+				</label>
+			</td>
+			<td>
+				<div id="description">
+					{{activityData.description}}
+				</div>
+			</td>
+    	</tr>
     </table>
   </form>
 
