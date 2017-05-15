@@ -2,7 +2,7 @@
 	<ul class="breadcrumb">
 	    <li class="active">{{'label.button.collectionsheet' | translate}}</li>
 	</ul>
-	<form name="collectionsheetform" novalidate class="form-horizontal well" ng-controller="CollectionSheetController">
+	<form name="collectionsheetform" novalidate="" class="form-horizontal well" ng-controller="CollectionSheetController" rc-submit="submmit()">
 	<api-validate></api-validate>
 	<h2><strong ng-show="noData" style="padding-top: 400px !important;">{{'label.norepaymentsanddisbursalareavailable' |
 	    translate}}</strong></h2>
@@ -33,8 +33,11 @@
 	
 	        <div class="col-sm-3">
 	            <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy"
-	                   ng-model="date.transactionDate" is-open="opened" class="form-control"/>
+	                   ng-model="date.transactionDate" is-open="opened" class="form-control" required/>
 	        </div>
+			<div class="col-sm-3">
+				<form-validate valattributeform="collectionsheetform" valattribute="transactiondate"/>
+			</div>
 	    </div>
 
 		<div class="form-group" ng-hide="isHiddenNewTransactionDate">
@@ -50,13 +53,15 @@
 	        <label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 	
 	        <div class="col-sm-3">
-	            <select chosen="loanOfficers" id="loanOfficerId" ng-model="loanOfficerId"
+	            <select chosen="loanOfficers" id="loanOfficerId" ng-model="loanOfficerId" name="loanOfficer"
 	                    ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
-	                    value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control"
-	                    required>
+	                    value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
 	                <option value="">{{'label.selectloanofficer' | translate}}</option>
 	            </select>
 	        </div>
+			<div class="col-sm-3" ng-show="isStaffMandotory">
+				<span class="error">{{'label.error.required'|translate}}</span>
+			</div>
 	    </div>
 	
 	    <div class="form-group">

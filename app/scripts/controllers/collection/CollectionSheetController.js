@@ -23,6 +23,7 @@
             var centerOrGroupResource = '';
             scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
             scope.forcedSubmit=false;
+            scope.isStaffMandotory = false;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -33,7 +34,12 @@
                     }
                 }
                 scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
+                if(!scope.loanOfficerId){
+                    scope.isStaffMandotory = true;
+                }
+                if(scope.officeId &&  scope.meetingDate && scope.loanOfficerId){
                 location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
+            }
             };
 
             if(scope.response != undefined){
@@ -146,6 +152,7 @@
             };
 
             scope.previewCollectionSheet = function () {
+                scope.isStaffMandotory = false;
                 scope.formData = {};
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
