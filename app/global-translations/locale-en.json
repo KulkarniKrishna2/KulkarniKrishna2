@@ -1396,6 +1396,8 @@
     "label.norepaymentsanddisbursalareavailable":"No repayments and disbursal are available for selected Group and meeting date",
     "label.transactionisreversedonce":"This transaction was reversed",
     "label.transactionreverse":"Transaction reversed successfully.  A new journal entry has been created to reverse this transaction",
+    "label.delete" :"Delete",
+    "label.edit" :"Edit",
 
 
     "#Enumeration & Error Messages": "..",

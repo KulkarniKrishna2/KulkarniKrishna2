@@ -1117,8 +1117,8 @@
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}" has-permission='UPDATE_LOANCHARGE'><i
                                             class="icon-pencil icon-white"></i></a>
                                     <a title="{{'label.delete' | translate}}" class="btn-warning"
-                                       data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)"
-                                       title="delete" ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><i class="icon-remove icon-white"></i></a>
+                                       data-ng-show="status=='Submitted and pending approval' && charge.isMandatory == false" data-ng-click="delCharge(charge.id)"
+                                       title="delete" has-permission='DELETE_LOANCHARGE'><i class="icon-remove icon-white"></i></a>
                                     <a class="btn-primary" data-ng-hide="charge.actionFlag"
                                        href="#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}"><i
                                             class="icon-flag icon-white"></i></a>
