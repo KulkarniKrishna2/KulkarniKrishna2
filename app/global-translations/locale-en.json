@@ -4172,6 +4172,8 @@
     "editstandinginstructionlist":"Edit Standing Instruction",
     "new_client_saving_application":"New Saving Application",
     "accounttransfersfromsavings" : "Account Transfer from Savings",
+    "savingaccountapprove" :"Approve Savings Account",
+
 
     "#-----------------------------":"--------------------",
 
@@ -5880,6 +5882,7 @@
     "label.input.from.account" : "From Account",
     "label.input.to.account" : "To Account",
     "label.input.to.office" : "To Office",
+
     "label.heading.other.account" : "Other Account",
     "label.input.next.emi.amount" : "Next EMI Amount",
     "label.input.next.emi.date" : "Next EMI Date",
@@ -5887,6 +5890,9 @@
     "label.heading.total.overdue.amount" : "Total Overdue Amount",
     "label.heading.total.overdue.with.next.emi" : "Overdue with Next EMI Amount",
     "label.input.transfer.amount" : "Transfer Amount",
+
+    "label.heading.net.overdraft":"Net Overdraft Amount",
+
 
     "------ end of tensalation file":"---------"
 }

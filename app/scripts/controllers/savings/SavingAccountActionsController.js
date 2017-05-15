@@ -12,7 +12,7 @@
             scope.transactionAmountField = false;
             scope.showPaymentDetails = false;
             scope.paymentTypes = [];
-            scope.amountToBePaid = routeParams.amountToBePaid;
+            scope.amount = routeParams.amount;
             scope.isTransactionAmountAutopopulate = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations &&
@@ -30,6 +30,9 @@
                     scope.modelName = 'approvedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
+                    if(scope.amount  > 0){
+                        scope.isOverDraftAllowed = true;
+                    }
                     scope.taskPermissionName = 'APPROVE_SAVINGSACCOUNT';
                     break;
                 case "reject":
@@ -60,6 +63,9 @@
                     scope.modelName = 'activatedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = false;
+                    if(scope.amount  > 0){
+                        scope.isOverDraftAllowed = true;
+                    }
                     scope.taskPermissionName = 'ACTIVATE_SAVINGSACCOUNT';
                     break;
                 case "deposit":
@@ -76,7 +82,7 @@
                     scope.showPaymentDetails = false;
                     scope.taskPermissionName = 'DEPOSIT_SAVINGSACCOUNT';
                     if(scope.isTransactionAmountAutopopulate ){
-                        scope.formData.transactionAmount = scope.amountToBePaid;
+                        scope.formData.transactionAmount = scope.amount;
                     }
 
                     break;
