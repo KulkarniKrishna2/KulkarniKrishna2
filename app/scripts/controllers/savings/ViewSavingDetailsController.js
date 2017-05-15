@@ -11,6 +11,7 @@
             scope.savingaccountdetails = [];
             scope.hideAmountTobePaid = true;
             scope.amountToBePaid = 0;
+            scope.netOverdraftLimit = 0;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.savingsAccount &&
                 scope.response.uiDisplayConfigurations.savingsAccount.overDraft) {
                 if(scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField &&
@@ -46,7 +47,10 @@
                         location.path('/editsavingaccount/' + accountId);
                         break;
                     case "approve":
-                        location.path('/savingaccount/' + accountId + '/approve');
+                        if(scope.savingaccountdetails.allowOverdraft){
+                            scope.netOverDraftLimit();
+                        }
+                        location.path('/savingaccount/' + accountId + '/approve/' + scope.netOverdraftLimit);
                         break;
                     case "reject":
                         location.path('/savingaccount/' + accountId + '/reject');
@@ -65,7 +69,10 @@
                         location.path('/savingaccount/' + accountId + '/undoapproval');
                         break;
                     case "activate":
-                        location.path('/savingaccount/' + accountId + '/activate');
+                        if(scope.savingaccountdetails.allowOverdraft){
+                            scope.netOverDraftLimit();
+                        }
+                        location.path('/savingaccount/' + accountId + '/activate/'+ scope.netOverdraftLimit);
                         break;
                     case "deposit":
                         location.path('/savingaccount/' + accountId + '/deposit/' +  scope.amountToBePaid);
@@ -483,7 +490,19 @@
                 }
                 return false;
             };
-            
+
+            scope.netOverDraftLimit = function(){
+                if(scope.charges != undefined){
+                    var overdraftLimit = scope.savingaccountdetails.overdraftLimit;
+                    var totalcharges = 0;
+                    for(var b =0 ; b < scope.charges.length ; b++) {
+                        if(scope.charges[b].chargeTimeType.value == 'Savings Activation')
+                        totalcharges = totalcharges + scope.charges[b].amount;
+                    }    
+                    scope.netOverdraftLimit = overdraftLimit - totalcharges;                     
+                }
+            };
+
         }
     });
     mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {

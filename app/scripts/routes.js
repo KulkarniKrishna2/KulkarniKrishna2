@@ -636,7 +636,7 @@
             .when('/savingaccount/:id/:action', {
                 templateUrl: 'views/savings/saving_account_actions.html'
             })
-            .when('/savingaccount/:id/:action/:amountToBePaid', {
+            .when('/savingaccount/:id/:action/:amount', {
                 templateUrl: 'views/savings/saving_account_actions.html'
             })
             .when('/savingaccountcharge/:id/:action/:chargeId', {
