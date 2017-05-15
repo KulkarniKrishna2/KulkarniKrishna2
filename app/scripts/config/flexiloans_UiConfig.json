@@ -4,7 +4,10 @@
   	"loanAccount": {
   		"isHiddenField": {
   			"netDisbursalAmount":false
-  		}
+  		},
+      "isMandatory": {
+        "externalId": true
+      }
     }
   }
 }
