@@ -5,6 +5,14 @@
     mifosX.controllers = _.extend(module, {
         CreateVoucherTypeFormController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location, localStorageService) {
 
+            scope.numberOfCredits = 1;
+            scope.numberOfDebits = 1;
+            scope.debitAccounts = [{}];
+            scope.creditAccounts = [{}];
+            scope.formData = {};
+            scope.formData.transactionDate = new Date();
+            scope.restrictDate = new Date();
+            scope.showTransactionDetails = false;
             /**
              * Based on the voucher type change the labels
              */
@@ -19,15 +27,12 @@
             }
             /****************************************************************************************/
 
-            scope.formData = {};
-            scope.formData.transactionDate = new Date();
-
-            scope.showTransactionDetails = false;
             if (!_.isUndefined(routeParams.voucherNumber)) {
                 scope.showTransactionDetails = true;
                 scope.voucherData = {
                     voucherNumber: routeParams.voucherNumber,
-                    voucherId: routeParams.voucherId
+                    voucherId: routeParams.voucherId,
+                    transactionId: routeParams.transactionId
                 };
             }
 
@@ -46,25 +51,57 @@
                 scope.formData.officeId = parseInt(localStorageService.getFromCookies('officeId')) || scope.officeOptions[0].id;
             });
 
-            /**
-             * Accounting Related Code
-             */
-            scope.debitAccounts = [];
-            scope.creditAccounts = [];
             scope.addDebitAccount = function () {
-                scope.debitAccounts.push({});
+                scope.limitingDebitToOne();
             };
+
+            scope.limitingCreditToOne = function (){
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.journalEntryConfiguration.allowMultipleCreditAndDebitEntries) {
+                    scope.creditAccounts.push({});
+                    scope.numberOfCredits = scope.numberOfCredits + 1;
+                }else {
+                    if (scope.numberOfDebits <= 1) {
+                        scope.creditAccounts.push({});
+                        scope.numberOfCredits = scope.numberOfCredits + 1;
+                    }
+                    else {
+                        scope.error = "validation.msg.journal.entry.limit.credit.to.one";
+                    }
+                }
+            }
+
+            scope.limitingDebitToOne = function() {
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.journalEntryConfiguration.allowMultipleCreditAndDebitEntries) {
+                    scope.debitAccounts.push({});
+                    scope.numberOfDebits = scope.numberOfDebits + 1;
+                }else {
+                    if (scope.numberOfCredits <= 1) {
+                        scope.debitAccounts.push({});
+
+                        scope.numberOfDebits = scope.numberOfDebits + 1;
+                    }
+                    else {
+                        scope.error = "validation.msg.journal.entry.limit.debit.to.one";
+                    }
+                }
+            }
             scope.addCreditAccount = function () {
-                scope.creditAccounts.push({});
+                scope.limitingCreditToOne();
             };
-            scope.addDebitAccount();
-            scope.addCreditAccount();
+
             scope.deleteDebitAccount = function (index) {
                 scope.debitAccounts.splice(index, 1);
+                scope.numberOfDebits = scope.numberOfDebits - 1;
+                scope.error = null;
+
             };
+
             scope.deleteCreditAccount = function (index) {
                 scope.creditAccounts.splice(index, 1);
+                scope.numberOfCredits = scope.numberOfCredits - 1;
+                scope.error = null;
             };
+
             scope.setDebitAccountRunningBalance = function (index) {
                 for (var i in scope.debitAccountingOptions) {
                     if (scope.debitAccountingOptions[i].id == scope.debitAccounts[index].glAccountId) {
@@ -150,8 +187,9 @@
 
             function relaunch() {
                 location.path('/accounting/voucherentry/' + scope.voucherData.subResourceId).search({
-                    voucherNumber: scope.voucherData.transactionId,
-                    voucherId: scope.voucherData.resourceId
+                    voucherNumber: scope.voucherData.resourceIdentifier,
+                    voucherId: scope.voucherData.resourceId,
+                    transactionId: scope.voucherData.transactionId
                 });
             }
 

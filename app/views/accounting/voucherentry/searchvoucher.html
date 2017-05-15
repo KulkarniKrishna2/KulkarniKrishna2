@@ -10,29 +10,23 @@
                 <div class="row">
                     <div class="form-group">
                         <label class="control-label col-sm-2">
-                            {{'label.input.voucher.type' | translate}} <span class="required">*</span>
-                        </label>
+                            {{'label.input.voucher.type' | translate}}</label>
                         <div class="col-sm-3">
                             <select chosen="voucherTypeOptions" name="voucherTypeId" id="voucherTypeId"
                                     data-ng-options="voucher.code as voucher.value for voucher in voucherTypeOptions"
-                                    class="form-control" ng-model="voucherTypeId" required late-Validate
+                                    class="form-control" ng-model="voucherTypeId" late-Validate
                                     value="voucher.code">
-                                <option value="" style="display:none;">{{'label.menu.select.voucher.type' | translate}}
-                                </option>
+                                <option value="">{{'label.menu.select.voucher.type' | translate}}</option>
                             </select>
                         </div>
 
-                        <label class="control-label col-sm-1">{{ 'label.input.between' | translate }}
-                            <span class="required">*</span>
-                        </label>
+                        <label class="control-label col-sm-1">{{ 'label.input.between' | translate }} </label>
                         <div class="col-sm-2">
                             <input id="fromDate" type="text" name="fromDate" datepicker-pop="dd MMMM yyyy"
                                    ng-model="first.fromDate" is-open="opened" min="'2000-01-01'" class="form-control"/>
                         </div>
 
-                        <label class="control-label col-sm-1">{{ 'label.input.and' | translate }}
-                            <span class="required">*</span>
-                        </label>
+                        <label class="control-label col-sm-1">{{ 'label.input.and' | translate }} </label>
                         <div class="col-sm-2">
                             <input id="toDate" type="text" name="toDate" datepicker-pop="dd MMMM yyyy"
                                    ng-model="first.toDate" is-open="opened" min="'2000-01-01'" class="form-control"/>
@@ -42,9 +36,7 @@
                 <div class="row">
                     <div class="form-group">
 
-                        <label class="control-label col-sm-2">
-                            {{'label.input.office' | translate}} <span class="required">*</span>
-                        </label>
+                        <label class="control-label col-sm-2"> {{'label.input.office' | translate}} </label>
                         <div class="col-sm-3">
                             <div>
                                 <select chosen="offices" name="office" id="office" ng-model="officeId"
@@ -54,13 +46,10 @@
                                 </select>
                             </div>
                         </div>
-
-                        <label class="control-label col-sm-2">{{ 'label.input.voucher.number' | translate }}
-                        </label>
+                        <label class="control-label col-sm-2">{{ 'label.input.voucher.number' | translate }} </label>
                         <div class="col-sm-2">
                             <input type="text" id="vouchernumber" name="vouchernumber" class="form-control"
                                    ng-model="voucherNumber"/>
-
                         </div>
                     </div>
                 </div>
@@ -73,9 +62,9 @@
                             <button id="search" ng-click="submit()" class="btn btn-primary">{{'label.button.search' |
                                 translate}}
                             </button>
-                            <button class="btn btn-primary" class="btn btn-primary">{{'label.button.downloadcsv' |
+                            <!--<button class="btn btn-primary" class="btn btn-primary">{{'label.button.downloadcsv' |
                                 translate}}
-                            </button>
+                            </button>-->
                         </div>
                     </div>
                 </div>

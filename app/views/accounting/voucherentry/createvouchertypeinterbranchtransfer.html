@@ -4,6 +4,12 @@
         <form name="createVoucherForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
             <api-validate></api-validate>
             <fieldset>
+                <div class="form-group" class="block" >
+                    <small class="required" ng-show="error">
+                        {{error | translate}}
+                    </small>
+                </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-2">
                         {{'label.input.voucher.type' | translate}}<span class="required">*</span>
@@ -34,9 +40,9 @@
                     <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
-                        <input id="transactionDate" name="transactionDate" type="text" class="form-control"
+                        <input id="transactionDate" name="transactionDate" type="text" class="date-disable form-control"
                                datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"
-                               min="minDate" max="'2020-06-22'" required late-validate=""/>
+                               min="'2000-01-01'" max="restrictDate" required readonly late-validate=""/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="transactionDate"/>
@@ -295,10 +301,10 @@
                         <label class="control-label col-sm-2">{{ 'label.heading.instrument.date' | translate }}<span
                                 class="required">*</span></label>
                         <div class="col-sm-3">
-                            <input id="instrumentationDate" name="instrumentationDate" type="text" class="form-control"
+                            <input id="instrumentationDate" name="instrumentationDate" type="text" class="date-disable form-control"
                                    datepicker-pop="dd MMMM yyyy" ng-model="formData.paymentDetails.instrumentationDate"
                                    is-open="opened"
-                                   min="minDate" max="'2020-06-22'" required late-validate=""/>
+                                   min="'2000-01-01'" max="restrictDate" required readonly required late-validate=""/>
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="createVoucherForm" valattribute="instrumentationDate"/>

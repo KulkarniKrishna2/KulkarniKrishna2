@@ -925,7 +925,7 @@
     "error.msg.group.submittedOnDate.after.activation.date" : "Activation date cannot be before submission date",
     "error.msg.actual.disbursement.date.does.not.match.with.expected.disbursal.date" : "Actual disbursement date {{params[0].value}} should be equal to Expected disbursal date {{params[1].value}}",
     "error.msg.loan.application.first.repayment.date.do.not.match.meeting.date" : "First repayment date {{params[0].value}} do not fall on a meeting date",
-
+    "error.msg.vouchers.voucher.reserse.should.be.initiated.from.initiatator": "Voucher reversal should be initiated from Initiator",
     "#--------": "------------",
 
     "#Groups": "....",
@@ -1220,7 +1220,8 @@
     "label.heading.closurecreationdate": "Closure Creation Date",
     "label.heading.transactionnumber": "Transaction Number",
     "label.heading.entry.created.with.transaction.id": "Entry Created With Transaction Id",
-    "label.heading.voucher.created.with.transaction.id": "Voucher Created With Voucher Number ",
+    "label.heading.voucher.created.with.transaction.id1": "Entry created",
+    "label.heading.voucher.created.with.transaction.id2": "with voucher number",
     "label.heading.parentaccountname": "Parent Account Name",
     "label.heading.tag": "Tag",
     "label.heading.accountusage": "Account Usage",
