@@ -4321,7 +4321,7 @@
     "label.input.no.of.overdue.days.to.change.loan.into.npa":"Maximum number of days a loan may be overdue before becoming a NPA (non performing asset)",
     "label.heading.overduedaysfornpa":"overdue Days For NPA",
     "error.msg.loan.disburse.to.savings.requires.linked.account":"Requires linked saving account to disburse loan",
-    "label.input.trasfertosavings":"Trasfer Interest to Linked Savings Account",
+    "label.input.trasfertosavings":"Transfer Interest to Linked Savings Account",
     "validation.msg.fixeddepositaccount.linkAccountId.cannot.be.blank":"Linked savings account is required",
     "label.anchor.officeglaccount":"Office GL Account",
     "label.heading.officeglaccounts":"Office GL Accounts",
