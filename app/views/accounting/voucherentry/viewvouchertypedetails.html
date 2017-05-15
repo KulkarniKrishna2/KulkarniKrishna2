@@ -1,5 +1,25 @@
 <div class="col-md-12" ng-controller="ViewVoucherTypeDetailsController">
+    <script type="text/ng-template" id="reverseTransaction.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.reverse' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <!--<api-validate></api-validate>-->
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
+                <textarea rows="4" ng-model="data.reverseComments"></textarea>
+            </div>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="reverse()">{{'label.button.reverse' | translate}}</button>
+        </div>
+    </script>
     <tabset class="overflowhidden marginbottom0" tabset-name="voucherTypetTabset">
+        <div class="btn btn-primary pull-right" ng-show="!isReversed">
+            <a ng-click="reverseTransaction()" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
+        </div>
+        <api-validate></api-validate>
         <tab heading="{{'label.heading.voucher.details' | translate}}">
             <div class="col-md-12 col-sm-12">
                 <div class="row primarydiv"></div>
@@ -34,10 +54,6 @@
                             <tr>
                                 <td>{{'label.heading.reversed' | translate}}</td>
                                 <td>{{voucherData.journalEntryData.reversed ? 'Yes' : 'No'}}</td>
-                            </tr>
-                            <tr ng-if="voucherData.journalEntryData.reversed">
-                                <td>{{'label.heading.reversal.id' | translate}}</td>
-                                <td>{{voucherData.journalEntryData.reversalId}}</td>
                             </tr>
                             <tr>
                                 <td>{{'label.heading.createdby' | translate}}</td>
@@ -122,7 +138,7 @@
                                 </tr>
                                 <tr class="bottomborder graybg">
                                     <td>{{'label.input.instrument.information' | translate}}</td>
-                                    <td>
+                                    <td ng-show="!isReversed">
                                         <button type="button" class="icon-edit icon-white right"
                                                 ng-click="enableEditPaymentDetails()">{{
                                             'label.button.edit' | translate }}
@@ -161,7 +177,6 @@
                          ng-if="paymentDetails && paymentDetails.id && isUpdatePaymentDetails == true">
                         <form name="updateVoucherForm" novalidate="" class="form-horizontal"
                               rc-submit="submitPaymentDetails()">
-                            <api-validate></api-validate>
                             <fieldset>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">{{ 'label.heading.instrument.type' |

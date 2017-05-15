@@ -3,7 +3,7 @@
  */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewVoucherTypeDetailsController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location) {
+        ViewVoucherTypeDetailsController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location, route, $modal) {
             /**
              * Based on the voucher type change the labels
              */
@@ -29,23 +29,27 @@
                 scope.paymentOptions = data.templateData.paymentOptions;
             });
 
+            scope.isReversed = true;
             resourceFactory.voucherResource.get({
                 'voucherId': scope.voucherId,
                 'voucherType': scope.voucherCode
             }, function (data) {
                 scope.voucherData = data;
+                scope.totalTransactionData = {};
+                scope.totalTransactionData.totalDebitAmount = 0;
+                scope.totalTransactionData.totalCreditAmount = 0;
+                scope.isReversed = scope.voucherData.isReversed ;
                 if (!_.isUndefined(scope.voucherData.journalEntryData.journalEntryDetails)) {
                     if (scope.voucherData.journalEntryData.journalEntryDetails.length > 0) {
                         scope.journalEntryDetails = scope.voucherData.journalEntryData.journalEntryDetails;
-                        scope.totalTransactionData = {};
-                        scope.totalTransactionData.totalDebitAmount = 0;
-                        scope.totalTransactionData.totalCreditAmount = 0;
-                        for (var i in scope.journalEntryDetails) {
-                            var journalEntryDetail = scope.journalEntryDetails[i];
-                            if (journalEntryDetail.entryType.code == 'journalEntrytType.debit') {
-                                scope.totalTransactionData.totalDebitAmount += journalEntryDetail.amount;
-                            } else if (journalEntryDetail.entryType.code == 'journalEntryType.credit') {
-                                scope.totalTransactionData.totalCreditAmount += journalEntryDetail.amount;
+                        if(!scope.voucherData.isReversed) {
+                            for (var i in scope.journalEntryDetails) {
+                                var journalEntryDetail = scope.journalEntryDetails[i];
+                                if (journalEntryDetail.entryType.code == 'journalEntrytType.debit') {
+                                    scope.totalTransactionData.totalDebitAmount += journalEntryDetail.amount;
+                                } else if (journalEntryDetail.entryType.code == 'journalEntryType.credit') {
+                                    scope.totalTransactionData.totalCreditAmount += journalEntryDetail.amount;
+                                }
                             }
                         }
                     }
@@ -86,6 +90,37 @@
 
             };
 
+            scope.reverseTransaction = function () {
+                $modal.open({
+                    templateUrl: 'reverseTransaction.html',
+                    controller: ReverseJournalEntriesCtrl,
+                    resolve: {
+                        voucherId: function () {
+                            return scope.voucherId;
+                        },
+                        voucherType: function () {
+                            return scope.voucherCode ;
+                        }
+                    }
+                });
+            }
+
+            var ReverseJournalEntriesCtrl = function ($scope, $modalInstance, voucherId, voucherType) {
+                $scope.data = {
+                    reverseComments:""
+                };
+                $scope.reverse = function () {
+                    var reverseData = {voucherId: voucherId, voucherType: voucherType, command:'ReverseVoucher'} ;
+                    resourceFactory.voucherResource.update(reverseData,$scope.data, function (data) {
+                        route.reload();
+                    });
+                    $scope.cancel() ;
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
             scope.submitPaymentDetails = function () {
                 if (scope.formData.paymentDetails) {
                     scope.formData.paymentDetails.instrumentationDate = dateFilter(scope.formData.paymentDetails.instrumentationDate, scope.df);
@@ -93,7 +128,8 @@
                     scope.formData.paymentDetails.locale = "en";
                     resourceFactory.voucherResource.update({
                         'voucherId': scope.voucherId,
-                        'voucherType': scope.voucherCode
+                        'voucherType': scope.voucherCode,
+                        'command':'UpdateVoucher'
                     }, scope.formData.paymentDetails, function (data) {
                         scope.paymentDetails.paymentType = {}
                         scope.paymentDetails.paymentType.id = scope.formData.paymentDetails.paymentType;
@@ -176,7 +212,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewVoucherTypeDetailsController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$location', mifosX.controllers.ViewVoucherTypeDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewVoucherTypeDetailsController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$location', '$route', '$modal', mifosX.controllers.ViewVoucherTypeDetailsController]).run(function ($log) {
         $log.info("ViewVoucherTypeDetailsController initialized");
     });
 }(mifosX.controllers || {}));
