@@ -189,23 +189,25 @@
                     }
                     if (scope.columnHeaders[i].columnCode) {
                         for (var j in scope.columnHeaders[i].columnValues) {
-                            if (scope.columnHeaders[i].value == scope.columnHeaders[i].columnValues[j].value) {
                                 if(scope.columnHeaders[i].columnDisplayType=='CODELOOKUP'){
-                                    scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].id;
+                                    if(scope.columnHeaders[i].value != undefined  && scope.columnHeaders[i].value == scope.columnHeaders[i].columnValues[j].value) {
+                                        scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].id;
+                                    }
                                     scope.columnValueLookUp = scope.columnHeaders[i].columnValues
                                     var obj = angular.fromJson(scope.columnHeaders);
                                     for(var j in scope.columnHeaders[i].columnValues){
                                         obj[i].columnValuesLookup = scope.columnValueLookUp;
                                     }
                                 } else if(scope.columnHeaders[i].columnDisplayType=='CODEVALUE'){
-                                    scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].value;
+                                    if(scope.columnHeaders[i].value != undefined  && scope.columnHeaders[i].value == scope.columnHeaders[i].columnValues[j].value) {
+                                        scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].value;
+                                    }
                                     scope.columnValueLookUp = scope.columnHeaders[i].columnValues
                                     var obj = angular.fromJson(scope.columnHeaders);
                                     for(var j in scope.columnHeaders[i].columnValues){
                                         obj[i].columnValuesLookup = scope.columnValueLookUp;
                                     }
                                 }
-                            }
                         }
                     }
                     if (scope.columnHeaders[i].visibilityCriteria != "" && scope.columnHeaders[i].visibilityCriteria != null) {
