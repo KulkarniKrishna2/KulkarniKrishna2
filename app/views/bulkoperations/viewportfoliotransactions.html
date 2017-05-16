@@ -1,9 +1,9 @@
-<div name="createjournalentryform" novalidate="" class="row form-horizontal" ng-controller="ViewGeneratePortfolioTransactionsController"
+<div name="createjournalentryform" novalidate="" class="row form-horizontal" ng-controller="ViewBulkPortfolioTransactionsController"
      rc-submit="submit()">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
-            <li class="active">{{'label.anchor.generateportfoliotransactions' | translate}}</li>
+            <li><a href="#/bulkcollection">{{'label.view.viewbankstatement' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewportfoliotransactions' | translate}}</li>
         </ul>
     </div>
     <div class="form-horizontal">
@@ -13,8 +13,8 @@
                 <tr class="graybg" style="height:30px;">
                     <th style="width:15%;">{{'label.heading.name' | translate}}</th>
                     <th style="height:35%;" align="left">{{bankStatementName}}</th>
-                    <th style="width:15%;">{{'label.heading.bank' | translate}}</th>
-                    <th style="height:35%;"  align="left">{{bankName}}</th>
+                    <th>
+                     <button data-ng-hide="isTransactionsCreated" class="btn btn-primary pull-right" ng-click="submit()"><i class="icon-white"></i> {{'label.button.completeportfoliotransactions' | translate}}</button></th>
                 </tr>
                 </thead>
             </table>
@@ -27,31 +27,28 @@
                 <thead>
                 <tr class="graybg">
                     <th>{{'label.heading.transactionid' | translate}}</th>
+                    <th ng-hide="isSimplified">{{'label.heading.accounttype' | translate}}</th>
+                     <th>{{'label.heading.accountno' | translate}}</th>
                     <th>{{'label.heading.transactiondate' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
-                    <th>{{'label.heading.loanaccountnumber' | translate}}</th>
-                    <th  ng-show="isSimplified">{{'label.heading.receiptnumber' | translate}}</th>
                     <th ng-hide="isSimplified">{{'label.heading.description' | translate}}</th>
-                    <th ng-hide="isSimplified">{{'label.heading.transactiontype' | translate}}</th>
+                    
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="bankStatementDetail in bankStatementDetails | orderBy:'-isError'" ng-class="($index%2!=0)?'graybg':''">
                     <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail)"><a>{{bankStatementDetail.transactionId}}</a></td>
-                    <td ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip={{bankStatementDetail.errmsg}} class="icon-exclamation-sign" style="color: red"></a></td>
+                    <td ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip=' Account not found with {{bankStatementDetail.errmsg}}' class="icon-exclamation-sign" style="color: red"></a></td>
                     <td ng-show="bankStatementDetail.transactionId == undefined && !bankStatementDetail.isError">{{bankStatementDetail.transactionId}}</td>
+                    <td ng-hide="isSimplified">{{bankStatementDetail.accountingType}}</td>
+                    <td>{{bankStatementDetail.loanAccountNumber || bankStatementDetail.savingsAccountNumber}}</td>
                     <td>{{bankStatementDetail.transactionDate}}</td>
                     <td>{{bankStatementDetail.amount}}</td>
-                    <td>{{bankStatementDetail.loanAccountNumber}}</td>
-                    <td   ng-show="isSimplified">{{bankStatementDetail.receiptNumber}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.description}}</td>
-                    <td ng-hide="isSimplified">{{bankStatementDetail.transactionType}}</td>
+                    
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="col-md-offset-5">
-            <button ng-show="isTransactionsCreated" class="btn btn-primary" ng-click="submit()"><i class="icon-white"></i> {{'label.button.generateportfoliotransactions' | translate}}</button>
         </div>
     </div>
 </div>

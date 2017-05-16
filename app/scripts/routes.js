@@ -275,6 +275,9 @@
             .when('/system', {
                 templateUrl: 'views/administration/system.html'
             })
+            .when('/bulkoperations', {
+                templateUrl: 'views/bulkoperations/bulkoperations.html'
+            })
             .when('/loanproducts', {
                 templateUrl: 'views/products/loanproducts.html'
             })
@@ -476,7 +479,7 @@
             })
             .when('/datatables', {
                 templateUrl: 'views/system/datatables.html'
-            })
+            })           
             .when('/viewdatatable/:tableName', {
                 templateUrl: 'views/system/viewdatatable.html'
             })
@@ -1089,6 +1092,18 @@
             .when('/bankstatements', {
                 templateUrl: 'views/bankstatements/viewbankstatement.html'
             })
+            .when('/bulkcollection', {
+                templateUrl: 'views/bulkoperations/bulkportfoliotransactions.html'
+            })
+            .when('/bulkportfoliotransactions', {
+                templateUrl: 'views/bulkoperations/bulkportfoliotransactions.html'
+            })
+            .when('/uploadbulkcollection', {
+                templateUrl: 'views/bulkoperations/uploadbulkcollection.html'
+            })
+            .when('/bankstatementsdetails/:bankStatementId/viewportfoliotransactions', {
+                templateUrl: 'views/bulkoperations/viewportfoliotransactions.html'
+            }) 
             .when('/bankstatementsdetails/:bankStatementId/portfoliotransaction', {
                 templateUrl: 'views/bankstatements/viewbankstatementdetails.html'
             })
