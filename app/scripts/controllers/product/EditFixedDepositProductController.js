@@ -252,6 +252,12 @@
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData = removeEmptyValues(this.formData);
+                if(this.formData.lockinPeriodFrequency == undefined){
+                    this.formData.lockinPeriodFrequency = null;
+                }
+                if(this.formData.inMultiplesOfDepositTerm == undefined){
+                    this.formData.inMultiplesOfDepositTerm = null;
+                }
                 resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewfixeddepositproduct/' + data.resourceId);
                 });
