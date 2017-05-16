@@ -257,7 +257,7 @@
                 if(scope.loanaccountinfo.repaymentFrequencyDayOfWeekType != null)
                     scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.repaymentFrequencyDayOfWeekType.id;
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
-                if(scope.loanaccountinfo.flatInterestRate){
+                if(scope.loanaccountinfo.flatInterestRate != null){
                     scope.formData.interestRatePerPeriod = scope.loanaccountinfo.flatInterestRate;
                 }
                 scope.formData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
