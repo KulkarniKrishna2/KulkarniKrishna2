@@ -379,7 +379,7 @@
                                 <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</span>
                                 </td>
                             </tr>
-                            <tr ng-show="loandetails.flatInterestRate">
+                            <tr ng-show="loandetails.flatInterestRate != null">
                                 <td>{{'label.heading.flatinterestrate' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.flatInterestRate}}</span>
                                 </td>

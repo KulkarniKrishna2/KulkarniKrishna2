@@ -95,14 +95,14 @@
                         location.path('/loanaccount/' + accountId + '/undoapproval');
                         break;
                     case "disburse":
-                        if (scope.loandetails.flatInterestRate) {
+                        if (scope.loandetails.flatInterestRate != null) {
                             location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
                         }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
                         }
                         break;
                     case "disburse.tranche":
-                        if (scope.loandetails.flatInterestRate && scope.loandetails.status.value == "Approved") {
+                        if (scope.loandetails.flatInterestRate != null && scope.loandetails.status.value == "Approved") {
                             location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
                         }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
