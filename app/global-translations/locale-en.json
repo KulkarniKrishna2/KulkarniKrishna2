@@ -1122,7 +1122,7 @@
     "label.heading.viewcgtdays": "View CGT Day",
     "label.heading.completecgt": "Complete CGT",
     "label.heading.rejecteddate": "Reject CGT",
-
+    "label.heading.viewtransactions":"View Transactions",
 
     "#Inputs": "..",
     "label.input.expectedStartDate" : "Expected StartDate",
@@ -3087,7 +3087,15 @@
     "label.anchor.externalServices":"External Services",
     "label.anchor.aadhaarservice":"Aadhaar Service",
     "label.anchor.externalauthenticationservices":"External Authentication Services",
-
+    "label.anchor.bulkoperations":"Bulk operations",
+    "label.anchor.bulkportfoliotransaction":"Bulk Portfolio Transactions",
+    "label.perform.bulkoperations":"Perform bulk transactions for Repayments and Deposits",
+    "label.anchor.bulkportfoliotransactions":"Bulk Portfolio Transactions",
+    "label.view.viewtransaction":"View Transactions",
+    "label.anchor.uploadbulkcollection":"Upload ",
+    "label.heading.uploadbulkcollection":"Upload for Transactions",
+    "label.anchor.viewportfoliotransactions":"View Portfolio Transactions",
+    "label.button.completeportfoliotransactions":"Complete Portfolio Transactions",
 
     "#Inputs": "..",
     "label.input.entity": "Entity",
@@ -3303,6 +3311,7 @@
     "error.msg.duplicate.entity.mapping":"Duplicate mapping, EntityMapping already exist",
     "error.msg.invalid.endDate":"End date cannot be before start date",
     "error.msg.password.reset.days.value.must.be.greater.than.zero" : "For enabling 'Force Password Reset Days' configuration , the value (number of days after which a user is forced to reset his password) must be set to a number greater than 0.",
+    "error.msg.recurringdepositaccount.transaction.in.the.future":"Transactions cannot be done on Future Date",
 
     "#tool tip for global configuration":"..",
     "label.tooltip.global.maker-checker":"Determine if the maker-checker system will be used.",
@@ -4864,7 +4873,7 @@
     "validation.msg.loanapplicationreference.approvedOnDate.is.greater.than.date":"Approved on date should be less than or equals to expected disbursement on",
     "validation.msg.loanapplicationreference.approvedOnDate.is.less.than.date" : "Approved on date should be greater than or equals to loan application submitted on date",
     "validation.msg.loanapplicationreference.loanAmountRequested.amount.is.not.within.min.max.range": "Requested loan amount {{params[0].value}} is invalid. Must be an amount between {{params[1].value}} and {{params[2].value}} inclusive.",
-
+    "label.heading.accountno":"Account Number",
     "#loanwriteof reason":"----------",
     "label.input.reason" : "Reason",
     "label.menu.selectreason" : "Select Reason",

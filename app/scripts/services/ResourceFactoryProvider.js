@@ -804,6 +804,12 @@
                         getBankStatement: {method: 'GET', params: {bankStatementId : '@bankStatementId'}},
                         reconcileBankStatement: {method: 'POST', params: {command : 'reconcile'}}
                     }),
+                    bulkStatementsResource: defineResource(apiVer + "/bulkcollection/:bankStatementId", {bankStatementId: '@bankStatementId',command:'@command'}, {
+                        getAllBankStatement: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {bankStatementId : '@bankStatementId'}},
+                        getBankStatement: {method: 'GET', params: {bankStatementId : '@bankStatementId'}},
+                        reconcileBankStatement: {method: 'POST', params: {command : 'reconcile'}}
+                    }),
                     deleteBankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/delete", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         deleteBankStatement: {method: 'POST', params: {bankStatementId : '@bankStatementId'},command:'command'}
                     }),
@@ -811,6 +817,9 @@
                         get: {method: 'GET', params: {}, isArray: false}
                     }),
                     bankStatementGeneratePortfolioResource: defineResource(apiVer + "/bankstatements/:bankStatementId/generatetransactions", {bankStatementId: '@bankStatementId'}, {
+                        createPortfolioTransactions: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
+                    }),
+                    bulkCollectionGeneratePortfolioResource: defineResource(apiVer + "/bulkcollection/:bankStatementId/generatetransactions", {bankStatementId: '@bankStatementId'}, {
                         createPortfolioTransactions: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
                     }),
                     bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details/:bankStatementDetailId", {bankStatementId: '@bankStatementId',bankStatementDetailId: '@bankStatementDetailId' ,command:'@command'}, {

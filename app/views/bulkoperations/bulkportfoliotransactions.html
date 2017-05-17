@@ -1,0 +1,63 @@
+<form name="viewdocumentform" novalidate="" class="row form-horizontal" 
+  ng-controller="BulkPortfolioTransactionsController"
+      rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li class="active">{{'label.anchor.bulkportfoliotransactions' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right btn-group">
+        <a has-permission="CREATE_BANKSTATEMENT" href="#/uploadbulkcollection" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
+            'label.button.upload' | translate }}</a>
+    </div>
+       
+    <br>
+        <div  class="col-sm-2">
+            <select align="center" id="processed" ng-model="processed" class="form-control"
+                ng-options="option.id as option.value for option in options"
+                value="{{option.id}}">
+                <option value="">{{'label.all' | translate}}</option>
+            </select>
+        </div>
+        <th>
+            <div class="rowleft">
+                <button  class="btn btn-primary" data-ng-click="fetchData()" has-permission='CREATE_BANKSTATEMENT'><i
+                 class="icon-search"></i>{{'label.button.search' | translate}}
+                </button>
+            </div>
+        </th>
+    <table class="table well" ng-show="bulkcollection.currentPageItems.length > 0">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.description' | translate}}</th>
+            <th>{{'label.heading.cpiffile' | translate}}</th>
+            <th>{{'label.heading.updatedby' | translate}}</th>
+            <th>{{'label.heading.updatedon' | translate}}</th>
+            <th>{{'label.heading.viewtransactions' | translate}}</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="bankStatement in bulkcollection.currentPageItems">
+            <td>{{bankStatement.name}}</td>
+            <td>{{bankStatement.description}}</td>
+            <td>{{bankStatement.cpifFileName}}<a target="_blank" href="{{bankStatement.cpifDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
+            <td>{{bankStatement.lastModifiedByName}}</td>
+            <td>{{bankStatement.lastModifiedDate}}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'viewportfoliotransactions')"><i  tooltip="View Portfolio Transaction" class="icon-money icon-white"></i></button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+     <ul class="pager">
+            <li class="previous"><a id="prev" ng-click="bulkcollection.previous()" href="" ng-show="bulkcollection.hasPrevious()">&larr; {{'label.button.previous' |
+                translate}}</a></li>
+            <li class="next"><a id="next" ng-click="bulkcollection.next()" href="" ng-show="bulkcollection.hasNext()">{{'label.button.next'
+                | translate}} &rarr; </a></li>
+        </ul>
+</form>
