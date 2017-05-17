@@ -1868,6 +1868,7 @@
     "label.button.details":"Details",
     "label.button.recoverypayment":"Recovery Repayment",
     "label.button.prepayment":"Prepay Loan",
+    "label.button.prepay":"Prepay Loan",
     "label.button.preclose":"Preclose  Loan",
     "label.button.addTranche":"Add Tranche",
     "label.button.viewjournalentries" : "View Journal Entries",
@@ -2194,7 +2195,10 @@
     "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
     "error.msg.loan.expecteddisbursal.should.be.on.or.after.approval.date" : "Expected disbursal should be on or after approval date",
     "validation.msg.loan.linkAccountId.cannot.be.blank":"Savings account must be provided",
-
+    "loan.cannot.be.reopened.as.it.is.foreclosured" : "Loan cannot be reopened as it is foreclosured",
+    "validation.msg.fixeddepositaccount.depositPeriod.cannot.be.blank" : "Deposit period cannot be blank",
+    "validation.msg.fixeddepositaccount.depositPeriodFrequencyId.is.not.one.of.expected.enumerations" : "Deposit  Period Frequency is not one of expected Enumerations",
+    "validation.msg.fixeddepositaccount.valid.interest.chart.or.nominal.interest.rate.required" : "Interest chart or nominal interest rate require",
 
     "#-------": "------------",
 
