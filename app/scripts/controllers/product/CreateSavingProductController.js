@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateSavingProductController: function (scope, resourceFactory, location) {
+        CreateSavingProductController: function (scope, resourceFactory, location, commonUtilService) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -8,7 +8,7 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
-
+            scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
             resourceFactory.savingProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.product.chargeOptions = scope.product.chargeOptions || [];
@@ -105,6 +105,12 @@
                 location.path('/savingproducts');
             };
 
+            scope.resetSavingsProductDrawingPowerDetails = function () {
+                delete scope.formData.frequencyNthDay;
+                delete scope.formData.frequencyDayOfWeekType;
+                delete scope.formData.onDayType;
+            };
+
             scope.submit = function () {
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
@@ -156,10 +162,10 @@
                 resourceFactory.savingProductResource.save(this.formData, function (data) {
                     location.path('/viewsavingproduct/' + data.resourceId);
                 });
-            }
+            };
         }
     });
-    mifosX.ng.application.controller('CreateSavingProductController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateSavingProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateSavingProductController', ['$scope', 'ResourceFactory', '$location', 'CommonUtilService', mifosX.controllers.CreateSavingProductController]).run(function ($log) {
         $log.info("CreateSavingProductController initialized");
     });
 }(mifosX.controllers || {}));

@@ -12,7 +12,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
-            'UIConfigService'
+            'UIConfigService',
+            'CommonUtilService'
         ],
         controllers: [
             'main/MainController',

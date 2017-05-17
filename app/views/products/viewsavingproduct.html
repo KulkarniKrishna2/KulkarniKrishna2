@@ -105,6 +105,34 @@
             <td>{{'label.heading.minoverdraftforinterestcalculation' | translate}}</td>
             <td colspan="3">{{savingproduct.minOverdraftForInterestCalculation}}</td>
         </tr>
+
+        <tr ng-if="savingproduct.allowDpLimit">
+            <td>
+                <label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}</label>
+            </td>
+            <td colspan="3">
+                {{savingsProductDrawingPowerDetailsData.frequencyType.value}}
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 1 && savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType">
+                    on {{savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 2 && savingsProductDrawingPowerDetailsData.frequencyOnDay && savingsProductDrawingPowerDetailsData.frequencyNthDay.id == -2">
+                    on day {{savingsProductDrawingPowerDetailsData.frequencyOnDay}}
+                </label>
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 2 && savingsProductDrawingPowerDetailsData.frequencyNthDay && savingsProductDrawingPowerDetailsData.frequencyNthDay.id != -2">
+                    on {{savingsProductDrawingPowerDetailsData.frequencyNthDay.value}} {{savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
+            </td>
+        </tr>
+
+        <tr ng-if="savingproduct.allowDpLimit">
+            <td>
+                <label class="control-label">{{ 'label.input.dplimitreductionevery' | translate}}</label>
+            </td>
+            <td colspan="3">
+                {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
+            </td>
+        </tr>
+
         <tr>
             <td>{{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
             <td colspan="3">{{savingproduct.minBalanceForInterestCalculation|number}}</td>

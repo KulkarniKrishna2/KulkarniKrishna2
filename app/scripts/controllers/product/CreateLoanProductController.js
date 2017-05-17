@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateLoanProductController: function (scope, resourceFactory, location, dateFilter) {
+        CreateLoanProductController: function (scope, resourceFactory, location, dateFilter,commonUtilService) {
             scope.restrictDate = new Date();
             scope.formData = {};
             scope.charges = [];
@@ -31,10 +31,7 @@
             scope.repaymentFrequency = true;
             scope.transactionProcessingStrategy = true;
             scope.allowAttributeConfiguration = true;
-            scope.interestRecalculationOnDayTypeOptions = [];
-            for (var i = 1; i <= 28; i++) {
-                scope.interestRecalculationOnDayTypeOptions.push(i);
-            }
+            scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
             scope.minDurationType = [
                     {id :'1',name:"DAYS"},
@@ -462,7 +459,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateLoanProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateLoanProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', 'CommonUtilService', mifosX.controllers.CreateLoanProductController]).run(function ($log) {
         $log.info("CreateLoanProductController initialized");
     });
 }(mifosX.controllers || {}));
