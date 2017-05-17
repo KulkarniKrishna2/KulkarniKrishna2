@@ -21,11 +21,11 @@
 
 
             scope.cancel = function () {
-                if(data.depositType.id == 100)
+                if(scope.data.depositType.id == 100)
                     location.path('/viewsavingaccount/' + scope.data.accountNo);
-                else if(data.depositType.id == 200)
+                else if(scope.data.depositType.id == 200)
                     location.path('/viewfixeddepositaccount/' + scope.data.accountNo);
-                else if(data.depositType.id == 300)
+                else if(scope.data.depositType.id == 300)
                     location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);
             };
 
