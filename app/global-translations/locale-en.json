@@ -926,6 +926,11 @@
     "error.msg.actual.disbursement.date.does.not.match.with.expected.disbursal.date" : "Actual disbursement date {{params[0].value}} should be equal to Expected disbursal date {{params[1].value}}",
     "error.msg.loan.application.first.repayment.date.do.not.match.meeting.date" : "First repayment date {{params[0].value}} do not fall on a meeting date",
     "error.msg.vouchers.voucher.reserse.should.be.initiated.from.initiatator": "Voucher reversal should be initiated from Initiator",
+    "error.msg.vouchers.voucher.already.reversed" : "Voucher already reversed",
+    "error.msg.vouchers.fromOffice.toOffice.cannot.be.same" : "From office and to office cannot be same",
+    "error.msg.vouchers.voucherType.invalid" : "Invalid voucher type",
+    "error.msg.voucher.id.invalid" : "Invalid voucher id",
+    "error.msg.vouchers.voucher.update.not.supported" : "Voucher update is not supported",
     "#--------": "------------",
 
     "#Groups": "....",
