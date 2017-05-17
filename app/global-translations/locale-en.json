@@ -2195,6 +2195,8 @@
     "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
     "error.msg.loan.expecteddisbursal.should.be.on.or.after.approval.date" : "Expected disbursal should be on or after approval date",
     "validation.msg.loan.linkAccountId.cannot.be.blank":"Savings account must be provided",
+    "validation.msg.fixeddeposit.minDepositTerm.cannot.be.blank" : "Minimum deposit term cannot be blank",
+    "validation.msg.fixeddepositaccount.no.applicable.interest.rate.is.found.based.on.amount.and.deposit.period" : "No applicable interest rate is found based on deposit amount",
 
 
     "#-------": "------------",

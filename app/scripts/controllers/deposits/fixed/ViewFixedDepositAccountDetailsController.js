@@ -215,6 +215,22 @@
                 scope.convertDateArrayToObject('date');
             });
 
+            scope.transactionSort = {
+                column: 'date',
+                columnId: 'id',
+                descending: true
+            };
+
+            scope.changeTransactionSort = function(column) {
+                var sort = scope.transactionSort;
+                if (sort.column == column) {
+                    sort.descending = !sort.descending;
+                } else {
+                    sort.column = column;
+                    sort.descending = true;
+                }
+            };
+
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
