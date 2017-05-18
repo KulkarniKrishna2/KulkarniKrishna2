@@ -183,14 +183,14 @@
                 <label class="control-label">{{ 'label.input.nominalannualinterestrateoverdraft' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
-                <input id="nominalAnnualInterestRateOverdraft" type="text"
+                <input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control"
                        ng-model="formData.nominalAnnualInterestRateOverdraft">
             </td>
             <td class="width14">
                 <label class="control-label">{{ 'label.input.minoverdraftforinterestcalculation' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
-                <input id="minOverdraftForInterestCalculation" type="text"
+                <input id="minOverdraftForInterestCalculation" type="text" class="form-control"
                        ng-model="formData.minOverdraftForInterestCalculation" number-format>
             </td>
         </tr>
@@ -229,7 +229,7 @@
             <td class="width14"></td>
             <td class="width36 paddedbottom10"></td>
         </tr>
-        <tr ng-show="formData.allowOverdraft">
+        <tr ng-if="formData.allowOverdraft">
             <td colspan="2" class="paddedbottom10">
                 <input type="checkbox" ng-model="formData.allowDpLimit"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowdplimit' | translate }}&nbsp;</span>
@@ -242,25 +242,30 @@
                        ng-model="formData.dpLimitAmount" number-format>
             </td>
         </tr>
-        <tr ng-show="formData.allowDpLimit && formData.allowOverdraft">
+        <tr ng-if="formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="dplimitfrequencyType" ng-disabled="true"
-                        ng-model="formData.savingsDpLimitFrequencyType"
-                        ng-options="type.id as type.value for type in data.savingsDpLimitFrequencyTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
-                </select>
+                {{savingsProductDrawingPowerDetailsData.frequencyType.value}}
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 1 && savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType">
+                    on {{savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 2 && savingsProductDrawingPowerDetailsData.frequencyOnDay && savingsProductDrawingPowerDetailsData.frequencyNthDay.id == -2">
+                    on day {{savingsProductDrawingPowerDetailsData.frequencyOnDay}}
+                </label>
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 2 && savingsProductDrawingPowerDetailsData.frequencyNthDay && savingsProductDrawingPowerDetailsData.frequencyNthDay.id != -2">
+                    on {{savingsProductDrawingPowerDetailsData.frequencyNthDay.value}}
+                    {{savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
             </td>
             <td class="width14" ng-show="formData.allowDpLimit">
                 <label class="control-label">{{ 'label.input.dplimitreductionevery' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input id="dplimitreductionevery" type="text" class="form-control"
-                       ng-model="formData.dpLimitReductionEvery" number-format>
+                {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
             </td>
         </tr>
-        <tr ng-show="formData.allowDpLimit && formData.allowOverdraft">
+        <tr ng-if="formData.allowDpLimit && formData.allowOverdraft">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -278,13 +283,22 @@
                        ng-model="formData.dpCalculateOnAmount" number-format>
             </td>
         </tr>
-        <tr ng-show="formData.allowDpLimit && formData.allowOverdraft">
+        <tr ng-if="formData.allowDpLimit">
             <td class="width14">
                 <label class="control-label">{{ 'label.input.duration' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
                 <input id="dpDuration" type="text" class="form-control"
                        ng-model="formData.dpDuration" number-format>
+            </td>
+
+            <td class="width14">
+                <label ng-show="formData.productId" class="control-label">{{ 'label.input.dp.start.date' | translate
+                    }}&nbsp;<span class="required">*</span></label>
+            </td>
+            <td class="width36 paddedbottom10">
+                <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="dd MMMM yyyy"
+                       ng-model="formData.dpStartDate" is-open="opened" class="form-control"/>
             </td>
         </tr>
 

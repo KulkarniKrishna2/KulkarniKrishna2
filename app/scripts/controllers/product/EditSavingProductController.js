@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditSavingProductController: function (scope, resourceFactory, location, routeParams) {
+        EditSavingProductController: function (scope, resourceFactory, location, routeParams, commonUtilService) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -8,7 +8,7 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
-
+            scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
             resourceFactory.savingProductResource.get({savingProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.charges = data.charges;
@@ -45,6 +45,22 @@
                     daysToInactive: data.daysToInactive,
                     daysToDormancy: data.daysToDormancy,
                     daysToEscheat: data.daysToEscheat
+                };
+
+                if (scope.formData.allowOverdraft) {
+                    if(data.savingsProductDrawingPowerDetailsData && data.savingsProductDrawingPowerDetailsData.frequencyType){
+                        var savingsProductDrawingPowerDetailsData = data.savingsProductDrawingPowerDetailsData;
+                        scope.formData.allowDpLimit = 'true';
+                        scope.formData.dpFrequencyType = savingsProductDrawingPowerDetailsData.frequencyType.id;
+                        if(savingsProductDrawingPowerDetailsData.frequencyNthDay){
+                            scope.formData.dpFrequencyNthDay = savingsProductDrawingPowerDetailsData.frequencyNthDay.id;
+                        }
+                        if(savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType){
+                            scope.formData.dpFrequencyDayOfWeekType = savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.id;
+                        }
+                        scope.formData.dpFrequencyOnDay = savingsProductDrawingPowerDetailsData.frequencyOnDay;
+                        scope.formData.dpFrequencyInterval = savingsProductDrawingPowerDetailsData.frequencyInterval;
+                    }
                 }
 
                 if(data.withHoldTax){
@@ -171,6 +187,12 @@
                 location.path('/viewsavingproduct/' + routeParams.id);
             };
 
+            scope.resetSavingsProductDrawingPowerDetails = function () {
+                delete scope.formData.frequencyNthDay;
+                delete scope.formData.frequencyDayOfWeekType;
+                delete scope.formData.onDayType;
+            };
+
             scope.submit = function () {
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
@@ -225,7 +247,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditSavingProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.EditSavingProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditSavingProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'CommonUtilService', mifosX.controllers.EditSavingProductController]).run(function ($log) {
         $log.info("EditSavingProductController initialized");
     });
 }(mifosX.controllers || {}));

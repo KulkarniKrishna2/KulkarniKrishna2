@@ -3,6 +3,10 @@
         ViewSavingProductController: function (scope, routeParams, location, anchorScroll, resourceFactory) {
             resourceFactory.savingProductResource.get({savingProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.savingproduct = data;
+                if(data.savingsProductDrawingPowerDetailsData){
+                    scope.savingproduct.allowDpLimit = true;
+                    scope.savingsProductDrawingPowerDetailsData = data.savingsProductDrawingPowerDetailsData;
+                }
                 scope.hasAccounting = data.accountingRule.id == 2 ? true : false;
             });
 

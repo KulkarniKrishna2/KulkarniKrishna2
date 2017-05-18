@@ -49,32 +49,32 @@
                 scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                 scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                 scope.formData.allowOverdraft = data.allowOverdraft;
+
                 scope.formData.overdraftLimit = data.overdraftLimit;
                 scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
                 scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
                 scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                 scope.formData.minRequiredBalance = data.minRequiredBalance;
                 scope.formData.withHoldTax = data.withHoldTax;
-                scope.formData.allowDpLimit = data.savingsAccountDpDetailsData != '' || data.savingsAccountDpDetailsData != null ? true : false;
-                if(data.savingsAccountDpDetailsData){
-                    scope.formData.dpLimitAmount = data.savingsAccountDpDetailsData.dpAmount;
-                    if (data.savingsAccountDpDetailsData.frequencyType) {
-                        for (var i in data.savingsDpLimitFrequencyTypeOptions) {
-                            if (angular.equals(angular.lowercase(data.savingsDpLimitFrequencyTypeOptions[i].value), angular.lowercase(data.savingsAccountDpDetailsData.frequencyType))) {
-                                scope.formData.savingsDpLimitFrequencyType = data.savingsDpLimitFrequencyTypeOptions[i].id;
-                            }
-                        }
+                if (scope.formData.allowOverdraft && data.savingsAccountDpDetailsData) {
+                    if (data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData) {
+                        scope.savingsProductDrawingPowerDetailsData = data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData;
                     }
+                    scope.formData.allowDpLimit = scope.formData.allowOverdraft;
+                    scope.formData.dpLimitAmount = data.savingsAccountDpDetailsData.dpAmount;
                     if (data.savingsAccountDpDetailsData.calculationType) {
                         for (var i in data.savingsDpLimitCalculationTypeOptions) {
-                            if (angular.equals(angular.lowercase(data.savingsDpLimitCalculationTypeOptions[i].value), angular.lowercase(data.savingsAccountDpDetailsData.calculationType))) {
+                            if (angular.equals(angular.lowercase(data.savingsDpLimitCalculationTypeOptions[i].id), angular.lowercase(data.savingsAccountDpDetailsData.calculationType.id))) {
                                 scope.formData.savingsDpLimitCalculationType = data.savingsDpLimitCalculationTypeOptions[i].id;
                             }
                         }
                     }
-                  scope.formData.dpLimitReductionEvery = data.savingsAccountDpDetailsData.dpReductionEvery;
-                  scope.formData.dpCalculateOnAmount = data.savingsAccountDpDetailsData.amountOrPercentage;
-                  scope.formData.dpDuration = data.savingsAccountDpDetailsData.duration;
+                    scope.formData.dpCalculateOnAmount = data.savingsAccountDpDetailsData.amountOrPercentage;
+                    scope.formData.dpDuration = data.savingsAccountDpDetailsData.duration;
+                    if (data.savingsAccountDpDetailsData.startDate) {
+                        var startDate = dateFilter(data.savingsAccountDpDetailsData.startDate, scope.df);
+                        scope.formData.dpStartDate = new Date(startDate);
+                    }
                 }
                 if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                 if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -150,6 +150,9 @@
 
             scope.submit = function () {
                 if (this.formData.submittedOnDate)  this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
+                if (this.formData.dpStartDate) {
+                    this.formData.dpStartDate = dateFilter(this.formData.dpStartDate, scope.df);
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.monthDayFormat = "dd MMM";
