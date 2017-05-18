@@ -192,6 +192,30 @@
                 location.path('/viewfixeddepositaccount/' + routeParams.id);
             };
 
+            scope.$watch('formData.closedOnDate', function () {
+                if (scope.formData.closedOnDate != undefined && scope.action === "prematureClose") {
+                    if (scope.formData.closedOnDate) {
+                        scope.formData.closedOnDate = dateFilter(scope.formData.closedOnDate, scope.df);
+                    }
+                    scope.calculatePrematureAmount(scope.formData.closedOnDate);
+                }
+            });
+
+            scope.calculatePrematureAmount = function (closedOnDate) {
+                var queryParams = {};
+                queryParams.locale = scope.optlang.code;
+                queryParams.dateFormat = scope.df;
+                queryParams.closedOnDate = closedOnDate;
+                params = {accountId: routeParams.id, command: 'calculatePrematureAmount'};
+                resourceFactory.fixedDepositAccountResource.save(params, queryParams, function (data) {
+                    scope.maturityAmount = data.maturityAmount;
+                    scope.onAccountClosureOptions = data.onAccountClosureOptions;
+                    scope.savingsAccounts = data.savingsAccounts;
+                    scope.paymentTypes = data.paymentTypeOptions;
+                    scope.currency = data.currency;
+                });
+            };
+
             scope.submit = function () {
                 var params = {command: scope.action};
                 if (scope.action != "undoapproval") {
@@ -276,14 +300,7 @@
                             this.formData.closedOnDate = dateFilter(this.formData.closedOnDate, scope.df);
                         }
                         if (scope.retrievePreMatureAmount) {
-                            params = {accountId: routeParams.id, command: 'calculatePrematureAmount'};
-                            resourceFactory.fixedDepositAccountResource.save(params, this.formData, function (data) {
-                                scope.maturityAmount = data.maturityAmount;
-                                scope.onAccountClosureOptions = data.onAccountClosureOptions;
-                                scope.savingsAccounts = data.savingsAccounts;
-                                scope.paymentTypes = data.paymentTypeOptions;
-                                scope.currency = data.currency;
-                            });
+                            scope.calculatePrematureAmount(this.formData.closedOnDate);
                             scope.isAccountClose = true;
                             scope.showNoteField = true;
                             scope.retrievePreMatureAmount = false;
