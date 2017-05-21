@@ -1165,6 +1165,9 @@
                         getAll: {method: 'GET', params: {}},
                         create:{method: 'POST', params: {}},
                         update:{method: 'PUT', params: {}}
+                    }),
+                    cryptographyPublickeyResource: defineResource(apiVer + "/cryptography/:entityType/publickey", {entityType:'@entityType'}, {
+                        get:{method: 'GET', params: {}}
                     })
                 };
             }];

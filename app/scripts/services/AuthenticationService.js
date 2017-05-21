@@ -60,26 +60,38 @@
 	                    .error(onFailure);
         		} else {
                     angular.copy(credentials,credentialsData);
-                    httpService.post(apiVer + "/authentication?isPasswordEncrypted=true", '{}')
+                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentials.username)
                         .success(onSuccessPublicKeyData)
                         .error(onFailure);
                 }
             };
 
+            var isPasswordEncrypted = false;
             var onSuccessPublicKeyData = function (publicKeyData) {
-                scope.publicKey = publicKeyData.keyValue;
-                var encrypt = new JSEncrypt();
-                encrypt.setPublicKey(scope.publicKey);
-                var encryptedPassword = encrypt.encrypt(credentialsData.password);
-                if (encryptedPassword == false) {
-                    onFailure(null);
+                if (!_.isUndefined(publicKeyData.keyValue)) {
+                    isPasswordEncrypted = true;
+                    scope.publicKey = publicKeyData.keyValue;
+                    var encrypt = new JSEncrypt();
+                    encrypt.setPublicKey(scope.publicKey);
+                    var encryptedPassword = encrypt.encrypt(credentialsData.password);
+                    if (encryptedPassword == false) {
+                        onFailure(null);
+                    } else {
+                        credentialsData.password = encryptedPassword;
+                        authenticateProcesses(credentialsData);
+                    }
                 } else {
-                    credentialsData.password = encryptedPassword;
-                    httpService.post(apiVer + "/authentication?isPasswordEncrypted=true", credentialsData)
-                        .success(onSuccess)
-                        .error(onFailure);
+                    isPasswordEncrypted = false;
+                    authenticateProcesses(credentialsData);
                 }
             };
+
+            var authenticateProcesses = function (credentials) {
+                httpService.post(apiVer + "/authentication?isPasswordEncrypted="+isPasswordEncrypted, credentials)
+                    .success(onSuccess)
+                    .error(onFailure);
+            };
+
         }
     });
     mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService', 'SECURITY', 'localStorageService','$timeout','webStorage', mifosX.services.AuthenticationService]).run(function ($log) {
