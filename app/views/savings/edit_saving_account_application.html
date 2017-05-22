@@ -26,12 +26,13 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+            <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
                    ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
-                   class="form-control"/>
+                   class="form-control" required late-validate/>
+            <form-validate valattributeform="editsavingccountform" valattribute="submittedOnDate"/>
         </td>
     </tr>
-    <tr ng-show="formData.productId">
+    <tr ng-if="formData.productId">
         <td class="width14">
             <label>{{ 'label.input.fieldofficer' | translate }}:&nbsp;</label>
         </td>
@@ -52,10 +53,10 @@
 
     </tr>
 </table>
-<hr data-ng-show="formData.productId"/>
-<label ng-show="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+<hr ng-if="formData.productId"/>
+<label ng-if="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
-<div ng-show="data">
+<div ng-if="data">
     <table class="width100">
         <tr>
             <td class="width14"><label class="control-label">{{ 'label.heading.currency' | translate }}</label>
@@ -80,7 +81,7 @@
                        name="nominalannualinterestrate"
                        ng-model="formData.nominalAnnualInterestRate" class="form-control"
                        required late-Validate/>
-                <form-validate valattributeform="newsavingccountform"
+                <form-validate valattributeform="editsavingccountform"
                                valattribute="nominalannualinterestrate"/>
             </td>
             <td class="width14">
@@ -88,10 +89,12 @@
                     }}&nbsp;<span class="required">*</span></label>
             </td>
             <td class="width36 paddedbottom10">
-                <select id="interestCompoundingPeriodType"
+                <select id="interestCompoundingPeriodType" name="interestCompoundingPeriodType"
                         ng-model="formData.interestCompoundingPeriodType"
                         ng-options="interestCompoundingPeriodType.id as interestCompoundingPeriodType.value for interestCompoundingPeriodType in data.interestCompoundingPeriodTypeOptions"
-                        value="{{interestCompoundingPeriodType.id}}" class="form-control width170px"></select>
+                        value="{{interestCompoundingPeriodType.id}}" class="form-control width170px" required late-Validate></select>
+                <form-validate valattributeform="editsavingccountform"
+                               valattribute="interestCompoundingPeriodType"/>
             </td>
 
         </tr>
@@ -107,29 +110,33 @@
                 <label class="control-label">{{ 'label.input.interestpostingperiod' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType"
+                <select id="interestPostingPeriodType" name="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType"
                         ng-options="interestPostingPeriodType.id as interestPostingPeriodType.value for interestPostingPeriodType in data.interestPostingPeriodTypeOptions"
-                        value="{{interestPostingPeriodType.id}}" class="form-control width170px">
-                </select></td>
-
+                        value="{{interestPostingPeriodType.id}}" class="form-control width170px" required late-Validate>
+                </select>
+                <form-validate valattributeform="editsavingccountform" valattribute="interestPostingPeriodType"/>
+            </td>
         </tr>
         <tr>
             <td class="width14"><label class="control-label">{{ 'label.input.interestcalculatedusing' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="interestCalculationType"
+                <select id="interestCalculationType" name="interestCalculationType"
                         ng-model="formData.interestCalculationType"
                         ng-options="interestCalculationType.id as interestCalculationType.value for interestCalculationType in data.interestCalculationTypeOptions"
-                        value="{{interestCalculationType.id}}" class="form-control width170px">
-                </select></td>
+                        value="{{interestCalculationType.id}}" class="form-control width170px" required late-Validate>
+                </select>
+                <form-validate valattributeform="editsavingccountform" valattribute="interestCalculationType"/>
+            </td>
             <td class="width14"><label class="control-label">{{ 'label.input.daysinyears' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="interestCalculationDaysInYearType"
+                <select id="interestCalculationDaysInYearType" name="interestCalculationDaysInYearType"
                         ng-model="formData.interestCalculationDaysInYearType"
                         ng-options="interestCalculationDaysInYearType.id as interestCalculationDaysInYearType.value for interestCalculationDaysInYearType in data.interestCalculationDaysInYearTypeOptions"
-                        value="{{interestCalculationDaysInYearType.id}}" class="form-control width170px">
+                        value="{{interestCalculationDaysInYearType.id}}" class="form-control width170px" required late-Validate>
                 </select>
+                <form-validate valattributeform="editsavingccountform" valattribute="interestCalculationDaysInYearType"/>
             </td>
         </tr>
         <tr>
@@ -227,17 +234,18 @@
             <td class="width14"></td>
             <td class="width36 paddedbottom10"></td>
         </tr>
-        <tr ng-show="formData.allowOverdraft">
+        <tr ng-if="formData.allowOverdraft">
             <td colspan="2" class="paddedbottom10">
                 <input type="checkbox" ng-model="formData.allowDpLimit"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowdplimit' | translate }}&nbsp;</span>
             </td>
             <td class="width14" ng-show="formData.allowDpLimit">
                 <label class="control-label">{{ 'label.input.dplimit' | translate
-                    }}&nbsp;</label></td>
+                    }}&nbsp;<span class="required">*</span></label></td>
             <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input id="dpLimit" type="text" class="form-control"
-                       ng-model="formData.dpLimitAmount" number-format>
+                <input ng-if="formData.allowDpLimit" id="dpLimitAmount" name="dpLimitAmount" type="text" class="form-control"
+                       ng-model="formData.dpLimitAmount" number-format required late-validate>
+                <form-validate valattributeform="editsavingccountform" valattribute="dpLimitAmount"/>
             </td>
         </tr>
         <tr ng-if="formData.allowDpLimit">
@@ -266,27 +274,31 @@
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="dplimitcalculationType"
+                <select id="savingsDpLimitCalculationType" name="savingsDpLimitCalculationType"
                         ng-model="formData.savingsDpLimitCalculationType"
                         ng-options="type.id as type.value for type in data.savingsDpLimitCalculationTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
+                        value="{{type.id}}" class="form-control width170px" required late-validate>
                 </select>
+                <form-validate valattributeform="editsavingccountform" valattribute="savingsDpLimitCalculationType"/>
             </td>
-            <td class="width14" ng-show="formData.allowDpLimit">
+            <td class="width14">
                 <label class="control-label">{{ 'label.input.amount' | translate
-                    }}&nbsp;</label></td>
-            <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input id="dpCalculateOnAmount" type="text" class="form-control"
-                       ng-model="formData.dpCalculateOnAmount" number-format>
+                    }}&nbsp;<span class="required">*</span></label>
+            </td>
+            <td class="width36 paddedbottom10">
+                <input id="dpCalculateOnAmount" name="dpCalculateOnAmount" type="text" class="form-control"
+                       ng-model="formData.dpCalculateOnAmount" number-format required late-validate>
+                <form-validate valattributeform="editsavingccountform" valattribute="dpCalculateOnAmount"/>
             </td>
         </tr>
         <tr ng-if="formData.allowDpLimit">
             <td class="width14">
                 <label class="control-label">{{ 'label.input.duration' | translate
-                    }}&nbsp;</label></td>
+                    }}&nbsp;<span class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <input id="dpDuration" type="text" class="form-control"
-                       ng-model="formData.dpDuration" number-format>
+                <input id="dpDuration" name="dpDuration" type="text" class="form-control"
+                       ng-model="formData.dpDuration" number-format required late-validate maxlength="4">
+                <form-validate valattributeform="editsavingccountform" valattribute="dpDuration"/>
             </td>
 
             <td class="width14">
@@ -295,7 +307,8 @@
             </td>
             <td class="width36 paddedbottom10">
                 <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="dd MMMM yyyy"
-                       ng-model="formData.dpStartDate" is-open="opened" class="form-control"/>
+                       ng-model="formData.dpStartDate" is-open="opened" class="form-control" required late-validate/>
+                <form-validate valattributeform="editsavingccountform" valattribute="dpStartDate"/>
             </td>
         </tr>
     </table>

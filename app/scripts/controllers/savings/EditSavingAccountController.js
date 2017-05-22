@@ -56,7 +56,7 @@
                 scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                 scope.formData.minRequiredBalance = data.minRequiredBalance;
                 scope.formData.withHoldTax = data.withHoldTax;
-                if (scope.formData.allowOverdraft && data.savingsAccountDpDetailsData) {
+                if (scope.formData.allowOverdraft && data.savingsAccountDpDetailsData.id) {
                     if (data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData) {
                         scope.savingsProductDrawingPowerDetailsData = data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData;
                     }
