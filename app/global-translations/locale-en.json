@@ -5919,7 +5919,10 @@
     "label.input.dp.start.date":"DP Start Date",
     "validation.msg.savingsaccount.dpLimitAmount.cannot.be.blank" : "Dp limit amount can not be blank",
     "validation.msg.savingsaccount.savingsDpLimitCalculationType.cannot.be.blank" : "Dp limit calculation type can not be blank",
-
+    "validation.msg.savingsaccount.allowDpLimit.should.not.be.greater.than.overdraftLimit" : "Dp limit amount can not be greater than maximum overdraft limit amount ",
+    "validation.msg.savingsaccount.dpCalculateOnAmount.is.greater.than.max" : "Dp calculate on % amount must be less than are equal to 100.00 %",
+    "validation.msg.savingsaccount.dpCalculateOnAmount.should.not.be.greater.than.dpLimitAmount" : "Dp calculate on amount should not be greater than dp limit amount",
+    "validation.msg.savingsaccount.overdraftLimit.cannot.be.blank" : "Maximum overdraft amount limit cannot be blank",
 
     "------ end of tensalation file":"---------"
 }
