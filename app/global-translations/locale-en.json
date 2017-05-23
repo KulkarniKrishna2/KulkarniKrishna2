@@ -1371,6 +1371,7 @@
     "label.button.execute.periodic.accruals":"Run Periodic Accruals",
     "label.button.expand.all":"Expand All",
     "label.button.collapse.all":"Collapse All",
+    "label.button.loadbankdetails": "Load bank details",
 
     "#Misc Labels": "..",
     "assetTransfer":"Asset Transfer",
@@ -4552,8 +4553,10 @@
     "label.input.holdername":"Bank Account Holder Name",
     "label.input.accountnumber":"Bank Account Number",
     "label.input.ifsccode":"Bank IFSC code",
+    "label.input.micrcode":"Bank MICR code",
     "label.input.bankname":"Bank Name",
     "label.input.bankcity":"Bank City",
+    "label.input.branchName":"Bank Branch Name",
     "label.input.last.transaction.date":"Last Transaction Date",
     "label.anchor.bankaccountdetails":"Bank Account Details",
     "label.button.bankaccountdetails":"Bank Account Details",
