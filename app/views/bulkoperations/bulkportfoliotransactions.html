@@ -43,7 +43,7 @@
         <tr class="pointer-main" ng-repeat="bankStatement in bulkcollection.currentPageItems">
             <td>{{bankStatement.name}}</td>
             <td>{{bankStatement.description}}</td>
-            <td>{{bankStatement.cpifFileName}}<a target="_blank" href="{{bankStatement.cpifDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
+            <td>{{bankStatement.cpifFileName}}<a target="_blank" href="{{baseUri}}{{bankStatement.cpifKeyDocumentId}}{{appendedUri}}"><i class="icon-cloud-download"></i></a></td>
             <td>{{bankStatement.lastModifiedByName}}</td>
             <td>{{bankStatement.lastModifiedDate}}</td>
             <td>
