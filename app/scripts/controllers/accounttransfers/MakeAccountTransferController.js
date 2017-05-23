@@ -18,6 +18,7 @@
             scope.loansEnabled = false;
             scope.enableOwnAccountTransfer = false;
             scope.enableOtherAccountTransfer = false;
+            scope.displayAccountType = params.fromAccountType;
 
             scope.back = function () {
                 window.history.back();
@@ -151,7 +152,7 @@
                  
                 if(scope.account == "ownAccount"){
                     requestFormData.toOfficeId = requestFormData.fromOfficeId;
-                    requestFormData.toClientId = requestFormData.fromOfficeId;
+                    requestFormData.toClientId = requestFormData.fromClientId;
                 }    
                
                 resourceFactory.accountTransferResource.save(requestFormData, function (data) {
