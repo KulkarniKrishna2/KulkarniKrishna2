@@ -19,6 +19,7 @@
             scope.processDate = false;
             scope.showAmountDispaly = false;
             scope.trancheError = false;
+            scope.showRepaymentsStartingFromDateField = false;
 
             //glim
             scope.isGLIM = false;
