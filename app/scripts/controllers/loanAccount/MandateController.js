@@ -66,7 +66,7 @@
                 scope.formData.micr = data.micr || '';
                 scope.formData.ifsc = data.ifsc || '';
                 scope.formData.accountType = data.accountType.id;
-                scope.formData.periodUntilCancelled = data.periodUntilCancelled || true;
+                scope.formData.periodUntilCancelled = data.periodUntilCancelled;
                 scope.formData.debitType = data.debitType.id;
                 scope.formData.amount = data.amount  || '';
                 scope.formData.debitFrequency = data.debitFrequency.id;
