@@ -11,6 +11,7 @@
             scope.isBankAccountNumberMandatory = false;
             scope.isAccountTypeMandatory = false;
             scope.isIFSCCodeMandatory = false;
+            scope.isMICRCodeMandatory = false;
             scope.isBankNameMandatory = false;
             scope.isBankCityMandatory = false;
             scope.isMobileNumberMandatory = false;
@@ -33,6 +34,11 @@
                 if(scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory.bankIFSCCode){
                     scope.isIFSCCodeMandatory = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory.bankIFSCCode;
                 }
+
+                if(scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory.bankMICRCode){
+                    scope.isMICRCodeMandatory = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory.bankMICRCode;
+                }
+
                 if(scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory.bankName){
                     scope.isBankNameMandatory = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory.bankName;
                 }
@@ -69,6 +75,11 @@
                     scope.response.uiDisplayConfigurations.bankAccountDetails.regexValidations.bankIFSCCode != ""){
                     scope.IFSCCodePattern = scope.response.uiDisplayConfigurations.bankAccountDetails.regexValidations.bankIFSCCode;
                 }
+
+                if(scope.response.uiDisplayConfigurations.bankAccountDetails.regexValidations.MICRCODE &&
+                    scope.response.uiDisplayConfigurations.bankAccountDetails.regexValidations.MICRCODE != ""){
+                    scope.MICRCodePattern = scope.response.uiDisplayConfigurations.bankAccountDetails.regexValidations.MICRCODE;
+                }
             }
 
             resourceFactory.bankAccountDetailResource.get({entityType: routeParams.entityType,entityId: routeParams.entityId}, function (data) {
@@ -82,7 +93,9 @@
                     bankName: data.bankName,
                     bankCity: data.bankCity,
                     mobileNumber: data.mobileNumber,
-                    email: data.email
+                    email: data.email,
+                    micrCode: data.micrCode,
+                    branchName: data.branchName
                 };
                 if(!_.isUndefined(data.lastTransactionDate)){
                     scope.formData.lastTransactionDate = new Date(dateFilter(data.lastTransactionDate, scope.df));
@@ -126,7 +139,18 @@
                 };
             })();
 
-
+            scope.MICRCodeRegex = (function() {
+                var regex = eval(scope.MICRCodePattern);
+                return {
+                    test: function(value) {
+                        if (scope.MICRCodePattern == null) {
+                            return true;
+                        } else {
+                            return regex.test(value);
+                        }
+                    }
+                };
+            })();
 
             scope.submit = function () {
                 scope.formData.locale = scope.optlang.code;
