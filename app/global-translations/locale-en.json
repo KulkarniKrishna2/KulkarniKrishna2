@@ -6007,6 +6007,10 @@
     "validation.msg.loanemipacks.fixedEmi.is.greater.than.max" : "Please enter valid EMI amount.",
     "validation.msg.loanemipacks.disbursalAmount2.is.greater.than.max" : "Disbursal amount should not be more than total amount.",
     "error.msg.loan.topup.on.multi.tranche.loan.without.interest.recalculation.not.supported" : "Top-up loans will not support multi-tranche loan without interest recalculation.",
+    "error.msg.loan.loanIdToClose.no.active.loan.associated.to.client.found":"Loan to be closed must be active loan",
+    "error.msg.loan.to.be.closed.has.different.currency":"Loan to be closed must have same currency",
+    "error.msg.loan.disbursal.date.should.be.after.last.transaction.date.of.loan.to.be.closed":"Disbursement date must be equal or greter than last transaction date of loan to be closed",
+    "error.msg.loan.topup.on.multi.tranche.loan.without.interest.recalculation.and.non.disbursed.tranche.not.supported" : "Top-up loans will not support multi-tranche loan with un disbursed tranches and without interest recalculation",
 
     "------ end of tensalation file":"---------"
 }
