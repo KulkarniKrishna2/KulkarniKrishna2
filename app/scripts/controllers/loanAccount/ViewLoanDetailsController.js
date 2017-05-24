@@ -24,7 +24,8 @@
             scope.showFutureSchedule = false;
             scope.showOriginalSchedule = false;
             scope.glimPaymentAsGroup = false;
-            scope.glimAsGroupConfigName = 'glim-payment-as-group';   
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';
+            scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
 
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -95,14 +96,14 @@
                         location.path('/loanaccount/' + accountId + '/undoapproval');
                         break;
                     case "disburse":
-                        if (scope.loandetails.flatInterestRate) {
+                        if (scope.loandetails.flatInterestRate != null) {
                             location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
                         }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
                         }
                         break;
                     case "disburse.tranche":
-                        if (scope.loandetails.flatInterestRate && scope.loandetails.status.value == "Approved") {
+                        if (scope.loandetails.flatInterestRate != null && scope.loandetails.status.value == "Approved") {
                             location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
                         }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
@@ -119,6 +120,9 @@
                         break;
                     case "preclose":
                         location.path('/loanaccount/' + accountId + '/prepayloan');
+                        break;
+                    case "prepay":
+                        location.path('/loanaccount/' + accountId + '/prepay');
                         break;
                     case "prepayment":
                         location.path('/loanaccount/' + accountId + '/prepayment');
@@ -530,6 +534,13 @@
                             icon: "icon-money",
                             taskPermissionName: 'FORECLOSURE_LOAN'
                         });
+                        if (!scope.hidePrepayButton) {
+                            scope.buttons.singlebuttons.splice(1, 0, {
+                                name: "button.prepay",
+                                icon: "icon-money",
+                                taskPermissionName: 'REPAYMENT_LOAN'
+                            });
+                        }
                     }
                     if(scope.recalculateInterest && scope.loandetails.interestRecalculationData){
                         scope.buttons.options.push( {

@@ -184,18 +184,66 @@
 	            </div>
 
 	        </div>
-            <div class="form-group" ng-show="formData.allowOverdraft">
-                <label class="control-label col-sm-3">{{ 'label.input.nominalannualinterestrateoverdraft' | translate }}</label>
-                <div class="col-sm-2">
-                    <input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control"
-                           ng-model="formData.nominalAnnualInterestRateOverdraft">
-                </div>
-                <label class="control-label col-sm-2">{{ 'label.input.minoverdraftforinterestcalculation' | translate }}</label>
-                <div class="col-sm-2">
-                    <input id="minOverdraftForInterestCalculation" type="text" class="form-control"
-                           ng-model="formData.minOverdraftForInterestCalculation">
-                </div>
-            </div>
+
+			<div class="form-group" ng-if="formData.allowOverdraft">
+				<label class="control-label col-sm-3">{{ 'label.input.allowdplimit' | translate }}</label>
+				<i class="icon-question-sign col-sm-1" ng-hide="true"></i>
+				<div class="col-sm-2">
+					<input id="allowDpLimit" type="checkbox" ng-model="formData.allowDpLimit" ng-true-value="true"
+						   ng-false-value="false">
+				</div>
+			</div>
+
+			<div ng-if="formData.allowDpLimit">
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.type' | translate}}<span class="required">*</span></label>
+					<div class="col-sm-2">
+						<select id="dpFrequencyType" name="dpFrequencyType" class="form-control"
+								ng-model="formData.dpFrequencyType"
+								ng-options="type.id as type.value for type in product.periodFrequencyTypeOptions"
+								value="{{type.id}}" required late-validate ng-change="resetSavingsProductDrawingPowerDetails()"></select>
+					</div>
+					<div class="col-sm-2" ng-if="formData.dpFrequencyType == 2">
+						<select id="dpFrequencyNthDay" name="dpFrequencyNthDay" class="form-control"
+								ng-model="formData.dpFrequencyNthDay"
+								ng-options="nthDayType.id as nthDayType.value for nthDayType in product.nthDayTypeOptions"
+								value="{{nthDayType.id}}">
+							<option value=""></option>
+						</select>&nbsp;
+					</div>
+					<div class="col-sm-2"
+						 ng-if="(formData.dpFrequencyType == 1 || formData.dpFrequencyType == 2 )  && formData.dpFrequencyNthDay != -2">
+						<select id="dpFrequencyDayOfWeekType" name="dpFrequencyDayOfWeekType" class="form-control"
+								ng-model="formData.dpFrequencyDayOfWeekType"
+								ng-options="dayOfWeekType.id as dayOfWeekType.value for dayOfWeekType in product.dayOfWeekTypeOptions"
+								value="{{dayOfWeekType.id}}">
+							<option value="">DAY</option>
+						</select>&nbsp;
+					</div>
+					<div class="col-sm-2"
+						 data-ng-show="formData.dpFrequencyType == 2 && formData.dpFrequencyNthDay == -2">
+						<select id="dpFrequencyOnDay" name="dpFrequencyOnDay" class="form-control"
+								ng-model="formData.dpFrequencyOnDay"
+								ng-options="onDayType as onDayType for onDayType in onDayTypeOptions"
+								value="{{onDayType}}"></select>&nbsp;
+					</div>
+					<div class="col-sm-2">
+						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyType"/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.interval' | translate}}<span class="required">*</span></label>
+					<div class="col-sm-2">
+						<input id="dpFrequencyInterval" name="dpFrequencyInterval" type="text" class="form-control"
+							   ng-model="formData.dpFrequencyInterval" required late-validate>
+					</div>
+					<div class="col-sm-2">
+						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyInterval"/>
+					</div>
+				</div>
+			</div>
+
             <div class="form-group">
                 <label class="control-label col-sm-3">{{ 'label.input.withholdtax' | translate }}</label>
                 <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.withholdtax' | translate}}"></i>

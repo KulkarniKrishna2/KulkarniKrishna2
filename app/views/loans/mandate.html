@@ -1,6 +1,6 @@
 <div ng-controller="MandateController">
     <style>
-        .fixedstyle	{ position:fixed; top:20%; right:10%; width:500px; height: 400px;}
+        .fixedstyle	{ position:fixed; top:30%; right:10%; width:500px; height: 400px;}
     </style>
     <div>
         <ul class="breadcrumb">
@@ -11,15 +11,19 @@
             <li class="active" ng-show="isEdit">{{'label.anchor.mandate.edit' | translate}}</li>
         </ul>
     </div>
-    <api-validate></api-validate>
-    <form class="form-horizontal well" name="mandateform" novalidate="" ng-submit="submit()">
+
+    <form name="mandateform" novalidate="" rc-submit="submit()"  class="form-horizontal well">
+        <div class="btn btn-primary pull-right" ng-show="showBankDetails">
+            <a ng-click="populateBankDetails()" class="btn btn-primary"><i class="icon-download icon-white"></i>{{'label.button.loadbankdetails' | translate}}</a>
+        </div>
+        <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="scannedDocumentId">{{'label.heading.mandate.scannedDocumentName' | translate}}<span
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="scannedDocumentId" ng-model="formData.scannedDocumentId" class="form-control"
+                    <select name="scannedDocumentId" id="scannedDocumentId" ng-model="formData.scannedDocumentId" class="form-control"
                             ng-options="scannedDocumentOption.id as scannedDocumentOption.code for scannedDocumentOption in scannedDocumentOptions"
                             value="formData.scannedDocumentId" required late-Validate ng-change="onDocumentChange(formData.scannedDocumentId)" ></select>
                 </div>
@@ -33,9 +37,9 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="requestDate" sort type="text" class="form-control"
-                           datepicker-pop="dd MMMM yyyy" ng-model="formData.requestDate" is-open="opened" date
-                           required late-Validate/>
+                    <input name="requestDate" id="requestDate" type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.requestDate" is-open="opened"
+                           required/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="requestDate"/>
@@ -111,7 +115,10 @@
                 <label class="control-label col-sm-2" for="ifsc">{{'label.heading.mandate.ifsc' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="ifsc" type="text" name="ifsc" ng-model="formData.ifsc" class="form-control"/>
+                    <input id="ifsc" type="text" name="ifsc" ng-model="formData.ifsc" class="form-control" required/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="mandateform" valattribute="ifsc"/>
                 </div>
             </div>
 
@@ -122,7 +129,7 @@
                 <div class="col-sm-3">
                     <select id="accountType" ng-model="formData.accountType" class="form-control"
                             ng-options="accountTypeOption.id as accountTypeOption.code for accountTypeOption in accountTypeOptions"
-                            value="{{formData.accountType}}" required late-Validate></select>
+                            value="{{accountTypeOption.id}}" required late-Validate></select>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="accountType"/>
@@ -134,9 +141,9 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="periodFromDate" sort type="text" class="form-control"
+                    <input name="periodFromDate" id="periodFromDate" sort type="text" class="form-control"
                            datepicker-pop="dd MMMM yyyy" ng-model="formData.periodFromDate" is-open="opened"
-                           required late-Validate/>
+                           required/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="periodFromDate"/>

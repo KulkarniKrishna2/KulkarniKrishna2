@@ -1,0 +1,10 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "viewLoanAccountDetails": {
+      "isHiddenFeild": {
+        "prepayLoanButton" : false
+      }
+    }
+  }
+}

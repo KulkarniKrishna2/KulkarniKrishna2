@@ -257,7 +257,7 @@
                     }
                 }
                 else if (route == 'admin') {
-                    var temp3 = ['/users/', '/organization', '/system', '/products', '/global'];
+                    var temp3 = ['/users/', '/organization', '/system', '/products', '/bulkoperations', '/global'];
                     for (var i in temp3) {
                         if (temp3[i] == location.path()) {
                             return true;

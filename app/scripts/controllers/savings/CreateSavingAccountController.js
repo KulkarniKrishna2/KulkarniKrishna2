@@ -55,6 +55,12 @@
                     scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                     scope.formData.allowOverdraft = data.allowOverdraft;
+                    if(scope.formData.allowOverdraft){
+                        if(scope.data.savingsAccountDpDetailsData && scope.data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData){
+                            scope.savingsProductDrawingPowerDetailsData = scope.data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData;
+                            scope.formData.allowDpLimit = scope.formData.allowOverdraft;
+                        }
+                    };
                     scope.formData.overdraftLimit = data.overdraftLimit;
                     scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
                     scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
@@ -107,6 +113,9 @@
             scope.submit = function () {
                 if (scope.date) {
                     this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate, scope.df);
+                    if(this.formData.dpStartDate){
+                        this.formData.dpStartDate = dateFilter(this.formData.dpStartDate, scope.df);
+                    }
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;

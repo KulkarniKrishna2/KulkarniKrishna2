@@ -7,8 +7,8 @@
         <li class="active">{{'label.anchor.savingapplication' | translate}}</li>
     </ul>
 </div>
-<api-validate></api-validate>
 <form name="newsavingccountform" novalidate="" class="well form-inline" rc-submit="submit()">
+<api-validate></api-validate>
 <fieldset>
 <legend>{{ 'label.heading.savingapplication' | translate }}</legend>
 <table class="width100">
@@ -28,12 +28,14 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+            <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text"
+                   datepicker-pop="dd MMMM yyyy"
                    ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
-                   class="form-control"/>
+                   class="form-control" required late-validate/>
+            <form-validate valattributeform="newsavingccountform" valattribute="submittedOnDate"/>
         </td>
     </tr>
-    <tr ng-show="formData.productId">
+    <tr ng-if="formData.productId">
         <td class="width14">
             <label>{{ 'label.input.fieldofficer' | translate }}:&nbsp;</label>
         </td>
@@ -53,10 +55,10 @@
         </td>
     </tr>
 </table>
-<hr data-ng-show="formData.productId"/>
-<label ng-show="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+<hr ng-if="formData.productId"/>
+<label ng-if="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
-<div ng-show="data">
+<div ng-if="data">
     <table class="width100">
         <tr>
             <td class="width14"><label class="control-label">{{ 'label.heading.currency' | translate }}</label>
@@ -183,14 +185,14 @@
                 <label class="control-label">{{ 'label.input.nominalannualinterestrateoverdraft' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
-                <input id="nominalAnnualInterestRateOverdraft" type="text"
+                <input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control"
                        ng-model="formData.nominalAnnualInterestRateOverdraft">
             </td>
             <td class="width14">
                 <label class="control-label">{{ 'label.input.minoverdraftforinterestcalculation' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
-                <input id="minOverdraftForInterestCalculation" type="text"
+                <input id="minOverdraftForInterestCalculation" type="text" class="form-control"
                        ng-model="formData.minOverdraftForInterestCalculation" number-format>
             </td>
         </tr>
@@ -229,62 +231,82 @@
             <td class="width14"></td>
             <td class="width36 paddedbottom10"></td>
         </tr>
-        <tr ng-show="formData.allowOverdraft">
+        <tr ng-if="formData.allowOverdraft">
             <td colspan="2" class="paddedbottom10">
                 <input type="checkbox" ng-model="formData.allowDpLimit"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowdplimit' | translate }}&nbsp;</span>
             </td>
             <td class="width14" ng-show="formData.allowDpLimit">
                 <label class="control-label">{{ 'label.input.dplimit' | translate
-                    }}&nbsp;</label></td>
+                    }}&nbsp;<span class="required">*</span></label></td>
             <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input id="dpLimit" type="text" class="form-control"
-                       ng-model="formData.dpLimitAmount" number-format>
+                <input ng-if="formData.allowDpLimit" id="dpLimitAmount" name="dpLimitAmount" type="text" class="form-control"
+                       ng-model="formData.dpLimitAmount" number-format required late-validate>
+                <form-validate valattributeform="newsavingccountform" valattribute="dpLimitAmount"/>
             </td>
         </tr>
-        <tr ng-show="formData.allowDpLimit && formData.allowOverdraft">
+        <tr ng-if="formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="dplimitfrequencyType" ng-disabled="true"
-                        ng-model="formData.savingsDpLimitFrequencyType"
-                        ng-options="type.id as type.value for type in data.savingsDpLimitFrequencyTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
-                </select>
+                {{savingsProductDrawingPowerDetailsData.frequencyType.value}}
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 1 && savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType">
+                    on {{savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 2 && savingsProductDrawingPowerDetailsData.frequencyOnDay && savingsProductDrawingPowerDetailsData.frequencyNthDay.id == -2">
+                    on day {{savingsProductDrawingPowerDetailsData.frequencyOnDay}}
+                </label>
+                <label ng-if="savingsProductDrawingPowerDetailsData.frequencyType.id == 2 && savingsProductDrawingPowerDetailsData.frequencyNthDay && savingsProductDrawingPowerDetailsData.frequencyNthDay.id != -2">
+                    on {{savingsProductDrawingPowerDetailsData.frequencyNthDay.value}}
+                    {{savingsProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
             </td>
             <td class="width14" ng-show="formData.allowDpLimit">
                 <label class="control-label">{{ 'label.input.dplimitreductionevery' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input id="dplimitreductionevery" type="text" class="form-control"
-                       ng-model="formData.dpLimitReductionEvery" number-format>
+                {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
             </td>
         </tr>
-        <tr ng-show="formData.allowDpLimit && formData.allowOverdraft">
+        <tr ng-if="formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <select id="dplimitcalculationType"
+                <select id="savingsDpLimitCalculationType" name="savingsDpLimitCalculationType"
                         ng-model="formData.savingsDpLimitCalculationType"
                         ng-options="type.id as type.value for type in data.savingsDpLimitCalculationTypeOptions"
-                        value="{{type.id}}" class="form-control width170px">
+                        value="{{type.id}}" class="form-control width170px" required late-validate>
                 </select>
+                <form-validate valattributeform="newsavingccountform" valattribute="savingsDpLimitCalculationType"/>
             </td>
-            <td class="width14" ng-show="formData.allowDpLimit">
+            <td class="width14">
                 <label class="control-label">{{ 'label.input.amount' | translate
-                    }}&nbsp;</label></td>
-            <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input id="dpCalculateOnAmount" type="text" class="form-control"
-                       ng-model="formData.dpCalculateOnAmount" number-format>
+                    }}&nbsp;<span class="required">*</span></label>
+            </td>
+            <td class="width36 paddedbottom10">
+                <input id="dpCalculateOnAmount" name="dpCalculateOnAmount" type="text" class="form-control"
+                       ng-model="formData.dpCalculateOnAmount" number-format required late-validate>
+                <form-validate valattributeform="newsavingccountform" valattribute="dpCalculateOnAmount"/>
             </td>
         </tr>
-        <tr ng-show="formData.allowDpLimit && formData.allowOverdraft">
+        <tr ng-if="formData.allowDpLimit">
             <td class="width14">
                 <label class="control-label">{{ 'label.input.duration' | translate
-                    }}&nbsp;</label></td>
+                    }}&nbsp;<span class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <input id="dpDuration" type="text" class="form-control"
-                       ng-model="formData.dpDuration" number-format>
+                <input id="dpDuration" name="dpDuration" type="text" class="form-control"
+                       ng-model="formData.dpDuration" number-format required late-validate maxlength="4">
+                <form-validate valattributeform="newsavingccountform" valattribute="dpDuration"/>
+            </td>
+
+            <td class="width14">
+                <label ng-show="formData.productId" class="control-label">{{ 'label.input.dp.start.date' | translate
+                    }}&nbsp;<span class="required">*</span></label>
+            </td>
+            <td class="width36 paddedbottom10">
+                <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="dd MMMM yyyy"
+                       ng-model="formData.dpStartDate" is-open="opened" class="form-control" required late-validate/>
+                <form-validate valattributeform="newsavingccountform" valattribute="dpStartDate"/>
             </td>
         </tr>
 

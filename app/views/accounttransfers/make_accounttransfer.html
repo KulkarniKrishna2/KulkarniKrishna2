@@ -1,7 +1,9 @@
 <div ng-controller="MakeAccountTransferController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/viewsavingaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewsavingaccount' |
+            <li ng-show="displayAccountType == 2"><a href="#/viewsavingaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewsavingaccount' |
+                translate}}</a></li>
+            <li ng-show="displayAccountType == 1"><a href="#/viewloanaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewloanaccount' |
                 translate}}</a></li>
             <li class="active">{{'label.anchor.accounttransfers' | translate}}</li>
         </ul>

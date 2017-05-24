@@ -19,6 +19,7 @@
             scope.processDate = false;
             scope.showAmountDispaly = false;
             scope.trancheError = false;
+            scope.showRepaymentsStartingFromDateField = false;
 
             //glim
             scope.isGLIM = false;
@@ -405,6 +406,29 @@
                         scope.processDate = true;
                     });
                     scope.title = 'label.heading.preclose';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'REPAYMENT_LOAN';
+                    scope.action = 'repayment';
+                    break;
+                case "prepay":
+                    scope.modelName = 'transactionDate';
+                    scope.formData.transactionDate =  new Date();
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        if (data.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        }
+                        scope.formData.transactionAmount = data.amount;
+                        if(data.penaltyChargesPortion>0){
+                            scope.showPenaltyPortionDisplay = true;
+                        }
+                        scope.principalPortion = data.principalPortion;
+                        scope.interestPortion = data.interestPortion;
+                        scope.processDate = true;
+                    });
+                    scope.title = 'label.heading.prepayloan';
                     scope.labelName = 'label.input.transactiondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;

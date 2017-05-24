@@ -74,7 +74,8 @@
 		"settings": false,
 		"interestRateChat": false,
 		"charges": false,
-		"addCharges": false
+		"addCharges": false,
+		"prepayLoanButton" : true
 	  }
 	},
 	"clientAccount": {

@@ -6,6 +6,7 @@
             scope.command = routeParams.command;
             scope.formData = {};
             scope.showDoc = false;
+            scope.showBankDetails = false ;
             if(scope.command === 'CREATE'){
                 scope.isCreate = true;
             }else if(scope.command === 'UPDATE'){
@@ -19,6 +20,9 @@
             if(scope.isCreate){
                 resourceFactory.mandateTemplateResource.getCreateTemplate({loanId:scope.loanId}, function (data) {
                     scope.populate(data);
+                    if(data.bankAccountDetails) {
+                        scope.showBankDetails = true ;
+                    }
                 });
             }else if(scope.isUpdate){
                 resourceFactory.mandateTemplateResource.getUpdateTemplate({loanId:scope.loanId}, function (data) {
@@ -32,6 +36,16 @@
                 resourceFactory.mandateResource.getOne({loanId:scope.loanId, mandateId: scope.mandateId}, function (data) {
                     scope.populate(data);
                 });
+            }
+
+            scope.populateBankDetails = function() {
+                scope.formData.bankAccountHolderName = scope.mandate.bankAccountDetails.name || '';
+                scope.formData.bankName = scope.mandate.bankAccountDetails.bankName || '';
+                scope.formData.branchName = scope.mandate.bankAccountDetails.branchName || '';
+                scope.formData.bankAccountNumber = scope.mandate.bankAccountDetails.accountNumber || '';
+                scope.formData.micr = scope.mandate.bankAccountDetails.micrCode || '';
+                scope.formData.ifsc = scope.mandate.bankAccountDetails.ifscCode || '';
+                scope.formData.accountType = scope.mandate.bankAccountDetails.accountType.id;
             }
 
             scope.populate = function(data){
@@ -52,7 +66,7 @@
                 scope.formData.micr = data.micr || '';
                 scope.formData.ifsc = data.ifsc || '';
                 scope.formData.accountType = data.accountType.id;
-                scope.formData.periodUntilCancelled = data.periodUntilCancelled || true;
+                scope.formData.periodUntilCancelled = data.periodUntilCancelled;
                 scope.formData.debitType = data.debitType.id;
                 scope.formData.amount = data.amount  || '';
                 scope.formData.debitFrequency = data.debitFrequency.id;
