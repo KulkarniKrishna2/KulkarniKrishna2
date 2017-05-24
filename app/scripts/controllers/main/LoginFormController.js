@@ -9,7 +9,6 @@
             scope.login = function () {
                 scope.load = true;
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
-               // delete scope.loginCredentials.password;
             };
 
             scope.$on("UserAuthenticationFailureEvent", function (event, data, status) {
@@ -32,6 +31,7 @@
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
                 scope.hideLoginPannel = false;
                 scope.load = false;
+                scope.authenticationFailed = false;
                 timer = $timeout(function(){
                     delete scope.loginCredentials.password;
                 },2000);
