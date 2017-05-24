@@ -160,6 +160,9 @@
                     scope.currentSession = sessionManager.get(data);
                     scope.start(scope.currentSession);
                     if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
+                        if (data.officeId) {
+                            scope.currentSession.user.officeId = data.officeId;
+                        }
                         $rootScope.setPermissions(scope.currentSession.user.userPermissions);
                     }
                     location.path('/home').replace();

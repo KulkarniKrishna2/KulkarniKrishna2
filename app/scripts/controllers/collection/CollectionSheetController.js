@@ -26,6 +26,15 @@
             scope.isStaffMandotory = false;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
+                if (scope.currentSession.user.officeId) {
+                    for (var i = 0; i < scope.offices.length; i++) {
+                        if (scope.offices[i].id === scope.currentSession.user.officeId) {
+                            scope.officeId = scope.offices[i].id;
+                            break;
+                        }
+                    }
+                    scope.officeSelected(scope.officeId);
+                }
             });
             scope.productiveCollectionSheet = function () {
                 for (var i = 0; i < scope.offices.length; i++) {
