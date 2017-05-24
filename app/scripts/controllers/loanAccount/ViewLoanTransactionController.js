@@ -15,7 +15,7 @@
 
             scope.isUndoEditTrxnEnabled = function () {
                 scope.hideEditUndoTrxnButton = false;
-                if (scope.transaction.type.contra || scope.transaction.type.revokeSubsidy || scope.transaction.type.addSubsidy) {
+                if (scope.transaction.type.contra || scope.transaction.type.revokeSubsidy || scope.transaction.type.addSubsidy||scope.transaction.type.disbursement) {
                     scope.hideEditUndoTrxnButton = true;
                 }
             }
