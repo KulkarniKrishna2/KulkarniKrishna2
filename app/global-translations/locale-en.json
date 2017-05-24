@@ -6011,6 +6011,7 @@
     "error.msg.loan.to.be.closed.has.different.currency":"Loan to be closed must have same currency",
     "error.msg.loan.disbursal.date.should.be.after.last.transaction.date.of.loan.to.be.closed":"Disbursement date must be equal or greter than last transaction date of loan to be closed",
     "error.msg.loan.topup.on.multi.tranche.loan.without.interest.recalculation.and.non.disbursed.tranche.not.supported" : "Top-up loans will not support multi-tranche loan with un disbursed tranches and without interest recalculation",
+    "loan.with.undisbursed.tranche.cannot.be.foreclosured":"Loan with undisbrsed tranche cannot be foreclosed",
 
     "------ end of tensalation file":"---------"
 }
