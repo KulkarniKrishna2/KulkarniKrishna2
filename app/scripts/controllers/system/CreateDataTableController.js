@@ -14,6 +14,7 @@
             scope.available = [];
             scope.selected = [];
             scope.id = {};
+            scope.hasValueMandatory = false;
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -147,6 +148,12 @@
             };
 
             scope.getDependentCodeValues = function (column) {
+                if(column.when){
+                    scope.hasValueMandatory = true;
+                }else{
+                    scope.hasValueMandatory = false;
+                }
+
                 var codeName = "";
                 for(var i in scope.columns){
                     if(column.when === scope.columns[i].name) {
@@ -167,7 +174,12 @@
                     scope.formData.multiRow = scope.formData.multiRow || false;
                     scope.formData.columns = scope.columns;
                     for (var i in scope.formData.columns) {
-                        if (scope.formData.columns[i].when != undefined && scope.formData.columns[i].value != undefined) {
+                        if(scope.formData.columns[i].when == null){
+                            delete scope.formData.columns[i].when;
+                            delete scope.formData.columns[i].value;
+                            scope.hasValueMandatory = false;
+                        }
+                        if (scope.formData.columns[i].when != undefined && scope.formData.columns[i].value != undefined ) {
                             scope.formData.columns[i].visibilityCriteria = [];
                             var json = {
                                 columnName: scope.formData.columns[i].when,
@@ -176,6 +188,7 @@
                             scope.formData.columns[i].visibilityCriteria.push(json);
                             delete scope.formData.columns[i].when;
                             delete scope.formData.columns[i].value;
+                            scope.hasValueMandatory = false;
                         }
                     }
                     if(this.formData.restrictscope && this.selected != '' && this.selected != undefined) {

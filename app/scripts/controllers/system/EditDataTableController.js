@@ -12,6 +12,7 @@
             scope.available = [];
             scope.selected = [];
             scope.id = {};
+            scope.hasValueMandatory = false;
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -206,6 +207,11 @@
             }
 
             scope.getDependentCodeValues = function (column) {
+                if(column.when){
+                    scope.hasValueMandatory = true;
+                }else{
+                    scope.hasValueMandatory = false;
+                }
                 var codeName = "";
                 for(var i in scope.columns){
                     if(column.when === scope.columns[i].name) {
@@ -283,6 +289,11 @@
 
                 for (var i in scope.columns) {
 
+                    if(scope.columns[i].when == null){
+                        delete scope.columns[i].when;
+                        delete scope.columns[i].when;
+                        scope.hasValueMandatory = false;
+                    }
                     if (scope.columns[i].when != undefined && scope.columns[i].value != undefined) {
                         scope.columns[i].visibilityCriteria = [];
                         var json = {
@@ -292,6 +303,7 @@
                         scope.columns[i].visibilityCriteria.push(json);
                         delete scope.columns[i].when;
                         delete scope.columns[i].value;
+                        scope.hasValueMandatory = false;
                     }
 
                     if (scope.columns[i].originalName) {
