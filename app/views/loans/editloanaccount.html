@@ -67,7 +67,8 @@
         <td class="paddedbottom10">
             <input id="expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
                    ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'"
-                   date-disabled="disabled(date, mode)" late-Validate/>
+                   date-disabled="disabled(date, mode)" name="expecteddisbursementon" required late-Validate/>
+            <form-validate valattributeform="editloanaccountform" valattribute="expecteddisbursementon"/>
         </td>
     </tr>
     <tr ng-show="formData.productId">
@@ -322,8 +323,10 @@
                 <td><label>{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
-                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"
-                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"  required
+                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"/>
+                    &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                    <form-validate valattributeform="editloanaccountform" valattribute="nominalinterestrate"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
