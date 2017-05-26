@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-controller="cashflowActivityController" >
+<div class="col-md-12" ng-controller="cashflowActivityController" >  
     <div ng-if="showSummary">
         <div class="form-horizontal">
             <h3>{{'label.heading.occupationdetails' | translate}}
@@ -32,7 +32,7 @@
                         <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
                     </td>
                     <td class="pull-right">
-                        <button role="button" ng-click="editClientoccupationdetails(incomeAndExpense.id)" class="btn-link ng-binding">
+                        <button role="button" ng-click="editClientoccupationdetails(incomeAndExpense.id)" ng-if="!isTaskCompleted()" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
                     </td>
@@ -76,7 +76,7 @@
                         <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
                     </td>
                     <td class="pull-right">
-                        <button role="button" ng-click="editClientassetdetails(incomeAndExpense.id)" class="btn-link ng-binding">
+                        <button role="button" ng-click="editClientassetdetails(incomeAndExpense.id)" ng-if="!isTaskCompleted()" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
                     </td>
@@ -111,7 +111,7 @@
                         {{incomeAndExpense.totalExpense}}
                     </td>
                     <td class="pull-right">
-                        <button role="button" ng-click="editClienthouseholddetails(incomeAndExpense.id)" class="btn-link ng-binding">
+                        <button role="button" ng-click="editClienthouseholddetails(incomeAndExpense.id)" ng-if="!isTaskCompleted()" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
                     </td>
@@ -236,7 +236,7 @@
 
     </div>
     <div ng-if="showEditClientoccupationdetailsForm">
-        <api-validate></api-validate>
+        
         <form name="showEditClientoccupationdetailsForm" novalidate="" class="form-horizontal well"
               ng-submit="editClientoccupationdetailsSubmit()">
             <fieldset>
@@ -326,7 +326,7 @@
     </div>
 
     <div ng-if="showAddClientassetdetailsForm" >
-        <api-validate></api-validate>
+        
         <form name="showAddClientassetdetailsForm" novalidate="" class="form-horizontal"
               ng-submit="addClientassetdetailsSubmit()">
             <fieldset>
@@ -504,14 +504,15 @@
     </div>
 
     <div ng-if="showAddClienthouseholddetailsForm" >
-        <api-validate></api-validate>
+        
         <form name="showAddClienthouseholddetailsForm" novalidate="" class="form-horizontal"
               ng-submit="addClienthouseholddetailsSubmit()">
             <fieldset>
                 <legend>{{'label.view.add.client.household' | translate}}</legend>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.household.expense' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.household.expense' | translate }}<span
+                            class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
@@ -519,6 +520,7 @@
                                 value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
+                        <form-validate valattributeform="showAddClienthouseholddetailsForm" valattribute="occupation"/>
                     </div>
                 </div>
 
@@ -565,7 +567,7 @@
     </div>
 
     <div ng-if="showEditClienthouseholddetailsForm">
-        <api-validate></api-validate>
+        
         <form name="showEditClienthouseholddetailsForm" novalidate="" class="form-horizontal"
               ng-submit="editClienthouseholddetailsSubmit()">
             <fieldset>

@@ -1552,13 +1552,13 @@
                 templateUrl: 'views/search/advancedsearch.html'
             })
             .when('/taskconfigtemplate/template', {
-                templateUrl: 'views/task/TaskConfigTemplate/createtaskconfigtemplate.html'
+                templateUrl: 'views/task/taskconfigtemplate/createtaskconfigtemplate.html'
             })
             .when('/taskconfigtemplate', {
-                templateUrl: 'views/task/TaskConfigTemplate/taskconfigtemplate.html'
+                templateUrl: 'views/task/taskconfigtemplate/taskconfigtemplate.html'
             })
             .when('/taskconfigtemplate/edittemplate/:id', {
-                templateUrl: 'views/task/TaskConfigTemplate/edittaskconfigtemplate.html'
+                templateUrl: 'views/task/taskconfigtemplate/edittaskconfigtemplate.html'
             })
             .when('/taskcreate', {
                 templateUrl: 'views/task/createtask/createtask.html'
