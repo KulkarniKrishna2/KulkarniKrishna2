@@ -5777,6 +5777,7 @@
     "label.heading.coapplicants":"Co-Applicants",
     "label.heading.coapplicant.delete":"Remove Co-Applicant",
     "lable.error.activity.coapplicant.not.completed":"Please complete all the workflows.",
+    "lable.error.activity.survey.not.completed":"Please fill the survey data.",
     "taskTemplateEntityType.office":"Office",
     "taskTemplateEntityType.center":"Center",
     "taskTemplateEntityType.client":"Client",
