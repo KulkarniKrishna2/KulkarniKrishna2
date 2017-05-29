@@ -118,14 +118,14 @@
                                 <input type="file" id="taskfile" name="taskfile" ng-file-select="onTaskFileSelect($files)">
                             </div>
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-offset-1 col-sm-2">
                                 <form-validate valattributeform="taskdocumentform" valattribute="name"/>
                             </div>
                             <div class="col-sm-2" ng-if="docData.name">
                                 <form-validate valattributeform="taskdocumentform" valattribute="taskfile"/>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-2 pull-right">
                                 <button ng-if="!isTaskCompleted()" id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
                             </div>
                         </div>
