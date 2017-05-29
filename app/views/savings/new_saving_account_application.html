@@ -231,7 +231,7 @@
             <td class="width14"></td>
             <td class="width36 paddedbottom10"></td>
         </tr>
-        <tr ng-if="formData.allowOverdraft">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td colspan="2" class="paddedbottom10">
                 <input type="checkbox" ng-model="formData.allowDpLimit"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowdplimit' | translate }}&nbsp;</span>
@@ -245,7 +245,7 @@
                 <form-validate valattributeform="newsavingccountform" valattribute="dpLimitAmount"/>
             </td>
         </tr>
-        <tr ng-if="formData.allowDpLimit">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -268,7 +268,7 @@
                 {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
             </td>
         </tr>
-        <tr ng-if="formData.allowDpLimit">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -289,7 +289,7 @@
                 <form-validate valattributeform="newsavingccountform" valattribute="dpCalculateOnAmount"/>
             </td>
         </tr>
-        <tr ng-if="formData.allowDpLimit">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14">
                 <label class="control-label">{{ 'label.input.duration' | translate
                     }}&nbsp;<span class="required">*</span></label></td>
