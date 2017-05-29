@@ -80,10 +80,20 @@
                 }
             });
 
+            scope.removeNonGlimChargesFromChargeOptions = function(){                
+                        for(var i in scope.loanaccountinfo.chargeOptions){
+                            if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge){
+                               scope.loanaccountinfo.chargeOptions.splice(i,1); 
+                            }
+                        }
+            };
+
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    //remove non glim charges from from glim loan
+                    scope.removeNonGlimChargesFromChargeOptions();          
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
                     scope.productLoanCharges = data.product.charges || [];

@@ -35,7 +35,7 @@
             scope.glimAutoCalFlatFeeAmount = function (index, glimMembers) {
                 var totalUpfrontChargeAmount = 0.0;
                 for(var i in glimMembers){
-                    if(glimMembers[i].upfrontChargeAmount){
+                    if(glimMembers[i].isClientSelected && glimMembers[i].upfrontChargeAmount){
                         totalUpfrontChargeAmount += parseFloat(glimMembers[i].upfrontChargeAmount);
                     }
                 }
@@ -54,6 +54,8 @@
                     scope.GLIMData = glimData;
                     scope.isGLIM = (glimData.length > 0);
                     if (scope.isGLIM){
+                        //remove non glim charges from from glim loan
+                        scope.removeNonGlimChargesFromChargeOptions();
                         scope.formData.clientMembers = [];
                         for (var i=0;i<glimData.length;i++) {
                             scope.formData.clientMembers[i] = {};
@@ -128,6 +130,14 @@
 
             });
 
+            scope.removeNonGlimChargesFromChargeOptions = function(){                
+                        for(var i in scope.loanaccountinfo.chargeOptions){
+                            if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge){
+                               scope.loanaccountinfo.chargeOptions.splice(i,1); 
+                            }
+                        }
+            };
+
             scope.loanProductChange = function (loanProductId) {
 
                 var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType };
@@ -141,6 +151,7 @@
                 inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.removeNonGlimChargesFromChargeOptions();
                     scope.collaterals = [];
                     var refreshLoanCharges  = true;
                     scope.previewClientLoanAccInfo(refreshLoanCharges);
@@ -384,6 +395,9 @@
                                     amount = amount + data.glims[i].upfrontChargeAmount;
                                     
                             }
+                        }else{
+                            data.glims[i].upfrontChargeAmount = 0;
+                            amount = 0;
                         }
                     }
                     data.amountOrPercentage = amount;

@@ -6012,5 +6012,10 @@
     "error.msg.loan.disbursal.date.should.be.after.last.transaction.date.of.loan.to.be.closed":"Disbursement date must be equal or greter than last transaction date of loan to be closed",
     "error.msg.loan.topup.on.multi.tranche.loan.without.interest.recalculation.and.non.disbursed.tranche.not.supported" : "Top-up loans will not support multi-tranche loan with un disbursed tranches and without interest recalculation",
 
+    "------ glim exceptions":"---------",
+    "error.msg.glim.loan.charge.can.not.be.updated" : "Glim loan charge can not be updated.",
+    "error.msg.glim.does.not.support.interest.calculation" : "Glim loan does not support interest calculation.",
+    "error.msg.glim.does.not.support.multi.tranche" : "Glim loan does not support multi tanche.",
+
     "------ end of tensalation file":"---------"
 }
