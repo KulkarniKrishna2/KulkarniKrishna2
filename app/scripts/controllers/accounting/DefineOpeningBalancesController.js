@@ -37,9 +37,9 @@
                             scope.errorDetails.push([errorObj]);
                         }
                     } else if (scope.allGls[i].debit && scope.allGls[i].debit != "") {
-                        this.formData.debits.push({"glAccountId":scope.allGls[i].glAccountId, "amount":scope.allGls[i].debit});
+                        this.formData.debits.push({"glAccountId":scope.allGls[i].glAccountData.id, "amount":scope.allGls[i].debit});
                     } else if (scope.allGls[i].credit && scope.allGls[i].credit) {
-                        this.formData.credits.push({"glAccountId":scope.allGls[i].glAccountId, "amount":scope.allGls[i].credit});
+                        this.formData.credits.push({"glAccountId":scope.allGls[i].glAccountData.id, "amount":scope.allGls[i].credit});
                     }
                 }
                 if(noErrors){

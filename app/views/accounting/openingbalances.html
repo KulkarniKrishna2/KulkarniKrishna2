@@ -60,12 +60,12 @@
             <tbody>
             <tr ng-repeat="gl in allGls">
                 <td>
-                    <span ng-show="allGls[$index].glAccountType.value != allGls[$index-1].glAccountType.value">
-                    {{gl.glAccountType.value}}
+                    <span ng-show="allGls[$index].glAccountData.type.value != allGls[$index-1].glAccountData.type.value">
+                    {{gl.glAccountData.type.value}}
                     </span>
                 </td>
-                <td>{{gl.glAccountCode}}</td>
-                <td>{{gl.glAccountName}}</td>
+                <td>{{gl.glAccountData.glCode}}</td>
+                <td>{{gl.glAccountData.name}}</td>
                 <td><input type="text" name="debits{{$index}}" ng-model="gl.debit"  number-format class="form-control" ng-change="keyPress()" /></td>
                 <td><input type="text" name="credits{{$index}}" ng-model="gl.credit"  number-format class="form-control" ng-change="keyPress()" /></td>
             </tr>
