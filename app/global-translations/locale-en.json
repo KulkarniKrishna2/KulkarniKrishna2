@@ -6015,5 +6015,10 @@
     "loan.with.undisbursed.tranche.cannot.be.foreclosured":"Loan with undisbrsed tranche cannot be foreclosed",
     "error.msg.clients.activationOnDate.after.charge.due.date":"client activation date cannot be after the charge due date",
 
+    "------ glim exceptions":"---------",
+    "error.msg.glim.loan.charge.can.not.be.updated" : "Glim loan charge can not be updated.",
+    "error.msg.glim.does.not.support.interest.calculation" : "Glim loan does not support interest calculation.",
+    "error.msg.glim.does.not.support.multi.tranche" : "Glim loan does not support multi tanche.",
+
     "------ end of tensalation file":"---------"
 }

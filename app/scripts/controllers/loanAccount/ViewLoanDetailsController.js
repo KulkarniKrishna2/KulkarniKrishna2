@@ -32,6 +32,7 @@
                     scope.glimPaymentAsGroup = configData.enabled;
                 }
             });
+
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
 
@@ -550,7 +551,7 @@
 
                     }
                 }
-                if (data.status.value == "Overpaid") {
+                if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.refund",
