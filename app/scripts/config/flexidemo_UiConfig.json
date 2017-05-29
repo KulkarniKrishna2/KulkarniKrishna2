@@ -1,0 +1,13 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+  	"loanAccount": {
+  		"isHiddenField": {
+  			"netDisbursalAmount":false
+  		},
+      "isMandatory": {
+        "externalId": true
+      }
+    }
+  }
+}
