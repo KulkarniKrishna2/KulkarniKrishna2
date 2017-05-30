@@ -105,6 +105,7 @@
             function populateTaskNotes(){
                 if (scope.isDisplayNotes) {
                     resourceFactory.taskExecutionNotesResource.getAll({taskId: scope.taskData.id}, function (data) {
+                        scope.noteData={};
                         scope.taskNotes = data;
                     });
                 }
@@ -193,6 +194,7 @@
             };
 
             function getTaskDocuments() {
+                scope.docData={};
                 if (scope.isDisplayAttachments) {
                     resourceFactory.documentsResource.getAllDocuments({
                         entityType: 'tasks',

@@ -199,7 +199,7 @@
 
                 </div>
                 <div ng-hide="report">
-                    <form class="well form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submit()">
+                    <form class="well form-inline" name="approveloanapplicationform" novalidate="">
                         <div class="span gray-head">
                     <span class="boldlabel">
                           <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
@@ -930,8 +930,8 @@
                                     {{'label.button.cancel' |
                                     translate}}
                                 </button>
-                                <button id="save" ng-click="issubmitted=true" ng-show="formData.status.id === 200"
-                                        type="submit"
+                                <button id="save" ng-show="formData.status.id === 200"
+                                        type="submit" ng-click="submit()"
                                         has-permission='APPROVE_LOANAPPLICATIONREFERENCE'
                                         class="btn btn-primary">
                                     {{'label.button.approve' |

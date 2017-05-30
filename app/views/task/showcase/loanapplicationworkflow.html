@@ -6,6 +6,8 @@
                 </li>
                 <li ng-show="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a>
                 </li>
+                <li ng-show="clientName"><a href="#/viewloanapplicationreference/{{resourceId}}"><strong>{{'label.anchor.viewloanapplication' | translate}}</strong></a>
+                </li>
                 <li class="active">{{'label.heading.workflow' | translate}}</li>
             </ul>
         </div>
