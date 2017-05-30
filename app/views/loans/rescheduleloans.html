@@ -14,7 +14,11 @@
 
                 <div class="col-sm-3">
                     <input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                           class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate"
+                           is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
+                </div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="rescheduleFromDate"/>
                 </div>
             </div>
             <div class="form-group">
@@ -23,9 +27,12 @@
                 <div class="col-sm-3 paddedbottom10 paddedtop">
                     <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}"
                             ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
-                            ng-model="formData.rescheduleReasonId" >
+                            ng-model="formData.rescheduleReasonId" name="rescheduleReason" required>
                         <option style="display:none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="rescheduleReason"/>
                 </div>
             </div>
             <div class="form-group">
@@ -34,7 +41,10 @@
                 <div class="col-sm-3 paddedbottom10 paddedtop">
 
                     <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                           class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
+                </div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="submittedOnDate"/>
                 </div>
             </div>
             <div class="form-group">
@@ -130,7 +140,7 @@
 
                 <button type="button" data-ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
 
-                <button type="button" data-ng-click="submit()" class="btn btn-primary"  has-permission='CREATE_RESCHEDULELOAN'>
+                <button type="submit" class="btn btn-primary"  has-permission='CREATE_RESCHEDULELOAN'>
                     {{'label.button.save' | translate}}
 
                 </button>
