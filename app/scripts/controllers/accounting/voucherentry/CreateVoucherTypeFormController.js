@@ -102,16 +102,15 @@
                 scope.error = null;
             };
 
-            scope.setDebitAccountRunningBalance = function (index) {
-                for (var i in scope.debitAccountingOptions) {
-                    if (scope.debitAccountingOptions[i].id == scope.debitAccounts[index].glAccountId) {
-                        scope.debitAccounts[index].organizationRunningBalance = scope.debitAccountingOptions[i].organizationRunningBalance;
-                        break;
-                    }
-                }
-            };
-
             scope.showDebitAccountRunningBalance = function (index) {
+                resourceFactory.accountCoaResource.get({
+                        glAccountId: scope.debitAccounts[index].glAccountId,
+                        template: 'true', officeId: scope.formData.officeId, officeRunningBalance: true
+                    },
+                    function (data) {
+                        scope.debitAccounts[index].officeRunningBalance = data.officeRunningBalance;
+
+                    });
                 for (var i in scope.debitAccountingOptions) {
                     if (scope.debitAccountingOptions[i].id == scope.debitAccounts[index].glAccountId) {
                         scope.debitAccounts[index].isShowRunningBalance = true;
@@ -120,16 +119,15 @@
                 }
             };
 
-            scope.setCreditAccountRunningBalance = function (index) {
-                for (var i in scope.creditAccountingOptions) {
-                    if (scope.creditAccountingOptions[i].id == scope.creditAccounts[index].glAccountId) {
-                        scope.creditAccounts[index].organizationRunningBalance = scope.creditAccountingOptions[i].organizationRunningBalance;
-                        break;
-                    }
-                }
-            };
-
             scope.showCreditAccountRunningBalance = function (index) {
+                resourceFactory.accountCoaResource.get({
+                        glAccountId: scope.creditAccounts[index].glAccountId,
+                        template: 'true', officeId: scope.formData.officeId, officeRunningBalance: true
+                    },
+                    function (data) {
+                        scope.creditAccounts[index].officeRunningBalance = data.officeRunningBalance;
+
+                    });
                 for (var i in scope.creditAccountingOptions) {
                     if (scope.creditAccountingOptions[i].id == scope.creditAccounts[index].glAccountId) {
                         scope.creditAccounts[index].isShowRunningBalance = true;
