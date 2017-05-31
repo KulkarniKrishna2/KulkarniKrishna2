@@ -140,6 +140,12 @@
                 scope.formData.transferDescription = undefined;
             };
 
+            scope.changeEventType = function(){
+                    scope.formData.toAccounts = undefined;
+                    scope.formData.toAccountId = undefined;
+                    scope.changeEvent();
+            };
+
             scope.submit = function () {
                 var requestFormData = {};
                 angular.copy(this.formData, requestFormData);

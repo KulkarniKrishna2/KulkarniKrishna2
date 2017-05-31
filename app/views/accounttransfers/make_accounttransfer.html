@@ -74,7 +74,7 @@
                     <label class="control-label col-sm-2" for="toAccountType">{{ 'label.input.accounttype' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <select id="toAccountType" ng-model="formData.toAccountType" name="account" class="form-control" ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes" ng-change="changeEvent()" value="{{toAccountType.id}}" required>
+                        <select id="toAccountType" ng-model="formData.toAccountType" name="account" class="form-control" ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes" ng-change="changeEventType()" value="{{toAccountType.id}}" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                         <form-validate valattributeform="accounttransferform" valattribute="account" />
