@@ -6034,5 +6034,17 @@
     "label.tooltip.loanproduct.add.interest.rate.to.list" : "Add an interest rate to the list",
     "label.tooltip.loanproduct.select.default.interest.rate.from.list" : "Select a default nominal interest rate",
 
+    "#Link Products to Customer Segment" : "",
+    "label.input.applicable.for" : "Applicable for",
+    "label.tooltip.loanproduct.applicable.for" : "Linking loan product to All Customers, Individual Client, Group",
+    "label.input.enable.restriction.based.on.client.profile" : "Enable restriction based on client profile",
+    "clientProfileType.legal.form" : "Legal Form",
+    "clientProfileType.client.type" : "Client Type",
+    "clientProfileType.client.classification" : "Client Classification",
+
+    "validation.msg.loanproduct.selectedProfileTypeValues.cannot.be.empty" : "Client profile not selected",
+    "label.input.client.profile.restriction" : "Client profile restriction",
+    "error.msg.loan.product.not.belongs.to.loanType.loan" : "Loan product not belongs to `{{params[1].value}}` loan.",
+
     "------ end of tensalation file":"---------"
 }

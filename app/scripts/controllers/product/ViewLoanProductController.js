@@ -51,6 +51,14 @@
                         scope.loanproduct.charges.push(charge);
                     }
                 }
+                if(scope.loanproduct.applicableForLoanType.id == 2){
+                    scope.isEnableRestrictionForClientProfile = false;
+                }
+                if(scope.loanproduct.loanProductEntityProfileMappingDatas && scope.loanproduct.loanProductEntityProfileMappingDatas[0]
+                    && scope.loanproduct.loanProductEntityProfileMappingDatas[0].profileType && scope.loanproduct.loanProductEntityProfileMappingDatas[0].profileType.id){
+                    scope.isEnableRestrictionForClientProfile = true;
+                    scope.entityProfileMappingData = scope.loanproduct.loanProductEntityProfileMappingDatas[0];
+                };
             });
 
             scope.scrollto = function (link) {

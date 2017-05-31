@@ -63,8 +63,14 @@
                  scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
                  scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
             }
-
             scope.inparams.staffInSelectedOfficeOnly = true;
+            if(scope.inparams.templateType == 'individual' || scope.inparams.templateType == 'jlg'){
+                scope.inparams.productApplicableForLoanType = 2;
+                scope.inparams.entityType = 1;
+                scope.inparams.entityId = scope.clientId;
+            }else if(scope.inparams.templateType == 'group' || scope.inparams.templateType == 'glim'){
+                scope.inparams.productApplicableForLoanType = 3;
+            }
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;

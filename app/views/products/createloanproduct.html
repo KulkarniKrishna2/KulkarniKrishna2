@@ -101,6 +101,75 @@
                class="form-control"/>
     </div>
 </div>
+
+<div class="form-group">
+    <label class="control-label col-sm-2">{{ 'label.input.applicable.for' | translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.applicable.for' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <select id="applicableForLoanType" name="applicableForLoanType" ng-model="formData.applicableForLoanType" class="form-control"
+                ng-options="applicableForLoanType.id as applicableForLoanType.value for applicableForLoanType in product.templateData.loanProductApplicableForLoanTypeOptions"
+                value="{{applicableForLoanType.id}}" ng-init="formData.applicableForLoanType = 1" data-ng-change="resetApplicableForLoanTypeData()"></select>
+    </div>
+    <div class="col-sm-2">
+        <form-validate valattributeform="createloanproductform" valattribute="applicableForLoanType"/>
+    </div>
+
+    <label class="control-label col-sm-2" ng-if="formData.applicableForLoanType == 2">{{ 'label.input.enable.restriction.based.on.client.profile' | translate }}</label>
+
+    <div class="col-sm-2" ng-if="formData.applicableForLoanType == 2">
+        <input type="checkbox" id="isEnableRestrictionForClientProfile" name="isEnableRestrictionForClientProfile" ng-model="formData.isEnableRestrictionForClientProfile" ng-true-value="true" ng-false-value="false"/>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+<div ng-show="formData.isEnableRestrictionForClientProfile == 'true'">
+
+    <div class="form-group">
+        <label class="col-sm-1">&nbsp;</label>
+        <div class="control-label col-sm-1">
+            <span class="error" ng-show="submitted && formData.profileType == undefined">{{'label.error.required'|translate}}</span>
+        </div>
+        <div class="col-sm-2"  ng-repeat="clientProfileType in product.templateData.clientProfileTypeOptions">
+            {{ clientProfileType.code | translate }}&nbsp;&nbsp;<input type="radio" name="clientProfileType" ng-model="formData.profileType" value="{{clientProfileType.id}}" ng-change="loadClientProfileTypeDatas()"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-3 col-md-3  col-md-offset-1">
+            <label class="control-label col-sm-9">{{ 'label.input.available' | translate }}</label>
+            <select id="availableProfileTypeValues" ng-model="availableProfileTypeValues" name="availableProfileTypeValues" class="form-control multiselectmin" multiple>
+                <option ng-repeat="availableProfileType in availableProfileTypeValuesOptions" value="{{availableProfileType.id}}">
+                    {{availableProfileType.name}}
+                </option>
+            </select>
+        </div>
+        <div class="col-sm-1 col-md-1 paddedtop25px">
+            <div>
+                <button id="addProfileTypeId" type="button" class="btn btn-primary" data-ng-click="addProfileType()"><i
+                        class="icon-double-angle-right"></i></button>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <button id="removeProfileTypeId" type="button" class="btn btn-primary" data-ng-click="removeProfileType()"><i
+                        class="icon-double-angle-left"></i></button>
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <label class="control-label col-sm-9">{{ 'label.input.selected' | translate}}<span class="required">*</span></label>
+            <select id="selectedProfileTypeValues" name="selectedProfileTypeValues" ng-model="selectedProfileTypeValues" name="role" class="form-control multiselectmin" multiple>
+                <option ng-repeat="selectedProfileType in selectedProfileTypeValuesOptions" value="{{selectedProfileType.id}}">
+                    {{selectedProfileType.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
 <h3>{{ 'label.heading.currency' | translate }}</h3>
 <hr>
 <div class="form-group">
@@ -434,6 +503,7 @@
 <div class="form-group" ng-show="!formData.isLinkedToFloatingInterestRates && !configureInterestRatesChart">
     <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
+        <span class="required">*</span>
     </label>
     <div class="col-sm-2">
         <input id="minInterestRatePerPeriod" placeholder="{{'label.input.minimum' | translate}}" type="text" class="form-control" ng-model="formData.minInterestRatePerPeriod">
@@ -1780,7 +1850,7 @@
 <div class="col-md-offset-5 paddedtop">
     <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
     </button>
-    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_LOANPRODUCT'>{{'label.button.save'
+    <button id="save" type="submit" ng-click="submitted = true" class="btn btn-primary" has-permission='CREATE_LOANPRODUCT'>{{'label.button.save'
         | translate}}
     </button>
 </div>
