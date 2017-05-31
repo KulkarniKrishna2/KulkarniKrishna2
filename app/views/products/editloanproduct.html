@@ -922,11 +922,14 @@
 			</div>
 		</div>
 	</div>
-    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
+    <div class="form-group" data-ng-if="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
         <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
             | translate }}<span class="required">*</span></label>
         <div class="col-sm-2">
-            <input id="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval">
+            <input id="recalculationRestFrequencyInterval" name="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval" required late-Validate/>
+        </div>
+        <div class="col-sm-2">
+            <form-validate valattributeform="editloanproductform" valattribute="recalculationRestFrequencyInterval"/>
         </div>
 	</div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">

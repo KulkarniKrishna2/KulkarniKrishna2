@@ -35,7 +35,7 @@
             scope.glimAutoCalFlatFeeAmount = function (index, glimMembers) {
                 var totalUpfrontChargeAmount = 0.0;
                 for(var i in glimMembers){
-                    if(glimMembers[i].upfrontChargeAmount){
+                    if(glimMembers[i].isClientSelected && glimMembers[i].upfrontChargeAmount){
                         totalUpfrontChargeAmount += parseFloat(glimMembers[i].upfrontChargeAmount);
                     }
                 }
@@ -126,6 +126,24 @@
 
                 scope.previewClientLoanAccInfo();
 
+            });
+
+             scope.$watch('productLoanCharges', function(){
+                if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
+                    for(var i in scope.loanaccountinfo.chargeOptions){
+                        if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge){ 
+                            var isProductCharge = false;
+                            for(var j in scope.productLoanCharges){
+                                if(!scope.loanaccountinfo.chargeOptions[i].id == scope.productLoanCharges[j].chargeData.id){                                
+                                   var isProductCharge = true;
+                                }
+                            }    
+                            if(!isProductCharge){
+                                scope.loanaccountinfo.chargeOptions.splice(i,1); 
+                            }
+                        }                        
+                    }
+                }
             });
 
             scope.loanProductChange = function (loanProductId) {
@@ -384,6 +402,9 @@
                                     amount = amount + data.glims[i].upfrontChargeAmount;
                                     
                             }
+                        }else{
+                            data.glims[i].upfrontChargeAmount = 0;
+                            amount = 0;
                         }
                     }
                     data.amountOrPercentage = amount;

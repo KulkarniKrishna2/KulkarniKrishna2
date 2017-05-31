@@ -80,10 +80,29 @@
                 }
             });
 
+
+            scope.$watch('productLoanCharges', function(){
+                if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
+                    for(var i in scope.loanaccountinfo.chargeOptions){
+                        if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge){ 
+                            var isProductCharge = false;
+                            for(var j in scope.productLoanCharges){
+                                if(!scope.loanaccountinfo.chargeOptions[i].id == scope.productLoanCharges[j].chargeData.id){                                
+                                   var isProductCharge = true;
+                                }
+                            }    
+                            if(!isProductCharge){
+                                scope.loanaccountinfo.chargeOptions.splice(i,1); 
+                            }
+                        }                        
+                    }
+                }
+            });
+
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
-                    scope.loanaccountinfo = data;
+                    scope.loanaccountinfo = data;         
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
                     scope.productLoanCharges = data.product.charges || [];

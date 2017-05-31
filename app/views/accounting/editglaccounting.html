@@ -36,7 +36,7 @@
 						   late-Validate/>
 				</div>
 				<div class="col-sm-2 ">
-					<form-validate valattributeform="createglaccountingform" valattribute="glCode"/>
+					<form-validate valattributeform="editglaccountingform" valattribute="glCode"/>
 				</div>
 				<label class="control-label col-sm-2" >{{'label.input.accountname' | translate}}<span
 						class="required">*</span></label>
@@ -45,7 +45,7 @@
 						   ng-model="formData.name" class="form-control" required late-Validate/>
 				</div>
 				<div class="col-sm-2">
-					<form-validate valattributeform="createglaccountingform" valattribute="name"/>
+					<form-validate valattributeform="editglaccountingform" valattribute="name"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -67,19 +67,22 @@
 				<label class="control-label col-sm-2" for="manualEntriesAllowed">{{'label.input.manualentriesallowed' |
 					translate}}</label>
 
-				<div class="col-sm-3">
-					<label class="checkbox">
-						<input id="manualEntriesAllowed" type="checkbox" ng-model="formData.manualEntriesAllowed">
-					</label>
+				<div class="col-sm-2">
+					<input id="manualEntriesAllowed" type="checkbox" ng-model="formData.manualEntriesAllowed"/>
+				</div>
+				<label class="control-label col-sm-4" for="glClassificationType">{{'label.input.glClassificationType' |
+					translate}}<span class="required">*</span></label>
+				<div class="col-sm-2">
+					<select id="glClassificationType" name = "glClassificationType" class="form-control"
+							ng-model="formData.glClassificationType" required late-validate
+							ng-options="glClassificationType.id as glClassificationType.value | translate for glClassificationType in coadata.glClassificationTypeOptions"
+							value="{{glClassificationType.id}}">
+						<option value="">{{'label.selectglclassfication' | translate}}</option>
+					</select>
 				</div>
 
-				<label class="control-label col-sm-3" for="glClassificationType">{{'label.input.glClassificationType' |
-					translate}}</label>
 				<div class="col-sm-2">
-					<select chosen="coadata.glClassificationTypeOptions" id="glClassificationType" class="form-control"
-							ng-model="formData.glClassificationType"
-							ng-options="glClassificationType.id as glClassificationType.value | translate for glClassificationType in coadata.glClassificationTypeOptions"
-							value="{{glClassificationType.id}}"></select>
+					<form-validate valattributeform="editglaccountingform" valattribute="glClassificationType"/>
 				</div>
 			</div>
 			<div class="form-group">

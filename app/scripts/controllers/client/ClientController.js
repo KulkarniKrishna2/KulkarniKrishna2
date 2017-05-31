@@ -52,6 +52,7 @@
                 if(!scope.searchText){
                     scope.initPage();
                 } else {
+                    searchString = searchString.trim().replace(" ", "%")
                     resourceFactory.globalSearch.search({query: searchString , resource: "clients,clientIdentifiers",exactMatch: exactMatch}, function (data) {
                         var arrayLength = data.length;
                         for (var i = 0; i < arrayLength; i++) {

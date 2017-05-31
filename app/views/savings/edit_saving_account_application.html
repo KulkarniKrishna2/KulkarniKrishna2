@@ -248,7 +248,7 @@
                 <form-validate valattributeform="editsavingccountform" valattribute="dpLimitAmount"/>
             </td>
         </tr>
-        <tr ng-if="formData.allowDpLimit">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -270,7 +270,7 @@
                 {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
             </td>
         </tr>
-        <tr ng-if="formData.allowDpLimit">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -291,7 +291,7 @@
                 <form-validate valattributeform="editsavingccountform" valattribute="dpCalculateOnAmount"/>
             </td>
         </tr>
-        <tr ng-if="formData.allowDpLimit">
+        <tr ng-if="formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14">
                 <label class="control-label">{{ 'label.input.duration' | translate
                     }}&nbsp;<span class="required">*</span></label></td>
@@ -307,7 +307,7 @@
             </td>
             <td class="width36 paddedbottom10">
                 <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="dd MMMM yyyy"
-                       ng-model="formData.dpStartDate" is-open="opened" class="form-control" required late-validate/>
+                       ng-model="formData.dpStartDate" is-open="opened" class="form-control" required/>
                 <form-validate valattributeform="editsavingccountform" valattribute="dpStartDate"/>
             </td>
         </tr>

@@ -32,6 +32,7 @@
                     scope.glimPaymentAsGroup = configData.enabled;
                 }
             });
+
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
 
@@ -409,7 +410,7 @@
                 }
 
                 if (data.status.value == "Active") {
-                    scope.showCreditBureau = true;
+                    scope.isShowCreditBureauButtonShow(data.loanType.value);
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.addloancharge",
@@ -550,7 +551,7 @@
 
                     }
                 }
-                if (data.status.value == "Overpaid") {
+                if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.refund",
@@ -854,6 +855,11 @@
             scope.getTotalAmount = function (amount1, amount2, amount3, amount4) {
                 amount4 = amount4 == null ? 0 : amount4;
                 return (amount1 + amount2 + amount3 + amount4).toFixed(2);
+            }
+
+            scope.isShowCreditBureauButtonShow = function(loanType){
+                var isGroup = loanType == "Group";
+                scope.showCreditBureau = true && (!scope.isGlim && !isGroup);
             }
 
             scope.getTotalOutstandingLoanBalance = function () {

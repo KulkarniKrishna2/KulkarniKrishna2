@@ -64,9 +64,10 @@
             <i class="icon-question-sign" tooltip="{{'label.tooltip.disbursementon' | translate}}"></i>
         </td>
         <td class="paddedbottom10">
-            <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
+            <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon" required
                    datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate"
                    max="'2020-06-22'" class="form-control"/>
+            <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
         </td>
     </tr>
     <tr ng-show="formData.productId && showExternalId">
@@ -327,8 +328,10 @@
                 <td><label>{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
-                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"
-                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" required
+                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"/>
+                    &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                    <form-validate valattributeform="newloanaccountform" valattribute="nominalinterestrate"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
@@ -468,7 +471,7 @@
                 <td ng-show="formData.isTopup == true"><label>{{ 'label.input.loanIdToClose' | translate }}</label></td>
                 <td class="width36 paddedbottom10" ng-show="formData.isTopup == true">
                     <select chosen="loanaccountinfo.clientActiveLoanOptions" id="loanIdToClose" ng-model="formData.loanIdToClose"
-                            ng-options="loanSummary.id as loanSummary.accountNo for loanSummary in loanaccountinfo.clientActiveLoanOptions" class="form-control width170px" 
+                            ng-options="loanSummary.id as (loanSummary.accountNo +'('+ loanSummary.productName +')') for loanSummary in loanaccountinfo.clientActiveLoanOptions" class="form-control width170px" 
                             value="{{loanSummary.id}}"/>
                 </td>
             </tr>

@@ -1338,7 +1338,7 @@
     "label.input.accountusage": "Account usage",
     "label.input.parent": "Parent",
     "label.input.manualentriesallowed": "Manual entries allowed",
-    "label.input.glClassificationType": "GL Classification",
+    "label.input.glClassificationType": "GL classification",
     "label.input.affectedglentries": "Affected GL entries",
     "label.input.currency": "Currency",
     "label.input.referencenumber": "Reference number",
@@ -1898,6 +1898,7 @@
     "label.selectprovisioningcategory": "Select Category",
     "label.selectfromdate": "Select From Date",
     "label.selecttodate": "Select To Date",
+    "label.selectglclassfication": "Select GL classfication",
     "#tool tip for loan products":"..",
     "label.tooltip.fundsource":"an Asset account(typically Bank or cash) that is debited during repayments/payments an credited using disbursals.",
     "label.tooltip.loanportfolio":"an Asset account that is debited during disbursement and credited during principal repayment/writeoff.",
@@ -5780,6 +5781,7 @@
     "label.heading.coapplicants":"Co-Applicants",
     "label.heading.coapplicant.delete":"Remove Co-Applicant",
     "lable.error.activity.coapplicant.not.completed":"Please complete all the workflows.",
+    "lable.error.activity.survey.not.completed":"Please fill the survey data.",
     "taskTemplateEntityType.office":"Office",
     "taskTemplateEntityType.center":"Center",
     "taskTemplateEntityType.client":"Client",
@@ -6016,6 +6018,11 @@
     "error.msg.loan.topup.on.multi.tranche.loan.without.interest.recalculation.and.non.disbursed.tranche.not.supported" : "Top-up loans will not support multi-tranche loan with un disbursed tranches and without interest recalculation",
     "loan.with.undisbursed.tranche.cannot.be.foreclosured":"Loan with undisbrsed tranche cannot be foreclosed",
     "error.msg.clients.activationOnDate.after.charge.due.date":"client activation date cannot be after the charge due date",
+
+    "------ glim exceptions":"---------",
+    "error.msg.glim.loan.charge.can.not.be.updated" : "Glim loan charge can not be updated.",
+    "error.msg.glim.does.not.support.interest.calculation" : "Glim loan does not support interest calculation.",
+    "error.msg.glim.does.not.support.multi.tranche" : "Glim loan does not support multi tanche.",
 
     "------ end of tensalation file":"---------"
 }

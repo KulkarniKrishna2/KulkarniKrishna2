@@ -7,6 +7,7 @@
                 scope.file = $files[0];
             };
             scope.formData = {};
+            scope.restrictDate = new Date();
             scope.formData.surveyedOn = new Date();
             scope.showdetails=true;
             scope.entityTypeId = null;
@@ -164,6 +165,26 @@
                         }
                     }
                 }
+            };
+
+            scope.doPreTaskActionStep = function(actionName){
+                if(actionName === 'activitycomplete'){
+                    if(isSurveyCompleted()){
+                        scope.doActionAndRefresh(actionName);
+                    }else{
+                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                    }
+                }else{
+                    scope.doActionAndRefresh(actionName);
+                }
+            };
+
+            function isSurveyCompleted(){
+                var surveyCompleted   = true;
+                if (_.isUndefined(scope.surveys) || scope.surveys.length<1){
+                    surveyCompleted=false;
+                }
+                return surveyCompleted;
             };
         }
     });
