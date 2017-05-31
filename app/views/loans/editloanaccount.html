@@ -79,7 +79,7 @@
             <form-validate valattributeform="editloanaccountform" valattribute="external"/>
         </td>
         <td class="paddedbottom10" ng-if ="!response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
-            <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"
+            <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control" ng-readonly="isReadOnlyType"
                    />
         </td>
     </tr>
