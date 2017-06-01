@@ -1874,7 +1874,7 @@
     "label.button.details":"Details",
     "label.button.recoverypayment":"Recovery Repayment",
     "label.button.prepayment":"Prepay Loan",
-    "label.button.prepay":"Prepay Loan",
+    "label.button.prepay":"Preclosure Without Benefit",
     "label.button.preclose":"Preclose  Loan",
     "label.button.addTranche":"Add Tranche",
     "label.button.viewjournalentries" : "View Journal Entries",
