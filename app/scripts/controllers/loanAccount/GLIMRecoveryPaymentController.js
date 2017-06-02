@@ -52,6 +52,7 @@
 
             scope.submit = function(){
                 scope.constructGlimClientMembersData();
+                this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                 resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'recoverypayment'}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
