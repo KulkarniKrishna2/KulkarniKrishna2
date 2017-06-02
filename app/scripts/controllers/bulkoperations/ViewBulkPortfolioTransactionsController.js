@@ -42,7 +42,12 @@
             };
 
             scope.routeTo = function (data) {
+                if(data.loanAccountNumber){
                 location.path('/viewloantrxn/' + data.loanAccountNumber+'/trxnId/'+data.transactionId);
+                }
+                if(data.savingsAccountNumber){
+                    location.path('/viewsavingtrxn/' + data.savingsAccountNumber+'/trxnId/'+data.transactionId);
+                }
             };
         }
     });
