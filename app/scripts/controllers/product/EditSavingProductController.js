@@ -240,6 +240,9 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
+                if(!this.formData.minRequiredOpeningBalance){
+                    this.formData.minRequiredOpeningBalance = 0;
+                }
 
                 resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewsavingproduct/' + data.resourceId);
