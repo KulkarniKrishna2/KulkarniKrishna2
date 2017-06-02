@@ -6015,7 +6015,8 @@
     "error.msg.loan.topup.on.multi.tranche.loan.without.interest.recalculation.and.non.disbursed.tranche.not.supported" : "Top-up loans will not support multi-tranche loan with un disbursed tranches and without interest recalculation",
     "loan.with.undisbursed.tranche.cannot.be.foreclosured":"Loan with undisbrsed tranche cannot be foreclosed",
     "error.msg.clients.activationOnDate.after.charge.due.date":"client activation date cannot be after the charge due date",
-
+    "validation.msg.voucher.amount.not.greater.than.zero" :" Voucher amount should be greater than zero",
+    "error.msg.client.duplicate.mobileNo" : "Duplicate mobile number",
     "------ glim exceptions":"---------",
     "error.msg.glim.loan.charge.can.not.be.updated" : "Glim loan charge can not be updated.",
     "error.msg.glim.does.not.support.interest.calculation" : "Glim loan does not support interest calculation.",
