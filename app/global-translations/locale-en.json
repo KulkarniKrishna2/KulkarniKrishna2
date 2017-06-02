@@ -6021,6 +6021,7 @@
     "error.msg.glim.loan.charge.can.not.be.updated" : "Glim loan charge can not be updated.",
     "error.msg.glim.does.not.support.interest.calculation" : "Glim loan does not support interest calculation.",
     "error.msg.glim.does.not.support.multi.tranche" : "Glim loan does not support multi tanche.",
+	"error.msg.loan.repayment.cannot.bedone.as.loan.status.overpaid.or.closed" : "Repayment can not be done as loan is either closed or in overpaid state.",
 
     "------ end of tensalation file":"---------"
 }
