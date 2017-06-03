@@ -14,6 +14,8 @@
             scope.available = [];
             scope.selected = [];
             scope.id = {};
+            scope.hasValueMandatory = false;
+            scope.codeValues = [];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -86,7 +88,8 @@
                         type: scope.datatableTemplate.columnType,
                         mandatory: false,
                         visible: true,
-                        mandatoryIfVisible: false
+                        mandatoryIfVisible: false,
+                        hasValueMandatory :false
                     }
                     scope.columns.push(column);
                     scope.datatableTemplate.columnName = undefined;
@@ -146,7 +149,13 @@
                 }
             };
 
-            scope.getDependentCodeValues = function (column) {
+            scope.getDependentCodeValues = function (column,index) {
+                if(column.when){
+                    scope.columnArray[index].hasValueMandatory = true;
+                }else{
+                    scope.columnArray[index].hasValueMandatory = false;
+                }
+
                 var codeName = "";
                 for(var i in scope.columns){
                     if(column.when === scope.columns[i].name) {
@@ -154,7 +163,7 @@
                     }
                 }
                 resourceFactory.codeValueByCodeNameResources.get({codeName: codeName} ,function(data){
-                    scope.codeValues = data;
+                    scope.codeValues[index] = data;
                 });
             }
 
@@ -167,7 +176,11 @@
                     scope.formData.multiRow = scope.formData.multiRow || false;
                     scope.formData.columns = scope.columns;
                     for (var i in scope.formData.columns) {
-                        if (scope.formData.columns[i].when != undefined && scope.formData.columns[i].value != undefined) {
+                        if(scope.formData.columns[i].when == null){
+                            delete scope.formData.columns[i].when;
+                            delete scope.formData.columns[i].value;
+                        }
+                        if (scope.formData.columns[i].when != undefined && scope.formData.columns[i].value != undefined ) {
                             scope.formData.columns[i].visibilityCriteria = [];
                             var json = {
                                 columnName: scope.formData.columns[i].when,
@@ -177,6 +190,7 @@
                             delete scope.formData.columns[i].when;
                             delete scope.formData.columns[i].value;
                         }
+                        delete scope.formData.columns[i].hasValueMandatory;
                     }
                     if(this.formData.restrictscope && this.selected != '' && this.selected != undefined) {
                         this.formData.scope = {};
