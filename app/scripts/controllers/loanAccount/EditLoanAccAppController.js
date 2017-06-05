@@ -21,6 +21,8 @@
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
             scope.upfrontFee = "Upfront Fee";
+            scope.interestRatesListPerPeriod = [];
+            scope.interestRatesListAvailable = false;
 
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
@@ -50,6 +52,14 @@
                 if(scope.loanaccountinfo.expectedRepaymentPaymentType){
                     scope.formData.expectedRepaymentPaymentType = scope.loanaccountinfo.expectedRepaymentPaymentType.id;
                 }
+
+                if(data.interestRatesListPerPeriod != undefined){
+                    if(data.interestRatesListPerPeriod.length > 0){
+                        scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
+                        scope.interestRatesListAvailable = true;
+                    }
+                }
+
                 resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
                     scope.GLIMData = glimData;
                     scope.isGLIM = (glimData.length > 0);
@@ -148,6 +158,8 @@
 
             scope.loanProductChange = function (loanProductId) {
 
+                scope.interestRatesListPerPeriod = [];
+                scope.interestRatesListAvailable = false;
                 var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType };
                 if (scope.clientId) {
                     inparams.clientId = scope.clientId;
@@ -163,6 +175,10 @@
                     var refreshLoanCharges  = true;
                     scope.previewClientLoanAccInfo(refreshLoanCharges);
                     scope.updateSlabBasedCharges();
+                    if(data.interestRatesListPerPeriod.length > 0){
+                       scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
+                       scope.interestRatesListAvailable = true;
+                    }
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {

@@ -18,6 +18,8 @@
             scope.slabBasedCharge = "Slab Based";
             scope.flatCharge = "Flat";
             scope.upfrontFee = "Upfront Fee";
+            scope.interestRatesListPerPeriod = [];
+            scope.interestRatesListAvailable = false;
 
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
@@ -78,6 +80,10 @@
                 if (data.group) {
                     scope.groupName = data.group.name;
                 }
+                if(data.interestRatesListPerPeriod.length > 0){
+                    scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
+                    scope.interestRatesListAvailable = true;
+                }
             });
 
 
@@ -101,6 +107,8 @@
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams.productId = loanProductId;
+                scope.interestRatesListPerPeriod = [];
+                scope.interestRatesListAvailable = false;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;         
                     scope.getProductPledges(scope.loanaccountinfo);
@@ -142,6 +150,11 @@
                                 scope.formData.loanOfficerId =  data.staffId;
                             }
                         })
+                    }
+
+                    if(data.interestRatesListPerPeriod.length > 0){
+                       scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
+                        scope.interestRatesListAvailable = true;
                     }
                 });
 
