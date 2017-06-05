@@ -49,10 +49,31 @@
     <td>{{'label.heading.includeborrowercycle' | translate}} :</td>
     <td colspan="3">{{loanproduct.includeInBorrowerCycle}}</td>
 </tr>
-    <tr ng-show="loanproduct.externalId">
-        <td>{{'label.heading.externalId' | translate}} :</td>
-        <td colspan="3">{{loanproduct.externalId}}</td>
-    </tr>
+<tr ng-show="loanproduct.externalId">
+    <td>{{'label.heading.externalId' | translate}} :</td>
+    <td colspan="3">{{loanproduct.externalId}}</td>
+</tr>
+
+<tr ng-if="loanproduct.applicableForLoanType">
+    <td>{{ 'label.input.applicable.for' | translate }} :</td>
+    <td colspan="3">{{loanproduct.applicableForLoanType.value}}</td>
+</tr>
+
+<tr ng-if="loanproduct.applicableForLoanType.id == 2">
+    <td>{{ 'label.input.enable.restriction.based.on.client.profile' | translate }} :</td>
+    <td colspan="3">{{isEnableRestrictionForClientProfile  == true ? 'Yes' : 'No'}}</td>
+</tr>
+
+<tr ng-if="entityProfileMappingData">
+    <td>{{ 'label.input.client.profile.restriction' | translate }} :</td>
+    <td colspan="3" class="graybg">{{entityProfileMappingData.profileType.value}}</td>
+</tr>
+
+<tr ng-if="entityProfileMappingData.values && entityProfileMappingData.values.length > 0" ng-repeat="value in entityProfileMappingData.values">
+    <td>&nbsp;</td>
+    <td colspan="3">{{value.value}}</td>
+</tr>
+
 <tr>
     <td colspan="4"><br/></td>
 </tr>

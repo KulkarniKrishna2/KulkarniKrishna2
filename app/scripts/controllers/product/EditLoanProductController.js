@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter, commonUtilService) {
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
@@ -15,10 +15,7 @@
             scope.irFlag = false;
             scope.pvFlag = false;
             scope.rvFlag = false;
-            scope.interestRecalculationOnDayTypeOptions = [];
-            for (var i = 1; i <= 28; i++) {
-                scope.interestRecalculationOnDayTypeOptions.push(i);
-            }
+            scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
 
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
@@ -90,7 +87,7 @@
                     description: scope.product.description,
                     externalId:scope.product.externalId,
                     fundId: scope.product.fundId,
-                    description: scope.product.description,
+                    applicableForLoanType: scope.product.applicableForLoanType.id,
                     includeInBorrowerCycle: scope.product.includeInBorrowerCycle,
                     useBorrowerCycle: scope.product.useBorrowerCycle,
                     currencyCode: scope.product.currency.code,
@@ -157,6 +154,21 @@
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred
+                };
+
+                if(scope.product.loanProductEntityProfileMappingDatas && scope.product.loanProductEntityProfileMappingDatas[0]
+                    && scope.product.loanProductEntityProfileMappingDatas[0].profileType && scope.product.loanProductEntityProfileMappingDatas[0].profileType.id){
+                    var entityProfileMappingData = scope.product.loanProductEntityProfileMappingDatas[0];
+                    scope.formData.isEnableRestrictionForClientProfile = 'true';
+                    scope.formData.profileType = entityProfileMappingData.profileType.id;
+                    scope.loadClientProfileTypeDatas();
+                    if(entityProfileMappingData.values && entityProfileMappingData.values.length > 0){
+                        scope.availableProfileTypeValues = [];
+                        for(var i in entityProfileMappingData.values){
+                            scope.availableProfileTypeValues.push(entityProfileMappingData.values[i].id);
+                        }
+                        scope.addProfileType();
+                    };
                 };
 
                 if(scope.product.installmentCalculationPeriodType){
@@ -505,7 +517,6 @@
                 scope.codeValueSpecificAccountMappings.splice(index, 1);
             };
 
-
             scope.addInterest = function(){
                 if(scope.formData.interestRatesListPerPeriod == undefined){
                     scope.formData.interestRatesListPerPeriod = [];
@@ -533,8 +544,80 @@
                 scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue = undefined
             };
 
-            scope.deleteInterestFromCycle = function(index,indexOfinterestRate){
+            scope.deleteInterestFromCycle = function(index,indexOfinterestRate) {
                 scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.splice(indexOfinterestRate, 1);
+            }
+
+            scope.resetApplicableForLoanTypeData = function () {
+                scope.availableProfileTypeValues = [];
+                scope.availableProfileTypeValuesOptions = [];
+                scope.selectedProfileTypeValues = [];
+                scope.selectedProfileTypeValuesOptions = [];
+                scope.formData.isEnableRestrictionForClientProfile = false;
+                scope.formData.profileType = undefined;
+            };
+
+            scope.loadClientProfileTypeDatas = function () {
+                scope.availableProfileTypeValues = [];
+                scope.availableProfileTypeValuesOptions = [];
+                scope.selectedProfileTypeValues = [];
+                scope.selectedProfileTypeValuesOptions = [];
+                if (scope.formData.profileType == 1) {
+                    var legalFormOptions = [];
+                    angular.copy(scope.product.templateData.legalFormOptions,legalFormOptions);
+                    for (var i in legalFormOptions) {
+                        var legal = {};
+                        legal.id = legalFormOptions[i].id;
+                        legal.name = legalFormOptions[i].value;
+                        scope.availableProfileTypeValuesOptions.push(legal);
+                    }
+                } else if (scope.formData.profileType == 2) {
+                    angular.copy(scope.product.templateData.clientTypeOptions,scope.availableProfileTypeValuesOptions);
+                } else if (scope.formData.profileType == 3) {
+                    angular.copy(scope.product.templateData.clientClassificationOptions,scope.availableProfileTypeValuesOptions);
+                }
+            };
+
+            scope.addProfileType = function () {
+                for (var i in scope.availableProfileTypeValues) {
+                    for (var j in scope.availableProfileTypeValuesOptions) {
+                        if (scope.availableProfileTypeValuesOptions[j].id == scope.availableProfileTypeValues[i]) {
+                            var temp = {};
+                            temp.id = scope.availableProfileTypeValues[i];
+                            temp.name = scope.availableProfileTypeValuesOptions[j].name;
+                            scope.selectedProfileTypeValuesOptions.push(temp);
+                            scope.availableProfileTypeValuesOptions.splice(j, 1);
+                        }
+                    }
+                }
+                for (var i in scope.availableProfileTypeValues) {
+                    for (var j in scope.selectedProfileTypeValuesOptions) {
+                        if (scope.selectedProfileTypeValuesOptions[j].id == scope.availableProfileTypeValues[i]) {
+                            scope.availableProfileTypeValues.splice(i, 1);
+                        }
+                    }
+                }
+            };
+
+            scope.removeProfileType = function () {
+                for (var i in scope.selectedProfileTypeValues) {
+                    for (var j in scope.selectedProfileTypeValuesOptions) {
+                        if (scope.selectedProfileTypeValuesOptions[j].id == scope.selectedProfileTypeValues[i]) {
+                            var temp = {};
+                            temp.id = scope.selectedProfileTypeValues[i];
+                            temp.name = scope.selectedProfileTypeValuesOptions[j].name;
+                            scope.availableProfileTypeValuesOptions.push(temp);
+                            scope.selectedProfileTypeValuesOptions.splice(j, 1);
+                        }
+                    }
+                }
+                for (var i in scope.selectedProfileTypeValues) {
+                    for (var j in scope.availableProfileTypeValuesOptions) {
+                        if (scope.availableProfileTypeValuesOptions[j].id == scope.selectedProfileTypeValues[i]) {
+                            scope.selectedProfileTypeValues.splice(i, 1);
+                        }
+                    }
+                }
             };
 
             scope.submit = function () {
@@ -705,60 +788,71 @@
                 if (this.formData.adjustFirstEMIAmount) {
                     this.formData.adjustInterestForRounding = true;
                 }
-                    if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
-                        this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
-                    }
-                    if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2) {
-                        this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
-                    }
-                    if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2) {
-                        this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
-                    }
-                    if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
-                        this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
-                    }
-                    if (this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType) {
-                        delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
-                    }
 
-                    if(!this.formData.minLoanTerm){
-                        this.formData.minLoanTerm = null;
-                    }
-                    if(!this.formData.maxLoanTerm){
-                        this.formData.maxLoanTerm = null;
-                    }
-                    if(!this.formData.minNumberOfRepayments){
-                        this.minNumberOfRepayments = null;
-                    }
-                    if(!this.formData.maxNumberOfRepayments){
-                        this.maxNumberOfRepayments = null;
-                    }
-                    if(this.formData.minLoanTerm==null && this.formData.maxLoanTerm== null &&
-                        this.formData.loanTenureFrequencyType != null){
-                        this.formData.loanTenureFrequencyType = null;
-                    }
+                if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
+                    this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
+                }
+                if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2) {
+                    this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
+                }
+                if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2) {
+                    this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
+                }
+                if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
+                    this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
+                }
+                if (this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType) {
+                    delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
+                }
 
-                    if(this.formData.interestRatesListPerPeriod != undefined){
-                        if(this.formData.interestRatesListPerPeriod.length < 1){
-                            this.formData.interestRatesListPerPeriod = []; 
-                        }
-                    }
+                if (!this.formData.minLoanTerm) {
+                    this.formData.minLoanTerm = null;
+                }
+                if (!this.formData.maxLoanTerm) {
+                    this.formData.maxLoanTerm = null;
+                }
+                if (!this.formData.minNumberOfRepayments) {
+                    this.minNumberOfRepayments = null;
+                }
+                if (!this.formData.maxNumberOfRepayments) {
+                    this.maxNumberOfRepayments = null;
+                }
+                if (this.formData.minLoanTerm == null && this.formData.maxLoanTerm == null &&
+                    this.formData.loanTenureFrequencyType != null) {
+                    this.formData.loanTenureFrequencyType = null;
+                }
 
-                    if(scope.configureInterestRatesChart == false){
+                if (this.formData.interestRatesListPerPeriod != undefined) {
+                    if (this.formData.interestRatesListPerPeriod.length < 1) {
                         this.formData.interestRatesListPerPeriod = [];
                     }
-                    else{
-                        delete this.formData.minInterestRatePerPeriod;
-                        delete this.formData.maxInterestRatePerPeriod;
-                   }
+                }
 
-                    resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
-                        location.path('/viewloanproduct/' + data.resourceId);
-                    });
+                if (scope.configureInterestRatesChart == false) {
+                    this.formData.interestRatesListPerPeriod = [];
+                }
+                else {
+                    delete this.formData.minInterestRatePerPeriod;
+                    delete this.formData.maxInterestRatePerPeriod;
+                }
+
+                this.formData.selectedProfileTypeValues = undefined;
+                if (this.formData.isEnableRestrictionForClientProfile && this.formData.isEnableRestrictionForClientProfile.toString() == 'true') {
+                    if (scope.selectedProfileTypeValuesOptions && scope.selectedProfileTypeValuesOptions.length > 0) {
+                        this.formData.selectedProfileTypeValues = [];
+                        for (var i in scope.selectedProfileTypeValuesOptions) {
+                            this.formData.selectedProfileTypeValues.push(scope.selectedProfileTypeValuesOptions[i].id);
+                        }
+                    }
+                }
+
+                resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
+                    location.path('/viewloanproduct/' + data.resourceId);
+                });
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanProductController]).run(function ($log) {
         $log.info("EditLoanProductController initialized");
     });
 }(mifosX.controllers || {}));
