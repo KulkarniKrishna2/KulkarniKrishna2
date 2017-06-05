@@ -6024,5 +6024,15 @@
     "error.msg.glim.does.not.support.interest.calculation" : "Glim loan does not support interest calculation.",
     "error.msg.glim.does.not.support.multi.tranche" : "Glim loan does not support multi tanche.",
 
+    "label.input.configure.interest.rates.chart" : "Configure Interest Rates Chart",
+    "label.input.nominal.interestrates.for.loan.period" : "Interest Rates Chart",
+    "validation.msg.loanproduct.interestRatesListPerPeriod.is.less.than.min":"Nominal interest rate should not be greater than or equal to minimum nominal inteest rate",
+    "label.input.default.nominal.interestrate": "Default Nominal Interest Rate",
+    "label.input.default.interestrate" : "Default Interest",
+    "label.input.add.interestrate" : "Add Interest Rate",
+    "label.tooltip.loanproduct.configure.interest.rates.chart" : "Select to define a list of interests for this loan product",
+    "label.tooltip.loanproduct.add.interest.rate.to.list" : "Add an interest rate to the list",
+    "label.tooltip.loanproduct.select.default.interest.rate.from.list" : "Select a default nominal interest rate",
+
     "------ end of tensalation file":"---------"
 }

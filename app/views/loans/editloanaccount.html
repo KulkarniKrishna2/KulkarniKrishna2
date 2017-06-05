@@ -324,9 +324,14 @@
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
                     <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"  required
-                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"/>
-                    &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
-                    <form-validate valattributeform="editloanaccountform" valattribute="nominalinterestrate"/>
+                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod" ng-if="!interestRatesListAvailable"/> 
+
+                    <select id="interestRatePerPeriod" ng-model="formData.interestRatePerPeriod"
+                            name="nominalinterestrate" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"
+                            ng-options="rates for rates in interestRatesListPerPeriod" class="form-control width170px" value="{{rates}}" ng-if = "interestRatesListAvailable"/>
+
+                           &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                            <form-validate valattributeform="editloanaccountform" valattribute="nominalinterestrate"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
