@@ -238,7 +238,7 @@
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
                               </li>
-                              <li class="{{button.icon}}" ng-show="isGlimActiveLoan(loandetails.status.active)">
+                              <li class="{{button.icon}}" ng-show="isGlimActiveLoan(loandetails.status.active) && isGlimChargesAvailbale">
                                   <a href="#/glimloanaccountcharge/{{loandetails.id}}/waivecharge" has-permission="WAIVEINTERESTPORTION_LOAN">
                                       {{'label.button.waiveglimcharge' | translate}}
                                   </a>
