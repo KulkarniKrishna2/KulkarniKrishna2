@@ -174,7 +174,7 @@
 
                 <label class="control-label col-sm-3">{{ 'label.input.allowoverdraft' | translate }}</label>
                 <div class="col-sm-2">
-                    <input id="allowOverdraft" type="checkbox" ng-model="formData.allowOverdraft">
+                    <input id="allowOverdraft" type="checkbox" ng-model="formData.allowOverdraft" ng-checked="formData.allowOverdraft">
                 </div>
 	            <label class="control-label col-sm-2" ng-show="formData.allowOverdraft">{{ 'label.input.overdraftlimit' | translate }}</label>
 	            <div class="col-sm-2" ng-show="formData.allowOverdraft">
@@ -188,7 +188,7 @@
 				<label class="control-label col-sm-3">{{ 'label.input.allowdplimit' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" ng-hide="true"></i>
 				<div class="col-sm-2">
-					<input id="allowDpLimit" type="checkbox" ng-model="formData.allowDpLimit">
+					<input id="allowDpLimit" type="checkbox" ng-model="formData.allowDpLimit" ng-checked="formData.allowDpLimit">
 				</div>
 			</div>
 
