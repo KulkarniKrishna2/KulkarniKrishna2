@@ -109,6 +109,7 @@
                 scope.inparams.productId = loanProductId;
                 scope.interestRatesListPerPeriod = [];
                 scope.interestRatesListAvailable = false;
+                scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;         
                     scope.getProductPledges(scope.loanaccountinfo);

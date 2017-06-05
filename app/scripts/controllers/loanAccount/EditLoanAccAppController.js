@@ -15,6 +15,7 @@
             scope.clientMembers = [];
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
+            scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -44,7 +45,7 @@
                 scope.charges[index].amountOrPercentage = totalUpfrontChargeAmount;
             };
 
-            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
+            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
                 if(scope.loanaccountinfo.expectedDisbursalPaymentType){
                     scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
@@ -157,10 +158,10 @@
             });
 
             scope.loanProductChange = function (loanProductId) {
-
                 scope.interestRatesListPerPeriod = [];
                 scope.interestRatesListAvailable = false;
                 var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType };
+                var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType, fetchRDAccountOnly: scope.fetchRDAccountOnly };
                 if (scope.clientId) {
                     inparams.clientId = scope.clientId;
                 }
