@@ -28,6 +28,8 @@
             ];
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[0];
             scope.loanTenureFrequencyType = -1;
+            scope.configureInterestRatesChart = false;
+            scope.interestRate = {};
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -80,6 +82,8 @@
                 if(scope.product.loanTenureFrequencyType){
                     scope.loanTenureFrequencyType = scope.product.loanTenureFrequencyType.id;
                 }
+                if(scope.product.interestRatesListPerPeriod != undefined && scope.product.interestRatesListPerPeriod.length > 0)
+                    scope.configureInterestRatesChart = true;
                 scope.formData = {
                     name: scope.product.name,
                     shortName: scope.product.shortName,
@@ -103,6 +107,7 @@
                     maxLoanTerm : scope.product.maxLoanTerm,
                     repaymentFrequencyType: scope.product.repaymentFrequencyType.id,
                     interestRatePerPeriod: scope.product.interestRatePerPeriod,
+                    interestRatesListPerPeriod: scope.product.interestRatesListPerPeriod,
                     minInterestRatePerPeriod: scope.product.minInterestRatePerPeriod,
                     maxInterestRatePerPeriod: scope.product.maxInterestRatePerPeriod,
                     interestRateFrequencyType: scope.product.interestRateFrequencyType.id,
@@ -240,7 +245,8 @@
                         valueConditionType: variation.valueConditionType.id,
                         minValue: variation.minValue,
                         maxValue: variation.maxValue,
-                        defaultValue: variation.defaultValue
+                        defaultValue: variation.defaultValue,
+                        interestRatesListPerCycle : variation.loanInterestRatesListPerCycle
                     })
                 });
 
@@ -499,6 +505,38 @@
                 scope.codeValueSpecificAccountMappings.splice(index, 1);
             };
 
+
+            scope.addInterest = function(){
+                if(scope.formData.interestRatesListPerPeriod == undefined){
+                    scope.formData.interestRatesListPerPeriod = [];
+                }
+                if(scope.formData.interestRatesListPerPeriod.indexOf(scope.interestRate.value) < 0){
+                    scope.formData.interestRatesListPerPeriod.push(scope.interestRate.value);
+                }
+
+                scope.interestRate.value = undefined;
+            };
+
+            scope.deleteInterestRateFromList = function(index) {
+                scope.formData.interestRatesListPerPeriod.splice(index, 1);
+            };
+
+            scope.addInterestPerCycle = function(index){
+                if(scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle == undefined){
+                    scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle =   [];
+                }
+        
+                if(scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.indexOf(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue) <0){
+                    scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.push(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue);
+                }
+
+                scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue = undefined
+            };
+
+            scope.deleteInterestFromCycle = function(index,indexOfinterestRate){
+                scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.splice(indexOfinterestRate, 1);
+            };
+
             scope.submit = function () {
                 if(this.formData.multiDisburseLoan == false) {
                     this.formData.allowNegativeLoanBalance = false;
@@ -615,6 +653,7 @@
                     delete scope.formData.minInterestRatePerPeriod;
                     delete scope.formData.maxInterestRatePerPeriod;
                     delete scope.formData.interestRateFrequencyType;
+                    delete scope.formData.interestRatesListPerPeriod;
                 } else {
                     delete scope.formData.floatingRatesId;
                     delete scope.formData.interestRateDifferential;
@@ -698,6 +737,20 @@
                         this.formData.loanTenureFrequencyType != null){
                         this.formData.loanTenureFrequencyType = null;
                     }
+
+                    if(this.formData.interestRatesListPerPeriod != undefined){
+                        if(this.formData.interestRatesListPerPeriod.length < 1){
+                            this.formData.interestRatesListPerPeriod = []; 
+                        }
+                    }
+
+                    if(scope.configureInterestRatesChart == false){
+                        this.formData.interestRatesListPerPeriod = [];
+                    }
+                    else{
+                        delete this.formData.minInterestRatePerPeriod;
+                        delete this.formData.maxInterestRatePerPeriod;
+                   }
 
                     resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                         location.path('/viewloanproduct/' + data.resourceId);
