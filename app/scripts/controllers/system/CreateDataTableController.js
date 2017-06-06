@@ -15,6 +15,7 @@
             scope.selected = [];
             scope.id = {};
             scope.hasValueMandatory = false;
+            scope.codeValues = [];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -87,7 +88,8 @@
                         type: scope.datatableTemplate.columnType,
                         mandatory: false,
                         visible: true,
-                        mandatoryIfVisible: false
+                        mandatoryIfVisible: false,
+                        hasValueMandatory :false
                     }
                     scope.columns.push(column);
                     scope.datatableTemplate.columnName = undefined;
@@ -147,11 +149,12 @@
                 }
             };
 
-            scope.getDependentCodeValues = function (column) {
+
+            scope.getDependentCodeValues = function (column,index) {
                 if(column.when){
-                    scope.hasValueMandatory = true;
+                    scope.columnArray[index].hasValueMandatory = true;
                 }else{
-                    scope.hasValueMandatory = false;
+                    scope.columnArray[index].hasValueMandatory = false;
                 }
 
                 var codeName = "";
@@ -161,7 +164,7 @@
                     }
                 }
                 resourceFactory.codeValueByCodeNameResources.get({codeName: codeName} ,function(data){
-                    scope.codeValues = data;
+                    scope.codeValues[index] = data;
                 });
             }
 
@@ -177,7 +180,6 @@
                         if(scope.formData.columns[i].when == null){
                             delete scope.formData.columns[i].when;
                             delete scope.formData.columns[i].value;
-                            scope.hasValueMandatory = false;
                         }
                         if (scope.formData.columns[i].when != undefined && scope.formData.columns[i].value != undefined ) {
                             scope.formData.columns[i].visibilityCriteria = [];
@@ -190,6 +192,7 @@
                             delete scope.formData.columns[i].value;
                             scope.hasValueMandatory = false;
                         }
+                        delete scope.formData.columns[i].hasValueMandatory;
                     }
                     if(this.formData.restrictscope && this.selected != '' && this.selected != undefined) {
                         this.formData.scope = {};

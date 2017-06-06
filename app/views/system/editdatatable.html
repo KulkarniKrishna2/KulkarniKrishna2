@@ -7,7 +7,7 @@
             <li class="active">{{'label.anchor.editdatatable' | translate}}</li>
         </ul>
     </div>
-    <form name="editdatatableform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+    <form name="editdatatableform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.heading.editdatatable' | translate }}</legend>
@@ -218,8 +218,11 @@
                                     <div class="form-group" ng-show="column.type == 'dropdown'">
                                         <label class="control-label col-sm-2">{{ 'label.input.associatewith' | translate }}</label>
                                         <div class="col-sm-3">
-                                            <select ng-show="column.type == 'dropdown'" ng-model="column.dependsOn" ng-options="column.name as column.name for column in columns" value="{{column.name}}"
-                                                    class="input-sm form-control"/>
+                                            <select ng-show="column.type == 'dropdown'" ng-model="column.dependsOn"
+                                                    ng-options="column.name as column.name for column in columns" value="{{column.name}}"
+                                                    class="input-sm form-control">
+                                                <option value="">{{'label.selectone' | translate}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -232,19 +235,19 @@
                                         <label class="control-label col-sm-2">{{ 'label.input.showwhen' | translate }}</label>
                                         <div class="col-sm-3">
                                             <select ng-show="column.type == 'dropdown'" ng-model="column.when" ng-options="column.name as column.name for column in columns" value="{{column.name}}"
-                                                    class="input-sm form-control" data-ng-change="getDependentCodeValues(column)">
+                                                    class="input-sm form-control" data-ng-change="getDependentCodeValues(column, $index)">
                                                 <option value="">{{'label.selectone' | translate}}</option>
                                             </select>
                                         </div>
                                         <label class="control-label col-sm-2">{{ 'label.input.hasvalue' | translate }}<span
-                                                ng-show="hasValueMandatory" class="required">*</span></label>
+                                                ng-show="columnArray[$index].hasValueMandatory" class="required">*</span></label>
                                         <div class="col-sm-3">
                                             <select ng-show="column.type == 'dropdown'" ng-model="column.value" name="hasValue"
-                                                    ng-options="codeValue.name as codeValue.name for codeValue in codeValues" value="{{codecodeValue.value}}"
-                                                    class="input-sm form-control" ng-required="hasValueMandatory">
+                                                    ng-options="codeValue.name as codeValue.name for codeValue in codeValues[$index]" value="{{codecodeValue.value}}"
+                                                    class="input-sm form-control" ng-required="columnArray[$index].hasValueMandatory">
                                                 <option value="">{{'label.selectone' | translate}}</option>
                                             </select>
-                                            <form-validate valattributeform="createdatatableform" valattribute="hasValue"/>
+                                            <form-validate valattributeform="editdatatableform" valattribute="hasValue"/>
                                         </div>
                                     </div>
                                     <div class="form-group">

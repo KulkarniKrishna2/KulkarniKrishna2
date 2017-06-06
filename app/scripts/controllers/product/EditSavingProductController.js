@@ -33,7 +33,7 @@
                     interestCalculationType: data.interestCalculationType.id,
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
-                    allowOverdraft: data.allowOverdraft == true ? 'true' : 'false',
+                    allowOverdraft: data.allowOverdraft == true ? true : false,
                     overdraftLimit: data.overdraftLimit,
                     nominalAnnualInterestRateOverdraft: data.nominalAnnualInterestRateOverdraft,
                     minOverdraftForInterestCalculation: data.minOverdraftForInterestCalculation,
@@ -47,10 +47,11 @@
                     daysToEscheat: data.daysToEscheat
                 };
 
+                scope.formData.allowDpLimit = false;
                 if (scope.formData.allowOverdraft) {
                     if(data.savingsProductDrawingPowerDetailsData && data.savingsProductDrawingPowerDetailsData.frequencyType){
                         var savingsProductDrawingPowerDetailsData = data.savingsProductDrawingPowerDetailsData;
-                        scope.formData.allowDpLimit = 'true';
+                        scope.formData.allowDpLimit = true;
                         scope.formData.dpFrequencyType = savingsProductDrawingPowerDetailsData.frequencyType.id;
                         if(savingsProductDrawingPowerDetailsData.frequencyNthDay){
                             scope.formData.dpFrequencyNthDay = savingsProductDrawingPowerDetailsData.frequencyNthDay.id;
@@ -240,6 +241,9 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
+                if(!this.formData.minRequiredOpeningBalance){
+                    this.formData.minRequiredOpeningBalance = 0;
+                }
 
                 resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewsavingproduct/' + data.resourceId);

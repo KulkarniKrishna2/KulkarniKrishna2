@@ -42,6 +42,7 @@
 		"adjustRepaymentDateDisburseScreen": false
 	  },
 	  "isReadOnlyField": {
+	  	"externalId": false,
 		"loanTermFrequencyType": false,
 		"interestChargedFromDate": false,
 		"displayName": false,

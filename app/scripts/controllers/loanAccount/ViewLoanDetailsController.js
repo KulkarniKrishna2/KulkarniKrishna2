@@ -26,6 +26,7 @@
             scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
             scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
+            scope.isGlimChargesAvailbale = true;
 
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -754,6 +755,7 @@
 
             resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
                 scope.glimClientsDetails = data;
+                var totalGlimChargeAmount = 0;
                 for(var i=0;i<data.length;i++){
                     if(angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)){
                         scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
@@ -762,7 +764,12 @@
                     }else{
                         scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
                     }
+                    
+                    if(angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)){
+                        totalGlimChargeAmount = totalGlimChargeAmount+parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
+                    }
                 }
+                scope.isGlimChargesAvailbale = (totalGlimChargeAmount>0);
                 scope.isGlim = data.length>0;
             });
             scope.getChargeWaiveLink = function(loanId, chargeId){

@@ -22,9 +22,11 @@
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
             scope.upfrontFee = "Upfront Fee";
+
             scope.interestRatesListPerPeriod = [];
             scope.interestRatesListAvailable = false;
 
+            scope.isReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
                 for(var i in scope.formData.clientMembers){
