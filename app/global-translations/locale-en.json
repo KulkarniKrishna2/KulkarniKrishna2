@@ -784,7 +784,9 @@
 
     "#Inputs": "..",
     "label.input.filterbynameaccno": "Filter display by name/client#/staff/office",
+    "label.input.filterbynameexternalid" : "Filter display by name/office",
     "label.input.searchByNameAccNo" : "Find by name/mobile#/client#/externalId/identifier#",
+    "label.input.searchByNamwExternalId" : "Find by name/externalId",
     "label.input.selectclientimage": "Select client image",
     "label.input.selectfile": "Select file",
     "label.input.documenttype": "Document type",
