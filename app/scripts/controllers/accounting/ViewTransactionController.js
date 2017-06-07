@@ -174,6 +174,11 @@
                     scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
+                        if(data.isData && scope.datatabledetails.columnHeaders[i].columnName == 'journal_entry_id'){
+                            data.columnHeaders.splice(i, 1);
+                            scope.removeJournalEntryColumnData(data, data.isMultirow);
+                        
+                        }
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
@@ -182,10 +187,6 @@
                                     }
                                 }
                             }
-                        }
-                        if(data.isData && scope.datatabledetails.columnHeaders[i].columnName == 'journal_entry_id'){
-                            data.columnHeaders.splice(i, 1);
-                            scope.removeJournalEntryColumnData(data, data.isMultirow);
                         }
                     }
                     if (scope.datatabledetails.isData) {
