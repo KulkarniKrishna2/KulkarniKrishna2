@@ -6,6 +6,11 @@
             scope.actualEmployees = [];
 
             scope.getResultsPage = function (pageNumber) {
+                if(scope.searchText){
+                    var startPosition = (pageNumber - 1) * scope.staffPerPage;
+                    scope.employees = scope.actualEmployees.slice(startPosition, startPosition + scope.staffPerPage);
+                    return;
+                }
                 var items = resourceFactory.employeeResource.getAllEmployees({
                     offset: ((pageNumber - 1) * scope.staffPerPage),
                     limit: scope.staffPerPage
@@ -24,6 +29,7 @@
                     scope.employees = data.pageItems;
                 });
             }
+
             scope.initPage();
 
             scope.routeTo = function (id) {
@@ -40,6 +46,43 @@
                 scope.searchCriteria.employees = scope.filterText;
                 scope.saveSC();
             };
+
+            scope.search = function () {
+                scope.actualEmployees = [];
+                scope.searchResults = [];
+                scope.filterText = "";
+                var searchString = scope.searchText;
+                searchString = searchString.replace(/(^"|"$)/g, '');
+                var exactMatch=false;
+                var n = searchString.localeCompare(scope.searchText);
+                if(n!=0)
+                {
+                    exactMatch=true;
+                }
+
+                if(!scope.searchText){
+                    scope.initPage();
+                } else {
+                    searchString = searchString.trim().replace(" ", "%")
+                    resourceFactory.globalSearch.search({query: searchString , resource: "staff",exactMatch: exactMatch}, function (data) {
+                        var arrayLength = data.length;
+                        for (var i = 0; i < arrayLength; i++) {
+                            var result = data[i];
+                            var employee = {};
+                            employee.displayName = result.entityName;
+                            employee.id = result.entityId;
+                            employee.officeName = result.officeName;
+                            employee.externalId = result.entityExternalId;
+                            employee.isActive = result.isActive;
+                            employee.isLoanOfficer = result.isLoanOfficer;
+                            scope.actualEmployees.push(employee);
+                        }
+                        var numberOfStaffs = scope.actualEmployees.length;
+                        scope.totalStaff = numberOfStaffs;
+                        scope.employees = scope.actualEmployees.slice(0, scope.staffPerPage);
+                    });
+                }
+            }
         }
     });
     mifosX.ng.application.controller('EmployeeController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.EmployeeController]).run(function ($log) {

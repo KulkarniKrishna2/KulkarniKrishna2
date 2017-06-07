@@ -4,9 +4,24 @@
         <li class="active">{{'label.anchor.manageemployees' | translate}}&nbsp;&nbsp;{{employee.lastname}}</li>
     </ul>
 
-    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
     <a href="#/createemployee" class="btn btn-primary pull-right" has-permission='CREATE_STAFF'><i class="icon-plus icon-white"></i>{{'label.button.createemployee' | translate }}</a>
-
+    <form ng-submit="search()" class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-4">
+                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+            </div>
+            <div class="col-lg-6 col-md-4">
+                <div class="input-group">
+                    <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchByNamwExternalId' | translate}}" class="form-control"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary form-control">
+                            <span class="icon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
     <table class="table">
         <thead>
         <tr class="graybg">
