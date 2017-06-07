@@ -6030,13 +6030,17 @@
 
     "label.input.configure.interest.rates.chart" : "Configure Interest Rates Chart",
     "label.input.nominal.interestrates.for.loan.period" : "Interest Rates Chart",
-    "validation.msg.loanproduct.interestRatesListPerPeriod.is.less.than.min":"Nominal interest rate should not be greater than or equal to minimum nominal inteest rate",
+    "validation.msg.loanproduct.interestRatesListPerPeriod.is.less.than.min":"Nominal interest rate should be greater than or equal to minimum nominal inteest rate",
     "label.input.default.nominal.interestrate": "Default Nominal Interest Rate",
     "label.input.default.interestrate" : "Default Interest",
     "label.input.add.interestrate" : "Add Interest Rate",
     "label.tooltip.loanproduct.configure.interest.rates.chart" : "Select to define a list of interests for this loan product",
     "label.tooltip.loanproduct.add.interest.rate.to.list" : "Add an interest rate to the list",
     "label.tooltip.loanproduct.select.default.interest.rate.from.list" : "Select a default nominal interest rate",
+    "validation.msg.loanproduct.interestRatePerPeriod.not.found.in.the.list.provided" : "Please Select an interest rate",
+    "validation.msg.loanproduct.interestRatesListPerPeriod.is.greater.than.max" : "Fixed Interest Rates should not be greater than Maximum Interest Rate",
+    "validation.msg.loanproduct.interestRatesListPerCycle.is.greater.than.max" : "Inerest Rate in nominal interest rate for loan cycle should not be greater than maximum value",
+    "validation.msg.loanproduct.interestRatesListPerCycle.is.less.than.min" : "Inerest Rate in nominal interest rate for loan cycle should not be lesser than minimum value ",
 
     "#Link Products to Customer Segment" : "",
     "label.input.applicable.for" : "Applicable for",

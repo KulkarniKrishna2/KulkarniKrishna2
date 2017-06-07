@@ -354,7 +354,7 @@
             };
 
         scope.addInterest = function(){
-            if(scope.interestratesListPerPeriod.indexOf(scope.interestRate.value) < 0){
+            if(scope.interestRate.value != undefined && scope.interestratesListPerPeriod.indexOf(scope.interestRate.value) < 0){
                 scope.interestratesListPerPeriod.push(scope.interestRate.value);
             }
             scope.interestRate.value = undefined;
@@ -369,7 +369,7 @@
                 scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle = [];
             }
              
-            if(scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.indexOf(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue) < 0){   
+            if(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue != undefined && scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.indexOf(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue) < 0){   
                 scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.push(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue);
             }
             
