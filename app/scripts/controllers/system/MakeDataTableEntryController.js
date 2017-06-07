@@ -61,8 +61,9 @@
                 }
 
                 colName = data.columnHeaders[0].columnName;
-                if (colName == 'gl_journal_entry_id') {
-                    scope.dataTableName = 'acc_gl_journal_entry';
+                if (colName == 'journal_entry_id') {
+                    data.columnHeaders.splice(0, 1);
+                    scope.dataTableName = 'f_journal_entry';
                 }
                 if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
                     data.columnHeaders.splice(0, 1);

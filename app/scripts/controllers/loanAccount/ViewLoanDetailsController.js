@@ -1034,10 +1034,10 @@
                 var transactionId = "L" + transactionId;
                 if(scope.loandetails.clientId != null && scope.loandetails.clientId != ""){
                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,clientId: scope.loandetails.clientId,
-                        accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName});
+                        accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName,isTransactionReferenceNumber:true});
                 }else{
                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,accountNo: scope.loandetails.accountNo,
-                        groupId :scope.loandetails.group.id,groupName :scope.loandetails.group.name});
+                        groupId :scope.loandetails.group.id,groupName :scope.loandetails.group.name,isTransactionReferenceNumber:true});
 
                 }
 

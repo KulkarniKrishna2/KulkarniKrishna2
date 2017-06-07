@@ -20,22 +20,34 @@
             scope.hidePentahoReport = true;
             scope.reportName = 'Journal Voucher';
             scope.reportOutputType = 'PDF';
-            scope.dataTableName = 'acc_gl_journal_entry';
+            scope.dataTableName = 'f_journal_entry';
+            scope.transactions = [];
             if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
                 scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
             }
 
-            resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId, transactionDetails:true}, function (data) {
-                scope.transactionNumber = routeParams.transactionId;
-                scope.transactions = data.pageItems;
-                for (var i in data.pageItems) {
-                    scope.manualEntry = data.pageItems[i].manualEntry;
-                    if (data.pageItems[i].reversed == false) {
+            if(!routeParams.isTransactionReferenceNumber) {
+                resourceFactory.journalEntriesResource.get({trxid: routeParams.transactionId}, function (data) {
+                    scope.transactions.push(data);
+                    if (data.reversed == false) {
                         scope.flag = true;
                     }
-                }
-                scope.transaction =  scope.transactions[0];
-            });
+                    scope.transaction = scope.transactions[0];
+                    scope.transactionNumber = scope.transaction.transactionId;
+                });
+            }else{
+                resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId, transactionDetails:true}, function (data) {
+                    scope.transactionNumber = routeParams.transactionId;
+                    scope.transactions = data.pageItems;
+                    for (var i in data.pageItems) {
+                        scope.manualEntry = data.pageItems[i].manualEntry;
+                        if (data.pageItems[i].reversed == false) {
+                            scope.flag = true;
+                        }
+                    }
+                    scope.transaction =  scope.transactions[0];
+                });
+            }
 
             scope.confirmation = function () {
                 $modal.open({
@@ -135,7 +147,7 @@
                     });
             }
 
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'acc_gl_journal_entry'}, function (data) {
+            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'f_journal_entry'}, function (data) {
                 scope.journalentrydatatables = data;
             });
 
@@ -154,7 +166,7 @@
             };
 
             scope.dataTableChange = function (datatable) {
-                resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName, entityId: scope.transactionIdStringvalue, genericResultSet: 'true', command: scope.dataTableName}, function (data) {
+                resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName, entityId: scope.transaction.id, genericResultSet: 'true', command: scope.dataTableName}, function (data) {
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
@@ -162,6 +174,11 @@
                     scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
+                        if(data.isData && scope.datatabledetails.columnHeaders[i].columnName == 'journal_entry_id'){
+                            data.columnHeaders.splice(i, 1);
+                            scope.removeJournalEntryColumnData(data, data.isMultirow);
+                        
+                        }
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
@@ -170,10 +187,6 @@
                                     }
                                 }
                             }
-                        }
-                        if(data.isData && scope.datatabledetails.columnHeaders[i].columnName == 'gl_journal_entry_id'){
-                            data.columnHeaders.splice(i, 1);
-                            scope.removeJournalEntryColumnData(data, data.isMultirow);
                         }
                     }
                     if (scope.datatabledetails.isData) {
