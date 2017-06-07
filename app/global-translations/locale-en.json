@@ -1403,6 +1403,7 @@
     "label.selectfilter": "Select filter",
     "label.savecollectionsheetsuccessfully":"Collection Sheet saved successfully",
     "label.norepaymentsanddisbursalareavailable":"No repayments and disbursal are available for selected Group and meeting date",
+    "label.norepaymentsandcollectionsareavailable":"No repayments and disbursal are available for selected Staff and repayment date",
     "label.transactionisreversedonce":"This transaction was reversed",
     "label.transactionreverse":"Transaction reversed successfully.  A new journal entry has been created to reverse this transaction",
     "label.delete" :"Delete",
