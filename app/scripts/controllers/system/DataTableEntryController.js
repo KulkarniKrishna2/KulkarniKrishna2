@@ -73,9 +73,9 @@
             }
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                 for (var i in data.columnHeaders) {
-                    if(data.columnHeaders[i].columnName == 'gl_journal_entry_id'){
+                    if(data.columnHeaders[i].columnName == 'journal_entry_id'){
                         scope.isJournalEntry = true;
-                        reqparams.command = 'acc_gl_journal_entry';
+                        reqparams.command = 'f_journal_entry';
                     }
                     if (data.columnHeaders[i].columnCode) {
                         //logic for display codeValue instead of codeId in view datatable details
@@ -164,8 +164,8 @@
                     scope.columnHeaders.splice(0, 1);
                 }
                 colName = scope.columnHeaders[0].columnName;
-                if(colName == 'gl_journal_entry_id'){
-                    scope.dataTableName = 'acc_gl_journal_entry';
+                if(colName == 'journal_entry_id'){
+                    scope.dataTableName = 'f_journal_entry';
                 }
                 if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
                     scope.columnHeaders.splice(0, 1);
@@ -357,6 +357,7 @@
                         }
                     }
                 }
+                this.formData.Id = scope.entityId.toString()
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.dateTimeFormat();
                 for (var i = 0; i < scope.columnHeaders.length; i++) {

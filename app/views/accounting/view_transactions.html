@@ -179,14 +179,14 @@
                     <div>
                         <div class="btn-group pull-right">
                             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
-                               ng-click="deleteAll(journalentrydatatable.registeredTableName, transactionIdStringvalue)" has-permission='DELETE_{{journalentrydatatable.registeredTableName}}'><i
+                               ng-click="deleteAll(journalentrydatatable.registeredTableName, transaction.id)" has-permission='DELETE_{{journalentrydatatable.registeredTableName}}'><i
                                     class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
                             <a data-ng-show="showDataTableAddButton"
-                               ng-href="#/makedatatableentry/{{journalentrydatatable.registeredTableName}}/{{transactionIdStringvalue}}?fromEntity=journalentry"
+                               ng-href="#/makedatatableentry/{{journalentrydatatable.registeredTableName}}/{{transaction.id}}?fromEntity=journalentry"
                                class="btn btn-primary" has-permission='CREATE_{{journalentrydatatable.registeredTableName}}'><i
                                     class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                             <a data-ng-show="showDataTableEditButton"
-                               ng-href="#/viewsingledatatableentry/{{journalentrydatatable.registeredTableName}}/{{transactionIdStringvalue}}?mode=edit&&fromEntity=journalentry"
+                               ng-href="#/viewsingledatatableentry/{{journalentrydatatable.registeredTableName}}/{{transaction.id}}?mode=edit&&fromEntity=journalentry"
                                class="btn btn-primary" has-permission='UPDATE_{{journalentrydatatable.registeredTableName}}'><i
                                     class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
                         </div>
