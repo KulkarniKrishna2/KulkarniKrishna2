@@ -521,8 +521,8 @@
                 if(scope.formData.interestRatesListPerPeriod == undefined){
                     scope.formData.interestRatesListPerPeriod = [];
                 }
-                if(scope.formData.interestRatesListPerPeriod.indexOf(scope.interestRate.value) < 0){
-                    scope.formData.interestRatesListPerPeriod.push(scope.interestRate.value);
+                if(scope.interestRate.value != undefined && scope.formData.interestRatesListPerPeriod.indexOf(scope.interestRate.value) < 0){
+                        scope.formData.interestRatesListPerPeriod.push(scope.interestRate.value);
                 }
 
                 scope.interestRate.value = undefined;
@@ -537,7 +537,7 @@
                     scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle =   [];
                 }
         
-                if(scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.indexOf(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue) <0){
+                if(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue != undefined && scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.indexOf(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue) <0){
                     scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.push(scope.formData.interestRateVariationsForBorrowerCycle[index].tempValue);
                 }
 
