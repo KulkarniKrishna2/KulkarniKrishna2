@@ -9,7 +9,7 @@
         </ul>
     </div>
     <api-validate></api-validate>
-    <form class="form-horizontal well" name="accounttransferform" novalidate="" rc-submit="submit()">
+    <form class="form-horizontal well" name="accounttransferform" autocomplete="off" novalidate="" rc-submit="submit()">
         <fieldset>
             <legend>{{ 'label.heading.accounttransfers' | translate }}</legend>
             <div class="row paddedleft">
@@ -66,7 +66,7 @@
                     <label class="control-label col-sm-2" for="toClientId">{{ 'label.input.client' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="toClientId" ng-model="formData.toClientData" name="client" class="form-control" type="text" typeahead="(toClient.id + ' ' + toClient.displayName) as (toClient.id + ' ' + toClient.displayName) for toClient in toClients | filter:$viewValue | limitTo:8" typeahead-on-select="changeClient($item)" required>
+                        <input id="toClientId" ng-model="formData.toClientData" name="client" class="form-control" type="text" typeahead="(toClient.id + ' ' + toClient.displayName) as (toClient.id + ' ' + toClient.displayName) for toClient in toClients | filter:$viewValue | limitTo:8" typeahead-on-select="changeClient($item)" autocomplete="off" required>
                         <form-validate valattributeform="accounttransferform" valattribute="client" />
                     </div>
                 </div>
