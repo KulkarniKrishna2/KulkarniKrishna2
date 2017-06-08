@@ -432,6 +432,9 @@
             .when('/journalentry/:transactionId', {
                 templateUrl: 'views/accounting/journalentry_posting.html'
             })
+            .when('/journalentry/:transactionId/:resourceId', {
+                templateUrl: 'views/accounting/journalentry_posting.html'
+            })
             .when('/journalentry', {
                 templateUrl: 'views/accounting/journalentry_posting.html'
             })

@@ -32,6 +32,7 @@
                     if (data.reversed == false) {
                         scope.flag = true;
                     }
+                    scope.manualEntry = data.manualEntry;
                     scope.transaction = scope.transactions[0];
                     scope.transactionNumber = scope.transaction.transactionId;
                 });
@@ -65,7 +66,7 @@
                 $scope.transactionnumber = id.transactionId;
                 $scope.redirect = function () {
                     $modalInstance.close('delete');
-                    location.path('/viewtransactions/' + id.transactionId);
+                    location.path('/viewtransactions/' + id.resourceId);
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
