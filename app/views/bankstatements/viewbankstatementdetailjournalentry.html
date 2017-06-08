@@ -86,7 +86,7 @@
                         </div>
                      </td>
                     <td class="width10">
-                        <div  ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError">
+                        <div  ng-show="bankStatementDetail.transactionId == undefined ">
                             <a style="background-color: #cc3300;" ng-show="bankStatementDetail.updateCancelled ||
                                     bankStatementDetail.showUpdateButton == undefined && !bankStatementDetail.showUpdateButton"
                                     class="btn" ng-click="editBankDetails($index)">
