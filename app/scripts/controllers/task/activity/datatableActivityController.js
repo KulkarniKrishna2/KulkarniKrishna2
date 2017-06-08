@@ -309,6 +309,26 @@
                     scope.activityEdit();
                 });
             };
+
+            scope.doPreTaskActionStep = function(actionName){
+                if(actionName === 'activitycomplete'){
+                    if(isDataTableCompleted()){
+                        scope.doActionAndRefresh(actionName);
+                    }else{
+                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                    }
+                }else{
+                    scope.doActionAndRefresh(actionName);
+                }
+            };
+
+            function isDataTableCompleted(){
+                var surveyCompleted   = true;
+                if (scope.status != 'VIEW'){
+                    surveyCompleted=false;
+                }
+                return surveyCompleted;
+            };
         }
     });
     mifosX.ng.application.controller('datatableActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.datatableActivityController]).run(function ($log) {

@@ -2,7 +2,8 @@
     <div ng-if="showSummary">
         <div class="form-horizontal">
             <h3>{{'label.heading.occupationdetails' | translate}}
-                <button ng-click="addClientoccupationdetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
+                <button ng-click="addClientoccupationdetails()" ng-if="!isTaskCompleted()" class="btn-primary"><i class="icon-plus"></i></button>
+                <button ng-click="addClientoccupationdetails()" ng-if="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-primary"><i class="icon-plus"></i></button></h3>
             <table class="table">
                 <thead>
                 <tr>
@@ -35,6 +36,9 @@
                         <button role="button" ng-click="editClientoccupationdetails(incomeAndExpense.id)" ng-if="!isTaskCompleted()" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
+                        <button role="button" ng-click="editClientoccupationdetails(incomeAndExpense.id)" ng-if="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
                     </td>
 
                 </tr>
@@ -45,7 +49,8 @@
 
         <div class="form-horizontal">
             <h3>{{'label.heading.assetdetails' | translate}}
-                <button ng-click="addClientassetdetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
+                <button ng-click="addClientassetdetails()" ng-if="!isTaskCompleted()" class="btn-primary"><i class="icon-plus"></i></button>
+                <button ng-click="addClientassetdetails()" ng-if="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-primary"><i class="icon-plus"></i></button></h3>
             <br>
             <table class="table">
                 <thead>
@@ -79,6 +84,9 @@
                         <button role="button" ng-click="editClientassetdetails(incomeAndExpense.id)" ng-if="!isTaskCompleted()" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
+                        <button role="button" ng-click="editClientassetdetails(incomeAndExpense.id)" ng-if="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -88,7 +96,8 @@
 
         <div class="form-horizontal">
             <h3>{{'label.heading.householddetails' | translate}}
-                <button ng-click="addClienthouseholddetails()" class="btn-primary"><i class="icon-plus"></i></button></h3>
+                <button ng-click="addClienthouseholddetails()" ng-if="!isTaskCompleted()" class="btn-primary"><i class="icon-plus"></i></button>
+                <button ng-click="addClienthouseholddetails()" ng-if="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-primary"><i class="icon-plus"></i></button></h3>
             <br>
             <table class="table">
                 <thead>
@@ -112,6 +121,9 @@
                     </td>
                     <td class="pull-right">
                         <button role="button" ng-click="editClienthouseholddetails(incomeAndExpense.id)" ng-if="!isTaskCompleted()" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
+                        <button role="button" ng-click="editClienthouseholddetails(incomeAndExpense.id)" ng-if="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-link ng-binding">
                             <i class="icon-edit icon-white"></i>
                         </button>
                     </td>

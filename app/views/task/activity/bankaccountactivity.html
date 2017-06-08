@@ -2,13 +2,6 @@
 
     <!-- Submit form, new data    -->
     <div class="col-md-12 col-sm-12" ng-if="isTaskCompleted()  || isSummary">
-        <div class="row">
-  <div ng-if="!isTaskCompleted()" class="col-md-offset-11 col-md-1">
-                    <button id="edit" class="btn btn-primary" ng-click="edit()">{{'label.button.edit' | translate}}</button>
-                </div>
-                
-        </div>
-            
                 <div class="row">
                     <div class="col-md-6">
                         <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
@@ -48,7 +41,8 @@
         </div>
 
 
-    <form name="bankaccountdetail" novalidate="" class="form-horizontal" ng-if="!isTaskCompleted() && !isSummary">
+    <form name="bankaccountdetail" novalidate="" class="form-horizontal" ng-if="false">
+    <!-- ng-if="!isTaskCompleted() && !isSummary"> -->
         <fieldset>
 
 
