@@ -13,6 +13,7 @@
             scope.restrictDate = new Date();
             scope.showPaymentDetails = false;
             scope.transactionnumber = routeParams.transactionId;
+            scope.resourceId = routeParams.resourceId;
             scope.showTransactionDetails = false;
             scope.first.date = new Date();
             scope.numberOfCredits = 1;
@@ -63,7 +64,7 @@
             }
 
             scope.viewTransaction = function(){
-                location.path('/viewtransactions/' +scope.transactionnumber );
+                location.path('/viewtransactions/' +scope.resourceId );
             }
 
             scope.limitingCreditToOne = function (){
@@ -139,7 +140,7 @@
                 localStorageService.addToCookies('currencyCode', this.formData.currencyCode);
 
                 resourceFactory.journalEntriesResource.save(jeTransaction, function (data) {
-                    location.path('/journalentry/' + data.transactionId);
+                    location.path('/journalentry/' + data.transactionId+"/"+data.resourceId);
                 });
             }
         }
