@@ -365,6 +365,9 @@
         };
 
         scope.addInterestPerCycle = function(index){
+            scope.formData.interestRateVariationsForBorrowerCycle[index].minValue = null;
+            scope.formData.interestRateVariationsForBorrowerCycle[index].maxValue = null;
+
             if (scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle == undefined){
                 scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle = [];
             }
@@ -559,6 +562,21 @@
 
             if (!scope.configureInterestRatesChart) {
                 delete this.formData.interestRatesListPerPeriod;
+                if(scope.irFlag == true){
+                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
+                            this.formData.interestRateVariationsForBorrowerCycle[i].interestRatesListPerCycle = [];
+                        }
+                    }
+            }
+            else{
+                this.formData.minInterestRatePerPeriod = null;
+                this.formData.maxInterestRatePerPeriod = null;
+                if(scope.irFlag == true){
+                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
+                            this.formData.interestRateVariationsForBorrowerCycle[i].minValue = null;
+                            this.formData.interestRateVariationsForBorrowerCycle[i].maxValue = null;
+                        }
+                    }
             }
 
             scope.formData.selectedProfileTypeValues = undefined;
