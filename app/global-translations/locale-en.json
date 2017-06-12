@@ -6054,6 +6054,10 @@
     "validation.msg.loanproduct.selectedProfileTypeValues.cannot.be.empty" : "Client profile not selected",
     "label.input.client.profile.restriction" : "Client profile restriction",
     "error.msg.loan.product.not.belongs.to.loanType.loan" : "Loan product not belongs to `{{params[1].value}}` loan.",
+    "validation.msg.loanproduct.interestRatesListPerPeriod.not.supported.when.isLinkedToFloatingInterestRates.is.true" : "Interest rates per list is not supported when floating interest rate is enabled",
+    "validation.msg.loan.interestRatePerPeriod.not.supported.loanproduct.linked.to.floating.rate": "Nominal interest rate is not supported when floating interest rate is enabled",
+    "validation.msg.loan.interestRateDifferential.amount.is.not.within.min.max.range" : "Interest rate must be between `{{params[1].value}}` and `{{params[2].value}}`",
+    "error.msg.loanproduct.not.modifiable.due.to.non.closed.loans" : "Loan Product can't be modified due to active loans",
 
     "------ end of tensalation file":"---------"
 }

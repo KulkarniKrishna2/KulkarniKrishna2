@@ -383,6 +383,12 @@
             scope.formData.interestRateVariationsForBorrowerCycle[index].interestRatesListPerCycle.splice(indexOfinterestRate, 1);
         };
 
+        scope.changeStatus = function() {
+                if(scope.formData.isLinkedToFloatingInterestRates ==  true){
+                    scope.configureInterestRatesChart = false;
+                }
+            };
+
         scope.submit = function () {
             var reqFirstDate = dateFilter(scope.date.first, scope.df);
             var reqSecondDate = dateFilter(scope.date.second, scope.df);
@@ -489,11 +495,31 @@
                 delete scope.formData.recalculationRestFrequencyInterval;
             }
 
+            if (!scope.configureInterestRatesChart) {
+                delete this.formData.interestRatesListPerPeriod;
+                if(scope.irFlag == true){
+                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
+                            this.formData.interestRateVariationsForBorrowerCycle[i].interestRatesListPerCycle = [];
+                        }
+                    }
+            }
+            else{
+                this.formData.minInterestRatePerPeriod = null;
+                this.formData.maxInterestRatePerPeriod = null;
+                if(scope.irFlag == true){
+                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
+                            this.formData.interestRateVariationsForBorrowerCycle[i].minValue = null;
+                            this.formData.interestRateVariationsForBorrowerCycle[i].maxValue = null;
+                        }
+                    }
+            }
+
             if (this.formData.isLinkedToFloatingInterestRates) {
                 delete scope.formData.interestRatePerPeriod;
                 delete scope.formData.minInterestRatePerPeriod;
                 delete scope.formData.maxInterestRatePerPeriod;
                 delete scope.formData.interestRateFrequencyType;
+                delete scope.formData.interestRatesListPerPeriod;
             } else {
                 delete scope.formData.floatingRatesId;
                 delete scope.formData.interestRateDifferential;
@@ -558,25 +584,6 @@
             if (this.formData.minLoanTerm == null && this.formData.maxLoanTerm == null &&
                 this.formData.loanTenureFrequencyType != null) {
                 this.formData.loanTenureFrequencyType = null;
-            }
-
-            if (!scope.configureInterestRatesChart) {
-                delete this.formData.interestRatesListPerPeriod;
-                if(scope.irFlag == true){
-                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
-                            this.formData.interestRateVariationsForBorrowerCycle[i].interestRatesListPerCycle = [];
-                        }
-                    }
-            }
-            else{
-                this.formData.minInterestRatePerPeriod = null;
-                this.formData.maxInterestRatePerPeriod = null;
-                if(scope.irFlag == true){
-                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
-                            this.formData.interestRateVariationsForBorrowerCycle[i].minValue = null;
-                            this.formData.interestRateVariationsForBorrowerCycle[i].maxValue = null;
-                        }
-                    }
             }
 
             scope.formData.selectedProfileTypeValues = undefined;

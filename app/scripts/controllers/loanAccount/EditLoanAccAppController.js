@@ -56,11 +56,9 @@
                     scope.formData.expectedRepaymentPaymentType = scope.loanaccountinfo.expectedRepaymentPaymentType.id;
                 }
 
-                if(data.interestRatesListPerPeriod != undefined){
-                    if(data.interestRatesListPerPeriod.length > 0){
+                if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
                         scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                         scope.interestRatesListAvailable = true;
-                    }
                 }
 
                 resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
@@ -178,7 +176,7 @@
                     var refreshLoanCharges  = true;
                     scope.previewClientLoanAccInfo(refreshLoanCharges);
                     scope.updateSlabBasedCharges();
-                    if(data.interestRatesListPerPeriod.length > 0){
+                    if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
                        scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                        scope.interestRatesListAvailable = true;
                     }
@@ -601,6 +599,11 @@
                 if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     delete this.formData.interestRateDifferential ;
                     delete this.formData.isFloatingInterestRate ;
+                }
+                else{
+                    if(scope.formData.interestRatePerPeriod != undefined){
+                        delete scope.formData.interestRatePerPeriod;
+                    }
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
