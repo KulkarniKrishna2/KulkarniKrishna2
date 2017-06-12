@@ -1543,6 +1543,7 @@
         <select id="fundSourceAccountId" ng-model="formData.fundSourceAccountId" chosen="assetAccountOptions"
                 ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                 value="{{assetAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.loanportfolio' | translate }}<span class="required">*</span></label>
@@ -1552,6 +1553,7 @@
                 chosen="assetAccountOptions"
                 ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                 value="{{assetAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1564,6 +1566,7 @@
                 ng-model="formData.receivableInterestAccountId" chosen="assetAccountOptions"
                 ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                 value="{{assetAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.receivablefees' | translate }}</label>
@@ -1573,6 +1576,7 @@
                 chosen="assetAccountOptions"
                 ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                 value="{{assetAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1585,6 +1589,7 @@
                 chosen="assetAccountOptions"
                 ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                 value="{{assetAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1597,6 +1602,7 @@
                 chosen="assetAccountOptions"
                 ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                 value="{{assetAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1611,6 +1617,7 @@
                 chosen="incomeAccountOptions"
                 ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAccountOptions"
                 value="{{incomeAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.incomefromfees' | translate }}<span class="required">*</span></label>
@@ -1620,6 +1627,7 @@
                 chosen="incomeAccountOptions"
                 ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAccountOptions"
                 value="{{incomeAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1632,6 +1640,7 @@
                 chosen="incomeAccountOptions"
                 ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAccountOptions"
                 value="{{incomeAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.recoverypayments' | translate }}<span class="required">*</span></label>
@@ -1642,6 +1651,7 @@
                 chosen="incomeAccountOptions"
                 ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAccountOptions"
                 value="{{incomeAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1655,6 +1665,7 @@
         <select id="writeOffAccountId" ng-model="formData.writeOffAccountId" chosen="expenseAccountOptions"
                 ng-options="expenseAccount.id as (expenseAccount.name +'('+ expenseAccount.glCode +')') for expenseAccount in expenseAccountOptions"
                 value="{{expenseAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1670,6 +1681,7 @@
                 chosen="liabilityAccountOptions"
                 ng-options="liabilityAccount.id as (liabilityAccount.name +'('+ liabilityAccount.glCode +')') for liabilityAccount in liabilityAccountOptions"
                 value="{{liabilityAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
@@ -1685,6 +1697,7 @@
             <select id="subsidyFundSource" ng-model="formData.subsidyFundSourceId" chosen="liabilityAccountOptions"
                     ng-options="liabilityAccount.id as (liabilityAccount.name +'('+ liabilityAccount.glCode +')') for liabilityAccount in liabilityAccountOptions"
                     value="{{liabilityAccount.id}}">
+                    <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
         </div>
         <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.subsidyAccount' | translate }}<span class="required">*</span></label>
@@ -1693,6 +1706,7 @@
             <select id="subsidyAccount" ng-model="formData.subsidyAccountId" chosen="assetAccountOptions"
                     ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
                     value="{{assetAccount.id}}">
+                    <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
         </div>
     </div>
@@ -1721,6 +1735,7 @@
                         ng-model="configureFundOption.paymentTypeId"
                         ng-options="paymentType.id as paymentType.name for paymentType in configureFundOption.paymentTypeOptions"
                         value="{{paymentType.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1730,6 +1745,7 @@
                         chosen="configureFundOption.assetAccountOptions"
                         ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in configureFundOption.assetAccountOptions"
                         value="{{assetAccount.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1756,6 +1772,7 @@
                         ng-model="specificMapping.chargeId" class="form-control"
                         ng-options="charge.id as charge.name for charge in chargeOptions"
                         value="{{charge.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1765,6 +1782,7 @@
                         chosen="incomeAndLiabilityAccountOptions"
                         ng-options="account.id as (account.name +'('+ account.glCode +')') for account in incomeAndLiabilityAccountOptions"
                         value="{{account.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1792,6 +1810,7 @@
                         ng-model="penaltySpecificIncomeaccount.chargeId"
                         ng-options="charge.id as charge.name for charge in penaltyOptions"
                         value="{{charge.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1801,6 +1820,7 @@
                         ng-model="penaltySpecificIncomeaccount.incomeAccountId"
                         ng-options="account.id as (account.name +'('+ account.glCode +')') for account in incomeAccountOptions"
                         value="{{account.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1826,6 +1846,7 @@
                         ng-model="codeValueAccountMapping.codeValueId" class="form-control"
                         ng-options="writeOffReasonOption.id as writeOffReasonOption.name for writeOffReasonOption in writeOffReasonOptions"
                         value="{{writeOffReasonOption.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
@@ -1835,6 +1856,7 @@
                         chosen="expenseAccountOptions"
                         ng-options="account.id as (account.name +'('+ account.glCode +')') for account in expenseAccountOptions"
                         value="{{account.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>
             </td>
             <td></td>
