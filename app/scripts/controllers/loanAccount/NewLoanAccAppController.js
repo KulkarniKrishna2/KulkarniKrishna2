@@ -87,7 +87,7 @@
                 if (data.group) {
                     scope.groupName = data.group.name;
                 }
-                if(data.interestRatesListPerPeriod.length > 0){
+                if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
                     scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                     scope.interestRatesListAvailable = true;
                 }
@@ -160,7 +160,7 @@
                         })
                     }
 
-                    if(data.interestRatesListPerPeriod.length > 0){
+                    if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
                        scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                         scope.interestRatesListAvailable = true;
                     }
@@ -282,6 +282,7 @@
 
                 if(scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     scope.formData.isFloatingInterestRate = false ;
+                    scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential;
                 }
                 scope.formData.collectInterestUpfront = scope.loanaccountinfo.product.collectInterestUpfront;
             }
@@ -525,6 +526,17 @@
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
+
+                if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
+                    delete scope.formData.interestRateDifferential ;
+                    delete scope.formData.isFloatingInterestRate;
+                }
+                else{
+                    if(scope.formData.interestRatePerPeriod != undefined){
+                        delete scope.formData.interestRatePerPeriod;
+                    }
+                }
+
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
