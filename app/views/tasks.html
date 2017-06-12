@@ -330,7 +330,8 @@
 				                    <tr class="pointer-main"
 										data-ng-repeat="loan in loanApproveData | filter:filterText1">
 				                        <td><input type="checkbox" ng-model="loanTemplate[loan.id]"></td>
-				                        <td class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
+				                        <td  ng-if = "loan.loanType.value == 'GLIM' || loan.loanType.value == 'Group'" class="pointer"><a href='#/viewgroup/{{loan.group.id}}'>{{loan.group.name}}</a></td>
+				                        <td ng-if = "loan.loanType.value == 'Individual' || loan.loanType.value == 'JLG'" class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
 				                        <td class="pointer"><a href='#/viewloanaccount/{{loan.id}}'>{{loan.loanProductName}}({{loan.accountNo}})</a>
 				                        </td>
 				                        <td class="pointer">{{loan.principal | number}}</td>
@@ -453,7 +454,10 @@
 				            <tr class="pointer-main"
 								data-ng-repeat="loan in loanDisburseData | filter:filterText2">
 				            	<td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]"></td>
-				                <td class="pointer"><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
+				                <td><input type="checkbox" ng-model="loanTemplate[loan.id]">
+				                </td>
+				                <td  ng-if = "loan.loanType.value == 'GLIM' || loan.loanType.value == 'Group'" class="pointer"><a href='#/viewgroup/{{loan.group.id}}'>{{loan.group.name}}</a></td>
+				                <td ng-if = "loan.loanType.value == 'Individual' || loan.loanType.value == 'JLG'" class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
 				                <td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}({{loan.accountNo}})</a></td>
 				                <td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.principal | number}}</a></td>
 								<td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.expectedDisbursalPaymentType.name}}</a></td>
