@@ -22,7 +22,7 @@
   <api-validate></api-validate>
     <fieldset>
         <legend>{{ 'label.heading.makedatatableentry' | translate }}</legend>
-        <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
+        <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableDisplayName}}</strong></h3>
         <hr/>
         <div class="form-group" ng-repeat="columnHeader in columnHeaders | orderBy:'orderPosition'">
 
