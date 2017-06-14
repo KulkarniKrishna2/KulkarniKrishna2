@@ -1578,6 +1578,18 @@
             .when('/accounting/view/voucherentry/:voucherCode/:voucherId', {
                 templateUrl: 'views/accounting/voucherentry/viewvouchertype.html'
             })
+            .when('/accountlimits', {
+                templateUrl: 'views/limitsmodule/clientaccountlimits.html'
+            })
+            .when('/clients/:clientId/accountlimits', {
+                templateUrl: 'views/limitsmodule/viewclientaccountlimits.html'
+            })
+            .when('/clients/:clientId/createclientaccountlimits', {
+                templateUrl: 'views/limitsmodule/clientaccountlimits.html'
+            })
+            .when('/clients/:clientId/editclientaccountlimits', {
+                templateUrl: 'views/limitsmodule/clientaccountlimits.html'
+            })
 
         $locationProvider.html5Mode(false);
     };
