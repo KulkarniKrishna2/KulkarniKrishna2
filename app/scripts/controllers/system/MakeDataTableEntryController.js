@@ -20,6 +20,7 @@
             scope.showSelect = true;
             scope.villageName;
             scope.dataTableName = '';
+            scope.tableDisplayName = scope.tableName;
 
             if (routeParams.fromEntity == 'client') {
                     scope.clientName = $rootScope.clientname;
@@ -55,6 +56,7 @@
 
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
+                scope.tableDisplayName = data.registeredDataTableDisplayName != null ? data.registeredDataTableDisplayName: scope.tableName;
                 var colName = data.columnHeaders[0].columnName;
                 if (colName == 'id') {
                     data.columnHeaders.splice(0, 1);
