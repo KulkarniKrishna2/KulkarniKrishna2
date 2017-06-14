@@ -154,7 +154,7 @@
             };
 
             scope.routeTo = function (id) {
-                location.path('/viewtransactions/' + id).search('id',routeParams.bankStatementId);
+                location.path('/viewtransactions/' + id).search({'id':routeParams.bankStatementId,'isTransactionReferenceNumber' : true});
             };
         }
     });
