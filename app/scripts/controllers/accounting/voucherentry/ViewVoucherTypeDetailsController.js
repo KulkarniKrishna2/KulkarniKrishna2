@@ -165,8 +165,12 @@
                 scope.newDocuments.push(scope.docData);
                 scope.docData = {};
             };
-            scope.deleteDocument = function (index) {
-                scope.newDocuments.splice(index, 1);
+            scope.deleteDocument = function (documentId,index) {
+                resourceFactory.documentsResource.delete({'entityType':'vouchers','entityId':scope.voucherId,'documentId':documentId})
+                scope.documents.splice(index, 1);
+            };
+            scope.deleteSingleDocument = function(index){
+                scope.newDocuments.splice(index,1);
             };
             scope.viewDocument = function (index) {
 

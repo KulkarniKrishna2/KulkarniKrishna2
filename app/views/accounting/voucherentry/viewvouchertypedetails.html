@@ -296,7 +296,7 @@
                     <td>{{document.fileName}}</td>
                     <td>
                         <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                        <a data-ng-if="false" ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
+                        <a ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -338,7 +338,7 @@
                                         <th>#</th>
                                         <th>{{'label.input.bills' | translate}}</th>
                                         <th>{{'label.input.attachments' | translate}}</th>
-                                        <th ng-if="false">{{'label.heading.actions' | translate}}</th>
+                                        <th>{{'label.heading.actions' | translate}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -352,12 +352,12 @@
                                         <td>
                                             {{document.fName}}
                                         </td>
-                                        <td ng-if="false">
-                                            <button role="button" ng-click="viewDocument($index)"
+                                        <td>
+                                            <button data-ng-if = 'false' role="button" ng-click="viewDocument($index)"
                                                     class="btn-link ng-binding">
                                                 <i class="icon-eye-open icon-white"></i>
                                             </button>
-                                            <button role="button" ng-click="deleteDocument($index)"
+                                            <button role="button" ng-click="deleteSingleDocument($index)"
                                                     class="btn-link ng-binding">
                                                 <i class="icon-remove icon-white"></i>
                                             </button>

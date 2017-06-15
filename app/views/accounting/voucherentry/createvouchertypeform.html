@@ -268,7 +268,7 @@
                                 <th>#</th>
                                 <th>{{'label.input.bills' | translate}}</th>
                                 <th>{{'label.input.attachments' | translate}}</th>
-                                <th ng-if="false">{{'label.heading.actions' | translate}}</th>
+                                <th>{{'label.heading.actions' | translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -282,8 +282,8 @@
                                 <td>
                                     {{document.fName}}
                                 </td>
-                                <td ng-if="false">
-                                    <button role="button" ng-click="viewDocument($index)" class="btn-link ng-binding">
+                                <td>
+                                    <button ng-if="false" role="button" ng-click="viewDocument($index)" class="btn-link ng-binding">
                                         <i class="icon-eye-open icon-white"></i>
                                     </button>
                                     <button role="button" ng-click="deleteDocument($index)" class="btn-link ng-binding">
