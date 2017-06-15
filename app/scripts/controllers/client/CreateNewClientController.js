@@ -298,17 +298,18 @@
                             
                             if (response.addressData[0].countryData) {
                                 scope.formAddressData.countryId = response.addressData[0].countryData.countryId;
+                                scope.changeCountry(scope.formAddressData.countryId);
                             }
 
                             if (response.addressData[0].stateData) {
-                                scope.states = response.addressData[0].countryData.statesDatas;
                                 scope.formAddressData.stateId = response.addressData[0].stateData.stateId;
+                                scope.changeState(scope.formAddressData.stateId);
                             }
                             if (response.addressData[0].districtData) {
-                                scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formAddressData.districtId = response.addressData[0].districtData.districtId;
+                                scope.changeDistrict(scope.formAddressData.districtId);
                             }
-                            scope.talukas = response.addressData[0].districtData.talukaDatas;
+                            
                             if (response.addressData[0].talukaData) {
                                 scope.formAddressData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
