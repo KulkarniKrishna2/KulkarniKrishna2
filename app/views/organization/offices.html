@@ -19,6 +19,7 @@
                 <th>{{'label.heading.officeexternalid' | translate}}</th>
                 <th>{{'label.heading.parentoffice' | translate}}</th>
                 <th>{{'label.heading.openedon' | translate}}</th>
+                <th>{{'label.heading.office.code' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.externalId}}</td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.parentName}}</td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.openingDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(office.id)">{{office.officeCodeId}}</td>
             </tr>
             </tbody>
         </table>
