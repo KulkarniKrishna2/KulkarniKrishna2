@@ -505,8 +505,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/voucherentry/VoucherTypeController',
             'bulkoperations/BulkPortfolioTransactionsController',
             'bulkoperations/ViewBulkPortfolioTransactionsController',
-            'bulkoperations/UploadBulkCollectionController'
-
+            'bulkoperations/UploadBulkCollectionController',
+            'limitsmodule/CreateClientAccountLimitsController',
+            'limitsmodule/ViewCustomerAccountLimitsController'
         ],
         filters: [
             'StatusLookup',

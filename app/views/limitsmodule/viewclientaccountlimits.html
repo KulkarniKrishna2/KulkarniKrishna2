@@ -1,0 +1,66 @@
+<div class="col-md-12" ng-controller="ViewCustomerAccountLimitsController">
+    <div>
+        <ul class="breadcrumb">
+            <li ng-show="clientId"><a href="#/viewclient/{{clientId}}"><strong>{{'label.anchor.viewclient'|
+                translate}}</strong></a></li>
+            <li class="active">{{'label.anchor.accountLimits' | translate}}</li>
+        </ul>
+    </div>
+    <form class="form-horizontal well" novalidate="" class="well form-inline">
+
+        <button id="update" ng-if="isUpdate" class="btn btn-primary pull-right" type="button" ng-click="edit()"
+                has-permission='UPDATE_CUSTOMERACCOUNTLIMITS'>{{'label.button.edit' | translate}}
+        </button>
+        <button id="create" ng-if="!isUpdate" type="button" ng-click="create()" class="btn btn-primary pull-right"
+                has-permission='CREATE_CUSTOMERACCOUNTLIMITS'>{{'label.button.create' | translate}}
+        </button>
+        <fieldset>
+            <div ng-if="isUpdate">
+                <legend>{{'label.anchor.loanaccountlimits' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.limitOnTotalDisbursementAmount' |
+                        translate}}</label>
+                    <div class="control-label col-sm-2">
+                        {{limitOnTotalDisbursementAmount}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.limitOnTotalLoanOutstandingAmount' |
+                        translate}}</label>
+                    <div class="control-label col-sm-2">
+                        {{limitOnTotalLoanOutstandingAmount}}
+                    </div>
+                </div>
+                <br>
+                <legend>{{'label.anchor.savingsaccountlimits' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.dailyWithdrawalLimit' | translate}}</label>
+                    <div class="control-label col-sm-2">
+                        {{dailyWithdrawalLimit}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.dailyTransferLimit' | translate}}</label>
+                    <div class="control-label col-sm-2">
+                        {{dailyTransferLimit}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.limitOnTotalOverdraftAmount' |
+                        translate}}</label>
+                    <div class="control-label col-sm-2">
+                        {{limitOnTotalOverdraftAmount}}
+                    </div>
+                </div>
+                <br>
+                <div class="col-md-offset-6">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.back' |
+                        translate}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+                              

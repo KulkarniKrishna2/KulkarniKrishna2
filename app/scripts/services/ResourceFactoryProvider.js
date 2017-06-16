@@ -201,7 +201,11 @@
                         getAllRecurringDepositProducts: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-
+                    customerAccountLimitsResource: defineResource(apiVer + "/clients/:clientId/accountlimits/:limitId", {clientId: '@clientId', limitId: '@limitId'}, {
+                        get: {method: 'GET', params: {}, isArray: false},
+                        save:{method: 'POST',params:{},isArray: false},
+                        update: {method: 'PUT', params: {}}
+                    }),
                     interestRateChartResource: defineResource(apiVer + "/interestratecharts/:chartId/:resourceType", {chartId:'@chartId', resourceType:'@resourceType'}, {
                         getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template', associations:'@chartSlabs'} , isArray:true},
                         update: {method: 'PUT', params: {}},

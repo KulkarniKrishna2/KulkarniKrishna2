@@ -200,7 +200,12 @@
     "label.heading.displayName":"Table Name",
     "label.heading.overpaidby":"Overpaid by",
     "label.heading.overpaid":"Overpaid",
-
+    "label.input.limitOnTotalDisbursementAmount":"Limit On Total Disbursement Amount",
+    "label.input.limitOnTotalLoanOutstandingAmount":"Limit On Total Loan Outstanding Amount",
+    "label.input.dailyWithdrawalLimit":"Daily Withdrawal Limit",
+    "label.input.dailyTransferLimit":"Daily Transfer Limit",
+    "label.input.limitOnTotalOverdraftAmount":"Limit On Total Overdraft Amount",
+   
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -224,7 +229,8 @@
     "label.anchor.assignstaff": "Assign Staff",
     "label.anchor.activate":"Activate",
     "label.anchor.updatedefaultaccount": "Update Default Savings Account",
-
+    "label.anchor.savingsaccountlimits":"Savings Account Limits",
+    "label.anchor.loanaccountlimits":"Loan Account Limits",
     "#Inputs": "..",
     "label.input.name": "Name",
     "label.input.applicantname":"Applicant Name",
@@ -305,7 +311,7 @@
     "label.input.districtname":"District",
     "label.input.pincode":"Pincode",
     "label.input.villages":"Villages",
-
+    "label.anchor.accountLimits":"Account Limits",
     "#Buttons": "..",
     "label.button.previous": "Previous",
     "label.button.next": "Next",
@@ -372,7 +378,7 @@
     "label.button.addassets": "Add Assets",
     "label.button.addexpenses": "Add Expenses",
     "label.button.fetchdetails": "Fetch Details",
-
+    "label.button.accountlimits":"Account Limits",
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
     "label.belongsto": "Belongs To",
@@ -4688,6 +4694,7 @@
     "label.button.viewcollateralqualitystandards" : "View Quality Standards",
     "label.button.editcollateral" : "Edit Collateral",
     "label.button.viewcollateral" : "View Collateral",
+    "label.button.create" : "Create",
     "label.button.update" : "Update",
     "label.button.addmapping" : "Add a new Mapping",
     "label.button.createloanlinkedtocollateral" : "Create Loan linked to Collateral",
@@ -6060,5 +6067,11 @@
     "validation.msg.loan.interestRateDifferential.amount.is.not.within.min.max.range" : "Interest rate must be between `{{params[1].value}}` and `{{params[2].value}}`",
     "error.msg.loanproduct.not.modifiable.due.to.non.closed.loans" : "Loan Product can't be modified due to active loans",
     "error.msg.user.invalid.action" : "{{params[1].value}} to user {{params[0].value}} not allowed",
+    "error.msg.loan.amount.should.not.be.greater.than.client.disbursement.amount.limit" : "Sorry, disbursed amount should be <= `{{params[0].value}}`",
+    "error.msg.all.loans.outstanding.amount.should.not.be.greater.than.client.total.loan.outstanding.amount.limit" : "Sorry, not eligible since current outstanding amount > `{{params[0].value}}`",
+    "error.msg.client.total.daily.withdrawal.amount.limit" : "Sorry, withdrawal limit per day = `{{params[0].value}}`",
+    "error.msg.client.total.daily.transfer.amount.limit" : "Sorry, transfer limit per day = `{{params[0].value}}`",
+    "error.msg.client.total.overdraft.amount.limit" : "Sorry, total overdraft limit = `{{params[0].value}}`",
+
     "------ end of tensalation file":"---------"
 }
