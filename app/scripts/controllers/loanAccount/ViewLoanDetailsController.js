@@ -249,6 +249,30 @@
             var loanApplicationReferenceId = "loanApplicationReferenceId";
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+
+                resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
+                    scope.glimClientsDetails = data;
+                    var totalGlimChargeAmount = 0;
+                    for(var i=0;i<data.length;i++){
+                        if(angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)){
+                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
+                        }else if(angular.isDefined(scope.glimClientsDetails[i].approvedAmount)){
+                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
+                        }else{
+                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
+                        }
+
+                        if(angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)){
+                            totalGlimChargeAmount = totalGlimChargeAmount+parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
+                        }
+                    }
+                    scope.isGlimChargesAvailbale = (totalGlimChargeAmount>0);
+                    scope.isGlim = data.length>0;
+                });
+
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
+                    scope.loandatatables = data;
+                });
                
                 if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){
                     scope.showOriginalSchedule = true;
@@ -600,11 +624,6 @@
                     fetchBankTransferDetails();
                 }
                 scope.isOverPaidOrGLIM();
-
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId}, function (data) {
-                    scope.loandatatables = data;
-                });
-
             });
 
             fetchBankTransferDetails = function(){
@@ -753,25 +772,6 @@
                 scope.loanNotes = data;
             });
 
-            resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
-                scope.glimClientsDetails = data;
-                var totalGlimChargeAmount = 0;
-                for(var i=0;i<data.length;i++){
-                    if(angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)){
-                        scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
-                    }else if(angular.isDefined(scope.glimClientsDetails[i].approvedAmount)){
-                        scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
-                    }else{
-                        scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
-                    }
-                    
-                    if(angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)){
-                        totalGlimChargeAmount = totalGlimChargeAmount+parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
-                    }
-                }
-                scope.isGlimChargesAvailbale = (totalGlimChargeAmount>0);
-                scope.isGlim = data.length>0;
-            });
             scope.getChargeWaiveLink = function(loanId, chargeId){
                 var suffix = "loanaccountcharge/"+loanId+"/waivecharge/"+chargeId
                 var link = scope.isGlim?"#/glim"+suffix:"#/"+suffix;
@@ -1397,11 +1397,11 @@
                 });
             };
 
-            scope.statusCheckforGlim = ["submitted.and.pending.approval","approved",
-                                        "rejected"];     
-            scope.isOverPaidLoan = false;                                          
+            scope.isOverPaidLoan = false;
             scope.isOverPaidOrGLIM = function(){
-               if ((scope.loandetails.status.value.toLowerCase() == "overpaid") || (scope.isGlim && (scope.statusCheckforGlim.index[scope.loandetails.status.value.toLowerCase()]<0))){
+                var statusCheckforGlim = ["submitted and pending approval","approved",
+                    "rejected"];
+               if ((scope.loandetails.status.value.toLowerCase() == "overpaid") || (scope.isGlim && (statusCheckforGlim.indexOf(scope.loandetails.status.value.toLowerCase())<0))){
                 scope.isOverPaidLoan = true;
                }
             };
