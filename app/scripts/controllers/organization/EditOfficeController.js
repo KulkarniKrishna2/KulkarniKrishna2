@@ -18,7 +18,8 @@
                 {
                     name: data.name,
                     externalId: data.externalId,
-                    parentId: data.parentId
+                    parentId: data.parentId,
+                    officeCodeId: data.officeCodeId
                 }
             });
 

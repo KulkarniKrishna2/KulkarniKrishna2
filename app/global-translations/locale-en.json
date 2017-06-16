@@ -6072,6 +6072,8 @@
     "error.msg.client.total.daily.withdrawal.amount.limit" : "Sorry, withdrawal limit per day = `{{params[0].value}}`",
     "error.msg.client.total.daily.transfer.amount.limit" : "Sorry, transfer limit per day = `{{params[0].value}}`",
     "error.msg.client.total.overdraft.amount.limit" : "Sorry, total overdraft limit = `{{params[0].value}}`",
-
+    "label.input.office.code" : "Office code",
+    "label.heading.office.code" : "Office Code",
+    "validation.msg.office.officeCodeId.exceeds.max.length" : "Office code should not be more than 5 characters",
     "------ end of tensalation file":"---------"
 }

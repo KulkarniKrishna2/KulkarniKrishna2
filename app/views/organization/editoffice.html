@@ -46,6 +46,13 @@
 			            <input id="externalId" type="text" name="externalId" ng-model="formData.externalId" class="form-control"/>
 			        </div>
 			    </div>
+			    <div class="form-group">
+	                <label class="control-label col-sm-2">{{ 'label.input.office.code' | translate }}</label>
+	
+	                <div class="col-sm-3">
+	                    <input id="officeCodeId" type="text" name="officeCodeId" class="form-control" ng-model="formData.officeCodeId">
+	                </div>
+	            </div>
 			    <div class="col-md-offset-3">
 			        <a id="cancel" href="#/offices">
 			            <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
