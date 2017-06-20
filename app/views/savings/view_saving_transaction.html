@@ -19,6 +19,19 @@
         </div>
     </script>
 
+     <script type="text/ng-template" id="releaseAmount.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.release.amount' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.release.amount' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="releaseAmount()">{{'label.button.release.amount' | translate}}</button>
+        </div>
+    </script>
+
     <api-validate></api-validate>
     <h3>{{ 'label.heading.transactiondetails' | translate}}</h3>
 
@@ -27,8 +40,9 @@
             <a data-ng-hide="flag" has-permission='ADJUSTTRANSACTION_SAVINGSACCOUNT'
                href="#/savingaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary"><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
-            <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
+            <a data-ng-hide="hideEdit" ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
                     class="icon-trash icon-white"></i>{{ 'label.button.undo' | translate}}</a>
+           <a data-ng-show="isHold && hideEdit" ng-click="releaseAmount(transaction.accountId, transaction.id)" class="btn btn-warning" has-permission='RELEASEAMOUNT_SAVINGSACCOUNT'>{{ 'label.button.release' | translate}}</a>
         </div>
     </div>
 
