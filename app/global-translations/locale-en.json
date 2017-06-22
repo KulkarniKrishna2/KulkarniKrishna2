@@ -411,7 +411,7 @@
     "label.select":"Select an Option",
     "label.copyright":"Copyright © ",
     "label.conflux.technologies":" Conflux Technologies",
-
+   
     "#Tab Messages":"..",
     "label.tab.myworkflowtasks":"My Workflow Tasks",
     "label.tab.mytasks":"My Other Tasks",
@@ -1578,7 +1578,6 @@
     "error.message.report.parameter.invalid":"The parameter `{{params[0].value}}` is not supported",
     "error.message.report.incorrect.values.for.date.fields":"The values entered for dates are invalid",
     "error.message.report.type.is.invalid":"The report type `{{params[0].value}}` is not supported",
-
     "#-------": "------------",
 
     "#Loans": "....",
@@ -4539,6 +4538,18 @@
     "label.input.workingDays":"Working Days",
     "label.input.paymentsDueOnHolidays":"Payments due on non working days",
     "label.input.extendTermForDailyRepayments" : "Extend the term for loans following a daily repayment schedule",
+    "label.selectnonworkingday":"Select Non Working Day",
+    "label.selectworkingday":"Select Working Day",
+    "label.heading.advancedsetting":"Advanced Settings",
+    "label.input.non.working.days":"Non Working Days",
+    "label.input.working.days":"Working Days",
+    "label.heading.paymentdueon":"Payment Due On",
+    "label.heading.non.working.days":"Non Working Days",
+    "label.button.addreschedule":"Add reschedule detail",
+    "validation.msg.workingdays.advancedRescheduleDetail.toWeekDay.cannot.be.blank":"Working Days in Advanced Settings cannot be blank",
+    "validation.msg.workingdays.advancedRescheduleDetail.fromWeekDay.cannot.be.blank":"Non Working Days in Advanced Settings Cannot be blank",
+    "validation.msg.workingdays.advancedRescheduleDetail.fromWeekDay.can.not.be.duplicated":"Non Working Days in Advanced Settings cannot be Duplicate",
+    "validation.msg.workingdays.advancedRescheduleDetail.repaymentRescheduleType.cannot.be.blank":"Payments due on non working days in Advanced Settings cannot be blank",
 
     "#----------------------": "------------",
 
@@ -5044,7 +5055,6 @@
     "label.button.addcb": "Add credit Bureau",
     "label.button.mapcblp": "Map credit Bureau to Loan Product",
     "label.button.create.credit.bureau.mapping": "Create Credit Bureau Mapping",
-
     "error.msg.loan.product.id.already.mapped.with.credit.bureau.product": "Loan product already mapped with credit bureau product.",
 
     "------ end of tensalation file":"---------",
@@ -6115,5 +6125,7 @@
     "label.message.block.credit" :"All kind of credit transactions will be blocked. Confirm to block Credits.",
     "label.message.unblock.credit" :"Confirm to unblock Credits",  
     "label.message.release.amount" :"Confirm to release amount",
+    "label.heading.show":"Show",
+    "label.heading.hide":"Hide",
     "------ end of tensalation file":"---------"
 }
