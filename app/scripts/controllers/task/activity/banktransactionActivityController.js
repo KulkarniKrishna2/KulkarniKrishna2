@@ -12,8 +12,15 @@
                 });
             }
 
-            scope.initiate = function () {
+            scope.initiate = function (actionName) {
                 resourceFactory.bankAccountTransferResource.save({bankTransferId: scope.bankTransferId, command: 'initiate'}, function (data) {
+                    scope.doActionAndRefresh(actionName);
+                    scope.cancel();
+                });
+            };
+
+            scope.reject = function (actionName) {
+                resourceFactory.bankAccountTransferResource.save({bankTransferId: scope.bankTransferId, command: 'reject'}, function (data) {
                     scope.doActionAndRefresh(actionName);
                     scope.cancel();
                 });
@@ -32,13 +39,19 @@
             scope.doPreTaskActionStep = function(actionName){
                 if(actionName==='approve'){
                     if (scope.transferData.status.id == 2) {
-                        scope.initiate();
+                        scope.initiate(actionName);
                     }else{
                         scope.setTaskActionExecutionError('label.error.banktransaction.notsubmitted');
                     }
                 }else if(actionName==='activitycomplete'){
                     if (scope.transferData.status.id == 2) {
                         scope.doActionAndRefresh(actionName);
+                    }else{
+                        scope.setTaskActionExecutionError('label.error.banktransaction.notsubmitted');
+                    }
+                }else if(actionName==='reject'){
+                    if (scope.transferData.status.id == 2) {
+                        scope.reject(actionName);
                     }else{
                         scope.setTaskActionExecutionError('label.error.banktransaction.notsubmitted');
                     }
