@@ -1,8 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewFinancialActivityController: function (scope, resourceFactory, routeParams, location, $modal) {
+            scope.financialActivityAccountPaymentTypeMappingData = [];
             resourceFactory.officeToGLAccountMappingResource.get({mappingId: routeParams.mappingId},function (data) {
                 scope.mapping = data;
+                scope.financialActivityAccountPaymentTypeMappingData = data.financialActivityAccountPaymentTypeMappingData;
             });
 
             scope.deletemapping = function () {

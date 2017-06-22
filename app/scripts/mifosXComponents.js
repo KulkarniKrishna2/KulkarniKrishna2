@@ -405,6 +405,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/CreateExistingLoanController',
             'client/EditExistingLoanController',
             'client/ViewExistingLoanController',
+            'client/ViewClientChargeTransactionController',
             'organization/riskconfig/IncomeExpenseGeneratingController',
             'organization/riskconfig/CreateIncomeGeneratingAssetController',
             'organization/riskconfig/EditIncomeGeneratingController',

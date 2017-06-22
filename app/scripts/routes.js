@@ -269,6 +269,9 @@
             .when('/viewloantrxn/:accountId/trxnId/:id', {
                 templateUrl: 'views/loans/view_loan_transaction.html'
             })
+            .when('/viewclientchargetrxn/:clientId/transactionId/:transactionId', {
+                templateUrl: 'views/clients/view_client_charge_transaction.html'
+            })
             .when('/organization', {
                 templateUrl: 'views/administration/organization.html'
             })

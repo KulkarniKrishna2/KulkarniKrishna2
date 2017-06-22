@@ -551,6 +551,7 @@
     "validation.msg.client.email.is.invalid":"Email address is invalid",
     "error.msg.office.client.transfers.to.same.office" : "Source and destination office cannot be same ",
     "error.msg.loan.transaction.cannot.be.before.last.transaction.date": "The disbursement date cannot be before last transaction date",
+    "error.msg.payment.type.canoot.map.more.than.one.time" :" Payment type cannot be mapped with multiple gl accounts",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -768,7 +769,7 @@
     "label.heading.smartcard":"Smart Card",
     "label.heading.inactivated": "Inactivate Smartcard",
     "label.heading.clientguarantees": "Loans Guaranteed",
-
+    "label.heading.chargesoverview":"Charges Overview",
     "#Anchors": "..",
     "label.anchor.clients": "Clients",
     "label.anchor.createclient": "Create Client",
@@ -3374,6 +3375,7 @@
     "label.heading.active": "Active",
     "label.heading.accounting": "Accounting",
     "label.heading.advancedaccountingrules": "Advanced Accounting Rule",
+    "label.heading.fundsourcemapping" : "Advanced Fund Source Mapping",
     "label.heading.configurefundsourcesforpaymentchannels": "Configure Fund Sources for Payment Channels",
     "label.heading.mapfeestoincomeaccounts": "Map Fees to Income Accounts",
     "label.heading.incomeaccount": "Income Account",

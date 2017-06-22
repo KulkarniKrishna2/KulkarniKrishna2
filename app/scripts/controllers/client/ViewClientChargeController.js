@@ -19,6 +19,18 @@
                 });
             }
 
+            scope.routeTo = function (transactionId) {
+                    location.path('/viewclientchargetrxn/' + scope.clientId + '/transactionId/' + transactionId);
+            };
+
+            scope.viewClientChargeTransactionJournalEntries = function(transactionId){
+                var transactionId = "C" + transactionId;
+                if(scope.clientId != null && scope.clientId != ""){
+                    location.path('/viewtransactions/' + transactionId).search({productName: scope.charge.name,chargeId:scope.charge.id,clientId: scope.clientId,
+                        isTransactionReferenceNumber:true});
+                }
+            };
+
             scope.deleteCharge = function(){
                 resourceFactory.clientChargesResource.delete({clientId: routeParams.clientId, resourceType:routeParams.chargeId , associations:'all'}, function (data) {
                     location.path('/viewclient/'+ scope.clientId);
