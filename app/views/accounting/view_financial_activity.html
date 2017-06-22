@@ -29,7 +29,7 @@
 				        </div>
 				    </div>
 		    	</legend>
-			    <div class="col-md-6">
+			    <div class="col-md-8">
 				    <table class="table table-bordered">
 				        <tr>
 				            <th class="table-bold-acc">{{'label.heading.financialactivity' | translate}}</th>
@@ -40,7 +40,21 @@
 				            <td><span class="padded-td">{{mapping.glAccountData.name}}({{mapping.glAccountData.glCode}})</span></td>
 				        </tr>
 				    </table>
+
 			    </div>
+				<div class="col-md-8" ng-show="financialActivityAccountPaymentTypeMappingData">
+					<div class="col-md-8"><strong>{{'label.heading.fundsourcemapping' | translate}}</strong></div>
+					<table class="table">
+						<tr>
+							<th class="table-bold-acc">{{'label.heading.paymenttype' | translate}}</th>
+							<th class="table-bold-acc">{{'label.heading.fundsource' | translate }}</th>
+						</tr>
+						<tr ng-repeat="advancedmapping in financialActivityAccountPaymentTypeMappingData">
+							<td>{{advancedmapping.paymentTypeData.name}}</td>
+							<td>{{advancedmapping.gLAccountData.name}}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 	    </div>
     </div>

@@ -4,9 +4,14 @@
             scope.cancelRoute = routeParams.id;
             scope.formData = {};
             scope.paymentDate = new Date();
+            scope.paymentTypes = [];
 
             resourceFactory.clientChargesResource.get({clientId: routeParams.id, resourceType: routeParams.chargeid}, function (data) {
                 scope.formData.amount = data.amountOutstanding;
+            });
+
+            resourceFactory.paymentTypeResource.getAll( function (data) {
+                scope.paymentTypes = data;
             });
 
             scope.submit = function () {
