@@ -1,0 +1,26 @@
+[
+   {
+      "tenantIdentifier":"flexidemo",
+      "logofoldername":"./images/",
+      "largeLogoPath":"./images/logo_flexi.png",
+      "headerLogoPath":"./images/logo_nav_flexi.png"
+   },
+   {
+      "tenantIdentifier":"flexiloans",
+      "logofoldername":"./images/",
+      "largeLogoPath":"./images/logo_flexi.png",
+      "headerLogoPath":"./images/logo_nav_flexi.png"
+   },
+   {
+      "tenantIdentifier":"eastlanka",
+      "logofoldername":"./images/",
+      "largeLogoPath":"./images/logo_eastlanka.png",
+      "headerLogoPath":"./images/logo_nav_eastlanka.png"
+   },
+   {
+      "tenantIdentifier":"eastlankauat",
+      "logofoldername":"./images/",
+      "largeLogoPath":"./images/logo_eastlanka.png",
+      "headerLogoPath":"./images/logo_nav_eastlanka.png"
+   }
+]
