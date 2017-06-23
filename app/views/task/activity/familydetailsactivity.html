@@ -8,7 +8,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
 
                         <div class="col-sm-3">
-                            <select id="salutation" name="salutation" ng-model="salutationId" class="form-control"
+                            <select id="salutation" name="salutation" ng-model="formData.salutationId" class="form-control"
                                     ng-options="salutationOption.id as salutationOption.name for salutationOption in salutationOptions "
                                     value="salutationOption.id">
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
@@ -59,7 +59,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
 
                         <div class="col-sm-3">
-                            <select id="relationship" name="relationship" ng-model="relationshipId" class="form-control"
+                            <select id="relationship" name="relationship" ng-model="formData.relationshipId" class="form-control"
                                     ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
                                     value="relationshipOption.id">
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
@@ -68,7 +68,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}</label>
 
                         <div class="col-sm-3">
-                            <select id="gender" name="gender" ng-model="genderId" class="form-control"
+                            <select id="gender" name="gender" ng-model="formData.genderId" class="form-control"
                                     ng-options="genderOption.id as genderOption.name for genderOption in genderOptions"
                                     value="genderOption.id">
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
@@ -77,15 +77,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.dateOfBirth' | translate }}<span
-                                class="required">*</span></label>
-
-                        <div class="col-sm-3">
-                            <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
-                                   ng-model="formData.dateOfBirth" is-open="opened1" max="restrictDate"
-                                   class="form-control"/>
-                        </div>
-
                         <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}</label>
 
                         <div class="col-sm-2">
@@ -127,7 +118,7 @@
                             <label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
 
                             <div class="col-sm-3">
-                                <select id="subOccupation" name="subOccupation" ng-model="incomeExpenseId"
+                                <select id="subOccupation" name="subOccupation" ng-model="formData.occupationDetailsId"
                                         class="form-control"
                                         ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
                                         value="subOccupation.id">
@@ -141,7 +132,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.education' | translate }}</label>
 
                         <div class="col-sm-3">
-                            <select id="education" name="education" ng-model="educationId" class="form-control"
+                            <select id="education" name="education" ng-model="formData.educationId" class="form-control"
                                     ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
                                     value="occupationOption.id">
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
@@ -172,7 +163,6 @@
             <tr>
                 <th>{{ 'label.heading.name' | translate }}</th>
                 <th>{{ 'label.heading.relationship' | translate }}</th>
-                <th>{{ 'label.heading.dob' | translate }}</th>
                 <th>{{ 'label.heading.age' | translate }}</th>
                 <th>{{ 'label.heading.dependent' | translate }}</th>
                 <th>{{ 'label.heading.medical.condition' | translate }}</th>
@@ -186,7 +176,6 @@
             <tr ng-repeat="familyMember in familyMembers">
                 <td>{{familyMember.firstname}} {{familyMember.lastname}}</td>
                 <td>{{familyMember.relationship.name}}</td>
-                <td>{{familyMember.dateOfBirth | DateFormat}}</td>
                 <td>{{familyMember.age}}</td>
                 <td>{{familyMember.isDependent == true ? 'Yes' : 'No'}}</td>
                 <td>{{familyMember.isSeriousIllness == true ? 'Yes' : 'No'}}</td>

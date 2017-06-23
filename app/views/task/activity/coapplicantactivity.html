@@ -266,25 +266,6 @@
                                ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" ng-show="showSavingOptions">
-                    <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
-
-                    <div class="col-sm-3">
-                        <input id="opensavingsproduct" type="checkbox" ng-model="opensavingsproduct" ng-true-value="true"
-                               ng-false-value="false">
-                    </div>
-                    <div ng-show="opensavingsproduct">
-                        <label class="control-label col-sm-2">{{'label.input.savingproduct' | translate}}</label>
-
-                        <div class="col-sm-3">
-                            <select id="savingsProductId" ng-model="formData.savingsProductId"
-                                    ng-options="savingProduct.id as savingProduct.name for savingProduct in savingproducts"
-                                    value="{{savingProduct.id}}"  class="form-control">
-                                <option value="">--{{'label.menu.selectsavingproduct' | translate}}--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-offset-5">
                     <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                     <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
@@ -292,8 +273,8 @@
             </fieldset>
         </form>
         <div class="list-group" ng-if="showSummary">
-            <div class="col-md-12">
-                <button ng-click="addNewClient()" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
+            <div class="col-md-12" ng-if="!isTaskCompleted()">
+                <button ng-click="addNewClient()"  class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
                     <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.addnewclient' | translate }}</button>
                 <button ng-click="addExistingClients()" class="btn btn-primary pull-right" has-permission='CREATE_COAPPLICANTS'>
                     <i class="icon-plus-sign-alt icon-white"></i>{{'label.button.addexistingclients' | translate }}</button>
@@ -315,7 +296,7 @@
                         <td class="pointer">{{applicant.accountNo}}</td>
                         <td class="pointer">{{applicant.displayName}}</td>
                         <td>
-                            <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove(applicant.id)" has-permission='DELETE_COAPPLICANTS'>
+                            <button type="button" class="btn angled-btn btn-primary " ng-if="!isTaskCompleted()" data-ng-click="remove(applicant.id)" has-permission='DELETE_COAPPLICANTS'>
                                 <i class="icon-remove"></i>
                             </button>
                         </td>
