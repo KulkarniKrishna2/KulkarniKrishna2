@@ -1,6 +1,6 @@
 <div ng-controller="familyDetailActivityController">
     <div ng-if="showform && !isTaskCompleted()">
-        <form name="" novalidate="" class="form-horizontal" rc-submit="submit()">
+        <form name="createFamilyDetails" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <fieldset>
                     <legend>{{'label.view.add.familymember' | translate}}</legend>
 
@@ -14,9 +14,6 @@
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                             </select>
                         </div>
-                        <div class="col-sm-2">
-                            <form-validate valattributeform="createFamilyDetails" valattribute="salutation"/>
-                        </div>
                     </div>
 
                     <div class="form-group">
@@ -24,7 +21,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input ng-autofocus="true" type="text" id="firstName" name="firstName"
+                            <input ng-autofocus="true" type="text" name="firstName"
                                    ng-model="formData.firstname" class="form-control" required late-validate/>
                         </div>
                         <div class="col-sm-2">
@@ -36,11 +33,8 @@
                             }}</label>
 
                         <div class="col-sm-3">
-                            <input ng-autofocus="true" type="text" id="middleName" name="middleName"
-                                   ng-model="formData.middlename" class="form-control" required late-validate/>
-                        </div>
-                        <div class="col-sm-2">
-                            <form-validate valattributeform="createFamilyDetails" valattribute="middleName"/>
+                            <input type="text" id="middleName" name="middleName"
+                                   ng-model="formData.middlename" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -48,7 +42,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input ng-autofocus="true" type="text" id="lastName" name="lastName"
+                            <input type="text" name="lastName"
                                    ng-model="formData.lastname" class="form-control" required late-validate/>
                         </div>
                         <div class="col-sm-2">
@@ -56,14 +50,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+                        <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}<span
+                                class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <select id="relationship" name="relationship" ng-model="formData.relationshipId" class="form-control"
-                                    ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
-                                    value="relationshipOption.id">
+                            <select id="relationshipId" name="relationship" ng-model="formData.relationshipId" class="form-control" ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions" value="relationshipOption.id" required late-validate>
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                             </select>
+                            <form-validate valattributeform="createFamilyDetails" valattribute="relationship"/>
                         </div>
                         <label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}</label>
 
@@ -77,11 +71,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}</label>
 
+                        <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}<span
+                                class="required">*</span></label>
                         <div class="col-sm-2">
                             <input id="age" type="text" name="age"
-                                   ng-model="formData.age" class="form-control"/>
+                                   ng-model="formData.age" class="form-control" required late-validate/>
+                                <form-validate valattributeform="createFamilyDetails" valattribute="age"/>
                         </div>
 
                     </div>
@@ -137,9 +133,6 @@
                                     value="occupationOption.id">
                                 <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                             </select>
-                        </div>
-                        <div class="col-sm-2">
-                            <form-validate valattributeform="createFamilyDetails" valattribute="education"/>
                         </div>
                     </div>
 

@@ -772,6 +772,13 @@
                         scope.issubmitted = true;
                         scope.doActionAndRefresh(actionName);
                     }
+                }else if(actionName === 'activitycomplete'){
+                    if(scope.status=='SUMMARY'){
+                        scope.doActionAndRefresh(actionName);
+                    }
+                    else{
+                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                    }
                 }else{
                     scope.doActionAndRefresh(actionName);
                 }
