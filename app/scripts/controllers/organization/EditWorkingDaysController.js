@@ -121,6 +121,16 @@
                 scope.advancedRepaymentRescheduleType = "";
                 scope.toWeekDay = "";
             }
+
+            scope.displayValue = function(weekday){
+                 for(var i in scope.compareWith){
+                    if(weekday.indexOf(scope.compareWith[i].name.toString()) > -1){
+                        return scope.compareWith[i].value;
+                    }
+                    
+                 }
+            }
+
             scope.deleteDetail = function(index){
                 var detail = scope.advancedRescheduleDetail[index];
                 if(detail.id){

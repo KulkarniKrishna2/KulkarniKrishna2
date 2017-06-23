@@ -76,9 +76,9 @@
                     <th>{{'label.heading.actions' | translate}}</th>
         </tr>
          <tr ng-repeat="detail in advancedRescheduleDetail">
-                    <td>{{detail.fromWeekDay}}</td>
+                    <td>{{displayValue(detail.fromWeekDay)}}</td>
                     <td ng-if="!detail.toWeekDay">{{detail.repaymentReschedulingType.value}}</td>
-                    <td ng-if="detail.toWeekDay">{{detail.repaymentReschedulingType.value}} - {{detail.toWeekDay}}</td>
+                    <td ng-if="detail.toWeekDay">{{detail.repaymentReschedulingType.value}} - {{displayValue(detail.toWeekDay)}}</td>
                    <td><a ng-click="deleteDetail($index)"><i class="icon-remove icon-white"></i></a></td>
         </tr>
             </table>
