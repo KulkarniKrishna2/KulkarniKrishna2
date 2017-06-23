@@ -45,27 +45,7 @@
                 {
                     scope.showform=false;
                 };
-            
             scope.submit = function () {
-                if (scope.salutationId) {
-                    this.formData.salutationId = scope.salutationId;
-                }
-                if (scope.relationshipId) {
-                    this.formData.relationshipId = scope.relationshipId;
-                }
-                if (scope.genderId) {
-                    this.formData.genderId = scope.genderId;
-                }
-                if (scope.formData.dateOfBirth) {
-                    this.formData.dateOfBirth = dateFilter(scope.formData.dateOfBirth, scope.df);
-                }
-                if (scope.occupationId) {
-                    this.formData.occupationDetailsId = scope.occupationOption.id;
-                }
-
-                if (scope.educationId) {
-                    this.formData.educationId = scope.educationId;
-                }
                 scope.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 resourceFactory.familyDetails.save({clientId: scope.clientId}, this.formData, function (data) {
