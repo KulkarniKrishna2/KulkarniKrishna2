@@ -2,7 +2,7 @@
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.groups' | translate}}</li>
     </ul>
-    <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP'><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
+    <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP' ng-show = "showGroup"><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
     <div class="clearfix"></div>
     <form ng-submit="search()" class="form-horizontal">
         <div class="form-group">
