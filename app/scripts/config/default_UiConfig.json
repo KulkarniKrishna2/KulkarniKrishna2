@@ -250,6 +250,11 @@
 		  "transactionAmount":false
 		}
 	  }
+	},
+	"viewGroup":{
+	  	"isHiddenField": {
+	  		"createGroup" : false
+	  	}
 	}
   }
  }
