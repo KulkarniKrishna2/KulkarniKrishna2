@@ -189,17 +189,17 @@
 </tr>
 <tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
     <td>{{'label.input.cyclenumber' | translate}}</td>
-    <td>{{'label.input.minimum' | translate}}</td>
+    <td ng-show = "isInterestRateListPerCycleNotAvailable" >{{'label.input.minimum' | translate}}</td>
     <td>{{'label.input.default' | translate}}</td>
-    <td>{{'label.input.maximum' | translate}}</td>
+    <td ng-show = "isInterestRateListPerCycleNotAvailable" >{{'label.input.maximum' | translate}}</td>
     <td></td>
 </tr>
 <tr ng-repeat="borrowerCycleVariation in loanproduct.interestRateVariationsForBorrowerCycle">
     <td>{{borrowerCycleVariation.valueConditionType.code | translate}}{{borrowerCycleVariation.borrowerCycleNumber}}
     </td>
-    <td>{{borrowerCycleVariation.minValue}}</td>
+    <td ng-show = "isInterestRateListPerCycleNotAvailable"  >{{borrowerCycleVariation.minValue}}</td>
     <td>{{borrowerCycleVariation.defaultValue}}</td>
-    <td>{{borrowerCycleVariation.maxValue}}</td>
+    <td ng-show = "isInterestRateListPerCycleNotAvailable" >{{borrowerCycleVariation.maxValue}}</td>
 </tr>
 <tr ng-show="minimumDaysBetweenDisbursalAndFirstRepaymentShow">
     <td>{{'label.input.minimum.days.between.disbursal.and.first.repayment' | translate}}</td>
