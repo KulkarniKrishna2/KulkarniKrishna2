@@ -14,6 +14,7 @@
             scope.paymentTypes = [];
             scope.amount = routeParams.amount;
             scope.isTransactionAmountAutopopulate = true;
+            scope.paymentRequired = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations &&
                 scope.response.uiDisplayConfigurations.savingsAccount &&
@@ -223,6 +224,16 @@
                     scope.waiveCharge = true;
                     scope.taskPermissionName = 'WAIVE_SAVINGSACCOUNTCHARGE';
                     break;
+                case "holdAmount":
+                    scope.title = 'label.heading.hold.amount';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.modelName = 'transactionDate';
+                    scope.showDateField = true;
+                    scope.isTransaction = true;
+                    scope.transactionAmountField = true;
+                    scope.paymentRequired = false;
+                    scope.taskPermissionName = 'HOLDAMOUNT_SAVINGSACCOUNT';
+                    break;
             }
 
             scope.cancel = function () {
@@ -235,7 +246,7 @@
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                 }
-                if (scope.action == "deposit" || scope.action == "withdrawal" || scope.action == "modifytransaction" || scope.action=="postInterestAsOn") {
+                if (scope.action == "deposit" || scope.action == "withdrawal" || scope.action == "modifytransaction" || scope.action=="postInterestAsOn" || scope.action == "holdAmount") {
                     if (scope.action == "withdrawal") {
                         if (this.formData.transactionDate) {
                             this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
@@ -244,15 +255,19 @@
                         if (this.formData.transactionDate) {
                             this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                         }
+                    } else if (scope.action == "holdAmount") {
+                        if (this.formData.transactionDate) {
+                            this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                        }
                     }
-                    if (scope.action == "modifytransaction") {
+                    else if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         if (this.formData.transactionDate) {
                             this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                         }
                         params.transactionId = routeParams.transactionId;
                     }
-                    if(scope.action=="postInterestAsOn"){
+                    else if(scope.action=="postInterestAsOn"){
                         if (this.formData.transactionDate) {
                             this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                         }

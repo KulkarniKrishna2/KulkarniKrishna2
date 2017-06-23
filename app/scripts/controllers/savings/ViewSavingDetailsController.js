@@ -21,7 +21,7 @@
             }
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
-                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true;
+                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true || savingsTransactionType.amountHold == true;
             };
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
@@ -129,8 +129,49 @@
                     case "postInterestAsOn":
                         location.path('/savingaccount/' + accountId + '/postInterestAsOn');
                         break;
+                    case "blockAccount":
+                        openPopUpWindow('blockAccount.html','block');
+                        break;
+                    case "unblockAccount":
+                        openPopUpWindow('unblockAccount.html','unblock');
+                        break;
+                    case "blockDebit":
+                        openPopUpWindow('blockDebit.html','blockDebit');
+                        break;
+                    case "unblockDebit":
+                        openPopUpWindow('unblockDebit.html','unblockDebit');
+                        break;
+                    case "blockCredit":
+                        openPopUpWindow('blockCredit.html','blockCredit');
+                        break;
+                    case "unblockCredit":
+                        openPopUpWindow('unblockCredit.html','unblockCredit');
+                        break;
+                    case "holdAmount":
+                        location.path('/savingaccount/' + accountId + '/holdAmount');
+                        break;
 
                 }
+            };
+
+            function openPopUpWindow(templateUrl, command){
+                scope.command = command;
+                $modal.open({
+                               templateUrl: templateUrl,
+                               controller: PopUpActionController
+                        });
+            }
+
+            var PopUpActionController = function ($scope, $modalInstance) {
+                $scope.submitAction = function () {
+                    resourceFactory.savingsResource.save({accountId: routeParams.id, command: scope.command}, this.formData, function (data) {
+                        $modalInstance.close('submitAction');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
@@ -258,6 +299,69 @@
                         ]
 
                     };
+                    if(data.status.value == "Active"){
+                        if(data.subStatus.value == "None"){
+                            scope.buttons.options.push({
+                                name: "button.blockAccount",
+                                taskPermissionName:"BLOCK_SAVINGSACCOUNT" 
+                            });
+                            scope.buttons.options.push({
+                                name: "button.blockCredit",
+                                taskPermissionName:"BLOCKCREDIT_SAVINGSACCOUNT" 
+                            });
+                            scope.buttons.options.push({
+                                name: "button.blockDebit",
+                                taskPermissionName:"BLOCKDEBIT_SAVINGSACCOUNT"  
+                            });
+                        } 
+                        else if(data.subStatus.value == "Block"){
+                            scope.buttons.options.push({
+                                name: "button.unblockAccount",
+                                taskPermissionName:"UNBLOCK_SAVINGSACCOUNT"  
+                            });
+                            scope.buttons.options.push({
+                                name: "button.blockCredit",
+                                taskPermissionName:"BLOCKCREDIT_SAVINGSACCOUNT" 
+                            });
+                            scope.buttons.options.push({
+                                name: "button.blockDebit",
+                                taskPermissionName:"BLOCKDEBIT_SAVINGSACCOUNT"  
+                            });
+                        }
+                        else if(data.subStatus.value == "BlockCredit"){
+                            scope.buttons.options.push({
+                                name: "button.blockAccount",
+                                taskPermissionName:"BLOCK_SAVINGSACCOUNT" 
+                            });
+                             scope.buttons.options.push({
+                                name: "button.unblockCredit",
+                                taskPermissionName:"UNBLOCKCREDIT_SAVINGSACCOUNT" 
+                            });
+                            scope.buttons.options.push({
+                                name: "button.blockDebit",
+                                taskPermissionName:"BLOCKDEBIT_SAVINGSACCOUNT"  
+                            });
+                        }
+                        else if(data.subStatus.value == "BlockDebit"){
+                            scope.buttons.options.push({
+                                name: "button.blockAccount",
+                                taskPermissionName:"BLOCK_SAVINGSACCOUNT" 
+                            });
+                            scope.buttons.options.push({
+                                name: "button.blockCredit",
+                                taskPermissionName:"BLOCKCREDIT_SAVINGSACCOUNT" 
+                            });
+                            scope.buttons.options.push({
+                                name: "button.unblockDebit",
+                                taskPermissionName:"UNBLOCKDEBIT_SAVINGSACCOUNT"  
+                            });
+                        }
+                        scope.buttons.options.push({
+                            name: "button.holdAmount",
+                            taskPermissionName:"HOLDAMOUNT_SAVINGSACCOUNT" 
+                        });
+                    }
+
                     if (data.clientId) {
                         scope.buttons.options.push({
                             name: "button.transferFunds",
@@ -502,7 +606,6 @@
                     scope.netOverdraftLimit = overdraftLimit - totalcharges;                     
                 }
             };
-
         }
     });
     mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {

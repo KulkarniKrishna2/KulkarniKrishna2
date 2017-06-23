@@ -10,12 +10,84 @@
     <script type="text/ng-template" id="savingsunassignstaff.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
-        </div>
-        <div class="modal-body">
+         </div>
+         <div class="modal-body">
             <api-validate></api-validate>
             <br>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="blockAccount.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.block.account' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.block.account' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitAction()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+     <script type="text/ng-template" id="unblockAccount.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.unblock.account' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.unblock.account' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitAction()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="blockDebit.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.block.debit' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.block.debit' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitAction()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="unblockDebit.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.unblock.debit' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.unblock.debit' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitAction()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="blockCredit.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.block.credit' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.block.credit' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitAction()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="unblockCredit.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.unblock.credit' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+              <h4 >{{'label.message.unblock.credit' | translate}}</h4>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitAction()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
     <script type="text/ng-template" id="savingsassignstaff.html">
@@ -153,6 +225,10 @@
                         <tr>
                             <td>{{'label.heading.balance' | translate}}</td>
                             <td  ng-class="{statusactiveoverdue : savingaccountdetails.summary.accountBalance < 0}">{{savingaccountdetails.summary.accountBalance | number}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.available.balance' | translate}}</td>
+                            <td  ng-class="{statusactiveoverdue : savingaccountdetails.summary.accountBalance < 0}">{{savingaccountdetails.summary.availableBalance | number}}</td>
                         </tr>
                     </table>
                 </div>

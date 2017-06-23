@@ -251,13 +251,13 @@
 	                            class="marginleftn19px form-control" value="{{valueConditionType.id}}"/>
 	                </td>
 	                <td><input id="principalCycleNumber{{$index}}" type="text" class="form-control"
-	                           number-formatng-model="borrowerCycleVariation.borrowerCycleNumber"/>
+	                           number-format ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
 	                </td>
 	                <td>
 	                    <input type="hidden" id="principalborrowerCycleId{{$index}}" class="form-control"
 	                           ng-model="borrowerCycleVariation.id"/>
 	                    <input type="text" id="minPrincipalPerCycle{{$index}}" class="form-control"
-	                           number-formatng-model="borrowerCycleVariation.minValue"/>
+	                           number-format ng-model="borrowerCycleVariation.minValue"/>
 	                </td>
 	                <td>
 	                    <input id="principalPerCycle{{$index}}" type="text" class="form-control"
@@ -266,7 +266,7 @@
 
 	                </td>
 	                <td><input type="text" id="maxPrincipalPerCycle{{$index}}" class="form-control"
-	                           number-formatng-model="borrowerCycleVariation.maxValue"/></td>
+	                           number-format ng-model="borrowerCycleVariation.maxValue"/></td>
 	                <td><a ng-click="deletePrincipalVariation($index)"><i
 	                        class="icon-remove icon-white"></i></a>
 

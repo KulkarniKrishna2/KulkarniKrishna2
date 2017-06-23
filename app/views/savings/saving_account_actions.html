@@ -48,7 +48,7 @@
                 
 
             </div>
-            <div ng-show="isTransaction">
+            <div ng-if="isTransaction">
                 <div class="form-group" data-ng-show="transactionAmountField">
                     <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
                         translate}}<span class="required">*</span></label>
@@ -56,12 +56,13 @@
                     <div class="col-sm-3">
                         <input id="transactionAmount" type="text" name="transactionAmount"
                                ng-model="formData.transactionAmount" class="form-control" number-format required late-Validate/>
+                       
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="savingccountactionform" valattribute="transactionAmount"/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-if="paymentRequired">
                     <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymentypeid' | translate}}<span
                             class="required">*</span></label>
 
@@ -73,7 +74,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-if="paymentRequired">
                     <label class="control-label col-sm-2">{{ 'label.input.showpaymentdetails' | translate}}</label>
 
                     <div class="col-sm-3">

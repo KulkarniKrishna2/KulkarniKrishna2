@@ -166,14 +166,16 @@
                 <legend>{{'label.view.add.client.occ' | translate}}</legend>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}<span
+                            class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
                                 ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {categoryEnum : {value : 'Occupation'}}"
-                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)" ng-required="true">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
+                        <form-validate valattributeform="showAddClientoccupationdetailsForm" valattribute="occupation"/>
                     </div>
                 </div>
 
@@ -260,9 +262,10 @@
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
                                 ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {categoryEnum : {value : 'Occupation'}}"
-                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)" ng-required="true">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
+                        <form-validate valattributeform="showAddClientoccupationdetailsForm" valattribute="occupation"/>
                     </div>
                 </div>
 
@@ -350,9 +353,10 @@
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
                                 ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {categoryEnum : {value : 'Asset'}}"
-                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)" ng-required="true">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
+                        <form-validate valattributeform="showAddClientoccupationdetailsForm" valattribute="occupation"/>
                     </div>
                 </div>
 
@@ -439,9 +443,11 @@
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
                                 ng-options="occupationOption as occupationOption.name for occupationOption in occupations |  filter : {categoryEnum : {value : 'Asset'}}"
-                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)"
+                                ng-required="true">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
+                        <form-validate valattributeform="showAddClientoccupationdetailsForm" valattribute="occupation"/>
                     </div>
                 </div>
 
@@ -529,7 +535,8 @@
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
                                 ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {typeEnum : {value : 'Expense'}}"
-                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)" 
+                                ng-required="true">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                         <form-validate valattributeform="showAddClienthouseholddetailsForm" valattribute="occupation"/>
@@ -591,9 +598,11 @@
                     <div class="col-sm-3">
                         <select name="occupation" ng-model="occupationOption" class="form-control"
                                 ng-options="occupationOption as occupationOption.name for occupationOption in occupations | filter : {typeEnum : {value : 'Expense'}}"
-                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)"
+                                ng-required="true">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
+                        <form-validate valattributeform="showAddClienthouseholddetailsForm" valattribute="occupation"/>
                     </div>
                 </div>
 
