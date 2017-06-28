@@ -142,6 +142,9 @@
 
             scope.changeValue = function(isAddIdentifiers){
                 scope.isAddIdentifiers = isAddIdentifiers;
+                if(isAddIdentifiers){
+                    scope.formData={};
+                }
             };
         }
     });
