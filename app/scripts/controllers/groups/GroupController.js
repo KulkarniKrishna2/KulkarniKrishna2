@@ -92,10 +92,7 @@
                     });
                 }
             }
-            scope.showGroup = true;
-            if(scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup){
-                scope.showGroup = false;
-            }
+            scope.showGroup = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
         }
     });
     mifosX.ng.application.controller('GroupController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.GroupController]).run(function ($log) {
