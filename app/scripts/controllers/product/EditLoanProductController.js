@@ -282,7 +282,6 @@
                         scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccount.id;
                         scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccount.id;
                     }
-
                     scope.formData.transfersInSuspenseAccountId = scope.product.accountingMappings.transfersInSuspenseAccount.id;
                     scope.formData.interestOnLoanAccountId = scope.product.accountingMappings.interestOnLoanAccount.id;
                     scope.formData.incomeFromFeeAccountId = scope.product.accountingMappings.incomeFromFeeAccount.id;
@@ -324,6 +323,12 @@
                             expenseAccountId: codeValues.expenseAccount.id
                         })
                     });
+
+                    if (scope.formData.accountingRule == 3) {
+                        scope.formData.npaInterestSuspenseAccountId = scope.product.accountingMappings.npaInterestSuspenseAccount.id;
+                        scope.formData.npaFeeSuspenseAccountId = scope.product.accountingMappings.npaFeeSuspenseAccount.id;
+                        scope.formData.npaPenaltySuspenseAccountId = scope.product.accountingMappings.npaPenaltySuspenseAccount.id;
+                    }
                 }
 
                 scope.formData.isLinkedToFloatingInterestRates = data.isLinkedToFloatingInterestRates;
@@ -482,6 +487,13 @@
 
             scope.isAccrualAccountingEnabled = function () {
                 if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isPeriodicAccrualAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 3) {
                     return true;
                 }
                 return false;
