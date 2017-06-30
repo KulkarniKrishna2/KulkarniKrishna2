@@ -1,5 +1,4 @@
-<form name="viewdocumentform" novalidate="" class="row form-horizontal" ng-controller="ViewBankStatementController"
-      rc-submit="submit()">
+<div class="col-md-12" ng-controller="ViewBankStatementController">
     <div>
         <ul class="breadcrumb">
             <li class="active">{{'label.anchor.viewbankstatement' | translate}}</li>
@@ -9,8 +8,24 @@
         <a has-permission="CREATE_BANKSTATEMENT" href="#/uploadbankstatements" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
             'label.button.upload' | translate }}</a>
     </div>
-    <br>
-
+    <div class="clearfix"></div>
+    <form ng-submit="search()" class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-4">
+                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterby.statementname.bankname' | translate}}">
+            </div>
+            <div class="col-lg-6 col-md-4">
+                <div class="input-group">
+                    <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchby.statementname.bankname' | translate}}" class="form-control"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary form-control">
+                            <span class="icon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
     <table class="table well" ng-show="bankStatements.length > 0">
         <thead>
         <tr class="graybg">
@@ -28,7 +43,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="bankStatement in bankStatements">
+        <tr dir-paginate="bankStatement in bankStatements | filter:filterText | orderBy: sortDate : true | itemsPerPage: bankStatementPerPage" total-items="totalBankStatement">
 
             <td>{{bankStatement.name}}</td>
             <td>{{bankStatement.bankData.name}}</td>
@@ -48,23 +63,21 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'portfoliotransaction')"><i  tooltip="Portfolio Transaction" class="icon-money icon-white"></i></button>
-                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'nonportfoliotransaction')"><i tooltip="Non Portfolio Transaction" class="icon-plus-sign icon-white"></i></button>
-                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-success" ng-click="routeToTransaction(bankStatement.id,'generateportfoliotransactions')"><i  tooltip="Generate Portfolio Transaction" class="icon-money icon-white"></i></button>
-                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-danger" ng-click="routeToTransaction(bankStatement.id,'miscellaneoustransaction')"><i  tooltip="Miscellaneous Transaction" class="icon-exclamation-sign icon-white"></i></button>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-info" ng-click="routeToTransaction(bankStatement.id,'portfoliotransaction')"><i  tooltip=" View Portfolio Transaction" class="icon-user icon-white"></i></button>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-info" ng-click="routeToTransaction(bankStatement.id,'nonportfoliotransaction')"><i tooltip="View Non Portfolio Transaction" class="icon-money icon-white"></i></button>
+                    <button type="button" class="btn btn-info" ng-click="routeToViewSummary(bankStatement.id,'summary')"><i tooltip=" View Summary" class="icon-list icon-white"></i></button>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-warning" ng-click="routeToTransaction(bankStatement.id,'miscellaneoustransaction')"><i  tooltip="View Miscellaneous Transaction" class="icon-exclamation-sign icon-white"></i></button>
                 </div>
             </td>
             <td>
                 <div class="btn-group">
-                    <a href='#/bankstatement/{{bankStatement.id}}/summary' tooltip="Summary" class="btn btn-primary">
-                        <i class="icon-list icon-white"></i>
-                    </a>
+                    <button type="button" has-permission="READ_BANKSTATEMENTDETAILS" class="btn btn-primary" ng-click="routeToTransaction(bankStatement.id,'generateportfoliotransactions')"><i  tooltip="Generate Portfolio Transaction" class="icon-plus icon-white"></i></button>
                 </div>
             </td>
             <td>
-                <div class="btn-group"  style="background-color: #cc3300;">
-                    <a  style="background-color: #cc3300;" has-permission="UPDATE_BANKSTATEMENT" href='#/updatebankstatements/{{bankStatement.id}}' class="btn" role="button"><i  tooltip="Edit" class="icon-white icon-edit"></i></a>
-                    <button  style="background-color: #cc3300;" type="button" has-permission="DELETE_BANKSTATEMENT" ng-click="deleteBankStatement(bankStatement.id)" class="btn">
+                <div class="btn-group">
+                    <button type="button" has-permission="UPDATE_BANKSTATEMENT" ng-click="updateBankStatement(bankStatement.id)" class="btn btn-warning" ><i  tooltip="Edit" class="icon-white icon-edit"></i></button>
+                    <button type="button" has-permission="DELETE_BANKSTATEMENT" ng-click="deleteBankStatement(bankStatement.id)" class="btn btn-danger">
                         <i tooltip="Delete" class="icon-trash icon-white"></i>
                     </button>
                 </div>
@@ -72,4 +85,5 @@
         </tr>
         </tbody>
     </table>
-</form>
+    <dir-pagination-controls boundary-links="true"  template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+</div>

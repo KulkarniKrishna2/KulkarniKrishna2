@@ -6145,5 +6145,7 @@
     "label.message.release.amount" :"Confirm to release amount",
     "label.heading.show":"Show",
     "label.heading.hide":"Hide",
+    "label.input.filterby.statementname.bankname" : "Filter display by name/bank name",
+    "label.input.searchby.statementname.bankname" : "Find by name/bank name",
     "------ end of tensalation file":"---------"
 }
