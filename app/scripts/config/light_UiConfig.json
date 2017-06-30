@@ -5,6 +5,11 @@
       "isHiddenFeild": {
         "prepayLoanButton" : false
       }
+    },
+    "loanAccount":{
+      "waiveInterest":{
+        "isTotalOutstandingInterest": true
+      }
     }
   }
 }

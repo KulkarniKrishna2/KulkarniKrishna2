@@ -437,7 +437,8 @@
                     break;
                 case "waiveinterest":
                     scope.modelName = 'transactionDate';
-                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
+                    scope.isTotalOutstandingInterest=scope.response.uiDisplayConfigurations.loanAccount.waiveInterest.isTotalOutstandingInterest;
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest',isTotalOutstandingInterest:scope.isTotalOutstandingInterest}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (responseData) {
                             if (responseData.clientMembers.length>0 && !scope.glimPaymentAsGroup) {
