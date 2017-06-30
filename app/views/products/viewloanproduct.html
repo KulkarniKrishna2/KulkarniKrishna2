@@ -604,6 +604,18 @@
                 <td>{{'label.heading.incomefrompenalties' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.incomeFromPenaltyAccount.name}}({{loanproduct.accountingMappings.incomeFromPenaltyAccount.glCode}})</td>
             </tr>
+            <tr ng-show="isPeriodicAccrualAccountingEnabled">
+                <td>{{'label.heading.npainterestsuspense' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.npaInterestSuspenseAccount.name}}({{loanproduct.accountingMappings.npaInterestSuspenseAccount.glCode}})</td>
+            </tr>
+            <tr ng-show="isPeriodicAccrualAccountingEnabled">
+                <td>{{'label.heading.npafeessuspense' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.npaFeeSuspenseAccount.name}}({{loanproduct.accountingMappings.npaFeeSuspenseAccount.glCode}})</td>
+            </tr>
+            <tr ng-show="isPeriodicAccrualAccountingEnabled">
+                <td>{{'label.heading.npapenaltiessuspense' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.npaPenaltySuspenseAccount.name}}({{loanproduct.accountingMappings.npaPenaltySuspenseAccount.glCode}})</td>
+            </tr>
             <tr>
                 <td>{{'label.heading.recoverypayments' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.incomeFromRecoveryAccount.name}}({{loanproduct.accountingMappings.incomeFromRecoveryAccount.glCode}})</td>
