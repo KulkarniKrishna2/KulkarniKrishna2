@@ -258,6 +258,14 @@
                 }
                 return false;
             }
+
+            scope.isPeriodicAccrualAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 3) {
+                    return true;
+                }
+                return false;
+            }
+
             scope.setAttributeValues = function(){
                 if(scope.allowAttributeConfiguration == false){
                     scope.amortization = false;

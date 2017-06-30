@@ -84,8 +84,8 @@
     <!-- View data    -->
     <div class="row pull-right">
         <button type="button" ng-show="status!=='ADD' && datatabledetails.isMultirow == true" ng-click="addData()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
-        <button type="button" ng-if="!isTaskCompleted()" ng-show="status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
-        <button type="button" ng-if="isTaskCompleted()" ng-show="status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" has-permission="EDIT_TASK" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
+        <button type="button" ng-show="!isTaskCompleted() && status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
+        <button type="button" ng-show="isTaskCompleted() && status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" has-permission="EDIT_TASK" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
     </div>
     <div ng-show="status=='VIEW'">
         <table class="table" data-ng-show="datatabledetails.isMultirow">

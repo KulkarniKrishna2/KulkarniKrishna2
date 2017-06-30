@@ -3,6 +3,7 @@
         CoApplicantActivityController: function ($controller,scope, routeParams, resourceFactory, dateFilter, location, $q, $modal) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
+            scope.clientId = scope.taskconfig['clientId'];
             scope.restrictDate = new Date();
             scope.formData = {};
             
@@ -111,7 +112,7 @@
                     var clientPresent = false;
                     var coApplicantsLen = scope.coapplicants.length;
                     for(var j=0; j < coApplicantsLen; j++){
-                        if(client.id === scope.coapplicants[j].clientId){
+                        if(client.id === scope.coapplicants[j].clientId || ( scope.clientId!=undefined && scope.clientId == client.id)){
                             clientPresent = true;
                             break;
                         }

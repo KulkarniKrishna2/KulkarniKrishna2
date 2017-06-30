@@ -53,6 +53,14 @@
                 return ((scope.restrictedGlimFunctionality.indexOf(task)>-1) && scope.isGlim ) || (task=='RECOVERYPAYMENT_LOAN' && scope.isGlimEnabled());
             };
 
+            scope.hideAccruals = function(transaction){
+                if((transaction.type.accrual || transaction.type.accrualSuspense || transaction.type.accrualWrittenOff || transaction.type.accrualSuspenseReverse)
+                    && !scope.hideTransactions.type.accrual){
+                    return false;
+                }
+                return true;
+            };
+
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16 || transactionTypeId == 8
                     || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId ) {

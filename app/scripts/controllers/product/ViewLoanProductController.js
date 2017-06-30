@@ -4,6 +4,7 @@
             scope.loanproduct = [];
             scope.isAccountingEnabled = false;
             scope.isAccrualAccountingEnabled = false;
+            scope.isPeriodicAccrualAccountingEnabled = false;
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.isInterestRateListPerCycleNotAvailable = true;
@@ -17,6 +18,9 @@
                 }
                 if (data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccrualAccountingEnabled = true;
+                }
+                if(data.accountingRule.id == 3){
+                    scope.isPeriodicAccrualAccountingEnabled = true;
                 }
                 if(scope.loanproduct.allowAttributeOverrides != null){
                     scope.amortization = scope.loanproduct.allowAttributeOverrides.amortizationType;

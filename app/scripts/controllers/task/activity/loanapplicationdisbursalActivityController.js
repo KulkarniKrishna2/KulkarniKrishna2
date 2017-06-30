@@ -435,6 +435,22 @@
             scope.viewLoanDetails = function () {
                 location.path('/viewloanaccount/' + scope.loanId);
             };
+
+            scope.doPreTaskActionStep = function(actionName){
+                if(actionName === 'activitycomplete'){
+                    if(scope.isAlreadyDisbursed){
+                        scope.doActionAndRefresh(actionName);
+                    }
+                    else{
+                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                    }
+                }else{
+                    scope.doActionAndRefresh(actionName);
+                }
+
+            };
+
+
         }
     });
     mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {

@@ -1655,6 +1655,43 @@
         </select>
     </div>
 </div>
+<div class="form-group"  ng-show="isPeriodicAccrualAccountingEnabled()">
+    <label class="control-label col-sm-2">{{ 'label.input.npainterestsuspense' | translate }}<span class="required">*</span></label>
+    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.npainterestsuspense' | translate}}"></i>
+
+    <div class="col-sm-3">
+        <select id="npaInterestSuspenseAccountId" ng-model="formData.npaInterestSuspenseAccountId"
+                chosen="incomeAndLiabilityAccountOptions"
+                ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAndLiabilityAccountOptions"
+                value="{{incomeAccount.id}}">
+            <option value="">{{'label.menu.selectone'| translate }}</option>
+        </select>
+    </div>
+    <label class="control-label col-sm-2">{{ 'label.input.npafeessuspense' | translate }}<span class="required">*</span></label>
+    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.npafeessuspense' | translate}}"></i>
+    <div class="col-sm-3">
+        <select id="npaFeeSuspenseAccountId" ng-model="formData.npaFeeSuspenseAccountId"
+                chosen="incomeAndLiabilityAccountOptions"
+                ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAndLiabilityAccountOptions"
+                value="{{incomeAccount.id}}">
+            <option value="">{{'label.menu.selectone'| translate }}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group"  ng-show="isPeriodicAccrualAccountingEnabled()">
+    <label class="control-label col-sm-2">{{ 'label.input.npapenaltiessuspense' | translate }}<span class="required">*</span></label>
+    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.npapenaltiessuspense' | translate}}"></i>
+
+    <div class="col-sm-3">
+        <select id="npaPenaltySuspenseAccountId" ng-model="formData.npaPenaltySuspenseAccountId"
+                chosen="incomeAndLiabilityAccountOptions"
+                ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAndLiabilityAccountOptions"
+                value="{{incomeAccount.id}}">
+            <option value="">{{'label.menu.selectone'| translate }}</option>
+        </select>
+    </div>
+
+</div>
 <hr>
 <div class="form-group">
     <h4>{{"label.heading.expenses" | translate}}</h4>
