@@ -4562,6 +4562,7 @@
     "label.input.working.days":"Working Days",
     "label.heading.paymentdueon":"Payment Due On",
     "label.heading.non.working.days":"Non Working Days",
+    "label.heading.working.days":"Move To Working Day",
     "label.button.addreschedule":"Add reschedule detail",
     "validation.msg.workingdays.advancedRescheduleDetail.toWeekDay.cannot.be.blank":"Working Days in Advanced Settings cannot be blank",
     "validation.msg.workingdays.advancedRescheduleDetail.fromWeekDay.cannot.be.blank":"Non Working Days in Advanced Settings Cannot be blank",
