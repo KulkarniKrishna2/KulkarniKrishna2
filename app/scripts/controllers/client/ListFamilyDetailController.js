@@ -6,10 +6,11 @@
 
             resourceFactory.familyDetails.getAll({clientId: scope.clientId}, function (data) {
                 scope.familyMembers = data;
-                scope.checkIfFamilyMemberIsExitingCustomer(scope.familyMembers);
+                    scope.checkIfFamilyMemberIsExistingCustomer(scope.familyMembers);
+                    scope.differentiateFamilyMemberDetailsBaseOnReferenceId(scope.familyMembers);
             });
 
-            scope.checkIfFamilyMemberIsExitingCustomer = function(familyMembers){
+            scope.checkIfFamilyMemberIsExistingCustomer = function(familyMembers){
                 for(var i in familyMembers){
                     familyMembers[i].isExistingCustomer = false;
                     if(familyMembers[i].clientReference){
@@ -58,6 +59,22 @@
                     }
                 });
             };
+            scope.differentiateFamilyMemberDetailsBaseOnReferenceId = function(familyMembers){
+                scope.familyDetailsOfClient = [];
+                scope.familyMemberOf = [];
+                for(var i in familyMembers){
+                    if(familyMembers[i].clientReference == scope.clientId){
+                        scope.familyMemberOf.push(familyMembers[i]);
+                    }
+                    else if(familyMembers[i].id){
+                        scope.familyDetailsOfClient.push(familyMembers[i]);
+                    }
+
+                }
+            }
+            scope.routeToClient = function (id) {
+              location.path('/viewclient/' + id);   
+           };
         }
 
     });

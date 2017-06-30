@@ -1009,7 +1009,7 @@
 			</div>
 		</tab>
 
-		<tab heading="{{ 'label.heading.familymember' | translate }}" ng-init="familyDetails()" ng-hide="client.legalForm && client.legalForm.value === 'ENTITY'" ng-if="isBetaEnabled && isBetaEnabled == true">
+		<tab heading="{{ 'label.heading.familydetails' | translate }}" ng-init="familyDetails()" ng-hide="client.legalForm && client.legalForm.value === 'ENTITY'" ng-if="isBetaEnabled && isBetaEnabled == true">
 		<br/>
 		<a href="#/createfamilydetails/{{id}}" class="btn btn-primary pull-right"><i
 				class="icon-plus icon-white"></i>
@@ -1028,26 +1028,24 @@
 		</script>
 
 		<div class="form-horizontal well">
-			<h2>{{'label.heading.familymember' | translate}}</h2>
+			<h2>{{'label.heading.familydetails' | translate}}</h2>
 			<br>
 			<table class="table">
 				<thead>
 				<tr>
 					<th>{{ 'label.heading.name' | translate }}</th>
-					<th>{{ 'label.heading.relationship' | translate }}</th>
+					<th>{{ 'label.heading.belongs.to.families.of' | translate }}</th>
 					<th>{{ 'label.heading.dob' | translate }}</th>
 					<th>{{ 'label.heading.age' | translate }}</th>
 					<th>{{ 'label.heading.dependent' | translate }}</th>
 					<th>{{ 'label.heading.medical.condition' | translate }}</th>
-					<th>{{ 'label.heading.occupation' | translate }}</th>
 					<th>{{ 'label.heading.deceased' | translate }}</th>
 					<th>{{ 'label.heading.existing.customer' | translate }}</th>
-
 					<th></th>
 				</tr>
 				</thead>
 				<tbody>
-				<tr class="pointer-main" ng-repeat="familyMember in familyMembers">
+				<tr class="pointer-main" ng-repeat="familyMember in familyDetailsOfClient">
 					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.firstname}}
 						{{familyMember.lastname}}
 					</td>
@@ -1064,30 +1062,47 @@
 					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isSeriousIllness ==
 						true ? 'Yes' : 'No'}}
 					</td>
-					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.occupation.name}}
-					</td>
 					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isDeceased == true ?
 						'Yes' : 'No'}}
 					</td>
-					<td class="pointer" data-ng-click="routeToClientDetails(familyMember)"><a>{{familyMember.isExistingCustomer == true ?
-						('label.heading.client.information' | translate): ''}} </a>
-					</td>
+					 <td class="pointer" ng-class="familyMember.isExistingCustomer == true ?'glyphicon glyphicon-user':'glyphicon'" data-ng-click="routeToClientDetails(familyMember)">
 
 					<td class="pull-right">
-						<button role="button" ng-click="showEdit(familyMember.id)" class="btn-link ng-binding">
-							<i class="icon-edit icon-white"></i>
-						</button>
+						<a  ng-click="showEdit(familyMember.id)">
+							<i class="icon-edit"></i>
+						</a>
 
-						<button role="button" class="btn-link ng-binding"
-								data-ng-click="deleteFamilyDetail(familyMember.id)"><i
-								class="icon-remove icon-white"></i>
-						</button>
-
+						<a ng-click="deleteFamilyDetail(familyMember.id)">
+							<i class="icon-remove"></i>
+						</a>
 					</td>
 
 				</tr>
 				</tbody>
 			</table>
+			<br>
+		<div>
+            <h3>{{'label.heading.family.member.of' | translate}}</h3>
+           <table class="table table-condensed">
+             <thead>
+                 <tr>
+                 <th>{{ 'label.heading.customername' | translate }}</th>
+                  <th>{{ 'label.heading.customer.accountno' | translate }}</th>
+                 <th>{{ 'label.heading.claimed.relation' | translate }}</th>
+                </tr>
+            </thead> 
+             <tbody>
+               <tr class="pointer-main" ng-repeat="familyMember in familyMemberOf">
+               <td class="pointer" data-ng-click="routeToClient(familyMember.memberClientId)">      {{familyMember.displayName}}
+               </td>
+               <td class="pointer" data-ng-click="routeToClient(familyMember.memberClientId)">
+                     {{familyMember.accountNo}}
+               </td>
+               <td class="pointer" data-ng-click="routeToClient(familyMember.memberClientId)">      {{familyMember.relationship.name}}
+               </td>
+            </tbody>
+           </table>
+        </div>
 		</div>
 		<a href="#/createfamilydetailsummary/{{id}}" class="btn btn-primary pull-right"><i
 				class="icon-arrow-right icon-white"></i>
