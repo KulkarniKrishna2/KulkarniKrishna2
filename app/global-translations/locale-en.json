@@ -6130,5 +6130,10 @@
     "label.message.release.amount" :"Confirm to release amount",
     "label.heading.show":"Show",
     "label.heading.hide":"Hide",
+    "label.heading.family.member.of":"Family Member Of",
+    "label.heading.customer.accountno":"Customer Account No",
+    "label.heading.belongs.to.families.of" : "Belongs to families of",
+    "label.heading.claimed.relation" : "Claimed Relation",
+    "label.anchor.family.details" : "Family Details",
     "------ end of tensalation file":"---------"
 }
