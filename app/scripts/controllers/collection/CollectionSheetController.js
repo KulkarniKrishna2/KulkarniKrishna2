@@ -434,8 +434,8 @@
                         productId: loan.productId,
                         dueAmount: totalDue,
                         //chargesDue: loan['chargesDue'],
-                        currencyCode: loan.currencyCode,
-                        currencySymbol: loan.currencySymbol
+                        currencyCode: loan.currency.code,
+                        currencySymbol: loan.currency.displaySymbol
                     };
                     scope.loanGroupsTotal.push(gp);
                 } else {
