@@ -27,7 +27,7 @@
                     translate}}</label>
                 <div class="col-sm-3">
                     <input name="limitOnTotalLoanOutstandingAmount" id="limitOnTotalLoanOutstandingAmount"
-                           ng-model="      formData.limitOnTotalLoanOutstandingAmount" type="text"
+                           ng-model="formData.limitOnTotalLoanOutstandingAmount" type="text"
                            class="form-control"/>
                 </div>
             </div>
@@ -56,11 +56,11 @@
             <br>
             <div class="col-md-offset-5 paddedtop">
                 <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="create" ng-if="!isUpdate && !isEmpty(formData)" type="submit"
+                <button id="create" ng-if="!isUpdate" type="submit"
                         class="btn btn-primary pull-center" has-permission='CREATE_CUSTOMERACCOUNTLIMITS'>
                     {{'label.button.submit' | translate}}
                 </button>
-                <button id="update" ng-if="isUpdate && !isEmpty(formData)" type="submit"
+                <button id="update" ng-if="isUpdate" type="submit"
                         class="btn btn-primary pull-center" has-permission='UPDATE_CUSTOMERACCOUNTLIMITS'>
                     {{'label.button.submit' | translate}}
                 </button>
