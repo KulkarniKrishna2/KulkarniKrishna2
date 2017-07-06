@@ -6147,5 +6147,8 @@
     "label.heading.hide":"Hide",
     "label.input.filterby.statementname.bankname" : "Filter display by name/bank name",
     "label.input.searchby.statementname.bankname" : "Find by name/bank name",
+    "validation.msg.savingsaccount.amount.is.on.hold.release.the.amount.to.continue" : "Savings Account amount is on hold. Release amount to close the account",
+    "label.heading.loan.guarantee.fund":"Loan Gurantee Fund",
+    "label.heading.savings.amount.on.hold":"Savings Amount On Hold",
     "------ end of tensalation file":"---------"
 }

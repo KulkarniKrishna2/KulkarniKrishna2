@@ -23,6 +23,10 @@
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
                     || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true || savingsTransactionType.amountHold == true;
             };
+            
+            scope.isHoldOrRelease = function (savingsTransactionType) {
+                return  savingsTransactionType.amountHold == true ||  savingsTransactionType.amountRelease == true;
+            };
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
                 if (accountTransfer) {
@@ -189,6 +193,11 @@
                 if(angular.isUndefined(data.onHoldFunds)){
                     scope.showonhold = false;
                 }
+                scope.isSavingsAmountOnHold = true;
+                if(angular.isUndefined(data.savingsAmountOnHold)){
+                	 scope.isSavingsAmountOnHold = false;
+                }
+                
                 scope.staffData.staffId = data.staffId;
                 scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);
@@ -570,7 +579,7 @@
                     scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
                 }
             };
-
+            
             scope.transactionSort = {
                 column: 'date',
                 columnId: 'id',
