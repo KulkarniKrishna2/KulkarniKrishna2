@@ -1593,6 +1593,12 @@
             .when('/clients/:clientId/editclientaccountlimits', {
                 templateUrl: 'views/limitsmodule/clientaccountlimits.html'
             })
+            .when('/pdc/view/:pdcId', {
+                templateUrl: 'views/pdc/pdcdetailview.html'
+            })
+            .when('/managepdc', {
+                templateUrl: 'views/pdc/managepdc.html'
+            })
 
         $locationProvider.html5Mode(false);
     };

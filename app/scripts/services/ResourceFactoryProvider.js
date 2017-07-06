@@ -1186,7 +1186,42 @@
                     }),
                     cryptographyPublickeyResource: defineResource(apiVer + "/cryptography/:entityType/publickey", {entityType:'@entityType'}, {
                         get:{method: 'GET', params: {}}
-                    })
+                    }),
+                    pdcTemplateResource: defineResource(apiVer + "/pdcm/:entityType/:entityId/template", {
+                        entityType: '@entityType',
+                        entityId: '@entityId'
+                    }, {
+                        getTemplate: {method: 'GET', params: {}}
+                    }),
+                    pdcResource: defineResource(apiVer + "/pdcm/:entityType/:entityId", {
+                        entityType: '@entityType',
+                        entityId: '@entityId'
+                    }, {
+                        create: {method: 'POST', params: {}},
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    pdcOneResource: defineResource(apiVer + "/pdcm/:pdcId", {
+                        pdcId: '@pdcId', command: '@command'
+                    }, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        delete: {method: 'PUT', params: {pdcId:'@pdcId',command: 'delete'}}
+                    }),
+                    pdcSearchTemplateResource: defineResource(apiVer + "/pdcm/search/template", {
+
+                    }, {
+                        getSearchTemplate: {method: 'GET', params: {}}
+                    }),
+                    pdcSearchResource: defineResource(apiVer + "/pdcm/search", {
+
+                    }, {
+                        search: {method: 'POST', params: {}, isArray: true}
+                    }),
+                    pdcActionResource: defineResource(apiVer + "/pdcm", {
+                        command: '@command'
+                    }, {
+                        action: {method: 'PUT', params: {}}
+                    }),
                 };
             }];
         }

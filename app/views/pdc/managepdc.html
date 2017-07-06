@@ -1,0 +1,196 @@
+<div class="col-md-12" ng-controller="ManagePDCController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.admin' | translate}}</li>
+        <li><a href="#/bulkoperations">{{'label.anchor.bulkoperations' | translate}}</a></li>
+        <li class="active">{{'label.anchor.manage.pdc' | translate}}</li>
+    </ul>
+    <div class="clearfix"></div>
+    <div class="pull-right">
+        <div class="btn-group">
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="form-horizontal well">
+        <div ng-if="!isSearchPDCData">
+            <form name="managePDCForm">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.branch' | translate }}</label>
+                        <div class="col-sm-3">
+                            <select id="officeId" name="officeId" ng-model="formData.officeId" class="form-control"
+                                    ng-options="office.id as office.name for office in templateSearchData.officeOptions"
+                                    value="office.id">
+                                <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.pdc.type' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="chequeType" name="chequeType" ng-model="formData.chequeType"
+                                    class="form-control"
+                                    ng-options="pdcType.id as pdcType.value for pdcType in templateSearchData.pdcTypeOptions"
+                                    value="{{pdcType.id}}">
+                                <option value="">{{'label.all' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.cheque.status' | translate }}</label>
+                        <div class="col-sm-3">
+                            <select id="chequeStatus" name="chequeStatus" ng-model="formData.chequeStatus"
+                                    class="form-control"
+                                    ng-options="chequeStatus.id as chequeStatus.value for chequeStatus in templateSearchData.chequeStatusOptions"
+                                    value="{{chequeStatus.id}}">
+                            </select>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <div class="form-group" data-ng-if="formData.chequeStatus">
+                        <label class="control-label col-sm-2">{{ 'label.input.teller.cashier.startDate' | translate
+                            }}</label>
+                        <div class="col-sm-3">
+                            <input id="fromDate"
+                                   name="fromDate" sort type="text"
+                                   datepicker-pop="dd MMMM yyyy"
+                                   class="form-control"
+                                   ng-model="formData.fromDate" is-open="opened" min="'2000-01-01'"
+                                   max="restrictDate"/>
+                        </div>
+                        <label class="control-label col-sm-1">{{ 'label.input.teller.cashier.endDate' | translate
+                            }}</label>
+                        <div class="col-sm-3">
+                            <input id="toDate"
+                                   name="toDate" sort type="text"
+                                   datepicker-pop="dd MMMM yyyy"
+                                   class="form-control"
+                                   ng-model="formData.toDate" is-open="opened" min="'2000-01-01'"
+                                   max="restrictDate"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-4">
+                        <button id="search" type="button" data-ng-click="callSearchPDCData()" class="btn btn-primary"
+                                has-permission='READ_PDC'>{{'label.button.search'| translate}}
+                        </button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+
+        <div ng-if="isSearchPDCData">
+            <table class="border1px table horizontal-scrollbar vertical-scrollbar">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.menu.select' | translate}}</th>
+                    <th>{{'label.input.branch' | translate}}</th>
+                    <th>{{'label.input.client' | translate}}</th>
+                    <th>{{'label.heading.loanid' | translate}}</th>
+                    <th>{{'label.input.duedate' | translate}}</th>
+                    <th>{{'label.input.installmentAmount' | translate}}</th>
+                    <th>{{'label.input.pdc.type' | translate}}</th>
+                    <th>{{'label.input.cheque.no' | translate}}</th>
+                    <th>{{'label.heading.cheque.date' | translate}}</th>
+                    <th>{{'label.heading.mandate.bankName' | translate}}</th>
+                    <th>{{'label.heading.mandate.branchName' | translate}}</th>
+                    <th>{{'label.heading.mandate.ifsc' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" data-ng-repeat="pdc in searchPDCData track by $index">
+                    <td>
+                        <input type="checkbox" data-ng-model="pdc.isChecked"
+                               ng-disabled="pdc.mappingData.dueDate == undefined && pdc.mappingData.dueAmount == undefined"/>
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.officeName}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.clientName}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.loanProductName}} - {{pdc.loanAccountNumber}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.mappingData.dueDate | DateFormat}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.mappingData.dueAmount | number}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.chequeType.value}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.chequeNumber}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.chequeDate | DateFormat}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.bankName}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.branchName}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.ifscCode}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                        {{pdc.presentStatus.value}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="col-md-offset-2">
+                <label>
+                    <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.back' |
+                        translate}}
+                    </button>
+                </label>
+                <label data-ng-if="chequeStatusObj">
+                    <button type="button" data-ng-if="isEnableThisAction(present)"
+                            data-ng-click="actionToBePerformed(present)" class="btn btn-primary">
+                        {{'label.button.present.to.the.bank' | translate}}
+                    </button>
+                    <button type="button" data-ng-if="isEnableThisAction(return)"
+                            data-ng-click="actionToBePerformed(return)" class="btn btn-primary">
+                        {{'label.button.return.to.the.client' | translate}}
+                    </button>
+                    <button type="button" data-ng-if="isEnableThisAction(clear)"
+                            data-ng-click="actionToBePerformed(clear)" class="btn btn-primary">
+                        {{'label.button.mark.as.cleared' | translate}}
+                    </button>
+                    <button type="button" data-ng-if="isEnableThisAction(bounced)"
+                            data-ng-click="actionToBePerformed(bounced)" class="btn btn-primary">
+                        {{'label.button.mark.as.bounced' | translate}}
+                    </button>
+                    <button type="button" data-ng-if="isEnableThisAction(cancel)"
+                            data-ng-click="actionToBePerformed(cancel)" class="btn btn-primary">
+                        {{'label.button.mark.as.cancelled' | translate}}
+                    </button>
+                    <button type="button" data-ng-if="isEnableThisAction(undo)"
+                            data-ng-click="actionToBePerformed(undo)" class="btn btn-primary">
+                        {{'label.button.undo' | translate}}
+                    </button>
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script data-ng-if="action" type="text/ng-template" id="actiononpdc.html">
+    <div ng-include="'views/pdc/actiononpdc.html'"></div>
+</script>
