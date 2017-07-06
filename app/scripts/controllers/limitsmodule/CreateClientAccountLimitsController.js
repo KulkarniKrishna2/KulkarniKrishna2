@@ -22,7 +22,7 @@
                     if (obj.hasOwnProperty(i)) {
                         var values = Object.values(obj);
                         for(var j in values){
-                            if(values[j].length > 0){
+                            if(values[j] != undefined && values[j] != null && values[j].toString().length > 0){
                                 return false;
                             }
                         }

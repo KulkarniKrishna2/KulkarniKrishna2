@@ -412,14 +412,20 @@
                                 <td><span class="padded-td">{{savingaccountdetails.summary.lastInterestCalculationDate | DateFormat}}</span></td>
                             </tr>
                             <tr ng-show="showonhold">
-                                <td class="table-bold-acc fontnormal"> {{'label.heading.onholdfunds' | translate}}</td>
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.loan.guarantee.fund' | translate}}</td>
                                 <td><span class="padded-td">
                                      <a class="btn-link"
                                         has-permission='READ_SAVINGSACCOUNT'
                                         href="#/viewonholdtransactions/{{savingaccountdetails.id}}/viewsavingaccount/{{savingaccountdetails.id}}">
-                                         {{savingaccountdetails.onHoldFunds| number}}
+                                        	{{savingaccountdetails.onHoldFunds| number}}
                                      </a>
-                                    </span></td>
+                                    </span>
+                               </td>
+                            </tr>
+                            <tr ng-show="isSavingsAmountOnHold">
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.savings.amount.on.hold' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.savingsAmountOnHold| number}}</span>
+                               </td>
                             </tr>
                             <tr data-ng-show="savingaccountdetails.withHoldTax">
                                 <td class="table-bold-acc fontnormal"> {{'label.heading.withholdtaxgroup' | translate}}</td>
@@ -473,7 +479,9 @@
                             </td>
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                  <div ng-show="!isHoldOrRelease(transaction.transactionType)">
                                 {{transaction.runningBalance| number}}
+                                </div>
                             </td>
                             <td> <a ng-if=" transaction.reversed!=true" ng-click="viewSavingsTransactionReceipts(transaction.id)">
                             <i class="icon-file-text icon-large"></i>

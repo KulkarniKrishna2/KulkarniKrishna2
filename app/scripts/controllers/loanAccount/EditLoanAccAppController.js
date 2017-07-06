@@ -207,7 +207,6 @@
                                resourceFactory.chargeResource.get({chargeId: scope.loanaccountinfo.charges[i].chargeId, template: 'true'}, function (charge) {
                             for ( var k in scope.loanaccountinfo.charges) {
                                     if ( scope.loanaccountinfo.charges[k].chargeId == charge.id){
-                                        scope.loanaccountinfo.charges[k].amountOrPercentage = charge.amount;
                                         if (scope.isGLIM){
                                             scope.updateUpfrontChargeData(scope.loanaccountinfo.charges[k],charge);
                                         }
@@ -226,10 +225,12 @@
                         if(scope.productLoanCharges[i].chargeData){
                             //if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
                                 var isChargeAdded = false;
+                                var loanChargeAmount = 0;
                                 for(var j in scope.charges){
                                     if(scope.productLoanCharges[i].chargeData.id == scope.charges[j].chargeId){
                                         scope.charges[j].isMandatory = scope.productLoanCharges[i].isMandatory;
                                         isChargeAdded = true;
+                                        loanChargeAmount = scope.charges[j].amountOrPercentage;
                                         break;
                                     }
                                 }
@@ -237,7 +238,11 @@
                                     var charge = scope.productLoanCharges[i].chargeData;
                                     charge.chargeId = charge.id;
                                     charge.id = null;
-                                    charge.amountOrPercentage = charge.amount;
+                                    if(isChargeAdded){
+                                        charge.amountOrPercentage = loanChargeAmount;
+                                    }else{
+                                        charge.amountOrPercentage = charge.amount;
+                                    }                                    
                                     charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                     if(charge.chargeCalculationType.value == scope.slabBasedCharge){
                                         for(var i in charge.slabs) {
