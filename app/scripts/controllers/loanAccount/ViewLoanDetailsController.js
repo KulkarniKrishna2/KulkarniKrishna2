@@ -503,10 +503,6 @@
                                 taskPermissionName: 'RECOVERGUARANTEES_LOAN'
                             },
                             {
-                                name: "button.undolastdisbursal",
-                                taskPermissionName: 'DISBURSALLASTUNDO_LOAN'
-                            },
-                            {
                                 name: "button.reschedule",
                                 taskPermissionName: 'CREATE_RESCHEDULELOAN'
                             }
@@ -583,6 +579,27 @@
                         });
 
                     }
+                    var count = 0;
+                    if(data.disbursementDetails){
+                        for(var i in data.disbursementDetails){
+                            if(data.disbursementDetails[i].actualDisbursementDate){
+                               count++;
+                            }
+                            if (!data.canDisburse) {
+                                if(data.status.value != "Submitted and pending approval" &&   _.isUndefined(data.disbursementDetails[i].actualDisbursementDate)){
+                                    scope.loandetails.canDisburse = true;
+                                    disbursalSettings(scope.loandetails);
+                                    break;
+                                }
+                            }
+                        }
+                        if(count > 1){
+                            scope.buttons.options.push({
+                                name: "button.undolastdisbursal",
+                                taskPermissionName: 'DISBURSALLASTUNDO_LOAN'
+                            });
+                        }
+                    }      
                 }
                 if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.buttons = { singlebuttons: [
@@ -672,24 +689,6 @@
                     });
                     }
                     creditBureauCheckIsRequired();
-                }
-                var count = 0;
-                if(data.disbursementDetails){
-                    for(var i in data.disbursementDetails){
-                        if(data.disbursementDetails[i].actualDisbursementDate){
-                            count++;
-                        }
-                        if (!data.canDisburse) {
-                            if(data.status.value != "Submitted and pending approval" &&   _.isUndefined(data.disbursementDetails[i].actualDisbursementDate)){
-                                scope.loandetails.canDisburse = true;
-                                disbursalSettings(scope.loandetails);
-                                break;
-                            }
-                        }
-                    }
-                    if(count <= 1){
-                        scope.buttons.options.splice(scope.buttons.options.length-1,1);
-                    }
                 }
             };
 
