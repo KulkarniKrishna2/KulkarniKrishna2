@@ -21,11 +21,17 @@
             });
 
             scope.clientKeys = function () {
-                scope.templateKeys = ["{{client.accountNo}}", "{{client.status.value}}", "{{client.fullname}}",
-                    "{{client.displayName}}", "{{client.officeName}}", "{{#client.groups}}", "{{/client.groups}}"];
+                scope.clientTemplateKeys = ["{{client.accountNo}}", "{{client.status.value}}",
+                    "{{client.displayName}}", "{{client.officeName}}"];
+                scope.groupTemplateKeys = ["{{#client.groups }}{{name}}{{/client.groups}}","{{#client.groups }}{{accountNo}}{{/client.groups}}"];
                 scope.templateEntity = [
                     {"entityName": "Client",
-                        "templateKeys": scope.templateKeys}
+                        "templateKeys": scope.clientTemplateKeys
+                    },
+                    {"entityName": "Group",
+                        "templateKeys": scope.groupTemplateKeys
+                    }
+
                 ];
                 CKEDITOR.instances.templateeditor.setData('');
             };
