@@ -8,6 +8,9 @@
       "isMandatory": {
         "externalId": true
       }
-    }
+    },
+    "createMandates":{
+      "showEMIBalance": true
+  }
   }
 }

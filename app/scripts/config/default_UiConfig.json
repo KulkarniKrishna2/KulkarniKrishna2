@@ -255,6 +255,9 @@
 	  	"isHiddenField": {
 	  		"createGroup" : false
 	  	}
+	},
+	"createMandates":{
+			"showEMIBalance": false
 	}
   }
  }
