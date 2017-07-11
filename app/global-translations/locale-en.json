@@ -6160,5 +6160,8 @@
     "error.msg.loan.foreclosure.transaction.date.is.in.future" : "This transaction cannot be performed with a date in the future.",
     "error.msg.loan.foreclosure.transaction.date.cannot.before.the.last.transaction.date" :"This transaction date can not be before the last transaction date",
     "error.msg.loan.with.interest.recalculation.enabled.cannot.be.foreclosured" : "The loan with interest recalculation enabled cannot be foreclosed.",
+    "label.anchor.refundByCash" : "Advance Refund",
+    "label.button.refundByCash" : "Advance Refund",
+    "label.heading.advance.refund" : "Advance Refund",
     "------ end of tensalation file":"---------"
 }
