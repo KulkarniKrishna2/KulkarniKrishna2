@@ -1540,11 +1540,12 @@
 		</div>
 	</div>
 		<div class="form-group"  ng-show="isPeriodicAccrualAccountingEnabled()">
-			<label class="control-label col-sm-2">{{ 'label.input.npainterestsuspense' | translate }}<span class="required">*</span></label>
-			<i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.npainterestsuspense' | translate}}"></i>
+			<label class="control-label col-sm-2">{{ 'label.input.npafeessuspense' | translate }}<span class="required">*</span></label>
+			<i class="icon-question-sign col-sm-1 icon-white"
+			   tooltip="{{'label.tooltip.npafeessuspense' | translate}}"></i>
 
 			<div class="col-sm-3">
-				<select id="npaInterestSuspenseAccountId" ng-model="formData.npaInterestSuspenseAccountId"
+				<select id="npaFeeSuspenseAccountId" ng-model="formData.npaFeeSuspenseAccountId"
 						chosen="incomeAndLiabilityAccountOptions"
 						ng-options="incomeAccount.id as (incomeAccount.name +'('+ incomeAccount.glCode +')') for incomeAccount in incomeAndLiabilityAccountOptions"
 						value="{{incomeAccount.id}}">
