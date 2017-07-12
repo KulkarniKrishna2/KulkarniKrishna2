@@ -134,7 +134,7 @@
 
                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
                 reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale="
-                + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionIdStringvalue;
+                + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionNumber;
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);
 
