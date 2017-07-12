@@ -108,20 +108,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.dateOfBirth' | translate }}<span
+                    <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}<span
                             class="required">*</span></label>
-
-                    <div class="col-sm-3">
-                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
-                               ng-model="formData.dateOfBirth" is-open="opened1" max="restrictDate"
-                               class="form-control"/>
-                    </div>
-
-                    <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}</label>
+                    </label>
 
                     <div class="col-sm-2">
                         <input id="age" type="text" name="age"
                                ng-model="formData.age" class="form-control"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createFamilyDetails" valattribute="age"/>
                     </div>
 
                 </div>
@@ -158,7 +154,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
 
                         <div class="col-sm-3">
-                            <select id="subOccupation" name="subOccupation" ng-model="incomeExpenseId"
+                            <select id="subOccupation" name="subOccupation" ng-model="formData.occupationDetailsId"
                                     class="form-control"
                                     ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
                                     value="subOccupation.id">

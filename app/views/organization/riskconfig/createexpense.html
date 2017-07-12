@@ -71,27 +71,11 @@
 
                     <div class="col-sm-3">
                         <input id="isCaptureMonthWiseIncome" name="isCaptureMonthWiseIncome" type="checkbox"
-                               ng-model="formData.isCaptureMonthWiseIncome"> {{'label.heading.campure.income' |
+                               ng-model="formData.isCaptureMonthWiseIncome"> {{'label.heading.compute.month.wise.expense' |
                         translate}}
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createOccupation" valattribute="isCaptureMonthWiseIncome"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.heading.stability.of.occupation' | translate
-                        }}</label>
-
-                    <div class="col-sm-3">
-                        <select id="stabilityEnumId" name="stabilityEnumId" ng-model="formData.stabilityEnumId"
-                                class="form-control"
-                                ng-options="stabilityEnumOption.id as stabilityEnumOption.value for stabilityEnumOption in stabilityEnumOptions"
-                                value="stabilityEnumOption.id">
-                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <form-validate valattributeform="createOccupation" valattribute="stabilityEnumId"/>
                     </div>
                 </div>
 

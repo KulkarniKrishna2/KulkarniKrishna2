@@ -1127,18 +1127,18 @@
             };
 
             scope.showEditClientIncome = function(id){
-                location.path('/client/'+scope.id+'/editclientoccupation/'+id);
+                location.path('/clients/'+scope.id+'/editclientoccupation/'+id);
             };
 
             scope.showEditClientAsset = function(id){
-                location.path('/client/'+scope.id+'/editclientasset/'+id);
+                location.path('/clients/'+scope.id+'/editclientasset/'+id);
             };
 
             scope.editClientIdentifier = function(id){
                 location.path('/clients/'+scope.id+'/identifiers/'+id);
             };
             scope.showEditClientHouseHoldExpense = function(id){
-                location.path('/client/'+scope.id+'/editclienthouseholdexpense/'+id);
+                location.path('/clients/'+scope.id+'/editclienthouseholdexpense/'+id);
             };
 
             scope.existingLoans = function(){
@@ -1148,11 +1148,11 @@
             };
 
             scope.showEditClientExistLoan = function(id){
-                location.path('/client/'+scope.id+'/editclientexistingloan/'+id);
+                location.path('/clients/'+scope.id+'/editclientexistingloan/'+id);
             }
 
             scope.routeToViewExistingLoan = function(id){
-                location.path('/client/'+scope.id+'/viewclientexistingloan/'+id);
+                location.path('/clients/'+scope.id+'/viewclientexistingloan/'+id);
             }
 
             function getprofileRating(){
