@@ -203,6 +203,9 @@
                             location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
                         }
                         break;
+                    case "refundByCash":
+                        location.path('/loanaccount/' + accountId + '/refundByCash');
+                        break;
                 }
             };
 
@@ -255,7 +258,7 @@
 
             var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",repaymentSchedule,loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
 
                 resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
@@ -506,7 +509,6 @@
                                 name: "button.reschedule",
                                 taskPermissionName: 'CREATE_RESCHEDULELOAN'
                             }
-
                         ]
 
                     };
@@ -600,6 +602,13 @@
                             });
                         }
                     }      
+                    if(scope.loandetails.repaymentSchedule && scope.loandetails.repaymentSchedule.totalPaidInAdvance){
+                        scope.buttons.options.push( {
+                            name: "button.refundByCash",
+                            taskPermissionName: 'REFUNDBYCASH_LOAN'
+                        });
+
+                    }
                 }
                 if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.buttons = { singlebuttons: [
