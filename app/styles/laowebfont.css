@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'saysettha_web';
+    src: url('/fonts/laoweb/saysettha_web.eot');
+    src: url('/fonts/laoweb/saysettha_web.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/laoweb/saysettha_web.woff') format('woff'),
+    url('/fonts/laoweb/saysettha_web.ttf') format('truetype'),
+    url('/fonts/laoweb/saysettha_web.svg#SaysetthaWeb') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+p {
+    font-family:saysettha_web;
+}
+body {
+    font-family:saysettha_web;
+}
+h1 {
+    font-family:saysettha_web;
+}
+h2 {
+    font-family:saysettha_web;
+}
+
+h2 {
+    font-family:saysettha_web;
+}
+
+h3 {
+    font-family:saysettha_web;
+}
+
+h4 {
+    font-family:saysettha_web;
+}
+
+h5 {
+    font-family:saysettha_web;
+}
+
