@@ -16,9 +16,10 @@
             }else if(scope.command === 'EDIT'){
                 scope.isEdit = true;
             }
+            scope.showEMIBalance = scope.response.uiDisplayConfigurations.createMandates.showEMIBalance;
 
             if(scope.isCreate){
-                resourceFactory.mandateTemplateResource.getCreateTemplate({loanId:scope.loanId}, function (data) {
+                resourceFactory.mandateTemplateResource.getCreateTemplate({loanId:scope.loanId,showEMIBalance:scope.showEMIBalance}, function (data) {
                     scope.populate(data);
                     if(data.bankAccountDetails) {
                         scope.showBankDetails = true ;

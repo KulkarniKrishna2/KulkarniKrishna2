@@ -72,7 +72,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="bankName" type="text" name="bankName" ng-model="formData.bankName" class="form-control" required late-Validate/>
+                    <input id="bankName" type="text" name="bankName" ng-model="formData.bankName" class="form-control" maxlength="50" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="bankName"/>
@@ -80,14 +80,10 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="branchName">{{'label.heading.mandate.branchName' | translate}}<span
-                        class="required">*</span></label>
+                <label class="control-label col-sm-2" for="branchName">{{'label.heading.mandate.branchName' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="branchName" type="text" name="branchName" ng-model="formData.branchName" class="form-control" required late-Validate/>
-                </div>
-                <div class="col-sm-3">
-                    <form-validate valattributeform="mandateform" valattribute="branchName"/>
+                    <input id="branchName" type="text" name="branchName" ng-model="formData.branchName" class="form-control" maxlength="50">
                 </div>
             </div>
 
@@ -96,7 +92,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="bankAccountNumber" type="text" name="bankAccountNumber" ng-model="formData.bankAccountNumber" class="form-control" required late-Validate/>
+                    <input id="bankAccountNumber" type="text" name="bankAccountNumber" ng-model="formData.bankAccountNumber" class="form-control" maxlength="20" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="bankAccountNumber"/>
@@ -107,7 +103,7 @@
                 <label class="control-label col-sm-2" for="micr">{{'label.heading.mandate.micr' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="micr" type="text" name="micr" ng-model="formData.micr" class="form-control"/>
+                    <input id="micr" type="text" name="micr" ng-model="formData.micr" maxlength="10" class="form-control"/>
                 </div>
             </div>
 
@@ -115,7 +111,7 @@
                 <label class="control-label col-sm-2" for="ifsc">{{'label.heading.mandate.ifsc' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="ifsc" type="text" name="ifsc" ng-model="formData.ifsc" class="form-control" required/>
+                    <input id="ifsc" type="text" name="ifsc" ng-model="formData.ifsc" class="form-control" maxlength="11" required/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="ifsc"/>
