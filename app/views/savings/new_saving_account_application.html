@@ -169,7 +169,7 @@
         </tr>
         <tr>
             <td colspan="2" class="paddedbottom10">
-                <input type="checkbox" ng-model="formData.allowOverdraft"> &nbsp;<span
+                <input type="checkbox" ng-model="formData.allowOverdraft" ng-disabled="daisableAllowOverDraft"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowoverdraft' | translate }}&nbsp;</span>
             </td>
             <td class="width14" ng-show="formData.allowOverdraft">
@@ -231,21 +231,21 @@
             <td class="width14"></td>
             <td class="width36 paddedbottom10"></td>
         </tr>
-        <tr ng-if="formData.allowOverdraft">
+        <tr ng-if="showDrawingPower">
             <td colspan="2" class="paddedbottom10">
-                <input type="checkbox" ng-model="formData.allowDpLimit"> &nbsp;<span
+                <input type="checkbox" ng-model="formData.allowDpLimit" ng-disabled="disableAllowDpLimit"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowdplimit' | translate }}&nbsp;</span>
             </td>
-            <td class="width14" ng-show="formData.allowDpLimit">
+            <td class="width14" >
                 <label class="control-label">{{ 'label.input.dplimit' | translate
                     }}&nbsp;<span class="required">*</span></label></td>
-            <td class="width36 paddedbottom10" ng-show="formData.allowDpLimit">
-                <input ng-if="formData.allowDpLimit" id="dpLimitAmount" name="dpLimitAmount" type="text" class="form-control"
+            <td class="width36 paddedbottom10" >
+                <input  id="dpLimitAmount" name="dpLimitAmount" type="text" class="form-control"
                        ng-model="formData.dpLimitAmount" number-format required late-validate>
                 <form-validate valattributeform="newsavingccountform" valattribute="dpLimitAmount"/>
             </td>
         </tr>
-        <tr ng-if="formData.allowOverdraft ==true && formData.allowDpLimit==true">
+        <tr ng-if="showDrawingPower">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -268,7 +268,7 @@
                 {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
             </td>
         </tr>
-        <tr ng-if="formData.allowOverdraft==true && formData.allowDpLimit==true">
+        <tr ng-if="showDrawingPower">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
