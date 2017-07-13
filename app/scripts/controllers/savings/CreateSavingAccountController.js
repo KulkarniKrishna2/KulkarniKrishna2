@@ -7,7 +7,6 @@
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
-
 			scope.date = {};
 			scope.date.submittedOnDate = new Date();
             if (routeParams.centerEntity) {
@@ -55,13 +54,20 @@
                     scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                     scope.formData.allowOverdraft = data.allowOverdraft;
+                    scope.allowOverDraft = data.allowOverdraft;
+                    scope.showDrawingPower = false;
                     if(scope.formData.allowOverdraft){
                         if(scope.data.savingsAccountDpDetailsData && scope.data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData){
                             scope.savingsProductDrawingPowerDetailsData = scope.data.savingsAccountDpDetailsData.savingsProductDrawingPowerDetailsData;
-                            scope.formData.allowDpLimit = scope.formData.allowOverdraft;
+                            if(scope.savingsProductDrawingPowerDetailsData.frequencyInterval != undefined && scope.savingsProductDrawingPowerDetailsData.frequencyType != undefined ) {
+                                scope.showDrawingPower = true;
+                                scope.formData.allowDpLimit = data.allowOverdraft;
+                            }
                         }
                     };
                     scope.formData.overdraftLimit = data.overdraftLimit;
+                    scope.daisableAllowOverDraft = scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isReadOnlyField.isOverdraftAllowed;
+                    scope.disableAllowDpLimit = scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isReadOnlyField.isDrawingPowerLimitAllowed;
                     scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
                     scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
                     scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;

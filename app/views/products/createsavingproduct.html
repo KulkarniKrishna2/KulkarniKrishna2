@@ -217,14 +217,15 @@
 
 			<div class="form-group" ng-if="formData.allowOverdraft">
 				<label class="control-label col-sm-3">{{ 'label.input.allowdplimit' | translate }}</label>
-				<i class="icon-question-sign col-sm-1" ng-hide="true"></i>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.dplimit' | translate}}"></i>
 				<div class="col-sm-2">
 					<input id="allowDpLimit" type="checkbox" ng-model="formData.allowDpLimit">
 				</div>
+
 			</div>
-			<div ng-if = "formData.allowOverdraft==true && formData.allowDpLimit==true">
-				<div class="form-group">
+			<div class="form-group" ng-if = "formData.allowOverdraft==true && formData.allowDpLimit==true">
 					<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.type' | translate}}<span class="required">*</span></label>
+				    <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.dpfrequencytype' | translate}}"></i>
 					<div class="col-sm-2">
 						<select id="dpFrequencyType" name="dpFrequencyType" class="form-control"
 								ng-model="formData.dpFrequencyType"
@@ -258,17 +259,16 @@
 					<div class="col-sm-2">
 						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyType"/>
 					</div>
+			</div>
+			<div ng-if = "formData.allowOverdraft==true && formData.allowDpLimit==true" class="form-group">
+				<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.interval' | translate}}<span class="required">*</span></label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.dpfreequncyinterval' | translate}}"></i>
+				<div class="col-sm-2">
+					<input id="dpFrequencyInterval" name="dpFrequencyInterval" type="text" class="form-control"
+						   ng-model="formData.dpFrequencyInterval" required late-validate>
 				</div>
-
-				<div class="form-group">
-					<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.interval' | translate}}<span class="required">*</span></label>
-					<div class="col-sm-2">
-						<input id="dpFrequencyInterval" name="dpFrequencyInterval" type="text" class="form-control"
-							   ng-model="formData.dpFrequencyInterval" required late-validate>
-					</div>
-					<div class="col-sm-2">
-						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyInterval"/>
-					</div>
+				<div class="col-sm-2">
+					<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyInterval"/>
 				</div>
 			</div>
 

@@ -8,6 +8,14 @@
       "isMandatory": {
         "externalId": true
       }
+    },
+    "savingsAccount":{
+      "overDraft":{
+        "isReadOnlyField" :{
+          "isOverdraftAllowed" : true,
+          "isDrawingPowerLimitAllowed" : true
+        }
+      }
     }
   }
 }

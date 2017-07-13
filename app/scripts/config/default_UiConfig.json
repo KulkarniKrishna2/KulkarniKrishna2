@@ -246,6 +246,10 @@
 		"overdraftLimitHeading":"",
 		"isHiddenField":{
 		  "amountTobePaid":false
+		},
+		"isReadOnlyField" :{
+		  "isOverdraftAllowed" : false,
+		  "isDrawingPowerLimitAllowed" : false
 		}
 	  },
 	  "deposit":{
