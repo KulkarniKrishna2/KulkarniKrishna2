@@ -6,8 +6,8 @@
         "linkAccountId": true,
         "createStandingInstruction": true,
         "repaymentFrequencyType": true,
-        "repaymentFrequencyNthDayType": true,
-        "repaymentFrequencyDayOfWeekType": true,
+        "repaymentFrequencyNthDayType": false,
+        "repaymentFrequencyDayOfWeekType": false,
         "interestType": true,
         "syncDisbursementDateWithMeeting": true,
         "recurringMoratoriumOnPrincipalPeriods": true
