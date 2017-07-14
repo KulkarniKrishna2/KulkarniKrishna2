@@ -26,7 +26,9 @@
 		"recurringMoratoriumOnPrincipalPeriods": false,
 		"brokenPeriodMethodType": false,
 		"creditApprisalReportButton": true,
-		"netDisbursalAmount":true
+		"netDisbursalAmount":true,
+		"loanPurpose": false,
+		"preferredPaymentChannel" : false
 	  },
 	  "isMandatory": {
 		"externalId": false,
@@ -49,7 +51,9 @@
 		"interestRatePerPeriod": false,
 		"loanPurposeId": false,
 		"syncRepaymentsWithMeeting": false,
-		"repaymentFrequencyType": false
+		"repaymentFrequencyType": false,
+		"submittedOn": false,
+		"firstRepaymentDate":false
 	  },
 	  "isAutoPopulate": {
 		"interestChargedFromDate": false
