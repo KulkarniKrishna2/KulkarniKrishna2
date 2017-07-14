@@ -6,6 +6,7 @@ define(['underscore'], function () {
     var mainLink = document.createElement("a");
     mainLink.href = window.location.href;
     if (mainLink.hostname.indexOf('confluxcloud.com') >= 0) {
+        var hostname = window.location.hostname;
         var domains = hostname.split('.');
         if (domains[0] == "demo") {
             tenantIdentifier = 'default' ;
