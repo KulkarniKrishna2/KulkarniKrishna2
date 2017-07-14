@@ -440,7 +440,7 @@
                             value="{{brokenPeriodMethodType.id}}"></select>
                 </td>
             </tr>
-            <tr data-ng-show="loanaccountinfo.product.isFlatInterestRate">
+            <tr data-ng-show="loanaccountinfo.product.isFlatInterestRate && !loanaccountinfo.product.multiDisburseLoan">
                 <td ><label>{{ 'label.input.discountondisbursalamount' | translate }}</label></td>
                 <td class="paddedbottom10">
                     <input id="discountOnDisbursalAmount" type="text" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
@@ -588,6 +588,7 @@
                 <tr class="graybg">
                     <th>{{'label.input.expecteddisbursementon' | translate}}</th>
                     <th>{{'label.input.principal' | translate}}</th>
+                    <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -604,6 +605,12 @@
                         <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text"
                                ng-model="disbursementDetail.principal"
                                placeholder="{{'label.input.principal' | translate}}">
+                    </td>
+                    <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
+                        <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="form-control" number-format type="text"
+                               ng-model="disbursementDetail.discountOnDisbursalAmount"
+                               name="discountOnDisbursalAmount"
+                               placeholder="{{'label.input.discountondisbursalamount' | translate}}">
                     </td>
                     <td><a ng-click="deleteTranches($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>

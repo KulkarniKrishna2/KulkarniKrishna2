@@ -116,11 +116,7 @@
                         }
                         break;
                     case "disburse.tranche":
-                        if (scope.loandetails.flatInterestRate != null && scope.loandetails.status.value == "Approved") {
-                            location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
-                        }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
-                        }
                         break;
                     case "disbursetosavings":
                         location.path('/loanaccount/' + accountId + '/disbursetosavings');

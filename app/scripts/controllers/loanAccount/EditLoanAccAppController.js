@@ -355,7 +355,9 @@
                 }
                 scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
                 scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
-                scope.formData.discountOnDisbursalAmount = scope.loanaccountinfo.discountOnDisbursalAmount ;
+                if(!scope.loanaccountinfo.multiDisburseLoan) {
+                    scope.formData.discountOnDisbursalAmount = scope.loanaccountinfo.discountOnDisbursalAmount;
+                }
                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.amountForUpfrontCollection ;
             }
 
@@ -619,7 +621,7 @@
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 this.formData.loanTermFrequency = scope.loanTerm;
-                if (scope.loanaccountinfo.product.isFlatInterestRate && scope.formData.discountOnDisbursalAmount == undefined) {
+                if (scope.loanaccountinfo.product.isFlatInterestRate && scope.formData.discountOnDisbursalAmount == undefined && !scope.loanaccountinfo.multiDisburseLoan) {
                     this.formData.discountOnDisbursalAmount = null;
                 }
                 if (scope.loanaccountinfo.allowUpfrontCollection && scope.formData.amountForUpfrontCollection == undefined) {

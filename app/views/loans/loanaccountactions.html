@@ -126,6 +126,7 @@
                 <td></td>
                 <td>{{'label.input.expecteddisbursementon' | translate}}</td>
                 <td>{{'label.account.deposit.principal.amount' | translate}}</td>
+                <th ng-show="isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
                 <td>{{'label.heading.actions' | translate}}</td>
             </tr>
             <tr ng-repeat="details in disbursementDetails">
@@ -140,6 +141,11 @@
                     <input type="text" class="form-control" id="details[{{$index}}].principal"
                            ng-change="addTrancheAmounts()" ng-model="details.principal">
                 </td>
+                <td ng-show="isFlatInterestRate">
+                    <input type="text" class="form-control" id="details[{{$index}}].discountOnDisbursalAmount"
+                           ng-change="addTrancheAmounts()" ng-model="details.discountOnDisbursalAmount">
+                </td>
+
                 <td>
                     <a ng-click="deleteTranches($index);addTrancheAmounts();"><i class="icon-remove icon-white"></i></a>
                 </td>
@@ -188,7 +194,7 @@
 
             <div class="col-sm-3">
                 <input id="discountOnDisbursalAmount" type="text" name="discountOnDisbursalAmount" ng-model="formData.discountOnDisbursalAmount"
-                       class="form-control"
+                       class="form-control" ng-disabled="disableDiscount"
                        number-format >
             </div>
             <div class="col-sm-3">
@@ -578,6 +584,7 @@
         <tr class="graybg">
             <th>{{'label.input.expecteddisbursementon' | translate}}</th>
             <th>{{'label.input.principal' | translate}}</th>
+            <th ng-show="isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
             <th>{{'label.input.actions' | translate}}</th>
         </tr>
         </thead>
@@ -595,6 +602,11 @@
                        ng-model="disbursementDetail.principal"
                        placeholder="{{'label.input.principal' | translate}}">
             </td>
+            <td ng-hide="disbursementDetail.id && !isFlatInterestRate">
+                <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="form-control" number-format type="text"
+                       ng-model="disbursementDetail.discountOnDisbursalAmount"
+                       placeholder="{{'label.input.discountondisbursalamount' | translate}}">
+            </td>
             <td ng-hide="disbursementDetail.id"><a ng-click="deleteTranches($index)"><i
                     class="icon-remove icon-white"></i></a></td>
         </tr>
@@ -605,6 +617,7 @@
         <tr class="graybg">
             <th>{{'label.input.expecteddisbursementon' | translate}}</th>
             <th>{{'label.input.principal' | translate}}</th>
+            <th ng-show="isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
             <th>{{'label.input.actions' | translate}}</th>
         </tr>
         </thead>
@@ -624,6 +637,11 @@
                        ng-model="disbursementDetail.principal"
                        ng-show="disbursementDetail.actualDisbursementDate == null"
                        placeholder="{{'label.input.principal' | translate}}" ng-disabled="true">
+            </td>
+            <td ng-hide="disbursementDetail.id && !isFlatInterestRate">
+                <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="form-control" number-format type="text"
+                       ng-model="disbursementDetail.discountOnDisbursalAmount"
+                       placeholder="{{'label.input.discountondisbursalamount' | translate}}">
             </td>
             <td ng-show="disbursementDetail.actualDisbursementDate == null"><a ng-click="deleteTranches($index)"><i
                     class="icon-remove icon-white"></i></a></td>
