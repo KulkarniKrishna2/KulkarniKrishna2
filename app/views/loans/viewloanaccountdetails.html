@@ -1018,12 +1018,14 @@
                                 <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
                                 <th align="left">{{'label.input.disbursedon' | translate}}</th>
                                 <th align="left">{{'label.input.principal' | translate}}</th>
+                                <th align="left" data-ng-show="loandetails.flatInterestRate != null">{{'label.input.discountondisbursalamount' | translate}}</th>
                                 <th align="left">&nbsp;</th>
                             </tr>
                             <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
                                 <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.principal | number}}</td>
+                                <td data-ng-show="loandetails.flatInterestRate != null">{{disbursementDetail.discountOnDisbursalAmount | number}}</td>
                                 <td>
                                     <div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i>
                                     </div>

@@ -15,6 +15,7 @@
             scope.paymentTypes = [];
             scope.expectedDisbursementDate = [];
             scope.disbursementDetails = [];
+            scope.isFlatInterestRate = false;
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
             scope.showAmountDispaly = false;
@@ -251,6 +252,7 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.clientId = data.clientId;
+                        scope.isFlatInterestRate = data.product.isFlatInterestRate;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                             scope.approveTranches = true;
@@ -294,6 +296,8 @@
                 case "disburse":
                     scope.modelName = 'actualDisbursementDate';
                     scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
+                    scope.showdiscountOnDisburse = false;
+                    scope.disableDiscount = true;
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
@@ -314,14 +318,17 @@
                             scope.showNetDisbursalAmount = false;
                         }
                         scope.formData.discountOnDisbursalAmount=data.discountOnDisbursalAmount;
+                        if (scope.formData.discountOnDisbursalAmount){
+                            scope.showdiscountOnDisburse = true;
+                        }
                         if(data.expectedFirstRepaymentOnDate){
                             scope.formData.repaymentsStartingFromDate = new Date(data.expectedFirstRepaymentOnDate);
                             scope.showRepaymentsStartingFromDateField = true;
                         }
                     });
-                    scope.showdiscountOnDisburse = false;
                     if(routeParams.type && routeParams.type == 'flatinterest'){
                         scope.showdiscountOnDisburse = true;
+                        scope.disableDiscount = false;
                     }
                     scope.title = 'label.heading.disburseloanaccount';
                     scope.labelName = 'label.input.disbursedondate';
@@ -841,7 +848,8 @@
                                 id: scope.disbursementDetails[i].id,
                                 principal: scope.disbursementDetails[i].principal,
                                 expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
-                                loanChargeId : scope.disbursementDetails[i].loanChargeId
+                                loanChargeId : scope.disbursementDetails[i].loanChargeId,
+                                discountOnDisbursalAmount : scope.disbursementDetails[i].discountOnDisbursalAmount
                             });
                         }
                     }
@@ -924,7 +932,8 @@
                             id: scope.disbursementDetails[i].id,
                             principal: scope.disbursementDetails[i].principal,
                             expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
-                            loanChargeId : scope.disbursementDetails[i].loanChargeId
+                            loanChargeId : scope.disbursementDetails[i].loanChargeId,
+                            discountOnDisbursalAmount : scope.disbursementDetails[i].discountOnDisbursalAmount
                         });
                     }
                     resourceFactory.LoanEditDisburseResource.update({loanId: routeParams.id, disbursementId: routeParams.disbursementId}, this.formData, function (data) {
@@ -937,7 +946,8 @@
                             id:scope.disbursementDetails[i].id,
                             principal: scope.disbursementDetails[i].principal,
                             expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
-                            loanChargeId : scope.disbursementDetails[i].loanChargeId
+                            loanChargeId : scope.disbursementDetails[i].loanChargeId,
+                            discountOnDisbursalAmount : scope.disbursementDetails[i].discountOnDisbursalAmount
                         });
                     }
 
