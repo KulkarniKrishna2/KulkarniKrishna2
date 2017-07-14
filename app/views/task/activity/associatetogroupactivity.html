@@ -1,0 +1,45 @@
+<div class="col-md-12" data-ng-controller="AssociateToGroupController">
+    <form name="associatetogroup" class="form-horizontal well">
+        <fieldset>
+            <div ng-if="!isViewMode">
+                <div class="row">
+                    <div class="col-md-7">
+                        <legend>{{'label.heading.associate.to.group' | translate}}</legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">{{ 'label.menu.selectgroup' | translate }}</label>
+                            <div class="col-sm-4 col-md-4">
+                                <select class="form-control" name="groupName" id="groupName" ng-options="group.id as group.name for group in groups" ng-model="formData.destinationGroupId">
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-offset-5">
+                    <br>
+                    <button id="save" type="button" ng-click="transfer()" class="btn btn-primary">{{'label.button.associate' | translate}}</button>
+                </div>
+            </div>
+            <div ng-if="isViewMode">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.group.id' | translate }} :
+                    </label>
+
+                    <div class="col-sm-2">
+                        <label class="control-label col-sm-2">{{ destinationGroupId}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.groupname' | translate }} :
+                    </label>
+
+                    <div class="col-sm-2">
+                        <label class="control-label col-sm-2">{{ groupName}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

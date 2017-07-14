@@ -6147,5 +6147,10 @@
     "label.heading.hide":"Hide",
     "label.input.filterby.statementname.bankname" : "Filter display by name/bank name",
     "label.input.searchby.statementname.bankname" : "Find by name/bank name",
+
+    "label.heading.associate.to.group":"Associate to Group",
+    "label.heading.group.id" : "Group ID",
+    "label.button.associate": "Associate",
+    "error.msg.group.client.not.in.group" : "Client not present in group",
     "------ end of tensalation file":"---------"
 }
