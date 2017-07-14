@@ -27,6 +27,9 @@
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
             scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
             scope.isGlimChargesAvailbale = true;
+            scope.buttons = {};
+            scope.singlebuttons = [];
+            scope.allowPaymentsOnClosedLoanConfigName = "allow-payments-on-closed-loans";
 
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -611,39 +614,50 @@
                     }
                 }
                 if (data.status.value == "Overpaid" && !scope.isGlim ) {
-                    scope.buttons = { singlebuttons: [
+                    scope.singlebuttons.push(
                         {
                             name: "button.refund",
                             icon: "icon-exchange",
                             taskPermissionName: 'REFUND_LOAN'
-                        },{
+                        });
+                    scope.singlebuttons.push({
                             name: "button.transferFunds",
                             icon: "icon-exchange",
                             taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
-                        }
-                    ]
-                    };
+                        });
                 }
                 
-                if ((data.status.value == "Overpaid" ||  data.status.value == "Closed (obligations met)") && scope.isGlim ) {
-                    scope.buttons = { singlebuttons: [
-                        {
+                if ((data.status.value == "Overpaid" ||  data.status.value == "Closed (obligations met)")) {
+                    if (scope.isGlim) {
+                        scope.singlebuttons.push({
                             name: "button.makerepayment",
                             icon: "icon-dollar",
                             taskPermissionName: 'REPAYMENT_LOAN'
-                        }
-                    ]
-                    };
+                        });
+                    }else {
+                        resourceFactory.configurationResource.get({configName: scope.allowPaymentsOnClosedLoanConfigName}, function (configData) {
+                            if (configData) {
+                                if (configData.enabled) {
+                                    scope.singlebuttons.push({
+                                        name: "button.makerepayment",
+                                        icon: "icon-dollar",
+                                        taskPermissionName: 'REPAYMENT_LOAN'
+                                    });
+                                }
+                            }
+                        });
+                    }
                 }
                 if (data.status.value == "Closed (written off)") {
-                    scope.buttons = { singlebuttons: [
+                    scope.singlebuttons.push(
                         {
                             name: "button.recoverypayment",
                             icon: "icon-briefcase",
                             taskPermissionName: 'RECOVERYPAYMENT_LOAN'
-                        }
-                    ]
-                    };
+                        });
+                }
+                if (data.status.value == "Overpaid" ||  data.status.value == "Closed (written off)" || data.status.value == "Closed (obligations met)") {
+                    scope.buttons = {singlebuttons: scope.singlebuttons};
                 }
                 scope.isWriteOff = false;
                 if(scope.loandetails.summary!=null) {
