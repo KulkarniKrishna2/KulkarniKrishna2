@@ -1,5 +1,7 @@
 <div class="col-md-12" ng-controller="CreateNewClientController">
     <ul class="breadcrumb">
+    	<li ng-if="centerId && !groupid && !loanApplicationReferenceId"><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+    	<li ng-if="centerId && !groupid && !loanApplicationReferenceId"><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li ng-if="!groupid && !loanApplicationReferenceId"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
         <li ng-if="groupid && !loanApplicationReferenceId"><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
         <li ng-if="groupid && !loanApplicationReferenceId"><a href="#/viewgroup/{{groupid}}">{{'label.anchor.viewgroup' | translate}}</a></li>

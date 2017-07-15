@@ -386,6 +386,9 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.activationDate = reqDate;
 
+                if (routeParams.centerId) {
+                    this.formData.centerId = routeParams.centerId;
+                }
                 if (routeParams.groupId) {
                     this.formData.groupId = routeParams.groupId;
                 }

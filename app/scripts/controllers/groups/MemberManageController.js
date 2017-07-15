@@ -19,7 +19,12 @@
             };
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true'}, function (data) {
-                scope.group = data;
+                if(data.groupLevel!=undefined && data.groupLevel==1){
+                    scope.center=data;
+                }
+                else{
+                    scope.group = data;
+                }
                 if(data.clientMembers) {
                     scope.allMembers = data.clientMembers;
                 }

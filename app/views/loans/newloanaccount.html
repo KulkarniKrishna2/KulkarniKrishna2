@@ -1,7 +1,8 @@
 <div ng-controller="NewLoanAccAppController">
 <div>
     <ul class="breadcrumb">
-        <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
+        <li ng-show="isCenter"><a href="#/viewcenter/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
+        <li ng-show="!isCenter && groupName"><a href="#/viewgroup/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
         <li class="active">{{'label.anchor.loanapplication' | translate}}</li>
     </ul>
