@@ -9,6 +9,7 @@
             scope.hidePentahoReport = true;
             scope.groupMemberAccountList = [];
             scope.showCreateCgt = true;
+            scope.isConfiguredClientCenterAssociation=false;
             $rootScope.centerId = routeParams.id
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -32,8 +33,10 @@
             scope.routeToCGT = function (id) {
                 location.path('/viewcgt/' + id);
             };
-
-            resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar'}, function (data) {
+            resourceFactory.configurationResource.get({configName: 'center-client-association'}, function (response) {
+                scope.isConfiguredClientCenterAssociation = response.enabled;
+            });
+            resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar,clientMembers'}, function (data) {
                 scope.center = data;
                 $rootScope.officeName = data.officeName;
                 $rootScope.officeId = data.officeId;
