@@ -489,9 +489,10 @@
                 $scope.video = null;
                 $scope.picture = null;
                 $scope.error = null;
-
-                $scope.onVideoSuccess = function (video) {
-                    $scope.video = video;
+                $scope.channel={};
+                
+                $scope.onVideoSuccess = function () {
+                    $scope.video = $scope.channel.video;
                     $scope.error = null;
                 };
 
