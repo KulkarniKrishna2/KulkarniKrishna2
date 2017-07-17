@@ -286,7 +286,7 @@
                         getLoanDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
                     mandateTemplateResource: defineResource(apiVer + "/loans/:loanId/mandates/template", {loanId: '@loanId'}, {
-                        getCreateTemplate: {method: 'GET', params: {command:"create"}, isArray: false},
+                        getCreateTemplate: {method: 'GET', params: {command:"create",showEMIBalance:"@showEMIBalance"}, isArray: false},
                         getUpdateTemplate: {method: 'GET', params: {command:"update"}, isArray: false},
                         getCancelTemplate: {method: 'GET', params: {command:"cancel"}, isArray: false}
                     }),

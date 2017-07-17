@@ -26,6 +26,9 @@
           "isDrawingPowerLimitAllowed" : true
         }
       }
-    }
+    },
+    "createMandates":{
+      "showEMIBalance": true
+  }
   }
 }
