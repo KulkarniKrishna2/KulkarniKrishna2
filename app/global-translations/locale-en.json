@@ -3247,6 +3247,7 @@
     "label.selectstatus": "Select status",
     "label.selectchecker": "Select checker",
     "label.loan": "Loan",
+    "label.loan.application": "Loan Application",
     "label.savingsaccount": "Savings account",
     "label.journalentry": "Journal Entry",
     "label.client": "Client",
