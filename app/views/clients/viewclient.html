@@ -4,6 +4,7 @@
 	        <li ng-hide="loanApplicationReferenceId"><a ng-href="#/viewoffice/{{client.officeId}}">{{client.officeName}}</a></li>
 			<li ng-show="group.villageData && !loanApplicationReferenceId"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
 			<li ng-show="group.centerName && !loanApplicationReferenceId"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
+			<li ng-show="center.name && !loanApplicationReferenceId"><a ng-href="#/viewcenter/{{center.id}}">{{center.name}}</a></li>
 			<li ng-show="group.name && !loanApplicationReferenceId"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
 			<li ng-if="loanApplicationReferenceId"><a href="#/managecoapplicants/{{loanApplicationReferenceId}}">{{'label.anchor.managecoapplicants' | translate}}</a></li>
 			<li>{{client.displayName}}</li>
@@ -126,7 +127,7 @@
 	        <br>
 	            <div>
 	                <div class="left">
-	                    <webcam on-streaming="onVideoSuccess(video)"
+	                    <webcam on-streaming="onVideoSuccess()" channel="channel" video="video"
 	                        on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
 	                </div>
 	                <div class="right">
@@ -717,7 +718,8 @@
 					                <td>
 					                    <span class="padded-td" data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span>
 										<span class="padded-td" ng-repeat="group in client.groups">
-										 <a class="list-group-item-text" href="#/viewgroup/{{group.id}}">{{group.name}}</a>&nbsp;<span
+										 <a ng-if="!isCenter" class="list-group-item-text" href="#/viewgroup/{{group.id}}">{{group.name}}</a>
+										 <a ng-if="isCenter" class="list-group-item-text" href="#/viewcenter/{{group.id}}">{{group.name}}</a>&nbsp;<span
 										        data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span><span
 										        ng-show="!$last">|</span>
 										</span>

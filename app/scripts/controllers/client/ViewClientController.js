@@ -27,6 +27,7 @@
             scope.clientId = routeParams.id;
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.id;
+            scope.isCenter=false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.pincode = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
@@ -296,9 +297,16 @@
                         scope.image = imageData.data;
                     });
                 }
-                if(data.groups && data.groups.length ==1) {
+                if(data.groups.length > 0 && data.groups[0].groupLevel==1){
+                    scope.isCenter=true;
+                }
+                if(data.groups.length > 0 && data.groups.length ==1 && data.groups.groupLevel==2) {
                     scope.group = data.groups[0];
                 }
+                if(data.groups.length > 0 && data.groups.length ==1 && data.groups.groupLevel==1) {
+                    scope.center = data.groups[0];
+                }
+
                 http({
                     method: 'GET',
                     url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
@@ -489,9 +497,10 @@
                 $scope.video = null;
                 $scope.picture = null;
                 $scope.error = null;
-
-                $scope.onVideoSuccess = function (video) {
-                    $scope.video = video;
+                $scope.channel={};
+                
+                $scope.onVideoSuccess = function () {
+                    $scope.video = $scope.channel.video;
                     $scope.error = null;
                 };
 

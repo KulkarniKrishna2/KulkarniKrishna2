@@ -3247,6 +3247,7 @@
     "label.selectstatus": "Select status",
     "label.selectchecker": "Select checker",
     "label.loan": "Loan",
+    "label.loan.application": "Loan Application",
     "label.savingsaccount": "Savings account",
     "label.journalentry": "Journal Entry",
     "label.client": "Client",
@@ -5718,7 +5719,8 @@
 	"label.input.lastnameLike":"Last Name Like Match",
 	"label.input.fullnameExact":"Full Name Exact Match",
 	"label.input.fullnameLike":"Full Name Like Match",
-	"label.input.mobileNo":"Mobile Number Match",
+    "label.input.mobileNo":"Mobile Number",
+	"label.input.mobileNo.match":"Mobile Number Match",
 	"label.input.dateOfBirth":"Date of Birth Match",
 	"label.input.genderCvId":"Gender Match",
 	"label.input.incorpNo":"Incorporation Number Match",
@@ -6153,5 +6155,9 @@
     "error.msg.loan.foreclosure.transaction.date.is.in.future" : "This transaction cannot be performed with a date in the future.",
     "error.msg.loan.foreclosure.transaction.date.cannot.before.the.last.transaction.date" :"This transaction date can not be before the last transaction date",
     "error.msg.loan.with.interest.recalculation.enabled.cannot.be.foreclosured" : "The loan with interest recalculation enabled cannot be foreclosed.",
+    "label.heading.associate.to.group":"Associate to Group",
+    "label.heading.group.id" : "Group ID",
+    "label.button.associate": "Associate",
+    "error.msg.group.client.not.in.group" : "Client not present in group",
     "------ end of tensalation file":"---------"
 }

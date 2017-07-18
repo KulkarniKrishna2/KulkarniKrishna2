@@ -10,7 +10,8 @@
                     data.columnHeaderData.splice(0, 1);
                 }
                 colName = data.columnHeaderData[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
+                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
+                    colName == 'savings_account_id' || colName == 'gl_journal_entry_id' || colName == 'loan_application_reference_id') {
                     data.columnHeaderData.splice(0, 1);
                 }
 

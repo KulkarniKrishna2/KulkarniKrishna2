@@ -20,6 +20,14 @@
             scope.upfrontFee = "Upfront Fee";
             scope.interestRatesListPerPeriod = [];
             scope.interestRatesListAvailable = false;
+            scope.isCenter=false;
+
+            resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
+                if(data.groupLevel && data.groupLevel==1)
+                {
+                    scope.isCenter=true;
+                }
+            });
 
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
