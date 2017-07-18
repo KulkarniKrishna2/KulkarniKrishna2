@@ -297,13 +297,13 @@
                         scope.image = imageData.data;
                     });
                 }
-                if(data.groups && data.groups[0].groupLevel==1){
+                if(data.groups.length > 0 && data.groups[0].groupLevel==1){
                     scope.isCenter=true;
                 }
-                if(data.groups && data.groups.length ==1 && data.groups.groupLevel==2) {
+                if(data.groups.length > 0 && data.groups.length ==1 && data.groups.groupLevel==2) {
                     scope.group = data.groups[0];
                 }
-                if(data.groups && data.groups.length ==1 && data.groups.groupLevel==1) {
+                if(data.groups.length > 0 && data.groups.length ==1 && data.groups.groupLevel==1) {
                     scope.center = data.groups[0];
                 }
 
