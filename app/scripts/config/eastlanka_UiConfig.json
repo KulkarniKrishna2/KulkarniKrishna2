@@ -1,0 +1,12 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+
+  "createClient": {
+      "isMandatoryField": {
+        "externalId": true
+      }
+    }
+  }
+}
+
