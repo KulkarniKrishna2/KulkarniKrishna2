@@ -8,9 +8,14 @@
             scope.formData = {};
             scope.destinationGroup = "";
             scope.groupId = routeParams.id;
+            scope.isCenter=false;
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'activeClientMembers'}, function (data) {
                 scope.data = data;
+                if(data.groupLevel && data.groupLevel==1)
+                {
+                    scope.isCenter=true;
+                }
                 scope.allMembers = data.activeClientMembers;
             });
 

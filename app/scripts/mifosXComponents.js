@@ -469,6 +469,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/AddressActivityController',
             'task/activity/clientActivationActivityController',
             'task/activity/CoApplicantActivityController',
+            'task/activity/AssociateToGroupController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',

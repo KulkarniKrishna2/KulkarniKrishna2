@@ -1,7 +1,9 @@
 <div class="col-md-12" data-ng-controller="MemberManageController">
     <ul class="breadcrumb">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
-        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li ng-hide="center"><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li ng-hide="center"><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li ng-show="center"><a href="#/centers">{{'label.button.centers' | translate}}</a></li>
+        <li ng-show="center"><a href="#/viewcenter/{{center.id}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.managemembers' | translate}}</li>
     </ul>
     <script type="text/ng-template" id="delete.html">
@@ -73,7 +75,8 @@
             </div>
             <div class="col-sm-3 col-md-offset-5">
                 <br>
-                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default"><i class="icon-double-angle-left"></i> {{ 'label.button.back' | translate }}</a>
+                <a ng-if="!center" id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default"><i class="icon-double-angle-left"></i> {{ 'label.button.back' | translate }}</a>
+                <a ng-if="center" id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default"><i class="icon-double-angle-left"></i> {{ 'label.button.back' | translate }}</a>
             </div>
         </fieldset>
    </form>     
