@@ -1,0 +1,205 @@
+<div ng-controller="DisplayPDCListController">
+    <div class="pull-right">
+        <a class="btn btn-primary" data-ng-click="addPDC()"><i class="icon-plus icon-white"></i>{{'label.button.add'
+            | translate}}</a>
+    </div>
+    <div class="clear"></div>
+    <div>
+        <h3>{{'label.heading.security.pdc' | translate}}</h3>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.cheque.no' | translate}}</th>
+                <th>{{'label.heading.cheque.date' | translate}}</th>
+                <th>{{'label.heading.cheque.amount' | translate}}</th>
+                <th>{{'label.heading.mandate.bankName' | translate}}</th>
+                <th>{{'label.heading.mandate.branchName' | translate}}</th>
+                <th>{{'label.heading.mandate.ifsc' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" data-ng-repeat="pdc in pdcListData track by $index"
+                ng-if="pdc.chequeType.id==2">
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.chequeNumber}}</label>
+                    <label data-ng-if="editSecurityPDCIndex == $index">
+                        <input id="editSecurityChequeNumber{{pdc.chequeType.id}}" type="number"
+                               name="editSecurityChequeNumber{{pdc.chequeType.id}}" maxlength="30"
+                               ng-model="editSecurityPDCData.chequeNumber"
+                               class="form-control"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.chequeDate |
+                        DateFormat}}</label>
+                    <label data-ng-if="editSecurityPDCIndex == $index">
+                        <input id="editSecurityChequeDate{{pdc.chequeType.id}}"
+                               name="editSecurityChequeDate{{pdc.chequeType.id}}" sort type="text"
+                               datepicker-pop="dd MMMM yyyy"
+                               class="form-control"
+                               ng-model="editSecurityPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
+                               max="restrictDate"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.chequeAmount |
+                        number}}</label>
+                    <label data-ng-if="editSecurityPDCIndex == $index">
+                        <input type="text" class="form-control" id="editSecurityChequeAmount{{pdc.chequeType.id}}"
+                               name="editSecurityChequeAmount{{pdc.chequeType.id}}"
+                               ng-model="editSecurityPDCData.chequeAmount"
+                               number-format/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.bankName}}</label>
+                    <label data-ng-if="editSecurityPDCIndex == $index">
+                        <input id="editSecurityBankName{{pdc.chequeType.id}}"
+                               name="editSecurityBankName{{pdc.chequeType.id}}" type="text" maxlength="100"
+                               class="form-control" ng-model="editSecurityPDCData.bankName"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.branchName}}</label>
+                    <label data-ng-if="editSecurityPDCIndex == $index">
+                        <input id="editSecurityBranchName{{pdc.chequeType.id}}"
+                               name="editSecurityBranchName{{pdc.chequeType.id}}" type="text"
+                               maxlength="100" class="form-control"
+                               ng-model="editSecurityPDCData.branchName"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.ifscCode}}</label>
+                    <label data-ng-if="editSecurityPDCIndex == $index">
+                        <input id="editSecurityIfscCode{{pdc.chequeType.id}}"
+                               name="editSecurityIfscCode{{pdc.chequeType.id}}" type="text" maxlength="50"
+                               class="form-control" ng-model="editSecurityPDCData.ifscCode"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                    {{pdc.presentStatus.value}}
+                </td>
+                <td>
+                    <a data-ng-if="isEditSecurityPDC($index,pdc)" ng-click="buildEditSecurityPDC($index,pdc)"
+                       has-permission='UPDATE_PDC'><i
+                            class="icon-edit icon-green"></i></a>
+                    &nbsp;
+                    <a data-ng-if="isDeleteSecurityPDC($index,pdc)" ng-click="deletePDC(pdc)"
+                       has-permission='DELETE_PDC'><i
+                            class="icon-trash icon-red"></i></a>
+                    <a data-ng-if="editSecurityPDCIndex == $index" class="btn btn-primary"
+                       data-ng-click="editSecurityPDC()">{{'label.button.update' | translate}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clear"></div>
+    <div>
+        <h3>{{'label.heading.repayment.pdc' | translate}}</h3>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.due.date' | translate}}</th>
+                <th>{{'label.heading.paid' | translate}}</th>
+                <th>{{'label.heading.due' | translate}}</th>
+                <th>{{'label.heading.cheque.no' | translate}}</th>
+                <th>{{'label.heading.cheque.date' | translate}}</th>
+                <th>{{'label.heading.mandate.bankName' | translate}}</th>
+                <th>{{'label.heading.mandate.branchName' | translate}}</th>
+                <th>{{'label.heading.mandate.ifsc' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" data-ng-repeat="pdc in pdcListData track by $index"
+                ng-if="pdc.chequeType.id==1">
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    {{pdc.mappingData.dueDate | DateFormat}}
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    {{pdc.mappingData.paidStatus == true ? 'label.heading.yes' : 'label.heading.no'
+                    | translate}}
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    {{pdc.mappingData.dueAmount | number}}
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <label class="pointer"
+                           data-ng-if="editRepaymentPDCIndex != $index">{{pdc.chequeNumber}}</label>
+                    <label data-ng-if="editRepaymentPDCIndex == $index">
+                        <input id="editChequeNumber{{pdc.chequeType.id}}" type="number"
+                               name="editChequeNumber{{pdc.chequeType.id}}" maxlength="30"
+                               ng-model="editRepaymentPDCData.chequeNumber"
+                               class="form-control"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.chequeDate |
+                        DateFormat}}</label>
+                    <label data-ng-if="editRepaymentPDCIndex == $index">
+                        <input id="editChequeDate{{pdc.chequeType.id}}"
+                               name="editChequeDate{{pdc.chequeType.id}}" sort type="text"
+                               datepicker-pop="dd MMMM yyyy"
+                               class="form-control"
+                               ng-model="editRepaymentPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
+                               max="restrictDate"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.bankName}}</label>
+                    <label data-ng-if="editRepaymentPDCIndex == $index">
+                        <input id="editBankName{{pdc.chequeType.id}}"
+                               name="editBankName{{pdc.chequeType.id}}" type="text" maxlength="100"
+                               class="form-control" ng-model="editRepaymentPDCData.bankName"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.branchName}}</label>
+                    <label data-ng-if="editRepaymentPDCIndex == $index">
+                        <input id="editBranchName{{pdc.chequeType.id}}"
+                               name="editBranchName{{pdc.chequeType.id}}" type="text"
+                               maxlength="100" class="form-control"
+                               ng-model="editRepaymentPDCData.branchName"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.ifscCode}}</label>
+                    <label data-ng-if="editRepaymentPDCIndex == $index">
+                        <input id="editIfscCode{{pdc.chequeType.id}}"
+                               name="editIfscCode{{pdc.chequeType.id}}" type="text" maxlength="50"
+                               class="form-control" ng-model="editRepaymentPDCData.ifscCode"/>
+                    </label>
+                </td>
+                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    {{pdc.presentStatus.value}}
+                </td>
+                <td>
+                    <a data-ng-if="isEditRepaymentPDC($index,pdc)" ng-click="buildEditRepaymentPDC($index,pdc)"
+                       has-permission='UPDATE_PDC'><i class="icon-edit icon-green"></i></a>
+                    &nbsp;
+                    <a data-ng-if="isDeleteRepaymentPDC($index,pdc)" ng-click="deletePDC(pdc)"
+                       has-permission='DELETE_PDC'><i class="icon-trash icon-red"></i></a>
+                    <a data-ng-if="editRepaymentPDCIndex == $index" class="btn btn-primary"
+                       data-ng-click="editRepaymentPDC()">{{'label.button.update' | translate}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/ng-template" id="deletepdc.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+    </div>
+    <div class="modal-body ">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>

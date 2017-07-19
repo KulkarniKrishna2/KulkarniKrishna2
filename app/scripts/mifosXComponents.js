@@ -509,7 +509,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'bulkoperations/ViewBulkPortfolioTransactionsController',
             'bulkoperations/UploadBulkCollectionController',
             'limitsmodule/CreateClientAccountLimitsController',
-            'limitsmodule/ViewCustomerAccountLimitsController'
+            'limitsmodule/ViewCustomerAccountLimitsController',
+            'pdc/CreatePDCController',
+            'pdc/DisplayPDCListController',
+            'pdc/ViewPDCDetailController',
+            'pdc/ManagePDCController',
+            'pdc/ActionOnPDCController'
         ],
         filters: [
             'StatusLookup',

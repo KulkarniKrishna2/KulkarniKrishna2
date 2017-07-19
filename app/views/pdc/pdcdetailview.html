@@ -1,0 +1,99 @@
+<div class="col-md-12" ng-controller="ViewPDCDetailController" xmlns="http://www.w3.org/1999/html">
+    <div>
+        <ul class="breadcrumb">
+            <li>{{'lable.anchor.pdc' | translate}}</li>
+            <li class="active">{{'lable.anchor.pdc.detailed.view' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right">
+        <div class="btn-group" data-ng-if="isSearchPDCData">
+            <a class="btn btn-primary" data-ng-click="isSearchPDCData = false"><i class="icon-white"></i>{{'label.button.add'
+                | translate}}</a>
+        </div>
+    </div>
+    <div class="row paddedleft">
+        <legend>{{'label.heading.details' | translate}}</legend>
+        <table class="table table-striped">
+            <tbody>
+            <tr ng-if="pdcData.chequeType.value">
+                <td>{{'label.input.pdc.type' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.chequeType.value}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.chequeNumber">
+                <td>{{'label.input.cheque.number' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.chequeNumber}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.chequeAmount">
+                <td>{{'label.heading.cheque.amount' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.chequeAmount | number}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.mappingData.dueAmount">
+                <td>{{'label.input.due.amount' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.mappingData.dueAmount | number}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.mappingData.dueDate">
+                <td>{{'label.input.duedate' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.mappingData.dueDate | DateFormat}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.chequeDate">
+                <td>{{'label.input.cheque.date' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.chequeDate | DateFormat}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.bankName">
+                <td>{{'label.input.bankname' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.bankName}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.branchName">
+                <td>{{'label.heading.mandate.branchName' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.branchName}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.ifscCode">
+                <td>{{'label.heading.mandate.ifsc' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.ifscCode}}</span></td>
+            </tr>
+            <tr ng-if="pdcData.presentStatus.value">
+                <td>{{'label.heading.status' | translate}}</td>
+                <td><span class="padded-td">{{pdcData.presentStatus.value}}</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="clear"></div>
+        <div class="col-md-offset-2">
+            <label>
+                <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.back' |
+                    translate}}
+                </button>
+            </label>
+            <label data-ng-if="pdcData">
+                <button type="button" data-ng-if="isEnableThisAction(present)"
+                        data-ng-click="actionToBePerformed(present)" class="btn btn-primary">
+                    {{'label.button.present.to.the.bank' | translate}}
+                </button>
+                <button type="button" data-ng-if="isEnableThisAction(return)"
+                        data-ng-click="actionToBePerformed(return)" class="btn btn-primary">
+                    {{'label.button.return.to.the.client' | translate}}
+                </button>
+                <button type="button" data-ng-if="isEnableThisAction(clear)"
+                        data-ng-click="actionToBePerformed(clear)" class="btn btn-primary">
+                    {{'label.button.mark.as.cleared' | translate}}
+                </button>
+                <button type="button" data-ng-if="isEnableThisAction(bounced)"
+                        data-ng-click="actionToBePerformed(bounced)" class="btn btn-primary">
+                    {{'label.button.mark.as.bounced' | translate}}
+                </button>
+                <button type="button" data-ng-if="isEnableThisAction(cancel)"
+                        data-ng-click="actionToBePerformed(cancel)" class="btn btn-primary">
+                    {{'label.button.mark.as.cancelled' | translate}}
+                </button>
+                <button type="button" data-ng-if="isEnableThisAction(undo)"
+                        data-ng-click="actionToBePerformed(undo)" class="btn btn-primary">
+                    {{'label.button.undo' | translate}}
+                </button>
+            </label>
+        </div>
+    </div>
+</div>
+
+<script data-ng-if="action" type="text/ng-template" id="actiononpdc.html">
+    <div ng-include="'views/pdc/actiononpdc.html'"></div>
+</script>

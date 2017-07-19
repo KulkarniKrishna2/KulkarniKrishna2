@@ -439,6 +439,7 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'reject'
                 }, {}, function (data) {
+
                     location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
