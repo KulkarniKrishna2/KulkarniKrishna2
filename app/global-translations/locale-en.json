@@ -6173,5 +6173,6 @@
     "label.heading.group.id" : "Group ID",
     "label.button.associate": "Associate",
     "error.msg.group.client.not.in.group" : "Client not present in group",
+    "validation.msg.savingsaccount.not.in.active.state": "Unable to complete transaction as Savings account is not active.",
     "------ end of tensalation file":"---------"
 }
