@@ -17,6 +17,7 @@
             scope.disbursementDetails = [];
             scope.isFlatInterestRate = false;
             scope.showTrancheAmountTotal = 0;
+            scope.showDiscountAmountTotal = 0;
             scope.processDate = false;
             scope.showAmountDispaly = false;
             scope.trancheError = false;
@@ -252,7 +253,7 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.clientId = data.clientId;
-                        scope.isFlatInterestRate = data.product.isFlatInterestRate;
+                        scope.isFlatInterestRate = data.flatInterestRate != null;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                             scope.approveTranches = true;
@@ -261,6 +262,8 @@
                             scope.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
                             scope.disbursementDetails[i].principal = data.disbursementDetails[i].principal;
                             scope.showTrancheAmountTotal += Number(data.disbursementDetails[i].principal) ;
+                            scope.showDiscountAmountTotal += Number(data.disbursementDetails[i].discountOnDisbursalAmount != null ? data.disbursementDetails[i].discountOnDisbursalAmount : 0) ;
+
                         }
                     });
                     break;
@@ -754,8 +757,10 @@
 
             scope.addTrancheAmounts = function(){
                 scope.showTrancheAmountTotal = 0;
+                scope.showDiscountAmountTotal = 0;
                 for(var i in scope.disbursementDetails ){
                     scope.showTrancheAmountTotal += Number(scope.disbursementDetails[i].principal);
+                    scope.showDiscountAmountTotal += Number(scope.disbursementDetails[i].discountOnDisbursalAmount != null ? scope.disbursementDetails[i].discountOnDisbursalAmount : 0) ;
                 }
             };
 
