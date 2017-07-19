@@ -311,6 +311,7 @@
     "label.input.districtname":"District",
     "label.input.pincode":"Pincode",
     "label.input.villages":"Villages",
+    "label.input.allowinterestratechart": "Allow Floating Rate Interest ?",
     "label.anchor.accountLimits":"Account Limits",
     "#Buttons": "..",
     "label.button.previous": "Previous",
@@ -566,6 +567,8 @@
     "label.heading.slabbasedcharges" : "Slab Based Charges",
     "label.heading.iscapitalized" : "Is Capitalized",
     "label.heading.advancesetting" : "Advanced Settings",
+    "label.heading.floatinginterestratechart" : "Floating Interest Rate Chart",
+    "label.heading.effectivefromdate" : "Effective From Date",
 
     "#Anchors": "..",
     "label.anchor.paycharge":"Pay Charge",

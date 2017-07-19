@@ -170,6 +170,29 @@
             <td colspan="3">{{savingproduct.daysToEscheat}}</td>
         </tr>
         <tr>
+            <td colspan="4"><strong>{{'label.heading.advancesetting' | translate}}</strong></td>
+        </tr>
+        <tr>
+            <td>{{ 'label.input.allowinterestratechart' | translate }}</td>
+            <td colspan="3">{{isFloatingInterestRateChart}}</td>
+        </tr>
+
+
+                    <tr class="graybg">
+                        <td>{{'label.heading.effectivefromdate' | translate}}</td>
+                        <td colspan="3">{{'label.heading.interestrate' | translate}}</td>
+                    </tr>
+                    <tr ng-repeat="chart in interestRateChart">
+                        <td>
+                            <label> {{chart.effectiveFromDate | DateFormat}} </label>
+                        </td>
+                        <td colspan="3">
+                            <label> {{chart.interestRate | number}} </label>
+                        </td>
+                    </tr>
+
+
+        <tr>
             <td colspan="4"><br/></td>
         </tr>
         <tr>
