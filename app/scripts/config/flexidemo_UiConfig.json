@@ -3,10 +3,20 @@
   "uiDisplayConfigurations": {
   	"loanAccount": {
   		"isHiddenField": {
-  			"netDisbursalAmount":false
+  			"netDisbursalAmount":false,
+        "fundId": true,
+        "linkAccountId": true,
+        "createStandingInstruction": true,
+        "loanPurpose": true,
+        "preferredPaymentChannel" : true
   		},
-      "isMandatory": {
-        "externalId": true
+      "isReadOnlyField": {
+        "externalId": true,
+        "displayName": true,
+        "submittedOn": true,
+        "firstRepaymentDate":true,
+        "loanTermFrequencyType": true,
+        "repaymentFrequencyType": true
       }
     },
     "savingsAccount":{
@@ -16,6 +26,9 @@
           "isDrawingPowerLimitAllowed" : true
         }
       }
-    }
+    },
+    "createMandates":{
+      "showEMIBalance": true
+  }
   }
 }
