@@ -329,12 +329,12 @@
                                 taskPermissionName:"UNBLOCK_SAVINGSACCOUNT"  
                             });
                             scope.buttons.options.push({
-                                name: "button.blockCredit",
-                                taskPermissionName:"BLOCKCREDIT_SAVINGSACCOUNT" 
+                                name: "button.unblockCredit",
+                                taskPermissionName:"UNBLOCKCREDIT_SAVINGSACCOUNT" 
                             });
                             scope.buttons.options.push({
-                                name: "button.blockDebit",
-                                taskPermissionName:"BLOCKDEBIT_SAVINGSACCOUNT"  
+                               name: "button.unblockDebit",
+                               taskPermissionName:"UNBLOCKDEBIT_SAVINGSACCOUNT" 
                             });
                         }
                         else if(data.subStatus.value == "BlockCredit"){
