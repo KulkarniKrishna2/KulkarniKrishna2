@@ -31,7 +31,7 @@
             'frAngular': '../scripts/modules/KeyboardManager',
             'Q': '../bower_components/q/q.min',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
-            'webcam-directive':'../bower_components/webcam-directive/app/scripts/webcam',
+            'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min',
 			'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
             'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json'
