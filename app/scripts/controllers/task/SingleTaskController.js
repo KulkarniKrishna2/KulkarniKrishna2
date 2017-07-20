@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SingleTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, angular) {
+        SingleTaskController: function (scope, $modal, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $route) {
 
             scope.canView = false;
             scope.canComplete = true;
@@ -42,6 +42,9 @@
             initTask();
 
             scope.initiateTaskAction = function(actionName) {
+                if(actionName == 'startover'){
+                    return scope.startover();
+                }
                 scope.taskActionExecutionErrorMessage = null;
                 scope.$broadcast('preTaskAction',{actionName:actionName});
 
@@ -73,6 +76,52 @@
                     });
 
                 });
+            };
+
+            scope.startover = function () {
+                $modal.open({
+                    templateUrl: 'startover.html',
+                    controller: StartOverCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
+            var StartOverCtrl = function ($scope, $modalInstance) {
+                $scope.previousTaskList=[];
+                $scope.startOverFormData={};
+                function initStartOver(){
+                    $scope.previousTaskList = [];
+                    resourceFactory.taskExecutionChildrenResource.getAll({taskId: scope.taskData.parentId}, function (children) {
+                        populatePreviousTasks(children);
+                    });
+                };
+
+                function populatePreviousTasks(taskList) {
+                    $scope.previousTaskList = [];
+                    if (taskList != undefined && taskList.length > 0) {
+                        var currentTask = scope.taskData;
+                        for (index in taskList) {
+                            var task = scope.tasks[index];
+                            if(task!=undefined && currentTask.order > task.order){
+                                $scope.startOverFormData.startOverTaskId=task.id;
+                                $scope.previousTaskList.push(task)
+                            }
+                        }
+                    }
+                };
+
+                initStartOver();
+                $scope.cancelStartOver = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitStartOver = function () {
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'startover'},$scope.startOverFormData, function (data) {
+                        $modalInstance.close('startover');
+                        $route.reload();
+                    });
+
+
+                };
             };
 
             scope.isTaskCompleted = function(){
@@ -219,7 +268,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('SingleTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.SingleTaskController]).run(function ($log) {
+    mifosX.ng.application.controller('SingleTaskController', ['$scope', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$route',mifosX.controllers.SingleTaskController]).run(function ($log) {
         $log.info("SingleTaskController initialized");
     });
 }(mifosX.controllers || {}));
