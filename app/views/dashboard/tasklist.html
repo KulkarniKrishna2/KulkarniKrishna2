@@ -8,54 +8,81 @@
             </h3>
     </div>
     <hr/>
-    <div class="row">
-        <div class=" clear-fix col-sm-2">
-            <div>
-                <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected">
-                &nbsp;&nbsp;
-                <button ng-if="filterBy == 'unassigned'" ng-disabled="!hasAnyRowSelected()" class="btn btn-primary" ng-click="assignMe()">{{'label.button.assign' | translate}}</button>
-                <button ng-if="filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow'" ng-disabled="!hasAnyRowSelected()"
-                        class="btn btn-primary" ng-click="unassignMe()">{{'label.button.unassign' | translate}}</button>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div>
-                <select chosen="offices" id="office" ng-model="formData.officeId"  class="form-control"
-                        ng-options="office.id as office.name for office in offices" value="{{office.id}}" data-placeholder="Office">
-                    <option value="">{{'label.alloffice' | translate}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div>
-                <select chosen="parentTaskConfigs" id="workflow" ng-model="formData.parentConfigId"  class="form-control"
-                        ng-options="parentTaskConfig.id as parentTaskConfig.name for parentTaskConfig in parentTaskConfigs" value="{{parentTaskConfig.id}}"
-                        data-ng-change="getChildrenTaskConfigs()" data-placeholder="Workflow">
-                    <option value="">{{'label.allWorkflows' | translate}}</option>
-                </select>
-            </div>
-        </div>
+    <table class="table">
+        <tr>
+            <td>
+                <div>
+                    <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected">
+                    &nbsp;&nbsp;
+                    <button ng-if="filterBy == 'unassigned'" ng-disabled="!hasAnyRowSelected()" class="btn btn-primary"
+                            ng-click="assignMe()">{{'label.button.assign' | translate}}
+                    </button>
+                    <button ng-if="filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow'"
+                            ng-disabled="!hasAnyRowSelected()"
+                            class="btn btn-primary" ng-click="unassignMe()">{{'label.button.unassign' | translate}}
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control"
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                            data-placeholder="Office">
+                        <option value="">{{'label.alloffice' | translate}}</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId"
+                            class="form-control"
+                            ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs"
+                            value="{{childrenTaskConfig.id}}"
+                            data-placeholder="Stage">
+                        <option value="">{{'label.allStages' | translate}}</option>
+                    </select>
+                </div>
+            </td>
 
-        <div class="col-sm-3">
-            <div>
-                <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId"  class="form-control"
-                        ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs" value="{{childrenTaskConfig.id}}"
-                        data-placeholder="Stage">
-                    <option value="">{{'label.allStages' | translate}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div>
-                <button class="btn btn-primary" ng-click="getWorkFlowTasks(filterBy)"><i class="icon-refresh"></i></button>
-            </div>
-        </div>
-    </div>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div>
+                    <select chosen="loanAccountTypeOptions" id="loanType" ng-model="formData.loanType"
+                            class="form-control"
+                            ng-options="loanAccountType.id as loanAccountType.value for loanAccountType in loanAccountTypeOptions"
+                            value="{{loanAccountType.id}}"
+                            data-ng-change="onLoanTypeChange(formData.loanType)" data-placeholder="{{'label.loanTypes' | translate}}">
+                        <option value="">{{'label.allLoanTypes' | translate}}</option>
+                    </select>
+                </div>
+            </td>
+            <td ng-if="filterByCenter">
+                <div>
+                    <select chosen="centers" id="center" ng-model="formData.centerId" class="form-control"
+                            ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+                            data-placeholder="{{'label.anchor.centers' | translate}}">
+                        <option value="">{{'label.allCenters' | translate}}</option>
+                    </select>
+                </div>
+            </td>
+
+            <td>
+                <div class="col-sm-1">
+                    <div>
+                        <button class="btn btn-primary" ng-click="getWorkFlowTasks(taskTypes[0].status)"><i
+                                class="icon-refresh"></i></button>
+                    </div>
+                </div>
+            <td>
+        </tr>
+    </table>
     <div id="home" class="row">
         <div class="col-md-12">
             <div class="card-content no-h-padding">
                 <tabset class="paddedtop paddedbottom10" tabset-name="testOne">
-                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)" ng-init="getWorkFlowTasks(taskTypes[0].status)" active="taskType.active" >
+                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)"  active="taskType.active" >
 
                         <tab-heading>
                             <i class="{{taskType.icon}}"></i> {{taskType.name | translate}}

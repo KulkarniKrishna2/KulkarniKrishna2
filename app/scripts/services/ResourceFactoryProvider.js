@@ -1086,6 +1086,12 @@
                         update: {method: 'PUT'},
                         delete: {method: 'DELETE'}
                     }),
+                    bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/action", {entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
+                        doAction: {method: 'POST',params:{command:'@command'}}
+                    }),
+                    bankAccountDetailWorkflowResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     cgtTemplateResource:defineResource(apiVer+"/cgt/template", {entityType: '@entityType', entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {entityId : '@entityId'}, isArray: false },
                         update: {method: 'POST', parms:{}}

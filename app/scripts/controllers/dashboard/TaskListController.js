@@ -11,7 +11,9 @@
             scope.childrenTaskConfigs = [];
             scope.selectedStatus = 'unassigned';
             scope.filterBy = 'unassigned';
-
+            scope.centers = [];
+            scope.loanAccountTypeOptions = [];
+            scope.filterByCenter = false;
             scope.getChildrenTaskConfigs = function () {
                 scope.formData.childConfigId = null;
                 resourceFactory.taskConfigResource.getTemplate({parentConfigId: scope.formData.parentConfigId}, function(data) {
@@ -22,6 +24,20 @@
             resourceFactory.taskConfigResource.getTemplate({}, function(data) {
                 scope.parentTaskConfigs = data.taskConfigs;
                 scope.offices = data.officeOptions;
+                scope.loanAccountTypeOptions = data.loanAccoutTypeOptions;
+            });
+
+            scope.onLoanTypeChange = function (loanTypeId) {
+                scope.filterByCenter = false;
+                for (var i in scope.loanAccountTypeOptions) {
+                    if (scope.loanAccountTypeOptions[i].id == loanTypeId && scope.loanAccountTypeOptions[i].value == "JLG") {
+                        scope.filterByCenter = true;
+                    }
+                }
+            };
+
+            resourceFactory.centerResource.getAllCenters(function(data){
+                scope.centers = data;
             });
 
             scope.toggleAll = function() {
@@ -48,6 +64,8 @@
                 params.officeId = scope.formData.officeId;
                 params.parentConfigId = scope.formData.parentConfigId;
                 params.childConfigId = scope.formData.childConfigId;
+                params.loanType = scope.formData.loanType;
+                params.centerId = scope.formData.centerId;
                 scope.formParams = params;
 
                 resourceFactory.taskListResource.get(params, function(data) {
@@ -77,7 +95,7 @@
                 paginatorService.paginate(fetchFunction, scope.pageSize);
             };
 
-            scope.getWorkFlowTasks(scope.filterBy);
+           // scope.getWorkFlowTasks(scope.filterBy);
 
             scope.goToTask = function (task) {
                 if(task.parentTaskId !=undefined){

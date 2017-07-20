@@ -38,6 +38,9 @@
                         var task = scope.tasks[index];
                         if (task.status!= undefined && task.status.value != 'inactive') {
                             scope.currentTaskId = task.id;
+                            if(task.status.id < 7){
+                                break;
+                            }
                         }
                     }
                 }

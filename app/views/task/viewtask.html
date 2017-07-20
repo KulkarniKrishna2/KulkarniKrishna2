@@ -1,6 +1,6 @@
 <div name="viewtaskForm" ng-controller="ViewTaskController">
     <div class="col-md-12 col-sm-12">
-        <div>
+        <div ng-if="!isEmbedded()">
             <ul class="breadcrumb">
                 <li><a href="#/tasklist"><strong>{{'label.heading.taskList' | translate}}</strong></a></li>
                 <li ng-if="taskData.parentId"><a href="#/viewtask/{{taskData.parentId}}"><strong>{{'label.heading.workflow' | translate}}</strong></a></li>
