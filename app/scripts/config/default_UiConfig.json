@@ -224,18 +224,21 @@
 		"bankAccountHolderName": true,
 		"bankAccountNumber": true,
 		"accountType": false,
-		"bankIFSCCode": false,
+		"bankIFSCCode": true,
 		"bankName": false,
 		"bankCity": false,
 		"mobileNumber": false,
 		"lastTransactionDate": false
 	  },
 	  "isHiddenField":{
-		"lastTransactionDate": true
+	    "bankIFSCCodeRepeat":false,
+	    "bankAccountNumberRepeat":false,
+		"lastTransactionDate": true,
+	    "micrCode": true
 	  },
 	  "regexValidations" :{
-		"mobileNumber":"",
-		"bankIFSCCode":""
+		"mobileNumber":"^\\d{10}$",
+		"bankIFSCCode":"^[A-Za-z]{4}\\d{7}$"
 	  }
 	},
 	"savingsAccount":{
