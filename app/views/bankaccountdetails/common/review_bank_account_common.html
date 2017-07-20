@@ -1,0 +1,127 @@
+<div ng-controller="ReviewBankAccountCommonController">
+    <div class="col-md-12 paddedtop">
+        <img ng-src="{{documentImg}}" width="600"/>
+    </div>
+    <form name="reviewbankaccountdetail" novalidate="" class="form-horizontal" >
+    <table class="table" >
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.info' | translate}}</th>
+            <th>{{'label.heading.makerdata' | translate}}</th>
+            <th>{{'label.heading.checkerdata' | translate}}</th>
+            <th ng-if="!viewConfig.showSummary">{{'label.heading.review' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-if="!isElemHidden('bankAccountHolderName')">
+            <td>
+                {{'label.input.holdername' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.name}}
+            </td>
+            <td>
+                {{checkerBankAccountData.name}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                    <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
+                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        <tr ng-if="!isElemHidden('bankAccountNumber')" >
+            <td>
+                {{'label.input.accountnumber' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.accountNumber}}
+            </td>
+            <td>
+                {{checkerBankAccountData.accountNumber}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                    <input  name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
+                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        <tr ng-if="!isElemHidden('accountType')">
+            <td>
+                {{'label.input.accounttype' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.accountType.code | translate}}
+            </td>
+            <td>
+                {{checkerBankAccountData.accountType.code | translate}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                    <input  name="accountType" id="accountType" ng-model="formData.accountType"
+                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        <tr ng-if="!isElemHidden('bankIFSCCode')" >
+            <td>
+                {{'label.input.ifsccode' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.ifscCode}}
+            </td>
+            <td>
+                {{checkerBankAccountData.ifscCode}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                    <input  name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
+                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        <tr ng-if="!isElemHidden('bankName')">
+            <td>
+                {{'label.input.bankname' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.bankName}}
+            </td>
+            <td>
+                {{checkerBankAccountData.bankName}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                    <input  name="bankName" id="bankName" ng-model="formData.bankName"
+                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        <tr ng-if="!isElemHidden('branchName')">
+            <td>
+                {{'label.input.branchName' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.branchName}}
+            </td>
+            <td>
+                {{checkerBankAccountData.branchName}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                    <input  name="branchName" id="branchName" ng-model="formData.branchName"
+                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        <tr ng-if="!isElemHidden('bankCity')">
+            <td>
+                {{'label.input.bankcity' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.bankCity}}
+            </td>
+            <td>
+                {{checkerBankAccountData.bankCity}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                <input  name="bankCity" id="bankCity" ng-model="formData.bankCity"
+                        type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="col-md-offset-2 paddedleft paddedtop" ng-if="!viewConfig.showSummary">
+            <a id="edit" ng-click="submit()" class="btn btn-primary">{{'label.button.approve' | translate}}</a>
+        </div>
+    </form>
+</div>

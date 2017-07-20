@@ -1,0 +1,184 @@
+<div class="col-md-12">
+    <form name="checkerbankaccountdetail" novalidate="" class="form-horizontal" >
+        <api-validate></api-validate>
+        <fieldset>
+
+            <legend>{{'label.anchor.checkerbankaccountdetails' | translate}}</legend>
+
+            <div class="col-md-12 paddedtop paddedbottom20">
+                <img ng-src="{{documentImg}}" width="600"/>
+            </div>
+            <div class="form-group paddedtop" ng-if="!isElemHidden('bankAccountHolderName')" >
+                <label class="control-label col-sm-3" >
+                    {{'label.input.holdername' | translate}}<span ng-if="isElemMandatory('bankAccountHolderName')" class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
+                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')"/>
+                </div>
+               <div class="col-sm-2">
+                <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountHolderName"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!isElemHidden('bankAccountNumberRepeat')">
+                <label class="control-label col-sm-3" >{{'label.input.accountnumber' | translate}}
+                    <span ng-show="isElemMandatory('bankAccountNumberRepeat')" class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
+                           type="password" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
+                </div>
+                <div class="col-sm-2">
+                     <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
+                <small class="required">
+                    {{'label.mismatch.account.number' | translate}}</small></span>
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountNumberRepeat"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="!isElemHidden('bankAccountNumber')">
+                <label class="control-label col-sm-3" >{{'label.input.accountnumber.repeat' | translate}}
+                    <span ng-show="isElemMandatory('bankAccountNumber')" class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
+                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountNumber"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{'label.input.accounttype' | translate}}
+                    <span ng-show="isElemMandatory('accountType')" class="required">*</span></label>
+                </label>
+                <div class="col-sm-3">
+                    <select id="accountType"  name = "accountType" ng-model="formData.accountType" class="form-control"
+                            ng-options="accountType as accountType.value for accountType in bankAccountTypeOptions"
+                            value="{{accountType.id}}" ng-required="isElemMandatory('accountType')">
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="accountType"/>
+                </div>
+            </div>
+
+            <div class="form-group"  ng-if="!isElemHidden('bankIFSCCodeRepeat')">
+                <label class="control-label col-sm-3" >{{'label.input.ifsccode' | translate}}
+                    <span ng-show="isElemMandatory('bankIFSCCode')" class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
+                           type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
+                </div>
+                <div class="col-sm-2">
+
+                     <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
+                <small class="required">
+                    {{'label.mismatch.ifsc.number' | translate}}</small></span>
+                    <form-validate code="checkerbankaccountdetail" valattribute="bankIFSCCodeRepeat"/>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.input.ifsccode.repeat' | translate}}
+                    <span ng-show="isElemMandatory('bankIFSCCode')" class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
+                           type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')"/>
+                </div>
+                <div class="col-sm-2">
+                    <span ng-show="checkerbankaccountdetail.bankIFSCCode.$invalid && checkerbankaccountdetail.bankIFSCCode.$dirty">
+                <small class="required" ng-show="checkerbankaccountdetail.bankIFSCCode.$error.pattern">
+                    {{'inavalid.ifsc.format' | translate}}</small></span>
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankIFSCCode"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!isElemHidden('micrCode')">
+                <label class="control-label col-sm-3" >{{'label.input.micrcode' | translate}}
+                    <span ng-show="isElemMandatory('micrCode')" class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <input name="micrCode" id="micrCode" ng-model="formData.micrCode"
+                           type="text" ng-pattern="regexPattern('micrCode')" class="form-control" ng-required="isElemMandatory('micrCode')"/>
+                </div>
+                <div class="col-sm-2">
+                    <span ng-show="checkerbankaccountdetail.micrCode.$invalid && checkerbankaccountdetail.micrCode.$dirty">
+                <small class="required" ng-show="checkerbankaccountdetail.micrCode.$error.pattern">
+                    {{'inavalid.micr.format' | translate}}</small></span>
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="micrCode"/>
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.input.bankname' | translate}}
+                    <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="bankName" id="bankName" ng-model="formData.bankName"
+                           type="text" class="form-control" ng-required="isElemMandatory('bankName')"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankName"/>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.input.branchName' | translate}}
+                    <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input name="branchName" id="branchName" ng-model="formData.branchName"
+                           type="text" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="branchName"/>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.input.bankcity' | translate}}
+                    <span ng-show="isElemMandatory('bankCity')" class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
+                           type="text" class="form-control" ng-required="isElemMandatory('bankCity')"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankCity"/>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.input.mobilenumber' | translate}}
+                    <span ng-show="isElemMandatory('mobileNumber')" class="required">*</span> </label>
+
+                <div class="col-sm-3">
+                    <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
+                           type="text"  class="form-control" ng-pattern="regexPattern('mobileNumber')" ng-required="isElemMandatory('mobileNumber')"/>
+                </div>
+                <div class="col-sm-2">
+                     <span ng-show="checkerbankaccountdetail.mobileNumber.$invalid && checkerbankaccountdetail.mobileNumber.$dirty">
+                <small class="required" ng-show="checkerbankaccountdetail.mobileNumber.$error.pattern">
+                    {{'label.must.be.ten.digits.numeric' | translate}}</small></span>
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="mobileNumber"/>
+                </div>
+            </div>
+            <div ng-hide="isElemHidden('lastTransactionDate')" class="form-group">
+                <label class="control-label col-sm-3" >{{'label.input.last.transaction.date' | translate}}
+                    <span ng-show="isElemMandatory('lastTransactionDate')" class="required">*</span> </label>
+                <div class="col-sm-3">
+                    <input id="lastTransactionDate" type="text" name="lastTransactionDate"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.lastTransactionDate"
+                           class="form-control" ng-required="isElemMandatory('lastTransactionDate')"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="checkerbankaccountdetail" valattribute="lastTransactionDate"/>
+                </div>
+            </div>
+            <div class="col-md-offset-2 paddedleft">
+                <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" ng-click="submit()" ng-show="!viewConfig.hasData" class="btn btn-primary" has-permission='CREATE_checkerbankaccountdetail'>{{'label.button.save' | translate}}</button>
+                <button id="update"  ng-show="viewConfig.hasData" class="btn btn-primary" ng-click="update()" has-permission='UPDATE_checkerbankaccountdetail'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        bankaccountActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        reviewbankaccountActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
             scope.formData = {};
             scope.bankAccountData ={};
 
@@ -21,7 +21,7 @@
             initTask();
         }
     });
-    mifosX.ng.application.controller('bankaccountActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.bankaccountActivityController]).run(function ($log) {
-        $log.info("bankaccountActivityController initialized");
+    mifosX.ng.application.controller('reviewbankaccountActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.reviewbankaccountActivityController]).run(function ($log) {
+        $log.info("reviewbankaccountActivityController initialized");
     });
 }(mifosX.controllers || {}));

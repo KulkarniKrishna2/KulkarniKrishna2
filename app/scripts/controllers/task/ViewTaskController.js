@@ -6,6 +6,23 @@
             scope.isWorkflowTask = false;
             scope.isSingleTask = false;
 
+            function getTaskId(){
+                if(routeParams.taskId!=undefined){
+                    return routeParams.taskId;
+                }else{
+                    return scope.commonConfig.taskData.id;
+                }
+            }
+
+            scope.isEmbedded = function(){
+                if(scope.commonConfig.taskData!=undefined){
+                    return scope.commonConfig.taskData.embedded;
+                }else{
+                    return false;
+                }
+            };
+
+
             function fetchLoanData() {
                 resourceFactory.LoanAccountResource.getLoanAccountDetails({
                     loanId: scope.loanId,
@@ -16,7 +33,7 @@
             };
 
             function init() {
-                resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskId}, function (data) {
+                resourceFactory.taskExecutionTemplateResource.get({taskId: getTaskId()}, function (data) {
                     scope.taskData = data;
                     if (scope.taskData != undefined) {
                         if (scope.taskData.taskType.id == 1) {
