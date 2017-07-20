@@ -1,0 +1,6 @@
+<div ng-controller="BankAccountCommonController">
+    <div ng-if="viewConfig.showSummary" ng-include="'views/bankaccountdetails/common/view_bank_account.html'">
+    </div>
+    <div ng-if="!viewConfig.showSummary" ng-include="'views/bankaccountdetails/common/modify_bank_account.html'">
+    </div>
+</div>

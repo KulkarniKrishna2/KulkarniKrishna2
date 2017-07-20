@@ -1,0 +1,135 @@
+<form name="createpdcform" novalidate="" class="form-horizontal well" ng-controller="CreatePDCController"
+      rc-submit="pdcSubmit()">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend>{{'lable.heading.add.pdc' | translate}}</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-3">{{ 'label.input.pdc.type' | translate }}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-5">
+                <select id="chequeType" name="chequeType" ng-model="pdcDetail.chequeType"
+                        class="form-control"
+                        ng-options="pdcType.id as pdcType.value for pdcType in templateData.pdcTypeOptions"
+                        value="{{pdcType.id}}"
+                        required late-validate="">
+                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="createpdcform" valattribute="chequeType"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">{{ 'label.input.number.of.pdc' | translate }}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-5">
+                <input id="numberOfPDC" type="number" name="numberOfPDC" maxlength="3"
+                       ng-model="pdcDetail.numberOfPDC"
+                       class="form-control" required late-Validate/>
+            </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="createpdcform" valattribute="numberOfPDC"/>
+            </div>
+        </div>
+
+        <div ng-if="pdcDetail.numberOfPDC">
+            <div class="form-group" ng-repeat="n in range(0,pdcDetail.numberOfPDC-1)">
+                <label class="control-label col-sm-3">{{ 'label.input.cheque.no' | translate }} {{n+1}}<span
+                        class="required">*</span></label>
+                <div class="col-sm-5">
+                    <input id="chequeNumbers{{n}}" type="number" name="chequeNumbers{{n}}" maxlength="30"
+                           ng-model="pdcDetail.chequeNumbers[n]"
+                           class="form-control"/>
+                </div>
+                <div class="col-sm-4" data-ng-if="n == 0">
+                    <input type="checkbox" data-ng-model="pdcDetail.isIncrementChequeNumber">
+                    {{'label.input.increment.cheque.no' | translate}}
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="pdcDetail.chequeType != 2">
+                <label class="control-label col-sm-3">{{ 'label.heading.fromdate' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-5">
+                    <div id="chequeDates" name="chequeDates" class="form-control multiselectmin vertical-scrollbar">
+                        <label ng-repeat="period in templateData.loanSchedulePeriods">
+                            <input type="radio" name="periodNumber" ng-model="pdcDetail.periodNumber" ng-value="{{period.period}}">&nbsp;{{period.dueDate | DateFormat}}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.input.bankname' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-5">
+                    <input id="bankName" type="text" name="bankName" maxlength="100"
+                           ng-model="pdcDetail.bankName"
+                           class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createpdcform" valattribute="bankName"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.heading.mandate.branchName' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-5">
+                    <input id="branchName" type="text" name="branchName" maxlength="100"
+                           ng-model="pdcDetail.branchName"
+                           class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createpdcform" valattribute="branchName"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.heading.mandate.ifsc' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-5">
+                    <input id="ifscCode" type="text" name="ifscCode" maxlength="50"
+                           ng-model="pdcDetail.ifscCode"
+                           class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createpdcform" valattribute="ifscCode"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="pdcDetail.chequeType != 2">
+                <label class="control-label col-sm-3">{{ 'label.input.paymenttype' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-5">
+                    <select id="paymentType" name="paymentType" ng-model="pdcDetail.paymentType"
+                            class="form-control"
+                            ng-options="payment.id as payment.name for payment in templateData.paymentOptions"
+                            value="{{payment.id}}"
+                            required late-validate="">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createpdcform" valattribute="paymentType"/>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-offset-4">
+            <button type="button" data-ng-click="pdcCancel()"   class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+            <button id="pdcsave" type="submit" class="btn btn-primary" has-permission='CREATE_PDC'>{{'label.button.save'
+                | translate}}
+            </button>
+        </div>
+    </fieldset>
+</form>

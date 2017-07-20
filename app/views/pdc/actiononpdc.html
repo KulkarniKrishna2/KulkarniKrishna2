@@ -1,0 +1,51 @@
+<div ng-controller="ActionOnPDCController">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{ actionHeadinglabel | translate }}</h3>
+    </div>
+    <div class="modal-body">
+        <br>
+        <form name="actiononpdcform" novalidate="" class="form-horizontal" rc-submit="actionSubmit()">
+            <api-validate></api-validate>
+            <div class="clear"></div>
+            <fieldset>
+                <div data-ng-if="action != 'undo'">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">{{ actionDatelabel | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-5">
+                            <input id="onDate"
+                                   name="onDate" sort type="text"
+                                   datepicker-pop="dd MMMM yyyy"
+                                   class="form-control"
+                                   ng-model="pdcActionData.date" is-open="opened" min="'2000-01-01'"
+                                   max="restrictDate" required/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="actiononpdcform" valattribute="onDate"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">{{ 'label.input.description' | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-5">
+                        <textarea id="description" name="description" rows="3" class="form-control"
+                                  ng-model="pdcActionData.description" required late-Validate></textarea>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="actiononpdcform" valattribute="description"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-4">
+                    <button type="button" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                        translate}}
+                    </button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.confirm' | translate}}</button>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>

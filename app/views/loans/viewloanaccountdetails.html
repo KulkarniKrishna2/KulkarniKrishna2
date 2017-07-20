@@ -18,8 +18,11 @@
         </ul>
     </div>
     <div>
-        <div class="form-horizontal" ng-show="report">
+        <div ng-hide="report">
+            <api-validate></api-validate>
+        </div>
 
+        <div class="form-horizontal" ng-show="report">
             <api-validate></api-validate>
             <div id="print">
 
@@ -1584,6 +1587,14 @@
                         </div>
 
                     </tab>
+
+                    <tab heading="{{'lable.tab.heading.pdc' | translate}}" select="isDisplayPDC=true">
+                        <div data-ng-if="isDisplayPDC == true" ng-include="'views/pdc/displaypdclist.html'"></div>
+                        <script data-ng-if="isDisplayPDC == true" type="text/ng-template" id="createpdc.html">
+                            <div ng-include="'views/pdc/createpdc.html'"></div>
+                        </script>
+                    </tab>
+
                 </tabset>
             </div>
         </div>

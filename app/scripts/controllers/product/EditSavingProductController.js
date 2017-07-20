@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditSavingProductController: function (scope, resourceFactory, location, routeParams, commonUtilService) {
+        EditSavingProductController: function (scope, resourceFactory, location, routeParams, commonUtilService, dateFilter) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -9,6 +9,11 @@
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
+            scope.dletedInterestRateChart = [];
+            scope.interestRateChart = [];
+            scope.updatedInterestRateChart = [];
+
+            scope.formData.isAllowInterestRateChart = false;
             resourceFactory.savingProductResource.get({savingProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.charges = data.charges;
@@ -46,6 +51,14 @@
                     daysToDormancy: data.daysToDormancy,
                     daysToEscheat: data.daysToEscheat
                 };
+                if(data.floatingInterestRateChartData){
+                    scope.interestRateChart = data.floatingInterestRateChartData;
+                    for(var i in scope.interestRateChart){
+                    var actDate = dateFilter(scope.interestRateChart[i].effectiveFromDate, scope.df);
+                        scope.interestRateChart[i].effectiveFromDate = new Date(actDate);
+                    }
+                    scope.formData.isAllowInterestRateChart = true;
+                }
 
                 scope.formData.allowDpLimit = false;
                 if (scope.formData.allowOverdraft) {
@@ -194,7 +207,46 @@
                 delete scope.formData.onDayType;
             };
 
+            scope.addFloatingInterestRateChart = function(){
+                if(scope.floatingInterestRateChart.effectiveFromDate != undefined && scope.floatingInterestRateChart.interestRate != undefined) {
+                    reqDate = dateFilter(scope.floatingInterestRateChart.effectiveFromDate, scope.df);
+                    temp = {
+                        effectiveFromDate: reqDate,
+                        interestRate: scope.floatingInterestRateChart.interestRate
+                    };
+                    scope.interestRateChart.push(temp);
+                    scope.updatedInterestRateChart.push(temp);
+                    scope.floatingInterestRateChart.effectiveFromDate = undefined;
+                    scope.floatingInterestRateChart.interestRate = undefined;
+                }
+
+            };
+
+            scope.deleteInterestChart = function (index) {
+                var tempId;
+                 if(scope.interestRateChart[index].id != undefined) {
+                     tempId = scope.interestRateChart[index].id;
+                 }
+                scope.interestRateChart.splice(index, 1);
+                temp = {
+                    id :tempId,
+                    delete : true
+                };
+                scope.updatedInterestRateChart.push(temp);
+            };
+
             scope.submit = function () {
+                this.formData.floatingInterestRateChart = [];
+                if (scope.updatedInterestRateChart.length > 0) {
+                    for(var i in scope.updatedInterestRateChart){
+                        if(scope.interestRateChart[i].effectiveFromDate != undefined){
+                        var actualDate = dateFilter(scope.updatedInterestRateChart[i].effectiveFromDate, scope.df);
+                        scope.updatedInterestRateChart[i].effectiveFromDate = actualDate;
+                    }
+                    }
+                    this.formData.floatingInterestRateChart = scope.updatedInterestRateChart;
+                }
+
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
@@ -241,9 +293,11 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 if(!this.formData.minRequiredOpeningBalance){
                     this.formData.minRequiredOpeningBalance = 0;
                 }
+                delete this.formData.isAllowInterestRateChart;
 
                 resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewsavingproduct/' + data.resourceId);
@@ -251,7 +305,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditSavingProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'CommonUtilService', mifosX.controllers.EditSavingProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditSavingProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'CommonUtilService', 'dateFilter', mifosX.controllers.EditSavingProductController]).run(function ($log) {
         $log.info("EditSavingProductController initialized");
     });
 }(mifosX.controllers || {}));
