@@ -204,7 +204,6 @@
 								ng-model="formData.dpFrequencyNthDay"
 								ng-options="nthDayType.id as nthDayType.value for nthDayType in product.nthDayTypeOptions"
 								value="{{nthDayType.id}}">
-							<option value=""></option>
 						</select>&nbsp;
 					</div>
 					<div class="col-sm-2"
@@ -213,7 +212,7 @@
 								ng-model="formData.dpFrequencyDayOfWeekType"
 								ng-options="dayOfWeekType.id as dayOfWeekType.value for dayOfWeekType in product.dayOfWeekTypeOptions"
 								value="{{dayOfWeekType.id}}">
-							<option value="">DAY</option>
+							<option ng-if="formData.dpFrequencyNthDay == -1" value="">DAY</option>
 						</select>&nbsp;
 					</div>
 					<div class="col-sm-2"
