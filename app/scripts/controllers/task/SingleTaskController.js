@@ -40,7 +40,9 @@
             }
 
             initTask();
-
+            scope.getTaskId = function(){
+                return scope.taskData.id;
+            }
             scope.initiateTaskAction = function(actionName) {
                 if(actionName == 'startover'){
                     return scope.startover();

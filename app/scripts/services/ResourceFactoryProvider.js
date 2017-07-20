@@ -1228,6 +1228,9 @@
                     }, {
                         action: {method: 'PUT', params: {}}
                     }),
+                    imageResource: defineResource(apiVer + "/:entityType/:entityId/images", {entityType:'@entityType',entityId:'@entityId'}, {
+                        get:{method: 'GET', params: {},isArray:true}
+                    })
                 };
             }];
         }
