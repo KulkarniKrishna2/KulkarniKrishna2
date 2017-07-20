@@ -1187,6 +1187,9 @@
                     }),
                     cryptographyPublickeyResource: defineResource(apiVer + "/cryptography/:entityType/publickey", {entityType:'@entityType'}, {
                         get:{method: 'GET', params: {}}
+                    }),
+                    imageResource: defineResource(apiVer + "/:entityType/:entityId/images", {entityType:'@entityType',entityId:'@entityId'}, {
+                        get:{method: 'GET', params: {},isArray:true}
                     })
                 };
             }];
