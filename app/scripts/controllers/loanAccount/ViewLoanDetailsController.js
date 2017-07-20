@@ -442,6 +442,9 @@
 
                     };
                     creditBureauCheckIsRequired();
+                    if (scope.showSavingToDisburse) {
+                        scope.buttons.singlebuttons.splice(2, 1);
+                    }
                 }
 
                 if (data.status.value == "Active") {
@@ -1489,6 +1492,7 @@
                     }
                 });
             };
+            scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
         }
     });
 
