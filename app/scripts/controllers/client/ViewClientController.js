@@ -292,10 +292,18 @@
                 if (data.imagePresent) {
                     http({
                         method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxHeight=150'
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxHeight=150'
                     }).then(function (imageData) {
-                        scope.image = imageData.data;
+                        scope.imageData = imageData.data[0];
+                        http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
+                        }).then(function (imageData) {
+                            scope.image = imageData.data;
+                        });
                     });
+                    
+
                 }
                 if(data.groups.length > 0 && data.groups[0].groupLevel==1){
                     scope.isCenter=true;
@@ -468,7 +476,7 @@
                 $scope.upload = function () {
                     if (scope.file) {
                         $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
                             data: {},
                             file: scope.file
                         }).then(function (imageData) {
@@ -526,7 +534,7 @@
                     if($scope.picture != null) {
                         http({
                             method: 'POST',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
                             data: $scope.picture
                         }).then(function (imageData) {
                             if (!scope.$$phase) {
@@ -554,7 +562,7 @@
                 $scope.delete = function () {
                     http({
                         method: 'DELETE',
-                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
                     }).then(function (imageData) {
                         if (!scope.$$phase) {
                             scope.$apply();
@@ -580,7 +588,7 @@
                 $scope.upload = function () {
                     if (scope.file) {
                         $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/documents',
                             data: {
                                 name: 'clientSignature',
                                 description: 'client signature'
@@ -1003,10 +1011,17 @@
                     if (scope.client.imagePresent) {
                         http({
                             method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=860'
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxWidth=860'
                         }).then(function (imageData) {
-                            $scope.largeImage = imageData.data;
+                            $scope.Image = imageData.data[0];
+                            http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+$scope.Image.imageId+'?maxHeight=860'
+                            }).then(function (imageData) {
+                                $scope.largeImage = imageData.data;
+                            });
                         });
+                        
                     }
                 };
                 loadImage();
