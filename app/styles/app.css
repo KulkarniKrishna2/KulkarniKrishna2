@@ -1659,3 +1659,7 @@ figure {
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
+.font-size-14pt {
+    font-size: 14pt !important;
+}

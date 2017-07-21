@@ -129,6 +129,11 @@
             scope.editSecurityPDC = function () {
                 if (scope.editSecurityPDCData.chequeDate) {
                     scope.editSecurityPDCData.chequeDate = dateFilter(new Date(scope.editSecurityPDCData.chequeDate), scope.df);
+                }else{
+                    scope.editSecurityPDCData.chequeDate = null;
+                }
+                if (_.isUndefined(scope.editSecurityPDCData.chequeAmount)) {
+                    scope.editSecurityPDCData.chequeAmount = null;
                 }
                 scope.editSecurityPDCData.locale = scope.optlang.code;
                 scope.editSecurityPDCData.dateFormat = scope.df;
