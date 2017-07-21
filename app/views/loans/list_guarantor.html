@@ -85,6 +85,7 @@
                 <th>{{'label.heading.guarantee.amount' | translate}}</th>
                 <th>{{'label.heading.guarantee.amount.remaining' | translate}}</th>
                 <th>{{'label.heading.guarantee.status' | translate}}</th>
+                <th>{{'label.heading.guarantee.national.id' | translate}}</th>
                 <th></th>
             </tr>
             </thead>
@@ -102,6 +103,7 @@
                 <td>{{guarantorfund.amount | number}}</td>
                 <td>{{guarantorfund.amountRemaining | number}}</td>
                 <td>{{guarantorfund.status.code | translate}}</td>
+                <td>&nbsp;</td>
                 <td>
                     <button class="btn btn-info" data-ng-click="showDetails($parent.$index,$index)"
                             ><i class="icon-eye-open icon-white"></i></button>
@@ -125,6 +127,7 @@
                 <td>&nbsp;</td>
                 <td data-ng-show="guarantor.status">{{'guarantorFundStatusType.active' | translate}}</td>
                 <td data-ng-hide="guarantor.status">{{'guarantorFundStatusType.deleted' | translate}}</td>
+                <td>{{guarantor.nationalId}}</td>
                 <td>
                     <button class="btn btn-info" data-ng-click="showDetails($index,null)"
                             ><i class="icon-eye-open icon-white"></i></button>

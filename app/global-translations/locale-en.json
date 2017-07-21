@@ -6232,6 +6232,8 @@
     "error.msg.return.pdc.failed.for.cheque.number": "Return pdc failed for cheque number `{{params[0].value}}`",
     "error.msg.undo.pdc.failed.for.cheque.number": "Undo pdc failed for cheque number `{{params[0].value}}`",
     "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
+    "label.input.national.id":"National ID",
+    "label.heading.guarantee.national.id":"National Id",
 
     "------ end of tensalation file":"---------"
 }
