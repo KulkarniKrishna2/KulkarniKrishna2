@@ -18,6 +18,14 @@
             scope.requestIdentifier = "loanId";
             scope.rdapprovetemplate = {};
             scope.rdactivatetemplate = {};
+            scope.loanRescheduleData = [];
+            scope.checkForBulkLoanRescheduleApprovalData = [];
+            scope.rescheduleData = function(){
+                resourceFactory.loanRescheduleResource.getAll({command:'pending'}, function (data) {
+                    scope.loanRescheduleData = data;
+                });
+            };
+            scope.rescheduleData();
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
@@ -1014,6 +1022,86 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.approveBulkLoanReschedule = function () {
+                if (scope.checkForBulkLoanRescheduleApprovalData) {
+                    $modal.open({
+                        templateUrl: 'loanreschedule.html',
+                        controller: ApproveBulkLoanRescheduleCtrl
+                    });
+                }
+            };
+
+            var ApproveBulkLoanRescheduleCtrl = function ($scope, $modalInstance) {
+                $scope.approveLoanReschedule = function () {
+                    scope.bulkLoanRescheduleApproval();
+                    route.reload();
+                    $modalInstance.close('approveLoanReschedule');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
+
+            scope.checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval = function() {                
+                var newValue = !scope.checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval();
+                scope.checkForBulkLoanRescheduleApprovalData = [];
+                if(!angular.isUndefined(scope.loanRescheduleData)) {
+                    for (var i = scope.loanRescheduleData.length - 1; i >= 0; i--) {
+                        scope.checkForBulkLoanRescheduleApprovalData[scope.loanRescheduleData[i].id] = newValue; 
+                    };
+                }
+            }
+            scope.checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval = function() {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.loanRescheduleData)) {
+                    _.each(scope.loanRescheduleData, function(data) {
+                        if(_.has(scope.checkForBulkLoanRescheduleApprovalData, data.id)) {
+                            if(scope.checkForBulkLoanRescheduleApprovalData[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===scope.loanRescheduleData.length);
+                }
+            }
+
+            scope.bulkLoanRescheduleApproval = function () {
+                scope.formData.approvedOnDate = dateFilter(new Date(), scope.df);
+                scope.formData.dateFormat = scope.df;
+                scope.formData.locale = scope.optlang.code;
+                var selectedAccounts = 0;
+                var approvedAccounts = 0;
+                _.each(scope.checkForBulkLoanRescheduleApprovalData, function (value, key) {
+                    if (value == true) {
+                        selectedAccounts++;
+                    }
+                });
+
+                scope.batchRequests = [];
+                scope.requestIdentifier = "RESCHEDULELOAN";
+
+                var reqId = 1;
+                _.each(scope.checkForBulkLoanRescheduleApprovalData, function (value, key) { 
+                    if (value == true) {    
+                        var url =  "rescheduleloans/"+key+"?command=approve";
+                        var bodyData = JSON.stringify(scope.formData);
+                        var batchData = {requestId: reqId++, relativeUrl: url, method: "POST", body: bodyData};
+                        scope.batchRequests.push(batchData);                        
+                    }
+                });
+                resourceFactory.batchResource.post(scope.batchRequests, function (data) {                     
+                     for(var i = 0; i < data.length; i++) {
+                        if(data[i].statusCode = '200') {
+                            approvedAccounts++;
+                            data[i].body = JSON.parse(data[i].body);
+                            scope.checkForBulkLoanRescheduleApprovalData[data[i].body.resourceId] = false;
+                        }
+                        
+                    }  
+                });
+            };
+
         }
     });
     mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', '$modal', '$location', mifosX.controllers.TaskController]).run(function ($log) {

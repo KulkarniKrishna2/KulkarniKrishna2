@@ -6238,5 +6238,8 @@
     "error.msg.undo.pdc.failed.for.cheque.number": "Undo pdc failed for cheque number `{{params[0].value}}`",
     "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
 
+    "label.heading.reschedulefrom" : "Reschedule From",
+    "label.heading.reschedulereason" : "Reschedule Reason",
+    
     "------ end of tensalation file":"---------"
 }
