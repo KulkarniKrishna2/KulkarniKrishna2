@@ -272,6 +272,11 @@
 	},
 	"createMandates":{
 			"showEMIBalance": false
+	},
+	"bulkJLGLoanAccount":{
+		"isMandatory":{
+			"fundId":false
+		}
 	}
   }
  }
