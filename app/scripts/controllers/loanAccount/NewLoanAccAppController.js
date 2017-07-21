@@ -160,10 +160,15 @@
                             angular.copy(scope.formData.clientMembers,scope.charges[i].glims);
                         }
                     }
-                    if(scope.loanaccountinfo.loanOfficerOptions && !scope.formData.loanOfficerId){
+                    if (scope.loanaccountinfo.loanOfficerOptions != undefined && scope.loanaccountinfo.loanOfficerOptions.length > 0 && !scope.formData.loanOfficerId) {
                         resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
-                            if(data.staffId != null){
-                                scope.formData.loanOfficerId =  data.staffId;
+                            if (data.staffId != null) {
+                                for (var i in scope.loanaccountinfo.loanOfficerOptions) {
+                                    if (scope.loanaccountinfo.loanOfficerOptions[i].id == data.staffId) {
+                                        scope.formData.loanOfficerId = data.staffId;
+                                        break;
+                                    }
+                                }
                             }
                         })
                     }
