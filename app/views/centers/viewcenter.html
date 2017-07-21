@@ -188,6 +188,11 @@
                                             </td>
 										</tr>
 										<tr colspan="16" ng-repeat-end ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer" ng-repeat="loan in client.loanAccountSummaryDatas">
+										    <td class="pointer text-right" colspan="2" data-ng-click="routeToLoan(loan.id)">
+						                    <i ng-hide="loan.inArrears" tooltip-placement="right" tooltip="{{loan.status.value}}"
+						                    	class="icon-stop {{loan.status.code | StatusLookup}}"></i>
+						                    <i ng-show="loan.inArrears" tooltip-placement="right" tooltip="{{loan.status.value}}"
+						                     	class="icon-stop {{loan.status.code | StatusLookup}}overdue"></i>
 											<td class="pointer text-right" colspan="7" data-ng-click="routeToLoan(loan.id)">
 												{{loan.accountNo}} - {{loan.shortProductName}}
 											</td>
