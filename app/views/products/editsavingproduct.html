@@ -171,7 +171,6 @@
                 </div>
             </div>
 	        <div class="form-group" >
-
                 <label class="control-label col-sm-3">{{ 'label.input.allowoverdraft' | translate }}</label>
                 <div class="col-sm-2">
                     <input id="allowOverdraft" type="checkbox" ng-model="formData.allowOverdraft" ng-checked="formData.allowOverdraft">
@@ -181,8 +180,22 @@
 	                <input id="overdraftLimit" type="text" class="form-control"
                     	ng-model="formData.overdraftLimit">
 	            </div>
-
 	        </div>
+	        <div class="form-group" ng-if="formData.allowOverdraft">
+				<label class="control-label col-sm-3">{{'label.input.nominalannualinterestrateoverdraft' | translate}}</label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.nominalannualinterestrateoverdraft' | translate}}"></i>
+
+				<div class="col-sm-2">
+					<input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control" ng-model="formData.nominalAnnualInterestRateOverdraft">
+				</div>
+
+				<label class="control-label col-sm-2">{{'label.input.minoverdraftforinterestcalculation' | translate}}</label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.minoverdraftforinterestcalculation' | translate}}"></i>
+
+				<div class="col-sm-2">
+					<input id="minOverdraftForInterestCalculation" type="text" class="form-control" ng-model="formData.minOverdraftForInterestCalculation">
+				</div>
+			</div>
 
 			<div class="form-group" ng-if="formData.allowOverdraft">
 				<label class="control-label col-sm-3">{{ 'label.input.allowdplimit' | translate }}</label>
@@ -190,6 +203,7 @@
 					<input id="allowDpLimit" type="checkbox" ng-model="formData.allowDpLimit" ng-checked="formData.allowDpLimit">
 				</div>
 			</div>
+
 
 			<div class="form-group"  ng-if="formData.allowOverdraft==true && formData.allowDpLimit==true">
 					<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.type' | translate}}<span class="required">*</span></label>
