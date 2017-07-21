@@ -205,7 +205,7 @@
     "label.input.dailyWithdrawalLimit":"Daily Withdrawal Limit",
     "label.input.dailyTransferLimit":"Daily Transfer Limit",
     "label.input.limitOnTotalOverdraftAmount":"Limit On Total Overdraft Amount",
-   
+    "label.input.groupName":"Group Name",
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",

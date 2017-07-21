@@ -24,6 +24,8 @@
                                 scope.entityId = scope.taskconfig['loanId'];
                             } else if (scope.entityType === 'CLIENTS') {
                                 scope.entityId = scope.taskconfig['clientId'];
+                            }else if (scope.entityType === 'GROUPS'){
+                                scope.entityId = scope.taskconfig['groupId'];
                             }
                             getSurveyTemplate();
                             scope.surveyData = surveyData;
