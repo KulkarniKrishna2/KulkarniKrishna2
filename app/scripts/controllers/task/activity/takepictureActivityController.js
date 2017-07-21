@@ -6,7 +6,7 @@
             scope.images=[];
             scope.status='SUMMARY';
             scope.init=function(){
-                resourceFactory.imageResource.get({entityType:'tasks',entityId:scope.taskId},function (data) {
+                resourceFactory.imageResource.get({entityType:'task',entityId:scope.taskId},function (data) {
                     scope.images=data;
                     scope.status='SUMMARY';
                 });
@@ -27,7 +27,7 @@
                 scope.status='VIEW';
                 http({
                         method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/tasks/' + scope.taskId + '/images/'+scope.imageId+'?maxHeight=400'
+                        url: $rootScope.hostUrl + API_VERSION + '/task/' + scope.taskId + '/images/'+scope.imageId+'?maxHeight=400'
                     }).then(function (imageData) {
                         $scope.image = imageData.data;
                 });
@@ -78,7 +78,7 @@
                     if($scope.picture != null) {
                         http({
                             method: 'POST',
-                            url: $rootScope.hostUrl + API_VERSION + '/tasks/' + scope.taskId + '/images',
+                            url: $rootScope.hostUrl + API_VERSION + '/task/' + scope.taskId + '/images',
                             data: $scope.picture
                         }).then(function (imageData) {
                             if (!scope.$$phase) {
