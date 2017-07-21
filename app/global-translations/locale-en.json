@@ -559,6 +559,8 @@
     "error.msg.office.client.transfers.to.same.office" : "Source and destination office cannot be same ",
     "error.msg.loan.transaction.cannot.be.before.last.transaction.date": "The disbursement date cannot be before last transaction date",
     "error.msg.payment.type.canoot.map.more.than.one.time" :" Payment type cannot be mapped with multiple gl accounts",
+    "validation.msg.rescheduleloan.rescheduleFromDate.reschedule.to.previous.date.not.allowed.before.current.date": "Reschedule to previous date not allowed before current date",
+    "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.cannot.be.before.last.installment.due.date" : "Adjusted due date cannot cannot be before last installment due date",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
