@@ -670,7 +670,7 @@
                         scope.addDisburseDetails = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
-
+                        scope.isFlatInterestRate = false;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                         }
