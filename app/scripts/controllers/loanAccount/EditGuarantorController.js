@@ -15,7 +15,8 @@
                     mobile: data.mobileNumber,
                     residence: data.housePhoneNumber,
                     addressLine1: data.addressLine1,
-                    addressLine2:data.addressLine2
+                    addressLine2:data.addressLine2,
+                    nationalId:data.nationalId
                 }
 
                 if (data.clientRelationshipType) {
@@ -42,6 +43,7 @@
                 guarantor.housePhoneNumber = this.formData.residence;
                 guarantor.clientRelationshipTypeId = this.formData.relationshipType;
                 guarantor.guarantorTypeId = 3;
+                guarantor.nationalId = this.formData.nationalId;
                 resourceFactory.guarantorResource.update({ loanId: routeParams.loanId, templateResource: routeParams.id}, guarantor, function (data) {
                     location.path('listguarantors/' + routeParams.loanId);
                 });

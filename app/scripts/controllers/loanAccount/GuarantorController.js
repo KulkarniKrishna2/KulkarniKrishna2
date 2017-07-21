@@ -61,6 +61,7 @@
                     guarantor.housePhoneNumber = this.formData.residence;
                     guarantor.guarantorTypeId = scope.template.guarantorTypeOptions[2].id;
                     guarantor.clientRelationshipTypeId = this.formData.relationshipType;
+                    guarantor.nationalId = this.formData.nationalId;
                 }
                 resourceFactory.guarantorResource.save({ loanId: routeParams.id}, guarantor, function (data) {
                     location.path('viewloanaccount/' + routeParams.id);
