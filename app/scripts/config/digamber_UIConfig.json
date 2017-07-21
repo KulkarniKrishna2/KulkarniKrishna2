@@ -1,0 +1,10 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+   		"bulkJLGLoanAccount":{
+		    "isMandatory":{
+			    "fundId":true
+		    }
+	    }
+    }
+}

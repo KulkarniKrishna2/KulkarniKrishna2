@@ -1,8 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         NewJLGLoanAccAppController: function (scope, rootScope, routeParams, resourceFactory, location, dateFilter) {
-
-            scope.response = {success:[],failed:[]};
             scope.group = {};
             scope.group.selectedclients = [];
             scope.group.id = routeParams.groupId;
@@ -69,7 +67,7 @@
 
             /* Submit button action */
             scope.submit = function () {  
-
+                scope.response = {success:[],failed:[]};
                 this.batchRequests = [];
                 for (var i in scope.group.clients) {
                         if( scope.group.clients[i].isSelected ){
@@ -140,9 +138,7 @@
                             location.path('/viewgroup/' + scope.group.id);    
                         }
 
-                });
-
-                
+                });  
             }; 
 
             /* Cancel button action */
@@ -152,7 +148,7 @@
                 }
             };             
 
-
+            scope.showFundId = scope.response.uiDisplayConfigurations.bulkJLGLoanAccount.isMandatory.fundId;
         } // End of NewJLGLoanAccAppController
 
     });

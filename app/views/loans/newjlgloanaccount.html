@@ -3,7 +3,7 @@
         <li><a href="#/viewgroup/{{group.id}}"><strong>{{group.name}}</strong></a></li>
         <li class="active">{{'label.anchor.bulkjlgloanapplication' | translate}}</li>
     </ul>
-    <form name="newjlgloanform" novalidate="" class="well form-inline">
+    <form name="newjlgloanform" novalidate="" rc-submit="submit()" class="well form-inline">
         <successful-responses/></successful-responses>
         <unsuccessful-response/></unsuccessful-response>
         <api-validate></api-validate>
@@ -48,19 +48,21 @@
                                 <option value="">{{'label.selectloanofficer' | translate}}</option>
                             </select>
                         </td>
-                        <td><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
+                        <td><label>{{ 'label.input.fund' | translate }}<span  ng-show="showFundId" class="required">*</span>:&nbsp;</label></td>
                         <td class="paddedbottom10">
-                            <select id="fundId" ng-model="loanApplicationCommonData.fundId" class="form-control width170px"
-                                    ng-options="fund.id as fund.name for fund in funds" value="{{fund.id}}">
+                            <select id="fundId" name="fundId" ng-model="loanApplicationCommonData.fundId" class="form-control width170px"
+                                    ng-options="fund.id as fund.name for fund in funds" value="{{fund.id}}" ng-required="showFundId">
                                 <option value="">{{'label.selectfund' | translate}}</option>
                             </select>
+                            <form-validate valattributeform="newjlgloanform" valattribute="fundId"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label></td>
                         <td class="paddedbottom10">
                             <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy"
-                                   ng-model="loanApplicationCommonData.submittedOnDate" is-open="opened" class="form-control"/>
+                                   ng-model="loanApplicationCommonData.submittedOnDate" is-open="opened" class="form-control" required/>
+                            <form-validate valattributeform="newjlgloanform" valattribute="submittedon"/>
                         </td>
                         <td>
                             <label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' |
@@ -68,8 +70,10 @@
                         </td>
                         <td class="paddedbottom10">
                             <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
-                                   datepicker-pop="dd MMMM yyyy" ng-model="loanApplicationCommonData.expectedDisbursementDate" is-open="opened1" class="form-control"/>
+                                   datepicker-pop="dd MMMM yyyy" ng-model="loanApplicationCommonData.expectedDisbursementDate" is-open="opened1" class="form-control" required/>
+                            <form-validate valattributeform="newjlgloanform" valattribute="expecteddisbursementon"/>
                         </td>
+
                     </tr>
                 </table>
             </div>
@@ -128,7 +132,7 @@
 
         <div class="col-md-offset-6" data-ng-show="productDetails">
             <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-click="submit()">{{'label.button.save' | translate}}
+            <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" >{{'label.button.save' | translate}}
             </button>
         </div>
     </form>
