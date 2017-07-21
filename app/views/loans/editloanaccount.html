@@ -58,7 +58,7 @@
         </td>
         <td class="paddedbottom10">
             <input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
-                   ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="submittedOnReadOnlyType"/>
+                   ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-disabled="submittedOnReadOnlyType"/>
         </td>
         <td>
             <label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' |
@@ -308,7 +308,7 @@
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
                     <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" name="repaymentsStartingFromDate"
                            ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate"
-                           max="'2020-06-22'" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-readonly="firstRepaymentDateReadOnlyType"/>
+                           max="'2020-06-22'" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-disabled="firstRepaymentDateReadOnlyType"/>
                     <span class="error" ng-show="issubmitted && editloanaccountform.repaymentsStartingFromDate.$error.required">{{'label.error.required' | translate}}</span>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label></td>
