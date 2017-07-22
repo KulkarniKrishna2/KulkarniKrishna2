@@ -18,7 +18,7 @@
             scope.codeValues = [];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
-                scope.codes = data;
+                scope.codes = data.pageItems;
             });
 
             resourceFactory.DataTablesTemplateResource.get({}, function (data) {
