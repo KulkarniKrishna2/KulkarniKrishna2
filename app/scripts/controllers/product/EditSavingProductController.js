@@ -51,7 +51,7 @@
                     daysToDormancy: data.daysToDormancy,
                     daysToEscheat: data.daysToEscheat
                 };
-                if(data.floatingInterestRateChartData){
+                if(data.floatingInterestRateChartData != undefined && data.floatingInterestRateChartData.length > 0){
                     scope.interestRateChart = data.floatingInterestRateChartData;
                     for(var i in scope.interestRateChart){
                     var actDate = dateFilter(scope.interestRateChart[i].effectiveFromDate, scope.df);
@@ -236,10 +236,20 @@
             };
 
             scope.submit = function () {
+                if(scope.formData.isAllowInterestRateChart && scope.interestRateChart.length == 0){
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({value: 'error.minimum.one.floatingRateInterestRate.entry.required'});
+                    scope.errorDetails.push(errorObj);
+                    return;
+                }
                 this.formData.floatingInterestRateChart = [];
                 if (scope.updatedInterestRateChart.length > 0) {
                     for(var i in scope.updatedInterestRateChart){
-                        if(scope.interestRateChart[i].effectiveFromDate != undefined){
+                        if(scope.updatedInterestRateChart[i].effectiveFromDate != undefined){
                         var actualDate = dateFilter(scope.updatedInterestRateChart[i].effectiveFromDate, scope.df);
                         scope.updatedInterestRateChart[i].effectiveFromDate = actualDate;
                     }
@@ -299,9 +309,9 @@
                 }
                 delete this.formData.isAllowInterestRateChart;
 
-                resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewsavingproduct/' + data.resourceId);
-                });
+                    resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
+                        location.path('/viewsavingproduct/' + data.resourceId);
+                    });
             }
         }
     });

@@ -178,11 +178,11 @@
         </tr>
 
 
-                    <tr class="graybg">
+                    <tr ng-if="isFloatingInterestRateChart" class="graybg">
                         <td>{{'label.heading.effectivefromdate' | translate}}</td>
                         <td colspan="3">{{'label.heading.interestrate' | translate}}</td>
                     </tr>
-                    <tr ng-repeat="chart in interestRateChart">
+                    <tr ng-if="isFloatingInterestRateChart" ng-repeat="chart in interestRateChart">
                         <td>
                             <label> {{chart.effectiveFromDate | DateFormat}} </label>
                         </td>
