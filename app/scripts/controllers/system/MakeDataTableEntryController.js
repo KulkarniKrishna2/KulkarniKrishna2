@@ -21,6 +21,8 @@
             scope.villageName;
             scope.dataTableName = '';
             scope.tableDisplayName = scope.tableName;
+			scope.isSectioned = false;
+            scope.sectionedColumnHeaders = [];
 
             if (routeParams.fromEntity == 'client') {
                     scope.clientName = $rootScope.clientname;
@@ -80,7 +82,7 @@
                             scope.formDat[data.columnHeaders[i].columnName] = {};
                         }
                         if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && data.columnHeaders[i].columnValues) {
-                            scope.columnValueLookUp = data.columnHeaders[i].columnValues
+                            scope.columnValueLookUp = data.columnHeaders[i].columnValues;
                             scope.newcolumnHeaders = angular.fromJson(data.columnHeaders);
                             for (var j in data.columnHeaders[i].columnValues) {
                                 scope.newcolumnHeaders[i].columnValuesLookup = scope.columnValueLookUp;
@@ -103,8 +105,38 @@
                         columnHeader.hideElement = false;
                     }
                 });
+                
+                if(data.sectionedColumnList != null && data.sectionedColumnList.length > 0){
+                	scope.isSectioned = true;
+                	for (var i in data.sectionedColumnList) {
+                		for(var j in data.sectionedColumnList[i].columns){
+                			if (data.sectionedColumnList[i].columns[j].visible != undefined && !data.sectionedColumnList[i].columns[j].visible) {
+                                data.sectionedColumnList[i].columns[j].splice(data.sectionedColumnList[i].columns.indexOf(j), 1);
+                            } else {
+                                if (data.sectionedColumnList[i].columns[j].columnDisplayType == 'DATETIME') {
+                                    scope.formDat[data.sectionedColumnList[i].columns[j].columnName] = {};
+                                }
+                                if (data.sectionedColumnList[i].columns[j].columnDisplayType == 'CODELOOKUP' && data.sectionedColumnList[i].columns[j].columnValues) {
+                                    scope.columnValueLookUp = data.sectionedColumnList[i].columns[j].columnValues;
+                                    for (var k in data.sectionedColumnList[i].columns[j].columnValues) {
+                                        data.sectionedColumnList[i].columns[j].columnValuesLookup = scope.columnValueLookUp;
+                                    }
 
-            });
+                                }
+                            }
+                		}
+                    _.each(data.sectionedColumnList[i].columns, function(columnHeader){
+                        scope.showVisibleCriterialFields(columnHeader.columnName);
+                        if(columnHeader.visibilityCriteria.length > 0){
+                            columnHeader.hideElement = true;
+                        }else{
+                            columnHeader.hideElement = false;
+                        }
+                    });
+                }	 
+                scope.sectionedColumnHeaders = data.sectionedColumnList;
+            }
+        });
 
 
             scope.showVisibleCriterialFields = function(registeredColumnName){

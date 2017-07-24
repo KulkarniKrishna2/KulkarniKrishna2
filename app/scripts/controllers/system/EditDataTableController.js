@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditDataTableController: function (scope, routeParams, resourceFactory, location) {
-
+        	
             scope.columns = [];
             scope.dropColumns = [];
             scope.formData = {};
@@ -16,6 +16,14 @@
             scope.codeValues = [];
             scope.tempData = [];
             scope.columnArray = [];
+            scope.allowSections = false;
+            scope.section = {};
+            scope.sectionList = [];
+            scope.sections = [];
+            scope.addSections =[];
+            scope.dropSections = [];
+            scope.changeSections = [];
+            scope.originalSections = [];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data.pageItems;
@@ -80,7 +88,7 @@
                         data.columnHeaderData[i].code = temp[0];
                     }
 
-                    var tempColumn = {name: data.columnHeaderData[i].columnName, mandatory: !data.columnHeaderData[i].isColumnNullable};
+                    var tempColumn = {name: data.columnHeaderData[i].columnName, mandatory: !data.columnHeaderData[i].isColumnNullable, sectionId : data.columnHeaderData[i].sectionId };
                     tempColumn.originalName = data.columnHeaderData[i].originalName;
                     if (data.columnHeaderData[i].displayName != undefined && data.columnHeaderData[i].displayName != 'null') {
                         tempColumn.displayName = data.columnHeaderData[i].displayName;
@@ -129,6 +137,26 @@
                     }
 
                     scope.columns.push(tempColumn);
+                }
+
+                if(data.sectionDataList.length > 0){
+                	scope.originalSections = new Array(data.sectionDataList.length).fill(0);
+                    scope.allowSections = true;
+                    for (var k in  data.sectionDataList){
+                        for(var j in scope.columns){
+                            if(scope.columns[j].sectionId != undefined && scope.columns[j].sectionId == data.sectionDataList[k].id){
+                                scope.columns[j].sectionName = data.sectionDataList[k].displayName;
+                                delete scope.columns[j].sectionId;
+                            }
+                        }
+                        scope.originalSections.splice(data.sectionDataList[k].displayPosition-1,1,data.sectionDataList[k].displayName);
+                    }
+                    scope.sectionList = scope.originalSections;
+                }
+                else{
+                    for(var j in scope.columns){
+                        delete scope.columns[j].sectionId;
+                    }
                 }
             });
 
@@ -288,6 +316,41 @@
                 }
             };
 
+             scope.addSectionName = function () {
+            	if(scope.sectionList.indexOf(scope.section.value) < 0){
+                    scope.sectionList.push(scope.section.value);
+                    var tempNewSection ={
+                        displayPosition: scope.sectionList.length,
+                        displayName: scope.section.value
+                    }
+                    scope.addSections.push(tempNewSection);
+                }
+                scope.section.value = undefined;
+            };
+            
+            scope.shiftSectionDown = function(index){
+            	var temp = scope.sectionList[index];
+            	scope.sectionList[index] = scope.sectionList[index+1];
+            	scope.sectionList[index+1] = temp;
+            };
+            
+            scope.shiftSectionUp = function(index){
+            	var temp = scope.sectionList[index];
+            	scope.sectionList[index] = scope.sectionList[index-1];
+            	scope.sectionList[index-1] = temp;
+            };
+            
+            scope.removeSection = function(index){
+            	var removeSectionName = scope.sectionList[index];
+            	scope.dropSections.push(scope.sectionList[index]);
+            	scope.sectionList.splice(index,1);
+            	for (var i in scope.columns ){
+            		if(scope.columns[i].sectionName == removeSectionName){
+            			scope.columns[i].sectionName = scope.sectionList[0];
+            		}
+            	}
+            };
+
             scope.submit = function () {
 
                 scope.formData.addColumns = [];
@@ -295,6 +358,17 @@
 
                 if (scope.dropColumns.length > 0) {
                     scope.formData.dropColumns = scope.dropColumns;
+                }
+                if(scope.sectionList.length > 0){
+                	for(var i in scope.sectionList){
+                		var tempSection = {
+                            displayPosition: parseInt(i) + 1,
+                            displayName: scope.sectionList[i],
+                            changeColumns: [],
+                            addColumns: []
+                		}
+                		scope.sections.push(tempSection);
+                	}
                 }
 
                 if (this.formData.restrictscope && this.selected != '' && this.selected != undefined) {
@@ -331,7 +405,20 @@
                         delete scope.columns[i].value;
                         scope.columns[i].hasValueMandatory = false;
                     }
-
+                     var displayPosition = null;
+                     if(scope.allowSections){
+                        if(scope.columns[i].sectionName != " "){
+                            var name = scope.columns[i].sectionName;
+                            var displayPosition = null;
+                            for(var j=0; j< scope.sectionList.length;j++){
+                                if(name == scope.sectionList[j]){
+                                    displayPosition = j;
+                                    break;
+                                }
+                            }   
+                        }
+                     }
+                     delete scope.columns[i].sectionName;
                     if (scope.columns[i].originalName) {
                         //This value should be updated based on the configuration
                         /*if (scope.columns[i].newName) {
@@ -352,19 +439,74 @@
                             scope.columns[i].newName = scope.columns[i].newName || scope.columns[i].name;
                         }
                         scope.formData.changeColumns.push(scope.columns[i]);
-
+                        
+                        if(this.allowSections){
+                            if(displayPosition!=null){
+                                 scope.sections[displayPosition].changeColumns.push(scope.columns[i]);
+                            }
+                        }
                     } else {
-                        scope.formData.addColumns.push(scope.columns[i]);
+                        if(this.allowSections){
+                            if(displayPosition!=null){
+                                scope.sections[displayPosition].addColumns.push(scope.columns[i]);
+                            }
+                        }
+                        else{
+                        	scope.formData.addColumns.push(scope.columns[i]);
+                        }
                     }
-
                     delete scope.columns[i].hasValueMandatory;
                 }
 
-                if (scope.formData.addColumns.length == 0) delete scope.formData.addColumns;
-                if (scope.formData.changeColumns.length == 0) delete scope.formData.changeColumns;
-
+                if (scope.formData.addColumns.length == 0){
+                    delete scope.formData.addColumns;
+                }
+                if (scope.formData.changeColumns.length == 0){
+                    delete scope.formData.changeColumns;
+                }
+                if(this.allowSections){
+                    for (var i in scope.sections) {
+                        if(scope.sections[i].addColumns.length == 0)
+                            delete scope.sections[i].addColumns;
+                        if(scope.sections[i].changeColumns.length == 0)
+                            delete scope.sections[i].changeColumns;
+                    }
+                    scope.formData.sections = scope.sections;
+                }
+                else{
+                	if(scope.sectionList != undefined && scope.sectionList != null && scope.sectionList.length > 0){
+                		for(var i in scope.sectionList){
+                			scope.dropSections.push(scope.sectionList[i]);
+                		}
+                		delete scope.sectionList; 
+                	}
+                }
+               
+                if(scope.sectionList != undefined && scope.sectionList != null && scope.sectionList.length > 0){
+                    for(var k in scope.sectionList){
+                		var tempName = scope.sectionList[k];
+                		var found = false;
+                		for(var j in scope.addSections){
+                			if(tempName == scope.addSections[j].displayName){
+                				found = true;
+                				scope.addSections[j].displayPosition = parseInt(k)+1;
+                				break;	
+                			}
+                		}
+                		if(!found){
+                			var tempChangedSection ={
+                		        displayPosition: parseInt(k) +1,
+                		        displayName: scope.originalSections[k]
+                		    }
+                			scope.changeSections.push(tempChangedSection);
+                		}
+                	}
+                }
+                scope.formData.addSections = scope.addSections;
+                scope.formData.changeSections = scope.changeSections;
+                scope.formData.dropSections = scope.dropSections;
                 resourceFactory.DataTablesResource.update({datatablename: routeParams.tableName}, this.formData, function (data) {
-                    location.path('/viewdatatable/' + data.resourceIdentifier);
+                location.path('/viewdatatable/' + data.resourceIdentifier);
                 });
             };
         }

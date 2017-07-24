@@ -77,6 +77,12 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <div class="form-group col-sm-12" ng-show="column.sectionName != undefined && column.sectionName != 'null'">
+                                        <label class="col-sm-3">{{'label.heading.section' | translate}}</label>
+                                        <div class="col-sm-9">
+                                            <label>{{column.sectionName}}</label>
+                                        </div>
+                                    </div>
                                     <div class="form-group col-sm-12" ng-show="column.orderPosition != undefined && column.orderPosition != 'null'">
                                         <label class="col-sm-3">{{ 'label.heading.displayposition' | translate }}</label>
                                         <div class="col-sm-9">
