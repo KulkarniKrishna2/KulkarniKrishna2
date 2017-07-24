@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         familyDetailActivityController: function ($controller,scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
+            scope.clientId = scope.taskconfig['clientId'];
             function init()
             {
                 scope.showform=false;
