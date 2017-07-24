@@ -176,8 +176,8 @@
             </div>
             <div class="col-md-offset-2 paddedleft">
                 <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" ng-click="submit()" ng-show="!viewConfig.hasData" class="btn btn-primary" has-permission='CREATE_checkerbankaccountdetail'>{{'label.button.save' | translate}}</button>
-                <button id="update"  ng-show="viewConfig.hasData" class="btn btn-primary" ng-click="update()" has-permission='UPDATE_checkerbankaccountdetail'>{{'label.button.save' | translate}}</button>
+                <button id="save" ng-click="submit()" ng-show="!viewConfig.hasData" class="btn btn-primary" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                <button id="update"  ng-show="viewConfig.hasData" class="btn btn-primary" ng-click="update()" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>
     </form>

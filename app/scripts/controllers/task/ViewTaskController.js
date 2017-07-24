@@ -15,7 +15,7 @@
             }
 
             scope.isEmbedded = function(){
-                if(scope.commonConfig.taskData!=undefined){
+                if(scope.commonConfig!=undefined && scope.commonConfig.taskData!=undefined){
                     return scope.commonConfig.taskData.embedded;
                 }else{
                     return false;
