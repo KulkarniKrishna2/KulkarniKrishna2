@@ -29,6 +29,11 @@
             scope.villageName;
             scope.isJournalEntry = false;
             scope.dataTableName = '';
+            
+            scope.isSectioned = false;
+            scope.isEditSections = false;
+            scope.sectionedColumnHeaders = [];
+            scope.columnValueEntries = {};
 
             if(routeParams.tableName =="Address"){
                 scope.showSelect=false;
@@ -94,10 +99,40 @@
                             }
                         }
                     } else {
-                        data.columnHeaders[i].value = data.data[0].row[i];
+                        var index = data.columnData[0].row.findIndex(x => x.columnName==data.columnHeaders[i].columnName);
+                        data.columnHeaders[i].value = data.columnData[0].row[index].value;
                     }
                 }
                 scope.columnHeaders = data.columnHeaders;
+                
+                if(data.sectionedColumnList != undefined && data.sectionedColumnList != null && data.sectionedColumnList.length >0){
+                	scope.isSectioned = true;
+                }
+                for(var i in data.sectionedColumnList){
+                	for (var j in data.sectionedColumnList[i].columns) { 
+                		if (data.sectionedColumnList[i].columns[j].columnCode) {
+                		    for(var k in data.sectionedColumnList[i].columns[j].columnValues){
+                			 	if(data.sectionedColumnList[i].columns[j].columnDisplayType=='CODELOOKUP'){
+                                    var index = data.columnData[0].row.findIndex(x => x.columnName==data.sectionedColumnList[i].columns[j].columnName);
+                			 		if (data.columnData[0].row[index].value == data.sectionedColumnList[i].columns[j].columnValues[k].id) {
+                                     data.sectionedColumnList[i].columns[j].value = data.sectionedColumnList[i].columns[j].columnValues[k].value;
+                                    }
+                                } else if(data.sectionedColumnList[i].columns[j].columnDisplayType=='CODEVALUE'){
+                                    var index = data.columnData[0].row.findIndex(x => x.columnName==data.sectionedColumnList[i].columns[j].columnName);
+ 			    	                if (data.columnData[0].row[index].value == data.sectionedColumnList[i].columns[j].columnValues[k].value) {
+                                        data.sectionedColumnList[i].columns[j].value = data.sectionedColumnList[i].columns[j].columnValues[k].value;
+                                    }
+                                }
+                		    }
+                		}
+                	    else {
+                            var index = data.columnData[0].row.findIndex(x => x.columnName==data.sectionedColumnList[i].columns[j].columnName);
+                            data.sectionedColumnList[i].columns[j].value = data.columnData[0].row[index].value;
+                        }
+                    }
+                }
+                
+                scope.sectionedColumnHeaders = data.sectionedColumnList;
                 if(routeParams.mode && routeParams.mode == 'edit'){
                     scope.editDatatableEntry();
                 }
@@ -152,6 +187,14 @@
                 for (var i in scope.columnHeaders) {
                     if(scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
                         return scope.df + " " + scope.tf;
+                    }
+                }
+                
+                for(var i in scope.sectionedColumnHeaders){
+               	    for (var j in scope.sectionedColumnHeaders[i].columns) { 
+               		    if(scope.sectionedColumnHeaders[i].columns[j].columnDisplayType == 'DATETIME') {
+                            return scope.df + " " + scope.tf;
+               	        }
                     }
                 }
                 return scope.df;
@@ -226,7 +269,63 @@
                 if(obj != "" && obj != undefined){
                     scope.columnHeaders = obj;
                 }
-
+                
+                if(scope.sectionedColumnHeaders != null && scope.sectionedColumnHeaders != undefined && scope.sectionedColumnHeaders.length > 0){
+                	scope.isEditSections = true;
+                	scope.isSectioned = false;
+                }
+                
+                for (var i in scope.sectionedColumnHeaders) {
+            	   for (var j in scope.sectionedColumnHeaders[i].columns){
+                        if (scope.sectionedColumnHeaders[i].columns[j].columnDisplayType == 'DATE') {
+                            scope.formDat[scope.sectionedColumnHeaders[i].columns[j].columnName] = scope.sectionedColumnHeaders.columns[j].value;
+                        } 
+                        else if (scope.sectionedColumnHeaders[i].columns[j].columnDisplayType == 'DATETIME') {
+                            scope.formDat[scope.sectionedColumnHeaders.columns[j].columnName] = {};
+                            if(scope.sectionedColumnHeaders[i].columns[j].value != null) {
+                                scope.formDat[scope.sectionedColumnHeaders[i].columns[j].columnName] = {
+                                    date: dateFilter(new Date(scope.sectionedColumnHeaders[i].columns[j].value), scope.df),
+                                    time: dateFilter(new Date(scope.sectionedColumnHeaders[i].columns[j].value), scope.tf)
+                                };
+                            }
+                        } 
+                        else {
+                            scope.formData[scope.sectionedColumnHeaders[i].columns[j].columnName] = scope.sectionedColumnHeaders.columns[j].value;
+                        }
+                        
+                        if (scope.sectionedColumnHeaders[i].columns[j].columnCode) {
+                            for (var k in scope.sectionedColumnHeaders[i].columns[j].columnValues) {
+                                if(scope.sectionedColumnHeaders[i].columns[j].columnDisplayType=='CODELOOKUP'){
+                                    if(scope.sectionedColumnHeaders[i].columns[j].value != undefined  && scope.sectionedColumnHeaders[i].columns[j].value == scope.sectionedColumnHeaders[i].columns[j].columnValues[k].value) {
+                                        scope.formData[scope.sectionedColumnHeaders[i].columns[j].columnName] = scope.sectionedColumnHeaders[i].columns[j].columnValues[k].id;
+                                    }
+                                    scope.columnValueLookUp = scope.sectionedColumnHeaders[i].columns[j].columnValues;
+                                    var obj = angular.fromJson(scope.sectionedColumnHeaders[i].columns[j]);
+                                    scope.sectionedColumnHeaders[i].columns[j].columnValuesLookup = scope.columnValueLookUp;
+                                } 
+                                else if(scope.sectionedColumnHeaders[i].columns[j].columnDisplayType=='CODEVALUE'){
+                                    if(scope.sectionedColumnHeaders[i].columns[j].value != undefined  && scope.sectionedColumnHeaders[i].columns[j].value == scope.sectionedColumnHeaders[i].columns[j].columnValues[k].value) {
+                                        scope.formData[scope.sectionedColumnHeaders[i].columns[j].columnName] = scope.sectionedColumnHeaders[i].columns[j].columnValues[k].value;
+                                    }
+                                    scope.columnValueLookUp = scope.sectionedColumnHeaders.columns[j].columnValues;
+                                    scope.sectionedColumnHeaders[i].columns[j].columnValuesLookup = scope.columnValueLookUp;
+                                }
+                            }
+                        }
+                        if (scope.sectionedColumnHeaders[i].columns[j].visibilityCriteria != "" && scope.sectionedColumnHeaders[i].columns[j].visibilityCriteria != null) {
+                            for(var k in scopesectionedColumnHeaders[i].columns[j].visibilityCriteria){
+                                for(var l in scope.sectionedColumnHeaders[i].columns[j].visibilityCriteria[k].columnValue){
+                                    if(scope.sectionedColumnHeaders[i].columns[j].visibilityCriteria[k].columnValue[l].value == "true"){
+                                        scope.enableDependency = false;
+                                    }
+                                    else{
+                                        scope.enableDependency = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             scope.getDependencyList = function(codeId) {

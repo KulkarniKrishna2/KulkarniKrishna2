@@ -3178,7 +3178,7 @@
     "label.input.showwhen": "Show When",
     "label.input.hasvalue": "Has Value",
     "label.input.mandatoryifvisible": "Mandatory If Visible",
-    "label.input.restrictscope": "Restrict DataTable Scope",
+    "label.input.restrictscope": "Restrict Scope",
     "label.input.available": "Available",
     "label.input.selected": "Selected",
 
@@ -6186,6 +6186,7 @@
     "label.anchor.family.details" : "Family Details",
     "label.input.filterby.statementname.bankname" : "Filter display by name/bank name",
     "label.input.searchby.statementname.bankname" : "Find by name/bank name",
+
     "validation.msg.savingsaccount.amount.is.on.hold.release.the.amount.to.continue" : "Savings Account amount is on hold. Release amount to close the account",
     "label.heading.loan.guarantee.fund":"Loan Gurantee Fund",
     "label.heading.savings.amount.on.hold":"Savings Amount On Hold",
@@ -6250,5 +6251,20 @@
     "label.heading.reschedulefrom" : "Reschedule From",
     "label.heading.reschedulereason" : "Reschedule Reason",
     
+    "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
+
+    "#Datatable Sections" : "",
+    "label.input.allow.sections":"Allow Sections",
+    "label.input.section.name":"SECTION NAME",
+    "label.heading.section" : "Section",
+    "validation.msg.datatable.displayPosition.not.greater.than.zero" : "Display position should be greater than Zero",
+    "validation.msg.datatable.addColumns.cannot.be.empty" : "Newly added columns should not be empty",
+    "validation.msg.datatable.changeColumns.cannot.be.empty" :"Altered columns should not be empty",
+    "error.msg.non.empty.datatable.cannot.be.deleted":"Non-empty datatable cannot be deleted.",
+    "error.msg.map.column.to.a.section":"Map each column to a section",
+    "validation.msg.datatable.columns.cannot.be.empty": "Columns cannot be empty",
+    "validation.msg.datatable.sectioned.columns.cannot.be.empty":"Each of the allowed section must contain atleast one column and each column must be mapped to a section",
+    "validation.msg.datatable.columns.on.sectioning.data.table.all.columns.should.be.part.of.one.or.other.sections" : "Each column should be mapped to a section",
+
     "------ end of tensalation file":"---------"
 }

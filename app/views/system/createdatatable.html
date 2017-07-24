@@ -101,6 +101,35 @@
 				</div>
 			</div>
 
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{ 'label.input.allow.sections' | translate }}</label>
+				<div class="form-inline col-sm-3"><input type="checkbox" ng-model="allowSections" /></div>
+			</div>
+			<div class="form-group" ng-if="allowSections">
+				<div class="col-sm-2">
+				</div>
+    			<div class="col-sm-2">
+        			<input type="text" id="sectionName" name = "sectionName"  placeholder="{{'label.input.section.name' | translate}}" class="form-control" ng-model="section.value" />
+    			</div>
+    			<div class="col-sm-4">
+        			<button type="button" class="btn btn-primary" ng-click="addSectionName()">{{ 'label.button.add' | translate }}
+        			</button>
+    			</div>
+			</div>
+			
+			<div class = "form-group width100" ng-if = "allowSections" >
+				<table ng-show = "sectionArray.length > 0" class="table width50">
+					<tr ng-repeat="section in sectionArray">
+						<td class="col-sm-3"></td>
+						<td><a ng-click="shiftSectionDown($index)" ng-hide ="$index == (sectionArray.length -1)"><i class="icon-arrow-down icon-white" ng-hide ="$index == (sectionArray.length -1)"> </td>
+						<td><a ng-click="shiftSectionUp($index)" ng-show ="$index > 0"><i class="icon-arrow-up icon-white" ng-show ="$index > 0"></td>
+						<td class="col-sm-3" >{{section}}</td>
+						<td class="col-sm-1"><a ng-click="removeSection($index)"><i class="icon-remove icon-white"></td>
+						<td class="col-sm-4"></td>
+					</tr>	
+				</table>
+			</div>
+
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{ 'label.input.addcolumns' | translate }}<span
 	                    class="required">*</span></label>
@@ -201,6 +230,18 @@
 								<div class="col-sm-3">
 									<input id="displayName" type="text" name="displayName" ng-model="column.displayName" class="form-control"/>
 								</div>
+							</div>
+							<div class="form-group" ng-show = "allowSections">
+								<label class="control-label col-sm-2">{{'label.heading.section' | translate}}<span
+	                    			class="required">*</span>
+	                    		</label>
+								<div class="col-sm-2" >
+								  	<select class="form-control" name="sections{{$index}}" id="sections{{$index}}" ng-options="section for section in sectionArray" ng-model="column.sectionName" required late-Validate><option value="">{{'label.selectone' | translate}}</option>
+        							</select>
+								</div>
+								<div class="col-sm-3">
+	                				<form-validate valattributeform="createdatatableform" valattribute="sections{{$index}}"/>
+	           					</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="displayposition">{{ 'label.input.displayposition' | translate }}</label>
