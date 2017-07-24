@@ -121,7 +121,7 @@
         </tbody>
     </table>
         <div class="col-md-offset-2 paddedleft paddedtop" ng-if="!viewConfig.showSummary">
-            <a id="edit" ng-click="submit()" class="btn btn-primary">{{'label.button.approve' | translate}}</a>
+            <a id="edit" ng-click="submit()" class="btn btn-primary" has-permission="ACTIVATE_BANKACCOUNTDETAIL">{{'label.button.approve' | translate}}</a>
         </div>
     </form>
 </div>
