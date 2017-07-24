@@ -241,7 +241,7 @@
 						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyType"/>
 					</div>
 			</div>
-			<div class="form-group">
+			<div  ng-if="formData.allowOverdraft==true && formData.allowDpLimit==true" class="form-group">
 				<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.interval' | translate}}<span class="required">*</span></label>
 				<div class="col-sm-2">
 					<input id="dpFrequencyInterval" name="dpFrequencyInterval" type="text" class="form-control"
