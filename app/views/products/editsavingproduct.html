@@ -313,7 +313,8 @@
 						<label class="checkbox control-label">
 							<input id="isAllowInterestRateChart" type="checkbox"
 								   ng-model="formData.isAllowInterestRateChart" ng-true-value="true"
-								   ng-false-value="false" ng-checked="formData.isAllowInterestRateChart">
+								   ng-false-value="false" ng-checked="formData.isAllowInterestRateChart"
+									ng-disabled="formData.isAllowInterestRateChart">
 						</label>
 					</div>
 				</div>
@@ -359,10 +360,7 @@
 								<td>
 									<label> {{chart.interestRate | number}} </label>
 								</td>
-								<td>
-									<button data-ng-if="interestRateChart.length > 0 && chart.interestRate != undefined" type="button" class="btn-link ng-binding"><i class="icon-remove icon-white" ng-click="deleteInterestChart($index)"></i>
-									</button>
-								</td>
+								<td data-ng-if="interestRateChart.length > 0" class="width30"><i class="icon-remove"  ng-click="deleteInterestChart($index)"></i></td>
 							</tr>
 							</tbody>
 						</table>
