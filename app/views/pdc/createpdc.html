@@ -57,6 +57,7 @@
                     <div id="chequeDates" name="chequeDates" class="form-control multiselectmin vertical-scrollbar">
                         <label ng-repeat="period in templateData.loanSchedulePeriods">
                             <input type="radio" name="periodNumber" ng-model="pdcDetail.periodNumber" ng-value="{{period.period}}">&nbsp;{{period.dueDate | DateFormat}}
+                            <br>
                         </label>
                     </div>
                 </div>
@@ -92,7 +93,7 @@
 
 
             <div class="form-group">
-                <label class="control-label col-sm-3">{{ 'label.heading.mandate.ifsc' | translate }}<span
+                <label class="control-label col-sm-3">{{ 'label.input.ifsccode' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-5">
                     <input id="ifscCode" type="text" name="ifscCode" maxlength="50"
@@ -104,7 +105,7 @@
                 </div>
             </div>
 
-            <div class="form-group" ng-if="pdcDetail.chequeType != 2">
+            <div class="form-group">
                 <label class="control-label col-sm-3">{{ 'label.input.paymenttype' | translate }}<span
                         class="required">*</span></label>
 
