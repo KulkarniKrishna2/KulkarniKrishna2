@@ -1392,28 +1392,28 @@
             .when('/clients/:clientId/createclientoccupationdetails', {
                 templateUrl: 'views/clients/createclientoccupationdetail.html'
             })
-            .when('/client/:clientId/editclientoccupation/:occupationId', {
+            .when('/clients/:clientId/editclientoccupation/:occupationId', {
                  templateUrl: 'views/clients/editclientoccupationdetail.html'
             })
             .when('/clients/:clientId/createclientassetdetails', {
                 templateUrl: 'views/clients/createclientassetdetail.html'
             })
-            .when('/client/:clientId/editclientasset/:assetId', {
+            .when('/clients/:clientId/editclientasset/:assetId', {
                 templateUrl: 'views/clients/editclientassetdetail.html'
             })
             .when('/clients/:clientId/createclienthouseholddetails', {
                 templateUrl: 'views/clients/createclienthouseholddetail.html'
             })
-            .when('/client/:clientId/editclienthouseholdexpense/:houseHoldExpenseId', {
+            .when('/clients/:clientId/editclienthouseholdexpense/:houseHoldExpenseId', {
                 templateUrl: 'views/clients/edithouseholdexpense.html'
             })
             .when('/clients/:clientId/createexistingloan', {
                 templateUrl: 'views/clients/createexistingloan.html'
             })
-            .when('/client/:clientId/editclientexistingloan/:existingloanId', {
+            .when('/clients/:clientId/editclientexistingloan/:existingloanId', {
                 templateUrl: 'views/clients/editexistingloan.html'
             })
-            .when('/client/:clientId/viewclientexistingloan/:existingloanId', {
+            .when('/clients/:clientId/viewclientexistingloan/:existingloanId', {
                 templateUrl: 'views/clients/viewexistingloan.html'
             })
             .when('/clients/:clientId/guarantees', {

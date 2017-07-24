@@ -13,14 +13,25 @@
             });
 
             scope.slectedOccupation = function(occupationId, subOccupationId){
-                    _.each(scope.occupationOption.incomeExpenseDatas, function(iterate){
-                        if(iterate.cashflowCategoryId == occupationId && iterate.isQuantifierNeeded == true && iterate.id == subOccupationId){
-                            scope.quantifierLabel = iterate.quantifierLabel;
-                            scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
+                var iterate=scope.occupationOption.incomeExpenseDatas;
+                var index;
+                    for(index=0;index<iterate.length;index++){
+                        if(iterate[index].cashflowCategoryId == occupationId && iterate[index].id == subOccupationId){
+                            if(iterate[index].isQuantifierNeeded == true){
+                                scope.quantifierLabel = iterate[index].quantifierLabel;
+                                scope.isQuantifierNeeded = iterate[index].isQuantifierNeeded;
+                            }
+                            if(iterate[index].defaultIncome){
+                                scope.formData.totalIncome=iterate[index].defaultIncome;
+                            }
+                            if(iterate[index].defaultExpense){
+                                scope.formData.totalExpense=iterate[index].defaultExpense;
+                            }
+                            break;
                         } else {
                             scope.isQuantifierNeeded = false;
-                        }
-                    })
+                    }
+                }
             }
 
             scope.subOccupationNotAvailable = function(occupationId){

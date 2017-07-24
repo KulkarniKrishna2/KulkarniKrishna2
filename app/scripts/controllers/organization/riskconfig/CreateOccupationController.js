@@ -3,10 +3,10 @@
         CreateOccupationController: function (scope, routeParams, resourceFactory, location, $modal, route, $http) {
 
             scope.entityType = routeParams.entityType;
-            scope.cashFlowCategoryId = routeParams.cashFlowCategoryId;
+            scope.cashflowCategoryId = routeParams.cashFlowCategoryId;
 
             scope.formData = {};
-            scope.formData.cashFlowCategoryId = scope.cashFlowCategoryId;
+            scope.formData.cashflowCategoryId = scope.cashflowCategoryId;
             scope.formData.isActive = true;
             scope.stabilityEnumOptions = [];
             scope.cashFlowCategories = {};
@@ -14,7 +14,7 @@
             resourceFactory.incomeExpensesTemplate.get(function (response) {
                 scope.cashFlowCategoryOptions = response.cashFlowCategoryOptions;
                 for (var i in  scope.cashFlowCategoryOptions) {
-                    if (scope.cashFlowCategoryOptions[i].id === parseInt(scope.formData.cashFlowCategoryId)) {
+                    if (scope.cashFlowCategoryOptions[i].id === parseInt(scope.formData.cashflowCategoryId)) {
                         scope.cashFlowCategories.name = scope.cashFlowCategoryOptions[i].name;
                         break;
                     }
@@ -25,8 +25,8 @@
             scope.submit = function () {
                 scope.formData.locale = "en";
 
-                resourceFactory.incomeExpenses.save({cashFlowCategoryId: routeParams.id}, scope.formData, function (data) {
-                    location.path('/occupation/' + scope.cashFlowCategoryId)
+                resourceFactory.incomeExpenses.save({cashflowCategoryId: routeParams.id}, scope.formData, function (data) {
+                    location.path('/occupation/' + scope.cashflowCategoryId)
                 });
             }
         }
