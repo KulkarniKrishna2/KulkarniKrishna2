@@ -1,44 +1,48 @@
-<div class="col-md-12 col-sm-12" >
+<div class="col-md-12" >
     <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
     <div class="row">
         <div class="col-md-6">
+            <div class="row">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.name}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.accountNumber}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.accountType.code | translate}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.ifscCode}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.bankName}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.branchName}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.bankCity}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.mobileNumber}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.email}}</span>
         </div>
-        <div class="col-md-12 paddedtop">
-            <img ng-src="{{bankAccountData.documentImg}}" width="600"/>
+                </div>
+            </div>
+        <div class="col-md-6">
+            <img ng-src="{{bankAccountData.documentImg}}" width="400"/>
         </div>
 
     </div>
