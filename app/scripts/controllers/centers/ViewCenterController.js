@@ -128,7 +128,7 @@
                 });
             }
 
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center'}, function (data) {
+            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center', isFetchBasicData: true}, function (data) {
                 scope.centerdatatables = data;
             });
             scope.viewDataTable = function (registeredTableName,data){

@@ -431,7 +431,8 @@
                 } else if (associatedEntityId == null) {
                     associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
                 }
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client', associatedEntityId: associatedEntityId}, function (data) {
+                var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : true};
+                resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
                     scope.clientdatatables = data;
                 });
 

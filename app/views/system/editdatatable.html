@@ -228,7 +228,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div  class="width100" ng-show="columnArray[$index].isVisible || allowSections">
+                            <div  class="width100" ng-if="columnArray[$index].isVisible || allowSections">
                                 <fieldset >
                                     <legend>{{'label.heading.columnsmetadata' | translate}}</legend>
                                     <div class="form-group">
@@ -238,7 +238,7 @@
                                             <input id="displayName" type="text" name="displayName" ng-model="column.displayName" class="form-control"/>
                                         </div>
                                     </div>
-                                    <div class="form-group" ng-show = "allowSections">
+                                    <div class="form-group" ng-if = "allowSections">
                                         <label class="control-label col-sm-2">{{'label.heading.section' | translate}} <span class="required">*</span></label>
                                         <div class="col-sm-3"  >
                                             <select class="form-control" id = "sectionsid{{$index}}" name="sectionsid"  ng-model="column.sectionName" 
