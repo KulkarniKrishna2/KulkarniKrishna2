@@ -410,7 +410,7 @@
                     scope.annualdueDate = new Date(annualdueDate);
                 };
                 scope.convertDateArrayToObject('date');
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account', associatedEntityId: scope.savingaccountdetails.savingsProductId}, function (data) {
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account', associatedEntityId: scope.savingaccountdetails.savingsProductId, isFetchBasicData : true}, function (data) {
                     scope.savingdatatables = data;
                 });
             });

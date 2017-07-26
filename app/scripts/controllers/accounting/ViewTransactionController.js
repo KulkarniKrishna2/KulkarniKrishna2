@@ -149,7 +149,7 @@
                     });
             }
 
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'f_journal_entry'}, function (data) {
+            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'f_journal_entry', isFetchBasicData : true}, function (data) {
                 scope.journalentrydatatables = data;
             });
 

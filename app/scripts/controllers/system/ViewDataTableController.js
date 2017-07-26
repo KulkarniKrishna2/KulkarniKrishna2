@@ -25,13 +25,16 @@
                         data.columnHeaderData[i].sectionName = " ";
                     }
                 }
-                for (var j = 0; j<data.sectionDataList.length ; j++){
-                    for (var i = 0; i < data.columnHeaderData.length; i++) {
-                        if(data.columnHeaderData[i].sectionId != undefined && data.columnHeaderData[i].sectionId == data.sectionDataList[j].id ){
-                            data.columnHeaderData[i].sectionName = data.sectionDataList[j].displayName;
+                if(data.sectionDataList != undefined && data.sectionDataList != null){
+                    for (var j = 0; j<data.sectionDataList.length ; j++){
+                        for (var i = 0; i < data.columnHeaderData.length; i++) {
+                            if(data.columnHeaderData[i].sectionId != undefined && data.columnHeaderData[i].sectionId == data.sectionDataList[j].id ){
+                                data.columnHeaderData[i].sectionName = data.sectionDataList[j].displayName;
+                            }
                         }
                     }
                 }
+
                 scope.datatable = data;
             });
             scope.deleteTable = function () {
