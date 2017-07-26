@@ -1,40 +1,44 @@
-<div class="col-md-12 col-sm-12" >
+<div class="col-md-12">
     <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
     <div class="row">
         <div class="col-md-6">
+            <div class="row">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.name}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.accountNumber}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.accountType.code | translate}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.ifscCode}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.bankName}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.bankCity}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.mobileNumber}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="form-group paddedtop">
             <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
             <span>{{checkerBankAccountData.email}}</span>
         </div>
-        <div class="col-md-12 paddedtop">
-            <img ng-src="{{documentImg}}" width="600"/>
+                </div>
+            </div>
+        <div class="col-md-6 paddedtop">
+            <img ng-src="{{documentImg}}" width="450"/>
         </div>
 
     </div>

@@ -244,8 +244,8 @@
 	    "micrCode": true
 	  },
 	  "regexValidations" :{
-		"mobileNumber":"^\\d{10}$",
-		"bankIFSCCode":"^[A-Za-z]{4}\\d{7}$"
+		"mobileNumber":"",
+		"bankIFSCCode":""
 	  }
 	},
 	"savingsAccount":{
