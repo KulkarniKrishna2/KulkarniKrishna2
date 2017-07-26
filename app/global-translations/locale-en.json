@@ -6266,6 +6266,11 @@
     "validation.msg.datatable.columns.cannot.be.empty": "Columns cannot be empty",
     "validation.msg.datatable.sectioned.columns.cannot.be.empty":"Each of the allowed section must contain atleast one column and each column must be mapped to a section",
     "validation.msg.datatable.columns.on.sectioning.data.table.all.columns.should.be.part.of.one.or.other.sections" : "Each column should be mapped to a section",
+    "error.msg.amount.more.than.disbursal.amount" : "Total purpose amount should not more than disbursement amount",
+    "validation.msg.loanutilizationcheck.loanUtilizationChecks.cannot.be.empty" : "Audit Date can not be empty",
+    "validation.msg.invalid.dateFormat.format" : "Audit date can not be empty",
+    "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
+    "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
 
     "------ end of tensalation file":"---------"
 }
