@@ -31,6 +31,7 @@
             scope.singlebuttons = [];
             scope.allowPaymentsOnClosedLoanConfigName = "allow-payments-on-closed-loans";
             scope.sections = [];
+            scope.refund_for_active_loan_enum_value= 18;
 
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -67,7 +68,7 @@
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16 || transactionTypeId == 8
-                    || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId ) {
+                    || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId || transactionTypeId == scope.refund_for_active_loan_enum_value) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 }
                 ;
