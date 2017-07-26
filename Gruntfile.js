@@ -139,7 +139,7 @@ module.exports = function(grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'images/{,*/}*.{webp}',
-            'fonts/*',
+            'fonts/**',
             'images/*',
             'scripts/*.js',
             'scripts/services/*.js',
@@ -201,7 +201,7 @@ module.exports = function(grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'images/{,*/}*.{webp}',
-            'fonts/*',
+            'fonts/**',
             'scripts/**/*.js',
             'global-translations/**',
             'styles/**',
@@ -242,7 +242,8 @@ module.exports = function(grunt) {
               options: {
               },
               dest: '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/mifosXStyles.js',
-              src: ['<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.css','!<%= mifosx.dist %>/<%=mifosx.target%>/styles/font-awesome.min.css']
+              src: ['<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.css','!<%= mifosx.dist %>/<%=mifosx.target%>/styles/font-awesome.min.css',
+                  '!<%= mifosx.dist %>/<%=mifosx.target%>/styles/laowebfont.css']
           },
           js: {
               options: {
