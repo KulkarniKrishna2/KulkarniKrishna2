@@ -58,6 +58,10 @@
                 return false;
             };
 
+            scope.routeToViewPDC = function (id, index) {
+                location.path('pdc/view/' + id);
+            };
+
             scope.actionToBePerformed = function (action) {
                 var isPDCSelected = false;
                 scope.isSingleOperation = false;

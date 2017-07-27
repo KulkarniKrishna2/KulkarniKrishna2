@@ -3,7 +3,7 @@
  */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewPDCDetailController: function (scope, routeParams, resourceFactory, $modal, location) {
+        ViewPDCDetailController: function (scope, routeParams, resourceFactory, $modal, $window) {
             scope.pdcId = routeParams.pdcId;
 
             scope.getPDCDetails = function () {
@@ -24,9 +24,7 @@
             scope.undo = "undo";
 
             scope.back = function () {
-                if(scope.pdcData.mappingData.entityType.value === 'Loan'){
-                    location.path('/viewloanaccount/' + scope.pdcData.mappingData.entityId);
-                }
+                $window.history.back();
             };
 
             scope.isEnableThisAction = function (action) {
@@ -60,10 +58,17 @@
                 });
             };
 
+            scope.showActionButtonsForPDC = function () {
+                if (scope.pdcData && (scope.pdcData.chequeType.value == 'Repayment PDC' || scope.pdcData.chequeType.value == 'Security PDC' ) && scope.pdcData.chequeDate && scope.pdcData.chequeAmount) {
+                    return true;
+                }
+                return false;
+            }
+
         }
     });
 
-    mifosX.ng.application.controller('ViewPDCDetailController', ['$scope', '$routeParams', 'ResourceFactory', '$modal', '$location', mifosX.controllers.ViewPDCDetailController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewPDCDetailController', ['$scope', '$routeParams', 'ResourceFactory', '$modal', '$window', mifosX.controllers.ViewPDCDetailController]).run(function ($log) {
         $log.info("ViewPDCDetailController initialized");
     });
 }(mifosX.controllers || {}));
