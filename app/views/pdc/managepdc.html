@@ -94,9 +94,9 @@
                     <th>{{'label.menu.select' | translate}}</th>
                     <th>{{'label.input.branch' | translate}}</th>
                     <th>{{'label.input.client' | translate}}</th>
-                    <th>{{'label.heading.loanid' | translate}}</th>
+                    <th>{{'label.heading.loan' | translate}}</th>
                     <th>{{'label.input.duedate' | translate}}</th>
-                    <th>{{'label.input.installmentAmount' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
                     <th>{{'label.input.pdc.type' | translate}}</th>
                     <th>{{'label.input.cheque.no' | translate}}</th>
                     <th>{{'label.heading.cheque.date' | translate}}</th>
@@ -125,7 +125,7 @@
                         {{pdc.mappingData.dueDate | DateFormat}}
                     </td>
                     <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
-                        {{pdc.mappingData.dueAmount | number}}
+                        {{pdc.chequeType.id == 1 ? pdc.mappingData.dueAmount : pdc.chequeAmount | number}}
                     </td>
                     <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
                         {{pdc.chequeType.value}}

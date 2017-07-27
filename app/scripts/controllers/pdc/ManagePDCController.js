@@ -77,6 +77,14 @@
                         scope: scope,
                         resolve: {}
                     });
+                }else{
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({value: 'validation.msg.pdc.select.at.least.one.pdc'});
+                    scope.errorDetails.push(errorObj);
                 }
             };
 

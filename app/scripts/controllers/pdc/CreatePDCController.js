@@ -51,8 +51,16 @@
                                     pdcDetail.chequeNumbers.push($scope.pdcDetail.chequeNumbers[i]);
                                 }
                             }
+                        }else{
+                            pdcDetail.chequeNumbers = [];
+                            for (var i in $scope.pdcDetail.chequeNumbers) {
+                                if (i <  parseInt(pdcDetail.numberOfPDC)) {
+                                    pdcDetail.chequeNumbers.push($scope.pdcDetail.chequeNumbers[i]);
+                                }else{
+                                    break;
+                                }
+                            }
                         }
-                        ;
                         var n = parseInt(pdcDetail.numberOfPDC);
                         var isPeriodNumberMatchWithSeceledFromDate = false;
                         for (var j = 0; j < $scope.templateData.loanSchedulePeriods.length; j++) {
@@ -69,7 +77,6 @@
                     delete pdcDetail.periodNumber;
                 }
                 $scope.pdcFormData.pdcDetails.push(pdcDetail);
-
                 resourceFactory.pdcResource.create({
                     'entityType': $scope.entityType,
                     'entityId': $scope.entityId
