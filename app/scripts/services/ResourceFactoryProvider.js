@@ -583,8 +583,9 @@
                     bulkLoanReschedule:defineResource(apiVer + "/rescheduleloans/bulkCreateAndApprove",  {
                     	
                     }),
-                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId'},{
+                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId', command: '@command'},{
                      get: {method: 'GET',params:{}},
+                     getAll: {method: 'GET', params: {}, isArray: true},
                      template: {method: 'GET',params:{}},
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
@@ -1228,6 +1229,9 @@
                     }, {
                         action: {method: 'PUT', params: {}}
                     }),
+                    imageResource: defineResource(apiVer + "/:entityType/:entityId/images", {entityType:'@entityType',entityId:'@entityId'}, {
+                        get:{method: 'GET', params: {},isArray:true}
+                    })
                 };
             }];
         }

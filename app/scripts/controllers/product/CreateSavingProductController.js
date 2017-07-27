@@ -134,6 +134,16 @@
             };
 
             scope.submit = function () {
+                if(scope.formData.isAllowInterestRateChart && scope.interestRateChart.length == 0){
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({value: 'error.minimum.one.floatingRateInterestRate.entry.required'});
+                    scope.errorDetails.push(errorObj);
+                    return;
+                }
                 if (scope.interestRateChart.length > 0) {
                     this.formData.floatingInterestRateChart = scope.interestRateChart;
                 }
@@ -186,9 +196,9 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 delete this.formData.isAllowInterestRateChart;
-                resourceFactory.savingProductResource.save(this.formData, function (data) {
-                    location.path('/viewsavingproduct/' + data.resourceId);
-                });
+                    resourceFactory.savingProductResource.save(this.formData, function (data) {
+                        location.path('/viewsavingproduct/' + data.resourceId);
+                    });
             };
         }
     });

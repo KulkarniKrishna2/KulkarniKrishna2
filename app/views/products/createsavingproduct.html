@@ -388,10 +388,7 @@
 								<td>
 									<label> {{chart.interestRate | number}} </label>
 								</td>
-								<td>
-									<button data-ng-if="interestRateChart.length > 0" type="button" class="btn-link ng-binding"><i class="icon-remove icon-white" ng-click="deleteInterestChart($index)"></i>
-									</button>
-								</td>
+								<td data-ng-if="interestRateChart.length > 0" class="width30"><i class="icon-remove" ng-click="deleteInterestChart($index)"></i></td>
 							</tr>
 							</tbody>
 						</table>

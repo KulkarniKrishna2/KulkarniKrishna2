@@ -9,7 +9,7 @@
                     scope.savingproduct.allowDpLimit = true;
                     scope.savingsProductDrawingPowerDetailsData = data.savingsProductDrawingPowerDetailsData;
                 }
-                if(data.floatingInterestRateChartData){
+                if(data.floatingInterestRateChartData != undefined &&  data.floatingInterestRateChartData.length > 0){
                     scope.interestRateChart = data.floatingInterestRateChartData;
                     scope.isFloatingInterestRateChart = true;
                 }

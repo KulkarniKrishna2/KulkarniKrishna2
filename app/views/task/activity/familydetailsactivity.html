@@ -148,9 +148,10 @@
             </form>
         </div>
         
-        <div class="form-horizontal" ng-if="!showform">
+    <div class="form-horizontal" ng-if="!showform">
         <h2 ng-if="familyMembers.length>0">{{'label.heading.familymember' | translate}}</h2>
         <br>
+        <span ng-if="!familyMembers.length>0">{{'No.Data.Found' | translate}}</span>
         <table class="table" ng-if="familyMembers.length>0">
             <thead>
             <tr>

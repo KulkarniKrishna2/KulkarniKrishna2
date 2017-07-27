@@ -30,6 +30,7 @@
             scope.isCenter=false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.pincode = false;
+            scope.sections = [];
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
             }
@@ -292,10 +293,18 @@
                 if (data.imagePresent) {
                     http({
                         method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxHeight=150'
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxHeight=150'
                     }).then(function (imageData) {
-                        scope.image = imageData.data;
+                        scope.imageData = imageData.data[0];
+                        http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
+                        }).then(function (imageData) {
+                            scope.image = imageData.data;
+                        });
                     });
+                    
+
                 }
                 if(data.groups.length > 0 && data.groups[0].groupLevel==1){
                     scope.isCenter=true;
@@ -422,7 +431,8 @@
                 } else if (associatedEntityId == null) {
                     associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
                 }
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client', associatedEntityId: associatedEntityId}, function (data) {
+                var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : true};
+                resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
                     scope.clientdatatables = data;
                 });
 
@@ -468,7 +478,7 @@
                 $scope.upload = function () {
                     if (scope.file) {
                         $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
                             data: {},
                             file: scope.file
                         }).then(function (imageData) {
@@ -526,7 +536,7 @@
                     if($scope.picture != null) {
                         http({
                             method: 'POST',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
                             data: $scope.picture
                         }).then(function (imageData) {
                             if (!scope.$$phase) {
@@ -554,7 +564,7 @@
                 $scope.delete = function () {
                     http({
                         method: 'DELETE',
-                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
                     }).then(function (imageData) {
                         if (!scope.$$phase) {
                             scope.$apply();
@@ -580,7 +590,7 @@
                 $scope.upload = function () {
                     if (scope.file) {
                         $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/documents',
                             data: {
                                 name: 'clientSignature',
                                 description: 'client signature'
@@ -795,10 +805,13 @@
                     entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
+                    scope.datatabledetails.isColumnData = data.columnData.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
                     scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
+                    scope.isSectioned = false;
+                    scope.sections = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
@@ -810,7 +823,28 @@
                             }
                         }
                     }
-                    if (scope.datatabledetails.isData) {
+                    
+                    if(data.sectionedColumnList != null && data.sectionedColumnList !=undefined && data.sectionedColumnList.length > 0){
+                    	scope.isSectioned = true;
+                    }
+                    
+                    if(scope.isSectioned){
+                        for(var l in data.sectionedColumnList){
+                    	   for (var i in data.sectionedColumnList[l].columns) {
+                                if (scope.datatabledetails.sectionedColumnList[l].columns[i].columnCode) {
+                                    for (var j in scope.datatabledetails.sectionedColumnList[l].columns[i].columnValues) {
+                                        for (var k in data.data) {
+                                            if (data.data[k].row[i] == data.sectionedColumnList[l].columns[i].columnValues[j].id) {
+                                                data.data[k].row[i] = data.sectionedColumnList[l].columns[i].columnValues[j].value;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (scope.datatabledetails.isColumnData) {
                         for (var i in data.columnHeaders) {
                             if (!scope.datatabledetails.isMultirow) {
                                 var row = {};
@@ -820,11 +854,57 @@
                                     row.key = data.columnHeaders[i].columnName;
                                 }
                                 row.columnDisplayType = data.columnHeaders[i].columnDisplayType;
-                                row.value = data.data[0].row[i];
+                                for(var j in data.columnData[0].row){
+                                    if(data.columnHeaders[i].columnName == data.columnData[0].row[j].columnName){
+                                       row.value = data.columnData[0].row[j].value;
+                                       break;
+                                    }
+                                }
                                 scope.singleRow.push(row);
                             }
                         }
+                        
+                        
                     }
+
+                    for(var l in data.sectionedColumnList){
+                        var tempSection = {
+                        displayPosition:data.sectionedColumnList[l].displayPosition,
+                        displayName: data.sectionedColumnList[l].displayName,
+                        cols: []
+                        }
+                    scope.sections.push(tempSection);
+                    }
+                    if(scope.isSectioned){
+                        if (scope.datatabledetails.isColumnData) {
+                            for(var l in data.sectionedColumnList){
+                                for (var i in data.sectionedColumnList[l].columns) {
+                                    for (var j in data.columnHeaders) {
+                                        if(data.sectionedColumnList[l].columns[i].columnName == data.columnHeaders[j].columnName ){
+                                            var index = scope.sections.findIndex(x => x.displayName==data.sectionedColumnList[l].displayName);
+                                            if (!scope.datatabledetails.isMultirow) {   
+                                                var row = {};
+                                                if(data.columnHeaders[j].displayName != undefined && data.columnHeaders[j].displayName != 'null') {
+                                                    row.key = data.columnHeaders[j].displayName;
+                                                } else {
+                                                    row.key = data.columnHeaders[j].columnName;
+                                                }
+                                                row.columnDisplayType = data.columnHeaders[j].columnDisplayType;
+                                                for(var k in data.columnData[0].row){
+                                                    if(data.columnHeaders[j].columnName == data.columnData[0].row[k].columnName){
+                                                        row.value = data.columnData[0].row[k].value;
+                                                        break;
+                                                    }
+                                                }
+                                                scope.sections[index].cols.push(row);
+                                            }
+                                        } 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                 });
             };
 
@@ -860,7 +940,7 @@
 
             scope.viewDataTable = function (registeredTableName, data) {
                 if (scope.datatabledetails.isMultirow) {
-                    location.path("/viewdatatableentry/" + registeredTableName + "/" + scope.client.id + "/" + data.row[0]);
+                    location.path("/viewdatatableentry/" + registeredTableName + "/" + scope.client.id + "/" + data.row[0].value);
                 } else {
                     location.path("/viewsingledatatableentry/" + registeredTableName + "/" + scope.client.id);
                 }
@@ -1003,10 +1083,17 @@
                     if (scope.client.imagePresent) {
                         http({
                             method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=860'
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxWidth=860'
                         }).then(function (imageData) {
-                            $scope.largeImage = imageData.data;
+                            $scope.Image = imageData.data[0];
+                            http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+$scope.Image.imageId+'?maxHeight=860'
+                            }).then(function (imageData) {
+                                $scope.largeImage = imageData.data;
+                            });
                         });
+                        
                     }
                 };
                 loadImage();
@@ -1136,18 +1223,18 @@
             };
 
             scope.showEditClientIncome = function(id){
-                location.path('/client/'+scope.id+'/editclientoccupation/'+id);
+                location.path('/clients/'+scope.id+'/editclientoccupation/'+id);
             };
 
             scope.showEditClientAsset = function(id){
-                location.path('/client/'+scope.id+'/editclientasset/'+id);
+                location.path('/clients/'+scope.id+'/editclientasset/'+id);
             };
 
             scope.editClientIdentifier = function(id){
                 location.path('/clients/'+scope.id+'/identifiers/'+id);
             };
             scope.showEditClientHouseHoldExpense = function(id){
-                location.path('/client/'+scope.id+'/editclienthouseholdexpense/'+id);
+                location.path('/clients/'+scope.id+'/editclienthouseholdexpense/'+id);
             };
 
             scope.existingLoans = function(){
@@ -1157,11 +1244,11 @@
             };
 
             scope.showEditClientExistLoan = function(id){
-                location.path('/client/'+scope.id+'/editclientexistingloan/'+id);
+                location.path('/clients/'+scope.id+'/editclientexistingloan/'+id);
             }
 
             scope.routeToViewExistingLoan = function(id){
-                location.path('/client/'+scope.id+'/viewclientexistingloan/'+id);
+                location.path('/clients/'+scope.id+'/viewclientexistingloan/'+id);
             }
 
             function getprofileRating(){

@@ -14,13 +14,14 @@
                 <th>{{'label.heading.cheque.amount' | translate}}</th>
                 <th>{{'label.heading.mandate.bankName' | translate}}</th>
                 <th>{{'label.heading.mandate.branchName' | translate}}</th>
-                <th>{{'label.heading.mandate.ifsc' | translate}}</th>
+                <th>{{'label.input.ifsccode' | translate}}</th>
                 <th>{{'label.heading.status' | translate}}</th>
                 <th>{{'label.heading.action' | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" data-ng-repeat="pdc in pdcListData track by $index"
+            <tr ng-class="editSecurityPDCIndex != $index?'pointer-main':''"
+                data-ng-repeat="pdc in pdcListData track by $index"
                 ng-if="pdc.chequeType.id==2">
                 <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
                     <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.chequeNumber}}</label>
@@ -31,7 +32,7 @@
                                class="form-control"/>
                     </label>
                 </td>
-                <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
+                <td ng-class="editSecurityPDCIndex != $index?'pointer':''" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
                     <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.chequeDate |
                         DateFormat}}</label>
                     <label data-ng-if="editSecurityPDCIndex == $index">
@@ -84,11 +85,11 @@
                 <td>
                     <a data-ng-if="isEditSecurityPDC($index,pdc)" ng-click="buildEditSecurityPDC($index,pdc)"
                        has-permission='UPDATE_PDC'><i
-                            class="icon-edit icon-green"></i></a>
+                            class="icon-edit icon-green font-size-14pt"></i></a>
                     &nbsp;
                     <a data-ng-if="isDeleteSecurityPDC($index,pdc)" ng-click="deletePDC(pdc)"
                        has-permission='DELETE_PDC'><i
-                            class="icon-trash icon-red"></i></a>
+                            class="icon-trash icon-red font-size-14pt"></i></a>
                     <a data-ng-if="editSecurityPDCIndex == $index" class="btn btn-primary"
                        data-ng-click="editSecurityPDC()">{{'label.button.update' | translate}}</a>
                 </td>
@@ -109,13 +110,14 @@
                 <th>{{'label.heading.cheque.date' | translate}}</th>
                 <th>{{'label.heading.mandate.bankName' | translate}}</th>
                 <th>{{'label.heading.mandate.branchName' | translate}}</th>
-                <th>{{'label.heading.mandate.ifsc' | translate}}</th>
+                <th>{{'label.input.ifsccode' | translate}}</th>
                 <th>{{'label.heading.status' | translate}}</th>
                 <th>{{'label.heading.action' | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" data-ng-repeat="pdc in pdcListData track by $index"
+            <tr ng-class="editRepaymentPDCIndex != $index?'pointer-main':''"
+                data-ng-repeat="pdc in pdcListData track by $index"
                 ng-if="pdc.chequeType.id==1">
                 <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
                     {{pdc.mappingData.dueDate | DateFormat}}
@@ -137,7 +139,7 @@
                                class="form-control"/>
                     </label>
                 </td>
-                <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                <td ng-class="editRepaymentPDCIndex != $index?'pointer':''" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
                     <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.chequeDate |
                         DateFormat}}</label>
                     <label data-ng-if="editRepaymentPDCIndex == $index">
@@ -179,10 +181,10 @@
                 </td>
                 <td>
                     <a data-ng-if="isEditRepaymentPDC($index,pdc)" ng-click="buildEditRepaymentPDC($index,pdc)"
-                       has-permission='UPDATE_PDC'><i class="icon-edit icon-green"></i></a>
+                       has-permission='UPDATE_PDC'><i class="icon-edit icon-green font-size-14pt"></i></a>
                     &nbsp;
                     <a data-ng-if="isDeleteRepaymentPDC($index,pdc)" ng-click="deletePDC(pdc)"
-                       has-permission='DELETE_PDC'><i class="icon-trash icon-red"></i></a>
+                       has-permission='DELETE_PDC'><i class="icon-trash icon-red font-size-14pt"></i></a>
                     <a data-ng-if="editRepaymentPDCIndex == $index" class="btn btn-primary"
                        data-ng-click="editRepaymentPDC()">{{'label.button.update' | translate}}</a>
                 </td>

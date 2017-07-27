@@ -16,9 +16,13 @@
             scope.id = {};
             scope.hasValueMandatory = false;
             scope.codeValues = [];
+			scope.allowSections = false;
+            scope.section = {};
+            scope.sectionArray = [];
+            scope.sections = [];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
-                scope.codes = data;
+                scope.codes = data.pageItems;
             });
 
             resourceFactory.DataTablesTemplateResource.get({}, function (data) {
@@ -89,7 +93,8 @@
                         mandatory: false,
                         visible: true,
                         mandatoryIfVisible: false,
-                        hasValueMandatory :false
+                        hasValueMandatory :false,
+						sectionName: " "
                     }
                     scope.columns.push(column);
                     scope.datatableTemplate.columnName = undefined;
@@ -168,6 +173,36 @@
                 });
             }
 
+            scope.addSectionName = function () {
+                if(scope.section.value != undefined &&  scope.section.value != null && scope.section.value.trim().length > 0 && scope.sectionArray.indexOf(scope.section.value) < 0 ){ 
+                	scope.sectionArray.push(scope.section.value);
+                
+                var tempSection = {
+                    displayPosition: scope.sectionArray.length,
+                    displayName: scope.section.value,
+                    columns: []
+                }
+                scope.sections.push(tempSection);
+              }
+              scope.section.value = undefined;
+            };
+            
+            scope.shiftSectionDown = function(index){
+            	var temp = scope.sectionArray[index];
+            	scope.sectionArray[index] = scope.sectionArray[index+1];
+            	scope.sectionArray[index+1] = temp;
+            };
+            
+            scope.shiftSectionUp = function(index){
+            	var temp = scope.sectionArray[index];
+            	scope.sectionArray[index] = scope.sectionArray[index-1];
+            	scope.sectionArray[index-1] = temp;
+            };
+            
+            scope.removeSection = function(index){
+            	scope.sectionArray.splice(index,1);
+            };
+
             scope.submit = function () {
                 if (scope.columns.length == 0) {
                     scope.errorDetails = [];
@@ -205,6 +240,42 @@
                     }
                     delete this.formData.restrictscope;
                     delete this.formData.clientscopetype;
+
+                    if(this.allowSections){
+                    	scope.sectionedColumns = [];
+                    	for(var k in scope.sections){
+                    		scope.sections[k].displayPosition = scope.sectionArray.indexOf(scope.sections[k].displayName) + 1;
+                    	} 
+                        for (var i in scope.formData.columns) {
+                            if(scope.formData.columns[i].sectionName != " "){
+                                var name = scope.formData.columns[i].sectionName;
+                                for(var j=0; j< scope.sections.length;j++)
+                                {
+                                    if(name == scope.sections[j].displayName){
+                                    	scope.sections[j].columns.push(scope.formData.columns[i]);
+                                    	scope.sectionedColumns.push(scope.formData.columns[i]);
+                                    	delete this.formData.columns[i].sectionName;
+                                    	break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        for(var i in scope.sectionedColumns){
+                        	for(var j in scope.formData.columns){
+                        		if(scope.sectionedColumns[i] == scope.formData.columns[j]){
+                        			scope.formData.columns.splice(j,1);
+                        			break;
+                        		}
+                        	}
+                        }
+                        scope.formData.sections = scope.sections;
+                    }
+                    else{
+                        for (var i in scope.formData.columns) { 
+                            delete this.formData.columns[i].sectionName;
+                        }
+                    }
 
                     resourceFactory.DataTablesResource.save(this.formData, function (data) {
                         location.path('/viewdatatable/' + data.resourceIdentifier);

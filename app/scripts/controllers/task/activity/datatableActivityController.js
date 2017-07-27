@@ -56,10 +56,7 @@
             function initTask() {
                 scope.tableName = scope.taskconfig['datatablename'];
                 scope.entityId = scope.taskconfig['clientId'];
-                scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
-                if(scope.loanApplicationReferenceId != undefined &&  scope.loanApplicationReferenceId != null){
-                    scope.entityId = scope.loanApplicationReferenceId;
-                }
+                scope.entityId = scope.loanApplicationReferenceId;
                 scope.getDetails();
             };
 
@@ -92,7 +89,8 @@
                     }
 
                     colName = data.columnHeaders[0].columnName;
-                    if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'loan_application_reference_id') {
+                    if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
+                        colName == 'savings_account_id' || colName == 'loan_application_reference_id' || colName == 'villages_id') {
                         data.columnHeaders.splice(0, 1);
                         scope.isCenter = colName == 'center_id' ? true : false;
                     }
@@ -252,7 +250,8 @@
                 }
 
                 colName = scope.columnHeaders[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id'  || colName == 'loan_application_reference_id') {
+                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
+                    colName == 'savings_account_id'  || colName == 'loan_application_reference_id' || colName == 'villages_id') {
                     scope.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }

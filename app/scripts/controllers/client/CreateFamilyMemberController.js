@@ -33,10 +33,6 @@
                 if (scope.formData.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.formData.dateOfBirth, scope.df);
                 }
-                if (scope.occupationId) {
-                    this.formData.occupationDetailsId = scope.occupationOption.id;
-                }
-
                 if (scope.educationId) {
                     this.formData.educationId = scope.educationId;
                 }

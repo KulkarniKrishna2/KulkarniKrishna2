@@ -33,7 +33,7 @@
                     delete scope.formData.id;
                 }
                 resourceFactory.incomeExpenses.update({incomeAndExpenseId: scope.entityId}, scope.formData, function (data) {
-                    location.path('/expenses/' + scope.entityId);
+                    location.path('/expenses/' + scope.houseHoldExpenseId);
                 });
             }
         }

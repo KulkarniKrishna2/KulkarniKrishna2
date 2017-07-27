@@ -11,6 +11,7 @@
             scope.showCreateCgt = true;
             scope.isConfiguredClientCenterAssociation=false;
             $rootScope.centerId = routeParams.id
+            scope.sections = [];
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -127,12 +128,12 @@
                 });
             }
 
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center'}, function (data) {
+            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center', isFetchBasicData: true}, function (data) {
                 scope.centerdatatables = data;
             });
             scope.viewDataTable = function (registeredTableName,data){
                 if (scope.datatabledetails.isMultirow) {
-                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.center.id+"/"+data.row[0]);
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.center.id+"/"+data.row[0].value);
                 }else{
                     location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.center.id);
                 }
@@ -143,9 +144,12 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    scope.datatabledetails.isColumnData = data.columnData.length > 0 ? true : false;
                     scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
                     scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
+                    scope.isSectioned = false;
+                    scope.sections = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
@@ -157,13 +161,74 @@
                             }
                         }
                     }
-                    if (scope.datatabledetails.isData) {
+                    if(data.sectionedColumnList != null && data.sectionedColumnList !=undefined && data.sectionedColumnList.length > 0){
+                        scope.isSectioned = true;
+                    }
+                    
+                    if(scope.isSectioned){
+                        for(var l in data.sectionedColumnList){
+                            for (var i in data.sectionedColumnList[l].columns) {
+                                if (scope.datatabledetails.sectionedColumnList[l].columns[i].columnCode) {
+                                    for (var j in scope.datatabledetails.sectionedColumnList[l].columns[i].columnValues) {
+                                        for (var k in data.data) {
+                                            if (data.data[k].row[i] == data.sectionedColumnList[l].columns[i].columnValues[j].id) {
+                                                data.data[k].row[i] = data.sectionedColumnList[l].columns[i].columnValues[j].value;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (scope.datatabledetails.isColumnData) {
                         for (var i in data.columnHeaders) {
                             if (!scope.datatabledetails.isMultirow) {
                                 var row = {};
                                 row.key = data.columnHeaders[i].columnName;
-                                row.value = data.data[0].row[i];
+                                for(var j in data.columnData[0].row){
+                                    if(data.columnHeaders[i].columnName == data.columnData[0].row[j].columnName){
+                                       row.value = data.columnData[0].row[j].value;
+                                       break;
+                                    }
+                                }
                                 scope.singleRow.push(row);
+                            }
+                        }
+                    }
+                    for(var l in data.sectionedColumnList){
+                        var tempSection = {
+                            displayPosition:data.sectionedColumnList[l].displayPosition,
+                            displayName: data.sectionedColumnList[l].displayName,
+                            cols: []
+                        }
+                        scope.sections.push(tempSection);
+                    }
+                    if(scope.isSectioned){
+                        if (scope.datatabledetails.isColumnData) {
+                            for(var l in data.sectionedColumnList){
+                                for (var i in data.sectionedColumnList[l].columns) {
+                                    for (var j in data.columnHeaders) {
+                                        if(data.sectionedColumnList[l].columns[i].columnName == data.columnHeaders[j].columnName ){
+                                            var index = scope.sections.findIndex(x => x.displayName==data.sectionedColumnList[l].displayName);
+                                            if (!scope.datatabledetails.isMultirow) {
+                                                var row = {};
+                                                if(data.columnHeaders[j].displayName != undefined && data.columnHeaders[j].displayName != 'null') {
+                                                    row.key = data.columnHeaders[j].displayName;
+                                                } else {
+                                                    row.key = data.columnHeaders[j].columnName;
+                                                }
+                                                row.columnDisplayType = data.columnHeaders[j].columnDisplayType;
+                                                for(var k in data.columnData[0].row){
+                                                    if(data.columnHeaders[j].columnName == data.columnData[0].row[k].columnName){
+                                                        row.value = data.columnData[0].row[k].value;
+                                                        break;
+                                                    }
+                                                }
+                                                scope.sections[index].cols.push(row);
+                                            }
+                                        } 
+                                    }
+                                }
                             }
                         }
                     }
