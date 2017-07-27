@@ -64,7 +64,7 @@
                     translate}}
                 </button>
             </label>
-            <label data-ng-if="pdcData">
+            <label data-ng-if="showActionButtonsForPDC()">
                 <button type="button" data-ng-if="isEnableThisAction(present)"
                         data-ng-click="actionToBePerformed(present)" class="btn btn-primary">
                     {{'label.button.present.to.the.bank' | translate}}
