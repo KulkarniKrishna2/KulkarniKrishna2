@@ -6222,6 +6222,7 @@
     "lable.anchor.pdc.detailed.view" : "PDC Detailed View",
     "label.input.cheque.number" : "Cheque Number",
     "label.input.due.amount" : "Due Amount",
+    "label.input.installment.amount":"Installment Amount",
     "error.msg.pdc.cheque.numbers.duplicated" : "PDC cheque numbers duplicated",
 
     "label.anchor.manage.pdc" : "Manage Post Dated Cheques",
@@ -6253,6 +6254,7 @@
     "label.heading.reschedulereason" : "Reschedule Reason",
     
     "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
+    "validation.msg.pdc.select.at.least.one.pdc" : "Select at least one PDC",
 
     "#Datatable Sections" : "",
     "label.input.allow.sections":"Allow Sections",
