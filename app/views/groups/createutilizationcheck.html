@@ -7,7 +7,7 @@
         <li><a href="#/viewgroup/{{entityId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.createluc' | translate}}</li>
     </ul>
-
+    <api-validate></api-validate>
     <br/>
 
     <div class="col-sm-12">
@@ -41,7 +41,7 @@
                 <td class="col-md-1">
                     <span>{{centerTemplate.principalAmount}}</span>
                 </td>
-                <td class="col-md-1">
+                <td class="col-md-1.5">
                     <ng-form name="auditDoneOn" rc-submit="submit()">
                         <input id="submittedon"
                                type="text"
@@ -73,7 +73,7 @@
                                     </select>
                                 </ng-form>
                             </td>
-                            <td class="col-md-2">
+                            <td class="col-md-3">
                                 <ng-form name="principalAmountForm" rc-submit="submit()">
                                     <input type="text"
                                            id="principalAmountId"

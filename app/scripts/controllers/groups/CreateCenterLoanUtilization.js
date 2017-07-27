@@ -91,7 +91,7 @@
                 for (var i in scope.submitData) {
                     if (scope.submitData[i].loanUtilizationCheckDetail && scope.submitData[i].loanUtilizationCheckDetail.utilizationDetails) {
                         for (var j in scope.submitData[i].loanUtilizationCheckDetail.utilizationDetails) {
-                            if (scope.submitData[i].loanUtilizationCheckDetail.utilizationDetails[j].amount) {
+                            if (scope.submitData[i].loanUtilizationCheckDetail.utilizationDetails[j]) {
                                 delete scope.submitData[i].loanUtilizationCheckDetail.utilizationDetails[j].percentailOfUsage;
                                 var loanUtilizationCheckDetail = scope.submitData[i].loanUtilizationCheckDetail;
                                 scope.formData.loanUtilizationCheckDetails.push(loanUtilizationCheckDetail);
