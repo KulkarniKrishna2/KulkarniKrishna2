@@ -5,11 +5,7 @@
         <li class="active">{{'label.anchor.manage.pdc' | translate}}</li>
     </ul>
     <div class="clearfix"></div>
-    <div class="pull-right">
-        <div class="btn-group">
 
-        </div>
-    </div>
     <div class="clearfix"></div>
     <div class="form-horizontal well">
         <div ng-if="!isSearchPDCData">
@@ -88,6 +84,13 @@
         </div>
 
         <div ng-if="isSearchPDCData">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.pdc.back.to.search' |
+                        translate}}
+                    </button>
+                </div>
+            </div>
             <table class="border1px table horizontal-scrollbar vertical-scrollbar">
                 <thead>
                 <tr class="graybg">
