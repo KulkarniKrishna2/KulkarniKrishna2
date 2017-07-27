@@ -14,6 +14,7 @@
             scope.updatedInterestRateChart = [];
 
             scope.formData.isAllowInterestRateChart = false;
+            scope.isAllowInterestRateChartDisabled = false;
             resourceFactory.savingProductResource.get({savingProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.charges = data.charges;
@@ -58,6 +59,7 @@
                         scope.interestRateChart[i].effectiveFromDate = new Date(actDate);
                     }
                     scope.formData.isAllowInterestRateChart = true;
+                    scope.isAllowInterestRateChartDisabled = true;
                 }
 
                 scope.formData.allowDpLimit = false;
