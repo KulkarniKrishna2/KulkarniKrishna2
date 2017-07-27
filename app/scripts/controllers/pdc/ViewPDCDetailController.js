@@ -28,7 +28,7 @@
             };
 
             scope.isEnableThisAction = function (action) {
-                if (action === scope.present && scope.pdcData.presentStatus.id < 2) {
+                if (action === scope.present && scope.pdcData.presentStatus.id < 2 && scope.pdcData.loanAccountData.status.value === 'Active') {
                     return true;
                 } else if (action === scope.bounced && scope.pdcData.presentStatus.id == 2) {
                     return true;

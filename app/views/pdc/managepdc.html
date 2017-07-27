@@ -122,7 +122,7 @@
                         {{pdc.clientName}}
                     </td>
                     <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                        {{pdc.loanProductName}} - {{pdc.loanAccountNumber}}
+                        {{pdc.loanAccountData.loanProductName}} - {{pdc.loanAccountData.accountNo}}
                     </td>
                     <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.mappingData.dueDate | DateFormat}}
