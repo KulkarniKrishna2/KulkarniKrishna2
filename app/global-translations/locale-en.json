@@ -381,6 +381,9 @@
     "label.button.addexpenses": "Add Expenses",
     "label.button.fetchdetails": "Fetch Details",
     "label.button.accountlimits":"Account Limits",
+    "label.button.initiateworkflow":"Intiate Workflow",
+    "label.button.viewworkflow":"View Workflow",
+
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
     "label.belongsto": "Belongs To",
