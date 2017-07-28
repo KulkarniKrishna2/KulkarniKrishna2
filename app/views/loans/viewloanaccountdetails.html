@@ -1294,7 +1294,7 @@
                             </tbody>
                         </table>
                     </tab>
-                    <tab heading="{{'label.anchor.mandate' | translate}}" select="getMandates()">
+                    <tab heading="{{'label.anchor.mandate' | translate}}" select="getMandatesOnSelect()">
                         <div class="pull-right">
                             <a href="#/mandate/{{loandetails.id}}/CREATE" ng-show="createPossible" class="btn btn-primary">{{'label.button.mandate.create'
                                 | translate}}</a>
@@ -1336,7 +1336,7 @@
                             </tbody>
                         </table>
                     </tab>
-                    <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
+                    <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE' select="fetchNotes()">
                         <br/>
 
                         <form>
@@ -1423,7 +1423,7 @@
                             </div>
                         </div>
                     </tab>
-                    <tab ng-show="showCreditBureau" heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CLIENTNOTE' ng-init="getCreditBureauReportSummary()" ng-click="getCreditBureauReportSummary()">
+                    <tab ng-show="showCreditBureau" heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CLIENTNOTE' select="getCreditBureauReportSummary()">
                         <div class="span gray-head">
                     <span class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
