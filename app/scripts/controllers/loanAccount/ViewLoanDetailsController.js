@@ -32,13 +32,9 @@
             scope.allowPaymentsOnClosedLoanConfigName = "allow-payments-on-closed-loans";
             scope.sections = [];
             scope.refund_for_active_loan_enum_value= 18;
-
-            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
-                if(configData){
-                    scope.glimPaymentAsGroup = configData.enabled;
-                }
-            });
-
+            scope.existingclientdetailsloaded = false;
+            scope.mandatesLoaded = false;
+            scope.noteLoaded = false;
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
 
@@ -259,28 +255,36 @@
 
             var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",repaymentSchedule,loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
 
-                resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
-                    scope.glimClientsDetails = data;
-                    var totalGlimChargeAmount = 0;
-                    for(var i=0;i<data.length;i++){
-                        if(angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)){
-                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
-                        }else if(angular.isDefined(scope.glimClientsDetails[i].approvedAmount)){
-                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
-                        }else{
-                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
+                if(data.loanType.code == 'accountType.glim') {
+                    resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
+                        if(configData){
+                            scope.glimPaymentAsGroup = configData.enabled;
                         }
+                    });
 
-                        if(angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)){
-                            totalGlimChargeAmount = totalGlimChargeAmount+parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
+                    resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
+                        scope.glimClientsDetails = data;
+                        var totalGlimChargeAmount = 0;
+                        for (var i = 0; i < data.length; i++) {
+                            if (angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)) {
+                                scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
+                            } else if (angular.isDefined(scope.glimClientsDetails[i].approvedAmount)) {
+                                scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
+                            } else {
+                                scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
+                            }
+
+                            if (angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)) {
+                                totalGlimChargeAmount = totalGlimChargeAmount + parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
+                            }
                         }
-                    }
-                    scope.isGlimChargesAvailbale = (totalGlimChargeAmount>0);
-                    scope.isGlim = data.length>0;
-                });
+                        scope.isGlimChargesAvailbale = (totalGlimChargeAmount > 0);
+                        scope.isGlim = data.length > 0;
+                    });
+                }
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : true}, function (data) {
                     scope.loandatatables = data;
@@ -512,6 +516,10 @@
                             {
                                 name: "button.reschedule",
                                 taskPermissionName: 'CREATE_RESCHEDULELOAN'
+                            },
+                            {
+                                name: "button.refundByCash",
+                                taskPermissionName: 'REFUNDBYCASH_LOAN'
                             }
                         ]
 
@@ -606,14 +614,9 @@
                             });
                         }
                     }      
-                    if(scope.loandetails.repaymentSchedule && scope.loandetails.repaymentSchedule.totalPaidInAdvance){
-                        scope.buttons.options.push( {
-                            name: "button.refundByCash",
-                            taskPermissionName: 'REFUNDBYCASH_LOAN'
-                        });
 
                     }
-                }
+
                 if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.singlebuttons.push(
                         {
@@ -799,9 +802,17 @@
                 }
             };
 
-            resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
-                scope.loanNotes = data;
-            });
+            scope.fetchNotes = function() {
+                if(!scope.noteLoaded) {
+                    scope.noteLoaded = true;
+                    resourceFactory.loanResource.getAllNotes({
+                        loanId: routeParams.id,
+                        resourceType: 'notes'
+                    }, function (data) {
+                        scope.loanNotes = data;
+                    });
+                }
+            }
 
             scope.getChargeWaiveLink = function(loanId, chargeId){
                 var suffix = "loanaccountcharge/"+loanId+"/waivecharge/"+chargeId
@@ -830,6 +841,13 @@
                 });
 
             };
+            
+            scope.getMandatesOnSelect = function () {
+                if(!scope.mandatesLoaded){
+                    scope.getMandates();
+                    scope.mandatesLoaded = true;
+                }
+            }
 
             scope.getMandates = function () {
                 resourceFactory.mandateResource.getAll({loanId: routeParams.id}, function (data) {
@@ -1461,16 +1479,18 @@
             };
 
             scope.getCreditBureauReportSummary = function () {
-                resourceFactory.clientExistingLoan.getAll({
-                    clientId: $rootScope.clientId,
-                    loanApplicationId: null,
-                    loanId: null,
-                    trancheDisbursalId: null
-                }, function (data) {
-                    scope.existingLoans = data;
-                    constructLoanSummary();
-                });
-
+                if(!scope.existingclientdetailsloaded) {
+                    resourceFactory.clientExistingLoan.getAll({
+                        clientId: $rootScope.clientId,
+                        loanApplicationId: null,
+                        loanId: null,
+                        trancheDisbursalId: null
+                    }, function (data) {
+                        scope.existingLoans = data;
+                        constructLoanSummary();
+                    });
+                    scope.existingclientdetailsloaded = true;
+                }
             };
 
             scope.creditBureauReportView = function () {
