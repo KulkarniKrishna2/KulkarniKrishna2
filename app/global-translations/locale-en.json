@@ -6256,6 +6256,8 @@
     "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
     "validation.msg.pdc.select.at.least.one.pdc" : "Select at least one PDC",
     "label.button.pdc.back.to.search" : "V Parameter",
+    "error.msg.can.not.adjust.loan.transaction.was.linked.with.pdc" : "Can not undo / adjust loan transaction was linked with PDC",
+    "error.msg.can.not.undo.disbursed.loan.transactions.are.linked.with.pdc" : "Can not undo disbursed loan, transactions are linked with PDC",
 
     "#Datatable Sections" : "",
     "label.input.allow.sections":"Allow Sections",
