@@ -50,8 +50,8 @@
                         update: { method: 'PUT'}
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
-                        getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
-                        getAllClientsWithoutLimit: {method: 'GET', params: {}},
+                        getAllClients: {method: 'GET', params: {limit:1000, sqlSearch: '@sqlSearch'}},
+                        getAllClientsWithoutLimit: {method: 'GET', params: {limit: -1, sqlSearch: '@sqlSearch'}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}

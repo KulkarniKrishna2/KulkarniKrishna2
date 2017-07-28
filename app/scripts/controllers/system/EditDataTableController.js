@@ -57,17 +57,16 @@
                 }
 
                 var temp = [];
-                var colName = data.columnHeaderData[0].columnName;
-                if (colName == 'id') {
-                    data.columnHeaderData.splice(0, 1);
-                }
-                colName = data.columnHeaderData[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
-                    colName == 'savings_account_id' || colName == 'gl_journal_entry_id' || colName == 'loan_application_reference_id' || colName == 'villages_id' ) {
-                    data.columnHeaderData.splice(0, 1);
-                }
-
                 for (var i in data.columnHeaderData) {
+                    var colName = data.columnHeaderData[i].columnName;
+                    if(colName == 'id'){
+                         data.columnHeaderData.splice(i, 1);
+                    }
+                    colName = data.columnHeaderData[i].columnName;
+                    if(colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' 
+                        || colName == 'savings_account_id' || colName == 'gl_journal_entry_id' || colName == 'loan_application_reference_id'){
+                          data.columnHeaderData.splice(i, 1);
+                    }
                     var tempColumn = {};
                     if (data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
                         temp = data.columnHeaderData[i].columnName.split("_cd_");

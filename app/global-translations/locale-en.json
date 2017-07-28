@@ -560,7 +560,7 @@
     "error.msg.loan.transaction.cannot.be.before.last.transaction.date": "The disbursement date cannot be before last transaction date",
     "error.msg.payment.type.canoot.map.more.than.one.time" :" Payment type cannot be mapped with multiple gl accounts",
     "validation.msg.rescheduleloan.rescheduleFromDate.reschedule.to.previous.date.not.allowed.before.current.date": "Reschedule to previous date not allowed before current date",
-    "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.cannot.be.before.last.installment.due.date" : "Adjusted due date cannot cannot be before last installment due date",
+    "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.cannot.be.before.last.installment.due.date" : "Adjusted due date cannot be before last installment due date",
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
@@ -6222,6 +6222,7 @@
     "lable.anchor.pdc.detailed.view" : "PDC Detailed View",
     "label.input.cheque.number" : "Cheque Number",
     "label.input.due.amount" : "Due Amount",
+    "label.input.installment.amount":"Installment Amount",
     "error.msg.pdc.cheque.numbers.duplicated" : "PDC cheque numbers duplicated",
 
     "label.anchor.manage.pdc" : "Manage Post Dated Cheques",
@@ -6253,6 +6254,8 @@
     "label.heading.reschedulereason" : "Reschedule Reason",
     
     "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
+    "validation.msg.pdc.select.at.least.one.pdc" : "Select at least one PDC",
+    "label.button.pdc.back.to.search" : "V Parameter",
 
     "#Datatable Sections" : "",
     "label.input.allow.sections":"Allow Sections",
@@ -6266,6 +6269,11 @@
     "validation.msg.datatable.columns.cannot.be.empty": "Columns cannot be empty",
     "validation.msg.datatable.sectioned.columns.cannot.be.empty":"Each of the allowed section must contain atleast one column and each column must be mapped to a section",
     "validation.msg.datatable.columns.on.sectioning.data.table.all.columns.should.be.part.of.one.or.other.sections" : "Each column should be mapped to a section",
+    "error.msg.amount.more.than.disbursal.amount" : "Total purpose amount should not more than disbursement amount",
+    "validation.msg.loanutilizationcheck.loanUtilizationChecks.cannot.be.empty" : "Audit Date can not be empty",
+    "validation.msg.invalid.dateFormat.format" : "Audit date can not be empty",
+    "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
+    "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
 
     "------ end of tensalation file":"---------"
 }

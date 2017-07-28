@@ -58,6 +58,10 @@
                 return false;
             };
 
+            scope.routeToViewPDC = function (id, index) {
+                location.path('pdc/view/' + id);
+            };
+
             scope.actionToBePerformed = function (action) {
                 var isPDCSelected = false;
                 scope.isSingleOperation = false;
@@ -77,6 +81,14 @@
                         scope: scope,
                         resolve: {}
                     });
+                }else{
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({value: 'validation.msg.pdc.select.at.least.one.pdc'});
+                    scope.errorDetails.push(errorObj);
                 }
             };
 

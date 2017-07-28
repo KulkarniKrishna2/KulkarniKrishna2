@@ -5,11 +5,7 @@
         <li class="active">{{'label.anchor.manage.pdc' | translate}}</li>
     </ul>
     <div class="clearfix"></div>
-    <div class="pull-right">
-        <div class="btn-group">
 
-        </div>
-    </div>
     <div class="clearfix"></div>
     <div class="form-horizontal well">
         <div ng-if="!isSearchPDCData">
@@ -88,15 +84,22 @@
         </div>
 
         <div ng-if="isSearchPDCData">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.pdc.back.to.search' |
+                        translate}}
+                    </button>
+                </div>
+            </div>
             <table class="border1px table horizontal-scrollbar vertical-scrollbar">
                 <thead>
                 <tr class="graybg">
                     <th>{{'label.menu.select' | translate}}</th>
                     <th>{{'label.input.branch' | translate}}</th>
                     <th>{{'label.input.client' | translate}}</th>
-                    <th>{{'label.heading.loanid' | translate}}</th>
+                    <th>{{'label.heading.loan' | translate}}</th>
                     <th>{{'label.input.duedate' | translate}}</th>
-                    <th>{{'label.input.installmentAmount' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
                     <th>{{'label.input.pdc.type' | translate}}</th>
                     <th>{{'label.input.cheque.no' | translate}}</th>
                     <th>{{'label.heading.cheque.date' | translate}}</th>
@@ -110,42 +113,42 @@
                 <tr class="pointer-main" data-ng-repeat="pdc in searchPDCData track by $index">
                     <td>
                         <input type="checkbox" data-ng-model="pdc.isChecked"
-                               ng-disabled="pdc.mappingData.dueDate == undefined && pdc.mappingData.dueAmount == undefined"/>
+                               ng-disabled="pdc.chequeDate == undefined && pdc.chequeAmount == undefined"/>
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.officeName}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.clientName}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
-                        {{pdc.loanProductName}} - {{pdc.loanAccountNumber}}
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
+                        {{pdc.loanAccountData.loanProductName}} - {{pdc.loanAccountData.accountNo}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.mappingData.dueDate | DateFormat}}
                     </td>
                     <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
-                        {{pdc.mappingData.dueAmount | number}}
+                        {{pdc.chequeType.id == 1 ? pdc.mappingData.dueAmount : pdc.chequeAmount | number}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.chequeType.value}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.chequeNumber}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.chequeDate | DateFormat}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.bankName}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.branchName}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.ifscCode}}
                     </td>
-                    <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
+                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.presentStatus.value}}
                     </td>
                 </tr>
