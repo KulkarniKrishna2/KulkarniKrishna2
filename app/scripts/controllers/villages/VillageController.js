@@ -39,6 +39,13 @@
                 });
             }
 
+            scope.initiateWorkflow = function (villageId) {
+                resourceFactory.villageResource.save({villageId: villageId, command: 'initiateWorkflow'},{}, function (data) {
+                     location.path('/villageworkflow/'+data.resourceId+'/workflow');
+
+                });
+            } ;
+
             scope.initPage = function () {
                 var items = resourceFactory.villageResource.get({
                     offset: 0,

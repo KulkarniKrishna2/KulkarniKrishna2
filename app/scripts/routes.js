@@ -1467,6 +1467,9 @@
             .when('/grouponboarding/:groupId/workflow', {
                 templateUrl: 'views/task/showcase/grouponboardingworkflow.html'
             })
+            .when('/villageworkflow/:villageId/workflow', {
+                templateUrl: 'views/task/showcase/villageonboardingworkflow.html'
+            })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
             })
