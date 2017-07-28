@@ -4,19 +4,13 @@
 
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
-            scope.loanId = routeParams.loanId;
 
             resourceFactory.groupLoanUtilizationCheck.getAll({groupId: scope.entityId}, function (data) {
                 scope.loanUtilizationChecks = data;
-                for (var i in scope.loanUtilizationChecks) {
-                    for (var j in scope.loanUtilizationChecks[i].loanUtilizationCheckDetailData) {
-                        scope.loanId = scope.loanUtilizationChecks[i].loanUtilizationCheckDetailData[j].loanId;
-                    }
-                }
             });
 
-            scope.showEdit = function (id) {
-                location.path('/group/' + scope.entityId + '/loans/' + scope.loanId + '/editloanutilization/' + id);
+            scope.showEdit = function (id,loanId) {
+                location.path('/group/' + scope.entityId + '/loans/' + loanId + '/editloanutilization/' + id);
             }
 
 

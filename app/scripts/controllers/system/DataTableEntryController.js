@@ -202,21 +202,23 @@
 
             scope.editDatatableEntry = function () {
                 scope.isViewMode = false;
-                var colName = scope.columnHeaders[0].columnName;
-                if (colName == 'id') {
-                    scope.columnHeaders.splice(0, 1);
-                }
-                colName = scope.columnHeaders[0].columnName;
-                if(colName == 'journal_entry_id'){
-                    scope.dataTableName = 'f_journal_entry';
-                }
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
-                    scope.columnHeaders.splice(0, 1);
-                    scope.isCenter = colName == 'center_id' ? true : false;
+                for (var i in scope.columnHeaders) {
+                    var colName = scope.columnHeaders[i].columnName;
+                    if(colName == 'id'){
+                        scope.columnHeaders.splice(i, 1);
+                    }
+                    colName = scope.columnHeaders[i].columnName;
+                    if(colName == 'journal_entry_id'){
+                        scope.dataTableName = 'f_journal_entry';
+                    }
+                    if(colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' 
+                        || colName == 'savings_account_id' || colName == 'gl_journal_entry_id' || colName == 'loan_application_reference_id'){
+                        scope.columnHeaders.splice(i, 1);
+                        scope.isCenter = colName == 'center_id' ? true : false;
+                    }
                 }
                 scope.getDependencyColumns(true);
                 for (var i in scope.columnHeaders) {
-
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                         scope.formDat[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
                     } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {

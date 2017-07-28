@@ -55,8 +55,9 @@
 
             function initTask() {
                 scope.tableName = scope.taskconfig['datatablename'];
-                scope.entityId = scope.taskconfig['clientId'];
-                scope.entityId = scope.loanApplicationReferenceId;
+                var entityType = scope.taskconfig['entityType'];
+                entityType = entityType+"Id";
+                scope.entityId = scope.taskconfig[entityType];
                 scope.getDetails();
             };
 

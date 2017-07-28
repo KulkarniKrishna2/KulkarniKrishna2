@@ -32,28 +32,24 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks">
-                    <tr class="pointer-main"
-                        data-ng-repeat="loanUtilizationCheck in loanUtilizationdetailCheck.loanUtilizationCheckDetailData">
-                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationCheck.groupName}}</td>
+                    <tbody>
+                    <tr class="pointer-main" data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks">
+                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.groupName}}</td>
                         <td class="col-md-2 pointer" routeTO="">
-                            {{loanUtilizationCheck.clientName}}-{{loanUtilizationCheck.clientId}}
+                            {{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.clientName}}-{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.clientId}}
                         </td>
                         <td class="col-md-2 pointer" routeTO="">
-                            {{loanUtilizationCheck.loanType.value}}-{{loanUtilizationCheck.loanId}}
+                            {{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.loanType.value}}-{{loanUtilizationdetailCheck.loanId}}
                         </td>
-                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationCheck.principalAmount}}</td>
+                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.principalAmount}}</td>
                         <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.auditDoneOn | DateFormat}}</td>
                         <td>
-                            <table ng-repeat="loanUtilization in loanUtilizationCheck.utilizationDetailsDatas">
-                                <td class="col-md-2 pointer" routeTO="">{{loanUtilization.loanPurposeData.name}}</td>
-                                <td class="col-md-2 pointer" routeTO="">{{loanUtilization.amount}}</td>
-                                <td class="col-md-2 pointer" routeTO="">{{}}</td>
-
-                            </table>
+                           <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.loanPurposeData.name}}</td>
+                            <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.amount}}</td>
+                            <td class="col-md-2 pointer" routeTO="">{{}}</td>
                         </td>
                         <td>
-                            <button role="button" ng-click="showEdit(loanUtilizationdetailCheck.id)"
+                            <button role="button" ng-click="showEdit(loanUtilizationdetailCheck.id,loanUtilizationdetailCheck.loanId)"
                                     class="btn-link ng-binding">
                                 <i class="icon-edit icon-white"></i>
                             </button>
