@@ -43,7 +43,7 @@
                 angular.forEach(scope.incomeAndExpenses, function(data){
                     if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1){
                         if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
-                            total = total + data.totalIncome;
+                            total = total + data.totalIncome-data.totalExpense;
                         }
                     }
                 });
@@ -55,7 +55,7 @@
                 angular.forEach(scope.incomeAndExpenses, function(data){
                     if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2){
                         if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
-                            total = total + data.totalIncome;
+                            total = total + data.totalIncome-data.totalExpense;
                         }
                     }
                 });
@@ -169,9 +169,17 @@
                 _.each(scope.occupations, function (occupation) {
                     if(occupation.id == occupationId){
                         _.each(occupation.incomeExpenseDatas, function(iterate){
-                            if(iterate.cashflowCategoryId == occupationId && iterate.isQuantifierNeeded == true && iterate.id == subOccupationId){
-                                scope.quantifierLabel = iterate.quantifierLabel;
-                                scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
+                            if(iterate.cashflowCategoryId == occupationId && iterate.id == subOccupationId){
+                                if(iterate.defaultIncome){
+                                    scope.formData.totalIncome=iterate.defaultIncome;
+                                }
+                                if(iterate.defaultExpense){
+                                    scope.formData.totalExpense=iterate.defaultExpense;
+                                }
+                                if(iterate.isQuantifierNeeded == true){
+                                    scope.quantifierLabel = iterate.quantifierLabel;
+                                    scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
+                                }
                             } else {
                                 scope.isQuantifierNeeded = false;
                             }
