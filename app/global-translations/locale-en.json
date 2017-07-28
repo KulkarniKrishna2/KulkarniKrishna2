@@ -6257,6 +6257,7 @@
     "validation.msg.pdc.chequeDates.cannot.be.blank" : "Please select the PDC cheque dates",
     "validation.msg.pdc.select.at.least.one.pdc" : "Select at least one PDC",
     "label.button.pdc.back.to.search" : "V Parameter",
+    "label.anchor.pdc.report" : "PDC report",
 
     "#Datatable Sections" : "",
     "label.input.allow.sections":"Allow Sections",
