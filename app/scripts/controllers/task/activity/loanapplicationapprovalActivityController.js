@@ -23,11 +23,22 @@
             scope.existingCharges = [];
             var curIndex = 0;
 
+            scope.hideClientAdrresssBlock = scope.response.uiDisplayConfigurations.workflow.loanApproval.hiddenField.clientAddress;
             function showSummary(){
                 scope.changeLoanEMIPack=false;
                 scope.taskCompletedFlag=scope.isTaskCompleted();
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                     scope.formData = applicationData;
+                    if (!scope.hideClientAdrresssBlock && applicationData.clientId != undefined && applicationData.clientId != null) {
+                        resourceFactory.clientKycAddressResource.get({clientId: applicationData.clientId}, function (kycData) {
+                            scope.clientKycdata = kycData.kyc;
+                        });
+                        resourceFactory.clientResource.get({clientId: applicationData.clientId, isFetchAdressDetails : true}, function (clientData) {
+                            scope.client = clientData;
+                            scope.client.dateOfBirth = dateFilter(new Date(scope.client.dateOfBirth), scope.df);
+                            scope.address = clientData.addressData[0];
+                        });
+                    }
                     scope.loanProductChange(applicationData.loanProductId);
                     resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,

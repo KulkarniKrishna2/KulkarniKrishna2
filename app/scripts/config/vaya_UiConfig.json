@@ -1,0 +1,18 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "loanAccount": {
+      "isHiddenField": {
+        "interestChargedFromDate": true
+      }
+    },
+    "workflow": {
+      "loanApproval": {
+        "hiddenField": {
+          "clientAddress": false
+        }
+      }
+    }
+  }
+}
+	
