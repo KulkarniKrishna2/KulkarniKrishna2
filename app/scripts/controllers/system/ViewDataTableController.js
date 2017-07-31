@@ -5,16 +5,16 @@
             resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName}, function (data) {
 
                 var temp = [];
-
+                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
                 for (var i in data.columnHeaderData){
                     var colName = data.columnHeaderData[i].columnName;
                     if(colName == 'id'){
                         data.columnHeaderData.splice(i, 1);
+                        colName = data.columnHeaderData[i].columnName;
                     }
-                    colName = data.columnHeaderData[i].columnName;
-                    if(colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' 
-                        || colName == 'savings_account_id' || colName == 'gl_journal_entry_id' || colName == 'loan_application_reference_id'){
-                        data.columnHeaderData.splice(i, 1);
+                    
+                    if(idList.indexOf(colName) >= 0 ){
+                        data.columnHeaders.splice(i, 1);
                     }
                 }
 

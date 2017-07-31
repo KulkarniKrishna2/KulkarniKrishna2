@@ -155,7 +155,7 @@
 
             scope.viewDataTable = function (registeredTableName,data){
                 if (scope.datatabledetails.isMultirow) {
-                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.transactionIdStringvalue+"/"+data.row[0]);
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.transactionIdStringvalue+"/"+data.row[0].value);
                 }else{
                     location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.transactionIdStringvalue);
                 }
@@ -191,26 +191,18 @@
                                         data.data[k].row[i] = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
                                     }
                                 }
-                            }
-                        }
-                    }
-                    if(data.sectionedColumnList != null && data.sectionedColumnList !=undefined && data.sectionedColumnList.length > 0){
-                        scope.isSectioned = true;
-                    }
-                    if(scope.isSectioned){
-                        for(var l in data.sectionedColumnList){
-                           for (var i in data.sectionedColumnList[l].columns) {
-                                if (scope.datatabledetails.sectionedColumnList[l].columns[i].columnCode) {
-                                    for (var j in scope.datatabledetails.sectionedColumnList[l].columns[i].columnValues) {
-                                        for (var k in data.data) {
-                                            if (data.data[k].row[i] == data.sectionedColumnList[l].columns[i].columnValues[j].id) {
-                                                data.data[k].row[i] = data.sectionedColumnList[l].columns[i].columnValues[j].value;
-                                            }
+                                for(var m in data.columnData){
+                                    for(var n in data.columnData[m].row){
+                                        if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName && data.columnData[m].row[n].value == scope.datatabledetails.columnHeaders[i].columnValues[j].id){
+                                            data.columnData[m].row[n].value = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
                                         }
                                     }
                                 }
                             }
                         }
+                    }
+                    if(data.sectionedColumnList != null && data.sectionedColumnList !=undefined && data.sectionedColumnList.length > 0){
+                        scope.isSectioned = true;
                     }
                     if (scope.datatabledetails.isColumnData) {
                         for (var i in data.columnHeaders) {
@@ -224,6 +216,12 @@
                                     }
                                 }
                                 scope.singleRow.push(row);
+                            }
+                            var index = scope.datatabledetails.columnData[0].row.findIndex(x => x.columnName==data.columnHeaders[i].columnName);
+                            if(index > 0 ){
+                                if(data.columnHeaders[i].displayName != undefined && data.columnHeaders[i].displayName != 'null') {
+                                    scope.datatabledetails.columnData[0].row[index].displayName = data.columnHeaders[i].displayName;
+                                } 
                             }
                         }
                     }
