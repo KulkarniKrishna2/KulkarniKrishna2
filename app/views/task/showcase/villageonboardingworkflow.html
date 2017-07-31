@@ -1,0 +1,30 @@
+<div name="villageworkflowform" ng-controller="VillageOnboardingWorkflowController">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li ng-show="villageData"><a href="#/viewvillage/{{villageData.villageId}}"><strong>'{{villageData.villageName}}'</strong></a>
+                </li>
+                <li class="active">{{'label.heading.workflow' | translate}}</li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="row well">
+                <div class="row">
+                    <span class="col-md-2">{{'label.input.villagename'| translate}}</span>
+                    <span class="col-md-4">{{villageData.villageName}} ({{villageData.villageCode}})</span>
+                    <span class="col-md-2"> {{'label.input.office' | translate}} </span>
+                    <span class="col-md-3">{{villageData.officeName}} {{villageData.currency.displaySymbol}}</span>
+                </div>
+
+                <div class="row" ng-show="villageData.addressData[0]">
+                    <span class="col-md-2">{{'label.input.address' | translate}}:</span>
+                    <span class="col-md-4"> {{villageData.addressData[0].districtData.districtName}},
+                {{villageData.addressData[0].stateData.stateName}},
+                {{villageData.addressData[0].countryData.countryName}}-{{villageData.addressData[0].postalCode}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
+    </div>
+</div>

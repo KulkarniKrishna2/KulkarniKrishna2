@@ -187,7 +187,9 @@
     "label.heading.addresstype":"Address Type",
     "label.heading.houseno":"House #",
     "label.heading.streetname":"Street",
+    "label.heading.location":"Location",
     "label.heading.villagename":"Village",
+    "label.heading.postoffice":"Post Office",
     "label.heading.talukname":"Taluka",
     "label.heading.countryname":"Country",
     "label.heading.statename":"State",
@@ -200,6 +202,8 @@
     "label.heading.displayName":"Table Name",
     "label.heading.overpaidby":"Overpaid by",
     "label.heading.overpaid":"Overpaid",
+    "label.heading.c/o": "C/O",
+    "label.heading.kycaddress" : "kycAddress",
     "label.input.limitOnTotalDisbursementAmount":"Limit On Total Disbursement Amount",
     "label.input.limitOnTotalLoanOutstandingAmount":"Limit On Total Loan Outstanding Amount",
     "label.input.dailyWithdrawalLimit":"Daily Withdrawal Limit",
@@ -381,6 +385,9 @@
     "label.button.addexpenses": "Add Expenses",
     "label.button.fetchdetails": "Fetch Details",
     "label.button.accountlimits":"Account Limits",
+    "label.button.initiateworkflow":"Intiate Workflow",
+    "label.button.viewworkflow":"View Workflow",
+
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
     "label.belongsto": "Belongs To",
@@ -562,6 +569,7 @@
     "validation.msg.rescheduleloan.rescheduleFromDate.reschedule.to.previous.date.not.allowed.before.current.date": "Reschedule to previous date not allowed before current date",
     "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.cannot.be.before.last.installment.due.date" : "Adjusted due date cannot be before last installment due date",
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
+    "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -3188,6 +3196,7 @@
     "LoanCollateral":"Loan collateral",
     "LoanPurpose":"Loan purpose",
     "Gender":"Gender",
+    "M" : "Male",
     "YesNo":"Yes or No",
     "GuarantorRelationship":"Guarantor relationship",
     "AssetAccountTags":"Asset account tags",
@@ -4647,6 +4656,8 @@
     "label.heading.transfertype":"Transfer Type",
     "label.heading.transferid": "Transfer Id",
     "label.heading.bankaccounttransferdetails":"Bank Transfer",
+    "label.heading.system.data" : "System Data",
+    "label.heading.kyc.data":"KYC Data",
 
     "label.heading.isEncrypted":"Is Encrypted",
     "externalServiceType.banktransfer":"Bank Transfer",
@@ -6258,6 +6269,16 @@
     "label.button.pdc.back.to.search" : "V Parameter",
     "label.input.national.id":"National ID",
     "label.heading.guarantee.national.id":"National Id",
+
+    "label.anchor.pdc.report" : "PDC report",
+    "label.heading.pdc.report" : "PDC Report",
+
+    "label.heading.presented.date" : "Presented Date",
+    "label.heading.bounced.date" : "Bounced Date",
+
+    "error.msg.can.not.adjust.loan.transaction.was.linked.with.pdc" : "Can not undo / adjust loan transaction was linked with PDC",
+    "error.msg.can.not.undo.disbursed.loan.transactions.are.linked.with.pdc" : "Can not undo disbursed loan, transactions are linked with PDC",
+    "error.msg.pdc.actions.not.allowed.for.nach.linked.with.loan.account" : "PDC actions are not allowed for NACH was linked with loan account",
 
     "#Datatable Sections" : "",
     "label.input.allow.sections":"Allow Sections",

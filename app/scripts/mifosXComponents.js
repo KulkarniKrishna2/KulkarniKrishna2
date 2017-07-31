@@ -521,7 +521,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'pdc/DisplayPDCListController',
             'pdc/ViewPDCDetailController',
             'pdc/ManagePDCController',
-            'pdc/ActionOnPDCController'
+            'pdc/ActionOnPDCController',
+            'task/showcase/VillageOnboardingWorkflowController',
         ],
         filters: [
             'StatusLookup',

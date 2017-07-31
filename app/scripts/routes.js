@@ -1467,6 +1467,9 @@
             .when('/grouponboarding/:groupId/workflow', {
                 templateUrl: 'views/task/showcase/grouponboardingworkflow.html'
             })
+            .when('/villageworkflow/:villageId/workflow', {
+                templateUrl: 'views/task/showcase/villageonboardingworkflow.html'
+            })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
             })
@@ -1599,7 +1602,9 @@
             .when('/managepdc', {
                 templateUrl: 'views/pdc/managepdc.html'
             })
-
+            .when('/pdcreport', {
+                templateUrl: 'views/pdc/pdcreport.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -273,10 +273,17 @@
 	"createMandates":{
 			"showEMIBalance": false
 	},
-	"bulkJLGLoanAccount":{
-		"isMandatory":{
-			"fundId":false
+	"bulkJLGLoanAccount": {
+		"isMandatory": {
+			"fundId": false
 		}
+	},
+	"workflow": {
+	  "loanApproval": {
+		"hiddenField": {
+		  "clientAddress": true
+		}
+	  }
 	}
   }
  }

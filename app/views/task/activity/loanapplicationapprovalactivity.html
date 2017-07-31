@@ -724,6 +724,142 @@
                             </div>
 
                             <hr/>
+                            <div ng-show="!hideClientAdrresssBlock" class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                <table class="table">
+                                    <tr>
+                                        <td>{{'label.heading.name' | translate}}</td>
+                                        <td>{{clientKycdata.poi.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.dob' | translate}}</td>
+                                        <td>{{clientKycdata.poi.dob}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.mobilenumber' | translate}}</td>
+                                        <td>{{clientKycdata.poi.phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Gender' | translate}}</td>
+                                        <td>{{clientKycdata.poi.gender | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <label><strong>{{ 'label.heading.kyc.data' | translate }}</strong></label>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.houseno' | translate}}</td>
+                                        <td>{{clientKycdata.poa.house}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.c/o' | translate}}</td>
+                                        <td>{{clientKycdata.poa.co}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.location' | translate}}</td>
+                                        <td>{{clientKycdata.poa.lc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.streetname' | translate}}</td>
+                                        <td>{{clientKycdata.poa.street}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.villagename' | translate}}</td>
+                                        <td>{{clientKycdata.poa.vtc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.pincode' | translate}}</td>
+                                        <td>{{clientKycdata.poa.pc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.postoffice' | translate}}</td>
+                                        <td>{{clientKycdata.poa.po}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.talukname' | translate}}</td>
+                                        <td>{{clientKycdata.poa.subdist}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.districtname' | translate}}</td>
+                                        <td>{{clientKycdata.poa.dist}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.statename' | translate}}</td>
+                                        <td>{{clientKycdata.poa.state}}</td>
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+
+                                </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table">
+                                            <tr>
+                                                <td>{{'label.heading.name' | translate}}</td>
+                                                <td>{{client.displayName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.dob' | translate}}</td>
+                                                <td>{{client.dateOfBirth | DateFormat}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.mobilenumber' | translate}}</td>
+                                                <td>{{client.mobileNo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'Gender' | translate}}</td>
+                                                <td>{{client.gender.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <label><strong>{{'label.heading.system.data' | translate}}</strong></label>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.houseno' | translate}}</td>
+                                                <td>{{address.houseNo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.c/o' | translate}}</td>
+                                                <td>{{clientKycdata.poa.co}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.location' | translate}}</td>
+                                                <td>{{adress.landmark}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.streetname' | translate}}</td>
+                                                <td>{{clientKycdata.poa.street}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.villagename' | translate}}</td>
+                                                <td>{{address.villageTown}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.pincode' | translate}}</td>
+                                                <td>{{adress.postalCode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.postoffice' | translate}}</td>
+                                                <td>{{clientKycdata.poa.po}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.talukname' | translate}}</td>
+                                                <td>{{address.talukaData.talukaName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.districtname' | translate}}</td>
+                                                <td>{{address.districtData.districtName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{'label.heading.statename' | translate}}</td>
+                                                <td>{{address.stateData.stateName}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
                             <div class="col-md-12">
                                 <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
                                 <select ng-model="chargeFormData.chargeId"

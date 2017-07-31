@@ -38,6 +38,7 @@
             scope.undo = "undo";
             
             scope.back = function () {
+                scope.errorDetails = undefined;
                 scope.isSearchPDCData = false;
             };
 
@@ -63,6 +64,7 @@
             };
 
             scope.actionToBePerformed = function (action) {
+                scope.errorDetails = undefined;
                 var isPDCSelected = false;
                 scope.isSingleOperation = false;
                 scope.pdcChequeDetails = [];
@@ -91,6 +93,15 @@
                     scope.errorDetails.push(errorObj);
                 }
             };
+
+            scope.printDiv = function(print) {
+                var printContents = document.getElementById(print).innerHTML;
+                var popupWin = window.open('', '_blank', 'width=300,height=300');
+                popupWin.document.open();
+                popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
+                    '</head><body onload="window.print()">' + printContents + '<br></body></html>');
+                popupWin.document.close();
+            }
 
         }
     });
