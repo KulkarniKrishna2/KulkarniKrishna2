@@ -6258,6 +6258,14 @@
     "validation.msg.pdc.select.at.least.one.pdc" : "Select at least one PDC",
     "label.button.pdc.back.to.search" : "V Parameter",
     "label.anchor.pdc.report" : "PDC report",
+    "label.heading.pdc.report" : "PDC Report",
+
+    "label.heading.presented.date" : "Presented Date",
+    "label.heading.bounced.date" : "Bounced Date",
+
+    "error.msg.can.not.adjust.loan.transaction.was.linked.with.pdc" : "Can not undo / adjust loan transaction was linked with PDC",
+    "error.msg.can.not.undo.disbursed.loan.transactions.are.linked.with.pdc" : "Can not undo disbursed loan, transactions are linked with PDC",
+    "error.msg.pdc.actions.not.allowed.for.nach.linked.with.loan.account" : "PDC actions are not allowed for NACH was linked with loan account",
 
     "#Datatable Sections" : "",
     "label.input.allow.sections":"Allow Sections",
