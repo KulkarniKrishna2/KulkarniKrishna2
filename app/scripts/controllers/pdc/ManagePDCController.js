@@ -38,6 +38,7 @@
             scope.undo = "undo";
             
             scope.back = function () {
+                scope.errorDetails = undefined;
                 scope.isSearchPDCData = false;
             };
 
@@ -63,6 +64,7 @@
             };
 
             scope.actionToBePerformed = function (action) {
+                scope.errorDetails = undefined;
                 var isPDCSelected = false;
                 scope.isSingleOperation = false;
                 scope.pdcChequeDetails = [];

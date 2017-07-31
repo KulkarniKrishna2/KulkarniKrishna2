@@ -100,17 +100,20 @@
                 <table class="border1px table horizontal-scrollbar vertical-scrollbar">
                     <thead>
                     <tr class="graybg">
+                        <th class="text-center" colspan="12"><b>{{'label.heading.pdc.report' | translate}}</b></th>
+                    </tr>
+                    <tr class="graybg">
                         <th>{{'label.input.branch' | translate}}</th>
                         <th>{{'label.input.client' | translate}}</th>
-                        <th>{{'label.heading.loan' | translate}}</th>
+                        <th>{{'label.heading.loanaccountnumber' | translate}}</th>
                         <th>{{'label.input.duedate' | translate}}</th>
+                        <th>{{'label.heading.presented.date' | translate}}</th>
+                        <th>{{'label.heading.bounced.date' | translate}}</th>
                         <th>{{'label.heading.amount' | translate}}</th>
                         <th>{{'label.input.pdc.type' | translate}}</th>
                         <th>{{'label.input.cheque.no' | translate}}</th>
                         <th>{{'label.heading.cheque.date' | translate}}</th>
                         <th>{{'label.heading.mandate.bankName' | translate}}</th>
-                        <th>{{'label.heading.mandate.branchName' | translate}}</th>
-                        <th>{{'label.input.ifsccode' | translate}}</th>
                         <th>{{'label.heading.status' | translate}}</th>
                     </tr>
                     </thead>
@@ -123,10 +126,16 @@
                             {{pdc.clientName}}
                         </td>
                         <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                            {{pdc.loanAccountData.loanProductName}} - {{pdc.loanAccountData.accountNo}}
+                            {{pdc.loanAccountData.accountNo}}
                         </td>
                         <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                             {{pdc.mappingData.dueDate | DateFormat}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
+                            {{pdc.presentedDate | DateFormat}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
+                            {{pdc.bouncedDate | DateFormat}}
                         </td>
                         <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">
                             {{pdc.chequeType.id == 1 ? pdc.mappingData.dueAmount : pdc.chequeAmount | number}}
@@ -142,12 +151,6 @@
                         </td>
                         <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                             {{pdc.bankName}}
-                        </td>
-                        <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                            {{pdc.branchName}}
-                        </td>
-                        <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                            {{pdc.ifscCode}}
                         </td>
                         <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                             {{pdc.presentStatus.value}}
