@@ -249,17 +249,20 @@
                 return existingLoan.installmentAmount * 30;
             };
 
+            scope.existingclientdetailsloaded = false;
            scope.getCreditBureauReportSummary = function () {
-                    resourceFactory.clientExistingLoan.getAll({
-                        clientId: scope.clientId,
-                        loanApplicationId: null,
-                        loanId: null,
-                        trancheDisbursalId: null
-                    }, function (data) {
-                        scope.existingLoans = data;
-                        constructLoanSummary();
-                    });
-
+               if(!scope.existingclientdetailsloaded) {
+                   resourceFactory.clientExistingLoan.getAll({
+                       clientId: scope.clientId,
+                       loanApplicationId: null,
+                       loanId: null,
+                       trancheDisbursalId: null
+                   }, function (data) {
+                       scope.existingLoans = data;
+                       constructLoanSummary();
+                   });
+                   scope.existingclientdetailsloaded = true;
+               }
             };
 
             scope.creditBureauReportView = function () {
@@ -707,7 +710,6 @@
             resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
                 if (response.enabled == true) {
                     scope.enableClientAddress = true;
-                    scope.fetchEntityAddress();
                 } else {
                     scope.enableClientAddress = false;
                 }
@@ -717,16 +719,20 @@
                 scope.isBetaEnabled = response.enabled;
             });
 
+            scope.entityAddressLoaded = false;
             scope.fetchEntityAddress = function () {
-                scope.entityType = "clients";
-                resourceFactory.addressDataResource.getAll({
-                    entityType: scope.entityType,
-                    entityId: routeParams.id
-                }, function (response) {
-                    if (response != null) {
-                        scope.addressData = response;
-                    }
-                });
+                if(!scope.entityAddressLoaded) {
+                    scope.entityType = "clients";
+                    resourceFactory.addressDataResource.getAll({
+                        entityType: scope.entityType,
+                        entityId: routeParams.id
+                    }, function (response) {
+                        if (response != null) {
+                            scope.addressData = response;
+                        }
+                    });
+                    scope.entityAddressLoaded = true;
+                }
             }
             scope.deleteAddress = function (addressId) {
                 scope.addressId = addressId;
@@ -749,15 +755,21 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
-            scope.entityType = "clients";
-            resourceFactory.smartCardDataResource.getAll({
-                entityId: routeParams.id,
-                entityType: scope.entityType
-            }, function (response) {
-                if (response != null) {
-                    scope.smartCardData = response;
+            scope.smartCardDataLoaded = false;
+            scope.fetchSmartCardData = function() {
+                if(!scope.smartCardDataLoaded) {
+                    scope.entityType = "clients";
+                    resourceFactory.smartCardDataResource.getAll({
+                        entityId: routeParams.id,
+                        entityType: scope.entityType
+                    }, function (response) {
+                        if (response != null) {
+                            scope.smartCardData = response;
+                        }
+                    });
+                    scope.smartCardDataLoaded = true;
                 }
-            });
+            }
 
             scope.inactivate = function (smartCard) {
                 scope.smartCard = smartCard;
@@ -779,25 +791,32 @@
             scope.cancel = function () {
                 route.reload();
             };
+            scope.clientIdentityDocumentsLoaded = false;
             scope.getClientIdentityDocuments = function () {
-                resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'}, function (data) {
-                    scope.identitydocuments = data;
-                    for (var i = 0; i < scope.identitydocuments.length; i++) {
-                        resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.identitydocuments[i].id}, function (data) {
-                            for (var j = 0; j < scope.identitydocuments.length; j++) {
-                                if (data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId) {
-                                    for (var l in data) {
+                if(!scope.clientIdentityDocumentsLoaded) {
+                    resourceFactory.clientResource.getAllClientDocuments({
+                        clientId: routeParams.id,
+                        anotherresource: 'identifiers'
+                    }, function (data) {
+                        scope.identitydocuments = data;
+                        for (var i = 0; i < scope.identitydocuments.length; i++) {
+                            resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.identitydocuments[i].id}, function (data) {
+                                for (var j = 0; j < scope.identitydocuments.length; j++) {
+                                    if (data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId) {
+                                        for (var l in data) {
 
-                                        var loandocs = {};
-                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                                        data[l].docUrl = loandocs;
+                                            var loandocs = {};
+                                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                            data[l].docUrl = loandocs;
+                                        }
+                                        scope.identitydocuments[j].documents = data;
                                     }
-                                    scope.identitydocuments[j].documents = data;
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                    scope.clientIdentityDocumentsLoaded = true;
+                }
             };
 
             scope.dataTableChange = function (clientdatatable) {
@@ -920,16 +939,20 @@
                 });
             };
 
+            scope.clientDocumentsLoaded = false;
             scope.getClientDocuments = function () {
-                resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id}, function (data) {
-                    for (var l in data) {
+                if(!scope.clientDocumentsLoaded) {
+                    resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id}, function (data) {
+                        for (var l in data) {
 
-                        var loandocs = {};
-                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        data[l].docUrl = loandocs;
-                    }
-                    scope.clientdocuments = data;
-                });
+                            var loandocs = {};
+                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            data[l].docUrl = loandocs;
+                        }
+                        scope.clientdocuments = data;
+                    });
+                    scope.clientDocumentsLoaded = true;
+                }
             };
 
             scope.deleteDocument = function (documentId, index) {
@@ -1120,12 +1143,16 @@
                 });
             };
 
+            scope.familyDetailsLoaded = false;
             scope.familyDetails = function(){
-                resourceFactory.familyDetails.getAll({clientId: routeParams.id}, function (data) {
-                    scope.familyMembers = data;
-                    scope.checkIfFamilyMemberIsExistingCustomer(scope.familyMembers);
-                    scope.differentiateFamilyMemberDetailsBaseOnReferenceId(scope.familyMembers);
-                });
+                if(!scope.familyDetailsLoaded) {
+                    resourceFactory.familyDetails.getAll({clientId: routeParams.id}, function (data) {
+                        scope.familyMembers = data;
+                        scope.checkIfFamilyMemberIsExistingCustomer(scope.familyMembers);
+                        scope.differentiateFamilyMemberDetailsBaseOnReferenceId(scope.familyMembers);
+                    });
+                    scope.familyDetailsLoaded = true;
+                }
             };
 
             scope.checkIfFamilyMemberIsExistingCustomer = function(familyMembers){
@@ -1176,13 +1203,17 @@
                     }
                 });
             };
+            scope.incomeAndexpenseLoaded = false;
             scope.incomeAndexpense = function(){
-                resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({clientId: routeParams.id},function(data){
-                    scope.incomeAndExpenses = data;
-                    scope.totalIncomeOcc = scope.calculateOccupationTotal();
-                    scope.totalIncomeAsset = scope.calculateTotalAsset();
-                    scope.totalHouseholdExpense = scope.calculateTotalExpense();
-                });
+                if(!scope.incomeAndexpenseLoaded) {
+                    resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({clientId: routeParams.id}, function (data) {
+                        scope.incomeAndExpenses = data;
+                        scope.totalIncomeOcc = scope.calculateOccupationTotal();
+                        scope.totalIncomeAsset = scope.calculateTotalAsset();
+                        scope.totalHouseholdExpense = scope.calculateTotalExpense();
+                    });
+                    scope.incomeAndexpenseLoaded = true;
+                }
             };
 
 
@@ -1237,10 +1268,14 @@
                 location.path('/clients/'+scope.id+'/editclienthouseholdexpense/'+id);
             };
 
+            scope.existingLoansLoaded = false;
             scope.existingLoans = function(){
-              resourceFactory.clientExistingLoan.getAll({clientId: routeParams.id}, function(data){
-                  scope.existingLoans = data;
-              });
+                if(!scope.existingLoansLoaded) {
+                    resourceFactory.clientExistingLoan.getAll({clientId: routeParams.id}, function (data) {
+                        scope.existingLoans = data;
+                    });
+                    scope.existingLoansLoaded = true;
+                }
             };
 
             scope.showEditClientExistLoan = function(id){
