@@ -1602,7 +1602,9 @@
             .when('/managepdc', {
                 templateUrl: 'views/pdc/managepdc.html'
             })
-
+            .when('/pdcreport', {
+                templateUrl: 'views/pdc/pdcreport.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

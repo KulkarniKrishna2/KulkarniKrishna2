@@ -5,8 +5,6 @@
         <li class="active">{{'label.anchor.manage.pdc' | translate}}</li>
     </ul>
     <div class="clearfix"></div>
-
-    <div class="clearfix"></div>
     <div class="form-horizontal well">
         <api-validate></api-validate>
         <div ng-if="!isSearchPDCData">
@@ -97,15 +95,13 @@
                     <th>{{'label.menu.select' | translate}}</th>
                     <th>{{'label.input.branch' | translate}}</th>
                     <th>{{'label.input.client' | translate}}</th>
-                    <th>{{'label.heading.loan' | translate}}</th>
+                    <th>{{'label.heading.loanaccountnumber' | translate}}</th>
                     <th>{{'label.input.duedate' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
                     <th>{{'label.input.pdc.type' | translate}}</th>
                     <th>{{'label.input.cheque.no' | translate}}</th>
                     <th>{{'label.heading.cheque.date' | translate}}</th>
                     <th>{{'label.heading.mandate.bankName' | translate}}</th>
-                    <th>{{'label.heading.mandate.branchName' | translate}}</th>
-                    <th>{{'label.input.ifsccode' | translate}}</th>
                     <th>{{'label.heading.status' | translate}}</th>
                 </tr>
                 </thead>
@@ -122,7 +118,7 @@
                         {{pdc.clientName}}
                     </td>
                     <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                        {{pdc.loanAccountData.loanProductName}} - {{pdc.loanAccountData.accountNo}}
+                        {{pdc.loanAccountData.accountNo}}
                     </td>
                     <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.mappingData.dueDate | DateFormat}}
@@ -141,12 +137,6 @@
                     </td>
                     <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.bankName}}
-                    </td>
-                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                        {{pdc.branchName}}
-                    </td>
-                    <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
-                        {{pdc.ifscCode}}
                     </td>
                     <td class="pointer" data-ng-click="routeToViewPDC(pdc.id,$index)">
                         {{pdc.presentStatus.value}}

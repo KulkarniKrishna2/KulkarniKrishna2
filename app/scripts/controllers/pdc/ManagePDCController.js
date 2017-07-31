@@ -94,6 +94,15 @@
                 }
             };
 
+            scope.printDiv = function(print) {
+                var printContents = document.getElementById(print).innerHTML;
+                var popupWin = window.open('', '_blank', 'width=300,height=300');
+                popupWin.document.open();
+                popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
+                    '</head><body onload="window.print()">' + printContents + '<br></body></html>');
+                popupWin.document.close();
+            }
+
         }
     });
 
