@@ -1,3 +1,5 @@
 {
-"label.input.externalid":"NIC Number"
+"label.input.externalid":"NIC Number",
+"label.button.bankaccountdetails":"Primary Bank Account",
+"label.anchor.bankaccountdetails":"Primary Account Details"
 }
