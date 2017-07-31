@@ -151,8 +151,8 @@
         "lastTransactionDate":false
       },
       "regexValidations" :{
-        "mobileNumber":"/^[0-9]{10}$/",
-        "bankIFSCCode":"/^[A-Za-z]{4}[0-9]{7}$/"
+        "mobileNumber":"[0-9]{10}",
+        "bankIFSCCode":"[A-Za-z0-9_]{15}"
       },
       "isAutoPopulate":{
         "bankName": "MASTER"
