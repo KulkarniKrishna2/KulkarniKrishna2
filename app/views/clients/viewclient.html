@@ -843,7 +843,7 @@
 		    </table>
 		</tab>
 
-		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress">
+		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress" select="fetchEntityAddress()">
 				<div class="pull-right">
 					<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary"
 					   has-permission='CREATE_ADDRESSES'>
@@ -967,7 +967,7 @@
 		        </tbody>
 		    </table>
 		</tab>
-		<tab heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD'>
+		<tab heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD' select="fetchSmartCardData()">
 
 			<div class="form-group col-sm-12">
 				<table class="table table-condensed" ng-if="showSmartcard">
@@ -1011,7 +1011,7 @@
 			</div>
 		</tab>
 
-		<tab heading="{{ 'label.heading.familydetails' | translate }}" ng-init="familyDetails()" ng-hide="client.legalForm && client.legalForm.value === 'ENTITY'" ng-if="isBetaEnabled && isBetaEnabled == true">
+		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="familyDetails()" ng-hide="client.legalForm && client.legalForm.value === 'ENTITY'" ng-if="isBetaEnabled && isBetaEnabled == true">
 		<br/>
 		<a href="#/createfamilydetails/{{id}}" class="btn btn-primary pull-right"><i
 				class="icon-plus icon-white"></i>
@@ -1112,7 +1112,7 @@
 		</tab>
 
 
-		<tab heading="{{'label.heading.cashflow' | translate}}" ng-init="incomeAndexpense()" ng-if="isBetaEnabled && isBetaEnabled == true">
+		<tab heading="{{'label.heading.cashflow' | translate}}" select="incomeAndexpense()" ng-if="isBetaEnabled && isBetaEnabled == true">
 			<br/>
 			<a href="#/clients/{{id}}/createclientoccupationdetails" class="btn btn-primary pull-right"><i
 					class="icon-plus icon-white"></i>
@@ -1270,7 +1270,7 @@
 				</div>
 			</tab>
 
-		<tab heading="{{'label.heading.existingloan' | translate}}" ng-init="existingLoans()" ng-if="isBetaEnabled && isBetaEnabled == true">
+		<tab heading="{{'label.heading.existingloan' | translate}}" select="existingLoans()" ng-if="isBetaEnabled && isBetaEnabled == true">
 			<br/>
 			<a href="#/clients/{{id}}/createexistingloan" class="btn btn-primary pull-right"><i
 					class="icon-plus icon-white"></i>
@@ -1419,7 +1419,7 @@
 		        </div>
 		    </div>
 		</tab>
-		<tab heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CLIENTNOTE' ng-init="getCreditBureauReportSummary()" ng-click="getCreditBureauReportSummary()">
+		<tab heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CLIENTNOTE' ng-click="getCreditBureauReportSummary()">
 			<div class="span gray-head">
                     <span class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
