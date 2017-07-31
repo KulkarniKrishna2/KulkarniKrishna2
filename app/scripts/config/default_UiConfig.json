@@ -272,6 +272,13 @@
 	},
 	"createMandates":{
 			"showEMIBalance": false
+	},
+	"workflow": {
+	  "loanApproval": {
+		"hiddenField": {
+		  "clientAddress": true
+		}
+	  }
 	}
   }
  }

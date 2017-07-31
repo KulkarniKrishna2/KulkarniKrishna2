@@ -868,6 +868,9 @@
                     update: {method: 'PUT',parms:{}},
                     getAddress: {method: 'GET',parms:{}}
                     }),
+                    clientKycAddressResource:defineResource(apiVer+"/clientkyc/",{clientId:'@clientId'}, {
+                        get: {method: "GET",params:{}}
+                    }),
                     centerLookupResource: defineResource(apiVer + "/centers/:centerId/memberaccountdetails", {centerId:'@centerId'}, {
                         get: {method: 'GET', params: {}, isArray : true}
                     }),
