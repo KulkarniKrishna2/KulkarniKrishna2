@@ -22,7 +22,7 @@
         <h2>{{ 'label.heading.viewdatatableentry' | translate }}</h2>
 
         <div class="row pull-right btn-group">
-            <button class="btn btn-warning" ng-click="backButton()">{{'label.button.cancel' | translate}}</button>
+            <button type="button" class="btn btn-warning" ng-click="backButton()">{{'label.button.cancel' | translate}}</button>
             <a ng-click="editDatatableEntry()" class="btn btn-primary" has-permission='UPDATE_{{tableName}}'><i class="icon-edit icon-white"></i>{{
                 'label.button.edit' | translate }}</a>
             <button type="button" ng-click="deleteDatatableEntry()" class="btn btn-danger" has-permission='DELETE_{{tableName}}'><i
