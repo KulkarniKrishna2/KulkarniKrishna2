@@ -9,7 +9,7 @@
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
-            scope.dletedInterestRateChart = [];
+            scope.originalInterestRateChart = [];
             scope.interestRateChart = [];
             scope.updatedInterestRateChart = [];
 
@@ -54,6 +54,7 @@
                 };
                 if(data.floatingInterestRateChartData != undefined && data.floatingInterestRateChartData.length > 0){
                     scope.interestRateChart = data.floatingInterestRateChartData;
+                    scope.originalInterestRateChart =  data.floatingInterestRateChartData;;
                     for(var i in scope.interestRateChart){
                     var actDate = dateFilter(scope.interestRateChart[i].effectiveFromDate, scope.df);
                         scope.interestRateChart[i].effectiveFromDate = new Date(actDate);
@@ -209,12 +210,15 @@
                 delete scope.formData.onDayType;
             };
 
+            referenceId = 0;
             scope.addFloatingInterestRateChart = function(){
+                referenceId += 1;
                 if(scope.floatingInterestRateChart.effectiveFromDate != undefined && scope.floatingInterestRateChart.interestRate != undefined) {
                     reqDate = dateFilter(scope.floatingInterestRateChart.effectiveFromDate, scope.df);
                     temp = {
                         effectiveFromDate: reqDate,
-                        interestRate: scope.floatingInterestRateChart.interestRate
+                        interestRate: scope.floatingInterestRateChart.interestRate,
+                        referenceId : referenceId
                     };
                     scope.interestRateChart.push(temp);
                     scope.updatedInterestRateChart.push(temp);
@@ -226,19 +230,35 @@
 
             scope.deleteInterestChart = function (index) {
                 var tempId;
-                 if(scope.interestRateChart[index].id != undefined) {
-                     tempId = scope.interestRateChart[index].id;
-                 }
+                if (scope.interestRateChart[index].id != undefined) {
+                    tempId = scope.interestRateChart[index].id;
+                    temp = {
+                        id: tempId,
+                        delete: true
+                    };
+                    scope.updatedInterestRateChart.push(temp);
+                } else {
+                    for (var i in scope.updatedInterestRateChart) {
+                        if (scope.updatedInterestRateChart[i].referenceId == scope.interestRateChart[index].referenceId) {
+                            scope.updatedInterestRateChart.splice(i, 1);
+                        }
+                    }
+                }
                 scope.interestRateChart.splice(index, 1);
-                temp = {
-                    id :tempId,
-                    delete : true
-                };
-                scope.updatedInterestRateChart.push(temp);
+
+
+            };
+
+            scope.updateList = function (checked) {
+                if (checked == "false") {
+                    scope.interestRateChart.splice(0, scope.interestRateChart.length);
+                    scope.updatedInterestRateChart.splice(0, scope.updatedInterestRateChart.length);
+                    scope.formData.isAllowInterestRateChart = false;
+                }
             };
 
             scope.submit = function () {
-                if(scope.formData.isAllowInterestRateChart && scope.interestRateChart.length == 0){
+                if(scope.formData.isAllowInterestRateChart == "true" && scope.interestRateChart.length == 0){
                     scope.errorDetails = [];
                     var errorObj = new Object();
                     errorObj.args = {

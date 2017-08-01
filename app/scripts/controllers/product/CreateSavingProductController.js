@@ -133,8 +133,14 @@
                 scope.interestRateChart.splice(index, 1);
             };
 
+            scope.updateList = function (checked) {
+                if (checked == "false") {
+                    scope.interestRateChart.splice(0, scope.interestRateChart.length);
+                }
+            };
+
             scope.submit = function () {
-                if(scope.formData.isAllowInterestRateChart && scope.interestRateChart.length == 0){
+                if(scope.formData.isAllowInterestRateChart == "true" && scope.interestRateChart.length == 0){
                     scope.errorDetails = [];
                     var errorObj = new Object();
                     errorObj.args = {
