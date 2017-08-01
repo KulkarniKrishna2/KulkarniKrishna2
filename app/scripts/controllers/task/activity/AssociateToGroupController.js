@@ -31,9 +31,14 @@
                 
                 scope.groupName = scope.groups[index].name;
                 scope.associate = {};
-                scope.associate.clientMembers = [];
-                scope.associate.clientMembers[0] = scope.clientId;
-                resourceFactory.groupResource.save({ groupId: scope.groupId, command: 'associateClients'}, scope.associate, function(data) {
+                scope.associate.inheritDestinationGroupLoanOfficer=false;
+                scope.associate.locale="en";
+                scope.associate.clients = [];
+                var client={};
+                client.id=scope.clientId;
+                scope.associate.clients[0] = client;
+                scope.associate.destinationGroupId=scope.groupId;
+                resourceFactory.groupResource.save({ groupId: scope.centerId, command: 'transferClients'}, scope.associate, function(data) {
                     scope.isViewMode = true;
                 });
             };
