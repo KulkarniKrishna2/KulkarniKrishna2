@@ -184,8 +184,11 @@
                 $rootScope.savingsAccount = data.savingsProductName;
                 $rootScope.clientId=data.clientId;
                 $rootScope.savingsaccountholderclientName=data.clientName;
+                $rootScope.accountNumber = data.accountNo;
+                $rootScope.groupId = data.groupId;
+                $rootScope.groupName = data.groupName;
                 scope.convertDateArrayToObject('date');
-                if(scope.savingaccountdetails.groupId) {
+                if(scope.savingaccountdetails.groupId != undefined) {
                     resourceFactory.groupResource.get({groupId: scope.savingaccountdetails.groupId}, function (data) {
                         scope.groupLevel = data.groupLevel;
                     });
@@ -552,6 +555,19 @@
 
             scope.viewJournalEntries = function(){
                 location.path("/searchtransaction/").search({savingsId: scope.savingaccountdetails.id});
+            };
+
+            scope.viewSavingsTransactionJournalEntries = function(transactionId){
+                var transactionId = "S" + transactionId;
+                if($rootScope.clientId != undefined && $rootScope.clientId != null && $rootScope.clientId != "" ){
+                    location.path('/viewtransactions/' + transactionId).search({productName: $rootScope.savingsAccount,savingsId:routeParams.id,clientId: $rootScope.clientId,
+                        accountNo: $rootScope.accountNumber,clientName: $rootScope.savingsaccountholderclientName,isTransactionReferenceNumber:true});
+                }else if($rootScope.groupId != undefined){
+                    location.path('/viewtransactions/' + transactionId).search({productName: $rootScope.savingsAccount,savingsId:routeParams.id,accountNo: $rootScope.accountNumber,
+                        groupId :$rootScope.groupId,groupName :$rootScope.groupName,isTransactionReferenceNumber:true});
+
+                }
+
             };
 
             scope.viewDataTable = function (registeredTableName,data){

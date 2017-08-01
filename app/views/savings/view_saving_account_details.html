@@ -448,6 +448,7 @@
                             <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.credit' | translate}}</th>
                             <th class="pointer" ng-click="changeTransactionSort('runningBalance')">{{'label.heading.balance' | translate}}</th>
                             <th class="pointer" ng-click="changeTransactionSort('runningBalance')">{{'label.heading.viewreceipts' | translate}}</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -485,6 +486,10 @@
                             </td>
                             <td> <a ng-if=" transaction.reversed!=true" ng-click="viewSavingsTransactionReceipts(transaction.id)">
                             <i class="icon-file-text icon-large"></i>
+                            </a>
+                            </td>
+                            <td> <a tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewSavingsTransactionJournalEntries(transaction.id)">
+                                <i class="icon-circle-arrow-right icon-large coll"></i>
                             </a>
                             </td>
                         </tr>
