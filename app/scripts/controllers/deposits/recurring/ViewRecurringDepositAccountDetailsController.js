@@ -93,6 +93,10 @@
 
             resourceFactory.recurringDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.depositProductName = data.depositProductName;
+                scope.clientId=data.clientId;
+                scope.savingsaccountholderclientName=data.clientName;
+                scope.accountNumber = data.accountNo;
                 scope.convertDateArrayToObject('date');
                 scope.chartSlabs = scope.savingaccountdetails.accountChart.chartSlabs;
                 scope.isprematureAllowed = data.maturityDate != null;
@@ -266,6 +270,14 @@
                  scope.annualdueDate = new Date(annualdueDate);*/
                 scope.convertDateArrayToObject('date');
             });
+
+            scope.viewSavingsTransactionJournalEntries = function(transactionId){
+                var transactionId = "S" + transactionId;
+                if(scope.clientId != undefined && scope.clientId != null && scope.clientId != "" ){
+                    location.path('/viewtransactions/' + transactionId).search({productName: scope.depositProductName,savingsId:routeParams.id,clientId: scope.clientId,
+                        accountNo: scope.accountNumber,clientName: scope.savingsaccountholderclientName,isTransactionReferenceNumber:true});
+                }
+            };
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
