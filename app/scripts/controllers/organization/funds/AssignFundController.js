@@ -7,6 +7,7 @@
             scope.csvFile = null;
             scope.isFileNotSlected = false;
             scope.funds = [];
+            scope.isSuccess = false;
             resourceFactory.fundsResource.getAllFunds({command:'active'},function (data) {
                 scope.funds = data;
             });
@@ -17,6 +18,7 @@
 
             scope.submit = function () {
                 scope.file = [scope.csvFile];
+                scope.isSuccess = false;
                 scope.formData.csvFileSize = scope.csvFileSize;
                 $upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/funds/'+scope.formData.fund+'/assign',
@@ -26,7 +28,7 @@
                     if (!scope.$$phase) {
                         scope.$apply();
                     }
-                    location.path('/managefunds/');
+                    scope.isSuccess = true;
                 });
             };
         }
