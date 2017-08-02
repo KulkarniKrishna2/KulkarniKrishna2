@@ -475,6 +475,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/CoApplicantActivityController',
             'task/activity/AssociateToGroupController',
             'task/activity/takepictureActivityController',
+            'task/activity/villageActivationActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',
