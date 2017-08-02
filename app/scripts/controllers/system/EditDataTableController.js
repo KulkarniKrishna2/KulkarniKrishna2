@@ -66,7 +66,7 @@
                     }
                     
                     if(idList.indexOf(colName) >= 0 ){
-                        data.columnHeaders.splice(i, 1);
+                        data.columnHeaderData.splice(i, 1);
                     }
                     var tempColumn = {};
                     if (data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
