@@ -6295,6 +6295,7 @@
     "validation.msg.invalid.dateFormat.format" : "Audit date can not be empty",
     "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
     "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
+    "label.village.assigned.to.loanofficer" : "Village assigned to loan officer : ",
 
 
     "label.input.co.officer.required" : "Co officer required",

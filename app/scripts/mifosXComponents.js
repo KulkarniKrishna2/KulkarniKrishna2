@@ -442,6 +442,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/SingleTaskController',
             'task/ViewTaskController',
             'task/activity/defaultActivityController',
+            'task/activity/AssignVillageStaffController',
             'task/activity/datatableActivityController',
             'task/activity/adhocActivityController',
             'task/showcase/LoanApplicationWorkflowController',
