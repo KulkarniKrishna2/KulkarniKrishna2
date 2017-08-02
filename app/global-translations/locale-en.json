@@ -203,7 +203,7 @@
     "label.heading.overpaidby":"Overpaid by",
     "label.heading.overpaid":"Overpaid",
     "label.heading.c/o": "C/O",
-    "label.heading.kycaddress" : "kycAddress",
+    "label.heading.kycaddress" : "KYC Address",
     "label.input.limitOnTotalDisbursementAmount":"Limit On Total Disbursement Amount",
     "label.input.limitOnTotalLoanOutstandingAmount":"Limit On Total Loan Outstanding Amount",
     "label.input.dailyWithdrawalLimit":"Daily Withdrawal Limit",
@@ -6295,6 +6295,9 @@
     "validation.msg.invalid.dateFormat.format" : "Audit date can not be empty",
     "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
     "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
+
+
+    "label.input.co.officer.required" : "Co officer required",
 
     "------ end of tensalation file":"---------"
 }
