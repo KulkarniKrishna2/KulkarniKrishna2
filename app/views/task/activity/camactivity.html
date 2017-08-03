@@ -1,5 +1,10 @@
 <div class="col-md-12" ng-controller="camActivityController">
     <!-- Submit form, new data    -->
+    <div id="cbreport">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
+                </div>
+    </div>
     <div id="applicantdetails" class="row">
         <div class="col-md-12">
             <h3>{{'label.camactivity.heading.applicantdetails' | translate}}</h3>
