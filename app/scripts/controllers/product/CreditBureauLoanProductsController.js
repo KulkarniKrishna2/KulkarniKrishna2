@@ -5,8 +5,8 @@
                 scope.creditbureauLoanProducts = data;
             });
 
-            scope.routeTo = function (loanProductId) {
-                location.path('/viewcreditbureauloanproduct/' + loanProductId);
+            scope.routeTo = function (id) {
+                location.path('/viewcreditbureauloanproduct/' + id);
             };
 
             if (!scope.searchCriteria.loanP) {

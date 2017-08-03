@@ -6285,5 +6285,15 @@
     "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
     "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
 
+     "#Credit Bureau Mappings" : "",
+    "error.msg.credit.bureau.loan.product.data.integrity.issue" : "Loan Product and Office mapping exists. Kindly edit existing record.",
+    "label.input.available.offices":"Available Offices",
+    "label.input.selected.offices":"Selected Offices",
+    "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.duplicate.loan.product.and.credit.bureau.product.combination":"Selected Credit bureau and Loan Product mapping already exists!",
+    "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.duplicate.loan.product.and.credit.bureau.product.combination" : "Duplicate Loan Product and Credit Bureau combination.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.loan.product.and.office.combination.exists":"Loan Product and Office mapping exists.",
+    "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.does.not.exists":"Credit Bureau and Loan Product default mapping not found. Provide a default mapping first, then map different credit bureau to offices.",
     "------ end of tensalation file":"---------"
 }

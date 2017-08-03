@@ -3,6 +3,11 @@
         ViewCreditBureauLoanProductController: function (scope, routeParams, resourceFactory, location) {
             resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: routeParams.loanProductId,associations: 'creditBureaus'},function (data) {
                 scope.creditbureauLoanProduct = data;
+                scope.offices = data.selectedOfficeList;
+                if( scope.offices.length == 1 && scope.offices[0].id == 0){
+                    scope.offices = [];
+                }
+               
             });
 
             scope.routeTo = function (loanProductId) {
