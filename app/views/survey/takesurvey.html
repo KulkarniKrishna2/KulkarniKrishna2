@@ -37,12 +37,26 @@
                 <div class="col-sm-2">
                     <select id="surveyedBy" name="surveyedBy" ng-model="formData.surveyedBy" class="form-control"
                             ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
-                            value="{{loanOfficer.id}}" required late-validate="">
+                            value="{{loanOfficer.id}}" required late-validate="" ng-change="checkSurveyedBy()">
                         <option value="">{{'label.selectloanofficer' | translate}}</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="takesurveyform" valattribute="surveyedBy"/>
+                </div>
+
+                <div ng-if="completeSurveyData.coOfficerRequired == true">
+                    <label class="control-label col-sm-2">{{'label.co.survey.done.by' | translate}}<span class="required">*</span></label>
+                    <div class="col-sm-2">
+                        <select id="coSurveyedBy" name="coSurveyedBy" ng-model="formData.coSurveyedBy" class="form-control"
+                                ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+                                value="{{loanOfficer.id}}" required late-validate="" ng-change="checkCoSurveyedBy()">
+                            <option value="">{{'label.selectloanofficer' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="takesurveyform" valattribute="coSurveyedBy"/>
+                    </div>
                 </div>
             </div>
 
