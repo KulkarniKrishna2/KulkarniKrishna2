@@ -1,6 +1,5 @@
 <div class="col-md-12">
-    <form name="bankaccountdetail" novalidate="" class="form-horizontal" >
-        <api-validate></api-validate>
+    <form name="bankaccountdetail" novalidate="" rc-submit="submit()" class="form-horizontal" autocomplete="off">
         <fieldset>
 
             <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
@@ -13,7 +12,7 @@
 
                 <div class="col-sm-3">
                     <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
-                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')"/>
+                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')" />
                 </div>
                <div class="col-sm-2">
                 <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountHolderName"/>
@@ -40,7 +39,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')"/>
+                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumber"/>
@@ -83,7 +82,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                           type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')"/>
+                           type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
@@ -98,7 +97,7 @@
                 </label>
                 <div class="col-sm-3">
                     <input name="micrCode" id="micrCode" ng-model="formData.micrCode"
-                           type="text" ng-pattern="regexPattern('micrCode')" class="form-control" ng-required="isElemMandatory('micrCode')"/>
+                           type="text" ng-pattern="regexPattern('micrCode')" class="form-control" ng-required="isElemMandatory('micrCode')" />
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.micrCode.$invalid && bankaccountdetail.micrCode.$dirty">
@@ -122,10 +121,10 @@
             </div>
             <div class="form-group" >
                 <label class="control-label col-sm-3" >{{'label.input.branchName' | translate}}
-                    <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
+                    <span ng-show="isElemMandatory('branchName')" class="required">*</span></label>
                 <div class="col-sm-3">
                     <input name="branchName" id="branchName" ng-model="formData.branchName"
-                           type="text" class="form-control"/>
+                           type="text" ng-required="isElemMandatory('branchName')" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="bankaccountdetail" valattribute="branchName"/>
@@ -171,26 +170,28 @@
                 </div>
             </div>
             <fieldset>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" >{{'label.file.account.proof' | translate}}
+                <div class="form-group row">
+                    <label class="control-label col-sm-3" >{{'label.file.account.proof' | translate}}<span ng-if="isElemMandatory('docFile')" class="required">*</span>
                     </label>
-                    <div class="col-sm-2">
-
-                        <input type="file" id="docFile" name="docFile" ng-file-select="onFileSelect($files)">
+                    <div class="col-md-6" ng-if="!addPicture">
+                        <img ng-src="{{bankAccountData.documentImg}}" width="600" height="400" />
                     </div>
-
-                    <div class="col-sm-2" ng-if="docData.name">
+                    <div class="col-sm-2" ng-if="!addPicture">
+                        <a class="btn btn-primary" ng-click=changePicture()>{{'label.input.selectfile' | translate}}</a>
+                    </div>
+                    <div class="col-sm-2" ng-if="addPicture">
+                        <input type="file" id="docFile" name="docFile" ng-file-select="onFileSelect($files)" ng-required="isElemMandatory('docFile')">
+                    </div>
+                    <div class="col-sm-2" style="color: red" ng-show="fileError">
+                        {{'label.error.required' | translate}}
                         <form-validate valattributeform="bankaccountdetail" valattribute="docFile"/>
+                        }
                     </div>
-
-
                 </div>
             </fieldset>
             <div class="col-md-offset-2 paddedleft">
                 <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" ng-click="submit()" ng-show="!viewConfig.hasData" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
-                <button id="update"  ng-show="viewConfig.hasData" class="btn btn-primary" ng-click="update()" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
-
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>
     </form>
