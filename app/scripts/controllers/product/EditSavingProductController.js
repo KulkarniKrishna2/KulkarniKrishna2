@@ -310,10 +310,10 @@
                     this.formData.minRequiredOpeningBalance = 0;
                 }
                 delete this.formData.isAllowInterestRateChart;
-
-                    resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
-                        location.path('/viewsavingproduct/' + data.resourceId);
-                    });
+                delete scope.errorDetails;
+                resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
+                    location.path('/viewsavingproduct/' + data.resourceId);
+                });
             }
         }
     });
