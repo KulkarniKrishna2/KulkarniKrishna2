@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AssignVillageStaffController: function (scope, resourceFactory, location, http, routeParams, $rootScope) {  
+        AssignVillageStaffController: function ($controller, scope, resourceFactory, location, http, routeParams, $rootScope) {  
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
                     var id = routeParams.villageId;
                     scope.isSuccess = false;
@@ -25,7 +25,7 @@
                     }
         }
     });
-    mifosX.ng.application.controller('AssignVillageStaffController', ['$scope', 'ResourceFactory', '$location', '$http', '$routeParams', '$rootScope', mifosX.controllers.AssignVillageStaffController]).run(function ($log) {
+    mifosX.ng.application.controller('AssignVillageStaffController', ['$controller', '$scope', 'ResourceFactory', '$location', '$http', '$routeParams', '$rootScope', mifosX.controllers.AssignVillageStaffController]).run(function ($log) {
         $log.info("AssignVillageStaffController initialized");
     });
 }(mifosX.controllers || {}));
