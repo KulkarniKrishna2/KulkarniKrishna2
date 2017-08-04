@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         AssignVillageStaffController: function (scope, resourceFactory, location, http, routeParams, $rootScope) {  
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
                     var id = routeParams.villageId;
                     scope.isSuccess = false;
                     scope.staffName = ""
