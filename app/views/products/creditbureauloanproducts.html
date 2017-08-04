@@ -20,12 +20,12 @@
         </thead>
         <tbody>
         <tr class="pointer-main" ng-repeat="creditbureauLoanProduct in creditbureauLoanProducts | filter:filterText">
-            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.loanProductId)">{{creditbureauLoanProduct.loanProductName}}</td>
-            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.loanProductId)">{{creditbureauLoanProduct.creditBureauData.creditBureauName}}</td>
-            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.loanProductId)">{{creditbureauLoanProduct.stalePeriod}}</td>
-            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.loanProductId)">{{creditbureauLoanProduct.isCreditcheckMandatory ? 'Yes' : 'No'}}</td>
-            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.loanProductId)">{{creditbureauLoanProduct.skipCreditcheckInFailure ? 'Yes' : 'No'}}</td>
-            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.loanProductId)">{{creditbureauLoanProduct.isActive ? 'Yes' : 'No'}}</td>
+            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.id)">{{creditbureauLoanProduct.loanProductName}}</td>
+            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.id)">{{creditbureauLoanProduct.creditBureauData.creditBureauName}}</td>
+            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.id)">{{creditbureauLoanProduct.stalePeriod}}</td>
+            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.id)">{{creditbureauLoanProduct.isCreditcheckMandatory ? 'Yes' : 'No'}}</td>
+            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.id)">{{creditbureauLoanProduct.skipCreditcheckInFailure ? 'Yes' : 'No'}}</td>
+            <td class="pointer" data-ng-click="routeTo(creditbureauLoanProduct.id)">{{creditbureauLoanProduct.isActive ? 'Yes' : 'No'}}</td>
         </tr>
         </tbody>
     </table>

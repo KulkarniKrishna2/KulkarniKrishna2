@@ -64,6 +64,32 @@
                 <div class="col-sm-2"></div>
             </div>
 
+            <div class="form-group">
+                <div class="col-sm-3 col-md-3 col-md-offset-1">
+                    <label class="control-label col-sm-9">{{ 'label.input.available.offices' | translate }}</label>
+                    <select id="availableOffices" ng-model="office" name="availableOffices" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availableOffice in availableOffices" value="{{availableOffice.id}}">
+                            {{availableOffice.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addOffice()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeOffice()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-9">{{ 'label.input.selected.offices' | translate}}</label>
+                    <select id="offices" ng-model="selected" name="offices" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="selectedOffice in selectedOffices" value="{{selectedOffice.id}}">
+                            {{selectedOffice.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
             <div class="col-md-offset-5 paddedtop">
                 <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CREDIT_BUREAU_LOANPRODUCT_MAPPING'>{{'label.button.save' | translate}}</button>
