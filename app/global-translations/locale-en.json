@@ -544,7 +544,7 @@
     "label.error.LuhnsAlgorithm.checkbitincorrect":"Checkbit is incorrect",
     "label.error.LuhnsAlgorithm.idnumbervalid":"Id Number is valid",
     "label.error.LuhnsAlgorithm.selecId":"Select Identifier Type as Id to validate",
-    "label.error.required":"required",
+    "label.error.required":"Required",
     "label.error.LuhnsAlgorithm.passportnumbervalid":"Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
