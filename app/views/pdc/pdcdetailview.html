@@ -23,10 +23,12 @@
         <legend>{{'label.heading.details' | translate}}</legend>
         <table class="table table-striped">
             <tbody>
+
             <tr ng-if="pdcData.chequeType.value">
                 <td>{{'label.input.pdc.type' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.chequeType.value}}</span></td>
             </tr>
+
             <tr ng-if="pdcData.chequeNumber">
                 <td>{{'label.input.cheque.number' | translate}}</td>
                 <td>
@@ -41,13 +43,18 @@
                     </div>
                 </td>
             </tr>
-            <tr ng-if="pdcData.chequeAmount">
+
+            <tr ng-if="pdcData.chequeAmount && !editPDC && pdcData.chequeType.id==CHEQUE_TYPE_SECURITY_PDC">
                 <td>{{'label.heading.cheque.amount' | translate}}</td>
                 <td>
-                    <span class="padded-td" ng-if="!editPDC && pdcData.chequeType.id==CHEQUE_TYPE_REPAYMENT_PDC">
-                        {{pdcData.chequeAmount | number}}
-                    </span>
-                    <div ng-if="editPDC && pdcData.chequeType.id==CHEQUE_TYPE_SECURITY_PDC" class="form-group">
+                    <span class="padded-td">{{pdcData.chequeAmount | number}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="editPDC && pdcData.chequeType.id==CHEQUE_TYPE_SECURITY_PDC">
+                <td>{{'label.heading.cheque.amount' | translate}}</td>
+                <td>
+                    <div class="form-group">
                         <div class="col-sm-5">
                             <input type="text" class="form-control" id="editChequeAmount"
                                    name="editChequeAmount"
@@ -57,22 +64,26 @@
                     </div>
                 </td>
             </tr>
+
             <tr ng-if="pdcData.mappingData.dueAmount">
                 <td>{{'label.input.due.amount' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.mappingData.dueAmount | number}}</span></td>
             </tr>
+
             <tr ng-if="pdcData.mappingData.dueDate">
                 <td>{{'label.input.duedate' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.mappingData.dueDate | DateFormat}}</span></td>
             </tr>
+
             <tr ng-if="pdcData.chequeDate && !editPDC">
                 <td>{{'label.input.cheque.date' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.chequeDate | DateFormat}}</span></td>
             </tr>
+
             <tr ng-if="editPDC">
                 <td>{{'label.input.cheque.date' | translate}}</td>
                 <td>
-                    <div ng-if="editPDC" class="form-group">
+                    <div class="form-group">
                         <div class="col-sm-5">
                             <input id="editChequeDate"
                                    name="editChequeDate" sort type="text"
@@ -84,6 +95,7 @@
                     </div>
                 </td>
             </tr>
+
             <tr ng-if="pdcData.bankName">
                 <td>{{'label.input.bankname' | translate}}</td>
                 <td>
@@ -97,6 +109,7 @@
                     </div>
                 </td>
             </tr>
+
             <tr ng-if="pdcData.branchName">
                 <td>{{'label.heading.mandate.branchName' | translate}}</td>
                 <td>
@@ -110,6 +123,7 @@
                     </div>
                 </td>
             </tr>
+
             <tr ng-if="pdcData.ifscCode">
                 <td>{{'label.input.ifsccode' | translate}}</td>
                 <td>
@@ -123,10 +137,40 @@
                     </div>
                 </td>
             </tr>
+
+            <tr ng-if="pdcData.presentedDate">
+                <td>{{'label.heading.presented.date' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.presentedDate | DateFormat}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="pdcData.presentedDescription">
+                <td>{{'label.heading.presented.description' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.presentedDescription}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="pdcData.bouncedDate">
+                <td>{{'label.heading.bounced.date' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.bouncedDate | DateFormat}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="pdcData.bouncedDescription">
+                <td>{{'label.heading.bounced.description' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.bouncedDescription}}</span>
+                </td>
+            </tr>
+
             <tr ng-if="pdcData.presentStatus.value">
                 <td>{{'label.heading.status' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.presentStatus.value}}</span></td>
             </tr>
+
             </tbody>
         </table>
         <div class="clear"></div>
@@ -141,7 +185,8 @@
                     translate}}
                 </button>
 
-                <button type="button" has-permission='UPDATE_PDC'  ng-click="submitEditPDC();" class="btn btn-primary">{{'label.button.update' |
+                <button type="button" has-permission='UPDATE_PDC' ng-click="submitEditPDC();" class="btn btn-primary">
+                    {{'label.button.update' |
                     translate}}
                 </button>
             </label>
