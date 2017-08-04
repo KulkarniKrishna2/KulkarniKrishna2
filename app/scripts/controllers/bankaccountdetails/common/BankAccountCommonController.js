@@ -14,6 +14,8 @@
             scope.repeatFormData = {};
             scope.bankAccountTypeOptions = [];
             scope.deFaultBankName = null;
+            scope.fileError=false;
+            scope.addPicture=true;
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -82,6 +84,7 @@
                             url: $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
                         }).then(function (docsData) {
                             scope.bankAccountData.documentImg = $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            scope.addPicture=false;
                         });
                     }
 
@@ -92,19 +95,32 @@
                 if(!isFormValid()){
                     return false;
                 }
-
+                if(scope.viewConfig.hasData){
+                    scope.update();
+                    return;
+                }
                 scope.formData.locale=scope.optlang.code;
-                submitAccountDocuments(function (documentId){
-                    if(documentId != undefined){
-                        scope.formData.documentId = documentId;
-                    }
-                    resourceFactory.bankAccountDetailResource.create({entityType: getEntityType(),entityId: getEntityId()},scope.formData,
-                        function (data) {
-                            populateDetails();
-                            scope.viewConfig.showSummary=true;
-                    });
-                });
+                scope.formData.dateFormat=scope.df;
+                scope.formData.lastTransactionDate=dateFilter(scope.formData.lastTransactionDate, scope.df);
+                if(!_.isUndefined(scope.docFile)){
+                    submitAccountDocuments(function (documentId){
+                        if(documentId != undefined){
+                            scope.formData.documentId = documentId;
+                            }
+                            submitData();
+                        });
+                }
+                else{
+                    submitData();
+                }
+            };
 
+            function submitData(){
+                resourceFactory.bankAccountDetailResource.create({entityType: getEntityType(),entityId: getEntityId()},scope.formData,
+                    function (data) {
+                        populateDetails();
+                        scope.viewConfig.showSummary=true;
+                });
             };
 
             function isFormValid(){
@@ -118,10 +134,23 @@
                         return false;
                     }
                 }
+                if(scope.isElemMandatory('docFile')){
+                    if((_.isUndefined(scope.docFile)) && (_.isUndefined(scope.imageId)) ){
+                        scope.fileError=true;
+                        return false;
+                    }
+                }
                 return true;
             }
 
+            scope.changePicture = function(){
+                scope.addPicture=true;
+            }
+            
             scope.edit = function () {
+                if(_.isUndefined(scope.bankAccountData.documentImg)){
+                    scope.addPicture=true;
+                }
                 scope.viewConfig.showSummary=false;
             };
 
@@ -130,16 +159,26 @@
                     return false;
                 }
                 scope.formData.locale = scope.optlang.code;
-                submitAccountDocuments(function (documentId){
-                    if(documentId != undefined){
-                        scope.formData.documentId = documentId;
-                    }
-                    resourceFactory.bankAccountDetailResource.update({entityType: getEntityType(),entityId: getEntityId()},scope.formData, function (data) {
+                scope.formData.dateFormat=scope.df;
+                scope.formData.lastTransactionDate=dateFilter(scope.formData.lastTransactionDate, scope.df);
+                if(!_.isUndefined(scope.docFile)){
+                    submitAccountDocuments(function (documentId){
+                        if(documentId != undefined){
+                            scope.formData.documentId = documentId;
+                            }
+                            updateData();
+                        });
+                }else{
+                    updateData();
+                }
+            };
+            
+            function updateData()
+            {
+                resourceFactory.bankAccountDetailResource.update({entityType: getEntityType(),entityId: getEntityId()},scope.formData, function (data) {
                         populateDetails();
                     });
-                });
-
-            };
+            }
 
             var submitAccountDocuments = function (postComplete) {
                 scope.docData = {name:scope.formData.accountNumber}
@@ -170,6 +209,9 @@
 
             scope.onFileSelect = function ($files) {
                 scope.docFile = $files[0];
+                if(!_.isUndefined(scope.docFile)){
+                    scope.fileError=false;
+                }
             };
 
             scope.cancel = function (){

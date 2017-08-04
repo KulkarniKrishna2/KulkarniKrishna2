@@ -544,7 +544,7 @@
     "label.error.LuhnsAlgorithm.checkbitincorrect":"Checkbit is incorrect",
     "label.error.LuhnsAlgorithm.idnumbervalid":"Id Number is valid",
     "label.error.LuhnsAlgorithm.selecId":"Select Identifier Type as Id to validate",
-    "label.error.required":"required",
+    "label.error.required":"Required",
     "label.error.LuhnsAlgorithm.passportnumbervalid":"Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
@@ -6261,7 +6261,9 @@
     "label.heading.pdc.report" : "PDC Report",
 
     "label.heading.presented.date" : "Presented Date",
+    "label.heading.presented.description" : "Presented Description",
     "label.heading.bounced.date" : "Bounced Date",
+    "label.heading.bounced.description" : "Bounced Description",
 
     "error.msg.can.not.adjust.loan.transaction.was.linked.with.pdc" : "Can not undo / adjust loan transaction was linked with PDC",
     "error.msg.can.not.undo.disbursed.loan.transactions.are.linked.with.pdc" : "Can not undo disbursed loan, transactions are linked with PDC",

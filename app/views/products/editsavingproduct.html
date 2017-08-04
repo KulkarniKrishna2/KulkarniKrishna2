@@ -314,7 +314,7 @@
 							<input id="isAllowInterestRateChart" type="checkbox"
 								   ng-model="formData.isAllowInterestRateChart" ng-true-value="true"
 								   ng-false-value="false" ng-checked="formData.isAllowInterestRateChart"
-									ng-disabled="isAllowInterestRateChartDisabled">
+									ng-disabled="isAllowInterestRateChartDisabled" ng-change="updateList(formData.isAllowInterestRateChart)">
 						</label>
 					</div>
 				</div>
