@@ -107,22 +107,25 @@
                 });
                 
                 if(data.sectionedColumnList != null && data.sectionedColumnList.length > 0){
+                    for (var i in data.sectionedColumnList) {
+                        for(var j in data.sectionedColumnList[i].columns){
+                            if (data.sectionedColumnList[i].columns[j].visible != undefined && !data.sectionedColumnList[i].columns[j].visible) {
+                                data.sectionedColumnList[i].columns.splice(j, 1);
+                            }
+                        }
+                    }
                 	scope.isSectioned = true;
                 	for (var i in data.sectionedColumnList) {
                 		for(var j in data.sectionedColumnList[i].columns){
-                			if (data.sectionedColumnList[i].columns[j].visible != undefined && !data.sectionedColumnList[i].columns[j].visible) {
-                                data.sectionedColumnList[i].columns[j].splice(data.sectionedColumnList[i].columns.indexOf(j), 1);
-                            } else {
-                                if (data.sectionedColumnList[i].columns[j].columnDisplayType == 'DATETIME') {
-                                    scope.formDat[data.sectionedColumnList[i].columns[j].columnName] = {};
+                            if (data.sectionedColumnList[i].columns[j].columnDisplayType == 'DATETIME') {
+                                scope.formDat[data.sectionedColumnList[i].columns[j].columnName] = {};
+                            }
+                            if (data.sectionedColumnList[i].columns[j].columnDisplayType == 'CODELOOKUP' && data.sectionedColumnList[i].columns[j].columnValues) {
+                                scope.columnValueLookUp = data.sectionedColumnList[i].columns[j].columnValues;
+                                for (var k in data.sectionedColumnList[i].columns[j].columnValues) {
+                                    data.sectionedColumnList[i].columns[j].columnValuesLookup = scope.columnValueLookUp;
                                 }
-                                if (data.sectionedColumnList[i].columns[j].columnDisplayType == 'CODELOOKUP' && data.sectionedColumnList[i].columns[j].columnValues) {
-                                    scope.columnValueLookUp = data.sectionedColumnList[i].columns[j].columnValues;
-                                    for (var k in data.sectionedColumnList[i].columns[j].columnValues) {
-                                        data.sectionedColumnList[i].columns[j].columnValuesLookup = scope.columnValueLookUp;
-                                    }
 
-                                }
                             }
                 		}
                     _.each(data.sectionedColumnList[i].columns, function(columnHeader){

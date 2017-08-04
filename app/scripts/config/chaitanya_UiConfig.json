@@ -145,14 +145,15 @@
         "bankName": true,
         "bankCity": true,
         "mobileNumber": true,
-        "lastTransactionDate": true
+        "lastTransactionDate": true,
+        "docFile": true
       },
       "isHiddenField":{
         "lastTransactionDate":false
       },
       "regexValidations" :{
-        "mobileNumber":"/^[0-9]{10}$/",
-        "bankIFSCCode":"/^[A-Za-z]{4}[0-9]{7}$/"
+        "mobileNumber":"^\\d{10}$",
+        "bankIFSCCode":"^[A-Za-z0-9_]{1,15}$"
       },
       "isAutoPopulate":{
         "bankName": "MASTER"

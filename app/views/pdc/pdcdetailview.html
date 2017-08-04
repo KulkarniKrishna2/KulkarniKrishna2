@@ -6,65 +6,191 @@
         </ul>
     </div>
     <div class="pull-right">
-        <div class="btn-group" data-ng-if="isSearchPDCData">
-            <a class="btn btn-primary" data-ng-click="isSearchPDCData = false"><i class="icon-white"></i>{{'label.button.add'
-                | translate}}</a>
+        <div class="btn-group">
+            <label ng-if="isEditPDC()">
+                <a has-permission='UPDATE_PDC' class="btn btn-primary" data-ng-click="buildEditPDC()">
+                    {{'label.button.edit' | translate}}
+                </a>
+            </label>
+            <label ng-if="isDeletePDC()">
+                <a has-permission='DELETE_PDC' class="btn btn-danger" data-ng-click="deletePDC()">
+                    {{'label.button.delete' | translate}}
+                </a>
+            </label>
         </div>
     </div>
     <div class="row paddedleft">
         <legend>{{'label.heading.details' | translate}}</legend>
         <table class="table table-striped">
             <tbody>
+
             <tr ng-if="pdcData.chequeType.value">
                 <td>{{'label.input.pdc.type' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.chequeType.value}}</span></td>
             </tr>
+
             <tr ng-if="pdcData.chequeNumber">
                 <td>{{'label.input.cheque.number' | translate}}</td>
-                <td><span class="padded-td">{{pdcData.chequeNumber}}</span></td>
+                <td>
+                    <span class="padded-td" ng-if="!editPDC">{{pdcData.chequeNumber}}</span>
+                    <div ng-if="editPDC" class="form-group">
+                        <div class="col-sm-5">
+                            <input id="editChequeNumber" type="number"
+                                   name="editChequeNumber" maxlength="30"
+                                   ng-model="editPDCData.chequeNumber"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </td>
             </tr>
-            <tr ng-if="pdcData.chequeAmount">
+
+            <tr ng-if="pdcData.chequeAmount && !editPDC && pdcData.chequeType.id==CHEQUE_TYPE_SECURITY_PDC">
                 <td>{{'label.heading.cheque.amount' | translate}}</td>
-                <td><span class="padded-td">{{pdcData.chequeAmount | number}}</span></td>
+                <td>
+                    <span class="padded-td">{{pdcData.chequeAmount | number}}</span>
+                </td>
             </tr>
+
+            <tr ng-if="editPDC && pdcData.chequeType.id==CHEQUE_TYPE_SECURITY_PDC">
+                <td>{{'label.heading.cheque.amount' | translate}}</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="editChequeAmount"
+                                   name="editChequeAmount"
+                                   ng-model="editPDCData.chequeAmount"
+                                   number-format/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
             <tr ng-if="pdcData.mappingData.dueAmount">
                 <td>{{'label.input.due.amount' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.mappingData.dueAmount | number}}</span></td>
             </tr>
+
             <tr ng-if="pdcData.mappingData.dueDate">
                 <td>{{'label.input.duedate' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.mappingData.dueDate | DateFormat}}</span></td>
             </tr>
-            <tr ng-if="pdcData.chequeDate">
+
+            <tr ng-if="pdcData.chequeDate && !editPDC">
                 <td>{{'label.input.cheque.date' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.chequeDate | DateFormat}}</span></td>
             </tr>
+
+            <tr ng-if="editPDC">
+                <td>{{'label.input.cheque.date' | translate}}</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input id="editChequeDate"
+                                   name="editChequeDate" sort type="text"
+                                   datepicker-pop="dd MMMM yyyy"
+                                   class="form-control"
+                                   ng-model="editPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
+                                   max="restrictDate"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
             <tr ng-if="pdcData.bankName">
                 <td>{{'label.input.bankname' | translate}}</td>
-                <td><span class="padded-td">{{pdcData.bankName}}</span></td>
+                <td>
+                    <span class="padded-td" ng-if="!editPDC">{{pdcData.bankName}}</span>
+                    <div ng-if="editPDC" class="form-group">
+                        <div class="col-sm-5">
+                            <input id="editBankName"
+                                   name="editBankName" type="text" maxlength="100"
+                                   class="form-control" ng-model="editPDCData.bankName"/>
+                        </div>
+                    </div>
+                </td>
             </tr>
+
             <tr ng-if="pdcData.branchName">
                 <td>{{'label.heading.mandate.branchName' | translate}}</td>
-                <td><span class="padded-td">{{pdcData.branchName}}</span></td>
+                <td>
+                    <span class="padded-td" ng-if="!editPDC">{{pdcData.branchName}}</span>
+                    <div ng-if="editPDC" class="form-group">
+                        <div class="col-sm-5">
+                            <input id="editBranchName"
+                                   name="editBranchName" type="text" maxlength="100"
+                                   class="form-control" ng-model="editPDCData.branchName"/>
+                        </div>
+                    </div>
+                </td>
             </tr>
+
             <tr ng-if="pdcData.ifscCode">
                 <td>{{'label.input.ifsccode' | translate}}</td>
-                <td><span class="padded-td">{{pdcData.ifscCode}}</span></td>
+                <td>
+                    <span class="padded-td" ng-if="!editPDC">{{pdcData.ifscCode}}</span>
+                    <div ng-if="editPDC" class="form-group">
+                        <div class="col-sm-5">
+                            <input id="editIfscCode"
+                                   name="editIfscCode" type="text" maxlength="50"
+                                   class="form-control" ng-model="editPDCData.ifscCode"/>
+                        </div>
+                    </div>
+                </td>
             </tr>
+
+            <tr ng-if="pdcData.presentedDate">
+                <td>{{'label.heading.presented.date' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.presentedDate | DateFormat}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="pdcData.presentedDescription">
+                <td>{{'label.heading.presented.description' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.presentedDescription}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="pdcData.bouncedDate">
+                <td>{{'label.heading.bounced.date' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.bouncedDate | DateFormat}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="pdcData.bouncedDescription">
+                <td>{{'label.heading.bounced.description' | translate}}</td>
+                <td>
+                    <span class="padded-td">{{pdcData.bouncedDescription}}</span>
+                </td>
+            </tr>
+
             <tr ng-if="pdcData.presentStatus.value">
                 <td>{{'label.heading.status' | translate}}</td>
                 <td><span class="padded-td">{{pdcData.presentStatus.value}}</span></td>
             </tr>
+
             </tbody>
         </table>
         <div class="clear"></div>
         <div class="col-md-offset-2">
-            <label>
+            <label ng-if="!editPDC">
                 <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.back' |
                     translate}}
                 </button>
             </label>
-            <label data-ng-if="showActionButtonsForPDC()">
+            <label class="col-md-offset-2" ng-if="editPDC == true">
+                <button type="button" ng-click="cancelEditPdc()" class="btn btn-default">{{'label.button.cancel' |
+                    translate}}
+                </button>
+
+                <button type="button" has-permission='UPDATE_PDC' ng-click="submitEditPDC();" class="btn btn-primary">
+                    {{'label.button.update' |
+                    translate}}
+                </button>
+            </label>
+            <label data-ng-if="showActionButtonsForPDC() && !editPDC">
                 <button type="button" data-ng-if="isEnableThisAction(present)"
                         data-ng-click="actionToBePerformed(present)" class="btn btn-primary">
                     {{'label.button.present.to.the.bank' | translate}}
@@ -96,4 +222,16 @@
 
 <script data-ng-if="action" type="text/ng-template" id="actiononpdc.html">
     <div ng-include="'views/pdc/actiononpdc.html'"></div>
+</script>
+
+<script type="text/ng-template" id="deletepdc.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+    </div>
+    <div class="modal-body ">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="viewCancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="viewDelete()">{{'label.button.confirm' | translate}}</button>
+    </div>
 </script>

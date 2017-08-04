@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <form name="checkerbankaccountdetail" novalidate="" class="form-horizontal" >
+    <form name="checkerbankaccountdetail" novalidate="" rc-submit="submit()" class="form-horizontal" autocomplete="off">
         <api-validate></api-validate>
         <fieldset>
 
@@ -42,7 +42,7 @@
 
                             <div class="col-sm-4">
                                 <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                                       type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')"/>
+                                       type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
                             </div>
                             <div class="col-sm-2">
                                 <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountNumber"/>
@@ -86,7 +86,7 @@
 
                             <div class="col-sm-4">
                                 <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                                       type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')"/>
+                                       type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
                             </div>
                             <div class="col-sm-2">
                     <span ng-show="checkerbankaccountdetail.bankIFSCCode.$invalid && checkerbankaccountdetail.bankIFSCCode.$dirty">
@@ -184,8 +184,7 @@
                </div>-->
             <div class="col-md-offset-2 paddedleft">
                 <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" ng-click="submit()" ng-show="!viewConfig.hasData" class="btn btn-primary" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
-                <button id="update"  ng-show="viewConfig.hasData" class="btn btn-primary" ng-click="update()" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>
     </form>

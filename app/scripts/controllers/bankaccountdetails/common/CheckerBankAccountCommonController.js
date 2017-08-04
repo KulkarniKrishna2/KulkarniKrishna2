@@ -110,11 +110,6 @@
                 scope.viewConfig.showSummary=false;
             };
 
-            scope.update = function () {
-                scope.submit();
-
-            };
-
             scope.editable = function(){
                 if(scope.isTask){
                     return !scope.isTaskCompleted();

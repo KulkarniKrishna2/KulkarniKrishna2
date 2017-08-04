@@ -235,7 +235,8 @@
 		"bankName": false,
 		"bankCity": false,
 		"mobileNumber": false,
-		"lastTransactionDate": false
+		"lastTransactionDate": false,
+		"docFile": false
 	  },
 	  "isHiddenField":{
 	    "bankIFSCCodeRepeat":false,

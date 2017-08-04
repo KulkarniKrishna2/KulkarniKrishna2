@@ -17,6 +17,8 @@
             scope.rvFlag = false;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
 
+            scope.INDIVIDUAL_CLIENT = 2;
+
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minDurationType = [
@@ -155,7 +157,9 @@
                     isFlatInterestRate : scope.product.isFlatInterestRate,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred
                 };
-
+                if(scope.formData.applicableForLoanType == scope.INDIVIDUAL_CLIENT){
+                    scope.formData.isEnableRestrictionForClientProfile = 'false';
+                }
                 if(scope.product.loanProductEntityProfileMappingDatas && scope.product.loanProductEntityProfileMappingDatas[0]
                     && scope.product.loanProductEntityProfileMappingDatas[0].profileType && scope.product.loanProductEntityProfileMappingDatas[0].profileType.id){
                     var entityProfileMappingData = scope.product.loanProductEntityProfileMappingDatas[0];
