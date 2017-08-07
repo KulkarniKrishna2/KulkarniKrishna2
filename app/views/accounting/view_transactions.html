@@ -196,12 +196,17 @@
                         <div ng-show="datatabledetails.isData">
                             <table class="table" data-ng-show="datatabledetails.isMultirow">
                                 <thead>
-                                <th ng-repeat="column in datatabledetails.columnData[0].row">{{column.columnName | prettifyDataTableColumn}}</th>
+                                    <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1">
+                                        <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
+                                        <label ng-if="column.displayName == undefined || column.displayName == 'null'"> {{column.columnName | prettifyDataTableColumn}} </label>
+                                    </th>
                                 </thead>
                                 <tbody>
                                 <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
-                                    <td class="pointer" ng-repeat="row in data.row track by $index"
-                                        ng-click="viewDataTable(journalentrydatatable.registeredTableName,data)">{{row}}
+                                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1" ng-click="viewDataTable(journalentrydatatable.registeredTableName,data)">
+                                        <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DECIMAL'">{{row.value|number}}</label>
+                                        <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DATE'">{{row.value|DateFormat}}</label>
+                                        <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType !== 'DECIMAL' && datatabledetails.columnHeaders[$index].columnDisplayType !== 'DATE'">{{row.value}}</label>
                                     </td>
                                 </tr>
                                 </tbody>

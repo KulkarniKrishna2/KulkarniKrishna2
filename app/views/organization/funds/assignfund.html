@@ -7,6 +7,11 @@
         <div class="form-horizontal">
             <api-validate></api-validate>
             <fieldset>
+                <div class="form-group" ng-show="isSuccess">
+                    <label class="control-label col-sm-6 pull-left">
+                        <h2>{{'label.success.fund.assigned.to.loans' | translate}}</h2>
+                    </label>
+                </div>    
                 <div class="form-group">
                     <div>
                         <label class="control-label col-sm-2">

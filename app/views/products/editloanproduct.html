@@ -100,9 +100,9 @@
 			<form-validate valattributeform="createloanproductform" valattribute="applicableForLoanType"/>
 		</div>
 
-		<label class="control-label col-sm-2" ng-if="formData.applicableForLoanType == 2">{{ 'label.input.enable.restriction.based.on.client.profile' | translate }}</label>
+		<label class="control-label col-sm-2" ng-if="formData.applicableForLoanType == INDIVIDUAL_CLIENT">{{ 'label.input.enable.restriction.based.on.client.profile' | translate }}</label>
 
-		<div class="col-sm-2" ng-if="formData.applicableForLoanType == 2">
+		<div class="col-sm-2" ng-if="formData.applicableForLoanType == INDIVIDUAL_CLIENT">
 			<input type="checkbox" id="isEnableRestrictionForClientProfile" name="isEnableRestrictionForClientProfile" ng-model="formData.isEnableRestrictionForClientProfile" ng-true-value="true" ng-false-value="false"/>
 		</div>
 		<div class="col-sm-2"></div>

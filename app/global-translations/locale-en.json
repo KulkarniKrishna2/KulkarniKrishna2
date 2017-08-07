@@ -551,7 +551,7 @@
     "label.error.LuhnsAlgorithm.checkbitincorrect":"Checkbit is incorrect",
     "label.error.LuhnsAlgorithm.idnumbervalid":"Id Number is valid",
     "label.error.LuhnsAlgorithm.selecId":"Select Identifier Type as Id to validate",
-    "label.error.required":"required",
+    "label.error.required":"Required",
     "label.error.LuhnsAlgorithm.passportnumbervalid":"Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
@@ -6275,7 +6275,9 @@
     "label.heading.pdc.report" : "PDC Report",
 
     "label.heading.presented.date" : "Presented Date",
+    "label.heading.presented.description" : "Presented Description",
     "label.heading.bounced.date" : "Bounced Date",
+    "label.heading.bounced.description" : "Bounced Description",
 
     "error.msg.can.not.adjust.loan.transaction.was.linked.with.pdc" : "Can not undo / adjust loan transaction was linked with PDC",
     "error.msg.can.not.undo.disbursed.loan.transactions.are.linked.with.pdc" : "Can not undo disbursed loan, transactions are linked with PDC",
@@ -6298,6 +6300,18 @@
     "validation.msg.invalid.dateFormat.format" : "Audit date can not be empty",
     "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
     "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
+    "error.msg.fund.mapping.loan.invalid.loan.id" : "Invalid loan id are {{params[0].value}} .  Remove these loan id.",
+    "label.success.fund.assigned.to.loans" : "Fund assigned to loans successfully.",
 
+     "#Credit Bureau Mappings" : "",
+    "error.msg.credit.bureau.loan.product.data.integrity.issue" : "Loan Product and Office mapping exists. Kindly edit existing record.",
+    "label.input.available.offices":"Available Offices",
+    "label.input.selected.offices":"Selected Offices",
+    "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.duplicate.loan.product.and.credit.bureau.product.combination":"Selected Credit bureau and Loan Product mapping already exists!",
+    "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.duplicate.loan.product.and.credit.bureau.product.combination" : "Duplicate Loan Product and Credit Bureau combination.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.loan.product.and.office.combination.exists":"Loan Product and Office mapping exists.",
+    "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.does.not.exists":"Credit Bureau and Loan Product default mapping not found. Provide a default mapping first, then map different credit bureau to offices.",
     "------ end of tensalation file":"---------"
 }

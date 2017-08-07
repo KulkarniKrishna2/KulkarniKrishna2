@@ -23,14 +23,9 @@
 
                 <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
                 <div class="col-sm-2">
-                    <select id="loanProductId" name="loanProductId" ng-model="formData.loanProductId" class="form-control"
-                            ng-options="product.id as product.name for product in products" value="{{product.id}}" required late-validate>
-                        <option value="">{{'label.selectloanproduct' | translate}}</option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="editcreditbureauloanproductfrom" valattribute="loanProductId"/>
-                </div>
+                <input type="text" id="loanProductId" name="loanProductId" class="form-control"
+                           ng-model="loanProductName" required ng-disabled ="true"/>
+                </div>  
             </div>
 
             <div class="form-group">
@@ -62,6 +57,32 @@
                     <input type="checkbox" id="isActive" name="isActive" ng-model="formData.isActive" />
                 </div>
                 <div class="col-sm-2"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 col-md-3 col-md-offset-1">
+                    <label class="control-label col-sm-9">{{ 'label.input.available.offices' | translate }}</label>
+                    <select id="availableOffices" ng-model="office" name="availableOffices" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availableOffice in availableOffices" value="{{availableOffice.id}}">
+                            {{availableOffice.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addOffice()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeOffice()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-9">{{ 'label.input.selected.offices' | translate}}</label>
+                    <select id="offices" ng-model="selected" name="offices" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="selectedOffice in selectedOffices" value="{{selectedOffice.id}}">
+                            {{selectedOffice.name}}
+                        </option>
+                    </select>
+                </div>
             </div>
 
             <div class="col-md-offset-5 paddedtop">

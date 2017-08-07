@@ -526,13 +526,13 @@
                     <div data-ng-show="datatabledetails.isData">
                         <table ng-show="datatabledetails.isMultirow" class="table">
                             <thead>
-                            <th ng-repeat="column in datatabledetails.columnData[0].row">
-                                <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}</label>
-                                <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}</label>
-                            </th>
+                            <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
+                            <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
+                            <label ng-if="column.displayName == undefined || column.displayName == 'null'"> {{column.columnName | prettifyDataTableColumn}} </label> 
+                        </th>
                             <tbody>
                             <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
-                                <td class="pointer" ng-repeat="row in data.row track by $index"
+                                <td class="pointer" ng-repeat="row in data.row track by $index"  ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1"
                                     ng-click="viewDataTable(savingdatatable.registeredTableName,data)">{{row.value}}
                                 </td>
                             </tr>
