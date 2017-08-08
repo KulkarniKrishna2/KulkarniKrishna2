@@ -93,6 +93,7 @@
                                 bankStatement.lastModifiedByName = result.lastModifiedByName;
                                 bankStatement.lastModifiedDate = result.lastModifiedDate;
                                 bankStatement.isReconciled = result.isReconciled;
+                                bankStatement.id = result.entityId;
                                 scope.actualBankStatements.push(bankStatement);
                         }
                         var numberOfBankStatement = scope.actualBankStatements.length;
