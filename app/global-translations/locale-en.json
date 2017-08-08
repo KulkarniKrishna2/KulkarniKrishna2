@@ -6313,5 +6313,26 @@
     "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
     "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.loan.product.and.office.combination.exists":"Loan Product and Office mapping exists.",
     "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.does.not.exists":"Credit Bureau and Loan Product default mapping not found. Provide a default mapping first, then map different credit bureau to offices.",
+
+    "#sub slabs Sections" : "",
+    "label.basechargeof" : "Base charge of ",
+    "label.amounts.between" : "Amounts Between ",
+    "label.button.addsubslabcharges" : "Add Sub Slabs",
+    "label.input.slabchargetype" : "Slab Charge Type",
+    "label.input.subslabchargetype" : "Sub Slab Charge Type",
+    "label.heading.minrepayment" : "Min Repayment",
+    "label.heading.maxrepayment" : "Max Repayment",
+    "label.input.minrepayment" : "Min Repayment",
+    "label.input.maxrepayment" : "Max Repayment",
+    "label.heading.subslabs" : "Sub Slabs",
+    "label.heading.based.on.number.of.repayments" : "based on number of repayments",
+    "label.heading.based.on.installment.amounts" : "basedd on installment amounts",
+    "label.heading.subslabs" : "Sub Slabs",
+    "label.repayments.between" : " Repayments between ",
+    "error.msg.charge.not.falls.in.slab" : "Value does not falls in slab range.",
+    "error.msg.charge.slab.installment.amount.range.overlapping" : "Slab/Sub Slabs installment amount range overlapping.",
+    "error.msg.charge.slab.installment.number.range.overlapping" : "Slab/Sub Slabs installment number range overlapping.",
+    "error.msg.slab.and.subslab.charge.types.can.not.be.same" : "Slab and Sub slabs charge types can not be same.",
+
     "------ end of tensalation file":"---------"
 }

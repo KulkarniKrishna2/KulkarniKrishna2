@@ -16,13 +16,15 @@
             scope.showSlabBasedCharges = false;
             scope.chargeTimeTypeOverdueFees = 9;
             scope.loanChargeCalculationTypePercentageAmountAndFees = 7;
+            scope.installmentAmountSlabType = 1;
+            scope.installmentNumberSlabType = 2;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
-
+                scope.slabChargeTypeOptions = data.slabChargeTypeOptions;
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
@@ -137,18 +139,59 @@
                 }
             };
 
+            scope.getSlabPlaceHolder = function(value,type){
+                if(type=="min"){
+                    return (value==scope.installmentAmountSlabType)?'label.input.fromloanamount':'label.input.minrepayment';
+                }else{
+                    return (value==scope.installmentAmountSlabType)?'label.input.toloanamount':'label.input.maxrepayment';
+                }
+                 
+            };            
+
+            scope.getSlabBaseChargeLabel = function(slabChargeType){
+                return (slabChargeType==scope.installmentAmountSlabType)?'label.amounts.between':'label.repayments.between';
+            };
+            
+            scope.getSubSlabHeading = function(subSlabType){
+                if(subSlabType != undefined){
+                    return (subSlabType==scope.installmentAmountSlabType)?'label.heading.based.on.installment.amounts':'label.heading.based.on.number.of.repayments';
+                }
+            };
+
             scope.addSlabCharge = function (slab) {
-                if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {
-                    var slabCharge = {"fromLoanAmount" : slab.fromLoanAmount, "toLoanAmount" : slab.toLoanAmount, "amount": slab.amount};
+                if(slab.minValue != undefined && slab.maxValue != undefined && slab.amount != undefined) {
+                    var slabCharge = {"minValue" : slab.minValue, "maxValue" : slab.maxValue, "amount": slab.amount, "type":scope.slabChargeType};                    
+                    slabCharge.subSlabs = [];
                     scope.slabs.push(slabCharge);
+                    scope.slabs =  _.sortBy(scope.slabs, 'minValue');
                     scope.slab = {};
                 }
             }
 
+            scope.addSubSlabs = function(index){
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length]={};
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].minValue = 0;
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].maxValue = 0;
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].amount = 0;
+
+            };
+
+            scope.updateSubSlabChargeValues = function(subslab,slab,index){
+                if(subslab.minValue != undefined && subslab.maxValue != undefined && subslab.amount != undefined) {
+                    var slabCharge = slabCharge = {"minValue" : subslab.minValue, "maxValue" : subslab.maxValue, "amount": subslab.amount, "type":scope.subSlabChargeType};
+                    slab.subSlabs.push(slabCharge);
+                }  
+
+            };
+
+            scope.deleteSubSlabs = function (slab, index) {
+                slab.subSlabs.splice(index, 1);
+            };
+
             scope.deleteSlabCharge = function (slab) {
                 var index = scope.slabs.indexOf(slab);
                 scope.slabs.splice(index, 1);
-            }
+            };
 
 
             scope.setChoice = function () {

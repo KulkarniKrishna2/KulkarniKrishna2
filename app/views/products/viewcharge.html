@@ -100,17 +100,17 @@
 						<td>{{charge.isCapitalized}}</td>
 					</tr>
 	            </table>
-				<div class="form-group" ng-show="charge.chargeCalculationType.value == slabBasedCharge">
+				<div class="form-group" ng-show="charge.chargeCalculationType.value == slabBasedCharge && charge.slabs.length>0">
 					<label>{{'label.heading.slabbasedcharges' | translate}}</label><br>
 					<table class="table">
 						<tr class="graybg">
-							<th>{{'label.heading.fromloanamount' | translate}}</th>
-							<th>{{'label.heading.toloanamount' | translate}}</th>
+							<th>{{getSlabPlaceHolder(charge.slabs[0].type.id,'min') | translate}}</th>
+							<th>{{getSlabPlaceHolder(charge.slabs[0].type.id,'max') | translate}}</th>
 							<th>{{'label.heading.chargeamount' | translate}}</th>
 						</tr>
-						<tr ng-repeat="slab in charge.slabs">
-							<td>{{slab.fromLoanAmount}}</td>
-							<td>{{slab.toLoanAmount}}</td>
+						<tr ng-repeat="slab in charge.slabs | orderBy:'-minValue'">
+							<td>{{slab.minValue}}</td>
+							<td>{{slab.maxValue}}</td>
 							<td>{{slab.amount}}</td>
 						</tr>
 					</table>
