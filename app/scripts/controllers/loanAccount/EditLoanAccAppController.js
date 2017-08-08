@@ -309,6 +309,15 @@
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
                 }
 
+                if(scope.loanaccountinfo.isInterestRecalculationEnabled){
+                    if (scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyStartDate) {
+                        scope.recalculationRestFrequencyStartDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyStartDate);
+                    }
+                    if (scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyStartDate) {
+                        scope.recalculationCompoundingFrequencyStartDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyStartDate);
+                    }
+                }
+
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
                 if(scope.isGLIM){
@@ -580,6 +589,8 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
+                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
+                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
                 if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     delete this.formData.interestRateDifferential ;
                     delete this.formData.isFloatingInterestRate ;
@@ -649,6 +660,8 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
+                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
+                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 this.formData.loanTermFrequency = scope.loanTerm;
                 if (scope.loanaccountinfo.product.isFlatInterestRate && scope.formData.discountOnDisbursalAmount == undefined && !scope.loanaccountinfo.multiDisburseLoan) {
