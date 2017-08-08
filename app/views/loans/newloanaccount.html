@@ -578,6 +578,24 @@
                     <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</label>
                 </td>
             </tr>
+            <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
+                <td data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
+                    <label>{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate }}:&nbsp;</label>
+                </td>
+                <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
+                    <input type="text" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" />
+                </td>
+                <td data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
+                    <label>{{ 'label.input.frequenc.date.for.compounding' | translate }}:&nbsp;</label>
+                </td>
+                <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
+                    <input id="recalculationCompoundingFrequencyStartDate" type="text" name="recalculationCompoundingFrequencyStartDate"
+                           datepicker-pop="dd MMMM yyyy" ng-model="recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
+                           class="form-control"/>
+                    <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
+                </td>
+            </tr>
 
         </table>
 

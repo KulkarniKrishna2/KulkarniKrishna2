@@ -435,6 +435,8 @@
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
+                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
+                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
                 this.formData.loanTermFrequency = scope.loanTerm;
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
@@ -522,6 +524,8 @@
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
+                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
+                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 if (scope.date.recalculationRestFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
