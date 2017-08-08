@@ -1664,7 +1664,7 @@
     "label.heading.netdisbursalamount": "Net Disbursal Amount",
     "label.heading.arrearsby": "Arrears By",
     "label.heading.repayments": "Repayments",
-    "label.heading.interest": "Interest(%)",
+    "label.heading.interest": "Interest",
     "label.heading.flatinterestrate":"Flat Interest Rate(%)",
     "label.heading.graceonprincipalpayment": "Grace: On Principal Payment",
     "label.heading.graceoninterestpayment": "Grace: On Interest Payment ",
