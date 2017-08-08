@@ -25,6 +25,7 @@
 
             scope.interestRatesListPerPeriod = [];
             scope.interestRatesListAvailable = false;
+            scope.installmentAmountSlabChargeType = 1;
 
             scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
             scope.glimAutoCalPrincipalAmount = function () {
@@ -45,6 +46,32 @@
                     }
                 }
                 scope.charges[index].amountOrPercentage = totalUpfrontChargeAmount;
+            };
+
+            scope.inRange = function(min,max,value){
+                return (value>=min && value<=max);
+            };
+
+            scope.getSlabBasedAmount = function(slab, amount , repayment){
+                var slabValue = 0;
+                slabValue = (slab.type.id==scope.installmentAmountSlabChargeType)?amount:repayment;
+                var subSlabvalue = 0;
+                subSlabvalue = (slab.type.id!=scope.installmentAmountSlabChargeType)?amount:repayment;
+                //check for if value fall in slabs
+                if(scope.inRange(slab.minValue,slab.maxValue,slabValue)){
+                        if(slab.subSlabs != undefined && slab.subSlabs.length>0){
+                            for(var i in slab.subSlabs){
+                                //check for sub slabs range
+                                if(scope.inRange(slab.subSlabs[i].minValue,slab.subSlabs[i].maxValue,subSlabvalue)){
+                                    return slab.subSlabs[i].amount;
+                                }
+                            }
+
+                        }
+                        return slab.amount;
+                }
+                return null;
+
             };
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
@@ -246,8 +273,9 @@
                                     charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                     if(charge.chargeCalculationType.value == scope.slabBasedCharge){
                                         for(var i in charge.slabs) {
-                                            if(scope.formData.principal >= charge.slabs[i].fromLoanAmount && scope.formData.principal <= charge.slabs[i].toLoanAmount) {
-                                                charge.amountOrPercentage = charge.slabs[i].amount;
+                                            var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[i],scope.formData.principal,scope.formData.numberOfRepayments);
+                                            if(slabBasedValue != null){
+                                                charge.amountOrPercentage = slabBasedValue;
                                             }
                                         }
                                     }
@@ -404,11 +432,12 @@
                                 if (data.slabs){
                                     var isInRange = false;
                                     for(var j in data.slabs){
-                                       if(data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
-                                                data.glims[i].upfrontChargeAmount = data.slabs[j].amount; 
-                                                amount = amount + data.glims[i].upfrontChargeAmount;
-                                                isInRange = true;
-                                                break;
+                                        var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],data.glims[i].transactionAmount,scope.formData.numberOfRepayments);
+                                        if(slabBasedValue != null){
+                                            data.glims[i].upfrontChargeAmount = slabBasedValue; 
+                                            amount = amount + data.glims[i].upfrontChargeAmount;
+                                            isInRange = true;
+                                            break;
                                         }
                                     }
 
@@ -437,12 +466,13 @@
                 }else{
                     if(data.chargeCalculationType.value == scope.slabBasedCharge){                    
                         for(var j in data.slabs){
-                            if(scope.formData.principal >= data.slabs[j].fromLoanAmount && scope.formData.principal <= data.slabs[j].toLoanAmount) {
-                                data.amountOrPercentage = data.slabs[j].amount;
-                                 break;
-                            }else {
-                                data.amountOrPercentage = undefined;
-                            }
+                            var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],scope.formData.principal,scope.formData.numberOfRepayments);
+                                if(slabBasedValue != null){
+                                    data.amountOrPercentage = slabBasedValue;
+                                        break;
+                                }else {
+                                    data.amountOrPercentage = undefined;
+                                }
                         }
                     }
                 }

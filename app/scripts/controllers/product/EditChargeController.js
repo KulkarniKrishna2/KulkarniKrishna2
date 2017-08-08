@@ -10,6 +10,8 @@
             scope.slabs = [];
             scope.slab = {};
             scope.showSlabBasedCharges = false;
+            scope.slabBasedChargeCalculation = 6;
+            scope.installmentAmountSlabType = 1;
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
@@ -76,8 +78,10 @@
                     slabs: data.slabs,
                     isCapitalized: data.isCapitalized
                 };
+                scope.slabChargeTypeOptions = data.slabChargeTypeOptions;                
 
-                if(data.chargeCalculationType.id == 6) {
+                if(data.chargeCalculationType.id == scope.slabBasedChargeCalculation) {
+                    scope.updateSlabOptionsValues(data.slabs);
                     scope.showSlabBasedCharges = true;
                 } else {
                     scope.showSlabBasedCharges = false;
@@ -124,6 +128,25 @@
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
             });
+
+            scope.updateSlabOptionsValues = function(slabs){
+                scope.isSubSlabSEnabled = false;
+                if(slabs != undefined && slabs.length>0){
+                    scope.slabChargeType = slabs[0].type.id;
+                    for(var i in slabs){
+                        slabs[i].type = slabs[i].type.id;
+                        if(slabs[i].subSlabs != undefined && slabs[i].subSlabs.length>0){
+                            scope.subSlabChargeType = slabs[i].subSlabs[0].type.id;
+                            scope.isSubSlabSEnabled = true;
+                            for(var j in slabs[i].subSlabs){
+                                slabs[i].subSlabs[j].type = slabs[i].subSlabs[j].type.id;;
+                            }
+                            
+                        }
+                    }
+                }
+
+            };
             //when chargeAppliesTo is savings, below logic is
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
@@ -154,8 +177,33 @@
                 showCapitalizedChargeCheckbox();
             }
 
+            scope.getSlabPlaceHolder = function(value,type){
+                if(type=="min"){
+                    return (value==scope.installmentAmountSlabType)?'label.input.fromloanamount':'label.input.minrepayment';
+                }else{
+                    return (value==scope.installmentAmountSlabType)?'label.input.toloanamount':'label.input.maxrepayment';
+                }
+                 
+            };
+
+            scope.getSlabBaseChargeLabel = function(slabChargeType){
+                return (slabChargeType==scope.installmentAmountSlabType)?'label.amountsbetween':'label.repaymentsbetween';
+            }
+
+            scope.deleteSubSlabs = function (slab, index) {
+                slab.subSlabs.splice(index, 1);
+            }
+
+            scope.addSubSlabs = function(index){
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length]={};
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].minValue = 0;
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].maxValue = 0;
+                scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].amount = 0;
+
+            };
+
             scope.chargeCalculationType = function (chargeCalculationType) {
-                if(chargeCalculationType == 6) {
+                if(chargeCalculationType == scope.slabBasedChargeCalculation) {
                     scope.showSlabBasedCharges = true;
                     scope.formData.amount = undefined;
                 } else {
@@ -163,6 +211,12 @@
                     scope.formData.slabs = [];
                 }
                 showCapitalizedChargeCheckbox();
+            };
+            
+            scope.getSubSlabHeading = function(subSlabType){
+                if(subSlabType != undefined){
+                    return (subSlabType==scope.installmentAmountSlabType)?'label.heading.based.on.installment.amounts':'label.heading.based.on.number.of.repayments';
+                }
             };
 
             function showCapitalizedChargeCheckbox() {
@@ -175,20 +229,28 @@
             };
 
             scope.addSlabCharge = function (slab) {
-                if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {
-                    var slabCharge = {"fromLoanAmount" : slab.fromLoanAmount, "toLoanAmount" : slab.toLoanAmount, "amount": slab.amount};
+                if(slab.minValue != undefined && slab.maxValue != undefined && slab.amount != undefined) {
+                    var slabCharge = {"minValue" : slab.minValue, "maxValue" : slab.maxValue, "amount": slab.amount, "type":scope.slabChargeType};
                     if( scope.formData.slabs == undefined) {
                         scope.formData.slabs = [];
                     }
+                    slabCharge.subSlabs = [];
+                    scope.slab = {};
                     scope.formData.slabs.push(slabCharge);
                 }
             }
 
-            scope.sortByFromLoanAmount = function(v1, v2){
-                if (v1 && v2) {
-                    return v1.fromLoanAmount.localeCompare(v2.fromLoanAmount);
-                }
-            }
+            scope.updateSubSlabChargeValues = function(minValue,maxValue,amount,slab,index){
+                if(minValue != undefined && maxValue != undefined && amount != undefined) {
+                    var slabCharge = slabCharge = {"minValue" : minValue, "maxValue" : maxValue, "amount": amount, "type":scope.subSlabChargeType};
+                    slab.subSlabs.push(slabCharge);
+                }  
+
+            };
+
+            scope.deleteSubSlabs = function (slab, index) {
+                slab.subSlabs.splice(index, 1);
+            };
 
             scope.deleteSlabCharge = function (slab) {
                 var index = scope.formData.slabs.indexOf(slab);
@@ -212,7 +274,7 @@
                 if(this.formData.maxCap == undefined) {
                     this.formData.maxCap = null;
                 }
-                if(scope.formData.chargeCalculationType == 6){
+                if(scope.formData.chargeCalculationType == scope.slabBasedChargeCalculation){
                     this.formData.amount = null;
                 }else {
                     this.formData.isCapitalized = false;

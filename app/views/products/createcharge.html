@@ -83,19 +83,31 @@
                     </div>
                 </div>
                 <div class="form-group" ng-show="showSlabBasedCharges">
+                    <label class="control-label col-sm-2">{{'label.input.slabchargetype' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <select id="slabChargeType" name="slabChargeType"
+                                ng-model="slabChargeType"
+                                ng-options="slabChargeType.id as slabChargeType.value for slabChargeType in slabChargeTypeOptions"
+                                value="{{slabChargeType.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showSlabBasedCharges && slabChargeType">
                     <label class="control-label col-sm-2">{{'label.input.slabbasedcharges' | translate}}<span
                             class="required">*</span></label>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <input id="fromLoanAmount" type="text" ng-model="slab.fromLoanAmount" name="fromLoanAmount"
-                                   placeholder="{{'label.input.fromloanamount' | translate}}" number-format class="form-control"/>
+                            <input id="slabMin" type="text" ng-model="slab.minValue" name="slabMin"
+                                   placeholder=" {{getSlabPlaceHolder(slabChargeType,'min') | translate}}" number-format class="form-control"/>
                         </div>
                         <div class="col-sm-2">
-                            <input id="toLoanAmount" type="text" ng-model="slab.toLoanAmount" name="toLoanAmount"
-                                   placeholder="{{'label.input.toloanamount' | translate}}" number-format class="form-control"/>
+                            <input id="slabMax" type="text" ng-model="slab.maxValue" name="slabMax"
+                                   placeholder="{{getSlabPlaceHolder(slabChargeType,'max') | translate}}" number-format class="form-control"/>
                         </div>
                         <div class="col-sm-2">
-                            <input id="chargeAmount" type="text" ng-model="slab.amount" name="amount"
+                            <input id="slabchargeAmount" type="text" ng-model="slab.amount" name="slabchargeAmount"
                                    placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control"/>
                         </div>
 
@@ -110,14 +122,14 @@
                         <div class="col-sm-9">
                             <table class="table center-block">
                                 <tr class="graybg">
-                                    <th>{{'label.heading.fromloanamount' | translate}}</th>
-                                    <th>{{'label.heading.toloanamount' | translate}}</th>
+                                    <th>{{getSlabPlaceHolder(slabChargeType,'min') | translate}}</th>
+                                    <th>{{getSlabPlaceHolder(slabChargeType,'max') | translate}}</th>
                                     <th>{{'label.heading.chargeamount' | translate}}</th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="slabData in slabs | orderBy:'-fromLoanAmount'">
-                                    <td>{{slabData.fromLoanAmount}}</td>
-                                    <td>{{slabData.toLoanAmount}}</td>
+                                <tr ng-repeat="slabData in slabs | orderBy:'minValue'">
+                                    <td>{{slabData.minValue}}</td>
+                                    <td>{{slabData.maxValue}}</td>
                                     <td>{{slabData.amount}}</td>
                                     <td><a ng-click="deleteSlabCharge(slabData)"><i class="icon-remove icon-white"></i></a></td>
                                 </tr>
@@ -302,6 +314,82 @@
                             <input id="isGlimCharge" type="checkbox" ng-model="formData.isGlimCharge" data-ng-change="setChoice()">
                         </label>
                     </div>
+                </div>
+                <div class="form-group" ng-show="showSlabBasedCharges">
+                    <label class="control-label col-sm-2" for="isGlimCharge">{{'label.heading.subslabs' | translate}}&nbsp;{{getSubSlabHeading(subSlabChargeType) | translate}}</label>
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="isSubSlabsEnabled" type="checkbox" ng-model="isSubSlabsEnabled" data-ng-change="setChoice()">
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showSlabBasedCharges && isSubSlabsEnabled">
+                    <label class="control-label col-sm-2">{{'label.input.subslabchargetype' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <select id="subSlabChargeType" name="subSlabChargeType"
+                                ng-model="subSlabChargeType"
+                                ng-options="slabChargeType.id as slabChargeType.value for slabChargeType in slabChargeTypeOptions | filter:{id:'!'+slabChargeType}"
+                                value="{{slabChargeType.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group center-block" ng-show="slabs.length>0 && isSubSlabsEnabled && subSlabChargeType"  ng-repeat="slab in slabs">                    
+                    <div class="col-sm-12 center-block">
+                         <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                               <span> <b>{{'label.basechargeof' | translate}}{{slab.amount}}&nbsp;({{getSlabBaseChargeLabel(slabChargeType) | translate}}&nbsp;{{slab.minValue}}&nbsp;{{'label.heading.to' | translate}}&nbsp;{{slab.maxValue}}) </b> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 center-block">
+                        <div class="form-group">
+                                <label class="control-label col-sm-2">{{'label.heading.subslabs' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2">
+                                        <input id="minValue" type="text" ng-model="subSlab.minValue" name="minValue"
+                                            placeholder="{{getSlabPlaceHolder(subSlabChargeType,'min') | translate}}" number-format class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="maxValue" type="text" ng-model="subSlab.maxValue" name="maxValue"
+                                            placeholder="{{getSlabPlaceHolder(subSlabChargeType,'max') | translate}}" number-format class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="subSlabChargeAmount" type="text" ng-model="subSlab.amount" name="subSlabChargeAmount"
+                                             placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control"/>
+                                    </div>
+                                    <div>
+                                        <a id="addsubslab">
+                                            <button  class="btn btn-default" ng-click="updateSubSlabChargeValues(subSlab,slab,$index)"><i class="icon-plus icon-white"></i>{{'label.button.addsubslabcharges' | translate}}</button>
+                                        </a>
+                                    </div>
+                                </div> 
+                        </div>
+                    </div>
+                    <div class="col-sm-12 center-block" ng-show="slab.subSlabs.length>0">
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-9">
+                                <table class="table center-block">
+                                    <tr class="graybg">
+                                        <th>{{getSlabPlaceHolder(subSlabChargeType,'min') | translate}}</th>
+                                        <th>{{getSlabPlaceHolder(subSlabChargeType,'max') | translate}}</th>
+                                        <th>{{'label.heading.chargeamount' | translate}}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-repeat="subSlab in slab.subSlabs | orderBy: 'minValue'">
+                                        <td>{{subSlab.minValue}}</td>
+                                        <td>{{subSlab.maxValue}}</td>
+                                        <td>{{subSlab.amount}}</td>
+                                        <td><a ng-click="deleteSubSlabs(slab,$index)"><i class="icon-remove icon-white"></i></a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-md-offset-3">
                     <a id="cancel" href="#/charges">

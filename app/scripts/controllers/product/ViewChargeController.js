@@ -4,6 +4,8 @@
             scope.charge = [];
             scope.choice = 0;
             scope.slabBasedCharge = 'Slab Based';
+            scope.installmentAmountSlabType = 1;
+            
             resourceFactory.chargeResource.get({chargeId: routeParams.id}, function (data) {
                 scope.charge = data;
             });
@@ -14,6 +16,16 @@
                     controller: ChDeleteCtrl
                 });
             };
+
+            scope.getSlabPlaceHolder = function(value,type){
+                if(type=="min"){
+                    return (value==scope.installmentAmountSlabType)?'label.input.fromloanamount':'label.input.minrepayment';
+                }else{
+                    return (value==scope.installmentAmountSlabType)?'label.input.toloanamount':'label.input.maxrepayment';
+                }
+                 
+            };
+
             var ChDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.chargeResource.delete({chargeId: routeParams.id}, {}, function (data) {

@@ -21,6 +21,7 @@
             scope.interestRatesListPerPeriod = [];
             scope.interestRatesListAvailable = false;
             scope.isCenter=false;
+            scope.installmentAmountSlabChargeType = 1;
 
             resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
                 if(data.groupLevel && data.groupLevel==1)
@@ -126,7 +127,7 @@
                 scope.interestRatesListAvailable = false;
                 scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
-                    scope.loanaccountinfo = data;         
+                    scope.loanaccountinfo = data; 
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
                     scope.productLoanCharges = data.product.charges || [];
@@ -141,8 +142,9 @@
                                             charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                             if(charge.chargeCalculationType.value == scope.slabBasedCharge && charge.slabs.length > 0){
                                                 for(var i in charge.slabs) {
-                                                    if(scope.formData.principal >= charge.slabs[i].fromLoanAmount && scope.formData.principal <= charge.slabs[i].toLoanAmount) {
-                                                        charge.amount = charge.slabs[i].amount;
+                                                    var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[i],scope.formData.principal,scope.formData.numberOfRepayments);
+                                                    if(slabBasedValue != null){
+                                                        charge.amount = slabBasedValue;
                                                     }
                                                 }
                                             }
@@ -192,8 +194,8 @@
                 });
             }
 
-            scope.$watch('formData.principal', function(){
-                if(scope.formData.principal != '' && scope.formData.principal != undefined){
+            scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function(){
+                if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
                     for(var i in scope.charges){
                         if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
                                 if(scope.isGLIM){
@@ -201,21 +203,22 @@
                                     scope.updateChargeForSlab(scope.charges[i]);
                                 }else{
                                     for(var j in scope.charges[i].slabs){
-                                    if(scope.formData.principal >= scope.charges[i].slabs[j].fromLoanAmount && scope.formData.principal <= scope.charges[i].slabs[j].toLoanAmount) {
-                                        scope.charges[i].amount = scope.charges[i].slabs[j].amount;
-                                        break;
-                                    } else {
-                                        scope.charges[i].amount = undefined;
+                                        var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[j],scope.formData.principal,scope.formData.numberOfRepayments);                                    
+                                        if(slabBasedValue != null) {
+                                            scope.charges[i].amount = slabBasedValue;
+                                            break;
+                                        } else {
+                                            scope.charges[i].amount = undefined;
+                                        }
+                                        scope.updateChargeForSlab(scope.charges[i]);
                                     }
-                                    scope.updateChargeForSlab(scope.charges[i]);
-                                }
 
                             }
                             
                         }
                     }
                 }
-            });
+            };
 
             scope.updateSlabBasedChargeForGlim = function(chargeData){
                 var clientChargeAmount = 0;
@@ -223,8 +226,9 @@
                     var clientData = scope.formData.clientMembers[j];
                         if(clientData.isClientSelected==true && clientData.transactionAmount){
                             for(var i in chargeData.slabs){
-                                if(clientData.transactionAmount >= chargeData.slabs[i].fromLoanAmount && clientData.transactionAmount <= chargeData.slabs[i].toLoanAmount) {
-                                    clientChargeAmount = clientChargeAmount + parseFloat(chargeData.slabs[i].amount);
+                                var slabBasedValue = scope.getSlabBasedAmount(chargeData.slabs[i],clientData.transactionAmount,scope.formData.numberOfRepayments);
+                                if(slabBasedValue != null){
+                                    clientChargeAmount = clientChargeAmount + parseFloat(slabBasedValue);
                                 }
                             }
                         }
@@ -311,8 +315,9 @@
                         else {
                             if(data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs.length > 0){
                                 for(var i in data.slabs) {
-                                    if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
-                                        data.amount = data.slabs[i].amount;
+                                    var slabBasedValue = scope.getSlabBasedAmount(data.slabs[i],scope.formData.principal,scope.formData.numberOfRepayments);
+                                    if(slabBasedValue != null){
+                                        data.amount = slabBasedValue;
                                     }
                                 }
                             } 
@@ -323,6 +328,33 @@
                 }
             }
 
+            scope.inRange = function(min,max,value){
+                return (value>=min && value<=max);
+            };
+
+            scope.getSlabBasedAmount = function(slab, amount , repayment){
+                var slabValue = 0;
+                slabValue = (slab.type.id == scope.installmentAmountSlabChargeType)?amount:repayment;
+                var subSlabvalue = 0;
+                subSlabvalue = (slab.type.id != scope.installmentAmountSlabChargeType)?amount:repayment;
+                //check for if value fall in slabs
+                if(scope.inRange(slab.minValue,slab.maxValue,slabValue)){
+                    
+                        if(slab.subSlabs != undefined && slab.subSlabs.length>0){
+                            for(var i in slab.subSlabs){
+                                //check for sub slabs range
+                                if(scope.inRange(slab.subSlabs[i].minValue,slab.subSlabs[i].maxValue,subSlabvalue)){
+                                    return slab.subSlabs[i].amount;
+                                }
+                            }
+
+                        }
+                        return slab.amount;
+                }
+                return null;
+
+            };
+
             scope.updateChargeForSlab = function(data){
                 if(scope.isGLIM && scope.formData.clientMembers) {
                     var clientMembers = scope.formData.clientMembers || [];
@@ -332,9 +364,12 @@
                     for(var i in data.glims){
                          if (data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs){
                             for(var j in data.slabs){
-                            if(data.glims[i].isClientSelected==true && data.glims[i].transactionAmount >= data.slabs[j].fromLoanAmount && data.glims[i].transactionAmount <= data.slabs[j].toLoanAmount){
-                                        data.glims[i].upfrontChargeAmount = data.slabs[j].amount;                                
-                                        amount = amount + data.glims[i].upfrontChargeAmount;
+                                if(data.glims[i].isClientSelected==true){
+                                    var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],data.glims[i].transactionAmount,scope.formData.numberOfRepayments);
+                                    if(slabBasedValue != null){
+                                        data.glims[i].upfrontChargeAmount = slabBasedValue;                                
+                                         amount = amount + data.glims[i].upfrontChargeAmount;
+                                    }                                                                          
                                 }
                             }
                         } else if (data.chargeCalculationType.value == scope.flatCharge){
@@ -611,10 +646,13 @@
             {
                 return a - b;
             };
-            scope.submittedOnReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.submittedOn;
-            scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
-            scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
-            scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
+            if(scope.response != undefined){
+                scope.submittedOnReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.submittedOn;
+                scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
+                scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
+                scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
+            }
+            
         }
     });
     mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewLoanAccAppController]).run(function ($log) {
