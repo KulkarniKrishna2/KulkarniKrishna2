@@ -252,9 +252,6 @@
 									<a href="#/clients/{{client.id}}/surveys">{{'label.button.view.surveys' | translate }}</a>
 								</li>
 								<li>
-									<a href="#/bankaccountdetails/clients/{{client.id}}" has-permission='READ_BANKACCOUNTDETAIL'>{{'label.button.bankaccountdetails' | translate }}</a>
-								</li>
-								<li>
 									<a href="#/clients/{{client.id}}/guarantees" has-permission='READ_CLIENTGUARANTEE'>{{'label.button.viewguarantees' | translate }}</a>
 								</li>
 								<li>
@@ -751,6 +748,11 @@
 					                <td><span class="padded-td">{{client.dateOfBirth | DateFormat}}</span>
 					                </td>
 					            </tr>
+								<tr data-ng-show="client.dateOfBirth">
+									<th class="table-bold">{{ 'label.input.age' | translate }}</th>
+									<td><span class="padded-td">{{age}}</span>
+									</td>
+								</tr>
 					            <tr data-ng-show="client.status.value=='Closed'">
 					                <th class="table-bold">{{ 'label.heading.closedate' | translate }}</th>
 					                <td><span class="padded-td">{{client.timeline.closedOnDate | DateFormat}}</span></td>
