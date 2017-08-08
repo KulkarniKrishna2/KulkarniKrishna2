@@ -249,6 +249,11 @@
 		"bankIFSCCode":""
 	  }
 	},
+	"paymentDetails": {
+	  "isMandatory": {
+		"receiptNumber" : false
+	  }
+	},
 	"savingsAccount":{
 	  "overDraft":{
 		"overdraftLimitHeading":"",

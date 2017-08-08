@@ -37,6 +37,12 @@
                         taskPermissionName: "ACTIVATE_CLIENT"
                     },
                     {
+                        name: "label.button.bankaccountdetails",
+                        href: "#/bankaccountdetails/clients",
+                        icon: "",
+                        taskPermissionName: "READ_BANKACCOUNTDETAIL"
+                    },
+                    {
                         name: "label.button.close",
                         href: "#/client",
                         subhref: "close",
@@ -108,6 +114,12 @@
                         href: "#/newclientloanaccount",
                         icon: "icon-plus",
                         taskPermissionName: "CREATE_LOAN"
+                    },
+                    {
+                        name: "label.button.bankaccountdetails",
+                        href: "#/bankaccountdetails/clients",
+                        icon: "",
+                        taskPermissionName: "READ_BANKACCOUNTDETAIL"
                     },
                     {
                         name: "label.button.newsaving",

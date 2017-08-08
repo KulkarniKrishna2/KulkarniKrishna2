@@ -14,6 +14,7 @@
             scope.hideClientClassification = false;
             scope.isClientClassificationMandatory = false;
             scope.isExternalIdMandatory = false;
+            scope.displayAge = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -127,6 +128,7 @@
                 if (data.dateOfBirth) {
                     var dobDate = dateFilter(data.dateOfBirth, scope.df);
                     scope.date.dateOfBirth = new Date(dobDate);
+                    calculateClientAge(scope.date.dateOfBirth);
                 }
 
                 if (data.clientNonPersonDetails.incorpValidityTillDate) {
@@ -149,6 +151,14 @@
 
             });
 
+            function calculateClientAge(dateOfBirth){
+                var ageDifMs = Date.now() - dateOfBirth.getTime();
+                var ageDifMs = Date.now() - dateOfBirth.getTime();
+                var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                scope.displayAge = true;
+                scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            }
+
             scope.displayPersonOrNonPersonOptions = function (legalFormId) {
                 if(legalFormId == scope.clientPersonId || legalFormId == null) {
                     scope.showNonPersonOptions = false;
@@ -156,6 +166,20 @@
                     scope.showNonPersonOptions = true;
                 }
             };
+
+            scope.$watch('date.dateOfBirth', function(newValue, oldValue){
+                if(scope.date.dateOfBirth != null)
+                {
+                    var ageDifMs = Date.now() - scope.date.dateOfBirth.getTime();
+                    var ageDifMs = Date.now() - scope.date.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.displayAge = true;
+                    scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                }else{
+                    scope.displayAge = false;
+                }
+            });
+
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;

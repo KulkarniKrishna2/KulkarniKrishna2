@@ -100,13 +100,13 @@
 					<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
 						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
 					    <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
-				</div>
-					<div class="col-sm-2">
+					</div>
+					<label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
+					<div class="col-sm-1">
 						<form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
 					</div>
-                </div>
 
-				<div data-ng-switch on="showNonPersonOptions">
+				<div calss="row"data-ng-switch on="showNonPersonOptions">
 					<div data-ng-switch-when="false">
 						<label class="control-label col-sm-1">{{'label.input.gender' | translate}}</label>
 
@@ -118,6 +118,7 @@
 							</select>
 						</div>
 					</div>
+				</div>
 				</div>
 				<div data-ng-switch on="showNonPersonOptions">
 					<div data-ng-switch-when="true">
