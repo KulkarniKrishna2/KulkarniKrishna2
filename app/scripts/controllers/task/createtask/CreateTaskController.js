@@ -8,6 +8,7 @@
                 scope.users=data.user;
                 scope.first={};
                 scope.restrictDate = new Date();
+                scope.dueTime = new Date();
                 });
             }
             scope.formData={};
@@ -26,6 +27,10 @@
                 this.formData.duedate = reqDate;
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
+                this.formData.timeFormat='HH:mm:ss';
+                scope.dueTime = dateFilter(scope.dueTime,'HH:mm');
+                scope.dueTime = scope.dueTime.concat(":00");
+                this.formData.dueTime = scope.dueTime;
                 resourceFactory.taskAssignResource.save(this.formData, function (response) {
                     location.path('/tasklist')
                 });
