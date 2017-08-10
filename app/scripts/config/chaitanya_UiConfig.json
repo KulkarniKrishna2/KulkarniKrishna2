@@ -31,7 +31,8 @@
       },
       "isShowField": {
         "nextRepaymentDateDisburseScreen": true,
-        "adjustRepaymentDateDisburseScreen": true
+        "adjustRepaymentDateDisburseScreen": true,
+        "retryBankTransaction":false
       },
       "isReadOnlyField": {
         "loanTermFrequencyType": true,
