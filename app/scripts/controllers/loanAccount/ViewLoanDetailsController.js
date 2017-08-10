@@ -25,7 +25,6 @@
             scope.showOriginalSchedule = false;
             scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
-            scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
             scope.isGlimChargesAvailbale = true;
             scope.buttons = {};
             scope.singlebuttons = [];
@@ -37,7 +36,17 @@
             scope.noteLoaded = false;
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
+            if(scope.response != undefined){
+                scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
+                scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
+            }
 
+            scope.draftedTransaction = 1;
+            scope.submittedTransaction = 2;
+            scope.successTransaction = 5;
+            scope.failedTransaction = 6;
+            scope.closedTransaction = 7;
+            
             scope.isGlimEnabled = function(){
                 return scope.isGlim && !scope.glimPaymentAsGroup;
             };
@@ -681,6 +690,20 @@
             fetchBankTransferDetails = function(){
                 resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
                     scope.transferDetails = data;
+                    scope.closedTransferDetails = [];
+                    scope.activeTransferDetails = [];
+                    for(var i in scope.transferDetails){
+                        if(scope.transferDetails[i].status !=undefined && scope.transferDetails[i].status.id != null && scope.transferDetails[i].status.id != undefined){
+                            if(scope.transferDetails[i].status.id== scope.closedTransaction){
+                                scope.closedTransferDetails.push(scope.transferDetails[i]);
+                            }
+                            else{
+                                scope.activeTransferDetails.push(scope.transferDetails[i]);
+                            }
+                        }
+                    }  
+                    scope.transferDetails = scope.activeTransferDetails;
+
                 });
             };
 
@@ -1289,6 +1312,28 @@
                 }
             };
 
+            scope.reject = function (transferData) {
+                var statusList = [scope.draftedTransaction,scope.submittedTransaction];
+
+                if(statusList.indexOf(transferData.status.id) >= 0){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'reject'}, function (data) {
+                    fetchBankTransferDetails();
+                    });
+                }
+                
+            };
+
+            scope.closeBankTransfer = function (transferData) {
+                var statusList = [scope.successTransaction,scope.failedTransaction];
+
+                if(statusList.indexOf(transferData.status.id) >= 0){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'close'}, function (data) {
+                    fetchBankTransferDetails();
+                    });
+                }
+                
+            };
+
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
@@ -1576,6 +1621,13 @@
                 });
             };
             scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
+            scope.selectClosedTransactions = function(value){
+                if(value){
+                    scope.transferDetails = scope.closedTransferDetails;
+                }else{
+                    scope.transferDetails =  scope.activeTransferDetails; 
+                }
+            }
         }
     });
 

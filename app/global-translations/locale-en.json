@@ -4631,7 +4631,7 @@
     "bankAccountType.savingsaccount":"Savings Account",
     "bankAccountType.currentaccount":"Current Account",
 
-    "label.heading.banktransfer":"Bank tansfer",
+    "label.heading.banktransfer":"Bank Transfer",
     "label.anchor.bankaccounttransferdetails":"Account Transfer Detail",
     "label.heading.loans":"Loan",
     "label.heading.holdername":"Bank Account Holder Name",
@@ -6301,5 +6301,10 @@
     "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.does.not.exists":"Credit Bureau and Loan Product default mapping not found. Provide a default mapping first, then map different credit bureau to offices.",
 
     "label.input.dueTime": "Due Time",
+    "#Bank Transactions" : "",
+    "label.button.retry" : "Retry",
+    "label.input.view.closed.transactions":"View Closed Transactions",
+    "error.msg.bank.account.detail.not.found":"Account details not found",
+    "all.transactions.are.not.in.reject.or.retried.or.closed.status":"One or more Bank Transaction/s is/are active.To undo disbursal, all bank transactions must be in Rejected/Closed/Retried status.",
     "------ end of tensalation file":"---------"
 }

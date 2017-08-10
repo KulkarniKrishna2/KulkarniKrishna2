@@ -41,7 +41,8 @@
 	  },
 	  "isShowField": {
 		"nextRepaymentDateDisburseScreen": false,
-		"adjustRepaymentDateDisburseScreen": false
+		"adjustRepaymentDateDisburseScreen": false,
+		"retryBankTransaction":true
 	  },
 	  "isReadOnlyField": {
 	  	"externalId": false,
