@@ -39,6 +39,7 @@
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
+                scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
             }
 
             scope.draftedTransaction = 1;
@@ -701,9 +702,13 @@
                                 scope.activeTransferDetails.push(scope.transferDetails[i]);
                             }
                         }
-                    }  
-                    scope.transferDetails = scope.activeTransferDetails;
-
+                    } 
+                    if(scope.activeTransferDetails.length > 0) {
+                        scope.transferDetails = scope.activeTransferDetails;
+                    }else{
+                       scope.transferDetails = scope.closedTransferDetails; 
+                       scope.viewClosedTransactions = true;
+                    }
                 });
             };
 
@@ -1620,7 +1625,6 @@
                     }
                 });
             };
-            scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
             scope.selectClosedTransactions = function(value){
                 if(value){
                     scope.transferDetails = scope.closedTransferDetails;

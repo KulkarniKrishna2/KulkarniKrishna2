@@ -901,10 +901,8 @@
                                 <th colspan="2">{{'label.heading.amount' | translate}}</th>
                                 <th colspan="2">{{'label.heading.status' | translate}}</th>
                                 <th colspan="2">{{'label.input.actions' | translate}}</th>
-                                <th colspan="2">{{'label.input.view.closed.transactions' |
-                  translate}}<input
-                type="checkbox" ng-model="specificToInstallment" ng-change="selectClosedTransactions(specificToInstallment)" style="margin-left: 10px">
-              </th>
+                                <th colspan="2">{{'label.input.view.closed.transactions' | translate}}<input type="checkbox" ng-model="viewClosedTransactions" ng-change="selectClosedTransactions(viewClosedTransactions)" style="margin-left: 10px">
+                                </th>
                             </tr>
                             <tr ng-repeat="transferData in transferDetails" class="pointer-main">
                                 <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.transactionId}}</td>
