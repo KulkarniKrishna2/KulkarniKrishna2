@@ -26,7 +26,7 @@
         </div>
     </script>
     <script type="text/ng-template" id="reverseTransaction.html">
-        <div class="modal-header silver">
+        <div  class="modal-header silver">
             <h3 class="bolder">{{'label.heading.reverse' | translate}}</h3>
         </div>
         <div class="modal-body">
@@ -58,7 +58,7 @@
                             }}</strong></span>
 
                                     <div class="btn-group">
-                                        <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
+                                        <a data-ng-show="flag && !isReversalEntry" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
                                     </div>
                                 </div>
                             </h3>
