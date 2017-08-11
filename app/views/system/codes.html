@@ -15,11 +15,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-code" dir-paginate="code in codes | filter:filterText| itemsPerPage: codesPerPage" total-items="totalCodes">
+        <tr class="pointer-code" data-ng-repeat="code in codes | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(code.id)">{{code.name | translate}}</td>
             <td class="pointer" data-ng-click="routeTo(code.id)">{{code.systemDefined}}</td>
         </tr>
         </tbody>
     </table>
-    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
