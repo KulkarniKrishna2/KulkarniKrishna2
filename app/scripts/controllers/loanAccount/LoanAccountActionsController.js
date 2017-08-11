@@ -825,18 +825,6 @@
             };
 
             scope.finalSubmit = function() {
-                if (scope.action == "repayment" && scope.isRecieptNumbermandatory &&
-                    (scope.formData.receiptNumber == null || scope.formData.receiptNumber == "")) {
-                        scope.errorDetails = [];
-                        var errorObj = new Object();
-                        errorObj.args = {
-                            params: []
-                        };
-                        errorObj.args.params.push({value: 'error.msg.receipt.number.mandatory'});
-                        scope.errorDetails.push(errorObj);
-                        return;
-                }
-
                 scope.processDate = false;
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){

@@ -444,7 +444,7 @@
                 </a>
             </div>
         </div>
-        <div collapse="!showPaymentDetails">
+        <div ng-show="showPaymentDetails || isRecieptNumbermandatory">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
 
@@ -473,7 +473,8 @@
                     translate}}<span ng-if="isRecieptNumbermandatory" class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="receiptNumber" name="receiptNumber" class="form-control" type="text" ng-model="formData.receiptNumber">
+                    <input id="receiptNumber" name="receiptNumber" class="form-control" type="text"
+                           ng-model="formData.receiptNumber" ng-required="isRecieptNumbermandatory">
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="loanactionform" valattribute="receiptNumber"/>
