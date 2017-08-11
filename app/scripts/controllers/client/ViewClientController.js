@@ -1229,7 +1229,7 @@
                 angular.forEach(scope.incomeAndExpenses, function(data){
                     if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1){
                         if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
-                            total = total + data.totalIncome;
+                            total = total + data.totalIncome-data.totalExpense;
                         }
                     }
                 });
@@ -1241,7 +1241,7 @@
                 angular.forEach(scope.incomeAndExpenses, function(data){
                     if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2){
                         if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
-                            total = total + data.totalIncome;
+                            total = total + data.totalIncome-data.totalExpense;
                         }
                     }
                 });
