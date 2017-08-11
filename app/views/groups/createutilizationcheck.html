@@ -126,7 +126,7 @@
             <a id="cancelgroup" href="#/group/{{entityId}}/listgrouploanutillization" class="btn btn-default"
                ng-show="entityType=='group'">{{'label.button.cancel' |
                 translate}}</a>
-            <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+            <a id="save" ng-if="loanCenterTemplate && loanCenterTemplate.length > 0" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
                 translate}}</a>
         </div>
     </div>
