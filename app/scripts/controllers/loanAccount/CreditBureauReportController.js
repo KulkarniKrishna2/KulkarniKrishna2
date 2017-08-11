@@ -9,6 +9,7 @@
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
             scope.trancheDisbursalId = routeParams.trancheDisbursalId;
+            scope.clientId = routeParams.clientId;
             if (scope.entityType === 'loanapplication') {
                 scope.loanApplicationReferenceId = scope.entityId;
                 getLoanApplicationData();
@@ -46,7 +47,8 @@
             function getCreditbureauLoanProductData(loanProductId) {
                 resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                     loanProductId: loanProductId,
-                    associations: 'creditBureaus'
+                    associations: 'creditBureaus',
+                    clientId: scope.clientId
                 }, function (data) {
                     scope.creditbureauLoanProduct = data;
                     getCreditBureauReportSummary();

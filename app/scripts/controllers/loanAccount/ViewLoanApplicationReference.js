@@ -18,7 +18,7 @@
                         resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                             scope.formData = data;
                             if(scope.formData.loanProductId && scope.formData.status.id < 300){
-                                resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.formData.loanProductId,associations: 'creditBureaus'},function (creditbureauLoanProduct) {
+                                resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.formData.loanProductId,associations: 'creditBureaus',clientId : scope.formData.clientId},function (creditbureauLoanProduct) {
                                     scope.creditbureauLoanProduct = creditbureauLoanProduct;
                                     if(scope.creditbureauLoanProduct.isActive == true){
                                         scope.isCBCheckReq = true;

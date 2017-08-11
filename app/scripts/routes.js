@@ -161,13 +161,13 @@
             .when('/approveloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/approveloanapplicationreference.html'
             })
-            .when('/creditbureaureport/:loanApplicationReferenceId', {
+            .when('/creditbureaureport/:loanApplicationReferenceId/:clientId', {
                 templateUrl: 'views/loans/creditbureaureport.html'
             })
-            .when('/creditbureaureport/:entityType/:entityId', {
+            .when('/creditbureaureport/:entityType/:entityId/:clientId', {
                 templateUrl: 'views/loans/creditbureaureport.html'
             })
-            .when('/creditbureaureport/:entityType/:entityId/:trancheDisbursalId', {
+            .when('/creditbureaureport/:entityType/:entityId/:trancheDisbursalId/:clientId', {
                 templateUrl: 'views/loans/creditbureaureport.html'
             })
             .when('/disburseloanapplicationreference/:loanApplicationReferenceId', {

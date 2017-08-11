@@ -205,9 +205,9 @@
                         break;
                     case "disburse.tranche.creditbureaureport":
                         if(scope.isCBCheckReq === true && scope.loandetails.status.id == 300){
-                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
                         }else if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
-                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
                         }
                         break;
                     case "refundByCash":
@@ -1586,7 +1586,8 @@
                             if (scope.isCreditCheck== true) {
                                 resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                                     loanProductId: scope.loandetails.loanProductId,
-                                    associations: 'creditBureaus'
+                                    associations: 'creditBureaus',
+                                    clientId:$rootScope.clientId
                                 }, function (creditbureauLoanProduct) {
                                     scope.creditbureauLoanProduct = creditbureauLoanProduct;
                                     if (scope.creditbureauLoanProduct.isActive == true) {

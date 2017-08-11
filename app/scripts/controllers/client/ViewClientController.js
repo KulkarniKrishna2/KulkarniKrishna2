@@ -1350,7 +1350,8 @@
                                 if (scope.isCreditCheck == true) {
                                     resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                                         loanProductId: loan.productId,
-                                        associations: 'creditBureaus'
+                                        associations: 'creditBureaus',
+                                        clientId : scope.clientId
                                     }, function (creditbureauLoanProduct) {
                                         scope.creditbureauLoanProduct = creditbureauLoanProduct;
                                         if (scope.creditbureauLoanProduct.isActive == true) {
@@ -1417,7 +1418,7 @@
                 if(_.isUndefined(trancheDisbursalId)){
                     location.path('/loanaccount/'+loanId+'/disburse');
                 }else{
-                    location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId);
+                    location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId+'/'+scope.clientId);
                 }
             };
             scope.differentiateFamilyMemberDetailsBaseOnReferenceId = function(familyMembers){
