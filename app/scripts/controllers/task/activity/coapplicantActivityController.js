@@ -6,6 +6,7 @@
             scope.clientId = scope.taskconfig['clientId'];
             scope.restrictDate = new Date();
             scope.formData = {};
+            scope.displayAge = false;
             
             function init(){
                 scope.showSummary=true;
@@ -94,6 +95,18 @@
             scope.viewClient = function (item) {
                 scope.client = item;
             };
+            scope.$watch('first.dateOfBirth', function(newValue, oldValue){
+                if(scope.first.dateOfBirth != null)
+                {
+                    var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                    var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.displayAge = true;
+                    scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                }else{
+                    scope.displayAge = false;
+                }
+            });
 
             scope.clientOptions = function(value){
                 var deferred = $q.defer();

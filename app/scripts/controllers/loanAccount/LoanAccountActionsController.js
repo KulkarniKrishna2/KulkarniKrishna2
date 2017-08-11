@@ -825,6 +825,18 @@
             };
 
             scope.finalSubmit = function() {
+                if (scope.action == "repayment" && scope.isRecieptNumbermandatory &&
+                    (scope.formData.receiptNumber == null || scope.formData.receiptNumber == "")) {
+                        scope.errorDetails = [];
+                        var errorObj = new Object();
+                        errorObj.args = {
+                            params: []
+                        };
+                        errorObj.args.params.push({value: 'error.msg.receipt.number.mandatory'});
+                        scope.errorDetails.push(errorObj);
+                        return;
+                }
+
                 scope.processDate = false;
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
@@ -836,6 +848,7 @@
                 }
 
                 if(scope.action == "approve"){
+                    scope.errorDetails = [];
                     this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
                     if(scope.disbursementDetails != null) {
                         var numberOftranches = scope.disbursementDetails.length;

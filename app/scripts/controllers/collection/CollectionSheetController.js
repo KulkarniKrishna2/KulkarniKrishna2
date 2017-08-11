@@ -25,6 +25,8 @@
             scope.forcedSubmit=false;
             scope.isStaffMandotory = false;
             scope.productiveCollctionSheetSearchParams = {};
+            scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
+
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 if (scope.currentSession.user.officeId) {
@@ -591,6 +593,17 @@
             };
 
             scope.submit = function () {
+
+                if (scope.showPaymentDetails && scope.isRecieptNumbermandatory && (scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
+                        var errorObj = new Object();
+                        errorObj.args = {
+                            params: []
+                        };
+                        errorObj.args.params.push({value: 'error.msg.receipt.number.mandatory'});
+                        scope.errorDetails.push(errorObj);
+                        return;
+                }
+
                 scope.formData.calendarId = scope.calendarId;
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;

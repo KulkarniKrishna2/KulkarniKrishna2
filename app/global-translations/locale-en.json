@@ -563,6 +563,8 @@
     "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.cannot.be.before.last.installment.due.date" : "Adjusted due date cannot be before last installment due date",
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
     "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
+    "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
+    "error.msg.payment.type.invalid" : "Payment type is invalid",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
