@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="col-md-offset-3">
-                    <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                    <button id="save" type="submit" has-permission='CREATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>
             </fieldset>
         </form>
