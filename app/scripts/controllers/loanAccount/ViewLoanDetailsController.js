@@ -1318,7 +1318,7 @@
             };
 
             scope.reject = function (transferData) {
-                var statusList = [scope.draftedTransaction,scope.submittedTransaction];
+                var statusList = [scope.draftedTransaction,scope.submittedTransaction,scope.failedTransaction];
 
                 if(statusList.indexOf(transferData.status.id) >= 0){
                     resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'reject'}, function (data) {
@@ -1329,9 +1329,8 @@
             };
 
             scope.closeBankTransfer = function (transferData) {
-                var statusList = [scope.successTransaction,scope.failedTransaction];
 
-                if(statusList.indexOf(transferData.status.id) >= 0){
+                if(transferData.status.id == scope.successTransaction){
                     resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'close'}, function (data) {
                     fetchBankTransferDetails();
                     });

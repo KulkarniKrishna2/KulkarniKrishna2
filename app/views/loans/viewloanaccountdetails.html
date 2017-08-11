@@ -913,8 +913,8 @@
                                     <button class="btn btn-link" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction" has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
                                 </td>
                                 <td colspan="2">
-                                  <button class="btn btn-link" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction" has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
-                                  <button class="btn btn-link" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction || transferData.status.id == failedTransaction" has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
+                                  <button class="btn btn-link" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction || transferData.status.id == failedTransaction" has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
+                                  <button class="btn btn-link" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction" has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
                                 </td>
                                 <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)"></td>
                             </tr>
