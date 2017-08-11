@@ -181,10 +181,11 @@
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
+                            scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
                                 scope.showPaymentDetails = true;
+                                scope.showPaymentDetailsFn();
                             }
-                            scope.paymentTypeOptions = data.paymentTypeOptions;
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -206,10 +207,11 @@
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
+                            scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
                                 scope.showPaymentDetails = true;
+                                scope.showPaymentDetailsFn();
                             }
-                            scope.paymentTypeOptions = data.paymentTypeOptions;
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
