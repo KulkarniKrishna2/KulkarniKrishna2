@@ -595,6 +595,7 @@
             scope.submit = function () {
 
                 if (scope.showPaymentDetails && scope.isRecieptNumbermandatory && (scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
+                        scope.errorDetails = [];
                         var errorObj = new Object();
                         errorObj.args = {
                             params: []
@@ -659,7 +660,14 @@
                         route.reload();
                     },
                         function(data){
-                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {0
+                                scope.errorDetails = [];
+                                var errorObj = new Object();
+                                errorObj.args = {
+                                    params: []
+                                };
+                                errorObj.args.params.push({value: data.data.errors[0].userMessageGlobalisationCode});
+                                scope.errorDetails.push(errorObj);
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";
@@ -672,6 +680,13 @@
                     },
                         function(data){
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                                scope.errorDetails = [];
+                                var errorObj = new Object();
+                                errorObj.args = {
+                                    params: []
+                                };
+                                errorObj.args.params.push({value: data.data.errors[0].userMessageGlobalisationCode});
+                                scope.errorDetails.push(errorObj);
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";
