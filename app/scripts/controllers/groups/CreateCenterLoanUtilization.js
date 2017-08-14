@@ -10,12 +10,27 @@
 
             if (scope.entityType === "center") {
                 resourceFactory.loanUtilizationCheckCenterTemplate.get({centerId: scope.entityId}, function (data) {
+                    var data
                     scope.originalLoanCenterTemplate = data;
                     scope.loanCenterTemplate = data;
                     if (scope.loanCenterTemplate != null && scope.loanCenterTemplate.length > 0) {
                         scope.loanPurposes = data[0].loanPurposeDatas;
+                        removeFromListTotalUtilizedLoans();
                     }
                 });
+            };
+
+            var removeFromListTotalUtilizedLoans = function () {
+                if (scope.loanCenterTemplate && scope.loanCenterTemplate != null && scope.loanCenterTemplate.length > 0) {
+                    var tempLoanCenterTemplate = [];
+                    angular.copy(scope.loanCenterTemplate,tempLoanCenterTemplate);
+                    scope.loanCenterTemplate = [];
+                    for(var i in tempLoanCenterTemplate){
+                        if(tempLoanCenterTemplate[i].principalAmount > tempLoanCenterTemplate[i].totalUtilizedAmount){
+                            scope.loanCenterTemplate.push(tempLoanCenterTemplate[i]);
+                        }
+                    }
+                }
             };
 
             if (scope.entityType === "group") {
@@ -24,6 +39,7 @@
                     scope.loanCenterTemplate = data;
                     if (scope.loanCenterTemplate != null && scope.loanCenterTemplate.length > 0) {
                         scope.loanPurposes = data[0].loanPurposeDatas;
+                        removeFromListTotalUtilizedLoans();
                     }
                 });
             }
