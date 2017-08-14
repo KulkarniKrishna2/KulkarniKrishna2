@@ -6310,6 +6310,7 @@
     "label.button.retry" : "Retry",
     "label.input.view.closed.transactions":"View Closed Transactions",
     "error.msg.bank.account.detail.not.found":"Account details not found",
-    "all.transactions.are.not.in.reject.or.closed.status":"One or more Bank Transaction/s is/are active.To undo disbursal, all bank transactions must be in Rejected or Closed status.",
+    "error.msg.unable.to.undo.disbursal.of.loan.as.all.transactions.are.not.in.rejected.or.closed.status":"One or more Bank Transaction/s is/are active.To undo disbursal, all bank transactions must be in Rejected or Closed status.",
+    "error.msg.unable.to.submit.bank.transaction.since.all.bank.transactions.are.not.in.closed.or.rejected.status":"One or more Bank Transaction/s is/are active.To submit a bank transaction, all other bank transactions must be in Closed or Rejected status.",
     "------ end of tensalation file":"---------"
 }
