@@ -242,8 +242,8 @@
                                         <label class="control-label col-sm-2">{{'label.heading.section' | translate}} <span class="required">*</span></label>
                                         <div class="col-sm-3"  >
                                             <select class="form-control" id = "sectionsid{{$index}}" name="sectionsid"  ng-model="column.sectionName" 
-                                            ng-options="s as s  for s in sectionList" value="{{s}}" required late-validate>
-                                                <option value="s" selected>{{'label.selectone' | translate}}</option>
+                                            ng-options="section as section  for section in sectionList" value="{{section}}" required late-validate>
+                                                <option value="" selected>{{'label.selectone' | translate}}</option>
                                             </select>
                                         </div>
                                          <div>
