@@ -22,6 +22,7 @@
             scope.showAmountDispaly = false;
             scope.trancheError = false;
             scope.showRepaymentsStartingFromDateField = false;
+            scope.isRecieptNumbermandatory = false;
 
             //glim
             scope.isGLIM = false;
@@ -382,6 +383,7 @@
                     scope.isTransaction = true;
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
+                    scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
                     break;
                 case "prepayment":
                     scope.modelName = 'transactionDate';
@@ -834,6 +836,7 @@
                 }
 
                 if(scope.action == "approve"){
+                    scope.errorDetails = [];
                     this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
                     if(scope.disbursementDetails != null) {
                         var numberOftranches = scope.disbursementDetails.length;

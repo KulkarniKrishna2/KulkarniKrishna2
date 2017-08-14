@@ -24,6 +24,9 @@
             scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
             scope.forcedSubmit=false;
             scope.isStaffMandotory = false;
+            scope.productiveCollctionSheetSearchParams = {};
+            scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
+
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 if (scope.currentSession.user.officeId) {
@@ -83,6 +86,7 @@
 
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
+                    scope.loanOfficerId = loanOfficerId;
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.centers = data;
                     });
@@ -171,10 +175,17 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 if (centerOrGroupResource === "centerResource" && scope.calendarId !== "") {
+                    var searchParameters = {officeId : scope.officeId, transactionDate : scope.formData.transactionDate, staffId : scope.loanOfficerId, centerId : scope.centerId,
+                        locale :scope.optlang.code, dateFormat : scope.df};
+                    scope.productiveCollctionSheetSearchParams = searchParameters;
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
+                            if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
+                                scope.showPaymentDetails = true;
+                                scope.showPaymentDetailsFn();
+                            }
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -190,10 +201,17 @@
 
                     });
                 } else if (centerOrGroupResource === "groupResource" && scope.calendarId !== "") {
+                    var searchParameters = {officeId : scope.officeId, transactionDate : scope.formData.transactionDate, staffId : scope.loanOfficerId,
+                        groupId : scope.groupId, locale :scope.optlang.code, dateFormat : scope.df};
+                    scope.productiveCollctionSheetSearchParams = searchParameters;
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
+                            if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
+                                scope.showPaymentDetails = true;
+                                scope.showPaymentDetailsFn();
+                            }
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -583,6 +601,18 @@
             };
 
             scope.submit = function () {
+
+                if (scope.showPaymentDetails && scope.isRecieptNumbermandatory && (scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
+                        scope.errorDetails = [];
+                        var errorObj = new Object();
+                        errorObj.args = {
+                            params: []
+                        };
+                        errorObj.args.params.push({value: 'error.msg.receipt.number.mandatory'});
+                        scope.errorDetails.push(errorObj);
+                        return;
+                }
+
                 scope.formData.calendarId = scope.calendarId;
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
@@ -629,13 +659,23 @@
                 if (scope.forcedSubmit == true) {
                     scope.formData.forcedSubmitOfCollectionSheet = true;
                 }
+                if (scope.productiveCollctionSheetSearchParams.transactionDate != undefined && scope.productiveCollctionSheetSearchParams.transactionDate != null) {
+                    scope.formData.searchParams = scope.productiveCollctionSheetSearchParams;
+                }
                 if (centerOrGroupResource === "centerResource") {
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     },
                         function(data){
-                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {0
+                                scope.errorDetails = [];
+                                var errorObj = new Object();
+                                errorObj.args = {
+                                    params: []
+                                };
+                                errorObj.args.params.push({value: data.data.errors[0].userMessageGlobalisationCode});
+                                scope.errorDetails.push(errorObj);
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";
@@ -648,6 +688,13 @@
                     },
                         function(data){
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                                scope.errorDetails = [];
+                                var errorObj = new Object();
+                                errorObj.args = {
+                                    params: []
+                                };
+                                errorObj.args.params.push({value: data.data.errors[0].userMessageGlobalisationCode});
+                                scope.errorDetails.push(errorObj);
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";

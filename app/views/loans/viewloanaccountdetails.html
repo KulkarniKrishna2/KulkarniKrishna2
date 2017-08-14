@@ -895,18 +895,28 @@
                     <tab ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
-                                <th>{{'label.heading.transferid' | translate}}</th>
-                                <th>{{'label.heading.transfertype' | translate}}</th>
-                                <th>{{'label.heading.amount' | translate}}</th>
-                                <th>{{'label.heading.status' | translate}}</th>
+                                <th colspan="2">{{'label.heading.transferid' | translate}}</th>
+                                <th colspan="2">{{'label.heading.createdon' | translate}}</th>
+                                <th colspan="2">{{'label.heading.transfertype' | translate}}</th>
+                                <th colspan="2">{{'label.heading.amount' | translate}}</th>
+                                <th colspan="2">{{'label.heading.status' | translate}}</th>
+                                <th colspan="2">{{'label.input.actions' | translate}}</th>
+                                <th colspan="2">{{'label.input.view.closed.transactions' | translate}}<input type="checkbox" ng-model="viewClosedTransactions" ng-change="selectClosedTransactions(viewClosedTransactions)" style="margin-left: 10px">
+                                </th>
                             </tr>
-                            <tr ng-repeat="traanferData in transferDetails" class="pointer-main">
-                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transactionId}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.transferType.value}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(traanferData)">{{traanferData.amount}}</td>
-                                <td class="pointer" >{{traanferData.status.value}}
-                                    <button class="btn btn-link" ng-click="retryTransfer(traanferData)" ng-if="traanferData.status.id == 6" has-permission="RETRY_BANK_TRANSACTION">Retry</button>
+                            <tr ng-repeat="transferData in transferDetails" class="pointer-main">
+                                <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.transactionId}}</td>
+                                <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.createdDate | DateFormat}} </td>
+                                <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.transferType.value}}</td>
+                                <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.amount}}</td>
+                                <td colspan="2" class="pointer" >{{transferData.status.value}}
+                                    <button class="btn btn-link" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction" has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
                                 </td>
+                                <td colspan="2">
+                                  <button class="btn btn-link" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction || transferData.status.id == failedTransaction" has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
+                                  <button class="btn btn-link" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction" has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
+                                </td>
+                                <td colspan="2" class="pointer" data-ng-click="viewTransferDetails(transferData)"></td>
                             </tr>
                         </table>
                     </tab>

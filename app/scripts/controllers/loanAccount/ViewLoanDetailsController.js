@@ -25,7 +25,6 @@
             scope.showOriginalSchedule = false;
             scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
-            scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
             scope.isGlimChargesAvailbale = true;
             scope.buttons = {};
             scope.singlebuttons = [];
@@ -37,7 +36,18 @@
             scope.noteLoaded = false;
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
+            if(scope.response != undefined){
+                scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
+                scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
+                scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
+            }
 
+            scope.draftedTransaction = 1;
+            scope.submittedTransaction = 2;
+            scope.successTransaction = 5;
+            scope.failedTransaction = 6;
+            scope.closedTransaction = 7;
+            
             scope.isGlimEnabled = function(){
                 return scope.isGlim && !scope.glimPaymentAsGroup;
             };
@@ -195,9 +205,9 @@
                         break;
                     case "disburse.tranche.creditbureaureport":
                         if(scope.isCBCheckReq === true && scope.loandetails.status.id == 300){
-                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
                         }else if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
-                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId);
+                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
                         }
                         break;
                     case "refundByCash":
@@ -681,6 +691,24 @@
             fetchBankTransferDetails = function(){
                 resourceFactory.bankAccountTransferResource.getAll({entityType: 'loans', entityId: routeParams.id}, function (data) {
                     scope.transferDetails = data;
+                    scope.closedTransferDetails = [];
+                    scope.activeTransferDetails = [];
+                    for(var i in scope.transferDetails){
+                        if(scope.transferDetails[i].status !=undefined && scope.transferDetails[i].status.id != null && scope.transferDetails[i].status.id != undefined){
+                            if(scope.transferDetails[i].status.id== scope.closedTransaction){
+                                scope.closedTransferDetails.push(scope.transferDetails[i]);
+                            }
+                            else{
+                                scope.activeTransferDetails.push(scope.transferDetails[i]);
+                            }
+                        }
+                    } 
+                    if(scope.activeTransferDetails.length > 0) {
+                        scope.transferDetails = scope.activeTransferDetails;
+                    }else{
+                       scope.transferDetails = scope.closedTransferDetails; 
+                       scope.viewClosedTransactions = true;
+                    }
                 });
             };
 
@@ -1289,6 +1317,27 @@
                 }
             };
 
+            scope.reject = function (transferData) {
+                var statusList = [scope.draftedTransaction,scope.submittedTransaction,scope.failedTransaction];
+
+                if(statusList.indexOf(transferData.status.id) >= 0){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'reject'}, function (data) {
+                    fetchBankTransferDetails();
+                    });
+                }
+                
+            };
+
+            scope.closeBankTransfer = function (transferData) {
+
+                if(transferData.status.id == scope.successTransaction){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'close'}, function (data) {
+                    fetchBankTransferDetails();
+                    });
+                }
+                
+            };
+
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
@@ -1536,7 +1585,8 @@
                             if (scope.isCreditCheck== true) {
                                 resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                                     loanProductId: scope.loandetails.loanProductId,
-                                    associations: 'creditBureaus'
+                                    associations: 'creditBureaus',
+                                    clientId:$rootScope.clientId
                                 }, function (creditbureauLoanProduct) {
                                     scope.creditbureauLoanProduct = creditbureauLoanProduct;
                                     if (scope.creditbureauLoanProduct.isActive == true) {
@@ -1575,7 +1625,13 @@
                     }
                 });
             };
-            scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
+            scope.selectClosedTransactions = function(value){
+                if(value){
+                    scope.transferDetails = scope.closedTransferDetails;
+                }else{
+                    scope.transferDetails =  scope.activeTransferDetails; 
+                }
+            }
         }
     });
 

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter) {
             scope.client = [];
             scope.identitydocuments = [];
             scope.buttons = [];
@@ -293,6 +293,9 @@
                 $rootScope.clientname=data.displayName;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
+                if(scope.client.dateOfBirth != undefined && scope.client.dateOfBirth != null){
+                    calculateClientAge(scope.client.dateOfBirth);
+                }
                 if (data.imagePresent) {
                     http({
                         method: 'GET',
@@ -462,6 +465,15 @@
                 });
 
             });
+            function calculateClientAge(dateOfBirth){
+                dateOfBirth = new Date(dateFilter(dateOfBirth, scope.df));
+                var ageDifMs = Date.now() - dateOfBirth.getTime();
+                var ageDifMs = Date.now() - dateOfBirth.getTime();
+                var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                scope.displayAge = true;
+                scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            }
+
             scope.deleteClient = function () {
                 $modal.open({
                     templateUrl: 'deleteClient.html',
@@ -1338,7 +1350,8 @@
                                 if (scope.isCreditCheck == true) {
                                     resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                                         loanProductId: loan.productId,
-                                        associations: 'creditBureaus'
+                                        associations: 'creditBureaus',
+                                        clientId : scope.clientId
                                     }, function (creditbureauLoanProduct) {
                                         scope.creditbureauLoanProduct = creditbureauLoanProduct;
                                         if (scope.creditbureauLoanProduct.isActive == true) {
@@ -1405,7 +1418,7 @@
                 if(_.isUndefined(trancheDisbursalId)){
                     location.path('/loanaccount/'+loanId+'/disburse');
                 }else{
-                    location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId);
+                    location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId+'/'+scope.clientId);
                 }
             };
             scope.differentiateFamilyMemberDetailsBaseOnReferenceId = function(familyMembers){
@@ -1427,7 +1440,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));

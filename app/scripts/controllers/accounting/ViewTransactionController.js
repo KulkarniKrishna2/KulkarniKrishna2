@@ -23,6 +23,7 @@
             scope.dataTableName = 'f_journal_entry';
             scope.transactions = [];
 			scope.sections = [];
+            scope.isReversalEntry = false;
             if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
                 scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
             }
@@ -33,6 +34,7 @@
                     if (data.reversed == false) {
                         scope.flag = true;
                     }
+                    scope.isReversalEntry = data.isReversalEntry;
                     scope.manualEntry = data.manualEntry;
                     scope.transaction = scope.transactions[0];
                     scope.transactionNumber = scope.transaction.transactionId;

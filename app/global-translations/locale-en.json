@@ -561,7 +561,10 @@
     "error.msg.Secondary.Authentication.Service.failed":"2F Authentication failed. Either finger print didn't match or OTP is not correct",
     "error.msg.holiday.holiday.should.be.on.a.working.day": "Holiday cannot set on a Non Working Day '{{params[0].value}}'",
     "validation.msg.clientincomeexpense.incomeExpenseId.cannot.be.blank":"Sub Type is Mandatory",
-    "error.msg.loan.cannot.be.submit.as.loan.product.is.not.mapped.to.this.office":"Loan cannot be submitted as loanproduct is not mapped to clients office",
+    "error.msg.loan.cannot.be.submit.as.loan.product.is.not.mapped.to.this.office":"Loan cannot be submitted / modified / disbursed as loan product is not mapped to clients office",
+    "error.msg.loan.cannot.be.submit.as.loan.charge.is.not.mapped.to.this.office":"Loan cannot be submitted / modified / disbursed as loan charge '{{params[1].value}}' is not mapped to clients office",
+    "error.msg.savings.account.cannot.be.submit.as.savings.product.is.not.mapped.to.this.office":"Savings account cannot be submitted / modified / disbursed as savings product is not mapped to clients office",
+    "error.msg.savings.account.cannot.be.submit.as.savings.charge.is.not.mapped.to.this.office" : "Savings account cannot be submitted / modified / disbursed as savings charge '{{params[1].value}}' is not mapped to clients office",
     "validation.msg.client.email.is.invalid":"Email address is invalid",
     "error.msg.office.client.transfers.to.same.office" : "Source and destination office cannot be same ",
     "error.msg.loan.transaction.cannot.be.before.last.transaction.date": "The disbursement date cannot be before last transaction date",
@@ -570,6 +573,8 @@
     "validation.msg.rescheduleloan.rescheduleFromDate.adjustedDueDate.cannot.be.before.last.installment.due.date" : "Adjusted due date cannot be before last installment due date",
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
     "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
+    "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
+    "error.msg.payment.type.invalid" : "Payment type is invalid",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -4639,7 +4644,7 @@
     "bankAccountType.savingsaccount":"Savings Account",
     "bankAccountType.currentaccount":"Current Account",
 
-    "label.heading.banktransfer":"Bank tansfer",
+    "label.heading.banktransfer":"Bank Transfer",
     "label.anchor.bankaccounttransferdetails":"Account Transfer Detail",
     "label.heading.loans":"Loan",
     "label.heading.holdername":"Bank Account Holder Name",
@@ -6334,5 +6339,11 @@
     "error.msg.charge.slab.installment.number.range.overlapping" : "Slab/Sub Slabs installment number range overlapping.",
     "error.msg.slab.and.subslab.charge.types.can.not.be.same" : "Slab and Sub slabs charge types can not be same.",
 
+    "label.input.dueTime": "Due Time",
+    "#Bank Transactions" : "",
+    "label.button.retry" : "Retry",
+    "label.input.view.closed.transactions":"View Closed Transactions",
+    "error.msg.bank.account.detail.not.found":"Account details not found",
+    "all.transactions.are.not.in.reject.or.closed.status":"One or more Bank Transaction/s is/are active.To undo disbursal, all bank transactions must be in Rejected or Closed status.",
     "------ end of tensalation file":"---------"
 }

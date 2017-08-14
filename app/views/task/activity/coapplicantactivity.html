@@ -138,6 +138,10 @@
                         <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
                                ng-model="first.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control"/>
                     </div>
+                    <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
+                    <div class="col-sm-1">
+                        <form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
+                    </div>
                     <div data-ng-switch on="showNonPersonOptions">
                         <div data-ng-switch-when="false">
                             <label class="control-label col-sm-2">{{'label.input.gender' | translate}}</label>

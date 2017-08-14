@@ -41,7 +41,8 @@
 	  },
 	  "isShowField": {
 		"nextRepaymentDateDisburseScreen": false,
-		"adjustRepaymentDateDisburseScreen": false
+		"adjustRepaymentDateDisburseScreen": false,
+		"retryBankTransaction":true
 	  },
 	  "isReadOnlyField": {
 	  	"externalId": false,
@@ -247,6 +248,11 @@
 	  "regexValidations" :{
 		"mobileNumber":"",
 		"bankIFSCCode":""
+	  }
+	},
+	"paymentDetails": {
+	  "isMandatory": {
+		"receiptNumber" : false
 	  }
 	},
 	"savingsAccount":{

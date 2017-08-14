@@ -14,14 +14,14 @@
 						<span class="required">*</span>
 					</label>
 		   			<div>
-		   				<select id="taskName" ng-model="formData.templateId" ng-options="task.id as task.taskName for task in tasks" ng-change="onselect()"></select>
+		   				<span style="padding-left:17px"><select id="taskName" ng-model="formData.templateId" ng-options="task.id as task.taskName for task in tasks" ng-change="onselect()"></select></span>
 		   			</div> 
 	   			</div>
 	   			<div class="form-group col-sm-12">
 	   				<label class="control-label col-sm-3" for="description">{{'label.heading.description' | translate}}
 					</label>
 		   			<div>
-		   				<input id="description" type="textarea" ng-model="formData.description" />
+		   				<span style="padding-left:17px"><input id="description" type="textarea" ng-model="formData.description" /></span>
 		   			</div> 
 		   		</div>
 	   			<div class="form-group col-sm-12">
@@ -29,21 +29,28 @@
 	   					<span class="required">*</span>
 					</label>
 		   			<div>
-		   				<select id="user" ng-model="formData.userId" ng-options="user.id as user.username for user in users"></select>
+		   				<span style="padding-left:17px"><select id="user" ng-model="formData.userId" ng-options="user.id as user.username for user in users"></select></span>
 		   			</div> 
 		   		</div>
 		   		<div class="form-group col-sm-12" ng-if="idAndNames!=undefinded && idAndNames.length>0">
 	   				<label class="control-label  col-sm-3" for="entityType">{{entity.code | translate}}
 					</label>
 		   			<div>
-		   				<select id="entityType" ng-model="formData.entityId" ng-options="idAndName.id as idAndName.name for idAndName in idAndNames"></select>
+		   				<span style="padding-left:17px"><select id="entityType" ng-model="formData.entityId" ng-options="idAndName.id as idAndName.name for idAndName in idAndNames"></select></span>
 		   			</div> 
 		   		</div>
 		   		<div class="form-group col-sm-12">
 	   				<label class="control-label col-sm-3" for="duedate">{{'label.input.duedate' | translate}}
 					</label>
 		   			<div>
-		   				<input id="duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="restrictDate" max="'2050-01-01'"/>
+		   				<span style="padding-left:17px"><input id="duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="restrictDate" max="'2050-01-01'"/></span>
+		   			</div> 
+		   		</div>
+		   		<div class="form-group col-sm-12">
+	   				<label class="control-label col-sm-3" for="duedate">{{'label.input.dueTime' | translate}}
+					</label>
+		   			<div>
+		   				<timepicker id="dueTime" class="col-sm-2" ng-model="dueTime"></timepicker>
 		   			</div> 
 		   		</div>
 		   		<div class="col-sm-5 col-md-offset-2">

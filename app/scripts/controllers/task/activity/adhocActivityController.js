@@ -13,6 +13,14 @@
                         if(scope.taskData.description!=undefined){
                             scope.activityData.description=scope.taskData.description;
                         }
+
+                        var today  =  new Date();
+                        if(scope.taskData.dueTime != undefined) {
+                            scope.dueTime = new Date(scope.taskData.dueTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                            scope.dueTime = dateFilter(scope.dueTime, "HH:mm:ss"); 
+                            scope.activityData.dueTime  = scope.dueTime;
+                        }
+                        
                         var reqDate = dateFilter(scope.taskData.dueDate, scope.df);
                         scope.activityData.dueDate=reqDate;
                         if (scope.taskData.entityType.value=='OFFICE') 

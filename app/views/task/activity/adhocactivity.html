@@ -32,7 +32,16 @@
 			</td>
 			<td>
 				<div id="dueDate">
-					{{activityData.dueDate}}
+					{{activityData.dueDate | DateFormat}}
+				</div>
+			</td>
+			<td ng-if = activityData.dueTime>
+    			<label for="dueTime">{{'label.input.dueTime' | translate}}:
+				</label>
+			</td>
+			<td  ng-if = activityData.dueTime>
+				<div id="dueTime">
+					{{activityData.dueTime}}
 				</div>
 			</td>
     	</tr>

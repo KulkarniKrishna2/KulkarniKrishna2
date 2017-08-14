@@ -45,6 +45,7 @@
             scope.isVillageTownMandatory = false;
             scope.isCountryReadOnly = false;
             scope.isAddressTypeMandatory = false;
+            scope.displayAge = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -378,6 +379,21 @@
             scope.enableContinue = function(){
                 scope.enableCreateClientLoop = true;
             }
+
+
+            scope.$watch('first.dateOfBirth', function(newValue, oldValue){
+                if(scope.first.dateOfBirth != null)
+                {
+                    var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                    var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.displayAge = true;
+                    scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                }else{
+                    scope.displayAge = false;
+                }
+            });
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
