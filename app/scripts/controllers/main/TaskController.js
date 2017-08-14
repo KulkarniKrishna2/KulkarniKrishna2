@@ -18,9 +18,9 @@
             scope.requestIdentifier = "loanId";
             scope.rdapprovetemplate = {};
             scope.rdactivatetemplate = {};
+            scope.rescheduleData = function(){                
             scope.loanRescheduleData = [];
             scope.checkForBulkLoanRescheduleApprovalData = [];
-            scope.rescheduleData = function(){
                 resourceFactory.loanRescheduleResource.getAll({command:'pending'}, function (data) {
                     scope.loanRescheduleData = data;
                 });
@@ -1062,7 +1062,7 @@
                             }
                         }
                     });
-                    return (checkBoxesMet===scope.loanRescheduleData.length);
+                    return (checkBoxesMet===scope.loanRescheduleData.length && scope.loanRescheduleData.length != 0);
                 }
             }
 
@@ -1090,15 +1090,8 @@
                         scope.batchRequests.push(batchData);                        
                     }
                 });
-                resourceFactory.batchResource.post(scope.batchRequests, function (data) {                     
-                     for(var i = 0; i < data.length; i++) {
-                        if(data[i].statusCode = '200') {
-                            approvedAccounts++;
-                            data[i].body = JSON.parse(data[i].body);
-                            scope.checkForBulkLoanRescheduleApprovalData[data[i].body.resourceId] = false;
-                        }
-                        
-                    }  
+                resourceFactory.batchResource.post(scope.batchRequests, function (data) {    
+                        route.reload();
                 });
             };
 
