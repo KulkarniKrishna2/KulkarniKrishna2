@@ -1747,6 +1747,7 @@
     "label.heading.isTopup" : "Is Topup Loan?",
     "label.heading.loanIdToClose" : "Loan closed with Topup",
     "label.heading.topupAmount" : "Topup closure amount",
+    "label.heading.paymentdetails": "Payment Details",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
