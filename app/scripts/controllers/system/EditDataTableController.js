@@ -26,7 +26,7 @@
             scope.originalSections = [];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
-                scope.codes = data.pageItems;
+                scope.codes = data;
             });
 
             resourceFactory.DataTablesTemplateResource.get({}, function (data) {
