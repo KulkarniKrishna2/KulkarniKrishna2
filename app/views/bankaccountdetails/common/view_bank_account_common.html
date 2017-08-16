@@ -1,0 +1,56 @@
+<div ng-controller="ViewBankAccountCommonController">
+    <div class="col-md-12 paddedtop">
+        <img ng-src="{{documentImg}}" width="600"/>
+    </div>
+    <div class="col-md-12" >
+        <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+        <div class="row" ng-if="data">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.name}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.accountNumber}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.accountType.code | translate}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.ifscCode}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.bankName}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.branchName}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.bankCity}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.mobileNumber}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.email}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img ng-src="{{bankAccountData.documentImg}}" width="400"/>
+            </div>
+        </div>
+        <div ng-if="!data"> 
+            {{'No.Data.Found' | translate}}
+        </div>
+    </div>
+</div>
