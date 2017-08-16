@@ -977,6 +977,11 @@
                         get: {method: 'Get', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    clientCreditSummary: defineResource(apiVer + "/clients/creditsummary/:clientId", {clientId: '@clientId'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'Get', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
                     riskField: defineResource(apiVer + "/risk/field",{},{
                         getAll: {method: 'GET',params:{},isArray: true}
                     }),
