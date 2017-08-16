@@ -84,6 +84,44 @@
                             </div>
                         </div>
                         <div class="col-md-12" ng-if="cBStatus() === 'SUCCESS'">
+                            <table class="table table-bordered table-striped" ng-if="(creditScores.length > 0)">
+                                <tr>
+                                    <td>
+                                        <span><strong>{{'label.heading.creditscore.name' | translate}}</strong></span>
+                                    </td>
+                                    <td>
+                                        <span><strong>{{'label.heading.creditscore.cardname' | translate}}</strong></span>
+                                    </td>
+                                    <td>
+                                        <span><strong>{{'label.heading.creditscore.version' | translate}}</strong></span>
+                                    </td>
+                                    <td>
+                                        <span><strong>{{'label.heading.creditscore.date' | translate}}</strong></span>
+                                    </td>
+                                    <td>
+                                        <span><strong>{{'label.heading.creditscore.score' | translate}}</strong></span>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="score in creditScores">
+                                    <td>
+                                        <span>{{score.scoreName}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{score.scoreCardName}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{score.scoreCardVersion}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{score.scoreCardDate}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{score.score}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-12" ng-if="cBStatus() === 'SUCCESS'">
                             <table class="table table-bordered table-striped" ng-if="activeLoan.summaries.length > 0">
                                 <tr>
                                     <td colspan="8">

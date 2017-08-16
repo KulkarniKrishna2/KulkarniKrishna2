@@ -299,13 +299,14 @@
                     } else if (scope.loansSummary && scope.loansSummary.cbStatus) {
                         scope.isResponPresent = true;
                     }
-                    resourceFactory.clientExistingLoan.getAll({
+                    resourceFactory.clientCreditSummary.getAll({
                         clientId: scope.formData.clientId,
                         loanApplicationId: scope.loanApplicationReferenceId,
                         loanId: scope.loanId,
                         trancheDisbursalId: scope.trancheDisbursalId
                     }, function (data) {
-                        scope.existingLoans = data;
+                        scope.existingLoans = data.existingLoans;
+                        scope.creditScores = data.creditScores ;
                         constructLoanSummary();
                     });
                 });
@@ -329,13 +330,14 @@
                         scope.isResponPresent = true;
                     }
                     convertByteToString();
-                    resourceFactory.clientExistingLoan.getAll({
+                    resourceFactory.clientCreditSummary.getAll({
                         clientId: scope.formData.clientId,
                         loanApplicationId: scope.loanApplicationReferenceId,
                         loanId: scope.loanId,
                         trancheDisbursalId: scope.trancheDisbursalId
                     }, function (data) {
-                        scope.existingLoans = data;
+                        scope.existingLoans = data.existingLoans;
+                        scope.creditScores = data.creditScores ;
                         constructLoanSummary();
                     });
                 });
