@@ -435,6 +435,7 @@
             }
 
             //map code value to specific expense accounts
+            scope.codeValueSpecificAccountMapping = [];
             for (var i in scope.codeValueSpecificAccountMappings) {
                 temp = {
                     codeValueId: scope.codeValueSpecificAccountMappings[i].codeValueId,
