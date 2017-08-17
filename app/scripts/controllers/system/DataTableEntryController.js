@@ -80,6 +80,10 @@
                 var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
                 for (var i in data.columnHeaders) {
                     var colName = data.columnHeaders[i].columnName;
+                    if( colName == 'journal_entry_id'){
+                        reqparams.command = 'f_journal_entry';
+                        scope.isJournalEntry = true;
+                    }
                     if( colName == 'id' ){
                         data.columnHeaders.splice(i, 1);
                         colName = data.columnHeaders[i].columnName;
@@ -89,11 +93,7 @@
                     }
                 }
 
-                for (var i in data.columnHeaders) {
-                    if(data.columnHeaders[i].columnName == 'journal_entry_id'){
-                        scope.isJournalEntry = true;
-                        reqparams.command = 'f_journal_entry';
-                    }
+                    for (var i in data.columnHeaders) {
                     var index = data.columnData[0].row.findIndex(x => x.columnName==data.columnHeaders[i].columnName);
                     if(index > 0){
                         data.columnHeaders[i].value = data.columnData[0].row[index].value; 
@@ -500,6 +500,7 @@
                         dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
                     }
                 }
+
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
                     var destination = "";
                     if (data.loanId) {
