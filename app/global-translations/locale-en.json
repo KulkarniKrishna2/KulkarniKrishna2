@@ -6304,8 +6304,9 @@
     "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
     "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.duplicate.loan.product.and.credit.bureau.product.combination" : "Duplicate Loan Product and Credit Bureau combination.",
     "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.exists" : "Loan Product's default mapping exists. Kindly edit existing record.",
-    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.loan.product.and.office.combination.exists":"Loan Product and Office mapping exists.",
+    "validation.msg.ACTIVE_CREDIT_BUREAU_LOANPRODUCT_MAPPING.loan.product.and.office.combination.exists":"One or more offices have credit bureau mapping for selected loan product. To change the credit bureau product, remove the existing mapping.",
     "validation.msg.CREDIT_BUREAU_LOANPRODUCT_MAPPING.default.loan.product.and.credit.bureau.product.combination.does.not.exists":"Credit Bureau and Loan Product default mapping not found. Provide a default mapping first, then map different credit bureau to offices.",
+    "validation.msg.loan.product.and.office.combination.exists":"For office `{{params[0].value}}` - credit bureau mapping exisits with selected loan product. To change the credit bureau product, remove the existing mapping.",
 
     "label.input.dueTime": "Due Time",
     "#Bank Transactions" : "",
