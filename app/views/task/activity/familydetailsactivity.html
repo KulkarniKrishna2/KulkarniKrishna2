@@ -1,4 +1,15 @@
 <div ng-controller="familyDetailActivityController">
+    <script type="text/ng-template" id="deletefamilydetail.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
     <div ng-if="showform && !isTaskCompleted()">
         <form name="createFamilyDetails" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <fieldset>
@@ -162,8 +173,7 @@
                 <th>{{ 'label.heading.medical.condition' | translate }}</th>
                 <th>{{ 'label.heading.occupation' | translate }}</th>
                 <th>{{ 'label.heading.deceased' | translate }}</th>
-
-                <th></th>
+                <th ng-if="!isTaskCompleted()">{{ 'label.heading.actions' |translate }}</th>
             </tr>
             </thead>
             <tbody>
@@ -175,6 +185,15 @@
                 <td>{{familyMember.isSeriousIllness == true ? 'Yes' : 'No'}}</td>
                 <td>{{familyMember.occupation.name}}</td>
                 <td>{{familyMember.isDeceased == true ? 'Yes' : 'No'}}</td>
+                <td ng-if="!isTaskCompleted()" class="pull-right">
+                    <a ng-click="showEdit(familyMember.id)" >
+                        <i class="icon-edit"></i>
+                    </a>
+
+                    <a role="button" ng-click="deleteFamilyDetail(familyMember.id)">
+                        <i class="icon-remove"></i>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

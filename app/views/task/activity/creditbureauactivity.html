@@ -40,7 +40,7 @@
                                 <td ng-if="loansSummary.cbResponse">{{convertByteToString(loansSummary.cbResponse, loansSummary.cbStatus.value != 'SUCCESS')}}</td>
                                 <td ng-if="loansSummary.cbLoanEnqResponse">{{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}</td>
                             </tr>
-                            <tr ng-show="loansSummary.cbStatus.value != 'SUCCESS' || loansSummary.cbStatus.value != 'PENDING'">
+                            <tr ng-show="loansSummary.cbStatus.value != 'SUCCESS' && loansSummary.cbStatus.value != 'PENDING'">
                                 <td ng-if="loansSummary.cbResponse" class="error">
                                     <table>
                                         <tbody>
