@@ -2252,6 +2252,7 @@
     "validation.msg.fixeddepositaccount.depositPeriod.cannot.be.blank" : "Deposit period cannot be blank",
     "validation.msg.fixeddepositaccount.depositPeriodFrequencyId.is.not.one.of.expected.enumerations" : "Deposit  Period Frequency is not one of expected Enumerations",
     "validation.msg.fixeddepositaccount.valid.interest.chart.or.nominal.interest.rate.required" : "Interest chart or nominal interest rate require",
+    "validation.msg.rescheduleloan.adjustedDueDate.adjustedDueDate.should.be.calendar.meeting.date" : "Installment Rescheduled to date should be meeting date",
 
     "#-------": "------------",
 
