@@ -24,6 +24,7 @@
             scope.dropSections = [];
             scope.changeSections = [];
             scope.originalSections = [];
+            scope.columnNotMappedToSectionError = false;
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -407,7 +408,7 @@
                     }
                      var displayPosition = null;
                      if(scope.allowSections){
-                        if(scope.columns[i].sectionName != " "){
+                         if(scope.columns[i].sectionName != undefined && scope.columns[i].sectionName != null && scope.columns[i].sectionName != " "){
                             var name = scope.columns[i].sectionName;
                             var displayPosition = null;
                             for(var j=0; j< scope.sectionList.length;j++){
@@ -416,6 +417,9 @@
                                     break;
                                 }
                             }   
+                        }else{
+                            scope.columnNotMappedToSectionError = true;
+                            return false;
                         }
                      }
                      delete scope.columns[i].sectionName;
