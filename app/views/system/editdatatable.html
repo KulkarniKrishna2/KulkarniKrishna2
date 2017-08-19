@@ -11,6 +11,9 @@
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.heading.editdatatable' | translate }}</legend>
+            <div class="form-group" style="color: red" ng-if="columnNotMappedToSectionError">
+                        {{'error.msg.columns.not.mapped.to.section' | translate}}
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.datatablename' | translate }}<span
                         class="required">*</span></label>
