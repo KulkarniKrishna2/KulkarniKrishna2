@@ -48,7 +48,7 @@
                     <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</label>
                     <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</label>
                 </td>
-                <td class="width60" valign="top">{{column.value}}</td>
+                <td class="width60" valign="top"><pre class="width60">{{column.value}}</pre></td>
             </tr>
         </table>
         <div class="form-group" ng-repeat="section in sectionedColumnHeaders | orderBy:'orderPosition'" ng-show = "isSectioned">
@@ -82,8 +82,7 @@
             <label class="control-label col-sm-3" ng-if="columnHeader.labelDisplayType == 'false'"></label>
 
             <div class="col-sm-3">
-                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && enableDependency"
-                        type="text"
+                <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && enableDependency"
                        ng-model="formData[columnHeader.columnName]" class="form-control"/>
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && enableDependency" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
