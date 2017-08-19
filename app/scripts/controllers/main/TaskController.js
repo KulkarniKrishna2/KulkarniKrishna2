@@ -126,7 +126,9 @@
                 if (this.centerId || this.groupId) {
                     staffId = undefined;
                 }
-                resourceFactory.clientLookupResource.get({sqlSearch: 'c.status_enum=100',officeId: this.officeId, staffId: staffId,groupId:this.groupId,centerId:this.centerId}, function (data) {
+                var searchConditions = {};
+                searchConditions.clientStatus = 100;
+                resourceFactory.clientLookupResource.get({searchConditions: searchConditions,officeId: this.officeId, staffId: staffId,groupId:this.groupId,centerId:this.centerId}, function (data) {
                     scope.clientData = data;
                 });
             };
@@ -142,8 +144,10 @@
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
+                    var searchConditions = {};
+                    searchConditions.loanSatus = 100;
                     resourceFactory.tasklookupResource.get({
-                        sqlSearch: 'ml.loan_status_id=100',
+                        searchConditions: searchConditions,
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
@@ -151,8 +155,6 @@
                     }, function (data) {
                         scope.loanApproveData = data;
                     });
-
-
             };
             scope.loanDisburseSearch = function(){
                 scope.clients = [];
@@ -162,16 +164,17 @@
                 scope.loanDisbursalTemplate = {};
                 scope.approveData = {};
                 scope.formData = {};
-                sqlSearch = 'ml.loan_status_id=200 ';
+                var searchConditions = {};
+                searchConditions.loanStatus = 200;
                 if(this.expectedDisbursementOn){
-                    sqlSearch = sqlSearch + ' and ml.expected_disbursedon_date = \''+this.expectedDisbursementOn.getFullYear()+'-'+(this.expectedDisbursementOn.getMonth()+1)+'-'+this.expectedDisbursementOn.getDate()+'\'';
+                    searchConditions.loanExpectedDisbursedOnDate = this.expectedDisbursementOn.getFullYear()+'-'+(this.expectedDisbursementOn.getMonth()+1)+'-'+this.expectedDisbursementOn.getDate();
                 }
                     var staffId = this.loanOfficerId;
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
                     resourceFactory.tasklookupResource.get({
-                        sqlSearch: sqlSearch,
+                        searchConditions: searchConditions,
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
@@ -193,8 +196,10 @@
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
+                    var searchConditions = {};
+                    searchConditions.savingsAccountStatus = 100;
                     resourceFactory.rdTasklookupResource.get({
-                        sqlSearch: 'msa.status_enum=100',
+                        searchConditions: searchConditions,
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
@@ -216,8 +221,10 @@
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
+                    var searchConditions = {};
+                    searchConditions.savingsAccountStatus = 200;
                     resourceFactory.rdTasklookupResource.get({
-                        sqlSearch: 'msa.status_enum=200',
+                        searchConditions: searchConditions,
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
@@ -954,6 +961,9 @@
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
+                    /**
+                     * Note : sqlSearch param not used in backend code.
+                     */
                     resourceFactory.bankAccountTransferResource.getAll({
                         sqlSearch: 'bat.status=1 or bat.status=4',
                         officeId: this.officeId,
@@ -967,6 +977,7 @@
                     this.showMsg = true;
                 }
             };
+
             scope.bankTransferInitiate = function () {
                 if (scope.loanDisbursalTemplate) {
                     $modal.open({
