@@ -53,7 +53,9 @@
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.writeOffReasonOptions = [];
                 if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){
-                    resourceFactory.codeValueByCodeNameResources.get({codeName: "WriteOffReasons", sqlSearch: "cv.is_active = 1"}, function (codeValueData) {
+                    var searchConditions = {};
+                    searchConditions.codeValueIsActive = 1;
+                    resourceFactory.codeValueByCodeNameResources.get({codeName: "WriteOffReasons", searchConditions: searchConditions}, function (codeValueData) {
                         scope.writeOffReasonOptions = scope.getCodeValues(scope.product.codeValueOptions,codeValueData);
                     });
                 }

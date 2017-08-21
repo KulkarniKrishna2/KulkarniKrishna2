@@ -49,9 +49,9 @@
                         getAllOfficesInAlphabeticalOrder: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                         update: { method: 'PUT'}
                     }),
-                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
-                        getAllClients: {method: 'GET', params: {limit:1000, sqlSearch: '@sqlSearch'}},
-                        getAllClientsWithoutLimit: {method: 'GET', params: {limit: -1, sqlSearch: '@sqlSearch'}},
+                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', searchConditions: '@searchConditions'}, {
+                        getAllClients: {method: 'GET', params: {limit:1000, searchConditions: '@searchConditions'}},
+                        getAllClientsWithoutLimit: {method: 'GET', params: {limit: -1, searchConditions: '@searchConditions'}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
@@ -219,8 +219,8 @@
                     batchResource: defineResource(apiVer + "/batches", {}, {
                         post: {method: 'POST', params: {}, isArray: true}
                     }),
-                    loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
-                        getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}}
+                    loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', searchConditions: '@searchConditions'}, {
+                        getAllLoans: {method: 'GET', params: {limit:'@limit', searchConditions: '@searchConditions'}}
                     }),
                     loanApplicationReferencesResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         getByClientId: {method: 'GET', params: {}, isArray: true},
