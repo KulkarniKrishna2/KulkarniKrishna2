@@ -54,16 +54,9 @@
                                         <table ng-if="errorMessage">
                                             <tbody>
                                             <tr>
-                                                <td ng-if="cbResponseError">
-                                                    {{'label.error' | translate}}
-                                                    <br>
-                                                    {{errorMessage}}
-                                                </td>
-                                            </tr>
-                                            <tr ng-if="!cbResponseError">
                                                 <td>{{'label.error' | translate}}<br></td>
                                             </tr>
-                                            <tr ng-if="!cbResponseError" ng-repeat="error in errorMessage">
+                                            <tr ng-repeat="error in errorMessage">
                                                 <td>{{error.description}}</td>
                                             </tr>
                                             </tbody>

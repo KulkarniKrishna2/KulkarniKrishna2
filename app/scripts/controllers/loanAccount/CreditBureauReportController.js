@@ -378,49 +378,8 @@
                     return scope.errorMessage;
                 }
                 var status = scope.cBStatus();
-                var content = undefined;
-                if (status === 'PENDING') {
-                    content = scope.loansSummary.cbLoanEnqResponse;
-                } else {
-                    content = scope.loansSummary.cbResponse;
-                }
-                if (content != undefined && content != null) {
-                    for (var i = 0; i < content.length; ++i) {
-                        if (_.isUndefined(scope.errorMessage)) {
-                            scope.errorMessage = "";
-                        }
-                        scope.errorMessage += (String.fromCharCode(content[i]));
-                    }
-                }
                 if (status) {
-                    var jsonObj = ngXml2json.parser(scope.errorMessage);
-                    scope.errorMessage = undefined;
-                    if (scope.creditbureauLoanProduct && scope.creditbureauLoanProduct.creditBureauData && scope.creditbureauLoanProduct.creditBureauData.creditBureauName !== 'Highmark' && !_.isUndefined(jsonObj.inquiryresponse.reportdata)) {
-                        if (!_.isUndefined(jsonObj.inquiryresponse.reportdata.error)) {
-                            scope.errorMessage = jsonObj.inquiryresponse.reportdata.error.errormsg;
-                            scope.cbResponseError = true;
-                        }
-                    } else if (jsonObj.indvreportfile) {
-                        if (jsonObj.indvreportfile.inquirystatus.inquiry && _.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)) {
-                            scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.description;
-                            scope.cbResponseError = true;
-                        } else if (!_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors)
-                            && !_.isUndefined(jsonObj.indvreportfile.inquirystatus.inquiry.errors.error) &&
-                            jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.length > 1) {
-                            scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error
-                        } else {
-                            scope.errorMessage = jsonObj.indvreportfile.inquirystatus.inquiry.errors.error.description;
-                            scope.cbResponseError = true;
-                        }
-                    } else {
-                        if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors) && jsonObj.reportfile.inquirystatus.inquiry.errors.error.length > 1) {
-                            scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error;
-                        } else if (!_.isUndefined(jsonObj.reportfile.inquirystatus.inquiry.errors)) {
-                            scope.errorMessage = jsonObj.reportfile.inquirystatus.inquiry.errors.error.description;
-                            scope.cbResponseError = true;
-                        }
-                    }
-                    return scope.errorMessage;
+                    scope.errorMessage = scope.loansSummary.errors ;
                 }
                 return scope.errorMessage;
             };
