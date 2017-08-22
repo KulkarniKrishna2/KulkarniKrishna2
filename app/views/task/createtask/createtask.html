@@ -8,7 +8,8 @@
    <div class="row paddedtop"/>
    <div class="row paddedtop paddedleft">
    		<div class="col-md-12">
-   			<form novalidate="" class="form-horizontal" rc-submit="submit()">
+   			<form novalidate="" class="form-horizontal" name="createtaskform" rc-submit="submit()">
+				<api-validate></api-validate>
    				<div class="form-group col-sm-12">
 					<label class="control-label col-sm-3" for="taskName">{{'label.view.taskName' | translate}}
 						<span class="required">*</span>
