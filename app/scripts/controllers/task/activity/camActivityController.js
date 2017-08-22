@@ -734,6 +734,25 @@
                 constructActiveLoanSummary();
                 constructClosedLoanSummary();
             };
+
+            scope.creditBureauReportView = function () {
+                var entityType = "loanapplication";
+                resourceFactory.creditBureauReportFileContentResource.get({
+                    entityType: entityType,
+                    entityId: scope.loanApplicationReferenceId
+                }, function (fileContentData) {
+                    if (fileContentData.reportFileType.value == 'HTML') {
+                        var result = "";
+                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
+                            result += (String.fromCharCode(fileContentData.fileContent[i]));
+                        }
+                        var popupWin = window.open('', '_blank', 'width=1000,height=500');
+                        popupWin.document.open();
+                        popupWin.document.write(result);
+                        popupWin.document.close();
+                    }
+                });
+            };
         }
     });
     mifosX.ng.application.controller('camActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', 'dateFilter','$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.camActivityController]).run(function ($log) {

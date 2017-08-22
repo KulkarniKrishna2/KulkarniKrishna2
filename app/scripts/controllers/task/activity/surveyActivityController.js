@@ -17,6 +17,7 @@
                 if (scope.surveyId) {
                     if (_.isUndefined(scope.surveyData)) {
                         resourceFactory.surveyResource.getBySurveyId({surveyId: scope.surveyId}, function (surveyData) {
+                            scope.completeSurveyData = surveyData;
                             scope.entityType = surveyData.entityTypeValue;
                             if (scope.entityType === 'LOANAPPLICATIONS') {
                                 scope.entityId = scope.taskconfig['loanApplicationId'];
@@ -68,6 +69,9 @@
                             var survey = scope.surveys[0];
                             scope.formData.id = survey.id;
                             scope.formData.surveyedBy = survey.surveyedBy;
+                            if(survey.coSurveyedBy){
+                                scope.formData.coSurveyedBy = survey.coSurveyedBy;
+                            }
                             scope.formData.surveyedOn = new Date(survey.surveyedOn);
                             if (survey.scorecardValues && survey.scorecardValues.length > 0) {
                                 for (var s in survey.scorecardValues) {
@@ -189,6 +193,22 @@
                     surveyCompleted=false;
                 }
                 return surveyCompleted;
+            };
+
+            scope.checkSurveyedBy = function(){
+                if(scope.formData.coSurveyedBy){
+                    if(scope.formData.coSurveyedBy == scope.formData.surveyedBy){
+                        scope.formData.coSurveyedBy = undefined;
+                    }
+                }
+            };
+
+            scope.checkCoSurveyedBy = function(){
+                if(scope.formData.surveyedBy){
+                    if(scope.formData.surveyedBy == scope.formData.coSurveyedBy){
+                        scope.formData.surveyedBy = undefined;
+                    }
+                }
             };
         }
     });

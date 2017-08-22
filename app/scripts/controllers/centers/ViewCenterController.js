@@ -37,6 +37,9 @@
             resourceFactory.configurationResource.get({configName: 'center-client-association'}, function (response) {
                 scope.isConfiguredClientCenterAssociation = response.enabled;
             });
+            resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
+                scope.isLoanApplication = response.enabled;
+            });
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar,clientMembers'}, function (data) {
                 scope.center = data;
                 $rootScope.officeName = data.officeName;

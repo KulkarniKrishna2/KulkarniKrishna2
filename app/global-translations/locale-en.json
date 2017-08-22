@@ -203,7 +203,7 @@
     "label.heading.overpaidby":"Overpaid by",
     "label.heading.overpaid":"Overpaid",
     "label.heading.c/o": "C/O",
-    "label.heading.kycaddress" : "kycAddress",
+    "label.heading.kycaddress" : "KYC Address",
     "label.input.limitOnTotalDisbursementAmount":"Limit On Total Disbursement Amount",
     "label.input.limitOnTotalLoanOutstandingAmount":"Limit On Total Loan Outstanding Amount",
     "label.input.dailyWithdrawalLimit":"Daily Withdrawal Limit",
@@ -5525,6 +5525,7 @@
     "label.menu.select.survey":"Select the survey",
     "label.survey.done.on":"Survey done on",
     "label.survey.done.by":"Survey done by",
+    "label.co.survey.done.by":"Co survey done by",
     "label.survey.question":"Question",
     "label.survey.answers":"Answers",
     "label.button.add.new.option":"Add new option",
@@ -6358,5 +6359,8 @@
     "error.msg.unable.to.submit.bank.transaction.since.all.bank.transactions.are.not.in.closed.or.rejected.status":"One or more Bank Transaction/s is/are active.To submit a bank transaction, all other bank transactions must be in Closed or Rejected status.",
 
     "error.msg.columns.not.mapped.to.section" : "One or more columns are not mapped to any section. To continue, map each column to a section.",
+    "label.village.assigned.to.loanofficer" : "Village assigned to loan officer : ",
+    "label.input.co.officer.required" : "Co officer required",
+
     "------ end of tensalation file":"---------"
 }

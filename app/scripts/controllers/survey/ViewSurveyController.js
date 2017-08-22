@@ -30,6 +30,7 @@
                     }
                 }
                 scope.formData.active = scope.surveyData.active;
+                scope.formData.coOfficerRequired = scope.surveyData.coOfficerRequired;
             });
         }
     });

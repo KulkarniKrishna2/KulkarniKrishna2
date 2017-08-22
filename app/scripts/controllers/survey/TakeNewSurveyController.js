@@ -55,10 +55,13 @@
             });
 
             scope.getSurveyDetails = function(surveyId){
-                resourceFactory.surveyResource.getBySurveyId({surveyId: surveyId}, function (surveyData) {
-                    scope.surveyData = {};
-                    scope.questionDatas = surveyData.questionDatas;
-                });
+                if(surveyId){
+                    resourceFactory.surveyResource.getBySurveyId({surveyId: surveyId}, function (surveyData) {
+                        scope.completeSurveyData = surveyData;
+                        scope.surveyData = {};
+                        scope.questionDatas = surveyData.questionDatas;
+                    });
+                }
             };
 
             scope.submit = function () {
@@ -88,7 +91,23 @@
                 resourceFactory.takeSurveysResource.post({entityType: scope.entityTypeId,entityId: scope.entityId},scope.formData, function (data) {
                     location.path(locationUrl);
                 });
-            }
+            };
+
+            scope.checkSurveyedBy = function(){
+                if(scope.formData.coSurveyedBy){
+                    if(scope.formData.coSurveyedBy == scope.formData.surveyedBy){
+                        scope.formData.coSurveyedBy = undefined;
+                    }
+                }
+            };
+
+            scope.checkCoSurveyedBy = function(){
+                if(scope.formData.surveyedBy){
+                    if(scope.formData.surveyedBy == scope.formData.coSurveyedBy){
+                        scope.formData.surveyedBy = undefined;
+                    }
+                }
+            };
         }
     });
     mifosX.ng.application.controller('TakeNewSurveyController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.TakeNewSurveyController]).run(function ($log) {

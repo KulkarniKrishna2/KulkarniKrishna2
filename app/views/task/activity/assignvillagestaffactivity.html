@@ -1,0 +1,30 @@
+<div class="col-md-12" ng-controller="AssignVillageStaffController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.assignloanofficer' | translate}}</li>
+        </ul>
+    </div>
+    <form class="form-horizontal well" name="assignstaffform" novalidate="" ng-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>        	
+            <legend>{{ 'label.heading.assignloanofficer' | translate }}</legend>
+            <div class="form-group" ng-hide="isSuccess">
+                <label class="control-label col-sm-2">{{ 'label.input.toloanofficer' | translate }}<span
+                        class="required">*</span></label>
+                <div  class="col-sm-3">
+                    <select chosen="staffOptions" id="staffId" ng-model="staffId"  class="form-control"
+                            ng-options="st.id as st.displayName for st in staffOptions" value="{{st}}"
+                            name="staffId">
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-offset-3"  ng-hide="isSuccess">
+                <button id="save" type="submit"  class="btn btn-primary">{{
+                    'label.button.save' | translate }}
+                </button>
+            </div>
+            <span ng-show="isSuccess">{{ 'label.village.assigned.to.loanofficer' | translate }}{{staffName}}</span>
+        </fieldset>
+    </form>
+</div>

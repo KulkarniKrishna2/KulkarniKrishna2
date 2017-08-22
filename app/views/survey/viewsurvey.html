@@ -42,6 +42,10 @@
                 <td>Status :</td>
                 <td colspan="3">{{formData.active == true ? 'Active' : 'In Active'}}</td>
             </tr>
+            <tr ng-show="formData.coOfficerRequired && formData.coOfficerRequired != null">
+                <td>{{'label.input.co.officer.required' | translate}} :</td>
+                <td colspan="3">{{formData.coOfficerRequired == true ? 'Yes' : 'No'}}</td>
+            </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
