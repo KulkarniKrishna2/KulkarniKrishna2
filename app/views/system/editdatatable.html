@@ -287,7 +287,7 @@
                                                 ng-show="columnArray[$index].hasValueMandatory" class="required">*</span></label>
                                         <div class="col-sm-3">
                                             <select ng-show="column.type == 'dropdown'" ng-model="column.value" name="hasValue"
-                                                    ng-options="codeValue.name as codeValue.name for codeValue in codeValues[$index]" value="{{codecodeValue.value}}"
+                                                    ng-options="codeValue.name as codeValue.name for codeValue in codeValues[$index]" value="{{codeValue.name}}"
                                                     class="input-sm form-control" ng-required="columnArray[$index].hasValueMandatory">
                                                 <option value="">{{'label.selectone' | translate}}</option>
                                             </select>

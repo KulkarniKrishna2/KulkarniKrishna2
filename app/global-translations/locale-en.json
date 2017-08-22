@@ -6361,6 +6361,6 @@
     "error.msg.columns.not.mapped.to.section" : "One or more columns are not mapped to any section. To continue, map each column to a section.",
     "label.village.assigned.to.loanofficer" : "Village assigned to loan officer : ",
     "label.input.co.officer.required" : "Co officer required",
-
+    "validation.msg.datatable.sections.cannot.be.empty" : "On allowing sections, section names must be entered.",
     "------ end of tensalation file":"---------"
 }
