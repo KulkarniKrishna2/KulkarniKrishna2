@@ -105,18 +105,18 @@
                     }
                     if (data.columnHeaderData[i].visibilityCriteria != '' && data.columnHeaderData[i].visibilityCriteria != undefined) {
                         tempColumn.visibilityCriteria = data.columnHeaderData[i].visibilityCriteria;
-                        for (var j in data.columnHeaderData[i].visibilityCriteria) {
-                            tempColumn.when = data.columnHeaderData[i].visibilityCriteria[j].columnName;
-                            tempColumn.value = data.columnHeaderData[i].visibilityCriteria[j].columnValue[0].value;
-                            var codeName = "";
-                            for(var a in scope.tempData){
-                                if(data.columnHeaderData[i].visibilityCriteria[j].columnName == scope.tempData[a].columnName){
-                                    codeName = scope.tempData[a].code;
+                        if(data.columnHeaderData[i].visibilityCriteria.length > 0 ){
+                            for (var j in data.columnHeaderData[i].visibilityCriteria) {
+                                tempColumn.when = data.columnHeaderData[i].visibilityCriteria[j].columnName;
+                                tempColumn.value = data.columnHeaderData[i].visibilityCriteria[j].columnValue[0].value;
+                                scope.codeValues[i] = data.columnHeaderData[i].visibilityCriteria[j].columnValuesAvailable;
+                                for(var k in data.columnHeaderData[i].visibilityCriteria[j].columnValuesAvailable){
+                                    scope.codeValues[i][k].id = data.columnHeaderData[i].visibilityCriteria[j].columnValuesAvailable[k].id;
+                                    scope.codeValues[i][k].name = data.columnHeaderData[i].visibilityCriteria[j].columnValuesAvailable[k].value;
+                                    delete scope.codeValues[i][k].value;
+
                                 }
                             }
-                            resourceFactory.codeValueByCodeNameResources.get({codeName: codeName} ,function(codes){
-                                scope.codeValues[i] = codes;
-                            });
                         }
                     }
                     var colType = data.columnHeaderData[i].columnDisplayType.toLowerCase();
