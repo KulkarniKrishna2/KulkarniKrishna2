@@ -876,7 +876,7 @@
 									 class="pull right btn btn-primary" has-permission='DELETE_ADDRESSES'>
                                  <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
                             </button>
-							<a href="#/editaddress/{{client.id}}/{{address.addressId}}"
+							<a ng-hide="address.addressEntityData[0].addressType.name=='kycAddress'" href="#/editaddress/{{client.id}}/{{address.addressId}}"
 							   class="pull right btn btn-primary" has-permission='UPDATE_ADDRESSES'>
 								<i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
 							</a>
@@ -894,6 +894,12 @@
 								<th class="table-bold-loan">{{'label.heading.streetname' | translate}}</th>
 								<td>
 									<span class="padded-td">{{address.addressLineOne}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.address.line.two' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.addressLineTwo}}</span>
 								</td>
 							</tr>
 							<tr>
