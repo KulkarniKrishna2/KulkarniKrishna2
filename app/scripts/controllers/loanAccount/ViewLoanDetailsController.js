@@ -204,10 +204,12 @@
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
                     case "disburse.tranche.creditbureaureport":
-                        if(scope.isCBCheckReq === true && scope.loandetails.status.id == 300){
-                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
-                        }else if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
-                            location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
+                        if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.trancheDisbursalId != null){
+                            if(scope.loandetails.status.id == 300){
+                                location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
+                            }else if(scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
+                                location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
+                            }
                         }
                         break;
                     case "refundByCash":
@@ -1602,7 +1604,7 @@
                                                 break;
                                             }
                                         }
-                                        if(!_.isUndefined(scope.loandetails.disbursementDetails)){
+                                        if(!_.isUndefined(scope.loandetails.disbursementDetails) && scope.loandetails.disbursementDetails.length > 0){
                                             var expectedDisbursementDate = undefined;
                                             for(var i in scope.loandetails.disbursementDetails){
                                                 if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
@@ -1614,6 +1616,19 @@
                                                             expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
                                                             scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
                                                         }
+                                                    }
+                                                }
+                                            }
+                                            if(scope.trancheDisbursalId && scope.trancheDisbursalId != null){
+                                                var cbButton = {
+                                                    name: "button.disburse.tranche.creditbureaureport",
+                                                    icon: "icon-flag",
+                                                    taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
+                                                };
+                                                for (var i in scope.buttons.singlebuttons) {
+                                                    if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
+                                                        scope.buttons.singlebuttons[i] = cbButton;
+                                                        break;
                                                     }
                                                 }
                                             }
