@@ -64,10 +64,13 @@
             <div class="form-group">
 
                 <label class="control-label col-sm-2 width20" data-ng-show="changeRepaymentDate" style="padding-left: 32px;text-align: left;">{{ 'label.input.installemtrescheduledto' | translate
-                    }}&nbsp;</label>
+                    }}<span ng-show="changeRepaymentDate" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
                     <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control " ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                           class="form-control" ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-required="changeRepaymentDate"/>
+                </div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="adjustedDueDate"/>
                 </div>
             </div>
 
@@ -101,10 +104,13 @@
             <div class="form-group" >
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="extendRepaymentPeriod">{{ 'label.input.noofnewrepayments' | translate
-                    }}&nbsp;</label>
+                    }}<span ng-show="extendRepaymentPeriod" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="newrepayments" type="text" ng-show="extendRepaymentPeriod" class="form-control"
-                           ng-model="formData.extraTerms">
+                    <input id="newrepayments" type="text" name="newrepayments" ng-show="extendRepaymentPeriod" class="form-control"
+                           ng-model="formData.extraTerms" ng-required="extendRepaymentPeriod">
+                </div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="newrepayments"/>
                 </div>
             </div>
 
@@ -113,10 +119,13 @@
             <div class="form-group"  ng-hide="isGLIM==true || specificToInstallment">
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
-                    }}&nbsp;</label>
+                    }}<span ng-show="adjustinterestrates" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="newinterestrate" type="text" ng-show="adjustinterestrates" class="form-control paddedbottom10"
-                           ng-model="formData.newInterestRate"></div>
+                    <input id="newinterestrate" name="newinterestrate" type="text" ng-show="adjustinterestrates" class="form-control paddedbottom10"
+                           ng-model="formData.newInterestRate" ng-required="adjustinterestrates"></div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="newinterestrate"/>
+                </div>
             </div>
 
             <input type="checkbox" ng-model="adjustinstallmentamount"  ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
@@ -124,10 +133,13 @@
             <div class="form-group"  ng-hide="isGLIM==true || specificToInstallment">
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinstallmentamount">{{ 'label.input.newinstallmentamount' | translate
-                    }}&nbsp;</label>
+                    }}<span ng-show="adjustinstallmentamount" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="newInstallmentAmount" type="text" ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
-                           ng-model="formData.newInstallmentAmount"></div>
+                    <input id="newInstallmentAmount" name="newInstallmentAmount" type="text" ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
+                           ng-model="formData.newInstallmentAmount" ng-required="adjustinstallmentamount"></div>
+                <div class="col-sm-1 paddinglr0px">
+                    <form-validate valattributeform="createloanrescheduleform" valattribute="newInstallmentAmount"/>
+                </div>
             </div>
 
             <!--<input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
