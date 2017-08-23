@@ -374,9 +374,6 @@
 
             function convertByteToString(content, status) {
                 scope.errorMessage = undefined;
-                if (_.isUndefined(scope.loansSummary.cbResponse) || _.isUndefined(scope.loansSummary.cbStatus.value)) {
-                    return scope.errorMessage;
-                }
                 var status = scope.cBStatus();
                 if (status) {
                     scope.errorMessage = scope.loansSummary.errors ;
