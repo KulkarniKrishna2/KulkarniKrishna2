@@ -45,6 +45,8 @@
             scope.isVillageTownMandatory = false;
             scope.isCountryReadOnly = false;
             scope.isAddressTypeMandatory = false;
+            scope.isMobileNumberMandatory = false;
+            scope.isEmailIdMandatory = false;
             scope.displayAge = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
@@ -87,6 +89,10 @@
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
+                scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
             }
             scope.minAge = 0;
             scope.maxAge = 0;

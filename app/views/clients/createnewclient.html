@@ -209,14 +209,15 @@
 				</div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+                <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}<span ng-show="isMobileNumberMandatory"  class="required">*</span></label>
 
                 <div class="col-sm-3">
                     <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
-                           ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                           ng-pattern="/^[0-9]+$/"  ng-required="isMobileNumberMandatory" class="form-control"/>
 					 <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                     <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
 						{{'label.mustbenumeric' | translate}}</small></span>
+					<form-validate valattributeform="createclientform" valattribute="mobileNo"/>
                 </div>
                 <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
@@ -230,11 +231,11 @@
                 	</div>
 	            
                 	<div class="form-group">
-                		<label class="control-label col-sm-2" >{{'label.input.email' | translate}}</label>
+                		<label class="control-label col-sm-2" >{{'label.input.email' | translate}}<span ng-show="isEmailIdMandatory"  class="required">*</span></label>
 
                 		<div class="col-sm-3">
                 			<input name="email" ng-model="formData.email" placeholder="EMAIL ID"
-                			type="email" class="form-control"/>
+                			type="email" ng-required="isEmailIdMandatory" class="form-control"/>
                 			<form-validate valattributeform="createclientform" valattribute="email"/>
                 		</div>
 

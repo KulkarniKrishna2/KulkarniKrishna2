@@ -209,10 +209,11 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+				<label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}<span ng-show="isMobileNumberMandatory"  class="required">*</span></label>
 
 				<div class="col-sm-3">
-					<input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" class="form-control"/>
+					<input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" ng-required="isMobileNumberMandatory" class="form-control"/>
+					<form-validate valattributeform="editclientform" valattribute="mobileNo"/>
 				</div>
 				<span ng-show="editclientform.mobileNo.$invalid && editclientform.mobileNo.$dirty">
 					<small class="required" ng-show="editclientform.mobileNo.$error.pattern">
@@ -234,11 +235,11 @@
 
 
 			<div class="form-group">
-	            <label class="control-label col-sm-2" for="EmailAddress">{{'label.input.email' | translate}}</label>
+	            <label class="control-label col-sm-2" for="EmailAddress">{{'label.input.email' | translate}}<span ng-show="isEmailIdMandatory"  class="required">*</span></label>
 	
 	            <div class="col-sm-3">
 	               <input name="email" ng-model="formData.email" placeholder="EMAIL ID"
-					type="email" class="form-control"/>
+					type="email" ng-required="isEmailIdMandatory" class="form-control"/>
 					<form-validate valattributeform="editclientform" valattribute="email"/>
 	            </div>
 

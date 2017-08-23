@@ -137,7 +137,9 @@
 		"clientClassificationId": false,
 		"externalId": false,
         "villageTown":false,
-        "addressType":false
+        "addressType":false,
+        "mobileNumber":false,
+        "emailId":false
 	  }
 	},
 	"defaultGISConfig": {

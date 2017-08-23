@@ -29,6 +29,13 @@
     },
     "createMandates":{
       "showEMIBalance": true
-  }
+    },
+    "createClient": {
+      "isMandatoryField": {
+        "clientClassificationId": true,
+        "mobileNumber":true,
+        "emailId":true
+      }
+    }
   }
 }
