@@ -445,6 +445,7 @@
     "error.msg.parameter.unsupported": "The parameter `{{params[0].value}}` has been passed and is not supported for this request.",
     "error.msg.column.mandatory": "Mandatory field not provided.",
     "error.msg.header": "You have the following errors:",
+    "error.msg.rule.not.found":"Rule is not configured for this task.Please check the configurations.",
     "validation.msg.validation.errors.exist": "Validation errors exist.",
     "validation.msg.productivecollectionsheet.staffId.cannot.be.blank":"Staff is mandatory.",
     "validation.msg.domain.rule.violation": "Errors contain reason for domain rule violation.",
