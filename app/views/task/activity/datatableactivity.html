@@ -4,73 +4,18 @@
     <div  ng-show ="status=='ADD'">
         <form class="form-horizontal"  ng-submit="submit()">
             <fieldset>
-                <div class="form-group" ng-repeat="columnHeader in columnHeaders">
-
-                    <label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
-                        <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
-                    </label>
-                    <label class="control-label col-sm-3" ng-show="columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
-                        <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
-                    </label>
-       
-                    <div class="col-sm-3">
-                        <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text"
-                               ng-model="formData[columnHeader.columnName]" class="form-control"/>
-                        <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text"
-                               datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
-                               is-open="opened{{$index}}" class="form-control"/>
-                        <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
-                            <div class="form-group">
-                                <input type="text" datepicker-pop="dd MMMM yyyy"
-                                       ng-model="formDat[columnHeader.columnName].date"
-                                       is-open="opened{{$index}}" class="form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="time" placeholder="HH:MM:SS"
-                                       ng-model="formDat[columnHeader.columnName].time" class="form-control"/>
-                            </div>
-                        </div>
-                        <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
-                            <label class="radio-inline">
-                                <input type="radio" ng-model="formData[columnHeader.columnName]"
-                                       value="true"/>
-                                {{'label.input.true' | translate}}
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" ng-model="formData[columnHeader.columnName]"
-                                       value="false"/>
-                                {{'label.input.false' | translate}}
-                            </label>
-                        </div>
-                        <span data-ng-switch on="columnHeader.columnDisplayType">
-                    <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                            data-ng-switch-when="CODELOOKUP"
-                            ng-model="formData[columnHeader.columnName]"
-                            ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
-                            value="{{columnValue.id}}" class="form-control">
-                        <option value="">{{'label.selectone' | translate}}</option>
-                    </select>
-                    <div  ng-show="showSelect==true">
-                        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                                data-ng-switch-when="CODEVALUE"
-                                ng-model="formData[columnHeader.columnName]"
-                                ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
-                                value="{{columnValue.id}}" class="form-control">
-                            <option value="">{{'label.selectone' | translate}}</option>
-                        </select>
+                <div ng-if="!isSectioned">
+                    <div class="form-group" ng-repeat="columnHeader in columnHeaders">
+                        <div ng-include src="'views/task/activity/datatableactivityentry.html'"></div>
                     </div>
-                    <div ng-show="showSelect==false">
-                        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                                data-ng-switch-when="CODEVALUE"
-                                chosen="columnHeader.columnValues"
-                                ng-model="formData[columnHeader.columnName]"
-                                ng-options="columnValue as columnValue.value for columnValue in columnHeader.columnValues"
-                                value="{{columnValue.id}}" class="form-control"
-                                ng-change="changeVillage(formData[columnHeader.columnName])">
-                            <option value=""> {{'label.selectone' | translate}}</option>
-                        </select>
-                    </div>
-                </span>
+                </div>
+                <div ng-if="isSectioned">
+                    <div class="form-group" ng-repeat="section in sectionedColumnHeaders | orderBy:'displayPosition'">
+                        <h4 ng-if="section.columns.length > 0"><strong>{{section.displayName}}</strong></h4>
+                        <hr ng-if="section.columns.length > 0" />
+                        <div class="form-group" ng-repeat="columnHeader in section.columns | orderBy:'orderPosition'" ng-if="section.columns.length > 0">
+                                <div ng-include src="'views/task/activity/datatableactivityentry.html'"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-offset-3">
@@ -89,23 +34,23 @@
     <div ng-show="status=='VIEW'">
         <table class="table" data-ng-show="datatabledetails.isMultirow">
             <thead>
-            <th ng-repeat="column in datatabledetails.columnHeaders" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1">
-                {{column.columnName | prettifyDataTableColumn}}
-            </th>
+            <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
+                            <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
+                            <label ng-if="column.displayName == undefined || column.displayName == 'null'"> {{column.columnName | prettifyDataTableColumn}} </label> 
+                        </th>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
-                <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1"
-                    ng-click="viewDataTable(clientdatatable.registeredTableName,data)">
-                    <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DECIMAL'">{{row|number}}</label>
-                    <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DATE'">{{row|DateFormat}}</label>
-                    <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType !== 'DECIMAL' && datatabledetails.columnHeaders[$index].columnDisplayType !== 'DATE'">{{row}}</label>
-                </td>
-            </tr>
+                <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
+                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1" ng-click="viewDataTable(clientdatatable.registeredTableName,data)">
+                        <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DECIMAL'">{{row.value|number}}</label>
+                        <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DATE'">{{row.value|DateFormat}}</label>
+                        <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType !== 'DECIMAL' && datatabledetails.columnHeaders[$index].columnDisplayType !== 'DATE'">{{row.value}}</label>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
-        <div class="row" data-ng-hide="datatabledetails.isMultirow">
+        <div class="row" data-ng-hide="datatabledetails.isMultirow" ng-if="!isSectioned">
             <div class="col-md-8">
                 <table class="table width40">
                     <tr ng-repeat="value in singleRow">
@@ -119,6 +64,17 @@
                 </table>
             </div>
             <div class="col-md-4"></div>
+        </div>
+        <div class="form-group" ng-repeat="section in sections | orderBy:'displayPosition'" ng-if="isSectioned" data-ng-hide="datatabledetails.isMultirow">
+            <h4 ng-show="section.columns.length > 0"><strong>{{section.displayName}}</strong></h4>
+            <hr ng-show="section.columns.length > 0"/>
+            <div class="form-group"  ng-repeat="value in section.columns">
+                <div class="col-sm-2"></div>
+                <label class="control-label col-sm-2">{{value.key | prettifyDataTableColumn}}</label>
+                <span  ng-if="value.columnDisplayType === 'DECIMAL'">{{value.value|number}}</span>
+                <span ng-if="value.columnDisplayType === 'DATE'">{{value.value|DateFormat}}</span>
+                <span  ng-if="value.columnDisplayType !== 'DECIMAL' && value.columnDisplayType !== 'DATE'">{{value.value}}</span>
+            </div>
         </div>
     </div>
     <!-- Edit data    -->
@@ -155,78 +111,26 @@
                 </table>
             </div>-->
             <div>
-                <div class="form-group" ng-repeat="columnHeader in columnHeaders">
-                    <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn}}
-                        <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
-                    </label>
-
-                    <div class="col-sm-3">
-                        <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text"
-                               ng-model="formData[columnHeader.columnName]" class="form-control"/>
-                        <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text"
-                               datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
-                               is-open="opened{{$index}}" class="form-control"/>
-                        <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
-                            <div class="form-group">
-                                <input type="text" datepicker-pop="dd MMMM yyyy"
-                                       ng-model="formDat[columnHeader.columnName].date"
-                                       is-open="opened{{$index}}" class="form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="time" placeholder="HH:MM:SS"
-                                       ng-model="formDat[columnHeader.columnName].time" class="form-control"/>
-                            </div>
-                        </div>
-                        <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
-                            <label class="radio-inline">
-                                <input type="radio" ng-model="formData[columnHeader.columnName]"
-                                       value="true"/>
-                                {{'label.input.true' | translate}}
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" ng-model="formData[columnHeader.columnName]"
-                                       value="false"/>
-                                {{'label.input.false' | translate}}
-                            </label>
-                        </div>
-                <span data-ng-switch on="columnHeader.columnDisplayType">
-                    <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                            data-ng-switch-when="CODELOOKUP"
-                            ng-model="formData[columnHeader.columnName]"
-                            ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
-                            value="{{columnValue.id}}" class="form-control">
-                        <option value="">{{'label.selectone' | translate}}</option>
-                    </select>
-                    <div  ng-show="showSelect==true">
-                        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                                data-ng-switch-when="CODEVALUE"
-                                ng-model="formData[columnHeader.columnName]"
-                                ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
-                                value="{{columnValue.id}}" class="form-control">
-                            <option value="">{{'label.selectone' | translate}}</option>
-                        </select>
-                    </div>
-                    <div ng-show="showSelect==false">
-                        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                                data-ng-switch-when="CODEVALUE"
-                                chosen="columnHeader.columnValues"
-                                ng-model="formData[columnHeader.columnName]"
-                                ng-options="columnValue as columnValue.value for columnValue in columnHeader.columnValues "
-                                value="{{columnValue.id}}" class="form-control"
-                                ng-change="changeVillage(formData[columnHeader.columnName])">
-                            <option value=""> {{'label.selectone' | translate}}</option>
-                        </select>
-                    </div>
-                </span>
-                    </div>
-
+                <div class="form-group" ng-repeat="columnHeader in columnHeaders" ng-if="!isSectioned">
+                    <div ng-include src="'views/task/activity/editdatatableactivityentry.html'"></div>
                 </div>
+
+                <div ng-if="isSectioned">
+                    <div class="form-group" ng-repeat="section in sectionedColumnHeaders | orderBy:'displayPosition'">
+                        <h4 ng-show="section.columns.length > 0"><strong>{{section.displayName}}</strong></h4>
+                        <hr ng-show="section.columns.length > 0" />
+                        <div class="form-group" ng-repeat="columnHeader in section.columns">
+                            <div ng-include src="'views/task/activity/editdatatableactivityentry.html'"></div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="col-md-offset-3">
-                    <a  ng-if="false" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
-                    <button  type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                    <a ng-if="false" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
+                    <button type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>
             </div>
+           
         </form>
     </div>
-
 </div>
