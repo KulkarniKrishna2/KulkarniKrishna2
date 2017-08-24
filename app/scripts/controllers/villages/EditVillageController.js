@@ -7,8 +7,9 @@
             scope.villageId = routeParams.id;
             scope.restrictDate = new Date();
 
-            resourceFactory.villageResource.get({villageId: routeParams.id}, function (data) {
+            resourceFactory.villageResource.get({villageId: routeParams.id, template:'true'}, function (data) {
                 scope.edit = data;
+                scope.isWorkflowEnabled = true; //data.isWorkflowEnabled;
                 scope.formData = {
                     villageName: data.villageName,
                     externalId: data.externalId,
@@ -25,8 +26,10 @@
             });
 
             scope.updateVillage = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
-                this.formData.activatedOnDate = reqDate;
+                if (!scope.isWorkflowEnabled) {
+                    var reqDate = dateFilter(scope.first.date, scope.df);
+                    this.formData.activatedOnDate = reqDate;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.villageResource.update({villageId: routeParams.id}, this.formData, function (data) {
@@ -44,14 +47,16 @@
             };
 
             scope.activate = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
-                var newActivation = new Object();
-                newActivation.activatedOnDate = reqDate;
-                newActivation.locale = scope.optlang.code;
-                newActivation.dateFormat = scope.df;
-                resourceFactory.villageResource.save({villageId: routeParams.id, command: 'activate'}, newActivation, function (data) {
-                    location.path('/viewvillage/' + routeParams.id);
-                });
+                if(!scope.isWorkflowEnabled){
+                    var reqDate = dateFilter(scope.first.date, scope.df);
+                    var newActivation = new Object();
+                    newActivation.activatedOnDate = reqDate;
+                    newActivation.locale = scope.optlang.code;
+                    newActivation.dateFormat = scope.df;
+                    resourceFactory.villageResource.save({villageId: routeParams.id, command: 'activate'}, newActivation, function (data) {
+                        location.path('/viewvillage/' + routeParams.id);
+                    });
+                }
             };
         }
     });

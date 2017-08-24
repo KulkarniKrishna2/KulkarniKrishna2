@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-offset-2 paddedleft120">
                     <a href="#/viewcenter/{{edit.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                    <button type="button" class="btn btn-primary" data-ng-click="updateGroup()" has-permission='UPDATE_CENTER'>{{'label.button.save' |
+                    <button type="button" class="btn btn-primary" ng-hide="isWorkflowEnabled" data-ng-click="updateGroup()" has-permission='UPDATE_CENTER'>{{'label.button.save' |
                         translate}}
                     </button>
                 </div>
@@ -70,7 +70,7 @@
             <div class="form-group">
             	<div class="col-sm-3 col-md-offset-2">
 	                <a id="cancel" href="#/viewgroup/{{edit.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-	                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()" has-permission='ACTIVATE_CENTER'><i
+	                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()" ng-hide="isWorkflowEnabled" has-permission='ACTIVATE_CENTER'><i
 	                        class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}
 	                </button>
                 </div>

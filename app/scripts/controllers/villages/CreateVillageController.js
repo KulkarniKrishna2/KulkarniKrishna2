@@ -30,6 +30,7 @@
             resourceFactory.villageTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
+                scope.isWorkflowEnabled = data.isWorkflowEnabled;
 
                 if(scope.response && scope.response.uiDisplayConfigurations.createVillage.isReadOnlyField.active == true){
                     scope.choice = 1;

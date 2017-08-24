@@ -405,6 +405,25 @@
                     else {
                         scope.buttons.push(clientStatus.getStatus("Assign Staff"));
                     }
+                    if (!scope.client.isWorkflowEnabled) {
+                        var editOption = {
+                            name: "label.button.edit",
+                            href: "#/editclient",
+                            icon: "icon-edit",
+                            taskPermissionName: "UPDATE_CLIENT"
+                        };
+                        scope.buttons.splice(1, 0, editOption);
+                        if (data.status.value == "Pending") {
+                            var activateOption = {
+                                name: "label.button.activate",
+                                href: "#/client",
+                                subhref: "activate",
+                                icon: "icon-ok-sign",
+                                taskPermissionName: "ACTIVATE_CLIENT"
+                            };
+                            scope.buttons.splice(1, 0, activateOption);
+                        }
+                    }
                 }
 
                 scope.buttonsArray = {
