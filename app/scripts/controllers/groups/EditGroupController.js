@@ -6,12 +6,13 @@
             scope.restrictDate = new Date();
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.editGroup = data;
+                scope.isWorkflowEnabled = data.isWorkflowEnabled;
                 scope.formData = {
                     name: data.name,
                     externalId: data.externalId,
                     staffId: data.staffId
                 };
-                if (data.activationDate) {
+                if (!scope.isWorkflowEnabled && data.activationDate) {
                     var actDate = dateFilter(data.activationDate, scope.df);
                     scope.first.date = new Date(actDate);
                 }
@@ -25,8 +26,10 @@
             });
 
             scope.updateGroup = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
-                this.formData.activationDate = reqDate;
+                if (!scope.isWorkflowEnabled) {
+                    var reqDate = dateFilter(scope.first.date, scope.df);
+                    this.formData.activationDate = reqDate;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.groupResource.update({groupId: routeParams.id}, this.formData, function (data) {

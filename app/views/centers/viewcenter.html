@@ -70,8 +70,8 @@
 			    <div>
 			        <div class="col-md-12 primarydiv" data-ng-hide="center.status.value == 'Closed'">
 			            <div class="btn-group pull-right">
-			                <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active'" has-permission='ACTIVATE_CENTER'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
-			                <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_CENTER'>
+			                <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active' || center.isWorkflowEnabled" has-permission='ACTIVATE_CENTER'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
+			                <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" data-ng-hide="center.isWorkflowEnabled" has-permission='UPDATE_CENTER'>
 			                    <i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
 			                <a href="#/addgroup?centerId={{center.id}}&officeId={{center.officeId}}&staffId={{center.staffId}}" class="btn btn-primary" has-permission='CREATE_GROUP'><i
 				                    class="icon-plus-sign-alt icon-white"></i>{{ 'addgroup' | translate }}</a>

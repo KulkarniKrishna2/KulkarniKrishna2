@@ -17,24 +17,11 @@
             this.statusTypes = {
                 "Pending": [
                     {
-                        name: "label.button.edit",
-                        href: "#/editclient",
-                        icon: "icon-edit",
-                        taskPermissionName: "UPDATE_CLIENT"
-                    },
-                    {
                         name: "label.button.newloanapplicationreferences",
                         href: "#/newloanapplicationreference",
                         icon: "icon-plus",
                         taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE",
                         isEnableButton : false
-                    },
-                    {
-                        name: "label.button.activate",
-                        href: "#/client",
-                        subhref: "activate",
-                        icon: "icon-ok-sign",
-                        taskPermissionName: "ACTIVATE_CLIENT"
                     },
                     {
                         name: "label.button.bankaccountdetails",
@@ -96,12 +83,6 @@
 
                 ],
                 "Active": [
-                    {
-                        name: "label.button.edit",
-                        href: "#/editclient",
-                        icon: "icon-edit",
-                        taskPermissionName: "UPDATE_CLIENT"
-                    },
                     {
                         name: "label.button.newloanapplicationreferences",
                         href: "#/newloanapplicationreference",
