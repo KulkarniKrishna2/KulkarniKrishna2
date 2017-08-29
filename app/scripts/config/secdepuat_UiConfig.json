@@ -5,6 +5,11 @@
       "savingsAccountLinkage": {
         "reStrictLinkingToRDAccount": true
       }
-    }
+    },
+  	"viewClient": {
+	  "isHiddenField": {
+	    "displayNameInReverseOrder": true
+	   }
+	}
   }
 }
