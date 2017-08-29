@@ -97,7 +97,8 @@
 	},
 	"viewClient": {
 	  "isHiddenField": {
-		"pincode": false
+		"pincode": false,
+		"displayNameInReverseOrder": false
 	  	}
 	},
 	"collectionSheet": {
