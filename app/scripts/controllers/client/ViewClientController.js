@@ -975,22 +975,46 @@
             scope.getClientDocuments = function () {
                 if(!scope.clientDocumentsLoaded) {
                     resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id}, function (data) {
-                        for (var l in data) {
-
-                            var loandocs = {};
-                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                            data[l].docUrl = loandocs;
+                        scope.clientdocuments = {};
+                        for (var l = 0; l < data.length; l++) {
+                            if (data[l].id) {
+                                var loandocs = {};
+                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                data[l].docUrl = loandocs;
+                            }
+                            if(data[l].tagValue){
+                                scope.pushDocumentToTag(data[l], data[l].tagValue);
+                            } else {
+                                scope.pushDocumentToTag(data[l], 'uploadedDocuments');
+                            }
                         }
-                        scope.clientdocuments = data;
                     });
                     scope.clientDocumentsLoaded = true;
                 }
             };
 
-            scope.deleteDocument = function (documentId, index) {
+            scope.pushDocumentToTag = function(document, tagValue){
+                if (scope.clientdocuments.hasOwnProperty(tagValue)) {
+                    scope.clientdocuments[tagValue].push(document);
+                } else {
+                    scope.clientdocuments[tagValue] = [];
+                    scope.clientdocuments[tagValue].push(document);
+                }
+            };
+
+            scope.deleteDocument = function (documentId, index, tagValue) {
                 resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function (data) {
-                    scope.clientdocuments.splice(index, 1);
+                    scope.clientdocuments[tagValue].splice(index, 1);
                 });
+            };
+
+            scope.generateDocument = function (document){
+                resourceFactory.clientDocumentsGenerateResource.generate({clientId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                    document.id = data.resourceId;
+                    var loandocs = {};
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    document.docUrl = loandocs;
+                })
             };
 
             scope.viewDataTable = function (registeredTableName, data) {

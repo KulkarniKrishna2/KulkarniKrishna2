@@ -1,10 +1,15 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanDocumentController: function (scope, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        LoanDocumentController: function (scope, location, http, routeParams, API_VERSION, $upload, $rootScope, resourceFactory) {
             scope.loanId = routeParams.loanId;
+            scope.formData = {} ;
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
+
+            resourceFactory.codeValueByCodeNameResources.get({codeName: "Loan Document Tags"}, function (codeValueData) {
+                scope.documentTagOptions = codeValueData;
+            });
 
             scope.submit = function () {
                 $upload.upload({
@@ -21,7 +26,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoanDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.LoanDocumentController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'ResourceFactory', mifosX.controllers.LoanDocumentController]).run(function ($log) {
         $log.info("LoanDocumentController initialized");
     });
 }(mifosX.controllers || {}));
