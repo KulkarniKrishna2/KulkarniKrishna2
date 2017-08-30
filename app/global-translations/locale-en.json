@@ -446,6 +446,7 @@
     "error.msg.column.mandatory": "Mandatory field not provided.",
     "error.msg.header": "You have the following errors:",
     "error.msg.cibil.connection.failed":"Unable to connect CIBIL servers",
+    "error.msg.rule.not.found":"Rule is not configured for this task.Please check the configurations.",
     "validation.msg.validation.errors.exist": "Validation errors exist.",
     "validation.msg.productivecollectionsheet.staffId.cannot.be.blank":"Staff is mandatory.",
     "validation.msg.domain.rule.violation": "Errors contain reason for domain rule violation.",
@@ -6362,5 +6363,14 @@
     "label.village.assigned.to.loanofficer" : "Village assigned to loan officer : ",
     "label.input.co.officer.required" : "Co officer required",
     "validation.msg.datatable.sections.cannot.be.empty" : "On allowing sections, section names must be entered.",
+
+    "#Bank Account Validation" : "",
+    "validation.msg.bank.account.detail.name.exceeds.max.length":"Bank Account Holder Name should be less than '{{params[0].value}}' characters",
+    "validation.msg.bank.account.detail.accountNumber.exceeds.max.length":"Bank Account Number should be less than '{{params[0].value}}' characters",
+    "validation.msg.bank.account.detail.ifscCode.exceeds.max.length":"Bank IFSC code should be less than '{{params[0].value}}' characters",
+    "validation.msg.bank.account.detail.bankName.exceeds.max.length":"Bank Name should be less than '{{params[0].value}}' characters",
+    "validation.msg.bank.account.detail.branchName.exceeds.max.length":"Branch Name should be less than '{{params[0].value}}' characters",
+    "validation.msg.bank.account.detail.bankCity.exceeds.max.length":"Branch City should be less than '{{params[0].value}}' characters",
+    "validation.msg.bank.account.detail.mobileNumber.exceeds.max.length":"Mobile Number should be less than '{{params[0].value}}' characters",
     "------ end of tensalation file":"---------"
 }
