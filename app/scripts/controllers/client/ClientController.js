@@ -5,6 +5,10 @@
             scope.actualClients = [];
             scope.searchText = "";
             scope.searchResults = [];
+            scope.displayNameInReverseOrder = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder) {
+                scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
+            }
             scope.routeTo = function (id) {
                 location.path('/viewclient/' + id);
             };
@@ -81,6 +85,18 @@
                         scope.totalClients = numberOfClients;
                         scope.clients = scope.actualClients.slice(0, scope.clientsPerPage);
                     });
+                }
+            }
+
+            scope.reverseDisplayName = function(client){
+                if(client.lastname != undefined){
+                     client.displayNameInReverseOrder = client.lastname.concat(" ");
+                }
+                if(client.middlename != undefined){
+                    client.displayNameInReverseOrder = client.displayNameInReverseOrder.concat(client.middlename).concat(" ");
+                }
+                if(client.firstname != undefined){
+                     client.displayNameInReverseOrder = client.displayNameInReverseOrder.concat(client.firstname);
                 }
             }
 

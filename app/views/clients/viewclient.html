@@ -7,7 +7,8 @@
 			<li ng-show="center.name && !loanApplicationReferenceId"><a ng-href="#/viewcenter/{{center.id}}">{{center.name}}</a></li>
 			<li ng-show="group.name && !loanApplicationReferenceId"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
 			<li ng-if="loanApplicationReferenceId"><a href="#/managecoapplicants/{{loanApplicationReferenceId}}">{{'label.anchor.managecoapplicants' | translate}}</a></li>
-			<li>{{client.displayName}}</li>
+			<li ng-if="!displayNameInReverseOrder">{{client.displayName}}</li>
+			<li ng-if="displayNameInReverseOrder">{{client.displayNameInReverseOrder}}</li>
 	    </ul>
 	</div>
 	<div class="row">
@@ -17,7 +18,8 @@
 				<small ng-if="client.subStatus.description">
 					[{{client.subStatus.description}}]
 				</small>
-	            <strong>{{client.displayName}} </strong>
+	            <strong ng-if="!displayNameInReverseOrder">{{client.displayName}} </strong>
+	            <strong ng-if="displayNameInReverseOrder">{{client.displayNameInReverseOrder}} </strong>
 				<small data-ng-show="client.clientType.name">
 					{{ 'label.input.clienttype' | translate }}: {{client.clientType.name}} |
 				</small>
@@ -684,7 +686,8 @@
 
 				    <div class="col-sm-3 col-md-3">
 				    	<div class="thumbnail row">
-				    		<h4><strong>{{client.displayName}}</strong></h4>
+				    		<h4><strong ng-if="!displayNameInReverseOrder">{{client.displayName}}</strong>
+				    		 <strong ng-if="displayNameInReverseOrder">{{client.displayNameInReverseOrder}}</strong> </h4>
 					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
 				        	<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
 					        <div class="btn-group-xs center">

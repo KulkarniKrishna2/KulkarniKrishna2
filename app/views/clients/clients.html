@@ -38,7 +38,8 @@
 
         <tbody>
         <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" total-items="totalClients">
-            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
+            <td class="pointer" data-ng-click="routeTo(client.id)" ng-if = "!displayNameInReverseOrder">{{client.displayName}}</td>
+            <td class="pointer" data-ng-click="routeTo(client.id)" ng-if = "displayNameInReverseOrder" ng-init="reverseDisplayName(client)">{{client.displayNameInReverseOrder}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">

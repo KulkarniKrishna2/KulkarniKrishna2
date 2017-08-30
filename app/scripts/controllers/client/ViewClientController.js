@@ -31,8 +31,12 @@
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.pincode = false;
             scope.sections = [];
+            scope.displayNameInReverseOrder = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder) {
+                scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
             }
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -302,6 +306,15 @@
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id, associations:'hierarchyLookup'}, function (data) {
                 scope.client = data;
+                if(scope.client.lastname != undefined){
+                    scope.client.displayNameInReverseOrder = scope.client.lastname.concat(" ");
+                }
+                if(scope.client.middlename != undefined){
+                    scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.middlename).concat(" ");
+                }
+                if(scope.client.firstname != undefined){
+                    scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.firstname);
+                }
                 $rootScope.clientname=data.displayName;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
