@@ -543,10 +543,16 @@
 
             scope.calculateOccupationTotal = function(){
                 var total = 0;
-                angular.forEach(scope.incomeAndExpenses, function(data){
-                    if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1){
-                        if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
-                            total = total + data.totalIncome;
+                angular.forEach(scope.incomeAndExpenses, function(incomeExpense){
+                    if(!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1){
+                        if(!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)){
+                            if(!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)){
+                                total = total + incomeExpense.totalIncome-incomeExpense.totalExpense;
+                            }
+                            else
+                            {
+                                total = total + incomeExpense.totalIncome;
+                            }
                         }
                     }
                 });
@@ -555,10 +561,16 @@
 
             scope.calculateTotalAsset = function(){
                 var total = 0;
-                angular.forEach(scope.incomeAndExpenses, function(data){
-                    if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2){
-                        if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
-                            total = total + data.totalIncome;
+                angular.forEach(scope.incomeAndExpenses, function(incomeExpense){
+                    if(!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2){
+                        if(!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)){
+                            if(!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)){
+                                total = total + incomeExpense.totalIncome-incomeExpense.totalExpense;
+                            }
+                            else
+                            {
+                                total = total + incomeExpense.totalIncome;
+                            }
                         }
                     }
                 });
@@ -567,10 +579,10 @@
 
             scope.calculateTotalExpense = function(){
                 var total = 0;
-                angular.forEach(scope.incomeAndExpenses, function(data){
-                    if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.typeEnum) && data.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2){
-                        if(!_.isUndefined(data.totalExpense) && !_.isNull(data.totalExpense)){
-                            total = total + data.totalExpense;
+                angular.forEach(scope.incomeAndExpenses, function(incomeExpense){
+                    if(!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2){
+                        if(!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)){
+                            total = total + incomeExpense.totalExpense;
                         }
                     }
                 });
