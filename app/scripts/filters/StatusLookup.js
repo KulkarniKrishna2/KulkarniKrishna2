@@ -64,7 +64,10 @@
                     "bucket1" : "statusbucket1",
                     "eligibilityStatus.tobereviewed": "statuspending",
                     "eligibilityStatus.approved": "statusgood",
-                    "eligibilityStatus.rejected": "statusbad"
+                    "eligibilityStatus.rejected": "statusbad",
+                    "officeStatus.rejected":"statusrejected",
+                    "officeStatus.active": "statusactive",
+                    "officeStatus.pending": "statuspending"
                 }
 
                 return cssClassNameLookup[input];

@@ -16,6 +16,7 @@
             <thead>
             <tr class="graybg">
                 <th>{{'label.heading.officeName' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
                 <th>{{'label.heading.officeexternalid' | translate}}</th>
                 <th>{{'label.heading.parentoffice' | translate}}</th>
                 <th>{{'label.heading.openedon' | translate}}</th>
@@ -25,6 +26,9 @@
             <tbody>
             <tr class="pointer-main" ng-repeat="office in offices| orderBy:'name':reverse  | filter:filterText">
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(office.id)">
+                    <i class="icon-stop {{office.status.code | StatusLookup}}"></i>&nbsp;{{office.status.value}}
+                </td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.externalId}}</td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.parentName}}</td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.openingDate | DateFormat}}</td>
