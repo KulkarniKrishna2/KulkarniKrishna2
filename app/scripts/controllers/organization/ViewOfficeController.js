@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewOfficeController: function (scope, routeParams, route, location, resourceFactory, $rootScope) {
+        ViewOfficeController: function (scope, routeParams, route, location, resourceFactory, $rootScope, $modal) {
             scope.charges = [];
             scope.sections = [];
             
@@ -120,10 +120,48 @@
                     location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.office.id);
                 }
             };
+
+            scope.activateOffice = function() {
+                $modal.open({
+                    templateUrl: 'activateOffice.html',
+                    controller: ActivateOfficeCtrl
+                });
+            };
+
+            var ActivateOfficeCtrl = function ($scope, $modalInstance) {
+                $scope.activate = function () {
+                    resourceFactory.officeResource.save({officeId: routeParams.id, command:'activate'}, {}, function (data) {
+                        $modalInstance.close('activate');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.rejectOffice = function() {
+                $modal.open({
+                    templateUrl: 'rejectOffice.html',
+                    controller: RejectOfficeCtrl
+                });
+            };
+
+            var RejectOfficeCtrl = function ($scope, $modalInstance) {
+                $scope.reject = function () {
+                    resourceFactory.officeResource.save({officeId: routeParams.id, command:'reject'}, {}, function (data) {
+                        $modalInstance.close('reject');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
         }
 
     });
-    mifosX.ng.application.controller('ViewOfficeController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$rootScope', mifosX.controllers.ViewOfficeController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewOfficeController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$rootScope', '$modal', mifosX.controllers.ViewOfficeController]).run(function ($log) {
         $log.info("ViewOfficeController initialized");
     });
 }(mifosX.controllers || {}));
