@@ -153,8 +153,9 @@
                     <label>{{ 'label.input.linksavings' | translate }}:</label>
                 </td>
                 <td class="width31 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-                    <select id="linkAccountId" ng-model="formData.linkAccountId"
-                            ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" class="form-control width170px"
+                    <select  id="linkAccountId" ng-model="formData.linkAccountId"
+                            ng-options="savingaccount.id as (savingaccount.productName +'('+ savingaccount.accountNo +')') for savingaccount in loanaccountinfo.accountLinkingOptions | orderBy:'accountNo'"
+                            class="form-control width170px"
                             value="{{savingaccount.id}}">
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
