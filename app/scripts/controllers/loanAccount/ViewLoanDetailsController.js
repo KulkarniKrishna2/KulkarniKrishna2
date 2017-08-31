@@ -265,34 +265,36 @@
 
             var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
+            resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
+                if(glimData.length > 0) {
+                    scope.glimClientsDetails = glimData;
+                    var totalGlimChargeAmount = 0;
+                    for (var i = 0; i < glimData.length; i++) {
+                        if (angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)) {
+                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
+                        } else if (angular.isDefined(scope.glimClientsDetails[i].approvedAmount)) {
+                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
+                        } else {
+                            scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
+                        }
+
+                        if (angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)) {
+                            totalGlimChargeAmount = totalGlimChargeAmount + parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
+                        }
+                    }
+                    scope.isGlimChargesAvailbale = (totalGlimChargeAmount > 0);
+                    scope.isGlim = glimData.length > 0;
+                }
+            });
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                var loanType = data.loanType.code;
 
-                if(data.loanType.code == 'accountType.glim') {
+                if(loanType == 'accountType.glim') {
                     resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                         if(configData){
                             scope.glimPaymentAsGroup = configData.enabled;
                         }
-                    });
-
-                    resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
-                        scope.glimClientsDetails = data;
-                        var totalGlimChargeAmount = 0;
-                        for (var i = 0; i < data.length; i++) {
-                            if (angular.isDefined(scope.glimClientsDetails[i].disbursedAmount)) {
-                                scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].disbursedAmount;
-                            } else if (angular.isDefined(scope.glimClientsDetails[i].approvedAmount)) {
-                                scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].approvedAmount;
-                            } else {
-                                scope.glimClientsDetails[i].disbursedAmount = scope.glimClientsDetails[i].proposedAmount;
-                            }
-
-                            if (angular.isDefined(scope.glimClientsDetails[i].totalFeeChargeOutstanding)) {
-                                totalGlimChargeAmount = totalGlimChargeAmount + parseFloat(scope.glimClientsDetails[i].totalFeeChargeOutstanding);
-                            }
-                        }
-                        scope.isGlimChargesAvailbale = (totalGlimChargeAmount > 0);
-                        scope.isGlim = data.length > 0;
                     });
                 }
 
