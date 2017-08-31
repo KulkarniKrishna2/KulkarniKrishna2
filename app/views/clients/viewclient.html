@@ -952,6 +952,33 @@
 		            {{'label.button.upload' | translate}}</a>
 		    </div>
 		    <br>
+		    <div ng-repeat="(key, value) in clientdocuments">
+		    	<h3>{{key | translate}}</h3>
+		    	<table class="table" ng-show="value.length > 0">
+			        <thead>
+			        <tr class="graybg">
+			            <th>{{'label.heading.name' | translate}}</th>
+			            <th>{{'label.heading.description' | translate}}</th>
+			            <th>{{'label.heading.filename' | translate}}</th>
+			            <th>{{'label.heading.actions' | translate}}</th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr ng-repeat="clientdocument in value">
+			            <td>{{clientdocument.name}}</td>
+			            <td>{{clientdocument.description}}</td>
+			            <td>{{clientdocument.fileName}}</td>
+			            <td ng-show="clientdocument.id">
+			                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+			                <a ng-click="deleteDocument(clientdocument.id,$index, key)"><i class="icon-remove"></i></a>
+			            </td>
+			            <td ng-hide="clientdocument.id">
+			                <a ng-click="generateDocument(clientdocument)" class="btn btn-primary"><i class="icon-file"></i>{{'label.input.generate' | translate}}</a>
+			            </td>
+			        </tr>
+			        </tbody>
+			    </table>	
+		    </div>
 		    <table class="table" ng-show="clientdocuments.length > 0">
 		        <thead>
 		        <tr class="graybg">

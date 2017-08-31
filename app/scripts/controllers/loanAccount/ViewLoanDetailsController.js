@@ -861,15 +861,39 @@
             };
 
             scope.getLoanDocuments = function () {
+                scope.loandocuments = {};
                 resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function (data) {
-                    for (var i in data) {
-                        var loandocs = {};
-                        loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        data[i].docUrl = loandocs;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].id) {
+                            var loandocs = {};
+                            loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            data[i].docUrl = loandocs;
+                        }
+                        if(data[i].tagValue){
+                            scope.pushDocumentToTag(data[i], data[i].tagValue);
+                        } else {
+                            scope.pushDocumentToTag(data[i], 'uploadedDocuments');
+                        }
                     }
-                    scope.loandocuments = data;
                 });
+            };
 
+            scope.pushDocumentToTag = function(document, tagValue) {
+                if (scope.loandocuments.hasOwnProperty(tagValue)) {
+                    scope.loandocuments[tagValue].push(document);
+                } else {
+                    scope.loandocuments[tagValue] = [];
+                    scope.loandocuments[tagValue].push(document);
+                }
+            }
+
+            scope.generateDocument = function (document){
+                resourceFactory.loanDocumentsGenerateResource.generate({loanId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                    document.id = data.resourceId;
+                    var loandocs = {};
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    document.docUrl = loandocs;
+                })
             };
             
             scope.getMandatesOnSelect = function () {
@@ -1194,9 +1218,9 @@
                 });
             };
 
-            scope.deleteDocument = function (documentId, index) {
+            scope.deleteDocument = function (documentId, index, tagValue) {
                 resourceFactory.LoanDocumentResource.delete({loanId: scope.loandetails.id, documentId: documentId}, '', function (data) {
-                    scope.loandocuments.splice(index, 1);
+                    scope.loandocuments[tagValue].splice(index, 1);
                 });
             };
 

@@ -31,6 +31,17 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{'label.input.documentTag' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <select id="tagIdentifier" ng-model="formData.tagIdentifier" class="form-control"
+                            ng-options="codeValue.id as codeValue.name for codeValue in documentTagOptions" value="{{codeValue.id}}">
+                        <option value="">{{'label.selectdocumenttag' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
                         class="required">*</span></label>
 
