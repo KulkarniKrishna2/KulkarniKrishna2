@@ -1284,25 +1284,31 @@
                                 | translate}}</a>
                         </div>
                         <br>
-                        <table class="table" ng-show="loandocuments.length > 0">
-                            <thead>
-                            <th>{{'label.heading.name' | translate}}</th>
-                            <th>{{'label.heading.description' | translate}}</th>
-                            <th>{{'label.heading.filename' | translate}}</th>
-                            <th>{{'label.heading.actions' | translate}}</th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="document in loandocuments">
-                                <td>{{document.name}}</td>
-                                <td>{{document.description}}</td>
-                                <td>{{document.fileName}}</td>
-                                <td>
-                                    <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                                    <a ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div ng-repeat="(key, value) in loandocuments">
+                          <h3>{{key | translate}}</h3>
+                          <table class="table" ng-show="value.length > 0">
+                              <thead>
+                              <th>{{'label.heading.name' | translate}}</th>
+                              <th>{{'label.heading.description' | translate}}</th>
+                              <th>{{'label.heading.filename' | translate}}</th>
+                              <th>{{'label.heading.actions' | translate}}</th>
+                              </thead>
+                              <tbody>
+                              <tr ng-repeat="document in value">
+                                  <td>{{document.name}}</td>
+                                  <td>{{document.description}}</td>
+                                  <td>{{document.fileName}}</td>
+                                  <td ng-show="document.id">
+                                      <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                                      <a ng-click="deleteDocument(document.id,$index, key)"><i class="icon-remove"></i></a>
+                                  </td>
+                                  <td ng-hide="document.id">
+                                      <a ng-click="generateDocument(document)" class="btn btn-primary"><i class="icon-file"></i>{{'label.input.generate' | translate}}</a>
+                                  </td>
+                              </tr>
+                              </tbody>
+                          </table>
+                        </div>
                     </tab>
                     <tab heading="{{'label.anchor.mandate' | translate}}" select="getMandatesOnSelect()">
                         <div class="pull-right">
