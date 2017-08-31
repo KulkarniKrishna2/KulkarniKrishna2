@@ -147,6 +147,7 @@
     "label.input.defaultfloatinginterestrate" : "Default Interest Rate",
     "label.input.maxfloatinginterestrate" : "Maximum Interest Rate",
     "label.input.differentialrate" : "Differential Rate",
+    "label.input.documentTag" : "Document Tag",
     "label.heading.companyname": "Finflux",
     "label.heading.loanrepaymentschedule": "Loan Repayment Schedule",
     "label.heading.fingerprint":"Finger Print",
@@ -465,6 +466,7 @@
     "error.msg.document.file.too.big":"You may not upload a file larger than 5 MB.",
     "validation.msg.document.fileName.cannot.be.blank": "Please select a file.",
     "validation.msg.document.name.cannot.be.blank": "Please enter the name for the document.",
+    "error.msg.document.report.mapping.notfound":"Document is not mapped with any report",
     "resourceId.not.integer": "ID should be an Integer.",
     "error.msg.resource.not.found": "The requested resource is not available.",
     "error.msg.code.identifier.not.found": "Code with identifier `{{params[0].value}}` does not exist.",
@@ -1896,6 +1898,7 @@
     "label.input.mode.of.disburse.payment" : "Mode of Disbursement",
     "label.input.mode.of.repayment.payment" : "Mode of Repayment",
     "label.input.authentication2f": "2F Authentication",
+    "label.input.generate": "Generate",
 
     "#Buttons": "..",
     "label.button.addloancharge": "Add Loan Charge",
@@ -2515,6 +2518,7 @@
     "label.newfixeddepositaccount":"New Fixed Deposit",
     "label.newrecurringdepositaccount":"New Recurring Deposit",
     "label.survey":"Survey",
+    "label.selectdocumenttag": "Select Tag",
     "label.recurringdeposittype":"Recurring Deposit Type",
     "label.recurring.deposit.amount":"Recurring Deposit Amount",
     "label.recurring.deposit.every":"Recurring Deposit Frequency",
@@ -6372,5 +6376,6 @@
     "validation.msg.bank.account.detail.branchName.exceeds.max.length":"Branch Name should be less than '{{params[0].value}}' characters",
     "validation.msg.bank.account.detail.bankCity.exceeds.max.length":"Branch City should be less than '{{params[0].value}}' characters",
     "validation.msg.bank.account.detail.mobileNumber.exceeds.max.length":"Mobile Number should be less than '{{params[0].value}}' characters",
+    "uploadedDocuments": "Uploaded Documents",
     "------ end of tensalation file":"---------"
 }
