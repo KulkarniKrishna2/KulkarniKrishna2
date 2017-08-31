@@ -552,6 +552,7 @@
                             ng-model="configureFundOption.paymentTypeId"
                             ng-options="paymentType.id as paymentType.name for paymentType in configureFundOption.paymentTypeOptions"
                             value="{{paymentType.id}}">
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
                 <td></td>
@@ -561,6 +562,7 @@
                             ng-model="configureFundOption.fundSourceAccountId"
                             ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in configureFundOption.assetAccountOptions"
                             value="{{assetAccount.id}}">
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
                 <td></td>
@@ -586,6 +588,7 @@
                             ng-model="specificIncomeaccount.chargeId"
                             ng-options="charge.id as charge.name for charge in specificIncomeaccount.chargeOptions"
                             value="{{charge.id}}">
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
                 <td></td>
@@ -595,6 +598,7 @@
                             ng-model="specificIncomeaccount.incomeAccountId"
                             ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in specificIncomeaccount.incomeAccountOptions"
                             value="{{assetAccount.id}}">
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
                 <td></td>
@@ -620,6 +624,7 @@
                             ng-model="penaltySpecificIncomeaccount.chargeId"
                             ng-options="charge.id as charge.name for charge in penaltySpecificIncomeaccount.penaltyOptions"
                             value="{{charge.id}}">
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
                 <td></td>
@@ -629,6 +634,7 @@
                             ng-model="penaltySpecificIncomeaccount.incomeAccountId"
                             ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in penaltySpecificIncomeaccount.incomeAccountOptions"
                             value="{{assetAccount.id}}">
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
                 <td></td>

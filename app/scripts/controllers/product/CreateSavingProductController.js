@@ -59,38 +59,33 @@
             }
 
             scope.addConfigureFundSource = function () {
-                if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 &&
-                    scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
-                    scope.configureFundOptions.push({
-                        paymentTypeId: scope.product.paymentTypeOptions[0].id,
-                        fundSourceAccountId: scope.assetAccountOptions[0].id,
-                        paymentTypeOptions: scope.product.paymentTypeOptions,
-                        assetAccountOptions: scope.assetAccountOptions
-                    });
-                }
-                ;
+                scope.paymentTypeOptions  = scope.product.paymentTypeOptions || [];
+                scope.configureFundOptions.push({
+                    paymentTypeId: scope.paymentTypeOptions.length > 0 ? scope.paymentTypeOptions[0].id : '',
+                    fundSourceAccountId: scope.assetAccountOptions.length > 0 ? scope.assetAccountOptions[0].id : '',
+                    paymentTypeOptions: scope.paymentTypeOptions,
+                    assetAccountOptions: scope.assetAccountOptions
+                });
             }
 
             scope.mapFees = function () {
-                if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
-                    scope.specificIncomeaccounts.push({
-                        chargeId: scope.product.chargeOptions[0].id,
-                        incomeAccountId: scope.incomeAccountOptions[0].id,
-                        chargeOptions: scope.product.chargeOptions,
-                        incomeAccountOptions: scope.product.accountingMappingOptions.incomeAccountOptions
-                    });
-                }
+                scope.chargeOptions = scope.product.chargeOptions || [];
+                scope.specificIncomeaccounts.push({
+                    chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
+                    incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
+                    chargeOptions: scope.chargeOptions,
+                    incomeAccountOptions: scope.incomeAccountOptions
+                });
             }
 
             scope.mapPenalty = function () {
-                if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
-                    scope.penaltySpecificIncomeaccounts.push({
-                        chargeId: scope.product.penaltyOptions[0].id,
-                        incomeAccountId: scope.incomeAccountOptions[0].id,
-                        penaltyOptions: scope.product.penaltyOptions,
-                        incomeAccountOptions: scope.incomeAccountOptions
-                    });
-                }
+                scope.penaltyOptions = scope.product.penaltyOptions || [];
+                scope.penaltySpecificIncomeaccounts.push({
+                    chargeId: scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
+                    incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
+                    penaltyOptions: scope.penaltyOptions,
+                    incomeAccountOptions: scope.incomeAccountOptions
+                });      
             }
 
             scope.deleteFund = function (index) {
