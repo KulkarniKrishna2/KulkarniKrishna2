@@ -13,6 +13,9 @@
             scope.second.date = new Date();
             scope.third.date = new Date();
             var loanAccounts = [];
+            var centers = [];
+            var groups = [];
+            var clients = [];
             scope.centerData =[];
             scope.groupMemberData = [];
             scope.clientMemberData = [];
@@ -79,23 +82,31 @@
                 if(value){
                         for(var b =0 ; b < scope.centersDataList.length ; b++) {
                             scope.centerData = scope.centersDataList[b].groupMembers;
+                            var centerId = scope.centersDataList[b].id;
+                            scope.addEntityId(centers, centerId);
                             scope.centersDataList[b].checked = true;
                             for(var i = 0; i < scope.centerData.length; i++){
                                 scope.groupMemberData = scope.centerData[i].clientMembers;
+                                var groupId = scope.centerData[i].id;
+                                scope.addEntityId(groups, groupId);
                                 scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
                                 scope.centerData[i].checked = true;
                                 for(var a = 0; a < scope.groupMemberData.length; a++){
                                     scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                                    var clientId = scope.groupMemberData[a].id;
+                                    scope.addEntityId(clients, clientId);
                                     scope.groupMemberData[a].checked = true;
                                     for(var x = 0; x < scope.clientMemberData.length; x++){
                                         scope.clientMemberData[x].checked = true;
-                                        loanAccounts.push(scope.clientMemberData[x].id);
+                                        var loanId = scope.clientMemberData[x].id;
+                                        scope.addEntityId(loanAccounts, loanId);
                                     }
                                 }
                                 if(scope.groupMemberLoanData !=  undefined){
                                 for(var a = 0; a < scope.groupMemberLoanData.length; a++){
                                     scope.groupMemberLoanData[a].checked=true;
-                                    loanAccounts.push(scope.groupMemberLoanData[a].id);
+                                    var loanId = scope.groupMemberLoanData[a].id;
+                                    scope.addEntityId(loanAccounts, loanId);
                                 }
                             }
 
@@ -108,19 +119,25 @@
                         	scope.groupMemberData = scope.groups[c].clientMembers;
                             scope.groupMemberLoanData=scope.groups[c].loanAccountSummaryDatas;
                             scope.groups[c].checked = true;
+                            var groupId =  scope.groups[c].id;
+                            scope.addEntityId(groups, groupId);
                             for(var i=0; i<scope.groupMemberData.length; i++){
                             	scope.clientMemberData = scope.groupMemberData[i].loanAccountSummaryDatas;
                             	scope.groupMemberData[i].checked = true;
+                                var clientId = scope.groupMemberData[i].id;
+                                scope.addEntityId(clients, clientId);
                             	for(var x=0; x < scope.clientMemberData.length; x++){
                             		scope.clientMemberData[x].checked = true;
-                            		loanAccounts.push(scope.clientMemberData[x].id);
+                                    var loanId = scope.clientMemberData[x].id;
+                                    scope.addEntityId(loanAccounts, loanId);
                             	}
                             	
                             }
                             if(scope.groupMemberLoanData != undefined){
                             	for(var a=0; a<scope.groupMemberLoanData.length;a++){
                             		scope.groupMemberLoanData[a].checked=true;
-                            		loanAccounts.push(scope.groupMemberLoanData[a].id);
+                                    var loanId = scope.groupMemberLoanData[a].id;
+                                    scope.addEntityId(loanAccounts, loanId);
                             	}
                             }
                            
@@ -132,11 +149,14 @@
                         
                         for(var i=0; i<scope.clients.length; i++){
                         	//scope.clientMemberData = scope.clients[i].loans;
+                            clientId = scope.clients[i].id;
+                            scope.addEntityId(clients, clientId);
                         	scope.clientMemberData = scope.clients[i].loanAccountSummaryDatas;
                         	//scope.clients[i].checked = true;
                         	for(var j=0; j < scope.clientMemberData.length; j++){
                         		scope.clientMemberData[j].checked = true;
-                        		loanAccounts.push(scope.clientMemberData[j].id);
+                                var loanId = scope.clientMemberData[j].id;
+                                scope.addEntityId(loanAccounts, loanId);
                         	}
                         	
                         }
@@ -154,20 +174,12 @@
                                     for(var x = 0; x < scope.clientMemberData.length; x++){
                                         var loanId = (scope.clientMemberData[x].id);
                                         scope.clientMemberData[x].checked = false;
-                                        var indexOfLoanId = loanAccounts.indexOf(loanId);
-                                        if(indexOfLoanId){
-                                            loanAccounts.splice(indexOfLoanId, 1);
-                                        }
                                     }
                                 }
                                 if(scope.groupMemberLoanData != undefined){
                                 for(var a = 0; a < scope.groupMemberLoanData.length; a++){
-                                    var loanId = (scope.groupMemberLoanData[a].id);
                                     scope.groupMemberLoanData[a].checked=false;
-                                    var indexOfLoanId = loanAccounts.indexOf(loanId);
-                                        if(indexOfLoanId){
-                                            loanAccounts.splice(indexOfLoanId, 1);
-                                        }
+
                                 }
                             }
                             }
@@ -183,14 +195,12 @@
                             	scope.groupMemberData[i].checked = false;
                             	for(var x=0; x < scope.clientMemberData.length; x++){
                             		scope.clientMemberData[x].checked = false;
-                            		loanAccounts.push(scope.clientMemberData[x].id);
-                            	}
-                            	
                             }
+
+                        }
                             if(scope.groupMemberLoanData != undefined){
                             	for(var a=0; a<scope.groupMemberLoanData.length;a++){
                             		scope.groupMemberLoanData[a].checked=false;
-                            		loanAccounts.push(scope.groupMemberLoanData[a].id);
                             	}
                             }
                            
@@ -204,13 +214,40 @@
                         	scope.clients[i].checked = false;
                         	for(var j=0; j < scope.clientMemberData.length; j++){
                         		scope.clientMemberData[j].checked = false;
-                        		loanAccounts.push(scope.clientMemberData[j].id);
                         	}
                         	
                         }
-                        
+                        loanAccounts = [];
+                        centers = [];
+                        groups = [];
+                        clients = [];
                     }
                 };
+
+            scope.addEntityId = function (entityArray, entityId) {
+                if (!scope.isDuplicateEntityIdEntry(entityArray, entityId)) {
+                    entityArray.push(entityId);
+                }
+            }
+
+            scope.removeEntityId = function (entityArray, entityId) {
+                if (entityArray.length > 0) {
+                    var index = entityArray.indexOf(entityId);
+                    if (index != undefined) {
+                        entityArray.splice(index, 1);
+                    }
+                }
+            }
+
+            scope.isDuplicateEntityIdEntry = function (entityArray, entityId) {
+                if (entityArray.length > 0) {
+                    var index = entityArray.indexOf(entityId);
+                    if (index > 0) {
+                        return true;
+                    }
+                }
+                return false;
+            }
 
             scope.centerLevel = function(value,id){
                 for(var b =0 ; b < scope.centersDataList.length ; b++) {
@@ -220,50 +257,57 @@
                     }
                 }
                 if(value){
+                    scope.addEntityId(centers, id);
                     for(var i = 0; i < scope.centerData.length; i++){
                         scope.groupMemberData = scope.centerData[i].clientMembers;
+                        var groupId = scope.centerData[i].id;
+                        scope.addEntityId(groups, groupId);
                         scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
                         scope.centerData[i].checked = true;
                         for(var a = 0; a < scope.groupMemberData.length; a++){
                             scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                            var clientId = scope.groupMemberData[a].id;
+                            scope.addEntityId(clients, clientId);
                             scope.groupMemberData[a].checked = true;
                             for(var x = 0; x < scope.clientMemberData.length; x++){
                                 scope.clientMemberData[x].checked = true;
-                                loanAccounts.push(scope.clientMemberData[x].id);
+                                var loanId = scope.clientMemberData[x].id;
+                                scope.addEntityId(loanAccounts, loanId);
                             }
                         }
                         if(scope.groupMemberLoanData !=  undefined){
                         for(var a = 0; a < scope.groupMemberLoanData.length; a++){
                             scope.groupMemberLoanData[a].checked = true;
-                                loanAccounts.push(scope.groupMemberLoanData[a].id);
+                                var loanId =  scope.groupMemberLoanData[a].id;
+                                scope.addEntityId(loanAccounts, loanId);
                         }
                     }
                     }
                 } else{
+                    scope.removeEntityId(centers, id);
                     for(var i = 0; i < scope.centerData.length; i++){
                         scope.groupMemberData = scope.centerData[i].clientMembers;
+                        var groupId = scope.centerData[i].id;
+                        scope.removeEntityId(groups, groupId);
                         scope.groupMemberLoanData=scope.centerData[i].loanAccountSummaryDatas;
                         scope.centerData[i].checked = false;
+                        var centerId =  scope.centerData[i].id;
                         for(var a = 0; a < scope.groupMemberData.length; a++){
                             scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                            var clientId = scope.groupMemberData[a].id;
+                            scope.removeEntityId(clients, clientId);
                             scope.groupMemberData[a].checked = false;
                             for(var x = 0; x < scope.clientMemberData.length; x++){
                                 var loanId = (scope.clientMemberData[x].id);
                                 scope.clientMemberData[x].checked = false;
-                                var indexOfLoanId = loanAccounts.indexOf(loanId);
-                                if(indexOfLoanId){
-                                    loanAccounts.splice(indexOfLoanId, 1);
-                                }
+                                scope.removeEntityId(loanAccounts, loanId);
                             }
                         }
                         if(scope.groupMemberLoanData !=  undefined){
                         for(var a = 0; a < scope.groupMemberLoanData.length; a++){
                                 var loanId = (scope.groupMemberLoanData[a].id);
                                 scope.groupMemberLoanData[a].checked=false;
-                                var indexOfLoanId = loanAccounts.indexOf(loanId);
-                                    if(indexOfLoanId){
-                                        loanAccounts.splice(indexOfLoanId, 1);
-                                    }
+                                scope.removeEntityId(loanAccounts, loanId);
                             }
                         }
                     }
@@ -285,41 +329,43 @@
                     }
                 }
                 if(value){
+                    scope.addEntityId(groups, groupId);
                     for(var a = 0; a < scope.groupMemberData.length; a++){
                             scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                            var clientId = scope.groupMemberData[a].id;
+                            scope.addEntityId(clients, clientId);
                             scope.groupMemberData[a].checked = true;
                             for(var x = 0; x < scope.clientMemberData.length; x++){
                                 scope.clientMemberData[x].checked = true;
-                                loanAccounts.push(scope.clientMemberData[x].id);
+                                var loanId = scope.clientMemberData[x].id;
+                                scope.addEntityId(loanAccounts, loanId);
                             }
                         }
-                        if(scope.groupMemberLoanData !=  undefined){
-                    for(var a = 0; a < scope.groupMemberLoanData.length; a++){
+                    if (scope.groupMemberLoanData != undefined) {
+                        for (var a = 0; a < scope.groupMemberLoanData.length; a++) {
                             scope.groupMemberLoanData[a].checked = true;
-                                loanAccounts.push(scope.groupMemberLoanData[a].id);
+                            var loanId = scope.groupMemberLoanData[a].id;
+                            scope.addEntityId(loanAccounts, loanId);
                         }
                     }
                 }else{
+                    scope.removeEntityId(groups, groupId);
                     for(var a = 0; a < scope.groupMemberData.length; a++){
                         scope.clientMemberData = scope.groupMemberData[a].loanAccountSummaryDatas;
+                        var clientId = scope.groupMemberData[a].id;
+                        scope.removeEntityId(clients, clientId);
                         scope.groupMemberData[a].checked = false;
                         for(var x = 0; x < scope.clientMemberData.length; x++){
                             var loanId = (scope.clientMemberData[x].id);
                             scope.clientMemberData[x].checked = false;
-                            var indexOfLoanId = loanAccounts.indexOf(loanId);
-                            if(indexOfLoanId){
-                                loanAccounts.splice(indexOfLoanId, 1);
-                            }
+                            scope.removeEntityId(loanAccounts, loanId);
                         }
                     }
                     if(scope.groupMemberLoanData !=  undefined){
                     for(var a = 0; a < scope.groupMemberLoanData.length; a++){
                         var loanId = (scope.groupMemberLoanData[a].id);
                             scope.groupMemberLoanData[a].checked = false;
-                            var indexOfLoanId = loanAccounts.indexOf(loanId);
-                            if(indexOfLoanId){
-                                loanAccounts.splice(indexOfLoanId, 1);
-                            }
+                            scope.removeEntityId(loanAccounts, loanId);
                         }
                     }
                 }
@@ -346,18 +392,18 @@
                 }
 
                 if(value){
+                    scope.addEntityId(clients, clientId);
                     for(var x = 0; x < scope.clientMemberData.length; x++){
                         scope.clientMemberData[x].checked = true;
-                        loanAccounts.push(scope.clientMemberData[x].id);
+                        var loanId = scope.clientMemberData[x].id;
+                        scope.addEntityId(loanAccounts, loanId);
                     }
                 } else{
+                    scope.removeEntityId(clients, clientId);
                     for(var x = 0; x < scope.clientMemberData.length; x++){
                         var loanId = (scope.clientMemberData[x].id);
                         scope.clientMemberData[x].checked = false;
-                        var indexOfLoanId = loanAccounts.indexOf(loanId);
-                        if(indexOfLoanId){
-                            loanAccounts.splice(indexOfLoanId, 1);
-                        }
+                        scope.removeEntityId(loanAccounts, loanId);
                     }
                 }
             };
@@ -385,12 +431,9 @@
                 for(var x = 0; x <  scope.clientMemberData.length ; x++){
                     if(scope.clientMemberData[x].id == loanId){
                         if(value){
-                            loanAccounts.push(loanId);
+                            scope.addEntityId(loanAccounts, loanId);
                         }else{
-                            var indexOfLoanId = loanAccounts.indexOf(loanId);
-                            if(indexOfLoanId){
-                                loanAccounts.splice(indexOfLoanId, 1);
-                            }
+                            scope.removeEntityId(loanAccounts, loanId);
                         }
                     }
                 }
@@ -414,12 +457,9 @@
                 for(var x = 0; x <  scope.clientMemberData.length ; x++){
                     if(scope.clientMemberData[x].id == loanId){
                         if(value){
-                            loanAccounts.push(loanId);
+                            scope.addEntityId(loanAccounts, loanId);
                         }else{
-                            var indexOfLoanId = loanAccounts.indexOf(loanId);
-                            if(indexOfLoanId){
-                                loanAccounts.splice(indexOfLoanId, 1);
-                            }
+                            scope.removeEntityId(loanAccounts, loanId);
                         }
                     }
                 }
@@ -467,12 +507,9 @@
                 for(var x = 0; x <  scope.groupMemberData.length ; x++){
                     if(scope.groupMemberData[x].id == loanId){
                         if(value){
-                            loanAccounts.push(loanId);
+                            scope.addEntityId(loanAccounts, loanId);
                         }else{
-                            var indexOfLoanId = loanAccounts.indexOf(loanId);
-                            if(indexOfLoanId){
-                                loanAccounts.splice(indexOfLoanId, 1);
-                            }
+                            scope.removeEntityId(loanAccounts, loanId);
                         }
                     }
                 }
@@ -480,12 +517,9 @@
 
             scope. accounts= function(value, loanId){
                 if(value){
-                    loanAccounts.push(loanId);
+                    scope.addEntityId(loanAccounts, loanId);
                 }else{
-                    var indexOfLoanId = loanAccounts.indexOf(loanId);
-                    if(indexOfLoanId){
-                        loanAccounts.splice(indexOfLoanId, 1);
-                    }
+                    scope.removeEntityId(loanAccounts, loanId);
                 }
             }
             
@@ -505,18 +539,17 @@
                 }
 
                 if(value){
+                    scope.addEntityId(clients, clientId);
                     for(var x = 0; x < scope.clientMemberData.length; x++){
                         scope.clientMemberData[x].checked = true;
-                        loanAccounts.push(scope.clientMemberData[x].id);
+                        scope.addEntityId(loanAccounts, loanId);
                     }
                 } else{
+                    scope.removeEntityId(clients, clientId);
                     for(var x = 0; x < scope.clientMemberData.length; x++){
                         var loanId = (scope.clientMemberData[x].id);
                         scope.clientMemberData[x].checked = false;
-                        var indexOfLoanId = loanAccounts.indexOf(loanId);
-                        if(indexOfLoanId){
-                            loanAccounts.splice(indexOfLoanId, 1);
-                        }
+                        scope.removeEntityId(loanAccounts, loanId);
                     }
                 }
             };
@@ -650,6 +683,9 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.loans = loanAccounts;
+                this.formData.centers = centers;
+                this.formData.groups = groups;
+                this.formData.clients =  clients;
                 resourceFactory.loanReassignmentResource.save(this.formData, function (data) {
                     location.path('/organization')
                 });
