@@ -83,9 +83,6 @@
                     clientDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {clientId: '@clientId', documentId: '@documentId'}, {
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
-                    clientDocumentsGenerateResource: defineResource(apiVer + "/clients/:clientId/documents/generate/:reportIdentifier", {clientId: '@clientId', reportIdentifier: '@reportIdentifier'}, {
-                        generate: {method: 'GET', params: {}}
-                    }),
                     documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
                         getAllDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
@@ -288,8 +285,9 @@
                     LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId: '@loanId', documentId: '@documentId'}, {
                         getLoanDocuments: {method: 'GET', params: {}, isArray: true}
                     }),                    
-                    loanDocumentsGenerateResource: defineResource(apiVer + "/loans/:loanId/documents/generate/:reportIdentifier", {loanId: '@loanId', reportIdentifier: '@reportIdentifier'}, {
-                        generate: {method: 'GET', params: {}}
+                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:reportIdentifier", {entityType: '@entityType', entityId: '@entityId', reportIdentifier: '@reportIdentifier'}, {
+                        generate: {method: 'POST', params: {command:"generate"}},
+                        reGenerate: {method: 'POST', params: {command:"regenerate"}}
                     }),
                     mandateTemplateResource: defineResource(apiVer + "/loans/:loanId/mandates/template", {loanId: '@loanId'}, {
                         getCreateTemplate: {method: 'GET', params: {command:"create",showEMIBalance:"@showEMIBalance"}, isArray: false},

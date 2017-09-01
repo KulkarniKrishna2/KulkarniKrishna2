@@ -888,14 +888,23 @@
             }
 
             scope.generateDocument = function (document){
-                resourceFactory.loanDocumentsGenerateResource.generate({loanId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                     document.docUrl = loandocs;
                 })
             };
-            
+
+            scope.reGenerateDocument = function (document){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                    document.id = data.resourceId;
+                    var loandocs = {};
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    document.docUrl = loandocs;
+                })
+            };
+
             scope.getMandatesOnSelect = function () {
                 if(!scope.mandatesLoaded){
                     scope.getMandates();
@@ -1218,9 +1227,13 @@
                 });
             };
 
-            scope.deleteDocument = function (documentId, index, tagValue) {
-                resourceFactory.LoanDocumentResource.delete({loanId: scope.loandetails.id, documentId: documentId}, '', function (data) {
-                    scope.loandocuments[tagValue].splice(index, 1);
+            scope.deleteDocument = function (document, index, tagValue) {
+                resourceFactory.LoanDocumentResource.delete({loanId: scope.loandetails.id, documentId: document.id}, '', function (data) {
+                    if(document.reportIdentifier) {
+                     delete document.id ;
+                    }else {
+                        scope.loandocuments[tagValue].splice(index, 1);
+                    }
                 });
             };
 

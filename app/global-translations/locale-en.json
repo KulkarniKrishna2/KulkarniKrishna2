@@ -1899,6 +1899,7 @@
     "label.input.mode.of.repayment.payment" : "Mode of Repayment",
     "label.input.authentication2f": "2F Authentication",
     "label.input.generate": "Generate",
+    "label.input.regenerate": "Regenerate",
 
     "#Buttons": "..",
     "label.button.addloancharge": "Add Loan Charge",
