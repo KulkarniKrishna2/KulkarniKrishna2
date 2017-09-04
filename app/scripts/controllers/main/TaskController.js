@@ -145,7 +145,7 @@
                         staffId = undefined;
                     }
                     var searchConditions = {};
-                    searchConditions.loanSatus = 100;
+                    searchConditions.loan_status = 100;
                     resourceFactory.tasklookupResource.get({
                         searchConditions: searchConditions,
                         officeId: this.officeId,
@@ -165,7 +165,7 @@
                 scope.approveData = {};
                 scope.formData = {};
                 var searchConditions = {};
-                searchConditions.loanStatus = 200;
+                searchConditions.loan_status = 200;
                 if(this.expectedDisbursementOn){
                     searchConditions.loanExpectedDisbursedOnDate = this.expectedDisbursementOn.getFullYear()+'-'+(this.expectedDisbursementOn.getMonth()+1)+'-'+this.expectedDisbursementOn.getDate();
                 }
