@@ -538,7 +538,7 @@
                     scope.formRequestData.numberOfRepayments = loanEMIPack.numberOfRepayments;
                     scope.formRequestData.repaymentPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
                     scope.formRequestData.repayEvery = loanEMIPack.repaymentEvery;
-                    scope.formRequestData.fixedEmiAmount = loanEMIPack.fixedEmi;
+                    /*scope.formRequestData.fixedEmiAmount = loanEMIPack.fixedEmi;*/
                     scope.formRequestData.termPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
                     scope.formRequestData.termFrequency = parseInt(loanEMIPack.repaymentEvery) * parseInt(loanEMIPack.numberOfRepayments);
                     var disbursalEMIs = [0];
@@ -631,6 +631,10 @@
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
                  */
+                if(this.submitData.formRequestData.loanEMIPackId != undefined){
+                    delete this.submitData.formRequestData.fixedEmiAmount;
+                    delete this.submitData.formValidationData.fixedEmiAmount;
+                }
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'approve'

@@ -1298,12 +1298,11 @@
                                   <td>{{document.name}}</td>
                                   <td>{{document.description}}</td>
                                   <td>{{document.fileName}}</td>
-                                  <td ng-show="document.id">
-                                      <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                                      <a ng-click="deleteDocument(document.id,$index, key)"><i class="icon-remove"></i></a>
-                                  </td>
-                                  <td ng-hide="document.id">
-                                      <a ng-click="generateDocument(document)" class="btn btn-primary"><i class="icon-file"></i>{{'label.input.generate' | translate}}</a>
+                                  <td >
+                                      <a ng-show="document.id" target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                                      <a ng-show="document.id" ng-click="deleteDocument(document,$index, key)"><i class="icon-remove"></i></a>
+                                      <a ng-show="document.id && document.reportIdentifier" ng-click="reGenerateDocument(document)"><i class="icon-repeat"></i></a>
+                                      <a ng-hide="document.id" ng-click="generateDocument(document)"><i class="icon-link"></i></a>
                                   </td>
                               </tr>
                               </tbody>

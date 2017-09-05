@@ -1021,14 +1021,18 @@
                 }
             };
 
-            scope.deleteDocument = function (documentId, index, tagValue) {
-                resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function (data) {
-                    scope.clientdocuments[tagValue].splice(index, 1);
+            scope.deleteDocument = function (document, index, tagValue) {
+                resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: document.id}, '', function (data) {
+                    if(document.reportIdentifier) {
+                        delete document.id ;
+                    }else {
+                        scope.clientdocuments[tagValue].splice(index, 1);
+                    }
                 });
             };
 
             scope.generateDocument = function (document){
-                resourceFactory.clientDocumentsGenerateResource.generate({clientId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.generate({entityType:'clients', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
@@ -1036,6 +1040,15 @@
                 })
             };
 
+            scope.reGenerateDocument = function (document){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType:'clients', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                    document.id = data.resourceId;
+                    var loandocs = {};
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    document.docUrl = loandocs;
+                })
+            };
+            
             scope.viewDataTable = function (registeredTableName, data) {
                 if (scope.datatabledetails.isMultirow) {
                     location.path("/viewdatatableentry/" + registeredTableName + "/" + scope.client.id + "/" + data.row[0].value);

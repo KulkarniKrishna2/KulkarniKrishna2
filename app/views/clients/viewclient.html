@@ -968,12 +968,11 @@
 			            <td>{{clientdocument.name}}</td>
 			            <td>{{clientdocument.description}}</td>
 			            <td>{{clientdocument.fileName}}</td>
-			            <td ng-show="clientdocument.id">
-			                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-			                <a ng-click="deleteDocument(clientdocument.id,$index, key)"><i class="icon-remove"></i></a>
-			            </td>
-			            <td ng-hide="clientdocument.id">
-			                <a ng-click="generateDocument(clientdocument)" class="btn btn-primary"><i class="icon-file"></i>{{'label.input.generate' | translate}}</a>
+			            <td>
+			                <a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
+							<a ng-show="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
+							<a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)"><i class="icon-link"></i></a>
 			            </td>
 			        </tr>
 			        </tbody>

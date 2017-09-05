@@ -4,7 +4,7 @@
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.isViewMode = false;
             scope.clientId = scope.taskconfig['clientId'];
-
+            scope.formData={};
             resourceFactory.clientResource.get({clientId: scope.clientId, associations: 'hierarchyLookup'}, function(data) {
                 scope.client = data;
                 if(scope.client.groups != undefined && scope.client.groups != null && scope.client.groups.length > 0 ){
