@@ -50,6 +50,12 @@
 						<button class="btn btn-warning" ng-click="reComputeProfileRating()">
 	                    	<i class="icon-repeat"></i>
 	                	</button>
+						<button class="btn btn-warning" ng-if="!client.isLocked" has-permission="LOCK_CLIENT" ng-click="lockOrUnLockClient()">
+							<i class="icon-unlock"></i>
+	                	</button>
+						<button class="btn btn-warning" ng-if="client.isLocked" has-permission="UNLOCK_CLIENT" ng-click="lockOrUnLockClient()">
+	                    	<i class="icon-lock"></i>
+						</button>
 					</span>
 				</div>
 				<div class="pull-right" ng-if="profileRatingData && profileRatingData.updatedTime">

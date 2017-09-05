@@ -383,6 +383,7 @@
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
+                    //enableOrDisableClientLockButtons();
                     scope.savingsActionbuttons = [
                             {
                                 name: "button.deposit",
@@ -1495,6 +1496,7 @@
                     location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId+'/'+scope.clientId);
                 }
             };
+
             scope.differentiateFamilyMemberDetailsBaseOnReferenceId = function(familyMembers){
                 scope.familyDetailsOfClient = [];
                 scope.familyMemberOf = [];
@@ -1507,10 +1509,34 @@
                     }
 
                 }
-            }
+            };
+
             scope.routeToClient = function (id) {
               location.path('/viewclient/' + id);   
-           };
+            };
+
+            var enableOrDisableClientLockButtons = function () {
+                for(var i in scope.buttons){
+                    if(scope.buttons[i].taskPermissionName == 'UPDATE_CLIENT'){
+                        scope.buttons[i].isEnableButton = !scope.client.isLocked;
+                    }
+                }
+            };
+
+            scope.lockOrUnLockClient = function () {
+                var action = 'lock';
+                if(scope.client.isLocked){
+                    action = 'unlock';
+                }
+                resourceFactory.lockOrUnlockEntityResource.lockOrUnlock({
+                    entityType: 'client',
+                    entityId: scope.entityId,
+                    'command': action
+                }, function (responseData) {
+                    scope.client.isLocked = !scope.client.isLocked;
+                    //enableOrDisableClientLockButtons();
+                });
+            };
         }
     });
 

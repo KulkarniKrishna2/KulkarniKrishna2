@@ -216,10 +216,19 @@
                                 <i ng-show="loandetails.inArrears"
                                    class="icon-stop {{loandetails.status.code | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
                       </span>
+
+                    <span class="pull-right">
+						<button class="btn btn-warning" ng-if="!loandetails.isLocked" has-permission="LOCK_LOAN" ng-click="lockOrUnLockLoan()">
+							<i class="icon-unlock"></i>
+	                	</button>
+						<button class="btn btn-warning" ng-if="loandetails.isLocked" has-permission="UNLOCK_LOAN" ng-click="lockOrUnLockLoan()">
+	                    	<i class="icon-lock"></i>
+						</button>
+					</span>
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="glimAllowedFunctionaility(button.taskPermissionName)">
+                      <span ng-repeat="button in buttons.singlebuttons" ng-if="button.isEnableButton == undefined || button.isEnableButton === true" ng-hide="glimAllowedFunctionaility(button.taskPermissionName)">
                           <a ng-show="((button.name && !isGlim) || ((button.taskPermissionName !='CREATE_LOANCHARGE') && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
