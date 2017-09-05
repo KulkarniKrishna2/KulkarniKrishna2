@@ -86,6 +86,9 @@
                     documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
                         getAllDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
+                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:reportIdentifier", {entityType: '@entityType', entityId: '@entityId', reportIdentifier: '@reportIdentifier'}, {
+                        generate: {method: 'GET', params: {}}
+                    }),
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
                     }),
@@ -285,7 +288,7 @@
                     LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId: '@loanId', documentId: '@documentId'}, {
                         getLoanDocuments: {method: 'GET', params: {}, isArray: true}
                     }),                    
-                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:reportIdentifier", {entityType: '@entityType', entityId: '@entityId', reportIdentifier: '@reportIdentifier'}, {
+                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:identifier", {entityType: '@entityType', entityId: '@entityId', identifier: '@identifier'}, {
                         generate: {method: 'POST', params: {command:"generate"}},
                         reGenerate: {method: 'POST', params: {command:"regenerate"}}
                     }),

@@ -978,27 +978,6 @@
 			        </tbody>
 			    </table>	
 		    </div>
-		    <table class="table" ng-show="clientdocuments.length > 0">
-		        <thead>
-		        <tr class="graybg">
-		            <th>{{'label.heading.name' | translate}}</th>
-		            <th>{{'label.heading.description' | translate}}</th>
-		            <th>{{'label.heading.filename' | translate}}</th>
-		            <th>{{'label.heading.actions' | translate}}</th>
-		        </tr>
-		        </thead>
-		        <tbody>
-		        <tr ng-repeat="clientdocument in clientdocuments">
-		            <td>{{clientdocument.name}}</td>
-		            <td>{{clientdocument.description}}</td>
-		            <td>{{clientdocument.fileName}}</td>
-		            <td>
-		                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-		                <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
-		            </td>
-		        </tr>
-		        </tbody>
-		    </table>
 		</tab>
 		<tab heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD' select="fetchSmartCardData()">
 
