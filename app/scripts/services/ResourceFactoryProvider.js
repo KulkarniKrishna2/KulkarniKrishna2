@@ -1243,6 +1243,13 @@
                     }),
                     imageResource: defineResource(apiVer + "/:entityType/:entityId/images", {entityType:'@entityType',entityId:'@entityId'}, {
                         get:{method: 'GET', params: {},isArray:true}
+                    }),
+                    lockOrUnlockEntityResource: defineResource(apiVer + "/locks/:entityType/:entityId", {
+                        entityType: '@entityType',
+                        entityId: '@entityId',
+                        command: '@command'
+                    }, {
+                        lockOrUnlock: {method: 'POST', params: {}}
                     })
                 };
             }];

@@ -690,6 +690,7 @@
                     fetchBankTransferDetails();
                 }
                 scope.isOverPaidOrGLIM();
+                //enableOrDisableLoanLockButtons();
             });
 
             fetchBankTransferDetails = function(){
@@ -1685,7 +1686,29 @@
                 }else{
                     scope.transferDetails =  scope.activeTransferDetails; 
                 }
-            }
+            };
+            scope.lockOrUnLockLoan = function () {
+                var action = 'lock';
+                if(scope.loandetails.isLocked){
+                    action = 'unlock';
+                }
+                resourceFactory.lockOrUnlockEntityResource.lockOrUnlock({
+                    entityType: 'loan',
+                    entityId: routeParams.id,
+                    'command': action
+                }, function (responseData) {
+                    scope.loandetails.isLocked = !scope.loandetails.isLocked;
+                    //enableOrDisableLoanLockButtons();
+                });
+            };
+
+            var enableOrDisableLoanLockButtons = function () {
+                for(var i in scope.buttons.singlebuttons){
+                    if(scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSALUNDO_LOAN'){
+                        scope.buttons.singlebuttons[i].isEnableButton = !scope.loandetails.isLocked;
+                    }
+                }
+            };
         }
     });
 
