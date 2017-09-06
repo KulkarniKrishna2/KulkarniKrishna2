@@ -6403,5 +6403,10 @@
     "validation.msg.fixeddeposit.penaltyToIncomeAccountMappings.chargeId.cannot.be.blank" : "Penalty for configuring Penalty specific Income Accounts cannot be blank.",
     "validation.msg.fixeddeposit.fromDate.cannot.be.blank" : "From Date cannot be blank.",
 
+    "#Districts": "....",
+
+    "label.anchor.districts": "Districts",
+    "label.view.districts": "View list of districts",
+    "label.input.filterbynameorcodeorstatus":"Filter by name/code/status",
     "------ end of tensalation file":"---------"
 }

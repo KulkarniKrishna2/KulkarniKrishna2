@@ -67,7 +67,10 @@
                     "eligibilityStatus.rejected": "statusbad",
                     "officeStatus.rejected":"statusrejected",
                     "officeStatus.active": "statusactive",
-                    "officeStatus.pending": "statuspending"
+                    "officeStatus.pending": "statuspending",
+                    "districtStatus.rejected":"statusrejected",
+                    "districtStatus.active": "statusactive",
+                    "districtStatus.pending": "statuspending"
                 }
 
                 return cssClassNameLookup[input];
