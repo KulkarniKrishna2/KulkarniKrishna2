@@ -890,7 +890,7 @@
             }
 
             scope.generateDocument = function (document){
-                resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
@@ -899,7 +899,7 @@
             };
 
             scope.reGenerateDocument = function (document){
-                resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
