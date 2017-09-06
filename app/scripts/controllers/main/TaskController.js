@@ -145,7 +145,7 @@
                         staffId = undefined;
                     }
                     var searchConditions = {};
-                    searchConditions.loanSatus = 100;
+                    searchConditions.loanStatus = 100;
                     resourceFactory.tasklookupResource.get({
                         searchConditions: searchConditions,
                         officeId: this.officeId,
