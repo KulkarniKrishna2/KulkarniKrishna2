@@ -3,6 +3,9 @@
         LoggedInUser: function (data) {
             this.name = data.username;
             this.userId = data.userId;
+            if (data.staffId) {
+                this.staffId = data.staffId;
+            }
             this.userPermissions = data.userPermissions || data.permissions || [];
 
             this.getHomePageIdentifier = function () {

@@ -73,12 +73,19 @@
     <div ng-if="!isDisplaySurveys" class="row client">
         <form name="takesurveyform" novalidate="" class="form-horizontal " rc-submit="submit()">
             <fieldset>
-                <div class="form-group" >
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.is.survey.on.behalf.of.others' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="surveyCheckbox" type="checkbox" ng-model="isSurveyForOthers" ng-change="updateSurveyedBy()">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="isSurveyForOthers">
                     <label class="control-label col-sm-2">{{'label.survey.done.by' | translate}}<span class="required">*</span></label>
                     <div class="col-sm-2">
                         <select id="surveyedBy" name="surveyedBy" ng-model="formData.surveyedBy" class="form-control"
                                 ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
-                                value="{{loanOfficer.id}}" required late-validate="" ng-change="checkSurveyedBy()">
+                                value="{{loanOfficer.id}}" ng-required="isSurveyForOthers" late-validate="" ng-change="checkSurveyedBy()">
                             <option value="">{{'label.selectloanofficer' | translate}}</option>
                         </select>
                         <form-validate valattributeform="takesurveyform" valattribute="surveyedBy"/>

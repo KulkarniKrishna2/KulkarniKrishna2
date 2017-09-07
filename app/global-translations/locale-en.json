@@ -4807,6 +4807,7 @@
     "label.anchor.survey":"Survey",
     "label.surveyName":"Survey Name",
     "label.selectsurvey":"Select Survey",
+    "label.input.is.survey.on.behalf.of.others":"Surveyed on behalf of someone else",
 
     "label.heading.isDormancyTrackingActive": "Is Dormancy Tracking Active",
     "label.input.isDormancyTrackingActive": "Enable Dormancy Tracking",
