@@ -78,12 +78,14 @@
             }
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                 var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
+                scope.isJournalEntry = data.columnHeaders.findIndex(x=>x.columnName == 'journal_entry_id') >= 0 ? true : false;
+                if(scope.isJournalEntry){
+                       reqparams.command = 'f_journal_entry';
+                }else{
+                     scope.isCenter = data.columnHeaders.findIndex(x => x.columnName == 'center_id') >= 0 ? true : false;
+                }
                 for (var i in data.columnHeaders) {
                     var colName = data.columnHeaders[i].columnName;
-                    if( colName == 'journal_entry_id'){
-                        reqparams.command = 'f_journal_entry';
-                        scope.isJournalEntry = true;
-                    }
                     if( colName == 'id' ){
                         data.columnHeaders.splice(i, 1);
                         colName = data.columnHeaders[i].columnName;
@@ -242,7 +244,6 @@
                     }
                     if(idList.indexOf(colName) >= 0 ){
                         scope.columnHeaders.splice(i, 1);
-                        scope.isCenter = colName == 'center_id' ? true : false;
                     }
                 }
                 scope.getDependencyColumns(true);

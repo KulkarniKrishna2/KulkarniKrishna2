@@ -146,9 +146,9 @@
 					<div class="col-sm-1">
                     	<a ng-click="addColumn()"><i class="icon-plus icon-white"></i></a>
 					</div>
-					<span ng-show="editdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
+					<span ng-show="editdatatableform.columnname.$invalid || validateNewColumn()">
 						<small class="error"
-							   ng-show="editdatatableform.columnname.$error.req || columnnameerror || columntypeerror">
+							   ng-show="editdatatableform.columnname.$error.req || validateNewColumn()">
 							{{ 'label.'+labelerror | translate }}
 						</small>
 					</span>
@@ -262,7 +262,7 @@
                                     <div class="form-group" ng-show="column.type == 'dropdown'">
                                         <label class="control-label col-sm-2">{{ 'label.input.associatewith' | translate }}</label>
                                         <div class="col-sm-3">
-                                            <select ng-show="column.type == 'dropdown'" ng-model="column.dependsOn"
+                                            <select ng-model="column.dependsOn"
                                                     ng-options="column.name as column.name for column in columns" value="{{column.name}}"
                                                     class="input-sm form-control">
                                                 <option value="">{{'label.selectone' | translate}}</option>
@@ -275,10 +275,10 @@
                                             <input id="visible" type="checkbox" ng-model="column.visible"/>
                                         </div>
                                     </div>
-                                    <div class="form-group" ng-show="column.type == 'dropdown'">
+                                    <div class="form-group" ng-show="column.type == 'dropdown'"> 
                                         <label class="control-label col-sm-2">{{ 'label.input.showwhen' | translate }}</label>
                                         <div class="col-sm-3">
-                                            <select ng-show="column.type == 'dropdown'" ng-model="column.when" ng-options="column.name as column.name for column in columns" value="{{column.name}}"
+                                             <select  ng-model="column.when" ng-options="column.name as column.name for column in columns" value="{{column.name}}"
                                                     class="input-sm form-control" data-ng-change="getDependentCodeValues(column, $index)">
                                                 <option value="">{{'label.selectone' | translate}}</option>
                                             </select>
@@ -286,7 +286,7 @@
                                         <label class="control-label col-sm-2">{{ 'label.input.hasvalue' | translate }}<span
                                                 ng-show="columnArray[$index].hasValueMandatory" class="required">*</span></label>
                                         <div class="col-sm-3">
-                                            <select ng-show="column.type == 'dropdown'" ng-model="column.value" name="hasValue"
+                                            <select ng-model="column.value" name="hasValue"
                                                     ng-options="codeValue.name as codeValue.name for codeValue in codeValues[$index]" value="{{codeValue.name}}"
                                                     class="input-sm form-control" ng-required="columnArray[$index].hasValueMandatory">
                                                 <option value="">{{'label.selectone' | translate}}</option>

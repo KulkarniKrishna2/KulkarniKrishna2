@@ -300,7 +300,7 @@
                     });
                 }
 
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : true}, function (data) {
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : false}, function (data) {
                     scope.loandatatables = data;
                 });
                
