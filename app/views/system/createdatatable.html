@@ -8,6 +8,9 @@
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{ 'label.heading.createdatatable' | translate }}</legend>
+	        <div class="form-horizontal error" ng-if="isEmptyDatatable || columnNotMappedToSectionError">
+                        {{ 'error.msg.columns.'+labelColumnError | translate }}
+            </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="datatableName">{{ 'label.input.datatablename' | translate }}<span
 	                    class="required">*</span></label>
@@ -155,9 +158,9 @@
 					</div>
 	                <div class="col-sm-3">
 	                    <a ng-click="addColumn()"><i class="icon-plus icon-white"></i></a>
-	                    <span ng-show="createdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
+	                    <span ng-show="createdatatableform.columnname.$invalid || validateNewColumn()">
 	                    <small class="error"
-	                           ng-show="createdatatableform.columnname.$error.req || columnnameerror || columntypeerror || rc.createdatatableform.attempted">
+	                           ng-show="createdatatableform.columnname.$error.req || validateNewColumn() || rc.createdatatableform.attempted">
 	                        {{ 'label.'+labelerror | translate }}
 	                    </small>
 	                    </span>

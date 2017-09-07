@@ -25,6 +25,7 @@
             scope.changeSections = [];
             scope.originalSections = [];
             scope.columnNotMappedToSectionError = false;
+            scope.isDuplicateColumnName = false;
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -278,9 +279,10 @@
             }
 
             scope.addColumn = function () {
-                if (scope.datatableTemplate.columnName && scope.datatableTemplate.columnType) {
+                if (scope.datatableTemplate.columnName && scope.datatableTemplate.columnType && (scope.columns.findIndex(x => x.name.toLowerCase() == scope.datatableTemplate.columnName.toLowerCase()) < 0)) {
                     scope.columnnameerror = false;
                     scope.columntypeerror = false;
+                    scope.isDuplicateColumnName = false;
                     var column = {
                         name: scope.datatableTemplate.columnName,
                         type: scope.datatableTemplate.columnType,
@@ -295,9 +297,13 @@
                 } else if (!scope.datatableTemplate.columnName) {
                     scope.columnnameerror = true;
                     scope.labelerror = "columnnameerr";
-                } else if (scope.datatableTemplate.columnName) {
+                } else if (!scope.datatableTemplate.columnType) {
                     scope.columntypeerror = true;
                     scope.labelerror = "columntypeerr";
+                }else{
+                    scope.errorDetails = [];
+                    scope.isDuplicateColumnName = true;
+                    scope.labelerror = "duplicatte.column.name.error";
                 }
             };
 
@@ -350,6 +356,10 @@
             			scope.columns[i].sectionName = scope.sectionList[0];
             		}
             	}
+            };
+
+            scope.validateNewColumn = function(){
+                return scope.columnnameerror || scope.columntypeerror || scope.isDuplicateColumnName;
             };
 
             scope.submit = function () {

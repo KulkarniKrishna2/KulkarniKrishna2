@@ -6417,5 +6417,10 @@
     "error.msg.loan.transaction.tranche.disbursement.date.must.be.unique" : "Tranche  disburse date must be unique.",
     "error.msg.unable.to.disburse.loan.as.all.bank.transactions.are.not.in.success.or.rejected.or.closed.status" : "One or more Bank Transaction/s is/are active.To disburse loan, all bank transactions must be in Success, Closed or Rejected status.",
     "error.msg.Audit.date.before.disbursement.date":"audit date should not be before the disbursement date",
+    "error.msg.center.associating.group.not.allowed.with.meeting.attached.to.group" : "Group with meeting cannot be added to Center",
+    "error.msg.columns.not.found" : "Columns not found. To continue, add columns to datatable.",
+    "validation.msg.datatable.name.duplicate.column.name" : "To continue, remove duplicate columns.",
+    "label.duplicatte.column.name.error" : "Duplicate column name!",
+
     "------ end of tensalation file":"---------"
 }
