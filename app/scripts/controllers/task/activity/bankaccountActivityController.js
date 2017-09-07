@@ -5,8 +5,29 @@
             scope.bankAccountData ={};
 
             function initTask() {
-                scope.entityType = "clients";
-                scope.entityId = scope.taskconfig['clientId'];
+                if (scope.taskconfig.hasOwnProperty('entityType')) {
+                    scope.entityType = scope.taskconfig['entityType'];
+                    switch (scope.entityType) {
+                        case "clients":
+                            scope.entityId = scope.taskconfig['clientId'];
+                        break;
+                        case "offices":
+                            scope.entityId = scope.taskconfig['officeId'];
+                        break;
+                        case "loans":
+                            scope.entityId = scope.taskconfig['loanId'];
+                        break;
+                        case "savings":
+                            scope.entityId = scope.taskconfig['savingsId'];
+                        break;
+                        case "paymentTypes":
+                            scope.entityId = scope.taskconfig['paymentTypeId'];
+                        break;
+                    }
+                } else {
+                    scope.entityType = "clients";
+                    scope.entityId = scope.taskconfig['clientId'];
+                }
                 var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
                     entityId:scope.entityId}};
                 if(scope.commonConfig === undefined){
