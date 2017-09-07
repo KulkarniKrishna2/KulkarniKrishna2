@@ -217,14 +217,14 @@
                                    class="icon-stop {{loandetails.status.code | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
                       </span>
 
-                    <span class="pull-right">
-						<button class="btn btn-warning" ng-if="!loandetails.isLocked" has-permission="LOCK_LOAN" ng-click="lockOrUnLockLoan()">
-							<i class="icon-unlock"></i>
-	                	</button>
-						<button class="btn btn-warning" ng-if="loandetails.isLocked" has-permission="UNLOCK_LOAN" ng-click="lockOrUnLockLoan()">
-	                    	<i class="icon-lock"></i>
-						</button>
-					</span>
+                    <span class="pull-right" ng-if="loandetails.status.active">
+          						<button class="btn btn-warning" ng-if="!loandetails.isLocked" has-permission="LOCK_LOAN" ng-click="lockOrUnLockLoan()">
+          							<i class="icon-unlock"></i>
+          	                	</button>
+          						<button class="btn btn-warning" ng-if="loandetails.isLocked" has-permission="UNLOCK_LOAN" ng-click="lockOrUnLockLoan()">
+          	                    	<i class="icon-lock"></i>
+          						</button>
+          					</span>
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
