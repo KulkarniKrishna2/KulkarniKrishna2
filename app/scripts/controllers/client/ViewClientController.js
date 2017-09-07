@@ -317,6 +317,7 @@
                 }
                 $rootScope.clientname=data.displayName;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
+                scope.isActiveClient = scope.client.status.value == 'Active';
                 scope.staffData.staffId = data.staffId;
                 if(scope.client.dateOfBirth != undefined && scope.client.dateOfBirth != null){
                     calculateClientAge(scope.client.dateOfBirth);
