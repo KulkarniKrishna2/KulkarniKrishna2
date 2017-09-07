@@ -284,8 +284,8 @@
                     }),
                     LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId: '@loanId', documentId: '@documentId'}, {
                         getLoanDocuments: {method: 'GET', params: {}, isArray: true}
-                    }),                    
-                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:reportIdentifier", {entityType: '@entityType', entityId: '@entityId', reportIdentifier: '@reportIdentifier'}, {
+                    }),
+                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:identifier", {entityType: '@entityType', entityId: '@entityId', identifier: '@identifier'}, {
                         generate: {method: 'POST', params: {command:"generate"}},
                         reGenerate: {method: 'POST', params: {command:"regenerate"}}
                     }),
