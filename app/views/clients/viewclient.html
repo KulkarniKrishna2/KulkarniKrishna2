@@ -807,11 +807,13 @@
 		</tab>
 		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
 		     has-permission='READ_CLIENTIDENTIFIER'>
-		    <div class="pull-right btn-group">
-		        <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
-		           has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>{{
-		            'label.button.add' | translate }}</a>
-		    </div>
+			<div><api-validate></api-validate></div>
+			<div class="pull-right btn-group">
+				<a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
+				   has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>{{
+					'label.button.add' | translate }}</a>
+			</div>
+
 		    <br>
 		    <table class="table" ng-show="identitydocuments.length > 0">
 		        <thead>
@@ -855,7 +857,6 @@
 		        </tbody>
 		    </table>
 		</tab>
-
 		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress" select="fetchEntityAddress()">
 				<div class="pull-right">
 					<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary"
@@ -956,14 +957,13 @@
 					</div>
 				</script>
 			</tab>
-
 		<tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
-		    <div class="pull-right">
+			<div><api-validate></api-validate></div>
+			<div class="pull-right">
 		        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
 		                class="icon-plus icon-white"></i>
 		            {{'label.button.upload' | translate}}</a>
 		    </div>
-		    <br>
 		    <div ng-repeat="(key, value) in clientdocuments">
 		    	<h3>{{key | translate}}</h3>
 		    	<table class="table" ng-show="value.length > 0">
@@ -1067,7 +1067,7 @@
 				<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
 			</div>
 			<div class="modal-body ">
-
+				<api-validate></api-validate>
 				<br>
 				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
 				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
