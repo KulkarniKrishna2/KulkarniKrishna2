@@ -5,6 +5,9 @@
             scope.datatabledetails = "";
             scope.status = 'VIEW';
             scope.sectionedColumnHeaders = [];
+            scope.isMultirow = false;
+            scope.isViewMultiRowTable = false;
+            scope.resourceId = "";
 
             scope.getDetails = function () {
                 resourceFactory.DataTablesResource.getTableDetails({
@@ -298,7 +301,7 @@
                 });
             };
 
-            scope.editData = function () {
+            scope.initializeEditParameters = function(){
                 scope.status = 'EDIT';
                 scope.formDat = {};
                 scope.columnHeaders = [];
@@ -311,7 +314,15 @@
                 scope.office = false;
                 scope.savingsaccount = false;
                 scope.loanproduct = false;
+            };
+
+            scope.editData = function () {
+                scope.initializeEditParameters();
                 var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
+                scope.processData(reqparams);
+            };
+
+            scope.processData = function(reqparams){
                 resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                     for (var i in data.columnHeaders) {
                         if (data.columnHeaders[i].columnCode) {
@@ -478,6 +489,9 @@
                     }
                 }
                 var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
+                if(scope.isMultirow){
+                    reqparams.resourceId = scope.resourceId;
+                }
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
                     scope.getDetails();
                     scope.activityEdit();
@@ -502,6 +516,25 @@
                     surveyCompleted=false;
                 }
                 return surveyCompleted;
+            };
+
+             scope.viewMultiRowDataTable = function(resourceId){
+                 scope.isViewMultiRowTable = true;
+                 scope.status  = "VIEW";
+                 scope.resourceId = resourceId;
+                 scope.processMultiRowDataTable();
+             };
+
+             scope.editMultiRowDataTable = function(){
+                 scope.initializeEditParameters();
+                 scope.isViewMultiRowTable = false;
+                 scope.isMultirow = true;
+                 scope.processMultiRowDataTable();
+             };
+
+            scope.processMultiRowDataTable = function(){
+                var reqParameters = {datatablename: scope.tableName, entityId: scope.entityId, resourceId: scope.resourceId, genericResultSet: 'true'};
+                scope.processData(reqParameters);
             };
         }
     });
