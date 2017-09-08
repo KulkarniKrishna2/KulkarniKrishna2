@@ -6421,6 +6421,7 @@
     "error.msg.columns.not.found" : "Columns not found. To continue, add columns to datatable.",
     "validation.msg.datatable.name.duplicate.column.name" : "To continue, remove duplicate columns.",
     "label.duplicatte.column.name.error" : "Duplicate column name!",
+    "error.msg.attempting.multiple.update" : " Multiple updates not allowed.",
 
     "------ end of tensalation file":"---------"
 }
