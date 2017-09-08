@@ -109,7 +109,7 @@
                         scope.clientName = data.clientName;
                     }
                     if (data.group) {
-                        scope.groupName = data.group.name;
+                        scope.loanGroupName = data.group.name;
                     }
                 });
             };
