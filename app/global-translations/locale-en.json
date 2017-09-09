@@ -6421,7 +6421,8 @@
     "error.msg.entityType.family.details.is.locked" : "Family details is locked",
     "error.msg.entityType.client.identifier.is.locked" : "Client identifier is locked",
     "error.msg.entityType.client.income.expense.is.locked" : "Client income expense is locked",
-    "error.msg.entityType.existing.loan.is.locked" : "Existing loan",
+    "error.msg.entityType.bank.account.details.is.locked" : "Bank account details is locked",
+    "error.msg.entityType.existing.loan.is.locked" : "Existing loan is locked",
 
     "error.msg.loan.transaction.tranche.disbursement.date.must.be.unique" : "Tranche  disburse date must be unique.",
     "error.msg.unable.to.disburse.loan.as.all.bank.transactions.are.not.in.success.or.rejected.or.closed.status" : "One or more Bank Transaction/s is/are active.To disburse loan, all bank transactions must be in Success, Closed or Rejected status.",
