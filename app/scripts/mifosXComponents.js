@@ -477,6 +477,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/takepictureActivityController',
             'task/activity/viewbankaccountActivityController',
             'task/activity/villageActivationActivityController',
+            'task/activity/districtActivationActivityController',
+            'task/activity/groupActivationActivityController',
+            'task/activity/officeActivationActivityController',
+            'task/activity/villageRejectionActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'dashboard/WorkFlowStepDashboardController',
@@ -527,6 +531,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'pdc/ManagePDCController',
             'pdc/ActionOnPDCController',
             'task/showcase/VillageOnboardingWorkflowController',
+            'task/showcase/OfficeOnboardingWorkflowController',
+            'task/showcase/DistrictOnboardingWorkflowController',
             'districts/DistrictController'
         ],
         filters: [

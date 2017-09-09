@@ -67,6 +67,12 @@
                 }
                 scope.treedata = root;
             });
+
+            scope.initiateWorkflow = function (officeId) {
+                resourceFactory.officeResource.save({officeId: officeId, command: 'initiateWorkflow'},{}, function (data) {
+                     location.path('/officeworkflow/'+data.resourceId+'/workflow');
+                });
+            };
         }
     });
     mifosX.ng.application.controller('OfficesController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.OfficesController]).run(function ($log) {

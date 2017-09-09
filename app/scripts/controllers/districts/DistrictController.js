@@ -46,6 +46,11 @@
                     scope.onFilter();
                 });
             };
+            scope.initiateWorkflow = function (districtId) {
+                resourceFactory.districtsResource.save({districtId: districtId, command: 'initiateWorkflow'},{}, function (data) {
+                     location.path('/districtworkflow/'+data.resourceId+'/workflow');
+                });
+            };
         }
     });
     mifosX.ng.application.controller('DistrictController', ['$scope', 'ResourceFactory', mifosX.controllers.DistrictController]).run(function ($log) {

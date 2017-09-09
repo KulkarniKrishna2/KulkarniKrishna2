@@ -56,6 +56,7 @@
                 <td>
                     <a ng-show="district.isWorkflowEnabled && district.workflowId" href="#/districtworkflow/{{district.districtId}}/workflow"
                        class="btn btn-primary"><i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
+                    <input ng-hide="district.isWorkflowEnabled && district.workflowId" ng-if="district.status.id==100" class="btn-primary" id="initiateWorkflow" data-ng-click="initiateWorkflow(district.districtId)" type="submit" name="viewjournals" value="{{'label.button.initiateworkflow' | translate}}" />
                 </td>
             </tr>
             </tbody>
