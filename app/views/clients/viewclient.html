@@ -70,11 +70,13 @@
 	</div>
 	<script type="text/ng-template" id="viewDocument.html">
 	    	 <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
-            	<view-document-directive  ng-entity-type="client_identifiers" 
+            	<view-document-directive  ng-entity-type="{{data.parentEntityType}}"
             	ng-entity-id="{{data.parentEntityId}}"
             	ng-document-id="{{data.id}}"></view-document-directive>
         	</div>
 	</script>
+
+
 	<script type="text/ng-template" id="deleteClient.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -835,7 +837,7 @@
 		                  <span ng-repeat="file in document.documents">
 		                    {{file.fileName}}&nbsp;&nbsp;
 		                    <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
-		                           " class="icon-eye-open text-success"></i></a>
+		                            class="icon-eye-open text-success"></i></a>
 		                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
 		                            class="icon-cloud-download"></i></a>
 		                  </span>
@@ -979,7 +981,13 @@
 			        <tr ng-repeat="clientdocument in value">
 			            <td>{{clientdocument.name}}</td>
 			            <td>{{clientdocument.description}}</td>
-			            <td>{{clientdocument.fileName}}</td>
+			            <td>
+			            	<span>
+			            		{{clientdocument.fileName}}&nbsp;
+			            		<a target="_blank" data-ng-click="openViewDocument(clientdocument)"><i
+		                           class="icon-eye-open text-success"></i></a>
+			            	</span>
+			            </td>
 			            <td>
 			                <a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
 			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
