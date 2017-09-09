@@ -1,0 +1,29 @@
+<div ng-controller="officeActivationActivityController">
+    <div class="col-md-12 col-sm-12">
+        <form novalidate="" class="form-horizontal" ng-submit="submit()">
+            <table class="table-bordered table view-table" style="width: 350px">
+                <tr>
+                    <td>{{ 'label.heading.parentoffice' | translate }}</td>
+                    <td>{{office.parentName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.openedon' | translate }}</td>
+                    <td>{{office.openingDate | DateFormat}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.namedecorated' | translate }}</td>
+                    <td>{{office.nameDecorated | DotRemove}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.office.code' | translate }}</td>
+                    <td>{{office.officeCodeId}}</td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.activate' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1470,6 +1470,12 @@
             .when('/villageworkflow/:villageId/workflow', {
                 templateUrl: 'views/task/showcase/villageonboardingworkflow.html'
             })
+            .when('/officeworkflow/:officeId/workflow', {
+                templateUrl: 'views/task/showcase/officeonboardingworkflow.html'
+            })
+            .when('/districtworkflow/:districtId/workflow', {
+                templateUrl: 'views/task/showcase/districtonboardingworkflow.html'
+            })
             .when('/admin/editrole/:id', {
                 templateUrl: 'views/administration/editrole.html'
             })

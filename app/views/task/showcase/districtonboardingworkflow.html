@@ -1,0 +1,22 @@
+<div name="districtworkflowform" ng-controller="DistrictOnboardingWorkflowController">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li ng-show="districtData"><strong>'{{districtData.districtName}}'</strong>
+                </li>
+                <li class="active">{{'label.heading.workflow' | translate}}</li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="row well">
+                <div class="row">
+                    <span class="col-md-2">{{'label.input.districtname'| translate}}</span>
+                    <span class="col-md-4">{{districtData.districtName}}</span>
+                    <span class="col-md-2"> {{'label.input.code' | translate}} </span>
+                    <span class="col-md-3">{{districtData.isoDistrictCode}}</span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
+    </div>
+</div>

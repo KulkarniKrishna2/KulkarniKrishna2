@@ -1248,6 +1248,13 @@
                         get:{method: 'GET', params: {},isArray:true}
                     }),
                     districtsResource:defineResource(apiVer+"/districts/:districtId",{districtId: '@districtId'},{
+
+                    }),
+                    districtsVillageResource:defineResource(apiVer+"/districts/:districtId/villages",{districtId: '@districtId'},{
+                        
+                    }),
+                    bulkVillageResource:defineResource(apiVer+"/villages/bulk",{},{
+                        reject:{method:'POST',params:{command:'reject'}}
                     })
                 };
             }];
