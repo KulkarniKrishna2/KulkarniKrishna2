@@ -301,7 +301,7 @@
                 }
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : true}, function (data) {
-                    scope.loandatatables = data;
+                    scope.datatables = data;
                 });
                
                 if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){

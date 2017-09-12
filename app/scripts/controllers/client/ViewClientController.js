@@ -464,7 +464,7 @@
                 }
                 var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : true};
                 resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
-                    scope.clientdatatables = data;
+                    scope.datatables = data;
                 });
 
                 resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {

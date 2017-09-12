@@ -152,7 +152,7 @@
             }
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'f_journal_entry', isFetchBasicData : true}, function (data) {
-                scope.journalentrydatatables = data;
+                scope.datatables = data;
             });
 
             scope.viewDataTable = function (registeredTableName,data){
@@ -182,7 +182,6 @@
                     scope.sections = [];
                     for (var i in data.columnHeaders) {
                         if(data.isData && scope.datatabledetails.columnHeaders[i].columnName == 'journal_entry_id'){
-                            data.columnHeaders.splice(i, 1);
                             scope.removeJournalEntryColumnData(data, data.isMultirow);
                         
                         }
