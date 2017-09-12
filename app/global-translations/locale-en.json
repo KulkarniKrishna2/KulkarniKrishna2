@@ -6421,6 +6421,9 @@
     "error.msg.columns.not.found" : "Columns not found. To continue, add columns to datatable.",
     "validation.msg.datatable.name.duplicate.column.name" : "To continue, remove duplicate columns.",
     "label.duplicatte.column.name.error" : "Duplicate column name!",
+    "error.msg.subsidy.for.loan.not.applied" : "Subsidy is not applied for the loan.",
+    "validation.msg.loan.transaction.subsidyRevokeDate.is.greater.than.date" : "Subsidy revoke date cannot be greater than current date.",
+    "validation.msg.loan.transaction.subsidyReleaseDate.is.greater.than.date" : "Subsidy release date cannot be greater than current date.",
 
     "------ end of tensalation file":"---------"
 }
