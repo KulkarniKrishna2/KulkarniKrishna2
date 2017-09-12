@@ -24,12 +24,14 @@
             scope.isEmptyDatatable = false;
             scope.isDuplicateColumnName = false;
             scope.labelColumnError = "";
+            scope.scopeOptionsAvailable = {};
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
             });
 
             resourceFactory.DataTablesTemplateResource.get({}, function (data) {
+                angular.copy(data, scope.scopeOptionsAvailable);
                 scope.scopeOptions = data;
             });
 
@@ -123,7 +125,12 @@
                 scope.available = [];
                 scope.selected = [];
                 var restrictScopeEnabled = true;
-                scope.changeEntity(restrictScopeEnabled, '');
+                angular.copy(scope.scopeOptionsAvailable,scope.scopeOptions);
+                var scopeType = '';
+                if(scope.formData.apptableName == 'm_client'){
+                    scopeType = 'Client Legal Form';
+                }
+                scope.changeEntity(restrictScopeEnabled, scopeType);
             }
 
             scope.changeEntity = function (restrictScopeEnabled, clientScopeType) {
@@ -133,12 +140,26 @@
                     var key = i;
                     if (entityName[1] == key && restrictScopeEnabled) {
                         var valueObject = scope.scopeOptions[i];
+                         if (valueObject.length > 1 && scope.selected != undefined && scope.selected != '') {
+                            for (var k in scope.selected) {
+                                var temp = {};
+                                temp.id = this.selected[k].id;
+                                temp.name = this.selected[k].name;
+                                for (var n in valueObject) {
+                                    if (scope.formData.clientscopetype != undefined && valueObject[n].name == scope.formData.clientscopetype) {
+                                        scope.scopeOptions[valueObject[n].allowedValueOptions.push(temp)];
+                                    }
+                                }
+
+                            }
+                        }
                         for (var j in valueObject) {
                             if (clientScopeType != '' && clientScopeType == valueObject[j].name) {
                                 scope.available = [];
                                 scope.selected = [];
                                 scope.available = valueObject[j].allowedValueOptions;
                                 scope.id = valueObject[j].id;
+                                scope.formData.clientscopetype = valueObject[j].name;
                                 break;
                             } else {
                                 scope.available = valueObject[j].allowedValueOptions;
