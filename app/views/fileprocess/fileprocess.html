@@ -1,0 +1,28 @@
+<div class="row" ng-controller="FileProcessController">
+    <div>
+
+    </div>
+    <form name="fileProcess" novalidate="" class="form-horizontal well" ng-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="file" id="file" ng-file-select="onFileSelect($files)">
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewclient/{{clientId}}">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" ng-disabled="!fileProcess.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
