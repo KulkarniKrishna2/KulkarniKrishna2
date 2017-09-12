@@ -162,12 +162,12 @@
                                min="minDate" max="'2020-06-22'" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" ng-show="showFrequencyOptions">
+
+                <div class="form-group" ng-show="showOverdueOptions">
                 	<label class="control-label col-sm-2">{{ 'label.input.addfeefrequency' | translate }}&nbsp;</label>
 					<div class="col-sm-3">
                         <label class="checkbox">
-							<input id="addfeefrequency" type="checkbox" ng-model="addfeefrequency" ng-true-value="true"
-                                   ng-false-value="false">
+							<input id="addfeefrequency" type="checkbox" ng-model="addfeefrequency"  ng-change="percentageTypeOptionDisplay()">
 						</label>
 					</div>
                 </div>
@@ -178,8 +178,8 @@
 
                     <div class="col-sm-3">
                         <select id="feeFrequency" name="feeFrequency" ng-model="formData.feeFrequency"
-	                            ng-options="frequency.id as frequency.value for frequency in template.feeFrequencyOptions"
-	                            value="{{frequency.id}}" class="form-control">
+	                            ng-options="frequency.id as frequency.value for frequency in template.loanFeeFrequencyOptions"
+	                            value="{{frequency.id}}" class="form-control" ng-change="onfeefrequencychange()">
 	                        <option value="">{{'label.selectone' | translate}}</option>
 	                    </select>
                     </div>
@@ -187,7 +187,7 @@
                     	<form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>       
                     </div>
                 </div>
-                <div class="form-group" ng-show="addfeefrequency">
+                <div class="form-group" ng-if="showfeefrequencyinterval">
                     <label class="control-label col-sm-2" for="feeInterval">{{'label.input.frequencyInterval' | translate}}<span
                             class="required">*</span></label>
 
@@ -221,6 +221,124 @@
                     </div>
                     <span class="error" ng-show="issubmitted && createchargeform.amount.$error.required">{{'label.error.required'|translate}}</span>
                 </div>
+                <div class="form-group" ng-show="showPercentageTyeOptions">
+                    <label class="control-label col-sm-2" for="percentageType">{{'label.input.chargepercentagetype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="percentageType" name="graceType" ng-model="formData.percentageType"
+                                ng-options="option.id as option.value for option in template.percentageTypeOptions"
+                                value="{{option.id}}" class="form-control" ng-change="onPercentageTypeSelect()">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="percentageType"/>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showPercentagePeriodType">
+                    <label class="control-label col-sm-2" for="percentagePeriodType">{{'label.input.chargepercentageperiodtype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="percentagePeriodType" name="graceType" ng-model="formData.percentagePeriodType"
+                                ng-options="option.id as option.value for option in template.percentagePeriodTypeOptions"
+                                value="{{option.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="percentagePeriodType"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="gracePeriod">{{'label.input.graceperiod' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input class="input-sm form-control" id="gracePeriod" name="gracePeriod" type="text"
+                               ng-model="formData.overdueChargeDetail.gracePeriod" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="gracePeriod"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="penaltyFreePeriod">{{'label.input.penaltyfreeperiod' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input class="input-sm form-control" id="penaltyFreePeriod" name="penaltyFreePeriod" type="text"
+                               ng-model="formData.overdueChargeDetail.penaltyFreePeriod" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="penaltyFreePeriod"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="graceType">{{'label.input.penaltygracetype' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="graceType" name="graceType" ng-model="formData.overdueChargeDetail.graceType"
+                                ng-options="option.id as option.value for option in template.penaltyGraceTypeOptions"
+                                value="{{option.id}}" class="form-control" required>
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="graceType"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="amount">{{'label.input.minoverdueamountrequired' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="minOverdueAmountRequired" name="minOverdueAmountRequired" type="text" ng-model="formData.overdueChargeDetail.minOverdueAmountRequired" class="form-control" number-format />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="calculateChargeOnCurrentOverdue">{{'label.input.calculatepenaltyoncurrentoverdue' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="calculateChargeOnCurrentOverdue" type="checkbox" ng-model="formData.overdueChargeDetail.calculateChargeOnCurrentOverdue" ng-disabled="formData.overdueChargeDetail.applyChargeForBrokenPeriod === true">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="applyChargeForBrokenPeriod">{{'label.input.applypenaltyforbrokenperiod' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="applyChargeForBrokenPeriod" type="checkbox" ng-model="formData.overdueChargeDetail.applyChargeForBrokenPeriod"  ng-disabled="formData.overdueChargeDetail.calculateChargeOnCurrentOverdue === true">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="isBasedOnOriginalSchedule">{{'label.input.ispenaltybasedonoriginalschedule' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="isBasedOnOriginalSchedule" type="checkbox" ng-model="formData.overdueChargeDetail.isBasedOnOriginalSchedule"  >
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="showOverdueOptions">
+                    <label class="control-label col-sm-2" for="considerOnlyPostedInterest">{{'label.input.consideronlypostedinterestforpenalties' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="considerOnlyPostedInterest" type="checkbox" ng-model="formData.overdueChargeDetail.considerOnlyPostedInterest">
+                        </label>
+                    </div>
+                </div>
+
+
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
 
