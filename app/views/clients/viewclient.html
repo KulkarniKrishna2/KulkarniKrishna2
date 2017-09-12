@@ -359,7 +359,7 @@
 										<th>{{'label.heading.type' | translate}}</th>
 										<th>{{'label.heading.actions' | translate}}</th>
 									</tr>
-									<tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'id':true| filter:isLoanAppIncompleted">
+									<tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'loanApplicationReferenceId':true| filter:isLoanAppIncompleted">
 										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">
 											<i tooltip-placement="right" tooltip="{{loanApp.status.value}}"
 											   class="icon-stop {{loanApp.status.code | StatusLookup}}"></i>
