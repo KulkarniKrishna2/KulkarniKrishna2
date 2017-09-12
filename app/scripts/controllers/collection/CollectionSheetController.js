@@ -380,7 +380,11 @@
                         };
                         scope.totalDueCollection.push(gp);
                     } else {
-                        existing.withdrawAmount = Math.ceil((Number(existing.withdrawAmount) + Number(withdrawAmount)) * 100) / 100;
+                        var existingWithdrawAmount =existing.withdrawAmount;
+                        if (isNaN(existingWithdrawAmount)) {
+                            existingWithdrawAmount = 0;
+                        }
+                        existing.withdrawAmount = Math.ceil((Number(existingWithdrawAmount) + Number(withdrawAmount)) * 100) / 100;
                     }
                 });
             };
