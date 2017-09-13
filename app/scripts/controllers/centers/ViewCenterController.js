@@ -132,7 +132,7 @@
             }
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center', isFetchBasicData: true}, function (data) {
-                scope.centerdatatables = data;
+                scope.datatables = data;
             });
             scope.viewDataTable = function (registeredTableName,data){
                 if (scope.datatabledetails.isMultirow) {

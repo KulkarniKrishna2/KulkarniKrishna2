@@ -10,7 +10,7 @@
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_office'}, function (data) {
-                scope.officedatatables = data;
+                scope.datatables = data;
             });
             scope.dataTableChange = function (officedatatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: officedatatable.registeredTableName,

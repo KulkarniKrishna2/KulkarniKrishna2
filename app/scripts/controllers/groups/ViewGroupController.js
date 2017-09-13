@@ -173,7 +173,7 @@
             };
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_group', isFetchBasicData: true}, function (data) {
-                scope.groupdatatables = data;
+                scope.datatables = data;
             });
 
             scope.dataTableChange = function (datatable) {

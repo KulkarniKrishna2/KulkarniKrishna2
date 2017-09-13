@@ -555,58 +555,28 @@
                     </div>
                 </div>
             </tab>
-			<tab heading="{{centerdatatable.registeredTableDisplayName == null ? centerdatatable.registeredTableName : centerdatatable.registeredTableDisplayName}}" ng-repeat="centerdatatable in centerdatatables" has-permission='READ_{{centerdatatable.registeredTableName}}'
-		     select="dataTableChange(centerdatatable)">
+			<tab heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables" has-permission='READ_{{datatable.registeredTableName}}'
+		     select="dataTableChange(datatable)">
 		    <div data-ng-hide="isClosedCenter" class="btn-group pull-right">
 		        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
-		           ng-click="deleteAll(centerdatatable.registeredTableName, center.id)"
-		           has-permission='DELETE_{{centerdatatable.registeredTableName}}'><i class="icon-trash icon-white"></i>{{'label.button.deleteall'
+		           ng-click="deleteAll(datatable.registeredTableName, center.id)"
+		           has-permission='DELETE_{{datatable.registeredTableName}}'><i class="icon-trash icon-white"></i>{{'label.button.deleteall'
 		            | translate}}</a>
 		        <a data-ng-show="showDataTableAddButton"
-		           ng-href="#/makedatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}?fromEntity=center"
+		           ng-href="#/makedatatableentry/{{datatable.registeredTableName}}/{{center.id}}?fromEntity=center"
 		           class="btn btn-primary" has-permission='CREATE_{{centerdatatable.registeredTableName}}'><i
 		                class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
 		        <a data-ng-show="showDataTableEditButton"
-		           ng-href="#/viewsingledatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}?mode=edit&&fromEntity=center"
-		           class="btn btn-primary" has-permission='UPDATE_{{centerdatatable.registeredTableName}}'><i
+		           ng-href="#/viewsingledatatableentry/{{datatable.registeredTableName}}/{{center.id}}?mode=edit&&fromEntity=center"
+		           class="btn btn-primary" has-permission='UPDATE_{{datatable.registeredTableName}}'><i
 		                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
 		    </div>
 		    <br>
 		    <br>
 
-		    <div data-ng-show="datatabledetails.isData">
-		        <table class="table" data-ng-show="datatabledetails.isMultirow">
-		            <thead>
-		            <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
-							<label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
-							<label ng-if="column.displayName == undefined || column.displayName == 'null'"> {{column.columnName | prettifyDataTableColumn}} </label> 
-						</th>
-		            </thead>
-		            <tbody>
-		                <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
-		                    <td ng-repeat="row in data.row track by $index" class="pointer"  ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1" ng-click="viewDataTable(centerdatatable.registeredTableName,data)">{{row.value}}</td>
-		                </tr>
-		            </tbody>
-		        </table>
-		        <div ng-show = "!isSectioned">
-		        	<table class="table table-bordered width450px" data-ng-hide="datatabledetails.isMultirow">
-		            	<tr ng-repeat="value in singleRow">
-		                	<td class="graybg table-font-nav">{{value.key | prettifyDataTableColumn}}</td>
-		                	<td><span class="padded-td">{{value.value}}</span></td>
-		            	</tr>
-		        	</table>
-		        </div>
-		        <div class="form-group" ng-repeat="section in sections | orderBy:'displayPosition'" ng-show = "isSectioned" data-ng-hide="datatabledetails.isMultirow">
-         			<h4 ng-show="section.cols.length > 0"><strong>{{section.displayName}}</strong></h4>
-        			<hr ng-show="section.cols.length > 0"/>
-        			<div class="form-group" ng-repeat="value in section.cols">
-        					{{value.key | prettifyDataTableColumn}}
-        				<span class="padded-td" ng-if="value.columnDisplayType === 'DECIMAL'">{{value.value|number}}</span>
-						<span class="padded-td" ng-if="value.columnDisplayType === 'DATE'">{{value.value|DateFormat}}</span>
-						<span class="padded-td" ng-if="value.columnDisplayType !== 'DECIMAL' && value.columnDisplayType !== 'DATE'">{{value.value}}</span>
-		            </div>
-		        </div>
-		    </div>
+				<div ng-show="datatabledetails.isData" ng-include="'views/system/view_datatable_data.html'">
+
+				</div>
 		</tab>
 		</tabset>
 
