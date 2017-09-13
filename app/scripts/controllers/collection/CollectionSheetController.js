@@ -274,6 +274,7 @@
                 scope.sumSavingsDueByCurrency();
                 scope.sumSavingWithdrawByCurrency();
                 scope.addClientChargeTotalDue();
+                scope.calculateTotalCollectionDue();
             };
 
             scope.addClientChargeTotalDue = function(){
@@ -603,6 +604,26 @@
                 });
 
             };
+
+            scope.calculateTotalCollectionDue = function(){
+                if(scope.totalDueCollection.length > 0) {
+                    for (var i in scope.totalDueCollection) {
+                        var dueAmount = scope.totalDueCollection[i].dueAmount;
+                        var clientChargeAmount = scope.totalDueCollection[i].clientChargeAmount;
+                        var withdrawAmount = scope.totalDueCollection[i].withdrawAmount;
+                        if (isNaN(dueAmount)) {
+                            dueAmount = 0;
+                        }
+                        if (isNaN(clientChargeAmount)) {
+                            clientChargeAmount = 0;
+                        }
+                        if (isNaN(withdrawAmount)) {
+                            withdrawAmount = 0;
+                        }
+                        scope.totalDueCollection[i].totalDue = Math.ceil((Number(dueAmount) + Number(clientChargeAmount) - Number(withdrawAmount)) * 100) / 100;
+                    }
+                }
+            }
 
             scope.submit = function () {
 
