@@ -9,7 +9,9 @@
             scope.repeatEvery = false;
             scope.first.date = new Date();
             scope.translate = translate;
-            scope.showFrequencyOptions = false;
+            scope.showOverdueOptions = false;
+            scope.showPercentageTyeOptions = false;
+            scope.showfeefrequencyinterval = false;
             scope.showPenalty = true ;
             scope.slabs = [];
             scope.slab = {};
@@ -89,9 +91,12 @@
             //to display 'Due date' field, if chargeTimeType is
             //'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
-                scope.showFrequencyOptions = false;
+                scope.showOverdueOptions = false;
                 if(chargeTimeType == 9){
-                    scope.showFrequencyOptions = true;
+                    scope.showOverdueOptions = true;
+                    scope.formData.overdueChargeDetail = {};
+                }else{
+                    delete  scope.formData.overdueChargeDetail;
                 }
                 if (scope.showChargePaymentByField === false) {
                     for (var i in scope.chargeTimeTypeOptions) {
@@ -119,6 +124,7 @@
                     }
                 }
                 showCapitalizedChargeCheckbox();
+                scope.percentageTypeOptionDisplay();
             };
 
             scope.chargeCalculationType = function (chargeCalculationType) {
@@ -128,6 +134,41 @@
                     scope.showSlabBasedCharges = false;
                 }
                 showCapitalizedChargeCheckbox();
+                scope.percentageTypeOptionDisplay();
+                scope.onchangeSetAsCurrentOverdue();
+            }
+
+            scope.percentageTypeOptionDisplay= function () {
+                scope.showPercentageTyeOptions = scope.showOverdueOptions && scope.formData.chargeCalculationType != 1 &&
+                    scope.formData.chargeCalculationType != 6 && scope.addfeefrequency;
+                if(!scope.showPercentageTyeOptions){
+                    scope.showPercentagePeriodType = false;
+                    delete scope.formData.percentageType;
+                    delete scope.formData.percentagePeriodType;
+                }
+            }
+
+            scope.onfeefrequencychange = function(){
+                scope.showfeefrequencyinterval = scope.addfeefrequency && scope.formData.feeFrequency != 5;
+                if(scope.formData.feeFrequency === 5){
+                    delete scope.formData.feeInterval;
+                }
+                scope.percentageTypeOptionDisplay();
+            }
+
+            scope.onPercentageTypeSelect = function(){
+                scope.showPercentagePeriodType = scope.showPercentageTyeOptions && scope.formData.percentageType && scope.formData.percentageType === 2;
+                if(!scope.showPercentagePeriodType){
+                    delete scope.formData.percentagePeriodType;
+                }
+                scope.onchangeSetAsCurrentOverdue();
+            }
+
+            scope.onchangeSetAsCurrentOverdue = function(){
+                if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
+                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
+                    scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
+                }
             }
 
             function showCapitalizedChargeCheckbox() {
@@ -214,6 +255,7 @@
 			return true;
 		};
 	    };
+            
             scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
                 //the formData

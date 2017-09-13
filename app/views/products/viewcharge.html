@@ -44,6 +44,14 @@
 	                    <td>{{'label.heading.amount' | translate}}</td>
 	                    <td>{{charge.amount|number}}</td>
 	                </tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.chargepercentagetype' | translate}}:</td>
+						<td>{{charge.percentageType.value}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.chargepercentageperiodtype' | translate}}:</td>
+						<td>{{charge.percentagePeriodType.value}}</td>
+					</tr>
 	                <tr>
 	                    <td>{{'label.heading.chargetimetype' | translate}}</td>
 	                    <td>{{charge.chargeTimeType.value}}</td>
@@ -64,27 +72,59 @@
 	                    <td>{{'label.heading.chargepaymentmode' | translate}}</td>
 	                    <td>{{charge.chargePaymentMode.value}}</td>
 	                </tr>
-	                <tr ng-show="charge.chargeTimeType.id == 9">
+	                <tr ng-if="charge.chargeTimeType.id == 9">
 	                    <td>{{'label.input.feefrequency' | translate}}:</td>
 	                    <td>{{charge.feeFrequency.value}}</td>
 	                </tr>
-	                <tr ng-show="charge.chargeTimeType.id == 9">
+	                <tr ng-if="charge.chargeTimeType.id == 9 && charge.feeFrequency.id != 5">
 	                    <td>{{'label.input.frequencyInterval' | translate}}</td>
 	                    <td>{{charge.feeInterval}}</td>
 	                </tr>
-					<tr ng-show="charge.incomeOrLiabilityAccount">
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.graceperiod' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.gracePeriod}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.penaltyfreeperiod' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.penaltyFreePeriod}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.penaltygracetype' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.graceType.value}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.applypenaltyforbrokenperiod' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.applyChargeForBrokenPeriod | YesOrNo}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.ispenaltybasedonoriginalschedule' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.isBasedOnOriginalSchedule | YesOrNo}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.consideronlypostedinterestforpenalties' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.considerOnlyPostedInterest | YesOrNo}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.calculatepenaltyoncurrentoverdue' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.calculateChargeOnCurrentOverdue | YesOrNo}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.minoverdueamountrequired' | translate}}</td>
+						<td>{{charge.chargeOverdueData.minOverdueAmountRequired | number}}</td>
+					</tr>
+					<tr ng-if="charge.incomeOrLiabilityAccount">
 						<td>{{'label.input.incomefromcharges' | translate}}</td>
 						<td>{{charge.incomeOrLiabilityAccount.name}} ({{charge.incomeOrLiabilityAccount.glCode}})</td>
 					</tr>
-                    <tr ng-show="charge.taxGroup">
+                    <tr ng-if="charge.taxGroup">
                         <td>{{'label.input.taxgroup' | translate}}</td>
                         <td>{{charge.taxGroup.name}}</td>
                     </tr>
-					<tr ng-show="charge.minCap">
+					<tr ng-if="charge.minCap">
 						<td>{{'label.input.minCap' | translate}}</td>
 						<td>{{charge.minCap}}</td>
 					</tr>
-					<tr ng-show="charge.maxCap">
+					<tr ng-if="charge.maxCap">
 						<td>{{'label.input.maxCap' | translate}}</td>
 						<td>{{charge.maxCap}}</td>
 					</tr>
@@ -92,7 +132,7 @@
 						<td>{{'label.input.applygoalseektoroundemi' | translate}}</td>
 						<td>{{charge.emiRoundingGoalSeek}}</td>
 					</tr>
-					<tr ng-show="charge.emiRoundingGoalSeek == true">
+					<tr ng-if="charge.emiRoundingGoalSeek == true">
 						<td>{{'label.input.glimchargecalculationtype' | translate}}</td>
 						<td>{{charge.glimChargeCalculation.value}}</td>
 					<tr>
