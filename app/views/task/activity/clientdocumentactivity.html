@@ -12,6 +12,13 @@
             </div>
 
             <div class="col-sm-2">
+                <select id="tagIdentifier" ng-model="formData.tagIdentifier" class="form-control"
+                        ng-options="codeValue.id as codeValue.name for codeValue in documentTagOptions" value="{{codeValue.id}}">
+                    <option value="">{{'label.selectdocumenttag' | translate}}</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2">
                 <input type="file" id="file" ng-file-select="onFileSelect($files)">
             </div>
 
@@ -27,26 +34,30 @@
     </fieldset>
     </form>
     <br>
-    <table class="table" >
-        <thead>
-        <tr class="graybg">
-            <th>{{'label.heading.name' | translate}}</th>
-            <th>{{'label.heading.description' | translate}}</th>
-            <th>{{'label.heading.filename' | translate}}</th>
-            <th>{{'label.heading.actions' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <tr ng-repeat="clientdocument in clientdocuments">
-            <td>{{clientdocument.name}}</td>
-            <td>{{clientdocument.description}}</td>
-            <td>{{clientdocument.fileName}}</td>
-            <td>
-                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                <a ng-if="!isTaskCompleted()" ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-repeat="(key, value) in clientdocuments">
+        <h3>{{key | translate}}</h3>
+        <table class="table" ng-show="value.length > 0">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.description' | translate}}</th>
+                <th>{{'label.heading.filename' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="clientdocument in value">
+                <td>{{clientdocument.name}}</td>
+                <td>{{clientdocument.description}}</td>
+                <td>{{clientdocument.fileName}}</td>
+                <td>
+                    <a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                    <a ng-if="!isTaskCompleted()" ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
+                    <a ng-show="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
+                    <a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)"><i class="icon-link"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>    
+    </div>
 </div>
