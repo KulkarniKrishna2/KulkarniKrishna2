@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditUserController: function (scope, routeParams, resourceFactory, location) {
+        EditUserController: function (scope, routeParams, resourceFactory, location, dateFilter) {
 
             scope.formData = {};
             scope.offices = [];
@@ -20,7 +20,13 @@
                 scope.formData.officeId = data.officeId;
                 scope.getOfficeStaff();
                 if(data.staff){
-                    scope.formData.staffId = data.staff.id;
+                    scope.formData.isLoanOfficer = data.staff.isLoanOfficer;
+                    scope.formData.mobileNo = data.staff.mobileNo;
+                    scope.formData.isActive = data.staff.isActive;
+                    if (data.staff.joiningDate) {
+                        var editDate = dateFilter(data.staff.joiningDate, scope.df);
+                        scope.formData.joiningDate = new Date(editDate);
+                    }
                 }
                 scope.selectedRoles=data.selectedRoles;
                 scope.availableRoles = data.availableRoles ;
@@ -86,13 +92,18 @@
                 for (var i in scope.selectedRoles) {
                     scope.formData.roles.push(scope.selectedRoles[i].id) ;
                 }
+                scope.formData.locale = scope.optlang.code;
+                scope.formData.dateFormat = scope.df;
+                if (scope.formData.joiningDate) {
+                    scope.formData.joiningDate = dateFilter(scope.formData.joiningDate, scope.df);
+                }
                 resourceFactory.userListResource.update({'userId': scope.userId}, this.formData, function (data) {
                     location.path('/viewuser/' + data.resourceId);
                 });
             };
         }
     });
-    mifosX.ng.application.controller('EditUserController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditUserController]).run(function ($log) {
+    mifosX.ng.application.controller('EditUserController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditUserController]).run(function ($log) {
         $log.info("EditUserController initialized");
     });
 }(mifosX.controllers || {}));

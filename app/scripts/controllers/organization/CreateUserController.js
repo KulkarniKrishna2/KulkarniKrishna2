@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateUserController: function (scope, resourceFactory, location) {
+        CreateUserController: function (scope, resourceFactory, location, dateFilter) {
             scope.offices = [];
             scope.available = [];
             scope.selected = [];
@@ -8,6 +8,7 @@
             scope.availableRoles = [];
             scope.formData = {
                 sendPasswordToEmail: true,
+                isActive: true,
                 roles: []
             };
             resourceFactory.userTemplateResource.get(function (data) {
@@ -70,13 +71,18 @@
                 for (var i in scope.selectedRoles) {
                     scope.formData.roles.push(scope.selectedRoles[i].id) ;
                 }
+                scope.formData.locale = scope.optlang.code;
+                scope.formData.dateFormat = scope.df;
+                if (scope.formData.joiningDate) {
+                    scope.formData.joiningDate = dateFilter(scope.formData.joiningDate, scope.df);
+                }
                 resourceFactory.userListResource.save(this.formData, function (data) {
                     location.path('/viewuser/' + data.resourceId);
                 });
             };
         }
     });
-    mifosX.ng.application.controller('CreateUserController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateUserController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateUserController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateUserController]).run(function ($log) {
         $log.info("CreateUserController initialized");
     });
 }(mifosX.controllers || {}));
