@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        DistrictController: function(scope, resourceFactory) {
+        DistrictController: function(scope, resourceFactory, location) {
             scope.districts = [];
             scope.formData = {};
 
@@ -53,7 +53,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('DistrictController', ['$scope', 'ResourceFactory', mifosX.controllers.DistrictController]).run(function ($log) {
+    mifosX.ng.application.controller('DistrictController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.DistrictController]).run(function ($log) {
         $log.info("DistrictController initialized");
     });
 }(mifosX.controllers || {}));
