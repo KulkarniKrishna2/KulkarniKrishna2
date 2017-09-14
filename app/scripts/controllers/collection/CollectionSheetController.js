@@ -307,10 +307,9 @@
                 var diff = group.totalClientCharges;
                 group.totalClientCharges =0;
                 for(var i in group.clients){
-                    group.totalClientCharges = group.totalClientCharges+group.clients[i].charge;
-
+                    group.totalClientCharges = Math.ceil((Number( group.totalClientCharges) + Number(group.clients[i].charge)) * 100) / 100;
                 }
-                scope.groupsTotalClientcharges =  scope.groupsTotalClientcharges +  (group.totalClientCharges - diff);
+                scope.groupsTotalClientcharges = Math.ceil((Number(scope.groupsTotalClientcharges) + Number(group.totalClientCharges) - Number(diff)) * 100) / 100;
                 if(scope.groupsTotalClientcharges == undefined){
                     scope.groupsTotalClientcharges = 0;
                 }
