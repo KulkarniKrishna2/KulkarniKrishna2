@@ -20,7 +20,7 @@
                 </tr>
             </table>
             <div class="form-group">
-                <div class="col-sm-3">
+                <div class="col-sm-3" ng-show="office.status.code == 'officeStatus.pending'">
                     <button id="save" type="submit" class="btn btn-primary">{{'label.button.activate' | translate}}</button>
                 </div>
             </div>

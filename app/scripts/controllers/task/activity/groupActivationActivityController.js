@@ -7,7 +7,7 @@
             scope.formData = {};
             scope.submit = function () {
                 var reqDate = dateFilter(scope.firstdate, scope.df);
-                scope.formData.activatedOnDate = reqDate;
+                scope.formData.activationDate = reqDate;
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
 
