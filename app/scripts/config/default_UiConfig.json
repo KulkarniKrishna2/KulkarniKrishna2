@@ -107,7 +107,9 @@
 	  },
 	  "isHiddenFeild": {
 		"newtransactionDate": false,
-		"paymentDetails": false
+		"paymentDetails": false,
+		"loanAccountNumber": false,
+		"savingsAccountNumber":false
 	  }
 	},
 	"createClient": {

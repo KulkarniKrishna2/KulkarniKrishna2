@@ -10,6 +10,12 @@
 	  "isHiddenField": {
 	    "displayNameInReverseOrder": true
 	   }
-	}
+	},
+    "collectionSheet": {
+      "isHiddenFeild": {
+        "loanAccountNumber": true,
+        "savingsAccountNumber":true
+      }
+    }
   }
 }
