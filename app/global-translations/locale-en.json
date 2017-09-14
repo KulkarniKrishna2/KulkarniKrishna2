@@ -6410,5 +6410,6 @@
     "label.anchor.districts": "Districts",
     "label.view.districts": "View list of districts",
     "label.input.filterbynameorcodeorstatus":"Filter by name/code/status",
+    "validation.msg.village.villages.cannot.be.empty" : "Cannot reject. No villages are selected.",
     "------ end of tensalation file":"---------"
 }

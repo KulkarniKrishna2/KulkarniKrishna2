@@ -14,9 +14,9 @@
 
             scope.submit = function () {
                 scope.formData.villages = [];
-                for (var i = 0; i < villages.length; i++) {
-                    if (villages[i].checkbox) {
-                        scope.formData.villages.push(villages[i].toString());
+                for (var i = 0; i < scope.villages.length; i++) {
+                    if (scope.villages[i].checkbox) {
+                        scope.formData.villages.push(scope.villages[i].villageId);
                     }
                 }
                 resourceFactory.bulkVillageResource.reject({}, scope.formData, function (data) {
