@@ -77,9 +77,9 @@
                             scope.entityId = scope.taskconfig['clientId'];
                             scope.documentTagName = 'Client Document Tags';
                             break;
-                            getDocuments();
-                            getDocumentTags();
                     }
+                    getDocuments();
+                    getDocumentTags();
                 } else {
                     scope.entityType = 'clients';
                     scope.clientId = scope.taskconfig['clientId'];
