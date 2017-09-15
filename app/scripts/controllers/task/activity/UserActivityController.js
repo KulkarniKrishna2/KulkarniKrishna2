@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         UserActivityController: function (scope, resourceFactory, location, route) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.users = [];
             scope.isCreateuser = false;
             resourceFactory.userListResource.getAllUsers(function (data) {
