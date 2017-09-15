@@ -4,14 +4,22 @@
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.districtId = scope.taskconfig['districtId'];
             scope.formData = {};
+            scope.isDistrictActivated = false;
 
-            resourceFactory.districtsResource.get({districtId: scope.districtId}, function(data){
-                scope.district = data;
-            });
+            scope.initTask = function(){
+                resourceFactory.districtsResource.get({districtId: scope.districtId}, function(data){
+                    scope.district = data;
+                    if(data.status && data.status.value == 'ACTIVE'){
+                        scope.isDistrictActivated = true;
+                    }
 
+                });
+            }
+            scope.initTask();
+            
             scope.submit = function () {
                 resourceFactory.districtsResource.save({ districtId: scope.districtId, command: 'activate'}, scope.formData, function (data) {
-                    location.path('/districts');
+                    scope.initTask();
                 });
             };
         }

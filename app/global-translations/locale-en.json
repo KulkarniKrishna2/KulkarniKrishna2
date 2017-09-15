@@ -6410,6 +6410,8 @@
     "label.anchor.districts": "Districts",
     "label.view.districts": "View list of districts",
     "label.input.filterbynameorcodeorstatus":"Filter by name/code/status",
+
     "validation.msg.village.villages.cannot.be.empty" : "Cannot reject. No villages are selected.",
+    "error.msg.district.is.not.in.pending.status" : "District is not in pending status.",
     "------ end of tensalation file":"---------"
 }
