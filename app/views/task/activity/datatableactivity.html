@@ -68,13 +68,16 @@
         <div class="form-group" ng-repeat="section in sections | orderBy:'displayPosition'" ng-if="isSectioned" data-ng-hide="datatabledetails.isMultirow">
             <h4 ng-show="section.columns.length > 0"><strong>{{section.displayName}}</strong></h4>
             <hr ng-show="section.columns.length > 0"/>
-            <div class="form-group"  ng-repeat="value in section.columns">
-                <div class="col-sm-2"></div>
-                <label class="control-label col-sm-2">{{value.key | prettifyDataTableColumn}}</label>
-                <span  ng-if="value.columnDisplayType === 'DECIMAL'">{{value.value|number}}</span>
-                <span ng-if="value.columnDisplayType === 'DATE'">{{value.value|DateFormat}}</span>
-                <span  ng-if="value.columnDisplayType !== 'DECIMAL' && value.columnDisplayType !== 'DATE'">{{value.value}}</span>
-            </div>
+            <table class="width100">
+                <tr ng-repeat="value in section.columns">
+                    <td class="width30">{{value.key | prettifyDataTableColumn}}</td>
+                    <td class="width60">
+                        <label ng-if="value.columnDisplayType === 'DECIMAL'">{{value.value|number}}</label>
+                        <label ng-if="value.columnDisplayType === 'DATE'">{{value.value|DateFormat}}</label>
+                        <label ng-if="value.columnDisplayType !== 'DECIMAL' && value.columnDisplayType !== 'DATE'">{{value.value}}</label>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <!-- Edit data    -->
