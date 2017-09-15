@@ -30,6 +30,8 @@
                                 scope.entityId = scope.taskconfig['groupId'];
                             }else if (scope.entityType === 'VILLAGES'){
                                 scope.entityId = scope.taskconfig['villageId'];
+                            }else if (scope.entityType === 'OFFICES'){
+                                scope.entityId = scope.taskconfig['officeId'];
                             }
                             getSurveyTemplate();
                             scope.surveyData = surveyData;
