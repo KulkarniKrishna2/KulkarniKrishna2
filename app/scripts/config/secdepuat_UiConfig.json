@@ -16,6 +16,9 @@
         "loanAccountNumber": true,
         "savingsAccountNumber":true
       }
+    },
+    "journalEntryConfiguration": {
+      "allowMultipleCreditAndDebitEntries": true
     }
   }
 }
