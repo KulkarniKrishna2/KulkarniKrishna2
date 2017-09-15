@@ -247,6 +247,7 @@
             scope.activate = function () {
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
                     function (data) {
+                        populateDetails();
                         scope.viewConfig.showSummary=true;
                     }
                 );
