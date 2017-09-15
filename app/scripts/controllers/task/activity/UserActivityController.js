@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        UserActivityController: function (scope, resourceFactory, location, route) {
+        UserActivityController: function ($controller, scope, resourceFactory, location, route) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.users = [];
             scope.isCreateuser = false;
@@ -19,7 +19,7 @@
             });
         }
     });
-    mifosX.ng.application.controller('UserActivityController', ['$scope', 'ResourceFactory', '$location', '$route', mifosX.controllers.UserActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('UserActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$route', mifosX.controllers.UserActivityController]).run(function ($log) {
         $log.info("UserActivityController initialized");
     });
 }(mifosX.controllers || {}));
