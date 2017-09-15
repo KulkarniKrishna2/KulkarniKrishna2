@@ -468,6 +468,7 @@
     "validation.msg.document.fileName.cannot.be.blank": "Please select a file.",
     "validation.msg.document.name.cannot.be.blank": "Please enter the name for the document.",
     "error.msg.document.report.mapping.notfound":"Document is not mapped with any report",
+    "error.msg.document.generate.invalid.report.category": "Invalid report category `{{params[0].value}}` for document generation",
     "resourceId.not.integer": "ID should be an Integer.",
     "error.msg.resource.not.found": "The requested resource is not available.",
     "error.msg.code.identifier.not.found": "Code with identifier `{{params[0].value}}` does not exist.",
