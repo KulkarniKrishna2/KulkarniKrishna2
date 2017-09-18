@@ -6402,6 +6402,7 @@
     "validation.msg.fixeddeposit.feeToIncomeAccountMappings.chargeId.cannot.be.blank" : "Fee for configuring Fee specific Income Accounts cannot be blank.",
     "validation.msg.fixeddeposit.penaltyToIncomeAccountMappings.chargeId.cannot.be.blank" : "Penalty for configuring Penalty specific Income Accounts cannot be blank.",
     "validation.msg.fixeddeposit.fromDate.cannot.be.blank" : "From Date cannot be blank.",
+    "error.msg.meeting.date.not.attached" : "meeting date should be attached",
 
     "------ end of tensalation file":"---------"
 }

@@ -78,7 +78,19 @@
                                 loanApplication.dateFormat =  scope.df;
                                 loanApplication.groupId = scope.group.id;
                                 loanApplication.clientId = scope.group.clients[i].id;
-                                loanApplication.calendarId = scope.caledars[0].id;
+                                if(scope.caledars == undefined){
+                                    scope.errorDetails = [];
+                                    scope.isAttachedMetting = false;
+                                    var errorObj = new Object();
+                                    errorObj.args = {
+                                       params: []
+                                    };
+                                    errorObj.args.params.push({value: 'error.msg.meeting.date.not.attached'});
+                                    scope.errorDetails.push(errorObj);
+                                }else{
+                                    scope.isAttachedMetting = true;
+                                    loanApplication.calendarId = scope.caledars[0].id;
+                                }
                                 loanApplication.loanType = 'jlg';
                                 loanApplication.productId = scope.productDetails.id;
                                 loanApplication.fundId = scope.loanApplicationCommonData.fundId;
@@ -123,8 +135,8 @@
                         }
 
                 }  
-
-                resourceFactory.batchResource.post(this.batchRequests, function (data) {
+                if(scope.isAttachedMetting){
+                    resourceFactory.batchResource.post(this.batchRequests, function (data) {
 
                         for (var i = 0; i < data.length; i++) {
                                 if(data[i].statusCode == 200 ) 
@@ -138,7 +150,8 @@
                             location.path('/viewgroup/' + scope.group.id);    
                         }
 
-                });  
+                    });  
+                }
             }; 
 
             /* Cancel button action */
