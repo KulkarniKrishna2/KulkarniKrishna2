@@ -1614,6 +1614,9 @@
             .when('/fileprocess', {
                 templateUrl: 'views/fileprocess/fileprocess.html'
             })
+            .when('/uploadfileprocess', {
+                templateUrl: 'views/fileprocess/uploadfileprocess.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

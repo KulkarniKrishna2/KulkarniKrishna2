@@ -1255,6 +1255,12 @@
                     }),
                     bulkVillageResource:defineResource(apiVer+"/villages/bulk",{},{
                         reject:{method:'POST',params:{command:'reject'}}
+                    }),
+                    fileProcessResource:defineResource(apiVer+"/fileprocess/:fileProcessId",{fileProcessId: '@fileProcessId'},{
+                        getAllFiles: {method: 'GET', params: {limit:1000}}
+                    }),
+                    fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
+
                     })
                 };
             }];
