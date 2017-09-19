@@ -6,6 +6,11 @@
         "interestChargedFromDate": true
       }
     },
+    "createCenter": {
+      "isHiddenField": {
+        "villageOptions": false
+      }
+    },
     "workflow": {
       "loanApproval": {
         "hiddenField": {
