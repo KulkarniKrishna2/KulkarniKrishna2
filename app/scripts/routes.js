@@ -1557,7 +1557,7 @@
             .when('/assignfund', {
                 templateUrl: 'views/organization/funds/assignfund.html'
             })
-            .when('/advancedsearch', {
+            .when('/fundmapping', {
                 templateUrl: 'views/search/advancedsearch.html'
             })
             .when('/taskconfigtemplate/template', {

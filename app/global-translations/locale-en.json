@@ -6022,7 +6022,7 @@
 
     "Add Errors messages":"-------------",
     "error.msg.glaccount.glcode.invalid.delete.has.children" : "Gl account cannot be deleted since it has child accounts.",
-    "label.heading.search.elegible.portfolio.for.fund.assignment" : "ad-hoc query search.",
+    "label.heading.search.elegible.portfolio.for.fund.assignment" : "Loan portfolio search.",
     "validation.msg.loan.loanIdToClose.cannot.be.blank" : "Please select the loan account need to be closed.",
     "error.msg.loan.amount.less.than.outstanding.of.loan.to.be.closed" : "Top-up loan amount should be greater than outstanding amount of loan to be closed",
     "error.msg.loan.undo.disbursal.not.allowed.on.topup.loan" : "Undo disbursal is not allowed for top-up loans",
@@ -6403,6 +6403,6 @@
     "validation.msg.fixeddeposit.penaltyToIncomeAccountMappings.chargeId.cannot.be.blank" : "Penalty for configuring Penalty specific Income Accounts cannot be blank.",
     "validation.msg.fixeddeposit.fromDate.cannot.be.blank" : "From Date cannot be blank.",
     "error.msg.meeting.date.not.attached" : "meeting date should be attached",
-
+    "label.anchor.fund.mapping" : "Fund Mapping",
     "------ end of tensalation file":"---------"
 }
