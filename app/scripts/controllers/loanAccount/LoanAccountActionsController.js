@@ -836,7 +836,6 @@
                 }
 
                 if(scope.action == "approve"){
-                    scope.errorDetails = [];
                     this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
                     if(scope.disbursementDetails != null) {
                         var numberOftranches = scope.disbursementDetails.length;
