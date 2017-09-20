@@ -6404,5 +6404,7 @@
     "validation.msg.fixeddeposit.fromDate.cannot.be.blank" : "From Date cannot be blank.",
     "error.msg.meeting.date.not.attached" : "meeting date should be attached",
     "label.anchor.fund.mapping" : "Fund Mapping",
+    "error.msg.meeting.date.not.attached" : "Meeting date should be attached",
+    "error.msg.loan.to.be.closed.with.topup.is.not.active" : "Loan to be closed with this topup is not active",
     "------ end of tensalation file":"---------"
 }
