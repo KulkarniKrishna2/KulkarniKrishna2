@@ -572,6 +572,7 @@
                     document.querySelector('#clientSnapshot').getContext("2d").putImageData(imageData, 0, 0);
                     $scope.picture = picCanvas.toDataURL();
                 };
+
                 $scope.uploadscreenshot = function () {
                     if($scope.picture != null) {
                         http({
@@ -583,13 +584,38 @@
                                 scope.$apply();
                             }
                             $modalInstance.close('upload');
+                            $scope.closeWebCam();
                             route.reload();
                         });
                     }
                 };
+
                 $scope.cancel = function () {
+                    $scope.closeWebCam();
                     $modalInstance.dismiss('cancel');
                 };
+
+                $scope.closeWebCam = function(){
+                    var mediaStream = window.MediaStream;
+
+                    if (typeof mediaStream === 'undefined' && typeof webkitMediaStream !== 'undefined') {
+                        mediaStream = webkitMediaStream;
+                    }
+
+                    /*global MediaStream:true */
+                    if (typeof mediaStream !== 'undefined' && !('stop' in MediaStream.prototype)) {
+                        mediaStream.prototype.stop = function() {
+                            this.getAudioTracks().forEach(function(track) {
+                                track.stop();
+                            });
+
+                            this.getVideoTracks().forEach(function(track) {
+                                track.stop();
+                            });
+                        };
+                    }
+                };
+
                 $scope.reset = function () {
                     $scope.picture = null;
                 }
