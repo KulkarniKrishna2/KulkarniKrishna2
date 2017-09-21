@@ -85,13 +85,29 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+                <label class="control-label col-sm-2" for="isLoanOfficer">{{ 'label.input.isLoanOfficer' | translate }}</label>
+    
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input type="checkbox" id="isLoanOfficer" ng-model="formData.isLoanOfficer">
+                    </label>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="mobileNo">{{ 'label.input.mobileNo' | translate }}</label>
+    
+                <div class="col-sm-3">
+                    <input type="text" id="mobileNo" class="form-control" ng-model="formData.mobileNo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.joinedon' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <select chosen="staffs" id="staffId" ng-model="formData.staffId"  class="form-control"
-                            ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
-                        <option value="">--{{'label.menu.selectstaff' | translate}}--</option>
-                    </select>
+                    <input id="joiningDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.joiningDate"
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>
             </div>
 

@@ -81,9 +81,9 @@
                     if(!_.isUndefined(data.documentId)){
                         $http({
                             method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                            url: $rootScope.hostUrl + API_VERSION + '/'+getEntityType()+'/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
                         }).then(function (docsData) {
-                            scope.bankAccountData.documentImg = $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            scope.bankAccountData.documentImg = $rootScope.hostUrl + API_VERSION + '/'+getEntityType()+'/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                             scope.addPicture=false;
                         });
                     }
@@ -183,7 +183,7 @@
             var submitAccountDocuments = function (postComplete) {
                 scope.docData = {name:scope.formData.accountNumber}
                 $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents',
+                    url: $rootScope.hostUrl + API_VERSION + '/'+getEntityType()+'/' + getEntityId() + '/documents',
                     data: scope.docData,
                     file: scope.docFile
                 }).then(function (data) {
@@ -247,6 +247,7 @@
             scope.activate = function () {
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
                     function (data) {
+                        populateDetails();
                         scope.viewConfig.showSummary=true;
                     }
                 );

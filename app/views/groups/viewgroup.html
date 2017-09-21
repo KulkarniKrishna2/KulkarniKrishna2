@@ -73,11 +73,11 @@
 			<div class="col-md-12 primarydiv">
 			    <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
 			        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP'
-			           data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{
+			           data-ng-hide="group.status.value=='Active' || group.isWorkflowEnabled"><i class="icon-check-sign icon-white"></i>{{
 			            'label.button.activate' | translate }}</a>
 					<a ng-show="group.active && group.clientMembers.length>0" href="#/newgrouploanindividualmonitoringloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
 							class="icon-plus-sign icon-white"></i>{{ 'label.button.glimapplication' | translate }}</a>
-			        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
+			        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' ng-hide="group.isWorkflowEnabled" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
 			            'label.button.edit' | translate }}</a>
 			        <a ng-show="group.active" href="#/new_group_saving_application/{{group.id}}" has-permission='CREATE_SAVINGSACCOUNT' class="btn btn-primary"><i
 			                class="icon-file icon-white"></i>{{ 'label.button.groupsavingapplication' | translate }}</a>

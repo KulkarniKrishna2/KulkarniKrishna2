@@ -272,11 +272,13 @@
 						    </ul>
 						</span>
 				    </div>
-					<div class="pull-right" ng-show="loanApplicationReferenceId && client.status.value === 'Pending'">
-						  <a href="#/client/{{client.id}}/activate/{{loanApplicationReferenceId}}" class="btn btn-primary"
-							 has-permission='ACTIVATE_CLIENT'><i
-								  class="icon-ok-sign icon-white"></i>{{'label.button.activate' | translate}}</a>
-					</div>
+				    <div ng-hide="client.isWorkflowEnabled">	
+						<div class="pull-right" ng-show="loanApplicationReferenceId && client.status.value === 'Pending'">
+							  <a href="#/client/{{client.id}}/activate/{{loanApplicationReferenceId}}" class="btn btn-primary"
+								 has-permission='ACTIVATE_CLIENT'><i
+									  class="icon-ok-sign icon-white"></i>{{'label.button.activate' | translate}}</a>
+						</div>
+				    </div>
 				</div>
 				<div class="row client">
 				    <div class="col-sm-9 col-md-9 paddingleft0px">

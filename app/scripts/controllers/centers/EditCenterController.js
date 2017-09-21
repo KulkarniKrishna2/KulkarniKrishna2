@@ -9,13 +9,14 @@
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
+                scope.isWorkflowEnabled = data.isWorkflowEnabled;
                 scope.formData = {
                     name: data.name,
                     externalId: data.externalId,
                     staffId: data.staffId
                 };
 
-                if (data.activationDate) {
+                if (!scope.isWorkflowEnabled && data.activationDate) {
                     var newDate = dateFilter(data.activationDate, scope.df);
                     scope.first.date = new Date(newDate);
                 }
@@ -26,8 +27,10 @@
             });
 
             scope.updateGroup = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
-                this.formData.activationDate = reqDate;
+                if (!scope.isWorkflowEnabled) {
+                    var reqDate = dateFilter(scope.first.date, scope.df);
+                    this.formData.activationDate = reqDate;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.centerResource.update({centerId: routeParams.id}, this.formData, function (data) {

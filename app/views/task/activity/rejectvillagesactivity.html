@@ -1,0 +1,43 @@
+<div ng-controller="villageRejectionActivityController">
+    <div class="col-md-12 col-sm-12">
+        <form novalidate="" class="form-horizontal" ng-submit="submit()">
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.districtname'| translate}}</label>
+
+                <div class="col-sm-3">
+                    <span class="form-control">{{district.districtName}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.code'| translate}}</label>
+
+                <div class="col-sm-3">
+                    <span class="form-control">{{district.isoDistrictCode}}</span>
+                </div>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th></th>
+                        <th>{{'label.heading.villagename' | translate}}</th>
+                        <th>{{'label.heading.code' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="village in villages | orderBy:'villageName':reverse" class="pointer-main">
+                        <td><input type="checkbox" ng-model="village.checkbox"/></td>
+                        <td>{{village.villageName}}</td>
+                        <td>{{village.villageCode}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.reject' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

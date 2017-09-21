@@ -1,0 +1,28 @@
+<div name="officeworkflowform" ng-controller="OfficeOnboardingWorkflowController">
+    <div class="col-md-12 col-sm-12">
+        <div>
+            <ul class="breadcrumb">
+                <li ng-show="office"><a href="#/viewoffice/{{office.id}}"><strong>'{{office.name}}'</strong></a>
+                </li>
+                <li class="active">{{'label.heading.workflow' | translate}}</li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="row well">
+                <div class="row">
+                    <span class="col-md-2"> {{ 'label.heading.namedecorated' | translate }} </span>
+                    <span class="col-md-3">{{office.nameDecorated | DotRemove}}</span>
+                    <span class="col-md-2">{{ 'label.heading.parentoffice' | translate }}</span>
+                    <span class="col-md-4">{{office.parentName}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-2">{{ 'label.heading.openedon' | translate }}</span>
+                    <span class="col-md-4">{{office.openingDate | DateFormat}}</span>
+                    <span class="col-md-2"> {{ 'label.heading.office.code' | translate }} </span>
+                    <span class="col-md-3">{{office.officeCodeId}}</span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
+    </div>
+</div>

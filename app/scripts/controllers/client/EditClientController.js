@@ -79,6 +79,7 @@
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.officeId = data.officeId;
+                scope.isWorkflowEnabled = data.isWorkflowEnabled;
                 scope.formData = {
                     firstname: data.firstname,
                     lastname: data.lastname,
@@ -144,7 +145,7 @@
 
                 var actDate = dateFilter(data.activationDate, scope.df);
                 scope.date.activationDate = new Date(actDate);
-                if (data.active) {
+                if (!scope.isWorkflowEnabled && data.active) {
                     scope.choice = 1;
                     scope.showSavingOptions = 'false';
                     scope.opensavingsproduct = 'false';

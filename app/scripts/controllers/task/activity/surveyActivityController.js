@@ -11,6 +11,7 @@
             scope.formData.surveyedOn = new Date();
             scope.showdetails=true;
             scope.entityTypeId = null;
+            scope.isSurveyForOthers = false;
             function initTask() {
                 scope.clientId = scope.taskconfig['clientId'];
                 scope.surveyId = scope.taskconfig['surveyId'];
@@ -29,6 +30,8 @@
                                 scope.entityId = scope.taskconfig['groupId'];
                             }else if (scope.entityType === 'VILLAGES'){
                                 scope.entityId = scope.taskconfig['villageId'];
+                            }else if (scope.entityType === 'OFFICES'){
+                                scope.entityId = scope.taskconfig['officeId'];
                             }
                             getSurveyTemplate();
                             scope.surveyData = surveyData;
@@ -42,7 +45,7 @@
             scope.takeNewSurvey = function () {
                 scope.isDisplaySurveys = false;
                 if (_.isUndefined(scope.loanOfficers)) {
-                    resourceFactory.employeeResource.getAllEmployees({loanOfficersOnly: true}, function (loanOfficers) {
+                    resourceFactory.employeeResource.getAllEmployees({}, function (loanOfficers) {
                         scope.loanOfficers = loanOfficers.pageItems;
                     });
                 }
@@ -73,6 +76,7 @@
                                 scope.formData.coSurveyedBy = survey.coSurveyedBy;
                             }
                             scope.formData.surveyedOn = new Date(survey.surveyedOn);
+                            scope.isSurveyForOthers = scope.formData.surveyedBy != scope.currentSession.user.staffId;
                             if (survey.scorecardValues && survey.scorecardValues.length > 0) {
                                 for (var s in survey.scorecardValues) {
                                     var id = survey.scorecardValues[s].id;
@@ -208,6 +212,14 @@
                     if(scope.formData.surveyedBy == scope.formData.coSurveyedBy){
                         scope.formData.surveyedBy = undefined;
                     }
+                }
+            };
+
+            scope.updateSurveyedBy = function() {
+                if (!scope.isSurveyForOthers && scope.currentSession.user.staffId) {
+                    scope.formData.surveyedBy = scope.currentSession.user.staffId;
+                } else {
+                    scope.formData.surveyedBy = null;
                 }
             };
         }

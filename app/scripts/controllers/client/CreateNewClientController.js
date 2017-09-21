@@ -145,6 +145,7 @@
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.formData.legalFormId = scope.clientLegalFormOptions[0].id;
+                scope.isWorkflowEnabled = data.isWorkflowEnabled;
 
                 if(scope.genderOptions[0]) {
                     scope.formData.genderId = scope.genderOptions[0].id;

@@ -10,8 +10,12 @@
                 <div class="row primarydiv">
                     <div class="pull-right">
                         <div class="btn-group">
-                            <a href="#/editoffice/{{office.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="icon-edit icon-white"></i>{{
+                            <a href="#/editoffice/{{office.id}}" ng-hide="office.status.id == 400" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="icon-edit icon-white"></i>{{
                                 'label.button.edit' | translate }}</a>
+                            <a ng-show="office.status.id == 100 && !office.isWorkflowEnabled" class="btn btn-primary" has-permission='REJECT_OFFICE' ng-click="rejectOffice()"><i class="icon-remove-circle icon-white"></i>{{
+                                'label.button.reject' | translate }}</a>
+                            <a ng-show="office.status.id == 100 && !office.isWorkflowEnabled" class="btn btn-primary" has-permission='ACTIVATE_OFFICE' ng-click="activateOffice()"><i class="icon-ok-sign icon-white"></i>{{
+                                'label.button.activate' | translate }}</a>
                         </div>
                         <span class="btn-group dropdown" on-toggle="toggled(open)">
 						    <a class="btn btn-primary dropdown-toggle">
@@ -27,7 +31,7 @@
 						</span>
                     </div>
                 </div>
-                <h3><strong>{{office.name}}</strong></h3>
+                <h3><strong><i class="icon-circle {{office.status.code | StatusLookup}}"></i>&nbsp;{{office.name}}</strong></h3>
                 <table class="table-bordered table view-table" style="width: 350px">
                     <tr>
                         <td>{{ 'label.heading.parentoffice' | translate }}</td>
@@ -77,4 +81,26 @@
             </div>
         </tab>
     </tabset>
+    <script type="text/ng-template" id="activateOffice.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.activate' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="rejectOffice.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.reject' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="reject()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
 </div>

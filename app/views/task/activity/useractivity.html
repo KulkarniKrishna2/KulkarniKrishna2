@@ -1,0 +1,27 @@
+<div class="col-md-12" ng-controller="UserActivityController">
+    <div ng-if="!isCreateuser">
+	    <input ng-model="filterText" type="text" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+	    <a ng-click="showCreateUser()" class="btn btn-primary pull-right" has-permission='CREATE_USER'><i class="icon-plus icon-white"></i>{{'label.button.createuser' | translate}}</a>
+	    <table class="table">
+	        <thead>
+	        <tr class="graybg">
+	            <th>{{'label.heading.firstname' | translate}}</th>
+	            <th>{{'label.heading.lastname' | translate}}</th>
+	            <th>{{'label.heading.email' | translate}}</th>
+	            <th>{{'label.heading.lastlogintime' | translate}}</th>
+	            <th>{{'label.heading.office' | translate}}</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="pointer-main" ng-repeat="user in users| filter:{ 'systemUser': false } |orderBy:'firstname':reverse | filter:filterText">
+	            <td>{{user.firstname}}</td>
+	            <td>{{user.lastname}}</td>
+	            <td>{{user.email}}</td>
+	            <td>{{user.lastLoginDate}}</td>
+	            <td>{{user.officeName}}</td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
+	<div ng-if="isCreateuser" class="row" ng-include="'views/administration/createuser_common.html'"></div>
+</div>

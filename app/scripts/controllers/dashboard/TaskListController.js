@@ -9,8 +9,8 @@
                 {id: 'tab3', name: "label.tab.role", status: 'unassigned', icon:'icon-user',type:'unassigned'}];
             scope.pageSize = 15;
             scope.childrenTaskConfigs = [];
-            scope.selectedStatus = 'unassigned';
-            scope.filterBy = 'unassigned';
+            scope.selectedStatus = 'assigned-workflow';
+            scope.filterBy = 'assigned-workflow';
             scope.centers = [];
             scope.loanAccountTypeOptions = [];
             scope.filterByCenter = false;
@@ -95,7 +95,7 @@
                 paginatorService.paginate(fetchFunction, scope.pageSize);
             };
 
-           // scope.getWorkFlowTasks(scope.filterBy);
+           scope.getWorkFlowTasks(scope.filterBy);
 
             scope.goToTask = function (task) {
                 if(task.parentTaskId !=undefined){
