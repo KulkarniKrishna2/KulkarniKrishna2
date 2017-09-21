@@ -26,7 +26,8 @@
             scope.isStaffMandotory = false;
             scope.productiveCollctionSheetSearchParams = {};
             scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
-
+            scope.hideLoanAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.loanAccountNumber;
+            scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 if (scope.currentSession.user.officeId) {
@@ -274,6 +275,7 @@
                 scope.sumSavingsDueByCurrency();
                 scope.sumSavingWithdrawByCurrency();
                 scope.addClientChargeTotalDue();
+                scope.calculateTotalCollectionDue();
             };
 
             scope.addClientChargeTotalDue = function(){
@@ -305,10 +307,9 @@
                 var diff = group.totalClientCharges;
                 group.totalClientCharges =0;
                 for(var i in group.clients){
-                    group.totalClientCharges = group.totalClientCharges+group.clients[i].charge;
-
+                    group.totalClientCharges = Math.ceil((Number( group.totalClientCharges) + Number(group.clients[i].charge)) * 100) / 100;
                 }
-                scope.groupsTotalClientcharges =  scope.groupsTotalClientcharges +  (group.totalClientCharges - diff);
+                scope.groupsTotalClientcharges = Math.ceil((Number(scope.groupsTotalClientcharges) + Number(group.totalClientCharges) - Number(diff)) * 100) / 100;
                 if(scope.groupsTotalClientcharges == undefined){
                     scope.groupsTotalClientcharges = 0;
                 }
@@ -380,7 +381,11 @@
                         };
                         scope.totalDueCollection.push(gp);
                     } else {
-                        existing.withdrawAmount = Math.ceil((Number(existing.withdrawAmount) + Number(withdrawAmount)) * 100) / 100;
+                        var existingWithdrawAmount =existing.withdrawAmount;
+                        if (isNaN(existingWithdrawAmount)) {
+                            existingWithdrawAmount = 0;
+                        }
+                        existing.withdrawAmount = Math.ceil((Number(existingWithdrawAmount) + Number(withdrawAmount)) * 100) / 100;
                     }
                 });
             };
@@ -599,6 +604,26 @@
                 });
 
             };
+
+            scope.calculateTotalCollectionDue = function(){
+                if(scope.totalDueCollection.length > 0) {
+                    for (var i in scope.totalDueCollection) {
+                        var dueAmount = scope.totalDueCollection[i].dueAmount;
+                        var clientChargeAmount = scope.totalDueCollection[i].clientChargeAmount;
+                        var withdrawAmount = scope.totalDueCollection[i].withdrawAmount;
+                        if (isNaN(dueAmount)) {
+                            dueAmount = 0;
+                        }
+                        if (isNaN(clientChargeAmount)) {
+                            clientChargeAmount = 0;
+                        }
+                        if (isNaN(withdrawAmount)) {
+                            withdrawAmount = 0;
+                        }
+                        scope.totalDueCollection[i].totalDue = Math.ceil((Number(dueAmount) + Number(clientChargeAmount) - Number(withdrawAmount)) * 100) / 100;
+                    }
+                }
+            }
 
             scope.submit = function () {
 

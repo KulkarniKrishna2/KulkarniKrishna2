@@ -2364,7 +2364,8 @@
     "label.anchor.add.recurring.deposit.charges":"Add Recurring Deposit Charge",
     "label.anchor.sharesapplication": "Shares Application",
     "label.anchor.viewshareaccount": "View Share Account",
-
+    "label.heading.deposit" : "deposit",
+    "label.heading.withdraw": "withdraw",
     "#Inputs": "..",
     "label.input.charges": "Charges",
     "label.input.chargecalculation": "Charge calculation",
