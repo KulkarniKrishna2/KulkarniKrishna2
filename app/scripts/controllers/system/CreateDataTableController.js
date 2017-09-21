@@ -20,12 +20,18 @@
             scope.section = {};
             scope.sectionArray = [];
             scope.sections = [];
+            scope.columnNotMappedToSectionError = false;
+            scope.isEmptyDatatable = false;
+            scope.isDuplicateColumnName = false;
+            scope.labelColumnError = "";
+            scope.scopeOptionsAvailable = {};
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
             });
 
             resourceFactory.DataTablesTemplateResource.get({}, function (data) {
+                angular.copy(data, scope.scopeOptionsAvailable);
                 scope.scopeOptions = data;
             });
 
@@ -83,10 +89,11 @@
                 }
             };
 
-            scope.addColumn = function () {
-                if (scope.datatableTemplate.columnName && scope.datatableTemplate.columnType) {
+            scope.addColumn = function () {   
+                if (scope.datatableTemplate.columnName && scope.datatableTemplate.columnType && (scope.columns.findIndex(x => x.name.toLowerCase() == scope.datatableTemplate.columnName.toLowerCase()) < 0)) {
                     scope.columnnameerror = false;
                     scope.columntypeerror = false;
+                    scope.isDuplicateColumnName = false;
                     var column = {
                         name: scope.datatableTemplate.columnName,
                         type: scope.datatableTemplate.columnType,
@@ -103,10 +110,14 @@
                     scope.errorDetails = [];
                     scope.columnnameerror = true;
                     scope.labelerror = "columnnameerr";
-                } else if (scope.datatableTemplate.columnName) {
+                } else if (!scope.datatableTemplate.columnType) {
                     scope.errorDetails = [];
                     scope.columntypeerror = true;
                     scope.labelerror = "columntypeerr";
+                }else{
+                    scope.errorDetails = [];
+                    scope.isDuplicateColumnName = true;
+                    scope.labelerror = "duplicatte.column.name.error";
                 }
             };
 
@@ -114,7 +125,12 @@
                 scope.available = [];
                 scope.selected = [];
                 var restrictScopeEnabled = true;
-                scope.changeEntity(restrictScopeEnabled, '');
+                angular.copy(scope.scopeOptionsAvailable,scope.scopeOptions);
+                var scopeType = '';
+                if(scope.formData.apptableName == 'm_client'){
+                    scopeType = 'Client Legal Form';
+                }
+                scope.changeEntity(restrictScopeEnabled, scopeType);
             }
 
             scope.changeEntity = function (restrictScopeEnabled, clientScopeType) {
@@ -124,12 +140,26 @@
                     var key = i;
                     if (entityName[1] == key && restrictScopeEnabled) {
                         var valueObject = scope.scopeOptions[i];
+                         if (valueObject.length > 1 && scope.selected != undefined && scope.selected != '') {
+                            for (var k in scope.selected) {
+                                var temp = {};
+                                temp.id = this.selected[k].id;
+                                temp.name = this.selected[k].name;
+                                for (var n in valueObject) {
+                                    if (scope.formData.clientscopetype != undefined && valueObject[n].name == scope.formData.clientscopetype) {
+                                        scope.scopeOptions[valueObject[n].allowedValueOptions.push(temp)];
+                                    }
+                                }
+
+                            }
+                        }
                         for (var j in valueObject) {
                             if (clientScopeType != '' && clientScopeType == valueObject[j].name) {
                                 scope.available = [];
                                 scope.selected = [];
                                 scope.available = valueObject[j].allowedValueOptions;
                                 scope.id = valueObject[j].id;
+                                scope.formData.clientscopetype = valueObject[j].name;
                                 break;
                             } else {
                                 scope.available = valueObject[j].allowedValueOptions;
@@ -203,11 +233,19 @@
             	scope.sectionArray.splice(index,1);
             };
 
+            scope.validateNewColumn = function(){
+                return scope.columnnameerror || scope.columntypeerror || scope.isDuplicateColumnName;
+            };
+
             scope.submit = function () {
                 if (scope.columns.length == 0) {
-                    scope.errorDetails = [];
-                    scope.errorDetails.push({code: 'error.msg.click.on.add.to.add.columns'});
+                    scope.isEmptyDatatable = true;
+                    scope.columnNotMappedToSectionError = false;
+                    scope.labelColumnError = "not.found";
+                    return false;
                 } else {
+                    scope.isEmptyDatatable = false;
+                    scope.columnNotMappedToSectionError = false;
                     delete scope.errorDetails;
                     scope.formData.multiRow = scope.formData.multiRow || false;
                     scope.formData.columns = scope.columns;
@@ -258,6 +296,10 @@
                                     	break;
                                     }
                                 }
+                            }else{
+                                scope.columnNotMappedToSectionError = true;
+                                scope.labelColumnError = "not.mapped.to.section";
+                                return false;
                             }
                         }
                         

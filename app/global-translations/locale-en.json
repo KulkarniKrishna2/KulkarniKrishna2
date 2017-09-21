@@ -467,6 +467,7 @@
     "validation.msg.document.fileName.cannot.be.blank": "Please select a file.",
     "validation.msg.document.name.cannot.be.blank": "Please enter the name for the document.",
     "error.msg.document.report.mapping.notfound":"Document is not mapped with any report",
+    "error.msg.document.generate.invalid.report.category": "Invalid report category `{{params[0].value}}` for document generation",
     "resourceId.not.integer": "ID should be an Integer.",
     "error.msg.resource.not.found": "The requested resource is not available.",
     "error.msg.code.identifier.not.found": "Code with identifier `{{params[0].value}}` does not exist.",
@@ -579,6 +580,7 @@
     "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
     "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
     "error.msg.payment.type.invalid" : "Payment type is invalid",
+    "error.msg.address.type.verified":"Address is already verified and cannot be updated.",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -792,6 +794,7 @@
     "label.heading.clientrejected":"Client Rejected",
     "label.heading.withdrawn":"Client Withdrawn",
     "label.heading.address":"Address",
+    "label.heading.address.line.two":"Address Line Two",
     "label.heading.addclientaddress":"Add address",
     "label.heading.clientaddress":"Address",
     "label.heading.editclientAddress":"Edit address",
@@ -917,6 +920,12 @@
     "error.msg.client.duplicate.externalId": "A client with external id `{{params[0].value}}` already exists.",
     "error.msg.client.duplicate.accountNo": "A client with account no. `{{params[0].value}}` already exists.",
     "error.msg.client.id.invalid": "Client does not exist.",
+    "error.msg.mandatory.data.dob.not.found": "Date of Birth is mandatory and cannot be found.",
+    "error.msg.mandatory.data.id.spouse.father.not.found":"Either of id or (Father/Spouse) details should be present.But could not be found.",
+    "error.msg.mandatory.data.address.not.found":"Address is mandatory and cannnot be found.",
+    "error.msg.mandatory.data.fullname.not.found":"Client full name is mandatory and cannot be found.",
+    "error.msg.mandatory.data.familydetails.not.found":"Atleast one family member's details for the client is mandatory and cannot be found.",
+    "error.msg.mandatory.phone.not.found":"Either one of the mobile or landline numbers for the client is mandatory and cannot be found.",
     "error.msg.client.not.active.exception": "The Client with id `{{params[0].value}}` is not active.",
     "validation.msg.clientIdentifier.documentKey.cannot.be.blank": "Identification # is mandatory.",
     "validation.msg.clientIdentifier.documentTypeId.cannot.be.blank": "Identity document type is mandatory.",
@@ -1934,6 +1943,7 @@
     "label.button.foreclosure": "Preclosure",
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
+    "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",
@@ -6407,5 +6417,28 @@
     "label.anchor.fund.mapping" : "Fund Mapping",
     "error.msg.meeting.date.not.attached" : "Meeting date should be attached",
     "error.msg.loan.to.be.closed.with.topup.is.not.active" : "Loan to be closed with this topup is not active",
+
+
+    "#Lock Entity Validation" : "",
+    "error.msg.entityType.client.is.locked" : "Client is locked",
+    "error.msg.entityType.loan.is.locked" : "Loan is locked",
+    "error.msg.entityType.address.is.locked" : "Address is locked",
+    "error.msg.entityType.document.is.locked" : "Document is locked",
+    "error.msg.entityType.family.details.is.locked" : "Family details is locked",
+    "error.msg.entityType.client.identifier.is.locked" : "Client identifier is locked",
+    "error.msg.entityType.client.income.expense.is.locked" : "Client income expense is locked",
+    "error.msg.entityType.bank.account.details.is.locked" : "Bank account details is locked",
+    "error.msg.entityType.existing.loan.is.locked" : "Existing loan is locked",
+
+    "error.msg.loan.transaction.tranche.disbursement.date.must.be.unique" : "Tranche  disburse date must be unique.",
+    "error.msg.unable.to.disburse.loan.as.all.bank.transactions.are.not.in.success.or.rejected.or.closed.status" : "One or more Bank Transaction/s is/are active.To disburse loan, all bank transactions must be in Success, Closed or Rejected status.",
+    "error.msg.Audit.date.before.disbursement.date":"audit date should not be before the disbursement date",
+    "error.msg.center.associating.group.not.allowed.with.meeting.attached.to.group" : "Group with meeting cannot be added to Center",
+    "error.msg.columns.not.found" : "Columns not found. To continue, add columns to datatable.",
+    "validation.msg.datatable.name.duplicate.column.name" : "To continue, remove duplicate columns.",
+    "label.duplicatte.column.name.error" : "Duplicate column name!",
+    "error.msg.attempting.multiple.update" : " Multiple updates not allowed.",
+    "error.msg.document.id.invalid" : "Document id is invalid.",
+
     "------ end of tensalation file":"---------"
 }

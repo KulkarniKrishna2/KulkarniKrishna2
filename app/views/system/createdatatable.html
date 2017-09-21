@@ -8,6 +8,9 @@
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{ 'label.heading.createdatatable' | translate }}</legend>
+	        <div class="form-horizontal error" ng-if="isEmptyDatatable || columnNotMappedToSectionError">
+                        {{ 'error.msg.columns.'+labelColumnError | translate }}
+            </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="datatableName">{{ 'label.input.datatablename' | translate }}<span
 	                    class="required">*</span></label>
@@ -85,7 +88,7 @@
 				<div class="col-sm-3 col-md-3">
 					<label class="control-label col-sm-12 center">{{ 'label.input.available' | translate }}</label>
 					<select multiple ng-model="availableScopes" class="form-control clear" >
-						<option ng-repeat="scope in available" value="{{scope.id}}">{{scope.id}} | {{scope.name}}</option>
+						<option ng-repeat="scope in available" value="{{scope.id}}">{{scope.name}}</option>
 					</select>
 				</div>
 				<div class="col-sm-1 col-md-1 paddedtop25px">
@@ -97,7 +100,7 @@
 				<div class="col-sm-3 col-md-3">
 					<label class="control-label col-sm-12 center">{{ 'label.input.selected' | translate }}</label>
 					<select multiple ng-model="selectedScopes" class="form-control clear">
-						<option ng-repeat="scope in selected" value="{{scope.id}}">{{scope.id}} | {{scope.name}}</option>
+						<option ng-repeat="scope in selected" value="{{scope.id}}">{{scope.name}}</option>
 					</select>
 				</div>
 			</div>
@@ -155,9 +158,9 @@
 					</div>
 	                <div class="col-sm-3">
 	                    <a ng-click="addColumn()"><i class="icon-plus icon-white"></i></a>
-	                    <span ng-show="createdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
+	                    <span ng-show="createdatatableform.columnname.$invalid || validateNewColumn()">
 	                    <small class="error"
-	                           ng-show="createdatatableform.columnname.$error.req || columnnameerror || columntypeerror || rc.createdatatableform.attempted">
+	                           ng-show="createdatatableform.columnname.$error.req || validateNewColumn() || rc.createdatatableform.attempted">
 	                        {{ 'label.'+labelerror | translate }}
 	                    </small>
 	                    </span>

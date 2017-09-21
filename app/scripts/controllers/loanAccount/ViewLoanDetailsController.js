@@ -690,6 +690,7 @@
                     fetchBankTransferDetails();
                 }
                 scope.isOverPaidOrGLIM();
+                //enableOrDisableLoanLockButtons();
             });
 
             fetchBankTransferDetails = function(){
@@ -890,7 +891,7 @@
             }
 
             scope.generateDocument = function (document){
-                resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
@@ -899,7 +900,7 @@
             };
 
             scope.reGenerateDocument = function (document){
-                resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
@@ -1685,7 +1686,29 @@
                 }else{
                     scope.transferDetails =  scope.activeTransferDetails; 
                 }
-            }
+            };
+            scope.lockOrUnLockLoan = function () {
+                var action = 'lock';
+                if(scope.loandetails.isLocked){
+                    action = 'unlock';
+                }
+                resourceFactory.lockOrUnlockEntityResource.lockOrUnlock({
+                    entityType: 'loan',
+                    entityId: routeParams.id,
+                    'command': action
+                }, function (responseData) {
+                    scope.loandetails.isLocked = !scope.loandetails.isLocked;
+                    //enableOrDisableLoanLockButtons();
+                });
+            };
+
+            var enableOrDisableLoanLockButtons = function () {
+                for(var i in scope.buttons.singlebuttons){
+                    if(scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSALUNDO_LOAN'){
+                        scope.buttons.singlebuttons[i].isEnableButton = !scope.loandetails.isLocked;
+                    }
+                }
+            };
         }
     });
 

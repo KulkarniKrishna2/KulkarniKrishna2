@@ -1,7 +1,7 @@
 <div ng-controller="ViewLoanApplicationReference">
     <div>
         <ul class="breadcrumb">
-            <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
+            <li ng-show="loanGroupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{loanGroupName}}'</strong></a></li>
             <li ng-show="clientName"><a href="#/viewclient/{{formData.clientId}}"><strong>'{{clientName}}'</strong></a></li>
             <li class="active">{{'label.anchor.viewloanapplication' | translate}}</li>
         </ul>

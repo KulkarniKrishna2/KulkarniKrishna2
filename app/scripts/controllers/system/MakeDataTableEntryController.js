@@ -263,14 +263,8 @@
                 if (type) {
                     if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
                         fieldType = 'SELECT';
-                    } else if (type == 'DATE') {
-                        fieldType = 'DATE';
-                    } else if (type == 'DATETIME') {
-                        fieldType = 'DATETIME';
-                    } else if (type == 'BOOLEAN') {
-                        fieldType = 'BOOLEAN';
-                    } else {
-                        fieldType = 'TEXT';
+                    }  else {
+                        fieldType = type;
                     }
                 }
                 return fieldType;
@@ -284,6 +278,13 @@
                 }
                 return scope.df;
             };
+            scope.isShowfieldType = function(type){
+                var isfieldType = false;
+                if(type == 'STRING' || type == 'INTEGER' || type == 'DECIMAL'){
+                    isfieldType = true;
+                }
+                return isfieldType;
+            }
 
             scope.cancel = function () {
                 if (scope.fromEntity == 'client') {

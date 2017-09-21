@@ -317,6 +317,7 @@
                 }
                 $rootScope.clientname=data.displayName;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
+                scope.isActiveClient = scope.client.status.value == 'Active';
                 scope.staffData.staffId = data.staffId;
                 if(scope.client.dateOfBirth != undefined && scope.client.dateOfBirth != null){
                     calculateClientAge(scope.client.dateOfBirth);
@@ -340,10 +341,10 @@
                 if(data.groups.length > 0 && data.groups[0].groupLevel==1){
                     scope.isCenter=true;
                 }
-                if(data.groups.length > 0 && data.groups.length ==1 && data.groups.groupLevel==2) {
+                if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==2) {
                     scope.group = data.groups[0];
                 }
-                if(data.groups.length > 0 && data.groups.length ==1 && data.groups.groupLevel==1) {
+                if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==1) {
                     scope.center = data.groups[0];
                 }
 
@@ -383,6 +384,7 @@
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
+                    //enableOrDisableClientLockButtons();
                     scope.savingsActionbuttons = [
                             {
                                 name: "button.deposit",
@@ -462,7 +464,7 @@
                 } else if (associatedEntityId == null) {
                     associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
                 }
-                var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : true};
+                var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
                 resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
                     scope.datatables = data;
                 });
@@ -1039,7 +1041,7 @@
             };
 
             scope.generateDocument = function (document){
-                resourceFactory.documentsGenerateResource.generate({entityType:'clients', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.generate({entityType:'clients', entityId: routeParams.id, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
@@ -1048,7 +1050,7 @@
             };
 
             scope.reGenerateDocument = function (document){
-                resourceFactory.documentsGenerateResource.reGenerate({entityType:'clients', entityId: routeParams.id, reportIdentifier: document.reportIdentifier}, function(data){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType:'clients', entityId: routeParams.id, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
@@ -1521,6 +1523,7 @@
                     location.path('/creditbureaureport/loan/'+loanId+'/'+trancheDisbursalId+'/'+scope.clientId);
                 }
             };
+
             scope.differentiateFamilyMemberDetailsBaseOnReferenceId = function(familyMembers){
                 scope.familyDetailsOfClient = [];
                 scope.familyMemberOf = [];
@@ -1533,10 +1536,34 @@
                     }
 
                 }
-            }
+            };
+
             scope.routeToClient = function (id) {
               location.path('/viewclient/' + id);   
-           };
+            };
+
+            var enableOrDisableClientLockButtons = function () {
+                for(var i in scope.buttons){
+                    if(scope.buttons[i].taskPermissionName == 'UPDATE_CLIENT'){
+                        scope.buttons[i].isEnableButton = !scope.client.isLocked;
+                    }
+                }
+            };
+
+            scope.lockOrUnLockClient = function () {
+                var action = 'lock';
+                if(scope.client.isLocked){
+                    action = 'unlock';
+                }
+                resourceFactory.lockOrUnlockEntityResource.lockOrUnlock({
+                    entityType: 'client',
+                    entityId: scope.entityId,
+                    'command': action
+                }, function (responseData) {
+                    scope.client.isLocked = !scope.client.isLocked;
+                    //enableOrDisableClientLockButtons();
+                });
+            };
         }
     });
 

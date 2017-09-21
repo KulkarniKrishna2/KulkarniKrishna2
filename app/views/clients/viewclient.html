@@ -50,6 +50,14 @@
 						<button class="btn btn-warning" ng-click="reComputeProfileRating()">
 	                    	<i class="icon-repeat"></i>
 	                	</button>
+	                	<span ng-if="isActiveClient">
+	                		<button class="btn btn-warning" ng-if="!client.isLocked" has-permission="LOCK_CLIENT" ng-click="lockOrUnLockClient()">
+							<i class="icon-unlock"></i>
+		                	</button>
+							<button class="btn btn-warning" ng-if="client.isLocked" has-permission="UNLOCK_CLIENT" ng-click="lockOrUnLockClient()">
+		                    	<i class="icon-lock"></i>
+							</button>
+	                	</span>
 					</span>
 				</div>
 				<div class="pull-right" ng-if="profileRatingData && profileRatingData.updatedTime">
@@ -62,11 +70,13 @@
 	</div>
 	<script type="text/ng-template" id="viewDocument.html">
 	    	 <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
-            	<view-document-directive  ng-entity-type="client_identifiers" 
+            	<view-document-directive  ng-entity-type="{{data.parentEntityType}}"
             	ng-entity-id="{{data.parentEntityId}}"
             	ng-document-id="{{data.id}}"></view-document-directive>
         	</div>
 	</script>
+
+
 	<script type="text/ng-template" id="deleteClient.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -349,7 +359,7 @@
 										<th>{{'label.heading.type' | translate}}</th>
 										<th>{{'label.heading.actions' | translate}}</th>
 									</tr>
-									<tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'id':true| filter:isLoanAppIncompleted">
+									<tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'loanApplicationReferenceId':true| filter:isLoanAppIncompleted">
 										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">
 											<i tooltip-placement="right" tooltip="{{loanApp.status.value}}"
 											   class="icon-stop {{loanApp.status.code | StatusLookup}}"></i>
@@ -364,7 +374,8 @@
 											<i tooltip="{{loanApp.accountType.value}}" class="icon-group icon-large"></i><span ng-show="loanApp.isCoApplicant">*</span>
 										</td>
 										<td class="pointer center">
-											<a tooltip="{{'label.button.request.approval' | translate}}" has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE' data-ng-click="requestApprovalLoanAppRef(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 100">
+											<a tooltip="{{'label.button.request.approval' | translate}}" has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE' data-ng-click="requestApprovalLoanAppRef(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 100" 
+											ng-disabled="loanApp.isCreditBureauProduct">
 												<i class="icon-ok icon-white"></i>
 											</a>
 											<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-href="#/approveloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 200">
@@ -799,11 +810,13 @@
 		</tab>
 		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
 		     has-permission='READ_CLIENTIDENTIFIER'>
-		    <div class="pull-right btn-group">
-		        <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
-		           has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>{{
-		            'label.button.add' | translate }}</a>
-		    </div>
+			<div><api-validate></api-validate></div>
+			<div class="pull-right btn-group">
+				<a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
+				   has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>{{
+					'label.button.add' | translate }}</a>
+			</div>
+
 		    <br>
 		    <table class="table" ng-show="identitydocuments.length > 0">
 		        <thead>
@@ -825,7 +838,7 @@
 		                  <span ng-repeat="file in document.documents">
 		                    {{file.fileName}}&nbsp;&nbsp;
 		                    <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
-		                           " class="icon-eye-open text-success"></i></a>
+		                            class="icon-eye-open text-success"></i></a>
 		                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
 		                            class="icon-cloud-download"></i></a>
 		                  </span>
@@ -847,7 +860,6 @@
 		        </tbody>
 		    </table>
 		</tab>
-
 		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress" select="fetchEntityAddress()">
 				<div class="pull-right">
 					<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary"
@@ -868,7 +880,7 @@
 									 class="pull right btn btn-primary" has-permission='DELETE_ADDRESSES'>
                                  <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
                             </button>
-							<a href="#/editaddress/{{client.id}}/{{address.addressId}}"
+							<a ng-hide="address.addressEntityData[0].addressType.name=='kycAddress'" href="#/editaddress/{{client.id}}/{{address.addressId}}"
 							   class="pull right btn btn-primary" has-permission='UPDATE_ADDRESSES'>
 								<i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
 							</a>
@@ -886,6 +898,12 @@
 								<th class="table-bold-loan">{{'label.heading.streetname' | translate}}</th>
 								<td>
 									<span class="padded-td">{{address.addressLineOne}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.address.line.two' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.addressLineTwo}}</span>
 								</td>
 							</tr>
 							<tr>
@@ -942,14 +960,13 @@
 					</div>
 				</script>
 			</tab>
-
 		<tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
-		    <div class="pull-right">
+			<div><api-validate></api-validate></div>
+			<div class="pull-right">
 		        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
 		                class="icon-plus icon-white"></i>
 		            {{'label.button.upload' | translate}}</a>
 		    </div>
-		    <br>
 		    <div ng-repeat="(key, value) in clientdocuments">
 		    	<h3>{{key | translate}}</h3>
 		    	<table class="table" ng-show="value.length > 0">
@@ -965,7 +982,13 @@
 			        <tr ng-repeat="clientdocument in value">
 			            <td>{{clientdocument.name}}</td>
 			            <td>{{clientdocument.description}}</td>
-			            <td>{{clientdocument.fileName}}</td>
+			            <td>
+			            	<span>
+			            		{{clientdocument.fileName}}&nbsp;
+			            		<a target="_blank" data-ng-click="openViewDocument(clientdocument)"><i
+		                           class="icon-eye-open text-success"></i></a>
+			            	</span>
+			            </td>
 			            <td>
 			                <a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
 			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
@@ -976,27 +999,6 @@
 			        </tbody>
 			    </table>	
 		    </div>
-		    <table class="table" ng-show="clientdocuments.length > 0">
-		        <thead>
-		        <tr class="graybg">
-		            <th>{{'label.heading.name' | translate}}</th>
-		            <th>{{'label.heading.description' | translate}}</th>
-		            <th>{{'label.heading.filename' | translate}}</th>
-		            <th>{{'label.heading.actions' | translate}}</th>
-		        </tr>
-		        </thead>
-		        <tbody>
-		        <tr ng-repeat="clientdocument in clientdocuments">
-		            <td>{{clientdocument.name}}</td>
-		            <td>{{clientdocument.description}}</td>
-		            <td>{{clientdocument.fileName}}</td>
-		            <td>
-		                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-		                <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
-		            </td>
-		        </tr>
-		        </tbody>
-		    </table>
 		</tab>
 		<tab heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD' select="fetchSmartCardData()">
 
@@ -1053,7 +1055,7 @@
 				<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
 			</div>
 			<div class="modal-body ">
-
+				<api-validate></api-validate>
 				<br>
 				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
 				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>

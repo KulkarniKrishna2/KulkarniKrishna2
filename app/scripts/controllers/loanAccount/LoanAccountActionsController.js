@@ -299,7 +299,9 @@
                     break;
                 case "disburse":
                     scope.modelName = 'actualDisbursementDate';
-                    scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
+                    if(scope.response){
+                        scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
+                    }                    
                     scope.showdiscountOnDisburse = false;
                     scope.disableDiscount = true;
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
