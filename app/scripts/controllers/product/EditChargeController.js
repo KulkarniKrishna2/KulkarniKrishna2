@@ -143,7 +143,8 @@
                         isBasedOnOriginalSchedule: data.chargeOverdueData.isBasedOnOriginalSchedule,
                         considerOnlyPostedInterest: data.chargeOverdueData.considerOnlyPostedInterest,
                         calculateChargeOnCurrentOverdue: data.chargeOverdueData.calculateChargeOnCurrentOverdue,
-                        minOverdueAmountRequired: data.chargeOverdueData.minOverdueAmountRequired
+                        minOverdueAmountRequired: data.chargeOverdueData.minOverdueAmountRequired,
+                        stopChargeOnNPA:data.chargeOverdueData.stopChargeOnNPA
                     };
                     scope.percentageTypeOptionDisplay();
                     scope.onfeefrequencychange();

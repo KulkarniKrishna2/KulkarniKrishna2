@@ -1605,6 +1605,9 @@
             .when('/pdcreport', {
                 templateUrl: 'views/pdc/pdcreport.html'
             })
+            .when('/run_overdue_charges',{
+                templateUrl: 'views/organization/overduecharge.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
