@@ -1952,11 +1952,8 @@
     "label.button.foreclosure": "Preclosure",
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
-<<<<<<< HEAD
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
-=======
     "label.button.fetchpenalties":"Fetch Penalties",
->>>>>>> v17.08.3_RC
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",
