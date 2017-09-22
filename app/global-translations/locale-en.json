@@ -1760,6 +1760,14 @@
     "label.heading.loanIdToClose" : "Loan closed with Topup",
     "label.heading.topupAmount" : "Topup closure amount",
     "label.heading.paymentdetails": "Payment Details",
+    "label.heading.penaltyapplicable": "Penalties posted till ",
+    "label.heading.penaltynotapplicable": "Penalties have not yet been posted",
+    "label.heading.asondate":"As on ",
+    "label.heading.penalties.to.add":" Penalties to be posted : ",
+    "label.heading.penalties.to.reverse":" Penalties to be reversed :",
+    "label.heading.penalty.charge.posted":"Penalty charges posted till ",
+    "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
+    "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -1934,6 +1942,7 @@
     "label.button.foreclosure": "Preclosure",
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
+    "label.button.fetchpenalties":"Fetch Penalties",
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",
@@ -2895,6 +2904,9 @@
     "label.heading.edittaxgroup":"Edit Tax Group",
     "label.heading.viewtaxgroup":"View Tax Group",
     "label.heading.taxcomponent":"Tax Components",
+    "label.heading.execute.overdue.charges":"Overdue Charges",
+    "label.execute.overdue.charges" : "Execute loan overdue charges on provided day",
+    "label.heading.overduecharge":"Execute Loan Overdue Charge",
 
     "#Anchors": "..",
     "label.anchor.organization": "Organization",
@@ -2925,6 +2937,7 @@
     "label.anchor.createtaxgroup":"Create Tax Group",
     "label.anchor.edittaxgroup":"Edit Tax Group",
     "label.anchor.viewtaxgroup":"View Tax Group",
+    "label.anchor.overduecharge":"Apply Overdue Charge",
 
 
 
@@ -2955,12 +2968,14 @@
     "label.input.taxgroup":"Tax Group",
     "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
     "label.input.loanOfficer":"Loan Officer",
+    "label.overdue.tilldate":"Overdue Charge Run  Till",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",
     "label.button.createholiday": "Create Holiday",
     "label.button.createoffice": "Create Office",
     "label.button.addedit":"Add/Edit",
+    "label.button.execute.overdue.charges":"Run Overdue Charges",
 
     "#Misc Labels": "..",
     "label.addnewofficeormodifyordeactivateofficeormodifyofficeheirarchy": "Add new office or modify or deactivate office or modify office hierarchy",
@@ -4341,6 +4356,7 @@
     "label.input.applypenaltyforbrokenperiod":"Apply penalty For broken period",
     "label.input.ispenaltybasedonoriginalschedule":"Is penalties based on original schedule",
     "label.input.consideronlypostedinterestforpenalties": "Consider only posted interest for overdue calculation",
+    "label.input.stopoverduechargeonnpa": "Consider only non NPA loans for overdue calculation",
     "label.input.calculatepenaltyoncurrentoverdue":"Calculate penalty on current overdue",
     "label.input.minoverdueamountrequired":"Minimum amount required to add overdue charge",
     "label.input.chargepercentagetype":"Charge percentage type",

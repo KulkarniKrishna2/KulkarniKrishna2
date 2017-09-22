@@ -1250,7 +1250,11 @@
                         command: '@command'
                     }, {
                         lockOrUnlock: {method: 'POST', params: {}}
-                    })
+                    }),
+                    overdueChargeResource: defineResource(apiVer + "/loans/overduecharges", {}, {
+                        get: {method: 'GET', params: {}},
+                        run: {method: 'POST', params: {}}
+                    }),
                 };
             }];
         }

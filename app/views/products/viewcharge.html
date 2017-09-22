@@ -109,6 +109,10 @@
 						<td>{{charge.chargeOverdueData.calculateChargeOnCurrentOverdue | YesOrNo}}</td>
 					</tr>
 					<tr ng-if="charge.chargeTimeType.id == 9">
+						<td>{{'label.input.stopoverduechargeonnpa' | translate}}:</td>
+						<td>{{charge.chargeOverdueData.stopChargeOnNPA | YesOrNo}}</td>
+					</tr>
+					<tr ng-if="charge.chargeTimeType.id == 9">
 						<td>{{'label.input.minoverdueamountrequired' | translate}}</td>
 						<td>{{charge.chargeOverdueData.minOverdueAmountRequired | number}}</td>
 					</tr>
