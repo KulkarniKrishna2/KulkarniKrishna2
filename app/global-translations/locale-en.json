@@ -6463,5 +6463,9 @@
     "label.anchor.upload.fileprocess.file": "Upload File Process Document",
     "label.heading.upload.fileprocess.document": "Upload File Process Document",
     "label.input.fileprocesstype": "File Process Type",
+
+    "validation.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit" : "Undoing transaction results in balnce exceeding overdraft limit.",
+    "validation.msg.savingsaccountPAY_CHARGE.results.in.balance.exceeding.overdraft.limit" : "Paying charge transaction failed due to balance exceeding overdraft limit.",
+
     "------ end of tensalation file":"---------"
 }
