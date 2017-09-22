@@ -6381,6 +6381,8 @@
     "validation.msg.fixeddeposit.feeToIncomeAccountMappings.chargeId.cannot.be.blank" : "Fee for configuring Fee specific Income Accounts cannot be blank.",
     "validation.msg.fixeddeposit.penaltyToIncomeAccountMappings.chargeId.cannot.be.blank" : "Penalty for configuring Penalty specific Income Accounts cannot be blank.",
     "validation.msg.fixeddeposit.fromDate.cannot.be.blank" : "From Date cannot be blank.",
+    "validation.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit" : "Undoing transaction results in balnce exceeding overdraft limit.",
+    "validation.msg.savingsaccountPAY_CHARGE.results.in.balance.exceeding.overdraft.limit" : "Paying charge transaction failed due to balance exceeding overdraft limit.",
 
     "------ end of tensalation file":"---------"
 }
