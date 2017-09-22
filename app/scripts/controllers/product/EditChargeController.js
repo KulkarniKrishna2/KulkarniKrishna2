@@ -12,6 +12,8 @@
             scope.showSlabBasedCharges = false;
             scope.slabBasedChargeCalculation = 6;
             scope.installmentAmountSlabType = 1;
+            scope.showOverdueOptions = false;
+            scope.showPercentageTyeOptions = false;
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
@@ -23,7 +25,6 @@
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
-                    scope.showFrequencyOptions = true;
                     scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
                     scope.showIsGlimCharge = true;
                     scope.showEmiRoundingGoalSeek = true;
@@ -33,7 +34,6 @@
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.flag = true;
-                    scope.showFrequencyOptions = false;
                     scope.showIsGlimCharge = false;
                     scope.showEmiRoundingGoalSeek = false;
                     scope.showMinimunCapping = false;
@@ -53,7 +53,6 @@
                     scope.flag = true;
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
-                    scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
                     scope.showIsGlimCharge = false;
                     scope.showEmiRoundingGoalSeek = false;
@@ -127,6 +126,31 @@
                 } else {
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
+
+                if(data.percentageType) {
+                    scope.formData.percentageType = data.percentageType.id;
+                }
+                if(data.percentagePeriodType){
+                    scope.formData.percentagePeriodType = data.percentagePeriodType.id;
+                }
+                if(scope.formData.chargeTimeType == 9){
+                    scope.showOverdueOptions = true;
+                    scope.formData.overdueChargeDetail = {
+                        gracePeriod: data.chargeOverdueData.gracePeriod,
+                        penaltyFreePeriod: data.chargeOverdueData.penaltyFreePeriod,
+                        graceType:data.chargeOverdueData.graceType.id,
+                        applyChargeForBrokenPeriod: data.chargeOverdueData.applyChargeForBrokenPeriod,
+                        isBasedOnOriginalSchedule: data.chargeOverdueData.isBasedOnOriginalSchedule,
+                        considerOnlyPostedInterest: data.chargeOverdueData.considerOnlyPostedInterest,
+                        calculateChargeOnCurrentOverdue: data.chargeOverdueData.calculateChargeOnCurrentOverdue,
+                        minOverdueAmountRequired: data.chargeOverdueData.minOverdueAmountRequired,
+                        stopChargeOnNPA:data.chargeOverdueData.stopChargeOnNPA
+                    };
+                    scope.percentageTypeOptionDisplay();
+                    scope.onfeefrequencychange();
+                    scope.onPercentageTypeSelect();
+                }
+
             });
 
             scope.updateSlabOptionsValues = function(slabs){
@@ -151,11 +175,12 @@
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
-                if ((chargeTimeType === 12) && (scope.template.chargeAppliesTo.value === "Loan")) {
-                    scope.showFrequencyOptions = false;
-                }
-                else {
-                    scope.showFrequencyOptions = true;
+                scope.showOverdueOptions = false;
+                if(chargeTimeType == 9){
+                    scope.showOverdueOptions = true;
+                    scope.formData.overdueChargeDetail = {};
+                }else{
+                    delete  scope.formData.overdueChargeDetail;
                 }
                 if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     for (var i in scope.template.chargeTimeTypeOptions) {
@@ -175,6 +200,40 @@
                     }
                 }
                 showCapitalizedChargeCheckbox();
+                scope.percentageTypeOptionDisplay();
+            }
+
+            scope.percentageTypeOptionDisplay= function () {
+                scope.showPercentageTyeOptions = scope.showOverdueOptions && scope.formData.chargeCalculationType != 1 &&
+                    scope.formData.chargeCalculationType != 6 && scope.addfeefrequency;
+                if(!scope.showPercentageTyeOptions){
+                    scope.showPercentagePeriodType = false;
+                    delete scope.formData.percentageType;
+                    delete scope.formData.percentagePeriodType;
+                }
+            }
+
+            scope.onfeefrequencychange = function(){
+                scope.showfeefrequencyinterval = scope.addfeefrequency && scope.formData.feeFrequency != 5;
+                if(scope.formData.feeFrequency === 5){
+                    delete scope.formData.feeInterval;
+                }
+                scope.percentageTypeOptionDisplay();
+            }
+
+            scope.onPercentageTypeSelect = function(){
+                scope.showPercentagePeriodType = scope.showPercentageTyeOptions && scope.formData.percentageType && scope.formData.percentageType === 2;
+                if(!scope.showPercentagePeriodType){
+                    delete scope.formData.percentagePeriodType;
+                }
+                scope.onchangeSetAsCurrentOverdue();
+            }
+
+            scope.onchangeSetAsCurrentOverdue = function(){
+                if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
+                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
+                    scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
+                }
             }
 
             scope.getSlabPlaceHolder = function(value,type){
@@ -211,6 +270,8 @@
                     scope.formData.slabs = [];
                 }
                 showCapitalizedChargeCheckbox();
+                scope.percentageTypeOptionDisplay();
+                scope.onchangeSetAsCurrentOverdue();
             };
             
             scope.getSubSlabHeading = function(subSlabType){

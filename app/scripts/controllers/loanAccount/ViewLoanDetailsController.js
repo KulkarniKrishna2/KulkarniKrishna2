@@ -539,27 +539,30 @@
 
                     };
 
-                    if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
-                        for(var i = 0; i < scope.loandetails.transactions.length; i++){
-                            if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
-                                scope.buttons.options.unshift({
-                                    name: "button.revokesubsidy",
-                                    taskPermissionName: 'READ_SUBSIDY'
-                                });
-                                break;
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.loandetails.id, associations: 'transactions', isFetchSpecificData: true}, function (transactionData) {
+                        scope.loandetails.transactions = transactionData.transactions;
+                        if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
+                            for(var i = 0; i < scope.loandetails.transactions.length; i++){
+                                if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
+                                    scope.buttons.options.unshift({
+                                        name: "button.revokesubsidy",
+                                        taskPermissionName: 'READ_SUBSIDY'
+                                    });
+                                    break;
+                                }
                             }
                         }
-                    }
 
 
-                    if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0) {
-                        for (var i = 0; i < scope.loandetails.transactions.length; i++) {
-                            if (angular.isUndefined(scope.loandetails.interestRecalculationData) || !scope.loandetails.interestRecalculationData.isSubsidyApplicable) {
-                                scope.buttons.options.splice(0, 1);
-                                break;
+                        if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0) {
+                            for (var i = 0; i < scope.loandetails.transactions.length; i++) {
+                                if (angular.isUndefined(scope.loandetails.interestRecalculationData) || !scope.loandetails.interestRecalculationData.isSubsidyApplicable) {
+                                    scope.buttons.options.splice(0, 1);
+                                    break;
+                                }
                             }
                         }
-                    }
+                    });
 
                     if (data.canDisburse) {
                         disbursalSettings(data);

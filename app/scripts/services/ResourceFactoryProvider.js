@@ -86,9 +86,6 @@
                     documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
                         getAllDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
-                    documentsGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generate/:reportIdentifier", {entityType: '@entityType', entityId: '@entityId', reportIdentifier: '@reportIdentifier'}, {
-                        generate: {method: 'GET', params: {}}
-                    }),
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
                     }),
@@ -1247,14 +1244,9 @@
                     imageResource: defineResource(apiVer + "/:entityType/:entityId/images", {entityType:'@entityType',entityId:'@entityId'}, {
                         get:{method: 'GET', params: {},isArray:true}
                     }),
-<<<<<<< HEAD
-                    lockOrUnlockEntityResource: defineResource(apiVer + "/locks/:entityType/:entityId", {
-                        entityType: '@entityType',
-                        entityId: '@entityId',
-                        command: '@command'
-                    }, {
+                    lockOrUnlockEntityResource: defineResource(apiVer + "/locks/:entityType/:entityId", {entityType: '@entityType', entityId: '@entityId', command: '@command'}, {
                         lockOrUnlock: {method: 'POST', params: {}}
-=======
+                    }),
                     districtsResource:defineResource(apiVer+"/districts/:districtId",{districtId: '@districtId'},{
 
                     }),
@@ -1269,7 +1261,10 @@
                     }),
                     fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
 
->>>>>>> v17.08.2_VAYA
+                    }),
+                    overdueChargeResource: defineResource(apiVer + "/loans/overduecharges", {}, {
+                        get: {method: 'GET', params: {}},
+                        run: {method: 'POST', params: {}}
                     })
                 };
             }];

@@ -378,6 +378,12 @@
                                     scope.showPenaltyPortionDisplay = true;
                                 }
                             }
+                            if(data.loanOverdueChargeData){
+                                scope.penaltyamount = data.penaltyChargesPortion;
+                                scope.overduechargespresent = true;
+                                scope.overdueDetailsFetched = false;
+                                scope.loanOverdueChargeData = data.loanOverdueChargeData;
+                            }
                         });
                     });
                     scope.title = 'label.heading.loanrepayments';
@@ -386,6 +392,7 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
                     scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
+
                     break;
                 case "prepayment":
                     scope.modelName = 'transactionDate';
@@ -1069,6 +1076,31 @@
                 }
                 scope.formData.clientMembers = scope.glimMembers;
             };
+
+            scope.fetchPenalties = function(){  
+                var params = {};
+                params.locale = scope.optlang.code;
+                params.dateFormat = scope.df;
+                params.date = dateFilter(this.formData.transactionDate, scope.df);
+                params.loanId = scope.accountId;
+                resourceFactory.overdueChargeResource.get(params, function (data) {
+                    scope.overdueDetailsFetched = true;
+                    scope.loanOverdueChargeData = data;
+                    scope.totalpenaltyAsOnDate = scope.loanOverdueChargeData.penaltyPostedAsOnDate+ scope.loanOverdueChargeData.penaltyToBePostedAsOnDate;
+                    scope.totalpenaltyTillDate =  scope.loanOverdueChargeData.penaltyPostedTillDate;
+                    
+                    if(scope.totalpenaltyAsOnDate > scope.totalpenaltyTillDate){
+                        scope.showaddpenaltymessage = true;
+                        scope.showdeletepenaltymessage = false;
+                        scope.penaltydiff = scope.totalpenaltyAsOnDate -  scope.totalpenaltyTillDate;
+                    }else{
+                        scope.showaddpenaltymessage = false;
+                        scope.showdeletepenaltymessage = true;
+                        scope.penaltydiff = scope.totalpenaltyTillDate-  scope.totalpenaltyAsOnDate ;
+                    }
+                });
+            };
+
         }
     });
     mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {

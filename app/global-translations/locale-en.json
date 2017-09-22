@@ -1770,6 +1770,14 @@
     "label.heading.loanIdToClose" : "Loan closed with Topup",
     "label.heading.topupAmount" : "Topup closure amount",
     "label.heading.paymentdetails": "Payment Details",
+    "label.heading.penaltyapplicable": "Penalties posted till ",
+    "label.heading.penaltynotapplicable": "Penalties have not yet been posted",
+    "label.heading.asondate":"As on ",
+    "label.heading.penalties.to.add":" Penalties to be posted : ",
+    "label.heading.penalties.to.reverse":" Penalties to be reversed :",
+    "label.heading.penalty.charge.posted":"Penalty charges posted till ",
+    "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
+    "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -1944,7 +1952,11 @@
     "label.button.foreclosure": "Preclosure",
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
+<<<<<<< HEAD
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
+=======
+    "label.button.fetchpenalties":"Fetch Penalties",
+>>>>>>> v17.08.3_RC
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",
@@ -2907,6 +2919,9 @@
     "label.heading.edittaxgroup":"Edit Tax Group",
     "label.heading.viewtaxgroup":"View Tax Group",
     "label.heading.taxcomponent":"Tax Components",
+    "label.heading.execute.overdue.charges":"Overdue Charges",
+    "label.execute.overdue.charges" : "Execute loan overdue charges on provided day",
+    "label.heading.overduecharge":"Execute Loan Overdue Charge",
 
     "#Anchors": "..",
     "label.anchor.organization": "Organization",
@@ -2937,6 +2952,7 @@
     "label.anchor.createtaxgroup":"Create Tax Group",
     "label.anchor.edittaxgroup":"Edit Tax Group",
     "label.anchor.viewtaxgroup":"View Tax Group",
+    "label.anchor.overduecharge":"Apply Overdue Charge",
 
 
 
@@ -2967,12 +2983,14 @@
     "label.input.taxgroup":"Tax Group",
     "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
     "label.input.loanOfficer":"Loan Officer",
+    "label.overdue.tilldate":"Overdue Charge Run  Till",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",
     "label.button.createholiday": "Create Holiday",
     "label.button.createoffice": "Create Office",
     "label.button.addedit":"Add/Edit",
+    "label.button.execute.overdue.charges":"Run Overdue Charges",
 
     "#Misc Labels": "..",
     "label.addnewofficeormodifyordeactivateofficeormodifyofficeheirarchy": "Add new office or modify or deactivate office or modify office hierarchy",
@@ -3850,6 +3868,11 @@
     "validation.msg.charge.feeInterval.cannot.be.blank": "Charge Repeats on every is mandatory.",
     "validation.msg.charge.feeInterval.is.not.within.expected.range": "Charge Repeats on should be between 1 and 12.",
     "validation.msg.charges.charge.calculation.type.percentage.allowed.only.for.withdrawal": "Savings charges with charge calculation type as percentage is allowed only for Withdrawal fee. ",
+    "validation.msg.charge.penaltyFreePeriod.is.greater.than.max":"Penalty Free Period Must not be greater than grace period",
+    "validation.msg.charge.gracePeriod.exceeds.max.length":"grace period must be less than 9999",
+    "validation.msg.charge.penaltyFreePeriod.exceeds.max.length":"penalty free period must be less than 9999",
+    "validation.msg.charge.gracePeriod.not.zero.or.greater":"grace period must be a positive number",
+    "validation.msg.charge.penaltyFreePeriod.not.zero.or.greater":"penalty free period must be a positive number",
     "validation.msg.loanproduct.name.cannot.be.blank": "Name is mandatory.",
     "validation.msg.loanproduct.description.exceeds.max.length": "Name cannot be over {{params[0].value}} characters long.",
     "validation.msg.loanproduct.shortName.cannot.be.blank":"Short name cannot be blank.",
@@ -4342,6 +4365,17 @@
     "label.input.feefrequency":"Charge Frequency",
     "label.input.addfeefrequency":"Add Fee Frequency",
     "label.input.frequencyInterval":"Frequency Interval",
+    "label.input.graceperiod":"Grace period",
+    "label.input.penaltyfreeperiod":"Penalty free period",
+    "label.input.penaltygracetype":"Penalty Grace/Free Period applicable for",
+    "label.input.applypenaltyforbrokenperiod":"Apply penalty For broken period",
+    "label.input.ispenaltybasedonoriginalschedule":"Is penalties based on original schedule",
+    "label.input.consideronlypostedinterestforpenalties": "Consider only posted interest for overdue calculation",
+    "label.input.stopoverduechargeonnpa": "Consider only non NPA loans for overdue calculation",
+    "label.input.calculatepenaltyoncurrentoverdue":"Calculate penalty on current overdue",
+    "label.input.minoverdueamountrequired":"Minimum amount required to add overdue charge",
+    "label.input.chargepercentagetype":"Charge percentage type",
+    "label.input.chargepercentageperiodtype":"Charge percentage period",
     "label.input.selectclients": "Select Clients",
     "label.input.selected": "Selected",
     "label.input.selectedproducts" : "Selected Products",
@@ -6466,6 +6500,9 @@
 
     "validation.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit" : "Undoing transaction results in balnce exceeding overdraft limit.",
     "validation.msg.savingsaccountPAY_CHARGE.results.in.balance.exceeding.overdraft.limit" : "Paying charge transaction failed due to balance exceeding overdraft limit.",
+    "error.msg.subsidy.for.loan.not.applied" : "Subsidy is not applied for the loan.",
+    "validation.msg.loan.transaction.subsidyRevokeDate.is.greater.than.date" : "Subsidy revoke date cannot be greater than current date.",
+    "validation.msg.loan.transaction.subsidyReleaseDate.is.greater.than.date" : "Subsidy release date cannot be greater than current date.",
 
     "------ end of tensalation file":"---------"
 }

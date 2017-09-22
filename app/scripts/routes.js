@@ -1617,6 +1617,9 @@
             .when('/uploadfileprocess', {
                 templateUrl: 'views/fileprocess/uploadfileprocess.html'
             })
+            .when('/run_overdue_charges',{
+                templateUrl: 'views/organization/overduecharge.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
