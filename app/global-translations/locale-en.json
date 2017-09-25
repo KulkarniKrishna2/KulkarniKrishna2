@@ -3682,6 +3682,7 @@
     "label.input.interestratechart.valid.from":"Valid From Date",
     "label.input.interestratechart.valid.to":"End Date",
     "label.input.interestratechart.primary.grouping.amount":"Is primary grouping by Amount",
+    "label.input.interestratechart.primary.interestcalculation.from.productchart" : "Calculate interest from product",
     "label.checkbox.interestfreeperiodapplicable":"Period when interest will not be paid",
     "label.checkbox.applypreclosurepenalinterest":"Apply penal interest (less)",
     "label.checkbox.createjournalentries":"createjournalentries",
