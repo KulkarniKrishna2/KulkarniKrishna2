@@ -850,7 +850,6 @@
                         var numberOftranches = scope.disbursementDetails.length;
                         if( scope.approveTranches  && numberOftranches <= 0) {
                             scope.trancheError = true;
-                            scope.errorDetails = [];
                             var errorObj = new Object();
                             errorObj.args = {
                                 params: []
