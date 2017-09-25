@@ -6434,6 +6434,7 @@
     "label.duplicatte.column.name.error" : "Duplicate column name!",
     "error.msg.attempting.multiple.update" : " Multiple updates not allowed.",
     "error.msg.document.id.invalid" : "Document id is invalid.",
+    "error.msg.loan.application.reference.does.not.exist" : "Loan application not found.",
 
     "------ end of tensalation file":"---------"
 }
