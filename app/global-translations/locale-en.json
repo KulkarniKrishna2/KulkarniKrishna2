@@ -6501,5 +6501,13 @@
     "validation.msg.loan.transaction.subsidyRevokeDate.is.greater.than.date" : "Subsidy revoke date cannot be greater than current date.",
     "validation.msg.loan.transaction.subsidyReleaseDate.is.greater.than.date" : "Subsidy release date cannot be greater than current date.",
 
+    "error.msg.loan.application.reference.external.id.one.duplicated": "Loan application reference external id one duplicated.",
+    "error.msg.loan.application.reference.external.id.two.duplicated": "Loan application reference external id two duplicated.",
+    "validation.msg.recurringdepositaccount.transactionAmount.cannot.be.blank" : "Transaction amount can not be blank",
+    "validation.msg.recurringdepositaccount.preMatureClose.closedOnDate.must.be.after.last.transaction.date" : "Premature closure date must be greater than or equal to the last transaction date.",
+    "validation.msg.savingsaccount.transaction.invalid.total.outstanding.amount.less.than.charge.pay.amount" : "Total outstanding amount is less than the charge pay amount.",
+    "validation.msg.loanapplicationreference.charges.amount.cannot.be.blank" : "Charge amount can not be blank.",
+
+
     "------ end of tensalation file":"---------"
 }
