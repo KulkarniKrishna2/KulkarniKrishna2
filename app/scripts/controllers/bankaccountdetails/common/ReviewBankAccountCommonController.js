@@ -65,6 +65,7 @@
                 if(!isFormValid()){
                     return false;
                 }
+                delete scope.errorDetails;
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
                     function (data) {
                         scope.viewConfig.showSummary=true;
@@ -73,6 +74,98 @@
             };
 
             function isFormValid(){
+                scope.errorDetails = [];
+                var errorObj = new Object();
+                errorObj.args = {
+                    params: []
+                };
+                var isBankDetailsNotMatched = false;
+                var isBothNameNotMatched = true;
+                if(scope.bankAccountData.name && scope.checkerBankAccountData.name){
+                    if(scope.bankAccountData.name.toString() === scope.checkerBankAccountData.name.toString()){
+                        isBothNameNotMatched = false;
+                    }
+                }
+                if(isBothNameNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.name.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+
+                var isAccountNumberNotMatched = true;
+                if(scope.bankAccountData.accountNumber && scope.checkerBankAccountData.accountNumber){
+                    if(scope.bankAccountData.accountNumber.toString() === scope.checkerBankAccountData.accountNumber.toString()){
+                        isAccountNumberNotMatched = false;
+                    }
+                }
+                if(isAccountNumberNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.number.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+
+                var isAccountTypeNotMatched = true;
+                if(scope.bankAccountData.accountType.code && scope.checkerBankAccountData.accountType.code){
+                    if(scope.bankAccountData.accountType.code.toString() === scope.checkerBankAccountData.accountType.code.toString()){
+                        isAccountTypeNotMatched = false;
+                    }
+                }
+                if(isAccountTypeNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.type.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+
+                var isIfscCodeNotMatched = true;
+                if(scope.bankAccountData.ifscCode && scope.checkerBankAccountData.ifscCode){
+                    if(scope.bankAccountData.ifscCode.toString() === scope.checkerBankAccountData.ifscCode.toString()){
+                        isIfscCodeNotMatched = false;
+                    }
+                }
+                if(isIfscCodeNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.ifsc.code.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+
+                var isBankNameNotMatched = true;
+                if(scope.bankAccountData.bankName && scope.checkerBankAccountData.bankName){
+                    if(scope.bankAccountData.bankName.toString() === scope.checkerBankAccountData.bankName.toString()){
+                        isBankNameNotMatched = false;
+                    }
+                }
+                if(isBankNameNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.name.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+
+                var isBranchNameNotMatched = true;
+                if(scope.bankAccountData.branchName && scope.checkerBankAccountData.branchName){
+                    if(scope.bankAccountData.branchName.toString() === scope.checkerBankAccountData.branchName.toString()){
+                        isBranchNameNotMatched = false;
+                    }
+                }
+                if(isBranchNameNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.branch.name.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+
+                var isBankCityNotMatched = true;
+                if(scope.bankAccountData.bankCity && scope.checkerBankAccountData.bankCity){
+                    if(scope.bankAccountData.bankCity.toString() === scope.checkerBankAccountData.bankCity.toString()){
+                        isBankCityNotMatched = false;
+                    }
+                }
+                if(isBankCityNotMatched){
+                    isBankDetailsNotMatched = true;
+                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.city.name.not.matched'});
+                    scope.errorDetails.push(errorObj);
+                }
+                if(isBankDetailsNotMatched){
+                    return false;
+                }
                 if(scope.formData.name && scope.formData.accountNumber && scope.formData.accountType && scope.formData.ifscCode
                     && scope.formData.bankName && scope.formData.branchName && scope.formData.bankCity){
                     return true;
