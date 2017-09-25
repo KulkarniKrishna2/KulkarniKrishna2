@@ -15,6 +15,7 @@
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
             scope.isPrimaryGroupingByAmount = false;
+            scope.isInterestCalculationFromProductChart = false;
 
             resourceFactory.recurringDepositProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -162,6 +163,7 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.isInterestCalculationFromProductChart = scope.isInterestCalculationFromProductChart;
 
                 resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
