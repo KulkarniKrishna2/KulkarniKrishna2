@@ -52,7 +52,7 @@
 
     </div>
     <div class="col-md-offset-2 paddedleft paddedtop">
-        <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary">{{'label.button.edit' | translate}}</a>
+        <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
         <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
         <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
     </div>
