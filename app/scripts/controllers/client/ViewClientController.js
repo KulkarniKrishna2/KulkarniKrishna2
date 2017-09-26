@@ -18,7 +18,9 @@
             scope.dob = "label.input.dateofbirth";
             scope.addressData = [];
             scope.addressId ;
-            scope.enableClientAddress = false;
+            var addressConfig = 'enable-clients-address';
+            scope.enableClientAddress = scope.isSystemGlobalConfigurationEnabled(addressConfig);
+            scope.isBetaEnabled = scope.isSystemGlobalConfigurationEnabled('enable-beta');
             scope.loancycledetail = [];
             scope.smartCardData = [];
             scope.smartformData = {};
@@ -451,32 +453,19 @@
 
                 scope.buttonsArray.singlebuttons = scope.buttons;
 
-                scope.$watch(scope.buttonsArray.singlebuttons, function() {
-                    if(_.isUndefined(scope.isLoanApplication)){
-                        resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
-                            scope.isLoanApplication = response.enabled;
-                            for(var i in scope.buttonsArray.singlebuttons){
-                                if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                                    scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
-                                    break;
-                                }
-                            }
-                        });
-                    }else{
-                        for(var i in scope.buttonsArray.singlebuttons){
-                            if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                                scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
-                                break;
-                            }
-                        }
+                scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
+                for(var i in scope.buttonsArray.singlebuttons){
+                    if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                        scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                        break;
                     }
-                });
-
+                };
 
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                     scope.loancycledetail = data;
                 });
+
                 var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
                 if (associatedEntityId == null) {
                     associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
@@ -790,18 +779,7 @@
                 }
             };
 
-            var addressConfig = 'enable-clients-address';
-            resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
-                if (response.enabled == true) {
-                    scope.enableClientAddress = true;
-                } else {
-                    scope.enableClientAddress = false;
-                }
-            });
 
-            resourceFactory.configurationResource.get({configName: 'enable-beta'}, function (response) {
-                scope.isBetaEnabled = response.enabled;
-            });
 
             scope.entityAddressLoaded = false;
             scope.fetchEntityAddress = function () {
@@ -1463,45 +1441,39 @@
                 var loanId = loan.id;
                 var trancheDisbursalId = undefined;
                 if(loan.productId){
-                    resourceFactory.configurationResource.get({configName: 'tranche-disbursal-credit-check'}, function (response) {
-                        scope.isTrancheDisbursalCreditCheck = response.enabled;
-                        if (scope.isTrancheDisbursalCreditCheck == true) {
-                            resourceFactory.configurationResource.get({configName: 'credit-check'}, function (response) {
-                                scope.isCreditCheck = response.enabled;
-                                if (scope.isCreditCheck == true) {
-                                    resourceFactory.loanProductResource.getCreditbureauLoanProducts({
-                                        loanProductId: loan.productId,
-                                        associations: 'creditBureaus',
-                                        clientId : scope.clientId
-                                    }, function (creditbureauLoanProduct) {
-                                        scope.creditbureauLoanProduct = creditbureauLoanProduct;
-                                        if (scope.creditbureauLoanProduct.isActive == true) {
-                                            scope.isCBCheckReq = true;
-                                            var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
-                                            var loanApplicationReferenceId = "loanApplicationReferenceId";
-                                            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: loanId,  associations:multiTranchDataRequest+",loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
-                                                scope.loandetails = data;
-                                                if(!_.isUndefined(scope.loandetails.disbursementDetails)){
-                                                    var expectedDisbursementDate = undefined;
-                                                    for(var i in scope.loandetails.disbursementDetails){
-                                                        if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
-                                                            if(_.isUndefined(expectedDisbursementDate)){
-                                                                expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                                trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                            }else{
-                                                                if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
-                                                                    expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                                    trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                                }
-                                                            }
+                    scope.isTrancheDisbursalCreditCheck = scope.isSystemGlobalConfigurationEnabled('tranche-disbursal-credit-check');
+                    if (scope.isTrancheDisbursalCreditCheck == true) {
+                        scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
+                        if (scope.isCreditCheck == true) {
+                            resourceFactory.loanProductResource.getCreditbureauLoanProducts({
+                                loanProductId: loan.productId,
+                                associations: 'creditBureaus',
+                                clientId : scope.clientId
+                            }, function (creditbureauLoanProduct) {
+                                scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                                if (scope.creditbureauLoanProduct.isActive == true) {
+                                    scope.isCBCheckReq = true;
+                                    var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
+                                    var loanApplicationReferenceId = "loanApplicationReferenceId";
+                                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: loanId,  associations:multiTranchDataRequest+",loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
+                                        scope.loandetails = data;
+                                        if(!_.isUndefined(scope.loandetails.disbursementDetails)){
+                                            var expectedDisbursementDate = undefined;
+                                            for(var i in scope.loandetails.disbursementDetails){
+                                                if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
+                                                    if(_.isUndefined(expectedDisbursementDate)){
+                                                        expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                        trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                    }else{
+                                                        if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
+                                                            expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                            trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
                                                         }
                                                     }
                                                 }
-                                                routeToLoanNextActionUrl(loanId,trancheDisbursalId);
-                                            });
-                                        }else{
-                                            routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                                            }
                                         }
+                                        routeToLoanNextActionUrl(loanId,trancheDisbursalId);
                                     });
                                 }else{
                                     routeToLoanNextActionUrl(loanId,trancheDisbursalId);
@@ -1510,7 +1482,9 @@
                         }else{
                             routeToLoanNextActionUrl(loanId,trancheDisbursalId);
                         }
-                    });
+                    }else{
+                        routeToLoanNextActionUrl(loanId,trancheDisbursalId);
+                    }
                 }else{
                     routeToLoanNextActionUrl(loanId,trancheDisbursalId);
                 }

@@ -29,7 +29,7 @@
                 <button type="button" class="btn btn-primary" data-ng-hide="config.enabled"
                         data-ng-click="enable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'>{{"label.button.enable" | translate}}</button>
                 <button type="button" class="btn btn-danger" data-ng-show="config.enabled"
-                        data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'>{{"label.button.disable" | translate}}</button>                
+                        data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'>{{"label.button.disable" | translate}}</button>
             </td>
             <td>{{config.value}}</td>
             <td>{{config.dateValue}}</td>

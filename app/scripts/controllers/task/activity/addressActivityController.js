@@ -23,7 +23,8 @@
                 scope.addressData={};
                 scope.formDataList = [scope.formData];
                 scope.formData.addressTypes = [];
-                scope.addressFromVillages = false;
+                var villageConfig = 'populate_client_address_from_villages';
+                scope.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled(villageConfig);
                 
                 
                 resourceFactory.addressTemplateResource.get({}, function (data) {
@@ -34,16 +35,6 @@
 
                 resourceFactory.villageResource.getAllVillages({officeId:scope.clientOfficeId, limit: 1000},function (data) {
                     scope.villages = data;
-                });
-
-                var villageConfig = 'populate_client_address_from_villages';
-                resourceFactory.configurationResource.get({configName: villageConfig}, function (response) {
-                    if (response.enabled == true){
-                        scope.addressFromVillages = true;
-                    }else {
-                        scope.addressFromVillages = false;
-                    }
-
                 });
             }
             function populateAddressData()

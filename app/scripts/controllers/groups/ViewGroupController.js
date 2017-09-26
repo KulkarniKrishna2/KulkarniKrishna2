@@ -277,9 +277,7 @@
                 });
             };
 
-            resourceFactory.configurationResource.get({configName: 'loan-application'}, function (response) {
-                scope.isLoanApplication = response.enabled;
-            });
+            scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
 
             function getprofileRating(){
                 resourceFactory.profileRating.get({entityType: 2,entityId : routeParams.id}, function (data) {
