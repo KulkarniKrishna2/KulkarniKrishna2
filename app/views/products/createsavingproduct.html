@@ -353,6 +353,11 @@
 								   name="effectiveFromDate"
 								   datepicker-pop="dd MMMM yyyy" is-open="opened"
 								   ng-model="floatingInterestRateChart.effectiveFromDate" class="form-control"/>
+
+                    			<small class="required" ng-show="effectiveFromDateRequired">
+									{{'label.error.required' | translate}}
+								</small>
+
 						</div>
 
 						<label class="control-label col-sm-2">{{'label.heading.interest' | translate}}</label>
@@ -360,6 +365,11 @@
 						<div class="col-sm-2">
 							<input type="number" id="interestrate" class="form-control"
 								   ng-model="floatingInterestRateChart.interestRate"/>
+							<small class="required" ng-show="interestRateRequired">
+								{{'label.error.required' | translate}}
+							</small>
+						</div>
+					<div class="col-sm-2">
 						</div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-primary" ng-click="addFloatingInterestRateChart()">{{

@@ -3407,6 +3407,7 @@
     "error.msg.invalid.endDate":"End date cannot be before start date",
     "error.msg.password.reset.days.value.must.be.greater.than.zero" : "For enabling 'Force Password Reset Days' configuration , the value (number of days after which a user is forced to reset his password) must be set to a number greater than 0.",
     "error.msg.recurringdepositaccount.transaction.in.the.future":"Transactions cannot be done on Future Date",
+    "alidation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Effective date should not be before current date",
 
     "#tool tip for global configuration":"..",
     "label.tooltip.global.maker-checker":"Determine if the maker-checker system will be used.",

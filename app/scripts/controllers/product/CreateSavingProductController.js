@@ -12,6 +12,8 @@
             scope.interestRateChart = [];
             scope.floatingInterestRateChart = [];
             scope.floatingInterestRateChart.effectiveFromDate = new Date ();
+            scope.effectiveFromDateRequired = false;
+            scope.interestRateRequired = false;
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
             resourceFactory.savingProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -111,6 +113,16 @@
             };
 
             scope.addFloatingInterestRateChart = function(){
+                if(scope.floatingInterestRateChart.effectiveFromDate != undefined && scope.floatingInterestRateChart.interestRate == undefined){
+                    scope.interestRateRequired = true;
+                }else{
+                    scope.interestRateRequired = false;
+                }
+                if(scope.floatingInterestRateChart.effectiveFromDate == undefined && scope.floatingInterestRateChart.interestRate != undefined){
+                    scope.effectiveFromDateRequired = true;
+                }else{
+                    scope.effectiveFromDateRequired = false;
+                }
                 if(scope.floatingInterestRateChart.effectiveFromDate != undefined && scope.floatingInterestRateChart.interestRate != undefined) {
                     reqDate = dateFilter(scope.floatingInterestRateChart.effectiveFromDate, scope.df);
                     temp = {
