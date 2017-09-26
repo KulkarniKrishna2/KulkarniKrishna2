@@ -23,8 +23,8 @@
             scope.showCreditBureau = false;
             scope.showFutureSchedule = false;
             scope.showOriginalSchedule = false;
-            scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
+            scope.isGlimPaymentAsGroup = false;
             scope.isGlimChargesAvailbale = true;
             scope.buttons = {};
             scope.singlebuttons = [];
@@ -49,11 +49,11 @@
             scope.closedTransaction = 7;
             
             scope.isGlimEnabled = function(){
-                return scope.isGlim && !scope.glimPaymentAsGroup;
+                return scope.isGlim && !scope.isGlimPaymentAsGroup;
             };
 
             scope.isGlimActiveLoan = function(isActive){
-                return scope.isGlim && !scope.glimPaymentAsGroup && isActive;
+                return scope.isGlim && !scope.isGlimPaymentAsGroup && isActive;
             };
 
             scope.isGlimRecovery = function(taskPermission){
@@ -293,11 +293,7 @@
                 var loanType = data.loanType.code;
 
                 if(loanType == 'accountType.glim') {
-                    resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
-                        if(configData){
-                            scope.glimPaymentAsGroup = configData.enabled;
-                        }
-                    });
+                    scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
                 }
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : true}, function (data) {
@@ -656,17 +652,13 @@
                             taskPermissionName: 'REPAYMENT_LOAN'
                         });
                     }else {
-                        resourceFactory.configurationResource.get({configName: scope.allowPaymentsOnClosedLoanConfigName}, function (configData) {
-                            if (configData) {
-                                if (configData.enabled) {
-                                    scope.singlebuttons.push({
-                                        name: "button.makerepayment",
-                                        icon: "icon-dollar",
-                                        taskPermissionName: 'REPAYMENT_LOAN'
-                                    });
-                                }
-                            }
-                        });
+                        if (scope.isSystemGlobalConfigurationEnabled(scope.allowPaymentsOnClosedLoanConfigName)) {
+                            scope.singlebuttons.push({
+                                name: "button.makerepayment",
+                                icon: "icon-dollar",
+                                taskPermissionName: 'REPAYMENT_LOAN'
+                            });
+                        }
                     }
                 }
                 if (data.status.value == "Closed (written off)") {
@@ -1622,20 +1614,45 @@
             }
 
             function getCreditBureauCheckIsRequired() {
-                resourceFactory.configurationResource.get({configName: 'tranche-disbursal-credit-check'}, function (response) {
-                    scope.isTrancheDisbursalCreditCheck = response.enabled;
-                    if (scope.isTrancheDisbursalCreditCheck == true) {
-                        resourceFactory.configurationResource.get({configName: 'credit-check'}, function (response) {
-                            scope.isCreditCheck = response.enabled;
-                            if (scope.isCreditCheck== true) {
-                                resourceFactory.loanProductResource.getCreditbureauLoanProducts({
-                                    loanProductId: scope.loandetails.loanProductId,
-                                    associations: 'creditBureaus',
-                                    clientId:$rootScope.clientId
-                                }, function (creditbureauLoanProduct) {
-                                    scope.creditbureauLoanProduct = creditbureauLoanProduct;
-                                    if (scope.creditbureauLoanProduct.isActive == true) {
-                                        scope.isCBCheckReq = true;
+                scope.isTrancheDisbursalCreditCheck = scope.isSystemGlobalConfigurationEnabled('tranche-disbursal-credit-check');
+                if (scope.isTrancheDisbursalCreditCheck == true) {
+                    scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
+                    if (scope.isCreditCheck== true) {
+                        resourceFactory.loanProductResource.getCreditbureauLoanProducts({
+                            loanProductId: scope.loandetails.loanProductId,
+                            associations: 'creditBureaus',
+                            clientId:$rootScope.clientId
+                        }, function (creditbureauLoanProduct) {
+                            scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                            if (scope.creditbureauLoanProduct.isActive == true) {
+                                scope.isCBCheckReq = true;
+                                var cbButton = {
+                                    name: "button.disburse.tranche.creditbureaureport",
+                                    icon: "icon-flag",
+                                    taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
+                                };
+                                for (var i in scope.buttons.singlebuttons) {
+                                    if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
+                                        scope.buttons.singlebuttons[i] = cbButton;
+                                        break;
+                                    }
+                                }
+                                if(!_.isUndefined(scope.loandetails.disbursementDetails) && scope.loandetails.disbursementDetails.length > 0){
+                                    var expectedDisbursementDate = undefined;
+                                    for(var i in scope.loandetails.disbursementDetails){
+                                        if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
+                                            if(_.isUndefined(expectedDisbursementDate)){
+                                                expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                            }else{
+                                                if(new Date(expectedDisbursementDate) > new Date(scope.loandetails.disbursementDetails[i].expectedDisbursementDate)){
+                                                    expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
+                                                    scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if(scope.trancheDisbursalId && scope.trancheDisbursalId != null){
                                         var cbButton = {
                                             name: "button.disburse.tranche.creditbureaureport",
                                             icon: "icon-flag",
@@ -1647,41 +1664,12 @@
                                                 break;
                                             }
                                         }
-                                        if(!_.isUndefined(scope.loandetails.disbursementDetails) && scope.loandetails.disbursementDetails.length > 0){
-                                            var expectedDisbursementDate = undefined;
-                                            for(var i in scope.loandetails.disbursementDetails){
-                                                if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
-                                                    if(_.isUndefined(expectedDisbursementDate)){
-                                                        expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                        scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                    }else{
-                                                        if(new Date(expectedDisbursementDate) > new Date(scope.loandetails.disbursementDetails[i].expectedDisbursementDate)){
-                                                            expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                            scope.trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if(scope.trancheDisbursalId && scope.trancheDisbursalId != null){
-                                                var cbButton = {
-                                                    name: "button.disburse.tranche.creditbureaureport",
-                                                    icon: "icon-flag",
-                                                    taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
-                                                };
-                                                for (var i in scope.buttons.singlebuttons) {
-                                                    if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
-                                                        scope.buttons.singlebuttons[i] = cbButton;
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
                                     }
-                                });
+                                }
                             }
                         });
                     }
-                });
+                }
             };
             scope.selectClosedTransactions = function(value){
                 if(value){

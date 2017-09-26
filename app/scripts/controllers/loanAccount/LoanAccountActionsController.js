@@ -29,16 +29,10 @@
             scope.GLIMData = {};
             scope.clientMembers = [];
             scope.showOverPaidSection = false;
-            scope.glimPaymentAsGroup = false;
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
+            scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
             scope.isDefaultAmountSection = false;
             scope.showRunReport = false;
-            
-            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
-                if(configData){
-                    scope.glimPaymentAsGroup = configData.enabled;
-                }
-            });
 
             scope.isAnyActiveMember = function(){
                 for(var i=0;i<scope.clientMembers.length;i++){
@@ -50,7 +44,7 @@
             };
 
             scope.isGlimEnabled = function(){
-                return scope.isGLIM && !scope.glimPaymentAsGroup;
+                return scope.isGLIM && !scope.isGlimPaymentAsGroup;
             };
 
             scope.showGlimTransactionSection = function(){
@@ -369,7 +363,7 @@
                             if (data.paymentTypeOptions.length > 0) {
                                 scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                             }
-                            if (scope.isGLIM && !scope.glimPaymentAsGroup) {
+                            if (scope.isGLIM && !scope.isGlimPaymentAsGroup) {
                                 scope.formData[scope.modelName] = new Date();
                             } else {
                                 scope.formData.transactionAmount = data.amount;
@@ -462,7 +456,7 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest',isTotalOutstandingInterest:scope.isTotalOutstandingInterest}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (responseData) {
-                            if (responseData.clientMembers.length>0 && !scope.glimPaymentAsGroup) {
+                            if (responseData.clientMembers.length>0 && !scope.isGlimPaymentAsGroup) {
                                 scope.clientMembers = responseData.clientMembers;
                                 var transactionAmount = 0;
                                 for (var i in responseData.clientMembers) {
@@ -495,7 +489,7 @@
                     scope.labelName = 'label.input.writeoffondate';
                     scope.taskPermissionName = 'WRITEOFF_LOAN';
                     resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
-                        if (data.clientMembers.length>0 && !scope.glimPaymentAsGroup) {
+                        if (data.clientMembers.length>0 && !scope.isGlimPaymentAsGroup) {
                             scope.clientMembers = data.clientMembers;
                             scope.isGLIM = true;
                         } else {
@@ -994,7 +988,7 @@
                 var transactionDate = dateFilter(scope.formData.transactionDate, scope.df);
                 if (tempTransactionDate === "" || (tempTransactionDate != transactionDate)) {
                     tempTransactionDate = transactionDate;
-                    if (scope.isGLIM && scope.action == 'repayment' && !scope.glimPaymentAsGroup) {
+                    if (scope.isGLIM && scope.action == 'repayment' && !scope.isGlimPaymentAsGroup) {
                         scope.getRepaymentTemplate(scope.formData.transactionDate);
                     }
                 }
