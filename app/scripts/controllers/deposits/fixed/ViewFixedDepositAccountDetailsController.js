@@ -235,6 +235,18 @@
                 }
             };
 
+            scope.checkStatus = function(){
+                var statusList = ['Active', 'Closed', 'Transfer in progress', 'Transfer on hold', 'Premature Closed', 'Matured'];
+                if(statusList.indexOf(scope.status) > -1){
+                    return true;
+                }
+                return false;
+            };
+
+            scope.viewJournalEntries = function(){
+                location.path("/searchtransaction/").search({savingsId: scope.savingaccountdetails.id});
+            };
+
             scope.viewSavingsTransactionJournalEntries = function(transactionId){
                 var transactionId = "S" + transactionId;
                 if(scope.clientId != undefined && scope.clientId != null && scope.clientId != "" ){

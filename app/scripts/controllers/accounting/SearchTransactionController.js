@@ -52,7 +52,6 @@
 
             if (!scope.searchCriteria.journals) {
                 scope.searchCriteria.journals = [null, null, null, null, null, null];
-                scope.saveSC();
             }
             scope.formData.transactionId = scope.searchCriteria.journals[0];
             scope.formData.glAccount = scope.searchCriteria.journals[1];
@@ -118,7 +117,6 @@
                 } else
                     scope.searchCriteria.journals[7] = null;
 
-                scope.saveSC();
                 resourceFactory.journalEntriesResource.search(params, callback);
             };
 
