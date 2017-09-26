@@ -464,7 +464,7 @@
     "validation.msg.familydetail.lastname.cannot.be.blank":"Please fill the last name",
     "validation.msg.familydetail.relationshipId.cannot.be.blank":"Please fill the relationship details.",
     "validation.msg.familydetail.age.cannot.be.blank":"Please fill the age.",
-    "error.msg.document.file.too.big":"You may not upload a file larger than 5 MB.",
+    "error.msg.document.file.too.big":"You may not upload a file larger than `{{params[2].value}}` MB.",
     "validation.msg.document.fileName.cannot.be.blank": "Please select a file.",
     "validation.msg.document.name.cannot.be.blank": "Please enter the name for the document.",
     "error.msg.document.report.mapping.notfound":"Document is not mapped with any report",
