@@ -6427,5 +6427,27 @@
     "label.anchor.upload.fileprocess.file": "Upload File Process Document",
     "label.heading.upload.fileprocess.document": "Upload File Process Document",
     "label.input.fileprocesstype": "File Process Type",
+
+    "validation.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit" : "Undoing transaction results in balnce exceeding overdraft limit.",
+    "validation.msg.savingsaccountPAY_CHARGE.results.in.balance.exceeding.overdraft.limit" : "Paying charge transaction failed due to balance exceeding overdraft limit.",
+    "error.msg.subsidy.for.loan.not.applied" : "Subsidy is not applied for the loan.",
+    "validation.msg.loan.transaction.subsidyRevokeDate.is.greater.than.date" : "Subsidy revoke date cannot be greater than current date.",
+    "validation.msg.loan.transaction.subsidyReleaseDate.is.greater.than.date" : "Subsidy release date cannot be greater than current date.",
+
+    "error.msg.loan.application.reference.external.id.one.duplicated": "Loan application reference external id one duplicated.",
+    "error.msg.loan.application.reference.external.id.two.duplicated": "Loan application reference external id two duplicated.",
+    "validation.msg.recurringdepositaccount.transactionAmount.cannot.be.blank" : "Transaction amount can not be blank",
+    "validation.msg.recurringdepositaccount.preMatureClose.closedOnDate.must.be.after.last.transaction.date" : "Premature closure date must be greater than or equal to the last transaction date.",
+    "validation.msg.savingsaccount.transaction.invalid.total.outstanding.amount.less.than.charge.pay.amount" : "Total outstanding amount is less than the charge pay amount.",
+    "validation.msg.loanapplicationreference.charges.amount.cannot.be.blank" : "Charge amount can not be blank.",
+
+    "error.msg.maker.checker.bank.account.name.not.matched" : "Bank account name not matched.",
+    "error.msg.maker.checker.bank.account.number.not.matched" : "Bank account number not matched.",
+    "error.msg.maker.checker.bank.account.type.not.matched" : "Bank account type not matched.",
+    "error.msg.maker.checker.bank.account.ifsc.code.not.matched" : "Bank account IFSC code not matched.",
+    "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
+    "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
+    "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
+
     "------ end of tensalation file":"---------"
 }
