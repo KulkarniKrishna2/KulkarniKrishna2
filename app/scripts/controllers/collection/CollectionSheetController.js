@@ -62,7 +62,7 @@
             scope.officeSelected = function (officeId) {
                 scope.officeId = officeId;
                 if (officeId) {
-                    resourceFactory.employeeResource.getAllEmployees({officeId: officeId}, function (data) {
+                    resourceFactory.employeeResource.getAllEmployees({officeId: officeId, status: 'active'}, function (data) {
                         scope.loanOfficers = data.pageItems;
                     });
 
