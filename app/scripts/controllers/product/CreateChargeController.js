@@ -96,7 +96,7 @@
                 if (scope.showChargePaymentByField === false) {
                     for (var i in scope.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.chargeTimeTypeOptions[i].id) {
-                            if (scope.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.chargeTimeTypeOptions[i].value == "Monthly Fee") {
+                            if (scope.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.chargeTimeTypeOptions[i].value == "Monthly Fee" || scope.chargeTimeTypeOptions[i].value == "Daily Fee") {
                                 scope.showdatefield = true;
                                 scope.repeatsEveryLabel = 'label.input.months';
                                 //to show 'repeats every' field for monthly fee
@@ -180,13 +180,13 @@
                 if(subslab.minValue != undefined && subslab.maxValue != undefined && subslab.amount != undefined) {
                     var slabCharge = slabCharge = {"minValue" : subslab.minValue, "maxValue" : subslab.maxValue, "amount": subslab.amount, "type":scope.subSlabChargeType};
                     slab.subSlabs.push(slabCharge);
-                }  
-
+                }
             };
 
             scope.deleteSubSlabs = function (slab, index) {
                 slab.subSlabs.splice(index, 1);
             };
+
 
             scope.deleteSlabCharge = function (slab) {
                 var index = scope.slabs.indexOf(slab);
@@ -203,20 +203,22 @@
                 }
             };
 
+            scope.filterChargeCalculations = function(chargeTimeType) {
+                return function (item) {
+                    if ((chargeTimeType == 12 && ((item.id == 3) || (item.id == 4))) ||
+                        (chargeTimeType != scope.chargeTimeTypeOverdueFees && (item.id == scope.loanChargeCalculationTypePercentageAmountAndFees)))
+                    {
+                        return false;
+                    }
+                    return true;
+                };
+            };
 
-	    scope.filterChargeCalculations = function(chargeTimeType) {
-		return function (item) {
-			if ((chargeTimeType == 12 && ((item.id == 3) || (item.id == 4))) ||
-                (chargeTimeType != scope.chargeTimeTypeOverdueFees && (item.id == scope.loanChargeCalculationTypePercentageAmountAndFees)))
-			{
-				return false;
-			}
-			return true;
-		};
-	    };
             scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
                 //the formData
+                var chargeAppliedToLoan = 1;
+                var chargeAppliedToClient = 3;
                 if (scope.showChargePaymentByField === false) {
                     if (scope.showdatefield === true) {
                         var reqDate = dateFilter(scope.first.date, 'dd MMMM');
@@ -229,9 +231,12 @@
                     scope.formData.slabs = scope.slabs;
                 }
 
-                if( (scope.formData.chargeAppliesTo === 1 || scope.formData.chargeAppliesTo === 3 )&& scope.addfeefrequency == 'false'){
+                if( scope.formData.chargeAppliesTo === chargeAppliedToLoan && scope.addfeefrequency == 'false') {
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
+                }else if(scope.formData.chargeAppliesTo === chargeAppliedToClient && scope.addfeefrequency == 'false'){
+                    scope.formData.feeFrequency = null;
+                    scope.formData.feeInterval = 1;
                 }
 
                 if (!scope.showChargePaymentByField) {
