@@ -368,15 +368,18 @@
 											<i tooltip="{{loanApp.accountType.value}}" class="icon-group icon-large"></i><span ng-show="loanApp.isCoApplicant">*</span>
 										</td>
 										<td class="pointer center">
-											<a tooltip="{{'label.button.request.approval' | translate}}" has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE' data-ng-click="requestApprovalLoanAppRef(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 100">
-												<i class="icon-ok icon-white"></i>
-											</a>
-											<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-href="#/approveloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 200">
-												<i class="icon-ok icon-white"></i>
-											</a>
-											<a tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOANAPPLICATIONREFERENCE' ng-href="#/disburseloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 300">
-												<i class="icon-flag icon-white"></i>
-											</a>
+											<span ng-if="loanApp.workflowId == undefined">
+												<a tooltip="{{'label.button.request.approval' | translate}}" has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE' data-ng-click="requestApprovalLoanAppRef(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 100"
+													   ng-disabled="loanApp.isCreditBureauProduct">
+													<i class="icon-ok icon-white"></i>
+												</a>
+												<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-href="#/approveloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 200">
+													<i class="icon-ok icon-white"></i>
+												</a>
+												<a tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOANAPPLICATIONREFERENCE' ng-href="#/disburseloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 300">
+													<i class="icon-flag icon-white"></i>
+												</a>
+											</span>
 										</td>
 									</tr>
 								</table>
