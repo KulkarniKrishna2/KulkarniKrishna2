@@ -214,7 +214,10 @@
                         break;
                     case "refundByCash":
                         location.path('/loanaccount/' + accountId + '/refundByCash');
-                        break;
+                    break;
+                    case "viewloanapplication":
+                        location.path('/viewloanapplicationreference/' + scope.loandetails.loanApplicationReferenceId);
+                    break;
                 }
             };
 
@@ -535,6 +538,13 @@
 
                     };
 
+                    if(data.loanApplicationReferenceId && data.loanApplicationReferenceId > 0){
+                        scope.buttons.options.push({
+                            name: "button.viewloanapplication",
+                            taskPermissionName: 'READ_LOANAPPLICATIONREFERENCE'
+                        });
+                    }
+
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.loandetails.id, associations: 'transactions', isFetchSpecificData: true}, function (transactionData) {
                         scope.loandetails.transactions = transactionData.transactions;
                         if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
@@ -626,9 +636,9 @@
                                 taskPermissionName: 'DISBURSALLASTUNDO_LOAN'
                             });
                         }
-                    }      
-
                     }
+
+                }
 
                 if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.singlebuttons.push(
