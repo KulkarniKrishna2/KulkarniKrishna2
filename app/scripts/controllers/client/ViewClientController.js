@@ -1083,7 +1083,7 @@
 
             scope.loanAppStatusId = 400;
             scope.isLoanAppIncompleted = function (loanAddData) {
-                if (loanAddData.status.id < scope.loanAppStatusId) {
+                if (loanAddData.status.id < scope.loanAppStatusId || loanAddData.status.id == 500) {
                     return true;
                 } else {
                     return false;
