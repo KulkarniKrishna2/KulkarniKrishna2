@@ -39,6 +39,10 @@
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && !columnHeader.hideElement" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
+
+                <input ng-show="isShowfieldType(columnHeader.columnDisplayType) && !columnHeader.hideElement" type="text"
+                 ng-model="formData[columnHeader.columnName]" class="form-control"/>
+
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME' && !columnHeader.hideElement" class="form-inline">&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <input type="text" datepicker-pop="dd MMMM yyyy"
@@ -111,6 +115,8 @@
                     <input ng-if="fieldType(column.columnDisplayType) == 'DATE' && !column.hideElement" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[column.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
+                    <input ng-if="isShowfieldType(column.columnDisplayType) && !column.hideElement" type="text" ng-model="formData[column.columnName]"
+                     class="form-control"/>
                     <div ng-if="fieldType(column.columnDisplayType) == 'DATETIME' && !column.hideElement" class="form-inline"> &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group">
                             <input type="text" datepicker-pop="dd MMMM yyyy"

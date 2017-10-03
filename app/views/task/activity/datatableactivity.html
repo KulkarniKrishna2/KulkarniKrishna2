@@ -27,11 +27,12 @@
 
     <!-- View data    -->
     <div class="row pull-right">
-        <button type="button" ng-show="status!=='ADD' && datatabledetails.isMultirow == true" ng-click="addData()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
+        <button type="button" ng-show="status!=='ADD' && datatabledetails.isMultirow == true && !isViewMultiRowTable" ng-click="addData()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
         <button type="button" ng-show="!isTaskCompleted() && status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
         <button type="button" ng-show="isTaskCompleted() && status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" has-permission="EDIT_TASK" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
+        <button type="button" ng-show="!isTaskCompleted() && isViewMultiRowTable" ng-click="editMultiRowDataTable()" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
     </div>
-    <div ng-show="status=='VIEW'">
+    <div ng-show="status=='VIEW' && !isViewMultiRowTable">
         <table class="table" data-ng-show="datatabledetails.isMultirow">
             <thead>
             <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
@@ -41,7 +42,7 @@
             </thead>
             <tbody>
                 <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
-                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1" ng-click="viewDataTable(clientdatatable.registeredTableName,data)">
+                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1" ng-click="viewMultiRowDataTable(data.row[0].value)">
                         <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DECIMAL'">{{row.value|number}}</label>
                         <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DATE'">{{row.value|DateFormat}}</label>
                         <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType !== 'DECIMAL' && datatabledetails.columnHeaders[$index].columnDisplayType !== 'DATE'">{{row.value}}</label>
@@ -75,6 +76,32 @@
                 <span ng-if="value.columnDisplayType === 'DATE'">{{value.value|DateFormat}}</span>
                 <span  ng-if="value.columnDisplayType !== 'DECIMAL' && value.columnDisplayType !== 'DATE'">{{value.value}}</span>
             </div>
+        </div>
+    </div>
+    <div ng-show="isViewMultiRowTable">
+        <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
+        <hr>
+        <table class="width100" ng-show="!isSectioned">
+            <tr ng-repeat="column in columnHeaders | orderBy:'orderPosition'">
+                <td class="width30">
+                    <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</label>
+                    <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</label>
+                </td>
+                <td class="width60" valign="top"><pre class="width60">{{column.value}}</pre></td>
+            </tr>
+        </table>
+        <div class="form-group" ng-repeat="section in sectionedColumnHeaders | orderBy:'orderPosition'" ng-show="isSectioned">
+            <h4 ng-show="section.columns.length > 0"><strong>{{section.displayName}}</strong></h4>
+            <hr ng-show="section.columns.length > 0" />
+            <table class="width100">
+                <tr ng-repeat="column in section.columns | orderBy:'orderPosition'" ng-show="section.columns.length > 0">
+                    <td class="width30">
+                        <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</label>
+                        <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</label>
+                    </td>
+                    <td class="width60" valign="top">{{column.value}}</td>
+                </tr>
+            </table>
         </div>
     </div>
     <!-- Edit data    -->

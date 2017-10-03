@@ -17,10 +17,12 @@
                 scope.loanId = scope.entityId;
                 getLoanData();
             }
+            scope.isStalePeriodExceeded = false;
 
             function getLoanApplicationData() {
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                     scope.formData = data;
+                    scope.isStalePeriodExceeded = data.isStalePeriodExceeded;
                     scope.loanProductChange(scope.formData.loanProductId);
                     getCreditbureauLoanProductData(scope.formData.loanProductId);
                 });
@@ -336,6 +338,7 @@
                         loanId: scope.loanId,
                         trancheDisbursalId: scope.trancheDisbursalId
                     }, function (data) {
+                        scope.isStalePeriodExceeded = false;
                         scope.existingLoans = data.existingLoans;
                         scope.creditScores = data.creditScores ;
                         constructLoanSummary();
