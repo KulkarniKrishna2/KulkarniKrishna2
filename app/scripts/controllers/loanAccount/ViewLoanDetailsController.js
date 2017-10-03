@@ -1139,7 +1139,10 @@
                 scope.loanApprovedDate = dateFilter(scope.loanApprovedDate, scope.df);
 
                 if(scope.report == false){
-                    scope.repaymentscheduleinfo = scope.loandetails.originalSchedule;
+                    scope.repaymentscheduleinfo = scope.loandetails.repaymentSchedule;
+                    if(scope.loandetails.originalSchedule != undefined){
+                        scope.repaymentscheduleinfo =  scope.loandetails.originalSchedule;
+                    }
                     scope.repaymentData = [];
                     scope.disbursedData = [];
                     for(var i in scope.repaymentscheduleinfo.periods) {
