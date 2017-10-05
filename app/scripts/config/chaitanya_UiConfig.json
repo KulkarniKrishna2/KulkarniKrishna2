@@ -41,7 +41,9 @@
         "interestRatePerPeriod": true,
         "loanPurposeId": true,
         "syncRepaymentsWithMeeting": true,
-        "repaymentFrequencyType": true
+        "repaymentFrequencyType": true,
+        "fundOption":true,
+        "chargeAmount": true
       },
       "isDefaultValue": { 
         "fundId": 45,

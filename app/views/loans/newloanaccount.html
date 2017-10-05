@@ -48,7 +48,7 @@
         <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
             <select id="fundId" ng-model="formData.fundId" class="form-control width170px"
-                    ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions" value="{{fund.id}}">
+                    ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions" ng-readonly="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption" value="{{fund.id}}">
                 <option value="">{{'label.selectfund' | translate}}</option>
             </select>
         </td>
@@ -676,7 +676,7 @@
                     <td>{{charge.chargeCalculationType.value}}</td>
                     <td><input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount"
                                placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || (charge.chargeTimeType.id == 50
-                        && charge.chargeCalculationType.id == 6)"></td>
+                        && charge.chargeCalculationType.id == 6) || response.uiDisplayConfigurations.loanAccount.isReadOnlyField.chargeAmount"></td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
                         <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
@@ -702,7 +702,7 @@
                             <td>{{glim.displayName}}</td>
                             <td>{{glim.accountNo}}</td>
                             <td><input id="" class="form-control" type="text" ng-model="glim.upfrontChargeAmount" 
-                                       placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format 
+                                       placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format
                                        ng-readonly="charges[outerIndex].chargeCalculationType.value == slabBasedCharge">
                             </td>
                         </tr>
