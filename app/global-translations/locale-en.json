@@ -926,6 +926,7 @@
     "error.msg.mandatory.data.fullname.not.found":"Client full name is mandatory and cannot be found.",
     "error.msg.mandatory.data.familydetails.not.found":"Atleast one family member's details for the client is mandatory and cannot be found.",
     "error.msg.mandatory.phone.not.found":"Either one of the mobile or landline numbers for the client is mandatory and cannot be found.",
+    "error.msg.mandatory.identifier.not.found":"At least one customer identifier(PAN, Passport, Voter Id, etc...) is required.",
     "error.msg.client.not.active.exception": "The Client with id `{{params[0].value}}` is not active.",
     "validation.msg.clientIdentifier.documentKey.cannot.be.blank": "Identification # is mandatory.",
     "validation.msg.clientIdentifier.documentTypeId.cannot.be.blank": "Identity document type is mandatory.",
