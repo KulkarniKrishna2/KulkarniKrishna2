@@ -6513,6 +6513,8 @@
     "error.msg.document.id.invalid" : "Document id is invalid.",
     "error.msg.loan.application.reference.does.not.exist" : "Loan application not found.",
     "validation.msg.recurringdeposit.fromPeriod.cannot.be.blank" : "Recurring Deposit's interest rate from period cannot be blank.",
+    "error.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit":"Undoing transaction results in balnce exceeding overdraft limit.",
+    "error.msg.savingsaccount.PAY_CHARGE.results.in.balance.exceeding.overdraft.limit" :"Paying charge transaction failed due to balance exceeding overdraft limit.",
 
     "------ end of tensalation file":"---------"
 }
