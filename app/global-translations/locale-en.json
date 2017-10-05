@@ -6536,6 +6536,7 @@
     "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
     "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
     "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
+    "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
     "------ end of tensalation file":"---------"
 }
