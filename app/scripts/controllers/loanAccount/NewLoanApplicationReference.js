@@ -103,6 +103,7 @@
                                             var charge = scope.productLoanCharges[i].chargeData;
                                             charge.chargeId = charge.id;
                                             charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                            charge.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                             scope.charges.push(charge);
                                         //}
                                         break;
@@ -211,6 +212,14 @@
                 } else if (scope.clientId) {
                     location.path('/viewclient/' + scope.clientId);
                 }
+            };
+
+            scope.isChargeAmountNonEditable = function (charge) {
+                if (charge.chargeTimeType.id == 50
+                    || charge.chargeCalculationType.id == 6 || charge.isAmountNonEditable) {
+                    return true;
+                }
+                return false;
             };
         }
     });

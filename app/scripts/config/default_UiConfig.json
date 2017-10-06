@@ -55,8 +55,7 @@
 		"repaymentFrequencyType": false,
 		"submittedOn": false,
 		"firstRepaymentDate":false,
-		"fundOption":false,
-		"chargeAmount": false
+		"fundOption":false
 	  },
 	  "isAutoPopulate": {
 		"interestChargedFromDate": false

@@ -3763,6 +3763,7 @@
     "label.input.authenticationtype":"Authentication Type",
     "label.input.product.name":"Product Name",
     "label.input.minDurationapplicableforalldisbursements":"Is Minimum duartion check applicable for all disbursements",
+    "label.checkbox.ischargeamountnoneditable":"Is Amount Non Editable",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",

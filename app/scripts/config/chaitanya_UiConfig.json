@@ -42,8 +42,7 @@
         "loanPurposeId": true,
         "syncRepaymentsWithMeeting": true,
         "repaymentFrequencyType": true,
-        "fundOption":true,
-        "chargeAmount": true
+        "fundOption":true
       },
       "isDefaultValue": { 
         "fundId": 45,

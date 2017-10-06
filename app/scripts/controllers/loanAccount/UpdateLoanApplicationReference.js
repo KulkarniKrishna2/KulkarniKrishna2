@@ -51,6 +51,7 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.productLoanCharges = data.product.charges || [];
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
                         for(var i = 0; i < len; i++){
@@ -86,7 +87,6 @@
                         scope.formData.termFrequency = (scope.loanaccountinfo.repaymentEvery * scope.loanaccountinfo.numberOfRepayments);
                         scope.formData.termPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         scope.charges = [];//scope.loanaccountinfo.charges || [];
-                        scope.productLoanCharges = data.product.charges || [];
                         if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                             for(var i in scope.productLoanCharges){
                                 if(scope.productLoanCharges[i].chargeData){
@@ -96,6 +96,7 @@
                                                 var charge = scope.productLoanCharges[i].chargeData;
                                                 charge.chargeId = charge.id;
                                                 charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                                charge.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                                 scope.charges.push(charge);
                                             //}
                                             break;
@@ -140,11 +141,18 @@
                         });
                     }
                 });
+
             };
 
             scope.constructExistingCharges = function (index,chargeId) {
                 resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
                     data.chargeId = data.id;
+                    for(var i = 0; i < scope.productLoanCharges.length; i++){
+                        if(data.id == scope.productLoanCharges[i].chargeData.id){
+                            data.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
+                            break;
+                        }
+                    }
                     scope.charges.push(data);
                     curIndex++;
                     if(curIndex == scope.loanAppChargeData.length){
@@ -222,6 +230,13 @@
 
             scope.cancel = function () {
                 location.path('/viewloanapplicationreference/' + scope.loanApplicationReferenceId);
+            };
+
+            scope.isChargeAmountNonEditable = function (charge) {
+                if ((charge.chargeTimeType.id == 50 || charge.chargeCalculationType.id == 6) || charge.isAmountNonEditable) {
+                    return true;
+                }
+                return false;
             };
         }
     });
