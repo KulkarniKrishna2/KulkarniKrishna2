@@ -2284,7 +2284,9 @@
     "validation.msg.rescheduleloan.extraTerms.cannot.be.extend.repayment.period.of.loan.having.fixed.emi": "Cannot be extend repayment period of loan having fixed emi",
     "validation.msg.interestchart.effectiveFromDate.is.less.than.date":"Past date floating rates cannot be deleted",
     "validation.msg.recurringdepositaccount.deposit.period.not.between.min.and.max.deposit.term":" Deposit period should be between maximum and minimum deposit terms",
-
+    "validation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Interest rate chart effective date cannot be past dated",
+    "validation.msg.recurringdepositaccount.no.applicable.interest.rate.is.found.based.on.amount.and.deposit.period":"Interest rate chart is not applicable for this amount and deposit period",
+    "validation.msg.savingsproduct.effectiveFromDate.not.zero.or.greater":"Interest rate chart interest rate should be greater than zero ",
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
