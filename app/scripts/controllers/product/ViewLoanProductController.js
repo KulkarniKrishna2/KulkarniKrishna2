@@ -53,6 +53,7 @@
                     if(scope.loanProductData.charges[i].chargeData){
                         var charge = scope.loanProductData.charges[i].chargeData;
                         charge.isMandatory = scope.loanProductData.charges[i].isMandatory;
+                        charge.isAmountNonEditable = scope.loanProductData.charges[i].isAmountNonEditable;
                         scope.loanproduct.charges.push(charge);
                     }
                 }
