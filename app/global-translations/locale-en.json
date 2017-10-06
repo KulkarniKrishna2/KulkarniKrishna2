@@ -5283,7 +5283,9 @@
     "label.heading.amount.disb":"Disb. Amount",
     "label.heading.comment":"Description",
     "label.heading.loanutilization.amount":"Amount",
+    "label.heading.auditedby":"Audited By",
     "label.heading.auditdoneon":"Audit Date",
+    "label.heading.auditedon":"Audited Date",
 
     "label.anchor.luc":"Loan Utilization Check",
     "label.anchor.edit.luc":"Edit Loan Utilization",
