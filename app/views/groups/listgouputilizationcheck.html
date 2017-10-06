@@ -26,29 +26,27 @@
                         <th>{{ 'label.heading.client' | translate }}</th>
                         <th>{{ 'label.heading.loan' | translate }}</th>
                         <th>{{ 'label.heading.amount.disb' | translate }}</th>
-                        <th>{{ 'label.heading.auditdoneon' | translate }}</th>
+                        <th>{{ 'label.heading.auditedby' | translate }}</th>
+                        <th>{{ 'label.heading.auditedon' | translate }}</th>
                         <th>{{ 'label.heading.list.loanutilization' | translate }}</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="pointer-main" data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks">
-                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.groupName}}</td>
-                        <td class="col-md-2 pointer" routeTO="">
+                    <tr data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks">
+                        <td>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.groupName}}</td>
+                        <td>
                             {{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.clientName}}-{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.clientId}}
                         </td>
-                        <td class="col-md-2 pointer" routeTO="">
+                        <td>
                             {{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.loanType.value}}-{{loanUtilizationdetailCheck.loanId}}
                         </td>
-                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.principalAmount}}</td>
-                        <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.auditDoneOn | DateFormat}}</td>
+                        <td>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.principalAmount}}</td>
+                        <td>{{loanUtilizationdetailCheck.auditDoneByName}}</td>
+                        <td>{{loanUtilizationdetailCheck.auditDoneOn | DateFormat}}</td>
                         <td>
-                           <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.loanPurposeData.name}}</td>
-                            <td class="col-md-2 pointer" routeTO="">{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.amount}}</td>
-                            <td class="col-md-2 pointer" routeTO="">{{}}</td>
-                        </td>
-                        <td>
+                           <span>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.loanPurposeData.name}}</span>
+                            - <span>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.amount}}</span>
+
                             <button role="button" ng-click="showEdit(loanUtilizationdetailCheck.id,loanUtilizationdetailCheck.loanId)"
                                     class="btn-link ng-binding">
                                 <i class="icon-edit icon-white"></i>
