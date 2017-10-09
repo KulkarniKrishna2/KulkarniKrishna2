@@ -75,36 +75,52 @@
 
             function isFormValid(){
                 scope.errorDetails = [];
-                var errorObj = new Object();
-                errorObj.args = {
-                    params: []
-                };
+                var errorArray = new Array();
+                var arrayIndex = 0;
                 var isBankDetailsNotMatched = false;
-                var isBothNameNotMatched = true;
+                var isBankAcountHolderNameNotMatched = true;
                 if(scope.bankAccountData.name && scope.checkerBankAccountData.name){
-                    if(scope.bankAccountData.name.toString() === scope.checkerBankAccountData.name.toString()){
-                        isBothNameNotMatched = false;
+                    if(scope.bankAccountData.name.toString().toLowerCase() === scope.checkerBankAccountData.name.toString().toLowerCase()){
+                        isBankAcountHolderNameNotMatched = false;
                     }
                 }
-                if(isBothNameNotMatched){
+                if(isBankAcountHolderNameNotMatched){
                     isBankDetailsNotMatched = true;
-                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.name.not.matched'});
-                    scope.errorDetails.push(errorObj);
+                    var errorObj = new Object();
+                    errorObj.code = 'error.msg.maker.checker.bank.account.holder.name.not.matched';
+                    errorArray[arrayIndex] = errorObj;
+                    arrayIndex++;
                 }
 
                 var isAccountNumberNotMatched = true;
                 if(scope.bankAccountData.accountNumber && scope.checkerBankAccountData.accountNumber){
-                    if(scope.bankAccountData.accountNumber.toString() === scope.checkerBankAccountData.accountNumber.toString()){
+                    if(scope.bankAccountData.accountNumber.toString().toLowerCase() === scope.checkerBankAccountData.accountNumber.toString().toLowerCase()){
                         isAccountNumberNotMatched = false;
                     }
                 }
                 if(isAccountNumberNotMatched){
                     isBankDetailsNotMatched = true;
-                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.number.not.matched'});
-                    scope.errorDetails.push(errorObj);
+                    var errorObj = new Object();
+                    errorObj.code = 'error.msg.maker.checker.bank.account.number.not.matched';
+                    errorArray[arrayIndex] = errorObj;
+                    arrayIndex++;
                 }
 
-                var isAccountTypeNotMatched = true;
+                var isIfscCodeNotMatched = true;
+                if(scope.bankAccountData.ifscCode && scope.checkerBankAccountData.ifscCode){
+                    if(scope.bankAccountData.ifscCode.toString().toLowerCase() === scope.checkerBankAccountData.ifscCode.toString().toLowerCase()){
+                        isIfscCodeNotMatched = false;
+                    }
+                }
+                if(isIfscCodeNotMatched){
+                    isBankDetailsNotMatched = true;
+                    var errorObj = new Object();
+                    errorObj.code = 'error.msg.maker.checker.bank.account.ifsc.code.not.matched';
+                    errorArray[arrayIndex] = errorObj;
+                    arrayIndex++;
+                }
+
+                /*var isAccountTypeNotMatched = true;
                 if(scope.bankAccountData.accountType.code && scope.checkerBankAccountData.accountType.code){
                     if(scope.bankAccountData.accountType.code.toString() === scope.checkerBankAccountData.accountType.code.toString()){
                         isAccountTypeNotMatched = false;
@@ -113,19 +129,6 @@
                 if(isAccountTypeNotMatched){
                     isBankDetailsNotMatched = true;
                     errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.type.not.matched'});
-                    scope.errorDetails.push(errorObj);
-                }
-
-                var isIfscCodeNotMatched = true;
-                if(scope.bankAccountData.ifscCode && scope.checkerBankAccountData.ifscCode){
-                    if(scope.bankAccountData.ifscCode.toString() === scope.checkerBankAccountData.ifscCode.toString()){
-                        isIfscCodeNotMatched = false;
-                    }
-                }
-                if(isIfscCodeNotMatched){
-                    isBankDetailsNotMatched = true;
-                    errorObj.args.params.push({value: 'error.msg.maker.checker.bank.account.ifsc.code.not.matched'});
-                    scope.errorDetails.push(errorObj);
                 }
 
                 var isBankNameNotMatched = true;
@@ -137,7 +140,6 @@
                 if(isBankNameNotMatched){
                     isBankDetailsNotMatched = true;
                     errorObj.args.params.push({value: 'error.msg.maker.checker.bank.name.not.matched'});
-                    scope.errorDetails.push(errorObj);
                 }
 
                 var isBranchNameNotMatched = true;
@@ -149,7 +151,6 @@
                 if(isBranchNameNotMatched){
                     isBankDetailsNotMatched = true;
                     errorObj.args.params.push({value: 'error.msg.maker.checker.bank.branch.name.not.matched'});
-                    scope.errorDetails.push(errorObj);
                 }
 
                 var isBankCityNotMatched = true;
@@ -161,17 +162,13 @@
                 if(isBankCityNotMatched){
                     isBankDetailsNotMatched = true;
                     errorObj.args.params.push({value: 'error.msg.maker.checker.bank.city.name.not.matched'});
-                    scope.errorDetails.push(errorObj);
-                }
+                }*/
+
                 if(isBankDetailsNotMatched){
+                    scope.errorDetails.push(errorArray);
                     return false;
                 }
-                if(scope.formData.name && scope.formData.accountNumber && scope.formData.accountType && scope.formData.ifscCode
-                    && scope.formData.bankName && scope.formData.branchName && scope.formData.bankCity){
-                    return true;
-                }else{
-                    return false;
-                }
+                return true;
             }
 
             function init() {

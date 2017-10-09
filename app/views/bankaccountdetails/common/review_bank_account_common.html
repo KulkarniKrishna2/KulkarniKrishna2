@@ -1,4 +1,5 @@
 <div ng-controller="ReviewBankAccountCommonController">
+    <div><api-validate></api-validate></div>
     <div class="col-md-12 paddedtop">
         <img ng-src="{{documentImg}}" width="600"/>
     </div>
@@ -24,8 +25,9 @@
                 {{checkerBankAccountData.name}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                    <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
-                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                <input ng-show="checkerBankAccountData.name" name="bankAccountHolderName" id="bankAccountHolderName"
+                       type="checkbox" ng-disabled="true"
+                       ng-checked="bankAccountData.name.toLowerCase()==checkerBankAccountData.name.toLowerCase()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankAccountNumber')" >
@@ -39,8 +41,10 @@
                 {{checkerBankAccountData.accountNumber}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                    <input  name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                <input ng-show="checkerBankAccountData.accountNumber" name="bankAccountNumber" id="bankAccountNumber"
+                       type="checkbox"
+                       ng-disabled="true"
+                       ng-checked="bankAccountData.accountNumber.toLowerCase()==checkerBankAccountData.accountNumber.toLowerCase()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('accountType')">
@@ -54,8 +58,9 @@
                 {{checkerBankAccountData.accountType.code | translate}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                    <input  name="accountType" id="accountType" ng-model="formData.accountType"
-                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                    <input ng-show="checkerBankAccountData.accountType" name="accountType" id="accountType"
+                            type="checkbox" ng-disabled="true"
+                           ng-checked="bankAccountData.accountType.code.toLowerCase()==checkerBankAccountData.accountType.code.toLowerCase()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankIFSCCode')" >
@@ -69,8 +74,9 @@
                 {{checkerBankAccountData.ifscCode}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                    <input  name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                    <input ng-show="checkerBankAccountData.ifscCode" name="bankIFSCCode" id="bankIFSCCode"
+                            type="checkbox" ng-disabled="true"
+                           ng-checked="bankAccountData.ifscCode.toLowerCase()==checkerBankAccountData.ifscCode.toLowerCase()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankName')">
@@ -84,8 +90,9 @@
                 {{checkerBankAccountData.bankName}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                    <input  name="bankName" id="bankName" ng-model="formData.bankName"
-                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                    <input ng-show="checkerBankAccountData.bankName" name="bankName" id="bankName"
+                            type="checkbox" ng-disabled="true"
+                           ng-checked="bankAccountData.bankName.toLowerCase()==checkerBankAccountData.bankName.toLowerCase()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('branchName')">
@@ -99,8 +106,9 @@
                 {{checkerBankAccountData.branchName}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                    <input  name="branchName" id="branchName" ng-model="formData.branchName"
-                            type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                    <input ng-show="checkerBankAccountData.branchName" name="branchName" id="branchName"
+                           type="checkbox" ng-disabled="true"
+                           ng-checked="bankAccountData.branchName.toLowerCase()==checkerBankAccountData.branchName.toLowerCase()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankCity')">
@@ -114,8 +122,9 @@
                 {{checkerBankAccountData.bankCity}}
             </td>
             <td ng-if="!viewConfig.showSummary">
-                <input  name="bankCity" id="bankCity" ng-model="formData.bankCity"
-                        type="checkbox" class="form-control" ng-disabled="viewConfig.showSummary"/>
+                <input ng-show="checkerBankAccountData.bankCity" name="bankCity" id="bankCity"
+                        type="checkbox" ng-disabled="true"
+                       ng-checked="bankAccountData.bankCity.toLowerCase()==checkerBankAccountData.bankCity.toLowerCase()"/>
             </td>
         </tr>
         </tbody>
