@@ -6441,7 +6441,7 @@
     "validation.msg.savingsaccount.transaction.invalid.total.outstanding.amount.less.than.charge.pay.amount" : "Total outstanding amount is less than the charge pay amount.",
     "validation.msg.loanapplicationreference.charges.amount.cannot.be.blank" : "Charge amount can not be blank.",
 
-    "error.msg.maker.checker.bank.account.name.not.matched" : "Bank account name not matched.",
+    "error.msg.maker.checker.bank.account.holder.name.not.matched" : "Bank account holder name not matched.",
     "error.msg.maker.checker.bank.account.number.not.matched" : "Bank account number not matched.",
     "error.msg.maker.checker.bank.account.type.not.matched" : "Bank account type not matched.",
     "error.msg.maker.checker.bank.account.ifsc.code.not.matched" : "Bank account IFSC code not matched.",
