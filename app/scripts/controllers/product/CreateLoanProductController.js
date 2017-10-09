@@ -448,12 +448,17 @@
 
             for (var i in scope.charges) {
                 var isMandatory = false;
+                var isChargeAmountNonEditable = false;
                 if (scope.charges[i].isMandatory) {
                     isMandatory = scope.charges[i].isMandatory;
                 }
+                if (scope.charges[i].isChargeAmountNonEditable) {
+                    isChargeAmountNonEditable = scope.charges[i].isChargeAmountNonEditable;
+                }
                 temp = {
                     id: scope.charges[i].id,
-                    isMandatory: isMandatory
+                    isMandatory: isMandatory,
+                    isAmountNonEditable : isChargeAmountNonEditable
                 }
                 scope.chargesSelected.push(temp);
             }

@@ -44,6 +44,7 @@
                     if(scope.product.charges[i].chargeData){
                         var charge = scope.product.charges[i].chargeData;
                         charge.isMandatory = scope.product.charges[i].isMandatory;
+                        charge.isAmountNonEditable = scope.product.charges[i].isAmountNonEditable;
                         scope.charges.push(charge);
                     }
                 }
@@ -691,12 +692,17 @@
 
                 for (var i in scope.charges) {
                     var isMandatory = false;
+                    var isAmountNonEditable = false;
                     if(scope.charges[i].isMandatory){
                         isMandatory = scope.charges[i].isMandatory;
                     }
+                    if (scope.charges[i].isAmountNonEditable) {
+                        isAmountNonEditable = scope.charges[i].isAmountNonEditable;
+                    }
                     temp = {
                         id: scope.charges[i].id,
-                        isMandatory: isMandatory
+                        isMandatory: isMandatory,
+                        isAmountNonEditable : isAmountNonEditable
                     }
                     scope.chargesSelected.push(temp);
                 }
