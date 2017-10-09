@@ -16,6 +16,7 @@
             scope.endDate = {};//required for date formatting
             scope.deletedincentives = [];
             scope.isPrimaryGroupingByAmount = false;
+            scope.isInterestCalculationFromProductChart = false;
 
             resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -83,6 +84,7 @@
                     scope.endDate.date = new Date(endDate);
                 }
                 scope.isPrimaryGroupingByAmount = scope.chart.isPrimaryGroupingByAmount;
+                scope.isInterestCalculationFromProductChart = scope.product.isInterestCalculationFromProductChart;
 
                 if (data.lockinPeriodFrequencyType) {
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
@@ -243,6 +245,7 @@
                 this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
+                this.formData.isInterestCalculationFromProductChart = scope.isInterestCalculationFromProductChart;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
                 this.formData.charts = [];//declare charts array

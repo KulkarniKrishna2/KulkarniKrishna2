@@ -62,7 +62,7 @@
             scope.officeSelected = function (officeId) {
                 scope.officeId = officeId;
                 if (officeId) {
-                    resourceFactory.employeeResource.getAllEmployees({officeId: officeId}, function (data) {
+                    resourceFactory.employeeResource.getAllEmployees({officeId: officeId, status: 'active'}, function (data) {
                         scope.loanOfficers = data.pageItems;
                     });
 
@@ -628,14 +628,8 @@
             scope.submit = function () {
 
                 if (scope.showPaymentDetails && scope.isRecieptNumbermandatory && (scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
-                        scope.errorDetails = [];
-                        var errorObj = new Object();
-                        errorObj.args = {
-                            params: []
-                        };
-                        errorObj.args.params.push({value: 'error.msg.receipt.number.mandatory'});
-                        scope.errorDetails.push(errorObj);
-                        return;
+                    scope.setErrorMessage('error.msg.receipt.number.mandatory');
+                    return;
                 }
 
                 scope.formData.calendarId = scope.calendarId;
@@ -693,18 +687,12 @@
                         route.reload();
                     },
                         function(data){
-                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {0
-                                scope.errorDetails = [];
-                                var errorObj = new Object();
-                                errorObj.args = {
-                                    params: []
-                                };
-                                errorObj.args.params.push({value: data.data.errors[0].userMessageGlobalisationCode});
-                                scope.errorDetails.push(errorObj);
+                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";
                             }
+                            scope.setErrorMessage(data.data.errors[0].userMessageGlobalisationCode);
                         });
                 } else if (centerOrGroupResource === "groupResource") {
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
@@ -713,20 +701,24 @@
                     },
                         function(data){
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
-                                scope.errorDetails = [];
-                                var errorObj = new Object();
-                                errorObj.args = {
-                                    params: []
-                                };
-                                errorObj.args.params.push({value: data.data.errors[0].userMessageGlobalisationCode});
-                                scope.errorDetails.push(errorObj);
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";
                             }
+                            scope.setErrorMessage(data.data.errors[0].userMessageGlobalisationCode);
                         });
                 }
 
+            };
+
+            scope.setErrorMessage = function(errorMessage){
+                scope.errorDetails = [];
+                var errorObj = new Object();
+                errorObj.args = {
+                    params: []
+                };
+                errorObj.args.params.push({value: errorMessage});
+                scope.errorDetails.push(errorObj);
             };
 
         }

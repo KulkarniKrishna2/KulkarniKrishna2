@@ -263,6 +263,7 @@
                                 for(var j in scope.charges){
                                     if(scope.productLoanCharges[i].chargeData.id == scope.charges[j].chargeId){
                                         scope.charges[j].isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        scope.charges[j].isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                         isChargeAdded = true;
                                         loanChargeAmount = scope.charges[j].amountOrPercentage;
                                         break;
@@ -278,6 +279,7 @@
                                         charge.amountOrPercentage = charge.amount;
                                     }                                    
                                     charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                    charge.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                     if(charge.chargeCalculationType.value == scope.slabBasedCharge){
                                         for(var i in charge.slabs) {
                                             var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[i],scope.formData.principal,scope.formData.numberOfRepayments);
@@ -750,6 +752,13 @@
                 //If we remove available items in above loop, all items will not be moved to selectedRoles
                 scope.selected = [];
                 scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.isChargeAmountNonEditable = function (charge) {
+                if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
+                    return true;
+                }
+                return false;
             };
 
             scope.sortNumber = function(a,b)

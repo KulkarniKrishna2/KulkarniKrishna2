@@ -11,13 +11,8 @@
             scope.paymentTypes = [];
             scope.showPaymentDetails = false;
             scope.clientMembers = [];
-            scope.glimPaymentAsGroup = false;
-            scope.glimAsGroupConfigName = 'glim-payment-as-group';            
-            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
-                if(configData){
-                    scope.glimPaymentAsGroup = configData.enabled;
-                }
-            });
+            scope.glimAsGroupConfigName = 'glim-payment-as-group';
+            scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(glimAsGroupConfigName);
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"prepay"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
@@ -61,7 +56,7 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                 var param = {loanId: scope.loanId, command: 'repayment'};
-                if(scope.glimPaymentAsGroup){
+                if(scope.isGlimPaymentAsGroup){
                     resourceFactory.loanTrxnsResource.save(param, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
                         });

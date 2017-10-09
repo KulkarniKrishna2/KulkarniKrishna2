@@ -263,6 +263,11 @@
                             }
                         }
                     }
+                    if (data.allowWithdrawal == true) {
+                        scope.buttons.options.push({
+                            name: "button.withdraw"
+                        });
+                    }
                 }
                 /*var annualdueDate = [];
                  annualdueDate = data.annualFee.feeOnMonthDay;
@@ -380,6 +385,26 @@
                 } else {
                     sort.column = column;
                     sort.descending = true;
+                }
+            };
+
+            scope.viewJournalEntries = function(){
+                location.path("/searchtransaction/").search({savingsId: scope.savingaccountdetails.id});
+            };
+
+            scope.checkStatus = function(){
+                var statusList = ['Active', 'Closed', 'Transfer in progress', 'Transfer on hold', 'Premature Closed', 'Matured'];
+                if(statusList.indexOf(scope.status) > -1){
+                    return true;
+                }
+                return false;
+            };
+
+            scope.viewSavingsTransactionJournalEntries = function(transactionId){
+                var transactionId = "S" + transactionId;
+                if(scope.clientId != undefined && scope.clientId != null && scope.clientId != "" ){
+                    location.path('/viewtransactions/' + transactionId).search({productName: scope.depositProductName,savingsId:routeParams.id,clientId: scope.clientId,
+                        accountNo: scope.accountNumber,clientName: scope.savingsaccountholderclientName,isTransactionReferenceNumber:true});
                 }
             };
 

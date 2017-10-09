@@ -89,8 +89,8 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody data-ng-repeat="guarantor in guarantorDetails | filter:{status:hideDeletedGuarantors}"  >
-            <tr data-ng-show="guarantor.guarantorFundingDetails "
+            <tbody data-ng-repeat="guarantor in guarantorDetails">
+            <tr data-ng-show="guarantor.guarantorFundingDetails"
                 data-ng-repeat="guarantorfund in guarantor.guarantorFundingDetails " >
                 <td>{{guarantor.firstname}} &nbsp; {{guarantor.lastname}}</td>
                 <td>
@@ -118,7 +118,7 @@
                             ><i class="icon-trash icon-white"></i></button>
                 </td>
             </tr>
-            <tr data-ng-hide="guarantor.guarantorFundingDetails">
+            <tr data-ng-hide="guarantor.guarantorFundingDetails || (isHideDeletedGuarantorsCheckboxChecked && !guarantor.status)">
                 <td>{{guarantor.firstname}} &nbsp; {{guarantor.lastname}}</td>
                 <td>{{guarantor.clientRelationshipType.name}}</td>
                 <td>{{guarantor.guarantorType.code | translate}}</td>

@@ -54,7 +54,8 @@
 		"syncRepaymentsWithMeeting": false,
 		"repaymentFrequencyType": false,
 		"submittedOn": false,
-		"firstRepaymentDate":false
+		"firstRepaymentDate":false,
+		"fundOption":false
 	  },
 	  "isAutoPopulate": {
 		"interestChargedFromDate": false

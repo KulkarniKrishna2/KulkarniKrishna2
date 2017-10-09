@@ -168,6 +168,7 @@
 							</span>
 						</td>
 						<td  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
+							<div class="col-md-4">
 							<div ng-repeat="savings in client.savings"
 								  ng-show="savingsproduct.id === savings.productId" class="col-md-4">
 								<div >
@@ -182,6 +183,7 @@
 										   ng-model="savings.withdrawAmount" placeholder="{{'label.heading.withdraw' | translate}}"
 										   ng-change="sumTotalDueCollection()">
 								</div>
+							</div>
 							</div>
 						</td>
 						<td >

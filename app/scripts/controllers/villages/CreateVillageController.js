@@ -94,7 +94,6 @@
                 scope.showPicodeStartingDigitError = false;
                 scope.isPincodeLengthSatisfy = true;
                 scope.picodeValidation = true;
-                scope.pincodeLengthValidation();
                     if (scope.response && scope.response.uiDisplayConfigurations &&
                         scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
                         if (scope.pincodeStartDigitMap && scope.pincodeStartDigitMap[scope.stateName]) {
@@ -129,6 +128,7 @@
                     };
                     errorObj.args.params.push({value: 'label.mustbe6digitnumber'});
                     scope.errorDetails.push(errorObj);
+                    return;
                 }
             }
 

@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http, authenticationService) {
+                  uiConfigService, $http, authenticationService, resourceFactory) {
             scope.hideLoginPannel = false;
             if (QueryParameters["username"] != undefined && QueryParameters["username"] != "" && QueryParameters["password"] != undefined &&
                 QueryParameters["password"] != "" && QueryParameters["landingPath"] != undefined && QueryParameters["landingPath"] != "") {
@@ -169,8 +169,48 @@
                 } else {
                     scope.loggedInUserId = data.userId;
                 }
-                ;
+                scope.getAllGlobalConfigurations();
             });
+
+            scope.configs = [];
+            scope.getAllGlobalConfigurations = function () {
+                scope.configs = [];
+                resourceFactory.configurationResource.get(function (data) {
+                    for (var i in data.globalConfiguration) {
+                        data.globalConfiguration[i].showEditvalue = true;
+                        scope.configs.push(data.globalConfiguration[i])
+                    }
+                    resourceFactory.cacheResource.get(function (data) {
+                        for (var i in data) {
+                            if (data[i].cacheType && data[i].cacheType.id == 2) {
+                                var cache = {};
+                                cache.name = 'Is Cache Enabled';
+                                cache.enabled = data[i].enabled;
+                                cache.showEditvalue = false;
+                                scope.configs.push(cache);
+                            }
+                        }
+                        constructJsonForSystemGlobalConfigurations();
+                    });
+                });
+            };
+
+            var systemGlobalConfigurations = {};
+            var constructJsonForSystemGlobalConfigurations = function () {
+                systemGlobalConfigurations = {};
+                for(var i in scope.configs){
+                    if(scope.configs[i].name){
+                        systemGlobalConfigurations[scope.configs[i].name] = scope.configs[i].enabled;
+                    }
+                }
+            };
+
+            scope.isSystemGlobalConfigurationEnabled = function(name){
+                if(name != undefined && systemGlobalConfigurations[name] != undefined && systemGlobalConfigurations[name] == true){
+                    return true;
+                }
+                return false;
+            };
 
             var setSearchScopes = function () {
                 var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans"};
@@ -374,6 +414,7 @@
         'UIConfigService',
         '$http',
         'AuthenticationService',
+        'ResourceFactory',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");

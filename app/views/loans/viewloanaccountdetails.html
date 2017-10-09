@@ -958,7 +958,7 @@
                                     <th>{{'label.heading.paid' | translate}}</th>
                                     <th>{{'label.heading.waived' | translate}}</th>
                                     <th>{{'label.heading.writtenoff' | translate}}</th>
-                                    <th ng-show="!glimPaymentAsGroup">{{'label.heading.outstanding' | translate}}</th>
+                                    <th ng-show="!isGlimPaymentAsGroup">{{'label.heading.outstanding' | translate}}</th>
                                     <th><button ng-click="routeToRepaymentSchedule(client.id, client.disbursedAmount, client.clientId, client.clientName)" class="btn btn-primary ng-binding pull-right">{{'label.heading.viewrepaymentschedule' | translate}} </button></th>
                                 </tr>
                                 </thead>
@@ -969,7 +969,7 @@
                                     <td>{{client.paidPrincipalAmount | number}}</td>
                                     <td>&nbsp;</td>
                                     <td>{{client.principalWrittenOffAmount | number}}</td>
-                                    <td ng-show="!glimPaymentAsGroup">{{client.totalPrincipalOutstanding | number}}</td>
+                                    <td ng-show="!isGlimPaymentAsGroup">{{client.totalPrincipalOutstanding | number}}</td>
                                 </tr>
                                 <tr>
                                     <th>{{'label.heading.interest' | translate}}</th>
@@ -977,7 +977,7 @@
                                     <td>{{client.paidInterestAmount | number}}</td>
                                     <td>{{client.waivedInterestAmount | number}}</td>
                                     <td>{{client.interestWrittenOffAmount | number}}</td>
-                                    <td ng-show="!glimPaymentAsGroup">{{client.totalInterestOutstanding}}</td>
+                                    <td ng-show="!isGlimPaymentAsGroup">{{client.totalInterestOutstanding}}</td>
                                 </tr>
                                 <tr>
                                     <th>{{'label.heading.fees' | translate}}</th>
@@ -985,7 +985,7 @@
                                     <td>{{client.paidChargeAmount | number}}</td>
                                     <td>{{client.waivedChargeAmount | number}}</td>
                                     <td>{{client.chargeWrittenOffAmount | number}}</td>
-                                    <td ng-show="!glimPaymentAsGroup">{{client.totalFeeChargeOutstanding}}</td>
+                                    <td ng-show="!isGlimPaymentAsGroup">{{client.totalFeeChargeOutstanding}}</td>
                                 </tr>
 
                                 <tr>
@@ -994,7 +994,7 @@
                                     <td>{{client.paidpenaltyAmount | number}}</td>
                                     <td>{{client.waivedpenaltyAmount | number}}</td>
                                     <td>{{client.penaltyWrittenOffAmount | number}}</td>
-                                    <td ng-show="!glimPaymentAsGroup">{{client.totalpenaltyChargeOutstanding}}</td>
+                                    <td ng-show="!isGlimPaymentAsGroup">{{client.totalpenaltyChargeOutstanding}}</td>
                                 </tr>
                                 </tbody>
                                 <tfoot>
@@ -1004,7 +1004,7 @@
                                     <th>{{getTotalAmount(client.paidPrincipalAmount, client.paidInterestAmount, client.paidChargeAmount, client.paidpenaltyAmount)}}</th>
                                     <th>{{getTotalAmount(0, client.waivedInterestAmount, client.waivedChargeAmount, client.waivedpenaltyAmount)}}</th>
                                     <th>{{getTotalAmount(client.principalWrittenOffAmount, client.interestWrittenOffAmount, client.chargeWrittenOffAmount, client.penaltyWrittenOffAmount)}}</th>
-                                    <th ng-show="!glimPaymentAsGroup">{{getTotalAmount(client.totalPrincipalOutstanding, client.totalInterestOutstanding, client.totalFeeChargeOutstanding, client.totalpenaltyChargeOutstanding) | number}}</th>
+                                    <th ng-show="!isGlimPaymentAsGroup">{{getTotalAmount(client.totalPrincipalOutstanding, client.totalInterestOutstanding, client.totalFeeChargeOutstanding, client.totalpenaltyChargeOutstanding) | number}}</th>
                                 </tr>
                                 </tfoot>
                             </table>
