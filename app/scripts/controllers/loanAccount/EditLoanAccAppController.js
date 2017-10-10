@@ -22,7 +22,8 @@
                 scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
                 scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
                 scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
-            }            
+            }
+            scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -362,6 +363,7 @@
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                 scope.formData.createStandingInstructionAtDisbursement = scope.loanaccountinfo.createStandingInstructionAtDisbursement;
                 scope.formData.isTopup = scope.loanaccountinfo.isTopup;
+                scope.formData.deferPaymentsForHalfTheLoanTerm = scope.loanaccountinfo.deferPaymentsForHalfTheLoanTerm;
                 scope.formData.loanIdToClose = scope.loanaccountinfo.closureLoanId;
                 if (scope.loanaccountinfo.brokenPeriodMethodType) {
                     scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;

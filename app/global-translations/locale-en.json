@@ -1779,6 +1779,7 @@
     "label.heading.penalty.charge.posted":"Penalty charges posted till ",
     "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
     "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
+    "label.heading.deferpaymentsforhalftheloanterm":"Defer Payments For Half The Loan Term ?",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",

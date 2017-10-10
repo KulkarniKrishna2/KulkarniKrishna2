@@ -22,6 +22,7 @@
             scope.interestRatesListAvailable = false;
             scope.isCenter=false;
             scope.installmentAmountSlabChargeType = 1;
+            scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
 
             resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
                 if(data.groupLevel && data.groupLevel==1)
@@ -482,6 +483,7 @@
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
+                this.formData.deferPaymentsForHalfTheLoanTerm = scope.formData.deferPaymentsForHalfTheLoanTerm;
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
