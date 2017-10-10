@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CreateCenterLoanUtilization: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
-
+            scope.styleHalfScreenWidth = {"width" : parseFloat(window.innerWidth/2).toFixed(0)+"px"};
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
 
@@ -52,7 +52,7 @@
                 if (angular.isUndefined(scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails)) {
                     scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails = [];
                 }
-                scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails.push({});
+                scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails.push({loanPurposeId : scope.loanCenterTemplate[parentIndex].loanPurposeId});
             };
 
             scope.deleteLoanPurpose = function (parentIndex, index) {
@@ -76,7 +76,11 @@
                         if (!angular.isUndefined(scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails[index].amount)) {
                             var principalAmount = scope.loanCenterTemplate[parentIndex].principalAmount;
                             var uamount = scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails[index].amount;
-                            var percentailOfUsage = parseFloat(parseFloat(uamount) / parseFloat(principalAmount) * 100.00);
+                            var percentailOfUsage = 0.00;
+                            if(principalAmount != undefined && uamount != undefined && principalAmount != "" && uamount != "" && !isNaN(principalAmount) && !isNaN(uamount)){
+                                //percentailOfUsage = parseFloat(Math.round(parseFloat(uamount) / parseFloat(principalAmount) * 100.00)).toFixed(2);
+                                percentailOfUsage = parseFloat(parseFloat(uamount) / parseFloat(principalAmount) * 100.00).toFixed(2);
+                            }
                             scope.loanCenterTemplate[parentIndex].loanUtilizationCheckDetail.utilizationDetails[index].percentailOfUsage = percentailOfUsage;
                         }
                     }
@@ -168,6 +172,7 @@
                     });
                 }
             };
+
         }
     });
     mifosX.ng.application.controller('CreateCenterLoanUtilization', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.CreateCenterLoanUtilization]).run(function ($log) {
