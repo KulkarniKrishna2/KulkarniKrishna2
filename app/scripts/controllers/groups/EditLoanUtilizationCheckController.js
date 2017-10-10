@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditLoanUtilizationCheckController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
-
+            scope.styleHalfScreenWidth = {"width" : parseFloat(window.innerWidth/2).toFixed(0)+"px"};
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
             scope.loanId = routeParams.loanId;
@@ -48,7 +48,10 @@
                         if (!angular.isUndefined(scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData.amount)) {
                             var principalAmount = scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.principalAmount;
                             var uamount = scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData.amount;
-                            var percentailOfUsage = parseFloat(parseFloat(uamount) / parseFloat(principalAmount) * 100.00);
+                            var percentailOfUsage = 0.00;
+                            if(principalAmount != undefined && uamount != undefined && principalAmount != "" && uamount != "" && !isNaN(principalAmount) && !isNaN(uamount)){
+                                percentailOfUsage = parseFloat(parseFloat(uamount) / parseFloat(principalAmount) * 100.00).toFixed(2);
+                            }
                             scope.loanCenterTemplate[0].loanUtilizationCheckDetailData.utilizationDetailsData.percentailOfUsage = percentailOfUsage;
                             return percentailOfUsage;
                         }
