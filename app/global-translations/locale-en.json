@@ -6462,8 +6462,6 @@
     "label.anchor.fund.mapping" : "Fund Mapping",
     "error.msg.meeting.date.not.attached" : "Meeting date should be attached",
     "error.msg.loan.to.be.closed.with.topup.is.not.active" : "Loan to be closed with this topup is not active",
-
-
     "#Lock Entity Validation" : "",
     "error.msg.entityType.client.is.locked" : "Client is locked",
     "error.msg.entityType.loan.is.locked" : "Loan is locked",
@@ -6536,6 +6534,10 @@
     "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
     "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
     "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
-
+    "validation.msg.FUND.sanctionedDate.is.less.than.date":"Sanctioned date should not be less than assignment start date",
+    "validation.msg.FUND.disbursedDate.is.less.than.date":"Disbursement date should not be less than sactioned date",
+    "validation.msg.FUND.disbursedAmount.is.greater.than.max":"Disbursed amount should not be greater than sanctioned amount",
+    "validation.msg.FUND.assignmentEndDate.is.less.than.date":"Assignment end date should not be less than assignment start date",
+    "validation.msg.FUND.maturityDate.is.less.than.date":"Maturity date should not be less than disbursement date",
     "------ end of tensalation file":"---------"
 }
