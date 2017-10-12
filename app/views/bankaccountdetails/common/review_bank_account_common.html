@@ -27,7 +27,7 @@
             <td ng-if="!viewConfig.showSummary">
                 <input ng-show="checkerBankAccountData.name" name="bankAccountHolderName" id="bankAccountHolderName"
                        type="checkbox" ng-disabled="true"
-                       ng-checked="bankAccountData.name.toLowerCase()==checkerBankAccountData.name.toLowerCase()"/>
+                       ng-checked="bankAccountData.name.toLowerCase().trim()==checkerBankAccountData.name.toLowerCase().trim()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankAccountNumber')" >
@@ -44,7 +44,7 @@
                 <input ng-show="checkerBankAccountData.accountNumber" name="bankAccountNumber" id="bankAccountNumber"
                        type="checkbox"
                        ng-disabled="true"
-                       ng-checked="bankAccountData.accountNumber.toLowerCase()==checkerBankAccountData.accountNumber.toLowerCase()"/>
+                       ng-checked="bankAccountData.accountNumber.toLowerCase().trim()==checkerBankAccountData.accountNumber.toLowerCase().trim()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('accountType')">
@@ -60,7 +60,7 @@
             <td ng-if="!viewConfig.showSummary">
                     <input ng-show="checkerBankAccountData.accountType" name="accountType" id="accountType"
                             type="checkbox" ng-disabled="true"
-                           ng-checked="bankAccountData.accountType.code.toLowerCase()==checkerBankAccountData.accountType.code.toLowerCase()"/>
+                           ng-checked="bankAccountData.accountType.code.toLowerCase().trim()==checkerBankAccountData.accountType.code.toLowerCase().trim()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankIFSCCode')" >
@@ -76,7 +76,7 @@
             <td ng-if="!viewConfig.showSummary">
                     <input ng-show="checkerBankAccountData.ifscCode" name="bankIFSCCode" id="bankIFSCCode"
                             type="checkbox" ng-disabled="true"
-                           ng-checked="bankAccountData.ifscCode.toLowerCase()==checkerBankAccountData.ifscCode.toLowerCase()"/>
+                           ng-checked="bankAccountData.ifscCode.toLowerCase().trim()==checkerBankAccountData.ifscCode.toLowerCase().trim()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankName')">
@@ -92,7 +92,7 @@
             <td ng-if="!viewConfig.showSummary">
                     <input ng-show="checkerBankAccountData.bankName" name="bankName" id="bankName"
                             type="checkbox" ng-disabled="true"
-                           ng-checked="bankAccountData.bankName.toLowerCase()==checkerBankAccountData.bankName.toLowerCase()"/>
+                           ng-checked="bankAccountData.bankName.toLowerCase().trim()==checkerBankAccountData.bankName.toLowerCase().trim()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('branchName')">
@@ -108,7 +108,7 @@
             <td ng-if="!viewConfig.showSummary">
                     <input ng-show="checkerBankAccountData.branchName" name="branchName" id="branchName"
                            type="checkbox" ng-disabled="true"
-                           ng-checked="bankAccountData.branchName.toLowerCase()==checkerBankAccountData.branchName.toLowerCase()"/>
+                           ng-checked="bankAccountData.branchName.toLowerCase().trim()==checkerBankAccountData.branchName.toLowerCase().trim()"/>
             </td>
         </tr>
         <tr ng-if="!isElemHidden('bankCity')">
@@ -124,7 +124,7 @@
             <td ng-if="!viewConfig.showSummary">
                 <input ng-show="checkerBankAccountData.bankCity" name="bankCity" id="bankCity"
                         type="checkbox" ng-disabled="true"
-                       ng-checked="bankAccountData.bankCity.toLowerCase()==checkerBankAccountData.bankCity.toLowerCase()"/>
+                       ng-checked="bankAccountData.bankCity.toLowerCase().trim()==checkerBankAccountData.bankCity.toLowerCase().trim()"/>
             </td>
         </tr>
         </tbody>
