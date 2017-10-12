@@ -2028,6 +2028,7 @@
     "label.tooltip.loanproduct.canUseForTopup": "If selected, the Loan Product can be used to apply for Topup Loans.",
     "label.tooltip.center": "Search for Group and JLG Loans",
     "label.tooltip.group": "Search for Group and JLG Loans",
+    "label.input.stop.loan.processing.on.npa": "Stop loan processing on NPA",
 
     "#tool tip for new loan account":"..",
     "label.tooltip.product":"The name of the loan product that the loan account is based upon",
