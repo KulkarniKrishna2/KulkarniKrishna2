@@ -80,7 +80,7 @@
                 var isBankDetailsNotMatched = false;
                 var isBankAcountHolderNameNotMatched = true;
                 if(scope.bankAccountData.name && scope.checkerBankAccountData.name){
-                    if(scope.bankAccountData.name.toString().toLowerCase() === scope.checkerBankAccountData.name.toString().toLowerCase()){
+                    if(scope.bankAccountData.name.toString().toLowerCase().trim() === scope.checkerBankAccountData.name.toString().toLowerCase().trim()){
                         isBankAcountHolderNameNotMatched = false;
                     }
                 }
@@ -94,7 +94,7 @@
 
                 var isAccountNumberNotMatched = true;
                 if(scope.bankAccountData.accountNumber && scope.checkerBankAccountData.accountNumber){
-                    if(scope.bankAccountData.accountNumber.toString().toLowerCase() === scope.checkerBankAccountData.accountNumber.toString().toLowerCase()){
+                    if(scope.bankAccountData.accountNumber.toString().toLowerCase().trim() === scope.checkerBankAccountData.accountNumber.toString().toLowerCase().trim()){
                         isAccountNumberNotMatched = false;
                     }
                 }
@@ -108,7 +108,7 @@
 
                 var isIfscCodeNotMatched = true;
                 if(scope.bankAccountData.ifscCode && scope.checkerBankAccountData.ifscCode){
-                    if(scope.bankAccountData.ifscCode.toString().toLowerCase() === scope.checkerBankAccountData.ifscCode.toString().toLowerCase()){
+                    if(scope.bankAccountData.ifscCode.toString().toLowerCase().trim() === scope.checkerBankAccountData.ifscCode.toString().toLowerCase().trim()){
                         isIfscCodeNotMatched = false;
                     }
                 }
