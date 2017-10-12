@@ -123,6 +123,7 @@
                     graceOnArrearsAgeing: scope.product.graceOnArrearsAgeing,
                     overdueDaysForNPA: scope.product.overdueDaysForNPA,
                     accountMovesOutOfNPAOnlyOnArrearsCompletion: scope.product.accountMovesOutOfNPAOnlyOnArrearsCompletion,
+                    stopLoanProcessingOnNpa: scope.product.stopLoanProcessingOnNpa,
                     accountingRule: scope.product.accountingRule.id,
                     principalVariationsForBorrowerCycle: [],
                     interestRateVariationsForBorrowerCycle: [],
