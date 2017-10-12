@@ -192,6 +192,7 @@
                             <select chosen="periodOptions" id="tenureFrequency" ng-model="formData.tenureFrequency"  class="form-control"
                                     ng-options="tenureFrequency.id as tenureFrequency.value for tenureFrequency in periodOptions" value="{{tenureFrequency.id}}"
                                     name="tenureFrequency"  required late-Validate>
+                                    <option value="" style="display:none;">--{{'label.menu.selectone' | translate}}--</option>
                             </select>
                         </div>
                     </div>
@@ -229,6 +230,7 @@
                         <div>
                             <select chosen="periodOptions" id="morotoriumFrequency" ng-model="formData.morotoriumFrequency"  
                             class="form-control"  ng-options="morotoriumFrequency.id as morotoriumFrequency.value for morotoriumFrequency in periodOptions" value="{{morotoriumFrequency.id}}" name="morotoriumFrequency">
+                            <option value="" style="display:none;">--{{'label.menu.selectone' | translate}}--</option>
                             </select>
                         </div>
                     </div>
@@ -245,6 +247,7 @@
                         <div>
                             <select chosen="repaymentFequencyOptions" id="fundRepaymentFrequency" ng-model="formData.fundRepaymentFrequency"  class="form-control"  ng-options="fundRepaymentFrequency.id as fundRepaymentFrequency.name for fundRepaymentFrequency in repaymentFequencyOptions" value="{{fundRepaymentFrequency.id}}"
                                      name="category" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectone' | translate}}--</option>
                             </select>
                         </div>
                     </div>
