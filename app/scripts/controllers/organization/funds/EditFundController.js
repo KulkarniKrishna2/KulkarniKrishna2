@@ -91,7 +91,6 @@
                             scope.formData.fundCategory = data.fundCategory.id;
                             scope.formData.fundRepaymentFrequency = data.fundRepaymentFrequency.id;
                             scope.formData.tenureFrequency = data.tenureFrequency.id;
-                            scope.formData.morotoriumFrequency = data.morotoriumFrequency.id;
                             scope.formData.assignmentStartDate = new Date(dateFilter(data.assignmentStartDate, scope.df));
                             scope.formData.assignmentEndDate = new Date(dateFilter(data.assignmentEndDate, scope.df));
                             scope.formData.disbursedDate = new Date(dateFilter(data.disbursedDate, scope.df));
@@ -105,6 +104,9 @@
                                         'totalAmount' : scope.formData.fundLoanPurposeData[i].totalAmount});
                                 }
                                 
+                            }
+                            if(data.morotoriumFrequency != undefined){
+                               scope.formData.morotoriumFrequency = data.morotoriumFrequency.id;
                             }
                         }else{
                             scope.formData.fundSource = undefined;
