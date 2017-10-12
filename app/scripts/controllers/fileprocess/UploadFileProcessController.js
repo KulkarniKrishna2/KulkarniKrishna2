@@ -5,14 +5,13 @@
             scope.formData = {};
             resourceFactory.fileProcessTemplateResource.get({},function(data){
                 scope.fileProcessTypeOptions = data.fileProcessTypeOptions;
-                scope.formData.fileProcessType = 'sanctionedButNotDisbursed';
             });
 
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
             };
             scope.submit = function () {
-                if (scope.formData.fileProcessType) {
+                if (scope.formData.fileProcessType && scope.file) {
                     $upload.upload({
                         url:  $rootScope.hostUrl + API_VERSION + '/fileprocess/upload/'+scope.formData.fileProcessType,
                         data: scope.formData,

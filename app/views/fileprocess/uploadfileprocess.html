@@ -13,8 +13,10 @@
 
                 <div class="col-sm-3">
                     <select id="fileProcessType" ng-model="formData.fileProcessType" class="form-control"
-                            ng-options="fileProcessTypeOption.code as fileProcessTypeOption.value for fileProcessTypeOption in fileProcessTypeOptions"
-                            value="{{fileProcessTypeOption.code}}"></select>
+                            ng-options="fileProcessTypeOption.systemCode as fileProcessTypeOption.value for fileProcessTypeOption in fileProcessTypeOptions"
+                            value="{{fileProcessTypeOption.systemCode}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
