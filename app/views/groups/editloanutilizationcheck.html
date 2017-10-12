@@ -11,51 +11,74 @@
         <api-validate></api-validate>
     </div>
 
-    <div class="col-sm-12">
-
+    <div class="col-sm-12" style="overflow: auto">
         <table class="table">
-            <thead>
-            <tr class="graybg">
-                <th>{{ 'label.heading.group' | translate }}</th>
-                <th>{{ 'label.heading.client' | translate }}</th>
-                <th>{{ 'label.heading.loan' | translate }}</th>
-                <th>{{ 'label.heading.amount.disb' | translate }}</th>
-                <th>{{ 'label.heading.auditedon' | translate }}</th>
-                <th>{{ 'label.heading.loanutilization' | translate }}</th>
-            </tr>
-            </thead>
             <tbody>
-            <tr data-ng-repeat="centerTemplate in loanCenterTemplate track by $index" ng-init="parentIndex = $index">
-                <td class="col-md-1">
-                    <span>{{centerTemplate.loanUtilizationCheckDetailData.groupName}}</span>
-                </td>
-                <td class="col-md-1">
-                    <span>{{centerTemplate.loanUtilizationCheckDetailData.clientName}}-{{centerTemplate.loanUtilizationCheckDetailData.clientId}}</span>
-                </td>
-                <td class="col-md-1">
-                    <span>{{centerTemplate.loanUtilizationCheckDetailData.loanType.value}}-{{centerTemplate.loanId}}</span>
-                </td>
-                <td class="col-md-1">
-                    <span>{{centerTemplate.loanUtilizationCheckDetailData.principalAmount}}</span>
-                </td>
-                <td class="col-md-1">
-                    <ng-form name="auditDoneOn" rc-submit="submit()">
-                        <input id="submittedon"
-                               type="text"
-                               name="submittedon"
-                               datepicker-pop="dd MMMM yyyy"
-                               ng-model="centerTemplate.auditDoneOn"
-                               is-open="opened1"
-                               max="restrictDate"
-                               class="form-control"/>
-                    </ng-form>
-                </td>
-                <td ng-if="centerTemplate.loanUtilizationCheckDetailData">
-                    <table class="table center"
-                           ng-if="centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData">
+            <tr class="graybg">
+                <td class="col-md-6">
+                    <table class="col-sm-12" ng-style="styleHalfScreenWidth">
                         <tbody>
                         <tr>
-                            <td class="col-md-4">
+                            <th class="col-md-2"><span>{{ 'label.heading.group' | translate }}</span></th>
+                            <th class="col-md-3"><span>{{ 'label.heading.client' | translate }}</span></th>
+                            <th class="col-md-2"><span>{{ 'label.heading.loan' | translate }}</span></th>
+                            <th class="col-md-2"><span>{{ 'label.heading.amount.disb' | translate }}</span></th>
+                            <th class="col-md-3"><span>{{ 'label.heading.auditedon' | translate }}</span></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="col-md-5">
+                    <table class="col-sm-12">
+                        <tbody>
+                        <tr>
+                            <th class="col-sm-12">{{ 'label.heading.loanutilization' | translate }}</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="col-md-1">
+
+                </td>
+            </tr>
+            <tr data-ng-repeat="centerTemplate in loanCenterTemplate track by $index" ng-init="parentIndex = $index">
+                <td class="col-md-6">
+                    <table class="col-sm-12" ng-style="styleHalfScreenWidth">
+                        <tbody>
+                        <tr>
+                            <td class="col-md-2">
+                                <span>{{centerTemplate.loanUtilizationCheckDetailData.groupName}}</span>
+                            </td>
+                            <td class="col-md-3">
+                                <span>{{centerTemplate.loanUtilizationCheckDetailData.clientName}}-{{centerTemplate.loanUtilizationCheckDetailData.clientId}}</span>
+                            </td>
+                            <td class="col-md-2">
+                                <span>{{centerTemplate.loanUtilizationCheckDetailData.loanType.value}}-{{centerTemplate.loanId}}</span>
+                            </td>
+                            <td class="col-md-2">
+                                <span>{{centerTemplate.loanUtilizationCheckDetailData.principalAmount}}</span>
+                            </td>
+                            <td class="col-md-3">
+                                <ng-form name="auditDoneOn" rc-submit="submit()">
+                                    <input id="submittedon"
+                                           type="text"
+                                           name="submittedon"
+                                           datepicker-pop="dd MMMM yyyy"
+                                           ng-model="centerTemplate.auditDoneOn"
+                                           is-open="opened1"
+                                           max="restrictDate"
+                                           class="form-control"/>
+                                </ng-form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="col-md-5">
+                    <table class="col-sm-12" ng-style="styleHalfScreenWidth" ng-if="centerTemplate.loanUtilizationCheckDetailData && centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData">
+                        <tbody>
+                        <tr>
+                            <td class="col-md-3">
                                 <ng-form name="loanPurposeForm" rc-submit="submit()">
                                     <select id="loanPurposeId"
                                             name="loanPurpose"
@@ -65,12 +88,12 @@
                                             data-placeholder="{{'label.input.selectloanpurpose' | translate}}"
                                             value="{{loanPurposeOption.id}}"
                                             required late-validate
-                                            data-ng-change="checkLoanPurpose(parentIndex,$index)">
+                                            data-ng-change="checkLoanPurpose(parentIndex,$index)" style="width: auto">
                                         <option value=""></option>
                                     </select>
                                 </ng-form>
                             </td>
-                            <td class="col-md-2">
+                            <td class="col-md-3">
                                 <ng-form name="principalAmountForm" rc-submit="submit()">
                                     <input type="text"
                                            id="principalAmountId"
@@ -82,10 +105,10 @@
                                            ng-change=""/>
                                 </ng-form>
                             </td>
-                            <td class="col-md-2">
+                            <td class="col-md-1">
                                 {{percentail()}}%
                             </td>
-                            <td class="col-md-4">
+                            <td class="col-md-3">
                                 <ng-form name="commentForm" rc-submit="submit()">
                                     <textarea type="text"
                                               id="comment"
@@ -113,6 +136,7 @@
             <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
                 translate}}</a>
         </div>
+        <br>
     </div>
 
 </div>
