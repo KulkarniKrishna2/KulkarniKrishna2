@@ -216,9 +216,9 @@
                         {{'label.input.morotoriumperiod' | translate}}
                     </label>
                     <div class="col-sm-2">
-                        <input type="text" id="morotorium" ng-disabled="isLoanAssigned || isOwn"  name="morotorium" ng-model="formData.morotorium"  class="form-control" required late-Validate/>
+                        <input type="text" id="morotorium" ng-disabled="isLoanAssigned || isOwn"  name="morotorium" ng-model="formData.morotorium"  class="form-control"/>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div ng-hide="isLoanAssigned || isOwn">
                             <select chosen="periodOptions" id="morotoriumFrequency" ng-model="formData.morotoriumFrequency"  class="form-control"
                                     ng-options="morotoriumFrequency.id as morotoriumFrequency.value for morotoriumFrequency in periodOptions" value="{{morotoriumFrequency.id}}"
@@ -229,15 +229,12 @@
                              <input type="text" value="{{morotoriumFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn"  />
                         </div>
                     </div>
-                    <div class="col-sm-1" >
-                        <form-validate valattributeform="createfundform" valattribute="fundRepaymentFrequency"/>
-                    </div>
                 </div>
                 <div>
                     <label class="control-label col-sm-2">
                         {{'label.input.repaymentfrequency' | translate}} <span class="required">*</span>
                     </label>
-                    <div class="col-sm-1">
+                    <div class="col-sm-3">
                         <div  ng-hide="isLoanAssigned || isOwn" >
                             <select chosen="repaymentFequencyOptions" id="fundRepaymentFrequency" ng-model="formData.fundRepaymentFrequency"  class="form-control"
                                     ng-options="fundRepaymentFrequency.id as fundRepaymentFrequency.name for fundRepaymentFrequency in repaymentFequencyOptions" value="{{fundRepaymentFrequency.id}}"
@@ -248,7 +245,7 @@
                             <input type="text" value="{{fundRepaymentFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn"  />
                         </div>
                     </div>
-                    <div class="col-sm-1" >
+                    <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="fundRepaymentFrequency"/>
                     </div>
                 </div>
@@ -266,7 +263,7 @@
                             </select>
                     </div>                    
                     <div class="col-sm-2">
-                        <input type="text" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
+                        <input placeholder="% Loan Purpose" type="text" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
                         ng-model="loanPurposeAmount"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-1" ng-hide="isLoanAssigned || isOwn">
