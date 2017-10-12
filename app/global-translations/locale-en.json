@@ -6540,5 +6540,6 @@
     "validation.msg.FUND.disbursedAmount.is.greater.than.max":"Disbursed amount should not be greater than sanctioned amount",
     "validation.msg.FUND.assignmentEndDate.is.less.than.date":"Assignment end date should not be less than assignment start date",
     "validation.msg.FUND.maturityDate.is.less.than.date":"Maturity date should not be less than disbursement date",
+    "error.msg.mange.fund.invalid.loan.purpose.amoumt" :"Loan purpose amount should not be more than disbursed amount",
     "------ end of tensalation file":"---------"
 }
