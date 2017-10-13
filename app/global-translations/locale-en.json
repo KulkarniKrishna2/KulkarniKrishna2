@@ -6541,7 +6541,6 @@
     "validation.msg.FUND.assignmentEndDate.is.less.than.date":"Assignment end date should not be less than assignment start date",
     "validation.msg.FUND.maturityDate.is.less.than.date":"Maturity date should not be less than disbursement date",
     "error.msg.mange.fund.invalid.loan.purpose.amoumt" :"Loan purpose amount should not be more than disbursed amount",
-
     "#Workflow Management":".......",
     "label.anchor.workflowentitymapping":"Workflow-Entity Mapping",
     "label.heading.workflowentitymapping":"Workflow-Entity Mapping",
@@ -6554,6 +6553,11 @@
     "error.msg.validation.select.loanproducts":"Please select atleast one loanproduct",
     "alert.msg.continue":"Do you want to Continue ?",
     "label.heading.alert":"Alert",
-
+    "validation.msg.FUND.approvedDate.max.is.less.than.date" : "To date of approved date should be greater than from date",
+    "validation.msg.FUND.disbursementDate.max.is.less.than.date" : "To date of disbursement date should be greater than from date",
+    "validation.msg.FUND.pendingRepayment.max.is.less.than.min" : "Max of pending repayment should be more than min",
+    "validation.msg.FUND.paidRepayment.max.is.less.than.min" : "Max of paid pepayment should be more than min",
+    "validation.msg.FUND.principalOutstanding.max.is.less.than.min" : "Max of principal outstanding should be more than min",
+    "validation.msg.FUND.overDueFromDays.max.is.less.than.min" : "Max of overduefromdays should be more than min",
     "------ end of tensalation file":"---------"
 }
