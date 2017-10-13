@@ -25,6 +25,7 @@
             scope.isHeaderLogoPath = false;
             scope.isBigLogoPath = false;
             scope.isLargeLogoPath = false;
+            scope.showCollections = false;
 
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
@@ -177,6 +178,9 @@
                 scope.configs = [];
                 resourceFactory.configurationResource.get(function (data) {
                     for (var i in data.globalConfiguration) {
+                        if(data.globalConfiguration[i].name == "allow-inter-branch-transaction"){
+                            scope.showCollections = data.globalConfiguration[i].enabled;
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
@@ -300,6 +304,14 @@
                     var temp3 = ['/users/', '/organization', '/system', '/products', '/bulkoperations', '/global'];
                     for (var i in temp3) {
                         if (temp3[i] == location.path()) {
+                            return true;
+                        }
+                    }
+                }                
+                else if (route == 'collections') {
+                    var temp4 = ['/interbranchsearch'];
+                    for (var i in temp4) {
+                        if (temp4[i] == location.path()) {
                             return true;
                         }
                     }

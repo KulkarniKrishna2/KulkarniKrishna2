@@ -1433,6 +1433,8 @@
     "fundSource":"Fund Source",
     "payableDividends":"Payable Dividends",
     "interbranchtransfer" : "Inter Branch Transfers",
+    "interbranchloantransaction" : "Inter Branch Loan Transaction",
+    "interbranchsavingtransaction" : "Inter Branch Saving Transaction",
     "openingBalancesTransferContra":"Opening Balances Transfer Contra",
     "label.thesearepredefinedpostings": "These are predefined postings",
     "label.manualjournalentrytransactionsrecordedinajournal": "Manual journal entry transactions recorded in a journal",
@@ -6559,5 +6561,22 @@
     "validation.msg.FUND.paidRepayment.max.is.less.than.min" : "Max of paid pepayment should be more than min",
     "validation.msg.FUND.principalOutstanding.max.is.less.than.min" : "Max of principal outstanding should be more than min",
     "validation.msg.FUND.overDueFromDays.max.is.less.than.min" : "Max of overduefromdays should be more than min",
+
+    "label.anchor.inter.branch.search.details" : "Inter Branch Search Details",
+    "label.heading.loan.account.search.result" : "Loan Account Search Result",
+    "label.heading.saving.account.search.result" : "Saving Account Search Result",
+    "label.heading.client.search.result" : "Client Search Result",
+    "label.heading.savingaccountnumber" : "Saving Account Number",
+    "error.msg.saving.account.id.invalid" : "Invalid saving account ",
+    "label.heading.savingaccountdetails" : "Saving Account Details",
+    "label.anchor.view.loan.account.details" : "View Loan Account Details",
+    "label.anchor.view.saving.account.details" : "View Saving Account Details",
+    "label.heading.inter.branch.transactions" : "Inter Branch Transactions",
+    "label.heading.search.and.process.inter.branch.transactions" : "Search And Process Inter Branch Transactions",
+    "label.anchor.collections" : "Collections",
+    "label.anchor.inter.branch.client.transaction" : "Inter Branch Client Transaction",
+    "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
+    "label.heading.initiatedat" : "Initiated At",
+
     "------ end of tensalation file":"---------"
 }

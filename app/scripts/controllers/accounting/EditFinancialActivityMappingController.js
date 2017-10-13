@@ -11,6 +11,8 @@
             scope.paymentTypeOptions = [];
             scope.deletedAdvancedMapping = [];
             scope.paymentTypeAccountMapping = {};
+            scope.interBranchLoanTransaction = 105;
+            scope.interBranchSavingsTransaction = 106;
 
             resourceFactory.officeToGLAccountMappingResource.withTemplate({mappingId: routeParams.mappingId},function (data) {
                 scope.mapping = data;
@@ -38,7 +40,7 @@
             scope.updateActivityOptions = function(activityId){
                 scope.showPaymentDetails = false;
                 scope.fundSourceFlag = false;
-                if(activityId === 100 || activityId === 104){
+                if(activityId === 100 || activityId === 104 || activityId === scope.interBranchLoanTransaction || activityId === scope.interBranchSavingsTransaction){
                     scope.accountOptions = scope.glAccountOptions.assetAccountOptions;
                 }else if(activityId === 200 || activityId === 201){
                     scope.accountOptions = scope.glAccountOptions.liabilityAccountOptions;

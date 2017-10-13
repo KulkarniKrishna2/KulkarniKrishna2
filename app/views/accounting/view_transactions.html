@@ -66,8 +66,8 @@
 
                         <table class="width100">
                             <tr>
-                                <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
-                                <td class="width36">{{transaction.officeName}}</td>
+                                <td class="width14"></td>
+                                <td class="width36"></td>
                                 <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
                                 <td class="width31">{{transaction.transactionDate | DateFormat}}</td>
                             </tr>
@@ -83,6 +83,7 @@
                                 <thead>
                                 <tr class="graybg">
                                     <th>{{'label.heading.journalentryid' | translate}}</th>
+                                    <th>{{'label.heading.office' | translate}}</th>
                                     <th>{{'label.heading.type' | translate}}</th>
                                     <th>{{'label.heading.account' | translate}}</th>
                                     <th>{{'label.heading.debit' | translate}}</th>
@@ -92,6 +93,7 @@
                                 <tbody ng-repeat="transactiondetails in transactions">
                                 <tr class="pointer-main" ng-repeat="transactiondetail in transactiondetails.journalEntryDetails">
                                     <td class="pointer">{{transactiondetails.transactionId}}</td>
+                                    <td class="pointer">{{transactiondetails.officeName}}</td>
                                     <td class="pointer">{{transactiondetail.glAccountData.type.value}}</td>
                                     <td class="pointer"> {{transactiondetail.glAccountData.name}}({{transactiondetail.glAccountData.glCode}})</td>
                                     <td class="pointer">

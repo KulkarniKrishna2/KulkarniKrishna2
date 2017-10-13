@@ -34,6 +34,15 @@
             scope.isDefaultAmountSection = false;
             scope.showRunReport = false;
 
+            scope.isInterBranchTransaction = (location.search().isInterBranchSearch != undefined && location.search().isInterBranchSearch== 'true');
+            
+            
+            resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
+                if(configData){
+                    scope.glimPaymentAsGroup = configData.enabled;
+                }
+            });
+
             scope.isAnyActiveMember = function(){
                 for(var i=0;i<scope.clientMembers.length;i++){
                     if(scope.clientMembers[i].isActive){
@@ -757,7 +766,12 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewloanaccount/' + routeParams.id);
+                if(scope.isInterBranchTransaction && (scope.action=="repayment")){
+                    scope.routeToInterBranchDetails(routeParams.id);
+                }else{
+                    location.path('/viewloanaccount/' + routeParams.id);
+                }
+                
             };
 
             scope.addTrancheAmounts = function(){
@@ -902,9 +916,17 @@
                         }else if (scope.isGlimEnabled()){
                             scope.constructGlimTransactions(scope.glimTransactions);
                         }
-                        resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
-                            location.path('/viewloanaccount/' + data.loanId);
-                        });
+                        
+                        if(scope.isInterBranchTransaction){
+                            params.command = undefined;
+                            resourceFactory.interBranchLoanTxnsResource.repayment(params, this.formData, function (data) {                            
+                                scope.routeToInterBranchDetails(data.loanId);                                
+                            });
+                        }else{
+                            resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {                            
+                                location.path('/viewloanaccount/' + data.loanId);                                
+                            });
+                        }
                     }
                 } else if (scope.action == "deleteloancharge") {
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
@@ -1069,7 +1091,6 @@
                 }
                 scope.formData.clientMembers = scope.glimMembers;
             };
-
             scope.fetchPenalties = function(){  
                 var params = {};
                 params.locale = scope.optlang.code;
@@ -1093,7 +1114,9 @@
                     }
                 });
             };
-
+            scope.routeToInterBranchDetails = function(id){
+                location.path('/interbranchsearch').search({isInterBranchSearch:'true',searchText:location.search().searchText,officeId: location.search().officeId, 'loanId':id});
+            };
         }
     });
     mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
