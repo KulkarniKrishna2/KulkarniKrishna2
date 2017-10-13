@@ -1,6 +1,10 @@
 <div class="col-md-12" ng-controller="SavingAccountActionsController">
     <ul class="breadcrumb">
         <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
+        <li ng-show="(action=='deposit' || action=='withdrawal' ) && isInterBranchTransaction">
+           <a ng-click="routeToInterBranchDetails(accountId)">{{'label.anchor.inter.branch.search.details' | translate}}
+           </a>
+        </li>
         <li class="active">{{action}}</li>
     </ul>
     <form name="savingccountactionform" novalidate="" class="form-horizontal well" ng-submit="submit()">

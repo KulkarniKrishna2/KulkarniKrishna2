@@ -2,6 +2,10 @@
 <div>
     <ul class="breadcrumb">
         <li><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li ng-show="action=='repayment' && isInterBranchTransaction">
+           <a ng-click="routeToInterBranchDetails(accountId)">{{'label.anchor.inter.branch.search.details' | translate}}
+           </a>
+        </li>
         <li class="active">{{'label.anchor.'+action | translate}}</li>
     </ul>
 </div>

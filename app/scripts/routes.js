@@ -1629,6 +1629,9 @@
             .when('/createworkflowentitymapping',{
                 templateUrl:'views/task/config/createworkflowentitymapping.html'
             })
+            .when('/interbranchsearch', {
+                templateUrl: 'views/interbranch/search-details.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

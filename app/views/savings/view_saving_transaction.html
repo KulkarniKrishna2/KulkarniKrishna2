@@ -68,6 +68,10 @@
                 <td>{{ 'label.heading.amount' | translate}}</td>
                 <td>{{transaction.amount | number}}</td>
             </tr>
+            <tr ng-if="transaction.createdAtOffice">
+                <td>{{ 'label.heading.initiatedat' | translate}}</td>
+                <td>{{transaction.createdAtOffice.name}}</td>
+            </tr>
         </table>
         <table class="width100" ng-show="transaction.paymentDetailData">
             <tr>

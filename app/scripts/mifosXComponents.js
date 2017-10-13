@@ -541,7 +541,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'fileprocess/UploadFileProcessController',
             'task/config/ViewWorkflowEntityMappingController',
             'task/config/WorkflowEntityMappingsController',
-            'task/config/CreateWorkflowEntityMappingController'
+            'task/config/CreateWorkflowEntityMappingController',
+            'interbranch/SearchDetailsController',
         ],
         filters: [
             'StatusLookup',
