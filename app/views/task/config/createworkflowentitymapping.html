@@ -1,0 +1,82 @@
+   <div class="col-md-12" ng-controller="CreateWorkflowEntityMappingController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowentitymappings">{{'label.anchor.workflowentitymapping' | translate}}</a></li>
+            <li class="active">{{'label.anchor.createworkflowentitymapping' | translate}}</li>
+        </ul>
+    <form  name="createentitymappingform" novalidate="" ng-submit="submit()" >
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{ 'label.heading.workflowentitymapping' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.heading.workflow' |translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                   <select chosen="workflowEntityMappingTemplate.parentTasks" id="taskConfigId"
+                                                    name="taskConfigId"
+                                                    ng-model="formData.taskConfigId"
+                                                    class="form-control"
+                                                    ng-options="parentTask.id as parentTask.name for parentTask in workflowEntityMappingTemplate.parentTasks"
+                                                    value="{{parentTask.id}}"
+                                                    required late-Validate>
+                                                <option value="">--{{'label.menu.selectone' |translate}}--</option>
+                   </select>
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="createentitymappingform" valattribute="taskConfigId"/>
+                </div>                              
+            </div>
+            <br><br>
+             <legend>{{ 'label.heading.entity' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.heading.entitytype' |translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                   <select chosen="workflowEntityMappingTemplate.taskConfigEntityTypeOptions" id="entityType"
+                                                    name="entityType"
+                                                    ng-model="formData.entityType"
+                                                    class="form-control"
+                                                    ng-options="entityType.id as entityType.value for entityType in workflowEntityMappingTemplate.taskConfigEntityTypeOptions"
+                                                    value="{{entityType.id}}"
+                                                    ng-change = "changeInEntityType()"
+                                                    required late-Validate>
+                                                <option value="">--{{'label.menu.selectone' |translate}}--</option>
+                   </select>
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="createentitymappingform" valattribute="entityType"/>
+                </div>                              
+            </div>
+            <br><br>
+            <div class="form-group" ng-if = "isLoanProductEntitySelected">
+                <div class="col-sm-3 ">
+                    <label class="control-label">{{ 'label.input.availableloanproducts' | translate }}</label>
+                    <select id="availableloanproducts" ng-model="available" name="availableloanproducts" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availableloanproduct in availableLoanProducts" value="{{availableloanproduct.id}}">
+                            {{availableloanproduct.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addLoanProduct()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeLoanProduct()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 >
+                    <label class="control-label">{{ 'label.input.selectedloanproducts' | translate}}</label>
+                    <select id="selectedloanproduct" ng-model="selected" name="selectedloanproduct" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="selectedloanproduct in selectedLoanProducts" value="{{selectedloanproduct.id}}">
+                            {{selectedloanproduct.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-offset-3">
+                <a id="cancel" href="#/workflowentitymappings" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary" 
+                has-permission='CREATE_TASK_CONFIG_ENTITYMAPPING'>{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+ </div>

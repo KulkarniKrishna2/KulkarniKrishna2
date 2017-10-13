@@ -6541,5 +6541,19 @@
     "validation.msg.FUND.assignmentEndDate.is.less.than.date":"Assignment end date should not be less than assignment start date",
     "validation.msg.FUND.maturityDate.is.less.than.date":"Maturity date should not be less than disbursement date",
     "error.msg.mange.fund.invalid.loan.purpose.amoumt" :"Loan purpose amount should not be more than disbursed amount",
+
+    "#Workflow Management":".......",
+    "label.anchor.workflowentitymapping":"Workflow-Entity Mapping",
+    "label.heading.workflowentitymapping":"Workflow-Entity Mapping",
+    "label.button.mapworkflowentity":"Map Workflow-Entity",
+    "label.heading.entitytype":"Entity Type",
+    "label.anchor.viewworkflowentitymapping":"View Workflow-Entity Mapping",
+    "label.anchor.createworkflowentitymapping":"Create Workflow-Entity Mapping",
+    "label.input.availableloanproducts":"Available Loan Products",
+    "label.input.selectedloanproducts":"Selected Loan Products",
+    "error.msg.validation.select.loanproducts":"Please select atleast one loanproduct",
+    "alert.msg.continue":"Do you want to Continue ?",
+    "label.heading.alert":"Alert",
+
     "------ end of tensalation file":"---------"
 }

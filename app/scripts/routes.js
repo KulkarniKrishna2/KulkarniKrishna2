@@ -1620,6 +1620,15 @@
             .when('/run_overdue_charges',{
                 templateUrl: 'views/organization/overduecharge.html'
             })
+            .when('/workflowentitymappings',{
+                templateUrl:'views/task/config/workflowentitymappings.html'
+            })
+            .when('/viewworkflowentitymapping/:taskConfigId/:entityType',{
+                templateUrl:'views/task/config/viewworkflowentitymapping.html'
+            })
+            .when('/createworkflowentitymapping',{
+                templateUrl:'views/task/config/createworkflowentitymapping.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

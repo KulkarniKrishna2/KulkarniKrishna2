@@ -1,0 +1,52 @@
+   <div class="col-md-12" ng-controller="ViewWorkflowEntityMappingController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowentitymappings">{{'label.anchor.workflowentitymapping' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewworkflowentitymapping' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <h3>{{'label.heading.workflowentitymapping' | translate}}</h3>
+    <hr>
+    <div >
+         <a  class="btn btn-primary pull-right" 
+         data-ng-click="inactivationCheck()" has-permission='INACTIVATE_TASK_CONFIG_ENTITYMAPPING'>{{'label.button.delete'| translate}} </a>
+    </div>
+    <div class="table-response">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="pointer">{{'label.heading.workflow' | translate}}</td>
+                    <td class="pointer">{{workflowEntityMapping.taskConfig.name}}</td>
+                </tr>
+                <tr>
+                    <td class="pointer">{{'label.heading.entitytype' | translate}}</td>
+                    <td class="pointer">{{workflowEntityMapping.entityType.value}}</td>
+                </tr>
+                <tr ng-show = "isEntityDetailsExists">
+                    <td class="pointer">{{'label.heading.entityname' | translate}}</td>
+                    <td >
+                        <table>
+                            <tr ng-repeat="entityDetail in workflowEntityMapping.entityDetails">
+                            <td class="pointer">{{entityDetail.name}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <script type="text/ng-template" id="inactivateentitymappingalert.html">
+        <form name="popupform" novalidate="">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.alert' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <h3><strong class="center">{{'alert.msg.continue' | translate}}</strong></h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="continue()">{{'label.button.ok' | translate}}</button>
+                <a class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+            </div>
+        </form>
+        </script>
+ </div>
