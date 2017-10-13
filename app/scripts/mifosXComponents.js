@@ -538,7 +538,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/showcase/DistrictOnboardingWorkflowController',
             'districts/DistrictController',
             'fileprocess/FileProcessController',
-            'fileprocess/UploadFileProcessController'
+            'fileprocess/UploadFileProcessController',
+            'task/config/ViewWorkflowEntityMappingController',
+            'task/config/WorkflowEntityMappingsController',
+            'task/config/CreateWorkflowEntityMappingController'
         ],
         filters: [
             'StatusLookup',

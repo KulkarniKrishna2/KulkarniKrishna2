@@ -1265,7 +1265,20 @@
                     overdueChargeResource: defineResource(apiVer + "/loans/overduecharges", {}, {
                         get: {method: 'GET', params: {}},
                         run: {method: 'POST', params: {}}
+                    }),
+                    workflowEntityMappingResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/mappings",{taskConfigId:'@taskConfigId'},{
+                        save: {method: 'POST', params:{}}
+                    }),
+                    workflowEntityMapping:defineResource(apiVer + "/taskconfigs/mappings/:taskConfigId/:entityType",{taskConfigId:'@taskConfigId',entityType:'@entityType'},{
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get:{method: 'GET', params: {}},
+                        save: {method: 'POST', params:{}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    workflowEntityMappingTemplate:defineResource(apiVer + "/taskconfigs/mappings/template",{},{
+                       getTemplate: {method: 'GET', params: {}}
                     })
+                    
                 };
             }];
         }
