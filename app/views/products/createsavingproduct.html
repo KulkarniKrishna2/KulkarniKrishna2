@@ -190,12 +190,15 @@
 					<input id="allowOverdraft" type="checkbox" ng-model="formData.allowOverdraft">
 				</div>
 				<div ng-if="formData.allowOverdraft">
-					<label class="control-label col-sm-2">{{'label.input.overdraftlimit' | translate}}</label>
+					<label class="control-label col-sm-2">{{'label.input.overdraftlimit' | translate}}<span class="required">*</span></label>
 					<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.overdraftlimit' | translate}}"></i>
 
 					<div class="col-sm-2">
-						<input id="overdraftLimit" type="text" class="form-control" ng-model="formData.overdraftLimit">
+						<input id="overdraftLimit" name="overdraftLimit" type="text" class="form-control" ng-model="formData.overdraftLimit" required late-validate/>
 					</div>
+					<div class="col-sm-2">
+					   <form-validate valattributeform="createsavingproductform" valattribute="overdraftLimit"/>
+				    </div>
 				</div>
 			</div>
 
