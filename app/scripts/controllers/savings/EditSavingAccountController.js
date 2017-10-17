@@ -178,6 +178,8 @@
                     location.path('/viewsavingaccount/' + data.savingsId);
                 });
             };
+            scope.isDisableField = true;
+            scope.isReadOnlyField = true;
         }
     });
     mifosX.ng.application.controller('EditSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditSavingAccountController]).run(function ($log) {
