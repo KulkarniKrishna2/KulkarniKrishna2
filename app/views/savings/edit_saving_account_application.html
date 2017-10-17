@@ -176,12 +176,13 @@
                 <input type="checkbox" ng-model="formData.allowOverdraft"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowoverdraft' | translate }}&nbsp;</span>
             </td>
-            <td class="width14" ng-show="formData.allowOverdraft">
+            <td class="width14" ng-if="formData.allowOverdraft">
                 <label class="control-label">{{ 'label.input.overdraftlimit' | translate
-                    }}&nbsp;</label></td>
-            <td class="width36 paddedbottom10" ng-show="formData.allowOverdraft">
-                <input id="overdraftLimit" type="text" class="form-control"
-                       number-format ng-model="formData.overdraftLimit">
+                    }}<span class="required">*</span></label></td>
+            <td class="width36 paddedbottom10" ng-if="formData.allowOverdraft">
+                <input id="overdraftLimit" name="overdraftLimit" type="text" class="form-control"
+                       number-format ng-model="formData.overdraftLimit" required late-validate/>
+                <form-validate valattributeform="editsavingccountform" valattribute="overdraftLimit"/>
             </td>
         </tr>
         <tr ng-show="formData.allowOverdraft">
