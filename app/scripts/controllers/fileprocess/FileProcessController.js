@@ -10,6 +10,7 @@
                     limit: scope.recordsPerPage
                 }, function (data) {
                     scope.fileProcesses = data.pageItems;
+                    scope.attachedFileURL();
                 });
             };
 
@@ -21,11 +22,7 @@
                 }, function(data) {
                     scope.totalRecords = data.totalFilteredRecords;
                     scope.fileProcesses = data.pageItems || [];
-                    for (var i = 0; i < scope.fileProcesses.length; i++) {
-                        var url = {};
-                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        scope.fileProcesses[i].docUrl = url;
-                    }
+                    scope.attachedFileURL();
                 });
             };
 
@@ -44,6 +41,13 @@
                     fileprocess.totalFailureRecords = data.totalFailureRecords;
                 });
             };
+            scope.attachedFileURL = function(){
+                for (var i = 0; i < scope.fileProcesses.length; i++) {
+                        var url = {};
+                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                        scope.fileProcesses[i].docUrl = url;
+                    }
+            }
         }
     });
     mifosX.ng.application.controller('FileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.FileProcessController]).run(function ($log) {
