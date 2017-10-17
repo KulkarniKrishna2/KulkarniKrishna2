@@ -17,6 +17,7 @@
             scope.fileError=false;
             scope.addPicture=true;
 
+
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
             }
@@ -76,7 +77,9 @@
                     scope.bankAccountData = data;
                     if(data.accountNumber !=undefined) {
                         scope.viewConfig.hasData = true;
-                        scope.viewConfig.showSummary = true;
+                        enableShowSummary();
+                    }else{
+                        disableShowSummary();
                     }
                     if(!_.isUndefined(data.documentId)){
                         $http({
@@ -92,6 +95,7 @@
             }
 
             scope.submit = function () {
+                scope.setTaskActionExecutionError(null);
                 if(!isFormValid()){
                     return false;
                 }
@@ -119,7 +123,7 @@
                 resourceFactory.bankAccountDetailResource.create({entityType: getEntityType(),entityId: getEntityId()},scope.formData,
                     function (data) {
                         populateDetails();
-                        scope.viewConfig.showSummary=true;
+                        enableShowSummary();
                 });
             };
 
@@ -151,10 +155,11 @@
                 if(_.isUndefined(scope.bankAccountData.documentImg)){
                     scope.addPicture=true;
                 }
-                scope.viewConfig.showSummary=false;
+                disableShowSummary();
             };
 
             scope.update = function () {
+                scope.setTaskActionExecutionError(null);
                 if(!isFormValid()){
                     return false;
                 }
@@ -216,7 +221,7 @@
 
             scope.cancel = function (){
                 if(scope.viewConfig.hasData){
-                    scope.viewConfig.showSummary=true;
+                    enableShowSummary();
                 }
             };
 
@@ -248,7 +253,7 @@
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
                     function (data) {
                         populateDetails();
-                        scope.viewConfig.showSummary=true;
+                        enableShowSummary();
                     }
                 );
             };
@@ -256,6 +261,26 @@
             function init() {
                 populateDetails();
             }
+
+            function enableShowSummary(){
+                scope.viewConfig.showSummary=true;
+            }
+
+            function disableShowSummary(){
+                scope.viewConfig.showSummary=false;
+            };
+
+            scope.doPreTaskActionStep = function(actionName){
+                 if(actionName === 'activitycomplete') {
+                     if (!scope.viewConfig.showSummary) {
+                         scope.setTaskActionExecutionError("error.message.bank.account.details.activity.cannot.complete.before.form.submit");
+                         return;
+                     } else {
+                         scope.doActionAndRefresh(actionName);
+                     }
+                 }
+
+            };
 
             init();
 

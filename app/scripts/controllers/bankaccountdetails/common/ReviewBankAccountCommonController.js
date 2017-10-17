@@ -62,6 +62,7 @@
             }
 
             scope.submit = function () {
+                scope.setTaskActionExecutionError(null);
                 if(!isFormValid()){
                     return false;
                 }
@@ -174,6 +175,18 @@
             function init() {
                 populateDetails();
             }
+
+            scope.doPreTaskActionStep = function(actionName){
+                if(actionName === 'activitycomplete') {
+                    if (!scope.viewConfig.showSummary) {
+                        scope.setTaskActionExecutionError("error.message.bank.account.details.activity.cannot.complete.before.approve");
+                        return;
+                    } else {
+                        scope.doActionAndRefresh(actionName);
+                    }
+                }
+
+            };
 
             init();
 
