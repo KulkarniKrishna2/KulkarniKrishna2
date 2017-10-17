@@ -42,7 +42,8 @@
 	  "isShowField": {
 		"nextRepaymentDateDisburseScreen": false,
 		"adjustRepaymentDateDisburseScreen": false,
-		"retryBankTransaction":true
+		"retryBankTransaction":true,
+		"isDeferPaymentsForHalfTheLoanTerm": false
 	  },
 	  "isReadOnlyField": {
 	  	"externalId": false,

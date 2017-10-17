@@ -473,6 +473,10 @@
                             value="{{loanSummary.id}}"/>
                 </td>
             </tr>
+            <tr ng-show="showIsDeferPaymentsForHalfTheLoanTerm">
+                <td><label>{{ 'label.heading.deferpaymentsforhalftheloanterm' | translate }}</label></td>
+                <td><input type="checkbox"  ng-model="formData.deferPaymentsForHalfTheLoanTerm"/></td>
+            </tr>
             <tr>
                 <td colspan="4" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true"><hr></td>
             </tr>

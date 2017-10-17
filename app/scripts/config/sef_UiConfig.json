@@ -1,0 +1,11 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "loanAccount": {
+      "isShowField": {
+        "isDeferPaymentsForHalfTheLoanTerm": true
+      }
+    }
+  }
+}
+	
