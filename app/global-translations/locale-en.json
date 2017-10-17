@@ -2271,7 +2271,8 @@
     "validation.msg.fixeddepositaccount.depositPeriodFrequencyId.is.not.one.of.expected.enumerations" : "Deposit  Period Frequency is not one of expected Enumerations",
     "validation.msg.fixeddepositaccount.valid.interest.chart.or.nominal.interest.rate.required" : "Interest chart or nominal interest rate require",
     "validation.msg.rescheduleloan.adjustedDueDate.adjustedDueDate.should.be.calendar.meeting.date" : "Installment Rescheduled to date should be meeting date",
-
+    "error.message.bank.account.details.activity.cannot.complete.before.approve": "Bank account  details activity cannot  be completed without approval",
+    "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
