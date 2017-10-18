@@ -166,6 +166,8 @@
                     location.path('/viewgroup/' + scope.groupId);
                 }
             }
+            scope.isDisableField = true;
+            scope.isReadOnlyField = true;
         }
     });
     mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateSavingAccountController]).run(function ($log) {
