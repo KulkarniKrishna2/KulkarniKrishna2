@@ -117,7 +117,9 @@
                         location.path('/loanaccount/' + accountId + '/undoapproval');
                         break;
                     case "disburse":
-                        if (scope.loandetails.flatInterestRate != null) {
+                        if(scope.isCBCheckReq === true && ( _.isUndefined(scope.trancheDisbursalId) || scope.trancheDisbursalId == null)){
+                            location.path('/loanaccount/' + accountId + '/disburse');
+                        }else if (scope.loandetails.flatInterestRate != null) {
                             location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
                         }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
@@ -1632,17 +1634,6 @@
                                     scope.creditbureauLoanProduct = creditbureauLoanProduct;
                                     if (scope.creditbureauLoanProduct.isActive == true) {
                                         scope.isCBCheckReq = true;
-                                        var cbButton = {
-                                            name: "button.disburse.tranche.creditbureaureport",
-                                            icon: "icon-flag",
-                                            taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
-                                        };
-                                        for (var i in scope.buttons.singlebuttons) {
-                                            if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
-                                                scope.buttons.singlebuttons[i] = cbButton;
-                                                break;
-                                            }
-                                        }
                                         if(!_.isUndefined(scope.loandetails.disbursementDetails) && scope.loandetails.disbursementDetails.length > 0){
                                             var expectedDisbursementDate = undefined;
                                             for(var i in scope.loandetails.disbursementDetails){
