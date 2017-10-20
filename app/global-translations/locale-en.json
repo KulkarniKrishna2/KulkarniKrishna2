@@ -6581,6 +6581,14 @@
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
+    "label.input.searchtext" : "Search Text",
+     "label.button.search" : "Search",
+     "label.button.showclientimage" : "Show Client Image",
+     "label.button.hideclientimage" : "Hide Client Image",
+     "label.heading.clientimage" : "Client Image",
+     "label.not.available" : "Not Available",
+     "label.heading.paycharge" : "Pay Charge",
+     "label.heading.transferFunds": "Transfer Funds",
 
     "------ end of tensalation file":"---------"
 }
