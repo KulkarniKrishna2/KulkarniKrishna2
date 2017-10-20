@@ -23,6 +23,7 @@
             scope.dataTableName = 'f_journal_entry';
             scope.transactions = [];
 			scope.sections = [];
+            scope.isReverseDisabled = false;
             scope.isReversalEntry = false;
             if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
                 scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
@@ -113,6 +114,7 @@
                     reverseComments:""
                 };
                 $scope.reverse = function () {
+                    scope.isReverseDisabled = true;
                     reverseData = {transactionId: transactionId, comments: $scope.data.reverseComments};
                     resourceFactory.journalEntriesResource.reverse(reverseData, function (data) {
                     $modalInstance.dismiss('cancel');

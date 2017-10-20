@@ -38,7 +38,7 @@
             </div>
             <br>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="reverse()">{{'label.button.reverse' | translate}}</button>
+            <button class="btn btn-primary" ng-click="reverse()" ng-disabled="isReverseDisabled">{{'label.button.reverse' | translate}}</button>
         </div>
     </script>
     <div class="well">
