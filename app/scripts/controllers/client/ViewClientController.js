@@ -666,7 +666,7 @@
                 $scope.upload = function () {
                     if (scope.file) {
                         $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/documents',
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
                             data: {
                                 name: 'clientSignature',
                                 description: 'client signature'

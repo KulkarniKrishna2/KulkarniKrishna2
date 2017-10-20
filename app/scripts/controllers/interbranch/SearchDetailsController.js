@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SearchDetailsController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams, $sce) {
+        SearchDetailsController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $rootScope) {
             scope.offices = [];
             scope.formData = {};
             scope.resource = "clientIdentifiers,clients,loans,savings";
@@ -21,11 +21,15 @@
             scope.loanAccountType = 1;
             scope.toAccounts = [];
             scope.transferData = {};
+            scope.payChargeView = "PAYCHARGE";
+            scope.payChargeData = {locale : scope.optlang.code,dateFormat : scope.df};
+            scope.payChargeParam = {};
+            scope.viewImage = false;
+            scope.activeLoanStatus = 300;
+            scope.closedLoanStatus = 600;
+            scope.overPaidLoanStatus = 700;
+            scope.clientBasicDetails = {}
 
-
-            if(scope.$parent.currentSession != undefined && scope.$parent.currentSession.user != undefined){
-                scope.currentUserId = scope.$parent.currentSession.user.userId
-            }
 
             scope.checkView = function(){
                 if(location.search().isInterBranchSearch != undefined && location.search().isInterBranchSearch== 'true'){
@@ -199,6 +203,7 @@
             			scope.view = type;
             			scope.loandetails = data;
                         scope.loandetails.transactions =  _.sortBy(scope.loandetails.transactions, 'id').reverse();
+                        scope.getClientBasicDetails(data.clientId, data.accountNo);   
             		 });
 
             	}else{
@@ -206,6 +211,7 @@
                         scope.view = type;
                         scope.savingaccountdetails = data;
                         scope.savingaccountdetails.transactions =  _.sortBy(scope.savingaccountdetails.transactions, 'id').reverse();
+                        scope.getClientBasicDetails(data.clientId, data.accountNo);   
                     });  
             	}
             };
@@ -302,13 +308,81 @@
                    scope.transferData.transferDate = dateFilter(scope.transferData.transferDate, scope.df); 
                 } 
                 resourceFactory.interBranchTransferResource.transfer({}, scope.transferData, function (data) {
+                    scope.transferData = {};
                     scope.getAccount(scope.fundTransferData.id,scope.savingView);
                 });
 
             };
+
+
+
+            scope.getClientBasicDetails = function(clientId,account){
+                scope.viewSignature = false;
+                scope.clientBasicDetails = {};
+                resourceFactory.interBranchClientBasicDetailsResource.get({clientId: clientId},function (clientData) {
+                    scope.clientBasicDetails = clientData;
+                    scope.clientBasicDetails.account = account;
+                    if(clientData.imagePresent){
+                       http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + clientId + '/images?maxWidth=250'
+                        }).then(function (imageData) {
+                            scope.Image = imageData.data[0];
+                            http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + clientId + '/images/'+scope.Image.imageId+'?maxHeight=860'
+                            }).then(function (imageData) {
+                                scope.largeImage = imageData.data;
+                                scope.clientBasicDetails.image = imageData.data;
+                            });
+                        });
+
+                    }else{
+                        scope.clientBasicDetails.image = null;
+                    }
+
+                    scope.clientBasicDetails.isSignaturePresent = false;
+
+                    http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents'
+                    }).then(function (docsData) {
+                        var docId = -1;
+                        for (var i = 0; i < docsData.data.length; ++i) {
+                            if (docsData.data[i].name == 'clientSignature') {
+                                docId = docsData.data[i].id;
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                scope.clientBasicDetails.isSignaturePresent = true;
+                                http({
+                                    method: 'GET',
+                                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                                }).then(function (docsData) {
+                                    scope.clientBasicDetails.signature = scope.signature_url;
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+
+            scope.getPayCharge = function(savingsId,charge){
+                scope.view = scope.payChargeView;
+                scope.payChargeData.dueDate = new Date();
+                scope.payChargeData.amount = charge.amountOutstanding;
+                scope.payChargeParam.savingsAccountId = savingsId;
+                scope.payChargeParam.savingsAccountChargeId = charge.id;
+            };
+
+            scope.payCharge = function(){
+                scope.payChargeData.dueDate = dateFilter(scope.payChargeData.dueDate , scope.df);
+                resourceFactory.interBranchPayChargeResource.pay(scope.payChargeParam, scope.payChargeData, function (data) {
+                        scope.getAccount(scope.payChargeParam.savingsAccountId,scope.savingView);
+                        scope.payChargeData = {locale : scope.optlang.code,dateFormat : scope.df};
+                });
+            };
         }
     });
-    mifosX.ng.application.controller('SearchDetailsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', '$sce', mifosX.controllers.SearchDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('SearchDetailsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION','$rootScope', mifosX.controllers.SearchDetailsController]).run(function ($log) {
         $log.info("SearchDetailsController initialized");
     });
 }(mifosX.controllers || {}));
