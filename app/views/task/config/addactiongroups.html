@@ -1,0 +1,117 @@
+   <div class="col-md-12" ng-controller="AddActionGroupsController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowentitymappings">{{'label.anchor.workflowentitymapping' | translate}}</a></li>
+            <li class="active">{{'label.heading.addactiongroups' | translate}}</li>
+        </ul>
+    <form  name="addactiongroupsform" novalidate="" ng-submit="submit()" >
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{ 'label.heading.addactiongroups' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.heading.actiongroupname' |translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                  <input id="actionGroupName" name="actionGroupName" ng-model="formData.actionGroupName" 
+                        class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addactiongroupsform" valattribute="actionGroupName"/>
+                </div>                              
+            </div>
+            <br><br>
+             <legend>{{ 'label.heading.permittedactions' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.heading.actions' |translate}}</label>
+                <div class="col-sm-2">
+                   <select  id="actionType" name="actionType"
+                                                    ng-model="formData.actionType"
+                                                    class="form-control">
+                        <option value="" default>-- Select one --</option>
+                        <option ng-repeat="action in actions" value="{{action}}">{{action.value}}</option>
+                   </select>
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addactiongroupsform" valattribute="actionType"/>
+                </div> 
+                <div class="col-sm-6">
+                    <a  class="btn btn-primary pull-right" data-ng-click="addRolesToAction()" >{{'label.button.add'| translate}} </a>
+                </div>                             
+            </div>
+            <br><br>
+            <div class="form-group">
+                <div class="col-sm-3 col-md-3 col-md-offset-1">
+                    <label class="control-label col-sm-9">{{ 'label.input.availableroles' | translate }}</label>
+                    <select id="availableroles" ng-model="available" name="availableroles" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">
+                            {{availablerole.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addRole()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeRole()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-9">{{ 'label.input.selectedroles' | translate}}</label>
+                    <select id="roles" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}">
+                            {{availablerole.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="table-responsive">
+                 <table class="table table-striped">
+                     <thead>
+                        <tr>
+                            <th>{{'label.heading.actions' |translate}}</th>
+                            <th>{{'label.heading.permittedrole' | translate}}</th>
+                            <th></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="getInf in selectedActionsWithRoles track by $index">
+                            <td>{{getInf.actionType.value}}</td>
+                            <td>
+                                 <table>
+                                    <tr ng-repeat="role in getInf.roles">
+                                       <td class="pointer">{{role.name}}</td>
+                                     </tr>
+                                </table>
+                            </td>
+                            <td ><a type="button" class="btn btn-info" ng-click= "deleteActionRoles($index)">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
+                        </tr>        
+                     </tbody>
+                 </table>
+            </div>
+           
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/displayactiongroups" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary" ng-if="isCreateOperaion"
+                 has-permission='CREATE_TASKACTIONGROUP'>{{ 'label.button.save' | translate }}</button>
+                <button id="save" type="submit" class="btn btn-primary" ng-if="!isCreateOperaion"
+                 has-permission='UPDATE_TASKACTIONGROUP'>{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+      <script type="text/ng-template" id="inactivateactiongroupalert.html">
+        <form name="popupform" novalidate="">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.alert' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <h3><strong class="center">{{'alert.msg.continue' | translate}}</strong></h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="continue()">{{'label.button.ok' | translate}}</button>
+                <a class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+            </div>
+        </form>
+        </script>
+ </div>

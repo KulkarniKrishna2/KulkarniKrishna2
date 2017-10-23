@@ -543,6 +543,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/config/WorkflowEntityMappingsController',
             'task/config/CreateWorkflowEntityMappingController',
             'interbranch/SearchDetailsController',
+            'task/config/AddActionGroupsController',
+            'task/config/DisplayActionGroupsController',
+            'task/config/ViewActionGroupController'
         ],
         filters: [
             'StatusLookup',

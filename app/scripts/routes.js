@@ -1632,6 +1632,18 @@
             .when('/interbranchsearch', {
                 templateUrl: 'views/interbranch/search-details.html'
             })
+            .when('/addactiongroups', {
+                templateUrl: 'views/task/config/addactiongroups.html'
+            })
+            .when('/displayactiongroups', {
+                templateUrl: 'views/task/config/displayactiongroups.html'
+            })
+            .when('/addactiongroups/:actionGroupId', {
+                templateUrl: 'views/task/config/addactiongroups.html'
+            })
+            .when('/viewactiongroup/:actionGroupId', {
+                templateUrl: 'views/task/config/viewactiongroup.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -1,0 +1,30 @@
+   <div class="col-md-12" ng-controller="DisplayActionGroupsController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li class="active">{{'label.anchor.actiongroups' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <h3>{{'label.heading.viewactiongroups' | translate}}</h3>
+    <hr>
+    <div >
+         <a href="#/addactiongroups" class="btn btn-primary pull-right" 
+            has-permission='CREATE_TASKACTIONGROUP' >{{'label.anchor.addactiongroup'| translate}} </a>
+    </div>
+    <div class="table-response">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{'label.heading.workflow' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat = "actionGroup in actionGroups">
+                    <td class="pointer">{{actionGroup.actionGroupName}}</td>
+                    <td class="pointer"><a type="button" class="btn btn-primary" 
+                        has-permission='UPDATE_TASKACTIONGROUP' ng-click= "editActionGroup(actionGroup.id)">{{"label.button.edit" | translate}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>

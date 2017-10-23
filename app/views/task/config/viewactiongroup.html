@@ -1,0 +1,36 @@
+   <div class="col-md-12" ng-controller="ViewActionGroupController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewactiongroups' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <h3>{{actionGroup.actionGroupName}}</h3>
+    <hr>
+    <div >
+         <a class="btn btn-primary pull-right" ng-click = "editActionGroup(actionGroup.id)" 
+             has-permission='UPDATE_TASKACTIONGROUP'>{{'label.button.edit'| translate}} </a>
+    </div>
+    <h3>{{label.heading.permittedactions | translate}}</h3>
+    <div class="table-response">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                    <th>{{'label.heading.permissions' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat = "action in actionGroup.actions">
+                    <td class="pointer">{{action.actionType.value}}</td>
+                    <td class="pointer">
+                         <table>
+                            <tr ng-repeat="role in action.accessRoles">
+                                <td class="pointer">{{role.name}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>
