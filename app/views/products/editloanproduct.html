@@ -660,6 +660,14 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="control-label col-sm-2">{{ 'label.input.minimum.days.between.approval.and.disbursement' | translate }}</label>
+
+		<div class="col-sm-2">
+			<input id="minimumDaysBetweenApprovalAndDisbursement" class="form-control" placeholder="{{'label.input.number.of.days' | translate}}"
+				   type="text" ng-model="formData.minimumDaysBetweenApprovalAndDisbursement">
+		</div>
+	</div>
+	<div class="form-group">
 		<div class="col-sm-6">
 			<input type="checkbox" name="name1" ng-model="formData.isMinDurationApplicableForAllDisbursements"/>
 			{{'label.input.minDurationapplicableforalldisbursements' | translate}}
@@ -1647,16 +1655,18 @@
 	    <div class="col-md-4">
 	        <a class="btn btn-primary" ng-click="mapFees()">{{ 'label.button.add' | translate }}</a>
 	    </div>
-	    <table class="table width100">
+	    <table class="table">
 	        <tr class="graybg">
-	            <th class="width30">{{'label.heading.fees' | translate}}</th>
+	            <th>{{'label.heading.fees' | translate}}</th>
 	            <th></th>
-	            <th class="width30">{{'label.heading.incomeaccount' | translate}}</th>
+	            <th>{{'label.heading.incomeaccount' | translate}}</th>
 	            <th></th>
-	            <th class="width30">{{'label.heading.actions' | translate}}</th>
+				<th>{{'label.heading.fundsource' | translate}}</th>
+				<th></th>
+	            <th>{{'label.heading.actions' | translate}}</th>
 	        </tr>
 	        <tr ng-repeat="specificMapping in specificIncomeAccountMapping">
-                <td class="width30">
+                <td>
                     <select id="specificIncomeAccountMapping[{{$index}}].chargeId"
                             ng-model="specificMapping.chargeId" class="form-control"
                             ng-options="charge.id as charge.name for charge in chargeOptions"
@@ -1665,9 +1675,9 @@
                     </select>
                 </td>
                 <td></td>
-                <td class="width30">
+                <td>
                     <select id="specificIncomeAccountMapping[{{$index}}].incomeAccountId"
-                            ng-model="specificMapping.incomeAccountId"
+                            ng-model="specificMapping.incomeAccountId" class="form-control"
                             chosen="incomeAndLiabilityAccountOptions"
                             ng-options="account.id as (account.name +'('+ account.glCode +')') for account in incomeAndLiabilityAccountOptions"
                             value="{{account.id}}">
@@ -1675,7 +1685,16 @@
                     </select>
                 </td>
 	            <td></td>
-	            <td class="width30">
+				<td>
+					<select id="specificIncomeAccountMapping[{{$index}}].fundSourceAccountId"
+							ng-model="specificMapping.fundSourceAccountId" class="form-control"
+							chosen="assetAccountOptions"
+							ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+							value="{{assetAccount.id}}">
+						<option value="">{{'label.menu.selectone'| translate }}</option>
+					</select>
+				</td>
+	            <td>
 	                <a ng-click="deleteFee($index)"><i class="icon-remove icon-white"></i></a>
 	            </td>
 	        </tr>
@@ -1686,14 +1705,16 @@
 	    </div>
 	    <table class="table">
 	        <tr class="graybg">
-	            <th class="width30">{{'label.heading.penalty' | translate}}</th>
+	            <th>{{'label.heading.penalty' | translate}}</th>
 	            <th></th>
-	            <th class="width30">{{'label.heading.incomeaccount' | translate}}</th>
+	            <th>{{'label.heading.incomeaccount' | translate}}</th>
 	            <th></th>
-	            <th class="width30">{{'label.heading.actions' | translate}}</th>
+				<th>{{'label.heading.fundsource' | translate}}</th>
+				<th></th>
+	            <th>{{'label.heading.actions' | translate}}</th>
 	        </tr>
 	        <tr ng-repeat="penaltySpecificIncomeaccount in penaltySpecificIncomeaccounts">
-	            <td class="width30">
+	            <td>
 	                <select id="penaltySpecificIncomeaccounts[{{$index}}].chargeId"
 	                        class="form-control"
 	                        ng-model="penaltySpecificIncomeaccount.chargeId"
@@ -1703,7 +1724,7 @@
 	                </select>
 	            </td>
 	            <td></td>
-	            <td class="width30">
+	            <td>
 	                <select id="penaltySpecificIncomeaccounts[{{$index}}].incomeAccountId"
 	                        class="form-control"
 	                        ng-model="penaltySpecificIncomeaccount.incomeAccountId"
@@ -1713,7 +1734,18 @@
 	                </select>
 	            </td>
 	            <td></td>
-	            <td class="width30"><a ng-click="deletePenalty($index)"><i class="icon-remove"></i></a></td>
+				<td>
+					<select id="penaltySpecificIncomeaccounts[{{$index}}].fundSourceAccountId"
+							class="form-control"
+							ng-model="penaltySpecificIncomeaccount.fundSourceAccountId"
+							chosen="assetAccountOptions"
+							ng-options="assetAccount.id as (assetAccount.name +'('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+							value="{{assetAccount.id}}">
+						<option value="">{{'label.menu.selectone'| translate }}</option>
+					</select>
+				</td>
+				<td></td>
+	            <td><a ng-click="deletePenalty($index)"><i class="icon-remove"></i></a></td>
 	        </tr>
 	    </table>
 		<!-- add write off reason to expense account-->

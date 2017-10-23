@@ -209,6 +209,10 @@
     <td>{{'label.input.minimum.period.between.disbursal.and.first.repayment' | translate}}</td>
     <td colspan="3">{{loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment}}<span>:&nbsp;{{'label.repayment.heading.period' | translate}}</span></td>
 </tr>
+<tr>
+    <td>{{'label.input.minimum.days.between.approval.and.disbursement' | translate}}</td>
+    <td colspan="3">{{loanproduct.minimumDaysBetweenApprovalAndDisbursement}}</td>
+</tr>
 <tr ng-show="minimumPeriodsBetweenDisbursalAndFirstRepaymentShow || minimumDaysBetweenDisbursalAndFirstRepaymentShow">
     <td>{{'label.input.minDurationapplicableforalldisbursements' | translate}}</td>
     <td colspan="3">{{loanproduct.isMinDurationApplicableForAllDisbursements}}</td>
@@ -671,11 +675,13 @@
             </tr>
             <tr class="bottomborder graybg">
                 <td>{{'label.heading.fees' | translate}}</td>
-                <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+                <td>{{'label.heading.incomeaccount' | translate}}</td>
+                <td>{{'label.heading.fundsource' | translate}}</td>
             </tr>
-            <tr ng-repeat="feeToIncomeAccount in loanproduct.feeToIncomeAccountMappings">
-                <td>{{feeToIncomeAccount.charge.name}}</td>
-                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}({{feeToIncomeAccount.incomeAccount.glCode}})</td>
+            <tr ng-repeat="feeToIncomeAccount in feeToIncomeAccountMappingsData">
+                <td>{{feeToIncomeAccount.feeToIncomeAccountChargeName}}</td>
+                <td>{{feeToIncomeAccount.feeToIncomeAccountName}}({{feeToIncomeAccount.incomeAccountGlCode}})</td>
+                <td>{{feeToIncomeAccount.feeToDebitAccountName}}</td>
             </tr>
             <tr>
                 <td colspan="4"></td>
@@ -685,11 +691,13 @@
             </tr>
             <tr class="bottomborder graybg">
                 <td>{{'label.heading.penalty' | translate}}</td>
-                <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+                <td>{{'label.heading.incomeaccount' | translate}}</td>
+                <td>{{'label.heading.fundsource' | translate}}</td>
             </tr>
-            <tr ng-repeat="penaltyToIncomeAccount in loanproduct.penaltyToIncomeAccountMappings">
-                <td>{{penaltyToIncomeAccount.charge.name}}</td>
-                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}({{penaltyToIncomeAccount.incomeAccount.glCode}})</td>
+            <tr ng-repeat="penaltyToIncomeAccount in penaltyToIncomeAccountMappingsData">
+                <td>{{penaltyToIncomeAccount.chargeName}}</td>
+                <td>{{penaltyToIncomeAccount.incomeAccountName}}({{penaltyToIncomeAccount.glCode}})</td>
+                <td>{{penaltyToIncomeAccount.debitAccountName}}</td>
             </tr>
 
 
