@@ -212,6 +212,8 @@
     "label.input.limitOnTotalOverdraftAmount":"Limit On Total Overdraft Amount",
     "label.input.groupName":"Group Name",
     "label.input.code": "Code",
+    "label.heading.activatedgroup": "Group is activated",
+
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -582,6 +584,7 @@
     "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
     "error.msg.payment.type.invalid" : "Payment type is invalid",
     "error.msg.address.type.verified":"Address is already verified and cannot be updated.",
+    "error.message.group.activation.activity.cannot.complete.before.group.activation":"Group activation activaity cannot completed before group activation",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
