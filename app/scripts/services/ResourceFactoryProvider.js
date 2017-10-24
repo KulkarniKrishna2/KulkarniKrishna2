@@ -1316,6 +1316,18 @@
                     }),
                     interBranchPayChargeResource: defineResource(apiVer + "/interbranch/savingsaccounts/:savingsAccountId/charges/:savingsAccountChargeId/pay", {savingsAccountId: '@savingsAccountId',savingsAccountChargeId: '@savingsAccountChargeId'}, {
                         pay: {method: 'POST', params: {}}
+                    }),
+                    actionGroupsTemplateResource:defineResource(apiVer + "/taskactiongroups/template",{},{
+                        getTemplate:{method: 'GET', params: {}}
+                    }),
+                    actionGroupsResource:defineResource(apiVer + "/taskactiongroups/:actionGroupId",{actionGroupId:'@actionGroupId'},{
+                        save: {method: 'POST', params:{}},
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params:{}}
+                    }),
+                    inActivateActionGroupResource:defineResource(apiVer + "/taskactiongroups/:actionGroupId/taskactions/:actionId",{actionGroupId:'@actionGroupId',actionId:'@actionId'},{
+                       update:{method: 'PUT', params:{}}
                     })
                     
                 };

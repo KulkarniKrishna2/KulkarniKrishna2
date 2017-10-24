@@ -6558,6 +6558,17 @@
     "error.msg.validation.select.loanproducts":"Please select atleast one loanproduct",
     "alert.msg.continue":"Do you want to Continue ?",
     "label.heading.alert":"Alert",
+    "label.heading.addactiongroups" : "Add Action groups",
+    "label.heading.actiongroupname" : "Action Group Name",
+    "label.heading.permittedactions" : "Permitted Actions",
+    "label.heading.permittedrole" : "Permitted Role",
+    "label.anchor.actiongroups" : "Action Groups",
+    "label.heading.viewactiongroups" : "View Action Groups",
+    "label.anchor.addactiongroup" : "Add Action Group",
+    "label.anchor.viewactiongroups" : "View Action Groups",
+    "validation.msg.taskactiongroup.roleId.error.msg.roleId.parameter.should.be.long" : "RoleId Parameter should be long",
+
+
     "validation.msg.FUND.approvedDate.max.is.less.than.date" : "To date of approved date should be greater than from date",
     "validation.msg.FUND.disbursementDate.max.is.less.than.date" : "To date of disbursement date should be greater than from date",
     "validation.msg.FUND.pendingRepayment.max.is.less.than.min" : "Max of pending repayment should be more than min",
