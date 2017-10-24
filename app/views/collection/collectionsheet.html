@@ -195,9 +195,14 @@
 							</div>
 						</td>
 						<td>
-							<label ng-repeat="attendance in collectionsheetdata.attendanceTypeOptions">
+							<!-- <label ng-repeat="attendance in collectionsheetdata.attendanceTypeOptions">
 								<input type="radio" name="attendance{{parentIndex}}" ng-model="client.attendanceType.id" ng-value="attendance.id" />&nbsp;{{attendance.value}}
-							</label>
+							</label> -->
+							<select id="clientsAttendance[{{$index}}][attendanceType]"
+									ng-model="client.attendanceType.id" class="input-sm form-control"
+									ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
+									value="{{attendance.id}}">
+							</select>
 						</td>
 					</tr>
 					<tr>
