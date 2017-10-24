@@ -45,7 +45,7 @@
 				<div class="blockquoteresult"
 					ng-class="{grbgcolor: result.entityId == selected}">
 					<span
-						ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'">
+						ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING' || result.entityType  == 'RECURRINGDEPOSIT' || result.entityType  == 'FIXEDDEPOSIT'">
 						<a
 						href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
 
@@ -89,7 +89,7 @@
 						ng-show="result.centerName!=null">|</a>&nbsp;<strong>{{'label.heading.center'
 							| translate}}</strong><a ng-show="result.centerName!=null">:</a>{{result.centerName}}</span>
 					<span
-						data-ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'"><strong>{{'label.heading.entity'
+						data-ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING' || result.entityType  == 'RECURRINGDEPOSIT' || result.entityType  == 'FIXEDDEPOSIT' "><strong>{{'label.heading.entity'
 							| translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
 							'label.heading.' + result.parentType | translate }}</strong>:{{result.parentName}}&nbsp;<a
 						ng-show="result.officeName!=null">|</a>&nbsp;<strong
