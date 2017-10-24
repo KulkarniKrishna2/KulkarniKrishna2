@@ -1,95 +1,748 @@
 <div ng-controller="groupmembersActivityController">
+    <div>
+        <api-validate></api-validate>
+        <div class="row pull-right">     
+            <div ng-if="!isTaskCompleted()">
+                <button id=addMember type="button" ng-click="showAddMemberView()" ng-if="viewSummary && !isTaskCompleted()" class="btn btn-primary">{{'label.heading.addmember' | translate}}</button>
 
-    <!-- Submit form, new data    -->
-    <div class="col-md-12 col-sm-12" ng-if="isTaskCompleted()  || viewSummary">
-        <div class="row">
-            <div ng-if="!isTaskCompleted()" class="col-md-offset-11 col-md-1">
-                    <button id="add" class="btn btn-primary" ng-click="showAddMemberView()"><i class="icon-plus-sign-alt icon-white"></i>{{'label.button.add' | translate}}</button>
+                <button id=manageMembers type="button" ng-click="showManageMemberView()" ng-if="viewSummary && !isTaskCompleted()" class="btn btn-primary">{{'label.heading.managemembers' | translate}}</button>
             </div>
-
         </div>
-        <div class="row">
+        <div class="row" ng-if="viewSummary">
             <table class="table table-condensed marginbottom0" style="display:inline-table;">
                 <thead>
                 <tr class="graybg">
                     <th>{{'label.heading.accnum' | translate}}</th>
                     <th>{{'label.heading.name' | translate}}</th>
                     <th>{{ 'label.heading.actions' | translate }}</th>
-                    <th></th>
+                    <th>{{'label.heading.workflow' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" ng-repeat="member in group.clientMembers">
-                    <td class="pointer" data-ng-click="routeToMem(member.id)">
+                <tr class="pointer-main" ng-repeat="member in group.clientMembers track by member.id">
+                    <td>
                         <i class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
                         {{member.accountNo}}
                     </td>
                     <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
-                    </td>
                     <td>
-                        <a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
-                                class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
+                        <button has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-click="createLoanApplication(member.id)"  ng-disabled="isTaskCompleted() || taskData.status.value == 'underapproval'">
+                                 <i class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}
+                        </button>
 
                     </td>
                     <td>
-                        <a has-permission='CREATE_LOANAPPLICATIONREFERENCE' ng-show="isLoanApplication === true" class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
-                                class="icon-plus icon-white"></i></a>
-
+                        <table>
+                            <tbody>
+                                <tr ng-repeat="workflow in member.workflows track by workflow.id">
+                                    <td  ng-if="workflow != undefined">
+                                        <a type="button" id="workflow.id" class="btn angled-btn btn-default " data-ng-click="goToTask(workflow)">
+                                        <span ng-if="workflow.activeChildTask">{{workflow.activeChildTask.name}}</span>
+                                        <i class="icon-arrow-right"></i>
+                                        </a>
+                                    </td>
+                                    <td ng-if="workflow != undefined" >{{workflow.status.code | translate }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
                 </tbody>
             </table>
-
         </div>
-              
-    </div>
-
-
-    <form name="managemembers" ng-if="viewAddMember" class="form-horizontal">
-        <fieldset>
-            <div class="row">
-                <div class="col-md-7">
-                    <legend>{{'label.heading.associatenewmembers' | translate}}</legend>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
-                        <div class="col-sm-4 col-md-4">
-                            <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
-                                   typeahead-min-length="3"
-                                   typeahead-editable="false"
-                                   typeahead="client as client.displayName for client in clientOptions($viewValue)"
-                                   typeahead-on-select="viewClient(available)"/>
+    
+        <form name="managemembers" ng-if="viewManageMember" class="form-horizontal well">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-7">
+                        <legend>{{'label.heading.associatenewmembers' | translate}}</legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
+                            <div class="col-sm-4 col-md-4">
+                                <input id="members" type="text" autocomplete="off" ng-model="available" class="col-md-4 form-control" typeahead-min-length="3" typeahead-editable="false" typeahead="client as client.displayName for client in clientOptions($viewValue)" typeahead-on-select="viewClient(available)" />
+                            </div>
+                            <div class="col-sm-1 col-md-1">
+                                <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="associateMember()">
+                                    {{ 'label.button.add' | translate }}
+                                    <i class="icon-double-angle-right"></i></button>
+                            </div>
                         </div>
-                        <div class="col-sm-1 col-md-1">
-                            <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="addMember()">
-                                {{ 'label.button.add' | translate }}
-                                <i class="icon-double-angle-right"></i></button>
+                        <div class="form-group">
+                            <div data-ng-show="available" class="col-md-6 col-md-offset-1">
+                                <p>{{'label.heading.groupdetails' | translate}}</p>
+                                <table class="table">
+                                    <tr>
+                                        <td>{{'label.heading.name' | translate}}</td>
+                                        <td>{{client.displayName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'label.heading.id' | translate }}</td>
+                                        <td valign="top">{{client.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'label.heading.office' | translate }}</td>
+                                        <td>{{client.officeName}}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div data-ng-show="available" class="col-md-6 col-md-offset-1">
-                            <p>{{'label.heading.groupdetails' | translate}}</p>
-                            <table class="table">
-                                <tr>
-                                    <td>{{'label.heading.name' | translate}}</td>
-                                    <td>{{client.displayName}}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ 'label.heading.id' | translate }}</td>
-                                    <td valign="top">{{client.id}}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ 'label.heading.office' | translate }}</td>
-                                    <td>{{client.officeName}}</td>
-                                </tr>
-                            </table>
+                    <div class="col-md-5">
+                        <legend>{{'label.heading.groupmembers' | translate}}</legend>
+                        <div class="form-group" ng-repeat="members in allMembers">
+                            <div class="col-sm-6 col-md-6">
+                                <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})" type="text" />
+                            </div>
+                            <div class="col-sm-2 col-md-2">
+                                <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,members.id)">
+                                    <i class="icon-remove"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-3 col-md-offset-5">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()" ><i class="icon-double-angle-left"></i>{{ 'label.button.back' | translate }}</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <form name="createclientform" ng-if="viewAddMember" novalidate="" class="form-horizontal well" rc-submit="addClientMember()">
+            <fieldset>
+                <legend>{{'label.heading.createclient' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">
+                        {{'label.input.office' | translate}} <span ng-show="forceOffice == null" class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <div ng-show="forceOffice == null">
+                            <select chosen="offices" id="officeId" ng-model="addClientformData.officeId" class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="changeOffice(addClientformData.officeId)"></select>
+                        </div>
+                        <div ng-show="forceOffice != null">
+                            <p class="form-control-static">{{forceOffice.name}}</p>
+                        </div>
+                    </div>
+                    <label class="control-label col-sm-2" ng-show="showStaff">{{'label.input.staff' | translate}}</label>
+
+                    <div class="col-sm-3" ng-show="showStaff">
+                        <select chosen="staffs" id="staffId" ng-model="addClientformData.staffId" ng-disabled="response.uiDisplayConfigurations.createClient.isReadOnlyField.staff == true && addClientformData.staffId != null" class="form-control" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                            <option value="">{{'label.menu.selectloanofficer' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showLegalForm">
+                    <label class="control-label col-sm-2">{{'label.input.legalForm' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="legalFormId" ng-model="addClientformData.legalFormId" class="form-control" ng-options="legalForm.id as legalForm.value for legalForm in clientLegalFormOptions" value="{{legalForm.id}}" ng-change="displayPersonOrNonPersonOptions(addClientformData.legalFormId)">
+                            <option value="">{{'label.menu.legalForm' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div data-ng-switch on="showNonPersonOptions">
+                    <div data-ng-switch-when="false">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="firstname">{{ 'label.input.applicantname' | translate }}
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-sm-3">
+                                <input placeholder="FIRST NAME" type="text" id="firstname" name="firstname" ng-model="addClientformData.firstname" class="form-control" ng-required="isFirstnameRequired" />
+                                <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+                            </div>
+                            <div class="col-sm-3" ng-show="showMiddleName">
+                                <input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename" ng-model="addClientformData.middlename" class="form-control" ng-required="isMiddlenameRequired" />
+                                <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <input placeholder="LAST NAME" type="text" id="lastname" name="lastname" ng-model="addClientformData.lastname" class="form-control" ng-required="isLastnameRequired" />
+                                <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-switch on="showNonPersonOptions">
+                    <div data-ng-switch-when="true">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="fullname">{{'label.input.fullname' | translate}}<span class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="fullname" name="fullname" ng-model="addClientformData.fullname" class="form-control" required late-Validate/>
+                            </div>
+                            <div class="col-sm-2">
+                                <form-validate valattributeform="createclientform" valattribute="fullname" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
+                        <label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
+                        <div class="col-sm-3">
+                            <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth" min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+                            <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="createclientform" valattribute="dateofbirth" />
+                        </div>
+                    </div>
+
+                    <div data-ng-switch on="showNonPersonOptions">
+                        <div data-ng-switch-when="false">
+                            <label class="control-label col-sm-1">{{'label.input.gender' | translate}}</label>
+
+                            <div class="col-sm-3">
+                                <select id="genderId" ng-model="addClientformData.genderId" class="form-control" ng-options="gender.id as gender.name for gender in genderOptions" value="{{gender.id}}">
+                                    <option value="">{{'label.menu.gender' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-ng-switch on="showNonPersonOptions">
+                        <div data-ng-switch-when="true">
+                            <label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="dd MMMM yyyy" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="clienttypeId" ng-model="addClientformData.clientTypeId" class="form-control" ng-options="clienttype.id as clienttype.name for clienttype in clienttypeOptions" value="{{clienttype.id}}">
+                            <option value="">{{'label.menu.clienttype' | translate}}</option>
+                        </select>
+                    </div>
+
+                    <label ng-hide="hideClientClassification" class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}
+                        <span ng-show="isClientClassificationMandatory" class="required">*</span></label>
+                    <div class="col-sm-3" ng-if="!hideClientClassification">
+                        <select id="clientClassificationId" name="clientClassificationId" ng-model="addClientformData.clientClassificationId" class="form-control" ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" ng-required="isClientClassificationMandatory" value="{{clientClassification.id}}">
+                            <option value="">{{'label.menu.clientclassification' | translate}}</option>
+                        </select>
+                    </div>
+                    <div ng-if="!hideClientClassification" class="col-sm-2">
+                        <form-validate valattributeform="createclientform" valattribute="clientClassificationId" />
+                    </div>
+                </div>
+
+                <div data-ng-switch on="showNonPersonOptions">
+                    <div data-ng-switch-when="true">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="incorpNumber" ng-model="addClientformData.clientNonPersonDetails.incorpNumber" class="form-control" />
+                            </div>
+
+                            <label class="control-label col-sm-2">{{'label.input.mainBusinessLine' | translate}}</label>
+
+                            <div class="col-sm-3">
+                                <select id="mainBusinessLineId" ng-model="addClientformData.clientNonPersonDetails.mainBusinessLineId" class="form-control" ng-options="mainBusinessLine.id as mainBusinessLine.name for mainBusinessLine in clientNonPersonMainBusinessLineOptions" value="{{mainBusinessLine.id}}">
+                                    <option value="">{{'label.menu.mainBusinessLine' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-switch on="showNonPersonOptions">
+                    <div data-ng-switch-when="true">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{'label.input.constitution' | translate}}<span class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <select id="constitutionId" name="constitution" ng-model="addClientformData.clientNonPersonDetails.constitutionId" class="form-control" ng-options="constitution.id as constitution.name for constitution in clientNonPersonConstitutionOptions" value="{{constitution.id}}" required late-Validate>
+                                    <option value="">--{{'label.menu.constitution' | translate}}--</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <form-validate valattributeform="createclientform" valattribute="constitution" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-switch on="showNonPersonOptions">
+                    <div data-ng-switch-when="true">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="remarks">{{'label.input.remarks' | translate}}</label>
+
+                            <div class="col-sm-3">
+                                <textarea type="text" id="remarks" ng-model="addClientformData.clientNonPersonDetails.remarks" rows="4" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="mobileNo" name="mobileNo" ng-model="addClientformData.mobileNo" ng-pattern="/^[0-9]+$/" class="form-control" />
+                        <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
+                                <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
+                                    {{'label.mustbenumeric' | translate}}</small></span>
+                    </div>
+                    <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="addClientformData.alternateMobileNo" ng-pattern="/^[0-9]+$/" class="form-control" />
+                        <span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
+                                    <small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
+                                        {{'label.mustbenumeric' | translate}}</small></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.email' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="email" ng-model="addClientformData.email" placeholder="EMAIL ID" type="email" class="form-control" />
+                        <form-validate valattributeform="createclientform" valattribute="email" />
+                    </div>
+
+                    <label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
+                        <span ng-show="isExternalIdMandatory" class="required">*</span>
+                    </label>
+                    <div class="col-sm-3" ng-show="showExternalId">
+                        <input type="text" id="externalId" name="external" ng-model="addClientformData.externalId" class="form-control" ng-required="isExternalIdMandatory" />
+                    </div>
+                    <div class="col-sm-2 paddinglr0px">
+                        <form-validate valattributeform="createclientform" valattribute="external" />
+                    </div>
+                </div>
+                <div ng-if="enableClientAddress">
+                    <legend></legend>
+
+                    <legend>{{'label.heading.clientaddress' | translate}}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.addresstype' | translate}} <span ng-show="isAddressTypeMandatory" class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <select chosen="addressType" id="addresstypeId" name="addressType" ng-model="formAddressData.addressTypes[0]" class="form-control" ng-options="address.id as address.name for address in addressType" value="{{address.id}}" ng-required="isAddressTypeMandatory">
+                                <option value="">{{'label.menu.addressType' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate ng-if="isAddressTypeMandatory" valattributeform="createclientform" valattribute="addressType" />
+                        </div>
+                        <div ng-if="addressFromVillages">
+                            <label class="control-label col-sm-1">
+                                {{'label.input.villages' | translate}} <span class="required">*</span>
+                            </label>
+                            <div class="col-sm-3">
+                                <select chosen="villages" id="villageId" name="villages" ng-model="formAddressData.villageId" class="form-control" ng-options="village.villageId as village.villageName for village in villages" value="{{village.villageId}}" ng-change="changeVillage(formAddressData.villageId)" required late-validate="">
+                                    <option value="">{{'label.menu.selectVillages' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1 paddinglr0px">
+                                <form-validate valattributeform="createclientform" valattribute="villages" />
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="houseNo" ng-model="formAddressData.houseNo" class="form-control" />
+                        </div>
+                        <label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="streetname" name="streetName" ng-model="formAddressData.addressLineOne" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}
+                            <span ng-show="isVillageTownMandatory" class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="villagename" name="villageTown" ng-model="formAddressData.villageTown" class="form-control" ng-required="isVillageTownMandatory" />
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate valattributeform="createclientform" valattribute="villageTown" />
+                        </div>
+                        <label class="control-label col-sm-1">
+                            {{'label.input.countryname' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <select chosen="countries" id="countryId" name="countries" ng-model="formAddressData.countryId" class="form-control" ng-disabled="isCountryReadOnly" ng-options="country.countryId as country.countryName for country in countries" value="{{country.countryId}}" ng-change="changeCountry(formAddressData.countryId)" required late-validate="">
+                                <option value="">{{'label.menu.selectCountry' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate valattributeform="createclientform" valattribute="countries" />
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.statename' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <select chosen="states" id="stateId" name="states" ng-model="formAddressData.stateId" class="form-control" ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}" ng-change="changeState(formAddressData.stateId)" required late-validate="">
+                                <option value="">{{'label.menu.selectState' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate valattributeform="createclientform" valattribute="states" />
+                        </div>
+                        <label class="control-label col-sm-1">
+                            {{'label.input.districtname' | translate}} <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <select chosen="districts" id="districtId" name="districts" ng-model="formAddressData.districtId" ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}" ng-change="changeDistrict(formAddressData.districtId)" required late-validate="">
+                                <option value="">{{'label.menu.selectDistrict' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate valattributeform="createclientform" valattribute="districts" />
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.talukname' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <select chosen="talukas" id="talukaId" name="talukas" ng-model="formAddressData.talukaId" ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas" value="{{taluka.talukaId}}" required late-validate="">
+                                <option value="">{{'label.menu.selectTaluka' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate valattributeform="createclientform" valattribute="talukas" />
+                        </div>
+                        <label ng-show="!pincode" class="control-label col-sm-1" for="pincode">{{'label.input.pincode' | translate}}
+                            <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3" ng-if="!pincode">
+                            <input type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode" name="pincode" ng-model="formAddressData.postalCode" class="form-control" required late-validate="" />
+                        </div>
+                        <div class="col-sm-1 paddinglr0px">
+                            <form-validate valattributeform="createclientform" valattribute="pincode" />
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+
+                    <legend></legend>
+
+                </div>
+
+                <div class="form-group" has-permission="ACTIVATE_CLIENT">
+                    <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="activeCheckbox" type="checkbox" ng-model="addClientformData.active" data-ng-change="setChoice()" ng-disabled="isClientActive" ng-checked="isClientActive">
+                    </div>
+                    <div data-ng-switch on="choice">
+                        <div data-ng-switch-when="1">
+                            <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input id="activationDate" type="text" name="activationdate" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showSubmittedOn">
+                    <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showSavingOptions && showOpenSavingsProduct">
+                    <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
+
+                    <div class="col-sm-3">
+                        <input id="opensavingsproduct" type="checkbox" ng-model="opensavingsproduct" ng-true-value="true" ng-false-value="false">
+                    </div>
+                    <div ng-show="opensavingsproduct">
+                        <label class="control-label col-sm-2">{{'label.input.savingproduct' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <select id="savingsProductId" ng-model="addClientformData.savingsProductId" ng-options="savingProduct.id as savingProduct.name for savingProduct in savingproducts" value="{{savingProduct.id}}" class="form-control">
+                                <option value="">{{'label.menu.selectsavingproduct' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-5">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()" has-permission='CREATE_CLIENT'>{{'label.button.cancel' | translate}}</button>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <form name="newloanapplicationform" ng-if="viewLoanApplicationForm" novalidate="" rc-submit="submitLoanApplication()" class="well form-inline">
+            <table class="width100" ng-if="!formData.loanProductId">
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select ng-model="formData.loanProductId" class="form-control width170px" ng-options="product.id as product.name for product in loanaccountinfo.productOptions" value="{{product.id}}" required late-validate="" ng-change="loanProductChange(formData.loanProductId)">
+                            <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width14">&nbsp;</td>
+                    <td class="width36 paddedbottom10">&nbsp;</td>
+                </tr>
+            </table>
+
+            <table class="width100" ng-if="formData.loanProductId">
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select id="loanProductId" name="loanProductId" ng-model="formData.loanProductId" class="form-control width170px" ng-options="product.id as product.name for product in loanaccountinfo.productOptions" value="{{product.id}}" required ng-change="loanProductChange(formData.loanProductId)">
+                            <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="newloanapplicationform" valattribute="loanProductId" />
+                    </td>
+                    <td class="width14">
+                        <label>{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanofficer' | translate}}"></i>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select id="loanOfficerId" name="loanOfficerId" ng-model="formData.loanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanaccountinfo.loanOfficerOptions | orderBy:'displayName':reverse" class="form-control width170px" value="{{loanOfficer.id}}" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.displayName == true">
+                            <option value="">{{'label.selectloanofficer' | translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{{ 'label.input.loanpurpose' | translate }}<span class="required">*</span>:&nbsp;</label>
+                        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
+                    <td class="paddedbottom10">
+                        <select id="loanPurposeId" name="loanPurposeId" ng-model="formData.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse" class="form-control width170px" value="{{loanPurpose.id}}" required>
+                            <option value="">{{'label.selectpurpose' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="newloanapplicationform" valattribute="loanPurposeId" />
+                    </td>
+
+                    <td class="width19" ng-show="!loanaccountinfo.loanEMIPacks">
+                        <label>{{ 'label.input.principal' | translate }}&nbsp;<span class="required">*</span>:</label>
+                    </td>
+                    <td class="width31 paddedbottom10" ng-show="!loanaccountinfo.loanEMIPacks">
+                        <input type="text" class="form-control" id="loanAmountRequested" name="loanAmountRequested" ng-model="formData.loanAmountRequested" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                        <form-validate valattributeform="newloanapplicationform" valattribute="loanAmountRequested" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr ng-show="!loanaccountinfo.loanEMIPacks">
+                    <td class="width14">
+                        <label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span class="required">*</span>:</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <input id="numberOfRepayments" name="numberOfRepayments" class="form-control" type="text" ng-model="formData.numberOfRepayments" ng-change="calculateTermFrequency()" />&nbsp;
+                        <form-validate valattributeform="newloanapplicationform" valattribute="numberOfRepayments" />
+                    </td>
+
+                    <td>
+                        <label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label>
+                    </td>
+                    <td class="paddedbottom10 width500px">
+                        <input id="repayEvery" name="repayEvery" class="form-control" type="text" ng-model="formData.repayEvery" ng-change="calculateTermFrequency()" />
+                        <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentPeriodFrequencyEnum" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{termFrequencyType.id}}" ng-change="calculateTermFrequency()" />
+                        <form-validate valattributeform="newloanapplicationform" valattribute="repayEvery" />
+                    </td>
+                </tr>
+                <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                    <td colspan="4">
+                        <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
+                    </td>
+                </tr>
+                <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                    <td colspan="4">
+                        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}" />
+                    </td>
+                </tr>
+                <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                    <td colspan="4">
+                        <div>
+                            <table class="table  table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                        <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                        <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                        <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                        <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                                        <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                                        <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                                        <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+                                        <td class="col-md-1">
+                                            <input type="radio" ng-model="formData.loanEMIPackId" value="{{loanEMIPack.id}}" />
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{loanEMIPack.sanctionAmount}}</span>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{loanEMIPack.combinedRepayEvery}}</span>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{loanEMIPack.numberOfRepayments}}</span>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{loanEMIPack.fixedEmi}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
+                                            <span>{{loanEMIPack.disbursalAmount1}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
+                                            <span>{{loanEMIPack.disbursalAmount2}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
+                                            <span>{{loanEMIPack.disbursalAmount3}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
+                                            <span>{{loanEMIPack.disbursalAmount4}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width19">
+                        <label>{{ 'label.input.mode.of.disburse.payment' | translate }}:</label>
+                    </td>
+                    <td class="width31 paddedbottom10">
+                        <select id="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType" ng-options="paymentOption.id as paymentOption.name for paymentOption in loanaccountinfo.paymentOptions " class="form-control width170px" value="{{paymentOption.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label>{{ 'label.input.mode.of.repayment.payment' | translate }}:</label>
+                    </td>
+                    <td class="width31">
+                        <select id="expectedRepaymentPaymentType" ng-model="formData.expectedRepaymentPaymentType" ng-options="paymentOption.id as paymentOption.name for paymentOption in loanaccountinfo.paymentOptions " class="form-control width170px" value="{{paymentOption.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-if="false && loanaccountinfo.canDefineInstallmentAmount" ng-show="!loanaccountinfo.loanEMIPacks">
+                        <label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
+                    <td class="width36 paddedbottom10" ng-if="false && loanaccountinfo.canDefineInstallmentAmount && !loanaccountinfo.loanEMIPacks">
+                        <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                    </td>
+
+                    <td class="width14">
+                        <label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <input id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
+                        <form-validate valattributeform="newloanapplicationform" valattribute="submittedOnDate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.externalid' | translate }} One:</label>&nbsp;</td>
+                    <td class="width36 paddedbottom10">
+                        <input type="text" id="externalIdOne" name="externalIdOne" ng-model="formData.externalIdOne" class="form-control" />
+                    </td>
+
+                    <td class="width14">
+                        <label>{{ 'label.input.externalid' | translate }} Two:</label>&nbsp;</td>
+                    <td class="width36 paddedbottom10">
+                        <input type="text" id="externalIdTwo" name="externalIdTwo" ng-model="formData.externalIdTwo" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr ng-if="loanaccountinfo.multiDisburseLoan === true && !loanaccountinfo.loanEMIPacks">
+                    <td class="width14">
+                        <label>Max no of Tranche:</label>&nbsp;</td>
+                    <td class="width36 paddedbottom10">
+                        <input id="noOfTranche" name="noOfTranche" ng-disabled="true" type="text" ng-model="formData.noOfTranche" class="form-control" number-format maxlength="2" />&nbsp;
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr ng-if="loanaccountinfo.multiDisburseLoan === true && !loanaccountinfo.loanEMIPacks">
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+            </table>
+
+            <div class="col-md-12" ng-show="formData.loanProductId">
+                <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
+                <select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict" value="{{charge.id}}" class="form-control width170px">
+                    <option value="">{{'label.selectcharge' | translate}}</option>
+                </select>
+                <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
             </div>
-            <div class="col-sm-3 col-md-offset-5">
-                <br>
-                <button id="cancel" ng-click="cancel()" class="btn btn-default"><i class="icon-double-angle-left"></i> {{ 'label.button.back' | translate }}</button>
+            <table class="table" class="width100" ng-show="charges.length>0">
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.collectedon' | translate}}</th>
+                    <th>{{'label.heading.date' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+                <tr ng-repeat="charge in charges">
+                    <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                    <td>{{charge.chargeCalculationType.value}}</td>
+                    <td>
+                        <input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
+                                    || charge.chargeCalculationType.id == 6">
+                    </td>
+                    <td>{{charge.chargeTimeType.value}}</td>
+                    <td>
+                        <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="'2020-06-22'" />
+                    </td>
+                    <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+                </tr>
+            </table>
+
+            <div class="col-md-offset-5" ng-show="formData.loanProductId">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}
+                </button>
+                <button id="save" type="submit" has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary">
+                    {{'label.button.save' | translate}}
+                </button>
             </div>
-        </fieldset>
-    </form>
+        </form>
+    </div>
 </div>

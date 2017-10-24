@@ -1644,6 +1644,9 @@
             .when('/viewactiongroup/:actionGroupId', {
                 templateUrl: 'views/task/config/viewactiongroup.html'
             })
+            .when('/tasklist/:parentConfigId/:officeId/:childConfigId', {
+                templateUrl: 'views/dashboard/tasklist.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

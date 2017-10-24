@@ -47,6 +47,7 @@
                             scope.loanApplicationCoApplicantId = scope.taskData.configValues.loanApplicationCoApplicantId;
                             scope.loanApplicationReferenceId = scope.loanApplicationId;
                             scope.loanId = scope.taskData.configValues.loanId;
+                            scope.groupId=scope.taskData.configValues.groupId;
                         }
                     }
                     if(scope.loanId!=undefined){
@@ -67,6 +68,11 @@
 
 
                     };
+                    if(scope.groupId){
+                       resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
+                           scope.groupData = data;
+                       });
+                   }
                 });
             }
 
