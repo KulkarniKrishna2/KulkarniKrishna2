@@ -4,7 +4,8 @@
     <fieldset>
         <div class="form-group">
             <div class="col-sm-2">
-                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" required />
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" required late-Validate/>
+                <form-validate valattributeform="clientdocumentform" valattribute="name"/>
             </div>
 
             <div class="col-sm-2">
@@ -20,10 +21,6 @@
 
             <div class="col-sm-2">
                 <input type="file" id="file" ng-file-select="onFileSelect($files)">
-            </div>
-
-            <div class="col-sm-2">
-                <form-validate valattributeform="clientdocumentform" valattribute="name"/>
             </div>
 
             <div class="col-md-2">

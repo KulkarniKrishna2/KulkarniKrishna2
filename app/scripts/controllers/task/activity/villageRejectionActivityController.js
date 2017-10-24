@@ -4,14 +4,7 @@
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.districtId = scope.taskconfig['districtId'];
             scope.formData = {};
-
-            resourceFactory.districtsResource.get({districtId: scope.districtId}, function(data){
-                scope.district = data;
-                resourceFactory.districtsVillageResource.query({districtId: scope.districtId}, function(data){
-                    scope.villages = data;
-                });
-            });
-
+            
             scope.submit = function () {
                 scope.formData.villages = [];
                 for (var i = 0; i < scope.villages.length; i++) {
@@ -20,11 +13,23 @@
                     }
                 }
                 resourceFactory.bulkVillageResource.reject({}, scope.formData, function (data) {
-                    location.path('/districts');
+                    populateDetails();
                 });
             };
+            var populateDetails = function(){
+                resourceFactory.districtsResource.get({districtId: scope.districtId}, function(data){
+                    scope.district = data;
+                    scope.isShowRejectButton = false;
+                    resourceFactory.districtsVillageResource.query({districtId: scope.districtId}, function(data){
+                        scope.villages = data;
+                        if(scope.villages.length != 0){
+                            scope.isShowRejectButton = true;
+                        }
+                    });
+                });
+            }
+            populateDetails();
         }
-
     });
     mifosX.ng.application.controller('villageRejectionActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.villageRejectionActivityController]).run(function ($log) {
         $log.info("villageRejectionActivityController initialized");
