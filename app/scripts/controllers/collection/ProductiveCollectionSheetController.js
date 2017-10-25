@@ -65,6 +65,10 @@
                 }
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     scope.collectionsheetdata = data;
+                    scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
+                    if (!_.isUndefined(scope.attendanceTypeOptions)) {
+                        scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
+                    }
                     scope.clientsAttendanceArray(data.groups);
                     scope.total(data);
                 });
