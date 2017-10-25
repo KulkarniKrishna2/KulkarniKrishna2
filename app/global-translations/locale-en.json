@@ -6601,5 +6601,13 @@
      "label.heading.paycharge" : "Pay Charge",
      "label.heading.transferFunds": "Transfer Funds",
 
+    "label.heading.add.coapplicant" : "Add Co-Applicant",
+    "error.msg.entity.id.invalid" : "Invalid entity Id entered.",
+    "label.menu.workflow.types" : "Workflow Type",
+    "label.menu.product" : "Products",
+    "error.msg.loan.application.data.empty" : "No Active Loan Applications Found.",
+    "error.msg.all.loan.applications.are.not.approved" :"All Loan applications must be approved to complete the activity.",
+    "error.msg.all.loan.applications.are.not.disbursed" : "All loan applications are not disbursed.",
+
     "------ end of tensalation file":"---------"
 }

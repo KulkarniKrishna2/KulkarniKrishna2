@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TaskListController: function (scope, resourceFactory, location, paginatorService) {
+        TaskListController: function (scope, resourceFactory, location, paginatorService, routeParams) {
             scope.loggedInUserId = scope.currentSession.user.userId;
             scope.formData = {};
             scope.taskTypes = [
@@ -14,6 +14,10 @@
             scope.centers = [];
             scope.loanAccountTypeOptions = [];
             scope.filterByCenter = false;
+            scope.formData.parentConfigId = routeParams.parentConfigId;
+            scope.formData.childConfigId = routeParams.childConfigId;
+            scope.formData.officeId = routeParams.officeId;
+
             scope.getChildrenTaskConfigs = function () {
                 scope.formData.childConfigId = null;
                 resourceFactory.taskConfigResource.getTemplate({parentConfigId: scope.formData.parentConfigId}, function(data) {
@@ -84,18 +88,19 @@
 
             scope.getWorkFlowTasks = function(filterby) {
                 scope.filterBy = filterby;
-                /*if (isTabChange) {
-                    scope.formData.officeId = null;
-                    scope.formData.parentConfigId = null;
-                    scope.formData.childConfigId = null;
-                }*/
                 scope.workFlowTasks = [];
                 scope.selectedStatus = filterby;
                 scope.formData.isAllSelected = false;
                 paginatorService.paginate(fetchFunction, scope.pageSize);
             };
 
-           scope.getWorkFlowTasks(scope.filterBy);
+            if(scope.formData.parentConfigId==undefined){
+                scope.getWorkFlowTasks(scope.filterBy);
+            }
+            else{
+                scope.filterby='assigned-workflow';
+                scope.getWorkFlowTasks(scope.filterby);
+            }
 
             scope.goToTask = function (task) {
                 if(task.parentTaskId !=undefined){
@@ -155,7 +160,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorService', mifosX.controllers.TaskListController]).run(function ($log) {
+    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorService', '$routeParams', mifosX.controllers.TaskListController]).run(function ($log) {
         $log.info("TaskListController initialized");
     });
 }(mifosX.controllers || {}));

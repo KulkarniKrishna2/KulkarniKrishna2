@@ -545,7 +545,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'interbranch/SearchDetailsController',
             'task/config/AddActionGroupsController',
             'task/config/DisplayActionGroupsController',
-            'task/config/ViewActionGroupController'
+            'task/config/ViewActionGroupController',
+            'task/activity/CGTActivityController',
+            'task/activity/groupLoanApprovalActivityController',
+            'task/activity/groupLoanDisbursalActivityController'
         ],
         filters: [
             'StatusLookup',

@@ -1328,8 +1328,10 @@
                     }),
                     inActivateActionGroupResource:defineResource(apiVer + "/taskactiongroups/:actionGroupId/taskactions/:actionId",{actionGroupId:'@actionGroupId',actionId:'@actionId'},{
                        update:{method: 'PUT', params:{}}
-                    })
-                    
+                    }),
+                    loanApplicationReferencesForGroupResource: defineResource(apiVer + "/loanapplicationreferences/groups", {}, {
+                        get: {method: 'GET', params: {groupId: '@groupId',clientId: '@clientId'}, isArray: true}
+                    })  
                 };
             }];
         }

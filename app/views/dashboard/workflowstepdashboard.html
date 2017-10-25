@@ -2,11 +2,13 @@
     <h3 class="paddedleft"><strong>{{'label.heading.workflow.task.dashboard' | translate}}</strong>
         <div class="btn-group pull-right col-md-6">
             <div class="pull-left col-md-4">
-                <select class="form-control" ng-change="getWorkFlowTaskSummary()"
-                        ng-model="loanProductId"
-                        data-ng-options="loanproduct.id as loanproduct.name for loanproduct in loanproducts"
-                        value="{{loanproduct.id}}">
-                    <option value="">--{{'label.menu.loan.products' | translate}}--</option>
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()" ng-model="entityType" data-ng-options="entityTypes for entityTypes in entityTypeArray" value="{{entityTypes}}">
+                    <option value="">--{{'label.menu.workflow.types' | translate}}--</option>
+                </select>
+            </div>
+            <div class="pull-left col-md-4">
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()" ng-model="entityId" data-ng-options="product.entityId as product.entityName for product in products" value="{{product.id}}">
+                    <option value="">--{{'label.menu.product' | translate}}--</option>
                 </select>
             </div>
             <div class="pull-right col-md-4">
@@ -21,17 +23,15 @@
     <hr/>
     <div id="home" class="row">
         <div class="col-md-12">
-            <div ng-if="loanProductWorkFlowSummary.length > 0"
-                 ng-repeat="loanProduct in loanProductWorkFlowSummary  track by $index"
-                 ng-init="loanProductIndex = $index">
+            <div ng-if="products.length > 0" ng-repeat="productWorkflow in products  track by $index" ng-init="productIndex = $index">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{loanProduct.name}}</h3>
+                        <h3 class="panel-title">{{productWorkflow.entityName}}</h3>
                     </div>
                     <div>
                         <table class="table">
                             <thead>
-                            <tr ng-repeat="office in loanProduct.loanProductWorkFlowSummary.offices track by $index"
+                            <tr ng-repeat="office in productWorkflow.offices track by $index"
                                 ng-init="officeThIndex = $index" ng-show="officeThIndex === 0">
                                 <th style="width: 150px;">{{'label.heading.officeName' |translate}}</th>
                                 <th style="width: 75px;"
@@ -42,20 +42,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="office in loanProduct.loanProductWorkFlowSummary.offices track by $index"
+                            <tr ng-repeat="office in productWorkflow.offices track by $index"
                                 ng-init="officeIndex = $index">
                                 <td style="width: 150px;">{{office.name}}</td>
                                 <td style="width: 75px;"
                                     ng-repeat="workFlow in office.workFlowSummaries track by $index"
                                     ng-init="workFlowIndex = $index"
-                                    ng-mouseover="constructIndividualStepSummaryDetails(loanProductIndex,officeIndex,workFlowIndex)">
+                                    ng-mouseover="constructIndividualStepSummaryDetails(productIndex,officeIndex,workFlowIndex)">
+                                    <a ng-click=goTotasks(productIndex,officeIndex,workFlowIndex)>
                                     <label tooltip="{{workFlow.stepSummaryData}}">{{workFlow.noOfCount}}</label>
+                                    </a>
                                 </td>
                             </tr>
                             <tr class="bolder">
                                 <td style="width: 150px;">{{'label.input.total' | translate}}</td>
                                 <td style="width: 75px;"
-                                    ng-repeat="totalWorkFlowSummary in loanProduct.loanProductWorkFlowSummary.totalWorkFlowSummaries track by $index"
+                                    ng-repeat="totalWorkFlowSummary in productWorkflow.totalWorkFlowSummaries track by $index"
                                     ng-init="totalWorkFlowSummaryIndex = $index">
                                     <label>{{totalWorkFlowSummary.noOfCount}}</label>
                                 </td>
