@@ -12,7 +12,7 @@
             scope.showPaymentDetails = false;
             scope.clientMembers = [];
             scope.glimAsGroupConfigName = 'glim-payment-as-group';
-            scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(glimAsGroupConfigName);
+            scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
 
             resourceFactory.glimTransactionTemplateResource.get({loanId: scope.loanId , command:"prepay"}, function (data) {
                 scope.formData.transactionAmount = data.transactionAmount;
