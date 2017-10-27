@@ -568,11 +568,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}<span
+                            class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <input type="text"  name="expenses"
-                               ng-model="formData.totalExpense" class="form-control"/>
+                               ng-model="formData.totalExpense" class="form-control" required late-Validate/>
+                        <form-validate valattributeform="showAddClienthouseholddetailsForm" valattribute="expenses"/>
                     </div>
                 </div>
 
@@ -631,11 +633,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}<span
+                            class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <input type="text" name="expenses"
-                               ng-model="formData.totalExpense" class="form-control"/>
+                               ng-model="formData.totalExpense" class="form-control" required late-Validate/>
+                        <form-validate valattributeform="showEditClienthouseholddetailsForm" valattribute="expenses"/>
                     </div>
                 </div>
 
