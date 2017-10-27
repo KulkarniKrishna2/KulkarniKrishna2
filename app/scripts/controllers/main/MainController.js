@@ -217,7 +217,7 @@
             };
 
             var setSearchScopes = function () {
-                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans"};
+                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans,loanapplications"};
                 var clients = {
                     name: "label.search.scope.clients.and.clientIdentifiers",
                     value: "clients,clientIdentifiers"
@@ -228,7 +228,8 @@
                 };
                 var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
                 var loans = {name: "label.search.scope.savings", value: "savings"};
-                scope.searchScopes = [all,clients,groups,loans,savings];
+                var loanapplications = {name: "label.search.scope.loanapplications", value: "loanapplications"};
+                scope.searchScopes = [all,clients,groups,loans,savings, loanapplications];
                 scope.currentScope = all;
             }
 
