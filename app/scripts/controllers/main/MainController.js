@@ -397,8 +397,8 @@
                 if (session.user != null && session.user.userPermissions) {
                     $rootScope.setPermissions(session.user.userPermissions);
                     localStorageService.addToLocalStorage('userPermissions', session.user.userPermissions);
-                }
-                ;
+                    scope.getAllGlobalConfigurations();
+                };
             });
         }
     });
