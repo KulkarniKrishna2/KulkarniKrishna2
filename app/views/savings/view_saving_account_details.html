@@ -452,7 +452,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="pointer-main" ng-hide="transaction.reversed"
+                        <tr class="pointer-main" ng-class="{strikeoff : transaction.isManuallyReversed==true}" ng-hide="transaction.reversed && !transaction.isManuallyReversed"
                             ng-repeat="transaction in savingaccountdetails.transactions | orderBy:[transactionSort.column,transactionSort.columnId]:transactionSort.descending">
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
