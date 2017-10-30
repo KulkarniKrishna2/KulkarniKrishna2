@@ -254,6 +254,7 @@
                     function (data) {
                         populateDetails();
                         enableShowSummary();
+
                     }
                 );
             };
