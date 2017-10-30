@@ -1363,7 +1363,6 @@
                         update:{method: 'PUT', params:{}}
                     }),
                     clientCreditBureauEnquiry: defineResource(apiVer + "/clients/:clientId/creditbureau", {clientId:'@clientId'}, {
-
                     }),
                     creditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/initiate", {enquiryId: '@enquiryId'}, {
                         get: {method: 'GET', params: {}}
