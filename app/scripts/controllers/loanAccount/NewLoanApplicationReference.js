@@ -15,6 +15,9 @@
 
             scope.chargeFormData = {}; //For charges
 
+            var SLAB_BASED = 'slabBasedCharge';
+            var UPFRONT_FEE = 'upfrontFee';
+
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             if (scope.clientId && scope.groupId) {
                 scope.inparams.templateType = 'jlg';
@@ -160,6 +163,7 @@
                                 if(scope.productLoanCharges[i].chargeData){
                                     if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
                                         data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        data.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                         break;
                                     }
                                 }
@@ -189,6 +193,7 @@
                         charge.dueDate = dateFilter(scope.charges[i].dueDate,scope.df);
                     }
                     charge.isMandatory = scope.charges[i].isMandatory;
+                    charge.isAmountNonEditable = scope.charges[i].isAmountNonEditable;
                     charge.locale = scope.optlang.code;
                     charge.dateFormat = scope.df;
                     this.formData.charges.push(charge);
@@ -215,8 +220,8 @@
             };
 
             scope.isChargeAmountNonEditable = function (charge) {
-                if (charge.chargeTimeType.id == 50
-                    || charge.chargeCalculationType.id == 6 || charge.isAmountNonEditable) {
+                if (charge.chargeTimeType.value == UPFRONT_FEE
+                    || charge.chargeCalculationType.value == SLAB_BASED || charge.isAmountNonEditable) {
                     return true;
                 }
                 return false;

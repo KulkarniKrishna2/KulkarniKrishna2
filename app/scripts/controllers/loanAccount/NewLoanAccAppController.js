@@ -23,6 +23,8 @@
             scope.isCenter=false;
             scope.installmentAmountSlabChargeType = 1;
             scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+            var SLAB_BASED = 'slabBasedCharge';
+            var UPFRONT_FEE = 'upfrontFee';
 
             resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
                 if(data.groupLevel && data.groupLevel==1)
@@ -650,8 +652,8 @@
             };
 
             scope.isChargeAmountNonEditable = function (charge) {
-                if ((charge.chargeTimeType.id == 50
-                    && charge.chargeCalculationType.id == 6) || charge.isAmountNonEditable) {
+                if ((charge.chargeTimeType.value == UPFRONT_FEE
+                    && charge.chargeCalculationType.value == SLAB_BASED) || charge.isAmountNonEditable) {
                     return true;
                 }
                 return false;
