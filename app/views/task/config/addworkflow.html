@@ -1,0 +1,45 @@
+   <div class="col-md-12" ng-controller="AddWorkflowController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowmanagement">{{'label.anchor.workflowmanagement' | translate}}</a></li>
+             <li><a href="#/workflows">{{'label.anchor.workflow' | translate}}</a></li>
+            <li class="active">{{'label.anchor.addworkflow' | translate}}</li>
+        </ul>
+    <form  name="addworkflowform" novalidate="" ng-submit="submit()" >
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{ 'label.heading.addworkflow' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.workflowname' |translate}}
+                    <span class="required">*</span></label>
+                <div class="col-sm-2">
+                  <input id="workflowName" name="workflowName" ng-model="formData.name" 
+                        class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addworkflowform" valattribute="workflowName"/>
+                </div>                              
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.shortName' |translate}}
+                    <span class="required">*</span></label>
+                <div class="col-sm-2">
+                  <input id="shortName" name="shortName" ng-model="formData.shortName" 
+                        class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addworkflowform" valattribute="shortName"/>
+                </div>                       
+            </div>
+            
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/workflows" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary"
+                 has-permission='CREATE_TASK_CONFIG'>{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+
+ </div>

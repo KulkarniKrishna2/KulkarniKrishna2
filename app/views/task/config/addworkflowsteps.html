@@ -1,0 +1,120 @@
+   <div class="col-md-12" ng-controller="AddWorkflowStepsController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowmanagement">{{'label.anchor.workflowmanagement' | translate}}</a></li>
+             <li><a href="#/workflows">{{'label.anchor.workflow' | translate}}</a></li>
+            <li class="active">{{'label.anchor.add.workflowsteps' | translate}}</li>
+        </ul>
+    <form  name="addworkflowstepsform" novalidate="" ng-submit="submit()" >
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{ 'label.heading.add.workflowsteps' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-1" >{{'label.heading.activity' |translate}}
+                    <span class="required">*</span></label>
+                <div class="col-sm-2">
+                   <select  id="activity" name="activity" ng-model="activityData"
+                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities">
+                        <option value="" default>-- Select one --</option>
+                   </select>
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addworkflowstepsform" valattribute="activity"/>
+                </div> 
+                <label class="control-label col-sm-2" >{{'label.heading.datatable.surveyid' |translate}}</label>
+                <div class="col-sm-2">
+                  <input id="datatableName" name="datatableName" ng-model="configValues.datatablename" 
+                        class="form-control"/>
+                </div>
+                <label class="control-label col-sm-1" >{{'label.heading.entitytype'|translate}}</label>
+                <div class="col-sm-2">
+                   <select  id="entityType" name="entityType" ng-model="configValues.entityType"
+                        class="form-control" ng-options = "entityType.value as entityType.value for entityType in entityTypes">
+                        <option value="" default>-- Select one --</option>
+                   </select>
+                </div>                             
+            </div>
+            <br/><br/>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.workflowname' |translate}}
+                    <span class="required">*</span></label>
+                <div class="col-sm-2">
+                  <input id="workflowName" name="workflowName" ng-model="formData.name" 
+                        class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addworkflowform" valattribute="workflowName"/>
+                </div>                              
+            </div>
+            <br/><br/>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.shortName' |translate}}
+                    <span class="required">*</span></label>
+                <div class="col-sm-2">
+                  <input id="shortName" name="shortName" ng-model="formData.shortName" 
+                        class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="addworkflowform" valattribute="shortName"/>
+                </div>                       
+            </div>
+            <br></br>
+            <legend>{{ 'label.heading.addcriteria' | translate}}</legend>
+            <div class="form-group">
+                    <label class="control-label col-sm-2" >{{'label.input.criteria' |translate}}</label>
+                    <div class="col-sm-2">
+                       <select  id="criteriaId" name="criteriaId" ng-model="riskCriteriaId"
+                            class="form-control" ng-options="riskCriteria.id as riskCriteria.name for riskCriteria in riskCriterias" ng-change="changeInCriteria()">
+                            <option value="" default>-- Select one --</option>
+                       </select>
+                    </div>                             
+            </div>
+            <br/><br/>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.approve.ifscore' |translate}}</label>
+                <div class="col-sm-2">
+                    <select ng-options="comparator.value as comparator.display for comparator in 
+                          riskCriteriaMap[criteriaData.riskCriteriaId].comparators" 
+                          ng-model="criteriaData.approvalLogic.expression.comparator">
+                    </select>
+                    <select ng-options="option.key as option.value for option in 
+                       riskCriteriaMap[criteriaData.riskCriteriaId].possibleOutputs" 
+                       ng-model="criteriaData.approvalLogic.expression.value" >
+                    </select>
+                </div>                          
+            </div>
+            <br/><br/>
+                <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.reject.ifscore' |translate}}</label>
+                <div class="col-sm-2">
+                    <select ng-options="comparator.value as comparator.display for comparator in 
+                      riskCriteriaMap[criteriaData.riskCriteriaId].comparators" 
+                      ng-model="criteriaData.rejectionLogic.expression.comparator">
+                    </select>
+                    <select ng-options="option.key as option.value for option in 
+                      riskCriteriaMap[criteriaData.riskCriteriaId].possibleOutputs" 
+                      ng-model="criteriaData.rejectionLogic.expression.value" >
+                    </select>
+                </div>                           
+            </div>
+            <br/><br/>
+            <legend>{{ 'label.heading.actiongroup' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.actiongroup' |translate}}</label>
+                <div class="col-sm-2">
+                       <select  id="taskActionGroup" name="taskActionGroup" 
+                           ng-model="formData.actionGroupId"
+                            class="form-control" ng-options="taskActionGroup.id as taskActionGroup.actionGroupName for taskActionGroup in taskActionGroups">
+                            <option value="" default>-- Select one --</option>
+                       </select>
+                </div>                             
+            </div>
+            <br/><br/>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/workflows" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary"
+                 has-permission='CREATE_TASK_CONFIG'>{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+ </div>

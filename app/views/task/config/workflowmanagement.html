@@ -1,0 +1,33 @@
+   <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li class="active">{{'label.anchor.workflowmanagement' | translate}}</li>
+        </ul>
+        <div class="row paddedleft paddedtop">
+		    <div class="col-sm-6 col-md-6">
+		        <div class="list-group">
+		            <a class="list-group-item" href="#/workflows" has-permission='READ_TASK_CONFIG'>
+		                <h4 class="list-group-item-heading"><i class="icon-cog icon-large"></i>&nbsp;&nbsp;{{'label.heading.workflow'| translate}}</h4>
+		                <p class="list-group-item-text">{{'label.view.workflowmanagement.steps'
+		                    | translate}}</p>
+		            </a>
+		             <a class="list-group-item" href="#/workflowentitymappings" 
+		             has-permission='READ_TASK_CONFIG_ENTITYMAPPING'>
+		               <h4 class="list-group-item-heading"><i class="icon-sitemap icon-large"></i>&nbsp;&nbsp;{{'label.heading.workflowentitymapping'| translate}}</h4>
+		                <p class="list-group-item-text">{{'label.view.mapping.workflow.entity'
+		                    | translate}}</p>
+		            </a>
+		        </div>
+		    </div>
+		    <div class="col-sm-6 col-md-6">
+		        <div class="list-group">        
+		            <a class="list-group-item" href="#/displayactiongroups" has-permission='READ_TASKACTIONGROUP'>
+		                <h4 class="list-group-item-heading"><i class="icon-cogs icon-large"></i>&nbsp;&nbsp;
+		                    {{'label.heading.action' | translate}}</h4>
+		                <p class="list-group-item-text">{{'label.view.manage.actiongroups' |
+		                    translate}}</p>
+		            </a>      
+		        </div>
+		    </div>
+        </div>
+    </div>    

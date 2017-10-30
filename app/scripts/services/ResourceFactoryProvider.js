@@ -1331,7 +1331,25 @@
                     }),
                     loanApplicationReferencesForGroupResource: defineResource(apiVer + "/loanapplicationreferences/groups", {}, {
                         get: {method: 'GET', params: {groupId: '@groupId',clientId: '@clientId'}, isArray: true}
-                    })  
+                    }),  
+                    workflowConfigResource:defineResource(apiVer + "/taskconfigs/:taskConfigId",{taskConfigId:'@taskConfigId'},{
+                        save: {method: 'POST', params:{}},
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params:{}}
+                    }),
+                    workflowConfigStepsTemplateResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/template",{taskConfigId:'@taskConfigId'},{
+                        get: {method: 'GET', params: {}}
+                    }),
+                    workflowConfigStepsResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/:taskConfigStepId",{taskConfigId:'@taskConfigId',taskConfigStepId:'@taskConfigStepId'},{
+                        save: {method: 'POST', params: {}},
+                        getAll:{method: 'GET', params:{}, isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update:{method: 'PUT', params:{}}
+                    }),
+                    inActivateWorkflowConfigStepsResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/:taskConfigStepId/inactivate",{taskConfigId:'@taskConfigId',taskConfigStepId:'@taskConfigStepId'},{
+                        update:{method: 'PUT', params:{}}
+                    })
                 };
             }];
         }
