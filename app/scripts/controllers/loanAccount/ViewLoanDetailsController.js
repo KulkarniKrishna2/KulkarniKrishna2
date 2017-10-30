@@ -117,7 +117,9 @@
                         location.path('/loanaccount/' + accountId + '/undoapproval');
                         break;
                     case "disburse":
-                        if (scope.loandetails.flatInterestRate != null) {
+                        if(scope.isCBCheckReq === true && ( _.isUndefined(scope.trancheDisbursalId) || scope.trancheDisbursalId == null)){
+                            location.path('/loanaccount/' + accountId + '/disburse');
+                        }else if (scope.loandetails.flatInterestRate != null) {
                             location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
                         }else {
                             location.path('/loanaccount/' + accountId + '/disburse');
