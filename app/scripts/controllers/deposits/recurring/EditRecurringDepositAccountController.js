@@ -197,7 +197,7 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewsavingaccount/' + scope.accountId);
+                location.path('/viewrecurringdepositaccount/' + scope.accountId);
             }
 
             scope.submit = function () {

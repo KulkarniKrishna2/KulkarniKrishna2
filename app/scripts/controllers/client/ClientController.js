@@ -98,6 +98,9 @@
                 if(client.firstname != undefined){
                      client.displayNameInReverseOrder = client.displayNameInReverseOrder.concat(client.firstname);
                 }
+                if(client.lastname == undefined && client.middlename == undefined && client.firstname == undefined){
+                    client.displayNameInReverseOrder = client.displayName;
+                }
             }
 
         }

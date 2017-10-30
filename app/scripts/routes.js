@@ -1608,6 +1608,9 @@
             .when('/managepdc', {
                 templateUrl: 'views/pdc/managepdc.html'
             })
+            .when('/pdcreport', {
+                templateUrl: 'views/pdc/pdcreport.html'
+            })
             .when('/districts', {
                 templateUrl: 'views/districts/districts.html'
             })
