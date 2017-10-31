@@ -6616,6 +6616,8 @@
     "error.msg.validation.input.surveryid" : "Please enter Survery Id",
     "error.msg.validation.input.datatablename" : "Please enter Data Table Name",
     "error.msg.validation.select.enitytype" : "Please select Entity Type",
+    "error.msg.workflow.step.order.not.changed" : "Workflow Steps order not changed",
+    "label.button.update.workflowsteps.order" : "Update Workfow Steps Oder",
 
 
     "validation.msg.FUND.approvedDate.max.is.less.than.date" : "To date of approved date should be greater than from date",

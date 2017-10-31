@@ -2,6 +2,7 @@
     require.config({
         paths: {
             'jquery': '../bower_components/jquery/jquery',
+            'jquery-ui':'../bower_components/jquery-ui/jquery-ui',
             'angular': '../bower_components/angular/angular',
             'angular-resource': '../bower_components/angular-resource/angular-resource',
             'angular-route': '../bower_components/angular-route/angular-route',
@@ -34,7 +35,8 @@
             'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination',
             'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
-            'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json'
+            'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json',
+            'ui-sortable': 'https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },
@@ -66,6 +68,8 @@
             'angular-utils-pagination': {deps: ['angular']},
             'angular-loading-bar': {deps: ['angular']},
             'angularXml2json': {deps: ['angular']},
+            'jquery-ui': {deps: ["jquery"]},
+            'ui-sortable': {deps: ["jquery-ui", "angular"]},
             'mifosX': {
                 deps: [
                     'angular',
@@ -95,7 +99,9 @@
                     'webcam-directive',
                     'angular-utils-pagination',
                     'angular-loading-bar',
-                    'angularXml2json'
+                    'angularXml2json',
+                    'jquery-ui',
+                    'ui-sortable'
                 ],
                 exports: 'mifosX'
             }
