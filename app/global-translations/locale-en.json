@@ -6663,5 +6663,22 @@
     "label.input.requested.amount": "Requested Amount",
     "label.input.marital.status" : "Marital Status",
     "label.menu.marital.status" : "Select Marital status",
+
+    "#Client Verification": "..",
+    "label.heading.client.verification" : " Client Verification",
+    "label.tooltip.client.not.verified" : " is not verified",
+    "label.tooltip.client.verified" : " is verified",
+    "label.heading.verified.by" : "Verified by",
+    "label.heading.verified.on" : "Verified on",
+    "label.heading.verified.id" : "Verified Id",
+    "label.heading.isVerified" : "Is Verified",
+    "label.anchor.client.verification.details" : "Client Verification Details",
+    "label.heading.verify" : "Verify",
+    "error.msg.client.not.verified" : "Client is not verified. Client verification is required to complete the transaction.",
+    "error.msg.clientIdentifier.mapping.exists" : "Client identifier verification record exists.",
+    "validation.msg.client.aadhaar-id.duplicate" : "Duplicate Aadhaar id.",
+    "label.button.forcedisburse" : "Force Disburse",
+    "label.button.forcedisbursetosavings" : "Force Disburse To Savings",
+    "label.anchor.forcedisburse" : "Force disburse",
     "------ end of tensalation file":"---------"
 }

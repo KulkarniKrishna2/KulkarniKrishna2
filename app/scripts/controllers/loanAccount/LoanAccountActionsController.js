@@ -33,6 +33,7 @@
             scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
             scope.isDefaultAmountSection = false;
             scope.showRunReport = false;
+            scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
 
             scope.isInterBranchTransaction = (location.search().isInterBranchSearch != undefined && location.search().isInterBranchSearch== 'true');
             
@@ -202,7 +203,7 @@
                 }
                 if(scope.action == 'approve'){
                     scope.formData.approvedLoanAmount = totalPrincipalAmount;
-                }else if(scope.action == 'disburse'){
+                }else if(scope.action == 'disburse' || scope.action == 'forcedisburse'){
                     scope.formData.transactionAmount = totalPrincipalAmount;
                 }
             };
@@ -229,11 +230,72 @@
                                 }
                             }
                         }
-                        if(scope.action == 'approve' || scope.action == 'disburse'){
+                        if(scope.action == 'approve' || scope.action == 'disburse' || scope.action == 'forcedisburse'){
                             scope.glimAutoCalPrincipalAmount();
                         }
                     }
                 });
+            };
+            scope.formDisburseToSavingsData = function(){
+                scope.modelName = 'actualDisbursementDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
+                       scope.formData.transactionAmount = data.amount;
+                        scope.formData[scope.modelName] = new Date();
+                        if (data.fixedEmiAmount) {
+                            scope.formData.fixedEmiAmount = data.fixedEmiAmount;
+                            scope.showEMIAmountField = true;
+                        }
+                    });
+                    scope.title = 'label.heading.disburseloanaccount';
+                    scope.labelName = 'label.input.disbursedondate';
+                    scope.isTransaction = false;
+                    scope.showAmountField = true;
+            };
+
+            scope.formDisbursementData = function(){
+                scope.modelName = 'actualDisbursementDate';
+                    if(scope.response){
+                        scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
+                    }                    
+                    scope.showdiscountOnDisburse = false;
+                    scope.disableDiscount = true;
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
+                        if (data.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        }
+                        scope.formData.transactionAmount = data.amount;
+                        scope.netAmount = data.netDisbursalAmount;
+                        scope.nextRepaymentDate = new Date(data.possibleNextRepaymentDate) || new Date();
+                        scope.formData[scope.modelName] = new Date();
+                        if (data.fixedEmiAmount) {
+                            scope.formData.fixedEmiAmount = data.fixedEmiAmount;
+                            scope.showEMIAmountField = true;
+                        }
+                        if(scope.showNetDisbursalAmount && (scope.netAmount && scope.netAmount < scope.formData.transactionAmount)) {
+                            scope.showNetDisbursalAmount = true;
+                        }else{
+                            scope.showNetDisbursalAmount = false;
+                        }
+                        scope.formData.discountOnDisbursalAmount=data.discountOnDisbursalAmount;
+                        if (scope.formData.discountOnDisbursalAmount){
+                            scope.showdiscountOnDisburse = true;
+                        }
+                        if(data.expectedFirstRepaymentOnDate){
+                            scope.formData.repaymentsStartingFromDate = new Date(data.expectedFirstRepaymentOnDate);
+                            scope.showRepaymentsStartingFromDateField = true;
+                        }
+                    });
+                    if(routeParams.type && routeParams.type == 'flatinterest'){
+                        scope.showdiscountOnDisburse = true;
+                        scope.disableDiscount = false;
+                    }
+                    scope.title = 'label.heading.disburseloanaccount';
+                    scope.labelName = 'label.input.disbursedondate';
+                    scope.isTransaction = true;
+                    scope.showAmountField = true;
+                    scope.createClientMembersForGLIM();
             };
 
             switch (scope.action) {
@@ -301,65 +363,11 @@
                     scope.taskPermissionName = 'DISBURSALLASTUNDO_LOAN';
                     break;
                 case "disburse":
-                    scope.modelName = 'actualDisbursementDate';
-                    if(scope.response){
-                        scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
-                    }                    
-                    scope.showdiscountOnDisburse = false;
-                    scope.disableDiscount = true;
-                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
-                        scope.paymentTypes = data.paymentTypeOptions;
-                        scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
-                        }
-                        scope.formData.transactionAmount = data.amount;
-                        scope.netAmount = data.netDisbursalAmount;
-                        scope.nextRepaymentDate = new Date(data.possibleNextRepaymentDate) || new Date();
-                        scope.formData[scope.modelName] = new Date();
-                        if (data.fixedEmiAmount) {
-                            scope.formData.fixedEmiAmount = data.fixedEmiAmount;
-                            scope.showEMIAmountField = true;
-                        }
-                        if(scope.showNetDisbursalAmount && (scope.netAmount && scope.netAmount < scope.formData.transactionAmount)) {
-                            scope.showNetDisbursalAmount = true;
-                        }else{
-                            scope.showNetDisbursalAmount = false;
-                        }
-                        scope.formData.discountOnDisbursalAmount=data.discountOnDisbursalAmount;
-                        if (scope.formData.discountOnDisbursalAmount){
-                            scope.showdiscountOnDisburse = true;
-                        }
-                        if(data.expectedFirstRepaymentOnDate){
-                            scope.formData.repaymentsStartingFromDate = new Date(data.expectedFirstRepaymentOnDate);
-                            scope.showRepaymentsStartingFromDateField = true;
-                        }
-                    });
-                    if(routeParams.type && routeParams.type == 'flatinterest'){
-                        scope.showdiscountOnDisburse = true;
-                        scope.disableDiscount = false;
-                    }
-                    scope.title = 'label.heading.disburseloanaccount';
-                    scope.labelName = 'label.input.disbursedondate';
-                    scope.isTransaction = true;
-                    scope.showAmountField = true;
+                    scope.formDisbursementData();
                     scope.taskPermissionName = 'DISBURSE_LOAN';
-                    scope.createClientMembersForGLIM();
                     break;
                 case "disbursetosavings":
-                    scope.modelName = 'actualDisbursementDate';
-                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
-                       scope.formData.transactionAmount = data.amount;
-                        scope.formData[scope.modelName] = new Date();
-                        if (data.fixedEmiAmount) {
-                            scope.formData.fixedEmiAmount = data.fixedEmiAmount;
-                            scope.showEMIAmountField = true;
-                        }
-                    });
-                    scope.title = 'label.heading.disburseloanaccount';
-                    scope.labelName = 'label.input.disbursedondate';
-                    scope.isTransaction = false;
-                    scope.showAmountField = true;
+                    scope.formDisburseToSavingsData();
                     scope.taskPermissionName = 'DISBURSETOSAVINGS_LOAN';
                     break;
                 case "repayment":
@@ -763,6 +771,14 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'refundByCash';
                     break;
+                case "forcedisburse":
+                    scope.formDisbursementData();
+                    scope.taskPermissionName = 'FORCE_DISBURSE_LOAN';
+                    break;
+                case "forcedisbursetosavings":
+                    scope.formDisburseToSavingsData();
+                    scope.taskPermissionName = 'FORCE_DISBURSETOSAVINGS_LOAN';
+                    break;
             }
 
             scope.cancel = function () {
@@ -848,7 +864,7 @@
                     params.command = "recoverGuarantees";
                 }
 
-                if (scope.action == "disburse"){
+                if (scope.action == "disburse" || scope.action == "forcedisburse"){
                     scope.constructGlimClientMembersData();
                 }
 

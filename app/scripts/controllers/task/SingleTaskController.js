@@ -141,7 +141,7 @@
                     if(scope.taskData.status.value == 'initiated'){
                         if(scope.possibleActions != undefined){
                             scope.possibleActions.forEach(function (action) {
-                                if(action.value == 'activitycomplete' && !action.hasAccess){
+                                if(action.actionType.value == 'activitycomplete' && !action.hasAccess){
                                     scope.canComplete = false;
                                 }
                             });

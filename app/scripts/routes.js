@@ -1680,6 +1680,9 @@
             .when('/clients/:clientId/view/creditbureau/:enquiryId/summary', {
                 templateUrl: 'views/creditbureau/viewcreditbureaureport.html'
             })
+            .when('/clientverificationdetails/:clientId', {
+                templateUrl: 'views/clients/clientverificationdetails.html' 
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

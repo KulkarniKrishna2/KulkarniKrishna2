@@ -38,6 +38,7 @@
         </div>
 
     </script>
+
     <div class="col-md-12 col-sm-12">
         <div class="row primarydiv">
             <div class="pull-right">
@@ -758,6 +759,11 @@
                                         has-permission='DISBURSE_LOANAPPLICATIONREFERENCE'
                                         class="btn btn-primary" ng-if="formData.status.id === 300"
                                         ng-show="loanaccountinfo">{{'label.button.disburse' |translate}}
+                                </button>
+                                <button id="forceDisburse" ng-click="forceDisburse()"
+                                        has-permission='FORCE_DISBURSE_LOANAPPLICATIONREFERENCE'
+                                        class="btn btn-primary" ng-if="canForceDisburse"
+                                        ng-show="loanaccountinfo">{{'label.button.forcedisburse' |translate}}
                                 </button>
                             </div>
 

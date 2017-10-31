@@ -47,7 +47,9 @@
             scope.successTransaction = 5;
             scope.failedTransaction = 6;
             scope.closedTransaction = 7;
-            
+            scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+            scope.canForceDisburse = false;
+
             scope.isGlimEnabled = function(){
                 return scope.isGlim && !scope.isGlimPaymentAsGroup;
             };
@@ -220,6 +222,16 @@
                     case "viewloanapplication":
                         location.path('/viewloanapplicationreference/' + scope.loandetails.loanApplicationReferenceId);
                     break;
+                    case "forcedisburse":
+                        if (scope.loandetails.flatInterestRate != null) {
+                            location.path('/loanaccount/' + accountId + '/disburse/type/flatinterest');
+                        }else {
+                            location.path('/loanaccount/' + accountId + '/forcedisburse');
+                        }
+                        break;
+                    case "forcedisbursetosavings":
+                        location.path('/loanaccount/' + accountId + '/forcedisbursetosavings');
+                        break;
                 }
             };
 
@@ -420,6 +432,10 @@
                     if(scope.loandetails.multiDisburseLoan){
                         disburseButtonLabel = 'button.disburse.tranche';
                     }
+                    if(scope.enableClientVerification && data.clientData && !data.clientData.isVerified){
+                        scope.canForceDisburse = true;
+
+                    }
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.assignloanofficer",
@@ -460,8 +476,21 @@
                                 taskPermissionName: 'READ_LOAN'
                             }
                         ]
-
                     };
+                    if(scope.canForceDisburse){
+                        var buttonForceDisburse = {
+                            name: "button.forcedisburse",
+                            icon: "icon-flag",
+                            taskPermissionName: 'FORCE_DISBURSE_LOAN'
+                        };
+                        var buttonForceDisburseToSavings = {
+                            name: "button.forcedisbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'FORCE_DISBURSETOSAVINGS_LOAN'
+                        };
+                        scope.buttons.singlebuttons.push(buttonForceDisburse);
+                        scope.buttons.singlebuttons.push(buttonForceDisburseToSavings)
+                    }
                     creditBureauCheckIsRequired();
                     if (scope.showSavingToDisburse) {
                         scope.buttons.singlebuttons.splice(2, 1);

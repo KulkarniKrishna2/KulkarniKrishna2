@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="form-group" ng-show="(action == 'disburse') && (response.uiDisplayConfigurations.loanAccount.isShowField.nextRepaymentDateDisburseScreen)">
+    <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse') && (response.uiDisplayConfigurations.loanAccount.isShowField.nextRepaymentDateDisburseScreen)">
         <label class="control-label col-sm-2" for="nextRepaymentDate">{{'label.input.nextrepaymentdate' | translate}}</label>
 
         <div class="col-sm-3">
@@ -121,7 +121,7 @@
                    ng-model="nextRepaymentDate" min="'2000-01-01'" max="restrictDate" ng-disabled="false"/>
         </div>
     </div>
-    <div class="form-group" ng-show="(action == 'disburse') && ((response.uiDisplayConfigurations.loanAccount.isShowField.adjustRepaymentDateDisburseScreen) || formData.adjustRepaymentDate)">
+    <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse') && ((response.uiDisplayConfigurations.loanAccount.isShowField.adjustRepaymentDateDisburseScreen) || formData.adjustRepaymentDate)">
         <label class="control-label col-sm-2" for="adjustRepaymentDate">{{'label.input.adjusteddate' | translate}}</label>
 
         <div class="col-sm-3">
@@ -533,7 +533,7 @@
         </div>
     </div>
 </div>
-    <div class="form-group" ng-show="isGLIM && (action=='approve' || action=='disburse')">
+    <div class="form-group" ng-show="isGLIM && (action=='approve' || action=='disburse' ||  action == 'forcedisburse')">
         <label class="control-label col-sm-2">{{ 'label.heading.amountbreakup' | translate }}</label>
         <div  class="col-sm-6">
             <table class="table well">

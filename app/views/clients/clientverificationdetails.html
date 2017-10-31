@@ -1,0 +1,14 @@
+<div class="col-md-12" ng-controller="ClientVerificationDetailsController">
+
+    <div ng-if="enableClientVerification">
+        <div class="paddedbottom10">
+            <ul class="breadcrumb">
+                <li><a href="#/clients">{{'label.anchor.clients'|translate}} </a></li>
+                <li><a href="#/viewclient/{{entityId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+                <li class="active">{{'label.anchor.client.verification.details' | translate}}</li>
+            </ul>
+        </div>
+
+        <div class="row" ng-include="'views/clients/clientverificationcommon.html'"></div>
+    </div>
+</div>

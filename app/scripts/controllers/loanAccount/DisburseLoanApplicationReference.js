@@ -24,6 +24,9 @@
 
             //2F Authentication
             scope.catureFP = false ;
+            scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+            scope.canForceDisburse = false;
+            scope.commandParam = 'disburse';
 
             resourceFactory.loanApplicationReferencesTemplateResource.get({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
@@ -32,7 +35,6 @@
                     scope.formRequestData.disburse.paymentTypeId = scope.paymentTypes[0].id;
                 }
             });
-
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
@@ -48,6 +50,12 @@
                             curIndex++;
                         }
                     }
+                    resourceFactory.clientResource.get({clientId: scope.formData.clientId, isFetchAdressDetails : true}, function (clientData) {
+                        scope.client = clientData;
+                       if (scope.formData.status.id === 300 && scope.enableClientVerification && !scope.client.isVerified){
+                        scope.canForceDisburse = true;
+                       }
+                    });
                 });
 
                 if (scope.formData.status.id > 200) {
@@ -410,6 +418,12 @@
                 }
             };
 
+            scope.forceDisburse = function () {
+                scope.commandParam = 'forcedisburse';
+                scope.issubmitted = true;
+                scope.submit(); 
+            };
+
             scope.finalSubmit = function () {
                 scope.previewRepayments(false);
                 if (scope.charges.length > 0) {
@@ -490,9 +504,9 @@
                 delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'disburse'
-                }, this.formRequestData, function (disburseData) {
-                     location.path('/viewclient/' + scope.formData.clientId);
+                        command: scope.commandParam
+                    }, this.formRequestData, function (disburseData) {
+                        location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
 

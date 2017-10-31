@@ -555,7 +555,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/config/AddWorkflowStepsController',
             'task/config/ViewWorkflowStepController',
             'creditbureau/CreateCreditBureauReportController',
-            'creditbureau/ViewCreditBureauReportController'
+            'creditbureau/ViewCreditBureauReportController',
+            'client/ClientVerificationCommonController',
+            'client/ClientVerificationDetailsController',
+            'client/ClientVerificationActivityController'
         ],
         filters: [
             'StatusLookup',

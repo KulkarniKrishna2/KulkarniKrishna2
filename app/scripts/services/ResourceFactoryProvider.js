@@ -1369,6 +1369,12 @@
                     }),
                     workflowConfigStepsOderChangeResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/order",{taskConfigId:'@taskConfigId'},{
                         update:{method: 'PUT', params:{}}
+                    }),
+                    clientVerificationResource: defineResource(apiVer + "/clients/:clientId/:anotherresource/verificationDetails", {clientId: '@clientId', anotherresource: '@anotherresource', searchConditions: '@searchConditions'}, {
+                        getClientVerificationDetails:{method:'GET', params:{command : "verificationDetails"}, isArray: false}
+                    }),
+                    aadharClientVerificationResource: defineResource(apiVer + "/clients/:clientId/identifiers/:identifierId/verification/aadhaar", {clientId: '@clientId', identifierId: '@identifierId'}, {
+                        save:{method:'POST', params:{}}
                     })
                 };
             }];

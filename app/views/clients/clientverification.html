@@ -1,0 +1,41 @@
+<div class="span grey-head" ng-if="!clientData.isVerified">
+
+    <h3 class="client-title">    <i class="icon-circle icon-red"></i> <strong>{{clientData.displayName}} {{'label.tooltip.client.not.verified' | translate}}</strong></h3>
+</div>
+<div class="span grey-head" ng-if="clientData.isVerified">
+
+    <h3 class="client-title"> <i class="icon-circle icon-green"></i> <strong>{{clientData.displayName}}{{'label.tooltip.client.verified' | translate}}</strong></h3> 
+</div>
+<div ng-if="containsIdentifiers()">
+    <table class="table" ng-if="verificationDetails.length > 0">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.id' | translate}}</th>
+                <th>{{'label.heading.type' | translate}}</th>
+                <th>{{'label.heading.verified.id' | translate}}</th>
+                <th>{{'label.heading.verified.by' | translate}}</th>
+                <th>{{'label.heading.verified.on' | translate}}</th>
+                <th>{{'label.heading.isVerified' | translate}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="document in verificationDetails">
+                <td>{{document.documentKey}}</td>
+                <td>{{document.documentType.name}}</td>
+                <td>{{document.verifiedKey}}</td>
+                <td>{{document.verifiedBy.username}}</td>
+                <td>{{document.verifiedDate | DateFormat }}</td>
+                <td ng-if=document.isVerified>{{'label.heading.yes' | translate}}</td>
+                <td ng-if=!document.isVerified>{{'label.heading.no' | translate}}</td>
+                <td ng-if=canVerify(document)>
+                    <button class="btn btn-primary" has-permission='VERIFY_CLIENT' ng-click='verifyIdentifier(document)'>{{'label.heading.verify'|translate}}</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div ng-if="status=='ADD'">
+    <div ng-include src="'views/clients/verifyclient.html'"></div>
+</div>

@@ -46,7 +46,6 @@
 						<i ng-if="profileRatingData === undefined || profileRatingData.finalScore === undefined" class="icon-star-empty"></i>
 					</span>
 					<span>
-						&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-warning" ng-click="reComputeProfileRating()">
 	                    	<i class="icon-repeat"></i>
 	                	</button>
@@ -57,6 +56,15 @@
 							<button class="btn btn-warning" ng-if="client.isLocked" has-permission="UNLOCK_CLIENT" ng-click="lockOrUnLockClient()">
 		                    	<i class="icon-lock"></i>
 							</button>
+	                	</span>
+	                	<span ng-if="enableClientVerification">
+	   	                	<button class="btn btn-danger" ng-if="!client.isVerified" has-permission = "READ_CLIENTVERIFICATIONDETAILS" ng-click="verify()">
+	   	                			 <i class="icon-exclamation-sign" tooltip="{{client.displayName}}{{'label.tooltip.client.not.verified' | translate}}"></i>
+	   	                	</button>
+
+	                		<button class ="btn btn-success" ng-if="client.isVerified"  has-permission = "READ_CLIENTVERIFICATIONDETAILS" ng-click="verify()" > 
+	                				<i class="icon-ok-sign" tooltip="{{client.displayName}}{{'label.tooltip.client.verified' | translate}} {{'label.on' | translate}} {{client.verifiedDate | DateFormat}}"></i>
+	                		</button>
 	                	</span>
 					</span>
 				</div>
@@ -869,6 +877,7 @@
 		        </tbody>
 		    </table>
 		</tab>
+		
 		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress" select="fetchEntityAddress()">
 				<div class="pull-right">
 					<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary"

@@ -14,6 +14,9 @@
             scope.showPaymentDetails = false;
             scope.date = {};
             var curIndex = 0;
+            scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+            scope.canForceDisburse = false;
+            scope.commandParam = 'disburse';
             resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
                 if (scope.paymentTypes) {
@@ -99,7 +102,11 @@
                     scope.loanaccountinfo = data;
                     if (data.clientName) {
                         scope.clientName = data.clientName;
+                        if(!data.isClientVerified && scope.enableClientVerification){
+                            scope.canForceDisburse = true;
+                        }
                     }
+
                     if (data.group) {
                         scope.groupName = data.group.name;
                     }
@@ -359,7 +366,7 @@
                 delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'disburse'
+                    command: scope.commandParam
                 }, this.formRequestData, function (data) {
                     scope.activityDone();
                     getLoanAccountDetails(data.changes.loanId);
@@ -448,6 +455,12 @@
                     scope.doActionAndRefresh(actionName);
                 }
 
+            };
+
+            scope.forceDisburse = function () {
+                scope.commandParam = 'forcedisburse';
+                scope.issubmitted = true;
+                scope.submit(); 
             };
 
 

@@ -1,0 +1,70 @@
+<script type="text/ng-template" id="fingerprint.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.fingerprint' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <form name="popupform" novalidate="">
+            <fieldset>
+                <div class="form-group row">
+                    <div class="btn-group-vertical">
+                        <BR>
+                        <BR>
+                        <button class="btn btn-danger pull-right" ng-click="clearFingerPrint()">{{'label.button.clear' | translate}} </button>
+                        <button class="btn btn-info pull-right" ng-click="captureFingerprint()">{{'label.button.capture' | translate}} </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <img id="biometric" name="biometric" height="200" width="128" style="border: 1px #e4e4e4 solid; border-radius:4px; box-shadow: 0 0 6px #ccc">
+                    </div>
+                </div>
+                <div class="btn-group col-md-offset-4">
+                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
+                    </button>
+                    <button id="save1" type="submit" ng-click="submit()" class="btn btn-primary">{{'label.button.confirm' | translate}}
+                    </button>
+                </div>
+                <BR>
+                <BR>
+            </fieldset>
+        </form>
+    </div>
+
+</script>
+<form name="clientVerificationForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <api-validate></api-validate>
+    <fieldset>
+
+        <strong>{{'label.heading.verify' | translate}}</strong>
+        <hr/>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.uniqueidentification' | translate}}</label>
+
+            <div class="col-sm-3">
+                <label class="control-label col-sm-2">{{documentKey}}</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.identificationType' | translate}}</label>
+
+            <div class="col-sm-3">
+                <label class="control-label col-sm-2">{{documentType}}</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="authenticationType">{{'label.input.authenticationtype' | translate}}</label>
+
+            <div class="col-sm-3">
+                <select id="authenticationType" name="authenticationType" ng-model="formData.authenticationType" class="form-control" ng-options="authenticationType.name for authenticationType in availableAuthenticationServices">
+                    <option value="">{{'label.authenticationtype' | translate}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-offset-2">
+            <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate}}
+            </button>
+            <button id="save" type="submit" has-permission='VERIFY_CLIENTIDENTIFIER' class="btn btn-primary">{{ 'label.button.save' | translate}}
+            </button>
+        </div>
+    </fieldset>
+</form>
