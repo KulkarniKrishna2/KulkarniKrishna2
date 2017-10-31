@@ -750,6 +750,11 @@
 					                <td><span class="padded-td">{{client.gender.name}}</span>
 					                </td>
 					            </tr>
+					            <tr data-ng-show="client.maritalStatus.name">
+					                <th class="table-bold">{{ 'label.input.marital.status' | translate }}</th>
+					                <td><span class="padded-td">{{client.maritalStatus.name}}</span>
+					                </td>
+					            </tr>
                                 <tr data-ng-show="client.clientType.name">
                                     <th class="table-bold">{{ 'label.input.clienttype' | translate }}</th>
                                     <td><span class="padded-td">{{client.clientType.name}}</span>
