@@ -234,13 +234,25 @@
                         add: {method: 'POST', params: {clientId:'@clientId'}},
                         delete: {method: 'DELETE', params: {}}
                     }),
+                    creditBureauReportTemplateResource: defineResource(apiVer + "/enquiry/creditbureau/template", {}, {
+                        template: {method: 'GET', params: {}}
+                    }),
+                    creditBureauEnquiriesResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                    }),
                     creditBureauReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/initiate", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    creditBureauReportSummaryResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/summary", {entityType: '@entityType',entityId: '@entityId'}, {
+                    creditBureauReportSummaryByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/summary", {enquiryId: '@enquiryId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    creditBureauReportSummaryResource: defineResource(apiVer + "/enquiry/creditbureau/clients/:clientId/:entityType/:entityId/summary", {clientId: '@clientId', entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     creditBureauReportFileContentResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/creditbureaureport", {entityType: '@entityType',entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    creditBureauReportFileContentByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/creditbureaureport", {enquiryId: '@enquiryId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     creditLatestBureauReportFileContentResource: defineResource(apiVer + "/enquiry/creditbureau/creditbureaureport",{clientId: '@clientId'},  {
@@ -1331,7 +1343,7 @@
                     }),
                     loanApplicationReferencesForGroupResource: defineResource(apiVer + "/loanapplicationreferences/groups", {}, {
                         get: {method: 'GET', params: {groupId: '@groupId',clientId: '@clientId'}, isArray: true}
-                    }),  
+                    }),
                     workflowConfigResource:defineResource(apiVer + "/taskconfigs/:taskConfigId",{taskConfigId:'@taskConfigId'},{
                         save: {method: 'POST', params:{}},
                         getAll: {method: 'GET', params: {},isArray:true},
@@ -1349,6 +1361,11 @@
                     }),
                     inActivateWorkflowConfigStepsResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/:taskConfigStepId/inactivate",{taskConfigId:'@taskConfigId',taskConfigStepId:'@taskConfigStepId'},{
                         update:{method: 'PUT', params:{}}
+                    }),
+                    clientCreditBureauEnquiry: defineResource(apiVer + "/clients/:clientId/creditbureau", {clientId:'@clientId'}, {
+                    }),
+                    creditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/initiate", {enquiryId: '@enquiryId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];

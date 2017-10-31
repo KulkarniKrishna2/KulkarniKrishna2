@@ -289,6 +289,7 @@
 
             function getCreditBureauReportSummary() {
                 resourceFactory.creditBureauReportSummaryResource.get({
+                    clientId : scope.clientId,
                     entityType: scope.entityType,
                     entityId: scope.entityId
                 }, function (loansSummary) {

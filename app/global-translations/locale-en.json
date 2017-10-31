@@ -2384,6 +2384,8 @@
     "label.heading.toloanamount" : "To Loan Amount",
     "label.heading.chargeamount" : "Charge Amount",
     "label.heading.bureau" : "Credit Bureau",
+    "label.anchor.credit.bureau" : "Credit Bureau",
+    "label.heading.create.credit.bureau" : "Create Credit Bureau",
     "label.heading.foreclosure" : "Preclosure",
     "label.input.dataTableDisplayName":"Data Table Display Name",
     "#Anchors": "..",
@@ -5762,6 +5764,7 @@
     "label.button.viewdetails" : "View Details",
     "label.button.hidedetails" : "Hide Details",
     "label.button.creditbureaureport" : "Credit Bureau Report",
+    "label.button.initiate.credit.bureau.enquiry" : "Initiate Credit Bureau Enquiry",
     "label.heading.transactions" : "Transactions",
     "label.heading.of" : "of",
     "label.heading.reconciled" : "Reconciled",
@@ -6654,6 +6657,9 @@
     "error.msg.loan.application.data.empty" : "No Active Loan Applications Found.",
     "error.msg.all.loan.applications.are.not.approved" :"All Loan applications must be approved to complete the activity.",
     "error.msg.all.loan.applications.are.not.disbursed" : "All loan applications are not disbursed.",
+
+    "label.input.credit.bureau.product": "Credit Bureau Product",
+    "label.input.requested.amount": "Requested Amount",
 
     "------ end of tensalation file":"---------"
 }

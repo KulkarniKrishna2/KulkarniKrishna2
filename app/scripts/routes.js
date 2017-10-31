@@ -1674,6 +1674,12 @@
             .when('/workflow/:taskConfigId/addworkflowsteps/:taskConfigStepId', {
                 templateUrl: 'views/task/config/addworkflowsteps.html'
             })
+            .when('/create/creditbureau/:entityType/:entityId', {
+                templateUrl: 'views/creditbureau/createcreditbureaureport.html'
+            })
+            .when('/clients/:clientId/view/creditbureau/:enquiryId/summary', {
+                templateUrl: 'views/creditbureau/viewcreditbureaureport.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
