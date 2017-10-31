@@ -106,7 +106,7 @@
 						<form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
 					</div>
 
-				<div calss="row"data-ng-switch on="showNonPersonOptions">
+				<div calss="row" data-ng-switch on="showNonPersonOptions">
 					<div data-ng-switch-when="false">
 						<label class="control-label col-sm-1">{{'label.input.gender' | translate}}</label>
 
@@ -131,6 +131,31 @@
 					</div>
 				</div>
 	        </div>
+
+	        <div class="form-group">
+	        	<div data-ng-switch on="showNonPersonOptions">
+	        		<div data-ng-switch-when="false">
+                		<label class="control-label col-sm-2" >{{'label.input.marital.status' | translate}}<span  class="required">*</span>
+                		</label>
+
+	                	<div class="col-sm-3">
+							<select id="maritalStatusId" ng-model="formData.maritalStatusId"  class="form-control" ng-options="maritalStatus.id as maritalStatus.name for maritalStatus in maritalStatusOptions" value="{{maritalStatus.id}}">
+									<option value="">{{'label.menu.marital.status' | translate}}
+									</option>
+							</select>
+						</div>
+					</div>
+				</div>
+                <label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
+                	<span ng-show="isExternalIdMandatory" class="required">*</span>
+                </label>
+                <div class="col-sm-3" ng-show="showExternalId">
+                	<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control"  ng-required = "isExternalIdMandatory"/>
+                </div>
+                <div class="col-sm-2 paddinglr0px">
+                	<form-validate valattributeform="createclientform" valattribute="external"/>
+                </div>
+        	</div>
 
 			<div class="form-group">
 				<label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
@@ -238,24 +263,7 @@
                 			type="email" ng-required="isEmailIdMandatory" class="form-control"/>
                 			<form-validate valattributeform="createclientform" valattribute="email"/>
                 		</div>
-
-
-                		<label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
-                			<span ng-show="isExternalIdMandatory" class="required">*</span>
-                		</label>
-                		<div class="col-sm-3" ng-show="showExternalId">
-                			<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
-                			ng-required = "isExternalIdMandatory"/>
-                		</div>
-                		<div class="col-sm-2 paddinglr0px">
-                			<form-validate valattributeform="createclientform" valattribute="external"/>
-                		</div>
                 	</div>
-
-
-
-
-
 
 			<div ng-if="enableClientAddress">
 				<legend></legend>

@@ -80,6 +80,7 @@
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.officeId = data.officeId;
                 scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.maritalStatusOptions = data.maritalStatusOptions;
                 scope.formData = {
                     firstname: data.firstname,
                     lastname: data.lastname,
@@ -154,6 +155,10 @@
                 if (data.timeline.submittedOnDate) {
                     var submittedOnDate = dateFilter(data.timeline.submittedOnDate, scope.df);
                     scope.date.submittedOnDate = new Date(submittedOnDate);
+                }
+
+                if(data.maritalStatus && data.maritalStatus.id){
+                    scope.formData.maritalStatusId = data.maritalStatus.id;
                 }
 
             });

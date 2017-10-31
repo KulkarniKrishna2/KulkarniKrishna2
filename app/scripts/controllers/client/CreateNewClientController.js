@@ -146,6 +146,7 @@
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.formData.legalFormId = scope.clientLegalFormOptions[0].id;
                 scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.maritalStatusOptions = data.maritalStatusOptions;
 
                 if(scope.genderOptions[0]) {
                     scope.formData.genderId = scope.genderOptions[0].id;
@@ -202,6 +203,10 @@
                         scope.countries = data.countryDatas;
                         scope.setDefaultGISConfig();
                     });
+                }
+
+                if(scope.maritalStatusOptions[0]) {
+                    scope.formData.maritalStatusId = scope.maritalStatusOptions[0].id;
                 }
             });
 
