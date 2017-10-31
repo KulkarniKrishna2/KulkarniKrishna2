@@ -127,6 +127,22 @@
                        ng-checked="bankAccountData.bankCity.toLowerCase().trim()==checkerBankAccountData.bankCity.toLowerCase().trim()"/>
             </td>
         </tr>
+        <tr ng-if="!isElemHidden('mobileNumber')">
+            <td>
+                {{'label.input.mobileNo' | translate}}
+            </td>
+            <td>
+                {{bankAccountData.mobileNumber}}
+            </td>
+            <td>
+                {{checkerBankAccountData.mobileNumber}}
+            </td>
+            <td ng-if="!viewConfig.showSummary">
+                <input ng-show="checkerBankAccountData.mobileNumber" name="mobileNumber" id="mobileNumber"
+                       type="checkbox" ng-disabled="true"
+                       ng-checked="bankAccountData.mobileNumber.toLowerCase().trim()==checkerBankAccountData.mobileNumber.toLowerCase().trim()"/>
+            </td>
+        </tr>
         </tbody>
     </table>
         <div class="col-md-offset-2 paddedleft paddedtop" ng-if="!viewConfig.showSummary">
