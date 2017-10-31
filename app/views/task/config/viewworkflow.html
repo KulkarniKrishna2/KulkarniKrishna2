@@ -40,8 +40,8 @@
                 <th>{{'label.heading.activitytype' | translate}}</th>
                 <th>{{'label.heading.criteria' | translate}}</th>
             </thead>
-            <tbody>
-                <tr class = "pointer" ng-repeat = "stepData in taskConfigStepsData" 
+            <tbody ui-sortable="sortableOptions" ng-model="workflowStepsDatalist">
+                <tr class = "pointer" ng-repeat = "stepData in workflowStepsDatalist" 
                     ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">
                     <td>{{stepData.name}}</td>
                     <td>{{stepData.shortName}}</td>
@@ -50,5 +50,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>  
+    <div>
+          <a  class="btn btn-primary pull-right" 
+             data-ng-click="updateWorkflowStepOrder()" has-permission='UPDATE_TASK_CONFIG'>{{'label.button.update.workflowsteps.order'| translate}} </a>
     </div>
  </div>

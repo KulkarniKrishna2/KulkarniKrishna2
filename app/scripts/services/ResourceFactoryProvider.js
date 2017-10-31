@@ -1366,6 +1366,9 @@
                     }),
                     creditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/initiate", {enquiryId: '@enquiryId'}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    workflowConfigStepsOderChangeResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/order",{taskConfigId:'@taskConfigId'},{
+                        update:{method: 'PUT', params:{}}
                     })
                 };
             }];
