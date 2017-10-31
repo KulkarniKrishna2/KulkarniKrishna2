@@ -1,0 +1,34 @@
+   <div class="col-md-12" ng-controller="WorkflowsConfigController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowmanagement">{{'label.anchor.workflowmanagement'| translate}}</a></li>
+            <li class="active">{{'label.anchor.workflow' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <h3>{{'label.heading.workflow' | translate}}</h3>
+    <hr>
+    <div >
+         <a href="#/addworkflow" class="btn btn-primary pull-right" 
+            has-permission='CREATE_TASK_CONFIG' >{{'label.button.addworkflow'| translate}} </a>
+    </div>
+    <div class="table-response">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{'label.heading.workflowname' | translate}}</th>
+                    <th>{{'label.heading.isactive' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  ng-repeat = "workflowConfig in workflowConfigsList" 
+                       ng-click= "routeToView(workflowConfig.id)">
+                    <td class="pointer">{{workflowConfig.name}}</td>
+                    <td class="pointer">{{workflowConfig.isActive}}</td>
+                    <td class="pointer"><a type="button" class="btn btn-primary" 
+                        has-permission='ADD_TASK_CONFIG' ng-click= "addWorkflowSteps(workflowConfig.id)">{{"label.button.addsteps" | translate}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>

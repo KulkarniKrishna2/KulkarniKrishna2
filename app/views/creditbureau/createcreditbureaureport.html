@@ -1,0 +1,92 @@
+<div class="col-md-12" ng-controller="CreateCreditBureauReportController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.clients' | translate}}</a></li>
+        <li class="active">{{'label.anchor.credit.bureau' | translate}}</li>
+    </ul>
+    <form name="createcreditbureauform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.create.credit.bureau' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.credit.bureau.product' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="creditbureauProductId" name="creditbureauProductId" ng-model="formData.creditbureauProductId"
+                            class="form-control"
+                            ng-options="cbp.creditBureauId as cbp.creditBureauName for cbp in template.creditBureauProductOptions"
+                            value="{{cbp.id}}"
+                            required late-validate="" ng-change="">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauform" valattribute="creditbureauProductId"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="formData.creditbureauProductId">
+                <label class="control-label col-sm-2">{{ 'label.input.loanproduct' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="enquiryLoanProductId" name="enquiryLoanProductId" ng-model="formData.enquiryLoanProductId"
+                            class="form-control"
+                            ng-options="lp.id as lp.name for lp in template.loanProductOptions"
+                            value="{{lp.id}}"
+                            required late-validate="">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauform" valattribute="enquiryLoanProductId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanpurpose' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="enquiryLoanPurposeId" name="enquiryLoanPurposeId" ng-model="formData.enquiryLoanPurposeId"
+                            class="form-control"
+                            ng-options="lp.id as lp.name for lp in template.loanPurposeOptions"
+                            value="{{lp.id}}"
+                            required late-validate="">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauform" valattribute="enquiryLoanPurposeId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.requested.amount' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="enquiryLoanAmount" name="enquiryLoanAmount"
+                           ng-model="formData.enquiryLoanAmount"
+                           number-format required late-validate="" />
+                </div>
+
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauform" valattribute="enquiryLoanAmount"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-2">
+                <button type="button" data-ng-click="cancel()"   class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.save'
+                    | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

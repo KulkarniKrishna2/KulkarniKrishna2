@@ -2,8 +2,7 @@
     <div>
         <ul class="breadcrumb">
             <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
-            <li ng-show="clientName"><a href="#/viewclient/{{formData.clientId}}"><strong>'{{clientName}}'</strong></a>
-            </li>
+            <li ng-show="clientName"><a href="#/viewclient/{{formData.clientId}}"><strong>'{{clientName}}'</strong></a></li>
             <li class="active">{{'label.anchor.creditbureauteport' | translate}}</li>
         </ul>
     </div>
@@ -12,9 +11,9 @@
         <div class="row primarydiv">
             <div class="pull-right">
                 <span ng-if="entityType === 'loanapplication' && formData.status.id < 400">
-                  <a class="btn btn-primary" data-ng-click="rejectApprovalLoanAppRef();"
-                     has-permission='REJECT_LOANAPPLICATIONREFERENCE'><i
-                          class="icon-remove-circle icon-white"></i>{{'label.button.reject' | translate}}</a>
+                    <a class="btn btn-primary" data-ng-click="rejectApprovalLoanAppRef();" has-permission='REJECT_LOANAPPLICATIONREFERENCE'>
+                        <i class="icon-remove-circle icon-white"></i>{{'label.button.reject' |translate}}
+                    </a>
                 </span>
             </div>
         </div>

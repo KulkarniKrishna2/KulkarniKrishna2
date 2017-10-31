@@ -1650,6 +1650,36 @@
             .when('/tasklist/:parentConfigId/:officeId/:childConfigId', {
                 templateUrl: 'views/dashboard/tasklist.html'
             })
+            .when('/workflowmanagement', {
+                templateUrl: 'views/task/config/workflowmanagement.html'
+            })
+            .when('/workflows', {
+                templateUrl: 'views/task/config/workflows.html'
+            })
+            .when('/addworkflow', {
+                templateUrl: 'views/task/config/addworkflow.html'
+            })
+            .when('/addworkflow/:taskConfigId', {
+                templateUrl: 'views/task/config/addworkflow.html'
+            })
+            .when('/viewworkflow/:taskConfigId', {
+                templateUrl: 'views/task/config/viewworkflow.html'
+            })
+            .when('/workflow/:taskConfigId/addworkflowsteps', {
+                templateUrl: 'views/task/config/addworkflowsteps.html'
+            })
+            .when('/viewworkflowstep/:taskConfigId/:taskConfigStepId', {
+                templateUrl: 'views/task/config/viewworkflowstep.html'
+            })
+            .when('/workflow/:taskConfigId/addworkflowsteps/:taskConfigStepId', {
+                templateUrl: 'views/task/config/addworkflowsteps.html'
+            })
+            .when('/create/creditbureau/:entityType/:entityId', {
+                templateUrl: 'views/creditbureau/createcreditbureaureport.html'
+            })
+            .when('/clients/:clientId/view/creditbureau/:enquiryId/summary', {
+                templateUrl: 'views/creditbureau/viewcreditbureaureport.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

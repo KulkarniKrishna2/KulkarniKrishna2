@@ -1,0 +1,67 @@
+   <div class="col-md-12" ng-controller="ViewWorkflowStepController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowmanagement">{{'label.anchor.workflowmanagement'|translate}}</a></li>
+            <li><a href="#/workflows">{{'label.anchor.workflow' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewworkflowsteps' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <h3>{{'label.heading.viewworkflowsteps' | translate}}</h3>
+    <hr>
+    <div class="col-md-offset-10">
+         <a  class="btn btn-primary" 
+         data-ng-click="editWorkflowSteps()" has-permission='UPDATE_TASK_CONFIG'>{{'label.button.edit'| translate}} </a>
+        <a  class="btn btn-danger" 
+         data-ng-click="inactivationCheck()" has-permission='INACTIVATE_TASK_CONFIG'>{{'label.button.disassociate'| translate}} </a> 
+    </div>
+    <br>
+    <div class="table-response">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>{{'label.heading.taskname' | translate}}</td>
+                    <td>{{taskConfigStepsData.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.shortname' | translate}}</td>
+                    <td>{{taskConfigStepsData.shortName}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.activitytype' | translate}}</td>
+                    <td>{{taskConfigStepsData.taskActivityName}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.criteria' | translate}}</td>
+                    <td>{{taskConfigStepsData.criteriaName}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.approve.ifscore' | translate}}</td>
+                    <td>{{taskConfigStepsData.approvalLogicStr}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.reject.ifscore' | translate}}</td>
+                    <td>{{taskConfigStepsData.rejectionLogicStr}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.actions' | translate}}</td>
+                    <td>{{taskConfigStepsData.actionGroupName}}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <script type="text/ng-template" id="inactivationalert.html">
+        <form name="popupform" novalidate="">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.alert' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <h3><strong class="center">{{'alert.msg.continue' | translate}}</strong></h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="continue()">{{'label.button.ok' | translate}}</button>
+                <a class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+            </div>
+        </form>
+    </script>
+ </div>

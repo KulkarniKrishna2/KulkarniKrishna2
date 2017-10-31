@@ -1,27 +1,51 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        creditbureauActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json) {
-            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
-            scope.onFileSelect = function ($files) {
-                scope.file = $files[0];
+        ViewCreditBureauReportController: function (scope, resourceFactory, location, routeParams) {
+            scope.clientId = routeParams.clientId;
+            scope.enquiryId = routeParams.enquiryId;
+            scope.isResponPresent = false;
+            resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({'enquiryId' : scope.enquiryId},function (data) {
+                scope.creditBureauReportSummary = data;
+                if (scope.creditBureauReportSummary && scope.creditBureauReportSummary.cbStatus) {
+                    scope.isResponPresent = true;
+                }
+                convertByteToString();
+            });
+            scope.cBStatus = function () {
+                var status = undefined;
+                if (scope.creditBureauReportSummary && scope.creditBureauReportSummary.cbStatus && scope.creditBureauReportSummary.cbStatus.value) {
+                    status = scope.creditBureauReportSummary.cbStatus.value;
+                }
+                return status;
             };
-            function initTask() {
-                scope.clientId = scope.taskconfig['clientId'];
-                scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
+            function convertByteToString(content, status) {
+                scope.errorMessage = undefined;
+                var status = scope.cBStatus();
+                if (status) {
+                    scope.errorMessage = scope.creditBureauReportSummary.errors ;
+                }
+                return scope.errorMessage;
             };
-            initTask();
-            scope.viewCreditBureauReport = false;
-            scope.errorMessage = [];
-            scope.cbResponseError = false;
-            scope.cbLoanEnqResponseError = false;
-            scope.entityType = "loanapplication";
-            scope.entityId = scope.loanApplicationReferenceId;
-            scope.trancheDisbursalId = routeParams.trancheDisbursalId;
-            scope.cbStatusPending="PENDING";
-            scope.cbStatusSuccess="SUCCESS";
-            scope.cbStatusError="ERROR";
+            resourceFactory.clientCreditSummary.getAll({
+                clientId: scope.clientId,
+                enquiryId: scope.enquiryId
+            }, function (data) {
+                scope.existingLoans = data.existingLoans;
+                scope.creditScores = data.creditScores ;
+                constructLoanSummary();
+            });
 
-            getCreditBureauReportSummary();
+            function constructLoanSummary() {
+                if (!_.isUndefined(scope.activeLoan)) {
+                    delete scope.activeLoan;
+                }
+                if (!_.isUndefined(scope.closedLoan)) {
+                    delete scope.closedLoan;
+                }
+                constructActiveLoanSummary();
+                constructClosedLoanSummary();
+                findcustomerSinceFromEachMFI();
+            };
 
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {
@@ -92,34 +116,6 @@
                         }
                     }
                 }
-            };
-
-            function convertEMIAmountToMonthlyAmount(existingLoan) {
-                if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
-                    return existingLoan.installmentAmount;
-                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
-                    if (existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2) {
-                        return convertBIWeeklyEMIAmountToMonthly(existingLoan);
-                    } else {
-                        return convertWeeklyEMIAmountToMonthly(existingLoan);
-                    }
-                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days') {
-                    return convertDailyEMIAmountToMonthly(existingLoan);
-                } else {
-                    return 0.00;
-                }
-            };
-
-            function convertWeeklyEMIAmountToMonthly(existingLoan) {
-                return (existingLoan.installmentAmount / 7) * 30;
-            };
-
-            function convertBIWeeklyEMIAmountToMonthly(existingLoan) {
-                return (existingLoan.installmentAmount / 14) * 30;
-            };
-
-            function convertDailyEMIAmountToMonthly(existingLoan) {
-                return existingLoan.installmentAmount * 30;
             };
 
             function constructClosedLoanSummary() {
@@ -194,19 +190,6 @@
                 }
             };
 
-            scope.isReportPresent = false;
-            function constructLoanSummary() {
-                if (!_.isUndefined(scope.activeLoan)) {
-                    delete scope.activeLoan;
-                }
-                if (!_.isUndefined(scope.closedLoan)) {
-                    delete scope.closedLoan;
-                }
-                constructActiveLoanSummary();
-                constructClosedLoanSummary();
-                findcustomerSinceFromEachMFI();
-            };
-
             function findcustomerSinceFromEachMFI() {
                 if (scope.activeLoan && scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0) {
                     if (scope.closedLoan && scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0) {
@@ -225,48 +208,46 @@
                 }
             };
 
-            function getCreditBureauReportSummary() {
-                resourceFactory.creditBureauReportSummaryResource.get({
-                    clientId : scope.clientId,
-                    entityType: scope.entityType,
-                    entityId: scope.entityId
-                }, function (loansSummary) {
-                    scope.loansSummary = loansSummary;
-                    if (scope.loanId) {
-                        if (scope.loansSummary.loanId == scope.loanId) {
-                            scope.isResponPresent = true;
-                        }
-                    } else if (scope.loansSummary && scope.loansSummary.cbStatus) {
-                        scope.isResponPresent = true;
+            function convertEMIAmountToMonthlyAmount(existingLoan) {
+                if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
+                    return existingLoan.installmentAmount;
+                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
+                    if (existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2) {
+                        return convertBIWeeklyEMIAmountToMonthly(existingLoan);
+                    } else {
+                        return convertWeeklyEMIAmountToMonthly(existingLoan);
                     }
-                    resourceFactory.clientCreditSummary.getAll({
-                        clientId: scope.formData.clientId,
-                        loanApplicationId: scope.loanApplicationReferenceId,
-                        loanId: scope.loanId,
-                        trancheDisbursalId: scope.trancheDisbursalId
-                    }, function (data) {
-                        scope.existingLoans = data.existingLoans;
-                        scope.creditScores = data.creditScores ;
-                        constructLoanSummary();
-                    });
-                });
+                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days') {
+                    return convertDailyEMIAmountToMonthly(existingLoan);
+                } else {
+                    return 0.00;
+                }
             };
 
+            function convertWeeklyEMIAmountToMonthly(existingLoan) {
+                return (existingLoan.installmentAmount / 7) * 30;
+            };
 
-            scope.creditBureauReport = function () {
-                resourceFactory.creditBureauReportResource.get({
-                    entityType: scope.entityType,
-                    entityId: scope.entityId
-                }, function (loansSummary) {
-                    scope.loansSummary = loansSummary;
-                    if (scope.loansSummary && scope.loansSummary.cbStatus) {
+            function convertBIWeeklyEMIAmountToMonthly(existingLoan) {
+                return (existingLoan.installmentAmount / 14) * 30;
+            };
+
+            function convertDailyEMIAmountToMonthly(existingLoan) {
+                return existingLoan.installmentAmount * 30;
+            };
+
+            scope.initiateCreditBureauReport = function () {
+                resourceFactory.creditBureauReportByEnquiryIdResource.get({
+                    enquiryId: scope.enquiryId
+                }, function (creditBureauReportSummary) {
+                    scope.creditBureauReportSummary = creditBureauReportSummary;
+                    if (scope.creditBureauReportSummary && scope.creditBureauReportSummary.cbStatus) {
                         scope.isResponPresent = true;
                     }
+                    convertByteToString();
                     resourceFactory.clientCreditSummary.getAll({
                         clientId: scope.clientId,
-                        loanApplicationId: scope.loanApplicationReferenceId,
-                        loanId: scope.loanId,
-                        trancheDisbursalId: scope.trancheDisbursalId
+                        enquiryId: scope.enquiryId
                     }, function (data) {
                         scope.existingLoans = data.existingLoans;
                         scope.creditScores = data.creditScores ;
@@ -276,9 +257,8 @@
             };
 
             scope.creditBureauReportView = function () {
-                resourceFactory.creditBureauReportFileContentResource.get({
-                    entityType: scope.entityType,
-                    entityId: scope.entityId
+                resourceFactory.creditBureauReportFileContentByEnquiryIdResource.get({
+                    enquiryId: scope.enquiryId
                 }, function (fileContentData) {
                     if (fileContentData.reportFileType.value == 'HTML') {
                         var result = "";
@@ -289,38 +269,27 @@
                         popupWin.document.open();
                         popupWin.document.write(result);
                         popupWin.document.close();
+                    } else if (fileContentData.reportFileType.value == 'XML') {
+                        var result = "";
+                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
+                            result += (String.fromCharCode(fileContentData.fileContent[i]));
+                        }
+                        var newWindow = window.open('', '_blank', 'toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=1, copyhistory=1, menuBar=1, width=640, height=480, left=50, top=50', true);
+                        var preEl = newWindow.document.createElement("pre");
+                        var codeEl = newWindow.document.createElement("code");
+                        codeEl.appendChild(newWindow.document.createTextNode(result));
+                        preEl.appendChild(codeEl);
+                        newWindow.document.body.appendChild(preEl);
                     }
                 });
             };
 
-            scope.proceedToNext = function () {
-                resourceFactory.loanApplicationReferencesResource.update({
-                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'requestforapproval'
-                }, {}, function (data) {
-                    scope.$emit("activityDone", {});
-                });
-            };
-            
-            scope.cBStatus = function () {
-                var status = undefined;
-                if (scope.loansSummary && scope.loansSummary.cbStatus && scope.loansSummary.cbStatus.value) {
-                    status = scope.loansSummary.cbStatus.value;
-                }
-                return status;
-            };
-
-            scope.rejectApprovalLoanAppRef = function () {
-                resourceFactory.loanApplicationReferencesResource.update({
-                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'reject'
-                }, {}, function (data) {
-                    location.path('/viewclient/' + scope.formData.clientId);
-                });
+            scope.cancel = function () {
+                location.path('/viewclient/' + scope.clientId);
             };
         }
     });
-    mifosX.ng.application.controller('creditbureauActivityController', ['$controller','$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
-        $log.info("creditbureauActivityController initialized");
+    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.ViewCreditBureauReportController]).run(function ($log) {
+        $log.info("ViewCreditBureauReportController initialized");
     });
 }(mifosX.controllers || {}));

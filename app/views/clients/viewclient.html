@@ -1417,219 +1417,48 @@
 		        </div>
 		    </div>
 		</tab>
-		<tab heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CLIENTNOTE' ng-click="getCreditBureauReportSummary()">
+		<tab heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CREDIT_BUREAU_REPORT' ng-click="getCreditBureauReportSummary()">
 			<div class="span gray-head">
-                    <span class="boldlabel">
-                          <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
-                    </span>
-			<div class="pull-right" ng-disabled="isReportPresent">
-				<button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
+				<div class="pull-right">
+					<button type="button" class="btn btn-primary" ng-click="initiateCreditBureauEnquiry();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.initiate.credit.bureau.enquiry' | translate}}</button>
+				</div>
 			</div>
-			</div>
-			<div class="col-md-12" ng-if="isReportPresent">
-				<table class="table table-bordered table-striped" ng-if="(creditScores.length > 0)">
-					<tr>
-						<td>
-							<span><strong>{{'label.heading.creditscore.name' | translate}}</strong></span>
+			<div ng-if="creditBureauEnquiries && creditBureauEnquiries.length > 0">
+				<table class="border1px table horizontal-scrollbar vertical-scrollbar">
+					<thead>
+					<tr class="graybg">
+						<th>Initiated On</th>
+						<th>Credit Bureau</th>
+						<th>Enquiry Id</th>
+						<th>Loan Product</th>
+						<th>Amount</th>
+						<th>Status</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="pointer-main" data-ng-repeat="enquiry in creditBureauEnquiries track by $index">
+						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
+							{{enquiry.createdDate| DateFormat}}
 						</td>
-						<td>
-							<span><strong>{{'label.heading.creditscore.cardname' | translate}}</strong></span>
+						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
+							{{enquiry.creditBureauProduct.name}}
 						</td>
-						<td>
-							<span><strong>{{'label.heading.creditscore.version' | translate}}</strong></span>
+						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
+							{{enquiry.id}}
 						</td>
-						<td>
-							<span><strong>{{'label.heading.creditscore.date' | translate}}</strong></span>
+						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
+							{{enquiry.loanProduct.name}}
 						</td>
-						<td>
-							<span><strong>{{'label.heading.creditscore.score' | translate}}</strong></span>
+						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
+							{{enquiry.enquiryLoanAmount| number}}
+						</td>
+						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
+							{{enquiry.status.value}}
 						</td>
 					</tr>
-					<tr ng-repeat="score in creditScores">
-						<td>
-							<span>{{score.scoreName}}</span>
-						</td>
-						<td>
-							<span>{{score.scoreCardName}}</span>
-						</td>
-						<td>
-							<span>{{score.scoreCardVersion}}</span>
-						</td>
-						<td>
-							<span>{{score.scoreCardDate}}</span>
-						</td>
-						<td>
-							<span>{{score.score}}</span>
-						</td>
-					</tr>
+					</tbody>
 				</table>
 			</div>
-			<div class="col-md-12" ng-if="isReportPresent">
-				<table class="table table-bordered table-striped" ng-if="(activeLoan.summaries.length > 0)">
-					<tr>
-						<td colspan="8">
-							<span class="boldlabel"><strong>{{'label.heading.cb.report.active.loans.summary' | translate}}</strong></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span><strong>{{'label.heading.serialno' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.name.of.mfi' | translate}}</strong></span>
-						</td>
-						 <td>
-                                <span><strong>{{'label.heading.customer.since' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.no.of.active.loans' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.total.outstanding.amount' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.total.emi.amount' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.disbursaldate' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.overdue.amount' | translate}}</strong></span>
-						</td>
-					</tr>
-					<tr ng-repeat="summary in activeLoan.summaries | orderBy:'-totalOutstandingAmount' track by $index" ng-init="summaryIndex = $index">
-						<td>
-							<span>{{(summaryIndex+1)}}</span>
-						</td>
-						<td>
-							<span>{{summary.lenderName}}</span>
-						</td>
-						<td>
-                            <span>{{summary.customerSince |DateFormat}}</span>
-                        </td>
-						<td>
-							<span>{{summary.noOfActiveLoans}}</span>
-						</td>
-						<td>
-							<span>{{summary.totalOutstandingAmount |number}}</span>
-						</td>
-						<td>
-							<span>{{summary.totalEMIAmount |number : 2}}</span>
-						</td>
-						<td>
-							<span>{{summary.disbursalDate |DateFormat}}</span>
-						</td>
-						<td>
-							<span>{{summary.totalOverDueAmount |number}}</span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span><strong>{{'label.heading.total' | translate}}</strong></span>
-						</td>
-						<td>
-							&nbsp;
-						</td>
-						<td>
-							&nbsp;
-						</td>
-						<td>
-							<span><strong>{{activeLoan.totalSummary.noOfActiveLoans}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{activeLoan.totalSummary.totalOutstandingAmount | number:0}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{activeLoan.totalSummary.totalEMIAmount | number:0}}</strong></span>
-						</td>
-						<td>
-							&nbsp;
-						</td>
-						<td>
-							<span><strong>{{activeLoan.totalSummary.totalOverDueAmount | number}}</strong></span>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="col-md-12">
-				<table class="table table-bordered table-striped" ng-if="closedLoan.summaries.length > 0">
-					<tr>
-						<td colspan="8">
-							<span class="boldlabel"><strong>Closed Loans Summary</strong></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span><strong>{{'label.heading.serialno' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.name.of.mfi' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.customer.since' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.no.of,closed.loans' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.total.disbursal.amount' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.last.closure.date' | translate}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{'label.heading.write.off.amount' | translate}}</strong></span>
-						</td>
-					</tr>
-					<tr ng-repeat="summary in closedLoan.summaries | orderBy:'lastClosureDate' :true track by $index" ng-init="summaryIndex = $index">
-						<td>
-							<span>{{(summaryIndex+1)}}</span>
-						</td>
-						<td>
-							<span>{{summary.lenderName}}</span>
-						</td>
-						<td>
-							<span>{{summary.customerSince |DateFormat}}</span>
-						</td>
-						<td>
-							<span>{{summary.noOfClosedLoans}}</span>
-						</td>
-						<td>
-							<span>{{summary.totalDisbursalAmount |number}}</span>
-						</td>
-						<td>
-							<span>{{summary.lastClosureDate |DateFormat}}</span>
-						</td>
-						<td>
-							<span>{{summary.totalWriteOffAmount |number}}</span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span><strong>{{'label.heading.total' | translate}}</strong></span>
-						</td>
-						<td>
-							&nbsp;
-						</td>
-						<td>
-							&nbsp;
-						</td>
-						<td>
-							<span><strong>{{closedLoan.totalSummary.noOfClosedLoans}}</strong></span>
-						</td>
-						<td>
-							<span><strong>{{closedLoan.totalSummary.totalDisbursalAmount | number}}</strong></span>
-						</td>
-						<td>
-							&nbsp;
-						</td>
-						<td>
-							<span><strong>{{closedLoan.totalSummary.totalWriteOffAmount | number}}</strong></span>
-						</td>
-					</tr>
-				</table>
-			</div>
-
 		</tab>
 	</tabset>
 	<div>
