@@ -79,6 +79,7 @@
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
+
                 if(scope.product.loanTenureFrequencyType){
                     scope.loanTenureFrequencyType = scope.product.loanTenureFrequencyType.id;
                 }
@@ -149,6 +150,7 @@
                     syncExpectedWithDisbursementDate: scope.product.syncExpectedWithDisbursementDate,
                     closeLoanOnOverpayment: scope.product.closeLoanOnOverpayment,
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
+                    minimumDaysBetweenApprovalAndDisbursement: scope.product.minimumDaysBetweenApprovalAndDisbursement,
                     minimumPeriodsBetweenDisbursalAndFirstRepayment: scope.product.minimumPeriodsBetweenDisbursalAndFirstRepayment,
                     minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType: scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
                     isMinDurationApplicableForAllDisbursements:scope.product.isMinDurationApplicableForAllDisbursements,
@@ -309,19 +311,41 @@
                         })
                     });
 
-                    _.each(scope.product.feeToIncomeAccountMappings, function (fees) {
-                        scope.specificIncomeAccountMapping.push({
-                            chargeId: fees.charge.id,
-                            incomeAccountId: fees.incomeAccount.id
-                        })
-                    });
+                   for(var count = 0; count < scope.product.feeToIncomeAccountMappings.length; count++) {
+                       if (scope.specificIncomeAccountMapping.length > 0) {
+                           for (var count1 = 0; count1 < scope.specificIncomeAccountMapping.length; count1++) {
+                                if(scope.product.feeToIncomeAccountMappings[count].charge.id == scope.specificIncomeAccountMapping[count1].chargeId){
+                                    scope.specificIncomeAccountMapping[count1].fundSourceAccountId = scope.product.feeToIncomeAccountMappings[count].incomeAccount.id;
+                                }
+                           }
+                        }else{
+                           scope.specificIncomeAccountMapping.push({
+                               chargeId: scope.product.feeToIncomeAccountMappings[count].charge.id,
+                               incomeAccountId: scope.product.feeToIncomeAccountMappings[count].incomeAccount.id
+                           })
+                       }
+                   }
 
-                    _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
+                    for(var count = 0; count < scope.product.penaltyToIncomeAccountMappings.length; count++) {
+                        if (scope.penaltySpecificIncomeaccounts.length > 0) {
+                            for (var count1 = 0; count1 < scope.penaltySpecificIncomeaccounts.length; count1++) {
+                                if(scope.product.penaltyToIncomeAccountMappings[count].charge.id == scope.penaltySpecificIncomeaccounts[count1].chargeId){
+                                    scope.penaltySpecificIncomeaccounts[count1].fundSourceAccountId = scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id;
+                                }
+                            }
+                        }else{
+                            scope.penaltySpecificIncomeaccounts.push({
+                                chargeId: scope.product.penaltyToIncomeAccountMappings[count].charge.id,
+                                incomeAccountId: scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id
+                            })
+                        }
+                    }
+                   /* _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
                         scope.penaltySpecificIncomeaccounts.push({
                             chargeId: penalty.charge.id,
                             incomeAccountId: penalty.incomeAccount.id
                         })
-                    });
+                    });*/
 
                     _.each(scope.product.writeOffReasonsToExpenseAccountMappings, function (codeValues) {
                         scope.codeValueSpecificAccountMappings.push({
@@ -414,7 +438,8 @@
             scope.mapFees = function () {
                 scope.specificIncomeAccountMapping.push({
                     chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
-                    incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : ''
+                    incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : '',
+                    fundSourceAccountId: scope.assetAccountOptions.length > 0 ? scope.assetAccountOptions[0].id : ''
                 });
             };
 
@@ -667,7 +692,8 @@
                 for (var i in scope.specificIncomeAccountMapping) {
                     temp = {
                         chargeId: scope.specificIncomeAccountMapping[i].chargeId,
-                        incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId
+                        incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId,
+                        fundSourceAccountId: scope.specificIncomeAccountMapping[i].fundSourceAccountId
                     }
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
@@ -676,7 +702,8 @@
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId
+                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
+                        fundSourceAccountId: scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId
                     }
                     scope.penaltyToIncomeAccountMappings.push(temp);
                 }

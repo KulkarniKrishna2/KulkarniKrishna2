@@ -3770,6 +3770,7 @@
     "validation.msg.loan.recalculationCompoundingFrequencyDate.is.not.equal.to.date":"Compounding date must be equal to disbursement date",
     "validation.msg.user.password.does.not.match.regexp":"{{params[2].value}}",
     "label.input.minimum.duration.between.disbursal.and.first.repayment":"Minimum duration between disbursal and first repayment date",
+    "label.input.minimum.days.between.approval.and.disbursement": "Minimum days between approval and disbursement",
     "label.input.minimum.days.between.disbursal.and.first.repayment":"Minimum days between disbursal and first repayment date",
     "label.input.minimum.period.between.disbursal.and.first.repayment":"Minimum period between disbursal and first repayment date",
     "label.input.holdguaranteefunds":"Place Guarantee Funds On-Hold?",
@@ -4540,6 +4541,8 @@
     "validation.msg.code.value.description.exceeds.max.length":"Description cannot be over {{params[0].value}} characters long..",
     "validation.msg.loan.update.disbursement.principal.sum.of.multi.disburse.amounts.must.be.equal.to.or.lesser.than.approved.principal": "Sum of multi disburse amounts must be less than or equal to approved principal",
     "error.msg.loan.days.between.first.repayment.and.disbursal.are.less.than.minimum.days.or.periods.allowed" : "Minimum days between disbursal and first repayment should be {{params[2].value}} ",
+    "error.msg.loan.application.approval.date.cannot.be.before.the.loan.min.approval.date" : "Approval Date Cannot be before {{params[0].value}}",
+    "error.msg.loan.application.disbursement.date.cannot.be.before.the.loan.min.disbursement.date" : "Disbursement Date Cannot be before {{params[0].value}}",
 
     "#------------------": "------------",
 
