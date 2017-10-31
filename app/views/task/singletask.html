@@ -59,7 +59,7 @@
             </div>
             <div class="row task-action">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.value)">{{action.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.actionType.value)">{{action.actionType.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </div>
 

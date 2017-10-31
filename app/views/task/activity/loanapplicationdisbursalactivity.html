@@ -695,6 +695,11 @@
                                         class="btn btn-primary" ng-if="formData.status.id === 300"
                                         ng-show="loanaccountinfo">{{'label.button.disburse' |translate}}
                                 </button>
+                                <button id="forceDisburse"  ng-click="forceDisburse()"
+                                        has-permission='FORCE_DISBURSE_LOANAPPLICATIONREFERENCE'
+                                        class="btn btn-primary" ng-if="formData.status.id === 300 && canForceDisburse"
+                                        ng-show="loanaccountinfo">{{'label.button.forcedisburse' |translate}}
+                                </button>
                             </div>
 
                         </div>

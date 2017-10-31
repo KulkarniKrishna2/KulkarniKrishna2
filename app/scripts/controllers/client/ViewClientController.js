@@ -40,6 +40,8 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder) {
                 scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
             }
+            scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+        
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -664,6 +666,10 @@
                 }
             };
 
+            scope.verify = function(){
+                location.path('/clientverificationdetails/'+scope.client.id);
+            };
+
             scope.dataTableChange = function (clientdatatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: clientdatatable.registeredTableName,
                     entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
@@ -904,6 +910,11 @@
 
             scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
                 resourceFactory.clientIdenfierResource.delete({clientId: clientId, id: entityId}, '', function (data) {
+                    if(scope.enableClientVerification){
+                           resourceFactory.clientResource.get({clientId: scope.formData.clientId, isFetchAdressDetails : true}, function (clientData) {
+                            scope.client.isVerified = clientData.isVerified; 
+                          }); 
+                    }
                     scope.identitydocuments.splice(index, 1);
                 });
             };
@@ -1331,6 +1342,7 @@
                     scope.client.isLocked = !scope.client.isLocked;
                 });
             };
+
         }
     });
 
