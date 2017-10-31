@@ -548,7 +548,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/config/ViewActionGroupController',
             'task/activity/CGTActivityController',
             'task/activity/groupLoanApprovalActivityController',
-            'task/activity/groupLoanDisbursalActivityController'
+            'task/activity/groupLoanDisbursalActivityController',
+            'task/config/AddWorkflowController',
+            'task/config/ViewWorkflowController',
+            'task/config/WorkflowsConfigController',
+            'task/config/AddWorkflowStepsController',
+            'task/config/ViewWorkflowStepController'
         ],
         filters: [
             'StatusLookup',

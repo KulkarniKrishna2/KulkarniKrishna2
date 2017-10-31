@@ -1,0 +1,54 @@
+   <div class="col-md-12" ng-controller="ViewWorkflowController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/workflowmanagement">{{'label.anchor.workflowmanagement' | translate}}</a></li>
+            <li><a href="#/workflows">{{'label.anchor.workflow' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewworkflow' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <div >
+         <a  class="btn btn-primary pull-right" 
+         data-ng-click="editWorkflow()" has-permission='UPDATE_TASK_CONFIG'>{{'label.button.edit'| translate}} </a>
+    </div>
+    <h3>{{'label.heading.viewworkflow' | translate}}</h3>
+    <hr>
+    <div class="table-response">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="pointer">{{'label.heading.workflowname' | translate}}</td>
+                    <td class="pointer">{{taskConfigData.name}}</td>
+                </tr>
+                <tr>
+                    <td class="pointer">{{'label.heading.shortname' | translate}}</td>
+                    <td class="pointer">{{taskConfigData.shortName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div >
+         <a  class="btn btn-primary pull-right" 
+            data-ng-click="addWorkflowSteps()" has-permission='ADD_TASK_CONFIG'>
+            {{'label.button.addsteps'| translate}} </a>
+    </div>
+    <h3>{{'label.heading.manageworkflow' | translate}}</h3>
+        <div class="table-response">
+        <table class="table table-striped">
+            <thead>
+                <th>{{'label.heading.workflowsteps' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
+                <th>{{'label.heading.activitytype' | translate}}</th>
+                <th>{{'label.heading.criteria' | translate}}</th>
+            </thead>
+            <tbody>
+                <tr class = "pointer" ng-repeat = "stepData in taskConfigStepsData" 
+                    ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">
+                    <td>{{stepData.name}}</td>
+                    <td>{{stepData.shortName}}</td>
+                    <td>{{stepData.taskActivityName}}</td>
+                    <td>{{stepData.criteriaName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>
