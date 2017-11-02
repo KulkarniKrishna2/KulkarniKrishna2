@@ -46,7 +46,7 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true}, function (data) {
+                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true, villageStatus:'active'}, function (data) {
                     scope.villages = data.villageOptions;
                 });
                 resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId }, function (data) {
