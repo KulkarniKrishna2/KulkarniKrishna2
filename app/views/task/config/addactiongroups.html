@@ -2,16 +2,18 @@
         <ul class="breadcrumb">
             <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
             <li><a href="#/workflowentitymappings">{{'label.anchor.workflowentitymapping' | translate}}</a></li>
+            <li><a href="#/displayactiongroups">{{'label.anchor.actiongroups' | translate}}</a></li>
             <li class="active">{{'label.heading.addactiongroups' | translate}}</li>
         </ul>
-    <form  name="addactiongroupsform" novalidate="" ng-submit="submit()" >
+    <form  name="addactiongroupsform" novalidate="" rc-submit="submit()" >
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.heading.addactiongroups' | translate}}</legend>
             <div class="form-group">
                 <label class="control-label col-sm-2" >{{'label.heading.actiongroupname' |translate}}<span class="required">*</span></label>
                 <div class="col-sm-2">
-                  <input id="actionGroupName" name="actionGroupName" ng-model="formData.actionGroupName" 
+                  <input id="actionGroupName" name="actionGroupName" 
+                    ng-model="formData.actionGroupName" 
                         class="form-control" required late-Validate />
                 </div>
                 <div class="col-sm-2">
@@ -23,9 +25,8 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" >{{'label.heading.actions' |translate}}</label>
                 <div class="col-sm-2">
-                   <select  id="actionType" name="actionType"
-                                                    ng-model="formData.actionType"
-                                                    class="form-control">
+                   <select  id="actionType" name="actionType" ng-model="formData.actionType" 
+                        class="form-control">
                         <option value="" default>-- Select one --</option>
                         <option ng-repeat="action in actions" value="{{action}}">{{action.value}}</option>
                    </select>
