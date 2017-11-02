@@ -6680,5 +6680,8 @@
     "label.button.forcedisburse" : "Force Disburse",
     "label.button.forcedisbursetosavings" : "Force Disburse To Savings",
     "label.anchor.forcedisburse" : "Force disburse",
+    "validation.msg.riskFactorConfiguration.expression.cannot.be.blank" : "Condition should not be blank",
+    "validation.msg.riskFactorConfiguration.value.cannot.be.blank" : "Value should not be blank",
+    "validation.msg.riskFactorConfiguration.nodes.cannot.be.empty" : "Please add atleast one condition",
     "------ end of tensalation file":"---------"
 }
