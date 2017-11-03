@@ -36,7 +36,7 @@
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination',
             'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
             'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json',
-            'ui-sortable': 'https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable'
+            'ui-sortable': '../bower_components/angular-ui-sortable/sortable'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },
