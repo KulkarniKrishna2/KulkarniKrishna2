@@ -2,7 +2,7 @@
     require.config({
         paths: {
             'jquery': '../bower_components/jquery/jquery.min',
-            'jquery-ui':'../bower_components/jquery-ui/jquery-ui',
+            'jquery-ui':'../bower_components/jquery-ui/jquery-ui.min',
             'angular': '../bower_components/angular/angular.min',
             'angular-resource': '../bower_components/angular-resource/angular-resource.min',
             'angular-route': '../bower_components/angular-route/angular-route.min',
@@ -36,7 +36,7 @@
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min',
 			'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
             'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json',
-            'ui-sortable': 'https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable'
+            'ui-sortable': '../bower_components/angular-ui-sortable/sortable.min'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'], exports: 'angular' },
