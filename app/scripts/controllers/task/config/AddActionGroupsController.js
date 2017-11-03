@@ -150,6 +150,9 @@
                     }
                     this.formData.actions.push({'actionType' : actionType, 'roles' : roles});
                 }
+                scope.errorDetails = [];
+                if(scope.formData.actions.length == 0)
+                     return scope.errorDetails.push([{code: 'error.msg.validation.add.roles'}]);
                 if(routeParams.actionGroupId){
                       resourceFactory.actionGroupsResource.update({actionGroupId:routeParams.actionGroupId},this.formData,function (data) {
                         location.path('/viewactiongroup/'+routeParams.actionGroupId)

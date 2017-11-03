@@ -5,7 +5,7 @@
              <li><a href="#/workflows">{{'label.anchor.workflow' | translate}}</a></li>
             <li class="active">{{'label.anchor.add.workflowsteps' | translate}}</li>
         </ul>
-    <form  name="addworkflowstepsform" novalidate="" ng-submit="submit()" >
+    <form  name="addworkflowstepsform" novalidate="" rc-submit="submit()" >
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.heading.add.workflowsteps' | translate}}</legend>
@@ -13,13 +13,13 @@
                 <label class="control-label col-sm-1" >{{'label.heading.activity' |translate}}
                     <span class="required">*</span></label>
                 <div class="col-sm-2">
-                   <select  id="activity" name="activity" ng-model="activityData"
-                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities">
+                   <select  id="activityData" name="activityData" ng-model="activityData"
+                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities" required late-Validate>
                         <option value="" default>-- Select one --</option>
                    </select>
                 </div>
                 <div class="col-sm-2">
-                   <form-validate valattributeform="addworkflowstepsform" valattribute="activity"/>
+                   <form-validate valattributeform="addworkflowstepsform" valattribute="activityData"/>
                 </div> 
                 <label class="control-label col-sm-2" >{{'label.heading.datatable.surveyid' |translate}}</label>
                 <div class="col-sm-2">
@@ -43,7 +43,7 @@
                         class="form-control" required late-Validate />
                 </div>
                 <div class="col-sm-2">
-                   <form-validate valattributeform="addworkflowform" valattribute="workflowName"/>
+                   <form-validate valattributeform="addworkflowstepsform" valattribute="workflowName"/>
                 </div>                              
             </div>
             <br/><br/>
@@ -55,7 +55,7 @@
                         class="form-control" required late-Validate />
                 </div>
                 <div class="col-sm-2">
-                   <form-validate valattributeform="addworkflowform" valattribute="shortName"/>
+                   <form-validate valattributeform="addworkflowstepsform" valattribute="shortName"/>
                 </div>                       
             </div>
             <br></br>
