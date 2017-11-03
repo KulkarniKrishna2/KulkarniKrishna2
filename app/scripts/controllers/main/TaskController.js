@@ -128,7 +128,13 @@
                 }
                 var searchConditions = {};
                 searchConditions.clientStatus = 100;
-                resourceFactory.clientLookupResource.get({searchConditions: searchConditions,officeId: this.officeId, staffId: staffId,groupId:this.groupId,centerId:this.centerId, clientStatus : searchConditions.clientStatus}, function (data) {
+                resourceFactory.clientLookupResource.get({
+                    sqlSearch : 'c.status_enum=100',
+                    officeId: this.officeId,
+                    staffId: staffId,
+                    groupId:this.groupId,
+                    centerId:this.centerId
+                }, function (data) {
                     scope.clientData = data;
                 });
             };
