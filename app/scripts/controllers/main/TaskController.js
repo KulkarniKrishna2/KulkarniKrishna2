@@ -126,7 +126,9 @@
                 if (this.centerId || this.groupId) {
                     staffId = undefined;
                 }
-                resourceFactory.clientLookupResource.get({sqlSearch: 'c.status_enum=100',officeId: this.officeId, staffId: staffId,groupId:this.groupId,centerId:this.centerId}, function (data) {
+                var searchConditions = {};
+                searchConditions.clientStatus = 100;
+                resourceFactory.clientLookupResource.get({searchConditions: searchConditions,officeId: this.officeId, staffId: staffId,groupId:this.groupId,centerId:this.centerId, clientStatus : searchConditions.clientStatus}, function (data) {
                     scope.clientData = data;
                 });
             };
@@ -147,7 +149,8 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId
+                        centerId: this.centerId,
+                        loanStatus : searchConditions.loanStatus
                     }, function (data) {
                         scope.loanApproveData = data;
                     });
@@ -176,7 +179,8 @@
                         staffId: staffId,
                         groupId: this.groupId,
                         centerId: this.centerId,
-                        paymentTypeId: this.paymentTypeId
+                        paymentTypeId: this.paymentTypeId,
+                        loanStatus : searchConditions.loanStatus
                     }, function (data) {
                         scope.loanDisburseData = data;
                     });
@@ -198,7 +202,8 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId
+                        centerId: this.centerId,
+                        rdAccountStatus : searchConditions.savingsAccountStatus
                     }, function (data) {
                         scope.rdapprovedata = data;
                     });
@@ -221,7 +226,8 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId
+                        centerId: this.centerId,
+                        rdAccountStatus : searchConditions.savingsAccountStatus
                     }, function (data) {
                         scope.rdactivatedata = data;
                     });
