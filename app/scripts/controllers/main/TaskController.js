@@ -155,8 +155,7 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId,
-                        loanStatus : searchConditions.loanStatus
+                        centerId: this.centerId
                     }, function (data) {
                         scope.loanApproveData = data;
                     });
@@ -185,8 +184,7 @@
                         staffId: staffId,
                         groupId: this.groupId,
                         centerId: this.centerId,
-                        paymentTypeId: this.paymentTypeId,
-                        loanStatus : searchConditions.loanStatus
+                        paymentTypeId: this.paymentTypeId
                     }, function (data) {
                         scope.loanDisburseData = data;
                     });
@@ -208,8 +206,7 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId,
-                        rdAccountStatus : searchConditions.savingsAccountStatus
+                        centerId: this.centerId
                     }, function (data) {
                         scope.rdapprovedata = data;
                     });
@@ -232,8 +229,7 @@
                         officeId: this.officeId,
                         staffId: staffId,
                         groupId: this.groupId,
-                        centerId: this.centerId,
-                        rdAccountStatus : searchConditions.savingsAccountStatus
+                        centerId: this.centerId
                     }, function (data) {
                         scope.rdactivatedata = data;
                     });
