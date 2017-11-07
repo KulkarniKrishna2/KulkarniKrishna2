@@ -82,7 +82,7 @@
         <div class="col-md-12">
             <div class="card-content no-h-padding">
                 <tabset class="paddedtop paddedbottom10" tabset-name="testOne">
-                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)"  active="taskType.active" >
+                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)"  ng-init="getWorkFlowTasks(taskType.status)" active="taskType.active" >
 
                         <tab-heading>
                             <i class="{{taskType.icon}}"></i> {{taskType.name | translate}}
