@@ -11,6 +11,8 @@
             scope.charges = [];
             scope.existingCharges = [];
             var curIndex = 0;
+            var SLAB_BASED = 'slabBasedCharge';
+            var UPFRONT_FEE = 'upfrontFee';
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.formData = applicationData;
@@ -46,6 +48,7 @@
                                     }
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
                                     scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
+                                    scope.charges[i].isAmountNonEditable = scope.loanAppChargeData[j].isAmountNonEditable;
                                 }
                             }
                         }
@@ -716,6 +719,14 @@
             scope.backToLoanDetails = function () {
                 scope.report = false;
             };
+
+            scope.isChargeAmountNonEditable = function (charge) {
+                if (charge.chargeTimeType.value == UPFRONT_FEE
+                    || charge.chargeCalculationType.value == SLAB_BASED || charge.isAmountNonEditable) {
+                    return true;
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('ApproveLoanApplicationReference', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.ApproveLoanApplicationReference]).run(function ($log) {
