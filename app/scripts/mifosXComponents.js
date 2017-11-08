@@ -12,6 +12,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
+            'PaginatorUsingOffset',
             'UIConfigService',
             'CommonUtilService'
         ],
@@ -526,7 +527,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'pdc/ViewPDCDetailController',
             'pdc/ManagePDCController',
             'pdc/ActionOnPDCController',
-            'task/showcase/VillageOnboardingWorkflowController',
+            'task/showcase/VillageOnboardingWorkflowController'
         ],
         filters: [
             'StatusLookup',
