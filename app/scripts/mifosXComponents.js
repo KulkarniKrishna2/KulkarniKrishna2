@@ -12,6 +12,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
+            'PaginatorUsingOffset',
             'UIConfigService',
             'CommonUtilService'
         ],

@@ -6,51 +6,125 @@
 
     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
     <div class="clearfix"></div>
-    <form ng-submit="search()" class="form-horizontal">
-        <div class="form-group">
-            <div class="col-md-4">
-                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterbynameaccno' | translate}}">
-            </div>
-            <div class="col-lg-6 col-md-4">
-                <div class="input-group">
-                    <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchByNameAccNo' | translate}}" class="form-control"/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary form-control">
-                            <span class="icon-search"></span>
+    <div class="form-horizontal">
+        <div ng-if="!isSearchData">
+            <form name="searchClientsForm">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.applicantname' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input placeholder="FIRST NAME" type="text" id="firstName" name="firstName" ng-model="searchConditions.firstName" class="form-control"/>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input placeholder="MIDDLE NAME" type="text" id="middleName" name="middleName" ng-model="searchConditions.middleName" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <input placeholder="LAST NAME" type="text" id="lastName" name="lastName" ng-model="searchConditions.lastName" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.mobilenumber' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <input placeholder="MOBILE NUMBER" type="text" id="mobileNo" name="mobileNo" ng-model="searchConditions.mobileNo"
+                                   ng-pattern="/^[0-9]+$/" class="form-control"/>
+                            <span ng-show="searchClientsForm.mobileNo.$invalid && searchClientsForm.mobileNo.$dirty">
+                                <small class="required" ng-show="searchClientsForm.mobileNo.$error.pattern">{{'label.mustbenumeric' | translate}}</small>
+                            </span>
+                        </div>
+
+                        <label class="control-label col-sm-2">{{'label.input.office' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <select chosen="officeOptions" id="officeId" ng-model="searchConditions.officeId"  class="form-control"
+                                    ng-options="office.id as office.name for office in officeOptions" value="{{office.id}}">
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.identitydocumenttype' | translate}}</label>
+                        <div class="col-sm-3">
+                            <select chosen="documentTypeOptions" id="documentTypeId" name="documentTypeId" ng-model="searchConditions.documentTypeId"
+                                    ng-options="documenttype.id as documenttype.name for documenttype in documentTypeOptions"
+                                    value="{{documenttype.id}}" class="form-control">
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2">{{'label.input.uniqueidentification' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <input placeholder="Identifier Id" id="documentNumber" type="text" name="documentNumber" ng-model="searchConditions.documentNumber" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-5">
+                        <button id="reset" type="button" data-ng-click="resetSearchData()" class="btn btn-primary">{{'label.button.reset'| translate}}</button>
+                        <button id="search" type="button" data-ng-click="searchData()" class="btn btn-primary"
+                                has-permission='READ_CLIENT'>{{'label.button.search'| translate}}
                         </button>
-                    </span>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div ng-if="isSearchData">
+            <div class="pull-left">
+                <div class="btn-group">
+                    <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.search' |
+                        translate}}
+                    </button>
                 </div>
             </div>
+            <div id="print">
+                <table class="table">
+                    <thead ng-if="clients.currentPageItems.length > 0">
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.clientno' | translate}}</th>
+                            <th>{{'label.heading.mobilenumber' | translate}}</th>
+                            <th>{{'label.heading.office' | translate}}</th>
+                            <th>{{'label.heading.status' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="clients.currentPageItems.length > 0" class="pointer-main" ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
+                        <td class="pointer" data-ng-click="routeTo(client.id)">
+                            <span ng-if = "!displayNameInReverseOrder">{{client.displayName}}</span>
+                            <span ng-if = "displayNameInReverseOrder" ng-init="reverseDisplayName(client)">{{client.displayNameInReverseOrder}}</span>
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)">{{client.mobileNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)">
+                            <i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
+                        </td>
+                    </tr>
+                    <tr ng-if="clients.isResponsePresent && clients.currentPageItems.length == 0">
+                        <td>
+                            <div class="alert alert-info col-sm-12" style="border-style: dashed;">
+                                <span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <ul class="pager">
+                    <li class="previous">
+                        <a id="prev" ng-click="clients.previous()" href=""
+                           ng-hide="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+                    </li>
+                    <li class="next">
+                        <a id="next" ng-click="clients.next()" href=""
+                           ng-hide="!clients.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+                </ul>
+            </div>
         </div>
-    </form>
-
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{'label.heading.name' | translate}}</th>
-            <th>{{'label.heading.clientno' | translate}}</th>
-            <th>{{'label.heading.clientexternalid' | translate}}</th>
-            <th>{{'label.heading.status' | translate}}</th>
-            <th>{{'label.heading.office' | translate}}</th>
-            <th>{{'label.heading.staff' | translate}}</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" total-items="totalClients">
-            <td class="pointer" data-ng-click="routeTo(client.id)" ng-if = "!displayNameInReverseOrder">{{client.displayName}}</td>
-            <td class="pointer" data-ng-click="routeTo(client.id)" ng-if = "displayNameInReverseOrder" ng-init="reverseDisplayName(client)">{{client.displayNameInReverseOrder}}</td>
-            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
-            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>
-            <td class="pointer" data-ng-click="routeTo(client.id)">
-                <i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
-                <small ng-if="client.subStatus.description">[{{client.subStatus.description}}]</small>
-            </td>
-            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
-            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
-        </tr>
-        </tbody>
-
-    </table>
-    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    </div>
 </div>
