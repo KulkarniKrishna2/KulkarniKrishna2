@@ -6684,5 +6684,9 @@
     "validation.msg.riskFactorConfiguration.expression.cannot.be.blank" : "Condition should not be blank",
     "validation.msg.riskFactorConfiguration.value.cannot.be.blank" : "Value should not be blank",
     "validation.msg.riskFactorConfiguration.nodes.cannot.be.empty" : "Please add atleast one condition",
+    
+    "label.checkbox.old.active.holidays": "Old active holidays",
+    "label.checkbox.show.deleted.holidays" : "Show deleted holidays",
+
     "------ end of tensalation file":"---------"
 }
