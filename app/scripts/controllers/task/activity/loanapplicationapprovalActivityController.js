@@ -277,6 +277,8 @@
                     scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
                     i++;
                 }
+
+
             };
 
             scope.rejectApprovalLoanAppRef = function () {
@@ -615,12 +617,22 @@
                 }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
+
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
-                    for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate, scope.df);
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].locale = scope.optlang.code;
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].dateFormat = scope.df;
+                    var length = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
+                    for (var i = 0; i < length; i++) {
+                        if(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate != undefined){
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate, scope.df);
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].locale = scope.optlang.code;
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].dateFormat = scope.df;
+                        }else {
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.splice(i, 1);
+                            length = length-1;
+                            i--;
+                        }
                     }
+                }else{
+                    delete scope.formRequestData.loanApplicationSanctionTrancheDatas;
                 }
                 if(scope.formRequestData.loanEMIPackData && _.isUndefined(scope.formRequestData.loanEMIPackId)){
                     scope.formRequestData.loanEMIPackId = scope.formRequestData.loanEMIPackData.id;
@@ -630,12 +642,13 @@
                 }
                 scope.submitData = {};
                 scope.submitData.formValidationData = {};
+                scope.submitData.formRequestData = {};
                 angular.copy(scope.formValidationData,scope.submitData.formValidationData);
                 if(scope.submitData.formValidationData.syncRepaymentsWithMeeting){
                     delete scope.submitData.formValidationData.syncRepaymentsWithMeeting;
                 }
                 scope.submitData.formValidationData = scope.formValidationData;
-                scope.submitData.formRequestData = scope.formRequestData;
+                angular.copy(scope.formRequestData,scope.submitData.formRequestData);
                 if (scope.charges.length > 0) {
                     scope.submitData.formRequestData.charges = [];
                     for (var i in scope.charges) {
@@ -655,9 +668,6 @@
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
                  */
-                if(scope.submitData.formRequestData.loanApplicationSanctionTrancheDatas){
-                    delete scope.submitData.formRequestData.loanApplicationSanctionTrancheDatas;
-                }
 
                 if(scope.submitData.formValidationData.disbursementData){
                     delete scope.submitData.formValidationData.disbursementData;
@@ -669,10 +679,6 @@
 
                 if(scope.submitData.formValidationData.loanOfficerId){
                     delete scope.submitData.formValidationData.loanOfficerId;
-                }
-
-                if(scope.submitData.formRequestData.loanApplicationSanctionTrancheDatas){
-                    delete scope.submitData.formRequestData.loanApplicationSanctionTrancheDatas;
                 }
 
                 if(scope.submitData.formRequestData.fixedEmiAmount){
