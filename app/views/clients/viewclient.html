@@ -351,7 +351,7 @@
 										<th>{{'label.heading.loan.amount.requested' | translate}}</th>
 										<th>{{'label.heading.loanproduct' | translate}}</th>
 										<th>{{'label.heading.type' | translate}}</th>
-										<th>{{'label.heading.actions' | translate}}</th>
+										<th ng-if="false">{{'label.heading.actions' | translate}}</th>
 									</tr>
 									<tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'id':true| filter:isLoanAppIncompleted">
 										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">
@@ -367,7 +367,7 @@
 										<td class="pointer center" ng-if="loanApp.accountType.value != 'Individual'" data-ng-click="routeToLoanApplication(loanApp)">
 											<i tooltip="{{loanApp.accountType.value}}" class="icon-group icon-large"></i><span ng-show="loanApp.isCoApplicant">*</span>
 										</td>
-										<td class="pointer center">
+										<td class="pointer center" ng-if="false">
 											<span ng-if="loanApp.workflowId == undefined">
 												<a tooltip="{{'label.button.request.approval' | translate}}" has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE' data-ng-click="requestApprovalLoanAppRef(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 100"
 													   ng-disabled="loanApp.isCreditBureauProduct">
