@@ -867,7 +867,28 @@
             </label>
         </div>
     </div>
-	<div class="form-group">
+		<div ng-show="formData.canDefineInstallmentAmount" class="form-group">
+			<label class="control-label col-sm-4">{{ 'label.input.cancrossmaturitydate' | translate }}</label>
+
+			<div class="col-sm-2">
+				<label class="checkbox control-label">
+					<input type="checkbox" ng-model="canCrossMaturityDateOnFixingEMI"
+						   checked="true"/>
+				</label>
+			</div>
+
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-4">{{ 'label.input.maxemiallowed' | translate }}</label>
+
+			<div class="col-sm-2">
+				<input type="text" id="maxInstalmentAmount" class="form-control"
+					   name="maxInstalmentAmount"
+					   ng-model="formData.maxInstalmentAmount"/>
+			</div>
+		</div>
+		<div class="form-group">
 		<label class="control-label col-sm-4">{{ 'label.input.adjustfirstinstallmentamount' | translate }}</label>
 
 		<div class="col-sm-2">
@@ -1228,12 +1249,26 @@
 
 		</div>
 	<div class="form-group" ng-show="formData.multiDisburseLoan">
-	    <label class="control-label col-sm-2">{{ 'label.input.maxtranchecount' | translate }}</label>
-	    <div class="col-sm-2">
-	        <input type="text" class="form-control" id="maxTrancheCount" name="maxTrancheCount"
-	               ng-model="formData.maxTrancheCount"/>
-	    </div>
-	    <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.outstandingloanbalance' | translate }}</label>
+
+		<label class="control-label col-sm-2">{{ 'label.input.islimittranche' | translate }}
+			<i class="icon-question-sign" tooltip="{{'label.tooltip.isMultiDisburseLoan' | translate}}"
+			   tooltip-append-to-body="true"></i>
+		</label>
+
+		<div class="checkbox col-sm-2">
+			<label>
+				<input type="checkbox" ng-model="isLimitTrnache"/>
+			</label>
+		</div>
+		<div ng-show="isLimitTrnache" class="col-sm-2">
+			<input ng-show="isLimitTrnache" type="text" class="form-control" id="maxTrancheCount" name="maxTrancheCount"
+				   ng-model="formData.maxTrancheCount"/>
+		</div>
+
+		<label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.outstandingloanbalance' | translate }}
+			<i class="icon-question-sign" tooltip="{{'label.tooltip.maxAllowedOutstandingBalance' | translate}}"
+			   tooltip-append-to-body="true"></i>
+		</label>
 	    <div class="col-sm-2">
 	        <input type="text" class="form-control" id="outstandingLoanBalance"
 	               name="outstandingLoanBalance" number-format ng-model="formData.outstandingLoanBalance"/>
@@ -1249,6 +1284,32 @@
 				<label>
 					<input type="checkbox" ng-model="formData.isEmiBasedOnDisbursements" />
 				</label>
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-show="formData.multiDisburseLoan">
+			<h4>{{ 'label.heading.loanaccountclosure' | translate }}</h4>
+
+			<div class="col-sm-4">
+				<div class="radio" ng-repeat="trancheLoanClosureType in trancheLoanClosureTypeOptions">
+					<label>
+						<input type="radio"  ng-model="formData.trancheLoanClosureType"
+							   ng-value="trancheLoanClosureType.id"> {{trancheLoanClosureType.code | translate}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group" ng-show="formData.multiDisburseLoan">
+			<h4>{{ 'label.heading.loandisbursementamountlimit' | translate }}</h4>
+
+			<div class="col-sm-4">
+				<div class="radio" ng-repeat="trancheAmountLimitType in trancheAmountLimitTypeOptions">
+					<label>
+						<input type="radio"  ng-model="formData.trancheAmountLimitType"
+							   ng-value="trancheAmountLimitType.id"> {{trancheAmountLimitType.code | translate}}
+					</label>
+				</div>
 			</div>
 		</div>
 		<h3>{{ 'label.heading.configurableAttributes' | translate }}</h3>

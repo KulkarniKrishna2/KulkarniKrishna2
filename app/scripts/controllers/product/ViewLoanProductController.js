@@ -8,6 +8,7 @@
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.isInterestRateListPerCycleNotAvailable = true;
+            scope.isLimitTrnache = false;
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.loanproduct = data;
@@ -21,6 +22,10 @@
                 }
                 if(data.accountingRule.id == 3){
                     scope.isPeriodicAccrualAccountingEnabled = true;
+                }
+
+                if(scope.loanproduct.multiDisburseLoan && scope.loanproduct.maxTrancheCount != undefined) {
+                        scope.isLimitTrnache = true;
                 }
                 if(scope.loanproduct.allowAttributeOverrides != null){
                     scope.amortization = scope.loanproduct.allowAttributeOverrides.amortizationType;

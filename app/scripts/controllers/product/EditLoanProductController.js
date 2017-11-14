@@ -29,6 +29,8 @@
             scope.loanTenureFrequencyType = -1;
             scope.configureInterestRatesChart = false;
             scope.interestRate = {};
+            scope.canCrossMaturityDateOnFixingEMI = true;
+            scope.isLimitTrnache = false;
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -85,6 +87,8 @@
                 }
                 if(scope.product.interestRatesListPerPeriod != undefined && scope.product.interestRatesListPerPeriod.length > 0)
                     scope.configureInterestRatesChart = true;
+                scope.trancheLoanClosureTypeOptions = scope.product.trancheLoanClosureTypeOptions;
+                scope.trancheAmountLimitTypeOptions = scope.product.trancheAmountLimitTypeOptions;
                 scope.formData = {
                     name: scope.product.name,
                     shortName: scope.product.shortName,
@@ -154,15 +158,27 @@
                     minimumPeriodsBetweenDisbursalAndFirstRepayment: scope.product.minimumPeriodsBetweenDisbursalAndFirstRepayment,
                     minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType: scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
                     isMinDurationApplicableForAllDisbursements:scope.product.isMinDurationApplicableForAllDisbursements,
-                    canDefineInstallmentAmount: scope.product.canDefineInstallmentAmount,
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
-                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred
                 };
                 if(scope.formData.applicableForLoanType == scope.INDIVIDUAL_CLIENT){
                     scope.formData.isEnableRestrictionForClientProfile = 'false';
+                }
+
+                if (scope.formData.canDefineInstallmentAmount) {
+                    scope.canCrossMaturityDateOnFixingEMI = scope.product.canCrossMaturityDateOnFixingEMI;
+                }
+                if(scope.product.maxInstalmentAmount != undefined) {
+                    scope.formData.maxInstalmentAmount = scope.product.maxInstalmentAmount;
+                }
+                if (scope.formData.multiDisburseLoan) {
+                    if (scope.formData.maxTrancheCount != undefined) {
+                        scope.isLimitTrnache = true;
+                    }
+                    scope.formData.trancheLoanClosureType = scope.product.trancheLoanClosureType.id;
+                    scope.formData.trancheAmountLimitType = scope.product.trancheAmountLimitType.id;
                 }
                 if(scope.product.loanProductEntityProfileMappingDatas && scope.product.loanProductEntityProfileMappingDatas[0]
                     && scope.product.loanProductEntityProfileMappingDatas[0].profileType && scope.product.loanProductEntityProfileMappingDatas[0].profileType.id){
@@ -178,6 +194,7 @@
                         scope.addProfileType();
                     };
                 };
+
 
                 if(scope.product.installmentCalculationPeriodType){
                     scope.formData.installmentCalculationPeriodType = scope.product.installmentCalculationPeriodType.id
@@ -669,7 +686,23 @@
                     this.formData.allowNegativeLoanBalance = false;
                     this.formData.considerFutureDisbursementsInSchedule = false;
                     this.formData.considerAllDisbursementsInSchedule = false;
+                    if(this.formData.maxTrancheCount != undefined){
+                        delete this.formData.maxTrancheCount;
+                    }
+                } else if (!scope.isLimitTrnache) {
+                    this.formData.maxTrancheCount = null;
                 }
+                if (this.formData.trancheLoanClosureType == undefined) {
+                    delete this.formData.trancheLoanClosureType;
+                }
+
+                if (this.formData.trancheAmountLimitType == undefined) {
+                    delete this.formData.trancheAmountLimitType;
+                }
+                if (this.formData.canDefineInstallmentAmount) {
+                    this.formData.canCrossMaturityDateOnFixingEMI = scope.canCrossMaturityDateOnFixingEMI;
+                }
+
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
