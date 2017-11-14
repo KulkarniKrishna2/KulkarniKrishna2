@@ -312,6 +312,14 @@
     <td>{{'label.input.candefineinstallmentamount' | translate}}</td>
     <td colspan="3">{{loanproduct.canDefineInstallmentAmount | YesOrNo}}</td>
 </tr>
+    <tr>
+        <td>{{'label.input.cancrossmaturitydate' | translate}}</td>
+        <td colspan="3">{{loanproduct.canCrossMaturityDateOnFixingEMI | YesOrNo}}</td>
+    </tr>
+    <tr>
+        <td>{{'label.input.maxemiallowed' | translate}}</td>
+        <td colspan="3">{{loanproduct.maxInstalmentAmount}}</td>
+    </tr>
 <tr>
     <td>{{'label.input.adjustfirstinstallmentamount' | translate}}</td>
     <td colspan="3">{{loanproduct.adjustFirstEMIAmount | YesOrNo}}</td>
@@ -474,6 +482,10 @@
     <td>{{'label.input.consideralldisbursementsinloanschedule' | translate}}</td>
     <td colspan="3">{{loanproduct.considerAllDisbursementsInSchedule}}</td>
 </tr>
+    <tr ng-show="loanproduct.multiDisburseLoan">
+        <td>{{'label.input.islimittranche' | translate}}</td>
+        <td colspan="3">{{isLimitTrnache | YesOrNo}}</td>
+    </tr>
 <tr ng-show="loanproduct.multiDisburseLoan">
     <td>{{'label.input.maxtranchecount' | translate}}</td>
     <td colspan="3">{{loanproduct.maxTrancheCount}}</td>
@@ -486,6 +498,15 @@
         <td>{{'label.input.enableemibaseddisbursements' | translate}}</td>
         <td colspan="3">{{loanproduct.isEmiBasedOnDisbursements}}</td>
     </tr>
+    <tr ng-show="loanproduct.multiDisburseLoan">
+        <td>{{'label.heading.loanaccountclosure' | translate}}</td>
+        <td colspan="3">{{loanproduct.trancheLoanClosureType.code | translate}}</td>
+    </tr>
+    <tr ng-show="loanproduct.multiDisburseLoan">
+        <td>{{'label.heading.loandisbursementamountlimit' | translate}}</td>
+        <td colspan="3">{{loanproduct.trancheAmountLimitType.code | translate}}</td>
+    </tr>
+
 <tr>
     <td colspan="4"><br/></td>
 </tr>

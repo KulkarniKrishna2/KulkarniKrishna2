@@ -31,6 +31,7 @@
             scope.repaymentFrequency = true;
             scope.transactionProcessingStrategy = true;
             scope.allowAttributeConfiguration = true;
+            scope.canCrossMaturityDateOnFixingEMI = true;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
             scope.minDurationType = [
@@ -101,6 +102,10 @@
                 scope.formData.isSubsidyApplicable = false;
                 scope.formData.loanTenureFrequencyType = scope.product.repaymentFrequencyType.id;
                 scope.formData.weeksInYearType = scope.product.weeksInYearTypeOptions[0].id;
+                scope.trancheLoanClosureTypeOptions = scope.product.trancheLoanClosureTypeOptions;
+                scope.trancheAmountLimitTypeOptions = scope.product.trancheAmountLimitTypeOptions;
+                scope.formData.trancheAmountLimitType = scope.trancheAmountLimitTypeOptions[0].id;
+                scope.formData.trancheLoanClosureType = scope.trancheLoanClosureTypeOptions[0].id;
             });
 
             scope.variableName = function(minDurationType){
@@ -603,6 +608,18 @@
             if (this.formData.minLoanTerm == null && this.formData.maxLoanTerm == null &&
                 this.formData.loanTenureFrequencyType != null) {
                 this.formData.loanTenureFrequencyType = null;
+            }
+
+            if(this.formData.trancheLoanClosureType == undefined){
+                delete this.formData.trancheLoanClosureType;
+            }
+
+            if(this.formData.trancheAmountLimitType == undefined){
+                delete this.formData.trancheAmountLimitType;
+            }
+
+            if(this.formData.canDefineInstallmentAmount){
+                this.formData.canCrossMaturityDateOnFixingEMI = scope.canCrossMaturityDateOnFixingEMI;
             }
 
             scope.formData.selectedProfileTypeValues = undefined;
