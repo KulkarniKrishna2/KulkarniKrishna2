@@ -328,22 +328,9 @@
                     entityType: scope.entityType,
                     entityId: scope.entityId
                 }, function (loansSummary) {
-                    scope.loansSummary = loansSummary;
-                    if (scope.loansSummary && scope.loansSummary.cbStatus) {
-                        scope.isResponPresent = true;
-                    }
-                    convertByteToString();
-                    resourceFactory.clientCreditSummary.getAll({
-                        clientId: scope.formData.clientId,
-                        loanApplicationId: scope.loanApplicationReferenceId,
-                        loanId: scope.loanId,
-                        trancheDisbursalId: scope.trancheDisbursalId
-                    }, function (data) {
-                        scope.isStalePeriodExceeded = false;
-                        scope.existingLoans = data.existingLoans;
-                        scope.creditScores = data.creditScores ;
-                        constructLoanSummary();
-                    });
+                    scope.isResponPresent = false;
+                    scope.isStalePeriodExceeded = false;
+                    getCreditBureauReportSummary();
                 });
             };
 

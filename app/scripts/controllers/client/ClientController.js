@@ -1,12 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ClientController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
-            scope.isSearchData = false;
-            resourceFactory.clientSearchTemplateResource.get(function (data) {
-                scope.officeOptions = data.officeOptions;
-                scope.documentTypeOptions = data.documentTypeOptions;
-            });
-
+            scope.isSearchData = true;
             scope.clientsPerPage = 15;
             /**
              * Get the record based on the offset limit
@@ -24,9 +19,15 @@
                 scope.clients = paginatorUsingOffsetService.paginate(fetchFunction, scope.clientsPerPage);
                 scope.isSearchData = true;
             };
-
+            scope.searchData();
             scope.back = function () {
                 scope.isSearchData = false;
+                if(_.isUndefined(scope.officeOptions)){
+                    resourceFactory.clientSearchTemplateResource.get(function (data) {
+                        scope.officeOptions = data.officeOptions;
+                        scope.documentTypeOptions = data.documentTypeOptions;
+                    });
+                }
             };
 
             scope.resetSearchData = function () {
