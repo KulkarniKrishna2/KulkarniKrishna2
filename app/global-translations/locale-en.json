@@ -6644,6 +6644,7 @@
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
+
     "label.input.searchtext" : "Search Text",
      "label.button.search" : "Search",
      "label.button.showclientimage" : "Show Client Image",
@@ -6687,6 +6688,8 @@
     "label.checkbox.old.active.holidays": "Old active holidays",
     "label.checkbox.show.deleted.holidays" : "Show deleted holidays",
     "label.message.no.data.found":"No data found!",
+
+    "error.msg.invalid.unique.id" : "Invalid Unique Id `{{params[0].value}}`",
 
     "------ end of tensalation file":"---------"
 }
