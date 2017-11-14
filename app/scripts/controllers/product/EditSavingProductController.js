@@ -92,7 +92,7 @@
                 scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
                 scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
                 if(data.accountingMappings.escheatLiabilityAccount){
-                scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount.id;
+                    scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount.id;
                 }
                 scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
                 scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
