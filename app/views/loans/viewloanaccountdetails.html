@@ -1391,7 +1391,7 @@
                             </div>
                         </div>
                     </tab>
-                    <tab heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables" has-permission='READ_{{loandatatable.registeredTableName}}'
+                    <tab heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables" has-permission='READ_{{datatable.registeredTableName}}'
                          select="dataTableChange(datatable)">
                         <div>
                             <div data-ng-show="choice" class="btn-group pull-right">
