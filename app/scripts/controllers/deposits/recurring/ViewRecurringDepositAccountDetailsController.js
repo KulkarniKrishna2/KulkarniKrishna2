@@ -239,6 +239,11 @@
                         {
                             name: "button.postInterest",
                             icon: "icon-table"
+                        },
+                        {
+                            name: "button.assignfieldofficer",
+                            icon: "icon-user",
+                            taskPermissionName: 'UPDATESTAFF_SAVINGSACCOUNT'
                         }
                     ],
                         options: [
