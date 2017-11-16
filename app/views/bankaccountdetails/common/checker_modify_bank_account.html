@@ -70,13 +70,15 @@
 
                             <div class="col-sm-4">
                                 <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
-                                       type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
+                                       minlength="11" maxlength="11" ng-pattern="/^[a-zA-Z0-9]*$/" type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
                             </div>
                             <div class="col-sm-2">
-
-                     <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
-                <small class="required">
-                    {{'label.mismatch.ifsc.number' | translate}}</small></span>
+                                <span ng-show="checkerbankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
+                                    <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
+                                 </span>
+                                 <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
+                                    <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
+                                 </span>
                                 <form-validate code="checkerbankaccountdetail" valattribute="bankIFSCCodeRepeat"/>
                             </div>
                         </div>
@@ -86,12 +88,12 @@
 
                             <div class="col-sm-4">
                                 <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                                       type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
+                                       minlength="11" maxlength="11" ng-pattern="/^[a-zA-Z0-9]*$/" type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
                             </div>
                             <div class="col-sm-2">
-                    <span ng-show="checkerbankaccountdetail.bankIFSCCode.$invalid && checkerbankaccountdetail.bankIFSCCode.$dirty">
-                <small class="required" ng-show="checkerbankaccountdetail.bankIFSCCode.$error.pattern">
-                    {{'inavalid.ifsc.format' | translate}}</small></span>
+                                <span ng-show="checkerbankaccountdetail.bankIFSCCode.$invalid && checkerbankaccountdetail.bankIFSCCode.$dirty">
+                                    <small class="required" ng-show="checkerbankaccountdetail.bankIFSCCode.$error.pattern">{{'inavalid.ifsc.format' | translate}}</small>
+                                </span>
                                 <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankIFSCCode"/>
                             </div>
                         </div>
