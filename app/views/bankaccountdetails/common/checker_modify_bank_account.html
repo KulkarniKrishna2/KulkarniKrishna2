@@ -173,6 +173,29 @@
                                 <form-validate valattributeform="checkerbankaccountdetail" valattribute="lastTransactionDate"/>
                             </div>
                         </div>
+                        <div ng-if="bankAccountDocuments.length>0" class="form-group">
+                            <label class="control-label col-sm-5" >{{'label.input.attachments' | translate}}</label>   
+                            <table class="table width50" >
+                                <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.name' | translate}}</th>
+                                    <th>{{'label.heading.filename' | translate}}</th>  
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="document in bankAccountDocuments">
+                                        <td>{{document.name}}</td>
+                                        <td>
+                                            <span>
+                                                {{document.fileName}}&nbsp;
+                                                <a target="_blank" data-ng-click="viewDocument(document)"><i
+                                                   class="icon-eye-open text-success"></i></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>    
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">

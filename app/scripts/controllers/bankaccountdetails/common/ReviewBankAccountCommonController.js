@@ -15,6 +15,7 @@
             scope.repeatFormData = {};
             scope.bankAccountTypeOptions = [];
             scope.deFaultBankName = null;
+            scope.bankAccountDocuments= [];
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -48,14 +49,14 @@
                         }
                     }
 
-
-                    if(!_.isUndefined(data.documentId)){
-                        $http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
-                        }).then(function (docsData) {
-                            scope.documentImg = $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        });
+                    if(!_.isUndefined(data.bankAccountDocuments)){
+                        scope.bankAccountDocuments = data.bankAccountDocuments;
+                        for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
+                            var docs = {};
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            scope.bankAccountDocuments[i].docUrl = docs;
+                        }
+                        scope.documentImg =  scope.bankAccountDocuments[0].docUrl;
                     }
 
                 });
@@ -189,6 +190,9 @@
             };
 
             init();
+            scope.viewDocument = function(document){
+                scope.documentImg = document.docUrl;
+            }
 
         }
     });
