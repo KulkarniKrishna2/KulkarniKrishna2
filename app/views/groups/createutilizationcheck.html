@@ -82,7 +82,8 @@
                                             data-placeholder="{{'label.input.selectloanpurpose' | translate}}"
                                             value="{{loanPurposeOption.id}}"
                                             required late-validate
-                                            data-ng-change="checkLoanPurpose(parentIndex,$index)" style="width: auto">
+                                            data-ng-change="checkLoanPurpose(parentIndex,$index)" style="width: auto"
+                                            ng-init="checkLoanPurpose(parentIndex,$index)">
                                         <option value=""></option>
                                     </select>
                                 </ng-form>
