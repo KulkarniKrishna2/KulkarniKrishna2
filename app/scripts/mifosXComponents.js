@@ -538,7 +538,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/showcase/DistrictOnboardingWorkflowController',
             'districts/DistrictController',
             'fileprocess/FileProcessController',
-            'fileprocess/UploadFileProcessController'
+            'fileprocess/UploadFileProcessController',
+            'fileprocess/UploadBulkBankAccountVerificationFileProcessController',
+            'fileprocess/BulkBankAccountVerificationFileProcessController'
         ],
         filters: [
             'StatusLookup',

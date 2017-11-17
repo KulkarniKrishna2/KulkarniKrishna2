@@ -1620,6 +1620,12 @@
             .when('/run_overdue_charges',{
                 templateUrl: 'views/organization/overduecharge.html'
             })
+            .when('/bulkbankaccountverification',{
+                templateUrl: 'views/fileprocess/bulkbankaccountverification.html'
+            })
+            .when('/uploadbulkbankaccountverificationfileprocess',{
+                templateUrl: 'views/fileprocess/uploadbulkbankaccountverificationfileprocess.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
