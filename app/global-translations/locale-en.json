@@ -6568,5 +6568,8 @@
     "label.input.requested.amount": "Requested Amount",
     "label.input.marital.status" : "Marital Status",
     "label.menu.marital.status" : "Select Marital status",
+    "label.anchor.bulk.bav" : "Bulk Bank Account Verification",
+    "label.perform.bulk.bav" : "Perform bulk bank account verification",
+    
     "------ end of tensalation file":"---------"
 }

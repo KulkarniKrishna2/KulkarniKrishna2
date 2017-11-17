@@ -1,0 +1,45 @@
+<div class="col-md-12" ng-controller="BulkBankAccountVerificationFileProcessController">
+    <ul class="breadcrumb">
+        <li>{{'label.anchor.admin' | translate}}</li>
+        <li><a href="#/bulkoperations">{{'label.anchor.bulkoperations' | translate}}</a></li>
+        <li class="active">{{'label.anchor.bulk.bav' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <a href="#/uploadbulkbankaccountverificationfileprocess" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <input ng-autofocus="true" ng-model="filterText" type="text" class="span form-control" placeholder="{{'label.input.filterbyfilenameorstatus' | translate}}">
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.filename' | translate}}</th>
+            <th>{{'label.heading.status' | translate}}</th>
+            <th>{{'label.heading.pendingrecords' | translate}}</th>
+            <th>{{'label.heading.successedrecords' | translate}}</th>
+            <th>{{'label.heading.failedrecords' | translate}}</th>
+            <th>{{'label.heading.totalrecords' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="pointer-main" ng-if="fileProcess.fileProcessType.id == 3" ng-repeat="fileProcess in fileProcesses | filter:filterText ">
+            <td>{{fileProcess.fileName}}</td>
+            <td>{{fileProcess.status.value}}</td>
+            <td>{{fileProcess.totalPendingRecords}}</td>
+            <td>{{fileProcess.totalSuccessRecords}}</td>
+            <td>{{fileProcess.totalFailureRecords}}</td>
+            <td>{{fileProcess.totalRecords}}</td>
+            <td>
+                <a target="_blank" href="{{hostUrl}}{{fileProcess.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
+                <a ng-click="fetchUpdatedData(fileProcess)"><i class="icon-refresh"></i></a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div ng-if="false">
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    </div>
+</div>
