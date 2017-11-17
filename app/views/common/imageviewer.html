@@ -1,0 +1,15 @@
+
+
+<div id="image-zoom">
+    <h2 class="text-center text-danger" id="error-message" style="border:1px solid #000;display:none;">Image Not Available</h2>
+    <canvas id="canvas" height="400" data-girar="0" style="border:1px solid #000;z-index:555555;cursor:grab;">sdsd</canvas>
+    <img ng-src="{{image}}" id="image" style="display:none" />
+</div>
+<div class="pull-right">
+    <button id="girardir" class="btn btn-default btn-sm" ng-disabled="noImage"><i class="icon-rotate-left icon-large"></i><span class="glyphicon glyphicon-menu-left"> </span></button>
+    <button id="giraresq" class="btn btn-default btn-sm" ng-disabled="noImage"><i class="icon-rotate-right icon-large"></i> <span class="glyphicon glyphicon-menu-right"> </span></button>
+    <button id="zoomIn" class="btn btn-default btn-sm" ng-disabled="noImage"><i class="icon-zoom-in icon-large"> </i></button>
+    <button id="zoomOut" class="btn btn-default btn-sm" ng-disabled="noImage"><i class="icon-zoom-out icon-large"> </i></button>
+    <button id="carregar" class="btn btn-warning btn-sm" ng-disabled="noImage">Reset</button>
+</div>
+<div class="clearfix"></div>

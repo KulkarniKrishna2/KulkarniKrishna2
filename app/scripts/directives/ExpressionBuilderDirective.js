@@ -70,7 +70,7 @@
                                 });
                                 scope.filterfieldsmap[item.uname] = item;
                             });
-                        }
+                        };
 
 
                         scope.addNewCondition = function () {

@@ -580,6 +580,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuditLogDirevtive',
             'TabsPersistenceDirective',
             'ExpressionBuilderDirective',
+            'ImageViewerDirective',
             'ViewDocumentDirective'
         ]
     };
