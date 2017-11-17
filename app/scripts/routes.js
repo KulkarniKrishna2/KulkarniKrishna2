@@ -1681,7 +1681,13 @@
                 templateUrl: 'views/creditbureau/viewcreditbureaureport.html'
             })
             .when('/clientverificationdetails/:clientId', {
-                templateUrl: 'views/clients/clientverificationdetails.html' 
+                templateUrl: 'views/clients/clientverificationdetails.html'
+            })
+            .when('/bulkbankaccountverification',{
+                templateUrl: 'views/fileprocess/bulkbankaccountverification.html'
+            })
+            .when('/uploadbulkbankaccountverificationfileprocess',{
+                templateUrl: 'views/fileprocess/uploadbulkbankaccountverificationfileprocess.html'
             })
         $locationProvider.html5Mode(false);
     };

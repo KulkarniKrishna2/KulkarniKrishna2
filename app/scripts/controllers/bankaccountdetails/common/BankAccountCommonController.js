@@ -16,7 +16,7 @@
             scope.deFaultBankName = null;
             scope.fileError=false;
             scope.addPicture=true;
-
+            scope.bankAccountDocuments = [];
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -39,7 +39,7 @@
             }
 
             function populateDetails(){
-                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
+                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {     
                     scope.externalservices = data.externalServiceOptions;
                     scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                     scope.formData = {
@@ -81,21 +81,21 @@
                     }else{
                         disableShowSummary();
                     }
-                    if(!_.isUndefined(data.documentId)){
-                        $http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/'+getEntityType()+'/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
-                        }).then(function (docsData) {
-                            scope.bankAccountData.documentImg = $rootScope.hostUrl + API_VERSION + '/'+getEntityType()+'/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                            scope.addPicture=false;
-                        });
-                    }
 
+                    scope.bankAccountDocuments = data.bankAccountDocuments || [];
+                        for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
+                            var docs = {};
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            scope.bankAccountDocuments[i].docUrl = docs;   
+                        }
                 });
             }
 
             scope.submit = function () {
-                scope.setTaskActionExecutionError(null);
+                if(underTask()){
+                    scope.setTaskActionExecutionError(null);
+                }
+               
                 if(!isFormValid()){
                     return false;
                 }
@@ -106,17 +106,7 @@
                 scope.formData.locale=scope.optlang.code;
                 scope.formData.dateFormat=scope.df;
                 scope.formData.lastTransactionDate=dateFilter(scope.formData.lastTransactionDate, scope.df);
-                if(!_.isUndefined(scope.docFile)){
-                    submitAccountDocuments(function (documentId){
-                        if(documentId != undefined){
-                            scope.formData.documentId = documentId;
-                            }
-                            submitData();
-                        });
-                }
-                else{
-                    submitData();
-                }
+                submitData();
             };
 
             function submitData(){
@@ -159,23 +149,17 @@
             };
 
             scope.update = function () {
-                scope.setTaskActionExecutionError(null);
+                if(underTask()){
+                    scope.setTaskActionExecutionError(null);
+                }
+               
                 if(!isFormValid()){
                     return false;
                 }
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat=scope.df;
                 scope.formData.lastTransactionDate=dateFilter(scope.formData.lastTransactionDate, scope.df);
-                if(!_.isUndefined(scope.docFile)){
-                    submitAccountDocuments(function (documentId){
-                        if(documentId != undefined){
-                            scope.formData.documentId = documentId;
-                            }
-                            updateData();
-                        });
-                }else{
-                    updateData();
-                }
+                updateData(); 
             };
             
             function updateData()
@@ -186,7 +170,6 @@
             }
 
             var submitAccountDocuments = function (postComplete) {
-                scope.docData = {name:scope.formData.accountNumber}
                 $upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/'+getEntityType()+'/' + getEntityId() + '/documents',
                     data: scope.docData,
@@ -285,6 +268,86 @@
 
             init();
 
+            scope.uploadDocument = function () {
+                $modal.open({
+                    templateUrl: 'uploadDocument.html',
+                    controller: uploadDocumentCtrl
+                });
+            };
+
+            var uploadDocumentCtrl = function ($scope, $modalInstance) {
+                $scope.data = {
+                    documentName:""
+                };
+
+                $scope.onFileSelect = function ($files) {
+                    scope.docFile = $files[0];
+                };
+
+                $scope.upload = function () {
+                    if(!$scope.data.documentName){
+                        return false;
+                    }
+
+                    scope.docData = {name:$scope.data.documentName} ;
+                    if (scope.docFile) {
+                        submitAccountDocuments(function (documentId){
+                        if(documentId != undefined){
+                            scope.formData.documents = [];       
+                            for(var j in scope.bankAccountDocuments){
+                                scope.formData.documents.push(scope.bankAccountDocuments[j].id);
+                            }
+                            scope.formData.documents.push(documentId);
+                        }
+                        scope.formData.locale = scope.optlang.code;
+                        scope.formData.dateFormat = scope.df;
+                        scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
+                        updateData();
+                        });
+                        $modalInstance.close('upload');
+                    }
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+
+            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+                $scope.data = documentDetail;
+                $scope.data.parentEntityId = getEntityId();
+                $scope.data.parentEntityType = getEntityType();
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };   
+            };
+
+            scope.viewDocument = function (documentDetail) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
+                });
+            };
+
+            scope.deleteDocument = function (documentId){
+                scope.formData.locale = scope.optlang.code;
+                scope.formData.dateFormat=scope.df;
+                scope.formData.lastTransactionDate=dateFilter(scope.formData.lastTransactionDate, scope.df);
+                scope.formData.documents = []; 
+                for(var i in scope.bankAccountDocuments){
+                    scope.formData.documents.push(scope.bankAccountDocuments[i].id);
+                }
+                if(documentId){
+                    scope.formData.documents.splice( scope.formData.documents.indexOf(documentId),1);
+                }
+                updateData();       
+            };
         }
     });
     mifosX.ng.application.controller('BankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http',mifosX.controllers.BankAccountCommonController]).run(function ($log) {

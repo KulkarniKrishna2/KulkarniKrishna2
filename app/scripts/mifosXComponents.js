@@ -560,6 +560,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientVerificationCommonController',
             'client/ClientVerificationDetailsController',
             'client/ClientVerificationActivityController'
+            'fileprocess/UploadBulkBankAccountVerificationFileProcessController',
+            'fileprocess/BulkBankAccountVerificationFileProcessController'
         ],
         filters: [
             'StatusLookup',

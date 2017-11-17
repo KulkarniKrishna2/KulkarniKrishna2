@@ -44,17 +44,67 @@
             <span><b>{{'label.input.last.transaction.date' | translate}}:&nbsp;</b></span>
             <span>{{bankAccountData.lastTransactionDate | DateFormat}}</span>
         </div>
-                </div>
-            </div>
-        <div class="col-md-6">
-            <img ng-src="{{bankAccountData.documentImg}}" width="400"/>
+        <div ng-if="bankAccountDocuments.length>0">
+            <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>      
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.filename' | translate}}</th>
+                        <th ng-if="editable()">{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="document in bankAccountDocuments">
+                        <td>{{document.name}}</td>
+                        <td><span>{{document.fileName}}&nbsp;
+                            <a target="_blank" data-ng-click="viewDocument(document)"><i
+                                       class="icon-eye-open text-success"></i></a></span>
+                        </td>
+                        <td ng-if="editable()">
+                            <a ng-show="document.id" ng-click="deleteDocument(document.id)" has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>    
         </div>
-
     </div>
-    <div class="col-md-offset-2 paddedleft paddedtop">
+    </div>
+        
+    </div>
+    <div class="col-md-offset-2 paddedleft paddedtop" >
+        <a id="attachDocument" ng-if="editable()" ng-click="uploadDocument()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.attach.document' | translate}}</a>
         <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
         <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
         <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
     </div>
+    <div>
+        <script type="text/ng-template" id="viewDocument.html">
+            <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+                <img ng-src="{{data.docUrl}}" width="600" height="400" />
+            </div>
+        </script>
 
+        <script type="text/ng-template" id="uploadDocument.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.attach.documents' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
+                <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input ng-autofocus="true" type="text" id="name" name="name" ng-model="data.documentName" class="form-control" required late-Validate/>
+                </div>
+                <input type="file" ng-file-select="onFileSelect($files)">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+        </div>
+        </script>
+    </div>
 </div>
