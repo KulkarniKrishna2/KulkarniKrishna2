@@ -132,6 +132,29 @@
 			</div>
 
 			<div class="form-group">
+	        	<div data-ng-switch on="showNonPersonOptions">
+		        	<div data-ng-switch-when="false">
+	                	<label class="control-label col-sm-2" >{{'label.input.marital.status' | translate}}<span  class="required">*</span></label>
+
+	                	<div class="col-sm-3">
+							<select id="maritalStatusId" name = "maritalStatusId" ng-model="formData.maritalStatusId"  class="form-control"
+							ng-options="maritalStatus.id as maritalStatus.name for maritalStatus in maritalStatusOptions" value="{{maritalStatus.id}}" required late-Validate>
+									<option value="">{{'label.menu.marital.status' | translate}}</option>
+							</select>
+							<form-validate valattributeform="editclientform" valattribute="maritalStatusId"/>
+						</div>
+					</div>
+				</div>
+				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:
+					<span ng-show="isExternalIdMandatory" class="required">*</span></label>
+				<div class="col-sm-3">
+					<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
+						ng-required = "isExternalIdMandatory"/>
+						<form-validate valattributeform="editclientform" valattribute="external"/>
+				</div>		
+        	</div>
+
+			<div class="form-group">
 				<label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
 
 				<div class="col-sm-3">
@@ -242,21 +265,7 @@
 					type="email" ng-required="isEmailIdMandatory" class="form-control"/>
 					<form-validate valattributeform="editclientform" valattribute="email"/>
 	            </div>
-
-				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:
-					<span ng-show="isExternalIdMandatory" class="required">*</span></label>
-
-				<div class="col-sm-3">
-					<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" 
-						ng-required = "isExternalIdMandatory"/>
-						<form-validate valattributeform="editclientform" valattribute="external"/>
-				</div>
 	        </div>
-
-
-
-
-
 
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:<span
@@ -266,21 +275,19 @@
                     <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.submittedOnDate" is-open="opened1" max="restrictDate"  class="form-control"/>
                 </div>
+                <div data-ng-switch on="choice">
+		            <div data-ng-switch-when="1">
+		                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}:<span
+		                        class="required">*</span></label>
+		
+		                <div class="col-sm-3">
+		                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy"
+		                           ng-model="date.activationDate" is-open="opened" min="'2000-01-01'"
+		                           max="restrictDate"  class="form-control"/>
+		                </div>
+		            </div>
+	        	</div>
             </div>
-
-	        <div data-ng-switch on="choice">
-	            <div class="form-group" data-ng-switch-when="1">
-	                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}:<span
-	                        class="required">*</span></label>
-	
-	                <div class="col-sm-3">
-	                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy"
-	                           ng-model="date.activationDate" is-open="opened" min="'2000-01-01'"
-	                           max="restrictDate"  class="form-control"/>
-	                </div>
-
-	            </div>
-	        </div>
 
 	        <div class="form-group" ng-show="showSavingOptions">
 	            <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
