@@ -6546,5 +6546,8 @@
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
     "error.msg.invalid.unique.id" : "Invalid Unique Id `{{params[0].value}}`",
 
+    "label.heading.attach.documents":"Attach Documents",
+    "label.button.attach.document":"Attach Document",
+
     "------ end of tensalation file":"---------"
 }
