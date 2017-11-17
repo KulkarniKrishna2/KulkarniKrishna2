@@ -34,8 +34,8 @@
                 <div class="col-sm-3">
                     <select id="enquiryLoanProductId" name="enquiryLoanProductId" ng-model="formData.enquiryLoanProductId"
                             class="form-control"
-                            ng-options="lp.id as lp.name for lp in template.loanProductOptions"
-                            value="{{lp.id}}"
+                            ng-options="lp.loanProductId as lp.loanProductName for lp in template.loanProductOptions | filter:{creditBureauData:{creditBureauId:formData.creditbureauProductId}}"
+                            value="{{lp.loanProductId}}"
                             required late-validate="">
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
