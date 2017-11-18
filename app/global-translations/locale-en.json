@@ -739,6 +739,9 @@
     "label.button.disburse": "Disburse",
     "label.button.disburse.tranche": "Disburse Tranche",
     "label.button.disburse.tranche.creditbureaureport": "Disburse Tranche",
+    "label.button.force.disburse.tranche.creditbureaureport": "Force Disburse Tranche",
+    "label.button.disburse.creditbureaureport": "Disburse",
+    "label.button.force.disburse.creditbureaureport": "Force Disburse",
     "label.button.offices": "Offices",
     "label.button.loanofficers": "Loan Officers",
     "label.button.centers": "Centers",
@@ -2281,7 +2284,7 @@
     "error.msg.cannot.modify.tranches.if.loan.is.pendingapproval.closed.overpaid.writtenoff" : "Disbursement details cannot be modified if the loan account is Pending approval/Closed/Overpaid/WrittenOff",
     "error.msg.loan.repayment.or.waiver.cannot.be.made.before.last.transaction.date":"Payment can not be before last transaction date",
     "error.msg.loan.prepayment.cannot.be.made.before.dues.cleared":"Prepay allowed only after dues cleared",
-    "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanging pricipal",
+    "error.msg.loan.prepayment.cannot.be.more.than.principal.due":"Prepayment is not allowed more than outstanding principal",
     "validation.msg.rescheduleloan.newInstallmentAmount.not.supported":"Reschedule of installment amount for this account is not supported",
     "error.msg.loan.expecteddisbursal.should.be.on.or.after.approval.date" : "Expected disbursal should be on or after approval date",
     "validation.msg.loan.linkAccountId.cannot.be.blank":"Savings account must be provided",
@@ -6701,5 +6704,10 @@
 
     "error.msg.invalid.unique.id" : "Invalid Unique Id `{{params[0].value}}`",
 
+    "validation.msg.loanapplicationreference.trancheAmount.cannot.be.blank" : "Tranche amount cannot be blank",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.cannot.be.blank" : "Expected tranche disbursement date cannot be blank",
+
+
+    
     "------ end of tensalation file":"---------"
 }

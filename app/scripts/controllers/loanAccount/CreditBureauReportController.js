@@ -22,6 +22,17 @@
             function getLoanApplicationData() {
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                     scope.formData = data;
+                    if(scope.formData.loanId){
+                        resourceFactory.LoanAccountResource.getLoanAccountDetails({
+                            loanId: scope.formData.loanId,
+                            associations: 'all,hierarchyLookup',
+                            exclude: 'guarantors'
+                        }, function (loandetails) {
+                            if(loandetails.status.id == 200){
+                                scope.loandetails = loandetails;
+                            }
+                        });
+                    }
                     scope.isStalePeriodExceeded = data.isStalePeriodExceeded;
                     scope.loanProductChange(scope.formData.loanProductId);
                     getCreditbureauLoanProductData(scope.formData.loanProductId);
@@ -31,18 +42,18 @@
             function getLoanData() {
                 resourceFactory.LoanAccountResource.getLoanAccountDetails({
                     loanId: scope.loanId,
-                    associations: 'all',
+                    associations: 'all,hierarchyLookup',
                     exclude: 'guarantors'
                 }, function (data) {
                     scope.loandetails = data;
-                    scope.formData = scope.loandetails;
+                    scope.formData = data;
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                     }
                     if (data.group) {
                         scope.groupName = data.group.name;
                     }
-                    getCreditbureauLoanProductData(scope.loandetails.loanProductId);
+                    getCreditbureauLoanProductData(data.loanProductId);
                 });
             };
 
@@ -373,8 +384,22 @@
             };
 
             scope.proceedToNext = function () {
-                if (scope.loanId) {
-                    location.path('/loanaccount/' + scope.loanId + '/disburse');
+                if (scope.loandetails && (scope.loanId || scope.formData.loanId)) {
+                    scope.canForceDisburse = false;
+                    if(_.isUndefined(scope.loanId) && scope.loandetails.status.id == 200){
+                        scope.loanId = scope.formData.loanId;
+                        scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+                        if(scope.enableClientVerification && scope.loandetails.clientData && !scope.loandetails.clientData.isVerified){
+                            scope.canForceDisburse = true;
+                        }
+                    }
+                    if (!_.isUndefined(scope.loandetails.flatInterestRate) && scope.loandetails.flatInterestRate != null) {
+                        location.path('/loanaccount/' + scope.loanId + '/disburse/type/flatinterest');
+                    }else if(scope.canForceDisburse) {
+                        location.path('/loanaccount/' + scope.loanId + '/forcedisburse');
+                    }else {
+                        location.path('/loanaccount/' + scope.loanId + '/disburse');
+                    }
                 } else {
                     resourceFactory.loanApplicationReferencesResource.update({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,
