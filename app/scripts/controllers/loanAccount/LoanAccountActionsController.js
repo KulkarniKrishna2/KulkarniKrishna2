@@ -316,7 +316,7 @@
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
                         scope.createClientMembersForGLIM();
                     });
-                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.accountId, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.clientId = data.clientId;
                         scope.isFlatInterestRate = data.flatInterestRate != null;
