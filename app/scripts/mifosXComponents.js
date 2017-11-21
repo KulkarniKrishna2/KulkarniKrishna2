@@ -540,7 +540,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'fileprocess/FileProcessController',
             'fileprocess/UploadFileProcessController',
             'fileprocess/UploadBulkBankAccountVerificationFileProcessController',
-            'fileprocess/BulkBankAccountVerificationFileProcessController'
+            'fileprocess/BulkBankAccountVerificationFileProcessController',
+            'groups/GroupCreditBureauSummaryController'
         ],
         filters: [
             'StatusLookup',
