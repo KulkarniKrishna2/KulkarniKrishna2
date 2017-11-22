@@ -90,11 +90,17 @@
             </div>
             <br><br>
             <div class="pull-right">
-                <div class="btn-group">
-                    <button type="button" ng-click="printDiv('print')" class="btn btn-primary">{{'label.button.export' |
-                        translate}}
-                    </button>
-                </div>
+                <span class="btn-group dropdown" on-toggle="toggled(open)">
+                    <a class="btn btn-primary dropdown-toggle">{{ 'label.button.export' | translate}}<span class="caret"></span></a>
+                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a data-ng-click="exportToPdf('print')">{{'label.button.export.pdf'| translate}}</a>
+                        </li>
+                        <li>
+                            <a data-ng-click="exportToExcel('print')">{{'label.button.export.excel'| translate}}</a>
+                        </li>
+                    </ul>
+                </span>
             </div>
             <div id="print">
                 <table class="border1px table horizontal-scrollbar vertical-scrollbar">
