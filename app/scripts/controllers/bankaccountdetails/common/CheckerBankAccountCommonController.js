@@ -80,7 +80,7 @@
                 });
             }
 
-            scope.submit = function () {
+            scope.onSubmit = function () {
                 if(!isFormValid()){
                     return false;
                 }
@@ -130,6 +130,11 @@
             init();
 
             scope.viewDocument = function(document){
+                for(var tmp in scope.bankAccountDocuments)
+                {
+                    tmp.selected = false;
+                }
+                document.selected = true;
                 scope.documentImg = document.docUrl;
             }
 

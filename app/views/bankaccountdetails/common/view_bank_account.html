@@ -2,73 +2,74 @@
     <api-validate></api-validate>
     <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
     <div class="row">
+
         <div class="col-md-6">
-            <div class="row">
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.name}}</span>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.name}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.accountNumber}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.accountType.code | translate}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.ifscCode}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.bankName}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.branchName}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.bankCity}}</span>
+            </div>
+            <div class="form-group paddedtop">
+                <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.mobileNumber}}</span>
+            </div>
+            <div class="form-group paddedtop" ng-if = "bankAccountData.email">
+                <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.email}}</span>
+            </div>
+            <div class="form-group paddedtop" ng-hide="isElemHidden('lastTransactionDate')">
+                <span><b>{{'label.input.last.transaction.date' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.lastTransactionDate | DateFormat}}</span>
+            </div>
+
         </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.accountNumber}}</span>
-        </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.accountType.code | translate}}</span>
-        </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.ifscCode}}</span>
-        </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.bankName}}</span>
-        </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.branchName}}</span>
-        </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.bankCity}}</span>
-        </div>
-        <div class="form-group paddedtop">
-            <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.mobileNumber}}</span>
-        </div>
-        <div class="form-group paddedtop" ng-if = "bankAccountData.email">
-            <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.email}}</span>
-        </div>
-        <div class="form-group paddedtop" ng-hide="isElemHidden('lastTransactionDate')">
-            <span><b>{{'label.input.last.transaction.date' | translate}}:&nbsp;</b></span>
-            <span>{{bankAccountData.lastTransactionDate | DateFormat}}</span>
-        </div>
-        <div ng-if="bankAccountDocuments.length>0">
-            <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>      
+        <div class="col-md-6" ng-if="bankAccountDocuments.length>0">
+            <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>
             <table class="table">
                 <thead>
-                    <tr class="graybg">
-                        <th>{{'label.heading.name' | translate}}</th>
-                        <th>{{'label.heading.filename' | translate}}</th>
-                        <th ng-if="editable()">{{'label.heading.actions' | translate}}</th>
-                    </tr>
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.filename' | translate}}</th>
+                    <th ng-if="editable()">{{'label.heading.actions' | translate}}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="document in bankAccountDocuments">
-                        <td>{{document.name}}</td>
-                        <td><span>{{document.fileName}}&nbsp;
-                            <a target="_blank" data-ng-click="viewDocument(document)"><i
-                                       class="icon-eye-open text-success"></i></a></span>
-                        </td>
-                        <td ng-if="editable()">
-                            <a ng-show="document.id" ng-click="deleteDocument(document.id)" has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
-                        </td> 
-                    </tr>
+                <tr ng-repeat="document in bankAccountDocuments">
+                    <td>{{document.name}}</td>
+                    <td><span>{{document.fileName}}&nbsp;
+                        <a target="_blank" data-ng-click="viewDocument(document)"><i
+                                class="icon-eye-open text-success"></i></a></span>
+                    </td>
+                    <td ng-if="editable()">
+                        <a ng-show="document.id" ng-click="deleteDocument(document.id)" has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
                 </tbody>
-            </table>    
+            </table>
         </div>
-    </div>
     </div>
         
     </div>

@@ -1374,6 +1374,9 @@
             .when('/:entityType/:entityId/listgrouploanutillization', {
                 templateUrl: 'views/groups/listgouputilizationcheck.html'
             })
+            .when('/groups/:groupId/creditbureausummary', {
+                templateUrl: 'views/groups/groupcreditbureausummary.html'
+            })
             .when('/createfamilydetailsummary/:clientId', {
                 templateUrl: 'views/clients/createfamilydetailsummary.html'
             })
