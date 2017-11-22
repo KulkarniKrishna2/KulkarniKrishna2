@@ -13,7 +13,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'SessionManager',
             'Paginator',
             'UIConfigService',
-            'CommonUtilService'
+            'CommonUtilService',
+            'ExcelExportTableService'
         ],
         controllers: [
             'main/MainController',
