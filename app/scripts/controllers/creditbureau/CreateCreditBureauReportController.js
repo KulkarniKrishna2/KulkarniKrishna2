@@ -8,6 +8,7 @@
             resourceFactory.creditBureauReportTemplateResource.template(function (data) {
                 scope.template = data;
             });
+
             scope.formData.locale = scope.optlang.code;
             scope.submit = function () {
                 resourceFactory.clientCreditBureauEnquiry.save({'clientId':scope.entityId},scope.formData, function (data) {

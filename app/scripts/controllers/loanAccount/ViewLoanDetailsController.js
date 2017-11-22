@@ -207,7 +207,30 @@
                     case "refund":
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
+                    case "disburse.creditbureaureport":
+                        if (scope.isCBCheckReq) {
+                            if (scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200) {
+                                location.path('/creditbureaureport/loanapplication/' + scope.loandetails.loanApplicationReferenceId + '/' + $rootScope.clientId);
+                            }
+                        }
+                        break;
+                    case "force.disburse.creditbureaureport":
+                        if (scope.isCBCheckReq) {
+                            if (scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200) {
+                                location.path('/creditbureaureport/loanapplication/' + scope.loandetails.loanApplicationReferenceId + '/' + $rootScope.clientId);
+                            }
+                        }
+                        break;
                     case "disburse.tranche.creditbureaureport":
+                        if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.trancheDisbursalId != null){
+                            if(scope.loandetails.status.id == 300){
+                                location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
+                            }else if(scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200){
+                                location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
+                            }
+                        }
+                        break;
+                    case "force.disburse.tranche.creditbureaureport":
                         if(scope.isCBCheckReq === true && scope.trancheDisbursalId && scope.trancheDisbursalId != null){
                             if(scope.loandetails.status.id == 300){
                                 location.path('/creditbureaureport/loan/'+accountId+'/'+scope.trancheDisbursalId+'/'+$rootScope.clientId);
@@ -1659,9 +1682,9 @@
 
             function getCreditBureauCheckIsRequired() {
                 scope.isTrancheDisbursalCreditCheck = scope.isSystemGlobalConfigurationEnabled('tranche-disbursal-credit-check');
-                if (scope.isTrancheDisbursalCreditCheck == true) {
-                    scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
-                    if (scope.isCreditCheck== true) {
+                scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
+                if ((scope.isTrancheDisbursalCreditCheck && scope.loandetails.multiDisburseLoan) || (scope.isCreditCheck && scope.loandetails.status.id == 200)) {
+                    if (scope.isCreditCheck) {
                         resourceFactory.loanProductResource.getCreditbureauLoanProducts({
                             loanProductId: scope.loandetails.loanProductId,
                             associations: 'creditBureaus',
@@ -1670,17 +1693,7 @@
                             scope.creditbureauLoanProduct = creditbureauLoanProduct;
                             if (scope.creditbureauLoanProduct.isActive == true) {
                                 scope.isCBCheckReq = true;
-                                var cbButton = {
-                                    name: "button.disburse.tranche.creditbureaureport",
-                                    icon: "icon-flag",
-                                    taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
-                                };
-                                for (var i in scope.buttons.singlebuttons) {
-                                    if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
-                                        scope.buttons.singlebuttons[i] = cbButton;
-                                        break;
-                                    }
-                                }
+                                addCBCheckButtons();
                                 if(!_.isUndefined(scope.loandetails.disbursementDetails) && scope.loandetails.disbursementDetails.length > 0){
                                     var expectedDisbursementDate = undefined;
                                     for(var i in scope.loandetails.disbursementDetails){
@@ -1697,17 +1710,7 @@
                                         }
                                     }
                                     if(scope.trancheDisbursalId && scope.trancheDisbursalId != null){
-                                        var cbButton = {
-                                            name: "button.disburse.tranche.creditbureaureport",
-                                            icon: "icon-flag",
-                                            taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
-                                        };
-                                        for (var i in scope.buttons.singlebuttons) {
-                                            if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
-                                                scope.buttons.singlebuttons[i] = cbButton;
-                                                break;
-                                            }
-                                        }
+                                        addCBCheckButtons();
                                     }
                                 }
                             }
@@ -1715,6 +1718,44 @@
                     }
                 }
             };
+
+            function addCBCheckButtons() {
+                var cbButton = {
+                    name : "",
+                    icon: "icon-flag",
+                    taskPermissionName: 'READ_CREDIT_BUREAU_CHECK'
+                };
+                for (var i in scope.buttons.singlebuttons) {
+                    if (scope.buttons.singlebuttons[i].taskPermissionName == 'FORCE_DISBURSE_LOAN') {
+                        var cbButtonLabel = {};
+                        angular.copy(cbButton,cbButtonLabel);
+                        if(scope.loandetails.status.id == 200){
+                            cbButtonLabel.name = "button.force.disburse.creditbureaureport";
+                        }else{
+                            if(!scope.loandetails.multiDisburseLoan){
+                                cbButtonLabel.name = "button.force.disburse.creditbureaureport";
+                            }else{
+                                cbButtonLabel.name = "button.force.disburse.tranche.creditbureaureport";
+                            }
+                        }
+                        scope.buttons.singlebuttons[i] = cbButtonLabel;
+                    }else if (scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSE_LOAN') {
+                        var cbButtonLabel = {};
+                        angular.copy(cbButton,cbButtonLabel);
+                        if(scope.loandetails.status.id == 200){
+                            cbButtonLabel.name = "button.disburse.creditbureaureport";
+                        }else{
+                            if(!scope.loandetails.multiDisburseLoan){
+                                cbButtonLabel.name = "button.disburse.creditbureaureport";
+                            }else{
+                                cbButtonLabel.name = "button.disburse.tranche.creditbureaureport";
+                            }
+                        }
+                        scope.buttons.singlebuttons[i] = cbButtonLabel;
+                    }
+                }
+            }
+
             scope.selectClosedTransactions = function(value){
                 if(value){
                     scope.transferDetails = scope.closedTransferDetails;
