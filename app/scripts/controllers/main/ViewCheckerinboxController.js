@@ -9,6 +9,7 @@
                 var creditdetails = obj.credits || [];
                 var debitdetails = obj.debits || [];
                 scope.jsondata = [];
+                scope.jsondata.push({name: "clientName", property: scope.details.clientName});
                 _.each(obj, function (value, key) {
                     scope.jsondata.push({name: key, property: value});
                 });
