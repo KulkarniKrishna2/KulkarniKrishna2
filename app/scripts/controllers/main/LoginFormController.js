@@ -51,7 +51,7 @@
             });*/
 
             scope.updatePassword = function (){
-                resourceFactory.userListResource.update({'userId': scope.loggedInUserId}, scope.passwordDetails, function (data) {
+                resourceFactory.myAccountResource.changePassword(scope.passwordDetails, function (data) {
                     //clear the old authorization token
                     httpService.cancelAuthorization();
                     scope.authenticationFailed = false;

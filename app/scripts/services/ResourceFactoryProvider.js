@@ -1381,6 +1381,13 @@
                     }),
                     aadharClientVerificationResource: defineResource(apiVer + "/clients/:clientId/identifiers/:identifierId/verification/aadhaar", {clientId: '@clientId', identifierId: '@identifierId'}, {
                         save:{method:'POST', params:{}}
+                    }),                    
+                    myAccountResource: defineResource(apiVer + "/myaccount/:command", {command: '@command'}, {
+                        get: {method: 'GET', params: {}},
+                        changePassword: {method:'POST', params:{command:'changepassword'}}
+                    }),                    
+                    userPasswordResource: defineResource(apiVer + "/users/resetpassword", {}, {
+                        resetpassword: {method:'POST', params:{}}
                     })
                 };
             }];

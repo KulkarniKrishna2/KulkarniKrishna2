@@ -62,8 +62,8 @@
                 <button type="button" ng-click="deleteuser()" class="btn btn-primary" has-permission='DELETE_USER'>
                     <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
                 </button>
-                <button type="button" class="btn btn-primary" data-ng-click="open()" has-permission='UPDATE_USER'><i class="icon-cog icon-white"></i>
-                    {{'label.button.changepassword' | translate}}
+                <button type="button" class="btn btn-danger" data-ng-click="open()" has-permission='RESETPASSWORD_USER'><i class="icon-cog icon-white"></i>
+                    {{'label.button.resetPassword' | translate}}
                 </button>
                 <button type="button" ng-hide="user.accountNonLocked" class="btn btn-primary" data-ng-click="unlockuser()" has-permission='UNLOCK_USER'><i class="icon-cog icon-white"></i>
                     {{'label.button.unlock' | translate}}

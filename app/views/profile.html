@@ -20,6 +20,14 @@
         <br>
         <div class="modal-body form-horizontal">
             <div class="form-group">
+                <label class="control-label col-sm-4" for="oldPassword">{{ 'label.input.oldPassword' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-5">
+                    <input type="password" id="oldPassword" ng-model="formData.oldPassword" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-4" for="password">{{ 'label.input.password' | translate }}<span
                         class="required">*</span></label>
 
