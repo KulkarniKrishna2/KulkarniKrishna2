@@ -6741,6 +6741,8 @@
     "label.perform.bulk.bav" : "Perform bulk bank account verification",
     "validation.msg.loanapplicationreference.trancheAmount.cannot.be.blank" : "Tranche amount cannot be blank",
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.cannot.be.blank" : "Expected tranche disbursement date cannot be blank",
+    "validation.msg.user.repeatPassword.cannot.be.blank" : "Repeat password is mandatory.",
+    "validation.msg.user.oldPassword.cannot.be.blank" : "Old password is mandatory.",
 
     "------ end of tensalation file":"---------"
 }
