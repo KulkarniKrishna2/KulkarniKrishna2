@@ -95,7 +95,9 @@
             }
 
             scope.submit = function () {
-                scope.setTaskActionExecutionError(null);
+                if(underTask()){
+                    scope.setTaskActionExecutionError(null);
+                }
                 if(!isFormValid()){
                     return false;
                 }
@@ -159,7 +161,9 @@
             };
 
             scope.update = function () {
-                scope.setTaskActionExecutionError(null);
+                if(underTask()){
+                    scope.setTaskActionExecutionError(null);
+                }
                 if(!isFormValid()){
                     return false;
                 }
