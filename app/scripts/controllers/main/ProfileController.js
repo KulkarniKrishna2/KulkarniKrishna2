@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ProfileController: function (scope, localStorageService, resourceFactory, $modal) {
             scope.userDetails = localStorageService.getFromLocalStorage('userData');
-            resourceFactory.userListResource.get({userId: scope.userDetails.userId}, function (data) {
+            resourceFactory.myAccountResource.get(function (data) {
                 scope.user = data;
             });
             scope.status = 'Not Authenticated';
@@ -22,7 +22,7 @@
             };
             var UpdatePasswordCtrl = function ($scope, $modalInstance, userId) {
                 $scope.save = function () {
-                    resourceFactory.userListResource.update({'userId': userId}, this.formData, function (data) {
+                    resourceFactory.myAccountResource.changePassword(this.formData, function (data) {
                         $modalInstance.close('modal');
                         if (data.resourceId == userId) {
                             scope.logout();

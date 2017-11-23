@@ -20,7 +20,8 @@
             };
             var ModalInstanceCtrl = function ($scope, $modalInstance) {
                 $scope.save = function (staffId) {
-                    resourceFactory.userListResource.update({'userId': routeParams.id}, this.formData, function (data) {
+                    this.formData['userId'] = routeParams.id;
+                    resourceFactory.userPasswordResource.resetpassword(this.formData, function (data) {
                         $modalInstance.close('activate');
                         if (data.resourceId == scope.currentSession.user.userId) {
                             scope.logout();

@@ -2876,6 +2876,7 @@
     "label.input.autogeneratepassword": "Auto generate password",
     "label.input.password": "Password",
     "label.input.repeatpassword": "Repeat password",
+    "label.input.oldPassword": "Old Password",
     "label.input.selectroles": "Select roles",
     "label.input.generatepasswordandemailit": "Generate password and mail it",
     "label.input.roles": "Roles",
@@ -2907,6 +2908,11 @@
     "validation.msg.user.repeatPassword.not.equal.to.password": "Password and repeat password do not match.",
     "error.msg.user.duplicate.username": "User with username `{{params[0].value}}` already exists.",
     "error.msg.Collection.has.already.been.added":"Collection sheet is already submitted for the date {{params[0].value}}.Click on Forced submit button to continue Submit",
+    "validation.msg.user.password.same.as.username":"Password cannot be same as username",
+    "validation.msg.user.oldpassword.is.not.same.as.current.password": "Old password cannot be same as current password",
+    "validation.msg.user.password.same.as.oldPassword": "Password cannot be same as old password",
+    "validation.msg.user.oldpassword.is.wrong": "Entered old password is wrong",
+    "error.msg.password.already.used": "Password is already used, please provide new password",
     "#------": "------------",
 
     "#Admin-Organization": "....",
@@ -4685,6 +4691,7 @@
     "label.heading.passwordPreferences":"Password Preferences",
     "label.simple" : "Password must be at least 1 character and not more that 50 characters long",
     "label.secure" : "Password must be at least 6 characters, no more than 50 characters long, must include at least one upper case letter, one lower case letter, one numeric digit and no space",
+    "label.strong" : "Password must be at least 8 characters, no more than 50 characters long, must include at least one upper case letter, one lower case letter, one numeric digit, one special character and no space",
 
     "#----------------------": "------------",
 
