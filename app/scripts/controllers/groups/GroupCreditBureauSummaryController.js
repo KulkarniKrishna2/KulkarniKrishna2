@@ -34,7 +34,9 @@
                     }
                 });
             };
-
+            scope.routeTo = function (id) {
+                location.path('/viewclient/' + id);
+            };
 
         }
     });

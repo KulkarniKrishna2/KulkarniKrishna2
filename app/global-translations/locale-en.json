@@ -6571,6 +6571,9 @@
     "label.menu.marital.status" : "Select Marital status",
     "label.anchor.bulk.bav" : "Bulk Bank Account Verification",
     "label.perform.bulk.bav" : "Perform bulk bank account verification",
+    "label.heading.no.of.default.loan" : "No of Default Loan",
+    "label.heading.no.of.total.lenders" : "Total Lenders",
+    "label.heading.writeoff.amount" : " Write-off Amount",
     
     "------ end of tensalation file":"---------"
 }
