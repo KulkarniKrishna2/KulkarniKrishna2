@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ProfileController: function (scope, localStorageService, resourceFactory, $modal) {
+        ProfileController: function (scope, localStorageService, resourceFactory, $modal, commonUtilService) {
             scope.userDetails = localStorageService.getFromLocalStorage('userData');
             resourceFactory.myAccountResource.get(function (data) {
                 scope.user = data;
@@ -22,7 +22,18 @@
             };
             var UpdatePasswordCtrl = function ($scope, $modalInstance, userId) {
                 $scope.save = function () {
-                    resourceFactory.myAccountResource.changePassword(this.formData, function (data) {
+                    var credentialsData = {};
+                    angular.copy(this.formData,credentialsData);
+                    if(credentialsData.oldPassword){
+                        credentialsData.oldPassword = commonUtilService.encrypt(credentialsData.oldPassword);
+                    }
+                    if(credentialsData.password){
+                        credentialsData.password = commonUtilService.encrypt(credentialsData.password);
+                    }
+                    if(credentialsData.repeatPassword){
+                        credentialsData.repeatPassword = commonUtilService.encrypt(credentialsData.repeatPassword);
+                    }
+                    resourceFactory.myAccountResource.changePassword(credentialsData, function (data) {
                         $modalInstance.close('modal');
                         if (data.resourceId == userId) {
                             scope.logout();
@@ -35,7 +46,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ProfileController', ['$scope', 'localStorageService', 'ResourceFactory', '$modal', mifosX.controllers.ProfileController]).run(function ($log) {
+    mifosX.ng.application.controller('ProfileController', ['$scope', 'localStorageService', 'ResourceFactory', '$modal', 'CommonUtilService', mifosX.controllers.ProfileController]).run(function ($log) {
         $log.info("ProfileController initialized");
     });
 }(mifosX.controllers || {}));

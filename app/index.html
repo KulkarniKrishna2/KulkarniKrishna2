@@ -30,7 +30,7 @@
     </div>
 </div>
 <div data-ng-hide="!domReady" data-ng-cloak>
-<div >
+<div>
     <nav class="navbar navbar-fixed-top navbarColor" data-ng-hide="currentSession.user != null">
         <div class="container-fluid">
             <div class="col-md-6">
@@ -84,28 +84,33 @@
                         </form>
                         <div class="col-md-2"></div>
                     </div>
-                    <div ng-show="resetPassword">
-                        <form class="form col-md-12" role="form">
-                            <api-validate></api-validate>
-                            <div class="form col-md-12">
-                            <label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
-                            </div>
-                            <div class="form col-md-8">
-                            <div class="form-group">
-                                <input type="password" data-ng-model="passwordDetails.oldPassword" placeholder="{{ 'label.input.oldPassword' | translate }}" class="input-sm form-control"  required id="oldPassword">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" data-ng-model="passwordDetails.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="password">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" data-ng-model="passwordDetails.repeatPassword" placeholder="{{ 'label.input.repeatpassword' | translate }}" class="input-sm form-control"  required id="repeatPassword">
-                            </div>
-                            <div>
-                                <button class="btn btn-success" type="submit" data-ng-click="updatePassword()" id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}</button>
-                            </div>
-                            </div>
-
-                        </form>
+                    <div ng-if="resetPassword">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <form class="form col-md-10" role="form">
+                                <api-validate></api-validate>
+                                <div class="form col-md-12">
+                                    <label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
+                                </div>
+                                <div class="form col-md-12">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <input type="password" data-ng-model="passwordDetails.oldPassword" placeholder="{{ 'label.input.oldPassword' | translate }}" class="input-sm form-control"  required id="oldPassword" style="border-radius: 5px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" data-ng-model="passwordDetails.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="password" style="border-radius: 5px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" data-ng-model="passwordDetails.repeatPassword" placeholder="{{ 'label.input.repeatpassword' | translate }}" class="input-sm form-control"  required id="repeatPassword" style="border-radius: 5px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-offset-4">
+                                    <button class="btn btn-success" type="submit" data-ng-click="updatePassword()" id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoginFormController: function (scope, authenticationService, resourceFactory, httpService, $timeout) {
+        LoginFormController: function (scope, authenticationService, resourceFactory, httpService, $timeout, commonUtilService) {
             scope.loginCredentials = {};
             scope.passwordDetails = {};
             scope.authenticationFailed = false;
@@ -51,7 +51,18 @@
             });*/
 
             scope.updatePassword = function (){
-                resourceFactory.myAccountResource.changePassword(scope.passwordDetails, function (data) {
+                var credentialsData = {};
+                angular.copy(scope.passwordDetails,credentialsData);
+                if(credentialsData.oldPassword){
+                    credentialsData.oldPassword = commonUtilService.encrypt(credentialsData.oldPassword);
+                }
+                if(credentialsData.password){
+                    credentialsData.password = commonUtilService.encrypt(credentialsData.password);
+                }
+                if(credentialsData.repeatPassword){
+                    credentialsData.repeatPassword = commonUtilService.encrypt(credentialsData.repeatPassword);
+                }
+                resourceFactory.myAccountResource.changePassword(credentialsData, function (data) {
                     //clear the old authorization token
                     httpService.cancelAuthorization();
                     scope.authenticationFailed = false;
@@ -61,7 +72,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', 'ResourceFactory', 'HttpService','$timeout', mifosX.controllers.LoginFormController]).run(function ($log) {
+    mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', 'ResourceFactory', 'HttpService','$timeout', 'CommonUtilService', mifosX.controllers.LoginFormController]).run(function ($log) {
         $log.info("LoginFormController initialized");
     });
 }(mifosX.controllers || {}));

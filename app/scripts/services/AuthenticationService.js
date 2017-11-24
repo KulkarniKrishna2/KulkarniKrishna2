@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.services = _.extend(module, {
-        AuthenticationService: function (scope, httpService, SECURITY, localStorageService,timeout, webStorage) {
+        AuthenticationService: function (scope, httpService, SECURITY, localStorageService,timeout, webStorage, commonUtilService) {
             var onSuccess = function (data) {
                 scope.$broadcast("UserAuthenticationSuccessEvent", data);
                 localStorageService.addToLocalStorage('userData', data);
@@ -68,12 +68,11 @@
 
             var isPasswordEncrypted = false;
             var onSuccessPublicKeyData = function (publicKeyData) {
+                publicKey = undefined;
                 if (!_.isUndefined(publicKeyData.keyValue)) {
                     isPasswordEncrypted = true;
-                    scope.publicKey = publicKeyData.keyValue;
-                    var encrypt = new JSEncrypt();
-                    encrypt.setPublicKey(scope.publicKey);
-                    var encryptedPassword = encrypt.encrypt(credentialsData.password);
+                    publicKey = publicKeyData.keyValue;
+                    var encryptedPassword = commonUtilService.encrypt(credentialsData.password);
                     if (encryptedPassword == false) {
                         onFailure(null);
                     } else {
@@ -94,7 +93,7 @@
 
         }
     });
-    mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService', 'SECURITY', 'localStorageService','$timeout','webStorage', mifosX.services.AuthenticationService]).run(function ($log) {
+    mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService', 'SECURITY', 'localStorageService','$timeout','webStorage', 'CommonUtilService', mifosX.services.AuthenticationService]).run(function ($log) {
         $log.info("AuthenticationService initialized");
     });
 }(mifosX.services || {}));

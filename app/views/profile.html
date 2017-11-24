@@ -13,43 +13,64 @@
         </button>
     </div>
     <script type="text/ng-template" id="password.html">
-        <div class="modal-header silver">
-            <h3 class="bolder">{{'label.heading.changepassword' | translate}}</h3>
-        </div>
-        <api-validate></api-validate>
-        <br>
-        <div class="modal-body form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-sm-4" for="oldPassword">{{ 'label.input.oldPassword' | translate }}<span
-                        class="required">*</span></label>
-
-                <div class="col-sm-5">
-                    <input type="password" id="oldPassword" ng-model="formData.oldPassword" class="form-control"/>
+        <form name="changePasswordForm" novalidate="" class="form-horizontal well" rc-submit="save()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.changepassword' | translate}}</h3>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4" for="password">{{ 'label.input.password' | translate }}<span
-                        class="required">*</span></label>
-
-                <div class="col-sm-5">
-                    <input type="password" id="password" ng-model="formData.password" class="form-control"/>
+                <br>
+                <div class="modal-body form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="oldPassword">{{ 'label.input.oldPassword' | translate
+                            }}<span
+                                    class="required">*</span>
+                        </label>
+                        <div class="col-sm-5">
+                            <input type="password" id="oldPassword" name="oldPassword" ng-model="formData.oldPassword"
+                                   class="form-control" required late-Validate/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="changePasswordForm" valattribute="oldPassword"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="password">{{ 'label.input.password' | translate
+                            }}<span
+                                    class="required">*</span>
+                        </label>
+                        <div class="col-sm-5">
+                            <input type="password" id="password" name="password" ng-model="formData.password" class="form-control" required late-Validate/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="changePasswordForm" valattribute="password"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="repeatPassword">{{ 'label.input.repeatpassword' |
+                            translate
+                            }}<span class="required">*</span>
+                        </label>
+                        <div class="col-sm-5">
+                            <input type="password" id="repeatPassword" name="repeatPassword" ng-model="formData.repeatPassword"
+                                   class="form-control" required late-Validate/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="changePasswordForm" valattribute="repeatPassword"/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4" for="repeatPassword">{{ 'label.input.repeatpassword' | translate
-                    }}<span class="required">*</span></label>
 
-                <div class="col-sm-5">
-                    <input type="password" id="repeatPassword" ng-model="formData.repeatPassword" class="form-control"/>
+                <div class="modal-footer silver">
+                    <button type="button" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                        translate}}
+                    </button>
+                    <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
                 </div>
-            </div>
-        </div>
-
-        <div class="modal-footer silver">
-            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="save()">{{'label.button.save' | translate}}</button>
-        </div>
+            </fieldset>
+        </form>
     </script>
+
     <div class="well">
         <div class="row">
             <div class="col-sm-6 col-md-6">
