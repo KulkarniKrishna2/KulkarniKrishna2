@@ -95,7 +95,6 @@
                 if(underTask()){
                     scope.setTaskActionExecutionError(null);
                 }
-               
                 if(!isFormValid()){
                     return false;
                 }
@@ -152,7 +151,6 @@
                 if(underTask()){
                     scope.setTaskActionExecutionError(null);
                 }
-               
                 if(!isFormValid()){
                     return false;
                 }
