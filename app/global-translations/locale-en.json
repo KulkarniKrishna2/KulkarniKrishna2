@@ -6743,6 +6743,9 @@
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.cannot.be.blank" : "Expected tranche disbursement date cannot be blank",
     "validation.msg.user.repeatPassword.cannot.be.blank" : "Repeat password is mandatory.",
     "validation.msg.user.oldPassword.cannot.be.blank" : "Old password is mandatory.",
-
+    "label.heading.no.of.default.loan" : "No of Default Loan",
+    "label.heading.no.of.total.lenders" : "Total Lenders",
+    "label.heading.writeoff.amount" : " Write-off Amount",
+    
     "------ end of tensalation file":"---------"
 }
