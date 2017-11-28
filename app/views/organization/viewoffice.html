@@ -16,6 +16,8 @@
                                 'label.button.reject' | translate }}</a>
                             <a ng-show="office.status.id == 100 && !office.isWorkflowEnabled" class="btn btn-primary" has-permission='ACTIVATE_OFFICE' ng-click="activateOffice()"><i class="icon-ok-sign icon-white"></i>{{
                                 'label.button.activate' | translate }}</a>
+                            <a ng-show="office.isWorkflowEnabled == true && office.workflowId" href="#/officeworkflow/{{office.id}}/workflow" class="btn btn-primary"><i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
+                            <a ng-show="office.status.code == 'officeStatus.pending' && office.isWorkflowEnabled == true && office.workflowId == undefined" ng-click="initiateWorkflow(office.id)" class="btn btn-primary"><i class="icon-white"></i>{{'label.button.initiateworkflow' | translate}}</a>
                         </div>
                         <span class="btn-group dropdown" on-toggle="toggled(open)">
 						    <a class="btn btn-primary dropdown-toggle">

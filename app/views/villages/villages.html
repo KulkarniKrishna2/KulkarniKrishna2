@@ -31,7 +31,6 @@
             <th> {{'label.heading.villageexternalid' | translate}}</th>
             <th>{{'label.heading.status' | translate}}</th>
             <th>{{'label.heading.office' | translate}}</th>
-            <th>{{'label.heading.action' | translate}}</th>
         </tr>
         </thead>
 
@@ -44,12 +43,6 @@
                 <i class="icon-stop {{village.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{village.status.value}}
             </td>
             <td class="pointer" data-ng-click="routeTo(village.villageId)">{{village.officeName}}</td>
-            <td>
-                <a ng-show="village.isWorkflowEnabled && village.workflowId" href="#/villageworkflow/{{village.villageId}}/workflow"
-                   class="btn btn-primary"><i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
-                <input ng-hide="village.isWorkflowEnabled && village.workflowId" class="btn-primary" id="initiateWorkflow" data-ng-click="initiateWorkflow(village.villageId)" type="submit" name="viewjournals"
-                       value="{{'label.button.initiateworkflow' | translate}}" />
-            </td>
         </tr>
         </tbody>
     </table>
