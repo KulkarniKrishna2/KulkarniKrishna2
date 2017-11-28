@@ -48,18 +48,12 @@
             var credentialsData = {};
             this.authenticateWithUsernamePassword = function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
+                angular.copy(credentials,credentialsData);
         		if(SECURITY === 'oauth'){
-                    var data = {};
-                    data.username = credentials.username;
-                    data.password = credentials.password;
-                    data.client_id ='community-app';
-                    data.grant_type = 'password';
-                    data.client_secret = '123'
-	                httpService.post( "/fineract-provider/api/oauth/token",data)
-	                    .success(getUserDetails)
-	                    .error(onFailure);
-        		} else {
-                    angular.copy(credentials,credentialsData);
+                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentials.username)
+                        .success(onOauthSuccessPublicKeyData)
+                        .error(onFailure);
+        		} else {                    
                     httpService.get(apiVer + "/cryptography/login/publickey?username="+credentials.username)
                         .success(onSuccessPublicKeyData)
                         .error(onFailure);
@@ -67,6 +61,38 @@
             };
 
             var isPasswordEncrypted = false;
+
+            var onOauthSuccessPublicKeyData = function (publicKeyData) {
+                publicKey = undefined;
+                if (!_.isUndefined(publicKeyData.keyValue)) {
+                    isPasswordEncrypted = true;
+                    publicKey = publicKeyData.keyValue;
+                    var encryptedPassword = commonUtilService.encrypt(credentialsData.password);
+                    if (encryptedPassword == false) {
+                        onFailure(null);
+                    } else {
+                        credentialsData.password = encryptedPassword;
+                        oauthAuthenticateProcesses(credentialsData);
+                    }
+                } else {
+                    isPasswordEncrypted = false;
+                    oauthAuthenticateProcesses(credentialsData);
+                }
+            };
+
+            var oauthAuthenticateProcesses = function (credentials) {
+                var data = {};
+                    data.username = credentials.username;
+                    data.password = credentials.password;
+                    data.client_id ='community-app';
+                    data.grant_type = 'password';
+                    data.client_secret = '123';
+                    data.isPasswordEncrypted = isPasswordEncrypted.toString();
+                    httpService.post( "/fineract-provider/api/oauth/token",data)
+                        .success(getUserDetails)
+                        .error(onFailure);
+            };
+
             var onSuccessPublicKeyData = function (publicKeyData) {
                 publicKey = undefined;
                 if (!_.isUndefined(publicKeyData.keyValue)) {
