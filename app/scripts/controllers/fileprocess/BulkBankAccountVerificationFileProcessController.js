@@ -1,8 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        FileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope) {
+        BulkBankAccountVerificationFileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope) {
 
-            scope.recordsPerPage = 15;
+            scope.recordsPerPage = 15000;
 
             scope.getResultsPage = function (pageNumber) {
                 var items = resourceFactory.fileProcessResource.getAllFiles({
@@ -42,14 +42,14 @@
             };
             scope.attachedFileURL = function(){
                 for (var i = 0; i < scope.fileProcesses.length; i++) {
-                        var url = {};
-                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        scope.fileProcesses[i].docUrl = url;
-                    }
+                    var url = {};
+                    url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    scope.fileProcesses[i].docUrl = url;
+                }
             }
         }
     });
-    mifosX.ng.application.controller('FileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.FileProcessController]).run(function ($log) {
-        $log.info("FileProcessController initialized");
+    mifosX.ng.application.controller('BulkBankAccountVerificationFileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.BulkBankAccountVerificationFileProcessController]).run(function ($log) {
+        $log.info("BulkBankAccountVerificationFileProcessController initialized");
     });
 }(mifosX.controllers || {}));

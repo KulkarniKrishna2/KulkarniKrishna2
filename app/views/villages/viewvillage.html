@@ -131,7 +131,10 @@
             <div class="span gray-head">
                 <span class="boldlabel">
                     <strong>{{'label.heading.basicdetails' | translate}}</strong>
-                   <button class="pull right btn btn-primary" ng-click="deleteVillage()" has-permission='DELETE_VILLAGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
+                    <a ng-show="village.isWorkflowEnabled == true && village.workflowId" href="#/villageworkflow/{{village.villageId}}/workflow"
+                       class="pull right btn btn-primary"><i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
+                    <button ng-hide="village.isWorkflowEnabled == false || village.workflowId" class="pull right btn btn-primary" ng-click="initiateWorkflow(village.villageId)"><i class="icon-white"></i>{{'label.button.initiateworkflow' | translate}}</button>
+                    <button class="pull right btn btn-primary" ng-click="deleteVillage()" has-permission='DELETE_VILLAGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
                     <a href="#/editvillage/{{village.villageId}}?managecode=2" class="pull right btn btn-primary" ng-hide="village.isWorkflowEnabled" has-permission='UPDATE_VILLAGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
                     <a href="#/editvillage/{{village.villageId}}?managecode=1" class="pull right btn btn-primary" data-ng-hide="village.status.value=='Active' || village.isWorkflowEnabled" has-permission='ACTIVATE_VILLAGE'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
                     <a href="#/addvillageAddress/{{village.villageId}}" class="pull right btn btn-primary" ng-show="village.addressData.length <= 0" has-permission='CREATE_ADDRESSES'><i class="icon-plus icon-white"></i>{{'label.button.addaddress' | translate}}</a>

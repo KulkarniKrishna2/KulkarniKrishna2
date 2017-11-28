@@ -561,6 +561,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientVerificationCommonController',
             'client/ClientVerificationDetailsController',
             'client/ClientVerificationActivityController'
+            'fileprocess/UploadBulkBankAccountVerificationFileProcessController',
+            'fileprocess/BulkBankAccountVerificationFileProcessController',
+            'groups/GroupCreditBureauSummaryController'
         ],
         filters: [
             'StatusLookup',
@@ -600,6 +603,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuditLogDirevtive',
             'TabsPersistenceDirective',
             'ExpressionBuilderDirective',
+            'ImageViewerDirective',
             'ViewDocumentDirective'
         ]
     };

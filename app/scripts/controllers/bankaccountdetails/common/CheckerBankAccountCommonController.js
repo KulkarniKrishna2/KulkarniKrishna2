@@ -14,6 +14,7 @@
             scope.repeatFormData = {};
             scope.bankAccountTypeOptions = [];
             scope.deFaultBankName = null;
+            scope.bankAccountDocuments = [];
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -66,21 +67,20 @@
                             scope.viewConfig.showSummary = true;
                         }
                     }
-
-
-                    if(!_.isUndefined(data.documentId)){
-                        $http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
-                        }).then(function (docsData) {
-                            scope.documentImg = $rootScope.hostUrl + API_VERSION + '/clients/' + getEntityId() + '/documents/' + data.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        });
+                    
+                    if(!_.isUndefined(data.bankAccountDocuments)){
+                        scope.bankAccountDocuments = data.bankAccountDocuments;
+                        for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
+                            var docs = {};
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            scope.bankAccountDocuments[i].docUrl = docs;
+                        }
+                        scope.documentImg =  scope.bankAccountDocuments[0].docUrl;
                     }
-
                 });
             }
 
-            scope.submit = function () {
+            scope.onSubmit = function () {
                 if(!isFormValid()){
                     return false;
                 }
@@ -128,6 +128,15 @@
             }
 
             init();
+
+            scope.viewDocument = function(document){
+                for(var tmp in scope.bankAccountDocuments)
+                {
+                    tmp.selected = false;
+                }
+                document.selected = true;
+                scope.documentImg = document.docUrl;
+            }
 
         }
     });

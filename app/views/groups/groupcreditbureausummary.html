@@ -1,0 +1,42 @@
+<div class="col-md-12" ng-controller="GroupCreditBureauSummaryController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/viewgroup/{{groupId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+            <li class="active">{{'label.anchor.credit.bureau.summary' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+    </div>
+    <div class="form-horizontal well">
+    	<h3>{{'label.anchor.credit.bureau.summary' | translate}}</h3>
+    	<br>
+        <table class="table">
+            <thead>
+            	<tr>
+					<th>{{ 'label.heading.clientname' | translate }}</th>
+					<th>{{ 'label.heading.no.of.active.loans' | translate }}</th>
+					<th>{{ 'label.heading.no.of.default.loan' | translate }}</th>
+					<th>{{ 'label.heading.no.of.total.lenders' | translate }}</th>
+					<th>{{ 'label.heading.writeoff.amount' | translate }}</th>
+					<th>{{ 'label.heading.total.outstanding.amount' | translate }}</th>
+					<th>{{'label.heading.actions' | translate }}</th>
+				</tr>
+            </thead>
+            <tbody>
+            	<tr class="pointer-main" ng-repeat="groupClientCBData in groupClientsCBDatas">
+            		<td class="pointer" data-ng-click="routeTo(groupClientCBData.clientId)">{{groupClientCBData.clientDisplayName}}({{groupClientCBData.clientAccountNumber}})</td>
+            		<td>{{groupClientCBData.totalActieLoans}}</td>
+            		<td>{{groupClientCBData.totalDefaultLoans}}</td>
+            		<td>{{groupClientCBData.totalLenders}}</td>
+            		<td>{{groupClientCBData.totalWriteoffAmount}}</td>
+            		<td>{{groupClientCBData.totalOutstandingAmount}}</td>
+            		<td >
+            			<button class="btn btn-primary pull-right" ng-show="groupClientCBData.isCbReportPresent == 1" ng-click="creditBureauReportView(groupClientCBData.clientId)">{{'label.button.viewReport' | translate}}
+						</button>
+            		</td>
+            	</tr>
+            </tbody>
+        </table>
+    <div>
+
+    </div>
+</div>

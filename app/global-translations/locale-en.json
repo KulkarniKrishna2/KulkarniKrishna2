@@ -1834,6 +1834,7 @@
     "label.anchor.viewloanapplication": "View Loan Application",
     "label.button.viewloanapplication": "View Loan Application",
     "label.anchor.creditbureauteport": "Credit Bureau Report",
+    "label.anchor.credit.bureau.summary": "Credit Bureau Summary",
     "label.anchor.disburse.loanapplication": "Disburse Loan Application",
     "label.anchor.modifyloanapplication": "Modify Loan Application",
     "label.anchor.loanscreenreport":"Loan screen report",
@@ -6661,6 +6662,8 @@
     "label.heading.initiatedat" : "Initiated At",
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
+    "label.heading.attach.documents":"Attach Documents",
+    "label.button.attach.document":"Attach Document",
     "label.input.searchtext" : "Search Text",
      "label.button.search" : "Search",
      "label.button.showclientimage" : "Show Client Image",
@@ -6710,7 +6713,11 @@
     "validation.msg.loanapplicationreference.trancheAmount.cannot.be.blank" : "Tranche amount cannot be blank",
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.cannot.be.blank" : "Expected tranche disbursement date cannot be blank",
 
+    "label.anchor.bulk.bav" : "Bulk Bank Account Verification",
+    "label.perform.bulk.bav" : "Perform bulk bank account verification",
+    "label.heading.no.of.default.loan" : "No of Default Loan",
+    "label.heading.no.of.total.lenders" : "Total Lenders",
+    "label.heading.writeoff.amount" : " Write-off Amount",
 
-    
     "------ end of tensalation file":"---------"
 }

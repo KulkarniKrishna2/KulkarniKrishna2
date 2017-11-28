@@ -67,13 +67,16 @@
 
                 <div class="col-sm-3">
                     <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
-                           type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
+                           minlength="11" maxlength="11" type="password"
+                           ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
                 </div>
                 <div class="col-sm-2">
-
+                    <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
+                        <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
+                     </span>
                      <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
-                <small class="required">
-                    {{'label.mismatch.ifsc.number' | translate}}</small></span>
+                        <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
+                     </span>
                     <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat"/>
                 </div>
             </div>
@@ -83,7 +86,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                           type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
+                           minlength="11" maxlength="11" type="text" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
@@ -170,26 +173,6 @@
                     <form-validate valattributeform="bankaccountdetail" valattribute="lastTransactionDate"/>
                 </div>
             </div>
-            <fieldset>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3" >{{'label.file.account.proof' | translate}}<span ng-if="isElemMandatory('docFile')" class="required">*</span>
-                    </label>
-                    <div class="col-md-6" ng-if="!addPicture">
-                        <img ng-src="{{bankAccountData.documentImg}}" width="600" height="400" />
-                    </div>
-                    <div class="col-sm-2" ng-if="!addPicture">
-                        <a class="btn btn-primary" ng-click=changePicture()>{{'label.input.selectfile' | translate}}</a>
-                    </div>
-                    <div class="col-sm-2" ng-if="addPicture">
-                        <input type="file" id="docFile" name="docFile" ng-file-select="onFileSelect($files)" ng-required="isElemMandatory('docFile')">
-                    </div>
-                    <div class="col-sm-2" style="color: red" ng-show="fileError">
-                        {{'label.error.required' | translate}}
-                        <form-validate valattributeform="bankaccountdetail" valattribute="docFile"/>
-                        }
-                    </div>
-                </div>
-            </fieldset>
             <div class="col-md-offset-2 paddedleft">
                 <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>

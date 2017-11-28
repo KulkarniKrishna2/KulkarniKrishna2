@@ -1374,6 +1374,9 @@
             .when('/:entityType/:entityId/listgrouploanutillization', {
                 templateUrl: 'views/groups/listgouputilizationcheck.html'
             })
+            .when('/groups/:groupId/creditbureausummary', {
+                templateUrl: 'views/groups/groupcreditbureausummary.html'
+            })
             .when('/createfamilydetailsummary/:clientId', {
                 templateUrl: 'views/clients/createfamilydetailsummary.html'
             })
@@ -1681,7 +1684,13 @@
                 templateUrl: 'views/creditbureau/viewcreditbureaureport.html'
             })
             .when('/clientverificationdetails/:clientId', {
-                templateUrl: 'views/clients/clientverificationdetails.html' 
+                templateUrl: 'views/clients/clientverificationdetails.html'
+            })
+            .when('/bulkbankaccountverification',{
+                templateUrl: 'views/fileprocess/bulkbankaccountverification.html'
+            })
+            .when('/uploadbulkbankaccountverificationfileprocess',{
+                templateUrl: 'views/fileprocess/uploadbulkbankaccountverificationfileprocess.html'
             })
         $locationProvider.html5Mode(false);
     };
