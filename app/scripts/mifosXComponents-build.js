@@ -10,7 +10,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'SessionManager.js',
             'Paginator.js',
             'UIConfigService.js',
-            'CommonUtilService'
+            'CommonUtilService.js',
+            'ExcelExportTableService.js'
         ],
         controllers: [
             'controllers.js'
