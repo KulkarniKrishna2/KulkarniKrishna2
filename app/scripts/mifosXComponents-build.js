@@ -10,7 +10,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'SessionManager.js',
             'Paginator.js',
             'UIConfigService.js',
-            'CommonUtilService'
+            'CommonUtilService.js'
         ],
         controllers: [
             'controllers.js'
