@@ -158,6 +158,12 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.initiateWorkflow = function (officeId) {
+                resourceFactory.officeResource.save({officeId: officeId, command: 'initiateWorkflow'},{}, function (data) {
+                    location.path('/officeworkflow/'+data.resourceId+'/workflow');
+                });
+            };
         }
 
     });
