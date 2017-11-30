@@ -112,6 +112,13 @@
                     });
                 });
             };
+
+            scope.initiateWorkflow = function (villageId) {
+                resourceFactory.villageResource.save({villageId: villageId, command: 'initiateWorkflow'},{}, function (data) {
+                    location.path('/villageworkflow/'+data.resourceId+'/workflow');
+
+                });
+            };
         }
     });
     mifosX.ng.application.controller('ViewVillageController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', '$route', '$modal', mifosX.controllers.ViewVillageController]).run(function ($log) {

@@ -21,7 +21,6 @@
                 <th>{{'label.heading.parentoffice' | translate}}</th>
                 <th>{{'label.heading.openedon' | translate}}</th>
                 <th>{{'label.heading.office.code' | translate}}</th>
-                <th>{{'label.heading.action' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -34,13 +33,6 @@
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.parentName}}</td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.openingDate | DateFormat}}</td>
                 <td class="pointer" data-ng-click="routeTo(office.id)">{{office.officeCodeId}}</td>
-                <td>
-                    <a ng-show="office.isWorkflowEnabled && office.workflowId" href="#/officeworkflow/{{office.id}}/workflow"
-                       class="btn btn-primary"><i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
-                    <div ng-show="office.status.code == 'officeStatus.pending' && office.isWorkflowEnabled">
-                        <input ng-hide="office.workflowId" class="btn-primary" id="initiateWorkflow" data-ng-click="initiateWorkflow(office.id)" type="submit" name="viewjournals" value="{{'label.button.initiateworkflow' | translate}}" />
-                    </div>
-                </td>
             </tr>
             </tbody>
         </table>
