@@ -560,7 +560,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'creditbureau/ViewCreditBureauReportController',
             'client/ClientVerificationCommonController',
             'client/ClientVerificationDetailsController',
-            'client/ClientVerificationActivityController'
+            'client/ClientVerificationActivityController',
             'fileprocess/UploadBulkBankAccountVerificationFileProcessController',
             'fileprocess/BulkBankAccountVerificationFileProcessController',
             'groups/GroupCreditBureauSummaryController'

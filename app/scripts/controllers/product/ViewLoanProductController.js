@@ -66,19 +66,14 @@
                             incomeAccountGlCode: scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.glCode
                         });
                     }else{
-                        if(tempChargeId != scope.loanproduct.feeToIncomeAccountMappings[i].charge.id){
+                        if(tempChargeId == scope.feeToIncomeAccountMappingsData[scope.feeToIncomeAccountMappingsData.length-1].feeToIncomeAccountChargeId){
+                            scope.feeToIncomeAccountMappingsData[scope.feeToIncomeAccountMappingsData.length-1].feeToDebitAccountName = scope.loanproduct.feeToIncomeAccountMappings[scope.feeToIncomeAccountMappingsData.length-1].incomeAccount.name;
+                        }else{
                             scope.feeToIncomeAccountMappingsData.push({
                                 feeToIncomeAccountChargeId: scope.loanproduct.feeToIncomeAccountMappings[i].charge.id,
                                 feeToIncomeAccountChargeName: scope.loanproduct.feeToIncomeAccountMappings[i].charge.name,
                                 feeToIncomeAccountName: scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.name
                             });
-                        }else{
-                            for(var count in scope.feeToIncomeAccountMappingsData){
-                                if (tempChargeId == scope.loanproduct.feeToIncomeAccountMappings[i].charge.id) {
-                                    scope.feeToIncomeAccountMappingsData[count].feeToDebitAccountName = scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.name;
-                                    break;
-                                }
-                            }
                         }
                     }
                     loopCount++;
@@ -92,24 +87,21 @@
                     tempChargeId = scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.id;
                     if (loopCount == 0 ) {
                         scope.penaltyToIncomeAccountMappingsData.push({
+                            chargeId: scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.id,
                             chargeName: scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.name,
                             incomeAccountName: scope.loanproduct.penaltyToIncomeAccountMappings[i].incomeAccount.name,
                             glCode: scope.loanproduct.penaltyToIncomeAccountMappings[i].incomeAccount.glCode
                         });
                     }else{
-                        if(tempChargeId != scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.id){
+                        if(tempChargeId == scope.penaltyToIncomeAccountMappingsData[scope.penaltyToIncomeAccountMappingsData.length-1].chargeId){
+                            scope.penaltyToIncomeAccountMappingsData[scope.penaltyToIncomeAccountMappingsData.length-1].debitAccountName = scope.loanproduct.penaltyToIncomeAccountMappings[scope.penaltyToIncomeAccountMappingsData.length-1].incomeAccount.name;
+                        }else{
                             scope.penaltyToIncomeAccountMappingsData.push({
+                                chargeId: scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.id,
                                 chargeName: scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.name,
                                 incomeAccountName: scope.loanproduct.penaltyToIncomeAccountMappings[i].incomeAccount.name,
                                 glCode: scope.loanproduct.penaltyToIncomeAccountMappings[i].incomeAccount.glCode
                             });
-                        }else{
-                            for(var count in scope.penaltyToIncomeAccountMappingsData){
-                                if (tempChargeId == scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.id) {
-                                    scope.penaltyToIncomeAccountMappingsData[count].debitAccountName = scope.loanproduct.penaltyToIncomeAccountMappings[i].incomeAccount.name;
-                                    break;
-                                }
-                            }
                         }
                     }
                     loopCount++;
