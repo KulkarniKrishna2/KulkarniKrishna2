@@ -16,6 +16,9 @@
                  scope.activityData = {};
                  scope.taskConfigStepsData = {};
                  scope.entityTypes = [];
+                 scope.isDataTableReq = false;
+                 scope.isEntityTypeReq = false;
+                 scope.isSurveyIdReq  = false;
 
                  scope.comparators = {
                         "STRING": [
@@ -73,17 +76,16 @@
                                            scope.formData.name = scope.taskConfigStepsData.name;
                                            scope.formData.shortName = scope.taskConfigStepsData.shortName;
                                            scope.riskCriteriaId = scope.taskConfigStepsData.criteriaId;
+                                           if(scope.riskCriteriaId){
+                                               scope.changeInCriteria();
+                                           }
                                            scope.criteriaData.approvalLogic = scope.taskConfigStepsData.approvalLogic;
                                            scope.criteriaData.rejectionLogic = scope.taskConfigStepsData.rejectionLogic;
                                            scope.formData.actionGroupId = scope.taskConfigStepsData.actionGroupId;
                                            if(scope.taskConfigStepsData.configValues){
-                                               if(scope.taskConfigStepsData.configValues.datatablename){
-                                                   scope.configValues = scope.taskConfigStepsData.configValues;
-                                               } 
-                                               if(scope.taskConfigStepsData.configValues.surveryId){
-                                                   scope.configValues.datatablename = scope.taskConfigStepsData.configValues.surveryId;
-                                               }
+                                               scope.configValues = scope.taskConfigStepsData.configValues;
                                            }
+                                           scope.activitySelected();
                                         } 
                                     });
                             }
@@ -125,6 +127,33 @@
                     };
                     scope.criteriaData = newCriteria;
                 }
+
+                scope.activityChange = function(){
+                    scope.configValues = {};
+                    scope.activitySelected();
+                }
+                scope.activitySelected = function(){
+                    
+                    if(this.activityData.id){
+                        //TaskActivityType.SURVERY = 1;  TaskActivityType.DATATABLE = 2;
+                        if(this.activityData.type && (this.activityData.type.id == 2 || this.activityData.type.id == 1)){ 
+                           if(this.activityData.type.id == 2){
+                            scope.isEntityTypeReq = true;
+                            scope.isDataTableReq = true;
+                            scope.isSurveyIdReq = false;
+                           }
+                           if(this.activityData.type.id == 1){
+                            scope.isSurveyIdReq = true;
+                            scope.isEntityTypeReq = false;
+                            scope.isDataTableReq = false;
+                           }
+                        }else{
+                            scope.isSurveyIdReq = false;
+                            scope.isEntityTypeReq = false;
+                            scope.isDataTableReq = false;
+                        }
+                    }
+                }
                    
                  scope.submit = function(){
                     this.formData.locale = scope.optlang.code;
@@ -137,11 +166,10 @@
                         //TaskActivityType.SURVERY = 1;  TaskActivityType.DATATABLE = 2;
                         if(this.activityData.type.id == 1){
                             scope.errorDetails=[];
-                            if(scope.configValues.datatablename == undefined){
+                            if(scope.configValues.surveyId == undefined){
                                 return scope.errorDetails.push([{code: 'error.msg.validation.input.surveryid'}]);
                             }    
-                            this.formData.configValues = {};
-                            this.formData.configValues.surveryId=scope.configValues.datatablename; 
+                           this.formData.configValues = this.configValues; 
                         }
                         if(this.activityData.type.id == 2){
                             scope.errorDetails=[];
