@@ -62,7 +62,7 @@
                     if (!_.isUndefined(data.disbursedDate)) {
                         scope.formData.disbursedDate = dateFilter(new Date(data.disbursedDate), scope.df);
                     }
-                    if(!_.isUndefined(data.loanStatus.id) && !_.isNull(data.loanStatus.id)){
+                    if(!_.isUndefined(data.loanStatus) && !_.isUndefined(data.loanStatus.id) && !_.isNull(data.loanStatus.id)){
                         scope.formData.loanStatusId = data.loanStatus.id;
                     }
                     scope.formData.amountBorrowed = data.amountBorrowed;

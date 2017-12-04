@@ -6718,6 +6718,8 @@
     "label.heading.no.of.default.loan" : "No of Default Loan",
     "label.heading.no.of.total.lenders" : "Total Lenders",
     "label.heading.writeoff.amount" : " Write-off Amount",
+    "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
+    "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
 
     "------ end of tensalation file":"---------"
 }

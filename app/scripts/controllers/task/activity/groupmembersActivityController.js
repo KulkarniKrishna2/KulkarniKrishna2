@@ -57,7 +57,58 @@
                  if (scope.officeId) {
                      requestParams.officeId = scope.officeId;
                  }
-                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                    scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
+                    scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                    scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
+                    scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
+                    scope.showMiddleName = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName;
+                    scope.showExternalId = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.externalId;
+                    scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.submittedOn;
+                    scope.showOpenSavingsProduct = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.openSavingsProduct;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                    scope.response.uiDisplayConfigurations.createClient.isHiddenField && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
+                    scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                    scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth) {
+                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                    scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId){
+                    scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
+                    scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
+                    scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
+                    scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
+                    scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+                }
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                    scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
+                    scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
+                }
+
+                resourceFactory.clientTemplateResource.get(requestParams, function(data) {
                      scope.offices = data.officeOptions;
                      scope.staffs = data.staffOptions;
                      scope.addClientformData.officeId = scope.offices[0].id;
@@ -68,6 +119,7 @@
                      scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
                      scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                      scope.clientLegalFormOptions = data.clientLegalFormOptions;
+                     scope.maritalStatusOptions = data.maritalStatusOptions;
                      if (data.savingProductOptions.length > 0) {
                          scope.showSavingOptions = true;
                      }
@@ -93,6 +145,9 @@
                              }
                          }
                      }
+                    if(scope.maritalStatusOptions[0]) {
+                        scope.addClientformData.maritalStatusId = scope.maritalStatusOptions[0].id;
+                    }
                  });
              };
 
@@ -217,13 +272,17 @@
             scope.paymentOptions = [];
 
             scope.formData.submittedOnDate = dateFilter(scope.restrictDate, scope.df);
-
+            scope.charges = [];
             scope.chargeFormData = {}; //For charges
 
             scope.inparams = {
                 resourceType: 'template',
                 activeOnly: 'true'
             };
+
+            var SLAB_BASED = 'slabBasedCharge';
+            var UPFRONT_FEE = 'upfrontFee';
+
             if (scope.clientId && scope.groupId) {
                 scope.inparams.templateType = 'jlg';
             } else if (scope.groupId) {
@@ -240,6 +299,13 @@
                 scope.formData.groupId = scope.groupId;
             }
             scope.inparams.staffInSelectedOfficeOnly = true;
+            if(scope.inparams.templateType == 'individual' || scope.inparams.templateType == 'jlg'){
+                scope.inparams.productApplicableForLoanType = 2;
+                scope.inparams.entityType = 1;
+                scope.inparams.entityId = scope.clientId;
+            }else if(scope.inparams.templateType == 'group' || scope.inparams.templateType == 'glim'){
+                scope.inparams.productApplicableForLoanType = 3;
+            }
 
             resourceFactory.loanResource.get(scope.inparams, function(data) {
                 scope.loanaccountinfo = data;
@@ -384,22 +450,25 @@
         scope.submitLoanApplication = function() {
             this.formData.clientId = scope.clientId;
             this.formData.charges = [];
-            for (var i = 0; i < scope.charges.length; i++) {
-                var charge = {};
-                if (scope.charges[i].id) {
-                    charge.chargeId = scope.charges[i].id;
+            if(scope.charges){
+                for (var i = 0; i < scope.charges.length; i++) {
+                    var charge = {};
+                    if (scope.charges[i].id) {
+                        charge.chargeId = scope.charges[i].id;
+                    }
+                    if (scope.charges[i].chargeId) {
+                        charge.chargeId = scope.charges[i].chargeId;
+                    }
+                    charge.amount = scope.charges[i].amount;
+                    if (scope.charges[i].dueDate) {
+                        charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                    }
+                    charge.isMandatory = scope.charges[i].isMandatory;
+                    charge.isAmountNonEditable = scope.charges[i].isAmountNonEditable;
+                    charge.locale = scope.optlang.code;
+                    charge.dateFormat = scope.df;
+                    this.formData.charges.push(charge);
                 }
-                if (scope.charges[i].chargeId) {
-                    charge.chargeId = scope.charges[i].chargeId;
-                }
-                charge.amount = scope.charges[i].amount;
-                if (scope.charges[i].dueDate) {
-                    charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
-                }
-                charge.isMandatory = scope.charges[i].isMandatory;
-                charge.locale = scope.optlang.code;
-                charge.dateFormat = scope.df;
-                this.formData.charges.push(charge);
             }
             this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
             this.formData.accountType = scope.inparams.templateType;
