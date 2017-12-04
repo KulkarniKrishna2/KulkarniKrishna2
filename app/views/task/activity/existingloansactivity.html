@@ -123,11 +123,12 @@
 
 	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.amountborrowed' | translate }}<span
-	                            class="required"></span></label>
+	                            class="required">*</span></label>
 	                    <div class="col-sm-4">
 	                        <input id="amountBorrowed" type="text" name="amountBorrowed"
 	                               ng-model="formData.amountBorrowed"
-	                                   lass="form-control"/>
+	                                   class="form-control" required late-validate/>
+	                        <form-validate valattributeform="existingLoan" valattribute="amountBorrowed"/>
 	                    </div>
 
 	                    <label class="control-label col-sm-2">{{ 'label.input.gt0dpd3mths' | translate }}<span
@@ -195,7 +196,8 @@
 	                    <div class="col-sm-2">
 	                        <input id="installmentAmount" type="text" name="installmentAmount"
 	                               ng-model="formData.installmentAmount"
-	                               class="form-control"/>
+	                               class="form-control" required late-validate/>
+	                        <form-validate valattributeform="existingLoan" valattribute="installmentAmount"/>
 	                    </div>
 	                </div>
 
@@ -324,11 +326,11 @@
 
                 <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.amountborrowed' | translate }}<span
-                            class="required"></span></label>
+                            class="required">*</span></label>
                     <div class="col-sm-4">
                         <input id="amountBorrowed" type="text" name="amountBorrowed"
                                ng-model="formData.amountBorrowed"
-                               lass="form-control"/>
+                               class="form-control"/>
                     </div>
 
                     <label class="control-label col-sm-2">{{ 'label.input.gt0dpd3mths' | translate }}<span
@@ -392,7 +394,7 @@
 
                 <div class="form-group row">
                     <label class="control-label col-sm-2">{{ 'label.input.installmentAmount' | translate }}<span
-                            class="required"></span></label>
+                            class="required">*</span></label>
                     <div class="col-sm-2">
                         <input id="installmentAmount" type="text" name="installmentAmount"
                                ng-model="formData.installmentAmount"

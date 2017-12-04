@@ -6643,6 +6643,9 @@
     "error.msg.workflow.step.order.not.changed" : "Workflow Steps order not changed",
     "label.button.update.workflowsteps.order" : "Update Workfow Steps Oder",
     "error.msg.validation.add.roles" : "Please add roles to the actions",
+    "label.input.workflowstep.name" : "Workflow Step Name",
+    "label.input.surveryid" : "SurveyId",
+    "label.input.datatable.name": "Datatable Name",
 
 
     "validation.msg.FUND.approvedDate.max.is.less.than.date" : "To date of approved date should be greater than from date",
@@ -6727,8 +6730,10 @@
     "validation.msg.user.repeatPassword.cannot.be.blank" : "Repeat password is mandatory.",
     "validation.msg.user.oldPassword.cannot.be.blank" : "Old password is mandatory.",
     "label.heading.no.of.default.loan" : "No of Default Loan",
-    "label.heading.no.of.total.lenders" : "Total Lenders",
+    "label.heading.lender.name" : "Lender Name",
     "label.heading.writeoff.amount" : " Write-off Amount",
+    "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
+    "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
 
     "------ end of tensalation file":"---------"
 }

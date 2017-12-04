@@ -90,23 +90,26 @@
             };
 
             scope.addRolesToAction=function(){
-                var temp= {};
-                     temp.actionType = JSON.parse(scope.formData.actionType);
-                     temp.roles = scope.selectedRoles.slice();
+                if(scope.formData.actionType && scope.selectedRoles.length >0){
+                        var temp= {};
+                         temp.actionType = JSON.parse(scope.formData.actionType);
+                         temp.roles = scope.selectedRoles.slice();
 
-                 scope.selectedActionsWithRoles.push(temp);
-                 if(scope.actionGroupsTemplate && scope.actionGroupsTemplate.availableRoles){
-                        scope.availableRoles = scope.actionGroupsTemplate.availableRoles.slice(); 
-                        scope.selectedRoles = [];
-                        scope.available = [];
-                        scope.selected = [];
-                 }
-                 scope.formData.actionType = null;
-                 for(var i in scope.actions){
-                    if(scope.actions[i].id == temp.actionType.id){
-                        scope.actions.splice(i,1);
-                    }
-                 }
+                     scope.selectedActionsWithRoles.push(temp);
+                     if(scope.actionGroupsTemplate && scope.actionGroupsTemplate.availableRoles){
+                            scope.availableRoles = scope.actionGroupsTemplate.availableRoles.slice(); 
+                            scope.selectedRoles = [];
+                            scope.available = [];
+                            scope.selected = [];
+                     }
+                     scope.formData.actionType = null;
+                     for(var i in scope.actions){
+                        if(scope.actions[i].id == temp.actionType.id){
+                            scope.actions.splice(i,1);
+                        }
+                     }
+                }
+                
             }
 
             

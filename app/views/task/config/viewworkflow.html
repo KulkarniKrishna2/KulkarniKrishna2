@@ -23,6 +23,10 @@
                     <td class="pointer">{{'label.heading.shortname' | translate}}</td>
                     <td class="pointer">{{taskConfigData.shortName}}</td>
                 </tr>
+                <tr ng-if="isTaskConfigEntityMappingDone">
+                    <td class="pointer">{{'label.heading.entity' | translate}}</td>
+                    <td class="pointer">{{taskConfigData.entityMappingType.value}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

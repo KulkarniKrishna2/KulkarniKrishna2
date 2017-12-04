@@ -14,29 +14,38 @@
                     <span class="required">*</span></label>
                 <div class="col-sm-2">
                    <select  id="activityData" name="activityData" ng-model="activityData"
-                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities" required late-Validate>
+                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities" ng-change="activityChange()" required late-Validate>
                         <option value="" default>-- Select one --</option>
                    </select>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                    <form-validate valattributeform="addworkflowstepsform" valattribute="activityData"/>
                 </div> 
-                <label class="control-label col-sm-2" >{{'label.heading.datatable.surveyid' |translate}}</label>
+                <label class="control-label col-sm-1" ng-if="isSurveyIdReq">
+                  {{'label.input.surveryid' |translate}}
+                  <span class="required">*</span></label>
+                <div class="col-sm-2">
+                  <input id="surveyId" name="surveyId" ng-model="configValues.surveyId" 
+                      ng-if="isSurveyIdReq" class="form-control"/>
+                </div>
+                <label class="control-label col-sm-1" ng-if="isDataTableReq">
+                  {{'label.input.datatable.name' |translate}}
+                  <span class="required">*</span></label>
                 <div class="col-sm-2">
                   <input id="datatableName" name="datatableName" ng-model="configValues.datatablename" 
-                        class="form-control"/>
+                      ng-if="isDataTableReq" class="form-control"/>
                 </div>
-                <label class="control-label col-sm-1" >{{'label.heading.entitytype'|translate}}</label>
+                <label class="control-label col-sm-1" ng-if="isEntityTypeReq">{{'label.heading.entitytype'|translate}}<span class="required">*</span></label>
                 <div class="col-sm-2">
                    <select  id="entityType" name="entityType" ng-model="configValues.entityType"
-                        class="form-control" ng-options = "entityType.value as entityType.value for entityType in entityTypes">
+                        class="form-control" ng-options = "entityType.value as entityType.value for entityType in entityTypes" ng-if="isEntityTypeReq">
                         <option value="" default>-- Select one --</option>
                    </select>
                 </div>                             
             </div>
             <br/><br/>
             <div class="form-group">
-                <label class="control-label col-sm-2" >{{'label.input.workflowname' |translate}}
+                <label class="control-label col-sm-2" >{{'label.input.workflowstep.name' |translate}}
                     <span class="required">*</span></label>
                 <div class="col-sm-2">
                   <input id="workflowName" name="workflowName" ng-model="formData.name" 

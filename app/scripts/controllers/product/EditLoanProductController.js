@@ -330,10 +330,14 @@
 
                    for(var count = 0; count < scope.product.feeToIncomeAccountMappings.length; count++) {
                        if (scope.specificIncomeAccountMapping.length > 0) {
-                           for (var count1 = 0; count1 < scope.specificIncomeAccountMapping.length; count1++) {
-                                if(scope.product.feeToIncomeAccountMappings[count].charge.id == scope.specificIncomeAccountMapping[count1].chargeId){
-                                    scope.specificIncomeAccountMapping[count1].fundSourceAccountId = scope.product.feeToIncomeAccountMappings[count].incomeAccount.id;
-                                }
+                           if(scope.product.feeToIncomeAccountMappings[count].charge.id == scope.specificIncomeAccountMapping[scope.specificIncomeAccountMapping.length - 1].chargeId){
+                               scope.specificIncomeAccountMapping[scope.specificIncomeAccountMapping.length - 1].fundSourceAccountId = scope.product.feeToIncomeAccountMappings[count].incomeAccount.id;
+                           }
+                           else{
+                               scope.specificIncomeAccountMapping.push({
+                                   chargeId: scope.product.feeToIncomeAccountMappings[count].charge.id,
+                                   incomeAccountId: scope.product.feeToIncomeAccountMappings[count].incomeAccount.id
+                               })
                            }
                         }else{
                            scope.specificIncomeAccountMapping.push({
@@ -345,10 +349,14 @@
 
                     for(var count = 0; count < scope.product.penaltyToIncomeAccountMappings.length; count++) {
                         if (scope.penaltySpecificIncomeaccounts.length > 0) {
-                            for (var count1 = 0; count1 < scope.penaltySpecificIncomeaccounts.length; count1++) {
-                                if(scope.product.penaltyToIncomeAccountMappings[count].charge.id == scope.penaltySpecificIncomeaccounts[count1].chargeId){
-                                    scope.penaltySpecificIncomeaccounts[count1].fundSourceAccountId = scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id;
-                                }
+                            if(scope.product.penaltyToIncomeAccountMappings[count].charge.id == scope.penaltySpecificIncomeaccounts[scope.penaltySpecificIncomeaccounts.length - 1].chargeId){
+                                scope.penaltySpecificIncomeaccounts[scope.penaltySpecificIncomeaccounts.length - 1].fundSourceAccountId = scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id;
+                            }
+                            else{
+                                scope.penaltySpecificIncomeaccounts.push({
+                                    chargeId: scope.product.penaltyToIncomeAccountMappings[count].charge.id,
+                                    incomeAccountId: scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id
+                                })
                             }
                         }else{
                             scope.penaltySpecificIncomeaccounts.push({
