@@ -9,7 +9,6 @@
                 hasData:false
             };
             scope.formData = {};
-            scope.checkerBankAccountData = {};
             scope.bankAccountData = {};
             scope.docData = {};
             scope.repeatFormData = {};
@@ -64,9 +63,12 @@
 
             scope.submit = function () {
                 scope.setTaskActionExecutionError(null);
-                if(!isFormValid()){
-                    return false;
+                if(scope.checkerBankAccountData){
+                    if(!isFormValid()){
+                      return false;
+                    }
                 }
+                
                 delete scope.errorDetails;
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
                     function (data) {
