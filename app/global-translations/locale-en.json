@@ -6636,6 +6636,9 @@
     "error.msg.workflow.step.order.not.changed" : "Workflow Steps order not changed",
     "label.button.update.workflowsteps.order" : "Update Workfow Steps Oder",
     "error.msg.validation.add.roles" : "Please add roles to the actions",
+    "label.input.workflowstep.name" : "Workflow Step Name",
+    "label.input.surveryid" : "SurveyId",
+    "label.input.datatable.name": "Datatable Name",
 
 
     "validation.msg.FUND.approvedDate.max.is.less.than.date" : "To date of approved date should be greater than from date",

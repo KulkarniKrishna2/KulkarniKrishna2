@@ -8,10 +8,14 @@
             scope.workflowStepsDatalist=[];
             scope.sortingLog = [];
             scope.formData={};
+            scope.isTaskConfigEntityMappingDone = false;
 
             if(routeParams.taskConfigId){
                    resourceFactory.workflowConfigResource.get({taskConfigId:routeParams.taskConfigId}, function (data) {
                         scope.taskConfigData = data;
+                        if(scope.taskConfigData && scope.taskConfigData.entityMappingType){
+                           scope.isTaskConfigEntityMappingDone = true;
+                        }
                    });
                    resourceFactory.workflowConfigStepsResource.getAll({taskConfigId:routeParams.taskConfigId}, function (data) {
                         scope.taskConfigStepsData = data;
