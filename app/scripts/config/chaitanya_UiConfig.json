@@ -146,8 +146,7 @@
         "bankName": true,
         "bankCity": true,
         "mobileNumber": true,
-        "lastTransactionDate": true,
-        "docFile": true
+        "lastTransactionDate": true
       },
       "isHiddenField":{
         "lastTransactionDate":false
