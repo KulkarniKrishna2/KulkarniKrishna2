@@ -152,7 +152,7 @@
                                 <input placeholder="FIRST NAME" type="text" id="firstname" name="firstname" ng-model="addClientformData.firstname" class="form-control" ng-required="isFirstnameRequired" />
                                 <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
                             </div>
-                            <div class="col-sm-3" ng-show="showMiddleName">
+                            <div class="col-sm-3">
                                 <input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename" ng-model="addClientformData.middlename" class="form-control" ng-required="isMiddlenameRequired" />
                                 <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
                             </div>
@@ -185,7 +185,7 @@
                             <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth" min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
                             <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <form-validate valattributeform="createclientform" valattribute="dateofbirth" />
                         </div>
                     </div>
@@ -201,6 +201,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div data-ng-switch on="showNonPersonOptions">
                         <div data-ng-switch-when="true">
                             <label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
@@ -209,6 +210,29 @@
                                 <input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="dd MMMM yyyy" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" />
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div data-ng-switch on="showNonPersonOptions">
+                        <div data-ng-switch-when="false">
+                            <label class="control-label col-sm-2" >{{'label.input.marital.status' | translate}}<span  class="required">*</span></label>
+                            <div class="col-sm-3">
+                                <select id="maritalStatusId" ng-model="addClientformData.maritalStatusId"  class="form-control" ng-options="maritalStatus.id as maritalStatus.name for maritalStatus in maritalStatusOptions" value="{{maritalStatus.id}}">
+                                    <option value="">{{'label.menu.marital.status' | translate}}
+                                            </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
+                            <span ng-show="isExternalIdMandatory" class="required">*</span>
+                    </label>
+                    <div class="col-sm-3" ng-show="showExternalId">
+                        <input type="text" id="externalId" name="external" ng-model="addClientformData.externalId" class="form-control"  ng-required = "isExternalIdMandatory"/>
+                    </div>
+                    <div class="col-sm-2 paddinglr0px">
+                        <form-validate valattributeform="createclientform" valattribute="external"/>
                     </div>
                 </div>
 
@@ -306,16 +330,6 @@
                     <div class="col-sm-3">
                         <input name="email" ng-model="addClientformData.email" placeholder="EMAIL ID" type="email" class="form-control" />
                         <form-validate valattributeform="createclientform" valattribute="email" />
-                    </div>
-
-                    <label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
-                        <span ng-show="isExternalIdMandatory" class="required">*</span>
-                    </label>
-                    <div class="col-sm-3" ng-show="showExternalId">
-                        <input type="text" id="externalId" name="external" ng-model="addClientformData.externalId" class="form-control" ng-required="isExternalIdMandatory" />
-                    </div>
-                    <div class="col-sm-2 paddinglr0px">
-                        <form-validate valattributeform="createclientform" valattribute="external" />
                     </div>
                 </div>
                 <div ng-if="enableClientAddress">
@@ -452,6 +466,7 @@
                     <div class="col-sm-3">
                         <input id="activeCheckbox" type="checkbox" ng-model="addClientformData.active" data-ng-change="setChoice()" ng-disabled="isClientActive" ng-checked="isClientActive">
                     </div>
+
                     <div data-ng-switch on="choice">
                         <div data-ng-switch-when="1">
                             <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
