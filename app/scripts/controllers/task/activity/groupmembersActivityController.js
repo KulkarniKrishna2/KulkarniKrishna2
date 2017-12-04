@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        groupmembersActivityController: function ($q, $controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        groupmembersActivityController: function ($q, $controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,$filter) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.formData = {};
             scope.viewSummary=false;
@@ -594,7 +594,7 @@
   
       }
     });
-    mifosX.ng.application.controller('groupmembersActivityController', ['$q','$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.groupmembersActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('groupmembersActivityController', ['$q','$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope','$filter', mifosX.controllers.groupmembersActivityController]).run(function ($log) {
         $log.info("groupmembersActivityController initialized");
     });
 }(mifosX.controllers || {}));
