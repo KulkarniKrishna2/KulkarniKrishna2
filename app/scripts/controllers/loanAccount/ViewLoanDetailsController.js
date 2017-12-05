@@ -1570,6 +1570,7 @@
                     }
                 }
             };
+
             scope.isReportPresent = false;
             function constructLoanSummary() {
                 if (!_.isUndefined(scope.activeLoan)) {
@@ -1631,6 +1632,14 @@
 
             scope.getCreditBureauReportSummary = function () {
                 if(!scope.existingclientdetailsloaded) {
+                    if(_.isUndefined(scope.fileContentData)){
+                        resourceFactory.creditBureauReportFileContentResource.get({
+                            entityType: 'client',
+                            entityId: $rootScope.clientId
+                        }, function (fileContentData) {
+                            scope.fileContentData = fileContentData;
+                        });
+                    }
                     resourceFactory.clientExistingLoan.getAll({
                         clientId: $rootScope.clientId,
                         loanApplicationId: null,
@@ -1645,21 +1654,34 @@
             };
 
             scope.creditBureauReportView = function () {
-                resourceFactory.creditBureauReportFileContentResource.get({
-                    entityType: 'client',
-                    entityId: $rootScope.clientId
-                }, function (fileContentData) {
-                    if (fileContentData.reportFileType.value == 'HTML') {
+                if(_.isUndefined(scope.fileContentData)){
+                    resourceFactory.creditBureauReportFileContentResource.get({
+                        entityType: 'client',
+                        entityId: $rootScope.clientId
+                    }, function (fileContentData) {
+                        if (fileContentData.reportFileType.value == 'HTML') {
+                            var result = "";
+                            for (var i = 0; i < fileContentData.fileContent.length; ++i) {
+                                result += (String.fromCharCode(fileContentData.fileContent[i]));
+                            }
+                            var popupWin = window.open('', '_blank', 'width=1000,height=500');
+                            popupWin.document.open();
+                            popupWin.document.write(result);
+                            popupWin.document.close();
+                        }
+                    });
+                }else{
+                    if (scope.fileContentData.reportFileType.value == 'HTML') {
                         var result = "";
-                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
-                            result += (String.fromCharCode(fileContentData.fileContent[i]));
+                        for (var i = 0; i < scope.fileContentData.fileContent.length; ++i) {
+                            result += (String.fromCharCode(scope.fileContentData.fileContent[i]));
                         }
                         var popupWin = window.open('', '_blank', 'width=1000,height=500');
                         popupWin.document.open();
                         popupWin.document.write(result);
                         popupWin.document.close();
                     }
-                });
+                }
             };
 
             scope.isOverPaidLoan = false;
