@@ -34,7 +34,9 @@
                         scope.doActionAndRefresh(actionName);
                     }
                 }
-
+                else if(actionName === 'approve' || actionName === 'reject'){
+                    scope.doActionAndRefresh(actionName);
+                }
             };
 
         }
