@@ -6723,6 +6723,8 @@
     "label.heading.writeoff.amount" : " Write-off Amount",
     "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
     "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
+    "validation.msg.loan.expectedDisbursementDate.disburment.date.should.not.be.empty" : "Expected disbursement date of tranche should not be empty",
+    "validation.msg.loan.principal.tranche.amount.should.not.be.empty":"Tranche amount should not be empty",
 
     "------ end of tensalation file":"---------"
 }
