@@ -106,7 +106,7 @@
             };
             scope.addClients = function(clientName){
                 var deferred = $q.defer();
-                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: clientName, orderBy : 'displayName', officeId : routeParams.officeId,
+                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: clientName, orderBy : 'displayName', officeId : scope.formData.officeId,
                     sortOrder : 'ASC', orphansOnly : true}, function (data) {
                     deferred.resolve(data.pageItems);
                 });
