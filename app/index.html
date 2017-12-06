@@ -70,18 +70,33 @@
                 <div class="row form-search ng-pristine ng-valid" data-ng-form="loginForm" data-ng-controller="LoginFormController" ng-hide="hideLoginPannel">
                     <div ng-hide="resetPassword">
                         <div class="col-md-2"></div>
-                        <form class="form  col-md-8" role="form">
-                            <label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
-                            <div class="form-group ">
-                                <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid" style="border-radius: 5px;">
-                            </div>
-                            <div class="form-group  ">
-                                <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd" style="border-radius: 5px;">
-                            </div>
-                            <div class="form-group" align="center">
-                                <button class="btn btn-success btn-md" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
-                            </div>
-                        </form>
+                        <div ng-if="!otpPanel">
+                            <form class="form  col-md-8" role="form">
+                                <label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
+                                <div class="form-group ">
+                                    <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid" style="border-radius: 5px;">
+                                </div>
+                                <div class="form-group  ">
+                                    <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd" style="border-radius: 5px;">
+                                </div>
+                                <div class="form-group" align="center">
+                                    <button class="btn btn-success btn-md" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
+                                </div>
+                            </form>                            
+                        </div>
+                        <div ng-if="otpPanel">
+                            <form class="form col-md-8 form-horizontal" role="form">
+                                <label class="error" data-ng-show="authenticationFailed"><strong>{{ 'error.msg.otp.login.failed' | translate }}</strong></label>
+                                <div class="form-group">
+                                    <h4 class="col-md-6">{{'label.input.enter.otp' | translate}}</h4>
+                                    <input type="password" data-ng-model="loginCredentials.otp" placeholder="{{ 'label.input.otp' | translate }}" class="input-sm form-control col-md-6"  required id="pwd" style="border-radius: 5px;">
+                                </div>
+                                <div class="form-group" align="center">
+                                    <a class="btn btn-warning btn-md" data-ng-click = "showLoginScreen()" id="otp-reset">{{ 'label.button.cancel' | translate }}</a>
+                                    <button class="btn btn-success btn-md" type="submit" data-ng-click="loginWithOTP()" id="otp-button">{{ 'label.button.verify.otp' | translate }}</button>
+                                </div>
+                            </form>                            
+                        </div>
                         <div class="col-md-2"></div>
                     </div>
                     <div ng-if="resetPassword">
