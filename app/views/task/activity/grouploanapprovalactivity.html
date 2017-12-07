@@ -24,7 +24,7 @@
                             <td>{{loanApp.loanAmountRequested|number}}</td>
                             <td>{{loanApp.loanProductName}}</td>
                             <td>
-                                <a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-click="approveLoan(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding">
+                                <a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-click="approveLoan(loanApp)" class="btn btn-xs btn-primary ng-binding">
                                     <i class="icon-ok icon-white"></i>
                                 </a>
                             </td>
