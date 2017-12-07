@@ -6574,6 +6574,7 @@
     "label.heading.no.of.default.loan" : "No of Default Loan",
     "label.heading.lender.name" : "Lender Name",
     "label.heading.writeoff.amount" : " Write-off Amount",
+    "label.heading.mfi":"MFI",
     
     "------ end of tensalation file":"---------"
 }
