@@ -47,7 +47,7 @@
                         }
                     }
                 }
-                if(scope.response.uiDisplayConfigurations.createGroup.isAutoPopulate.active){
+                if(scope.response.uiDisplayConfigurations.createGroup.isAutoPopulate.active && !scope.isWorkflowEnabled){
                     scope.formData.active = true;
                     scope.choice = 1;
                 }
