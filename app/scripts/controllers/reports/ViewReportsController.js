@@ -2,14 +2,14 @@
     mifosX.controllers = _.extend(module, {
         ViewReportsController: function (scope, routeParams, resourceFactory, location, route) {
             scope.reports = [];
-            scope.type = routeParams.type;
-            //to display type of report on breadcrumb
-            var typeReport = routeParams.type.replace(routeParams.type[0], routeParams.type[0].toUpperCase()) + " " + "Reports";
-            scope.type = typeReport;
-
+            scope.reportCagegories = [] ;
             scope.routeTo = function (report) {
-                location.path('/run_report/' + report.report_name).search({reportId: report.report_id, type: report.report_type});
+                location.path('/run_report/' + report.reportName).search({reportId: report.id, type: report.reportType});
             };
+
+            resourceFactory.codeValueByCodeNameResources.get({codeName: "Report Classification"}, function (codeValueData) {
+                scope.reportCagegories = codeValueData;
+            });
 
             if (!scope.searchCriteria.reports) {
                 scope.searchCriteria.reports = null;
@@ -35,54 +35,12 @@
                 scope.saveSC();
             };
 
-            if (routeParams.type == 'all') {
-                resourceFactory.runReportsResource.get({reportSource: 'FullReportList', parameterType: true, genericResultSet: false}, function (data) {
-                    scope.reports = scope.getReports(data);
+            scope.loanReports = function(codeValue) {
+                console.log(codeValue.id) ;
+                resourceFactory.reportsByCategoryResource.get({id: codeValue.id}, function (data) {
+                    scope.reports = data ;
                 });
-            } else if (routeParams.type == 'clients') {
-                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Client', parameterType: true, genericResultSet: false}, function (data) {
-                    scope.reports = scope.getReports(data);
-                });
-            } else if (routeParams.type == 'loans') {
-                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Loan', parameterType: true, genericResultSet: false}, function (data) {
-                    scope.reports = scope.getReports(data);
-                });
-            } else if (routeParams.type == 'savings') {
-                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Savings', parameterType: true, genericResultSet: false}, function (data) {
-                    scope.reports = scope.getReports(data);
-                });
-            } else if (routeParams.type == 'funds') {
-                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Fund', parameterType: true, genericResultSet: false}, function (data) {
-                    scope.reports = scope.getReports(data);
-                });
-            } else if (routeParams.type == 'accounting') {
-                resourceFactory.runReportsResource.get({
-                    reportSource: 'reportCategoryList',
-                    R_reportCategory: 'Accounting',
-                    parameterType: true,
-                    genericResultSet: false
-                }, function (data) {
-                    scope.reports = scope.getReports(data);
-                });
-            }else if (routeParams.type == 'custom') {
-                    resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Custom', parameterType: true, genericResultSet: false}, function (data) {
-                        scope.reports = scope.getReports(data);
-                    });
-            }
-
-            // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
-            scope.getReports = function (data) {
-                var prevId = -1;
-                var currId;
-                var reports = [];
-                for (var i = 0; i < data.length; i++) {
-                    currId = data[i].report_id;
-                    if (currId != prevId)
-                        reports.push(data[i]);
-                    prevId = currId;
-                }
-                return reports;
-            };
+            } ;
         }
     });
     mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewReportsController]).run(function ($log) {

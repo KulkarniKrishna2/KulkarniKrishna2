@@ -1,7 +1,7 @@
 <div>
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-        <li><a href="#/reports">{{'label.anchor.managereports' | translate}}</a></li>
+        <li><a href="#/managereports">{{'label.anchor.managereports' | translate}}</a></li>
         <li class="active">{{'label.anchor.editreport' | translate}}</li>
     </ul>
 </div>
@@ -116,7 +116,42 @@
                     </div>
                 </td>
             </tr>
-
+            <tr class="col-md-1 minheight30px"></tr>
+            <tr class="form-group">
+                <td class="width11">
+                    <label class="control-label col-sm-2"><h4>{{ 'label.heading.reportCategories' | translate }}</h4></label>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-sm-5 col-md-5">
+                            <label class="control-label col-sm-9">{{ 'label.input.available' | translate }}</label>
+                            <select id="availableProfileTypeValues" ng-model="available" name="availableProfileTypeValues" class="form-control multiselectmin" multiple>
+                                <option ng-repeat="availablerole in availablCategories" value="{{availablerole.id}}">
+                                    {{availablerole.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 col-md-1 paddedtop25px">
+                            <div>
+                                <button id="addProfileTypeId" type="button" class="btn btn-primary" data-ng-click="addCategory()"><i
+                                        class="icon-double-angle-right"></i></button>
+                            </div>
+                            <div>
+                                <button id="removeProfileTypeId" type="button" class="btn btn-primary" data-ng-click="removeCategory()"><i
+                                        class="icon-double-angle-left"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 col-md-5">
+                            <label class="control-label col-sm-9">{{ 'label.input.selected' | translate}}<span class="required">*</span></label>
+                            <select id="selectedProfileTypeValues" name="selected" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
+                                <option ng-repeat="availablerole in selectedCategories" value="{{availablerole.id}}">
+                                    {{availablerole.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <tr class="col-md-1 minheight30px"></tr>
             <tr class="form-group">
                 <td class="width10">
