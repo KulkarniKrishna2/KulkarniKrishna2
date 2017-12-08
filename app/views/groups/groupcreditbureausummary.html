@@ -38,6 +38,7 @@
                    <tr><td>{{clientCBData.totalOutstandingAmount}}</td></tr>
                 </table>
             <td>
+            <td><button class="btn btn-primary pull-right" ng-show="groupClientCBData.isCbReportPresent == 1" ng-click="creditBureauReportView(groupClientCBData.clientId)">{{'label.button.viewReport' | translate}}</button> </td>    
             </tr>
         </table>
     </div>

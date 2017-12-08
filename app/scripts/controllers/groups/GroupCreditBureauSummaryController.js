@@ -10,7 +10,7 @@
                 var clientId = undefined;
                 scope.groupClientsCBDatas= [];
                 var clientData = {};
-                var clientIndex = -1;
+                var clientIndex = -1; 
                 for(var i in datas){
                     var cbData = {};
                     if(clientId != datas[i].clientId){
@@ -19,6 +19,7 @@
                         clientData = {};
                         clientData.clientId = datas[i].clientId;
                         clientData.clientName = datas[i].clientName;
+                        clientData.isCbReportPresent = datas[i].isCbReportPresent;
                         clientData.cbDetails = [];
                         scope.groupClientsCBDatas.push(clientData);
                     }
@@ -29,6 +30,9 @@
                     cbData.totalOutstandingAmount = datas[i].totalOutstandingAmount;
                     cbData.totalAmountOverDue = datas[i].totalAmountOverDue;
                     cbData.disbursement_date = datas[i].disbursement_date;
+                    if(datas[i].isCbReportPresent == 1){
+                          clientData.isCbReportPresent = 1;  
+                        }
                     scope.groupClientsCBDatas[clientIndex].cbDetails.push(cbData);
                 }
             };
