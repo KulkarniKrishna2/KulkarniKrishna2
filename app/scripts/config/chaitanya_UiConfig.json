@@ -106,7 +106,8 @@
         "active": true
       },
       "isAutoPopulate": {
-      },
+        "active":true
+        },
       "isHiddenMenu": {
         "attachmeeting": true
       }
