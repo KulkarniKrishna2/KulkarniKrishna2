@@ -364,6 +364,7 @@
 								<table class="table table-condensed">
 									<tr class="graybg">
 										<th>{{'label.heading.loan.application.number' | translate}}</th>
+										<th ng-if = "isReserveLoanIdEnabled">{{'label.heading.reserved.account.number' | translate}}</th>
 										<th>{{'label.heading.loan.amount.requested' | translate}}</th>
 										<th>{{'label.heading.loanproduct' | translate}}</th>
 										<th>{{'label.heading.type' | translate}}</th>
@@ -374,6 +375,9 @@
 											<i tooltip-placement="right" tooltip="{{loanApp.status.value}}"
 											   class="icon-stop {{loanApp.status.code | StatusLookup}}"></i>
 											{{loanApp.loanApplicationReferenceNo}}
+										</td>
+										<td ng-if ="isReserveLoanIdEnabled" class="pointer" data-ng-click="routeToLoanApplication(loanApp)">
+											{{loanApp.reservedLoanId}}
 										</td>
 										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">{{loanApp.loanAmountRequested|number}}</td>
 										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">{{loanApp.loanProductName}}</td>

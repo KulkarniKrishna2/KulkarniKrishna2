@@ -41,6 +41,7 @@
                 scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
             }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+            scope.isReserveLoanIdEnabled = scope.isSystemGlobalConfigurationEnabled('reserve-loan-id');
         
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
