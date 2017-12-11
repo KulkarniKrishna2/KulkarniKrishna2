@@ -339,6 +339,7 @@
     "label.button.close": "Close",
     "label.button.staffassignmenthistory": "Staff Assignment History ",
     "label.button.activate": "Activate",
+    "label.button.deactivate":"Deactivate",
     "label.button.newloanapplicationreferences": "New Loan Application",
     "label.button.newloan": "New Loan",
     "label.button.newshareaccount": "New Share Account",
@@ -1568,7 +1569,7 @@
     "label.heading.balancesheet": "Balance Sheet",
     "label.heading.incomes": "Incomes",
     "label.heading.xbrl.report":"XBRL Report",
-
+    "label.heading.reportCategories": "Report Categories",
 
     "#Anchors": "..",
     "label.anchor.managereports": "Manage Reports",
@@ -5688,6 +5689,7 @@
     "label.heading.transactionAmount": "Transaction Amount",
     "label.heading.fee.amount":"Fee Amount",
     "label.heading.penalty.amount":"Penalty amount",
+    "label.heading.reportcategories":"Report Categories",
 
     "":"",
     "------ start of sales--":"---------",

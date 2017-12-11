@@ -169,6 +169,13 @@
                         update: {method: 'PUT', params: {}},
                         getAll: {method: 'GET', params: {usageTrackingEnabledOnly : '@usageTrackingEnabledOnly'}, isArray: true}
                     }),
+                    reportsByCategoryResource: defineResource(apiVer + "/reports/category/:id", {id: '@id'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                    }),
+                    reportsResourceCommands: defineResource(apiVer + "/reports/:id", {id: '@id'}, {
+                        activate: {method: 'POST',  params:{command : 'activate'}},
+                        deActivate: {method: 'POST', params:{command : 'deActivate'}}
+                    }),
                     xbrlMixtaxonomyResource: defineResource(apiVer + "/mixtaxonomy", {}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),

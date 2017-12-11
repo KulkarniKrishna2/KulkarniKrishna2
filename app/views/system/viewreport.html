@@ -2,7 +2,7 @@
     <div class="paddedbottom10">
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a> </li>
-            <li><a href="#/reports">{{'label.anchor.managereports' | translate}}</a> </li>
+            <li><a href="#/managereports">{{'label.anchor.managereports' | translate}}</a> </li>
             <li class="active">{{report.reportName}}</li>
         </ul>
     </div>
@@ -12,6 +12,14 @@
                 | translate}}</a>
             <button type="button" class="btn btn-danger" ng-show="noncoreReport" ng-click="deletereport()" has-permission='DELETE_REPORT'><i
                     class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-show="!report.isActive" ng-click="activateReport()"
+                    has-permission='ACTIVATE_REPORT'><i
+                    class="icon-ok-sign icon-white"></i>{{'label.button.activate' | translate}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-show="report.isActive" ng-click="deActivateReport()"
+                    has-permission='DEACTIVATE_REPORT'><i
+                    class="icon-remove-sign icon-white"></i>{{'label.button.deactivate' | translate}}
             </button>
         </div>
     </div>
@@ -53,6 +61,11 @@
                 <td>{{ 'label.heading.trackusage' | translate }}</td>
                 <td>{{report.trackUsage}}</td>
             </tr>
+            <tr>
+                <td>{{ 'label.heading.reportcategories' | translate }}</td>
+                <td>{{reportCategories}}</td>
+            </tr>
+
         </table>
     </div>
 </div>

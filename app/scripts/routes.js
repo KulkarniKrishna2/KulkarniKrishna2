@@ -540,7 +540,7 @@
             .when('/entitytoentitymapping', {
                 templateUrl: 'views/system/entitytoentitymapping.html'
             })
-            .when('/reports', {
+            .when('/managereports', {
                 templateUrl: 'views/system/reports.html'
             })
             .when('/system/viewreport/:id', {
@@ -591,7 +591,7 @@
             .when('/editPaymentType/:id', {
                 templateUrl: 'views/organization/editpaymenttype.html'
             })
-            .when('/reports/:type', {
+            .when('/reports/', {
                 templateUrl: 'views/reports/view_reports.html'
             })
             .when('/run_report/:name', {
