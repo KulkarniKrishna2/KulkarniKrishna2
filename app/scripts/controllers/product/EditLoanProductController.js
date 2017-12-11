@@ -167,9 +167,9 @@
                     scope.formData.isEnableRestrictionForClientProfile = 'false';
                 }
 
-                if (scope.formData.canDefineInstallmentAmount) {
+                //if (scope.formData.canDefineInstallmentAmount) {
                     scope.canCrossMaturityDateOnFixingEMI = scope.product.canCrossMaturityDateOnFixingEMI;
-                }
+                //}
                 if(scope.product.maxInstalmentAmount != undefined) {
                     scope.formData.maxInstalmentAmount = scope.product.maxInstalmentAmount;
                 }
