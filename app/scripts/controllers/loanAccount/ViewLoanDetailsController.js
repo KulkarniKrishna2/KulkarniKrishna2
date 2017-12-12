@@ -1685,38 +1685,46 @@
                         constructLoanSummary();
                     });
                     scope.existingclientdetailsloaded = true;
+                    resourceFactory.creditBureauEnquiriesResource.getAll({
+                        entityType: "loanapplication",
+                        entityId: scope.loandetails.loanApplicationReferenceId
+                     }, function (data) {
+                        scope.creditBureauEnquiries = data;
+                        if(scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0){
+                            scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
+                            if(scope.creditBureauEnquiry){
+                                if (scope.creditBureauEnquiry.status) {
+                                   scope.isResponPresent = true;
+                                } 
+                                if(scope.creditBureauEnquiry.errors){
+                                    scope.errorMessage = scope.loansSummary.errors;
+                                }                               
+                            }                          
+                        }
+                    });
                 }
             };
 
+            var viewDocumentCtrl= function ($scope, $modalInstance, reportDetails) {
+                $scope.data = reportDetails;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };   
+            };
+
             scope.creditBureauReportView = function () {
-                if(_.isUndefined(scope.fileContentData)){
-                    resourceFactory.creditBureauReportFileContentResource.get({
-                        entityType: 'client',
-                        entityId: $rootScope.clientId
-                    }, function (fileContentData) {
-                        if (fileContentData.reportFileType.value == 'HTML') {
-                            var result = "";
-                            for (var i = 0; i < fileContentData.fileContent.length; ++i) {
-                                result += (String.fromCharCode(fileContentData.fileContent[i]));
+                if(scope.creditBureauEnquiry && scope.creditBureauEnquiry.id){
+                    var reportEntityType = "CreditBureau";
+                    $modal.open({
+                        templateUrl: 'viewDocument.html',
+                        controller: viewDocumentCtrl,
+                         resolve: {
+                            reportDetails: function () {
+                                return {'enquiryId' : scope.creditBureauEnquiry.id,'reportEntityType' : reportEntityType};
                             }
-                            var popupWin = window.open('', '_blank', 'width=1000,height=500');
-                            popupWin.document.open();
-                            popupWin.document.write(result);
-                            popupWin.document.close();
                         }
                     });
-                }else{
-                    if (scope.fileContentData.reportFileType.value == 'HTML') {
-                        var result = "";
-                        for (var i = 0; i < scope.fileContentData.fileContent.length; ++i) {
-                            result += (String.fromCharCode(scope.fileContentData.fileContent[i]));
-                        }
-                        var popupWin = window.open('', '_blank', 'width=1000,height=500');
-                        popupWin.document.open();
-                        popupWin.document.write(result);
-                        popupWin.document.close();
-                    }
-                }
+                }              
             };
 
             scope.isOverPaidLoan = false;

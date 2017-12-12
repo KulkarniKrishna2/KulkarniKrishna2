@@ -1,13 +1,14 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCreditBureauReportController: function (scope, resourceFactory, location, routeParams, route) {
+        ViewCreditBureauReportController: function (scope, resourceFactory, location, routeParams, route, $modal) {
             scope.clientId = routeParams.clientId;
             scope.enquiryId = routeParams.enquiryId;
             scope.isResponPresent = false;
             scope.entityType = "client";
             scope.creditBureauEnquiry = {};
+            scope.reportEntityType = "CreditBureau";
 
-                resourceFactory.creditBureauEnquiriesResource.getAll({
+            resourceFactory.creditBureauEnquiriesResource.getAll({
                     entityType: scope.entityType,
                     entityId: scope.clientId,
                     creditBureauEnquiryId : scope.enquiryId
@@ -21,7 +22,7 @@
                         clientCreditSummary();
                     }
                     convertByteToString();
-               }); 
+            }); 
 
             scope.cBStatus = function () {
                 var status = undefined;
@@ -255,34 +256,6 @@
                location.path('/create/creditbureau/client/' + scope.clientId);
             };
 
-            scope.creditBureauReportView = function () {
-                resourceFactory.creditBureauReportFileContentByEnquiryIdResource.get({
-                    enquiryId: scope.enquiryId
-                }, function (fileContentData) {
-                    if (fileContentData.reportFileType.value == 'HTML') {
-                        var result = "";
-                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
-                            result += (String.fromCharCode(fileContentData.fileContent[i]));
-                        }
-                        var popupWin = window.open('', '_blank', 'width=1000,height=500');
-                        popupWin.document.open();
-                        popupWin.document.write(result);
-                        popupWin.document.close();
-                    } else if (fileContentData.reportFileType.value == 'XML') {
-                        var result = "";
-                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
-                            result += (String.fromCharCode(fileContentData.fileContent[i]));
-                        }
-                        var newWindow = window.open('', '_blank', 'toolbar=0, location=0, directories=0, status=0, scrollbars=1, resizable=1, copyhistory=1, menuBar=1, width=640, height=480, left=50, top=50', true);
-                        var preEl = newWindow.document.createElement("pre");
-                        var codeEl = newWindow.document.createElement("code");
-                        codeEl.appendChild(newWindow.document.createTextNode(result));
-                        preEl.appendChild(codeEl);
-                        newWindow.document.body.appendChild(preEl);
-                    }
-                });
-            };
-
             scope.cancel = function () {
                 location.path('/viewclient/' + scope.clientId);
             };
@@ -304,9 +277,27 @@
                     convertByteToString();
                 });
             };
+
+            var viewDocumentCtrl= function ($scope, $modalInstance, reportDetails) {
+                $scope.data = reportDetails;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };   
+            };
+            scope.openViewDocument = function (enquiryId, reportEntityType) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                     resolve: {
+                        reportDetails: function () {
+                            return {'enquiryId' : enquiryId,'reportEntityType' : reportEntityType};
+                        }
+                    }
+                });
+            };
         }
     });
-    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$route', mifosX.controllers.ViewCreditBureauReportController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$route','$modal', mifosX.controllers.ViewCreditBureauReportController]).run(function ($log) {
         $log.info("ViewCreditBureauReportController initialized");
     });
 }(mifosX.controllers || {}));
