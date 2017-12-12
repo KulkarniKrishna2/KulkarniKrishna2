@@ -22,12 +22,6 @@
                 scope.availablCategories = data.availableCategories ;
             });
 
-
-            resourceFactory.reportsResource.getReportDetails({resourceType: 'template'}, function (data) {
-                scope.reportdetail = data;
-                scope.formData.reportType = data.allowedReportTypes[0];
-            });
-
             scope.addCategory = function () {
                 for (var i in this.available) {
                     for (var j in scope.availablCategories) {
