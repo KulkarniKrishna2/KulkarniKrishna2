@@ -64,7 +64,7 @@
             scope.clientOptions = function(value){
                 var deferred = $q.defer();
                 resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: value, orderBy : 'displayName',
-                    sortOrder : 'ASC', orphansOnly : false}, function (data) {
+                    sortOrder : 'ASC', orphansOnly : false,limit:15}, function (data) {
                     removeExistingClients(data.pageItems);
                     deferred.resolve(data.pageItems);
                 });
