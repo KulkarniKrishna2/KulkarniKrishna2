@@ -6728,5 +6728,8 @@
     "validation.msg.loan.expectedDisbursementDate.disburment.date.should.not.be.empty" : "Expected disbursement date of tranche should not be empty",
     "validation.msg.loan.principal.tranche.amount.should.not.be.empty":"Tranche amount should not be empty",
     "label.heading.workflowstep.name":"Workflow Step Name",
+    "error.msg.duplicate.survey.key" : "Duplicate Survey Key",
+    "error.msg.duplicate.survey.component.key" : "Duplicate survey component key",
+    "error.msg.duplicate.question.key" : "Duplicate question key",
     "------ end of tensalation file":"---------"
 }
