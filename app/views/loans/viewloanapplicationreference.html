@@ -103,10 +103,6 @@
                                 <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.submittedOnDate | DateFormat}}</td>
                             </tr>
-                            <tr ng-if="isReserveLoanIdEnabled && formData.reservedLoanId">
-                                <td><label>{{ 'label.heading.reserved.account.number' | translate }}:</label>&nbsp;</td>
-                                <td>{{formData.reservedLoanId}}</td>
-                            </tr>
                         </table>
                     </div>
                     <div class="col-md-6">

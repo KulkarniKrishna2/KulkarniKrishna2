@@ -15,7 +15,6 @@
             scope.initData = function () {
                 scope.isWorkFlow = scope.isSystemGlobalConfigurationEnabled('work-flow');
                 scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
-                scope.isReserveLoanIdEnabled = scope.isSystemGlobalConfigurationEnabled('reserve-loan-id');
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                     scope.formData = data;
                     if(scope.formData.isWorkflowEnabled == true && scope.formData.workflowId){
