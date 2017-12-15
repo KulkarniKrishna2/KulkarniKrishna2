@@ -211,8 +211,9 @@
             scope.createClientMembersForGLIM = function(){
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                     scope.clientMembers = glimData;
-                    /*scope.isGLIM = (glimData.length>0);*/
-                    scope.isGLIM = glimData[0].isActive;
+                    if(glimData.length>0){
+                      scope.isGLIM = glimData[0].isActive;  
+                    }
                     if(scope.isGLIM){
                         for(var i=0;i<glimData.length;i++){
                             scope.clientMembers[i].id = glimData[i].id;
@@ -375,8 +376,9 @@
                     scope.modelName = 'transactionDate';
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
-                        /*scope.isGLIM = (glimData.length>0 );*/
-                        scope.isGLIM = glimData[0].isActive;
+                        if(glimData.length>0 ){
+                            scope.isGLIM = glimData[0].isActive;
+                        }
                         resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                             scope.paymentTypes = data.paymentTypeOptions;
                             if (data.paymentTypeOptions.length > 0) {
