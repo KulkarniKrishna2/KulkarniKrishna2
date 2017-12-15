@@ -6731,5 +6731,6 @@
     "error.msg.duplicate.survey.key" : "Duplicate Survey Key",
     "error.msg.duplicate.survey.component.key" : "Duplicate survey component key",
     "error.msg.duplicate.question.key" : "Duplicate question key",
+    "validation.msg.loanemipack.installmentAmount.more.than.max.installmentAmount.loanproduct":"Loan emi pack installment amount should not be more than maximum installment amount of loanproduct",
     "------ end of tensalation file":"---------"
 }
