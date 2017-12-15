@@ -3,8 +3,39 @@
         GroupCreditBureauSummaryController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
             scope.groupId = routeParams.groupId;
             resourceFactory.runReportsResource.get({reportSource: 'GroupClientsCBReport', R_groupId: scope.groupId, genericResultSet: false}, function (groupClientsCBDatas) {
-                scope.groupClientsCBDatas = groupClientsCBDatas;
+                customaziedGroupClientsCBFunction(groupClientsCBDatas);
             });
+
+            function customaziedGroupClientsCBFunction (datas) {
+                var clientId = undefined;
+                scope.groupClientsCBDatas= [];
+                var clientData = {};
+                var clientIndex = -1; 
+                for(var i in datas){
+                    var cbData = {};
+                    if(clientId != datas[i].clientId){
+                        clientId = datas[i].clientId;
+                        clientIndex++;
+                        clientData = {};
+                        clientData.clientId = datas[i].clientId;
+                        clientData.clientName = datas[i].clientName;
+                        clientData.isCbReportPresent = datas[i].isCbReportPresent;
+                        clientData.cbDetails = [];
+                        scope.groupClientsCBDatas.push(clientData);
+                    }
+                    cbData.lenderName = datas[i].lenderName;
+                    cbData.approvedAmount = datas[i].approvedAmount;
+                    cbData.installmentAmount = datas[i].installmentAmount;
+                    cbData.frequency = datas[i].frequency;
+                    cbData.totalOutstandingAmount = datas[i].totalOutstandingAmount;
+                    cbData.totalAmountOverDue = datas[i].totalAmountOverDue;
+                    cbData.disbursement_date = datas[i].disbursement_date;
+                    if(datas[i].isCbReportPresent == 1){
+                          clientData.isCbReportPresent = 1;  
+                        }
+                    scope.groupClientsCBDatas[clientIndex].cbDetails.push(cbData);
+                }
+            };
 
             scope.creditBureauReportView = function (clientId) {
                 resourceFactory.creditBureauReportFileContentResource.get({

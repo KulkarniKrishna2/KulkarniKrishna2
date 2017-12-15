@@ -94,6 +94,7 @@
                         });
                     }
                     scope.loanProductChange(applicationData.loanProductId);
+                    scope.charges = [];
                     resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,
                         command: 'loanapplicationcharges'
