@@ -777,6 +777,7 @@
             };
 
             function disbursalSettings(data) {
+                var closedStatus = [400,500,600,601,602];//WITHDRAWN_BY_CLIENT,REJECTED,CLOSED_OBLIGATIONS_MET,CLOSED_WRITTEN_OFF,CLOSED_RESCHEDULE_OUTSTANDING_AMOUNT
                 if (data.canDisburse) {
                     var disburseButtonLabel = 'button.disburse';
                     if(scope.loandetails.multiDisburseLoan){
@@ -793,19 +794,19 @@
                             addDisburseToSavingsTrancheButton = false;
                         }
                     }
-                    if(addDisburseTrancheButton) {
+                    if(addDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: disburseButtonLabel,
                             icon: "icon-flag",
                             taskPermissionName: 'DISBURSE_LOAN'
                         });
                     }
-                    if(addDisburseToSavingsTrancheButton) {
-                    scope.buttons.singlebuttons.splice(1, 0, {
-                        name: "button.disbursetosavings",
-                        icon: "icon-flag",
-                        taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
-                    });
+                    if(addDisburseToSavingsTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.disbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+                        });
                     }
                     creditBureauCheckIsRequired();
                 }
