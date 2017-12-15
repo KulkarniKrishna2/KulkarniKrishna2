@@ -12,6 +12,12 @@
                     location.path('/addactiongroups/'+actionGroupId);
                 }
 
+            scope.deleteActionGroup = function(actionGroupId){
+                resourceFactory.actionGroupsResource.delete({actionGroupId:actionGroupId},this.formData,function (data) {
+                    location.path('/displayactiongroups/');
+                });
+            }
+
                
         }
     });

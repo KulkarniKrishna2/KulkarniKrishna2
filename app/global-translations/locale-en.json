@@ -6596,6 +6596,7 @@
     "label.anchor.addactiongroup" : "Add Action Group",
     "label.anchor.viewactiongroups" : "View Action Groups",
     "validation.msg.taskactiongroup.roleId.error.msg.roleId.parameter.should.be.long" : "RoleId Parameter should be long",
+    "error.msg.taskactiongroup.cannot.be.deleted": "Task action group cannot be deleted since it is associated to a work flow",
     "label.heading.workflowmanagement" : "Workflow Management",
     "label.view.workflowmanagement" : "Configure and manage workflows",
     "label.anchor.workflowmanagement" : "Workflow Management",

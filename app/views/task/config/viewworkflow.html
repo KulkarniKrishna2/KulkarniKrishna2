@@ -20,12 +20,12 @@
                     <td class="pointer">{{taskConfigData.name}}</td>
                 </tr>
                 <tr>
-                    <td class="pointer">{{'label.heading.shortname' | translate}}</td>
-                    <td class="pointer">{{taskConfigData.shortName}}</td>
+                    <td data-ng-click="routeToView()" class="pointer">{{'label.heading.shortname' | translate}}</td>
+                    <td  data-ng-click="routeToView()" class="pointer">{{taskConfigData.shortName}}</td>
                 </tr>
-                <tr ng-if="isTaskConfigEntityMappingDone">
-                    <td class="pointer">{{'label.heading.entity' | translate}}</td>
-                    <td class="pointer">{{taskConfigData.entityMappingType.value}}</td>
+                <tr ng-if="isTaskConfigEntityMappingDone" >
+                    <td data-ng-click="routeToView()" class="pointer">{{'label.heading.entity' | translate}}</td>
+                    <td data-ng-click="routeToView()" class="pointer">{{taskConfigData.entityMappingType.value}}</td>
                 </tr>
             </tbody>
         </table>
