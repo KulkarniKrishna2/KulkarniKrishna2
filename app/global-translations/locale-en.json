@@ -6577,7 +6577,7 @@
     "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
     "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
     "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
-<<<<<<< HEAD
+
     "validation.msg.FUND.sanctionedDate.is.less.than.date":"Sanctioned date should not be less than assignment start date",
     "validation.msg.FUND.disbursedDate.is.less.than.date":"Disbursement date should not be less than sactioned date",
     "validation.msg.FUND.disbursedAmount.is.greater.than.max":"Disbursed amount should not be greater than sanctioned amount",
@@ -6674,9 +6674,9 @@
     "label.anchor.inter.branch.client.transaction" : "Inter Branch Client Transaction",
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
-=======
+
     "error.msg.bank.account.detail.already.exist" : "Bank account detail already exist for entity `{{params[0].value}}`",
->>>>>>> v17.09.1_VAYA
+
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
     "label.heading.add.coapplicant" : "Add Co-Applicant",
