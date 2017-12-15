@@ -141,16 +141,17 @@
                             }
                             if (response.addressData[0].countryData) {
                                 scope.formData.countryId = response.addressData[0].countryData.countryId;
+                                scope.changeCountry(scope.formData.countryId)
                             }
                             if (response.addressData[0].stateData) {
-                               scope.states = response.addressData[0].countryData.statesDatas;
                                 scope.formData.stateId = response.addressData[0].stateData.stateId;
+                                scope.changeState(scope.formData.stateId);
                             }
                             if (response.addressData[0].districtData) {
-                                scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formData.districtId = response.addressData[0].districtData.districtId;
+                                scope.changeDistrict(scope.formData.districtId);
                             }
-                            scope.talukas = response.addressData[0].districtData.talukaDatas;
+                            
                             if (response.addressData[0].talukaData) {
                                 scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
