@@ -339,6 +339,7 @@
     "label.button.close": "Close",
     "label.button.staffassignmenthistory": "Staff Assignment History ",
     "label.button.activate": "Activate",
+    "label.button.deactivate":"Deactivate",
     "label.button.newloanapplicationreferences": "New Loan Application",
     "label.button.newloan": "New Loan",
     "label.button.newshareaccount": "New Share Account",
@@ -1568,7 +1569,7 @@
     "label.heading.balancesheet": "Balance Sheet",
     "label.heading.incomes": "Incomes",
     "label.heading.xbrl.report":"XBRL Report",
-
+    "label.heading.reportCategories": "Report Categories",
 
     "#Anchors": "..",
     "label.anchor.managereports": "Manage Reports",
@@ -4347,7 +4348,7 @@
     "trancheLoanClosureType.auto.closure.after.maturity.date": "(Auto) Closure after maturity",
     "trancheLoanClosureType.manual.closure": "Manual close",
     "trancheAmountLimitType.on.total.disbursed.amount": "Disburse amount <= Sanction amount - Total disbursed amount",
-    "trancheAmountLimitType.on.total.outstanding.amount": "Disburse amount =>  Sanction amount - Total outstanding amount",
+    "trancheAmountLimitType.on.total.outstanding.amount": "Disburse amount <=  Sanction amount - Total outstanding principal amount",
     "label.input.outstandingloanbalance":"Maximum allowed outstanding balance",
     "validation.msg.loanproduct.interestType.not.equal.to.specified.number":"Flat interest type is not allowed with multi disburse or interest recalculation",
     "validation.msg.loanproduct.outstandingLoanBalance.not.zero.or.greater":"Max outstanding balance must be a positive Amount",
@@ -5696,6 +5697,7 @@
     "label.heading.transactionAmount": "Transaction Amount",
     "label.heading.fee.amount":"Fee Amount",
     "label.heading.penalty.amount":"Penalty amount",
+    "label.heading.reportcategories":"Report Categories",
 
     "":"",
     "------ start of sales--":"---------",
@@ -6740,6 +6742,13 @@
     "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
     "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
     "label.heading.mfi":"MFI",
+
+    "validation.msg.loan.expectedDisbursementDate.disburment.date.should.not.be.empty" : "Expected disbursement date of tranche should not be empty",
+    "validation.msg.loan.principal.tranche.amount.should.not.be.empty":"Tranche amount should not be empty",
+    "label.heading.workflowstep.name":"Workflow Step Name",
+    "error.msg.duplicate.survey.key" : "Duplicate Survey Key",
+    "error.msg.duplicate.survey.component.key" : "Duplicate survey component key",
+    "error.msg.duplicate.question.key" : "Duplicate question key",
 
     "------ end of tensalation file":"---------"
 }

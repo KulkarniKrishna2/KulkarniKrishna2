@@ -126,7 +126,7 @@
             };
 
             scope.deleteDocument = function (documentId, index, tagValue) {
-                resourceFactory.documentsResource.delete({entityType: scope.entityType, entityId: scope.entityId, documentId: documentId}, '', function (data) {
+                resourceFactory.documentsResource.delete({entityType: scope.entityType, entityId: scope.entityId, documentId: documentId.id}, '', function (data) {
                     scope.clientdocuments[tagValue].splice(index, 1);
                 });
             };

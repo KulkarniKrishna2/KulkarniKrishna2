@@ -4,10 +4,60 @@
             scope.formData = {};
             scope.reportParameters = [];
             scope.flag = false;
+            scope.available = [];
+            scope.selected = [];
+            scope.selectedCategories = [] ;
+            scope.availablCategories = [];
+
+            resourceFactory.codeValueByCodeNameResources.get({codeName: "Report Classification"}, function (codeValueData) {
+                scope.availablCategories = codeValueData;
+            });
+
             resourceFactory.reportsResource.getReportDetails({resourceType: 'template'}, function (data) {
                 scope.reportdetail = data;
                 scope.formData.reportType = data.allowedReportTypes[0];
             });
+
+            scope.addCategory = function () {
+                for (var i in this.available) {
+                    for (var j in scope.availablCategories) {
+                        if (scope.availablCategories[j].id == this.available[i]) {
+                            var temp = {};
+                            temp.id = this.available[i];
+                            temp.name = scope.availablCategories[j].name;
+                            scope.selectedCategories.push(temp);
+                            scope.availablCategories.splice(j, 1);
+                        }
+                    }
+                }
+                for (var i in this.available) {
+                    for (var j in scope.selectedCategories) {
+                        if (scope.selectedCategories[j].id == this.available[i]) {
+                            scope.available.splice(i, 1);
+                        }
+                    }
+                }
+            };
+            scope.removeCategory = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedCategories) {
+                        if (scope.selectedCategories[j].id == this.selected[i]) {
+                            var temp = {};
+                            temp.id = this.selected[i];
+                            temp.name = scope.selectedCategories[j].name;
+                            scope.availablCategories.push(temp);
+                            scope.selectedCategories.splice(j, 1);
+                        }
+                    }
+                }
+                for (var i in this.selected) {
+                    for (var j in scope.availablCategories) {
+                        if (scope.availablCategories[j].id == this.selected[i]) {
+                            scope.selected.splice(i, 1);
+                        }
+                    }
+                }
+            };
 
             scope.parameterSelected = function (allowedParameterId) {
                 scope.flag = true;
@@ -45,6 +95,10 @@
             }
 
             scope.submit = function () {
+                scope.formData.reportClassifications = [] ;
+                for (var i in scope.selectedCategories) {
+                    scope.formData.reportClassifications.push(scope.selectedCategories[i].id) ;
+                }
                 scope.temp = deepCopy(scope.reportParameters);
                 for (var i in scope.temp) {
                     delete scope.temp[i].allowedParameterName;
