@@ -34,7 +34,7 @@
                     <select chosen="villages" id="villageId" name="villages" ng-model="formData.villageId" class="form-control"
                             ng-options="village.villageId as village.villageName for village in villages"
                             value="{{village.villageId}}"
-                            ng-change="changeVillage(formData.villageId)"  required late-validate="" >
+                            ng-change="changeVillage()"  required late-validate="" >
                         <option value="">{{'label.menu.selectVillages' | translate}}</option>
                     </select>
                 </div>

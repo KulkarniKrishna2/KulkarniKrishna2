@@ -122,8 +122,8 @@
                 }
             }
 
-            scope.changeVillage = function (villageId) {
-                if (villageId != null) {
+            scope.changeVillage = function () {
+                if (scope.formData.villageId != null && scope.formData.villageId != undefined) {
                     if (scope.formData.districtId) {
                         delete scope.formData.districtId;
                     }
@@ -134,7 +134,7 @@
                     scope.talukas = null;
                     scope.formData.postalCode = null;
                     scope.districts = null;
-                    resourceFactory.villageResource.get({villageId: villageId}, function (response) {
+                    resourceFactory.villageResource.get({villageId: scope.formData.villageId}, function (response) {
                         if (response.addressData.length > 0) {
                             if(response.villageName){
                                 scope.formData.villageTown = response.villageName;
