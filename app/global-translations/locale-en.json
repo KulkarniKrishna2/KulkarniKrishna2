@@ -6576,7 +6576,10 @@
     "label.heading.no.of.default.loan" : "No of Default Loan",
     "label.heading.lender.name" : "Lender Name",
     "label.heading.writeoff.amount" : " Write-off Amount",
-    "label.heading.mfi":"MFI",
+    "label.heading.no.of.mfi":"Active MFIs",
+    "label.heading.hh.status":"HH Status",
+    "label.heading.risk.markers":"Risk Markers",
+    "label.heading.customer.status":"Customer Status",
     
     "------ end of tensalation file":"---------"
 }
