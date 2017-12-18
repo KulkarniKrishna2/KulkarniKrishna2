@@ -783,9 +783,17 @@
                     if(scope.loandetails.multiDisburseLoan){
                         disburseButtonLabel = 'button.disburse.tranche';
                     }
+                    var canForceDisburseTranche = false;
+                    if(scope.enableClientVerification && data.clientData && !data.clientData.isVerified){
+                        scope.canForceDisburseTranche = true;
 
+                    }
                     var addDisburseTrancheButton = true;
                     var addDisburseToSavingsTrancheButton = true;
+                    if(scope.canForceDisburseTranche){
+                        var addForceDisburseTrancheButton = true;
+                        var addForceDisburseToSavingsTrancheButton = true;
+                    }
                     for(var i = 0; i < scope.buttons.singlebuttons.length; i++){
                         if(scope.buttons.singlebuttons[i].name == "button.disburse.tranche"){
                             addDisburseTrancheButton = false;
@@ -793,7 +801,16 @@
                         if(scope.buttons.singlebuttons[i].name == "button.disbursetosavings"){
                             addDisburseToSavingsTrancheButton = false;
                         }
+                        if(scope.canForceDisburseTranche){
+                            if(scope.buttons.singlebuttons[i].name == "button.forcedisburse"){
+                                addForceDisburseTrancheButton = false;
+                            }
+                            if(scope.buttons.singlebuttons[i].name == "button.forcedisbursetosavings"){
+                                addForceDisburseToSavingsTrancheButton = false;
+                            }
+                        }
                     }
+                    
                     if(addDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: disburseButtonLabel,
@@ -808,6 +825,23 @@
                             taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
                         });
                     }
+
+                    if(scope.canForceDisburseTranche && addForceDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0){
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.forcedisburse",
+                            icon: "icon-flag",
+                            taskPermissionName: 'FORCE_DISBURSE_LOAN'
+                        });
+                    }
+
+                    if(scope.canForceDisburseTranche && addForceDisburseToSavingsTrancheButton && closedStatus.indexOf(data.status.id) < 0){
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.forcedisbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'FORCE_DISBURSETOSAVINGS_LOAN'
+                        });
+                    }
+
                     creditBureauCheckIsRequired();
                 }
             };
