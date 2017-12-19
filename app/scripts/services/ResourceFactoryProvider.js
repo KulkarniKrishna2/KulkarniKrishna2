@@ -1388,6 +1388,9 @@
                     }),
                     aadharClientVerificationResource: defineResource(apiVer + "/clients/:clientId/identifiers/:identifierId/verification/aadhaar", {clientId: '@clientId', identifierId: '@identifierId'}, {
                         save:{method:'POST', params:{}}
+                    }),
+                    fetchCreditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/refresh", {enquiryId: '@enquiryId'}, {
+                        get: {method: 'GET', params: {}, isArray:true}
                     })
                 };
             }];

@@ -6737,5 +6737,13 @@
     "validation.msg.loanemipack.installmentAmount.more.than.max.installmentAmount.loanproduct":"Loan emi pack installment amount should not be more than maximum installment amount of loanproduct",
     "error.msg.charge.not.supported.to.glim" : "Charge/s not supported for GLIM.",
     "validation.msg.loanproduct.minimumDaysBetweenApprovalAndDisbursement.not.greater.than.zero":"Minimum days between approval and disbursement should be greater than zero",
+    "label.heading.error.message" : "Error Message",
+    "label.heading.initiatedon" : "Initiated On",
+    "label.heading.creditbureau" : "Credit Bureau",
+    "label.heading.enquiry.id" : "Enquiry Id",
+    "label.heading.error.details" : "Error Details",
+    "label.heading.summarydetails": "Summary Details",
+    "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
+    "label.button.refresh.creditbureau.report" : "Refresh CreditBureau Report",
     "------ end of tensalation file":"---------"
 }
