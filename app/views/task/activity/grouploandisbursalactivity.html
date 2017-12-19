@@ -522,6 +522,10 @@
                     </button>
                     <button id="save" type="submit" has-permission='DISBURSE_LOANAPPLICATIONREFERENCE' class="btn btn-primary" ng-if="allowDisburse()">{{'label.button.disburse' |translate}}
                     </button>
+                    <button id="forceDisburse"  ng-click="forceDisburse()"
+                    has-permission='FORCE_DISBURSE_LOANAPPLICATIONREFERENCE'
+                    class="btn btn-primary" ng-if="allowForceDisburse()">{{'label.button.forcedisburse' |translate}}
+                    </button>
                 </div>
             </div>
 
