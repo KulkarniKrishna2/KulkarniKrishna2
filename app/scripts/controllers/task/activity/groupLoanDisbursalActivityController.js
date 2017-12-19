@@ -7,6 +7,9 @@
             scope.groupId = scope.taskconfig['groupId'];
             scope.disburseForm = false;
             scope.showLoans = true;
+            scope.canForceDisburse = false;
+            scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+            scope.commandParam = 'disburse';
 
             function populateDetails() {
                 resourceFactory.groupResource.get({
@@ -57,6 +60,7 @@
                 scope.showPaymentDetails = false;
 
                 scope.date = {};
+                scope.formData = {};
                 var curIndex = 0;
 
                 //2F Authentication
@@ -151,6 +155,9 @@
                     scope.loanaccountinfo = data;
                     if (data.clientName) {
                         scope.clientName = data.clientName;
+                        if(!data.isClientVerified && scope.enableClientVerification){
+                            scope.canForceDisburse = true;
+                        }
                     }
                     if (data.group) {
                         scope.groupName = data.group.name;
@@ -433,7 +440,7 @@
                 delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'disburse'
+                    command: scope.commandParam
                 }, this.formRequestData, function(disburseData) {
                       scope.disburseForm = false;
                       scope.showLoans = true;
@@ -496,6 +503,14 @@
                 return (this.formData.status.id === 300 && scope.loanaccountinfo);
             };
 
+            scope.allowForceDisburse = function(){
+                return (this.formData.status.id === 300 && scope.canForceDisburse && scope.loanaccountinfo);
+            };
+
+            scope.forceDisburse = function () {
+                scope.commandParam = 'forcedisburse';
+                scope.submit(); 
+            };
         }
     });
     mifosX.ng.application.controller('groupLoanDisbursalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.groupLoanDisbursalActivityController]).run(function($log) {
