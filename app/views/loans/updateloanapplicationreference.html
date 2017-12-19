@@ -58,6 +58,7 @@
                 <td class="width31 paddedbottom10" ng-hide="loanaccountinfo.loanEMIPacks">
                     <input type="text" class="form-control" id="loanAmountRequested" name="loanAmountRequested"
                            ng-model="formData.loanAmountRequested"
+                           ng-change="updateSlabBasedCharges()"
                            number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="updateloanapplicationform" valattribute="loanAmountRequested"/>
                 </td>
