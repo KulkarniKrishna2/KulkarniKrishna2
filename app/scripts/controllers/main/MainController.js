@@ -185,18 +185,7 @@
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
-                    resourceFactory.cacheResource.get(function (data) {
-                        for (var i in data) {
-                            if (data[i].cacheType && data[i].cacheType.id == 2) {
-                                var cache = {};
-                                cache.name = 'Is Cache Enabled';
-                                cache.enabled = data[i].enabled;
-                                cache.showEditvalue = false;
-                                scope.configs.push(cache);
-                            }
-                        }
-                        constructJsonForSystemGlobalConfigurations();
-                    });
+                    
                 });
             };
 

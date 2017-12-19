@@ -15,35 +15,21 @@
             };
 
             scope.enable = function (id, name) {
-                if (name == 'Is Cache Enabled') {
-                    var temp = {};
-                    temp.cacheType = 2;
-                    resourceFactory.cacheResource.update(temp, function (data) {
-                        scope.getAllGlobalConfigurations();
-                    });
-                }
-                else {
+               
                     var temp = {'enabled': 'true'};
                     resourceFactory.configurationResource.update({'id': id}, temp, function (data) {
                         scope.getAllGlobalConfigurations();
                     });
-                }
+                
             };
 
             scope.disable = function (id, name) {
-                if (name == 'Is Cache Enabled') {
-                    var temp = {};
-                    temp.cacheType = 1;
-                    resourceFactory.cacheResource.update(temp, function (data) {
-                        scope.getAllGlobalConfigurations();
-                    });
-                }
-                else {
+                
                     var temp = {'enabled': 'false'};
                     resourceFactory.configurationResource.update({'id': id}, temp, function (data) {
                         scope.getAllGlobalConfigurations();
                     });
-                }
+                
             };
         }
     });
