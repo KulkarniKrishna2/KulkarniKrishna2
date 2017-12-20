@@ -188,6 +188,18 @@
                 scope.updateSlabBasedCharges();
             });
 
+            scope.updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack = function(){
+                if(scope.formData.loanEMIPackId != undefined){
+                    for(var i in scope.loanaccountinfo.loanEMIPacks){
+                        if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
+                            var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
+                            var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                            scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
+                        }
+                    }
+                }
+            }
+
             scope.updateSlabBasedCharges = function(){
                 if(scope.formData.loanAmountRequested != '' && scope.formData.loanAmountRequested != undefined){
                     for(var i in scope.charges){
@@ -197,6 +209,17 @@
                     }
                 }
             };
+
+            scope.updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack = function(){
+                if(scope.formData.loanEMIPackId != undefined){
+                    for(var i in scope.charges){
+                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge) {
+                            scope.charges[i] = scope.updateChargeForSlab(scope.charges[i]);
+                        }
+                    }
+                }
+            }
+
 
             scope.updateChargeForSlab = function(data){
                 if(scope.isGLIM && scope.formData.clientMembers) {
@@ -210,8 +233,19 @@
                                 if (data.slabs){
                                     var isInRange = false;
                                     for(var j in data.slabs){
-                                        var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],data.glims[i].transactionAmount,scope.formData.numberOfRepayments);
-                                        if(slabBasedValue != null){
+                                        var slabBasedValue = null;
+                                        if (scope.loanaccountinfo.loanEMIPacks != undefined && scope.formData.loanEMIPackId != undefined) {
+                                            for (var x in scope.loanaccountinfo.loanEMIPacks) {
+                                                if (scope.loanaccountinfo.loanEMIPacks[x].id == scope.formData.loanEMIPackId) {
+                                                    var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[x].sanctionAmount;
+                                                    var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[x].numberOfRepayments;
+                                                    slabBasedValue = scope.getSlabBasedAmount(data.slabs[i], loanAmountRequested, numberOfRepayments);
+                                                }
+                                            }
+                                        } else {
+                                            slabBasedValue = scope.getSlabBasedAmount(data.slabs[j], data.glims[i].transactionAmount, scope.formData.numberOfRepayments);
+                                        }
+                                        if (slabBasedValue != null) {
                                             data.glims[i].upfrontChargeAmount = slabBasedValue;
                                             amount = amount + data.glims[i].upfrontChargeAmount;
                                             isInRange = true;
@@ -244,7 +278,18 @@
                 }else{
                     if(data.chargeCalculationType.value == scope.slabBasedCharge){
                         for(var j in data.slabs){
-                            var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],scope.formData.loanAmountRequested,scope.formData.numberOfRepayments);
+                            var slabBasedValue = null;
+                            if (scope.loanaccountinfo.loanEMIPacks != undefined && scope.formData.loanEMIPackId != undefined) {
+                                for (var x in scope.loanaccountinfo.loanEMIPacks) {
+                                    if (scope.loanaccountinfo.loanEMIPacks[x].id == scope.formData.loanEMIPackId) {
+                                        var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[x].sanctionAmount;
+                                        var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[x].numberOfRepayments;
+                                        slabBasedValue = scope.getSlabBasedAmount(data.slabs[j], loanAmountRequested, numberOfRepayments);
+                                    }
+                                }
+                            }else {
+                                 slabBasedValue = scope.getSlabBasedAmount(data.slabs[j], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
+                            }
                             if(slabBasedValue != null){
                                 data.amount = slabBasedValue;
                                 break;
