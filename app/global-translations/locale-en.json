@@ -1898,6 +1898,7 @@
     "label.input.isfloatingrate": "Is Floating Rate?",
     "label.input.installmentinmultiplesof":"Installment in multiples of",
     "label.input.candefineinstallmentamount":"Allow fixing of the installment amount",
+    "label.input.calculateIrr":"Calculate interest rate(%)",
     "label.input.maxemiallowed" :"Maximum EMI amount allowed",
     "label.input.cancrossmaturitydate":"Can cross maturity date",
     "label.input.closeLoanOnOverpayment":"Close Loan On Over Payment",
@@ -2072,6 +2073,7 @@
     "label.tooltip.arearstolerance":"With 'Arrears tolerance' you can specify a tolerance amount and if the loan is behind (in arrears), but within the tolerance, it won't be classified as 'in arrears' and part of the portfolio at risk.",
     "label.tooltip.daysinyear":"Number of days in year.",
     "label.tooltip.daysinmonth":"Number of days in month.",
+    "label.tooltip.calculateIrr":"Caculates effective interest rate based on principal, number of periods, frequency and installment amount",
 
 
     "#tool tip for creating standing instruction":"..",
@@ -6735,6 +6737,7 @@
     "error.msg.duplicate.survey.component.key" : "Duplicate survey component key",
     "error.msg.duplicate.question.key" : "Duplicate question key",
     "validation.msg.loanemipack.installmentAmount.more.than.max.installmentAmount.loanproduct":"Loan emi pack installment amount should not be more than maximum installment amount of loanproduct",
+
     "error.msg.charge.not.supported.to.glim" : "Charge/s not supported for GLIM.",
     "validation.msg.loanproduct.minimumDaysBetweenApprovalAndDisbursement.not.greater.than.zero":"Minimum days between approval and disbursement should be greater than zero",
     "label.heading.error.message" : "Error Message",
@@ -6745,5 +6748,10 @@
     "label.heading.summarydetails": "Summary Details",
     "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
     "label.button.refresh.creditbureau.report" : "Refresh CreditBureau Report",
+
+
+    "label.heading.emiamount":"EMI Amount",
+    "label.heading.loanterms":"Loan Terms",
+
     "------ end of tensalation file":"---------"
 }
