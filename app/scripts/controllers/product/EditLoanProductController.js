@@ -161,7 +161,8 @@
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
-                    percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred
+                    percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
+                    calculateIrr:scope.product.calculateIrr
                 };
                 if(scope.formData.applicableForLoanType == scope.INDIVIDUAL_CLIENT){
                     scope.formData.isEnableRestrictionForClientProfile = 'false';

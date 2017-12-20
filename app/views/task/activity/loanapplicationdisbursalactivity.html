@@ -630,64 +630,15 @@
                             </div>
 
                             <div>
-                        <span><a href="javascript:void(0);" data-ng-click="previewRepayments(true)">{{'label.anchor.repaymentinfo'
-                            | translate}}<i class="icon-circle-arrow-right"></i></a></span>
+                       
                                 <button type="button" class="btn btn-primary pull-right"
                                         ng-show="repaymentscheduleinfo.periods.length > 0 && response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.viewReportButton"
                                         ng-click="viewRepaymentDetails()">{{'label.button.viewReport' | translate}}
                                 </button>
                             </div>
 
-                            <div ng-show="repaymentscheduleinfo.periods">
-                                <table class="table width100">
-                                    <thead>
-                                    <th colspan="3" scope="col"></th>
-                                    <th colspan="3" scope="col">{{'label.heading.loanamountandbalance' | translate}}
-                                    </th>
-                                    <th colspan="2" scope="col">{{'label.heading.totalcostofloan' | translate}}</th>
-                                    <th colspan="2" scope="col"></th>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>{{'label.heading.date' | translate}}</td>
-                                        <td>{{'label.heading.days' | translate}}</td>
-                                        <td>{{'label.heading.disbursement' | translate}}</td>
-                                        <td>{{'label.heading.principaldue' | translate}}</td>
-                                        <td>{{'label.heading.principalbalance' | translate}}</td>
-                                        <td>{{'label.heading.interestdue' | translate}}</td>
-                                        <td>{{'label.heading.fees' | translate}}</td>
-                                        <td>{{'label.heading.penalty' | translate}}</td>
-                                        <td>{{'label.heading.due' | translate}}</td>
-                                    </tr>
-                                    <tr ng-repeat="period in repaymentscheduleinfo.periods">
-                                        <td>{{period.period}}</td>
-                                        <td>{{period.dueDate | DateFormat}}</td>
-                                        <td>{{period.daysInPeriod}}</td>
-                                        <td>{{period.principalDisbursed | number}}</td>
-                                        <td>{{period.principalDue| number}}</td>
-                                        <td>{{period.principalLoanBalanceOutstanding| number}}</td>
-                                        <td>{{period.interestDue| number}}</td>
-                                        <td>{{period.feeChargesDue| number}}</td>
-                                        <td>{{period.penaltyChargesDue| number}}</td>
-                                        <td>{{period.totalDueForPeriod| number}}</td>
-                                    </tr>
-                                    <tfoot class="ui-widget-header">
-                                    <tr>
-                                        <td colspan="2">{{'label.heading.total' | translate}}</td>
-                                        <td>{{repaymentscheduleinfo.loanTermInDays}}</td>
-                                        <td>{{repaymentscheduleinfo.totalPrincipalDisbursed| number}}</td>
-                                        <td>{{repaymentscheduleinfo.totalPrincipalExpected| number}}</td>
-                                        <td></td>
-                                        <td>{{repaymentscheduleinfo.totalInterestCharged| number}}</td>
-                                        <td>{{repaymentscheduleinfo.totalFeeChargesCharged| number}}</td>
-                                        <td>{{repaymentscheduleinfo.totalPenaltyChargesCharged| number}}</td>
-                                        <td>{{repaymentscheduleinfo.totalRepaymentExpected| number}}</td>
-                                    </tr>
-                                    </tfoot>
-                                    </tbody>
-                                </table>
-                            </div>
+                             <div ng-show="repaymentscheduleinfo.periods" ng-include="'views/loans/loanrepaymentpreview.html'" />
+
 
                             <div class="col-md-offset-5">
                                 <button id="save" type="submit" ng-click="issubmitted = true"
@@ -700,6 +651,8 @@
                                         class="btn btn-primary" ng-if="formData.status.id === 300 && canForceDisburse"
                                         ng-show="loanaccountinfo">{{'label.button.forcedisburse' |translate}}
                                 </button>
+                                <a class="btn btn-primary" href="javascript:void(0);" data-ng-click="previewRepayments(true)">
+                                    {{'label.button.schedulepreview' | translate}}</a>
                             </div>
 
                         </div>

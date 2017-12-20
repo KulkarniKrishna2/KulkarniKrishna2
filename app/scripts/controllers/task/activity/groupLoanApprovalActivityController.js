@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        groupLoanApprovalActivityController: function($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        groupLoanApprovalActivityController: function($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $filter) {
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
@@ -818,7 +818,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('groupLoanApprovalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.groupLoanApprovalActivityController]).run(function($log) {
+    mifosX.ng.application.controller('groupLoanApprovalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope','$filter', mifosX.controllers.groupLoanApprovalActivityController]).run(function($log) {
         $log.info("groupLoanApprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));

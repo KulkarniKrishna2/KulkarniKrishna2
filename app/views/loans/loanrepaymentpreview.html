@@ -1,0 +1,114 @@
+<div >
+     <label><strong>{{ 'label.heading.loanterms' | translate }}</strong></label>
+     <br/><br/>
+</div>
+
+<div  class="row span" style="margin-left:-1px;margin-top: -20px">
+    <div class="col-sm-6 col-md-6">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>{{'label.input.principal' | translate}}</th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.principal | number}}</span></td>
+            </tr>
+            <tr>
+                <th>{{'label.heading.repayments' | translate}}</th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.numberOfRepayments}} every {{repaymentscheduleinfo.loanTermsData.repayEvery}}&nbsp;{{repaymentscheduleinfo.loanTermsData.periodFrequencyType.value}}</span></td>
+            </tr>
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.interestRate != null">
+                <th>{{'label.heading.interestrate' | translate}}</th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.interestRate | number}}</span>
+                </td>
+            </tr>
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.emiAmount != null">
+                <th>{{'label.input.fixedemiamount' | translate}}</th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.emiAmount | number}}</span>
+                </td>
+            </tr>
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.principalGrace > 0">
+                <th>{{'label.heading.graceonprincipalpayment' | translate}}
+                </th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.principalGrace}}</span></td>
+            </tr>
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.interestPaymentGrace > 0">
+                <th>{{'label.heading.graceoninterestpayment' | translate}}
+                </th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.interestPaymentGrace}}</span></td>
+            </tr>
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.interestFreeGrace">
+                <th>{{'label.heading.interestfreeperiod' | translate}}
+                </th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.interestFreeGrace}}</span></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <table class="table table-striped table-bordered">
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.calulatedIrr != null">
+                <th>{{'label.heading.interestrate' | translate}}</th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.calulatedIrr | number}}</span>
+                </td>
+            </tr>
+            <tr ng-if="repaymentscheduleinfo.loanTermsData.calculatedEmiAmount != null">
+                <th>{{'label.heading.emiamount' | translate}}</th>
+                <td><span class="padded-td">{{repaymentscheduleinfo.loanTermsData.calculatedEmiAmount | number}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div >
+    <label><strong>{{ 'label.heading.repaymentschedule' | translate }}</strong></label>
+</div>
+
+
+
+<div>
+    <table class="table width100" >
+        <thead>
+        <th colspan="3" scope="col"></th>
+        <th colspan="3" scope="col">{{'label.heading.loanamountandbalance' | translate}}</th>
+        <th colspan="2" scope="col">{{'label.heading.totalcostofloan' | translate}}</th>
+        <th colspan="2" scope="col"></th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>#</td>
+            <td>{{'label.heading.date' | translate}}</td>
+            <td>{{'label.heading.days' | translate}}</td>
+            <td>{{'label.heading.disbursement' | translate}}</td>
+            <td>{{'label.heading.principaldue' | translate}}</td>
+            <td>{{'label.heading.principalbalance' | translate}}</td>
+            <td>{{'label.heading.interestdue' | translate}}</td>
+            <td>{{'label.heading.fees' | translate}}</td>
+            <td>{{'label.heading.penalty' | translate}}</td>
+            <td>{{'label.heading.due' | translate}}</td>
+        </tr>
+        <tr ng-repeat="period in repaymentscheduleinfo.periods">
+            <td>{{period.period}}</td>
+            <td>{{period.dueDate | DateFormat}}</td>
+            <td>{{period.daysInPeriod}}</td>
+            <td>{{period.principalDisbursed | number}}</td>
+            <td>{{period.principalDue| number}}</td>
+            <td>{{period.principalLoanBalanceOutstanding| number}}</td>
+            <td>{{period.interestDue| number}}</td>
+            <td>{{period.feeChargesDue| number}}</td>
+            <td>{{period.penaltyChargesDue| number}}</td>
+            <td>{{period.totalDueForPeriod| number}}</td>
+        </tr>
+        <tfoot class="ui-widget-header">
+        <tr>
+            <td colspan="2">{{'label.heading.total' | translate}}</td>
+            <td>{{repaymentscheduleinfo.loanTermInDays}}</td>
+            <td>{{repaymentscheduleinfo.totalPrincipalDisbursed| number}}</td>
+            <td>{{repaymentscheduleinfo.totalPrincipalExpected| number}}</td>
+            <td></td>
+            <td>{{repaymentscheduleinfo.totalInterestCharged| number}}</td>
+            <td>{{repaymentscheduleinfo.totalFeeChargesCharged| number}}</td>
+            <td>{{repaymentscheduleinfo.totalPenaltyChargesCharged| number}}</td>
+            <td>{{repaymentscheduleinfo.totalRepaymentExpected| number}}</td>
+        </tr>
+        </tfoot>
+        </tbody>
+    </table>
+</div>
