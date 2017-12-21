@@ -64,7 +64,7 @@
         <input id="{{modelName}}" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
                ng-model="formData[modelName]" min="'2000-01-01'" max="'2020-06-22'"/>
     </div>
-    <div class="col-sm-3"  ng-show="overduechargespresent">
+    <div class="col-sm-3"  ng-show="overduechargespresent || showFetchButton">
         <a id="fetchpenalties" ng-click="fetchPenalties()" class="btn btn-primary " has-permission="'READ_OVERDUECHARGE'">{{ 'label.button.fetchpenalties' | translate }}</a>
     </div>
 </div>
@@ -78,7 +78,22 @@
 
     </div>
 
-    <div class="form-group" ng-if="overdueDetailsFetched">
+    <div class="form-group" ng-if="showPenaltiesNotApplicable">
+        <div class="col-sm-2">
+            &nbsp;
+        </div>
+        <label class="col-sm-6 required">{{ 'label.heading.penalty.charge.not.applicable' | translate}}  
+    </div>
+
+     <div class="form-group" ng-if="showFetchButton  && overdueDetailsFetched">
+        <div class="col-sm-2">
+            &nbsp;
+        </div>
+        <label class="col-sm-6" ng-if="totalpenaltyTillDate > 0">{{ 'label.heading.penalty.charge.posted' | translate}}  {{loanOverdueChargeData.lastChargeAppliedOnDate | DateFormat}} : {{totalpenaltyTillDate | number}} </label>
+        <label class="col-sm-6" ng-if="totalpenaltyTillDate <= 0">{{ 'label.heading.penaltynotapplicable' | translate}}</label>
+    </div>
+
+    <div class="form-group" ng-if="!showFetchButton && overdueDetailsFetched">
         <div class="col-sm-2">
             &nbsp;
         </div>
@@ -708,8 +723,8 @@
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' |
         translate}}
     </button>
-    <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{
-        'label.button.save' | translate}}
+    <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary" ng-hide="showPenaltiesNotApplicable">{{
+        submitbutton | translate}}
     </button>
 </div>
     <div collapse="hidePentahoReport" class="row alert-block span tab-content">

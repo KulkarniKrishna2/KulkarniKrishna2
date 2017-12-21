@@ -33,6 +33,9 @@
             scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
             scope.isDefaultAmountSection = false;
             scope.showRunReport = false;
+            scope.showPenaltiesNotApplicable = false;
+            scope.showFetchButton = false;
+            scope.submitbutton = 'label.button.save';
 
             scope.isAnyActiveMember = function(){
                 for(var i=0;i<scope.clientMembers.length;i++){
@@ -754,6 +757,25 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'refundByCash';
                     break;
+                case "applypenalties":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.overdueChargeResource.get({loanIdParam:scope.accountId}, function (data) {
+                        scope.loanOverdueChargeData = data;
+                        if(data.isOverdueChargeApplicable){
+                            scope.showDateField = true;
+                            scope.showFetchButton = true;
+                        }else{
+                            scope.showDateField = false;
+                            scope.showPenaltiesNotApplicable = true;
+                        }
+                    });
+                    scope.title = 'label.heading.applypenalties';
+                    scope.submitbutton = 'label.button.applypenalties';
+                    scope.labelName = 'label.input.asondate';
+                    scope.taskPermissionName = 'EXECUTE_OVERDUECHARGE';
+                    scope.action = 'applypenalties';
+                    scope.showNoteField = false;
+                break;
             }
 
             scope.cancel = function () {
@@ -969,6 +991,8 @@
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
                     });
+                } else if(scope.action == "applypenalties") {
+                    scope.applyPenalties();
                 } else {
                     params.loanId = scope.accountId;
                     this.formData.adjustRepaymentDate = dateFilter(this.formData.adjustRepaymentDate, scope.df);
@@ -1091,6 +1115,16 @@
                         scope.showdeletepenaltymessage = true;
                         scope.penaltydiff = scope.totalpenaltyTillDate-  scope.totalpenaltyAsOnDate ;
                     }
+                });
+            };
+
+            scope.applyPenalties = function(){  
+                var formData = {};
+                formData.locale = scope.optlang.code;
+                formData.dateFormat = scope.df;
+                formData.tillDate = dateFilter(this.formData.transactionDate, scope.df);
+                resourceFactory.overdueChargeResource.run({loanIdParam: scope.accountId},formData, function (data) {
+                   location.path('/viewloanaccount/' + data.loanId);
                 });
             };
 

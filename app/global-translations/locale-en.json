@@ -1782,6 +1782,8 @@
     "label.heading.penalty.charge.posted":"Penalty charges posted till ",
     "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
     "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
+    "label.heading.applypenalties":"Apply Penalties",
+    "label.heading.penalty.charge.not.applicable":"Penalty charges not applicable for this Loan Account",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -1835,6 +1837,7 @@
     "label.anchor.rescheduleLoan":"Reschedule Loan",
     "label.anchor.reschedulerequest":"Reschedule Request",
     "label.anchor.prepayment":"Prepayment",
+    "label.anchor.applypenalties":"Apply Penalties",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -1958,6 +1961,7 @@
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
     "label.button.fetchpenalties":"Fetch Penalties",
+    "label.button.applypenalties":"Apply Penalties",
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
 
     "#Misc Labels": "..",
@@ -2292,6 +2296,7 @@
     "validation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Interest rate chart effective date cannot be past dated",
     "validation.msg.recurringdepositaccount.no.applicable.interest.rate.is.found.based.on.amount.and.deposit.period":"Interest rate chart is not applicable for this amount and deposit period",
     "validation.msg.savingsproduct.effectiveFromDate.not.zero.or.greater":"Interest rate chart interest rate should be greater than zero ",
+    "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank":"Penalties apply on date is mandatory",
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
@@ -2992,6 +2997,7 @@
     "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
     "label.input.loanOfficer":"Loan Officer",
     "label.overdue.tilldate":"Overdue Charge Run  Till",
+    "label.input.asondate":"Run as on date",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",

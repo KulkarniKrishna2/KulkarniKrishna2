@@ -218,6 +218,9 @@
                     case "viewloanapplication":
                         location.path('/viewloanapplicationreference/' + scope.loandetails.loanApplicationReferenceId);
                     break;
+                    case "applypenalties":
+                        location.path('/loanaccount/' + accountId + '/applypenalties');
+                    break;
                 }
             };
 
@@ -533,6 +536,10 @@
                             {
                                 name: "button.refundByCash",
                                 taskPermissionName: 'REFUNDBYCASH_LOAN'
+                            },
+                            {
+                                name: "button.applypenalties",
+                                taskPermissionName: 'EXECUTE_OVERDUECHARGE'
                             }
                         ]
 
@@ -581,9 +588,8 @@
                     //loan officer not assigned to loan, below logic
                     //helps to display otherwise not
                     if (!data.loanOfficerName) {
-                        scope.buttons.singlebuttons.splice(1, 0, {
+                        scope.buttons.options.splice(1, 0, {
                             name: "button.assignloanofficer",
-                            icon: "icon-user",
                             taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                         });
                     }
