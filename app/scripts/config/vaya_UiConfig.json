@@ -17,6 +17,12 @@
           "clientAddress": false
         }
       }
+    },
+    "collectionSheet": {
+      "isHiddenFeild": {
+        "paymentDetails": true
+
+      }
     }
   }
 }
