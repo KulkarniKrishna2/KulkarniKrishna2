@@ -157,6 +157,9 @@
                 }else{
                     scope.paymentDetail.paymentTypeId = "";
                 }
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+                }
 
                 scope.paymentDetail.accountNumber = "";
                 scope.paymentDetail.checkNumber = "";
@@ -627,9 +630,16 @@
 
             scope.submit = function () {
 
-                if (scope.showPaymentDetails && scope.isRecieptNumbermandatory && (scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
-                    scope.setErrorMessage('error.msg.receipt.number.mandatory');
-                    return;
+                if (scope.showPaymentDetails && scope.isRecieptNumbermandatory){
+                    if((scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
+                        scope.setErrorMessage('error.msg.receipt.number.mandatory');
+                        return;
+                    }
+                    if((_.isUndefined(scope.paymentDetail.paymentTypeId) || scope.paymentDetail.paymentTypeId == null || scope.paymentDetail.paymentTypeId == "")){
+                        scope.setErrorMessage('error.msg.payment.type.mandatory');
+                        return;
+                    }
+
                 }
 
                 scope.formData.calendarId = scope.calendarId;
@@ -665,9 +675,7 @@
                     scope.formData.receiptNumber = scope.paymentDetail.receiptNumber;
                     scope.formData.bankNumber = scope.paymentDetail.bankNumber;
                 }
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
-                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
-                }
+
                 scope.formData.bulkDisbursementTransactions = [];
                 //construct loan repayment and savings due transactions
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
