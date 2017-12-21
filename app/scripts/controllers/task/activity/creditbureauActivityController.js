@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        creditbureauActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json) {
+        creditbureauActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
@@ -226,29 +226,40 @@
             };
 
             function getCreditBureauReportSummary() {
-                resourceFactory.creditBureauReportSummaryResource.get({
-                    clientId : scope.clientId,
-                    entityType: scope.entityType,
-                    entityId: scope.entityId
-                }, function (loansSummary) {
-                    scope.loansSummary = loansSummary;
-                    if (scope.loanId) {
-                        if (scope.loansSummary.loanId == scope.loanId) {
-                            scope.isResponPresent = true;
-                        }
-                    } else if (scope.loansSummary && scope.loansSummary.cbStatus) {
-                        scope.isResponPresent = true;
+
+                resourceFactory.creditBureauEnquiriesResource.getAll({
+                        entityType: scope.entityType,
+                        entityId: scope.entityId
+                }, function (data) {
+                    scope.creditBureauEnquiries = data;
+                    if(scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0){
+                         scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
+                         if(scope.creditBureauEnquiry){
+                            if (scope.creditBureauEnquiry.status) {
+                                scope.isResponPresent = true;
+                            }
+                            if(scope.creditBureauEnquiry.errors){
+                               scope.errorMessage = scope.loansSummary.errors;
+                            }
+                             
+                            if(scope.creditBureauEnquiry.creditBureauProduct){
+                               getCreditbureauLoanProductData(scope.creditBureauEnquiry.creditBureauProduct.id);
+                            }
+                      
+                            resourceFactory.clientCreditSummary.getAll({
+                                clientId: scope.formData.clientId,
+                                loanApplicationId: scope.loanApplicationReferenceId,
+                                loanId: scope.loanId,
+                                trancheDisbursalId: scope.trancheDisbursalId
+                            }, function (data) {
+                                scope.existingLoans = data.existingLoans;
+                                scope.creditScores = data.creditScores ;
+                                constructLoanSummary();
+                            });
+                         }
+
                     }
-                    resourceFactory.clientCreditSummary.getAll({
-                        clientId: scope.formData.clientId,
-                        loanApplicationId: scope.loanApplicationReferenceId,
-                        loanId: scope.loanId,
-                        trancheDisbursalId: scope.trancheDisbursalId
-                    }, function (data) {
-                        scope.existingLoans = data.existingLoans;
-                        scope.creditScores = data.creditScores ;
-                        constructLoanSummary();
-                    });
+
                 });
             };
 
@@ -262,16 +273,7 @@
                     if (scope.loansSummary && scope.loansSummary.cbStatus) {
                         scope.isResponPresent = true;
                     }
-                    resourceFactory.clientCreditSummary.getAll({
-                        clientId: scope.clientId,
-                        loanApplicationId: scope.loanApplicationReferenceId,
-                        loanId: scope.loanId,
-                        trancheDisbursalId: scope.trancheDisbursalId
-                    }, function (data) {
-                        scope.existingLoans = data.existingLoans;
-                        scope.creditScores = data.creditScores ;
-                        constructLoanSummary();
-                    });
+                    getCreditBureauReportSummary();
                 });
             };
 
@@ -304,8 +306,8 @@
             
             scope.cBStatus = function () {
                 var status = undefined;
-                if (scope.loansSummary && scope.loansSummary.cbStatus && scope.loansSummary.cbStatus.value) {
-                    status = scope.loansSummary.cbStatus.value;
+                if (scope.creditBureauEnquiry && scope.creditBureauEnquiry.status && scope.creditBureauEnquiry.status.value) {
+                    status = scope.creditBureauEnquiry.status.value;
                 }
                 return status;
             };
@@ -318,9 +320,27 @@
                     location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
+
+            function getCreditbureauLoanProductData(loanProductId) {
+                resourceFactory.loanProductResource.getCreditbureauLoanProducts({
+                    loanProductId: loanProductId,
+                    associations: 'creditBureaus',
+                    clientId: scope.clientId
+                }, function (data) {
+                    scope.creditbureauLoanProduct = data;
+                });
+            };
+
+            scope.refreshCreditBureauReport = function () {
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                    enquiryId: scope.creditBureauEnquiry.id
+                }, function (data) {
+                    route.reload();
+                });
+            };
         }
     });
-    mifosX.ng.application.controller('creditbureauActivityController', ['$controller','$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('creditbureauActivityController', ['$controller','$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json','$route', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
         $log.info("creditbureauActivityController initialized");
     });
 }(mifosX.controllers || {}));

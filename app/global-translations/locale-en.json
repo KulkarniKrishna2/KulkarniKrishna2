@@ -6744,6 +6744,5 @@
     "label.heading.error.details" : "Error Details",
     "label.heading.summarydetails": "Summary Details",
     "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
-    "label.button.refresh.creditbureau.report" : "Refresh CreditBureau Report",
     "------ end of tensalation file":"---------"
 }

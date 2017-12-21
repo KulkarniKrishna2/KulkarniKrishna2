@@ -202,17 +202,11 @@
                 </div>
                 <div class='wrapper text-center'>
                     <div class="btn-group">
-                        <button type="button" data-ng-click="cancel()" class="btn btn-default">  {{'label.button.cancel' | translate}}</button>
-                        <button id="creditBureauReport" type="button" 
-                            ng-if="cBStatus() == 'SUCCESS' || cBStatus() == 'ERROR' || cBStatus() == 'INTERNAL_ERROR'|| cBStatus() == 'EXPIRED'"
-                              class="btn btn-primary" ng-click="initiateCreditBureauReport();"
-                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>
-                                    {{'label.button.initiate.reinitiate.creditbureau' | translate}}
-                        </button>
+                        <button type="button" data-ng-click="cancel()" class="btn btn-default">  {{'label.button.back' | translate}}</button>
                         <button type="button" class="btn btn-primary" 
                                ng-if="cBStatus() == 'PENDING'"
-                                   ng-click="refreshCreditBureauReport();"
-                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.refresh.creditbureau.report' | translate}}
+                                   ng-click="refreshCreditBureauReport()"
+                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.fetch.creditbureaureport' | translate}}
                         </button>
                     </div>
                 </div>           
