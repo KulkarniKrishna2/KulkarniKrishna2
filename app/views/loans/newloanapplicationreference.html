@@ -77,7 +77,7 @@
                         class="required">*</span>:</label></td>
                 <td class="width31 paddedbottom10" ng-show="!loanaccountinfo.loanEMIPacks">
                     <input type="text" class="form-control" id="loanAmountRequested" name="loanAmountRequested"
-                           ng-model="formData.loanAmountRequested"
+                           ng-model="formData.loanAmountRequested" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepayment()"
                            number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="newloanapplicationform" valattribute="loanAmountRequested"/>
                 </td>
@@ -135,7 +135,7 @@
                             <tbody>
                             <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
                                 <td class="col-md-1">
-                                    <input type="radio" ng-model="formData.loanEMIPackId" value="{{loanEMIPack.id}}"/>
+                                    <input type="radio" ng-model="formData.loanEMIPackId" ng-click="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" value="{{loanEMIPack.id}}"/>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.sanctionAmount}}</span>
