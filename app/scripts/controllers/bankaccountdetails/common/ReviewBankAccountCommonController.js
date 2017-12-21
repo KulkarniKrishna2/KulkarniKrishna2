@@ -49,7 +49,7 @@
                         }
                     }
 
-                    if(!_.isUndefined(data.bankAccountDocuments)){
+                    if(!_.isUndefined(data.bankAccountDocuments) && data.bankAccountDocuments.length > 0){
                         scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
@@ -71,6 +71,7 @@
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
                     function (data) {
                         scope.viewConfig.showSummary=true;
+                        scope.doActionAndRefresh('activitycomplete');
                     }
                 );
             };
