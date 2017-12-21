@@ -174,7 +174,7 @@
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.calendarId = scope.calendarId;
-                scope.showPaymentDetails = false;
+                scope.showPaymentDetails = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails;
                 if (scope.date.transactionDate) {
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
@@ -186,7 +186,7 @@
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
-                            if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
+                            if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
                             }
@@ -212,7 +212,7 @@
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
-                            if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
+                            if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
                             }
