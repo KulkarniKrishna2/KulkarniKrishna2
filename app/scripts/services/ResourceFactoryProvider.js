@@ -56,9 +56,6 @@
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),
-                    clientsSearchResource: defineResource(apiVer + "/clients/search", {searchConditions: '@searchConditions'}, {
-                        getAllClients: {method: 'GET', params: {searchConditions: '@searchConditions'}, isArray: true}
-                    }),
                     clientResourceTemplate: defineResource(apiVer + "/clients/:clientId/template", {clientId: '@clientId', command: '@command'}, {
                         getActivateTemplate: {method: 'GET', params: {command : 'activate'}}
                     }),
@@ -96,9 +93,6 @@
                         getAllNotes: {method: 'GET', params: {}, isArray: true}
                     }),
                     clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
-                        get: {method: 'GET', params: {}}
-                    }),
-                    clientSearchTemplateResource: defineResource(apiVer + "/clients/search/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
                     clientLookupResource: defineResource(apiVer + "/clients/lookup", {}, {
