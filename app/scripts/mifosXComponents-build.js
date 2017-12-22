@@ -9,7 +9,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService.js',
             'SessionManager.js',
             'Paginator.js',
-            'PaginatorUsingOffset.js',
             'UIConfigService.js',
             'CommonUtilService'
         ],
