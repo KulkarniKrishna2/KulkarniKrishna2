@@ -469,7 +469,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/camActivityController',
             'task/activity/cashflowActivityController',
             'task/activity/criteriacheckActivityController',
-            'task/activity/existingloanActivityController',
             'task/activity/banktransactionActivityController',
             'task/activity/groupmembersActivityController',
             'task/activity/loanAppCoApplicantActivityController',
