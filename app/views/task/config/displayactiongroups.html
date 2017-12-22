@@ -24,6 +24,8 @@
                     <td class="pointer">{{actionGroup.actionGroupName}}</td>
                     <td class="pointer"><a type="button" class="btn btn-primary" 
                         has-permission='UPDATE_TASKACTIONGROUP' ng-click= "editActionGroup(actionGroup.id)">{{"label.button.edit" | translate}}</a></td>
+                    <td class="pointer"><a type="button" class="btn btn-primary"
+                                           has-permission='UPDATE_TASKACTIONGROUP' ng-click= "deleteActionGroup(actionGroup.id)">{{"label.button.delete" | translate}}</a></td>
                 </tr>
             </tbody>
         </table>

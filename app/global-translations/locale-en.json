@@ -584,9 +584,12 @@
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
     "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
     "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
+    "error.msg.payment.type.mandatory" : "Payment type is mandatory",
     "error.msg.payment.type.invalid" : "Payment type is invalid",
     "error.msg.address.type.verified":"Address is already verified and cannot be updated.",
     "error.message.group.activation.activity.cannot.complete.before.group.activation":"Group activation activaity cannot completed before group activation",
+    "error.msg.other.loan.tranche.disbursement.date.cannot.be.after.maturity.date" : "Loan tranche disbursement date {{params[1].value}} cannot be after loan maturity date {{params[0].value}}",
+    "error.msg.tranche.actual.disbursement.date.does.not.match.with.expected.disbursal.date.of.tranche" : "Tranche actual disbursement date does not match with expected disbursement date of tranche",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -1793,6 +1796,8 @@
     "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
     "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
     "label.heading.deferpaymentsforhalftheloanterm":"Defer Payments For Half The Loan Term ?",
+    "label.heading.applypenalties":"Apply Penalties",
+    "label.heading.penalty.charge.not.applicable":"Penalty charges not applicable for this Loan Account",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -1847,6 +1852,7 @@
     "label.anchor.rescheduleLoan":"Reschedule Loan",
     "label.anchor.reschedulerequest":"Reschedule Request",
     "label.anchor.prepayment":"Prepayment",
+    "label.anchor.applypenalties":"Apply Penalties",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -1896,6 +1902,7 @@
     "label.input.isfloatingrate": "Is Floating Rate?",
     "label.input.installmentinmultiplesof":"Installment in multiples of",
     "label.input.candefineinstallmentamount":"Allow fixing of the installment amount",
+    "label.input.calculateIrr":"Calculate interest rate(%)",
     "label.input.maxemiallowed" :"Maximum EMI amount allowed",
     "label.input.cancrossmaturitydate":"Can cross maturity date",
     "label.input.closeLoanOnOverpayment":"Close Loan On Over Payment",
@@ -1972,6 +1979,7 @@
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
     "label.button.fetchpenalties":"Fetch Penalties",
+    "label.button.applypenalties":"Apply Penalties",
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
 
     "#Misc Labels": "..",
@@ -2070,6 +2078,7 @@
     "label.tooltip.arearstolerance":"With 'Arrears tolerance' you can specify a tolerance amount and if the loan is behind (in arrears), but within the tolerance, it won't be classified as 'in arrears' and part of the portfolio at risk.",
     "label.tooltip.daysinyear":"Number of days in year.",
     "label.tooltip.daysinmonth":"Number of days in month.",
+    "label.tooltip.calculateIrr":"Caculates effective interest rate based on principal, number of periods, frequency and installment amount",
 
 
     "#tool tip for creating standing instruction":"..",
@@ -2308,6 +2317,7 @@
     "validation.msg.savingsproduct.effectiveFromDate.not.zero.or.greater":"Interest rate chart interest rate should be greater than zero ",
     "error.message.bank.account.details.activity.cannot.complete.before.approve": "Bank account  details activity cannot  be completed without approval",
     "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
+    "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank":"Penalties apply on date is mandatory",
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
@@ -3016,6 +3026,7 @@
     "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
     "label.input.loanOfficer":"Loan Officer",
     "label.overdue.tilldate":"Overdue Charge Run  Till",
+    "label.input.asondate":"Run as on date",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",
@@ -6577,7 +6588,6 @@
     "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
     "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
     "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
-
     "validation.msg.FUND.sanctionedDate.is.less.than.date":"Sanctioned date should not be less than assignment start date",
     "validation.msg.FUND.disbursedDate.is.less.than.date":"Disbursement date should not be less than sactioned date",
     "validation.msg.FUND.disbursedAmount.is.greater.than.max":"Disbursed amount should not be greater than sanctioned amount",
@@ -6605,6 +6615,7 @@
     "label.anchor.addactiongroup" : "Add Action Group",
     "label.anchor.viewactiongroups" : "View Action Groups",
     "validation.msg.taskactiongroup.roleId.error.msg.roleId.parameter.should.be.long" : "RoleId Parameter should be long",
+    "error.msg.taskactiongroup.cannot.be.deleted": "Task action group cannot be deleted since it is associated to a work flow",
     "label.heading.workflowmanagement" : "Workflow Management",
     "label.view.workflowmanagement" : "Configure and manage workflows",
     "label.anchor.workflowmanagement" : "Workflow Management",
@@ -6674,9 +6685,7 @@
     "label.anchor.inter.branch.client.transaction" : "Inter Branch Client Transaction",
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
-
     "error.msg.bank.account.detail.already.exist" : "Bank account detail already exist for entity `{{params[0].value}}`",
-
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
     "label.heading.add.coapplicant" : "Add Co-Applicant",
@@ -6749,6 +6758,27 @@
     "error.msg.duplicate.survey.key" : "Duplicate Survey Key",
     "error.msg.duplicate.survey.component.key" : "Duplicate survey component key",
     "error.msg.duplicate.question.key" : "Duplicate question key",
+    "validation.msg.loanemipack.installmentAmount.more.than.max.installmentAmount.loanproduct":"Loan emi pack installment amount should not be more than maximum installment amount of loanproduct",
 
+    "error.msg.charge.not.supported.to.glim" : "Charge/s not supported for GLIM.",
+    "validation.msg.loanproduct.minimumDaysBetweenApprovalAndDisbursement.not.greater.than.zero":"Minimum days between approval and disbursement should be greater than zero",
+    "label.heading.error.message" : "Error Message",
+    "label.heading.initiatedon" : "Initiated On",
+    "label.heading.creditbureau" : "Credit Bureau",
+    "label.heading.enquiry.id" : "Enquiry Id",
+    "label.heading.error.details" : "Error Details",
+    "label.heading.summarydetails": "Summary Details",
+    "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
+    "label.button.refresh.creditbureau.report" : "Refresh CreditBureau Report",
+
+
+    "label.heading.emiamount":"EMI Amount",
+    "label.heading.loanterms":"Loan Terms",
+
+    "label.heading.no.of.mfi":"Active MFIs",
+    "label.heading.hh.status":"HH Status",
+    "label.heading.risk.markers":"Risk Markers",
+    "label.heading.customer.status":"Customer Status",
+    
     "------ end of tensalation file":"---------"
 }

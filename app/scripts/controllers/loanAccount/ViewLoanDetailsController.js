@@ -255,6 +255,9 @@
                     case "forcedisbursetosavings":
                         location.path('/loanaccount/' + accountId + '/forcedisbursetosavings');
                         break;
+                    case "applypenalties":
+                        location.path('/loanaccount/' + accountId + '/applypenalties');
+                    break;
                 }
             };
 
@@ -587,6 +590,10 @@
                             {
                                 name: "button.refundByCash",
                                 taskPermissionName: 'REFUNDBYCASH_LOAN'
+                            },
+                            {
+                                name: "button.applypenalties",
+                                taskPermissionName: 'EXECUTE_OVERDUECHARGE'
                             }
                         ]
 
@@ -635,9 +642,8 @@
                     //loan officer not assigned to loan, below logic
                     //helps to display otherwise not
                     if (!data.loanOfficerName) {
-                        scope.buttons.singlebuttons.splice(1, 0, {
+                        scope.buttons.options.splice(1, 0, {
                             name: "button.assignloanofficer",
-                            icon: "icon-user",
                             taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                         });
                     }
@@ -777,14 +783,23 @@
             };
 
             function disbursalSettings(data) {
+                var closedStatus = [400,500,600,601,602];//WITHDRAWN_BY_CLIENT,REJECTED,CLOSED_OBLIGATIONS_MET,CLOSED_WRITTEN_OFF,CLOSED_RESCHEDULE_OUTSTANDING_AMOUNT
                 if (data.canDisburse) {
                     var disburseButtonLabel = 'button.disburse';
                     if(scope.loandetails.multiDisburseLoan){
                         disburseButtonLabel = 'button.disburse.tranche';
                     }
+                    var canForceDisburseTranche = false;
+                    if(scope.enableClientVerification && data.clientData && !data.clientData.isVerified){
+                        scope.canForceDisburseTranche = true;
 
+                    }
                     var addDisburseTrancheButton = true;
                     var addDisburseToSavingsTrancheButton = true;
+                    if(scope.canForceDisburseTranche){
+                        var addForceDisburseTrancheButton = true;
+                        var addForceDisburseToSavingsTrancheButton = true;
+                    }
                     for(var i = 0; i < scope.buttons.singlebuttons.length; i++){
                         if(scope.buttons.singlebuttons[i].name == "button.disburse.tranche"){
                             addDisburseTrancheButton = false;
@@ -792,21 +807,47 @@
                         if(scope.buttons.singlebuttons[i].name == "button.disbursetosavings"){
                             addDisburseToSavingsTrancheButton = false;
                         }
+                        if(scope.canForceDisburseTranche){
+                            if(scope.buttons.singlebuttons[i].name == "button.forcedisburse"){
+                                addForceDisburseTrancheButton = false;
+                            }
+                            if(scope.buttons.singlebuttons[i].name == "button.forcedisbursetosavings"){
+                                addForceDisburseToSavingsTrancheButton = false;
+                            }
+                        }
                     }
-                    if(addDisburseTrancheButton) {
+                    
+                    if(addDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: disburseButtonLabel,
                             icon: "icon-flag",
                             taskPermissionName: 'DISBURSE_LOAN'
                         });
                     }
-                    if(addDisburseToSavingsTrancheButton) {
-                    scope.buttons.singlebuttons.splice(1, 0, {
-                        name: "button.disbursetosavings",
-                        icon: "icon-flag",
-                        taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
-                    });
+                    if(addDisburseToSavingsTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.disbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+                        });
                     }
+
+                    if(scope.canForceDisburseTranche && addForceDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0){
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.forcedisburse",
+                            icon: "icon-flag",
+                            taskPermissionName: 'FORCE_DISBURSE_LOAN'
+                        });
+                    }
+
+                    if(scope.canForceDisburseTranche && addForceDisburseToSavingsTrancheButton && closedStatus.indexOf(data.status.id) < 0){
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.forcedisbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'FORCE_DISBURSETOSAVINGS_LOAN'
+                        });
+                    }
+
                     creditBureauCheckIsRequired();
                 }
             };

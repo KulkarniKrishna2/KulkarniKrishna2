@@ -7,39 +7,40 @@
         <api-validate></api-validate>
     </div>
     <div class="form-horizontal well">
-    	<h3>{{'label.anchor.credit.bureau.summary' | translate}}</h3>
-    	<br>
-        <table class="border1px table horizontal-scrollbar vertical-scrollbar" ng-repeat="groupClientCBData in groupClientsCBDatas" ng-if="groupClientCBData.clientId">
-            <tr>
-            <td>
-                <table>
-                    <tr>{{ 'label.heading.clientname' | translate }}:{{groupClientCBData.clientName}}</tr>
-                    <tr><td><th>{{ 'label.heading.lender.name' | translate }}</th></td></tr>
-                    <tr><td><th>{{ 'label.heading.disbursementdate' | translate }}</th></td></tr>
-                    <tr><td><th>{{ 'label.heading.repaymentfrequency' | translate }}</th></td></tr>
-                    <tr><td><th>{{ 'label.heading.approvedamount' | translate }}</th></td></tr>
-                    <tr><td><th>{{ 'label.heading.installmentamount' | translate }}</th></td></tr>
-                    <tr><td><th>{{ 'label.heading.total.overdue.amount' | translate }}</th></td></tr>
-                    <tr><td><th>{{ 'label.heading.total.outstanding.amount' | translate }}</th></td></tr>
-                </table>
-            <td>
-
-            <td ng-repeat="clientCBData in groupClientCBData.cbDetails">
-                <table>
-                    <tr></tr>
-                    <tr></tr>
-                   <tr><td>{{'label.heading.mfi' | translate}}-{{$index+1}}</td></tr>
-                   <tr><td>{{clientCBData.lenderName}}</td></tr>
-                   <tr><td>{{clientCBData.disbursement_date | DateFormat}}</td></tr>
-                   <tr><td>{{clientCBData.frequency}}</td></tr>
-                   <tr><td>{{clientCBData.approvedAmount}}</td></tr>
-                   <tr><td>{{clientCBData.installmentAmount}}</td></tr>
-                   <tr><td>{{clientCBData.totalAmountOverDue}}</td></tr>
-                   <tr><td>{{clientCBData.totalOutstandingAmount}}</td></tr>
-                </table>
-            <td>
-            <td><button class="btn btn-primary pull-right" ng-show="groupClientCBData.isCbReportPresent == 1" ng-click="creditBureauReportView(groupClientCBData.clientId)">{{'label.button.viewReport' | translate}}</button> </td>    
-            </tr>
+        <h3>{{'label.anchor.credit.bureau.summary' | translate}}</h3>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ 'label.heading.clientid' | translate }}</th>
+                    <th>{{ 'label.heading.clientname' | translate }}</th>
+                    <th>{{ 'label.heading.no.of.mfi' | translate }}</th>
+                    <th>{{ 'label.heading.approvedamount' | translate }}</th>
+                    <th>{{ 'label.heading.total.overdue.amount' | translate }}</th>
+                    <th>{{ 'label.heading.total.outstanding.amount' | translate }}</th>
+                    <th>{{ 'label.heading.customer.status' | translate }}</th>
+                    <th>{{ 'label.heading.hh.status' | translate }}</th>
+                    <th>{{ 'label.heading.risk.markers' | translate }}</th>
+                    <th>{{'label.heading.actions' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="groupClientCBData in groupClientsCBDatas">
+                    <td class="pointer" data-ng-click="routeTo(groupClientCBData.clientId)">{{groupClientCBData.clientId}}</td>
+                    <td>{{groupClientCBData.clientName}}</td>
+                    <td>{{groupClientCBData.totalLenders}}</td>
+                    <td>{{groupClientCBData.approvedAmount}}</td>
+                    <td>{{groupClientCBData.totalAmountOverDue}}</td>
+                    <td>{{groupClientCBData.totalOutstandingAmount}}</td>
+                    <td>{{groupClientCBData.loanStatus}}</td>
+                    <td>{{groupClientCBData.hhStatus}}</td>
+                    <td>{{groupClientCBData.riskMarker}}</td>
+                    <td >
+                        <button class="btn btn-primary pull-right" ng-show="groupClientCBData.isCbReportPresent == 1" ng-click="creditBureauReportView(groupClientCBData.clientId)">{{'label.button.viewReport' | translate}}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>

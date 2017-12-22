@@ -9,6 +9,7 @@
             scope.sortingLog = [];
             scope.formData={};
             scope.isTaskConfigEntityMappingDone = false;
+            scope.taskConfigId = routeParams.taskConfigId;
 
             if(routeParams.taskConfigId){
                    resourceFactory.workflowConfigResource.get({taskConfigId:routeParams.taskConfigId}, function (data) {
@@ -33,7 +34,14 @@
 
             scope.viewWorkflowStep = function(workflowId, workflowStepId){
                 location.path('/viewworkflowstep/'+ workflowId + '/' + workflowStepId)
-            } 
+            }
+
+
+            scope.routeToView = function(){
+                var taskConfigId = scope.taskConfigId;
+                var entityType = scope.taskConfigData.entityMappingType.id;
+                location.path('/viewworkflowentitymapping/'+ taskConfigId + '/'+ entityType);
+            }
               
             scope.sortableOptions = {
                 stop: function(e, ui) {

@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        groupLoanApprovalActivityController: function($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        groupLoanApprovalActivityController: function($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $filter) {
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
@@ -157,7 +157,7 @@
                             }
                             scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
                             if (approvedData.loanApplicationSanctionTrancheDatas) {
-                                for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i) {
+                                for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
                                 }
                             }
@@ -358,7 +358,7 @@
                 }
 
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
-                    for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i) {
+                    for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                         var dateValue = scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate;
                         if ((new Date(dateValue)).toString() != 'Invalid Date') {
                             scope.formValidationData.disbursementData = [];
@@ -368,7 +368,7 @@
                 }
 
                 if (scope.formValidationData.disbursementData) {
-                    for (var j = 0; j < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; j) {
+                    for (var j = 0; j < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; j++) {
                         var dateValue = scope.formRequestData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate;
                         if (scope.formRequestData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate && (new Date(dateValue)).toString() != 'Invalid Date' && scope.formRequestData.loanApplicationSanctionTrancheDatas[j].trancheAmount) {
                             var disbursementData = {};
@@ -442,7 +442,7 @@
                 if (scope.formRequestData.loanEMIPackId) {
                     var len = scope.loanaccountinfo.loanEMIPacks.length;
                     var loanEMIPack = {};
-                    for (var i = 0; i < len; i) {
+                    for (var i = 0; i < len; i++) {
                         if (scope.loanaccountinfo.loanEMIPacks[i].id === scope.formRequestData.loanEMIPackId) {
                             loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
                             break;
@@ -818,7 +818,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('groupLoanApprovalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.groupLoanApprovalActivityController]).run(function($log) {
+    mifosX.ng.application.controller('groupLoanApprovalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope','$filter', mifosX.controllers.groupLoanApprovalActivityController]).run(function($log) {
         $log.info("groupLoanApprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));

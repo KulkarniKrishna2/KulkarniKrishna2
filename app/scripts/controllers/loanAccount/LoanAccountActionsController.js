@@ -43,6 +43,9 @@
                     scope.glimPaymentAsGroup = configData.enabled;
                 }
             });
+            scope.showPenaltiesNotApplicable = false;
+            scope.showFetchButton = false;
+            scope.submitbutton = 'label.button.save';
 
             scope.isAnyActiveMember = function(){
                 for(var i=0;i<scope.clientMembers.length;i++){
@@ -211,8 +214,9 @@
             scope.createClientMembersForGLIM = function(){
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                     scope.clientMembers = glimData;
-                    /*scope.isGLIM = (glimData.length>0);*/
-                    scope.isGLIM = glimData[0].isActive;
+                    if(glimData.length>0){
+                      scope.isGLIM = glimData[0].isActive;  
+                    }
                     if(scope.isGLIM){
                         for(var i=0;i<glimData.length;i++){
                             scope.clientMembers[i].id = glimData[i].id;
@@ -375,8 +379,9 @@
                     scope.modelName = 'transactionDate';
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
-                        /*scope.isGLIM = (glimData.length>0 );*/
-                        scope.isGLIM = glimData[0].isActive;
+                        if(glimData.length>0 ){
+                            scope.isGLIM = glimData[0].isActive;
+                        }
                         resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                             scope.paymentTypes = data.paymentTypeOptions;
                             if (data.paymentTypeOptions.length > 0) {
@@ -781,6 +786,25 @@
                     scope.formDisburseToSavingsData();
                     scope.taskPermissionName = 'FORCE_DISBURSETOSAVINGS_LOAN';
                     break;
+                case "applypenalties":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.overdueChargeResource.get({loanIdParam:scope.accountId}, function (data) {
+                        scope.loanOverdueChargeData = data;
+                        if(data.isOverdueChargeApplicable){
+                            scope.showDateField = true;
+                            scope.showFetchButton = true;
+                        }else{
+                            scope.showDateField = false;
+                            scope.showPenaltiesNotApplicable = true;
+                        }
+                    });
+                    scope.title = 'label.heading.applypenalties';
+                    scope.submitbutton = 'label.button.applypenalties';
+                    scope.labelName = 'label.input.asondate';
+                    scope.taskPermissionName = 'EXECUTE_OVERDUECHARGE';
+                    scope.action = 'applypenalties';
+                    scope.showNoteField = false;
+                break;
             }
 
             scope.cancel = function () {
@@ -1009,6 +1033,8 @@
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
                     });
+                } else if(scope.action == "applypenalties") {
+                    scope.applyPenalties();
                 } else {
                     params.loanId = scope.accountId;
                     this.formData.adjustRepaymentDate = dateFilter(this.formData.adjustRepaymentDate, scope.df);
@@ -1132,9 +1158,21 @@
                     }
                 });
             };
+
             scope.routeToInterBranchDetails = function(id){
                 location.path('/interbranchsearch').search({isInterBranchSearch:'true',searchText:location.search().searchText,officeId: location.search().officeId, 'loanId':id});
             };
+
+            scope.applyPenalties = function(){  
+                var formData = {};
+                formData.locale = scope.optlang.code;
+                formData.dateFormat = scope.df;
+                formData.tillDate = dateFilter(this.formData.transactionDate, scope.df);
+                resourceFactory.overdueChargeResource.run({loanIdParam: scope.accountId},formData, function (data) {
+                   location.path('/viewloanaccount/' + data.loanId);
+                });
+            };
+
         }
     });
     mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
