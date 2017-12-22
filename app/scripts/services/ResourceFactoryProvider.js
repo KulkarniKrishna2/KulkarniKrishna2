@@ -1287,7 +1287,7 @@
                     fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
 
                     }),
-                    overdueChargeResource: defineResource(apiVer + "/loans/overduecharges", {}, {
+                    overdueChargeResource: defineResource(apiVer + "/loans/overduecharges/:loanIdParam", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}},
                         run: {method: 'POST', params: {}}
                     }),
