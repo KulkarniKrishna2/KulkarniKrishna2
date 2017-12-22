@@ -5,91 +5,97 @@
         </div>
     </div>
     <div class="row client">
-        <form class="well form-inline">
+        <form class="form-inline">
             <div class="span gray-head">
                     <span class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
                     </span>
-                <div class="pull-right" ng-if="loansSummary.cbStatus.value == cbStatusSuccess">
+                <div class="pull-right" ng-if="cBStatus() == cbStatusSuccess">
                     <button type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
                 </div>
             </div>
-            <div class="col-md-12 well">
-                <div class="col-md-12 pull-right">
-                    <div ng-hide="isResponPresent == true && loansSummary && loansSummary.cbStatus">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <div ng-hide="isResponPresent == true">
                         <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport();"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
                     </div>
-                    <div class="row" ng-show="false && viewCreditBureauReport == false && loansSummary && loansSummary.cbStatus">
-                        <div class="col-md-7">
-                            <h3 ng-show="loansSummary && loansSummary.cbStatus" class="bolder">
-                                {{'label.credit.bureau.enquiry.initiated' | translate}} on {{loansSummary.cbInitiatedDateTime}} .
-                            </h3>
-                        </div>
-                        <div class="col-md-5">
-                            <button id="getCreditBureauReport" type="button" class="btn btn-primary" ng-click="viewCreditBureauReport = true">{{'label.button.get.report' | translate}}</button>
-                        </div>
-                    </div>
                 </div>
-                <div ng-if="isResponPresent == true">
-                    <div class="col-md-12" ng-if="loansSummary && loansSummary.cbStatus && loansSummary.cbStatus.value != cbStatusSuccess">
-                        <table class="table table-bordered table-striped">
-                            <tr>
-                                <td colspan="2"><span class="boldlabel"><strong>{{'label.input.credit.bureau.response.message' | translate}}</strong></span></td>
-                            </tr>
-                            <tr ng-show="loansSummary.cbStatus.value != cbStatusSuccess && loansSummary.cbStatus.value != cbStatusPending">
-                                <td ng-if="loansSummary.errors" class="error">
-                                    <table class="table table-bordered table-striped">
-                                        <tr>
-                                            <td class="error">
-                                                <table ng-if="errorMessage">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>{{'label.error' | translate}}<br></td>
-                                                    </tr>
-                                                    <tr ng-repeat="error in errorMessage">
-                                                        <td>{{error.description}}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td ng-if="loansSummary.cbLoanEnqResponse" class="error">
-                                    <table>
-                                        <tbody>
-                                        <tr >
-                                            <td ng-show="cbLoanEnqResponseError">
-                                                {{'label.error' | translate}}<br>
-                                                {{convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != 'SUCCESS')}}
-                                            </td>
-                                        </tr>
-                                        <tr><td ng-show="!cbLoanEnqResponseError">{{'label.error' | translate}}<br></td></tr>
-                                        <tr ng-show="!cbLoanEnqResponseError" ng-repeat="error in convertByteToString(loansSummary.cbLoanEnqResponse, loansSummary.cbStatus.value != cbStatusSuccess)">
-                                            <td>{{'label.error' | translate}}<br>
-                                                {{error.description}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="col-md-12">
-                            <div class="pull-right">
-                                    <span ng-show="loansSummary.cbStatus.value==cbStatusPending">
-                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.fetch.creditbureaureport' | translate}}</button>
-                                    </span>
-                                    <span ng-show="loansSummary.cbStatus.value==cbStatusError">
-                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
-                                    </span>
-                                    <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true">
-                                        <button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.skip' | translate}}</button>
-                                    </span>
-                            </div>
+                 <br>
+                <div ng-if="creditBureauEnquiries && creditBureauEnquiries.length > 0">
+                    <div class ="col-md-12">
+                        <div class ="col-md-6">
+                                 <table class="table table-striped">
+                                    <tr>
+                                        <td>{{'label.heading.clientname' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.client.displayName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.creditbureau' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.creditBureauProduct.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.initiatedon' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.createdDate| DateFormat}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.loanproduct' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.loanProduct.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.amount' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.enquiryLoanAmount| number}}</td>
+                                    </tr>
+                                 </table> 
                         </div>
+                        <div class ="col-md-6">
+                                 <table class="table table-striped">
+                                    <tr>
+                                        <td>{{'label.heading.status' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.status.value}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.referenceNumber' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.referenceNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.enquiry.id' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.loanpurpose' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.loanPurpose.name}}</td>
+                                    </tr>
+                                 </table> 
+                        </div> 
+                    </div>         
+                </div> 
+                <div ng-if="isResponPresent == true">
+                    <div class="col-md-12" ng-if="cBStatus() != cbStatusSuccess">
+                        <table class="table table-bordered table-striped"  
+                              ng-if="errorMessage">
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="boldlabel"><strong>{{'label.input.credit.bureau.response.message' | translate}}</strong></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="error">
+                                        <table ng-if="errorMessage">
+                                            <tbody>
+                                            <tr>
+                                                <td>{{'label.error' | translate}}<br></td>
+                                            </tr>
+                                            <tr ng-repeat="error in errorMessage">
+                                                <td>{{error.description}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                        </table>
                     </div>
-                    <div class="col-md-12" ng-if="isReportPresent && loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
+                    <div class="col-md-12" 
+                       ng-if="isReportPresent && cBStatus() == 'SUCCESS'">
                         <table class="table table-bordered table-striped" ng-if="activeLoan.summaries.length > 0">
                             <tr>
                                 <td colspan="8">
@@ -177,7 +183,7 @@
                         </table>
                     </div>
 
-                    <div class="col-md-12" ng-if="loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
+                    <div class="col-md-12" ng-if="cBStatus() == 'SUCCESS'">
                         <table class="table table-bordered table-striped" ng-if="closedLoan.summaries.length > 0">
                             <tr>
                                 <td colspan="8">
@@ -255,74 +261,53 @@
                             </tr>
                         </table>
                     </div>
-
-                    <div class="col-md-12" ng-if="loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
-                        <table class="table">
-                            <tr>
-                                <td colspan="2">
-                                    <div class="pull-right">
-                                            <span>
-                                               <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
-                                            </span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="col-md-12" 
+                        ng-if="cBStatus() === 'SUCCESS'">
+                            <table class="table table-bordered table-striped" 
+                               ng-if="errorMessage.length >0 && activeLoan == undefined && closedLoan == undefined">
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="boldlabel"><strong>{{'label.heading.summarydetails' | translate}}
+                                        </strong></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span><strong>{{'label.heading.no.of.active.loans' | translate}}</strong></span>
+                                    </td>
+                                    <td>
+                                        <span><strong>0</strong></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span><strong>{{'label.heading.no.of,closed.loans' | translate}}</strong></span>
+                                    </td>
+                                    <td>
+                                        <span><strong>0</strong></span>
+                                    </td>
+                                </tr>       
+                            </table>
                     </div>
-
-                    <div class="col-md-8" ng-if="false && loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
-                        <table class="table table-bordered table-striped">
-                            <tr>
-                                <td colspan="2">
-                                    <span class="boldlabel"><strong>{{'label.input.other.institute.loans.summary' | translate}}</strong></span>
-                                    <div class="pull-right" ng-if="loansSummary.totalAmountBorrowed > 0">
-                                        <button id="viewReportFile" type="button" class="btn btn-primary" ng-click="creditBureauReportView();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' | translate}}</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>{{'label.input.total.amount.borrowed' | translate}}</label></td>
-                                <td>{{loansSummary.totalAmountBorrowed |number}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>{{'label.input.total.current.outstanding' | translate}}</label></td>
-                                <td>{{loansSummary.totalCurrentOutstanding |number}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>{{'label.input.total.amount.overdue' | translate}}</label></td>
-                                <td>{{loansSummary.totalAmtOverdue |number}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>{{'label.input.total.installment.amount' | translate}}</label></td>
-                                <td>{{loansSummary.totalInstallmentAmount |number}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="pull-right">
-                                            <span>
-                                               <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
-                                            </span>
-                                        <span><button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.approve' | translate}}</button></span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="col-md-12">
+                            <div class="pull-right">
+                                    <span ng-show="cBStatus() == 'SUCCESS'">
+                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
+                                    </span>
+                                    <span ng-show="cBStatus() == cbStatusPending">
+                                        <button type="button" class="btn btn-primary" ng-click="refreshCreditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.fetch.creditbureaureport' | translate}}</button>
+                                    </span>
+                                    <span ng-show="cBStatus()==cbStatusError">
+                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();" 
+                                        has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
+                                    </span>
+                                    <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true">
+                                        <button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.skip' | translate}}</button>
+                                    </span>
+                            </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2" ng-if="loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
-                <table class="width100">
-                    <tr>
-                        <td colspan="0">&nbsp;</td>
-                    </tr>
-                </table>
-            </div>
-
-            <table class="width100">
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                </tr>
-            </table>
         </form>
     </div>
 </div>
