@@ -584,6 +584,7 @@
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
     "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
     "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
+    "error.msg.payment.type.mandatory" : "Payment type is mandatory",
     "error.msg.payment.type.invalid" : "Payment type is invalid",
     "error.msg.address.type.verified":"Address is already verified and cannot be updated.",
     "error.message.group.activation.activity.cannot.complete.before.group.activation":"Group activation activaity cannot completed before group activation",
@@ -3447,6 +3448,7 @@
     "error.msg.password.reset.days.value.must.be.greater.than.zero" : "For enabling 'Force Password Reset Days' configuration , the value (number of days after which a user is forced to reset his password) must be set to a number greater than 0.",
     "error.msg.recurringdepositaccount.transaction.in.the.future":"Transactions cannot be done on Future Date",
     "alidation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Effective date should not be before current date",
+    "error.msg.work.flow.workflow.already.created.for.this.village": " duplicate task creation for the village is not allowed",
 
     "#tool tip for global configuration":"..",
     "label.tooltip.global.maker-checker":"Determine if the maker-checker system will be used.",
@@ -6676,6 +6678,7 @@
     "label.anchor.inter.branch.client.transaction" : "Inter Branch Client Transaction",
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
+    "error.msg.bank.account.detail.already.exist" : "Bank account detail already exist for entity `{{params[0].value}}`",
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
     "label.heading.attach.documents":"Attach Documents",
@@ -6759,5 +6762,10 @@
     "label.heading.emiamount":"EMI Amount",
     "label.heading.loanterms":"Loan Terms",
 
+    "label.heading.no.of.mfi":"Active MFIs",
+    "label.heading.hh.status":"HH Status",
+    "label.heading.risk.markers":"Risk Markers",
+    "label.heading.customer.status":"Customer Status",
+    
     "------ end of tensalation file":"---------"
 }
