@@ -6744,5 +6744,6 @@
     "label.heading.error.details" : "Error Details",
     "label.heading.summarydetails": "Summary Details",
     "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
+    "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a active Loan Application",
     "------ end of tensalation file":"---------"
 }
