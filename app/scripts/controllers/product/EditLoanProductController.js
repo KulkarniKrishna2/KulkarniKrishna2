@@ -707,9 +707,9 @@
                 if (this.formData.trancheAmountLimitType == undefined) {
                     delete this.formData.trancheAmountLimitType;
                 }
-                if (this.formData.canDefineInstallmentAmount) {
+                //if (this.formData.canDefineInstallmentAmount) {
                     this.formData.canCrossMaturityDateOnFixingEMI = scope.canCrossMaturityDateOnFixingEMI;
-                }
+                //}
 
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
