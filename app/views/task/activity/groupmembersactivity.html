@@ -27,7 +27,7 @@
                     <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
                     <td>
                         <button has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-click="createLoanApplication(member.id)"  ng-disabled="isTaskCompleted() || taskData.status.value == 'underapproval'">
-                                 <i class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}
+                                 <i class="icon-plus icon-white"></i>
                         </button>
 
                     </td>
