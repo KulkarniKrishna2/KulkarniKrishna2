@@ -9,6 +9,7 @@
             scope.actionLogs = [];
             scope.noteData = {};
             scope.showCriteriaResult =false;
+            scope.isTaskArchived = false;
             scope.getActivityView = function() {
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
                 return taskView;
@@ -25,8 +26,16 @@
                     scope.isDisplayNotes=false;
                     scope.isDisplayAttachments=false;
                     scope.isDisplayActionLogs=false;
+                     if(scope.taskData.isArchived){
+                        scope.isTaskArchived = true;
+                        resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id, isArchived:scope.isTaskArchived}, function (taskData) {
+                                scope.taskData = taskData;
+                                scope.canView = true;
+
+                        });
+                    }
                     //viewaction check
-                    if(scope.taskData.status.value != 'inactive'){
+                    else  if(scope.taskData.status.value != 'inactive'){
                         resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
                             resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
                                 scope.taskData = taskData;
@@ -155,7 +164,7 @@
 
             function populateTaskNotes(){
                 if (scope.isDisplayNotes) {
-                    resourceFactory.taskExecutionNotesResource.getAll({taskId: scope.taskData.id}, function (data) {
+                    resourceFactory.taskExecutionNotesResource.getAll({taskId: scope.taskData.id, isArchived:scope.isTaskArchived}, function (data) {
                         scope.noteData={};
                         scope.taskNotes = data;
                     });
@@ -164,7 +173,7 @@
 
             function populateTaskActionLogs() {
                 if (scope.isDisplayActionLogs) {
-                    resourceFactory.taskExecutionActionLogResource.getAll({taskId: scope.taskData.id}, function (data) {
+                    resourceFactory.taskExecutionActionLogResource.getAll({taskId: scope.taskData.id, isArchived:scope.isTaskArchived}, function (data) {
                         scope.actionLogs = data;
                     });
                 }
