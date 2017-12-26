@@ -30,7 +30,7 @@
                 var userDate = localStorageService.getFromLocalStorage("userData");
                 userDate.accessToken =  data.access_token;
                 localStorageService.addToLocalStorage('userData', userDate);
-                httpService.setAuthorization(data.access_token);
+                httpService.setAuthorization(data.access_token,true);
                 setTimer(data.expires_in);
             }
 
