@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateCreditBureauLoanProductController: function (scope, routeParams, resourceFactory, location) {
+        CreateCreditbureauLoanProductController: function (scope, routeParams, resourceFactory, location) {
             scope.availableOffices = [];
             scope.selectedOffices = [];
             scope.formData = {};
@@ -81,7 +81,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateCreditBureauLoanProductController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.CreateCreditBureauLoanProductController]).run(function ($log) {
-        $log.info("CreateCreditBureauLoanProductController initialized");
+    mifosX.ng.application.controller('CreateCreditbureauLoanProductController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.CreateCreditbureauLoanProductController]).run(function ($log) {
+        $log.info("CreateCreditbureauLoanProductController initialized");
     });
 }(mifosX.controllers || {}));
