@@ -11,9 +11,9 @@
                 }
                 if (data.shouldRenewPassword) {
                     if(isOauth){
-                        httpService.setAuthorization(data.accessToken);
+                        httpService.setAuthorization(data.accessToken,true);
                     } else {
-                        httpService.setAuthorization(data.base64EncodedAuthenticationKey);
+                        httpService.setAuthorization(data.base64EncodedAuthenticationKey,false);
                     }
                 } else {
                     if(isOauth){
