@@ -313,7 +313,7 @@
                 if(scope.groupsTotalClientcharges == undefined){
                     scope.groupsTotalClientcharges = 0;
                 }
-                scope.addClientChargeTotalDue();
+                scope.sumTotalDueCollection();
             };
 
             scope.reset = function () {
