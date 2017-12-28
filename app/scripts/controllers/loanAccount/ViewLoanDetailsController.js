@@ -308,7 +308,7 @@
             var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
             resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
-                if(glimData[0].isActive) {
+                if(glimData != undefined && glimData.length > 0 && glimData[0].isActive) {
                     scope.glimClientsDetails = glimData;
                     var totalGlimChargeAmount = 0;
                     for (var i = 0; i < glimData.length; i++) {
