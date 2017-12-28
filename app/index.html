@@ -209,12 +209,14 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right" id="main-menu-right">
                         <li class="dropdown" id="user-menu">
-                            <a id="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#"> {{currentSession.user.name}}<b class="caret"></b></a>
+                            <a id="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#"><span ng-hide="isUserSwitched"> {{currentSession.user.name}}</span><span ng-show="isUserSwitched"> <i class="icon-exchange"></i> {{targetUserName}}</span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a id="help" ng-click="helpf()"><i class="icon-question-sign"></i> {{ 'label.anchor.help' | translate }}</a></li>
                                 <li><a class="black" href="#/help"><i class="icon-keyboard"></i> {{ 'label.anchor.keyboardshortcut' | translate}}</a></li>
                                 <li><a href="#/profile"><i class="icon-user"></i> {{ 'label.anchor.profile' | translate }}</a></li>
                                 <li><a href="#/usersetting"><i class="icon-cog"></i> {{ 'label.anchor.settings' | translate }}</a></li>
+                                <li ng-show="isUserSwitched"><a data-ng-click="switchToMe()" has-permission='AUTHORIZE_SWITCHUSER'><i class="icon-exchange"></i> {{ 'label.anchor.switchtome' | translate }}</a></li>
+                                <li ng-hide="isUserSwitched"><a href="#/switchuser" has-permission='AUTHORIZE_SWITCHUSER'><i class="icon-exchange"></i> {{ 'label.anchor.switchuser' | translate }}</a></li>
                                 <li><a id="logout" data-ng-click="logout()"><i class="icon-off"></i> {{ 'label.anchor.logout' | translate }}</a></li>
                             </ul>
                         </li>

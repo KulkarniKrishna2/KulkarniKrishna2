@@ -1,0 +1,75 @@
+<div class="col-md-12" ng-controller="EditProxyUserMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/admin/proxyusermappings">{{'label.anchor.proxyusermappings' | translate}}</a></li>
+        <li><a href="#/admin/viewproxyusermapping/{{proxyUserMappingId}}">{{'label.anchor.view.proxyusermapping' | translate}}</a></li>
+        <li class="active">{{'label.anchor.edit.proxyusermapping' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <form name="editmappingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.edit.proxyusermapping' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.proxyuser' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="users" id="proxyUserId" name="proxyUserId" ng-model="formData.proxyUserId"  class="form-control"
+                                ng-options="user.id as user.username for user in users" value="{{user.id}}" ng-disabled="true" required late-validate ></select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editmappingform" valattribute="proxyUserId"/>
+                </div>
+            </div>
+
+            <div class="form-group">                
+                <label class="control-label col-sm-2">
+                    {{'label.input.targetuser' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="users" id="targetUserId" name="targetUserId" ng-model="formData.targetUserId"  class="form-control"
+                                ng-options="user.id as user.username for user in users" value="{{user.id}}" ng-disabled="true" required late-validate ></select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editmappingform" valattribute="proxyUserId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.fromDate' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="fromDate" type="text" name="fromDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="first.fromDate" is-open="opened1" max="restrictDate"  class="form-control" required late-validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editmappingform" valattribute="fromDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.toDate' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="toDate" type="text" name="toDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="first.toDate" is-open="opened2" min="first.fromDate" max="restrictDate"  class="form-control" required late-validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editmappingform" valattribute="toDate"/>
+                </div>
+            </div>
+            <div class="col-md-offset-5">
+                <a id="cancel" ng-href="#/admin/viewproxyusermapping/{{proxyUserMappingId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='UPDATE_PROXYUSERMAPPING'>{{'label.button.save' | translate}}</button>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+        </fieldset>
+    </form>
+</div>

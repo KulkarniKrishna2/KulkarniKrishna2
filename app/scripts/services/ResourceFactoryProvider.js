@@ -1397,7 +1397,16 @@
                         resetpassword: {method:'POST', params:{}}
                     }),
                     fetchCreditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/refresh", {enquiryId: '@enquiryId'}, {
-                        get: {method: 'GET', params: {}, isArray:true}
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    proxyUserMappingResource: defineResource(apiVer + "/proxyusermappings/:proxyUserMappingId", {proxyUserMappingId: '@proxyUserMappingId'}, {
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    proxyUserMappingTemplateResource: defineResource(apiVer + "/proxyusermappings/template", {}, {
+                        
+                    }),
+                    switchUserResource: defineResource(apiVer + "/switchuser", {}, {
+                        
                     })
                 };
             }];

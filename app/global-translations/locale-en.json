@@ -6783,5 +6783,33 @@
     "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a active Loan Application",
     "error.msg.tasktemplate.duplicate.shortname" : "Task template with shortname `{{params[0].value}}` already exists",
 
+    "label.anchor.proxyusermappings" : "Proxy User Mappings",
+    "label.proxyusermappings.description" : "Configure User Mappings for Switch user configurations",
+    "label.anchor.view.proxyusermapping" : "View Proxy User Mapping",
+    "label.anchor.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.anchor.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.anchor.switchuser": "Switch User",
+    "label.anchor.switchtome": "Switch To Me",
+    "label.anchor.create.switchusermapping": "Switch User Mapping",
+
+    "label.heading.proxyuser" : "Proxy User",
+    "label.heading.targetuser" : "Target User",
+    "label.heading.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.heading.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.heading.switchuser": "Switch User",
+
+    "label.button.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.button.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.button.switchuser": "Switch User",
+    "label.button.switchtome": "Switch To Me",
+
+    "label.input.filterbyproxyuserortargetuser" : "Filter by user",
+    "label.input.proxyuser" : "Proxy User",
+    "label.input.targetuser" : "Target User",
+    "label.input.fromDate" : "From Date",
+    "label.input.toDate" : "To Date",
+
+    "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
+
     "------ end of tensalation file":"---------"
 }
