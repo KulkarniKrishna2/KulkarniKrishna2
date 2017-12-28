@@ -2,7 +2,8 @@
     mifosX.controllers = _.extend(module, {
         DownloadMandatesController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
             scope.formData = {};
-
+            scope.formData.includeChildOffices = false;
+            scope.formData.includeMandateScans = false;
             resourceFactory.mandatesTemplateResource.get({command: "MANDATES_DOWNLOAD"}, function (data) {
                 scope.officeOptions = data.officeOptions;
             });
