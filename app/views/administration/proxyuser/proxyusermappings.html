@@ -1,0 +1,33 @@
+<div class="col-md-12" data-ng-controller="ProxyUserMappingsController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.proxyusermappings' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <a href="#/admin/createproxyusermapping" class="btn btn-primary pull-right" has-permission='CREATE_PROXYUSERMAPPING'><i class="icon-plus icon-white"></i>{{'label.button.create.proxyusermapping' | translate}}</a>
+    <div class="clearfix"></div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control" placeholder="{{'label.input.filterbyproxyuserortargetuser' | translate}}">
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.proxyuser' | translate}}</th>
+            <th>{{'label.heading.targetuser' | translate}}</th>
+            <th>{{'label.heading.fromdate' | translate}}</th>
+            <th>{{'label.heading.todate' | translate}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="pointer-main" ng-repeat="proxyUserMapping in proxyUserMappings | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(proxyUserMapping.id)">{{proxyUserMapping.proxyUser.username}}</td>
+            <td class="pointer" data-ng-click="routeTo(proxyUserMapping.id)">{{proxyUserMapping.targetUser.username}}</td>
+            <td class="pointer" data-ng-click="routeTo(proxyUserMapping.id)">{{proxyUserMapping.fromDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeTo(proxyUserMapping.id)">{{proxyUserMapping.toDate | DateFormat}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

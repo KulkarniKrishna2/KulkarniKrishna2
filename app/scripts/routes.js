@@ -1689,8 +1689,23 @@
             .when('/bulkbankaccountverification',{
                 templateUrl: 'views/fileprocess/bulkbankaccountverification.html'
             })
-            .when('/uploadbulkbankaccountverificationfileprocess',{
+            .when('/uploadbulkbankaccountverificationfileprocess', {
                 templateUrl: 'views/fileprocess/uploadbulkbankaccountverificationfileprocess.html'
+            })
+            .when('/admin/proxyusermappings', {
+                templateUrl: 'views/administration/proxyuser/proxyusermappings.html'
+            })
+            .when('/admin/createproxyusermapping', {
+                templateUrl: 'views/administration/proxyuser/createproxyusermapping.html'
+            })
+            .when('/admin/editproxyusermapping/:id', {
+                templateUrl: 'views/administration/proxyuser/editproxyusermapping.html'
+            })
+            .when('/admin/viewproxyusermapping/:id', {
+                templateUrl: 'views/administration/proxyuser/viewproxyusermapping.html'
+            })
+            .when('/switchuser', {
+                templateUrl: 'views/administration/proxyuser/switchuser.html'
             })
         $locationProvider.html5Mode(false);
     };
