@@ -694,7 +694,7 @@
                 });
             };
 
-            scope.approve = function () {
+            scope.approve = function (onSuccess) {
                 scope.previewRepayments(false);
                 scope.formRequestData.expectedDisbursementDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
                 scope.formRequestData.repaymentsStartingFromDate =  dateFilter(scope.formRequestData.repaymentsStartingFromDate, scope.df);
@@ -747,6 +747,9 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'approve'
                 }, this.submitData, function (data) {
+                    if (onSuccess) {
+                        onSuccess();
+                    }
                     showSummary();
                 });
             };
@@ -830,8 +833,9 @@
             scope.doPreTaskActionStep = function(actionName){
                 if(actionName === 'approve'){
                     if (!_.isUndefined(scope.approveloanapplicationform) && scope.approveloanapplicationform.$valid) {
-                        scope.approve();
-                        scope.doActionAndRefresh(actionName);
+                        scope.approve(function (){
+                            scope.doActionAndRefresh(actionName);
+                        });
                     }else{
                         scope.issubmitted = true;
                         scope.doActionAndRefresh(actionName);

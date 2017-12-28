@@ -20,6 +20,7 @@
             scope.cbStatusPending="PENDING";
             scope.cbStatusSuccess="SUCCESS";
             scope.cbStatusError="ERROR";
+            scope.reportEntityType = "CreditBureau";
 
             getCreditBureauReportSummary();
 
@@ -277,24 +278,6 @@
                 });
             };
 
-            scope.creditBureauReportView = function () {
-                resourceFactory.creditBureauReportFileContentResource.get({
-                    entityType: scope.entityType,
-                    entityId: scope.entityId
-                }, function (fileContentData) {
-                    if (fileContentData.reportFileType.value == 'HTML') {
-                        var result = "";
-                        for (var i = 0; i < fileContentData.fileContent.length; ++i) {
-                            result += (String.fromCharCode(fileContentData.fileContent[i]));
-                        }
-                        var popupWin = window.open('', '_blank', 'width=1000,height=500');
-                        popupWin.document.open();
-                        popupWin.document.write(result);
-                        popupWin.document.close();
-                    }
-                });
-            };
-
             scope.proceedToNext = function () {
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
@@ -336,6 +319,24 @@
                     enquiryId: scope.creditBureauEnquiry.id
                 }, function (data) {
                     route.reload();
+                });
+            };
+
+            var viewDocumentCtrl= function ($scope, $modalInstance, reportDetails) {
+                $scope.data = reportDetails;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };   
+            };
+            scope.openViewDocument = function (enquiryId, reportEntityType) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                     resolve: {
+                        reportDetails: function () {
+                            return {'enquiryId' : enquiryId,'reportEntityType' : reportEntityType};
+                        }
+                    }
                 });
             };
         }
