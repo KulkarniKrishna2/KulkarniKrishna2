@@ -1265,6 +1265,15 @@
                     overdueChargeResource: defineResource(apiVer + "/loans/overduecharges/:loanIdParam", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}},
                         run: {method: 'POST', params: {}}
+                    }),
+                    proxyUserMappingResource: defineResource(apiVer + "/proxyusermappings/:proxyUserMappingId", {proxyUserMappingId: '@proxyUserMappingId'}, {
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    proxyUserMappingTemplateResource: defineResource(apiVer + "/proxyusermappings/template", {}, {
+                        
+                    }),
+                    switchUserResource: defineResource(apiVer + "/switchuser", {}, {
+                        
                     })
                 };
             }];

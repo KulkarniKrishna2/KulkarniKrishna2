@@ -253,7 +253,16 @@
             scope.logout = function () {
                 scope.currentSession = sessionManager.clear();
                 scope.resetPassword = false;
+                $rootScope.isUserSwitched = false;
+                delete $rootScope.proxyToken;
                 location.path('/').replace();
+            };
+
+            scope.switchToMe = function() {
+                $rootScope.isUserSwitched = false;
+                $rootScope.targetUserName = undefined;
+                scope.isUserSwitched = false;
+                delete $rootScope.proxyToken;
             };
 
             scope.langs = mifosX.models.Langs;

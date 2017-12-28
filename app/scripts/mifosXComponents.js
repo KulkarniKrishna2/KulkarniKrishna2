@@ -539,7 +539,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/showcase/DistrictOnboardingWorkflowController',
             'districts/DistrictController',
             'fileprocess/FileProcessController',
-            'fileprocess/UploadFileProcessController'
+            'fileprocess/UploadFileProcessController',
+            'proxyuser/ProxyUserMappingsController',
+            'proxyuser/CreateProxyUserMappingController',
+            'proxyuser/ViewProxyUserMappingsController',
+            'proxyuser/EditProxyUserMappingController',
+            'proxyuser/SwitchUserController'
         ],
         filters: [
             'StatusLookup',
