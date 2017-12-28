@@ -70,6 +70,8 @@
                                 + ' - ' + $filter('translate')(scope.loanaccountinfo.loanEMIPacks[i].repaymentFrequencyType.value);
                         }
                         scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
+                        scope.formData.loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[0].sanctionAmount;
+                        scope.formData.numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[0].numberOfRepayments;
                     }else{
                         scope.formData.loanAmountRequested = scope.loanaccountinfo.principal;
                         scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
@@ -111,8 +113,8 @@
                                             charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                             charge.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                         if (charge.chargeCalculationType.value == scope.slabBasedCharge && charge.slabs.length > 0) {
-                                            for (var i in charge.slabs) {
-                                                var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[i], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
+                                            for (var x in charge.slabs) {
+                                                var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[x], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
                                                 if (slabBasedValue != null) {
                                                     charge.amount = slabBasedValue;
                                                 }

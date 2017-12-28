@@ -39,7 +39,7 @@
             }
 
             function populateDetails(){
-                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {     
+                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
                     scope.externalservices = data.externalServiceOptions;
                     scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                     scope.formData = {
@@ -260,6 +260,16 @@
                      } else {
                          scope.doActionAndRefresh(actionName);
                      }
+                 }else if(actionName === 'approve') {
+                     resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
+                         function (data) {
+                             scope.doActionAndRefresh(actionName);
+                             populateDetails();
+
+                         }
+                     );
+                 }else{
+                     scope.doActionAndRefresh(actionName);
                  }
 
             };
