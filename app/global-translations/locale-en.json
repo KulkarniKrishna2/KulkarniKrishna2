@@ -6532,5 +6532,33 @@
     "error.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit":"Undoing transaction results in balnce exceeding overdraft limit.",
     "error.msg.savingsaccount.PAY_CHARGE.results.in.balance.exceeding.overdraft.limit" :"Paying charge transaction failed due to balance exceeding overdraft limit.",
 
+    "label.anchor.proxyusermappings" : "Proxy User Mappings",
+    "label.proxyusermappings.description" : "Configure User Mappings for Switch user configurations",
+    "label.anchor.view.proxyusermapping" : "View Proxy User Mapping",
+    "label.anchor.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.anchor.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.anchor.switchuser": "Switch User",
+    "label.anchor.switchtome": "Switch To Me",
+    "label.anchor.create.switchusermapping": "Switch User Mapping",
+
+    "label.heading.proxyuser" : "Proxy User",
+    "label.heading.targetuser" : "Target User",
+    "label.heading.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.heading.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.heading.switchuser": "Switch User",
+
+    "label.button.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.button.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.button.switchuser": "Switch User",
+    "label.button.switchtome": "Switch To Me",
+
+    "label.input.filterbyproxyuserortargetuser" : "Filter by user",
+    "label.input.proxyuser" : "Proxy User",
+    "label.input.targetuser" : "Target User",
+    "label.input.fromDate" : "From Date",
+    "label.input.toDate" : "To Date",
+
+    "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
+
     "------ end of tensalation file":"---------"
 }
