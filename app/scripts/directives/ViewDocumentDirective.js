@@ -17,14 +17,19 @@
                 controller: ['$scope', '$http', '$sce', function($scope, $http, $sce) {
                     
                     $scope.viewDocument = function(){
-                        var url = $rootScope.hostUrl + '/fineract-provider/api/v1' + '/'+$scope.ngEntityType+'/'+
-                        $scope.ngEntityId+
-                        '/documents/' + $scope.ngDocumentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                       
+                        if($scope.ngEntityType === 'CreditBureau'){
+                           var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/'+$scope.ngEntityType+'/'+
+                              $scope.ngEntityId+'/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;                
+                        }else{
+                           var url = $rootScope.hostUrl + '/fineract-provider/api/v1' + '/'+$scope.ngEntityType+'/'+
+                              $scope.ngEntityId+'/documents/' + $scope.ngDocumentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;                        
+                        }
                         url = $sce.trustAsResourceUrl(url);
 
                         $http.get(url, {responseType: 'arraybuffer'}).
                         success(function(data, status, headers, config) {
-                            var supportedContentTypes = ['image/jpeg','image/jpg','image/png','image/gif','application/pdf','application/vnd.ms-powerpoint','application/vnd.openxmlformats-officedocument.presentationml.presentation'];
+                            var supportedContentTypes = ['image/jpeg','image/jpg','image/png','image/gif','application/pdf','application/vnd.ms-powerpoint','application/vnd.openxmlformats-officedocument.presentationml.presentation','text/html','application/xml'];
                             var contentType = headers('Content-Type');
                             var file = new Blob([data], {type: contentType});
                             var fileContent = URL.createObjectURL(file);

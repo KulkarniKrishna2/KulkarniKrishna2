@@ -587,6 +587,8 @@
     "error.msg.payment.type.invalid" : "Payment type is invalid",
     "error.msg.address.type.verified":"Address is already verified and cannot be updated.",
     "error.message.group.activation.activity.cannot.complete.before.group.activation":"Group activation activaity cannot completed before group activation",
+    "error.msg.other.loan.tranche.disbursement.date.cannot.be.after.maturity.date" : "Loan tranche disbursement date {{params[1].value}} cannot be after loan maturity date {{params[0].value}}",
+    "error.msg.tranche.actual.disbursement.date.does.not.match.with.expected.disbursal.date.of.tranche" : "Tranche actual disbursement date does not match with expected disbursement date of tranche",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -6734,5 +6736,15 @@
     "error.msg.duplicate.question.key" : "Duplicate question key",
     "validation.msg.loanemipack.installmentAmount.more.than.max.installmentAmount.loanproduct":"Loan emi pack installment amount should not be more than maximum installment amount of loanproduct",
     "error.msg.charge.not.supported.to.glim" : "Charge/s not supported for GLIM.",
+    "validation.msg.loanproduct.minimumDaysBetweenApprovalAndDisbursement.not.greater.than.zero":"Minimum days between approval and disbursement should be greater than zero",
+    "label.heading.error.message" : "Error Message",
+    "label.heading.initiatedon" : "Initiated On",
+    "label.heading.creditbureau" : "Credit Bureau",
+    "label.heading.enquiry.id" : "Enquiry Id",
+    "label.heading.error.details" : "Error Details",
+    "label.heading.summarydetails": "Summary Details",
+    "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
+    "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a active Loan Application",
+    "error.msg.tasktemplate.duplicate.shortname" : "Task template with shortname `{{params[0].value}}` already exists",
     "------ end of tensalation file":"---------"
 }

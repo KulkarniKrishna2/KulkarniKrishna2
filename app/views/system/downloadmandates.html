@@ -6,7 +6,7 @@
             <li class="active">{{'label.anchor.downloadmandates' | translate}}</li>
         </ul>
     <api-validate></api-validate>
-    <form class="form-horizontal well" name="downloadmandatesform" novalidate="" ng-submit="submit()">
+    <form class="form-horizontal well" name="downloadmandatesform" novalidate="" rc-submit="submit()">
         <fieldset>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="officeId">{{'label.input.requestoffice' | translate}}<span
@@ -15,7 +15,7 @@
                 <div class="col-sm-3">
                     <select id="officeId" ng-model="formData.officeId"  class="form-control"
                             ng-options="office.id as office.name for office in officeOptions" value="{{office.id}}"
-                            name="officeId">
+                            name="officeId" required late-validate="">
                         <option value="" style="display:none;">{{'label.menu.selectoffice' | translate}} </option>
                     </select>
                 </div>

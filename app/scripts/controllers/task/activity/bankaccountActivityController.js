@@ -5,6 +5,7 @@
             scope.bankAccountData ={};
 
             function initTask() {
+                scope.isTask = true;
                 if (scope.taskconfig.hasOwnProperty('entityType')) {
                     scope.entityType = scope.taskconfig['entityType'];
                     switch (scope.entityType) {
