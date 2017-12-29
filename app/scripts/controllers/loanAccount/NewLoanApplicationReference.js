@@ -237,11 +237,12 @@
 
             scope.updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack = function(){
                 if(scope.formData.loanEMIPackId != undefined){
-                    for(var i in scope.loanaccountinfo.loanEMIPacks){
-                        if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
-                            var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
-                            var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                    for(var a in scope.loanaccountinfo.loanEMIPacks){
+                        if(scope.loanaccountinfo.loanEMIPacks[a].id == scope.formData.loanEMIPackId){
+                            var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[a].sanctionAmount;
+                            var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[a].numberOfRepayments;
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
+                            break;
                         }
                     }
                 }
@@ -259,15 +260,16 @@
                                 scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
                                 scope.updateChargeForSlab(scope.charges[i]);
                             }else{
-                                for(var j in scope.charges[i].slabs){
-                                    var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[j],loanAmountRequested,numberOfRepayments);
+                                var charge =  scope.charges[i];
+                                for(var j in charge.slabs){
+                                    var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[j],loanAmountRequested,numberOfRepayments);
                                     if(slabBasedValue != null) {
                                         scope.charges[i].amount = slabBasedValue;
                                         break;
                                     } else {
                                         scope.charges[i].amount = undefined;
                                     }
-                                    scope.updateChargeForSlab(scope.charges[i]);
+                                        scope.updateChargeForSlab(scope.charges[i]);
                                 }
 
                             }
