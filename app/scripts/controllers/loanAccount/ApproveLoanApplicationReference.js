@@ -13,7 +13,7 @@
             var curIndex = 0;
             var SLAB_BASED = 'slabBasedCharge';
             var UPFRONT_FEE = 'upfrontFee';
-
+            scope.isTrancheAmoumtReadOnly = false;
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.formData = applicationData;
                 scope.loanProductChange(applicationData.loanProductId);
@@ -232,6 +232,7 @@
 
             scope.constructTranches = function () {
                 if(scope.formData.loanEMIPackData){
+                    scope.isTrancheAmoumtReadOnly = true;
                     if(scope.formData.loanEMIPackData.disbursalAmount1){
                         var loanApplicationSanctionTrancheDatas = {trancheAmount:scope.formData.loanEMIPackData.disbursalAmount1};
                         scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
