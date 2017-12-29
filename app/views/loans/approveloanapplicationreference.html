@@ -806,7 +806,8 @@
                                                    number-format type="text"
                                                    ng-model="disbursementDetail.trancheAmount"
                                                    placeholder="{{'label.input.principal' | translate}}" required
-                                                   late-validate="">
+                                                   late-validate=""
+                                                   ng-readonly = "isTrancheAmoumtReadOnly">
 
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="trancheAmount"/>
