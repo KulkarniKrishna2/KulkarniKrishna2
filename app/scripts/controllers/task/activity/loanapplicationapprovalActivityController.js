@@ -80,6 +80,7 @@
             scope.hideClientAdrresssBlock = scope.response.uiDisplayConfigurations.workflow.loanApproval.hiddenField.clientAddress;
             function showSummary(){
                 scope.changeLoanEMIPack=false;
+                curIndex = 0;
                 scope.taskCompletedFlag=scope.isTaskCompleted();
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                     scope.formData = applicationData;
