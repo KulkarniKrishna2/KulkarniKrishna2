@@ -261,8 +261,8 @@
             scope.switchToMe = function() {
                 $rootScope.isUserSwitched = false;
                 $rootScope.targetUserName = undefined;
-                scope.isUserSwitched = false;
                 delete $rootScope.proxyToken;
+                location.path('/home');
             };
 
             scope.langs = mifosX.models.Langs;
