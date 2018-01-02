@@ -5,6 +5,7 @@
             scope.restrictDate = new Date();
             scope.villageId = scope.taskconfig['villageId'];
             scope.formData = {};
+            scope.isActivate = false;
             scope.submit = function () {
                 var reqDate = dateFilter(scope.firstdate, scope.df);
                 scope.formData.activatedOnDate = reqDate;
@@ -14,7 +15,8 @@
                     villageId: scope.villageId,
                     command: 'activate'
                 }, scope.formData, function (data) {
-                    location.path('/viewvillage/' + data.resourceId);
+                    //location.path('/viewvillage/' + data.resourceId);
+                    scope.isActivate = true;
                 });
             };
         }
