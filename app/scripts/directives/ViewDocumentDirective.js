@@ -45,7 +45,7 @@
                     }
                 }],
                 link: function (scope, elm, attr, ctrl) {
-                    var template = '<iframe ng-show="showDoc" overflow: hidden;" '+
+                    var template = '<iframe ng-show="showDoc" style = "background-color : white" overflow: hidden;" '+
                         'class= "documentview"'+
                         ' ng-src="{{docURL}}" frameborder="0" webkitallowfullscreen="" ' + 
                         ' mozallowfullscreen="" allowfullscreen="" ></iframe>';

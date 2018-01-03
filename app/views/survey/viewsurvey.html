@@ -82,12 +82,14 @@
                                     <td>Sl. No</td>
                                     <td>Name</td>
                                     <td>Score</td>
+                                    <td>{{'label.heading.image'| translate}}</td>
                                 </tr>
                                 <tr ng-repeat="responseData in questionData.responseDatas track by $index"
                                     ng-init="responseIndex = $index">
                                     <td>{{(responseIndex+1)}}</td>
                                     <td>{{responseData.text}}</td>
                                     <td>{{responseData.value}}</td>
+                                    <td ng-if="responseData.image" ><img ng-src="{{responseData.image}}"></td>
                                 </tr>
                             </table>
                         </div>

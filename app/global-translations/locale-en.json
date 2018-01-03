@@ -5460,7 +5460,7 @@
     "label.input.occ.income":"Total Occupation Income",
     "label.input.asset.income":"Total Income From Asset",
     "label.input.household.expense":"Total House Hold Expense",
-    "label.input.net.surplex":"Net Surplex Income",
+    "label.input.net.surplex":"Net Surplus Income",
     "label.heading.expensename":"Expense Type",
     "label.input.household.expense":"Expense Type",
     "label.input.expense":"Expense",
@@ -6737,6 +6737,7 @@
     "label.heading.no.of.default.loan" : "No of Default Loan",
     "label.heading.lender.name" : "Lender Name",
     "label.heading.writeoff.amount" : " Write-off Amount",
+
     "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
     "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
     "validation.msg.loan.expectedDisbursementDate.disburment.date.should.not.be.empty" : "Expected disbursement date of tranche should not be empty",
@@ -6770,6 +6771,14 @@
     "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a active Loan Application",
     "error.msg.tasktemplate.duplicate.shortname" : "Task template with shortname `{{params[0].value}}` already exists",
 
+    "label.alert.village.active.message" : "Village is  successfully activate",
+    "label.heading.loanutilizationcheck.documents" : "Loanutilizationcheck Documents",
+    "label.heading.view.loanutilizationcheck" : "View Loanutilizationcheck",
+    "label.heading.loanutilizationcheck.details" : "Loanutilizationcheck Details",
+    "label.heading.image": "Image",
+    "label.message.image.upload.error" : "Unable to upload image",
+    "label.message.images.allowed": "Note: Only .JPG/.JPEG image with size less than 5KB and of Height*Width <= 60*60 is allowed",
+
     "label.anchor.proxyusermappings" : "Proxy User Mappings",
     "label.proxyusermappings.description" : "Configure User Mappings for Switch user configurations",
     "label.anchor.view.proxyusermapping" : "View Proxy User Mapping",
@@ -6797,6 +6806,11 @@
     "label.input.toDate" : "To Date",
 
     "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
+
+    "label.heading.no.of.mfi":"Active MFIs",
+    "label.heading.hh.status":"HH Status",
+    "label.heading.risk.markers":"Risk Markers",
+    "label.heading.customer.status":"Customer Status",
 
     "------ end of tensalation file":"---------"
 }

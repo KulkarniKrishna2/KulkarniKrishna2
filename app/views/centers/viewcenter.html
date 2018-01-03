@@ -520,7 +520,8 @@
                                 </thead>
                                 <tbody>
                                 <tr class="pointer-main"
-                                    data-ng-repeat="loanUtilizationCheck in loanUtilizationChecks track by $index">
+                                    data-ng-repeat="loanUtilizationCheck in loanUtilizationChecks track by $index" 
+                                    ng-click = "viewLoanUtilizationCheck(loanUtilizationCheck.loanId, loanUtilizationCheck.id)">
                                     <td class="col-md-2 pointer">
                                         {{loanUtilizationCheck.loanUtilizationCheckDetailData.groupName}}
                                     </td>
@@ -542,11 +543,6 @@
                                                 {{loanUtilizationCheck.loanUtilizationCheckDetailData.utilizationDetailsData.amount}}
                                             </td>
                                         </table>
-                                    </td>
-                                    <td>
-                                        <button role="button" ng-click="showEdit($index)" class="btn-link ng-binding">
-                                            <i class="icon-edit icon-white"></i>
-                                        </button>
                                     </td>
                                 </tr>
                                 </tbody>
