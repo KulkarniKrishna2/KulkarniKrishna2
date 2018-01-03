@@ -362,8 +362,10 @@
             scope.proceedToNext = function () {
                 if (scope.loandetails && (scope.loanId || scope.formData.loanId)) {
                     scope.canForceDisburse = false;
-                    if(_.isUndefined(scope.loanId) && scope.loandetails.status.id == 200){
+                    if(_.isUndefined(scope.loanId) && ! _.isUndefined(scope.formData.loanId)){
                         scope.loanId = scope.formData.loanId;
+                    }
+                    if(scope.loandetails.status.id == 200 || scope.loandetails.status.id == 300){
                         scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
                         if(scope.enableClientVerification && scope.loandetails.clientData && !scope.loandetails.clientData.isVerified){
                             scope.canForceDisburse = true;

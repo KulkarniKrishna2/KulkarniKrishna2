@@ -1795,12 +1795,9 @@
     "label.heading.penalty.charge.posted":"Penalty charges posted till ",
     "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
     "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
-<<<<<<< HEAD
     "label.heading.deferpaymentsforhalftheloanterm":"Defer Payments For Half The Loan Term ?",
-=======
     "label.heading.applypenalties":"Apply Penalties",
     "label.heading.penalty.charge.not.applicable":"Penalty charges not applicable for this Loan Account",
->>>>>>> v17.09.1_RC
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -2316,12 +2313,9 @@
     "validation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Interest rate chart effective date cannot be past dated",
     "validation.msg.recurringdepositaccount.no.applicable.interest.rate.is.found.based.on.amount.and.deposit.period":"Interest rate chart is not applicable for this amount and deposit period",
     "validation.msg.savingsproduct.effectiveFromDate.not.zero.or.greater":"Interest rate chart interest rate should be greater than zero ",
-<<<<<<< HEAD
     "error.message.bank.account.details.activity.cannot.complete.before.approve": "Bank account  details activity cannot  be completed without approval",
     "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
-=======
     "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank":"Penalties apply on date is mandatory",
->>>>>>> v17.09.1_RC
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
@@ -6683,9 +6677,7 @@
     "label.anchor.inter.branch.client.transaction" : "Inter Branch Client Transaction",
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
-=======
     "error.msg.bank.account.detail.already.exist" : "Bank account detail already exist for entity `{{params[0].value}}`",
->>>>>>> v17.09.1_VAYA
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
     "label.heading.attach.documents":"Attach Documents",

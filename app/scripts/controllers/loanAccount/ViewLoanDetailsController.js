@@ -817,7 +817,7 @@
                         }
                     }
                     
-                    if(addDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
+                    if(!scope.isCBCheckReq && addDisburseTrancheButton && closedStatus.indexOf(data.status.id) < 0) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: disburseButtonLabel,
                             icon: "icon-flag",
