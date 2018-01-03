@@ -6579,7 +6579,6 @@
     "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
     "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
     "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
-<<<<<<< HEAD
     "validation.msg.FUND.sanctionedDate.is.less.than.date":"Sanctioned date should not be less than assignment start date",
     "validation.msg.FUND.disbursedDate.is.less.than.date":"Disbursement date should not be less than sactioned date",
     "validation.msg.FUND.disbursedAmount.is.greater.than.max":"Disbursed amount should not be greater than sanctioned amount",
@@ -6797,6 +6796,8 @@
     "label.heading.hh.status":"HH Status",
     "label.heading.risk.markers":"Risk Markers",
     "label.heading.customer.status":"Customer Status",
-    
+    "label.alert.village.active.message" : "Village is activated",
+    "error.message.village.activation.activity.cannot.complete.before.village.activation" : "Village activation activaity cannot completed before village activation",
+    "error.message.office.activation.activity.cannot.complete.before.office.activation" : "Office activation activaity cannot completed before office activation",
     "------ end of tensalation file":"---------"
 }
