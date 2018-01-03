@@ -5450,7 +5450,7 @@
     "label.input.occ.income":"Total Occupation Income",
     "label.input.asset.income":"Total Income From Asset",
     "label.input.household.expense":"Total House Hold Expense",
-    "label.input.net.surplex":"Net Surplex Income",
+    "label.input.net.surplex":"Net Surplus Income",
     "label.heading.expensename":"Expense Type",
     "label.input.household.expense":"Expense Type",
     "label.input.expense":"Expense",
@@ -6750,5 +6750,9 @@
     "label.heading.loanutilizationcheck.documents" : "Loanutilizationcheck Documents",
     "label.heading.view.loanutilizationcheck" : "View Loanutilizationcheck",
     "label.heading.loanutilizationcheck.details" : "Loanutilizationcheck Details",
+    "label.heading.image": "Image",
+    "label.message.image.upload.error" : "Unable to upload image",
+    "label.message.images.allowed": "Note: Only .JPG/.JPEG image with size less than 5KB and of Height*Width <= 60*60 is allowed",
+
     "------ end of tensalation file":"---------"
 }
