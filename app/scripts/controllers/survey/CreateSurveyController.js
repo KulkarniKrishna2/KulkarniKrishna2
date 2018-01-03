@@ -102,6 +102,64 @@
             var componentDataSequenceNo = 0;
             var questionSequenceNo = 0;
             var questionResponseSequenceNo = 0;
+
+            scope.onFileSelect = function ($files, componentIndex, questionIndex, optionIndex) {
+
+                var files= $files;
+                if (files.length > 0)
+                {
+                    var file = files[0];
+                    var MAX_SIZE = 5120;
+                    var MAX_HEIGHT = 60;
+                    var MAX_WIDTH = 60;
+                    var parent = scope;
+                    var fileSize = file.size;
+
+                    if(fileSize <= MAX_SIZE){
+                        var fileReader = new FileReader();
+                        fileReader.onload = function(fileLoadedEvent) {
+                        
+                            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                            var image = document.createElement("img");
+                            image.src = fileLoadedEvent.target.result; 
+
+                            image.onload = function () {
+                                var height = this.height;
+                                var width = this.width;
+                                if (height > MAX_HEIGHT || width > MAX_WIDTH) {
+                                    parent.fileUploadError();
+                                } else{
+                                    if(parent.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas[optionIndex]){
+                                        parent.formData.componentDatas[componentIndex].questionDatas[questionIndex].responseDatas[optionIndex].image = srcData;
+                                    }  
+                                }
+                            };
+                            
+                        }
+                 
+                        fileReader.readAsDataURL(file) ;
+                    }
+                    else{
+                        scope.fileUploadError();
+                    } 
+                }
+            };
+
+            scope.fileUploadError = function () {
+                $modal.open({
+                    templateUrl: 'fileuploaderror.html',
+                    controller: FileUploadErrorCtrl
+                });
+            };
+
+
+            var FileUploadErrorCtrl = function ($scope, $modalInstance) {
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+
             scope.submit = function () {
                 scope.reqFormData = {};
                 angular.copy(scope.formData,scope.reqFormData);

@@ -126,11 +126,11 @@
                             <div ng-if="questionData.responseDatas.length > 0">
                                 <div ng-repeat="responseData in questionData.responseDatas track by $index"
                                      ng-init="responseIndex = $index">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10 well">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-11 well">
                                         <div class="form-group">
                                             <legend><h4>Option : {{responseIndex+1}}</h4></legend>
-                                            <label class="control-label col-sm-2">
+                                            <label class="control-label col-sm-1">
                                                 Name <span class="required">*</span>
                                             </label>
                                             <ng-form name="formresponseText" novalidate="" rc-submit="submit()">
@@ -142,8 +142,8 @@
                                                       ng-show="submitted && formresponseText.responseText.$error.required">{{'label.error.required'|translate}}</span>
                                                 </div>
                                             </ng-form>
-                                            <div class="col-sm-1">&nbsp;</div>
-                                            <label class="control-label col-sm-2">
+                                            
+                                            <label class="control-label col-sm-1">
                                                 Score <span class="required">*</span>
                                             </label>
                                             <ng-form name="formresponseValue" novalidate="" rc-submit="submit()">
@@ -156,8 +156,16 @@
                                                      ng-show="submitted && formresponseValue.responseValue.$error.required">{{'label.error.required'|translate}}</span>
                                                 </div>
                                             </ng-form>
-                                            <div class="col-sm-3">
-                                                <h4 class="pull-right">&nbsp;<a
+
+                                            <ng-form name="formresponseImage" novalidate="" rc-submit="submit()">
+                                           
+                                           <input class="col-sm-3" id="inputFileToLoad" type="file" ng-file-select="onFileSelect($files, componentIndex, questionIndex, responseIndex)"  accept="image/jpeg,image/jpg"/>
+                                            <img ng-show="responseData.image"  ng-src="{{responseData.image}}" class="col-sm-2"/>
+                                           
+                                            </ng-form>
+
+                                            <div class="col-sm-1">
+                                                <h4 class="pull-left">&nbsp;<a
                                                         ng-click="deleteQuestionOptions(componentIndex, questionIndex, responseIndex);">
                                                     &nbsp;<i class="icon-remove icon-white"></i></a></h4>
                                             </div>
@@ -190,5 +198,18 @@
         <br>
         <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="fileuploaderror.html">
+    <div class="modal-header silver">
+        <h4 class="bolder">{{'label.heading.error' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <h3>{{'label.message.image.upload.error' | translate}}</h3>
+        <h4>{{'label.message.images.allowed' | translate}}</h4>
+        <br>
+        <button class="col-md-offset-5 btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
     </div>
 </script>
