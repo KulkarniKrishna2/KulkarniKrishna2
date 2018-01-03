@@ -1,0 +1,31 @@
+<div class="col-md-12" ng-controller="SwitchUserController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.create.switchusermapping' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <form name="switchuserform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.switchuser' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.targetuser' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="switchUserOptions" id="targetUserId" name="targetUserId" ng-model="formData.targetUserId"  class="form-control" ng-options="user.targetUser.id as user.targetUser.username for user in switchUserOptions" value="{{user.targetUser.id}}" required late-validate></select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="switchuserform" valattribute="targetUserId"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-5">
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='AUTHORIZE_SWITCHUSER'>{{'label.button.switchuser' | translate}}</button>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+        </fieldset>
+    </form>
+</div>

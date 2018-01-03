@@ -1287,7 +1287,7 @@
                     fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
 
                     }),
-                    overdueChargeResource: defineResource(apiVer + "/loans/overduecharges", {}, {
+                    overdueChargeResource: defineResource(apiVer + "/loans/overduecharges/:loanIdParam", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}},
                         run: {method: 'POST', params: {}}
                     }),
@@ -1391,6 +1391,15 @@
                     }),
                     fetchCreditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/refresh", {enquiryId: '@enquiryId'}, {
                         get: {method: 'GET', params: {}, isArray:true}
+                    }),
+                    proxyUserMappingResource: defineResource(apiVer + "/proxyusermappings/:proxyUserMappingId", {proxyUserMappingId: '@proxyUserMappingId'}, {
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    proxyUserMappingTemplateResource: defineResource(apiVer + "/proxyusermappings/template", {}, {
+                        
+                    }),
+                    switchUserResource: defineResource(apiVer + "/switchuser", {}, {
+                        
                     })
                 };
             }];
