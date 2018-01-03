@@ -367,6 +367,7 @@
                                     <td class="width31 paddedbottom10">
                                         <input type="text" class="form-control" name="loanAmountApproved"
                                                ng-model="formRequestData.loanAmountApproved"
+                                               ng-change="updateSlabBasedAmountOnChangePrincipalOrRepayment()"
                                                number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                     </td>
                                     <td class="width19"><label>{{'label.input.expecteddisbursementon' |
@@ -680,7 +681,8 @@
                                                 <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText"
                                                     ng-if="loanEMIPack.sanctionAmount <= formData.loanEMIPackData.sanctionAmount">
                                                     <td class="col-md-1">
-                                                        <input type="radio" ng-model="formRequestData.loanEMIPackId" value="{{loanEMIPack.id}}"/>
+                                                        <input type="radio" ng-model="formRequestData.loanEMIPackId" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()"
+                                                                value="{{loanEMIPack.id}}"/>
                                                     </td>
                                                     <td class="col-md-1">
                                                         <span>{{loanEMIPack.sanctionAmount}}</span>
@@ -806,7 +808,8 @@
                                                    number-format type="text"
                                                    ng-model="disbursementDetail.trancheAmount"
                                                    placeholder="{{'label.input.principal' | translate}}" required
-                                                   late-validate="">
+                                                   late-validate=""
+                                                   ng-readonly = "isTrancheAmoumtReadOnly">
 
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="trancheAmount"/>

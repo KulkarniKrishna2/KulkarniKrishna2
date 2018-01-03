@@ -1692,6 +1692,9 @@
             .when('/uploadbulkbankaccountverificationfileprocess', {
                 templateUrl: 'views/fileprocess/uploadbulkbankaccountverificationfileprocess.html'
             })
+            .when('/:entityType/:entityId/loans/:loanId/viewloanutilization/:utilizationCheckId', {
+                templateUrl: 'views/groups/viewloanutilizationcheck.html'
+            })
             .when('/admin/proxyusermappings', {
                 templateUrl: 'views/administration/proxyuser/proxyusermappings.html'
             })
