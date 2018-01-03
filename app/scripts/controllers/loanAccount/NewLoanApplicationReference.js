@@ -242,6 +242,7 @@
                             var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
                             var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
+                            break;
                         }
                     }
                 }
@@ -269,9 +270,7 @@
                                     }
                                     scope.updateChargeForSlab(scope.charges[i]);
                                 }
-
                             }
-
                         }
                     }
                 }

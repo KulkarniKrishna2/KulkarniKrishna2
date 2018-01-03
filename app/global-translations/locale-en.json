@@ -584,6 +584,7 @@
     "error.minimum.one.floatingRateInterestRate.entry.required" : "Minimum one entry should be there for floating interest rate chart",
     "error.msg.loan.refund.amount.invalid":"Refund not allowed for this amount",
     "error.msg.receipt.number.mandatory": "Receipt Number is mandatory",
+    "error.msg.payment.type.mandatory" : "Payment type is mandatory",
     "error.msg.payment.type.invalid" : "Payment type is invalid",
     "error.msg.address.type.verified":"Address is already verified and cannot be updated.",
     "error.message.group.activation.activity.cannot.complete.before.group.activation":"Group activation activaity cannot completed before group activation",
@@ -3451,6 +3452,7 @@
     "error.msg.password.reset.days.value.must.be.greater.than.zero" : "For enabling 'Force Password Reset Days' configuration , the value (number of days after which a user is forced to reset his password) must be set to a number greater than 0.",
     "error.msg.recurringdepositaccount.transaction.in.the.future":"Transactions cannot be done on Future Date",
     "alidation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Effective date should not be before current date",
+    "error.msg.work.flow.workflow.already.created.for.this.village": " duplicate task creation for the village is not allowed",
 
     "#tool tip for global configuration":"..",
     "label.tooltip.global.maker-checker":"Determine if the maker-checker system will be used.",
@@ -6583,6 +6585,7 @@
     "error.msg.maker.checker.bank.name.not.matched" : "Bank name not matched.",
     "error.msg.maker.checker.bank.branch.name.not.matched" : "Bank branch name not matched.",
     "error.msg.maker.checker.bank.city.name.not.matched" : "Bank city name not matched.",
+<<<<<<< HEAD
     "validation.msg.FUND.sanctionedDate.is.less.than.date":"Sanctioned date should not be less than assignment start date",
     "validation.msg.FUND.disbursedDate.is.less.than.date":"Disbursement date should not be less than sactioned date",
     "validation.msg.FUND.disbursedAmount.is.greater.than.max":"Disbursed amount should not be greater than sanctioned amount",
@@ -6680,6 +6683,9 @@
     "label.anchor.inter.branch.client.transaction" : "Inter Branch Client Transaction",
     "error.msg.saving.account.transfer.transaction.update.not.allowed" : "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat" : "Initiated At",
+=======
+    "error.msg.bank.account.detail.already.exist" : "Bank account detail already exist for entity `{{params[0].value}}`",
+>>>>>>> v17.09.1_VAYA
     "file.process.type.not.supported" : "File process type is not supported for the resource '{{params[0].value}}'",
 
     "label.heading.attach.documents":"Attach Documents",
@@ -6738,6 +6744,7 @@
     "label.heading.no.of.default.loan" : "No of Default Loan",
     "label.heading.lender.name" : "Lender Name",
     "label.heading.writeoff.amount" : " Write-off Amount",
+
     "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
     "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
     "validation.msg.loan.expectedDisbursementDate.disburment.date.should.not.be.empty" : "Expected disbursement date of tranche should not be empty",
@@ -6794,5 +6801,10 @@
 
     "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
 
+    "label.heading.no.of.mfi":"Active MFIs",
+    "label.heading.hh.status":"HH Status",
+    "label.heading.risk.markers":"Risk Markers",
+    "label.heading.customer.status":"Customer Status",
+    
     "------ end of tensalation file":"---------"
 }

@@ -157,6 +157,9 @@
                 }else{
                     scope.paymentDetail.paymentTypeId = "";
                 }
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+                }
 
                 scope.paymentDetail.accountNumber = "";
                 scope.paymentDetail.checkNumber = "";
@@ -171,7 +174,7 @@
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.calendarId = scope.calendarId;
-                scope.showPaymentDetails = false;
+                scope.showPaymentDetails = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails;
                 if (scope.date.transactionDate) {
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
@@ -183,7 +186,7 @@
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
-                            if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
+                            if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
                             }
@@ -210,7 +213,7 @@
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
-                            if(scope.collectionsheetdata != "" && scope.isRecieptNumbermandatory){
+                            if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
                             }
@@ -637,9 +640,16 @@
 
             scope.submit = function () {
 
-                if (scope.showPaymentDetails && scope.isRecieptNumbermandatory && (scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
-                    scope.setErrorMessage('error.msg.receipt.number.mandatory');
-                    return;
+                if (scope.showPaymentDetails && scope.isRecieptNumbermandatory){
+                    if((scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
+                        scope.setErrorMessage('error.msg.receipt.number.mandatory');
+                        return;
+                    }
+                    if((_.isUndefined(scope.paymentDetail.paymentTypeId) || scope.paymentDetail.paymentTypeId == null || scope.paymentDetail.paymentTypeId == "")){
+                        scope.setErrorMessage('error.msg.payment.type.mandatory');
+                        return;
+                    }
+
                 }
 
                 scope.formData.calendarId = scope.calendarId;
