@@ -294,6 +294,10 @@
                     });
                 });
             };
+
+            scope.viewLoanUtilizationCheck = function(loanId, utilizationCheckId){
+                location.path("/center/"+routeParams.id+"/loans/"+loanId+"/viewloanutilization/"+utilizationCheckId);
+            }
         }
     });
 

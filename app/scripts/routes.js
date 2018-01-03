@@ -1692,6 +1692,9 @@
             .when('/uploadbulkbankaccountverificationfileprocess',{
                 templateUrl: 'views/fileprocess/uploadbulkbankaccountverificationfileprocess.html'
             })
+            .when('/:entityType/:entityId/loans/:loanId/viewloanutilization/:utilizationCheckId', {
+                templateUrl: 'views/groups/viewloanutilizationcheck.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
