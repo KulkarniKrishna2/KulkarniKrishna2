@@ -6581,6 +6581,7 @@
     "label.heading.hh.status":"HH Status",
     "label.heading.risk.markers":"Risk Markers",
     "label.heading.customer.status":"Customer Status",
+    "label.heading.lenders.name" : "Lenders Name",
     
     "------ end of tensalation file":"---------"
 }

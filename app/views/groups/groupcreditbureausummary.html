@@ -15,6 +15,7 @@
                     <th>{{ 'label.heading.clientid' | translate }}</th>
                     <th>{{ 'label.heading.clientname' | translate }}</th>
                     <th>{{ 'label.heading.no.of.mfi' | translate }}</th>
+                    <th>{{ 'label.heading.lenders.name' | translate }}</th>
                     <th>{{ 'label.heading.approvedamount' | translate }}</th>
                     <th>{{ 'label.heading.total.overdue.amount' | translate }}</th>
                     <th>{{ 'label.heading.total.outstanding.amount' | translate }}</th>
@@ -29,6 +30,7 @@
                     <td class="pointer" data-ng-click="routeTo(groupClientCBData.clientId)">{{groupClientCBData.clientId}}</td>
                     <td>{{groupClientCBData.clientName}}</td>
                     <td>{{groupClientCBData.totalLenders}}</td>
+                    <td class="width25">{{groupClientCBData.lendersName}}</td>
                     <td>{{groupClientCBData.approvedAmount}}</td>
                     <td>{{groupClientCBData.totalAmountOverDue}}</td>
                     <td>{{groupClientCBData.totalOutstandingAmount}}</td>
