@@ -48,6 +48,7 @@
             scope.isMobileNumberMandatory = false;
             scope.isEmailIdMandatory = false;
             scope.displayAge = false;
+            scope.ismaritalStatusRequired = true;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -205,9 +206,9 @@
                     });
                 }
 
-                if(scope.maritalStatusOptions[0]) {
+               /* if(scope.maritalStatusOptions[0]) {
                     scope.formData.maritalStatusId = scope.maritalStatusOptions[0].id;
-                }
+                }*/
             });
 
             var villageConfig = 'populate_client_address_from_villages';
