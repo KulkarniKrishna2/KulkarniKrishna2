@@ -1,0 +1,27 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "loanAccount": {
+      "isShowField": {
+        "isDeferPaymentsForHalfTheLoanTerm": true
+      }
+    },
+	"attendanceTypeOptions": [{
+		"id": 1,
+		"value": "Present"
+	}, {
+		"id": 2,
+		"value": "Absent"
+	}, {
+		"id": 3,
+		"value": "Representative"
+	}, {
+		"id": 4,
+		"value": "Absent with apology"
+	}, {
+		"id": 5,
+		"value": "Late"
+	}]
+  }
+}
+	
