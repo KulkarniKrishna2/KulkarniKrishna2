@@ -9,8 +9,8 @@
                 scope.loanUtilizationChecks = data;
             });
 
-            scope.showEdit = function (id,loanId) {
-                location.path('/group/' + scope.entityId + '/loans/' + loanId + '/editloanutilization/' + id);
+            scope.viewLoanUtilizationCheck = function(loanId, utilizationCheckId){
+                location.path("/"+scope.entityType+"/"+scope.entityId+"/loans/"+loanId+"/viewloanutilization/"+utilizationCheckId);
             }
 
 
