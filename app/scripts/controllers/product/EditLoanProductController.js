@@ -328,41 +328,45 @@
                         })
                     });
 
-                   for(var count = 0; count < scope.product.feeToIncomeAccountMappings.length; count++) {
-                       if (scope.specificIncomeAccountMapping.length > 0) {
-                           if(scope.product.feeToIncomeAccountMappings[count].charge.id == scope.specificIncomeAccountMapping[scope.specificIncomeAccountMapping.length - 1].chargeId){
-                               scope.specificIncomeAccountMapping[scope.specificIncomeAccountMapping.length - 1].fundSourceAccountId = scope.product.feeToIncomeAccountMappings[count].incomeAccount.id;
-                           }
-                           else{
+                   if(!_.isUndefined(scope.product.feeToIncomeAccountMappings)) {
+                       for (var count = 0; count < scope.product.feeToIncomeAccountMappings.length; count++) {
+                           if (scope.specificIncomeAccountMapping.length > 0) {
+                               if (scope.product.feeToIncomeAccountMappings[count].charge.id == scope.specificIncomeAccountMapping[scope.specificIncomeAccountMapping.length - 1].chargeId) {
+                                   scope.specificIncomeAccountMapping[scope.specificIncomeAccountMapping.length - 1].fundSourceAccountId = scope.product.feeToIncomeAccountMappings[count].incomeAccount.id;
+                               }
+                               else {
+                                   scope.specificIncomeAccountMapping.push({
+                                       chargeId: scope.product.feeToIncomeAccountMappings[count].charge.id,
+                                       incomeAccountId: scope.product.feeToIncomeAccountMappings[count].incomeAccount.id
+                                   })
+                               }
+                           } else {
                                scope.specificIncomeAccountMapping.push({
                                    chargeId: scope.product.feeToIncomeAccountMappings[count].charge.id,
                                    incomeAccountId: scope.product.feeToIncomeAccountMappings[count].incomeAccount.id
                                })
                            }
-                        }else{
-                           scope.specificIncomeAccountMapping.push({
-                               chargeId: scope.product.feeToIncomeAccountMappings[count].charge.id,
-                               incomeAccountId: scope.product.feeToIncomeAccountMappings[count].incomeAccount.id
-                           })
                        }
                    }
 
-                    for(var count = 0; count < scope.product.penaltyToIncomeAccountMappings.length; count++) {
-                        if (scope.penaltySpecificIncomeaccounts.length > 0) {
-                            if(scope.product.penaltyToIncomeAccountMappings[count].charge.id == scope.penaltySpecificIncomeaccounts[scope.penaltySpecificIncomeaccounts.length - 1].chargeId){
-                                scope.penaltySpecificIncomeaccounts[scope.penaltySpecificIncomeaccounts.length - 1].fundSourceAccountId = scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id;
-                            }
-                            else{
+                    if(!_.isUndefined(scope.product.penaltyToIncomeAccountMappings)) {
+                        for (var count = 0; count < scope.product.penaltyToIncomeAccountMappings.length; count++) {
+                            if (scope.penaltySpecificIncomeaccounts.length > 0) {
+                                if (scope.product.penaltyToIncomeAccountMappings[count].charge.id == scope.penaltySpecificIncomeaccounts[scope.penaltySpecificIncomeaccounts.length - 1].chargeId) {
+                                    scope.penaltySpecificIncomeaccounts[scope.penaltySpecificIncomeaccounts.length - 1].fundSourceAccountId = scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id;
+                                }
+                                else {
+                                    scope.penaltySpecificIncomeaccounts.push({
+                                        chargeId: scope.product.penaltyToIncomeAccountMappings[count].charge.id,
+                                        incomeAccountId: scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id
+                                    })
+                                }
+                            } else {
                                 scope.penaltySpecificIncomeaccounts.push({
                                     chargeId: scope.product.penaltyToIncomeAccountMappings[count].charge.id,
                                     incomeAccountId: scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id
                                 })
                             }
-                        }else{
-                            scope.penaltySpecificIncomeaccounts.push({
-                                chargeId: scope.product.penaltyToIncomeAccountMappings[count].charge.id,
-                                incomeAccountId: scope.product.penaltyToIncomeAccountMappings[count].incomeAccount.id
-                            })
                         }
                     }
                    /* _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
