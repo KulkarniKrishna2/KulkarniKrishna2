@@ -5,7 +5,19 @@
             scope.restrictDate = new Date();
             scope.villageId = scope.taskconfig['villageId'];
             scope.formData = {};
-            scope.isActivate = false;
+            scope.isVillageActive = false;
+
+            scope.init = function(){
+              resourceFactory.villageResource.get({
+                    villageId: scope.villageId
+                }, scope.formData, function (data) {
+                    if(data.status.id == 300){
+                      scope.isVillageActive = true;  
+                    }
+                    
+                }); 
+            };
+            scope.init();
             scope.submit = function () {
                 var reqDate = dateFilter(scope.firstdate, scope.df);
                 scope.formData.activatedOnDate = reqDate;
@@ -15,9 +27,22 @@
                     villageId: scope.villageId,
                     command: 'activate'
                 }, scope.formData, function (data) {
-                    //location.path('/viewvillage/' + data.resourceId);
-                    scope.isActivate = true;
+                    scope.init();
                 });
+            };
+            /*overriding doPreTaskActionStep method of defaultActivityController*/
+            scope.doPreTaskActionStep = function (actionName) {
+                if (actionName === 'activitycomplete') {
+                    if (!scope.isVillageActive) {
+                        scope.setTaskActionExecutionError("error.message.village.activation.activity.cannot.complete.before.village.activation");
+                        return;
+                    } else {
+                        scope.doActionAndRefresh(actionName);
+                    }
+                }
+                else{
+                    scope.doActionAndRefresh(actionName);
+                }
             };
         }
 

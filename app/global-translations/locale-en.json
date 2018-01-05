@@ -6825,5 +6825,9 @@
     "label.heading.risk.markers":"Risk Markers",
     "label.heading.customer.status":"Customer Status",
 
+    "label.alert.village.active.message" : "Village is activated",
+    "error.message.village.activation.activity.cannot.complete.before.village.activation" : "Village activation activaity cannot completed before village activation",
+    "error.message.office.activation.activity.cannot.complete.before.office.activation" : "Office activation activaity cannot completed before office activation",
+	
     "------ end of tensalation file":"---------"
 }
