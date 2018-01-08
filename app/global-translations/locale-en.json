@@ -6800,5 +6800,8 @@
     "error.message.village.activation.activity.cannot.complete.before.village.activation" : "Village activation activaity cannot completed before village activation",
     "error.message.office.activation.activity.cannot.complete.before.office.activation" : "Office activation activaity cannot completed before office activation",
     "error.msg.ifsc.minimum.number" : "IFSC number should be 11 characters",
+    "label.input.specific.reason":"Specify Reason",
+    "label.heading.rejection.details" : "Rejection Details",
+    "label.heading.rejectionreason" : "Rejection Reason",
     "------ end of tensalation file":"---------"
 }
