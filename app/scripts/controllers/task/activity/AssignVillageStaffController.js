@@ -19,7 +19,7 @@
                     scope.getVillage();
 
                     scope.submit = function(){
-                        resourceFactory.villageResource.save({villageId: id, command: 'assignstaff'}, {'staffId' : scope.staffId}, function (data) {
+                        resourceFactory.villageResource.save({villageId: villageId, command: 'assignstaff'}, {'staffId' : scope.staffId}, function (data) {
                             scope.getVillage();
                             scope.isSuccess = true;
                         });
