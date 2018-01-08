@@ -14,6 +14,14 @@
             </h3>
         </div>
 
+        <div ng-if="canView===false" >
+            <div class="" style="padding:10px;">
+                <div class="alert alert-info" style="border-style: dashed;">
+                    <span class="fa fa-info-circle"></span> {{'label.error.accessSeeTask' | translate}}
+                </div>
+            </div>
+        </div>
+
         <div ng-if="canView"  class="col-md-12">
             <api-validate></api-validate>
             <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
@@ -177,13 +185,6 @@
 
             </div>
 
-            <div ng-if="canView==false" class>
-                <div class="" style="padding:10px;">
-                    <div class="alert alert-info" style="border-style: dashed;">
-                        <span class="fa fa-info-circle"></span> {{'label.error.accessSeeTask' | translate}}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <script type="text/ng-template" id="startover.html">

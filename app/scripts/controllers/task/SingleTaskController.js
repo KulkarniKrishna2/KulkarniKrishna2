@@ -37,13 +37,15 @@
                     }
                     //viewaction check
                     else  if(scope.taskData.status.value != 'inactive'){
-                        resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
-                            resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
-                                scope.taskData = taskData;
-                                scope.canView = true;
-                                populateNextActions();
 
-                            });
+                         resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
+                             scope.taskData = taskData;
+
+
+                         });
+                        resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
+                            scope.canView = true;
+                            populateNextActions();
                         });
                     }
                 }
