@@ -28,6 +28,7 @@
                 requestParams.officeId = routeParams.officeId;
             }
             resourceFactory.clientTemplateResource.get(requestParams, function (data) {
+                scope.isSAIDEnabled = scope.isSystemGlobalConfigurationEnabled('auto-populate-details-based-on-SA-id');
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.formData.officeId = scope.offices[0].id;

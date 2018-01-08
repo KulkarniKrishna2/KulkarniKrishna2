@@ -10,6 +10,7 @@
             scope.noteData = {};
             scope.showCriteriaResult =false;
             scope.isTaskArchived = false;
+            scope.action = {};
             scope.getActivityView = function() {
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
                 return taskView;
@@ -36,13 +37,15 @@
                     }
                     //viewaction check
                     else  if(scope.taskData.status.value != 'inactive'){
-                        resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
-                            resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
-                                scope.taskData = taskData;
-                                scope.canView = true;
-                                populateNextActions();
 
-                            });
+                         resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
+                             scope.taskData = taskData;
+
+
+                         });
+                        resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
+                            scope.canView = true;
+                            populateNextActions();
                         });
                     }
                 }
@@ -52,9 +55,16 @@
             scope.getTaskId = function(){
                 return scope.taskData.id;
             }
-            scope.initiateTaskAction = function(actionName) {
+            scope.initiateTaskAction = function(actionName, action) {
                 if(actionName == 'startover'){
                     return scope.startover();
+                }
+
+                if(actionName == 'reject'){
+                    if(action.codes && action.codes.length >= 1){  
+                        scope.action = action;       
+                        return scope.reject();
+                    }   
                 }
                 scope.taskActionExecutionErrorMessage = null;
                 scope.$broadcast('preTaskAction',{actionName:actionName});
@@ -91,6 +101,7 @@
 
             scope.startover = function () {
                 $modal.open({
+
                     templateUrl: 'startover.html',
                     controller: StartOverCtrl,
                     windowClass: 'modalwidth700'
@@ -131,6 +142,38 @@
                         $route.reload();
                     });
 
+
+                };
+            };
+
+            scope.reject = function () {
+                $modal.open({
+                    templateUrl: 'reject.html',
+                    controller: RejectCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
+
+            var RejectCtrl = function ($scope, $modalInstance) {
+                
+                $scope.codes = scope.action.codes;
+                $scope.codeValues = scope.action.codeValues;
+                $scope.rejectFormData = {};
+                $scope.values = [];
+
+                $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitReject = function () {
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
+                        $modalInstance.close('reject');
+                        $route.reload();
+                    });
+                };
+
+                $scope.getDependentCodeValues = function(code){
+                    $scope.values = $scope.codeValues[code.selectedReason];
 
                 };
             };

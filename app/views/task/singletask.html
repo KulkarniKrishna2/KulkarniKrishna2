@@ -14,6 +14,14 @@
             </h3>
         </div>
 
+        <div ng-if="canView===false" >
+            <div class="" style="padding:10px;">
+                <div class="alert alert-info" style="border-style: dashed;">
+                    <span class="fa fa-info-circle"></span> {{'label.error.accessSeeTask' | translate}}
+                </div>
+            </div>
+        </div>
+
         <div ng-if="canView"  class="col-md-12">
             <api-validate></api-validate>
             <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
@@ -59,7 +67,7 @@
             </div>
             <div class="row task-action">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.actionType.value)">{{action.actionType.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.actionType.value, action)">{{action.actionType.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </div>
 
@@ -177,13 +185,6 @@
 
             </div>
 
-            <div ng-if="canView==false" class>
-                <div class="" style="padding:10px;">
-                    <div class="alert alert-info" style="border-style: dashed;">
-                        <span class="fa fa-info-circle"></span> {{'label.error.accessSeeTask' | translate}}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <script type="text/ng-template" id="startover.html">
@@ -209,6 +210,41 @@
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancelStartOver()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="submitStartOver()">{{'label.button.submit' | translate}}</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="reject.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.reject' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <div ng-show="error != null" class="error">
+                {{'label.error' | translate}}: {{error}}
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-3" >{{'label.input.rejectionreason' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-4">
+                    <select  id="reasonCode" name="reasonCode" ng-model="code.selectedReason" ng-options="code.name as code.name for code in codes" value="{{code.name}}" 
+                    class="input-sm form-control" data-ng-change="getDependentCodeValues(code)">
+                    <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-4">
+                    <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
+                    ng-options="codeValue.id as codeValue.description for codeValue in values" value="{{codeValue.id}}" class="input-sm form-control">
+                    <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitReject()">{{'label.button.submit' | translate}}</button>
         </div>
     </script>
 </div>

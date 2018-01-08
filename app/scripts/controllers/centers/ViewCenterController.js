@@ -254,11 +254,6 @@
                 scope.loanUtilizationChecks = data;
             });
 
-            scope.showEdit = function(index) {
-                var loanUtilizationCheck = scope.loanUtilizationChecks[index];
-                location.path('/center/'+scope.centerId+'/loans/'+loanUtilizationCheck.loanId+'/editloanutilization/'+loanUtilizationCheck.id);
-            }
-
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
                     route.reload();
