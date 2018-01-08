@@ -333,9 +333,20 @@
                                 </tr>
                             </table>
                         </div>
+                        <div ng-if="formData.rejectReason">
+                            <table class="width100">
+                                <tr class="bottomborder">
+                                    <td colspan="4"><strong>{{'label.heading.rejection.details' | translate}}</strong></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>{{'label.heading.rejectionreason' | translate}}</td>
+                                    <td>{{formData.rejectReason.description}}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-
                 <table class="width100">
                     <tr>
                         <td colspan="4">&nbsp;</td>

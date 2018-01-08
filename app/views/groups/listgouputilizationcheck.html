@@ -32,7 +32,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks">
+                    <tr data-ng-repeat="loanUtilizationdetailCheck in loanUtilizationChecks" 
+                     ng-click = "viewLoanUtilizationCheck(loanUtilizationdetailCheck.loanId, loanUtilizationdetailCheck.id)" class="pointer-main">
                         <td>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.groupName}}</td>
                         <td>
                             {{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.clientName}}-{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.clientId}}
@@ -46,11 +47,6 @@
                         <td>
                            <span>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.loanPurposeData.name}}</span>
                             - <span>{{loanUtilizationdetailCheck.loanUtilizationCheckDetailData.utilizationDetailsData.amount}}</span>
-
-                            <button role="button" ng-click="showEdit(loanUtilizationdetailCheck.id,loanUtilizationdetailCheck.loanId)"
-                                    class="btn-link ng-binding">
-                                <i class="icon-edit icon-white"></i>
-                            </button>
                         </td>
                     </tr>
                     </tbody>
