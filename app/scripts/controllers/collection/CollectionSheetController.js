@@ -188,6 +188,7 @@
                                 scope.showPaymentDetailsFn();
                             }
                             scope.clientsAttendanceArray(data.groups);
+                            updateAttendanceTypeOptions();
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
                             scope.sumTotalDueCollection();
@@ -214,6 +215,7 @@
                                 scope.showPaymentDetailsFn();
                             }
                             scope.clientsAttendanceArray(data.groups);
+                            updateAttendanceTypeOptions();
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
@@ -229,8 +231,16 @@
                 } else {
                     resourceFactory.groupResource.save({'groupId': 0, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         scope.collectionsheetdata = data;
+                        updateAttendanceTypeOptions();
                         scope.paymentTypeOptions = data.paymentTypeOptions;
                     });
+                }
+            };
+
+            var updateAttendanceTypeOptions = function() {
+                scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
+                if (!_.isUndefined(scope.attendanceTypeOptions)) {
+                    scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
                 }
             };
 
