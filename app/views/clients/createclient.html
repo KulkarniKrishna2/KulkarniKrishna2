@@ -233,7 +233,10 @@
                 <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="externalId" name="externalId" ng-model="formData.externalId"  class="form-control"/>
+                    <input type="text" id="externalId" name="externalId" ng-model="formData.externalId"  class="form-control" ng-required="isSAIDEnabled" late-validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createclientform" valattribute="externalId"/>
                 </div>
             </div>
             <div ng-hide="isWorkflowEnabled">
