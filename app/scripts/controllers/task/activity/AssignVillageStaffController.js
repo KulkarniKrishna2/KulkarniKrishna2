@@ -2,11 +2,12 @@
     mifosX.controllers = _.extend(module, {
         AssignVillageStaffController: function ($controller, scope, resourceFactory, location, http, routeParams, $rootScope) {  
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
-                    var id = routeParams.villageId;
+                    //var id = routeParams.villageId;
+                    var villageId = scope.taskconfig['villageId'];
                     scope.isSuccess = false;
                     scope.staffName = ""
                     scope.getVillage = function(){
-                        resourceFactory.villageResource.get({villageId: id, associations: 'setOfCenters,hierarchy,staffOptions'}, function (data) {
+                        resourceFactory.villageResource.get({villageId: villageId, associations: 'setOfCenters,hierarchy,staffOptions'}, function (data) {
                             if(data.staff != undefined){
                                 scope.staffId = data.staff.id
                                 scope.staffName = data.staff.displayName;
