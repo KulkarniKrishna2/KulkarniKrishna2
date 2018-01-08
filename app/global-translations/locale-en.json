@@ -6803,5 +6803,7 @@
     "label.input.specific.reason":"Specify Reason",
     "label.heading.rejection.details" : "Rejection Details",
     "label.heading.rejectionreason" : "Rejection Reason",
+    "label.heading.lenders.name" : "Lenders Name",
+    
     "------ end of tensalation file":"---------"
 }

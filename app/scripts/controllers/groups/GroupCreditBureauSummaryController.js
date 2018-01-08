@@ -3,7 +3,7 @@
         GroupCreditBureauSummaryController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
             scope.groupId = routeParams.groupId;
             resourceFactory.runReportsResource.get({reportSource: 'GroupClientsCBReport', R_groupId: scope.groupId, genericResultSet: false}, function (groupClientsCBDatas) {
-                scope.groupClientsCBDatas = groupClientsCBDatas;
+                scope.groupClientsCBDatas = groupClientsCBDatas;          
             });
 
             scope.creditBureauReportView = function (clientId) {
