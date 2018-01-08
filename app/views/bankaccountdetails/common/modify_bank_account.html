@@ -85,7 +85,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                           ng-minlength="11" ng-maxlength="11" type="text" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
+                           ng-minlength="11" maxlength="11" type="text" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-3">
                     <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
