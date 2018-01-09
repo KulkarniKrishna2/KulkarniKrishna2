@@ -157,7 +157,6 @@
             var RejectCtrl = function ($scope, $modalInstance) {
                 
                 $scope.codes = scope.action.codes;
-                $scope.codeValues = scope.action.codeValues;
                 $scope.rejectFormData = {};
                 $scope.values = [];
 
@@ -172,9 +171,8 @@
                     });
                 };
 
-                $scope.getDependentCodeValues = function(code){
-                    $scope.values = $scope.codeValues[code.selectedReason];
-
+                $scope.getDependentCodeValues = function(codeName){
+                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
                 };
             };
 
