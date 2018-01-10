@@ -110,22 +110,7 @@
                 if(scope.client.dateOfBirth != undefined && scope.client.dateOfBirth != null){
                     calculateClientAge(scope.client.dateOfBirth);
                 }
-                if (data.imagePresent) {
-                    http({
-                        method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxHeight=150'
-                    }).then(function (imageData) {
-                        scope.imageData = imageData.data[0];
-                        http({
-                        method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
-                        }).then(function (imageData) {
-                            scope.image = imageData.data;
-                        });
-                    });
-                    
 
-                }
                 if(data.groups.length > 0 && data.groups[0].groupLevel==1){
                     scope.isCenter=true;
                 }
@@ -135,39 +120,8 @@
                 if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==1) {
                     scope.center = data.groups[0];
                 }
+                getClientAccountDetails();
 
-                http({
-                    method: 'GET',
-                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
-                }).then(function (docsData) {
-                    var docId = -1;
-                    for (var i = 0; i < docsData.data.length; ++i) {
-                        if (docsData.data[i].name == 'clientSignature') {
-                            docId = docsData.data[i].id;
-                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
-                        }
-                    }
-                });
-
-                scope.navigateToSavingsOrDepositAccount = function (eventName, accountId, savingProductType) {
-                    switch(eventName) {
-
-                        case "deposit":
-                            if(savingProductType==100)
-                                location.path('/savingaccount/' + accountId + '/deposit');
-                            if(savingProductType==300)
-                                location.path('/recurringdepositaccount/' + accountId + '/deposit');
-                            break;
-                        case "withdraw":
-                            if(savingProductType==100)
-                                location.path('/savingaccount/' + accountId + '/withdrawal');
-                            if(savingProductType==300)
-                                location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
-                            break;
-                    }
-                }
-
-                
                 var clientStatus = new mifosX.models.ClientStatus();
 
                 if (clientStatus.statusKnown(data.status.value)) {
@@ -203,8 +157,7 @@
                 if (data.status.value == "Pending" || data.status.value == "Active") {
                     if (data.staffId) {
 
-                    }
-                    else {
+                    }else {
                         scope.buttons.push(clientStatus.getStatus("Assign Staff"));
                     }
                     if (!scope.client.isWorkflowEnabled) {
@@ -245,12 +198,88 @@
                         break;
                     }
                 };
+            });
 
+            scope.navigateToSavingsOrDepositAccount = function (eventName, accountId, savingProductType) {
+                switch (eventName) {
+                    case "deposit":
+                        if (savingProductType == 100)
+                            location.path('/savingaccount/' + accountId + '/deposit');
+                        if (savingProductType == 300)
+                            location.path('/recurringdepositaccount/' + accountId + '/deposit');
+                        break;
+                    case "withdraw":
+                        if (savingProductType == 100)
+                            location.path('/savingaccount/' + accountId + '/withdrawal');
+                        if (savingProductType == 300)
+                            location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
+                        break;
+                }
+            };
+
+            function getClientAccountDetails (){
+                resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {
+                    scope.loanApplications = data;
+                    resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
+                        scope.clientAccounts = data;
+                        scope.pledges = scope.clientAccounts.pledges;
+                        if (data.savingsAccounts) {
+                            for (var i in data.savingsAccounts) {
+                                if (data.savingsAccounts[i].status.value == "Active") {
+                                    scope.updateDefaultSavings = true;
+                                    break;
+                                }
+                            }
+                        }
+                        resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true, chargeStatus:"active"}, function (data) {
+                            scope.charges = data.pageItems;
+                            getClientImageAndSignature();
+                        });
+                    });
+                });
+            };
+
+            function getClientImageAndSignature (){
+                getClientClientSummary ();
+                if (scope.client.imagePresent) {
+                    http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxHeight=150'
+                    }).then(function (imageData) {
+                        scope.imageData = imageData.data[0];
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
+                        }).then(function (imageData) {
+                            scope.image = imageData.data;
+                        });
+                    });
+                }
+
+                http({
+                    method: 'GET',
+                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
+                }).then(function (docsData) {
+                    var docId = -1;
+                    for (var i = 0; i < docsData.data.length; ++i) {
+                        if (docsData.data[i].name == 'clientSignature') {
+                            docId = docsData.data[i].id;
+                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                        }
+                    }
+                });
+            };
+
+            function getClientClientSummary (){
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                     scope.loancycledetail = data;
+                    //$timeout(getClientDatatables, 1000);
+                    getClientDatatables();
                 });
+            };
 
+            function getClientDatatables (){
                 var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
                 if (associatedEntityId == null) {
                     associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
@@ -261,30 +290,8 @@
                 resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
                     scope.datatables = data;
                 });
+            };
 
-                resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {
-                    scope.loanApplications = data;
-                });
-
-                resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
-                    scope.clientAccounts = data;
-                    scope.pledges = scope.clientAccounts.pledges;
-                    if (data.savingsAccounts) {
-                        for (var i in data.savingsAccounts) {
-                            if (data.savingsAccounts[i].status.value == "Active") {
-                                scope.updateDefaultSavings = true;
-                                break;
-                            }
-                        }
-                    }
-                    resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true, chargeStatus:"active"}, function (data) {
-                        scope.charges = data.pageItems;
-
-
-                    });
-                });
-
-            });
             function calculateClientAge(dateOfBirth){
                 dateOfBirth = new Date(dateFilter(dateOfBirth, scope.df));
                 var ageDifMs = Date.now() - dateOfBirth.getTime();
@@ -960,6 +967,7 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
             var ViewLargerClientSignature = function($scope,$modalInstance){
                     var loadSignature = function(){
                      http({
