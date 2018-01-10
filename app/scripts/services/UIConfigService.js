@@ -12,13 +12,15 @@
                     assignDefaultData();
                 });
 
-
                 assignDefaultData = function () {
                     $http.get('scripts/config/default_UiConfig.json').success(function (data) {
                         if (data != 'undefined' && data != null && data != '') {
                             if (data.enableUIDisplayConfiguration != null && data.enableUIDisplayConfiguration == true) {
                                 scope.response = data;
                                 scope.responseDefaultGisData = data;
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope && scope.response.uiDisplayConfigurations.globalSearchScope) {
+                                    scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
+                                }
                             }
                         }
                     }).error(function (data) {
@@ -35,6 +37,9 @@
                         if (result.enableUIDisplayConfiguration != null && result.enableUIDisplayConfiguration == true) {
                             scope.response = result;
                             scope.responseDefaultGisData = result;
+                            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope && scope.response.uiDisplayConfigurations.globalSearchScope) {
+                                scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
+                            }
                         }
                     }).error(function (tenantSpecificData) {
                         console.log("Configuration file not found");
@@ -55,7 +60,6 @@
                     }
                     return result;
                 };
-
             };
         }
     });

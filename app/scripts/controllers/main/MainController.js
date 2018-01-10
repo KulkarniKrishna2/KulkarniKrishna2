@@ -17,7 +17,7 @@
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
                 scope.releaseyear = data.releaseyear;
-            } );
+            });
 
             scope.islogofoldernamefetched = false;
             scope.islogofoldernameconfig = false;
@@ -57,7 +57,7 @@
                     }
                 });
             }
-
+            setSearchScopes();
             uiConfigService.init(scope, $rootScope.tenantIdentifier);
 
             //hides loader
@@ -216,8 +216,8 @@
                 return false;
             };
 
-            var setSearchScopes = function () {
-                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans,loanapplications"};
+            function setSearchScopes (){
+                //var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans,loanapplications"};
                 var clients = {
                     name: "label.search.scope.clients.and.clientIdentifiers",
                     value: "clients,clientIdentifiers"
@@ -229,11 +229,9 @@
                 var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
                 var loans = {name: "label.search.scope.savings", value: "savings"};
                 var loanapplications = {name: "label.search.scope.loanapplications", value: "loanapplications"};
-                scope.searchScopes = [all,clients,groups,loans,savings, loanapplications];
-                scope.currentScope = all;
+                scope.searchScopes = [clients,groups,loans,savings, loanapplications];
+                scope.currentScope = groups;
             }
-
-            setSearchScopes();
 
             scope.changeScope = function (searchScope) {
                 scope.currentScope = searchScope ;
