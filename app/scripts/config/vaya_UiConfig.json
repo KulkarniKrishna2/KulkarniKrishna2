@@ -7,6 +7,10 @@
       }
     },
     "createCenter": {
+      "isReadOnlyField": {
+        "active": true,
+        "name": true
+      },
       "isHiddenField": {
         "villageOptions": false
       }

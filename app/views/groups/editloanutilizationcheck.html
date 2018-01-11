@@ -74,11 +74,11 @@
                         </tbody>
                     </table>
                 </td>
-                <td class="col-md-5">
-                    <table class="col-sm-12" ng-style="styleHalfScreenWidth" ng-if="centerTemplate.loanUtilizationCheckDetailData && centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData">
+                <td class="col-md-6">
+                    <table class="col-sm-14" ng-style="styleHalfScreenWidth" ng-if="centerTemplate.loanUtilizationCheckDetailData && centerTemplate.loanUtilizationCheckDetailData.utilizationDetailsData">
                         <tbody>
                         <tr>
-                            <td class="col-md-3">
+                            <td class="col-md-5">
                                 <ng-form name="loanPurposeForm" rc-submit="submit()">
                                     <select id="loanPurposeId"
                                             name="loanPurpose"
@@ -88,7 +88,7 @@
                                             data-placeholder="{{'label.input.selectloanpurpose' | translate}}"
                                             value="{{loanPurposeOption.id}}"
                                             required late-validate
-                                            data-ng-change="checkLoanPurpose(parentIndex,$index)" style="width: auto">
+                                            data-ng-change="checkLoanPurpose(parentIndex,$index)">
                                         <option value=""></option>
                                     </select>
                                 </ng-form>
@@ -108,7 +108,7 @@
                             <td class="col-md-1">
                                 {{percentail()}}%
                             </td>
-                            <td class="col-md-3">
+                            <td class="col-md-5">
                                 <ng-form name="commentForm" rc-submit="submit()">
                                     <textarea type="text"
                                               id="comment"
