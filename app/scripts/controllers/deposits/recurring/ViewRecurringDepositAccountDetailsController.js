@@ -263,6 +263,11 @@
                             }
                         }
                     }
+                    if (data.allowWithdrawal == true) {
+                        scope.buttons.options.push({
+                             name: "button.withdraw"
+                         });
+                     }
                 }
                 /*var annualdueDate = [];
                  annualdueDate = data.annualFee.feeOnMonthDay;
