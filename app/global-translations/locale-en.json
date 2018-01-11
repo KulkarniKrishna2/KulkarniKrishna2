@@ -6804,6 +6804,7 @@
     "label.heading.rejection.details" : "Rejection Details",
     "label.heading.rejectionreason" : "Rejection Reason",
     "label.heading.lenders.name" : "Lenders Name",
+    "label.heading.confirm.to.reject" : "Click on Confirm to Reject ",
     
     "------ end of tensalation file":"---------"
 }

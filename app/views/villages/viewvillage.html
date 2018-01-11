@@ -153,8 +153,11 @@
                     <td>{{ 'label.heading.status' | translate }}</td>
                     <td>{{village.status.value}}</td>
                 </tr>
-
-                <tr data-ng-hide="village.status.value=='Pending'" class="form-group">
+                <tr ng-if= "village.rejectReason.name">
+                    <td>{{'label.heading.rejectionreason' | translate}}</td>
+                    <td>{{village.rejectReason.name}}</td>
+                </tr>
+                <tr ng-if="!(village.status.value=='Pending' || village.rejectReason)" class="form-group">
                     <td>{{ 'label.heading.activationDate' | translate }}</td>
                     <td>{{village.timeline.activatedOnDate}}</td>
                 </tr>
