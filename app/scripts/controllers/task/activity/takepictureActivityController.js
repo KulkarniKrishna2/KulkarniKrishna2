@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        takepictureActivityController: function ($controller, scope, resourceFactory, API_VERSION, $modal, location, dateFilter, http, routeParams, $upload, $rootScope) {
+        takepictureActivityController: function ($controller, scope, resourceFactory, API_VERSION, $modal, location, dateFilter, http, routeParams, $upload, $rootScope, route) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.taskId=scope.getTaskId();
             scope.images=[];
@@ -100,7 +100,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('takepictureActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$modal', '$location', 'dateFilter','$http', '$routeParams', '$upload', '$rootScope', mifosX.controllers.takepictureActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('takepictureActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$modal', '$location', 'dateFilter','$http', '$routeParams', '$upload', '$rootScope', '$route', mifosX.controllers.takepictureActivityController]).run(function ($log) {
         $log.info("takepictureActivityController initialized");
     });
 }(mifosX.controllers || {}));

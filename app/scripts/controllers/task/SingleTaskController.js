@@ -61,10 +61,8 @@
                 }
 
                 if(actionName == 'reject'){
-                    if(action.codes && action.codes.length >= 1){  
-                        scope.action = action;       
-                        return scope.reject();
-                    }   
+                    scope.action = action;       
+                    return scope.reject(); 
                 }
                 scope.taskActionExecutionErrorMessage = null;
                 scope.$broadcast('preTaskAction',{actionName:actionName});
@@ -156,10 +154,15 @@
 
             var RejectCtrl = function ($scope, $modalInstance) {
                 
-                $scope.codes = scope.action.codes;
-                $scope.codeValues = scope.action.codeValues;
+                $scope.rejectioReasonsAvailable = false;
+                if(scope.action.codes && scope.action.codes.length >= 1){ 
+                    $scope.codes = scope.action.codes; 
+                    $scope.rejectioReasonsAvailable= true;
+                }
+               
                 $scope.rejectFormData = {};
                 $scope.values = [];
+
 
                 $scope.cancelReject = function () {
                     $modalInstance.dismiss('cancel');
@@ -172,9 +175,8 @@
                     });
                 };
 
-                $scope.getDependentCodeValues = function(code){
-                    $scope.values = $scope.codeValues[code.selectedReason];
-
+                $scope.getDependentCodeValues = function(codeName){
+                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
                 };
             };
 

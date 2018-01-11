@@ -222,18 +222,17 @@
             <div ng-show="error != null" class="error">
                 {{'label.error' | translate}}: {{error}}
             </div>
-            <br>
-            <div class="form-group">
+            <div class="form-group" ng-if ="rejectioReasonsAvailable">
                 <label class="control-label col-sm-3" >{{'label.input.rejectionreason' | translate}}<span class="required">*</span></label>
 
                 <div class="col-sm-4">
                     <select  id="reasonCode" name="reasonCode" ng-model="code.selectedReason" ng-options="code.name as code.name for code in codes" value="{{code.name}}" 
-                    class="input-sm form-control" data-ng-change="getDependentCodeValues(code)">
+                    class="input-sm form-control" data-ng-change="getDependentCodeValues(code.selectedReason)">
                     <option value="">{{'label.selectone' | translate}}</option></select>
                 </div>
             </div>
             <br/>
-            <div class="form-group">
+            <div class="form-group" ng-if ="rejectioReasonsAvailable">
                 <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-4">
                     <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
@@ -241,10 +240,15 @@
                     <option value="">{{'label.selectone' | translate}}</option></select>
                 </div>
             </div>
+            <div class="form-group" ng-if ="!rejectioReasonsAvailable">
+                <div class="col-sm-4"></div>
+                <h3>{{'label.heading.confirm.to.reject'|translate}}</h3>
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="submitReject()">{{'label.button.submit' | translate}}</button>
+            <button class="btn btn-primary" ng-if ="rejectioReasonsAvailable" ng-click="submitReject()">{{'label.button.reject' | translate}}</button>
+            <button class="btn btn-primary" ng-if ="!rejectioReasonsAvailable" ng-click="submitReject()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
 </div>
