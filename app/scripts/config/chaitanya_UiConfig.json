@@ -164,6 +164,10 @@
       "isMandatory": {
         "receiptNumber" : true
       }
+    },
+    "globalSearchScope" : {
+      "name": "label.search.scope.clients.and.clientIdentifiers",
+      "value": "clients,clientIdentifiers"
     }
   }
 }
