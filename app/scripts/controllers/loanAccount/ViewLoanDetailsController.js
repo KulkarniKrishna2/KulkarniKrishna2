@@ -257,7 +257,7 @@
                         break;
                     case "applypenalties":
                         location.path('/loanaccount/' + accountId + '/applypenalties');
-                    break;
+                        break;
                 }
             };
 

@@ -33,7 +33,6 @@
             scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
             scope.isDefaultAmountSection = false;
             scope.showRunReport = false;
-
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
 
             scope.isInterBranchTransaction = (location.search().isInterBranchSearch != undefined && location.search().isInterBranchSearch== 'true');
