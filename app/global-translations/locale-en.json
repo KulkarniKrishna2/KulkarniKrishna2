@@ -436,7 +436,7 @@
     "label.error": "Error:  ",
     "label.error.select.client":"Please select atleast one checkbox ",
     "label.error.pincode.startwith": "pincode should start with ",
-    "label.error.required" : "Required Field",
+    "label.error.required.field" : "Required Field",
     "label.error.select.office":"Please select office",
     "label.error.capturefp":"Please Capture Finger Print",
     "label.error.accessCompleteTask":"You do not have any access to complete the task.",
@@ -6738,9 +6738,7 @@
     "label.anchor.bulk.bav" : "Bulk Bank Account Verification",
     "label.perform.bulk.bav" : "Perform bulk bank account verification",
     "label.heading.no.of.default.loan" : "No of Default Loan",
-    "label.heading.lender.name" : "Lender Name",
     "label.heading.writeoff.amount" : " Write-off Amount",
-
     "validation.msg.existingLoan.amountBorrowed.cannot.be.blank" : "Amount borrowed cann't be blank",
     "validation.msg.existingLoan.installmentAmount.cannot.be.blank" : "Installment cann't be blank",
     "validation.msg.loan.expectedDisbursementDate.disburment.date.should.not.be.empty" : "Expected disbursement date of tranche should not be empty",
@@ -6823,6 +6821,7 @@
     "label.heading.rejection.details" : "Rejection Details",
     "label.heading.rejectionreason" : "Rejection Reason",
     "label.heading.lenders.name" : "Lenders Name",
+    "label.heading.lender.name" : "Lender Name",
     "label.heading.confirm.to.reject" : "Click on Confirm to Reject ",
     
     "------ end of tensalation file":"---------"
