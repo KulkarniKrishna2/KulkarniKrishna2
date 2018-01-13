@@ -871,6 +871,7 @@
             }
         }
     });
+    
     mifosX.ng.application.controller('ApproveLoanApplicationReference', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.ApproveLoanApplicationReference]).run(function ($log) {
         $log.info("ApproveLoanApplicationReference initialized");
     });
