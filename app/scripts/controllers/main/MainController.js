@@ -230,7 +230,7 @@
                 var loans = {name: "label.search.scope.savings", value: "savings"};
                 var loanapplications = {name: "label.search.scope.loanapplications", value: "loanapplications"};
                 scope.searchScopes = [clients,groups,loans,savings, loanapplications];
-                scope.currentScope = groups;
+                scope.currentScope = clients;
             }
 
             scope.changeScope = function (searchScope) {

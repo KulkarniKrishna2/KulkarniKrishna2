@@ -12,11 +12,28 @@
             }
             angular.extend(scope.commonConfig,bankAccountConfig);
 
-
             function populateDetails() {
+                resourceFactory.bankAccountDetailResource.get({entityType:scope.entityType, entityId: scope.entityId}, function (data) {
+                    var bankData = {bankAccountData:data};
+                    angular.extend(scope.commonConfig,bankData);
+                    if(data!=undefined && data.id!=undefined){
+                        if(data.status.id==200){
+
+                        }else{
+                            createWorkflow(false);
+                        }
+                    }else{
+                        createWorkflow(true);
+                    }
+                });
+
+            }
+
+            function createWorkflow(forceCreate){
                 resourceFactory.bankAccountDetailWorkflowResource.get({
                     entityType: scope.entityType,
-                    entityId: scope.entityId
+                    entityId: scope.entityId,
+                    isForceCreate : forceCreate
                 }, function (data) {
                     if(data!=undefined && data.id!=undefined){
                         if(data.status.id !=7){
@@ -28,7 +45,6 @@
 
                 });
             }
-
             function init(){
                 populateDetails();
             }
