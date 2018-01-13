@@ -436,7 +436,7 @@
     "label.error": "Error:  ",
     "label.error.select.client":"Please select atleast one checkbox ",
     "label.error.pincode.startwith": "pincode should start with ",
-    "label.error.required" : "Required Field",
+    "label.error.required.field" : "Required Field",
     "label.error.select.office":"Please select office",
     "label.error.capturefp":"Please Capture Finger Print",
     "label.error.accessCompleteTask":"You do not have any access to complete the task.",
@@ -1795,6 +1795,8 @@
     "label.heading.penaltyapplicable": " and on payment will be recomputed as per transaction date",
     "label.heading.notposted.penaltyapplicable": " Penalties are applicable and on  payment will be computed as per transaction date",
     "label.heading.deferpaymentsforhalftheloanterm":"Defer Payments For Half The Loan Term ?",
+    "label.heading.applypenalties":"Apply Penalties",
+    "label.heading.penalty.charge.not.applicable":"Penalty charges not applicable for this Loan Account",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -1849,6 +1851,7 @@
     "label.anchor.rescheduleLoan":"Reschedule Loan",
     "label.anchor.reschedulerequest":"Reschedule Request",
     "label.anchor.prepayment":"Prepayment",
+    "label.anchor.applypenalties":"Apply Penalties",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -1974,6 +1977,7 @@
     "label.button.initiatecreditbureauenquiry": "Initiate Credit Bureau Enquiry",
     "label.button.re.initiatecreditbureauenquiry": "Re Initiate Credit Bureau Enquiry",
     "label.button.fetchpenalties":"Fetch Penalties",
+    "label.button.applypenalties":"Apply Penalties",
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
 
     "#Misc Labels": "..",
@@ -2310,6 +2314,7 @@
     "validation.msg.savingsproduct.effectiveFromDate.not.zero.or.greater":"Interest rate chart interest rate should be greater than zero ",
     "error.message.bank.account.details.activity.cannot.complete.before.approve": "Bank account  details activity cannot  be completed without approval",
     "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
+    "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank":"Penalties apply on date is mandatory",
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
@@ -3012,6 +3017,7 @@
     "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
     "label.input.loanOfficer":"Loan Officer",
     "label.overdue.tilldate":"Overdue Charge Run  Till",
+    "label.input.asondate":"Run as on date",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",
@@ -6749,5 +6755,33 @@
     "label.button.initiate.reinitiate.creditbureau" : "Initiate/Re-Initiate CreditBureau",
     "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a active Loan Application",
     "error.msg.tasktemplate.duplicate.shortname" : "Task template with shortname `{{params[0].value}}` already exists",
+    "label.anchor.proxyusermappings" : "Proxy User Mappings",
+    "label.proxyusermappings.description" : "Configure User Mappings for Switch user configurations",
+    "label.anchor.view.proxyusermapping" : "View Proxy User Mapping",
+    "label.anchor.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.anchor.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.anchor.switchuser": "Switch User",
+    "label.anchor.switchtome": "Switch To Me",
+    "label.anchor.create.switchusermapping": "Switch User Mapping",
+
+    "label.heading.proxyuser" : "Proxy User",
+    "label.heading.targetuser" : "Target User",
+    "label.heading.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.heading.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.heading.switchuser": "Switch User",
+
+    "label.button.create.proxyusermapping" : "Create Proxy User Mapping",
+    "label.button.edit.proxyusermapping" : "Edit Proxy User Mapping",
+    "label.button.switchuser": "Switch User",
+    "label.button.switchtome": "Switch To Me",
+
+    "label.input.filterbyproxyuserortargetuser" : "Filter by user",
+    "label.input.proxyuser" : "Proxy User",
+    "label.input.targetuser" : "Target User",
+    "label.input.fromDate" : "From Date",
+    "label.input.toDate" : "To Date",
+
+    "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
+
     "------ end of tensalation file":"---------"
 }

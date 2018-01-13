@@ -1,0 +1,50 @@
+<div class="col-md-12" data-ng-controller="ViewProxyUserMappingsController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/admin/proxyusermappings">{{'label.anchor.proxyusermappings' | translate}}</a></li>        
+        <li class="active">{{'label.anchor.view.proxyusermapping' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <a href="#/admin/editproxyusermapping/{{proxyUserMapping.id}}" class="btn btn-primary pull-right" has-permission='UPDATE_PROXYUSERMAPPING'><i class="icon-edit icon-white"></i>{{'label.button.edit.proxyusermapping' | translate}}</a>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-5">
+            <table class="table table-bordered table-striped">
+                <tr class="graybg">
+                    <td colspan="2">{{'label.heading.proxyuser' | translate}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.loginname' | translate}}:</td>
+                    <td>{{proxyUserMapping.proxyUser.username}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.firstname' | translate}}:</td>
+                    <td>{{proxyUserMapping.proxyUser.firstname}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.lastname' | translate}}:</td>
+                    <td>{{proxyUserMapping.proxyUser.lastname}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-5">
+            <table class="table table-bordered table-striped">
+                <tr class="graybg">
+                    <td colspan="2">{{'label.heading.targetuser' | translate}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.loginname' | translate}}:</td>
+                    <td>{{proxyUserMapping.targetUser.username}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.firstname' | translate}}:</td>
+                    <td>{{proxyUserMapping.targetUser.firstname}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.lastname' | translate}}:</td>
+                    <td>{{proxyUserMapping.targetUser.lastname}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

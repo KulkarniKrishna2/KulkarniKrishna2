@@ -27,6 +27,11 @@ angular.module('notificationWidget', [])
 
                     // get requestNotificationChannel via $injector because of circular dependency problem
                     notificationChannel = notificationChannel || $injector.get('requestNotificationChannel');
+
+                    if ($rootScope.isUserSwitched && $rootScope.proxyToken) {
+                        config.headers['X-PROXY-TOKEN'] = $rootScope.proxyToken;
+                    }
+
                     // send a notification requests are complete
                     notificationChannel.requestStarted();
                     // do something on success

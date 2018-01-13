@@ -563,7 +563,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientVerificationActivityController',
             'fileprocess/UploadBulkBankAccountVerificationFileProcessController',
             'fileprocess/BulkBankAccountVerificationFileProcessController',
-            'groups/GroupCreditBureauSummaryController'
+            'groups/GroupCreditBureauSummaryController',
+            'proxyuser/ProxyUserMappingsController',
+            'proxyuser/CreateProxyUserMappingController',
+            'proxyuser/ViewProxyUserMappingsController',
+            'proxyuser/EditProxyUserMappingController',
+            'proxyuser/SwitchUserController'
         ],
         filters: [
             'StatusLookup',
