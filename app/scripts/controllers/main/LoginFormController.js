@@ -5,15 +5,28 @@
             scope.passwordDetails = {};
             scope.authenticationFailed = false;
             scope.load = false;
+            scope.otpPanel = false;
 
             scope.login = function () {
                 scope.load = true;
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
             };
 
+            scope.loginWithOTP = function() {
+                scope.load = true;
+                if (scope.loginCredentials && scope.loginCredentials.otp) {
+                    authenticationService.authenticateWithOTP(scope.loginCredentials);
+                }
+            };
+
+            scope.showLoginScreen = function() {
+                scope.otpPanel = false;
+            };
+
             scope.$on("UserAuthenticationFailureEvent", function (event, data, status) {
                 scope.hideLoginPannel = false;
                 delete scope.loginCredentials.password;
+                delete scope.loginCredentials.otp;
                 scope.authenticationFailed = true;
                 if(status != 401) {
                     scope.authenticationErrorMessage = 'error.connection.failed';
@@ -32,9 +45,17 @@
                 scope.hideLoginPannel = false;
                 scope.load = false;
                 scope.authenticationFailed = false;
+                scope.otpPanel = false;
                 timer = $timeout(function(){
                     delete scope.loginCredentials.password;
+                    delete scope.loginCredentials.otp;
                 },2000);
+             });
+
+            scope.$on("UserAuthenticationEnterOTPEvent", function (event, data) {
+                scope.otpPanel = true;
+                scope.loginCredentials.otpTokenId = data.otpTokenId;
+                
              });
 
             /*This logic is no longer required as enter button is binded with text field for submit.

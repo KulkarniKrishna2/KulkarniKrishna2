@@ -60,6 +60,18 @@
                 }
             };
 
+            this.authenticateWithOTP = function(credentials) {
+                var formData = {};
+                formData.client_id = 'community-app';
+                formData.grant_type = 'OTP';
+                formData.client_secret = '123';
+                formData.otp_token = credentials.otpTokenId;
+                formData.otp = credentials.otp;
+                httpService.post("/fineract-provider/api/oauth/token", formData)
+                    .success(getUserDetails)
+                    .error(onFailure);
+            };
+
             var isPasswordEncrypted = false;
 
             var onOauthSuccessPublicKeyData = function (publicKeyData) {
@@ -80,17 +92,25 @@
                 }
             };
 
-            var oauthAuthenticateProcesses = function (credentials) {
+            var oauthAuthenticateProcesses = function(credentials) {
                 var data = {};
-                    data.username = credentials.username;
-                    data.password = credentials.password;
-                    data.client_id ='community-app';
-                    data.grant_type = 'password';
-                    data.client_secret = '123';
-                    data.isPasswordEncrypted = isPasswordEncrypted.toString();
-                    httpService.post( "/fineract-provider/api/oauth/token",data)
-                        .success(getUserDetails)
-                        .error(onFailure);
+                data.username = credentials.username;
+                data.password = credentials.password;
+                data.client_id = 'community-app';
+                data.grant_type = 'password';
+                data.client_secret = '123';
+                data.isPasswordEncrypted = isPasswordEncrypted.toString();
+                httpService.post("/fineract-provider/api/oauth/token", data)
+                    .success(oauthTokenSuccess)
+                    .error(onFailure);
+            };
+
+            var oauthTokenSuccess = function(data) {
+                if (data.twoFactorAuthenticationEnabled) {
+                    scope.$broadcast("UserAuthenticationEnterOTPEvent", data);
+                } else {
+                    getUserDetails(data);
+                }
             };
 
             var onSuccessPublicKeyData = function (publicKeyData) {
