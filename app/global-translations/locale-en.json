@@ -6811,5 +6811,11 @@
     "validation.msg.loanproduct.maxPeriodsBetweenDisbursalAndFirstRepayment.not.greater.than.specified.number" : "Max periods between disbursal and first repayment not greater than minimum period  `{{params[1].value}}` ",
     "validation.msg.loanproduct.maxDaysBetweenDisbursalAndFirstRepayment.not.greater.than.specified.number" : "Max days between disbursal and first repayment not greater than minimum days  `{{params[1].value}}` ",
     
+    "label.heading.accounts" : "Accounts",
+    "label.heading.loan.accounts" : "Loan Accounts",
+    "label.heading.savings.accounts" : "Savings Accounts",
+    "label.heading.shares.accounts" :"Shares Accounta",
+    "label.heading.additional.details":"Additional Details",
+
     "------ end of tensalation file":"---------"
 }
