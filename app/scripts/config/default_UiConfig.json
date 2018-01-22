@@ -297,6 +297,10 @@
 		"hiddenField": {
 		  "clientAddress": true
 		}
+	  },
+	 "isMandatory": {
+	 	"rejectReason":false,
+		"rejectDescription": false
 	  }
 	},
   "globalSearchScope" : {

@@ -219,12 +219,12 @@
         </div>
         <div class="modal-body">
             <api-validate></api-validate>
+           
             <div ng-show="error != null" class="error">
                 {{'label.error' | translate}}: {{error}}
             </div>
             <div class="form-group" ng-if ="rejectioReasonsAvailable">
-                <label class="control-label col-sm-3" >{{'label.input.rejectionreason' | translate}}<span class="required">*</span></label>
-
+                <label class="control-label col-sm-3" >{{'label.input.rejectionreason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                 <div class="col-sm-4">
                     <select  id="reasonCode" name="reasonCode" ng-model="code.selectedReason" ng-options="code.name as code.name for code in codes" value="{{code.name}}" 
                     class="input-sm form-control" data-ng-change="getDependentCodeValues(code.selectedReason)">
@@ -233,11 +233,18 @@
             </div>
             <br/>
             <div class="form-group" ng-if ="rejectioReasonsAvailable">
-                <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                 <div class="col-sm-4">
                     <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
-                    ng-options="codeValue.id as codeValue.description for codeValue in values" value="{{codeValue.id}}" class="input-sm form-control">
+                    ng-options="codeValue.id as codeValue.description for codeValue in values" value="{{codeValue.id}}" class="input-sm form-control" data-ng-change="initDescription(rejectFormData.reasonCode)">
                     <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group" ng-if ="displayDescription">
+                <label class="control-label col-sm-3" >{{'label.heading.description' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-4">
+                    <input  class="input-sm form-control" type="text" id="description" name="description" ng-model="rejectFormData.description"/>
                 </div>
             </div>
             <div class="form-group" ng-if ="!rejectioReasonsAvailable">

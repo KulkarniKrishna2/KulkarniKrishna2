@@ -20,6 +20,10 @@
         "hiddenField": {
           "clientAddress": false
         }
+      },
+      "isMandatory": {
+        "rejectReason":true,
+        "rejectDescription": true
       }
     },
     "collectionSheet": {

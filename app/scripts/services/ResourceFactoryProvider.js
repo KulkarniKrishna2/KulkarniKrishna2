@@ -92,6 +92,9 @@
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
                     }),
+                    clientAccountsOverviewsResource: defineResource(apiVer + "/clients/:clientId/accounts/overviews", {clientId: '@clientId'}, {
+                        getAllClientAccounts: {method: 'GET', params: {}}
+                    }),
                     clientNotesResource: defineResource(apiVer + "/clients/:clientId/notes", {clientId: '@clientId'}, {
                         getAllNotes: {method: 'GET', params: {}, isArray: true}
                     }),

@@ -424,10 +424,18 @@
 						                </td>
 						            </tr>
 						            <tr data-ng-show="group.centerName">
-						                <td>{{ 'label.heading.center' | translate }}</td>
+						                <th>{{ 'label.heading.center' | translate }}</th>
 						                <td><span class="padded-td"><a class="list-group-item-text" href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></span>
 						                </td>
 						            </tr>
+						            <tr ng-if="group.rejectReason">
+						        		<th>{{'label.heading.rejectionreason' | translate}}</th>
+						                <td><span class="padded-td">{{group.rejectReason.name}}</span></td>
+						        	</tr>
+						        	<tr ng-if="group.rejectDescription">
+						        		<th>{{'label.heading.rejection.details' | translate}}</th>
+						                <td><span class="padded-td">{{group.rejectDescription}}</span></td>
+						        	</tr>
 				                </table>
 				                <h4><strong>{{ 'label.heading.summary' | translate }}</strong></h4>
 						        <table class="table-minified">

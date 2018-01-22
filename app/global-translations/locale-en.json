@@ -6823,6 +6823,15 @@
     "label.heading.lenders.name" : "Lenders Name",
     "label.heading.lender.name" : "Lender Name",
     "label.heading.confirm.to.reject" : "Click on Confirm to Reject ",
+    "error.msg.loan.days.between.first.repayment.and.disbursal.are.more.than.max.days.or.periods.allowed" : "Maximum days between disbursal and first repayment should be  `{{params[2].value}}` ",
+    "validation.msg.loanproduct.maxPeriodsBetweenDisbursalAndFirstRepayment.not.greater.than.specified.number" : "Max periods between disbursal and first repayment not greater than minimum period  `{{params[1].value}}` ",
+    "validation.msg.loanproduct.maxDaysBetweenDisbursalAndFirstRepayment.not.greater.than.specified.number" : "Max days between disbursal and first repayment not greater than minimum days  `{{params[1].value}}` ",
     
+    "label.heading.accounts" : "Accounts",
+    "label.heading.loan.accounts" : "Loan Accounts",
+    "label.heading.savings.accounts" : "Savings Accounts",
+    "label.heading.shares.accounts" :"Shares Accounta",
+    "label.heading.additional.details":"Additional Details",
+
     "------ end of tensalation file":"---------"
 }

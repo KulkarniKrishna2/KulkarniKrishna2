@@ -40,6 +40,8 @@
                 ]
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
+            scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = true;
+            scope.maxPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
             scope.configureInterestRatesChart = false;
             scope.interestratesListPerPeriod = [];
             scope.interestRate = {};
@@ -112,10 +114,14 @@
                 if(minDurationType == 1){
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
+                    scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.maxPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
                 }
                 if(minDurationType == 2){
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = true;
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.maxPeriodsBetweenDisbursalAndFirstRepaymentshow = true;
                 }
             };
             scope.chargeSelected = function (chargeId) {

@@ -11,6 +11,17 @@
             scope.showCriteriaResult =false;
             scope.isTaskArchived = false;
             scope.action = {};
+            scope.isRejectReasonMandatory = false;
+            scope.isRejectDescriptionMandatory = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.isMandatory){
+                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
+                   scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason; 
+                }
+                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription){
+                   scope.isRejectDescriptionMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription; 
+                }
+            }
             scope.getActivityView = function() {
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
                 return taskView;
@@ -155,20 +166,27 @@
             var RejectCtrl = function ($scope, $modalInstance) {
                 
                 $scope.rejectioReasonsAvailable = false;
+                $scope.displayDescription = false;
+                $scope.isRejectReasonMandatory =  scope.isRejectReasonMandatory;
+                $scope.error = null;
+                $scope.rejectFormData = {};
+                $scope.values = [];
+                
                 if(scope.action.codes && scope.action.codes.length >= 1){ 
                     $scope.codes = scope.action.codes; 
                     $scope.rejectioReasonsAvailable= true;
                 }
-               
-                $scope.rejectFormData = {};
-                $scope.values = [];
-
 
                 $scope.cancelReject = function () {
                     $modalInstance.dismiss('cancel');
                 };
 
                 $scope.submitReject = function () {
+                    if(($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
+                        $scope.error = 'Specify Rejection Reason';
+                        return false;
+                    }
+
                     resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
                         $modalInstance.close('reject');
                         $route.reload();
@@ -178,6 +196,14 @@
                 $scope.getDependentCodeValues = function(codeName){
                     $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
                 };
+
+                $scope.initDescription = function(reasonId){
+                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
+                        $scope.displayDescription = true; 
+                    }else{
+                        $scope.displayDescription = false;
+                    }
+                }; 
             };
 
             scope.isTaskCompleted = function(){

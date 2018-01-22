@@ -701,7 +701,22 @@
     <div class="col-sm-2" ng-show="minimumPeriodsBetweenDisbursalAndFirstRepaymentshow">
         <input id="minimumPeriodsBetweenDisbursalAndFirstRepayment" class="form-control"
                placeholder="{{'label.input.number.of.repayment' | translate}}"
-               type="text"   ng-model="formData.minimumPeriodsBetweenDisbursalAndFirstRepayment">
+               type="text"   ng-model="formData.maxPeriodsBetweenDisbursalAndFirstRepayment">
+    </div>
+
+    <div class="col-sm-2">
+        <label class="control-label col-sm-2">{{'label.heading.to' | translate }}</label>
+    </div>
+
+    <div class="col-sm-2" ng-show="maxDaysBetweenDisbursalAndFirstRepaymentShow">
+        <input id="maxDaysBetweenDisbursalAndFirstRepayment" class="form-control"
+               placeholder="{{'label.input.number.of.days' | translate}}"
+               type="text"   ng-model="formData.maxDaysBetweenDisbursalAndFirstRepayment">
+    </div>
+    <div class="col-sm-2" ng-show="maxPeriodsBetweenDisbursalAndFirstRepaymentshow">
+        <input id="maxPeriodsBetweenDisbursalAndFirstRepayment" class="form-control"
+               placeholder="{{'label.input.number.of.repayment' | translate}}"
+               type="text"   ng-model="formData.maxPeriodsBetweenDisbursalAndFirstRepayment">
     </div>
 
 </div>

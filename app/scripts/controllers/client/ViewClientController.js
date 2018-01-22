@@ -74,13 +74,17 @@
                 location.path('/create/creditbureau/client/' + scope.clientId);
             };
 
+            scope.clientCreditBureauReportSummaryLoaded = false;
             scope.getCreditBureauReportSummary = function () {
-                resourceFactory.creditBureauEnquiriesResource.getAll({
-                    entityType: "client",
-                    entityId: scope.clientId
-                }, function (data) {
-                    scope.creditBureauEnquiries = data;
-                });
+                if(!scope.clientCreditBureauReportSummaryLoaded){
+                    scope.clientCreditBureauReportSummaryLoaded = true;
+                    resourceFactory.creditBureauEnquiriesResource.getAll({
+                        entityType: "client",
+                        entityId: scope.clientId
+                    }, function (data) {
+                        scope.creditBureauEnquiries = data;
+                    });
+                }
             }
            
             scope.routeToViewCBReport = function (id) {
@@ -89,7 +93,7 @@
 
             scope.routeToShareAccount = function(id) {
                 location.path('/viewshareaccount/'+id)
-            } ;
+            };
 
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id, associations:'hierarchyLookup'}, function (data) {
@@ -120,7 +124,8 @@
                 if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==1) {
                     scope.center = data.groups[0];
                 }
-                getClientAccountDetails();
+
+                getClientLoanApplications();
 
                 var clientStatus = new mifosX.models.ClientStatus();
 
@@ -217,10 +222,22 @@
                 }
             };
 
-            function getClientAccountDetails (){
-                resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {
-                    scope.loanApplications = data;
-                    resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
+            scope.clientLoanApplicationsLoaded = false;
+            function getClientLoanApplications (){
+                if(!scope.clientLoanApplicationsLoaded){
+                    scope.clientLoanApplicationsLoaded = true;
+                    resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {
+                        scope.loanApplications = data;
+                        getClientImageAndSignature();
+                    });
+                };
+            };
+
+            scope.clientAccountsLoaded = false;
+            scope.getClientAccounts = function(){
+                if(!scope.clientAccountsLoaded){
+                    scope.clientAccountsLoaded = true;
+                    resourceFactory.clientAccountsOverviewsResource.get({clientId: routeParams.id}, function (data) {
                         scope.clientAccounts = data;
                         scope.pledges = scope.clientAccounts.pledges;
                         if (data.savingsAccounts) {
@@ -231,12 +248,8 @@
                                 }
                             }
                         }
-                        resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true, chargeStatus:"active"}, function (data) {
-                            scope.charges = data.pageItems;
-                            getClientImageAndSignature();
-                        });
                     });
-                });
+                }
             };
 
             function getClientImageAndSignature (){
@@ -274,22 +287,34 @@
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                     scope.loancycledetail = data;
-                    //$timeout(getClientDatatables, 1000);
-                    getClientDatatables();
                 });
             };
 
-            function getClientDatatables (){
-                var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
-                if (associatedEntityId == null) {
-                    associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
-                } else if (associatedEntityId == null) {
-                    associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+            scope.clientDatatablesLoaded = false;
+            scope.getClientDatatables = function (){
+                if(!scope.clientDatatablesLoaded){
+                    scope.clientDatatablesLoaded = true;
+                    var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
+                    if (associatedEntityId == null) {
+                        associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
+                    } else if (associatedEntityId == null) {
+                        associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+                    }
+                    var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
+                    resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
+                        scope.datatables = data;
+                    });
                 }
-                var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
-                resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
-                    scope.datatables = data;
-                });
+            };
+
+            scope.clientChargesLoaded = false;
+            scope.getClientCharges = function(){
+                if(!scope.clientChargesLoaded){
+                    scope.clientChargesLoaded = true;
+                    resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true, chargeStatus:"active"}, function (data) {
+                        scope.charges = data.pageItems;
+                    });
+                }
             };
 
             function calculateClientAge(dateOfBirth){
@@ -465,13 +490,13 @@
                             },
                             file: scope.file,
                         }).then(function (imageData) {
-                                // to fix IE not refreshing the model
-                                if (!scope.$$phase) {
-                                    scope.$apply();
-                                }
-                                $modalInstance.close('upload');
-                                route.reload();
-                            });
+                            // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $modalInstance.close('upload');
+                            route.reload();
+                        });
                     }
                 };
                 $scope.cancel = function () {
@@ -881,9 +906,8 @@
             scope.isLoanAppIncompleted = function (loanAddData) {
                 if (loanAddData.status.id < scope.loanAppStatusId || loanAddData.status.id == 500) {
                     return true;
-                } else {
-                    return false;
-                }
+                }  
+                return false;
             };
 
             scope.isSavingNotClosed = function (savingaccount) {
@@ -892,9 +916,8 @@
                     savingaccount.status.code === "savingsAccountStatusType.pre.mature.closure" ||
                     savingaccount.status.code === "savingsAccountStatusType.rejected") {
                     return false;
-                } else {
-                    return true;
                 }
+                return true;
             };
 
             scope.isShareNotClosed = function (shareAccount) {
@@ -1023,7 +1046,7 @@
 
             scope.deletePledge = function(id){
                 resourceFactory.pledgeResource.delete({pledgeId: id}, function (data) {
-                    resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
+                    resourceFactory.clientAccountsBasicDetailsResource.get({clientId: routeParams.id}, function (data) {
                         scope.pledges = data.pledges;
                     });
                 });
