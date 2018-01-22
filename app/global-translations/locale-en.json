@@ -6832,6 +6832,7 @@
     "label.heading.savings.accounts" : "Savings Accounts",
     "label.heading.shares.accounts" :"Shares Accounta",
     "label.heading.additional.details":"Additional Details",
+    "label.tooltip.generate.document":"Generate Document",
 
     "------ end of tensalation file":"---------"
 }
