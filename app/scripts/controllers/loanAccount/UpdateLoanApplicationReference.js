@@ -365,21 +365,24 @@
             scope.submit = function () {
                 this.formData.accountType = scope.applicationData.accountType.value.toLowerCase();
                 this.formData.charges = [];
-                for(var i = 0 ; i < scope.charges.length; i++){
+                for(var i = 0 ; i < scope.charges.length; i++) {
+                    if (scope.charges[i].amount > 0) {
+
                     var charge = {};
-                    if(scope.charges[i].loanAppChargeId){
+                    if (scope.charges[i].loanAppChargeId) {
                         charge.loanAppChargeId = scope.charges[i].loanAppChargeId;
                     }
                     charge.chargeId = scope.charges[i].chargeId;
                     charge.amount = scope.charges[i].amount;
-                    if(scope.charges[i].dueDate){
-                        charge.dueDate = dateFilter(scope.charges[i].dueDate,scope.df);
+                    if (scope.charges[i].dueDate) {
+                        charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
                     }
                     charge.isMandatory = scope.charges[i].isMandatory;
                     charge.isAmountNonEditable = scope.charges[i].isAmountNonEditable;
                     charge.locale = scope.optlang.code;
                     charge.dateFormat = scope.df;
                     this.formData.charges.push(charge);
+                    }
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
                 this.formData.locale = scope.optlang.code;
