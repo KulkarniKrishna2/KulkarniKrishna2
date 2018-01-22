@@ -579,8 +579,7 @@
                                                 <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText"
                                                     ng-if="loanEMIPack.sanctionAmount <= formData.loanEMIPackData.sanctionAmount">
                                                     <td class="col-md-1">
-                                                        <input type="radio" ng-model="formRequestData.loanEMIPackId" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()"
-                                                               value="{{loanEMIPack.id}}"/>
+                                                        <input type="radio" ng-model="formRequestData.loanEMIPackId" value="{{loanEMIPack.id}}" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()"/>
                                                     </td>
                                                     <td class="col-md-1">
                                                         <span>{{loanEMIPack.sanctionAmount}}</span>

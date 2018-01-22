@@ -21,6 +21,8 @@
 
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+            scope.maxPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
+            scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minDurationType = [
                 {id: '1', name: "DAYS"},
                 {id: '2', name: "REPAYMENT"}
@@ -71,15 +73,19 @@
                     "id": -2,
                     "value": "on day"
                 });
-                if (scope.product.minimumDaysBetweenDisbursalAndFirstRepayment) {
+                if (scope.product.minimumDaysBetweenDisbursalAndFirstRepayment || scope.product.maxDaysBetweenDisbursalAndFirstRepayment) {
                     scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[0];
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.maxPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = true;
                 }
                 else {
                     scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue = scope.minDurationType[1];
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.maxPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
 
                 if(scope.product.loanTenureFrequencyType){
@@ -154,8 +160,10 @@
                     syncExpectedWithDisbursementDate: scope.product.syncExpectedWithDisbursementDate,
                     closeLoanOnOverpayment: scope.product.closeLoanOnOverpayment,
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
+                    maxDaysBetweenDisbursalAndFirstRepayment: scope.product.maxDaysBetweenDisbursalAndFirstRepayment,
                     minimumDaysBetweenApprovalAndDisbursement: scope.product.minimumDaysBetweenApprovalAndDisbursement,
                     minimumPeriodsBetweenDisbursalAndFirstRepayment: scope.product.minimumPeriodsBetweenDisbursalAndFirstRepayment,
+                    maxPeriodsBetweenDisbursalAndFirstRepayment: scope.product.maxPeriodsBetweenDisbursalAndFirstRepayment,
                     minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType: scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
                     isMinDurationApplicableForAllDisbursements:scope.product.isMinDurationApplicableForAllDisbursements,
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
@@ -408,11 +416,15 @@
             scope.variableName = function (minDurationType) {
                 if (minDurationType == 1) {
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
-                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = true; 
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;                   
+                    scope.maxPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
                 }
                 if (minDurationType == 2) {
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.maxPeriodsBetweenDisbursalAndFirstRepaymentshow = true;                    
                     scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                    scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
             };
             scope.chargeSelected = function (chargeId) {
@@ -915,15 +927,19 @@
 
                 if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
                     this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
+                    this.formData.maxPeriodsBetweenDisbursalAndFirstRepayment = null;
                 }
                 if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2) {
                     this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
+                    this.formData.maxDaysBetweenDisbursalAndFirstRepayment = null;
                 }
                 if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 2) {
                     this.formData.minimumDaysBetweenDisbursalAndFirstRepayment = null;
+                    this.formData.maxDaysBetweenDisbursalAndFirstRepayment = null;
                 }
                 if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment > 0 && this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType == 1) {
                     this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment = null;
+                    this.formData.maxPeriodsBetweenDisbursalAndFirstRepayment = null;
                 }
                 if (this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType) {
                     delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
