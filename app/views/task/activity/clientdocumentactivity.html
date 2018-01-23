@@ -51,7 +51,7 @@
                     <a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
                     <a ng-if="!isTaskCompleted()" ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
                     <a ng-show="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
-                    <a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)"><i class="icon-link"></i></a>
+                    <a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)" tooltip="{{'label.tooltip.generate.document' | translate}}"><i class="icon-link"></i></a>
                 </td>
             </tr>
             </tbody>
