@@ -4,7 +4,7 @@
     <fieldset>
         <div class="form-group">
             <div class="col-sm-2">
-                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" required late-Validate/>
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" ng-required="isRequired"/>
                 <form-validate valattributeform="clientdocumentform" valattribute="name"/>
             </div>
 
@@ -24,7 +24,7 @@
             </div>
 
             <div class="col-md-2">
-                <button id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
+                <button id="save" type="submit" ng-click="validateField()" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
             </div>
         </div>
 
