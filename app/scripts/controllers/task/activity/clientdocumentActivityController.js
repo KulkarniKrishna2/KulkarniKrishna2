@@ -148,6 +148,10 @@
                     document.docUrl = loandocs;
                 })
             };
+            scope.isRequired = false;
+            scope.validateField = function(){
+                scope.isRequired = true;
+            }
 
             scope.submit = function () {
                 $upload.upload({
@@ -162,6 +166,7 @@
                         scope.activityDone();
                         getDocuments();
                         scope.formData = {};
+                        scope.isRequired = false;
                     });
             };
         }
