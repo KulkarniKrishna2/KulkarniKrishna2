@@ -81,6 +81,7 @@
             }
 
             scope.onSubmit = function () {
+                scope.setTaskActionExecutionError(null);
                 if(!isFormValid()){
                     return false;
                 }
@@ -137,6 +138,17 @@
                 document.selected = true;
                 scope.documentImg = document.docUrl;
             }
+
+            /*overriding doPreTaskActionStep method of defaultActivityController*/
+            scope.doPreTaskActionStep = function (actionName) {
+                if (actionName === 'activitycomplete') {
+                    if (!scope.checkerBankAccountData || !scope.checkerBankAccountData.accountNumber) {
+                        scope.setTaskActionExecutionError("error.message.bank.account.details.activity.cannot.complete.before.form.submit");
+                        return;
+                    } 
+                }
+                scope.doActionAndRefresh(actionName);
+            };
 
         }
     });
