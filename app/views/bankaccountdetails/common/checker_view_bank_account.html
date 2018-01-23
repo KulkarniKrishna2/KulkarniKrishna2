@@ -54,7 +54,7 @@
                 <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
                 <span>{{checkerBankAccountData.mobileNumber}}</span>
             </div>
-            <div class="form-group paddedtop">
+            <div class="form-group paddedtop" ng-if = "checkerBankAccountData.email">
                 <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
                 <span>{{checkerBankAccountData.email}}</span>
             </div>
