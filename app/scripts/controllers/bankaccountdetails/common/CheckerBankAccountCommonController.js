@@ -55,8 +55,10 @@
                         };
                         if(scope.checkerBankAccountData.accountType){
                             scope.formData.accountTypeId = scope.checkerBankAccountData.accountType.id;
+                            scope.formData.accountType = scope.bankAccountTypeOptions[scope.bankAccountTypeOptions.findIndex(x => x.id==scope.checkerBankAccountData.accountType.id)];
                         }else{
                             scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
+                            scope.formData.accountType = scope.bankAccountTypeOptions[0];
                         }
                         scope.repeatFormData = {
                             accountNumberRepeat:  scope.checkerBankAccountData.accountNumber,
@@ -66,6 +68,8 @@
                             scope.viewConfig.hasData = true;
                             scope.viewConfig.showSummary = true;
                         }
+                    }else{
+                       scope.formData.accountType = scope.bankAccountTypeOptions[0]; 
                     }
                     
                     if(!_.isUndefined(data.bankAccountDocuments)){
@@ -142,7 +146,7 @@
             /*overriding doPreTaskActionStep method of defaultActivityController*/
             scope.doPreTaskActionStep = function (actionName) {
                 if (actionName === 'activitycomplete') {
-                    if (!scope.checkerBankAccountData || !scope.checkerBankAccountData.accountNumber) {
+                    if (!scope.viewConfig.showSummary) {
                         scope.setTaskActionExecutionError("error.message.bank.account.details.activity.cannot.complete.before.form.submit");
                         return;
                     } 
