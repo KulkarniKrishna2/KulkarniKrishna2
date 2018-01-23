@@ -60,10 +60,7 @@
                     if (data.postalCode) {
                         scope.formData.postalCode = data.postalCode;
                     }
-                    scope.districts = data.stateData.districtDatas;
-                    if (data.districtData && data.districtData.districtId) {
-                        scope.formData.districtId = data.districtData.districtId;
-                    }
+                    scope.districts = data.stateData.districtDatas
                     scope.states = data.countryData.statesDatas;
                     if (data.stateData && data.stateData.stateId) {
                         scope.formData.stateId = data.stateData.stateId;
@@ -71,9 +68,15 @@
                     if (data.countryData && data.countryData.countryId) {
                         scope.formData.countryId = data.countryData.countryId;
                     }
-                    scope.talukas = data.districtData.talukaDatas;
+                    for(var i in scope.districts)
+                    {
+                        if( data.talukaData.districtId == scope.districts[i].districtId){
+                            scope.talukas = scope.districts[i].talukaDatas;
+                        }
+                    }
                     if (data.talukaData && data.talukaData.talukaId) {
                         scope.formData.talukaId = data.talukaData.talukaId;
+                        scope.formData.districtId = data.talukaData.districtId;
                     }
                 });
             }
