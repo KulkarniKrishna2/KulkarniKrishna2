@@ -407,8 +407,11 @@
 
 					<div class="col-sm-3" ng-if="!pincode">
 						<input  type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode"
-							   name="pincode" ng-model="formAddressData.postalCode" class="form-control" required late-validate=""/>
+							   name="pincode" ng-minlength="6" maxlength="6" ng-model="formAddressData.postalCode" class="form-control" required late-validate=""/>
 					</div>
+					<span ng-show="editaddressform.pincode.$error.minlength">
+                        <small class="required">{{'label.mustbe6digitnumber' | translate}}</small>
+                    </span>
 					<div class="col-sm-1 paddinglr0px">
 						<form-validate valattributeform="createclientform" valattribute="pincode"/>
 					</div>
