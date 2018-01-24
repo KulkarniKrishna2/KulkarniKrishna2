@@ -796,9 +796,11 @@
                         if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.loanEMIPackId){
                             var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
                             var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                            var fixedEmi = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
                         }
                     }
+                   scope.formRequestData.fixedEmiAmount = fixedEmi; 
                 }
             }
 
