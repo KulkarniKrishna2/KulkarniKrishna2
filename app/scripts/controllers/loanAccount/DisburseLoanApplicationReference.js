@@ -274,6 +274,10 @@
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
 
+                    if(scope.formData.approvedData.amountForUpfrontCollection){
+                        scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
+                    }
+
                 });
             };
 
