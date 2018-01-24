@@ -23,6 +23,9 @@
                 if(scope.applicationData.expectedRepaymentPaymentType){
                     scope.formData.expectedRepaymentPaymentType = scope.applicationData.expectedRepaymentPaymentType.id;
                 }
+                if(scope.applicationData.allowUpfrontCollection || scope.applicationData.amountForUpfrontCollection){
+                    scope.formData.amountForUpfrontCollection = scope.applicationData.amountForUpfrontCollection;
+                }
                 scope.loanProductChange(applicationData.loanProductId, false);
             });
 
