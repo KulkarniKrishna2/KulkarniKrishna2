@@ -17,7 +17,7 @@
             };
 
             resourceFactory.glimResource.getAllByLoan({loanId: scope.loanId}, function (glimData) {
-                scope.isGLIM = (glimData.length>0);
+                scope.isGLIM = (glimData != undefined && glimData.length > 0 && glimData[0].isActive);
             });
 
             scope.submit = function () {
