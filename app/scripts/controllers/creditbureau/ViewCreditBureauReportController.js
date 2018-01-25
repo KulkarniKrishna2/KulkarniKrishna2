@@ -7,6 +7,8 @@
             scope.entityType = "client";
             scope.creditBureauEnquiry = {};
             scope.reportEntityType = "CreditBureau";
+            scope.isShowForceCreaditBureau = false;
+            scope.creditBureauFormdata = {'locale':scope.optlang.code};
 
             resourceFactory.creditBureauEnquiriesResource.getAll({
                     entityType: scope.entityType,
@@ -17,12 +19,26 @@
                     if(scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0){
                         scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
                     }
+                    if(scope.creditBureauEnquiry.enquiryLoanAmount && scope.creditBureauEnquiry.enquiryLoanAmount>0 && (scope.creditBureauEnquiry.status.code=='SUCCESS' || scope.creditBureauEnquiry.status.code=='ERROR' || scope.creditBureauEnquiry.status.code=='INITIATED')){
+                        scope.isShowForceCreaditBureau = true;
+                        scope.creditBureauFormdata.creditbureauProductId = scope.creditBureauEnquiry.creditBureauProduct.id;
+                        scope.creditBureauFormdata.enquiryLoanPurposeId = scope.creditBureauEnquiry.loanPurpose.id;
+                        scope.creditBureauFormdata.enquiryLoanProductId = scope.creditBureauEnquiry.loanProduct.id;
+                        scope.creditBureauFormdata.enquiryLoanAmount = scope.creditBureauEnquiry.enquiryLoanAmount;
+                        scope.creditBureauFormdata.isForce= true;
+                    }
                     if (scope.creditBureauEnquiry && scope.creditBureauEnquiry.status) {
                         scope.isResponPresent = true;
                         clientCreditSummary();
                     }
                     convertByteToString();
-            }); 
+            });
+
+            scope.creditBureauReport = function () {
+                resourceFactory.clientCreditBureauEnquiry.save({'clientId':scope.clientId},scope.creditBureauFormdata, function (data) {
+                    location.path('/viewclient/' + scope.clientId);
+                });
+            };
 
             scope.cBStatus = function () {
                 var status = undefined;

@@ -265,10 +265,11 @@
             };
 
 
-            scope.creditBureauReport = function () {
+            scope.creditBureauReport = function (isForce) {
                 resourceFactory.creditBureauReportResource.get({
                     entityType: scope.entityType,
-                    entityId: scope.entityId
+                    entityId: scope.entityId,
+                    isForce: isForce
                 }, function (loansSummary) {
                     scope.loansSummary = loansSummary;
                     if (scope.loansSummary && scope.loansSummary.cbStatus) {
