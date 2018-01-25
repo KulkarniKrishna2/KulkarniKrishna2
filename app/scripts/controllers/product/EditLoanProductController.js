@@ -751,8 +751,12 @@
                     temp = {
                         chargeId: scope.specificIncomeAccountMapping[i].chargeId,
                         incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId,
-                        fundSourceAccountId: scope.specificIncomeAccountMapping[i].fundSourceAccountId
                     }
+                    if(scope.specificIncomeAccountMapping[i].fundSourceAccountId != null){
+                         var fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId
+                        temp.fundSourceAccountId = fundSourceAccountId;
+                    }
+                    
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
