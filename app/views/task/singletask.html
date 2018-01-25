@@ -242,12 +242,12 @@
             </div>
             <br/>
             <div class="form-group" ng-if ="displayDescription">
-                <label class="control-label col-sm-3" >{{'label.heading.description' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-4">
                     <input  class="input-sm form-control" type="text" id="description" name="description" ng-model="rejectFormData.description"/>
                 </div>
             </div>
-            <div class="form-group" ng-if ="!rejectioReasonsAvailable">
+            <div class="form-group" ng-if ="reasonsNotAvailable()">
                 <div class="col-sm-4"></div>
                 <h3>{{'label.heading.confirm.to.reject'|translate}}</h3>
             </div>

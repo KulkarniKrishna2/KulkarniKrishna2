@@ -214,5 +214,6 @@
 
   "label.menu.clientclassification": "Select Client Occupation",
 
-  "label.heading.clientclassification" : "Occupation"
+  "label.heading.clientclassification" : "Occupation",
+  "label.heading.reject.description":"Specify Reason"
 }

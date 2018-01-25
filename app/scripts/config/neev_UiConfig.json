@@ -5,6 +5,12 @@
       "isHiddenField": {
         "creditApprisalReportButton": false
       }
-    }
+    },"workflow": {
+      "isMandatory": {
+        "rejectReason":false,
+        "rejectDescription": true,
+        "rejectCodes":false
+      }
+    },
   }
 }
