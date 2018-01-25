@@ -6833,6 +6833,7 @@
     "label.heading.shares.accounts" :"Shares Accounta",
     "label.heading.additional.details":"Additional Details",
     "label.tooltip.generate.document":"Generate Document",
+    "inavalid.pin.code.format":"Invalid pin code format",
 
     "------ end of tensalation file":"---------"
 }
