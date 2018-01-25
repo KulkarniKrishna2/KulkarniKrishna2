@@ -18,10 +18,10 @@
             </div>
             <div class="col-md-12">
                 <div class="pull-right">
-                    <div ng-hide="isResponPresent == true && cBStatus() != cbStatusSuccess" >
+                    <div ng-hide="isResponPresent == true">
                         <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport(false);"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
                     </div>
-                    <div ng-hide="isResponPresent == true && cBStatus() == cbStatusSuccess">
+                    <div  ng-show="isResponPresent == true">
                         <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport(true);"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                     </div>
                 </div>
