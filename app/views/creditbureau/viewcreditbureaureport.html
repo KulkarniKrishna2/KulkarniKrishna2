@@ -13,6 +13,13 @@
                     <span class="boldlabel">
                           <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
                     </span>
+                    <div class="pull-right" style="margin-left:10px" ng-if="isShowForceCreaditBureau">
+                         <button id="creditBureauReport" type="button" class="btn btn-primary"
+                                    ng-click="creditBureauReport();"
+                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>
+                                {{'label.button.re.initiatecreditbureauenquiry' | translate}}
+                            </button> 
+                    </div>
                     <div class="pull-right" 
                         ng-if="creditBureauEnquiry.status.value == 'SUCCESS'">
                         <a target="_blank" class="btn btn-primary"
