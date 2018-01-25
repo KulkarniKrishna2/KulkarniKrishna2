@@ -103,6 +103,11 @@
                                 <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.submittedOnDate | DateFormat}}</td>
                             </tr>
+                            <tr ng-hide="formData.loanEMIPackData">
+                                <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
+                                <td>{{formData.amountForUpfrontCollection}}</td>
+                            </tr>
+
                         </table>
                     </div>
                     <div class="col-md-6">
@@ -256,6 +261,10 @@
                                     <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                                     <td>{{formData.submittedOnDate | DateFormat}}</td>
                                 </tr>
+                                <tr ng-hide="formData.loanEMIPackData">
+                                <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
+                                <td>{{formData.approvedData.amountForUpfrontCollection}}</td>
+                            </tr>
                             </table>
                         </div>
                         <div class="col-md-6">
@@ -333,14 +342,14 @@
                                 </tr>
                             </table>
                         </div>
-                        <div ng-if="formData.rejectReason">
+                        <div ng-if="formData.rejectReason || formData.rejectDescription">
                             <table class="width100">
                                 <tr class="bottomborder">
                                     <td colspan="4"><strong>{{'label.heading.rejection.details' | translate}}</strong></td>
                                 </tr>
                                 <tr>
                                     <td class ="col-sm-2">{{'label.heading.rejectionreason' | translate}}</td>
-                                    <td class ="col-sm-2">{{formData.rejectReason.name}}</td>
+                                    <td class ="col-sm-2" ng-if="formData.rejectReason.name">{{formData.rejectReason.name}}</td>
                                     <td class ="col-sm-4">{{formData.rejectDescription}}</td>
                                     <td></td>
                                 </tr>

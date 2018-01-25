@@ -6850,6 +6850,10 @@
     "label.heading.shares.accounts" :"Shares Accounta",
     "label.heading.additional.details":"Additional Details",
     "label.check.workflowornonworkflow" : "Loan Application with workflow",
+    "label.tooltip.generate.document":"Generate Document",
+    "inavalid.pin.code.format":"Invalid pin code format",
+    "label.heading.reject.description":"Description",
+    "error.msg.group.cannot.be.rejected":"Group is not in pending state. To reject a group, it should be in pending state",
 
     "------ end of tensalation file":"---------"
 }

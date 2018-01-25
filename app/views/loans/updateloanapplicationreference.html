@@ -116,7 +116,7 @@
                             <tbody>
                             <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
                                 <td class="col-md-1">
-                                    <input type="radio" ng-model="formData.loanEMIPackId" ng-click="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" value="{{loanEMIPack.id}}"/>
+                                    <input type="radio" ng-model="formData.loanEMIPackId" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" value="{{loanEMIPack.id}}"/>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.sanctionAmount}}</span>
@@ -207,6 +207,20 @@
                 <td class="width36 paddedbottom10">
                     <input type="text" id="externalIdTwo" name="externalIdTwo" ng-model="formData.externalIdTwo"
                            class="form-control"/>
+                </td>
+            </tr>
+
+             <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+
+            <tr data-ng-show="!loanaccountinfo.loanEMIPacks">
+                <td>
+                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                </td>
+                <td>
+                    <input id="amountForUpfrontCollection" type="text" ng-model="formData.amountForUpfrontCollection"
+                           class="form-control" number-format/>
                 </td>
             </tr>
 

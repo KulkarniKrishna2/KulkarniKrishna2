@@ -238,6 +238,10 @@
                                         <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                                         <td>{{formData.submittedOnDate | DateFormat}}</td>
                                     </tr>
+                                    <tr ng-hide="loanaccountinfo.loanEMIPackData">
+                                       <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
+                                        <td>{{formData.amountForUpfrontCollection}}</td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
@@ -517,6 +521,16 @@
                                     </td>
                                     <td class="width19"></td>
                                     <td class="width31 paddedbottom10"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="width19"><label>{{
+                                        'label.input.amountforupfrontcollection' | translate
+                                        }}:</label>&nbsp;</td>
+                                    <td class="width36 paddedbottom10">
+                                        <input id="amountforupfrontcollection" name="amountforupfrontcollection" type="text"
+                                        ng-model="formRequestData.amountForUpfrontCollection" class="form-control" number-format/>
+                                    </td>
                                 </tr>
 
                                 <tr>

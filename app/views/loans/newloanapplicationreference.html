@@ -236,6 +236,18 @@
             <tr>
                 <td colspan="4">&nbsp;</td>
             </tr>
+            <tr data-ng-show="!loanaccountinfo.loanEMIPacks && loanaccountinfo.allowUpfrontCollection">
+                <td>
+                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                </td>
+                <td>
+                    <input id="amountForUpfrontCollection" type="text" ng-model="formData.amountForUpfrontCollection"
+                           class="form-control" number-format/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
             <tr ng-if="loanaccountinfo.multiDisburseLoan === true && !loanaccountinfo.loanEMIPacks">
                 <td class="width14"><label>Max no of Tranche:</label>&nbsp;</td>
                 <td class="width36 paddedbottom10">

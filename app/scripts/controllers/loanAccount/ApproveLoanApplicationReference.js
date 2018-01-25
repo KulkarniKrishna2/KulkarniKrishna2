@@ -138,6 +138,7 @@
                                 scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
                                 scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
                                 scope.formRequestData.repayEvery = scope.formData.repayEvery;
+                                scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
                                 if(scope.formData.fixedEmiAmount){
                                     scope.formRequestData.fixedEmiAmount = scope.formData.fixedEmiAmount;
                                 }
@@ -374,6 +375,9 @@
                 this.formValidationData.numberOfRepayments = this.formRequestData.numberOfRepayments;
                 this.formValidationData.repaymentEvery = this.formRequestData.repayEvery;
                 this.formValidationData.repaymentFrequencyType = this.formRequestData.repaymentPeriodFrequencyEnum;
+                if(this.formRequestData.amountForUpfrontCollection && this.formRequestData.amountForUpfrontCollection > 0){
+                    this.formValidationData.amountForUpfrontCollection = this.formRequestData.amountForUpfrontCollection;
+                }           
 
                 this.formValidationData.locale = scope.optlang.code;
                 this.formValidationData.dateFormat = scope.df;
@@ -792,9 +796,11 @@
                         if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.loanEMIPackId){
                             var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
                             var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                            var fixedEmi = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
                         }
                     }
+                   scope.formRequestData.fixedEmiAmount = fixedEmi; 
                 }
             }
 

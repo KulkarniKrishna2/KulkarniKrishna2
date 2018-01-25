@@ -23,7 +23,8 @@
       },
       "isMandatory": {
         "rejectReason":true,
-        "rejectDescription": true
+        "rejectDescription": true,
+        "rejectCodes":false
       }
     },
     "collectionSheet": {

@@ -23,6 +23,9 @@
                 if(scope.applicationData.expectedRepaymentPaymentType){
                     scope.formData.expectedRepaymentPaymentType = scope.applicationData.expectedRepaymentPaymentType.id;
                 }
+                if(scope.applicationData.allowUpfrontCollection || scope.applicationData.amountForUpfrontCollection){
+                    scope.formData.amountForUpfrontCollection = scope.applicationData.amountForUpfrontCollection;
+                }
                 scope.loanProductChange(applicationData.loanProductId, false);
             });
 
@@ -187,7 +190,7 @@
                 scope.updateSlabBasedCharges();
             });
 
-            scope.updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack = function(){
+/*            scope.updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack = function(){
                 if(scope.formData.loanEMIPackId != undefined){
                     for(var i in scope.loanaccountinfo.loanEMIPacks){
                         if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
@@ -197,7 +200,7 @@
                         }
                     }
                 }
-            }
+            }*/
 
             scope.updateSlabBasedCharges = function(){
                 if(scope.formData.loanAmountRequested != '' && scope.formData.loanAmountRequested != undefined){
