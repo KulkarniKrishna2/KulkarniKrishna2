@@ -13,6 +13,7 @@
             scope.action = {};
             scope.isRejectReasonMandatory = false;
             scope.isRejectDescriptionMandatory = false;
+            scope.isRejectCodesMandatory = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                 scope.response.uiDisplayConfigurations.workflow.isMandatory){
                 if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
@@ -20,6 +21,9 @@
                 }
                 if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription){
                    scope.isRejectDescriptionMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription; 
+                }
+                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectCodes){
+                   scope.isRejectCodesMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectCodes; 
                 }
             }
             scope.getActivityView = function() {
@@ -171,7 +175,9 @@
                 $scope.error = null;
                 $scope.rejectFormData = {};
                 $scope.values = [];
-                
+                if(scope.isRejectDescriptionMandatory && !scope.isRejectCodesMandatory){
+                    $scope.displayDescription = true;
+                }
                 if(scope.action.codes && scope.action.codes.length >= 1){ 
                     $scope.codes = scope.action.codes; 
                     $scope.rejectioReasonsAvailable= true;
@@ -203,7 +209,10 @@
                     }else{
                         $scope.displayDescription = false;
                     }
-                }; 
+                };
+                $scope.reasonsNotAvailable = function(){
+                    return (!$scope.rejectioReasonsAvailable  && !$scope.displayDescription);
+                };
             };
 
             scope.isTaskCompleted = function(){

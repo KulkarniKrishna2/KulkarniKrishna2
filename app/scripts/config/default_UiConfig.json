@@ -300,7 +300,8 @@
 	  },
 	 "isMandatory": {
 	 	"rejectReason":false,
-		"rejectDescription": false
+		"rejectDescription": true,
+		"rejectCodes":false
 	  }
 	},
   "globalSearchScope" : {
