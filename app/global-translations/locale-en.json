@@ -6755,6 +6755,7 @@
     "label.heading.savings.accounts" : "Savings Accounts",
     "label.heading.shares.accounts" :"Shares Accounta",
     "label.heading.additional.details":"Additional Details",
+    "label.check.workflowornonworkflow" : "Loan Application with workflow",
 
     "------ end of tensalation file":"---------"
 }

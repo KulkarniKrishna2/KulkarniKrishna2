@@ -228,6 +228,12 @@
                 </td>
             </tr>
             <tr>
+                <td class="width14"><label>{{ 'label.check.workflowornonworkflow' | translate }}</label>&nbsp;</td>
+                <td class="width36 paddedbottom10">
+                    <input type="checkbox" ng-model="formData.Workflowtype">
+                </td>
+            </tr>
+            <tr>
                 <td colspan="4">&nbsp;</td>
             </tr>
             <tr ng-if="loanaccountinfo.multiDisburseLoan === true && !loanaccountinfo.loanEMIPacks">

@@ -8,6 +8,7 @@
             scope.restrictDate = new Date();
 
             scope.formData = {};
+            scope.formData.Workflowtype = true;
 
             scope.paymentOptions = [];
 
