@@ -34,9 +34,14 @@
                     <div class="pull-right">
                         <div ng-if="isResponPresent === false">
                             <button id="creditBureauReport" type="button" class="btn btn-primary"
-                                    ng-click="creditBureauReport();"
-                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>
+                                    ng-click="creditBureauReport(false);"
+                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY' ng-show="isStalePeriodExceeded">
                                 {{'label.button.initiatecreditbureauenquiry' | translate}}
+                            </button>
+                            <button id="creditBureauReport" type="button" class="btn btn-primary"
+                                    ng-click="creditBureauReport(true);"
+                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY' ng-show="!isStalePeriodExceeded">
+                                {{'label.button.re.initiatecreditbureauenquiry' | translate}}
                             </button>
                         </div>
                     </div> 
@@ -219,15 +224,14 @@
                                     </td>
                                 </tr>       
                             </table>
-                        </div>      
-
+                        </div> 
 
                         <div class="col-md-12">
                             <div class="pull-right">
                                 <span 
                                 ng-show="cBStatus() == 'SUCCESS' && !isStalePeriodExceeded">
                                     <button type="button" class="btn btn-primary" 
-                                        ng-click="creditBureauReport();"
+                                        ng-click="creditBureauReport(true);"
                                         has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                                 </span>
                                 <span 
@@ -239,16 +243,18 @@
                                 ng-show="cBStatus() == 'SUCCESS' && isStalePeriodExceeded">
                                    <button id="creditBureauReport" type="button" 
                                       class="btn btn-primary"
-                                      ng-click="creditBureauReport();"
+                                      ng-click="creditBureauReport(false);"
                                       has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>
                                       {{'label.button.initiatecreditbureauenquiry' | translate}}
                                     </button>
                                 </span>
+
+
                                     <span ng-show="cBStatus() == 'PENDING'">
                                         <button type="button" class="btn btn-primary" ng-click="refreshCreditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.fetch.creditbureaureport' | translate}}</button>
                                     </span>
                                     <span ng-show="cBStatus() == 'ERROR'">
-                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();"
+                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport(true);"
                                         has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                                     </span>
                                     <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true">

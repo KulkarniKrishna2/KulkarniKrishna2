@@ -11,6 +11,7 @@
             scope.flag=false;
             scope.groupId = scope.taskconfig['groupId'];
             scope.isTaskComplete = false;
+            scope.formData.Workflowtype = true;
 
             scope.clientOptions = function(value){
                 var deferred = $q.defer();

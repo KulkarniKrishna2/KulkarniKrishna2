@@ -19,7 +19,10 @@
             <div class="col-md-12">
                 <div class="pull-right">
                     <div ng-hide="isResponPresent == true">
-                        <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport();"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
+                        <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport(false);"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
+                    </div>
+                    <div  ng-show="isResponPresent == true">
+                        <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport(true);"  has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                     </div>
                 </div>
                  <br>
@@ -293,14 +296,11 @@
                     </div>
                     <div class="col-md-12">
                             <div class="pull-right">
-                                    <span ng-show="cBStatus() == 'SUCCESS'">
-                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
-                                    </span>
                                     <span ng-show="cBStatus() == cbStatusPending">
                                         <button type="button" class="btn btn-primary" ng-click="refreshCreditBureauReport();" has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.fetch.creditbureaureport' | translate}}</button>
                                     </span>
-                                    <span ng-show="cBStatus()==cbStatusError">
-                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport();" 
+                                    <span ng-show="cBStatus() == 'SUCCESS' || cBStatus()==cbStatusError">
+                                        <button type="button" class="btn btn-primary" ng-click="creditBureauReport(true);" 
                                         has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                                     </span>
                                     <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true">

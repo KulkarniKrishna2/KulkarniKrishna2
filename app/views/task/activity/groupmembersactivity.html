@@ -559,13 +559,18 @@
                         </select>
                         <form-validate valattributeform="newloanapplicationform" valattribute="loanPurposeId" />
                     </td>
-
                     <td class="width19" ng-show="!loanaccountinfo.loanEMIPacks">
                         <label>{{ 'label.input.principal' | translate }}&nbsp;<span class="required">*</span>:</label>
                     </td>
                     <td class="width31 paddedbottom10" ng-show="!loanaccountinfo.loanEMIPacks">
                         <input type="text" class="form-control" id="loanAmountRequested" name="loanAmountRequested" ng-model="formData.loanAmountRequested" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                         <form-validate valattributeform="newloanapplicationform" valattribute="loanAmountRequested" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14"><label>{{ 'label.check.workflowornonworkflow' | translate }} </label>&nbsp;</td>
+                    <td class="width36 paddedbottom10">
+                        <input type="checkbox" ng-model="formData.Workflowtype">
                     </td>
                 </tr>
                 <tr>
