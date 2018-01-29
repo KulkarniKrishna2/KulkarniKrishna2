@@ -72,7 +72,8 @@
                                     scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
                                 }
                             }
-                            if (scope.formData.approvedData.fixedEmiAmount) {
+                            if (scope.formData.fixedEmiAmount) {
+                                scope.formData.approvedData.fixedEmiAmount = scope.formData.fixedEmiAmount;
                                 scope.formRequestData.disburse.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
                             }
                             scope.loanProductChange(scope.formData.loanProductId);
