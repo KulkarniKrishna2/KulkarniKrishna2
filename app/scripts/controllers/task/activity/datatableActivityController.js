@@ -8,6 +8,7 @@
             scope.isMultirow = false;
             scope.isViewMultiRowTable = false;
             scope.resourceId = "";
+            scope.isWorkFlow = scope.isSystemGlobalConfigurationEnabled('work-flow');
 
             scope.getDetails = function () {
                 resourceFactory.DataTablesResource.getTableDetails({
