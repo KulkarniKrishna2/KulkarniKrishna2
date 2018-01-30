@@ -300,7 +300,7 @@
 	  },
 	 "isMandatory": {
 	 	"rejectReason":false,
-		"rejectDescription": true,
+		"rejectDescription": false,
 		"rejectCodes":false
 	  }
 	},
