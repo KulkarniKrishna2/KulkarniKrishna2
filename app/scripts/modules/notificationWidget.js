@@ -11,15 +11,19 @@
 angular.module('notificationWidget', [])
     // set up the interceptor
     .config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.interceptors.push(function ($q, $injector, $location, $rootScope) {
+        $httpProvider.interceptors.push(function ($q, $injector, $location, $rootScope,$timeout) {
             var notificationChannel, $http;
-
+            $rootScope.requestsInProgressAPIs = {};
             function removeErrors() {
                 var $inputs = $(':input');
                 $inputs.each(function () {
                     $(this).removeClass("validationerror");
                 });
             }
+
+            var setTimer = function(url){
+                $timeout(function(){ delete $rootScope.requestsInProgressAPIs[url];}, 1 * 1200);
+            };
 
             return {
                 request: function (config) {
@@ -31,6 +35,18 @@ angular.module('notificationWidget', [])
                     if ($rootScope.isUserSwitched && $rootScope.proxyToken) {
                         config.headers['X-PROXY-TOKEN'] = $rootScope.proxyToken;
                     }
+
+                    if($rootScope.requestsInProgressAPIs[config.method + config.url]){
+                        var rejectreq = {};
+                        rejectreq.config = config;
+                        rejectreq.status = 2010;
+                        rejectreq.desc = 'duplicate request';
+                        return $q.reject(rejectreq);
+                    }
+
+                    if(config.method != 'GET' && config.method != 'OPTION'){
+                        $rootScope.requestsInProgressAPIs[config.method + config.url] = true;
+                     }
 
                     // send a notification requests are complete
                     notificationChannel.requestStarted();
@@ -49,6 +65,7 @@ angular.module('notificationWidget', [])
                         // send a notification requests are complete
                         notificationChannel.requestEnded();
                     }
+                     setTimer(rejection.config.method + rejection.config.url);
                     return $q.reject(rejection);
                 },
                 response: function (response) {
@@ -87,6 +104,7 @@ angular.module('notificationWidget', [])
                         }
 
                     }
+                    setTimer(response.config.method + response.config.url);
 
                     // get $http via $injector because of circular dependency problem
                     $http = $http || $injector.get('$http');
@@ -120,6 +138,7 @@ angular.module('notificationWidget', [])
                     delete $rootScope.errorStatus;
                     delete $rootScope.errorDetails;
                     removeErrors();
+                   
                     // get $http via $injector because of circular dependency problem
                     //console.log(response.data);
 
@@ -147,6 +166,10 @@ angular.module('notificationWidget', [])
                         data.push(res);
                     }
 
+                    if(rejection.status != 2010){
+                        setTimer(rejection.config.method + rejection.config.url);
+                    }
+
                     if (rejection.status === 0) {
                         $rootScope.errorStatus = 'No connection. Verify application is running.';
                     } else if (rejection.status == 401) {
@@ -155,7 +178,9 @@ angular.module('notificationWidget', [])
                         $rootScope.errorStatus = 'HTTP verb not supported [405]';
                     } else if (rejection.status == 500) {
                         $rootScope.errorStatus = 'Internal Server Error [500].';
-                    } else {
+                    } else if (rejection.status == 2010) {
+                        $rootScope.errorStatus = 'Duplicate request';
+                    }else {
                         for(var i = 0; i < data.length; i++) {
                             //console.log(data[i]);
                             var jsonErrors = JSON.parse(data[i].body);
