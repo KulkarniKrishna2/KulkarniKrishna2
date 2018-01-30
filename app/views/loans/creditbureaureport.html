@@ -257,7 +257,7 @@
                                         <button type="button" class="btn btn-primary" ng-click="creditBureauReport(true);"
                                         has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
                                     </span>
-                                    <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true">
+                                    <span ng-show="creditbureauLoanProduct.skipCreditcheckInFailure == true && !isTaskCompleted()">
                                         <button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.skip' | translate}}</button>
                                     </span>
                             </div>

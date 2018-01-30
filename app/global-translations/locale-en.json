@@ -6786,7 +6786,7 @@
     "label.heading.risk.markers":"Risk Markers",
     "label.heading.customer.status":"Customer Status",
     
-    "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a active Loan Application",
+    "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a Loan Application",
     "error.msg.tasktemplate.duplicate.shortname" : "Task template with shortname `{{params[0].value}}` already exists",
 
     "label.alert.village.active.message" : "Village is  successfully activate",
