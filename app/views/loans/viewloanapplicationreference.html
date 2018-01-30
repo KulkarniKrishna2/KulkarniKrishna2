@@ -59,7 +59,7 @@
                          has-permission='REJECT_LOANAPPLICATIONREFERENCE'><i
                               class="icon-remove-circle icon-white"></i>{{'label.button.reject' | translate}}</a>
                 </span>
-                <span ng-if="isWorkflowEnabled && formData.status.id < 400">
+                <span ng-if="isWorkflowEnabled">
                   <a href="#/loanapplication/{{loanApplicationReferenceId}}/workflow"
                      class="btn btn-primary"><i
                           class="icon-white"></i>{{'label.heading.view.workflow' | translate}}
