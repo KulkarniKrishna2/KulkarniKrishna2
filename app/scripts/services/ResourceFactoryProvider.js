@@ -165,6 +165,13 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         getReport: {method: 'GET', params: {}}
                     }),
+                    advancedReportsResource: defineResource(apiVer + "/advancedreports", {}, {
+                        get: {method: 'GET', params: {},  isArray: true},
+                        post: {method: 'POST', params: {}}
+                    }),
+                     fileDownloadResource: defineResource(apiVer + "/files/:fileId/download", {fileId: '@fileId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", {id: '@id', resourceType: '@resourceType', usageTrackingEnabledOnly : '@usageTrackingEnabledOnly'}, {
                         get: {method: 'GET', params: {id: '@id'}},
                         getReport: {method: 'GET', params: {id: '@id'}, isArray: true},

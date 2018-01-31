@@ -1,8 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewReportsController: function (scope, routeParams, resourceFactory, location, route) {
+        ViewReportsController: function (scope, routeParams, resourceFactory, location, route, $rootScope,API_VERSION,CommonUtilService) {
             scope.reports = [];
             scope.reportCagegories = [] ;
+            scope.requestoffset=0;
+            scope.limit = 10;
+            scope.baseUri = $rootScope.hostUrl+API_VERSION+'/files/';
             scope.routeTo = function (report) {
                 location.path('/run_report/' + report.reportName).search({reportId: report.id, type: report.reportType});
             };
@@ -10,6 +13,8 @@
             resourceFactory.codeValueByCodeNameResources.get({codeName: "Report Classification"}, function (codeValueData) {
                 scope.reportCagegories = codeValueData;
             });
+
+
 
             if (!scope.searchCriteria.reports) {
                 scope.searchCriteria.reports = null;
@@ -41,9 +46,43 @@
                     scope.reports = data ;
                 });
             } ;
+
+            scope.reportrequests = function () {
+                resourceFactory.advancedReportsResource.get(function(data){
+                    scope.reportrequests = data;
+                } );
+            };
+
+            scope.reportrequests = function(){
+                resourceFactory.advancedReportsResource.get({offset: scope.requestoffset,limit:scope.limit}, function (data) {
+                scope.reportrequestsData = data;
+            });
+            }
+
+            scope.previousReportRequest= function(){
+                if(scope.requestoffset != 0){
+                    scope.requestoffset = scope.requestoffset - scope.limit;
+                    if(scope.requestoffset <= 0){
+                        scope.requestoffset = 0;
+                    }
+                    scope.reportrequests();
+                }
+            } 
+
+            scope.nextReportRequest= function(){
+                if(scope.reportrequestsData.length == scope.limit){
+                    scope.requestoffset = scope.requestoffset + scope.limit;
+                    scope.reportrequests();
+                }
+            } 
+
+            scope.download = function(fileId){
+                var url = scope.baseUri + fileId +'/download?'+ CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
         }
     });
-    mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewReportsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','$rootScope','API_VERSION','CommonUtilService', mifosX.controllers.ViewReportsController]).run(function ($log) {
         $log.info("ViewReportsController initialized");
     });
 }(mifosX.controllers || {}));
