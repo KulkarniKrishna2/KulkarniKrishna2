@@ -1,15 +1,19 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewReportsController: function (scope, routeParams, resourceFactory, location, route) {
+        ViewReportsController: function (scope, routeParams, resourceFactory, location, route, $rootScope,API_VERSION,CommonUtilService) {
             scope.reports = [];
             scope.type = routeParams.type;
             //to display type of report on breadcrumb
             var typeReport = routeParams.type.replace(routeParams.type[0], routeParams.type[0].toUpperCase()) + " " + "Reports";
             scope.type = typeReport;
 
+            scope.requestoffset=0;
+            scope.limit = 10;
+            scope.baseUri = $rootScope.hostUrl+API_VERSION+'/files/';
             scope.routeTo = function (report) {
                 location.path('/run_report/' + report.report_name).search({reportId: report.report_id, type: report.report_type});
             };
+
 
             if (!scope.searchCriteria.reports) {
                 scope.searchCriteria.reports = null;
@@ -35,6 +39,7 @@
                 scope.saveSC();
             };
 
+        scope.loadReports = function() {
             if (routeParams.type == 'all') {
                 resourceFactory.runReportsResource.get({reportSource: 'FullReportList', parameterType: true, genericResultSet: false}, function (data) {
                     scope.reports = scope.getReports(data);
@@ -69,6 +74,7 @@
                         scope.reports = scope.getReports(data);
                     });
             }
+        }
 
             // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
             scope.getReports = function (data) {
@@ -83,9 +89,45 @@
                 }
                 return reports;
             };
+
+
+            scope.reportrequests = function () {
+                resourceFactory.advancedReportsResource.get(function(data){
+                    scope.reportrequests = data;
+                } );
+            };
+
+            scope.reportrequests = function(){
+                resourceFactory.advancedReportsResource.get({offset: scope.requestoffset,limit:scope.limit}, function (data) {
+                scope.reportrequestsData = data;
+            });
+            }
+
+            scope.previousReportRequest= function(){
+                if(scope.requestoffset != 0){
+                    scope.requestoffset = scope.requestoffset - scope.limit;
+                    if(scope.requestoffset <= 0){
+                        scope.requestoffset = 0;
+                    }
+                    scope.reportrequests();
+                }
+            } 
+
+            scope.nextReportRequest= function(){
+                if(scope.reportrequestsData.length == scope.limit){
+                    scope.requestoffset = scope.requestoffset + scope.limit;
+                    scope.reportrequests();
+                }
+            } 
+
+            scope.download = function(fileId){
+                var url = scope.baseUri + fileId +'/download?'+ CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
+
         }
     });
-    mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewReportsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','$rootScope','API_VERSION','CommonUtilService', mifosX.controllers.ViewReportsController]).run(function ($log) {
         $log.info("ViewReportsController initialized");
     });
 }(mifosX.controllers || {}));
