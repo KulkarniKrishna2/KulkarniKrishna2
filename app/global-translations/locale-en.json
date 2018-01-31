@@ -6836,6 +6836,20 @@
     "inavalid.pin.code.format":"Invalid pin code format",
     "label.heading.reject.description":"Description",
     "error.msg.group.cannot.be.rejected":"Group is not in pending state. To reject a group, it should be in pending state",
+    "label.input.queries" : "Queries",
+    "label.button.close.query" : "Close Query",
+    "label.heading.close.query" : "Close Query",
+    "label.input.query" : "Query",
+    "label.input.queriedby" : "Queried By",
+    "label.input.resolution" : "Resolution",
+    "label.button.queries.resolution": "Queries and resolution",
+    "label.heading.queriedon" : "Queried On",
+    "label.heading.queriedby" : "Queried By",
+    "label.heading.queries" : "Queries",
+    "label.heading.resolvedon" : "Resolved On",
+    "label.heading.resolvedby" : "Resolved By",
+    "label.heading.resolution" : "Resolution",
+    "label.heading.queries.resolution": "Queries and resolution",
 
     "------ end of tensalation file":"---------"
 }

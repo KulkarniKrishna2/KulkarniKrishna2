@@ -14,6 +14,7 @@
             scope.isRejectReasonMandatory = false;
             scope.isRejectDescriptionMandatory = false;
             scope.isRejectCodesMandatory = false;
+            scope.isUnresolvedQueryExists = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                 scope.response.uiDisplayConfigurations.workflow.isMandatory){
                 if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
@@ -42,6 +43,7 @@
                     scope.isDisplayNotes=false;
                     scope.isDisplayAttachments=false;
                     scope.isDisplayActionLogs=false;
+                    scope.isDisplayQueries = false;
                      if(scope.taskData.isArchived){
                         scope.isTaskArchived = true;
                         resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id, isArchived:scope.isTaskArchived}, function (taskData) {
@@ -61,6 +63,12 @@
                         resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
                             scope.canView = true;
                             populateNextActions();
+                        });
+                        resourceFactory.taskQueryResource.get({taskId:scope.taskData.id, isUnresolveQueryFetch : true}, function (taskQueryData) {
+                            scope.taskQueryData = taskQueryData;
+                            if(scope.taskQueryData != undefined && scope.taskQueryData.isQueryResolved != undefined && !scope.taskQueryData.isQueryResolve){
+                               scope.isUnresolvedQueryExists = true;
+                            }
                         });
                     }
                 }
@@ -316,6 +324,7 @@
                 scope.isDisplayNotes=true;
                 scope.isDisplayAttachments=false;
                 scope.isDisplayActionLogs=false;
+                scope.isDisplayQueries = false;
                 populateTaskNotes();
             };
 
@@ -323,6 +332,7 @@
                 scope.isDisplayNotes=false;
                 scope.isDisplayAttachments=true;
                 scope.isDisplayActionLogs=false;
+                scope.isDisplayQueries = false;
                 getTaskDocuments();
             };
 
@@ -330,6 +340,7 @@
                 scope.isDisplayNotes=false;
                 scope.isDisplayAttachments=false;
                 scope.isDisplayActionLogs=true;
+                scope.isDisplayQueries = false;
                 populateTaskActionLogs();
             };
 
@@ -357,6 +368,53 @@
                     scope.taskDocuments.splice(index, 1);
                 });
             };
+
+            scope.closeQuery = function (taskQueryData) {
+                $modal.open({
+                    templateUrl: 'closequery.html',
+                    controller: CloseQueryCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        queryDetails: function () {
+                            return {'taskQuery' : taskQueryData};
+                        }
+                    }
+                });
+            };
+
+            var CloseQueryCtrl = function ($scope, $modalInstance, queryDetails) {
+
+                $scope.taskQueryData = queryDetails.taskQuery;
+                $scope.closeQueryFormData = {};
+                $scope.closeQueryFormData.taskQueryId = $scope.taskQueryData.id;
+
+                $scope.cancelCloseQuery = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitCloseQuery = function () {
+                    resourceFactory.taskQueryResource.update({taskId:scope.taskData.id,taskQueryId:$scope.taskQueryData.id},$scope.closeQueryFormData, function (data) {
+                        $modalInstance.close('closequery');
+                        $route.reload();
+                    });
+                };
+            };
+
+            scope.displayQueries = function () {
+                scope.isDisplayNotes=false;
+                scope.isDisplayAttachments=false;
+                scope.isDisplayActionLogs=false;
+                scope.isDisplayQueries = true;
+                populateTaskQueries();
+            };
+
+             function populateTaskQueries(){
+                if (scope.isDisplayQueries) {
+                    resourceFactory.taskQueryResource.getAll({taskId: scope.taskData.id}, function (data) {
+                        scope.queries = data;
+                    });
+                }
+            }
         }
     });
     mifosX.ng.application.controller('SingleTaskController', ['$scope', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$route',mifosX.controllers.SingleTaskController]).run(function ($log) {
