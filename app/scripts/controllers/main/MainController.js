@@ -185,7 +185,7 @@
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
-                    
+                    constructJsonForSystemGlobalConfigurations();
                 });
             };
 
