@@ -1,0 +1,36 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "loanAccount": {
+      "isHiddenField": {
+        "interestChargedFromDate": true
+      }
+    },
+    "createCenter": {
+      "isReadOnlyField": {
+        "active": true,
+        "name": true
+      },
+      "isHiddenField": {
+        "villageOptions": false
+      }
+    },
+    "workflow": {
+      "loanApproval": {
+        "hiddenField": {
+          "clientAddress": false
+        }
+      },
+      "isMandatory": {
+        "rejectReason":true,
+        "rejectDescription": true
+      }
+    },
+    "collectionSheet": {
+      "isHiddenFeild": {
+        "paymentDetails": true
+
+      }
+    }
+  }
+}
