@@ -126,7 +126,7 @@
                     var temp = scope.reqFields[i];
                     if (temp.parentParameterName == paramData.name) {
                         if (temp.displayType == 'select' || temp.displayType == 'multiselect') {
-                            var parentParamValue = this.formData[paramData.inputName];
+                            var parentParamValue = this.formData[paramData.inputName].id;
                             if (parentParamValue != undefined) {
                                 eval("var params={};params." + paramData.inputName + "='" + parentParamValue + "';");
                                 intializeParams(temp, params);
@@ -265,22 +265,100 @@
                 }
             }
 
-            function buildReportParms() {
-                var paramCount = 1;
-                var reportParams = "";
-                for (var i = 0; i < scope.reqFields.length; i++) {
-                    var reqField = scope.reqFields[i];
+            function buildReportParmsForReportRequest() {
+                var reportParams = {};
+                var displayParams = {};
+                var params = {};
+                reportParams['output-type'] = scope.formData.outputType;
+                params['reportName'] = scope.reportName;
+                for (var i = 0; i < scope.reportParams.length; i++) {
+                    var element = scope.reportParams[i];
                     for (var j = 0; j < scope.pentahoReportParameters.length; j++) {
                         var tempParam = scope.pentahoReportParameters[j];
-                        if (reqField.name == tempParam.parameterName) {
+                        if (element.name == tempParam.parameterName) {
                             var paramName = "R_" + tempParam.reportParameterName;
-                            if (paramCount > 1) reportParams += "&"
-                            reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.formData[scope.reqFields[i].inputName]);
-                            paramCount = paramCount + 1;
+                            if (scope.isMultiSelectEnabled(element.displayType)) {
+                                var selectedValues = scope.formData[element.inputName];
+                                var multidisplay = [];
+                                var multireportval = [];
+                                for(var z=0;z<selectedValues.length;z++){
+                                    multidisplay.push(selectedValues[z].name);
+                                    multireportval.push(selectedValues[z].id);
+                                }
+                                reportParams[paramName] = multireportval;
+                                displayParams[element.label] = multidisplay;
+                            } else {
+                                reportParams[paramName] = scope.formData[element.inputName].id;
+                                displayParams[element.label] = scope.formData[element.inputName].name;
+                            }
+                            break;
                         }
                     }
                 }
-                return reportParams;
+
+
+                for (var i = 0; i < scope.reportTextParams.length; i++) {
+                    var element = scope.reportTextParams[i];
+                    for (var j = 0; j < scope.pentahoReportParameters.length; j++) {
+                        var tempParam = scope.pentahoReportParameters[j];
+                        if (element.name == tempParam.parameterName) {
+                            var paramName = "R_" + tempParam.reportParameterName;
+                            reportParams[paramName] = scope.formData[element.inputName];
+                            break;
+                        }
+                    }
+                }
+
+
+                for (var i = 0; i < scope.reportDateParams.length; i++) {
+                    var element = scope.reportDateParams[i];
+                    for (var j = 0; j < scope.pentahoReportParameters.length; j++) {
+                        var tempParam = scope.pentahoReportParameters[j];
+                        if (element.name == tempParam.parameterName) {
+                            var paramName = "R_" + tempParam.reportParameterName;
+                            reportParams[paramName] = scope.formData[element.inputName];
+                            break;
+                        }
+                    }
+                }
+
+                params['reportParams']= reportParams;
+                params['displayParams']= displayParams;
+                return params;
+            }
+
+            function buildReportParmsForStretchyReportRequest() {
+                var reportParams = scope.formData;
+                var displayParams = {};
+                var params = {};
+                reportParams['output-type'] = "XLS";
+
+                for (var i = 0; i < scope.reportParams.length; i++) {
+                    var element = scope.reportParams[i];
+                    var selectedObj = reportParams[element.inputName];
+                    if(selectedObj){
+                    if (scope.isMultiSelectEnabled(element.displayType)) {
+                       
+                        var multidisplay = [];
+                        var multireportval = [];
+                        for(var z=0;z<selectedObj.length;z++){
+                            multidisplay.push(selectedObj[z].name);
+                            multireportval.push(selectedObj[z].id);
+                        }
+                        reportParams[element.inputName] = multireportval;
+                        displayParams[element.label] = multidisplay;
+                    } else {
+                        reportParams[element.inputName] = selectedObj.id;
+                        displayParams[element.label] = selectedObj.name;
+                    }
+                        
+                    }
+                }
+
+                params['reportName'] = scope.reportName;
+                params['reportParams']= reportParams;
+                params['displayParams']= displayParams;
+                return params;
             }
 
             scope.xFunction = function () {
@@ -337,48 +415,16 @@
                     scope.isCollapsed = true;
                     switch (scope.reportType) {
                         case "Table":
-                            scope.hideTable = false;
-                            scope.hidePentahoReport = true;
-                            scope.hideChart = true;
-                            scope.formData.reportSource = scope.reportName;
-                            resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
-                                //clear the csvData array for each request
-                                scope.csvData = [];
-                                scope.reportData.columnHeaders = data.columnHeaders;
-                                scope.reportData.data = data.data;
-                                for (var i in data.columnHeaders) {
-                                    scope.row.push(data.columnHeaders[i].columnName);
-                                }
-                                scope.csvData.push(scope.row);
-                                for (var k in data.data) {
-                                    scope.csvData.push(data.data[k].row);
-                                }
-                            });
+                            var params = buildReportParmsForStretchyReportRequest();
+                            resourceFactory.advancedReportsResource.post(params, function (data) {
+                                location.path('/reports');
+                              });
                             break;
 
                         case "Pentaho":
-                            scope.hideTable = true;
-                            scope.hidePentahoReport = false;
-                            scope.hideChart = true;
-
-                            var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
-                            reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
-
-                            var inQueryParameters = buildReportParms();
-                            if (inQueryParameters > "") reportURL += "&" + inQueryParameters;
-
-                            // Allow untrusted urls for the ajax request.
-                            // http://docs.angularjs.org/error/$sce/insecurl
-                            reportURL = $sce.trustAsResourceUrl(reportURL);
-
-                            http.get(reportURL, {responseType: 'arraybuffer'}).
-                              success(function(data, status, headers, config) {
-                                var contentType = headers('Content-Type');
-                                var file = new Blob([data], {type: contentType});
-                                var fileContent = URL.createObjectURL(file);
-
-                                // Pass the form data to the iframe as a data url.
-                                scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              var params = buildReportParmsForReportRequest();
+                              resourceFactory.advancedReportsResource.post(params, function (data) {
+                                location.path('/reports');
                               });
                             break;
                         case "Chart":

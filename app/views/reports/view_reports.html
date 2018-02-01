@@ -1,5 +1,46 @@
 <div class="col-md-12" ng-controller="ViewReportsController">
     <tabset>
+        <tab heading="{{'label.heading.reportrequest' | translate}}" select = "reportrequests()">
+        <div>
+        <br>
+         <table class="table">
+                    <thead>
+                    <tr class="graybg">
+                        <th  class="col-sm-3">{{ 'label.heading.name' | translate }}</th>
+                        <th class="col-sm-2">{{ 'label.heading.output' | translate }}</th>
+                        <th class="col-sm-4">{{ 'label.heading.inputparams' | translate }}</th>
+                        <th class="col-sm-3">{{ 'label.heading.requesttime' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" ng-repeat="report in reportrequestsData | filter:filterText">
+                        <td>{{''+report.reportName+'' | translate}}</td>
+                        <td  ng-if="report.status.id == 2" class="pointer" data-ng-click="download(report.fileLocationId)">
+                            <i class="icon-2x icon-cloud-download"></i></td>
+                        <td  ng-if="report.status.id == 1"><i class="icon-spinner icon-spin icon-large "/> <span class="icon-large"> {{'label.heading.running' | translate}}</span></td>
+                        <td  ng-if="report.status.id == 3"><i class="required icon-large icon-remove-sign">  {{'label.heading.failed' | translate}}</i></td>
+                        <td>
+                        
+                        <span ng-repeat="(key, value) in report.displyParams">
+                            <b>{{key}}:</b>{{value}}<span ng-hide="$last">&nbsp;|&nbsp;</span>
+                        </span>
+                        </td>
+                        <td>{{report.runRequestedTime |  DateTimeFormat }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                 <ul class="pager">
+                    <li class="previous">
+                        <a id="prev" ng-click="previousReportRequest()" href=""
+                           ng-hide="requestoffset == 0"> &larr; {{'label.button.previous' | translate}}</a>
+                    </li>
+                    <li class="next">
+                        <a id="next" ng-click="nextReportRequest()" href=""
+                           ng-hide="reportrequestsData.length != limit">{{'label.button.next' | translate}} &rarr;</a></li>
+                </ul>
+        </div>
+            
+        </tab>
         <tab ng-repeat="tab in reportCagegories" heading="{{tab.name}}" select="loanReports(tab)">
             <div>
                 <br>

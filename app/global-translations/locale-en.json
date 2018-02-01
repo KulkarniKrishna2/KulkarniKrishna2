@@ -682,7 +682,7 @@
     "label.menu.office": "Office",
     "label.menu.loan.products": "Loan Products",
     "label.button.eligibilitycheck":"Run Eligibility Check",
-
+    
     "#Anchors": "..",
     "label.anchor.startpage": "Start Page",
     "label.anchor.homepage": "Home Page",
@@ -5713,6 +5713,11 @@
     "label.heading.fee.amount":"Fee Amount",
     "label.heading.penalty.amount":"Penalty amount",
     "label.heading.reportcategories":"Report Categories",
+    "label.heading.inputparams":"Filters",
+    "label.heading.requesttime":"Requested Time",
+    "label.heading.reportrequest":"Report requests",
+    "label.heading.running":"Running",
+    "label.heading.failed":"Failed",
 
     "":"",
     "------ start of sales--":"---------",

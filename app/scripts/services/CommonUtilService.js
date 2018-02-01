@@ -3,7 +3,7 @@
  */
 (function (module) {
     mifosX.services = _.extend(module, {
-        CommonUtilService: function () {
+        CommonUtilService: function ($rootScope,webStorage) {
             this.onDayTypeOptions = function () {
                 var onDayTypeOptions = [];
                 for (var i = 1; i <= 28; i++) {
@@ -20,9 +20,18 @@
                 }
                 return data;
             };
+
+            this.commonParamsForNewWindow = function(){
+                var sessionData = webStorage.get('sessionData');
+                var authentication = "";
+                if(sessionData.authenticationKey){
+                   authentication = '&access_token='+sessionData.authenticationKey;
+                }
+                return 'tenantIdentifier='+$rootScope.tenantIdentifier + authentication;
+            }
         }
     });
-    mifosX.ng.services.service('CommonUtilService', [mifosX.services.CommonUtilService]).run(function ($log) {
+    mifosX.ng.services.service('CommonUtilService', ['$rootScope','webStorage',mifosX.services.CommonUtilService]).run(function ($log) {
         $log.info("CommonUtilService initialized");
     });
 }(mifosX.services || {}));
