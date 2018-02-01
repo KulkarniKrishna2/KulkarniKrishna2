@@ -9,7 +9,7 @@
         <api-validate></api-validate>
         <fieldset>        	
             <legend>{{ 'label.heading.assignloanofficer' | translate }}</legend>
-            <div class="form-group" ng-hide="isSuccess">
+            <div class="form-group" ng-hide="isSuccess || isTaskCompleted()">
                 <label class="control-label col-sm-2">{{ 'label.input.toloanofficer' | translate }}<span
                         class="required">*</span></label>
                 <div  class="col-sm-3">
@@ -19,12 +19,12 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-offset-3"  ng-hide="isSuccess">
+            <div class="col-md-offset-3"  ng-hide="isSuccess || isTaskCompleted()">
                 <button id="save" type="submit"  class="btn btn-primary">{{
                     'label.button.save' | translate }}
                 </button>
             </div>
-            <span ng-show="isSuccess">{{ 'label.village.assigned.to.loanofficer' | translate }}{{staffName}}</span>
+            <span ng-show="isSuccess || isTaskCompleted()">{{ 'label.village.assigned.to.loanofficer' | translate }}{{staffName}}</span>
         </fieldset>
     </form>
 </div>
