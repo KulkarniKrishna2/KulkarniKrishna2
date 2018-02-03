@@ -366,8 +366,6 @@
                 this.formData.accountType = scope.applicationData.accountType.value.toLowerCase();
                 this.formData.charges = [];
                 for(var i = 0 ; i < scope.charges.length; i++) {
-                    if (scope.charges[i].amount > 0) {
-
                     var charge = {};
                     if (scope.charges[i].loanAppChargeId) {
                         charge.loanAppChargeId = scope.charges[i].loanAppChargeId;
@@ -382,7 +380,6 @@
                     charge.locale = scope.optlang.code;
                     charge.dateFormat = scope.df;
                     this.formData.charges.push(charge);
-                    }
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
                 this.formData.locale = scope.optlang.code;
