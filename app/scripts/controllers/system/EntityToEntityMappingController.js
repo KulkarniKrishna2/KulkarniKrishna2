@@ -41,7 +41,12 @@
 
                     case 1:
                         resourceFactory.officeResource.getAllOffices(function (data) {
-                            scope.offices = data;
+                            scope.offices = [];
+                            for(var i in data){
+                                if(data[i].status && data[i].status.id == 300){
+                                        scope.offices.push(data[i]);    
+                                }    
+                            }
                         });
                         resourceFactory.loanProductResource.getAllLoanProducts(function (data) {
                             scope.products = data;
@@ -49,7 +54,13 @@
                         break;
                     case 2:
                         resourceFactory.officeResource.getAllOffices(function (data) {
-                            scope.offices = data;
+                            scope.offices = [];
+                            for(var i in data){
+                                if(data[i].status && data[i].status.id == 300){
+                                    scope.offices.push(data[i]);    
+                                }    
+                            }
+                            
                         });
                         resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
                             scope.savingsproducts = data.productOptions;
@@ -57,7 +68,12 @@
                         break;
                     case 3:
                         resourceFactory.officeResource.getAllOffices(function (data) {
-                            scope.offices = data;
+                            scope.offices = [];
+                            for(var i in data){
+                                if(data[i].status && data[i].status.id == 300){
+                                    scope.offices.push(data[i]);    
+                                }    
+                            }
                         });
                         resourceFactory.chargeResource.getAllCharges(function (data) {
                             scope.charges = data;
