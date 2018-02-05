@@ -65,10 +65,14 @@
             <div ng-if="taskActionExecutionErrorMessage" class="row task-error error">
                 <label >{{taskActionExecutionErrorMessage | translate}}</label>
             </div>
-            <div class="row task-action">
+            <div class="row task-action" ng-if = "!isUnresolvedQueryExists">
             <span ng-repeat="action in possibleActions" class="pull-right">
                 <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.actionType.value, action)">{{action.actionType.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
+            </div>
+            <div class="row" ng-show = "isUnresolvedQueryExists">
+              <button  class="btn btn-primary pull-right" 
+                has-permission = "UPDATE_TASK_QUERY" ng-click="closeQuery(taskQueryData)">{{'label.button.close.query' | translate}}</button>
             </div>
 
             <div class="row task-action">
@@ -76,6 +80,7 @@
             <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="displayNotes()">Notes</button>&nbsp;
             <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="displayAttachments()">Attachments</button>&nbsp;
              <button type="button" class="btn btn-link" ng-disabled="isDisplayActionLogs" ng-click="displayActionLogs()">Action Logs</button>&nbsp;
+             <button type="button" class="btn btn-link" ng-disabled="isDisplayQueries" has-permission='READ_TASK_QUERY'ng-click="displayQueries()">{{'label.button.queries.resolution' | translate}}</button>&nbsp;
         </span>
             </div>
 
@@ -185,6 +190,29 @@
 
             </div>
 
+            <div ng-if="queries && isDisplayQueries" class="row client">
+                <div class="col-md-12">
+                    <h4 class="bolder">{{"label.heading.queries.resolution" | translate}}</h4>
+                    <table class="table table-bordered table-striped" >
+                        <tr>
+                            <th>{{"label.heading.queriedon" | translate}}</th>
+                            <th>{{"label.heading.queriedby"| translate}}</th>
+                            <th>{{"label.heading.queries"| translate}}</th>
+                            <th>{{"label.heading.resolvedon"| translate}}</th>
+                            <th>{{"label.heading.resolvedby"| translate}}</th>
+                            <th>{{"label.heading.resolution"| translate}}</th>
+                        </tr>
+                        <tr ng-repeat="query in queries">
+                            <td>{{query.queryOnDate | DateFormat}}</td>
+                            <td>{{query.queryBy}}</td>
+                            <td>{{query.query}}</td>
+                            <td>{{query.resolveOnDate | DateFormat}}</td>
+                            <td>{{query.resolveBy}}</td>
+                            <td>{{query.resolution}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/ng-template" id="startover.html">
@@ -204,6 +232,13 @@
                     <select id="accountType"  name = "accountType" ng-model="startOverFormData.startOverTaskId" class="form-control"
                             ng-options="previousTask.id as previousTask.name for previousTask in previousTaskList">
                     </select>
+                </div>
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label class="control-label col-sm-4" >{{'label.input.queries' | translate}}</label>
+                <div class="col-sm-6">
+                    <input id="taskQuery"  name = "taskQuery" ng-model="startOverFormData.taskQuery" class="form-control">
                 </div>
             </div>
         </div>
@@ -256,6 +291,39 @@
             <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-if ="rejectioReasonsAvailable" ng-click="submitReject()">{{'label.button.reject' | translate}}</button>
             <button class="btn btn-primary" ng-if ="!rejectioReasonsAvailable" ng-click="submitReject()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+        <script type="text/ng-template" id="closequery.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.close.query' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.query' | translate}}<span> : </span></label>
+                <div class="col-sm-6">
+                    <span>{{taskQueryData.query}}</span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.queriedby' | translate}}<span> : </span></label>
+                <div class="col-sm-6">
+                    <span>{{taskQueryData.queryBy}}</span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.resolution' | translate}}<span> : </span></label>
+                <div class="col-sm-6">
+                    <input id="taskQueryResolution" type = "textarea" name = "taskQueryResolution" ng-model="closeQueryFormData.taskQueryResolution" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancelCloseQuery()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitCloseQuery()">{{'label.button.submit' | translate}}</button>
         </div>
     </script>
 </div>
