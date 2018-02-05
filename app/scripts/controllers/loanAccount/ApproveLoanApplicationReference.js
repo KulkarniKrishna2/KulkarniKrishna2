@@ -626,7 +626,7 @@
                 if (scope.charges.length > 0) {
                     scope.submitData.formRequestData.charges = [];
                     for (var i in scope.charges) {
-                        if (scope.charges[i].amount > 0){
+                        //if (scope.charges[i].amount > 0){
                             var charge = {};
                         charge.chargeId = scope.charges[i].chargeId;
                         charge.amount = scope.charges[i].amount;
@@ -637,7 +637,7 @@
                         //charge.locale = scope.optlang.code;
                         //charge.dateFormat = scope.df;
                         scope.submitData.formRequestData.charges.push(charge);
-                        }
+                        //}
                     }
                 }
                 angular.copy(scope.submitData.formRequestData.charges, scope.submitData.formValidationData.charges);

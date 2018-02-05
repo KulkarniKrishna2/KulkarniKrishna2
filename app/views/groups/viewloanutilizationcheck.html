@@ -44,89 +44,71 @@
         </table>
     </div>
         <button class="btn btn-primary pull-right" 
-           ng-click="showUploadDocument = !showUploadDocument">
+           ng-click="uploadPic()">
            <i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}
-       </button>
-        <br>
-        <div ng-if = "showUploadDocument">
-            <form name="documentform" novalidate="" class="row form-horizontal" 
-                    rc-submit="submit()">
-                <fieldset>
-                    <legend>{{'label.heading.uploaddocument' | translate}}</legend>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
-                                class="required">*</span></label>
-                        <div class="col-sm-3">
-                            <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
-                                   late-Validate/>
-                        </div>
-                        <div class="col-sm-3">
-                            <form-validate valattributeform="documentform" valattribute="name"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{'label.input.description' | translate}}</label>
-
-                        <div class="col-sm-3">
-                            <textarea rows="2" ng-model="formData.description" class="form-control"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
-                                class="required">*</span></label>
-
-                        <div class="col-sm-3">
-                            <input type="file" id="file" ng-file-select="onFileSelect($files)">
-                        </div>
-                    </div>
-
-                    <div class="col-md-offset-3">
-                        <button id="save" type="submit" has-permission='CREATE_LOANUTILIZATIONCHECK' class="btn btn-primary">{{'label.button.save' | translate}}</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>  
+       </button> 
         <br>  
-            <div class="table-response">
-                <h3>{{'label.heading.loanutilizationcheck.documents' | translate}}</h3>
-                <table class="table">
-                    <thead>
-                    <tr class="graybg">
-                        <th>{{'label.heading.name' | translate}}</th>
-                        <th>{{'label.heading.description' | translate}}</th>
-                        <th>{{'label.heading.filename' | translate}}</th>
-                        <th>{{'label.heading.actions' | translate}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="lucDocument in lucDocuments">{{clientdocuments}}
-                        <td>{{lucDocument.name}}</td>
-                        <td>{{lucDocument.description}}</td>
-                        <td>
-                            <span>
-                                {{lucDocument.fileName}}&nbsp;
-                                <a target="_blank" data-ng-click="openViewDocument(lucDocument)"><i
-                                   class="icon-eye-open text-success"></i></a>
-                            </span>
-                        </td>
-                        <td>
-                            <a ng-show="lucDocument.id" target="_blank" href="{{hostUrl}}{{lucDocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                            <a ng-show="lucDocument.id" 
-                              ng-click="deleteDocument(lucDocument)"><i class="icon-remove"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>    
+        <div>
+             <table class="table table-bordered table-striped" ng-if="images.length > 0">
+                            <tr>
+                                <td>
+                                    <span><strong>{{'label.heading.image.name' | translate}}</strong></span>
+                                </td>
+                                <td>
+                                    <span><strong>{{'label.createdby' | translate}}</strong></span>
+                                </td>
+                                <td>
+                                    <span><strong>{{'label.createdon' | translate}}</strong></span>
+                                </td>
+                            </tr>
+                            <tr class="pointer-main" ng-repeat="image in images track by $index" >
+                                <td class="pointer" data-ng-click="routeToImage(image.imageId)">
+                                    <span>{{image.name}}</span>
+                                </td>
+                                <td class="pointer" data-ng-click="routeToImage(image.imageId)">
+                                    <span>{{image.createdBy}}</span>
+                                </td>
+                                <td class="pointer" data-ng-click="routeToImage(image.imageId)">
+                                    <span>{{image.createdOn}}</span>
+                                </td>
+                            </tr>
+            </table>   
+        </div>
+
+        <script type="text/ng-template" id="uploadpic.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
             </div>
-        <script type="text/ng-template" id="viewDocument.html">
-             <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
-                <view-document-directive  ng-entity-type="{{data.parentEntityType}}"
-                ng-entity-id="{{data.parentEntityId}}"
-                ng-document-id="{{data.id}}"></view-document-directive>
+            <div class="modal-body">
+                <api-validate></api-validate>
+                <br>
+                <input type="file" ng-file-select="onFileSelect($files)">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
             </div>
         </script>
+
+         <script type="text/ng-template" id="viewpic.html">
+            <div class="modal-header silver">
+            </div>
+            <div class="modal-body">
+                <api-validate></api-validate>
+                <div ng-show="error != null" class="error">
+                    {{'label.error' | translate}}: {{error}}
+                </div>
+                <br>
+                    <div>
+                        <div class="left">
+                            <img ng-src="{{image}}" alt="Avatar" height="400" width="400" >
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            </div>
+        </script> 
 </div>
 
 
