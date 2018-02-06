@@ -328,7 +328,9 @@
                 if (scope.date.interestChargedFromDate) {
                     this.formRequestData.submitApplication.interestChargedFromDate = dateFilter(new Date(scope.date.interestChargedFromDate), scope.df);
                 }
-                if (scope.date.repaymentsStartingFromDate) {
+                if (!scope.date.repaymentsStartingFromDate || scope.date.repaymentsStartingFromDate == "") {
+                    this.formRequestData.submitApplication.repaymentsStartingFromDate = undefined;
+                }else{
                     this.formRequestData.submitApplication.repaymentsStartingFromDate = dateFilter(new Date(scope.date.repaymentsStartingFromDate), scope.df);
                 }
 
@@ -354,7 +356,7 @@
                 this.formRequestData.submitApplication.dateFormat = scope.df;
 
                 if (this.formRequestData.disburse.actualDisbursementDate) {
-                    this.formRequestData.disburse.actualDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.actualDisbursementDate), scope.df)
+                    this.formRequestData.disburse.actualDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.actualDisbursementDate), scope.df);
                 }
                 this.formRequestData.disburse.locale = scope.optlang.code;
                 this.formRequestData.disburse.dateFormat = scope.df;
