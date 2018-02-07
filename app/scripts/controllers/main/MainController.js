@@ -184,6 +184,7 @@
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
+                    constructJsonForSystemGlobalConfigurations();
                     resourceFactory.cacheResource.get(function (data) {
                         for (var i in data) {
                             if (data[i].cacheType && data[i].cacheType.id == 2) {
