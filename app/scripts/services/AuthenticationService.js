@@ -35,7 +35,8 @@
             }
 
             var setTimer = function(time){
-                timeout(getAccessToken, time * 1000);
+                var waitTime = time > 30 ? time-30 : 1;
+                timeout(getAccessToken, waitTime * 1000);
             }
 
             var getAccessToken = function(){
