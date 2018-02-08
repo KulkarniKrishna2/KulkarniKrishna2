@@ -69,7 +69,7 @@
                                     <span>{{image.createdBy}}</span>
                                 </td>
                                 <td class="pointer" data-ng-click="routeToImage(image.imageId)">
-                                    <span>{{image.createdOn}}</span>
+                                    <span>{{image.createdOn | DateFormat}}</span>
                                 </td>
                             </tr>
             </table>   
