@@ -251,7 +251,8 @@
                                 clientId: scope.formData.clientId,
                                 loanApplicationId: scope.loanApplicationReferenceId,
                                 loanId: scope.loanId,
-                                trancheDisbursalId: scope.trancheDisbursalId
+                                trancheDisbursalId: scope.trancheDisbursalId,
+                                enquiryId: scope.creditBureauEnquiry.id
                             }, function (data) {
                                 scope.existingLoans = data.existingLoans;
                                 scope.creditScores = data.creditScores ;
