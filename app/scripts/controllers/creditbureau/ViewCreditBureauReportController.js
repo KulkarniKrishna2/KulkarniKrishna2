@@ -241,17 +241,21 @@
             };
 
             function convertEMIAmountToMonthlyAmount(existingLoan) {
-                if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
-                    return existingLoan.installmentAmount;
-                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
-                    if (existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2) {
-                        return convertBIWeeklyEMIAmountToMonthly(existingLoan);
+                if(existingLoan.loanTenurePeriodType !=  undefined){
+                    if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
+                        return existingLoan.installmentAmount;
+                    } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
+                        if (existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2) {
+                            return convertBIWeeklyEMIAmountToMonthly(existingLoan);
+                        } else {
+                            return convertWeeklyEMIAmountToMonthly(existingLoan);
+                        }
+                    } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days') {
+                        return convertDailyEMIAmountToMonthly(existingLoan);
                     } else {
-                        return convertWeeklyEMIAmountToMonthly(existingLoan);
+                        return 0.00;
                     }
-                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days') {
-                    return convertDailyEMIAmountToMonthly(existingLoan);
-                } else {
+                }else{
                     return 0.00;
                 }
             };
