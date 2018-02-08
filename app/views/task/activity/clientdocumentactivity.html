@@ -1,34 +1,33 @@
 <div class="col-md-12" ng-controller="clientdocumentActivityController" >
-<form name="clientdocumentform" ng-if="!isTaskCompleted()" novalidate="" class="row form-horizontal"
-      rc-submit="submit()">
-    <fieldset>
-        <div class="form-group">
-            <div class="col-sm-2">
-                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" ng-required="isRequired"/>
-                <form-validate valattributeform="clientdocumentform" valattribute="name"/>
-            </div>
+    <form name="clientdocumentform" ng-if="!isTaskCompleted()" novalidate="" class="row form-horizontal"
+          rc-submit="submit()">
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" placeholder="File name" class="form-control" ng-required="isRequired"/>
+                    <form-validate valattributeform="clientdocumentform" valattribute="name"/>
+                </div>
 
-            <div class="col-sm-2">
-                <textarea rows="1" cols="15" ng-model="formData.description" class="form-control" placeholder="{{'label.input.file.description'|translate}}"></textarea>
-            </div>
+                <div class="col-sm-2">
+                    <textarea rows="1" cols="15" ng-model="formData.description" class="form-control" placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                </div>
 
-            <div class="col-sm-2">
-                <select id="tagIdentifier" ng-model="formData.tagIdentifier" class="form-control"
-                        ng-options="codeValue.id as codeValue.name for codeValue in documentTagOptions" value="{{codeValue.id}}">
-                    <option value="">{{'label.selectdocumenttag' | translate}}</option>
-                </select>
-            </div>
+                <div class="col-sm-2">
+                    <select id="tagIdentifier" ng-model="formData.tagIdentifier" class="form-control"
+                            ng-options="codeValue.id as codeValue.name for codeValue in documentTagOptions" value="{{codeValue.id}}">
+                        <option value="">{{'label.selectdocumenttag' | translate}}</option>
+                    </select>
+                </div>
 
-            <div class="col-sm-2">
-                <input type="file" id="file" ng-file-select="onFileSelect($files)">
-            </div>
+                <div class="col-sm-3">
+                    <input type="file" id="file" ng-file-select="onFileSelect($files)">
+                </div>
 
-            <div class="col-md-2">
-                <button id="save" type="submit" ng-click="validateField()" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
+                <div class="col-md-2">
+                    <button id="save" type="submit" ng-click="validateField()" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload' | translate}}</button>
+                </div>
             </div>
-        </div>
-
-    </fieldset>
+        </fieldset>
     </form>
     <br>
     <div ng-repeat="(key, value) in clientdocuments">

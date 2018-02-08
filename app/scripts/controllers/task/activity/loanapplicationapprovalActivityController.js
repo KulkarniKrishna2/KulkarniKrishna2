@@ -618,7 +618,11 @@
             scope.submitForApproval = function () {
                 scope.previewRepayments(false);
                 scope.formRequestData.expectedDisbursementDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
-                scope.formRequestData.repaymentsStartingFromDate =  dateFilter(scope.formRequestData.repaymentsStartingFromDate, scope.df);
+                if(!scope.formRequestData.repaymentsStartingFromDate || scope.formRequestData.repaymentsStartingFromDate == ""){
+                    scope.formValidationData.repaymentsStartingFromDate = scope.formRequestData.repaymentsStartingFromDate;
+                }else{
+                    scope.formRequestData.repaymentsStartingFromDate = dateFilter(scope.formRequestData.repaymentsStartingFromDate, scope.df);
+                }
                 if(scope.formRequestData.approvedOnDate){
                     scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate),scope.df);
                 }
