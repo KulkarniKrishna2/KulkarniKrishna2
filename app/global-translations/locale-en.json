@@ -6850,6 +6850,7 @@
     "label.heading.resolvedby" : "Resolved By",
     "label.heading.resolution" : "Resolution",
     "label.heading.queries.resolution": "Queries and resolution",
+    "error.msg.holiday.duplicate.date" : "Selected date is already mappped to a holiday.",
 
     "------ end of tensalation file":"---------"
 }
