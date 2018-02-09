@@ -139,7 +139,10 @@
             scope.constructExistingCharges = function (index, chargeId) {
                 resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
                     data.chargeId = data.id;
-                    scope.charges.push(data);
+                    if(scope.isExists(scope.charges,data.id)){
+                        scope.charges.push(data);  
+                    }
+                    
                     curIndex++;
                     if (curIndex == scope.loanAppChargeData.length) {
                         for (var i = 0; i < scope.charges.length; i++) {
@@ -157,6 +160,15 @@
                     }
                 });
             };
+
+            scope.isExists = function(array,value){
+               for (var i = 0; i < array.length; i++) {
+                 if (array[i][key] === value) {
+                    return false;
+                 }
+              }
+              return true;
+             }
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
