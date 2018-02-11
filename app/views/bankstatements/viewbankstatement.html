@@ -48,8 +48,10 @@
             <td>{{bankStatement.name}}</td>
             <td>{{bankStatement.bankData.name}}</td>
             <td>{{bankStatement.description}}</td>
-            <td>{{bankStatement.cpifFileName}}<a target="_blank" href="{{bankStatement.cpifDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
-            <td ng-show="bankStatement.orgDownloadUri != null">{{bankStatement.orgFileName}}<a target="_blank" href="{{bankStatement.orgDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
+            <td>{{bankStatement.cpifFileName}}<a target="_blank" 
+                ng-click = "download(bankStatement.cpifDownloadUri)"><i class="icon-cloud-download"></i></a></td>
+            <td ng-show="bankStatement.orgDownloadUri != null">{{bankStatement.orgFileName}}
+                <a target="_blank" ng-click = "download(bankStatement.orgDownloadUri)"><i class="icon-cloud-download"></i></a></td>
             <td ng-show="bankStatement.orgDownloadUri == null"></td>
             <td>{{bankStatement.lastModifiedByName}}</td>
             <td>{{bankStatement.lastModifiedDate}}</td>

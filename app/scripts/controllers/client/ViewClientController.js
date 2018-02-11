@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, CommonUtilService) {
             scope.client = [];
             scope.identitydocuments = [];
             scope.buttons = [];
@@ -321,7 +321,7 @@
                     for (var i = 0; i < docsData.data.length; ++i) {
                         if (docsData.data[i].name == 'clientSignature') {
                             docId = docsData.data[i].id;
-                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?';
                         }
                     }
                 });
@@ -735,7 +735,7 @@
                                         for (var l in data) {
 
                                             var loandocs = {};
-                                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
                                             data[l].docUrl = loandocs;
                                         }
                                         scope.identitydocuments[j].documents = data;
@@ -875,7 +875,7 @@
                         for (var l = 0; l < data.length; l++) {
                             if (data[l].id) {
                                 var loandocs = {};
-                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
                                 data[l].docUrl = loandocs;
                             }
                             if(data[l].tagValue){
@@ -912,7 +912,7 @@
                 resourceFactory.documentsGenerateResource.generate({entityType:'clients', entityId: routeParams.id, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
                     document.docUrl = loandocs;
                 })
             };
@@ -921,7 +921,7 @@
                 resourceFactory.documentsGenerateResource.reGenerate({entityType:'clients', entityId: routeParams.id, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
                     document.docUrl = loandocs;
                 })
             };
@@ -1051,13 +1051,13 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?';
                             }
                         }
                     if (scope.signature_url != null) {
                         http({
                             method: 'GET',
-                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?'+ CommonUtilService.commonParamsForNewWindow()
                     }).then(function (docsData) {
                             $scope.largeImage = scope.signature_url;
                         });
@@ -1424,10 +1424,15 @@
                 });
             };
 
+            scope.download = function(docUrl){
+                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
+
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));

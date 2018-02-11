@@ -1,9 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope, CommonUtilService) {
             scope.bankStatements  = [];
             scope.baseUri = $rootScope.hostUrl+API_VERSION+'/bankstatement/1/documents/';
-            scope.appendedUri = '/attachment?tenantIdentifier='+$rootScope.tenantIdentifier;
+            scope.appendedUri = '/attachment?';
             scope.actualBankStatements = [];
             scope.bankStatementPerPage = 15;
             scope.searchText = "";
@@ -129,9 +129,14 @@
                         }
                     }
             }
+
+            scope.download = function(docUrl){
+                var url = docUrl + CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
         }
     });
-    mifosX.ng.application.controller('ViewBankStatementController', ['$scope', 'ResourceFactory', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.ViewBankStatementController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewBankStatementController', ['$scope', 'ResourceFactory', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.ViewBankStatementController]).run(function ($log) {
         $log.info("ViewBankStatementController initialized");
     });
 }(mifosX.controllers || {}));
