@@ -178,7 +178,6 @@
                         scope.$apply();
                     }
                     if(data!=undefined){
-                        console.log(data)
                         postComplete(data.data.resourceId);
                     }
                 });

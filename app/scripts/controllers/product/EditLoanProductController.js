@@ -33,6 +33,10 @@
             scope.interestRate = {};
             scope.canCrossMaturityDateOnFixingEMI = true;
             scope.isLimitTrnache = false;
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            scope.allowLoanProductForGroupBankAccount = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccount);
+
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -412,6 +416,7 @@
                 scope.formData.maximumGap = scope.product.maximumGap;
                 scope.formData.canUseForTopup = scope.product.canUseForTopup;
                 scope.formData.allowUpfrontCollection = scope.product.allowUpfrontCollection;
+                scope.formData.allowDisbursementToGroupBankAccounts = scope.product.allowDisbursementToGroupBankAccounts;
             });
             scope.variableName = function (minDurationType) {
                 if (minDurationType == 1) {

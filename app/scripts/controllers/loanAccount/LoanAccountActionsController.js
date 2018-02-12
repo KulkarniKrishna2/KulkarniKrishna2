@@ -23,6 +23,7 @@
             scope.trancheError = false;
             scope.showRepaymentsStartingFromDateField = false;
             scope.isRecieptNumbermandatory = false;
+            scope.bankAccountTemplate = {};
 
             //glim
             scope.isGLIM = false;
@@ -36,7 +37,8 @@
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
 
             scope.isInterBranchTransaction = (location.search().isInterBranchSearch != undefined && location.search().isInterBranchSearch== 'true');
-            
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -241,6 +243,57 @@
                     }
                 });
             };
+            scope.formMultipleBankAccountsDisbursementData = function(){
+                scope.modelName = 'actualDisbursementDate';
+                    if(scope.response){
+                        scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
+                    }                    
+                    scope.showdiscountOnDisburse = false;
+                    scope.disableDiscount = true;
+                    scope.groupBankAccountDetailsData = [];
+                
+                    resourceFactory.loanTrxnsTemplateWithBankDetailsResource.get({loanId: scope.accountId}, function (data) {
+                        scope.loanTransactionData = data.loanTransactionData;
+                        scope.paymentTypes = scope.loanTransactionData.paymentTypeOptions;
+                        scope.transactionAuthenticationOptions = scope.loanTransactionData.transactionAuthenticationOptions ;
+                        if (scope.loanTransactionData.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.loanTransactionData.paymentTypeOptions[0].id;
+                        }
+                        scope.formData.transactionAmount = scope.loanTransactionData.amount;
+                        scope.netAmount = scope.loanTransactionData.netDisbursalAmount;
+                        scope.nextRepaymentDate = new Date(scope.loanTransactionData.possibleNextRepaymentDate) || new Date();
+                        scope.formData[scope.modelName] = new Date();
+                        if (scope.loanTransactionData.fixedEmiAmount) {
+                            scope.formData.fixedEmiAmount = scope.loanTransactionData.fixedEmiAmount;
+                            scope.showEMIAmountField = true;
+                        }
+                        if(scope.showNetDisbursalAmount && (scope.netAmount && scope.netAmount < scope.formData.transactionAmount)) {
+                            scope.showNetDisbursalAmount = true;
+                        }else{
+                            scope.showNetDisbursalAmount = false;
+                        }
+                        scope.formData.discountOnDisbursalAmount=scope.loanTransactionData.discountOnDisbursalAmount;
+                        if (scope.formData.discountOnDisbursalAmount){
+                            scope.showdiscountOnDisburse = true;
+                        }
+                        if(scope.loanTransactionData.expectedFirstRepaymentOnDate){
+                            scope.formData.repaymentsStartingFromDate = new Date(scope.loanTransactionData.expectedFirstRepaymentOnDate);
+                            scope.showRepaymentsStartingFromDateField = true;
+                        }
+                        scope.groupBankAccountDetailsData = data.groupBankAccountDetailsData || [];
+                    });
+                    if(routeParams.type && routeParams.type == 'flatinterest'){
+                        scope.showdiscountOnDisburse = true;
+                        scope.disableDiscount = false;
+                    }
+                    scope.title = 'label.heading.disburseloanaccount';
+                    scope.labelName = 'label.input.disbursedondate';
+                    scope.isTransaction = true;
+                    scope.showAmountField = true;
+                    scope.multipleBankDisbursalData = [];
+            };
+
+
             scope.formDisburseToSavingsData = function(){
                 scope.modelName = 'actualDisbursementDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
@@ -258,12 +311,13 @@
             };
 
             scope.formDisbursementData = function(){
-                scope.modelName = 'actualDisbursementDate';
+                 scope.modelName = 'actualDisbursementDate';
                     if(scope.response){
                         scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
                     }                    
                     scope.showdiscountOnDisburse = false;
                     scope.disableDiscount = true;
+                
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
@@ -805,6 +859,10 @@
                     scope.action = 'applypenalties';
                     scope.showNoteField = false;
                 break;
+                case "disbursetogroupbankaccounts":
+                    scope.formMultipleBankAccountsDisbursementData();
+                    scope.taskPermissionName = 'DISBURSE_TOGROUPSBANKACCOUNTS_LOAN';
+                    break;
             }
 
             scope.cancel = function () {
@@ -892,6 +950,16 @@
 
                 if (scope.action == "disburse" || scope.action == "forcedisburse"){
                     scope.constructGlimClientMembersData();
+                }
+
+                if(scope.action == 'disbursetogroupbankaccounts'){
+                    scope.formData.multipleBankDisbursalData=[];
+                    angular.copy(scope.multipleBankDisbursalData, scope.formData.multipleBankDisbursalData);
+                    for(var i in scope.formData.multipleBankDisbursalData){
+                        delete scope.formData.multipleBankDisbursalData[i].name;
+                        delete scope.formData.multipleBankDisbursalData[i].loanPurpose;
+                        delete scope.formData.multipleBankDisbursalData[i].paymentTypeName;
+                    }   
                 }
 
                 if(scope.action == "approve"){
@@ -1171,6 +1239,33 @@
                 resourceFactory.overdueChargeResource.run({loanIdParam: scope.accountId},formData, function (data) {
                    location.path('/viewloanaccount/' + data.loanId);
                 });
+            };
+
+            scope.isApprovableOrDisbursable = function(){
+                return scope.isGLIM && (scope.action=='approve' || scope.action=='disburse' ||  scope.action == 'forcedisburse');
+            };
+
+            scope.addDisbursalAmount = function () {   
+                if (scope.multipleBankDisbursalData.findIndex(x => x.groupBankAccountDetailAssociationId == scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId) < 0) {
+                    scope.isDuplicateBankDetail = false;
+                    var record = {
+                        groupBankAccountDetailAssociationId: scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId,
+                        amount: scope.bankAccountTemplate.disbursalAmount,
+                        name: scope.bankAccountTemplate.bankAccountAssociation.bankAccountDetails.name,
+                        loanPurpose: scope.bankAccountTemplate.bankAccountAssociation.loanPurpose
+                        
+                    };
+                    scope.multipleBankDisbursalData.push(record);
+                    scope.bankAccountTemplate.bankAccountAssociation = undefined;
+                    scope.bankAccountTemplate.disbursalAmount = undefined;
+                } else{
+                    scope.isDuplicateBankDetail = true;
+                }
+            };
+
+            scope.deleteRecord = function(index){
+                scope.multipleBankDisbursalData.splice(index,1);
+
             };
 
         }

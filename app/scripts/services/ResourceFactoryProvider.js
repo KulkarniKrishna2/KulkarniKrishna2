@@ -152,7 +152,7 @@
                         getAllNotes: {method: 'GET', params: {}, isArray: true}
                     }),
                     groupTemplateResource: defineResource(apiVer + "/groups/template", {}, {
-                        get: {method: 'GET', params: {}}
+                      get: {method: 'GET', params: {}}
                     }),
                     groupMeetingResource: defineResource(apiVer + "/groups/:groupId/meetings/:templateSource", {groupId: '@groupId', templateSource: '@templateSource'}, {
                         getMeetingInfo: {method: 'GET', params: {}}
@@ -1408,7 +1408,33 @@
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
-                    })
+                    }),
+
+                    groupBankAccountResource: defineResource(apiVer + "/groups/:groupId/bankaccountdetails", {groupId: '@groupId'}, {
+                        retrieveAll: {method: 'GET', params: {}},
+                        create: {method: 'POST'}
+                        
+                    }),
+                    groupBankAccountResourceTemplate: defineResource(apiVer + "/groups/:groupId/bankaccountdetails/template",  {groupId: '@groupId'}, {
+                      get: {method: 'GET', params: {}}
+                    }),
+                    groupBankAccountDetailsResource: defineResource(apiVer + "/groups/:groupId/bankaccountdetails/:bankAccountDetailAssociationId",  {groupId: '@groupId', bankAccountDetailAssociationId:'@bankAccountDetailAssociationId'}, {
+                      get: {method: 'GET', params: {}},
+                      delete: {method: 'DELETE'},
+                      update: {method: 'PUT'}
+                    }),
+                    groupBankAccountDetailActivateResource: defineResource(apiVer + "/groups/:groupId/bankaccountdetails/:bankAccountDetailAssociationId/activate",  {groupId: '@groupId', bankAccountDetailAssociationId:'@bankAccountDetailAssociationId'}, {
+                        activate: {method: 'POST'}
+                    }),
+                    loanTrxnsTemplateWithBankDetailsResource: defineResource(apiVer + "/loans/:loanId/transactions/template/bankaccountdetails", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    loanTrxnForUtrNumberResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/utrnumber", {loanId: '@loanId', transactionId: '@transactionId'}, {
+                        update: {method: 'PUT'}
+                    }),
+                    clientParentGroupsResource: defineResource(apiVer + "/clients/:clientId/groupdetails", {clientId: '@clientId'}, {
+                       getParentGroups: {method:'GET', params: {}, isArray: true}
+                    }),
                 };
             }];
         }
