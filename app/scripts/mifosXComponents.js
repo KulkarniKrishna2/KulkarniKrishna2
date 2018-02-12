@@ -568,7 +568,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'proxyuser/CreateProxyUserMappingController',
             'proxyuser/ViewProxyUserMappingsController',
             'proxyuser/EditProxyUserMappingController',
-            'proxyuser/SwitchUserController'
+            'proxyuser/SwitchUserController',
+            'groups/groupbankaccountdetails/GroupBankAccountDetailsController',
+            'groups/groupbankaccountdetails/CreateGroupBankAccountController',
+            'groups/groupbankaccountdetails/ViewGroupBankAccountController'
         ],
         filters: [
             'StatusLookup',

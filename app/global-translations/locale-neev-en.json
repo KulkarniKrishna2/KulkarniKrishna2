@@ -215,5 +215,10 @@
   "label.menu.clientclassification": "Select Client Occupation",
 
   "label.heading.clientclassification" : "Occupation",
-  "label.heading.reject.description":"Specify Reason"
+  "label.heading.reject.description":"Specify Reason",
+  "label.button.disburse.to.groups.bank.accounts" : "Disburse To Education Institution's Accounts",
+  "label.heading.group.bank.account.details":"Education Institution's Bank Account Details",
+  "label.button.tranche.disburse.to.groups.bank.accounts":"Disburse Tranche to Education Institution's Accounts",
+  "groupsbankaccountdetails":"Education Institution's Bank Account Details",
+  "error.msg.group.selection.is.mandatory" : "Education Institution selection is mandatory"
 }
