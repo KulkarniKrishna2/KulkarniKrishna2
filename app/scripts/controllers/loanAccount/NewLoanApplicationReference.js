@@ -21,6 +21,12 @@
             scope.slabBasedCharge = "Slab Based";
             scope.installmentAmountSlabChargeType = 1;
 
+            scope.paymentModeOptions = [];
+            scope.repaymentTypeOption = [];
+            scope.disbursementTypeOption = [];
+            scope.applicableOnRepayment = 1;
+            scope.applicableOnDisbursement = 2;
+
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             if (scope.clientId && scope.groupId) {
                 scope.inparams.templateType = 'jlg';
@@ -48,6 +54,7 @@
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.loanaccountinfo = data;
+                scope.paymentModeOptions = data.paymentModeOptions ;
 
                 if (data.clientName) {
                     scope.clientName = data.clientName;
@@ -380,6 +387,42 @@
                 }
                 return false;
             };
+
+            scope.$watch('formData.disbursementMode', function (newValue, oldValue, scope) {
+                scope.disbursementTypeOption = [];
+                if(scope.loanaccountinfo.paymentOptions){
+                    if(scope.formData.disbursementMode != undefined){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.disbursementMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
+                                scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    }else{
+                        scope.disbursementTypeOption = [];
+                    }
+                    
+                }
+            }, true);
+                
+            scope.$watch('formData.repaymentMode', function (newValue, oldValue, scope) {
+                scope.repaymentTypeOption = [];
+                if(scope.loanaccountinfo.paymentOptions){
+                    if(scope.formData.repaymentMode != undefined){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.repaymentMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)){
+                                scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    }else{
+                        scope.repaymentTypeOption = [];
+                    }
+                    
+                }
+            }, true);
         }
     });
     mifosX.ng.application.controller('NewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.NewLoanApplicationReference]).run(function ($log) {

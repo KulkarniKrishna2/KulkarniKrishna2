@@ -25,6 +25,12 @@
             scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
             var SLAB_BASED = 'slabBasedCharge';
             var UPFRONT_FEE = 'upfrontFee';
+            scope.paymentModeOptions = [];
+            scope.repaymentTypeOption = [];
+            scope.disbursementTypeOption = [];
+            scope.applicableOnRepayment = 1;
+            scope.applicableOnDisbursement = 2;
+
 
             resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
                 if(data.groupLevel && data.groupLevel==1)
@@ -84,8 +90,8 @@
             }else if(scope.inparams.templateType == 'group' || scope.inparams.templateType == 'glim'){
                 scope.inparams.productApplicableForLoanType = 3;
             }
-
             resourceFactory.loanResource.get(scope.inparams, function (data) {
+                scope.paymentModeOptions = data.paymentModeOptions;
                 scope.products = data.productOptions;
                 if (scope.isGLIM) {
                     scope.formData.clientMembers = data.group.clientMembers;
@@ -669,6 +675,36 @@
                 scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
                 scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
             }
+
+
+            
+            scope.$watch('formData.disbursementMode', function (newValue, oldValue, scope) {
+                scope.disbursementTypeOption = [];
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.disbursementMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
+                                scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    
+                }
+            }, true);
+                
+            scope.$watch('formData.repaymentMode', function (newValue, oldValue, scope) {
+                scope.repaymentTypeOption = [];
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.repaymentMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)){
+                                scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    
+                }
+            }, true);
             
         }
     });

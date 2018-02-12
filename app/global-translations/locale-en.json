@@ -6874,5 +6874,12 @@
     "label.heading.resolution" : "Resolution",
     "label.heading.queries.resolution": "Queries and resolution",
 
+    "label.heading.paymentmode" : "Payment Mode",
+    "label.heading.applicablefor" : "Applicable For",
+    "label.heading.serviceprovider" : "service Provider",
+    "label.button.repaymentsmode" : "Repayment Mode",
+    "label.button.disbursalmode" : "Disbursal Mode",
+    "label.input.paymentmode" : "Payment Mode",
+    
     "------ end of tensalation file":"---------"
 }
