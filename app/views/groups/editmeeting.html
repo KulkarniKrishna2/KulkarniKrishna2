@@ -36,9 +36,10 @@
                         <label class="control-label">{{'label.input.repeatsevery' | translate}}</label>
                     </div>
                     <div class="col-sm-1">
-                        <select class="form-control" ng-model="formData.interval"
+                        <select ng-if="!showAsTextBox" class="form-control" ng-model="formData.interval"
                                 ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions"
                                 value="{{repeatsEveryOption}}"></select>
+                        <input ng-if="showAsTextBox" type="number" min="1" max="365" ng-model="formData.interval" class="form-control" >
                     </div>
                     <div class="col-sm-1 text-center">
                         <label ng-show="formData.frequency=='2' || formData.frequency == 3"> - on -  </label>
