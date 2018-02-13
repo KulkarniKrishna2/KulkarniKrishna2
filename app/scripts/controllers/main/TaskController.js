@@ -146,12 +146,16 @@
                 scope.loanDisbursalTemplate = {};
                 scope.approveData = {};
                 scope.formData = {};
+                
                     var staffId = this.loanOfficerId;
                     if (this.centerId || this.groupId) {
                         staffId = undefined;
                     }
                     var searchConditions = {};
                     searchConditions.loanStatus = 100;
+                    if(this.expectedDisbursementOn){
+                        searchConditions.loanExpectedDisbursedOnDate = this.expectedDisbursementOn.getFullYear()+'-'+(this.expectedDisbursementOn.getMonth()+1)+'-'+this.expectedDisbursementOn.getDate();
+                    }
                     resourceFactory.tasklookupResource.get({
                         searchConditions: searchConditions,
                         officeId: this.officeId,
