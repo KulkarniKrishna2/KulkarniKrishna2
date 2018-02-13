@@ -667,11 +667,11 @@
                                 value="{{parentGroup.id}}" required">
                           <option value="">{{'label.menu.selectgroup' | translate}}</option>
                         </select>
-                         <form-validate valattributeform="newloanapplicationform" valattribute="groupId"/>
+                         <form-validate valattributeform="newloanaccountform" valattribute="groupId"/>
                     </div>
                     <div class="col-sm-3" ng-if="parentGroups.length == 1">
                         <input type="text" value="{{parentGroups[0].name}}" 
-                        class="form-control" ng-model = "parentGroups[0].id" readonly/> 
+                        class="form-control" ng-model = "formData.groupId" ng-init="formData.groupId = parentGroups[0].id" readonly/> 
                     </div>
                 </div>
             </div>
