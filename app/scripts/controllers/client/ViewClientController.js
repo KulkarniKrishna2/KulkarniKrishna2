@@ -96,115 +96,122 @@
             };
 
             scope.haveFile = [];
-            resourceFactory.clientResource.get({clientId: routeParams.id, associations:'hierarchyLookup'}, function (data) {
-                scope.client = data;
-                if(scope.client.lastname != undefined){
-                    scope.client.displayNameInReverseOrder = scope.client.lastname.concat(" ");
-                }
-                if(scope.client.middlename != undefined){
-                    scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.middlename).concat(" ");
-                }
-                if(scope.client.firstname != undefined){
-                    scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.firstname);
-                }
-                $rootScope.clientname=data.displayName;
-                scope.isClosedClient = scope.client.status.value == 'Closed';
-                scope.isActiveClient = scope.client.status.value == 'Active';
-                scope.staffData.staffId = data.staffId;
-                if(scope.client.dateOfBirth != undefined && scope.client.dateOfBirth != null){
-                    calculateClientAge(scope.client.dateOfBirth);
-                }
-
-                if(data.groups.length > 0 && data.groups[0].groupLevel==1){
-                    scope.isCenter=true;
-                }
-                if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==2) {
-                    scope.group = data.groups[0];
-                }
-                if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==1) {
-                    scope.center = data.groups[0];
-                }
-
-                getClientLoanApplications();
-
-                var clientStatus = new mifosX.models.ClientStatus();
-
-                if (clientStatus.statusKnown(data.status.value)) {
-                    scope.buttons = clientStatus.getStatus(data.status.value);
-                    scope.savingsActionbuttons = [
-                        {
-                            name: "button.deposit",
-                            type: "100",
-                            icon: "icon-arrow-right",
-                            taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
-                        },
-                        {
-                            name: "button.withdraw",
-                            type: "100",
-                            icon: "icon-arrow-left",
-                            taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
-                        },
-                        {
-                            name: "button.deposit",
-                            type: "300",
-                            icon: "icon-arrow-right",
-                            taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
-                        },
-                        {
-                            name: "button.withdraw",
-                            type: "300",
-                            icon: "icon-arrow-left",
-                            taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
-                        }
-                    ];
-                }
-
-                if (data.status.value == "Pending" || data.status.value == "Active") {
-                    if (data.staffId) {
-
-                    }else {
-                        scope.buttons.push(clientStatus.getStatus("Assign Staff"));
+            var isLoadClientDataTables = false;
+            function getClientData(){
+                resourceFactory.clientResource.get({clientId: routeParams.id, associations:'hierarchyLookup'}, function (data) {
+                    scope.client = data;
+                    if(scope.client.lastname != undefined){
+                        scope.client.displayNameInReverseOrder = scope.client.lastname.concat(" ");
                     }
-                    if (!scope.client.isWorkflowEnabled) {
-                        var editOption = {
-                            name: "label.button.edit",
-                            href: "#/editclient",
-                            icon: "icon-edit",
-                            taskPermissionName: "UPDATE_CLIENT"
-                        };
-                        scope.buttons.splice(1, 0, editOption);
-                        if (data.status.value == "Pending") {
-                            var activateOption = {
-                                name: "label.button.activate",
-                                href: "#/client",
-                                subhref: "activate",
-                                icon: "icon-ok-sign",
-                                taskPermissionName: "ACTIVATE_CLIENT"
+                    if(scope.client.middlename != undefined){
+                        scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.middlename).concat(" ");
+                    }
+                    if(scope.client.firstname != undefined){
+                        scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.firstname);
+                    }
+                    $rootScope.clientname=data.displayName;
+                    scope.isClosedClient = scope.client.status.value == 'Closed';
+                    scope.isActiveClient = scope.client.status.value == 'Active';
+                    scope.staffData.staffId = data.staffId;
+                    if(scope.client.dateOfBirth != undefined && scope.client.dateOfBirth != null){
+                        calculateClientAge(scope.client.dateOfBirth);
+                    }
+    
+                    if(data.groups.length > 0 && data.groups[0].groupLevel==1){
+                        scope.isCenter=true;
+                    }
+                    if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==2) {
+                        scope.group = data.groups[0];
+                    }
+                    if(data.groups.length > 0 && data.groups.length ==1 && data.groups[0].groupLevel==1) {
+                        scope.center = data.groups[0];
+                    }
+    
+                    if(isLoadClientDataTables){
+                        scope.getClientDatatables();
+                    }
+
+                    getClientLoanApplications();
+    
+                    var clientStatus = new mifosX.models.ClientStatus();
+    
+                    if (clientStatus.statusKnown(data.status.value)) {
+                        scope.buttons = clientStatus.getStatus(data.status.value);
+                        scope.savingsActionbuttons = [
+                            {
+                                name: "button.deposit",
+                                type: "100",
+                                icon: "icon-arrow-right",
+                                taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.withdraw",
+                                type: "100",
+                                icon: "icon-arrow-left",
+                                taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.deposit",
+                                type: "300",
+                                icon: "icon-arrow-right",
+                                taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
+                            },
+                            {
+                                name: "button.withdraw",
+                                type: "300",
+                                icon: "icon-arrow-left",
+                                taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
+                            }
+                        ];
+                    }
+    
+                    if (data.status.value == "Pending" || data.status.value == "Active") {
+                        if (data.staffId) {
+    
+                        }else {
+                            scope.buttons.push(clientStatus.getStatus("Assign Staff"));
+                        }
+                        if (!scope.client.isWorkflowEnabled) {
+                            var editOption = {
+                                name: "label.button.edit",
+                                href: "#/editclient",
+                                icon: "icon-edit",
+                                taskPermissionName: "UPDATE_CLIENT"
                             };
-                            scope.buttons.splice(1, 0, activateOption);
+                            scope.buttons.splice(1, 0, editOption);
+                            if (data.status.value == "Pending") {
+                                var activateOption = {
+                                    name: "label.button.activate",
+                                    href: "#/client",
+                                    subhref: "activate",
+                                    icon: "icon-ok-sign",
+                                    taskPermissionName: "ACTIVATE_CLIENT"
+                                };
+                                scope.buttons.splice(1, 0, activateOption);
+                            }
                         }
                     }
-                }
-
-                scope.buttonsArray = {
-                    options: [
-                        {
-                            name: "button.clientscreenreports"
+    
+                    scope.buttonsArray = {
+                        options: [
+                            {
+                                name: "button.clientscreenreports"
+                            }
+                        ]
+                    };
+    
+                    scope.buttonsArray.singlebuttons = scope.buttons;
+    
+                    scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
+                    for(var i in scope.buttonsArray.singlebuttons){
+                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                            break;
                         }
-                    ]
-                };
-
-                scope.buttonsArray.singlebuttons = scope.buttons;
-
-                scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
-                for(var i in scope.buttonsArray.singlebuttons){
-                    if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                        scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
-                        break;
-                    }
-                };
-            });
-
+                    };
+                });
+            }
+            getClientData();
             scope.navigateToSavingsOrDepositAccount = function (eventName, accountId, savingProductType) {
                 switch (eventName) {
                     case "deposit":
@@ -293,17 +300,23 @@
             scope.clientDatatablesLoaded = false;
             scope.getClientDatatables = function (){
                 if(!scope.clientDatatablesLoaded){
-                    scope.clientDatatablesLoaded = true;
-                    var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
-                    if (associatedEntityId == null) {
-                        associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
-                    } else if (associatedEntityId == null) {
-                        associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+                    if(!_.isUndefined(scope.client.id)){
+                        isLoadClientDataTables = true;
+                        scope.clientDatatablesLoaded = true;
+                        var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
+                        if (associatedEntityId == null) {
+                            associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
+                        } else if (associatedEntityId == null) {
+                            associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+                        }
+                        var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
+                        resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
+                            scope.datatables = data;
+                        });
+                    }else{
+                        isLoadClientDataTables = true;
+                        getClientData();
                     }
-                    var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
-                    resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
-                        scope.datatables = data;
-                    });
                 }
             };
 
