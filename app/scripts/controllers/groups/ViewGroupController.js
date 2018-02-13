@@ -10,6 +10,7 @@
             scope.openSaving = true;
             scope.editMeeting = false;
             scope.sections = [];
+            scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };

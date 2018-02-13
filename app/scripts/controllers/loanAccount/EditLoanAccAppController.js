@@ -41,6 +41,10 @@
             scope.applicableOnDisbursement = 2;
 
             scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
+            scope.parentGroups = [];
+            scope.canDisburseToGroupBankAccounts = false;
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
                 for(var i in scope.formData.clientMembers){
@@ -108,7 +112,7 @@
                         scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                         scope.interestRatesListAvailable = true;
                 }
-
+                scope.canDisburseToGroupBankAccounts = scope.loanaccountinfo.allowsDisbursementToGroupBankAccounts;
                 if(scope.loanaccountinfo.loanType.value == "GLIM") {
                     resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
                         scope.GLIMData = glimData;
@@ -157,6 +161,9 @@
                     scope.clientId = data.clientId;
                     scope.clientName = data.clientName;
                     scope.formData.clientId = scope.clientId;
+                    resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
+                        scope.parentGroups = data;
+                    });
                 }
 
                 if (data.group) {
@@ -225,6 +232,7 @@
                     scope.loanaccountinfo = data;
                     scope.collaterals = [];
                     var refreshLoanCharges  = true;
+                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     scope.previewClientLoanAccInfo(refreshLoanCharges);
                     scope.updateSlabBasedCharges();
                     if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
@@ -815,8 +823,10 @@
                     
                 }
             }, true);
-
            
+            scope.canDisburseToGroupsBanks = function(){
+                return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
+            };
         }
     });
     mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {

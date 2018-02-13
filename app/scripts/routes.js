@@ -1710,6 +1710,15 @@
             .when('/switchuser', {
                 templateUrl: 'views/administration/proxyuser/switchuser.html'
             })
+            .when('/groups/:groupId/bankaccountdetails', {
+                templateUrl: 'views/groups/bankaccountdetails/groupbankaccountdetails.html'
+            })
+            .when('/groups/:groupId/addbankaccountdetail', {
+                templateUrl: 'views/groups/bankaccountdetails/creategroupbankaccount.html'
+            })
+            .when('/groups/:groupId/bankaccountdetails/:groupBankAccountDetailAssociationId', {
+                templateUrl: 'views/groups/bankaccountdetails/viewgroupbankaccountdetails.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -138,5 +138,71 @@
 
             </div>
         </div>
+        <hr ng-if="groupBankAccountDetails.bankAccountDetails"/>
+        <div class="row-fluid" ng-if="groupBankAccountDetails.bankAccountDetails">
+            <label class="col-sm-4"><strong>{{ 'label.heading.bank.account.details' | translate }}&nbsp;:</strong></label>
+        <table width="100%">
+            <tr>
+                <td width="20%">{{'label.input.holdername' | translate}}</td>
+                <td width="80%">{{groupBankAccountDetails.bankAccountDetails.name}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.input.accountnumber' | translate}}</td>
+                <td>{{groupBankAccountDetails.bankAccountDetails.accountNumber}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.purpose' | translate}}</td>
+                <td>{{groupBankAccountDetails.loanPurpose}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.accounttype' | translate}}</td>
+                <td>{{groupBankAccountDetails.bankAccountDetails.accountType.value}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.ifsccode' | translate}}</td>
+                <td>{{groupBankAccountDetails.bankAccountDetails.ifscCode}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.bankname' | translate}}</td>
+                <td>{{groupBankAccountDetails.bankAccountDetails.bankName}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.input.branchName' | translate}}</td>
+                <td>{{groupBankAccountDetails.bankAccountDetails.branchName}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.input.branchName' | translate}}</td>
+                <td>{{groupBankAccountDetails.bankAccountDetails.bankCity}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.utrnumber' | translate}}</td>
+                <td>{{transaction.utrNumber}} <button class="icon-pencil icon-white" ng-click="editUtrNumber()"></button></td>
+            </tr>
+        </table>
+        </div>
+        <script type="text/ng-template" id="utrNumber.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.utrnumber' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.heading.utrnumber' | translate}}</label>
+                <div class="col-sm-4">
+                    <input  class="input-sm form-control" type="text" id="utrNumber" name="utrNumber" ng-model="utrFormData.utrNumber"/>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitUtrn()">{{'label.button.submit' | translate}}</button>
+        </div>
+    </script>
+
+
+
+
     </div>
 </div>

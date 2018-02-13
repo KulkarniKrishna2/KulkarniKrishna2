@@ -12,6 +12,10 @@
             var UPFRONT_FEE = 'upfrontFee';
             scope.slabBasedCharge = 'Slab Based';
             scope.installmentAmountSlabChargeType = 1;
+            scope.parentGroups = [];
+            scope.canDisburseToGroupBankAccounts = false;
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
 
             scope.paymentModeOptions = [];
             scope.repaymentTypeOption = [];
@@ -38,6 +42,10 @@
                 if(scope.applicationData.allowUpfrontCollection || scope.applicationData.amountForUpfrontCollection){
                     scope.formData.amountForUpfrontCollection = scope.applicationData.amountForUpfrontCollection;
                 }
+                scope.canDisburseToGroupBankAccounts = scope.applicationData.allowsDisbursementToGroupBankAccounts;
+                resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.formData.clientId}, function (data) {
+                    scope.parentGroups = data;
+                });
                 scope.loanProductChange(applicationData.loanProductId, false);
             });
 
@@ -74,6 +82,7 @@
                     scope.getRepaymentTypeOptions();
                     scope.paymentModeOptions = data.paymentModeOptions ;
                     scope.productLoanCharges = data.product.charges || [];
+                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
                         for(var i = 0; i < len; i++){
@@ -453,6 +462,9 @@
                 scope.getRepaymentTypeOptions();                
             }, true);
 
+            scope.canDisburseToGroupsBanks = function(){
+                return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
+            }; 
         }
     });
     mifosX.ng.application.controller('UpdateLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.UpdateLoanApplicationReference]).run(function ($log) {

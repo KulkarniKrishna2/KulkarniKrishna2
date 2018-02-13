@@ -45,6 +45,9 @@
             scope.configureInterestRatesChart = false;
             scope.interestratesListPerPeriod = [];
             scope.interestRate = {};
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            scope.allowLoanProductForGroupBankAccount = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccount);
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];

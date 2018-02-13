@@ -682,8 +682,29 @@
                     </tbody>
                 </table>
             </div>
-            <hr/>
+            
+            <div class="col-md-12" ng-if="canDisburseToGroupsBanks()">
+                <hr/>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">{{'label.heading.groups' | translate}}
+                        <span ng-if="parentGroups.length > 1" class="required">*</span></label>
+                    <div class="col-sm-3" ng-if="parentGroups.length > 1">
+                        <select id="groupId"  name = "groupId" ng-model="formData.groupId" class="form-control"
+                                ng-options="parentGroup.id as parentGroup.name for parentGroup in parentGroups"
+                                value="{{parentGroup.id}}" required">
+                          <option value="">{{'label.menu.selectgroup' | translate}}</option>
+                        </select>
+                         <form-validate valattributeform="newloanapplicationform" valattribute="groupId"/>
+                    </div>
+                    <div class="col-sm-3" ng-if="parentGroups.length == 1">
+                        <input type="text" value="{{parentGroups[0].name}}" 
+                        class="form-control" ng-model = "parentGroups[0].id" readonly/> 
+                    </div>
+                </div>
+            </div>
+           
             <div class="col-md-12">
+                <hr/>
                 <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
                 <select ng-model="chargeFormData.chargeId"
                         ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"

@@ -3,15 +3,20 @@
         ViewLoanTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
 
             scope.glimTransactions = [];
+            scope.groupBankAccountDetails = {};
 
-            resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
+            function init(){
+                resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                 scope.transaction = data;
                 scope.glimTransactions = data.glimTransactions;
                 scope.transaction.accountId = routeParams.accountId;
                 scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
                 scope.transaction.updatedDate = new Date(scope.transaction.updatedDate.iLocalMillis);
+                scope.groupBankAccountDetails = data.bankAccountDetailsData;
                 scope.isUndoEditTrxnEnabled();
-            });
+             });
+            };
+
 
             scope.isUndoEditTrxnEnabled = function () {
                 scope.hideEditUndoTrxnButton = false;
@@ -50,6 +55,34 @@
                 };
             };
 
+
+            scope.editUtrNumber = function () {
+                $modal.open({
+                    templateUrl: 'utrNumber.html',
+                    controller: UtrnCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
+
+            var UtrnCtrl = function ($scope, $modalInstance) {
+                
+                $scope.utrFormData =  {};
+                
+
+                $scope.submitUtrn = function () {
+
+                    resourceFactory.loanTrxnForUtrNumberResource.update({loanId: routeParams.accountId, transactionId: routeParams.id},$scope.utrFormData, function (data) {
+                        $modalInstance.close('utrNumber');
+                        init();
+                    });
+                };
+
+                 $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                
+            };
+            init();
         }
     });
     mifosX.ng.application.controller('ViewLoanTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', mifosX.controllers.ViewLoanTransactionController]).run(function ($log) {

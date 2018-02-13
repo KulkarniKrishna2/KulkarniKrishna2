@@ -1,0 +1,67 @@
+<div class="col-md-12" ng-controller="ViewGroupBankAccountController">
+   <div>
+      <ul class="breadcrumb">
+         <li><a ng-href="#/viewoffice/{{groupData.officeId}}">{{groupData.officeName}}</a></li>
+         <li ng-if="groupData.centerName"><a ng-href="#/viewcenter/{{groupData.centerId}}">{{groupData.centerName}}</a></li>
+         <li><a ng-href="#/viewgroup/{{groupData.id}}">{{groupData.name}}</a></li>
+         <li><a ng-href="#/groups/{{groupData.id}}/bankaccountdetails">{{'label.anchor.bankaccountdetails' | translate}}</a></li>
+      </ul>
+   </div>
+   <api-validate></api-validate>
+   <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+   <div ng-if = "!isEdit">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.name}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.accountNumber}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.heading.purpose' | translate}}:&nbsp;</b></span>
+               <span>{{purpose}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.accountType.code | translate}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.heading.status' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.status.value | translate}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.ifscCode}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.bankName}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.branchName}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.bankCity}}</span>
+            </div>
+            <div class="form-group paddedtop">
+               <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
+               <span>{{bankAccountData.mobileNumber}}</span>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-offset-2 paddedleft paddedtop" >
+         <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_GROUP_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
+         <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_GROUP_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
+         <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_GROUP_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
+      </div>
+   </div>
+   <div ng-if = "isEdit">
+      <div  ng-include="'views/groups/bankaccountdetails/modifygroupbankaccountdetail.html'">
+      </div>
+   </div>
+</div>

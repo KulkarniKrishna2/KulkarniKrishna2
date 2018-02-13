@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse') && (response.uiDisplayConfigurations.loanAccount.isShowField.nextRepaymentDateDisburseScreen)">
+    <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse' || action =='disbursetogroupbankaccounts') && (response.uiDisplayConfigurations.loanAccount.isShowField.nextRepaymentDateDisburseScreen)">
         <label class="control-label col-sm-2" for="nextRepaymentDate">{{'label.input.nextrepaymentdate' | translate}}</label>
 
         <div class="col-sm-3">
@@ -136,7 +136,7 @@
                    ng-model="nextRepaymentDate" min="'2000-01-01'" max="restrictDate" ng-disabled="false"/>
         </div>
     </div>
-    <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse') && ((response.uiDisplayConfigurations.loanAccount.isShowField.adjustRepaymentDateDisburseScreen) || formData.adjustRepaymentDate)">
+    <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse' || action == 'disbursetogroupbankaccounts') && ((response.uiDisplayConfigurations.loanAccount.isShowField.adjustRepaymentDateDisburseScreen) || formData.adjustRepaymentDate)">
         <label class="control-label col-sm-2" for="adjustRepaymentDate">{{'label.input.adjusteddate' | translate}}</label>
 
         <div class="col-sm-3">
@@ -561,7 +561,7 @@
         </div>
     </div>
 </div>
-    <div class="form-group" ng-show="isGLIM && (action=='approve' || action=='disburse' ||  action == 'forcedisburse')">
+    <div class="form-group" ng-show="isApprovableOrDisbursable()">
         <label class="control-label col-sm-2">{{ 'label.heading.amountbreakup' | translate }}</label>
         <div  class="col-sm-6">
             <table class="table well">
@@ -735,6 +735,54 @@
         translate}}
     </button>
 
+</div>
+<div class="form-group"  ng-if= "action =='disbursetogroupbankaccounts'">
+    <h4>{{ 'label.heading.group.bank.account.details' | translate}}</h4>
+    <hr/>
+
+    <div class="form-group">
+        <label class="control-label col-sm-3">{{ 'label.input.holdername' | translate }}<span
+                        class="required">*</span></label>
+        <div class="col-sm-2">
+            <select id="bankId"  name = "bankId" ng-model="bankAccountTemplate.bankAccountAssociation" class="form-control" ng-options="accountDetails.bankAccountDetails.name +'-'+accountDetails.loanPurpose  for accountDetails in groupBankAccountDetailsData"
+            value="{{accountDetails.groupBankAccountDetailAssociationId}}">
+                <option value="">{{'label.menu.selectbank' | translate}}</option>
+            </select>
+        </div>
+       
+        <div class="row">
+            <label class="control-label col-sm-1">{{ 'label.input.amount' | translate }}<span
+                        class="required">*</span></label>
+            <div class="col-sm-2">
+                <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" class="form-control"/>
+            </div>
+            <div class="col-sm-2">
+                <a ng-click="addDisbursalAmount()"><i class="icon-plus icon-white"></i></a>
+                <span ng-show="isDuplicateBankDetail">
+                    <small class="error">{{ 'label.error.bank.account.already.present' | translate }}</small>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8" ng-if="multipleBankDisbursalData.length > 0" class="form-group width70">
+        <table ng-show="multipleBankDisbursalData.length > 0" class="table">
+            <tr class="graybg">
+                <th class="col-sm-1 align="center">{{'label.heading.serialno' | translate}}</th>
+                <th class="col-sm-3" align="center">{{'label.input.holdername' | translate}}</th>
+                <th class="col-sm-2" align="center">{{'label.input.amount' | translate}}</th>
+                <th class="col-sm-1" align="center">{{'label.heading.actions' | translate}}</th>
+            </tr>
+            <tr ng-repeat="record in multipleBankDisbursalData">
+                <td class="col-sm-1"><label> {{$index+1}} </label></td>
+                <td class="col-sm-3">{{record.name}}-{{record.loanPurpose}} </td>
+                <td class="col-sm-2">{{record.amount}} </td>
+                <td class="col-sm-1">
+                    <button data-ng-if="multipleBankDisbursalData.length > 0" type="button" class="btn-link ng-binding"><i class="icon-remove icon-white" ng-click="deleteRecord($index)"></i>
+                    </button>
+                </td>         
+            </tr>
+        </table>
+    </div>
 </div>
 <div class="col-md-offset-2" ng-hide="showDelete || showwaiveforspecicficduedate">
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' |

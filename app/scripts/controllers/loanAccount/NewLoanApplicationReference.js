@@ -20,6 +20,10 @@
             var UPFRONT_FEE = 'upfrontFee';
             scope.slabBasedCharge = "Slab Based";
             scope.installmentAmountSlabChargeType = 1;
+            scope.canDisburseToGroupBankAccounts = false;
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            scope.parentGroups = [];
 
             scope.paymentModeOptions = [];
             scope.repaymentTypeOption = [];
@@ -64,6 +68,10 @@
                 }
             });
 
+            resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
+                scope.parentGroups = data;
+            });
+
             scope.loanProductChange = function (loanProductId) {
 
                 scope.inparams.productId = loanProductId;
@@ -87,6 +95,7 @@
                         scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         delete scope.formData.loanEMIPackId;
                     }
+                    scope.canDisburseToGroupBankAccounts = scope.loanaccountinfo.allowsDisbursementToGroupBankAccounts;
                     if( scope.loanaccountinfo.paymentOptions){
                         scope.paymentOptions = scope.loanaccountinfo.paymentOptions;
                     }
@@ -423,6 +432,10 @@
                     
                 }
             }, true);
+
+            scope.canDisburseToGroupsBanks = function(){
+                return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
+            }; 
         }
     });
     mifosX.ng.application.controller('NewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.NewLoanApplicationReference]).run(function ($log) {

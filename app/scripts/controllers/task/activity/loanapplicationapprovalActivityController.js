@@ -161,17 +161,13 @@
             };
 
             scope.isExists = function(array,value){
-               for (var i = 0; i < array.length; i++) {
-<<<<<<< HEAD
-                 if (array[i].chargeId === value) {
-=======
-                 if (array[i][key] === value) {
->>>>>>> v17.11.1_VAYA
-                    return false;
-                 }
-              }
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].chargeId === value) {
+                        return false;
+                    }
+                }
               return true;
-             }
+            }
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};

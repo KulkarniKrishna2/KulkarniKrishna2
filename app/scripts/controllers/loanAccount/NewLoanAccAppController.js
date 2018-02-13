@@ -30,7 +30,10 @@
             scope.disbursementTypeOption = [];
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
-
+            scope.canDisburseToGroupBankAccounts = false;
+            scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            scope.parentGroups = [];
 
             resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
                 if(data.groupLevel && data.groupLevel==1)
@@ -111,6 +114,9 @@
                 }
             });
 
+            resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
+                scope.parentGroups = data;
+            });
 
             scope.$watch('productLoanCharges', function(){
                 if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
@@ -139,6 +145,7 @@
                     scope.loanaccountinfo = data; 
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
+                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     scope.productLoanCharges = data.product.charges || [];
                     if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                         for(var i in scope.productLoanCharges){
@@ -617,6 +624,10 @@
                 });
             };
 
+            scope.canDisburseToGroupsBanks = function(){
+                return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
+            };
+            
             scope.cancel = function () {
                 if (scope.groupId) {
                     location.path('/viewgroup/' + scope.groupId);
