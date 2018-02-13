@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupBankAccountController: function (scope, routeParams, resourceFactory, location, route) {
+        CreateGroupBankAccountController: function (scope, routeParams, resourceFactory, location, route, $controller) {
+            angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"bankAccountDetails"}));
             scope.formData = {};
             scope.repeatFormData = {};
             scope.bankAccountTypeOptions = [];
@@ -49,7 +50,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupBankAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.CreateGroupBankAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateGroupBankAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','$controller', mifosX.controllers.CreateGroupBankAccountController]).run(function ($log) {
         $log.info("CreateGroupBankAccountController initialized");
     });
 }(mifosX.controllers || {}));

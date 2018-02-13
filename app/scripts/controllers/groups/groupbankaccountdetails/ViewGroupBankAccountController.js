@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewGroupBankAccountController: function (scope, routeParams, resourceFactory, location, route) {
+        ViewGroupBankAccountController: function (scope, routeParams, resourceFactory, location, route, $controller) {
+            angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"bankAccountDetails"}));
             scope.formData = {};
             scope.repeatFormData = {};
             scope.bankAccountTypeOptions = [];
@@ -72,9 +73,10 @@
             scope.edit = function(){
                	scope.isEdit = true;
                 scope.formData = scope.bankAccountData;
-                scope.formData.status = scope.bankAccountData.status
+                scope.formData.status = scope.bankAccountData.status;
                 scope.formData.accountTypeId =  scope.bankAccountData.accountType.id;
                 scope.formData.purposeId = scope.purposeId; 
+                scope.formData.mobileNumber = scope.bankAccountData.mobileNumber;
                 scope.repeatFormData = {
                     accountNumberRepeat: scope.formData.accountNumber,
                     ifscCodeRepeat: scope.formData.ifscCode
@@ -128,7 +130,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewGroupBankAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewGroupBankAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewGroupBankAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','$controller', mifosX.controllers.ViewGroupBankAccountController]).run(function ($log) {
         $log.info("ViewGroupBankAccountController initialized");
     });
 }(mifosX.controllers || {}));
