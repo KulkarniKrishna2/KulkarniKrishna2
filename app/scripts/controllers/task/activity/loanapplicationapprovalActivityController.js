@@ -140,7 +140,7 @@
                 resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
                     data.chargeId = data.id;
                     if(scope.isExists(scope.charges,data.id)){
-                        scope.charges.push(data);
+                        scope.charges.push(data);  
                     }
                     curIndex++;
                     if (curIndex == scope.loanAppChargeData.length) {
@@ -162,7 +162,11 @@
 
             scope.isExists = function(array,value){
                for (var i = 0; i < array.length; i++) {
+<<<<<<< HEAD
                  if (array[i].chargeId === value) {
+=======
+                 if (array[i][key] === value) {
+>>>>>>> v17.11.1_VAYA
                     return false;
                  }
               }
