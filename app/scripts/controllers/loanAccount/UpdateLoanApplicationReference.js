@@ -13,6 +13,12 @@
             scope.slabBasedCharge = 'Slab Based';
             scope.installmentAmountSlabChargeType = 1;
 
+            scope.paymentModeOptions = [];
+            scope.repaymentTypeOption = [];
+            scope.disbursementTypeOption = [];
+            scope.applicableOnRepayment = 1;
+            scope.applicableOnDisbursement = 2;
+
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.applicationData = applicationData;
                 scope.formData.clientId = applicationData.clientId;
@@ -22,6 +28,12 @@
                 }
                 if(scope.applicationData.expectedRepaymentPaymentType){
                     scope.formData.expectedRepaymentPaymentType = scope.applicationData.expectedRepaymentPaymentType.id;
+                }
+                if(applicationData.repaymentMode){
+                    scope.formData.repaymentMode = applicationData.repaymentMode.id;
+                }
+                if(applicationData.disbursementMode){
+                    scope.formData.disbursementMode = applicationData.disbursementMode.id;
                 }
                 if(scope.applicationData.allowUpfrontCollection || scope.applicationData.amountForUpfrontCollection){
                     scope.formData.amountForUpfrontCollection = scope.applicationData.amountForUpfrontCollection;
@@ -58,6 +70,9 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.getDisbursementTypeOtions();
+                    scope.getRepaymentTypeOptions();
+                    scope.paymentModeOptions = data.paymentModeOptions ;
                     scope.productLoanCharges = data.product.charges || [];
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
@@ -141,7 +156,7 @@
                         scope.formData.termFrequency = scope.applicationData.termFrequency;
                         scope.formData.noOfTranche = scope.applicationData.noOfTranche;
                         scope.formData.submittedOnDate = dateFilter(new Date(scope.applicationData.submittedOnDate),scope.df);
-
+                        
                         resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                             loanApplicationReferenceId: scope.loanApplicationReferenceId,
                             command: 'loanapplicationcharges'
@@ -402,6 +417,42 @@
                 }
                 return false;
             };
+
+            scope.$watch('formData.disbursementMode', function () {
+                scope.disbursementTypeOption = [];
+                scope.getDisbursementTypeOtions();
+            }, true);
+
+            scope.getDisbursementTypeOtions = function(){
+                if( scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.disbursementMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
+                                scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                }
+            }
+
+            scope.getRepaymentTypeOptions = function(){
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.repaymentMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)){
+                                scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    
+                }  
+            };
+                
+            scope.$watch('formData.repaymentMode', function () {
+                scope.repaymentTypeOption = [];
+                scope.getRepaymentTypeOptions();                
+            }, true);
+
         }
     });
     mifosX.ng.application.controller('UpdateLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.UpdateLoanApplicationReference]).run(function ($log) {

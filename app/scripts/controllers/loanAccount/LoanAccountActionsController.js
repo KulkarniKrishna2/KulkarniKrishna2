@@ -36,6 +36,11 @@
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
 
             scope.isInterBranchTransaction = (location.search().isInterBranchSearch != undefined && location.search().isInterBranchSearch== 'true');
+
+            scope.paymentModeOptions = [];
+            scope.paymentTypeOptions = [];
+            scope.applicableOnRepayment = 1;
+            scope.applicableOnDisbursement = 2;
             
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
@@ -257,6 +262,24 @@
                     scope.showAmountField = true;
             };
 
+
+            scope.getPaymentTypeOtions = function(){
+                scope.paymentTypeOptions =[];
+                if( scope.paymentTypes){
+                        var type = scope.applicableOnRepayment;
+                        if(scope.action!="disburse"){
+                            type = scope.applicableOnDisbursement;
+                        }
+                        for(var i in scope.paymentTypes){
+                            if((scope.paymentTypes[i].paymentMode== undefined || 
+                                scope.paymentTypes[i].paymentMode.id==scope.formData.paymentMode) && 
+                                (scope.paymentTypes[i].applicableOn== undefined || scope.paymentTypes[i].applicableOn.id != type)){
+                                scope.paymentTypeOptions.push(scope.paymentTypes[i]);
+                            }
+                        }
+                }
+            }
+
             scope.formDisbursementData = function(){
                 scope.modelName = 'actualDisbursementDate';
                     if(scope.response){
@@ -266,9 +289,13 @@
                     scope.disableDiscount = true;
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        scope.paymentModeOptions = data.paymentModeOptions;
                         scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData.transactionAmount = data.amount;
                         scope.netAmount = data.netDisbursalAmount;
@@ -369,10 +396,12 @@
                     break;
                 case "disburse":
                     scope.formDisbursementData();
+                    scope.getPaymentTypeOtions();
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
                 case "disbursetosavings":
                     scope.formDisburseToSavingsData();
+                    scope.getPaymentTypeOtions();
                     scope.taskPermissionName = 'DISBURSETOSAVINGS_LOAN';
                     break;
                 case "repayment":
@@ -383,9 +412,13 @@
                             scope.isGLIM = glimData[0].isActive;
                         }
                         resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
-                            scope.paymentTypes = data.paymentTypeOptions;
-                            if (data.paymentTypeOptions.length > 0) {
-                                scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                            scope.paymentTypes = data.paymentTypeOptions;                            
+                            scope.paymentModeOptions = data.paymentModeOptions;
+                            if (scope.paymentTypeOptions.length > 0) {
+                                scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                                if(scope.paymentTypeOptions[0].paymentMode){
+                                    scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                                }
                             }
                             if (scope.isGLIM && !scope.isGlimPaymentAsGroup) {
                                 scope.formData[scope.modelName] = new Date();
@@ -402,6 +435,7 @@
                                 scope.overdueDetailsFetched = false;
                                 scope.loanOverdueChargeData = data.loanOverdueChargeData;
                             }
+                            scope.getPaymentTypeOtions();
                         });
                     });
                     scope.title = 'label.heading.loanrepayments';
@@ -417,6 +451,7 @@
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.paymentTypeResource.getAll({}, function (data) {
                         scope.paymentTypes = data;
+                        scope.getPaymentTypeOtions();
                         if (data.length > 0) {
                             scope.formData.paymentTypeId = data[0].id;
                         }
@@ -433,8 +468,13 @@
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        scope.getPaymentTypeOtions();
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData.transactionAmount = data.amount;
                         if(data.penaltyChargesPortion>0){
@@ -456,8 +496,13 @@
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        scope.getPaymentTypeOtions();
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData.transactionAmount = data.amount;
                         if(data.penaltyChargesPortion>0){
@@ -479,6 +524,7 @@
                     scope.isTotalOutstandingInterest=scope.response.uiDisplayConfigurations.loanAccount.waiveInterest.isTotalOutstandingInterest;
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest',isTotalOutstandingInterest:scope.isTotalOutstandingInterest}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        scope.paymentModeOptions = data.paymentModeOptions;
                         resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (responseData) {
                             if (responseData.clientMembers.length>0 && !scope.isGlimPaymentAsGroup) {
                                 scope.clientMembers = responseData.clientMembers;
@@ -553,8 +599,12 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'refund'}, function (data) {
                         scope.amount = data.amount;
                         scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
                     });
@@ -571,6 +621,7 @@
                             scope.labelName = 'label.input.transactiondate';
                             scope.modelName = 'transactionDate';
                             scope.paymentTypes = data.paymentTypeOptions || [];
+                            scope.paymentModeOptions = data.paymentModeOptions;
                             scope.formData.transactionAmount = data.amount;
                             scope.formData[scope.modelName] = new Date(data.date) || new Date();
                             scope.glimTransactions = data.glimTransactions;
@@ -578,6 +629,9 @@
                             if (data.paymentDetailData) {
                                 if (data.paymentDetailData.paymentType) {
                                     scope.formData.paymentTypeId = data.paymentDetailData.paymentType.id;
+                                    if(data.paymentDetailData.paymentType.paymentMode){
+                                        scope.paymentMode = data.paymentDetailData.paymentType.paymentMode.id;
+                                    }
                                 }
                                 scope.formData.accountNumber = data.paymentDetailData.accountNumber;
                                 scope.formData.checkNumber = data.paymentDetailData.checkNumber;
@@ -682,8 +736,12 @@
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'recoverypayment'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData.transactionAmount = data.amount;
                         scope.formData[scope.modelName] = new Date();
@@ -743,8 +801,12 @@
                     scope.labelName = 'label.input.subsidyreleasedate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
                     });
@@ -767,8 +829,12 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'refundByCash'}, function (data) {
                         scope.formData.transactionAmount = data.amount;
                         scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        if (scope.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = scope.paymentTypeOptions[0].id;
+                            if(scope.paymentTypeOptions[0].paymentMode){
+                                scope.paymentMode = scope.paymentTypeOptions[0].paymentMode.id;
+                            }
                         }
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
                     });
@@ -1172,6 +1238,12 @@
                    location.path('/viewloanaccount/' + data.loanId);
                 });
             };
+
+            scope.$watch('formData.paymentTypeId', function () {
+                scope.paymentTypeOptions = [];
+                scope.getPaymentTypeOtions();
+            }, true);
+
 
         }
     });

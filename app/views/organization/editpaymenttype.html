@@ -17,6 +17,47 @@
                     <div class="col-sm-3">
                         <input type="text" id="name" name="name" ng-model="formData.name" class="form-control"/>
                     </div>
+                </div>                
+                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="paymentMode">{{'label.heading.paymentmode' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="paymentMode" name="paymentMode" ng-model="formData.paymentMode"
+                            ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
+                            value="{{paymentModeOption.id}}" ng-change="changePaymentMode(formData.paymentMode)" class="form-control"
+                            >
+                        <option value="">{{'label.selectone' | translate}}</option>
+                       </select>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-switch on="showPaymentModeOptions">
+                    <div data-ng-switch-when="true">
+                        <label class="control-label col-sm-2" for="applicableOn">{{'label.heading.applicablefor' | translate}}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <select id="applicableOn" name="applicableOn" ng-model="formData.applicableOn"
+                                ng-options="applicableOnOption.id as applicableOnOption.value for applicableOnOption in applicableOnOptions"
+                                value="{{applicableOnOption.id}}"  class="form-control"
+                                required>
+                            <option value="">{{'label.selectone' | translate}}</option>
+                           </select>
+                        </div>
+                        <div class="col-sm-3" ng-switch=>
+                            <form-validate valattributeform="createcenterform" valattribute="applicableOn"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showServiceProvider && showPaymentModeOptions">
+                    <label class="control-label col-sm-2" for="serviceProvider">{{'label.heading.serviceprovider' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="serviceProvider" name="serviceProvider" ng-model="formData.serviceProvider"
+                            ng-options="serviceProviderOption.id as serviceProviderOption.name for serviceProviderOption in serviceProviderOptions"
+                            value="{{serviceProviderOption.id}}"  class="form-control">
+                        <option value="">{{'label.selectone' | translate}}</option>
+                       </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" >{{'label.input.description' | translate}}</label>
@@ -40,7 +81,7 @@
                         <input type="text" id="position" name="position" ng-model="formData.position" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="externalservices">
+                <div class="form-group" data-ng-show="externalservices && showExternalServices">
                     <label class="control-label col-sm-2" >{{'label.input.externalservice' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -52,21 +93,21 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}</label>
 
                     <div class="col-sm-3">
                         {{formData.bankAccountDetails.name}}
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}</label>
 
                     <div class="col-sm-3">
                         {{formData.bankAccountDetails.accountNumber}}
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2">{{'label.input.accounttype' | translate}}</label>
                     <div class="col-sm-3">
                         <select id="accountType"  name = "accountType" ng-model="formData.bankAccountDetails.accountTypeId" class="form-control"
@@ -74,7 +115,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -82,7 +123,7 @@
                                type="text" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.bankname' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -90,7 +131,7 @@
                                type="text" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.bankcity' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -98,7 +139,7 @@
                                type="text" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.mobilenumber' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -106,7 +147,7 @@
                                type="text" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="formData.externalServiceId">
+                <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.email' | translate}}</label>
 
                     <div class="col-sm-3">

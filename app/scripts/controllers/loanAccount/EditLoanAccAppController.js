@@ -34,6 +34,11 @@
             scope.interestRatesListPerPeriod = [];
             scope.interestRatesListAvailable = false;
             scope.installmentAmountSlabChargeType = 1;
+            scope.paymentModeOptions = [];
+            scope.repaymentTypeOption = [];
+            scope.disbursementTypeOption = [];
+            scope.applicableOnRepayment = 1;
+            scope.applicableOnDisbursement = 2;
 
             scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
             scope.glimAutoCalPrincipalAmount = function () {
@@ -84,11 +89,19 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
+                scope.paymentModeOptions = data.paymentModeOptions || [];
                 if(scope.loanaccountinfo.expectedDisbursalPaymentType){
                     scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
                 }
                 if(scope.loanaccountinfo.expectedRepaymentPaymentType){
                     scope.formData.expectedRepaymentPaymentType = scope.loanaccountinfo.expectedRepaymentPaymentType.id;
+                }
+               if(data.repaymentMode){
+                    scope.formData.repaymentMode = data.repaymentMode;
+                }
+
+                if(data.disbursementMode){
+                    scope.formData.disbursementMode = data.disbursementMode;
                 }
 
                 if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
@@ -774,6 +787,34 @@
             {
                 return a - b;
             };
+
+            scope.$watch('formData.disbursementMode', function (newValue, oldValue, scope) {
+                scope.disbursementTypeOption = [];
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.disbursementMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
+                                scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    
+                }
+            }, true);
+                
+            scope.$watch('formData.repaymentMode', function (newValue, oldValue, scope) {
+                scope.repaymentTypeOption = [];
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
+                        for(var i in scope.loanaccountinfo.paymentOptions){
+                            if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.repaymentMode) && 
+                                (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)){
+                                scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }
+                        }
+                    
+                }
+            }, true);
 
            
         }
