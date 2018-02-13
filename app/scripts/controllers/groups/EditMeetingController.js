@@ -4,6 +4,7 @@
             scope.formData = {};
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
+            scope.showAsTextBox = false;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -66,6 +67,7 @@
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
                     scope.periodValue = "day(s)"
+                    scope.showAsTextBox = true;
                 }
                 if (period == 2) {
                     scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
@@ -80,6 +82,7 @@
                         {name: "SAT", value: "6"},
                         {name: "SUN", value: "7"}
                     ]
+                    scope.showAsTextBox = false;
                 }
                 if (period == 3) {
                     scope.periodValue = "month(s)";
@@ -101,10 +104,12 @@
                         {name: "SAT", value: 6},
                         {name: "SUN", value: 7}
                     ];
+                    scope.showAsTextBox = false;
                 }
                 if (period == 4) {
                     scope.periodValue = "year(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3"];
+                    scope.showAsTextBox = true;
                 }
             }
 

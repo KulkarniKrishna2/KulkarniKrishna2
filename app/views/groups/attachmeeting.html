@@ -72,10 +72,13 @@
                     <td class="col-sm-2 text-right">
                         <label class="control-label">{{'label.input.repeatsevery' | translate}}</label>
                     </td>
-                    <td class="col-sm-2">
+                    <td ng-if="!showAsTextBox" class="col-sm-2" >
                         <select class="form-control" ng-model="formData.interval"
                                 ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions">{{repeatsEveryOption}}
                         </select>
+                    </td>
+                    <td ng-if="showAsTextBox" class="col-sm-2" >
+                        <input type="number" min="1" max="365" ng-model="formData.interval" class="form-control" >
                     </td>
                     <td class="col-sm-2">
                         <label >{{periodValue}} </label>
