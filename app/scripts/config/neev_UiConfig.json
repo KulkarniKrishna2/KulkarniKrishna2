@@ -12,6 +12,11 @@
         "rejectDescription": true,
         "rejectCodes":false
       }
+    },
+    "bankAccountDetails": {
+      "regexValidations" :{
+        "mobileNumber":"^\\d*$"
+      }
     }
   }
 }
