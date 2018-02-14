@@ -169,7 +169,7 @@
                         get: {method: 'GET', params: {},  isArray: true},
                         post: {method: 'POST', params: {}}
                     }),
-                     fileDownloadResource: defineResource(apiVer + "/files/:fileId/download", {fileId: '@fileId'}, {
+                    fileUrlResource: defineResource(apiVer + "/files/:fileId", {fileId: '@fileId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", {id: '@id', resourceType: '@resourceType', usageTrackingEnabledOnly : '@usageTrackingEnabledOnly'}, {
