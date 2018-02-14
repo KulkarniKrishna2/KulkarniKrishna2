@@ -6877,5 +6877,9 @@
      "validation.msg.loanapplicationreference.multipleBankDisbursalData.cannot.be.empty":"Bank account details cann't be empty",
      "error.msg.bank.account.detail.association.exist":"Bank account number is already mapped.",
     "error.msg.work.flow.workflow.already.created.for.this.office" : "Entity already mapped to a workflow",
+     "error.msg.amount.is.invalid" :"Amount is invalid",
+     "error.msg.bank.account.not.selected":"Bank account not selected",
+     "loanaccountdisbursetogroupbankaccounts":"Disburse loan to group bank accounts",
+     "error.msg.bank.account.detail.association.exist":"Bank Account details mapping exists",
     "------ end of tensalation file":"---------"
 }

@@ -8,7 +8,7 @@
             scope.formData = {};
             scope.destinationGroup = "";
             scope.groupId = routeParams.id;
-            scope.isCenter=false;
+            scope.isCenter = false;
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'activeClientMembers'}, function (data) {
                 scope.data = data;
@@ -22,7 +22,7 @@
             scope.groups = function(value){
                 var deferred = $q.defer();
                 resourceFactory.groupResource.getAllGroups({name : value, orderBy : 'name', officeId : scope.data.officeId,
-                    sortOrder : 'ASC'}, function(data){
+                    sortOrder : 'ASC', status: 'ACTIVE'}, function(data){
                     scope.group = _.reject(data, function (group) {
                         return group.id == routeParams.id;
                     });
@@ -77,7 +77,12 @@
                 }
                 this.formData.inheritDestinationGroupLoanOfficer = this.formData.inheritDestinationGroupLoanOfficer || false;
                 resourceFactory.groupResource.save({groupId: routeParams.id, command: 'transferClients'}, this.formData, function (data) {
-                    location.path('/viewcenter/' + data.resourceId);
+                    if(isCenter){
+                        location.path('/viewcenter/' + data.resourceId);
+                    }else{
+                        location.path('/viewgroup/' + data.resourceId);
+                    }
+                  
                 });
             };
 
