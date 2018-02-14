@@ -31,10 +31,7 @@
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
                 return taskView;
             };
-
-            // scope.isTaskActive = function () {
-            //     return scope.isCurrentTask(scope.taskData.id);
-            // };
+            scope.getActivityView();
 
             function initTask(){
                 if(scope.taskData != undefined){

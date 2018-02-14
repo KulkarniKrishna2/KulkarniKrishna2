@@ -399,7 +399,7 @@
 
             scope.$watch('disbursementMode', function (newValue, oldValue, scope) {
                 scope.disbursementTypeOption = [];
-                if(scope.loanaccountinfo.paymentOptions){
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
                     if(scope.disbursementMode != undefined){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
@@ -417,7 +417,7 @@
                 
             scope.$watch('repaymentMode', function (newValue, oldValue, scope) {
                 scope.repaymentTypeOption = [];
-                if(scope.loanaccountinfo.paymentOptions){
+                if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
                     if(scope.repaymentMode != undefined){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
@@ -429,7 +429,6 @@
                     }else{
                         scope.repaymentTypeOption = [];
                     }
-                    
                 }
             }, true);
 

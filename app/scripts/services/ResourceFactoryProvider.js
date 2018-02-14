@@ -252,6 +252,10 @@
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    loanApplicationOverViewsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/overviews", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        getByClientId: {method: 'GET', params: {}, isArray: true},
+                        getByLoanAppId: {method: 'GET', params: {}},
+                    }),
                     loanCoApplicantsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/coapplicants/:coApplicantId", {loanApplicationReferenceId: '@loanApplicationReferenceId', coApplicantId: '@coApplicantId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         add: {method: 'POST', params: {clientId:'@clientId'}},

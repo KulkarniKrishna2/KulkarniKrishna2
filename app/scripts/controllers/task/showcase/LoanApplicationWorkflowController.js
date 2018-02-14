@@ -11,17 +11,19 @@
             scope.masterconfig = {};
             scope.loanApplicationData = {};
 
-            resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationId}, function (data) {
+            resourceFactory.loanApplicationOverViewsResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationId,type:'tasks'}, function (data) {
                 scope.loanApplicationData = data;
                 scope.formData = data;
-                scope.loanProductChange(scope.formData.loanProductId);
-
+                scope.clientName = data.clientName;
+                scope.groupName = data.groupName;
+                //scope.loanProductChange(scope.formData.loanProductId);
                 resourceFactory.entityTaskExecutionResource.get({entityType: "loanApplication",entityId:scope.loanApplicationId}, function (data) {
                     scope.taskData = data;
                     //scope.$broadcast('initTask', {"taskData": data});
                 });
             });
 
+            /*Not Using*/
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
                 if (scope.formData.clientId && scope.formData.groupId) {

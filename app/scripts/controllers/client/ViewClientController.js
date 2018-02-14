@@ -8,6 +8,7 @@
             scope.staffData = {};
             scope.formData = {};
             scope.openLoan = true;
+            scope.openLoanApplications = true;
             scope.openSaving = true;
             scope.openShares = true ;
             scope.updateDefaultSavings = false;
@@ -131,7 +132,7 @@
                         scope.getClientDatatables();
                     }
 
-                    getClientLoanApplications();
+                    scope.getClientActiveLoanApplications();
     
                     var clientStatus = new mifosX.models.ClientStatus();
     
@@ -228,16 +229,52 @@
                         break;
                 }
             };
+            
+            scope.clientActiveLoanApplicationsLoaded = false;
+            scope.getClientActiveLoanApplications = function (){
+                var status = 'active';
+                scope.loanApplications = [];
+                if(!scope.clientActiveLoanApplicationsLoaded){
+                    scope.clientActiveLoanApplicationsLoaded = true;
+                    getLoanApplications(status);
+                    getClientImageAndSignature();
+                }else{
+                    angular.copy(scope.activeLoanApplications,scope.loanApplications);
+                }
+            };
 
-            scope.clientLoanApplicationsLoaded = false;
-            function getClientLoanApplications (){
-                if(!scope.clientLoanApplicationsLoaded){
-                    scope.clientLoanApplicationsLoaded = true;
-                    resourceFactory.loanApplicationReferencesResource.getByClientId({clientId: routeParams.id}, function (data) {
-                        scope.loanApplications = data;
-                        getClientImageAndSignature();
-                    });
-                };
+            function getLoanApplications (status){
+                resourceFactory.loanApplicationOverViewsResource.getByClientId({clientId: routeParams.id, status:status}, function (data) {
+                    if(status == 'active'){
+                        scope.activeLoanApplications = data;
+                        angular.copy(scope.activeLoanApplications,scope.loanApplications);
+                    }else if(status == 'rejected'){
+                        scope.rejectedLoanApplications = data;
+                        angular.copy(scope.rejectedLoanApplications,scope.loanApplications);
+                    }
+                });
+            };
+
+            scope.clientRejectedLoanApplicationsLoaded = false;
+            scope.getClientRejectedLoanApplications = function (){
+                var status = 'rejected';
+                scope.loanApplications = [];
+                if(!scope.clientRejectedLoanApplicationsLoaded){
+                    scope.clientRejectedLoanApplicationsLoaded = true;
+                    getLoanApplications(status);
+                }else{
+                    angular.copy(scope.rejectedLoanApplications,scope.loanApplications);
+                }
+            };
+
+            scope.setLoanApplications = function () {
+                if (scope.openLoanApplications) {
+                    scope.openLoanApplications = false;
+                    scope.getClientRejectedLoanApplications();
+                } else {
+                    scope.openLoanApplications = true;
+                    scope.getClientActiveLoanApplications();
+                }
             };
 
             scope.clientAccountsLoaded = false;
