@@ -728,7 +728,7 @@
     <hr/>
 
     <div class="form-group">
-        <label class="control-label col-sm-3">{{ 'label.input.holdername' | translate }}<span
+        <label class="control-label col-sm-2">{{ 'label.input.holdername' | translate }}<span
                         class="required">*</span></label>
         <div class="col-sm-2">
             <select id="bankId"  name = "bankId" ng-model="bankAccountTemplate.bankAccountAssociation" class="form-control" ng-options="accountDetails.bankAccountDetails.name +'-'+accountDetails.loanPurpose  for accountDetails in groupBankAccountDetailsData"
@@ -741,17 +741,18 @@
             <label class="control-label col-sm-1">{{ 'label.input.amount' | translate }}<span
                         class="required">*</span></label>
             <div class="col-sm-2">
-                <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" class="form-control"/>
+                <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" class="form-control" ng-pattern="/^[0-9]*$/"/>
             </div>
             <div class="col-sm-2">
                 <a ng-click="addDisbursalAmount()"><i class="icon-plus icon-white"></i></a>
-                <span ng-show="isDuplicateBankDetail">
-                    <small class="error">{{ 'label.error.bank.account.already.present' | translate }}</small>
+                <span ng-show="isInvalid">
+                    <small class="error">{{ errorMessage | translate }}</small>
                 </span>
             </div>
         </div>
     </div>
     <div class="col-sm-8" ng-if="multipleBankDisbursalData.length > 0" class="form-group width70">
+        <br/>
         <table ng-show="multipleBankDisbursalData.length > 0" class="table">
             <tr class="graybg">
                 <th class="col-sm-1 align="center">{{'label.heading.serialno' | translate}}</th>
