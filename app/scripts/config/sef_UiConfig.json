@@ -21,7 +21,12 @@
 	}, {
 		"id": 5,
 		"value": "Late"
-	}]
+	}],
+	"createClient": {
+		"isMandatoryField": {
+			"maritalStatus":false
+		}
+	}
   }
 }
 	
