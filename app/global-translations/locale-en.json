@@ -6876,6 +6876,6 @@
      "error.msg.group.selection.is.mandatory" : "Group selection is mandatory",
      "validation.msg.loanapplicationreference.multipleBankDisbursalData.cannot.be.empty":"Bank account details cann't be empty",
      "error.msg.bank.account.detail.association.exist":"Bank account number is already mapped.",
-
+    "error.msg.work.flow.workflow.already.created.for.this.office" : "Entity already mapped to a workflow",
     "------ end of tensalation file":"---------"
 }
