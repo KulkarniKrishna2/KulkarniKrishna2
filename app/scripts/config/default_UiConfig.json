@@ -144,7 +144,8 @@
         "villageTown":false,
         "addressType":false,
         "mobileNumber":false,
-        "emailId":false
+        "emailId":false,
+        "maritalStatus":true
 	  }
 	},
 	"defaultGISConfig": {

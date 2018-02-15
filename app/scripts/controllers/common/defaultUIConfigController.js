@@ -25,6 +25,13 @@
                 return new RegExp(".*");
 
             };
+            scope.isElemMandatoryField = function(param){
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations[key]
+                    && scope.response.uiDisplayConfigurations[key].isMandatoryField && scope.response.uiDisplayConfigurations[key].isMandatoryField[param]){
+                    return true;
+                }
+                return false;
+            };
         }
     });
     mifosX.ng.application.controller('defaultUIConfigController', ['$scope', '$key',mifosX.controllers.defaultUIConfigController]).run(function ($log) {

@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateNewClientController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
+        CreateNewClientController: function ($controller,scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
+            angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"createClient"}));
             scope.offices = [];
             scope.staffs = [];
             scope.savingproducts = [];
@@ -48,7 +49,6 @@
             scope.isMobileNumberMandatory = false;
             scope.isEmailIdMandatory = false;
             scope.displayAge = false;
-            scope.ismaritalStatusRequired = true;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -515,7 +515,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateNewClientController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateNewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateNewClientController', ['$controller','$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateNewClientController]).run(function ($log) {
         $log.info("CreateNewClientController initialized");
     });
 }(mifosX.controllers || {}));

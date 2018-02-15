@@ -32,6 +32,7 @@
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.groupBankAccountDetailsData = [];
             scope.bankAccountTemplate={};
+            scope.isInvalid = false;
 
             resourceFactory.loanApplicationReferencesTemplateResource.get({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
@@ -595,9 +596,16 @@
                 return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
             }; 
 
-            scope.addDisbursalAmount = function () {   
-                if (scope.multipleBankDisbursalData.findIndex(x => x.groupBankAccountDetailAssociationId == scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId) < 0) {
-                    scope.isDuplicateBankDetail = false;
+            scope.addDisbursalAmount = function () {  
+                if(!scope.bankAccountTemplate.bankAccountAssociation){
+                    scope.isInvalid = true;
+                    scope.errorMessage = "error.msg.bank.account.not.selected";
+                } else if(!scope.bankAccountTemplate.disbursalAmount){
+                    scope.isInvalid = true;
+                    scope.errorMessage = "error.msg.amount.is.invalid";
+                } else 
+                if ((scope.multipleBankDisbursalData.findIndex(x => x.groupBankAccountDetailAssociationId == scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId) < 0) && scope.bankAccountTemplate.disbursalAmount) {
+                    scope.isInvalid = false;
                     var record = {
                         groupBankAccountDetailAssociationId: scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId,
                         amount: scope.bankAccountTemplate.disbursalAmount,
@@ -609,7 +617,8 @@
                     scope.bankAccountTemplate.bankAccountAssociation = undefined;
                     scope.bankAccountTemplate.disbursalAmount = undefined;
                 } else{
-                    scope.isDuplicateBankDetail = true;
+                    scope.isInvalid = true;
+                    scope.errorMessage = "label.error.bank.account.already.present";
                 }
             };
 

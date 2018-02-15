@@ -45,6 +45,7 @@
             
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            scope.isInvalid = false;
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -1298,9 +1299,15 @@
                 return scope.isGLIM && (scope.action=='approve' || scope.action=='disburse' ||  scope.action == 'forcedisburse');
             };
 
-            scope.addDisbursalAmount = function () {   
-                if (scope.multipleBankDisbursalData.findIndex(x => x.groupBankAccountDetailAssociationId == scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId) < 0) {
-                    scope.isDuplicateBankDetail = false;
+            scope.addDisbursalAmount = function () { 
+                if(!scope.bankAccountTemplate.bankAccountAssociation){
+                    scope.isInvalid = true;
+                    scope.errorMessage = "error.msg.bank.account.not.selected";
+                } else if(!scope.bankAccountTemplate.disbursalAmount){
+                    scope.isInvalid = true;
+                    scope.errorMessage = "error.msg.amount.is.invalid";
+                } else if ((scope.multipleBankDisbursalData.findIndex(x => x.groupBankAccountDetailAssociationId == scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId) < 0)  && scope.bankAccountTemplate.disbursalAmount) {
+                    scope.isInvalid = false;
                     var record = {
                         groupBankAccountDetailAssociationId: scope.bankAccountTemplate.bankAccountAssociation.groupBankAccountDetailAssociationId,
                         amount: scope.bankAccountTemplate.disbursalAmount,
@@ -1311,9 +1318,11 @@
                     scope.multipleBankDisbursalData.push(record);
                     scope.bankAccountTemplate.bankAccountAssociation = undefined;
                     scope.bankAccountTemplate.disbursalAmount = undefined;
-                } else{
-                    scope.isDuplicateBankDetail = true;
+                } else {
+                    scope.isInvalid = true;
+                    scope.errorMessage = "label.error.bank.account.already.present";
                 }
+
             };
 
             scope.deleteRecord = function(index){

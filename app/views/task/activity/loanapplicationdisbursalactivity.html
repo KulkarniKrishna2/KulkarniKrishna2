@@ -649,7 +649,7 @@
                                         <hr/>
 
                                         <div class="form-group width100">
-                                            <label class="control-label col-sm-3">{{ 'label.input.holdername' | translate }}<span
+                                            <label class="control-label col-sm-2">{{ 'label.input.holdername' | translate }}<span
                                                             class="required">*</span></label>
                                             <div class="col-sm-2">
                                                 <select id="bankId"  name = "bankId" ng-model="bankAccountTemplate.bankAccountAssociation" class="form-control" ng-options="accountDetails.bankAccountDetails.name +'-'+accountDetails.loanPurpose  for accountDetails in groupBankAccountDetailsData"
@@ -659,21 +659,22 @@
                                             </div>
                                            <div class="col-sm-1"></div>
                                             
-                                                <label class="control-label col-sm-1">{{ 'label.input.amount' | translate }}<span
-                                                            class="required">*</span></label>
+                                                <label class="control-label col-sm-1">{{ 'label.input.amount' | translate }}<span class="required">*</span></label>
                                                 <div class="col-sm-2">
-                                                    <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" class="form-control"/>
+                                                    <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" class="form-control" ng-pattern="/^[0-9]*$/"/>
                                                 </div>
-                                            <div class="col-sm-1"></div>
+                                                <div class="col-sm-1"></div>
                                                 <div class="col-sm-2">
                                                     <a ng-click="addDisbursalAmount()"><i class="icon-plus icon-white"></i></a>
-                                                    <span ng-show="isDuplicateBankDetail">
-                                                        <small class="error">{{ 'label.error.bank.account.already.present' | translate }}</small>
+                                                    <span ng-if="isInvalid">
+                                                        <small class="error">{{errorMessage | translate}}</small>
                                                     </span>
                                                 </div>
                                             
                                         </div>
+
                                         <div class="col-sm-8" ng-if="multipleBankDisbursalData.length > 0" class="form-group width70">
+                                        <br/>
                                             <table ng-show="multipleBankDisbursalData.length > 0" class="table">
                                                 <tr class="graybg">
                                                     <th class="col-sm-1 align="center">{{'label.heading.serialno' | translate}}</th>
@@ -684,7 +685,7 @@
                                                 <tr ng-repeat="record in multipleBankDisbursalData">
                                                     <td class="col-sm-1"><label> {{$index+1}} </label></td>
                                                     <td class="col-sm-3">{{record.name}}-{{record.loanPurpose}} </td>
-                                                    <td class="col-sm-2">{{record.amount}} </td>
+                                                    <td class="col-sm-2">{{record.amount | number}} </td>
                                                     <td class="col-sm-1">
                                                         <button data-ng-if="multipleBankDisbursalData.length > 0" type="button" class="btn-link ng-binding"><i class="icon-remove icon-white" ng-click="deleteRecord($index)"></i>
                                                         </button>
