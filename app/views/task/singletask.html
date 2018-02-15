@@ -76,12 +76,12 @@
             </div>
 
             <div class="row task-action">
-        <span class="pull-left">
-            <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="displayNotes()">Notes</button>&nbsp;
-            <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="displayAttachments()">Attachments</button>&nbsp;
-             <button type="button" class="btn btn-link" ng-disabled="isDisplayActionLogs" ng-click="displayActionLogs()">Action Logs</button>&nbsp;
-             <button type="button" class="btn btn-link" ng-disabled="isDisplayQueries" has-permission='READ_TASK_QUERY'ng-click="displayQueries()">{{'label.button.queries.resolution' | translate}}</button>&nbsp;
-        </span>
+                <span class="pull-left">
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="displayNotes()">Notes</button>&nbsp;
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="displayAttachments()">Attachments</button>&nbsp;
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayActionLogs" ng-click="displayActionLogs()">Action Logs</button>&nbsp;
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayQueries" has-permission='READ_TASK_QUERY'ng-click="displayQueries()">{{'label.button.queries.resolution' | translate}}</button>&nbsp;
+                </span>
             </div>
 
             <div class="row client" ng-if="isDisplayNotes">

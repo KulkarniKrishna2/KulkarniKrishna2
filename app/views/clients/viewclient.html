@@ -301,7 +301,16 @@
 						</div>
 				        <div>
 							<api-validate></api-validate>
-
+							<div class="pull-right">
+								<span>
+									<button data-ng-show="openLoanApplications" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoanApplications()">{{
+										'label.button.view.rejected.loan.applications' | translate }}
+									</button>
+									<button data-ng-show="!openLoanApplications" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoanApplications()">{{
+										'label.button.view.active.loan.applications' | translate }}
+									</button>
+								</span>
+							</div>
 							<div data-ng-if="loanApplications.length > 0">
 								<div class="span gray-head">
 									<span class="boldlabel">
