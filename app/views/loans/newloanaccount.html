@@ -122,7 +122,7 @@
                         <label>{{ 'label.button.disbursalmode' | translate }}:</label>
                     </td>
                     <td class="width31 paddedbottom10">
-                        <select id="disbursementMode" name="disbursementMode" ng-model="formData.disbursementMode"
+                        <select id="disbursementMode" name="disbursementMode" ng-model="disbursementMode"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
                             value="{{paymentModeOption.id}}"  class="form-control"
                             >
@@ -133,9 +133,9 @@
                         <label>{{ 'label.button.repaymentsmode' | translate }}:</label>
                     </td>
                     <td class="width31">
-                        <select id="repaymentMode" ng-model="formData.repaymentMode"
+                        <select id="repaymentMode" ng-model="repaymentMode"
                                 ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
-                            value="{{paymentModeOption.id}}" n class="form-control width170px"
+                            value="{{paymentModeOption.id}}" class="form-control width170px"
                                 value="{{paymentOption.id}}">
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>

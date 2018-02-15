@@ -486,7 +486,7 @@
             <div class="col-sm-3">
                 <select id="paymentMode" name="paymentMode" ng-model="paymentMode"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
-                            value="{{paymentModeOption.id}}"  class="form-control"
+                            value="{{paymentModeOption.id}}" ng-change="getPaymentTypeOtions()"  class="form-control"
                             >
                             <option value="">{{'label.selectone' | translate}}</option>
                        </select>

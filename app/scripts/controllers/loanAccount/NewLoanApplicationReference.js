@@ -397,13 +397,13 @@
                 return false;
             };
 
-            scope.$watch('formData.disbursementMode', function (newValue, oldValue, scope) {
+            scope.$watch('disbursementMode', function (newValue, oldValue, scope) {
                 scope.disbursementTypeOption = [];
                 if(scope.loanaccountinfo.paymentOptions){
-                    if(scope.formData.disbursementMode != undefined){
+                    if(scope.disbursementMode != undefined){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
-                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.disbursementMode) && 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.disbursementMode) && 
                                 (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
                                 scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
                             }
@@ -415,13 +415,13 @@
                 }
             }, true);
                 
-            scope.$watch('formData.repaymentMode', function (newValue, oldValue, scope) {
+            scope.$watch('repaymentMode', function (newValue, oldValue, scope) {
                 scope.repaymentTypeOption = [];
                 if(scope.loanaccountinfo.paymentOptions){
-                    if(scope.formData.repaymentMode != undefined){
+                    if(scope.repaymentMode != undefined){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
-                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.formData.repaymentMode) && 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.repaymentMode) && 
                                 (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)){
                                 scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
                             }
