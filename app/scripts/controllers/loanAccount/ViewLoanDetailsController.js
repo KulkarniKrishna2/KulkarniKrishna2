@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope, CommonUtilService) {
             scope.loandocuments = [];
             scope.report = false;
             scope.hidePentahoReport = true;
@@ -1019,7 +1019,7 @@
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].id) {
                             var loandocs = {};
-                            loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?';
                             data[i].docUrl = loandocs;
                         }
                         if(data[i].tagValue){
@@ -1044,7 +1044,7 @@
                 resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
                     document.docUrl = loandocs;
                 })
             };
@@ -1053,7 +1053,7 @@
                 resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
                     document.docUrl = loandocs;
                 })
             };
@@ -1088,7 +1088,7 @@
                                 || d.mandateStatus.code === 'CANCEL_INPROCESS'){
                                 inProcessExists = true;
                             }
-                            loandocs = API_VERSION + '/loans/' + d.loanId + '/documents/' + d.scannedDocumentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            loandocs = API_VERSION + '/loans/' + d.loanId + '/documents/' + d.scannedDocumentId + '/attachment?';
                             d.docUrl = loandocs;
                         }
                     }
@@ -1319,7 +1319,7 @@
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&" + CommonUtilService.commonParamsForNewWindow() +"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
@@ -1347,7 +1347,7 @@
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Transaction Receipt");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&" + CommonUtilService.commonParamsForNewWindow() +"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 var paramName = "R_transactionId";
@@ -1909,11 +1909,16 @@
 
             scope.canDisburseToGroupsBanks = function(){
                 return (scope.canDisburseToGroupBankAccount && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
-            }; 
+            };
+
+            scope.download = function(docUrl){
+                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
         }
     });
 
-    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', 'CommonUtilService', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });
 }(mifosX.controllers || {}));

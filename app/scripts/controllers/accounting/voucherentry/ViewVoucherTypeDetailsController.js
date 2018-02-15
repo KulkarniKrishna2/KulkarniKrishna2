@@ -3,7 +3,7 @@
  */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewVoucherTypeDetailsController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location, route, $modal) {
+        ViewVoucherTypeDetailsController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location, route, $modal, CommonUtilService) {
             /**
              * Based on the voucher type change the labels
              */
@@ -67,7 +67,7 @@
                 }, function (data) {
                     for (var l in data) {
                         var loandocs = {};
-                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
                         data[l].docUrl = loandocs;
                     }
                     scope.documents = data;
@@ -214,9 +214,14 @@
             scope.cancelDocuments = function () {
                 scope.isUploadNewDocuments = false;
             };
+
+            scope.download = function(docUrl){
+                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
         }
     });
-    mifosX.ng.application.controller('ViewVoucherTypeDetailsController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$location', '$route', '$modal', mifosX.controllers.ViewVoucherTypeDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewVoucherTypeDetailsController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$location', '$route', '$modal', 'CommonUtilService', mifosX.controllers.ViewVoucherTypeDetailsController]).run(function ($log) {
         $log.info("ViewVoucherTypeDetailsController initialized");
     });
 }(mifosX.controllers || {}));

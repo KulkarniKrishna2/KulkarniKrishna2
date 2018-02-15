@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BulkPortfolioTransactionsController: function (scope, resourceFactory, location, dateFilter, http, routeParams, paginatorService, API_VERSION, $upload, $rootScope) {
+        BulkPortfolioTransactionsController: function (scope, resourceFactory, location, dateFilter, http, routeParams, paginatorService, API_VERSION, $upload, $rootScope, CommonUtilService) {
      scope.bankStatements  = [];
       scope.options = [];
       var option1 = {id:0,value:"Not Processed"};
@@ -8,8 +8,7 @@
       scope.options.push(option1);
       scope.options.push(option2);
         scope.baseUri = $rootScope.hostUrl+API_VERSION+'/bankstatement/1/documents/';
-        scope.appendedUri = '/attachment?tenantIdentifier='+$rootScope.tenantIdentifier;
-    
+        
         scope.routeToTransaction = function(id,action){
             var uri = '/bankstatementsdetails/'+id+'/'+action
             location.path(uri);
@@ -31,12 +30,19 @@
 
         scope.fetchData = function () {
                 scope.bulkcollection = paginatorService.paginate(scope.fetchFunction, 10);   
-            };
-            scope.fetchData();
+        };
+        
+        scope.fetchData();
+
+        scope.download = function(docId){
+            var url = scope.baseUri + docId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+            window.open(url);
         }
 
+    }
+
     });
-    mifosX.ng.application.controller('BulkPortfolioTransactionsController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams','PaginatorService', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.BulkPortfolioTransactionsController]).run(function ($log) {
+    mifosX.ng.application.controller('BulkPortfolioTransactionsController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams','PaginatorService', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.BulkPortfolioTransactionsController]).run(function ($log) {
         $log.info("BulkPortfolioTransactionsController initialized");
     });
 }(mifosX.controllers || {}));

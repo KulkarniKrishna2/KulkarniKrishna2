@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewMandatesController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ViewMandatesController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope, CommonUtilService) {
             scope.requesttypes = ["MANDATES_DOWNLOAD","MANDATES_UPLOAD","TRANSACTIONS_DOWNLOAD","TRANSACTIONS_UPLOAD"];
             scope.formData = {};
 
@@ -18,7 +18,7 @@
                     for(var i=0; i<len; i++){
                         var d = data[i];
                         d.requestDate = new Date(d.requestDate);
-                        d.docUrl = API_VERSION + '/mandates/1/documents/' + d.documentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                        d.docUrl = API_VERSION + '/mandates/1/documents/' + d.documentId + '/attachment?';
                     }
                 }
                 scope.mandates = data;
@@ -49,11 +49,15 @@
                 }
             };
 
+            scope.download = function(docUrl){
+                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            }
 
         }
     });
 
-    mifosX.ng.application.controller('ViewMandatesController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewMandatesController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewMandatesController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope','CommonUtilService', mifosX.controllers.ViewMandatesController]).run(function ($log) {
         $log.info("ViewMandatesController initialized");
     });
 }(mifosX.controllers || {}));
