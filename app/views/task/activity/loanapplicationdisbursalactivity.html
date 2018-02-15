@@ -548,6 +548,17 @@
                                             </td>
 
                                             <td class="width25">
+                                                <label>{{ 'label.button.disbursalmode' | translate }}:</label>
+                                            </td>
+                                            <td class="width31 paddedbottom10">
+                                                <select id="paymentMode" name="paymentMode" ng-model="paymentMode"
+                                                    ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
+                                                    value="{{paymentModeOption.id}}" ng-change="changePaymentTypeOptions(paymentMode)"  class="form-control"
+                                                    >
+                                                    <option value="">{{'label.selectone' | translate}}</option>
+                                               </select>
+                                            </td>
+                                            <td class="width25">
                                                 <label>{{ 'label.input.paymenttype' | translate}}<span
                                                         class="required">*</span></label>
                                             </td>
@@ -555,7 +566,7 @@
                                                 <select id="paymentTypeId"
                                                         ng-model="formRequestData.disburse.paymentTypeId"
                                                         class="form-control"
-                                                        ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
+                                                        ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
                                                         value="{{paymentType.id}}"></select>
                                             </td>
 

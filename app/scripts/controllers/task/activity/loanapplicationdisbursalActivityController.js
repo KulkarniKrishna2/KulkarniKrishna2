@@ -22,16 +22,67 @@
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.groupBankAccountDetailsData = [];
             scope.bankAccountTemplate={};
-            resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (data) {
-                scope.paymentTypes = data.paymentOptions;
-                if (scope.paymentTypes) {
-                    scope.formRequestData.disburse.paymentTypeId = scope.paymentTypes[0].id;
+            scope.repaymentApplicableOn = 1;
+            scope.manualPaymentMode = 3;
+            scope.paymentModeOptions = [];
+            scope.paymentTypes = [];
+            scope.paymentTypeOptions = [];
+
+            scope.filterPaymentTypes = function(data){
+                scope.paymentTypes = [];
+                for(var i in data){
+                    if(data[i].applicableOn == undefined || data[i].applicableOn.id != scope.repaymentApplicableOn){
+                        scope.paymentTypes.push(data[i]);
+                    }
                 }
-            });
+
+            };
+
+            scope.updatePaymentType = function(expectedDisbursalPaymentType, disbursementMode){
+                if(expectedDisbursalPaymentType){
+                    for(var i in scope.paymentTypes){
+                        if(expectedDisbursalPaymentType.id==scope.paymentTypes[i].id){                            
+                            if(disbursementMode){
+                                scope.paymentMode = disbursementMode.id;
+                            }else{
+                                scope.paymentMode = scope.manualPaymentMode;
+                            }
+                            scope.changePaymentTypeOptions(scope.paymentMode);
+                            scope.formRequestData.disburse.paymentTypeId = scope.paymentTypes[i].id;
+
+                        }
+                    }
+                }else{
+                    scope.paymentMode = scope.manualPaymentMode;
+                }
+                
+            };
+
+            scope.changePaymentTypeOptions = function(id){
+                scope.paymentTypeOptions = [];
+                if(id){
+                    for(var i in scope.paymentTypes){
+                        if(scope.paymentTypes[i].paymentMode==undefined || scope.paymentTypes[i].paymentMode.id==id){
+                            scope.paymentTypeOptions.push(scope.paymentTypes[i]);
+                        }
+                    }
+                }else{
+                    scope.paymentTypeOptions = scope.paymentTypes;
+                }
+                if(scope.paymentTypeOptions.length>0){
+                    scope.formRequestData.disburse.paymentTypeId = scope.paymentTypeOptions[0].id;
+                }
+            };
 
             scope.isAlreadyDisbursed = false;
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
+                resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (tempData) {
+                    scope.paymentModeOptions = tempData.paymentModeOptions;
+                    scope.filterPaymentTypes(tempData.paymentOptions);
+                    scope.updatePaymentType(data.expectedDisbursalPaymentType ,data.disbursementMode);                    
+                });
+                
                 if (scope.formData.status.id === 400) {
                     getLoanAccountDetails(scope.formData.loanId);
                 }else{
