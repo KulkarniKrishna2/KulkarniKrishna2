@@ -157,8 +157,12 @@
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
-                    percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred
+                    percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
+                    splitDisbursementForCharges:scope.product.splitDisbursementForCharges
                 };
+                if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
+                    scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
+                }
                 if(scope.formData.applicableForLoanType == scope.INDIVIDUAL_CLIENT){
                     scope.formData.isEnableRestrictionForClientProfile = 'false';
                 }
