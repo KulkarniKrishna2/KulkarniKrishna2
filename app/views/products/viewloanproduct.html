@@ -350,6 +350,16 @@
 </tr>
 
 <tr>
+    <td>{{'label.input.splitdisbursementforcharges' | translate}}</td>
+    <td colspan="3">{{loanproduct.splitDisbursementForCharges | YesOrNo}}</td>
+</tr>
+
+<tr ng-if="loanproduct.splitDisbursementForCharges && loanproduct.paymentTypeForChargeDisbursement">
+    <td>{{'label.input.paymenttypeforchargeDisbursement' | translate}}</td>
+    <td colspan="3"> {{loanproduct.paymentTypeForChargeDisbursement.name}}</td>
+</tr>
+
+<tr>
 <td colspan="4"><br/></td>
 </tr>
 <tr class="bottomborder">
