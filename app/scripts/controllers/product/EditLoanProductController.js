@@ -174,8 +174,12 @@
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
-                    calculateIrr:scope.product.calculateIrr
+                    calculateIrr:scope.product.calculateIrr,
+                    splitDisbursementForCharges:scope.product.splitDisbursementForCharges
                 };
+                if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
+                    scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
+                }
                 if(scope.formData.applicableForLoanType == scope.INDIVIDUAL_CLIENT){
                     scope.formData.isEnableRestrictionForClientProfile = 'false';
                 }
