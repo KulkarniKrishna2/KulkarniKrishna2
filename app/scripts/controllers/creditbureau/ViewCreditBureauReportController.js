@@ -1,6 +1,6 @@
-(function (module) {
+(function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewCreditBureauReportController: function (scope, resourceFactory, location, routeParams, route, $modal) {
+        ViewCreditBureauReportController: function(scope, resourceFactory, location, routeParams, route, $modal, $http, $rootScope, $sce) {
             scope.clientId = routeParams.clientId;
             scope.enquiryId = routeParams.enquiryId;
             scope.isResponPresent = false;
@@ -8,64 +8,66 @@
             scope.creditBureauEnquiry = {};
             scope.reportEntityType = "CreditBureau";
             scope.isShowForceCreaditBureau = false;
-            scope.creditBureauFormdata = {'locale':scope.optlang.code};
+            scope.creditBureauFormdata = { 'locale': scope.optlang.code };
 
             resourceFactory.creditBureauEnquiriesResource.getAll({
-                    entityType: scope.entityType,
-                    entityId: scope.clientId,
-                    creditBureauEnquiryId : scope.enquiryId
-                  }, function (data) {
-                    scope.creditBureauEnquiries = data;
-                    if(scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0){
-                        scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
-                    }
-                    if(scope.creditBureauEnquiry.enquiryLoanAmount && scope.creditBureauEnquiry.enquiryLoanAmount>0 && (scope.creditBureauEnquiry.status.code=='SUCCESS' || scope.creditBureauEnquiry.status.code=='ERROR' || scope.creditBureauEnquiry.status.code=='INITIATED')){
-                        scope.isShowForceCreaditBureau = true;
-                        scope.creditBureauFormdata.creditbureauProductId = scope.creditBureauEnquiry.creditBureauProduct.id;
-                        scope.creditBureauFormdata.enquiryLoanPurposeId = scope.creditBureauEnquiry.loanPurpose.id;
-                        scope.creditBureauFormdata.enquiryLoanProductId = scope.creditBureauEnquiry.loanProduct.id;
-                        scope.creditBureauFormdata.enquiryLoanAmount = scope.creditBureauEnquiry.enquiryLoanAmount;
-                        scope.creditBureauFormdata.isForce= true;
-                    }
-                    if (scope.creditBureauEnquiry && scope.creditBureauEnquiry.status) {
-                        scope.isResponPresent = true;
-                        clientCreditSummary();
-                    }
-                    convertByteToString();
+                entityType: scope.entityType,
+                entityId: scope.clientId,
+                creditBureauEnquiryId: scope.enquiryId
+            }, function(data) {
+                scope.creditBureauEnquiries = data;
+                if (scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0) {
+                    scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
+                }
+                if (scope.creditBureauEnquiry.enquiryLoanAmount && scope.creditBureauEnquiry.enquiryLoanAmount > 0 && (scope.creditBureauEnquiry.status.code == 'SUCCESS' || scope.creditBureauEnquiry.status.code == 'ERROR' || scope.creditBureauEnquiry.status.code == 'INITIATED')) {
+                    scope.isShowForceCreaditBureau = true;
+                    scope.creditBureauFormdata.creditbureauProductId = scope.creditBureauEnquiry.creditBureauProduct.id;
+                    scope.creditBureauFormdata.enquiryLoanPurposeId = scope.creditBureauEnquiry.loanPurpose.id;
+                    scope.creditBureauFormdata.enquiryLoanProductId = scope.creditBureauEnquiry.loanProduct.id;
+                    scope.creditBureauFormdata.enquiryLoanAmount = scope.creditBureauEnquiry.enquiryLoanAmount;
+                    scope.creditBureauFormdata.isForce = true;
+                }
+                if (scope.creditBureauEnquiry && scope.creditBureauEnquiry.status) {
+                    scope.isResponPresent = true;
+                    clientCreditSummary();
+                }
+                convertByteToString();
             });
 
-            scope.creditBureauReport = function () {
-                resourceFactory.clientCreditBureauEnquiry.save({'clientId':scope.clientId},scope.creditBureauFormdata, function (data) {
+            scope.creditBureauReport = function() {
+                resourceFactory.clientCreditBureauEnquiry.save({ 'clientId': scope.clientId }, scope.creditBureauFormdata, function(data) {
                     location.path('/viewclient/' + scope.clientId);
                 });
             };
 
-            scope.cBStatus = function () {
+            scope.cBStatus = function() {
                 var status = undefined;
                 if (scope.creditBureauEnquiry && scope.creditBureauEnquiry.status && scope.creditBureauEnquiry.status.value) {
                     status = scope.creditBureauEnquiry.status.value;
                 }
                 return status;
             };
+
             function convertByteToString(content, status) {
                 scope.errorMessage = undefined;
                 var status = scope.cBStatus();
                 if (status) {
-                    scope.errorMessage = scope.creditBureauEnquiry.errors ;
+                    scope.errorMessage = scope.creditBureauEnquiry.errors;
                 }
                 return scope.errorMessage;
             };
-            function clientCreditSummary(){
+
+            function clientCreditSummary() {
                 resourceFactory.clientCreditSummary.getAll({
                     clientId: scope.clientId,
                     enquiryId: scope.enquiryId
-                    }, function (data) {
+                }, function(data) {
                     scope.existingLoans = data.existingLoans;
-                    scope.creditScores = data.creditScores ;
+                    scope.creditScores = data.creditScores;
                     constructLoanSummary();
                 });
             }
-            
+
 
             function constructLoanSummary() {
                 if (!_.isUndefined(scope.activeLoan)) {
@@ -241,7 +243,7 @@
             };
 
             function convertEMIAmountToMonthlyAmount(existingLoan) {
-                if(existingLoan.loanTenurePeriodType !=  undefined){
+                if (existingLoan.loanTenurePeriodType != undefined) {
                     if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
                         return existingLoan.installmentAmount;
                     } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
@@ -255,7 +257,7 @@
                     } else {
                         return 0.00;
                     }
-                }else{
+                } else {
                     return 0.00;
                 }
             };
@@ -272,22 +274,22 @@
                 return existingLoan.installmentAmount * 30;
             };
 
-            scope.initiateCreditBureauReport = function () {
-               location.path('/create/creditbureau/client/' + scope.clientId);
+            scope.initiateCreditBureauReport = function() {
+                location.path('/create/creditbureau/client/' + scope.clientId);
             };
 
-            scope.cancel = function () {
+            scope.cancel = function() {
                 location.path('/viewclient/' + scope.clientId);
             };
 
-            scope.refreshCreditBureauReport = function () {
+            scope.refreshCreditBureauReport = function() {
                 resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
                     enquiryId: scope.enquiryId,
                     entityType: scope.entityType,
                     entityId: scope.clientId
-                }, function (data) {
-                     scope.creditBureauEnquiries = data;
-                    if(scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0){
+                }, function(data) {
+                    scope.creditBureauEnquiries = data;
+                    if (scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0) {
                         scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
                     }
                     if (scope.creditBureauEnquiry && scope.creditBureauEnquiry.status) {
@@ -298,26 +300,25 @@
                 });
             };
 
-            var viewDocumentCtrl= function ($scope, $modalInstance, reportDetails) {
-                $scope.data = reportDetails;
-                $scope.close = function () {
-                    $modalInstance.close('close');
-                };   
-            };
-            scope.openViewDocument = function (enquiryId, reportEntityType) {
-                $modal.open({
-                    templateUrl: 'viewDocument.html',
-                    controller: viewDocumentCtrl,
-                     resolve: {
-                        reportDetails: function () {
-                            return {'enquiryId' : enquiryId,'reportEntityType' : reportEntityType};
-                        }
+            scope.openViewDocument = function(enquiryId, reportEntityType) {
+                var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
+                    enquiryId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                url = $sce.trustAsResourceUrl(url);
+                $http.get(url, { responseType: 'arraybuffer' }).
+                success(function(data, status, headers, config) {
+                    var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml'];
+                    var contentType = headers('Content-Type');
+                    var file = new Blob([data], { type: contentType });
+                    var fileContent = URL.createObjectURL(file);
+                    if (supportedContentTypes.indexOf(contentType) > -1) {
+                        var docData = $sce.trustAsResourceUrl(fileContent);
+                        window.open(docData);
                     }
                 });
             };
         }
     });
-    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$route','$modal', mifosX.controllers.ViewCreditBureauReportController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$route', '$modal', '$http', '$rootScope', '$sce', mifosX.controllers.ViewCreditBureauReportController]).run(function($log) {
         $log.info("ViewCreditBureauReportController initialized");
     });
 }(mifosX.controllers || {}));
