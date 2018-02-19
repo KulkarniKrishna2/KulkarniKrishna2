@@ -97,13 +97,11 @@
                                             <select id="glCAccounts{{$index}}" name="glCAccounts"
                                                     chosen="creditAccountingOptions" class="form-control"
                                                     ng-model="account.glAccountId"
-                                                    ng-options="glAccount.id as glAccount.name + ' ' + glAccount.glCode for glAccount in creditAccountingOptions"
+                                                    ng-options="glAccount.id as (glAccount.name +' ('+ glAccount.glCode +')') for glAccount in creditAccountingOptions"
                                                     value="{{glAccount.id}}" required late-validate=""
                                                     ng-change="setCreditAccountRunningBalance($index)">
                                                 <option class="displaynone" value="">
-                                                    {{'label.input.selectaccountnameorcode'
-                                                    |
-                                                    translate}}
+                                                    {{'label.input.selectaccountnameorcode'| translate}}
                                                 </option>
                                             </select>
                                         </div>
@@ -195,7 +193,7 @@
                                             <select id="glDAccounts{{$index}}" name="glDAccounts"
                                                     chosen="debitAccountingOptions" class="form-control"
                                                     ng-model="account.glAccountId"
-                                                    ng-options="glAccount.id as glAccount.name + ' ' + glAccount.glCode for glAccount in debitAccountingOptions"
+                                                    ng-options="glAccount.id as (glAccount.name +' ('+ glAccount.glCode +')') for glAccount in debitAccountingOptions"
                                                     value="{{glAccount.id}}" required late-validate=""
                                                     ng-change="setDebitAccountRunningBalance($index)">
                                                 <option class="displaynone" value="">

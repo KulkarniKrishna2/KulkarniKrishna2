@@ -55,7 +55,7 @@
                            'label.input.list' | translate}}
                            <div ng-show="debitRuleType=='Account'" class="marginbuttontop25px">
                                <select ng-model="formData.accountToDebit" chosen="glAccounts"
-                                       ng-options="debitAccount.id as debitAccount.name for debitAccount in glAccounts" class="form-control"></select>
+                                       ng-options="debitAccount.id as (debitAccount.name +' ('+ debitAccount.glCode +')') for debitAccount in glAccounts" class="form-control"></select>
                            </div>
                            <div ng-show="debitRuleType=='tags'" class="row">
                                <div class="col-sm-5 col-md-5">
@@ -87,7 +87,7 @@
                            'label.input.list' | translate}}
                            <div ng-show="creditRuleType=='Account'" class="marginbuttontop25px">
                                <select ng-model="formData.accountToCredit" chosen="glAccounts"
-                                       ng-options="creditAccount.id as creditAccount.name for creditAccount in glAccounts"></select>
+                                       ng-options="creditAccount.id as (creditAccount.name +' ('+ creditAccount.glCode +')') for creditAccount in glAccounts"></select>
                            </div>
                            <div ng-show="creditRuleType=='tags'" class="row">
                                <div class="col-sm-5 col-md-5">

@@ -383,7 +383,7 @@
                     <div class="col-sm-3">
                         <select id="incomeOrLiabilityAccountId" ng-model="formData.incomeAccountId"
                                 chosen="incomeAndLiabilityAccountOptions"
-                                ng-options="incomeAccount.id as incomeAccount.name for incomeAccount in incomeAndLiabilityAccountOptions"
+                                ng-options="incomeAccount.id as (incomeAccount.name +' ('+ incomeAccount.glCode +')') for incomeAccount in incomeAndLiabilityAccountOptions"
                                 value="{{incomeAccount.id}}">
                         </select>
                     </div>

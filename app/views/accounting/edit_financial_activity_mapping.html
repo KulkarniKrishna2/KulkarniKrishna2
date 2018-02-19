@@ -28,7 +28,7 @@
                 <div class="col-sm-3">
                     <select chosen="accountOptions" id="glAccountId" ng-model="formData.glAccountId"
                             class="form-control"
-                            ng-options="account.id as (account.name +'('+ account.glCode +')') for account in accountOptions"
+                            ng-options="account.id as (account.name +' ('+ account.glCode +')') for account in accountOptions"
                             value="{{account.id}}">
                     </select>
                 </div>

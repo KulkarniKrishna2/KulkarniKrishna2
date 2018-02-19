@@ -66,13 +66,13 @@
 		                    <p ng-repeat="debitTag in rule.debitTags">{{debitTag.tag.name}}</p>
 	                    </td>
 	                    <td ng-if="rule.debitAccounts">
-		                    <p ng-repeat="dbAccount in rule.debitAccounts">{{dbAccount.name}}({{dbAccount.glCode}})</p>
+		                    <p ng-repeat="dbAccount in rule.debitAccounts">{{dbAccount.name}}&nbsp;({{dbAccount.glCode}})</p>
 	                    </td>
 	                    <td ng-if="rule.creditTags">
 		                    <p ng-repeat="creditTag in rule.creditTags">{{creditTag.tag.name}}</p>
 	                    </td>
 	                    <td ng-if="rule.creditAccounts">
-		                    <p ng-repeat="crAccount in rule.creditAccounts">{{crAccount.name}}({{crAccount.glCode}})</p>
+		                    <p ng-repeat="crAccount in rule.creditAccounts">{{crAccount.name}}&nbsp;({{crAccount.glCode}})</p>
 	                    </td>
 			        </tr>
 		        </tbody>
