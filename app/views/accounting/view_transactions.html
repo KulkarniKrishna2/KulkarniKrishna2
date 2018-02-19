@@ -95,7 +95,7 @@
                                     <td class="pointer">{{transactiondetails.transactionId}}</td>
                                     <td class="pointer">{{transactiondetails.officeName}}</td>
                                     <td class="pointer">{{transactiondetail.glAccountData.type.value}}</td>
-                                    <td class="pointer"> {{transactiondetail.glAccountData.name}}({{transactiondetail.glAccountData.glCode}})</td>
+                                    <td class="pointer"> {{transactiondetail.glAccountData.name}}&nbsp;({{transactiondetail.glAccountData.glCode}})</td>
                                     <td class="pointer">
                                         <div ng-show="transactiondetail.entryType.value == 'DEBIT'">
                                             {{transactiondetails.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}

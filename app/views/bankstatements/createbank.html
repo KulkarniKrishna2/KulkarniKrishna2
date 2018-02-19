@@ -27,7 +27,7 @@
                 <div class="col-sm-3">
                     <div >
                         <select chosen="glAccounts" id="glAccount" ng-model="formData.glAccount"  class="form-control"
-                                ng-options="glaccount.id as glaccount.name for glaccount in glAccounts" value="{{glaccount.id}}"
+                                ng-options="glaccount.id as (glaccount.name +' ('+ glaccount.glCode +')') for glaccount in glAccounts" value="{{glaccount.id}}"
                                 name="glAccount" required late-Validate>
                             <option value="" style="display:none;">--{{'label.menu.selectglaccount' | translate}}--</option>
                         </select>

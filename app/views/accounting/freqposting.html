@@ -52,7 +52,7 @@
                 </h4>
                 <div ng-repeat="dbAccount in formData.dbAccounts" class="form-inline paddedbottom10">
                     <select ng-init="dbAccount.select = rule.debitAccounts[0]" class="input-sm form-control" ng-model="dbAccount.select"
-                          ng-options="debitAccount.name for debitAccount in rule.debitAccounts">
+                          ng-options="(debitAccount.name +' ('+ debitAccount.glCode +')') for debitAccount in rule.debitAccounts">
                     </select>
                     
                     <input id="debits[{{$index}}]" type="text" class="input-sm form-control" number-format
@@ -65,7 +65,7 @@
             	</h4>
               <div ng-repeat="crAccount in formData.crAccounts" class="form-inline paddedbottom10">
                   <select ng-init="crAccount.select = rule.creditAccounts[0]" class="input-sm form-control" ng-model="crAccount.select"
-                            ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts">
+                            ng-options="(creditAccount.name +' ('+ creditAccount.glCode +')') for creditAccount in formData.rule.creditAccounts">
                   </select>
                   <input id="credits[{{$index}}]" type="text" class="input-sm form-control" number-format
                          ng-model="crAccount.crAmount">
