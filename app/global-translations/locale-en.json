@@ -3672,7 +3672,7 @@
     "label.input.variableinstallments": "Variable Installments",
     "label.input.canUseForTopup": "Is allowed to be used for providing Topup Loans?",
     "label.input.allowupfrontcollection": "Is Upfront Amount Collection Allowed",
-    "label.input.splitdisbursementforcharges": "Is split required in disbursement for chanrges",
+    "label.input.splitdisbursementforcharges": "Is split required in disbursement for charges",
     "label.input.paymenttypeforchargeDisbursement": "Payment type for split disbursement ",
     "label.input.amountforupfrontcollection": "Amount To Be Collected Upfront",
     "label.input.percentageffdisbursementtobetransfered":"Principal (%) To be transferred to savings account",
