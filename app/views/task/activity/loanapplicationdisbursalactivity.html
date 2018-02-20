@@ -366,6 +366,7 @@
                                                 {{'label.input.fixedemiamount' | translate}}
                                             </td>
                                             <td>{{'label.input.expecteddisbursementon' | translate}}</td>
+                                            <td ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas[0].discountOnDisbursalAmount">{{'label.input.discountondisbursalamount'| translate}}</td>
                                         </tr>
                                         <tr ng-repeat="trancheData in formData.approvedData.loanApplicationSanctionTrancheDatas">
                                             <td>{{trancheData.trancheAmount | number}}</td>
@@ -374,6 +375,7 @@
                                                 | number}}
                                             </td>
                                             <td>{{trancheData.expectedTrancheDisbursementDate|DateFormat}}</td>
+                                            <td ng-if="trancheData.discountOnDisbursalAmount">{{trancheData.discountOnDisbursalAmount | number}} </td>
                                         </tr>
                                         <tr>
                                             <td colspan="4"><br/></td>
@@ -529,7 +531,14 @@
                                             <td class="width25 paddedbottom10"></td>
                                         </tr>
                                         <tr>
-
+                                            <td class="width25">
+                                                 <label class="control-label">{{ 'label.input.discountondisbursalamount' | translate}}:</label>    
+                                            </td>
+                                            <td class="width25 paddedbottom10">
+                                                <input id="discountOnDisbursalAmount" type="text" name="discountOnDisbursalAmount" ng-model="formRequestData.disburse.discountOnDisbursalAmount" class="form-control" readonly number-format >
+                                            </td> 
+                                        </tr>
+                                        <tr>
                                             <td class="width19" ng-if="loanaccountinfo.canDefineInstallmentAmount">
                                                 <label>{{
                                                     'label.input.fixedemiamount' | translate

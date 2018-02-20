@@ -6881,5 +6881,6 @@
      "error.msg.bank.account.not.selected":"Bank account not selected",
      "loanaccountdisbursetogroupbankaccounts":"Disburse loan to group bank accounts",
      "error.msg.bank.account.detail.association.exist":"Bank Account details mapping exists",
+     "validation.msg.loanapplicationreference.discountOnDisbursalAmount.is.greater.than.max":"Discount on disbursal amount `{{params[0].value}}` is greater than principal `{{params[1].value}}` ",
     "------ end of tensalation file":"---------"
 }

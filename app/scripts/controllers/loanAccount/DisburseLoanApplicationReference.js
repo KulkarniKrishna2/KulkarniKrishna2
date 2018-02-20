@@ -86,15 +86,24 @@
                                     var disbursementData = {};
                                     disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate), scope.df);
                                     disbursementData.principal = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].trancheAmount;
+                                    disbursementData.discountOnDisbursalAmount = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].discountOnDisbursalAmount;
                                     scope.formRequestData.submitApplication.disbursementData.push(disbursementData);
                                     if (scope.formRequestData.disburse.transactionAmount == undefined) {
-                                        scope.formRequestData.disburse.transactionAmount = disbursementData.principal;
+                                        scope.formRequestData.disburse.transactionAmount =  disbursementData.principal;
+                                    }
+                                    if(disbursementData.discountOnDisbursalAmount){
+                                        scope.formRequestData.disburse.discountOnDisbursalAmount = disbursementData.discountOnDisbursalAmount;
+                                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = disbursementData.discountOnDisbursalAmount ;
                                     }
                                 }
                             }
                         } else {
                             if (scope.formRequestData.disburse.transactionAmount == undefined) {
-                                scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
+                                if(scope.formData.approvedData.netLoanAmount && scope.formData.approvedData.netLoanAmount > 0 ){
+                                    scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.netLoanAmount;
+                                }else{
+                                    scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
+                                }
                             }
                         }
                         if (scope.formData.approvedData.fixedEmiAmount) {
@@ -289,6 +298,11 @@
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                     }
 
+                    if(scope.formData.discountOnDisbursalAmount){
+                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
+                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
+                    }
+
                 });
             };
 
@@ -394,7 +408,12 @@
                 } else {
                     delete scope.formRequestPreveieData.expectedDisbursementDate;
                 }
-                scope.formRequestPreveieData.principal = scope.formData.approvedData.loanAmountApproved;
+                if(scope.formData.approvedData.netLoanAmount && scope.formData.approvedData.netLoanAmount > 0){
+                     scope.formRequestPreveieData.principal = scope.formData.approvedData.netLoanAmount;
+                }else{
+                   scope.formRequestPreveieData.principal = scope.formData.approvedData.loanAmountApproved; 
+                }
+                
                 if (scope.formRequestPreveieData.disburse) {
                     delete scope.formRequestPreveieData.disburse;
                 }

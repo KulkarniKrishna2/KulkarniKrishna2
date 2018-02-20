@@ -107,6 +107,10 @@
                                 <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.amountForUpfrontCollection}}</td>
                             </tr>
+                            <tr ng-if="formData.discountOnDisbursalAmount">
+                                <td><label>{{ 'label.input.discountondisbursalamount' | translate }}:</label>&nbsp;</td>
+                                <td>{{formData.discountOnDisbursalAmount}}</td>
+                            </tr>
 
                         </table>
                     </div>
@@ -309,11 +313,13 @@
                                     <td>{{'label.input.tranche.amount' | translate}}</td>
                                     <td ng-if="false">{{'label.input.fixedemiamount' | translate}}</td>
                                     <td>{{'label.input.expecteddisbursementon' | translate}}</td>
+                                    <td ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas[0].discountOnDisbursalAmount">{{'label.input.discountondisbursalamount'| translate}}</td>
                                 </tr>
                                 <tr ng-repeat="trancheData in formData.approvedData.loanApplicationSanctionTrancheDatas">
                                     <td>{{trancheData.trancheAmount | number}}</td>
                                     <td ng-if="false">{{trancheData.fixedEmiAmount | number}}</td>
                                     <td>{{trancheData.expectedTrancheDisbursementDate|DateFormat}}</td>
+                                    <td ng-if="trancheData.discountOnDisbursalAmount">{{trancheData.discountOnDisbursalAmount | number}} </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4"><br/></td>

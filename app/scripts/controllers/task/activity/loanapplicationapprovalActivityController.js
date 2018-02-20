@@ -33,6 +33,7 @@
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
+                 scope.accountType = scope.formData.accountType.value.toLowerCase();
                  scope.loanProductChange(scope.formData.loanProductId);
                  resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId
@@ -73,6 +74,7 @@
                     scope.formRequestData.repayEvery = scope.formData.repayEvery;
                     scope.formRequestData.termPeriodFrequencyEnum = scope.formData.termPeriodFrequency.id;
                     scope.formRequestData.termFrequency = scope.formData.termFrequency;
+                    scope.formRequestData.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
                     if (scope.formData.noOfTranche && scope.formData.noOfTranche > 0) {
                         scope.constructTranches();
                     }
@@ -172,13 +174,7 @@
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
+                scope.inparams.templateType = scope.accountType;
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
@@ -362,6 +358,7 @@
                             var disbursementData = {};
                             disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate), scope.df);
                             disbursementData.principal = scope.formRequestData.loanApplicationSanctionTrancheDatas[j].trancheAmount;
+                            disbursementData.discountOnDisbursalAmount= scope.formRequestData.loanApplicationSanctionTrancheDatas[j].discountOnDisbursalAmount;
                             scope.formValidationData.disbursementData.push(disbursementData);
                         }
                     }
@@ -764,6 +761,12 @@
                         scope.submitData.formRequestData.charges.push(charge);
                     }
                 }
+                if(this.formRequestData.isFlatInterestRate){
+                    delete this.formRequestData.isFlatInterestRate;
+                }
+                if(this.formRequestData.netLoanAmount){
+                    delete this.formRequestData.netLoanAmount;
+                }
                 /**
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
@@ -1131,6 +1134,10 @@
                 }
                 data.amount = amount;
             }
+
+            scope.showDiscountOnDisbursalAmount = function(){
+                return (!scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);
+            };
 
         }
 

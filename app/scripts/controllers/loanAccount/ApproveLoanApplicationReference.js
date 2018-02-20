@@ -19,6 +19,7 @@
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.formData = applicationData;
+                scope.accountType = scope.formData.accountType.value.toLowerCase();
                 scope.loanProductChange(applicationData.loanProductId);
                 resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
@@ -62,13 +63,7 @@
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
+                scope.inparams.templateType = scope.accountType;
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
@@ -139,6 +134,7 @@
                                 scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
                                 scope.formRequestData.repayEvery = scope.formData.repayEvery;
                                 scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
+                                scope.formRequestData.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
                                 if(scope.formData.fixedEmiAmount){
                                     scope.formRequestData.fixedEmiAmount = scope.formData.fixedEmiAmount;
                                 }
@@ -327,6 +323,7 @@
                             var disbursementData = {};
                             disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate), scope.df);
                             disbursementData.principal = scope.formRequestData.loanApplicationSanctionTrancheDatas[j].trancheAmount;
+                            disbursementData.discountOnDisbursalAmount= scope.formRequestData.loanApplicationSanctionTrancheDatas[j].discountOnDisbursalAmount;
                             scope.formValidationData.disbursementData.push(disbursementData);
                         }
                     }
@@ -607,6 +604,12 @@
                 }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
+                if(this.formRequestData.isFlatInterestRate){
+                    delete this.formRequestData.isFlatInterestRate;
+                }
+                if(this.formRequestData.netLoanAmount){
+                    delete this.formRequestData.netLoanAmount;
+                }
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                     for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                         scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate, scope.df);
@@ -878,6 +881,10 @@
                 }
                 data.amount = amount;
             }
+
+            scope.showDiscountOnDisbursalAmount = function(){
+                return (!scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);
+            };
         }
     });
     
