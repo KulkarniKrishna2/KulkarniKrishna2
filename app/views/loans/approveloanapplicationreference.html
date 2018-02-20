@@ -533,6 +533,16 @@
                                     </td>
                                 </tr>
 
+                                <tr ng-if="showDiscountOnDisbursalAmount()">
+                                    <td class="width19"><label>{{
+                                        'label.input.discountondisbursalamount' | translate
+                                        }}:</label>&nbsp;</td>
+                                    <td class="width36 paddedbottom10">
+                                        <input id="discountondisbursalamount" name="discountondisbursalamount" type="text"
+                                        ng-model="formRequestData.discountOnDisbursalAmount" class="form-control" number-format/>
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <td colspan="4">&nbsp;</td>
                                 </tr>
@@ -798,6 +808,7 @@
                                         <th>{{'label.input.expecteddisbursementon' | translate}}</th>
                                         <th>{{'label.input.principal' | translate}}</th>
                                         <th ng-if="false">{{'label.input.fixedemiamount' | translate}}</th>
+                                        <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
                                         <th>{{'label.heading.actions' | translate}}</th>
                                     </tr>
                                     </thead>
@@ -833,6 +844,10 @@
                                                    class="input-sm form-control" number-format type="text"
                                                    ng-model="disbursementDetail.fixedEmiAmount"
                                                    placeholder="{{'label.input.fixedemiamount' | translate}}">
+                                        </td>
+                                        <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
+                                            <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text" ng-model="disbursementDetail.discountOnDisbursalAmount" name="discountOnDisbursalAmount"
+                                            placeholder="{{'label.input.discountondisbursalamount' | translate}}">
                                         </td>
                                         <td><a ng-click="deleteTranches($index)"
                                                ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length > 1"><i
