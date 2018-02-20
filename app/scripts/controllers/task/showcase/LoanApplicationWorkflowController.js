@@ -47,6 +47,11 @@
                     }
                     if (data.group) {
                         scope.groupName = data.group.name;
+                        scope.groupLevel = data.group.groupLevel;
+                    }
+                    scope.isShowCenter= false;
+                    if(scope.groupLevel === "1"){
+                        scope.isShowCenter = true;
                     }
                 });
             };
