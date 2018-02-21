@@ -2,7 +2,9 @@
     <div class="col-md-12 col-sm-12">
         <div>
             <ul class="breadcrumb">
-                <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a>
+                <li ng-if="groupName && isShowCenter"><a href="#/viewcenter/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a>
+                </li>
+                <li ng-if="groupName && !isShowCenter"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a>
                 </li>
                 <li ng-show="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a>
                 </li>
