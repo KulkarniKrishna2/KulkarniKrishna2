@@ -77,7 +77,7 @@
                 }
                 this.formData.inheritDestinationGroupLoanOfficer = this.formData.inheritDestinationGroupLoanOfficer || false;
                 resourceFactory.groupResource.save({groupId: routeParams.id, command: 'transferClients'}, this.formData, function (data) {
-                    if(isCenter){
+                    if(scope.isCenter){
                         location.path('/viewcenter/' + data.resourceId);
                     }else{
                         location.path('/viewgroup/' + data.resourceId);

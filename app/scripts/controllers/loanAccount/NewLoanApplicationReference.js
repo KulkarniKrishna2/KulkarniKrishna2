@@ -24,6 +24,7 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.parentGroups = [];
+            scope.disbursementToGroupAllowed = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
 
             scope.paymentModeOptions = [];
             scope.repaymentTypeOption = [];
@@ -32,9 +33,9 @@
             scope.applicableOnDisbursement = 2;
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-            if (scope.clientId && scope.groupId) {
+            if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
                 scope.inparams.templateType = 'jlg';
-            } else if (scope.groupId) {
+            } else if (scope.groupId && !scope.disbursementToGroupAllowed) {
                 scope.inparams.templateType = 'group';
             } else if (scope.clientId) {
                 scope.inparams.templateType = 'individual';

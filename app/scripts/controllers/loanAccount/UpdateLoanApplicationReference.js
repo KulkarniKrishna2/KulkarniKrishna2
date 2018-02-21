@@ -56,6 +56,9 @@
                 resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.formData.clientId}, function (data) {
                     scope.parentGroups = data;
                 });
+                if(scope.applicationData.discountOnDisbursalAmount){
+                    scope.formData.discountOnDisbursalAmount = scope.applicationData.discountOnDisbursalAmount;
+                }
                 scope.loanProductChange(applicationData.loanProductId, false);
             });
 

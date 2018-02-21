@@ -137,7 +137,11 @@
                                 }
                             } else {
                                 if (scope.formRequestData.disburse.transactionAmount == undefined) {
-                                    scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
+                                    if(scope.formData.approvedData.netLoanAmount && scope.formData.approvedData.netLoanAmount > 0 ){
+                                        scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.netLoanAmount;
+                                    }else{
+                                        scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
+                                    }
                                 }
                             }
                             if (scope.formData.fixedEmiAmount) {
@@ -228,6 +232,11 @@
                     }
                     if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
+                    }
+
+                    if(scope.formData.discountOnDisbursalAmount){
+                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
+                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
                     }
 
                 });

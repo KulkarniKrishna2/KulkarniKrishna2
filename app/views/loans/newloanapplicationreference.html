@@ -262,6 +262,12 @@
             <tr>
                 <td colspan="4">&nbsp;</td>
             </tr>
+            <tr data-ng-show="loanaccountinfo.product.isFlatInterestRate && !loanaccountinfo.product.multiDisburseLoan">
+                <td ><label>{{ 'label.input.discountondisbursalamount' | translate }}</label></td>
+                <td class="paddedbottom10">
+                    <input id="discountOnDisbursalAmount" type="text" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
+                </td>
+            </tr>
             <tr data-ng-show="!loanaccountinfo.loanEMIPacks && loanaccountinfo.allowUpfrontCollection">
                 <td>
                     <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
