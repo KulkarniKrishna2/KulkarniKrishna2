@@ -6918,6 +6918,7 @@
     "error.msg.bank.account.not.selected":"Bank account not selected",
     "loanaccountdisbursetogroupbankaccounts":"Disburse loan to group bank accounts",
     "error.msg.bank.account.detail.association.exist":"Bank Account details mapping exists",
+    "label.input.disbursalmode" : "Disbursal Mode",
 
     "------ end of tensalation file":"---------"
 }

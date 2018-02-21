@@ -397,40 +397,43 @@
                 return false;
             };
 
-            scope.$watch('disbursementMode', function (newValue, oldValue, scope) {
+            scope.$watch('disbursementModeId', function (newValue, oldValue, scope) {
+                scope.changeDisbursalMode();
+            }, true);
+                
+            scope.$watch('repaymentModeId', function (newValue, oldValue, scope) {
+                scope.changeRepaymentMode();
+            }, true);
+
+
+
+            scope.changeDisbursalMode = function(){
                 scope.disbursementTypeOption = [];
                 if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
-                    if(scope.disbursementMode != undefined){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
-                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.disbursementMode) && 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==this.disbursementModeId) && 
                                 (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
                                 scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
                             }
                         }
-                    }else{
-                        scope.disbursementTypeOption = [];
-                    }
                     
                 }
-            }, true);
-                
-            scope.$watch('repaymentMode', function (newValue, oldValue, scope) {
+            };
+
+            scope.changeRepaymentMode = function(){
                 scope.repaymentTypeOption = [];
                 if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
-                    if(scope.repaymentMode != undefined){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
-                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.repaymentMode) && 
+                                scope.loanaccountinfo.paymentOptions[i].paymentMode.id==this.repaymentModeId) && 
                                 (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)){
                                 scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+
                             }
                         }
-                    }else{
-                        scope.repaymentTypeOption = [];
-                    }
                 }
-            }, true);
+            };
 
             scope.canDisburseToGroupsBanks = function(){
                 return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
