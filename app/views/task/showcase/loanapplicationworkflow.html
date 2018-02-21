@@ -2,12 +2,10 @@
     <div class="col-md-12 col-sm-12">
         <div>
             <ul class="breadcrumb">
-                <li ng-if="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a>
-                </li>
-                <li ng-if="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a>
-                </li>
-                <li ng-if="clientName"><a href="#/viewloanapplicationreference/{{resourceId}}"><strong>{{'label.anchor.viewloanapplication' | translate}}</strong></a>
-                </li>
+                <li ng-if="groupName && isShowCenter"><a href="#/viewcenter/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
+                <li ng-if="groupName && !isShowCenter"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
+                <li ng-if="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a></li>
+                <li ng-if="clientName"><a href="#/viewloanapplicationreference/{{resourceId}}"><strong>{{'label.anchor.viewloanapplication' | translate}}</strong></a></li>
                 <li class="active">{{'label.heading.workflow' | translate}}</li>
             </ul>
         </div>
@@ -16,7 +14,7 @@
                 <div class="row">
                     <span class="col-md-2">{{'label.input.applicantname'| translate}}</span>
                     <span class="col-md-4">{{clientName}} ({{loanApplicationData.clientId}})</span>
-                    <span class="col-md-3"> {{'label.input.requestedLoanAmount' | translate}} </span>
+                    <span class="col-md-3">{{'label.input.requestedLoanAmount' | translate}} </span>
                     <span class="col-md-3">{{loanApplicationData.loanAmountRequested}} {{loanApplicationData.currency.displaySymbol}}</span>
                 </div>
                 <div class="row">
