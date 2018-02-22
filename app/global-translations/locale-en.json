@@ -6882,5 +6882,6 @@
      "loanaccountdisbursetogroupbankaccounts":"Disburse loan to group bank accounts",
      "error.msg.bank.account.detail.association.exist":"Bank Account details mapping exists",
      "validation.msg.loanapplicationreference.discountOnDisbursalAmount.is.greater.than.max":"Discount on disbursal amount `{{params[0].value}}` is greater than principal `{{params[1].value}}` ",
+     "error.msg.group.bank.account.details.are.in.use.cannot.delete":"Bank account details are already used in loan, cannot delete",
     "------ end of tensalation file":"---------"
 }
