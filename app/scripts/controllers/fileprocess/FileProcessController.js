@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        FileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope) {
+        FileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
 
             scope.recordsPerPage = 15;
 
@@ -43,13 +43,13 @@
             scope.attachedFileURL = function(){
                 for (var i = 0; i < scope.fileProcesses.length; i++) {
                         var url = {};
-                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?' +commonUtilService.commonParamsForNewWindow();
                         scope.fileProcesses[i].docUrl = url;
                     }
             }
         }
     });
-    mifosX.ng.application.controller('FileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.FileProcessController]).run(function ($log) {
+    mifosX.ng.application.controller('FileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope','CommonUtilService', mifosX.controllers.FileProcessController]).run(function ($log) {
         $log.info("FileProcessController initialized");
     });
 }(mifosX.controllers || {}));
