@@ -271,6 +271,13 @@
                 }
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
                     scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
+                    if(scope.loanaccountinfo.fundOptions){
+                        for(var i in scope.loanaccountinfo.fundOptions){
+                            if(scope.loanaccountinfo.fundOptions[i].id == scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId){
+                                scope.formData.fund = scope.loanaccountinfo.fundOptions[i].name;
+                            }
+                        }
+                    }
                 } else {
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
                 }

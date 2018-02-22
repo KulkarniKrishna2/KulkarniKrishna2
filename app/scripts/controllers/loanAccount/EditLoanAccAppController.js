@@ -345,6 +345,15 @@
                 }
                 if(scope.loanaccountinfo.fundId){
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
+                    if(scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption){
+                        if(scope.loanaccountinfo.fundOptions){
+                            for(var i in scope.loanaccountinfo.fundOptions){
+                                if(scope.loanaccountinfo.fundOptions[i].id == scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId){
+                                    scope.formData.fund = scope.loanaccountinfo.fundOptions[i].name;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if(scope.loanaccountinfo.isInterestRecalculationEnabled){
