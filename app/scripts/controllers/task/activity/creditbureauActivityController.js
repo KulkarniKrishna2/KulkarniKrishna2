@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        creditbureauActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route) {
+        creditbureauActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, commonUtilService) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
@@ -334,20 +334,26 @@
                     $modalInstance.close('close');
                 };   
             };
-            scope.openViewDocument = function (enquiryId, reportEntityType) {
-                $modal.open({
-                    templateUrl: 'viewDocument.html',
-                    controller: viewDocumentCtrl,
-                     resolve: {
-                        reportDetails: function () {
-                            return {'enquiryId' : enquiryId,'reportEntityType' : reportEntityType};
-                        }
+
+             scope.openViewDocument = function(enquiryId, reportEntityType) {
+                var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
+                    enquiryId + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                url = $sce.trustAsResourceUrl(url);
+                $http.get(url, { responseType: 'arraybuffer' }).
+                success(function(data, status, headers, config) {
+                    var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml'];
+                    var contentType = headers('Content-Type');
+                    var file = new Blob([data], { type: contentType });
+                    var fileContent = URL.createObjectURL(file);
+                    if (supportedContentTypes.indexOf(contentType) > -1) {
+                        var docData = $sce.trustAsResourceUrl(fileContent);
+                        window.open(docData);
                     }
                 });
             };
         }
     });
-    mifosX.ng.application.controller('creditbureauActivityController', ['$controller','$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json','$route', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('creditbureauActivityController', ['$controller','$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json','$route','$http', '$rootScope', '$sce', 'CommonUtilService', mifosX.controllers.creditbureauActivityController]).run(function ($log) {
         $log.info("creditbureauActivityController initialized");
     });
 }(mifosX.controllers || {}));

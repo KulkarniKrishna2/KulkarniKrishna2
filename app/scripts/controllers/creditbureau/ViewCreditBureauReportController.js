@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewCreditBureauReportController: function(scope, resourceFactory, location, routeParams, route, $modal, $http, $rootScope, $sce) {
+        ViewCreditBureauReportController: function(scope, resourceFactory, location, routeParams, route, $modal, $http, $rootScope, $sce, commonUtilService) {
             scope.clientId = routeParams.clientId;
             scope.enquiryId = routeParams.enquiryId;
             scope.isResponPresent = false;
@@ -302,7 +302,7 @@
 
             scope.openViewDocument = function(enquiryId, reportEntityType) {
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
-                    enquiryId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    enquiryId + '/attachment?' +commonUtilService.commonParamsForNewWindow();
                 url = $sce.trustAsResourceUrl(url);
                 $http.get(url, { responseType: 'arraybuffer' }).
                 success(function(data, status, headers, config) {
@@ -318,7 +318,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$route', '$modal', '$http', '$rootScope', '$sce', mifosX.controllers.ViewCreditBureauReportController]).run(function($log) {
+    mifosX.ng.application.controller('ViewCreditBureauReportController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$route', '$modal', '$http', '$rootScope', '$sce', 'CommonUtilService', mifosX.controllers.ViewCreditBureauReportController]).run(function($log) {
         $log.info("ViewCreditBureauReportController initialized");
     });
 }(mifosX.controllers || {}));
