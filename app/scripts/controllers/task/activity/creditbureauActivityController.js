@@ -240,7 +240,7 @@
                                 scope.isResponPresent = true;
                             }
                             if(scope.creditBureauEnquiry.errors){
-                               scope.errorMessage = scope.loansSummary.errors;
+                               scope.errorMessage = scope.creditBureauEnquiry.errors;
                             }
                              
                             if(scope.creditBureauEnquiry.creditBureauProduct){
