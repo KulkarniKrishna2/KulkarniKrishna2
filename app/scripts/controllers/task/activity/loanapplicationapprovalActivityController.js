@@ -138,7 +138,7 @@
             scope.constructExistingCharges = function (index, chargeId) {
                 resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
                     data.chargeId = data.id;
-                    if(scope.isExists(scope.charges,data.id)){
+                    if(scope.isExists(scope.charges,data.id,chargeId)){
                         scope.charges.push(data);  
                     }
                     
@@ -160,9 +160,9 @@
                 });
             };
 
-            scope.isExists = function(array,value){
+            scope.isExists = function(array,value,key){
                for (var i = 0; i < array.length; i++) {
-                 if (array[i][key] === value) {
+                 if (array[i].key === value) {
                     return false;
                  }
               }
