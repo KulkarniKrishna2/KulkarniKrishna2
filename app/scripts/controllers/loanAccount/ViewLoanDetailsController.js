@@ -1731,15 +1731,7 @@
                             scope.fileContentData = fileContentData;
                         });
                     }
-                    resourceFactory.clientExistingLoan.getAll({
-                        clientId: $rootScope.clientId,
-                        loanApplicationId: null,
-                        loanId: null,
-                        trancheDisbursalId: null
-                    }, function (data) {
-                        scope.existingLoans = data;
-                        constructLoanSummary();
-                    });
+
                     scope.existingclientdetailsloaded = true;
                     resourceFactory.creditBureauEnquiriesResource.getAll({
                         entityType: "loanapplication",
@@ -1750,7 +1742,15 @@
                             scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
                             if(scope.creditBureauEnquiry){
                                 if (scope.creditBureauEnquiry.status) {
-                                   scope.isResponPresent = true;
+                                    scope.isResponPresent = true;
+                                        resourceFactory.clientCreditSummary.getAll({
+                                            clientId: $rootScope.clientId,
+                                            enquiryId: scope.creditBureauEnquiry.id
+                                        }, function (data) {
+                                            scope.existingLoans = data.existingLoans;
+                                            scope.creditScores = data.creditScores ;
+                                            constructLoanSummary();
+                                        });
                                 } 
                                 if(scope.creditBureauEnquiry.errors){
                                     scope.errorMessage = scope.loansSummary.errors;

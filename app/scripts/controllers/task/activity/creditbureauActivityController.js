@@ -29,14 +29,7 @@
                     for (var i in scope.existingLoans) {
                         var existingLoan = scope.existingLoans[i];
                         var isValidData = false;
-                        if (scope.loanId) {
-                            if (scope.loanId == scope.existingLoans[i].loanId) {
-                                isValidData = true;
-                            }
-                        } else if (scope.loanApplicationReferenceId == scope.existingLoans[i].loanApplicationId) {
-                            isValidData = true;
-                        }
-                        if (isValidData == true && existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
+                        if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
                             if (existingLoan.loanStatus && existingLoan.loanStatus.id === 300) {
                                 if (_.isUndefined(scope.activeLoan)) {
                                     scope.viewCreditBureauReport = true;
@@ -131,15 +124,7 @@
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
                         var existingLoan = scope.existingLoans[i];
-                        var isValidData = false;
-                        if (scope.loanId) {
-                            if (scope.loanId == scope.existingLoans[i].loanId) {
-                                isValidData = true;
-                            }
-                        } else if (scope.loanApplicationReferenceId == scope.existingLoans[i].loanApplicationId) {
-                            isValidData = true;
-                        }
-                        if (isValidData == true && existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
+                        if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
                             if (existingLoan.loanStatus && existingLoan.loanStatus.id === 600) {
                                 if (_.isUndefined(scope.closedLoan)) {
                                     scope.closedLoan = {};
@@ -244,7 +229,7 @@
                                 scope.isResponPresent = true;
                             }
                             if(scope.creditBureauEnquiry.errors){
-                               scope.errorMessage = scope.loansSummary.errors;
+                               scope.errorMessage = scope.creditBureauEnquiry.errors;
                             }
                              
                             if(scope.creditBureauEnquiry.creditBureauProduct){
@@ -253,9 +238,6 @@
                       
                             resourceFactory.clientCreditSummary.getAll({
                                 clientId: scope.formData.clientId,
-                                loanApplicationId: scope.loanApplicationReferenceId,
-                                loanId: scope.loanId,
-                                trancheDisbursalId: scope.trancheDisbursalId,
                                 enquiryId: scope.creditBureauEnquiry.id
                             }, function (data) {
                                 scope.existingLoans = data.existingLoans;

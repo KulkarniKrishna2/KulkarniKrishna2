@@ -35,13 +35,8 @@
                         <div ng-if="isResponPresent === false">
                             <button id="creditBureauReport" type="button" class="btn btn-primary"
                                     ng-click="creditBureauReport(false);"
-                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY' ng-show="isStalePeriodExceeded">
+                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY'>
                                 {{'label.button.initiatecreditbureauenquiry' | translate}}
-                            </button>
-                            <button id="creditBureauReport" type="button" class="btn btn-primary"
-                                    ng-click="creditBureauReport(true);"
-                                    has-permission='READ_INITIATE_CREDIT_BUREAU_ENQUIRY' ng-show="!isStalePeriodExceeded">
-                                {{'label.button.re.initiatecreditbureauenquiry' | translate}}
                             </button>
                         </div>
                     </div> 
