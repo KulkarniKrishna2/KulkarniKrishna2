@@ -85,15 +85,7 @@
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
                         var existingLoan = scope.existingLoans[i];
-                        var isValidData = true;
-                        if (scope.loanId) {
-                            if (scope.loanId == scope.existingLoans[i].loanId) {
-                                isValidData = true;
-                            }
-                        } else if (scope.loanApplicationReferenceId == scope.existingLoans[i].loanApplicationId) {
-                            isValidData = true;
-                        }
-                        if (isValidData == true && existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
+                        if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
                             if (existingLoan.loanStatus && existingLoan.loanStatus.id === 300) {
                                 if (_.isUndefined(scope.activeLoan)) {
                                     scope.viewCreditBureauReport = true;
@@ -157,14 +149,7 @@
                     for (var i in scope.existingLoans) {
                         var existingLoan = scope.existingLoans[i];
                         var isValidData = true;
-                        if (scope.loanId) {
-                            if (scope.loanId == scope.existingLoans[i].loanId) {
-                                isValidData = true;
-                            }
-                        } else if (scope.loanApplicationReferenceId == scope.existingLoans[i].loanApplicationId) {
-                            isValidData = true;
-                        }
-                        if (isValidData == true && existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
+                        if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
                             if (existingLoan.loanStatus && existingLoan.loanStatus.id === 600) {
                                 if (_.isUndefined(scope.closedLoan)) {
                                     scope.closedLoan = {};
@@ -243,6 +228,7 @@
             };
 
             function convertEMIAmountToMonthlyAmount(existingLoan) {
+
                 if (existingLoan.loanTenurePeriodType != undefined) {
                     if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
                         return existingLoan.installmentAmount;
@@ -257,7 +243,7 @@
                     } else {
                         return 0.00;
                     }
-                } else {
+                }else{
                     return 0.00;
                 }
             };
