@@ -305,11 +305,6 @@
                 });
             };
 
-            scope.calculateTermFrequency = function () {
-                scope.formRequestData.termFrequency = (scope.formRequestData.repayEvery * scope.formRequestData.numberOfRepayments);
-                scope.formRequestData.termPeriodFrequencyEnum  = scope.formRequestData.repaymentPeriodFrequencyEnum;
-            };
-
             scope.syncRepaymentsWithMeetingchange = function () {
                 if (!scope.formValidationData.syncRepaymentsWithMeeting) {
                     scope.formValidationData.syncDisbursementWithMeeting = false;
@@ -668,6 +663,12 @@
                     delete scope.submitData.formValidationData.syncRepaymentsWithMeeting;
                 }
                 scope.submitData.formValidationData = scope.formValidationData;
+                if(scope.formRequestData.netLoanAmount != undefined){
+                    delete scope.formRequestData.netLoanAmount;
+                }
+                if(scope.formRequestData.isFlatInterestRate != undefined){
+                    delete scope.formRequestData.isFlatInterestRate;
+                }
                 angular.copy(scope.formRequestData,scope.submitData.formRequestData);
                 scope.submitData.formRequestData.charges = [];
                 if (scope.charges.length > 0) {
@@ -764,7 +765,7 @@
                 if(this.formRequestData.isFlatInterestRate){
                     delete this.formRequestData.isFlatInterestRate;
                 }
-                if(this.formRequestData.netLoanAmount){
+                if(this.formRequestData.netLoanAmount != undefined){
                     delete this.formRequestData.netLoanAmount;
                 }
                 /**

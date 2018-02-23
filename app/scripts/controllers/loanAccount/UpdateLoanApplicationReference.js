@@ -21,6 +21,7 @@
                 scope.applicationData = applicationData;
                 scope.formData.clientId = applicationData.clientId;
                 scope.formData.groupId = applicationData.groupId;
+                scope.accountType = scope.applicationData.accountType.value.toLowerCase();
                 if(scope.applicationData.expectedDisbursalPaymentType){
                     scope.formData.expectedDisbursalPaymentType = scope.applicationData.expectedDisbursalPaymentType.id;
                 }
@@ -43,13 +44,8 @@
             var curIndex = 0;
             scope.loanProductChange = function (loanProductId, isNewCall) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
+                scope.inparams.templateType = scope.accountType;
+               
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
@@ -378,7 +374,7 @@
             }
 
             scope.submit = function () {
-                this.formData.accountType = scope.applicationData.accountType.value.toLowerCase();
+                this.formData.accountType = scope.accountType;
                 this.formData.charges = [];
                 for(var i = 0 ; i < scope.charges.length; i++) {
                     if (scope.charges[i].amount > 0) {

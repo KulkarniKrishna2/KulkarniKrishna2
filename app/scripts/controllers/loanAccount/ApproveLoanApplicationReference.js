@@ -270,11 +270,6 @@
                 });
             };
 
-            scope.calculateTermFrequency = function () {
-                scope.formRequestData.termFrequency = (scope.formRequestData.repayEvery * scope.formRequestData.numberOfRepayments);
-                scope.formRequestData.termPeriodFrequencyEnum  = scope.formRequestData.repaymentPeriodFrequencyEnum;
-            };
-
             scope.syncRepaymentsWithMeetingchange = function () {
                 if (!scope.formValidationData.syncRepaymentsWithMeeting) {
                     scope.formValidationData.syncDisbursementWithMeeting = false;
@@ -607,7 +602,7 @@
                 if(this.formRequestData.isFlatInterestRate){
                     delete this.formRequestData.isFlatInterestRate;
                 }
-                if(this.formRequestData.netLoanAmount){
+                if(this.formRequestData.netLoanAmount != undefined){
                     delete this.formRequestData.netLoanAmount;
                 }
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
@@ -661,10 +656,10 @@
             };
 
             scope.cancel = function () {
-                if (scope.formData.groupId) {
-                    location.path('/viewgroup/' + scope.formData.groupId);
-                } else if (scope.formData.clientId) {
+                if (scope.accountType === 'individual') {
                     location.path('/viewclient/' + scope.formData.clientId);
+                } else if (scope.formData.groupId) {
+                    location.path('/viewgroup/' + scope.formData.groupId);
                 }
             };
 
