@@ -109,7 +109,7 @@
                             </tr>
                             <tr ng-if="formData.discountOnDisbursalAmount">
                                 <td><label>{{ 'label.input.discountondisbursalamount' | translate }}:</label>&nbsp;</td>
-                                <td>{{formData.discountOnDisbursalAmount}}</td>
+                                <td>{{formData.discountOnDisbursalAmount | number}}</td>
                             </tr>
 
                         </table>
@@ -267,8 +267,12 @@
                                 </tr>
                                 <tr ng-hide="formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
-                                <td>{{formData.approvedData.amountForUpfrontCollection}}</td>
+                                <td>{{formData.approvedData.amountForUpfrontCollection | number}}</td>
                             </tr>
+                                <tr ng-if="formData.approvedData.discountOnDisbursalAmount">
+                                <td><label>{{ 'label.input.discountondisbursalamount' | translate }}:</label>&nbsp;</td>
+                                <td>{{formData.approvedData.discountOnDisbursalAmount | number}}</td>
+                                </tr>
                             </table>
                         </div>
                         <div class="col-md-6">

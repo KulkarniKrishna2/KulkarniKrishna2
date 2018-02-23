@@ -752,7 +752,7 @@
                                                     <tr ng-repeat="record in multipleBankDisbursalData">
                                                         <td class="col-sm-1"><label> {{$index+1}} </label></td>
                                                         <td class="col-sm-3">{{record.name}}-{{record.loanPurpose}} </td>
-                                                        <td class="col-sm-2">{{record.amount}} </td>
+                                                        <td class="col-sm-2">{{record.amount | number}} </td>
                                                         <td class="col-sm-1">
                                                             <button data-ng-if="multipleBankDisbursalData.length > 0" type="button" class="btn-link ng-binding"><i class="icon-remove icon-white" ng-click="deleteRecord($index)"></i>
                                                             </button>

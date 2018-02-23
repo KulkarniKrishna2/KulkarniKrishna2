@@ -89,7 +89,7 @@
                     scope.filterPaymentTypes(tempData.paymentOptions);
                     scope.updatePaymentType(data.expectedDisbursalPaymentType ,data.disbursementMode);                    
                 });
-                
+                scope.accountType = scope.formData.accountType.value.toLowerCase();
                 if (scope.formData.status.id === 400) {
                     getLoanAccountDetails(scope.formData.loanId);
                 }else{
@@ -137,11 +137,7 @@
                                 }
                             } else {
                                 if (scope.formRequestData.disburse.transactionAmount == undefined) {
-                                    if(scope.formData.approvedData.netLoanAmount && scope.formData.approvedData.netLoanAmount > 0 ){
                                         scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.netLoanAmount;
-                                    }else{
-                                        scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
-                                    }
                                 }
                             }
                             if (scope.formData.fixedEmiAmount) {
@@ -156,13 +152,7 @@
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
+                scope.inparams.templateType = scope.accountType;
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
@@ -234,9 +224,9 @@
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
 
-                    if(scope.formData.discountOnDisbursalAmount){
-                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
-                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
+                    if(scope.formData.approvedData.discountOnDisbursalAmount){
+                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
+                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
                     }
 
                 });

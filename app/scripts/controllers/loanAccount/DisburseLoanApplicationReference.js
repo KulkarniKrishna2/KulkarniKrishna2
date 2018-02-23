@@ -54,6 +54,7 @@
                     scope.changeDisbursalMode();
                     
                 }
+                scope.accountType = scope.formData.accountType.value.toLowerCase();
                 resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'loanapplicationcharges'
@@ -109,11 +110,7 @@
                             }
                         } else {
                             if (scope.formRequestData.disburse.transactionAmount == undefined) {
-                                if(scope.formData.approvedData.netLoanAmount && scope.formData.approvedData.netLoanAmount > 0 ){
-                                    scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.netLoanAmount;
-                                }else{
-                                    scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.loanAmountApproved;
-                                }
+                                scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.netLoanAmount;
                             }
                         }
                         if (scope.formData.approvedData.fixedEmiAmount) {
@@ -224,13 +221,7 @@
 
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
+                scope.inparams.templateType = scope.accountType;
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
@@ -308,9 +299,9 @@
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                     }
 
-                    if(scope.formData.discountOnDisbursalAmount){
-                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
-                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
+                    if(scope.formData.approvedData.discountOnDisbursalAmount){
+                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
+                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
                     }
 
                 });
@@ -591,10 +582,10 @@
             };
 
             scope.cancel = function () {
-                if (scope.formData.groupId) {
-                    location.path('/viewgroup/' + scope.formData.groupId);
-                } else if (scope.formData.clientId) {
+                if (scope.accountType == 'individual') {
                     location.path('/viewclient/' + scope.formData.clientId);
+                } else if (scope.formData.groupId) {
+                    location.path('/viewgroup/' + scope.formData.groupId);
                 }
             };
 

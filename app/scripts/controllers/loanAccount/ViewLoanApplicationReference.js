@@ -17,6 +17,7 @@
                 scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                     scope.formData = data;
+                    scope.accountType = scope.formData.accountType.value.toLowerCase();
                     if(scope.formData.isWorkflowEnabled == true && scope.formData.workflowId){
                         scope.isWorkflowEnabled = true;
                     }
@@ -88,13 +89,7 @@
             scope.loanProductChange = function (loanProductId) {
 
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
+                    scope.inparams.templateType = scope.accountType;
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
