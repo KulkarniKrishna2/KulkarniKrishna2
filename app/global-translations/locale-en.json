@@ -6920,6 +6920,7 @@
     "error.msg.bank.account.detail.association.exist":"Bank Account details mapping exists",
     "label.input.disbursalmode" : "Disbursal Mode",
     "validation.msg.loanapplicationreference.discountOnDisbursalAmount.is.greater.than.max":"Discount on disbursal amount `{{params[0].value}}` is greater than principal `{{params[1].value}}` ",
+    "error.msg.client.active.loan.inactive.group" : "Client with active loan should not transfer to inactive group",
 
     "------ end of tensalation file":"---------"
 }
