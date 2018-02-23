@@ -6816,6 +6816,7 @@
     "label.heading.savings.accounts" : "Savings Accounts",
     "label.heading.shares.accounts" :"Shares Accounta",
     "label.heading.additional.details":"Additional Details",
+    "error.msg.client.active.loan.inactive.group" : "Client with active loan should not transfer to inactive group",
 
     "------ end of tensalation file":"---------"
 }
