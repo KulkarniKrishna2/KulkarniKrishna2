@@ -174,6 +174,11 @@
                 scope.getAllGlobalConfigurations();
             });
 
+
+            scope.$on("RefreshAuthenticationFailureEvent", function () {
+                scope.logout();
+            });
+
             scope.configs = [];
             scope.getAllGlobalConfigurations = function () {
                 scope.configs = [];
