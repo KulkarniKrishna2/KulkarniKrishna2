@@ -10,6 +10,10 @@
                 scope.$broadcast("UserAuthenticationFailureEvent", data, status);
             };
 
+            var onRefreshFailure = function () {
+                scope.$broadcast("RefreshAuthenticationFailureEvent");
+            };
+
             var apiVer = '/fineract-provider/api/v1';
 
             var getUserDetails = function(data){
@@ -43,7 +47,7 @@
                 var refreshToken = localStorageService.getFromLocalStorage("tokendetails").refresh_token;
                 httpService.cancelAuthorization();
                 httpService.post( "/fineract-provider/api/oauth/token?&client_id=community-app&grant_type=refresh_token&client_secret=123&refresh_token=" + refreshToken)
-                    .success(updateAccessDetails);
+                    .success(updateAccessDetails).error(onRefreshFailure);
             }
 
             var credentialsData = {};
