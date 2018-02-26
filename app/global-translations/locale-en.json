@@ -6885,5 +6885,6 @@
      "error.msg.group.bank.account.details.are.in.use.cannot.delete":"Bank account details are already used in loan, cannot delete",
      "error.msg.loan.approval.amount.can't.be.greater.than.loan.amount.demanded":"Approval amount cann't be greater than amount demanded",
      "validation.msg.loanapplicationreference.transactionAmount.not.greater.than.zero":"Transaction amount should be greater than zero",
+     "validation.msg.loanapplicationreference.amount.not.greater.than.zero":"Amount not greater than zero",
     "------ end of tensalation file":"---------"
 }
