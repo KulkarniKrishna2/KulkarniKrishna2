@@ -72,7 +72,7 @@
                                     if (scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate) {
                                         var disbursementData = {};
                                         disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate), scope.df);
-                                        disbursementData.principal = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].netTrancheAmount;
+                                        disbursementData.principal = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].trancheAmount;
                                         disbursementData.discountOnDisbursalAmount = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].discountOnDisbursalAmount;
                                         scope.formRequestData.submitApplication.disbursementData.push(disbursementData); 
                                         if (scope.formRequestData.disburse.transactionAmount == undefined) {
