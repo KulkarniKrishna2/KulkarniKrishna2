@@ -744,6 +744,12 @@
                 if(scope.submitData.formValidationData.syncRepaymentsWithMeeting){
                     delete scope.submitData.formValidationData.syncRepaymentsWithMeeting;
                 }
+                if(this.formRequestData.isFlatInterestRate != undefined){
+                    delete this.formRequestData.isFlatInterestRate;
+                }
+                if(this.formRequestData.netLoanAmount != undefined){
+                    delete this.formRequestData.netLoanAmount;
+                }
                 scope.submitData.formValidationData = scope.formValidationData;
                 scope.submitData.formRequestData = scope.formRequestData;
                 if (scope.charges.length > 0) {
@@ -760,12 +766,6 @@
                         //charge.dateFormat = scope.df;
                         scope.submitData.formRequestData.charges.push(charge);
                     }
-                }
-                if(this.formRequestData.isFlatInterestRate){
-                    delete this.formRequestData.isFlatInterestRate;
-                }
-                if(this.formRequestData.netLoanAmount != undefined){
-                    delete this.formRequestData.netLoanAmount;
                 }
                 /**
                  * This formValidationData data is required only for validation purpose

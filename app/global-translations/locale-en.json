@@ -6924,6 +6924,10 @@
     "error.msg.group.bank.account.details.are.in.use.cannot.delete":"Bank account details are already used in loan, cannot delete",
     "error.msg.loan.approval.amount.can't.be.greater.than.loan.amount.demanded":"Approval amount cann't be greater than amount demanded",
     "validation.msg.loanapplicationreference.transactionAmount.not.greater.than.zero":"Transaction amount should be greater than zero",
+    "validation.msg.loanapplicationreference.amount.not.greater.than.zero":"Amount not greater than zero",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursements.should.be.ordered.based.on.their.disbursement.dates" : "Tranche disburse details should be ordered based on their disbursement date",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.of.tranche.cannot.be.before.expected.disbursement.date" : "expected tranche disbursement date cann't be before expected disbursement date",
+    "validation.msg.loanapplicationreference.trancheAmount.sum.of.multi.disburse.amounts.must.be.equal.to.or.lesser.than.approved.principal":"Sum of multi tranche amount must be equal to or less than approved principal",
     
     "------ end of tensalation file":"---------"
 }

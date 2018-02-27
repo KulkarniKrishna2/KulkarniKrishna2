@@ -101,16 +101,21 @@
                                     scope.formRequestData.submitApplication.disbursementData.push(disbursementData);
                                     if (scope.formRequestData.disburse.transactionAmount == undefined) {
                                         scope.formRequestData.disburse.transactionAmount =  disbursementData.principal;
-                                    }
-                                    if(disbursementData.discountOnDisbursalAmount){
-                                        scope.formRequestData.disburse.discountOnDisbursalAmount = disbursementData.discountOnDisbursalAmount;
-                                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = disbursementData.discountOnDisbursalAmount ;
+                                        if(disbursementData.discountOnDisbursalAmount){
+                                            scope.formRequestData.disburse.discountOnDisbursalAmount = disbursementData.discountOnDisbursalAmount;
+                                            scope.formRequestData.submitApplication.discountOnDisbursalAmount = disbursementData.discountOnDisbursalAmount ;
+                                        }
                                     }
                                 }
                             }
                         } else {
                             if (scope.formRequestData.disburse.transactionAmount == undefined) {
                                 scope.formRequestData.disburse.transactionAmount = scope.formData.approvedData.netLoanAmount;
+                            }
+
+                            if(scope.formData.approvedData.discountOnDisbursalAmount){
+                               scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
+                               scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
                             }
                         }
                         if (scope.formData.approvedData.fixedEmiAmount) {
@@ -297,11 +302,6 @@
 
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
-                    }
-
-                    if(scope.formData.approvedData.discountOnDisbursalAmount){
-                        scope.formRequestData.disburse.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
-                        scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
                     }
 
                 });
@@ -551,7 +551,7 @@
                 }
 
                 this.formRequestData.disburse.skipAuthenticationRule = true;
-
+                
                 scope.disburseData = {};
                 angular.copy(scope.formRequestData,scope.disburseData);
                 delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;

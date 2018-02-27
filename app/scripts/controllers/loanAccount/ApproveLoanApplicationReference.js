@@ -599,7 +599,7 @@
                 }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
-                if(this.formRequestData.isFlatInterestRate){
+                if(this.formRequestData.isFlatInterestRate != undefined){
                     delete this.formRequestData.isFlatInterestRate;
                 }
                 if(this.formRequestData.netLoanAmount != undefined){
