@@ -45,15 +45,11 @@
             <span class="error" ng-show="issubmitted && editloanaccountform.loanpurpose.$error.required">{{'label.error.required' | translate}}</span>
         </td>
         <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
-        <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true || response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption">
-            <select id="fundId" ng-model="formData.fundId" class="form-control width170px" ng-readonly="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption"
+        <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
+            <select id="fundId" ng-model="formData.fundId" class="form-control width170px" ng-disabled="formData.fundId && response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption"
                     ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions" value="{{fund.id}}">
                 <option value="">{{'label.selectfund' | translate}}</option>
             </select>
-        </td>
-        <td ng-show="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption" class="paddedbottom10">
-            <input id="fund" class="form-control" name="find" type="text"  ng-readonly="true"
-                   ng-model="formData.fund"/>&nbsp;
         </td>
     </tr>
     <tr ng-show="formData.productId">
