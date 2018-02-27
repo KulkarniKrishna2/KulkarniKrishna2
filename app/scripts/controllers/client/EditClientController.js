@@ -230,6 +230,10 @@
                     scope.dateOfBirthNotInRange = false;
                 }
 
+                if(scope.dateOfBirthNotInRange){
+                    return false;
+                }
+
                 if (scope.date.submittedOnDate) {
                     this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate, scope.df);
                 }
