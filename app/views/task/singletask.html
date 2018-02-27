@@ -265,8 +265,9 @@
                     class="input-sm form-control" data-ng-change="getDependentCodeValues(code.selectedReason)">
                     <option value="">{{'label.selectone' | translate}}</option></select>
                 </div>
+                <br/>
             </div>
-            <br/>
+            
             <div class="form-group" ng-if ="rejectioReasonsAvailable">
                 <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                 <div class="col-sm-4">
@@ -274,17 +275,14 @@
                     ng-options="codeValue.id as codeValue.description for codeValue in values" value="{{codeValue.id}}" class="input-sm form-control" data-ng-change="initDescription(rejectFormData.reasonCode)">
                     <option value="">{{'label.selectone' | translate}}</option></select>
                 </div>
+                <br/>
             </div>
-            <br/>
+            
             <div class="form-group" ng-if ="displayDescription">
                 <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-4">
                     <input  class="input-sm form-control" type="text" id="description" name="description" ng-model="rejectFormData.description"/>
                 </div>
-            </div>
-            <div class="form-group" ng-if ="reasonsNotAvailable()">
-                <div class="col-sm-4"></div>
-                <h3>{{'label.heading.confirm.to.reject'|translate}}</h3>
             </div>
         </div>
         <div class="modal-footer">
