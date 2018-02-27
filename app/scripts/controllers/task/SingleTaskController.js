@@ -215,9 +215,6 @@
                         $scope.displayDescription = false;
                     }
                 };
-                $scope.reasonsNotAvailable = function(){
-                    return (!$scope.rejectioReasonsAvailable  && !$scope.displayDescription);
-                };
             };
 
             scope.isTaskCompleted = function(){
