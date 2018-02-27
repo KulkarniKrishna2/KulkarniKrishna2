@@ -6806,7 +6806,7 @@
     "label.heading.loanutilizationcheck.details" : "Loanutilizationcheck Details",
     "label.heading.image": "Image",
     "label.message.image.upload.error" : "Unable to upload image",
-    "label.message.images.allowed": "Note: Only .JPG/.JPEG image with size less than 50KB and of Height*Width <= 700*700 is allowed",
+    "label.message.images.allowed": "Note: Only .JPG/.JPEG image with size less than 25KB and of Height*Width <= 128*128 is allowed",
 
     "label.anchor.proxyusermappings" : "Proxy User Mappings",
     "label.proxyusermappings.description" : "Configure User Mappings for Switch user configurations",

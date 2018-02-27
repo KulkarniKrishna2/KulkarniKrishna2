@@ -479,6 +479,10 @@
                 } else {
                     scope.dateOfBirthNotInRange = false;
                 }
+
+                if(scope.dateOfBirthNotInRange){
+                    return false;
+                }
                 if (!scope.dateOfBirthNotInRange || !scope.invalidClassificationId || !scope.pincode || !scope.isVillageTownMandatory || !isCountryReadOnly || !isAddressTypeMandatory) {
 
                     resourceFactory.clientResource.save(this.formData, function (data) {

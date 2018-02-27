@@ -32,6 +32,18 @@
         "paymentDetails": true
 
       }
+    },
+    "createClient": {
+      "isValidateDOBField": {
+        "active": true,
+        "ageCriteria": {
+          "minAge": 18,
+          "maxAge": 60
+        }
+      },
+      "isMandatoryField": {
+        "dateOfBirth": true
+      }
     }
   }
 }

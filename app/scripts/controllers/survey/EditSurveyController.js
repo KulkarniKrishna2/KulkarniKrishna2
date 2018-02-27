@@ -140,9 +140,9 @@
                 if (files.length > 0)
                 {
                     var file = files[0];
-                    var MAX_SIZE = 51200;
-                    var MAX_HEIGHT = 700;
-                    var MAX_WIDTH = 700;
+                    var MAX_SIZE = 25600;
+                    var MAX_HEIGHT = 128;
+                    var MAX_WIDTH = 128;
                     var parent = scope;
                     var fileSize = file.size;
 
