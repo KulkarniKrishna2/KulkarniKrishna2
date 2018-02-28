@@ -233,7 +233,7 @@
 
             scope.previewClientLoanAccInfo = function () {
 
-                if (scope.loanaccountinfo.calendarOptions) {
+                if (scope.formData.synRepaymentWithMeeting) {
                     scope.formValidationData.syncRepaymentsWithMeeting = true;
                     if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
                         scope.formValidationData.syncDisbursementWithMeeting = false;
@@ -369,6 +369,9 @@
                 if (this.formValidationData.syncRepaymentsWithMeeting) {
                     this.formValidationData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                     scope.syncRepaymentsWithMeeting = this.formValidationData.syncRepaymentsWithMeeting;
+                }
+                if (!this.formValidationData.syncRepaymentsWithMeeting) {
+                    delete this.formValidationData.calendarId;
                 }
                 //delete this.formValidationData.syncRepaymentsWithMeeting;
 
@@ -662,11 +665,11 @@
                 scope.submitData.formValidationData = {};
                 scope.submitData.formRequestData = {};
                 angular.copy(scope.formValidationData,scope.submitData.formValidationData);
-                if(scope.submitData.formValidationData.syncRepaymentsWithMeeting){
-                    delete scope.submitData.formValidationData.syncRepaymentsWithMeeting;
+                if(!scope.submitData.formValidationData.syncRepaymentsWithMeeting){
+                    delete scope.submitData.formValidationData.calendarId;         
                 }
-                scope.submitData.formValidationData = scope.formValidationData;
                 angular.copy(scope.formRequestData,scope.submitData.formRequestData);
+                scope.submitData.formRequestData.syncRepaymentsWithMeeting = scope.submitData.formValidationData.syncRepaymentsWithMeeting;
                 scope.submitData.formRequestData.charges = [];
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
