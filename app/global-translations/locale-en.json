@@ -6817,6 +6817,8 @@
     "label.heading.shares.accounts" :"Shares Accounta",
     "label.heading.additional.details":"Additional Details",
     "error.msg.client.active.loan.inactive.group" : "Client with active loan should not transfer to inactive group",
+    "error.msg.externalId.One.with.loanapplicationrefernce.already.exists" : "externalIdOne already associate with loan application reference number:`{{params[0].value}}`",
+    "error.msg.externalId.Two.with.loanapplicationrefernce.already.exists" : "externalIdTwo already associate with loan application reference number:`{{params[0].value}}`",
 
     "------ end of tensalation file":"---------"
 }
