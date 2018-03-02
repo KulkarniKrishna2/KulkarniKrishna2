@@ -238,7 +238,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-4" >{{'label.input.queries' | translate}}</label>
                 <div class="col-sm-6">
-                    <input id="taskQuery"  name = "taskQuery" ng-model="startOverFormData.taskQuery" class="form-control">
+                    <textarea id="taskQuery"  name = "taskQuery" ng-model="startOverFormData.taskQuery" class="form-control"></textarea>
                 </div>
             </div>
         </div>
@@ -281,7 +281,7 @@
             <div class="form-group" ng-if ="displayDescription">
                 <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-4">
-                    <input  class="input-sm form-control" type="text" id="description" name="description" ng-model="rejectFormData.description"/>
+                    <textarea  class="input-sm form-control"  id="description" name="description" ng-model="rejectFormData.description"/>
                 </div>
             </div>
         </div>
