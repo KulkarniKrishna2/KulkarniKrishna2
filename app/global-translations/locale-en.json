@@ -6928,6 +6928,9 @@
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursements.should.be.ordered.based.on.their.disbursement.dates" : "Tranche disburse details should be ordered based on their disbursement date",
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.of.tranche.cannot.be.before.expected.disbursement.date" : "expected tranche disbursement date cann't be before expected disbursement date",
     "validation.msg.loanapplicationreference.trancheAmount.sum.of.multi.disburse.amounts.must.be.equal.to.or.lesser.than.approved.principal":"Sum of multi tranche amount must be equal to or less than approved principal",
-    
+    "error.msg.externalId.One.with.loanapplicationrefernce.already.exists" : "externalIdOne already associate with loan application reference number:`{{params[0].value}}`",
+    "error.msg.externalId.Two.with.loanapplicationrefernce.already.exists" : "externalIdTwo already associate with loan application reference number:`{{params[0].value}}`",
+    "invalid.pin.code.format":"Invalid pin code format",
+
     "------ end of tensalation file":"---------"
 }
