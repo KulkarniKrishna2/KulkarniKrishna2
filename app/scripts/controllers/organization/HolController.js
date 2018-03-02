@@ -58,6 +58,10 @@
                 scope.showPastRecords = false;
                 scope.getHolidays(scope.showPastRecords, scope.showDeletedRecords);
             };
+
+            scope.getRecentActiveAndPendingHolidaysData = function(){
+               scope.getHolidays(scope.showPastRecords, scope.showDeletedRecords); 
+            }
         }
     });
     mifosX.ng.application.controller('HolController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.HolController]).run(function ($log) {
