@@ -407,12 +407,12 @@
 
 					<div class="col-sm-3" ng-if="!pincode">
 						<input  type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode"
-							   name="pincode" ng-model="formAddressData.postalCode" class="form-control" required late-validate=""/>
+							   name="pincode"  ng-pattern= "/^([1-9])([0-9]){5}$/" ng-minlength="6" maxlength="6" ng-model="formAddressData.postalCode" class="form-control" required/>
 					</div>
-					<div class="col-sm-1 paddinglr0px">
-						<form-validate valattributeform="createclientform" valattribute="pincode"/>
-					</div>
-					<div class="col-sm-1">
+					<span ng-show="createclientform.pincode.$error.pattern">
+						<small class="required" ng-show="createclientform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
+                    </span>
+                     <div class="col-sm-1">
 					</div>
 				</div>
 
