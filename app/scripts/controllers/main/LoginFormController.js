@@ -28,17 +28,12 @@
                 delete scope.loginCredentials.password;
                 delete scope.loginCredentials.otp;
                 scope.authenticationFailed = true;
-                if(status != 401) {
+                if(data && data.error_description){
+                    scope.authenticationErrorMessage = data.error_description;
+                }else{
                     scope.authenticationErrorMessage = 'error.connection.failed';
-                    scope.load = false;
-                } else {
-                    if(data.userMessageGlobalisationCode === 'error.msg.user.account.locked'){
-                        scope.authenticationErrorMessage = 'error.msg.user.account.locked';
-                    }else{
-                        scope.authenticationErrorMessage = 'error.login.failed';
-                    }
-                   scope.load = false;
                 }
+                scope.load = false;
             });
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
