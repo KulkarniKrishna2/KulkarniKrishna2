@@ -72,13 +72,8 @@
                     scope.formData.crAccounts.push({});
                      scope.numberOfCredits = scope.numberOfCredits + 1;
                 }else {
-                    if (scope.numberOfDebits <= 1) {
                         scope.formData.crAccounts.push({});
                         scope.numberOfCredits = scope.numberOfCredits + 1;
-                    }
-                    else {
-                        scope.error = "validation.msg.journal.entry.limit.credit.to.one";
-                    }
                 }
             }
 
@@ -87,14 +82,8 @@
                     scope.formData.dbAccounts.push({});
                     scope.numberOfDebits = scope.numberOfDebits + 1;
                 }else {
-                    if (scope.numberOfCredits <= 1) {
                         scope.formData.dbAccounts.push({});
-
                         scope.numberOfDebits = scope.numberOfDebits + 1;
-                    }
-                    else {
-                        scope.error = "validation.msg.journal.entry.limit.debit.to.one";
-                    }
                 }
             }
 
