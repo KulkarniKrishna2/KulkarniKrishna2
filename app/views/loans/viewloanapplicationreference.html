@@ -111,7 +111,14 @@
                                 <td><label>{{ 'label.input.discountondisbursalamount' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.discountOnDisbursalAmount | number}}</td>
                             </tr>
-
+                            <tr ng-if="formData.externalIdOne">
+                                <td><label>{{ 'label.input.externalid' | translate }} One:</label>&nbsp;</td>
+                                <td>{{formData.externalIdOne}}</td>
+                            </tr>
+                            <tr ng-if="formData.externalIdTwo">
+                                <td><label>{{ 'label.input.externalid' | translate }} Two:</label>&nbsp;</td>
+                                <td>{{formData.externalIdTwo}}</td>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-md-6">

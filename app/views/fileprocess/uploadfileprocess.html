@@ -10,19 +10,33 @@
             <legend>{{'label.heading.upload.fileprocess.document' | translate}}</legend>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.fileprocesstype' | translate }}<span class="required">*</span></label>
-
                 <div class="col-sm-3">
-                    <select id="fileProcessType" ng-model="formData.fileProcessType" class="form-control"
+                    <select id="fileProcessType" name="fileProcessType" ng-model="formData.fileProcessType" class="form-control"
                             ng-options="fileProcessTypeOption.systemCode as fileProcessTypeOption.value for fileProcessTypeOption in fileProcessTypeOptions"
-                            value="{{fileProcessTypeOption.systemCode}}">
+                            value="{{fileProcessTypeOption.systemCode}}" required late-validate>
                         <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="fileProcess" valattribute="fileProcessType"/>
+                </div>
+            </div>
+            <div ng-if="formData.fileProcessType == 'sanctionedButNotDisbursed'" class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.file.source.type' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <select id="sourceType" name="sourceType" ng-model="formData.sourceType" class="form-control"
+                            ng-options="sourceTypeOption.systemCode as sourceTypeOption.value for sourceTypeOption in sourceTypeOptions"
+                            value="{{sourceTypeOption.systemCode}}" required late-validate >
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="fileProcess" valattribute="sourceType"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
                         class="required">*</span></label>
-
                 <div class="col-sm-3">
                     <input type="file" id="file" ng-file-select="onFileSelect($files)">
                 </div>
