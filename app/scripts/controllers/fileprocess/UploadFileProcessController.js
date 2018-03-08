@@ -5,6 +5,7 @@
             scope.formData = {};
             resourceFactory.fileProcessTemplateResource.get({},function(data){
                 scope.fileProcessTypeOptions = data.fileProcessTypeOptions;
+                scope.sourceTypeOptions = data.sourceTypeOptions;
             });
 
             scope.onFileSelect = function ($files) {

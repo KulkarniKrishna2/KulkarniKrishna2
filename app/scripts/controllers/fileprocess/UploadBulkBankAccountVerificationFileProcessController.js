@@ -5,6 +5,7 @@
             scope.formData = {};
             resourceFactory.fileProcessTemplateResource.get({},function(data){
                 scope.fileProcessTypeOptions = data.fileProcessTypeOptions;
+                scope.sourceTypeOptions = data.sourceTypeOptions;
                 for(var i in scope.fileProcessTypeOptions){
                     if(scope.fileProcessTypeOptions[i].systemCode == 'bankAccountVerification'){
                         scope.formData.fileProcessType = scope.fileProcessTypeOptions[i].systemCode;
