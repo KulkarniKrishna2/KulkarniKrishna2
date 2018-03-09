@@ -23,14 +23,14 @@
             };
             scope.submit=function() 
             {
-                var reqDate = dateFilter(scope.first.date, scope.df);
+                scope.first.date.setHours(scope.dueTime.getHours());
+                scope.first.date.setMinutes(scope.dueTime.getMinutes());
+                scope.first.date.setSeconds(scope.dueTime.getSeconds());
+                var reqDate = dateFilter(scope.first.date, 'dd MMMM yyyy HH:mm:ss');
                 this.formData.duedate = reqDate;
-                this.formData.dateFormat = scope.df;
+                this.formData.dateFormat = 'dd MMMM yyyy HH:mm:ss';
                 this.formData.locale = scope.optlang.code;
-                this.formData.timeFormat='HH:mm:ss';
-                scope.dueTime = dateFilter(scope.dueTime,'HH:mm');
-                scope.dueTime = scope.dueTime.concat(":00");
-                this.formData.dueTime = scope.dueTime;
+                this.formData.timeFormat='dd MMMM yyyy HH:mm:ss';
                 resourceFactory.taskAssignResource.save(this.formData, function (response) {
                     location.path('/tasklist')
                 });

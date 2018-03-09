@@ -10,7 +10,8 @@
                     {{role.name}},
                 </span> |
                 </small>
-                <small>{{'label.heading.createdon' | translate}} {{taskData.createdOn | DateFormat}}</small>
+                <small><span ng-if="canReschedule">{{'label.heading.duedate' | translate}} {{taskData.dueDate | DateFormat}}&nbsp;<i class="icon-time"></i>&nbsp;{{dueTimeToDisplay}}&nbsp;</span><a href = "#" ng-if = "canReschedule" 
+                    ng-click = "initiateTaskAction('reschedule')" class = "btn btn-primary">{{'label.button.reschedule' | translate}}</a></small>
             </h3>
         </div>
 
@@ -322,6 +323,38 @@
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancelCloseQuery()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="submitCloseQuery()">{{'label.button.submit' | translate}}</button>
+        </div>
+    </script>
+        <script type="text/ng-template" id="reschedule.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.reschedule' | translate}}</h3>
+        </div>
+            <div class="modal-body">
+             <api-validate></api-validate>   
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="duedate">{{'label.input.duedate' | translate}}<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-4">
+                        <span style="padding-left:17px"><input id="duedate"  name = "duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rschData.dueDate" is-open="opened" min="restrictDate" max="'2050-01-01'"/></span>
+                    </div>  
+                    <label class="control-label col-sm-2" for="duedate">{{'label.input.dueTime' | translate}}<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-4">
+                        <timepicker id="dueTime"  
+                              ng-model="rschData.dueTime"></timepicker>
+                    </div>                          
+                </div>
+                <br><br>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" >{{'label.input.reason' | translate}}<span class="required">*</span></label>
+                    <div class="col-sm-10">
+                        <input id="rescheduleReason" type = "textarea" name = "rescheduleReason" ng-model="rescheduleFormData.reason" class="form-control">
+                    </div>
+                </div>   
+        </div>
+        <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancelReschedule()">{{'label.button.cancel' | translate}}</button>
+                    <button class="btn btn-primary" ng-click="submitReschedule()">{{'label.button.submit' | translate}}</button>
         </div>
     </script>
 </div>

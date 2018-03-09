@@ -15,6 +15,7 @@
             scope.isRejectDescriptionMandatory = false;
             scope.isRejectCodesMandatory = false;
             scope.isUnresolvedQueryExists = false;
+            scope.canReschedule = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                 scope.response.uiDisplayConfigurations.workflow.isMandatory){
                 if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
@@ -68,6 +69,15 @@
                             }
                         });
                     }
+
+                    if(scope.taskData.status.value != 'inactive' || scope.taskData.status.value != 'completed' || scope.taskData.status.value != 'cancelled'){
+                        scope.canReschedule = true;
+                    }
+                    if(scope.taskData.dueTime != undefined) {
+                        var today  =  new Date();
+                            scope.dueTime = new Date(scope.taskData.dueTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                            scope.dueTimeToDisplay = dateFilter(scope.dueTime, "HH:mm:ss");
+                    }
                 }
             }
 
@@ -83,6 +93,11 @@
                 if(actionName == 'reject'){
                     scope.action = action;       
                     return scope.reject(); 
+                }
+
+                if(actionName == 'reschedule'){
+                    scope.action = action;       
+                    return scope.reschedule(scope.taskData, actionName, scope.optlang.code); 
                 }
                 scope.taskActionExecutionErrorMessage = null;
                 scope.$broadcast('preTaskAction',{actionName:actionName});
@@ -409,6 +424,50 @@
                     });
                 }
             }
+
+            scope.reschedule = function (taskDataObj, actionValue, localeObj) {
+                $modal.open({
+                    templateUrl: 'reschedule.html',
+                    controller: RescheduleCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        rescheduleDetails: function () {
+                            return {'dueDate' : taskDataObj.dueDate, 
+                                    'dueTime' : taskDataObj.dueTime, 
+                                    'actionName' : actionValue,
+                                    'localeObj' : localeObj};
+                        }
+                    }
+                });
+            };
+
+            var RescheduleCtrl = function ($scope, $modalInstance, rescheduleDetails) {
+
+                $scope.rschData = {};
+                $scope.rescheduleFormData = {};
+                $scope.rschData.dueTime = scope.dueTime;
+                $scope.rschData.dueDate = new Date(rescheduleDetails.dueDate);
+                $scope.rschData.localeObj = rescheduleDetails.localeObj;
+                
+                $scope.cancelReschedule = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitReschedule = function () {            
+                    if($scope.rschData.dueTime != undefined){
+                        $scope.rschData.dueDate.setHours($scope.rschData.dueTime.getHours());
+                        $scope.rschData.dueDate.setMinutes($scope.rschData.dueTime.getMinutes());
+                        $scope.rschData.dueDate.setSeconds($scope.rschData.dueTime.getSeconds());
+                        $scope.rescheduleFormData.rescheduleToDate = dateFilter($scope.rschData.dueDate, 'dd MMMM yyyy HH:mm:ss');      
+                    }
+                    $scope.rescheduleFormData.timeFormat='dd MMMM yyyy HH:mm:ss';
+                    $scope.rescheduleFormData.locale = $scope.rschData.localeObj;
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:rescheduleDetails.actionName},$scope.rescheduleFormData, function (data) {
+                        $modalInstance.close('reschedule');
+                        location.path('/tasklist');
+                    });
+                };
+            };
         }
     });
     mifosX.ng.application.controller('SingleTaskController', ['$scope', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$route',mifosX.controllers.SingleTaskController]).run(function ($log) {
