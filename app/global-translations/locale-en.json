@@ -5762,6 +5762,7 @@
     "taskActionType.criteriacheck":"Run Criteria Check",
     "taskActionType.startover":"Start Over",
     "taskActionType.disable":"Disable",
+    "taskActionType.reschedule":"Reschedule",
 
     "label.heading.info":"Info",
     "label.heading.makerdata":"Maker Data",
@@ -6932,6 +6933,9 @@
     "error.msg.externalId.One.with.loanapplicationrefernce.already.exists" : "externalIdOne already associate with loan application reference number:`{{params[0].value}}`",
     "error.msg.externalId.Two.with.loanapplicationrefernce.already.exists" : "externalIdTwo already associate with loan application reference number:`{{params[0].value}}`",
     "invalid.pin.code.format":"Invalid pin code format",
-
+    "label.heading.reschedule":"Reschedule Details",
+    "validation.msg.TASK_RESCHEDULE.reason.cannot.be.blank" : "Reason cannot be blank",
+    "validation.msg.TASK_RESCHEDULE.rescheduleToDate.should.be.not.past":"Reschedule should not be past",
+    "label.heading.duedate" : "Due On",
     "------ end of tensalation file":"---------"
 }
