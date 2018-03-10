@@ -1427,7 +1427,6 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
-
                     groupBankAccountResource: defineResource(apiVer + "/groups/:groupId/bankaccountdetails", {groupId: '@groupId'}, {
                         retrieveAll: {method: 'GET', params: {}},
                         create: {method: 'POST'}
@@ -1453,6 +1452,9 @@
                     clientParentGroupsResource: defineResource(apiVer + "/clients/:clientId/groupdetails", {clientId: '@clientId'}, {
                        getParentGroups: {method:'GET', params: {}, isArray: true}
                     }),
+                    taskAnalyticsResource: defineResource(apiVer + "/tasks/analytics",{}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    })
                 };
             }];
         }

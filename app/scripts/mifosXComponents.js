@@ -571,7 +571,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'proxyuser/SwitchUserController',
             'groups/groupbankaccountdetails/GroupBankAccountDetailsController',
             'groups/groupbankaccountdetails/CreateGroupBankAccountController',
-            'groups/groupbankaccountdetails/ViewGroupBankAccountController'
+            'groups/groupbankaccountdetails/ViewGroupBankAccountController',
+            'task/analytics/TaskAnalyticsController'
         ],
         filters: [
             'StatusLookup',

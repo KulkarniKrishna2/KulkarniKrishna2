@@ -660,6 +660,12 @@
                 scope.submitData = {};
                 scope.submitData.formValidationData = {};
                 scope.submitData.formRequestData = {};
+                 if(scope.formRequestData.netLoanAmount != undefined){
+                   delete scope.formRequestData.netLoanAmount;
+               }
+               if(scope.formRequestData.isFlatInterestRate != undefined){
+                   delete scope.formRequestData.isFlatInterestRate;
+               }
                 angular.copy(scope.formValidationData,scope.submitData.formValidationData);
                 if(!scope.submitData.formValidationData.syncRepaymentsWithMeeting){
                     delete scope.submitData.formValidationData.calendarId;         
@@ -757,6 +763,13 @@
                     delete this.formRequestData.netLoanAmount;
                 }
                 scope.submitData.formValidationData = scope.formValidationData;
+                
+                if(this.formRequestData.isFlatInterestRate != undefined){
+                    delete this.formRequestData.isFlatInterestRate;
+                }
+                if(this.formRequestData.netLoanAmount != undefined){
+                    delete this.formRequestData.netLoanAmount;
+                }
                 scope.submitData.formRequestData = scope.formRequestData;
                 if (scope.charges.length > 0) {
                     scope.submitData.formRequestData.charges = [];

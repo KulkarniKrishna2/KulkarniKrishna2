@@ -1718,6 +1718,9 @@
             })
             .when('/groups/:groupId/bankaccountdetails/:groupBankAccountDetailAssociationId', {
                 templateUrl: 'views/groups/bankaccountdetails/viewgroupbankaccountdetails.html'
+             })
+            .when('/workflowanalytics', {
+                templateUrl: 'views/task/analytics/taskanalytics.html'
             })
         $locationProvider.html5Mode(false);
     };

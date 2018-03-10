@@ -6937,5 +6937,21 @@
     "validation.msg.TASK_RESCHEDULE.reason.cannot.be.blank" : "Reason cannot be blank",
     "validation.msg.TASK_RESCHEDULE.rescheduleToDate.should.be.not.past":"Reschedule should not be past",
     "label.heading.duedate" : "Due On",
+    "label.heading.turnaroundtime" : "Turn Around Time",
+    "label.input.escalation.thersold" : "Escalation Thershold",
+    "label.input.standardtat" : "Standard TAT",
+    "label.heading.standardtat" : "Standard TAT",
+    "label.heading.escalation.thersold" : "Escalation Thershold",
+
+
+    "label.heading.total.task.count" : "Total Task Count",
+    "label.heading.ontime.task.count" : "Ontime Task Count",
+    "label.heading.tat.count" : "TAT Count",
+    "label.heading.escalated.task.count" : "Escalated Task Count",
+    "label.heading.staff.vs.workflow.task.performance" : "Staff Vs Workflow Task Performance",
+    "label.heading.task.performance.analytics" : "Task Performance Analytics",
+    "label.heading.workflow.analytics" : "Workflow Analytics",
+    "label.view.workflow.task.performance" : "Workflow task performance",
+
     "------ end of tensalation file":"---------"
 }

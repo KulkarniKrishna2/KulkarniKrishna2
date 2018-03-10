@@ -1,0 +1,77 @@
+<div id="expertsearch" class="col-md-12" data-ng-controller="TaskAnalyticsController">
+    <br>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{'label.heading.task.performance.analytics' | translate}} ({{chartType}})
+                        <select class="form-control input-small-tooltip pull-right" name="chartType"
+                                ng-change="tableChart()"
+                                id="chartType" ng-model="chartType"
+                                data-ng-options="chart as chart for chart in chartTypeList" value="{{chart}}">
+                        </select>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table well">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td bgcolor="#CDCDCD"></td>
+                                <td ng-repeat="taskData in taskDataList" bgcolor="#CDCDCD">{{taskData.name}}</td>
+                            </tr> 
+                            <tr>
+                                <td bgcolor="#CDCDCD">{{'label.heading.total.task.count' | translate}}</td>
+                                <td ng-repeat="taskData in taskDataList" bgcolor="#0070C0">{{taskData.totalCount}}</td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#CDCDCD">{{'label.heading.ontime.task.count' | translate}}</td>
+                                <td ng-repeat="taskData in taskDataList" bgcolor="#70AD46">{{taskData.onTimeCount}}</td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#CDCDCD">{{'label.heading.tat.count' | translate}}</td>
+                                <td ng-repeat="taskData in taskDataList" bgcolor="#FFC000">{{taskData.tatCount}}</td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#CDCDCD">{{'label.heading.escalated.task.count' | translate}}</td>
+                                <td ng-repeat="taskData in taskDataList" bgcolor="#FF0000">{{taskData.escalatedCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="home" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{'label.heading.task.performance.analytics' | translate}} ({{barChartType}})
+                        <select class="form-control input-small-tooltip pull-right" name="barChartType"
+                                ng-change="getBarChart()"
+                                id="barChartType" ng-model="barChartType"
+                                data-ng-options="chart as chart for chart in chartTypeList" value="{{chart}}">
+                        </select>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div style="height: 242px;">
+                        <nvd3-multi-bar-chart
+                                data="barData"
+                                id="barchart"
+                                width="800"
+                                height="380"
+                                tooltips="true"
+                                color="colorFunction()"
+                                showLegend="true"
+                                stacked="true">
+                            <svg></svg>
+                        </nvd3-multi-bar-chart>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
