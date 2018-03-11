@@ -1454,6 +1454,9 @@
                     }),
                     taskAnalyticsResource: defineResource(apiVer + "/tasks/analytics",{}, {
                         get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    codeHierarchyResource: defineResource(apiVer + "/codes/childCodes",{}, {
+                        get: {method: 'GET', params: {}, isArray: true}
                     })
                 };
             }];

@@ -25,9 +25,14 @@
             scope.forcedSubmit=false;
             scope.isStaffMandotory = false;
             scope.productiveCollctionSheetSearchParams = {};
-            scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
-            scope.hideLoanAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.loanAccountNumber;
-            scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
+            scope.reasonAttendenceList = [];
+            scope.attendenceListForReason = [2,4,5];
+            if(scope.response){
+                scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
+                scope.hideLoanAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.loanAccountNumber;
+                scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
+            
+            }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 if (scope.currentSession.user.officeId) {
@@ -40,6 +45,63 @@
                     scope.officeSelected(scope.officeId);
                 }
             });
+
+
+            resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason',childCodeName:'AttendanceReason'}, function (data) {
+                scope.reasonAttendenceList = data;
+            });
+
+            scope.setvalues = function(index){
+                scope.clientsAttendance[index].codeReasonId = undefined;
+                scope.clientsAttendance[index].codeValueOptions = undefined;
+                scope.clientsAttendance[index].reason = undefined;
+            };
+
+             scope.clientsAttendanceList = function (groups) {
+                var gl = groups.length;
+                var count = 0;
+                for (var i = 0; i < gl; i++) {
+                    scope.clients = groups[i].clients;
+                    var cl = scope.clients.length;
+                    for (var j = 0; j < cl; j++) {
+                        scope.clientsAttendance[count] = {};
+                        scope.client = scope.clients[j];
+                        if (scope.client.attendanceType.id === 0) {
+                            scope.clientsAttendance[count].attendanceType = 1;
+                        }
+                        scope.clientsAttendance[count].clientId = scope.client.clientId;
+                        count = count+1;
+                    }
+                }
+            };
+
+            scope.isTextAvailable = function(data){
+                if(data && data.codeReasonId && data.reasonId){
+                    for(var i in scope.reasonAttendenceList){
+                        if(scope.reasonAttendenceList[i].id==data.codeReasonId && scope.reasonAttendenceList[i].name =='Others'){
+                            for(var j in scope.reasonAttendenceList[i].values){
+                                if(scope.reasonAttendenceList[i].values[j].id==data.reasonId && scope.reasonAttendenceList[i].values[j].name =='Others'){
+                                    return true;
+                                }
+                            }
+                            scope.clientsAttendance[index].codeValueOptions =  scope.reasonAttendenceList[i].values;
+                        }
+                    }
+                }else{
+                    return false;
+                }
+            }
+
+            scope.getValues = function(index, codeId){
+                for(var i in scope.reasonAttendenceList){
+                    if(scope.reasonAttendenceList[i].id==codeId){
+                        scope.clientsAttendance[index].codeValueOptions =  scope.reasonAttendenceList[i].values;
+                    }
+                }
+                return [];
+            };
+
+
             scope.productiveCollectionSheet = function () {
                 for (var i = 0; i < scope.offices.length; i++) {
                     if (scope.offices[i].id === scope.officeId) {
@@ -218,6 +280,7 @@
                                 scope.showPaymentDetailsFn();
                             }
                             scope.clientsAttendanceArray(data.groups);
+                            scope.clientsAttendanceList(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -675,7 +738,7 @@
                         scope.clientsAttendance.push(clientAttendanceDetails);
                     });
                 });
-                scope.formData.clientsAttendance = scope.clientsAttendance;
+                scope.updateAttendenceData();
 
                 if(scope.showPaymentDetails && scope.paymentDetail.paymentTypeId != ""){
                     scope.formData.paymentTypeId = scope.paymentDetail.paymentTypeId;
@@ -737,6 +800,20 @@
                 };
                 errorObj.args.params.push({value: errorMessage});
                 scope.errorDetails.push(errorObj);
+            };
+
+             scope.updateAttendenceData = function(){
+                scope.formData.clientsAttendance = scope.clientsAttendance;
+                var clientsAttendanceDetails =[];
+                for (var i in scope.clientsAttendance) {
+                    var attendence = {};
+                    attendence.clientId = scope.clientsAttendance[i].clientId;
+                    attendence.reasonId = scope.clientsAttendance[i].reasonId;
+                    attendence.reason = scope.clientsAttendance[i].reason;
+                    attendence.attendanceType = scope.clientsAttendance[i].attendanceType;
+                    clientsAttendanceDetails.push(attendence);
+                };
+                scope.formData.clientsAttendance = clientsAttendanceDetails;
             };
 
         }
