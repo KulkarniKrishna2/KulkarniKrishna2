@@ -76,6 +76,12 @@
                                            scope.formData.name = scope.taskConfigStepsData.name;
                                            scope.formData.shortName = scope.taskConfigStepsData.shortName;
                                            scope.riskCriteriaId = scope.taskConfigStepsData.criteriaId;
+                                           if(scope.taskConfigStepsData.escalationDuration){
+                                            scope.formData.escalationDuration = scope.taskConfigStepsData.escalationDuration;
+                                           }
+                                           if(scope.taskConfigStepsData.tatDuration){
+                                            scope.formData.tatDuration = scope.taskConfigStepsData.tatDuration;
+                                           }
                                            if(scope.riskCriteriaId){
                                                scope.changeInCriteria();
                                            }
