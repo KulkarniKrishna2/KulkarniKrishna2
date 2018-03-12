@@ -14,8 +14,17 @@
         <div class="modal-body ">
             <api-validate></api-validate>
             <br>
+            <div class="form-group" >
+                <label class="control-label col-sm-3" >{{'label.input.reversalreason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
+                <div class="col-sm-4">
+                    <select  id="reasonCode" name="reasonCode" ng-model="reason" ng-options="code.id as code.name for code in reasons" value="{{code.id}}" 
+                    class="input-sm form-control">
+                    <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>
+                <br/>
+            </div>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="undoTransaction()">{{'label.button.undo' | translate}}</button>
+            <button class="btn btn-primary" ng-click="undoTransaction(reason)">{{'label.button.undo' | translate}}</button>
         </div>
     </script>
 
@@ -71,6 +80,10 @@
             <tr ng-if="transaction.createdAtOffice">
                 <td>{{ 'label.heading.initiatedat' | translate}}</td>
                 <td>{{transaction.createdAtOffice.name}}</td>
+            </tr>
+            <tr ng-show="transaction.reversalReason">
+                <td>{{ 'label.heading.reversalreason' | translate}}</td>
+                <td>{{transaction.reversalReason.name}}</td>
             </tr>
         </table>
         <table class="width100" ng-show="transaction.paymentDetailData">
