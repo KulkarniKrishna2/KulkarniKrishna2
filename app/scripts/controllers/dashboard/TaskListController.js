@@ -158,6 +158,20 @@
                     });
                 }
             }
+
+            scope.colorArray = ['#0070C0', '#70AD46', '#FFC000', '#FF0000'];
+
+            scope.getColor = function(status){
+                var colorStyle = {'color':scope.colorArray[1]};
+                if(status==100){  
+                     colorStyle = {'color':scope.colorArray[2]};
+                }else if(status==200){
+                    colorStyle = {'color':scope.colorArray[3]};
+                }else if(status==300){
+                    colorStyle = {'color':scope.colorArray[0]};
+                }
+                return colorStyle;
+            };
         }
     });
     mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorService', '$routeParams', mifosX.controllers.TaskListController]).run(function ($log) {

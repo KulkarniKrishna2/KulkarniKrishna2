@@ -107,6 +107,7 @@
                                         </ng-form>
                                     </td>
                                     <td class=" pointer"  ng-click="goToTask(workFlowTask)">
+                                        <i tooltip-placement="right" class="icon-circle " ng-style="getColor(workFlowTask.runningStatus)"></i>
                                         {{workFlowTask.taskName}}
 
                                     </td>
