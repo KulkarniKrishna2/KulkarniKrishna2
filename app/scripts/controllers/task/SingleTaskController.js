@@ -448,6 +448,7 @@
                 $scope.rschData.dueTime = scope.dueTime;
                 $scope.rschData.dueDate = new Date(rescheduleDetails.dueDate);
                 $scope.rschData.localeObj = rescheduleDetails.localeObj;
+                $scope.restrictDate = new Date();
                 
                 $scope.cancelReschedule = function () {
                     $modalInstance.dismiss('cancel');
