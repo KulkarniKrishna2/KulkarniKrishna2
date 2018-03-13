@@ -1404,9 +1404,9 @@
                     switchUserResource: defineResource(apiVer + "/switchuser", {}, {
                         
                     }),
-                    taskQueryResource: defineResource(apiVer + "/tasks/:taskId/execute/queries/:taskQueryId",{taskQueryId:'@taskQueryId'}, {
+                    taskQueryResource: defineResource(apiVer + "/tasks/:taskId/execute/queries",{taskId:'@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                        get: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
 

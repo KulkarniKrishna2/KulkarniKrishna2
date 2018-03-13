@@ -57,19 +57,20 @@
 
                          resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
                              scope.taskData = taskData;
-
-
+                             if(scope.taskData.isUnresolvedQueryExists){
+                                     resourceFactory.taskQueryResource.get({taskId:scope.taskData.id, isUnresolveQueryFetch : true}, function (taskQueryData) {
+                                        scope.taskQueryDataList = taskQueryData;
+                                        if(scope.taskQueryDataList != undefined && scope.taskQueryDataList.length > 0){
+                                           scope.isUnresolvedQueryExists = true;
+                                        }
+                                    });
+                               }
                          });
                         resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'taskview'}, function (data) {
                             scope.canView = true;
                             populateNextActions();
                         });
-                        resourceFactory.taskQueryResource.get({taskId:scope.taskData.id, isUnresolveQueryFetch : true}, function (taskQueryData) {
-                            scope.taskQueryData = taskQueryData;
-                            if(scope.taskQueryData != undefined && scope.taskQueryData.isQueryResolved != undefined && !scope.taskQueryData.isQueryResolve){
-                               scope.isUnresolvedQueryExists = true;
-                            }
-                        });
+                        
                     }
                 }
             }
@@ -131,6 +132,9 @@
             var StartOverCtrl = function ($scope, $modalInstance) {
                 $scope.previousTaskList=[];
                 $scope.startOverFormData={};
+                $scope.temp = {};
+                $scope.temp.query = null;
+                $scope.queryList = [];
                 function initStartOver(){
                     $scope.previousTaskList = [];
                     resourceFactory.taskExecutionChildrenResource.getAll({taskId: scope.taskData.parentId}, function (children) {
@@ -158,13 +162,23 @@
                 };
 
                 $scope.submitStartOver = function () {
+                    if($scope.queryList != undefined && $scope.queryList.length > 0){
+                        $scope.startOverFormData.queryList = $scope.queryList.slice();
+                    }
                     resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'startover'},$scope.startOverFormData, function (data) {
                         $modalInstance.close('startover');
                         $route.reload();
                     });
-
-
                 };
+
+                $scope.addQuery = function(newQuery){
+                    $scope.queryList.push(newQuery);
+                    $scope.temp.query = "";
+                }
+
+                $scope.deleteQuery = function(deleteQuery){
+                    $scope.queryList.splice(deleteQuery,1);
+                }
             };
 
             scope.reject = function () {
@@ -369,14 +383,14 @@
                 });
             };
 
-            scope.closeQuery = function (taskQueryData) {
+            scope.closeQuery = function (taskQueryDataList) {
                 $modal.open({
                     templateUrl: 'closequery.html',
                     controller: CloseQueryCtrl,
                     windowClass: 'modalwidth700',
                     resolve: {
                         queryDetails: function () {
-                            return {'taskQuery' : taskQueryData};
+                            return {'taskQueries' : taskQueryDataList};
                         }
                     }
                 });
@@ -384,16 +398,21 @@
 
             var CloseQueryCtrl = function ($scope, $modalInstance, queryDetails) {
 
-                $scope.taskQueryData = queryDetails.taskQuery;
+                $scope.taskQueries = queryDetails.taskQueries;
                 $scope.closeQueryFormData = {};
-                $scope.closeQueryFormData.taskQueryId = $scope.taskQueryData.id;
 
                 $scope.cancelCloseQuery = function () {
                     $modalInstance.dismiss('cancel');
                 };
 
                 $scope.submitCloseQuery = function () {
-                    resourceFactory.taskQueryResource.update({taskId:scope.taskData.id,taskQueryId:$scope.taskQueryData.id},$scope.closeQueryFormData, function (data) {
+                     var tempArray = [];
+                     for(var i = 0 ; i < $scope.taskQueries.length ; i++){
+                         var tempObj = { taskQueryId : $scope.taskQueries[i].id, taskQueryResolution : $scope.taskQueries[i].resolution};
+                         tempArray.push(tempObj);
+                     }
+                     $scope.closeQueryFormData.resolutions = tempArray.slice();
+                    resourceFactory.taskQueryResource.update({taskId:scope.taskData.id},$scope.closeQueryFormData, function (data) {
                         $modalInstance.close('closequery');
                         $route.reload();
                     });
