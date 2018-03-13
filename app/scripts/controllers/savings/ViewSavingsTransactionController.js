@@ -19,6 +19,14 @@
                     scope.isHold = true;
                 }
             });
+
+            scope.getReversalReasonCodes = function(){
+                resourceFactory.codeValueByCodeNameResources.get({codeName: "Transaction Reversal Reason"}, function (data) {
+                    scope.reversalReasons = data;
+                 });
+            };
+
+            scope.getReversalReasonCodes();
             
             scope.undo = function (accountId, transactionId) {
                 $modal.open({
@@ -36,10 +44,14 @@
             };
             
             var UndoTransactionModel = function ($scope, $modalInstance, accountId, transactionId) {
-                $scope.undoTransaction = function () {
+                $scope.reasons = scope.reversalReasons;
+                $scope.undoTransaction = function (reason) {
                     var params = {savingsId: accountId, transactionId: transactionId, command: 'undo'};
                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
                     formData.transactionDate = dateFilter(new Date(), scope.df);
+                    if(reason){
+                        formData.reason = reason;
+                    }
                     resourceFactory.savingsTrxnsResource.save(params, formData, function (data) {
                         $modalInstance.close('delete');
                         location.path('/viewsavingaccount/' + data.savingsId);
