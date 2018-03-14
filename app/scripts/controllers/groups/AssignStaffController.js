@@ -4,13 +4,21 @@
             scope.group = [];
             scope.staff = [];
             scope.formData = {};
-            resourceFactory.assignStaffResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
+            if(routeParams.entityType==='centers') {
+                resourceFactory.assignStaffToCenterResource.get({groupOrCenter: routeParams.entityType, CenterId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.group = data;
                 scope.staffs = data.staffOptions;
                 scope.formData.staffId = data.staffOptions[0].id;
-            });
+                });
+            }
+            else {
+                resourceFactory.assignStaffResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
+                scope.group = data;
+                scope.staffs = data.staffOptions;
+                scope.formData.staffId = data.staffOptions[0].id;
+                });
+            }
             scope.assignStaff = function () {
-
                 if (routeParams.entityType == "groups") {
                     scope.r = "viewgroup/";
                 }
@@ -20,6 +28,14 @@
                 resourceFactory.assignStaffResource.save({groupOrCenterId: routeParams.id, command: 'assignStaff'}, this.formData, function (data) {
                     location.path(scope.r + data.groupId);
                 });
+            };
+            scope.cancel = function () {
+                if (routeParams.entityType == "groups") {
+                    location.path("viewgroup/" + routeParams.id);
+                }
+                else if (routeParams.entityType == "centers") {
+                    location.path("viewcenter/" + routeParams.id);
+                }
             };
         }
     });
