@@ -523,6 +523,7 @@
     "error.msg.calendar.update.of.meeting.interval.is.not.supported": "Update of meeting 'Repeats Every' is not supported.",
     "validation.msg.meeting.meetingDate.cannot.be.blank": "Meeting date is mandatory.",
     "validation.msg.meeting.calendarId.cannot.be.blank": "Meeting calendar id is mandatory",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.first.disbursement.date.must.start.with.expected.disbursement.date":"Tranche disbursement Date does not match with Expected Disbursement Date",
     "error.msg.calendar.meeting.not.valid.recurring.date": "Meeting date should be a valid Calendar meeting date.",
     "error.msg.meeting.duplicate": "Meeting with date {{params[0].value}} already exists.",
     "error.msg.meeting.date.cannot.be.a.future.date": "Meeting date cannot be in the future.",

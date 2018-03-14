@@ -592,6 +592,9 @@
                     assignStaffResource: defineResource(apiVer + "/groups/:groupOrCenterId", {groupOrCenterId: '@groupOrCenterId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    assignStaffToCenterResource: defineResource(apiVer + "/centers/:CenterId", {CenterId: '@CenterId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     configurationResource: defineResource(apiVer + "/configurations/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
