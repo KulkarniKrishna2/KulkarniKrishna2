@@ -21,6 +21,13 @@
                     scope.taskData = data;
                     //scope.$broadcast('initTask', {"taskData": data});
                 });
+                
+                if(data.groupId != undefined){
+                     resourceFactory.groupResource.get({groupId: data.groupId}, function (data) {
+                         scope.groupData = data;
+                     });
+                }
+               
             });
 
             /*Not Using*/

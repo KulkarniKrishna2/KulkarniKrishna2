@@ -9,6 +9,7 @@
                 scope.first={};
                 scope.restrictDate = new Date();
                 scope.dueTime = new Date();
+                scope.first.date = new Date();
                 });
             }
             scope.formData={};

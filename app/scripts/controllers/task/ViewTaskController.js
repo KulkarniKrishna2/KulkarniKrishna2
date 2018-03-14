@@ -58,6 +58,14 @@
                             loanApplicationReferenceId: scope.loanApplicationId},
                             function (data) {
                             scope.loanApplicationData = data;
+                            if(scope.groupId == undefined){
+                                if(scope.loanApplicationData.groupId != undefined){
+                                   scope.groupId = scope.loanApplicationData.groupId;
+                                   resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
+                                        scope.groupData = data;
+                                   });
+                                }
+                            }
                             if(scope.loanApplicationCoApplicantId){
                                 resourceFactory.loanCoApplicantsResource.get({loanApplicationReferenceId: scope.loanApplicationId,
                                     coApplicantId: scope.loanApplicationCoApplicantId}, function (data) {

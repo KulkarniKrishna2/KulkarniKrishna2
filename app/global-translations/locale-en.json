@@ -6952,6 +6952,7 @@
     "label.heading.task.performance.analytics" : "Task Performance Analytics",
     "label.heading.workflow.analytics" : "Workflow Analytics",
     "label.view.workflow.task.performance" : "Workflow task performance",
+    "validation.msg.taskAssign.duedate.should.be.not.past" : "Due period should not be past",
 
     "------ end of tensalation file":"---------"
 }

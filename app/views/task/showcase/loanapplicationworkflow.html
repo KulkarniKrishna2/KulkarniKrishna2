@@ -2,8 +2,6 @@
     <div class="col-md-12 col-sm-12">
         <div>
             <ul class="breadcrumb">
-                <li ng-if="groupName && isShowCenter"><a href="#/viewcenter/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
-                <li ng-if="groupName && !isShowCenter"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
                 <li ng-if="clientName"><a href="#/viewclient/{{loanApplicationData.clientId}}"><strong>'{{clientName}}'</strong></a></li>
                 <li ng-if="clientName"><a href="#/viewloanapplicationreference/{{resourceId}}"><strong>{{'label.anchor.viewloanapplication' | translate}}</strong></a></li>
                 <li class="active">{{'label.heading.workflow' | translate}}</li>
@@ -28,6 +26,12 @@
                     <span class="col-md-4">{{loanApplicationData.loanOfficerName}}</span>
                     <span class="col-md-3">{{'label.input.applicationdate' | translate}}</span>
                     <span class="col-md-3">{{loanApplicationData.submittedOnDate | DateFormat}}</span>
+                </div>
+                <div class="row" ng-if="groupData">
+                    <span class="col-md-2">{{'label.heading.centername' | translate}}</span>
+                    <span class="col-md-4" ng-if="groupData.centerId"><a href="#/viewcenter/{{groupData.centerId}}">{{groupData.centerName}}</a></span>
+                    <span class="col-md-3">{{'label.heading.groupname' | translate}}</span>
+                    <span class="col-md-3" ng-if="groupData.id"><a href="#/viewgroup/{{groupData.id}}">{{groupData.name}}</a></span>
                 </div>
             </div>
         </div>
