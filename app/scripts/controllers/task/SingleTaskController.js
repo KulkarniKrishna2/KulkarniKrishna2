@@ -124,7 +124,10 @@
                     resourceFactory.taskExecutionTemplateResource.get({taskId: scope.taskData.id}, function (taskData) {
                         scope.taskData = taskData;
                         if (scope.taskData.status.value == 'completed' || scope.taskData.status.value == 'skipped') {
-                            scope.$emit('taskCompleted', {taskId: scope.taskData.id});
+                            scope.$emit('taskCompleted', {taskId: scope.taskData.id});       
+                        }
+                        if (scope.taskData.status.value == 'completed'){
+                            scope.canReschedule = false;
                         }
                         scope.$broadcast('postTaskAction',{actionName:actionName});
                         populateNextActions();
@@ -464,6 +467,7 @@
                         $scope.rescheduleFormData.rescheduleToDate = dateFilter($scope.rschData.dueDate, 'dd MMMM yyyy HH:mm:ss');      
                     }
                     $scope.rescheduleFormData.timeFormat='dd MMMM yyyy HH:mm:ss';
+                    $scope.rescheduleFormData.dateFormat='dd MMMM yyyy HH:mm:ss';
                     $scope.rescheduleFormData.locale = $scope.rschData.localeObj;
                     resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:rescheduleDetails.actionName},$scope.rescheduleFormData, function (data) {
                         $modalInstance.close('reschedule');

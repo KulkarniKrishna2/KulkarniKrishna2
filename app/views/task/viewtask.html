@@ -30,13 +30,17 @@
                 </div>
             </div>
             <div class="row well" ng-if="groupData">
+                <h3><strong>{{'label.heading.groupdetails' | translate}}<span>:</span></strong></h3>
                 <div class="row">
+                    <div class="col-md-6"><span>{{'label.heading.centername' | translate}}:&nbsp;</span><span><a href="#/viewcenter/{{groupData.centerId}}"> {{groupData.centerName}}</a></span></div> 
                     <div class="col-md-6"><span>{{'label.input.groupName' | translate}}:&nbsp;</span><span><a href="#/viewgroup/{{groupData.id}}"> {{groupData.name}}</a></span></div>
-                <div class="col-md-6"> {{'label.input.status' | translate}} :&nbsp; {{groupData.status.value}}</div>
                 </div>             
                 <div class="row">
                     <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{groupData.officeName}}</div>
                     <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{groupData.staffName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> {{'label.input.status' | translate}} :&nbsp; {{groupData.status.value}}</div>
                 </div>
             </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
