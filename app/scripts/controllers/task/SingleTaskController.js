@@ -71,7 +71,9 @@
                     }
 
                     if(scope.taskData.status.value != 'inactive' || scope.taskData.status.value != 'completed' || scope.taskData.status.value != 'cancelled'){
-                        scope.canReschedule = true;
+                        if(scope.taskData.taskActivity != null && scope.taskData.taskActivity.name == "Adhoc"){
+                           scope.canReschedule = true;
+                        }
                     }
                     if(scope.taskData.dueTime != undefined) {
                         var today  =  new Date();
