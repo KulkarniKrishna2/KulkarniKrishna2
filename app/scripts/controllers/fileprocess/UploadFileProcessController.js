@@ -3,6 +3,7 @@
         UploadFileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope) {
 
             scope.formData = {};
+            scope.isSourceTypeReq = false;
             resourceFactory.fileProcessTemplateResource.get({},function(data){
                 scope.fileProcessTypeOptions = data.fileProcessTypeOptions;
                 scope.sourceTypeOptions = data.sourceTypeOptions;
@@ -26,6 +27,14 @@
                     });
                 }
             };
+            
+            scope.onFileProcessTypeChange= function(fileProcessTypeSystemCode){
+                if(fileProcessTypeSystemCode == 'sanctionedButNotDisbursed' || fileProcessTypeSystemCode == 'bulkCBApproval'){
+                    scope.isSourceTypeReq = true;
+                }else{
+                     scope.isSourceTypeReq = false;
+                }
+            }
         }
     });
     mifosX.ng.application.controller('UploadFileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.UploadFileProcessController]).run(function ($log) {
