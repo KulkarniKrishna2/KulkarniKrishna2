@@ -6869,7 +6869,7 @@
     "label.heading.reject.description":"Description",
     "error.msg.group.cannot.be.rejected":"Group is not in pending state. To reject a group, it should be in pending state",
     "label.input.queries" : "Queries",
-    "label.button.close.query" : "Close Query",
+    "label.button.close.query" : "Close Queries",
     "label.heading.close.query" : "Close Query",
     "label.input.query" : "Query",
     "label.input.queriedby" : "Queried By",
@@ -6987,6 +6987,22 @@
     "validation.msg.Custom Sequences.startValue.cannot.be.blank" : "Start value cann't be blank",
     "validation.msg.Custom Sequences.endValue.not.greater.than.specified.number" : "Sequence end value must be greater than sequence start value",
     "error.msg.sequence.generation.is.enabled.for.External Id.but.all.sequences.are.either.inactive.or.limit.exceded" : "Internal External id generation is enabled for this  loan type, but specified ranges are either inactive or limit exceeded. Please contact the administrator.",
+
+     "error.msg.amount.is.invalid" :"Amount is invalid",
+     "error.msg.bank.account.not.selected":"Bank account not selected",
+     "loanaccountdisbursetogroupbankaccounts":"Disburse loan to group bank accounts",
+     "error.msg.bank.account.detail.association.exist":"Bank Account details mapping exists",
+     "validation.msg.loanapplicationreference.discountOnDisbursalAmount.is.greater.than.max":"Discount on disbursal amount `{{params[0].value}}` is greater than principal `{{params[1].value}}` ",
+     "error.msg.group.bank.account.details.are.in.use.cannot.delete":"Bank account details are already used in loan, cannot delete",
+     "error.msg.loan.approval.amount.can't.be.greater.than.loan.amount.demanded":"Approval amount cann't be greater than amount demanded",
+     "validation.msg.loanapplicationreference.transactionAmount.not.greater.than.zero":"Transaction amount should be greater than zero",
+     "validation.msg.loanapplicationreference.amount.not.greater.than.zero":"Amount not greater than zero",
+     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursements.should.be.ordered.based.on.their.disbursement.dates" : "Tranche disburse details should be ordered based on their disbursement date",
+     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.of.tranche.cannot.be.before.expected.disbursement.date" : "expected tranche disbursement date cann't be before expected disbursement date",
+     "validation.msg.loanapplicationreference.trancheAmount.sum.of.multi.disburse.amounts.must.be.equal.to.or.lesser.than.approved.principal":"Sum of multi tranche amount must be equal to or less than approved principal",
+     "label.input.reversalreason" : "Reversal Reason",
+     "label.heading.reversalreason" : "Reversal Reason",
+     "label.button.resolve.queries" : "Resolve Queries",
 
     "------ end of tensalation file":"---------"
 }

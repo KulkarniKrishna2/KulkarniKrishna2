@@ -26,7 +26,8 @@
        },
       "isMandatory": {
         "repaymentsStartingFromDate": true,
-        "loanPurposeId": true
+        "loanPurposeId": true,
+        "mobileNumber":true
       },
       "isHiddenSection": {
         "interestRecalculationSection": true,
