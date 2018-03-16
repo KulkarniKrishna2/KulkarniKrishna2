@@ -13,7 +13,9 @@
                 <div class="col-sm-3">
                     <select id="fileProcessType" name="fileProcessType" ng-model="formData.fileProcessType" class="form-control"
                             ng-options="fileProcessTypeOption.systemCode as fileProcessTypeOption.value for fileProcessTypeOption in fileProcessTypeOptions"
-                            value="{{fileProcessTypeOption.systemCode}}" required late-validate>
+                            value="{{fileProcessTypeOption.systemCode}}" 
+                            ng-change="onFileProcessTypeChange(formData.fileProcessType)"
+                            required late-validate>
                         <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </div>
@@ -21,7 +23,7 @@
                     <form-validate valattributeform="fileProcess" valattribute="fileProcessType"/>
                 </div>
             </div>
-            <div ng-if="formData.fileProcessType == 'sanctionedButNotDisbursed'" class="form-group">
+            <div ng-if="isSourceTypeReq" class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.file.source.type' | translate }}<span class="required">*</span></label>
                 <div class="col-sm-3">
                     <select id="sourceType" name="sourceType" ng-model="formData.sourceType" class="form-control"
