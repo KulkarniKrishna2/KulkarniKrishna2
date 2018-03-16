@@ -1,0 +1,50 @@
+<div class="col-md-12" ng-controller="ViewSequenceDetailsController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a ng-href="#/customsequences">{{ 'label.anchor.custom.sequences' | translate}}</a></li>
+            <li class="active">{{'label.heading.sequence.details' | translate}}
+            </li>
+        </ul>
+    </div>
+    <legend>{{'label.heading.sequence.details' | translate}}</legend>
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.heading.name' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.name}}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.sequence.start.value' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.startValue}}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.sequence.end.value' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.endValue}}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.heading.prefix' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.prefix }}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.heading.suffix' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.suffix }}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.current.value' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.currentValue}}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.status' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.status}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-2 paddedleft paddedtop">
+            <a id="cancel" href="#/customsequences" class="btn btn-warning">
+                {{ 'label.button.cancel' | translate }}
+            </a>
+            <a id="edit" ng-click="changeStatus()" class="btn btn-primary" has-permission='UPDATE_SEQUENCE'>{{'label.button.'+labelStatus | translate}}</a>
+        </div>
+    </div>
+</div>

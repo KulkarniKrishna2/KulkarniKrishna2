@@ -1,0 +1,37 @@
+<div class="col-md-12" ng-controller="SequenceEntityAssociationListController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a ng-href="#/sequencemanagement">{{ 'label.anchor.sequence.management' | translate}}</a></li>
+            <li class="active">{{'label.anchor.sequence.associations' | translate}}
+            </li>
+        </ul>
+    </div>
+    <a href="#/customsequence/mapsequencetoentity" class="btn btn-primary pull-right" has-permission='CREATE_SEQUENCE_ENTITY_ASSOCIATION'>
+        <i class="icon-plus icon-white"></i>{{'label.button.map.sequence' | translate}}
+    </a>
+    <div class="span grey-head">
+        <h3>
+                <strong>{{'label.view.sequences.to.entity.association' | translate}}</strong>
+            </h3>
+    </div>
+    <div ng-if="sequenceAssociationDetails.length > 0">
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.serialno' | translate}}</th>
+                    <th>{{'label.heading.entity' | translate}}</th>
+                    <th>{{'label.heading.applicable.field' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="record in sequenceAssociationDetails">
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{$index+1}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.entityType}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.sequenceForField}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

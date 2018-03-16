@@ -1722,6 +1722,30 @@
             .when('/workflowanalytics', {
                 templateUrl: 'views/task/analytics/taskanalytics.html'
             })
+            .when('/customsequences',{
+                templateUrl: 'views/customsequence/sequencedetailslist.html'
+            })
+            .when('/sequences/:id',{
+                templateUrl: 'views/customsequence/viewsequencedetails.html'
+            })
+            .when('/customsequence/addsequence',{
+                templateUrl: 'views/customsequence/createsequencedetails.html'
+            })
+            .when('/sequencemanagement',{
+                templateUrl: 'views/customsequence/sequencemanagement.html'
+            })
+            .when('/sequenceassociations',{
+                templateUrl: 'views/customsequence/sequenceentityassociationlist.html'
+            })
+            .when('/customsequence/mapsequencetoentity',{
+                templateUrl: 'views/customsequence/createsequenceentityassociation.html'
+            })
+            .when('/sequenceassociations/:id',{
+                templateUrl: 'views/customsequence/viewsequenceentityassociation.html'
+            })
+            .when('/editSequenceEntityAssociation/:id',{
+                templateUrl: 'views/customsequence/editsequenceentityassociation.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

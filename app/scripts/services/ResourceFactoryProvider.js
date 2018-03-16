@@ -1460,6 +1460,25 @@
                     }),
                     codeHierarchyResource: defineResource(apiVer + "/codes/childCodes",{}, {
                         get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    customSequenceResource: defineResource(apiVer + "/sequences/:sequenceId", {sequenceId: '@sequenceId'}, {
+                        retrieveAll: {method: 'GET', params: {}, isArray: true},
+                        get:{method: 'GET', params: {}},
+                        update: { method: 'PUT' },
+                        post:{ method: 'POST' }
+                    }),
+                    sequenceAssociationTemplateResource: defineResource(apiVer + "/sequenceassociations/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    loanApplicationSequenceTemplateResource: defineResource(apiVer + "/loanapplicationreferences/loansequence",{}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    customSequenceAssociationResource: defineResource(apiVer + "/sequenceassociations/:sequenceEntityAssociationId", {sequenceEntityAssociationId: '@sequenceEntityAssociationId'}, {
+                        retrieveAll: {method: 'GET', params: {}, isArray: true},
+                        get:{method: 'GET', params: {}},
+                        update: { method: 'PUT' },
+                        updateStatus: {method: 'PUT', params: {command: 'updatestatus'}},
+                        post:{ method: 'POST' }
                     })
                 };
             }];
