@@ -3150,6 +3150,8 @@
     "label.heading.showwhen": "Show When",
     "label.heading.hasvalue": "Has Value",
     "label.heading.mandatoryifvisible": "Mandatory If Visible",
+    "label.heading.nodalidentifier": "Nodal Identifier",
+    "label.heading.nodalAccountType": "Nodal Account Type",
 
     "#Anchors": "..",
     "label.anchor.templates": "Templates",
