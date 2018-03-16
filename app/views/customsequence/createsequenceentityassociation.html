@@ -1,0 +1,88 @@
+<div class="col-md-12" ng-controller="CreateSequenceEntityAssociationController">
+    <ul class="breadcrumb">
+        <li><a href="#/sequencemanagement">{{'label.anchor.sequence.management' | translate}}</a></li>
+        <li><a href="#/sequenceassociations">{{'label.anchor.sequence.associations' | translate}}</a></li>
+        <li class="active">{{'label.anchor.map.sequences.to.entity.mapping' | translate}}</li>
+    </ul>
+    <form name="sequenceEntityMappingForm" novalidate="" class="form-horizontal well">
+        <api-validate></api-validate>
+        <fieldset>
+            <h3>{{ 'label.heading.details' | translate }}</h3>
+            <hr>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.entity' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="entityType" ng-model="entityType" class="form-control width170px" ng-options="entityType.id as entityType.name for entityType in entityTypes" value="{{entityType.id}}" required="required" ng-disabled="true">
+                        <option value="">{{entityType.value}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="sequenceEntityMappingForm" valattribute="entityType" />
+                </div>
+
+                <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="entityId" name="entityId" ng-model="formData.entityId" class="form-control" ng-options="product.id as product.name for product in products" value="{{product.id}}" required late-validate>
+                        <option value="">{{'label.selectloanproduct' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="entityId" valattribute="entityId" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.loan.application' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <input type="checkbox" id="subEntityType" ng-model="subEntityType.value" ng-disabled="true" ng-checked="true">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.heading.applicable.field' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="applicableColumn" ng-model="applicableColumn" class="form-control width170px" ng-options="applicableColumn.id as applicableColumn.value for applicableColumn in applicableColumns" value="{{applicableColumn.id}}" required="required" ng-disabled="true">
+                        <option value="">{{applicableColumn.value}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="sequenceEntityMappingForm" valattribute="applicableColumn" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 col-md-3 col-md-offset-1">
+                    <label class="control-label col-sm-9"><span><b>{{ 'label.input.available.sequences' | translate }}</b></span></label>
+                    <select id="availableSequences" ng-model="selectedSequence" name="availableSequences" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="sequenceDetail in sequenceDetails" value="{{sequenceDetail.id}}">
+                            {{sequenceDetail.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addSequence()">{{'label.button.add' | translate}}</button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="table-response">
+                        <table class="table table-striped">
+                            <thead>
+                                <th>{{'label.input.selected.sequences' | translate}}</th>
+                            </thead>
+                            <tbody ui-sortable="sortableOptions" ng-model="selectedSequences">
+                                <tr class="pointer" ng-repeat="selectedSequence in selectedSequences">
+                                    <td>{{selectedSequence.name}}</td>
+                                    <td class="col-sm-1"><a ng-click="removeSequence($index)"><i class="icon-remove icon-white"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-offset-5 paddedtop">
+                <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" ng-click="submit()" has-permission='CREATE_SEQUENCE_ENTITY_ASSOCIATION'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -572,7 +572,13 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'groups/groupbankaccountdetails/GroupBankAccountDetailsController',
             'groups/groupbankaccountdetails/CreateGroupBankAccountController',
             'groups/groupbankaccountdetails/ViewGroupBankAccountController',
-            'task/analytics/TaskAnalyticsController'
+            'task/analytics/TaskAnalyticsController',
+            'customsequence/SequenceDetailsListController',
+            'customsequence/ViewSequenceDetailsController',
+            'customsequence/CreateSequenceDetailsController',
+            'customsequence/SequenceEntityAssociationListController',
+            'customsequence/CreateSequenceEntityAssociationController',
+            'customsequence/SequenceEntityAssociationCommonController'
         ],
         filters: [
             'StatusLookup',
