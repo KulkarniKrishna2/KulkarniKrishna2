@@ -28,22 +28,29 @@
                 <tr class="graybg">
                     <th>{{'label.heading.transactionid' | translate}}</th>
                     <th ng-hide="isSimplified">{{'label.heading.accounttype' | translate}}</th>
+                    <th ng-hide="isSimplified">{{'label.heading.transactionType' | translate}}</th>
                      <th>{{'label.heading.accountno' | translate}}</th>
                     <th>{{'label.heading.transactiondate' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
+                    <th ng-hide="isSimplified">{{'label.heading.nodalidentifier' | translate}}</th>
+                    <th ng-hide="isSimplified">{{'label.heading.nodalAccountType' | translate}}</th>
                     <th ng-hide="isSimplified">{{'label.heading.description' | translate}}</th>
                     
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="bankStatementDetail in bankStatementDetails | orderBy:'-isError'" ng-class="($index%2!=0)?'graybg':''">
-                    <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail)"><a>{{bankStatementDetail.transactionId}}</a></td>
-                    <td ng-show="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip=' Account not found with {{bankStatementDetail.errmsg}}' class="icon-exclamation-sign" style="color: red"></a></td>
-                    <td ng-show="bankStatementDetail.transactionId == undefined && !bankStatementDetail.isError">{{bankStatementDetail.transactionId}}</td>
+                    <td ng-if="bankStatementDetail.transactionId != undefined && !bankStatementDetail.nodalIdentifier " ng-click="routeTo(bankStatementDetail)"><a>{{bankStatementDetail.transactionId}}</a></td>
+                    <td ng-if="bankStatementDetail.transactionId != undefined && bankStatementDetail.nodalIdentifier ">{{bankStatementDetail.transactionId}}</td>
+                    <td ng-if="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip=' Account not found with {{bankStatementDetail.errmsg}}' class="icon-exclamation-sign" style="color: red"></a></td>
+                    <td ng-if="bankStatementDetail.transactionId == undefined && !bankStatementDetail.isError">{{bankStatementDetail.transactionId}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.accountingType}}</td>
+                    <td ng-hide="isSimplified">{{bankStatementDetail.actionType}}</td>
                     <td>{{bankStatementDetail.loanAccountNumber || bankStatementDetail.savingsAccountNumber}}</td>
                     <td>{{bankStatementDetail.transactionDate}}</td>
                     <td>{{bankStatementDetail.amount}}</td>
+                    <td ng-hide="isSimplified">{{bankStatementDetail.nodalIdentifier}}</td>
+                    <td ng-hide="isSimplified">{{bankStatementDetail.nodalAccountType}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.description}}</td>
                     
                 </tr>
