@@ -37,6 +37,7 @@
             function initTask(){
                 if(scope.taskData != undefined){
                     scope.taskconfig = _.extend({},scope.taskData.configValues);
+                    scope.taskconfig.status = scope.taskData.status;
                     scope.showCriteriaResult =false;
                     scope.isDisplayNotes=false;
                     scope.isDisplayAttachments=false;

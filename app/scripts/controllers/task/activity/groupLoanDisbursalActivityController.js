@@ -10,32 +10,35 @@
             scope.canForceDisburse = false;
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.commandParam = 'disburse';
+            scope.taskStatus = scope.taskconfig.status.value;
 
             function populateDetails() {
-                resourceFactory.groupResource.get({
+                if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
+                    resourceFactory.groupResource.get({
                     groupId: scope.groupId,
                     associations: 'clientMembers'
-                }, function(data) {
-                    scope.group = data;
-                    scope.loanApplications = [];
-                    if (data.clientMembers) {
-                        scope.allMembers = data.clientMembers;
-                        angular.forEach(scope.group.clientMembers, function(client) {
-                            resourceFactory.loanApplicationReferencesForGroupResource.get({
-                                groupId: scope.groupId,
-                                clientId: client.id
-                            }, function(data1) {
-                                if (data1.length > 0) {
-                                    angular.forEach(data1, function(loanApplication) {
-                                        if ((loanApplication.status.id == 300))
-                                            scope.loanApplications.push(loanApplication);
-                                    });
-                                }
+                    }, function(data) {
+                        scope.group = data;
+                        scope.loanApplications = [];
+                        if (data.clientMembers) {
+                            scope.allMembers = data.clientMembers;
+                            angular.forEach(scope.group.clientMembers, function(client) {
+                                resourceFactory.loanApplicationReferencesForGroupResource.get({
+                                    groupId: scope.groupId,
+                                    clientId: client.id
+                                }, function(data1) {
+                                    if (data1.length > 0) {
+                                        angular.forEach(data1, function(loanApplication) {
+                                            if ((loanApplication.status.id == 300))
+                                                scope.loanApplications.push(loanApplication);
+                                        });
+                                    }
+                                });
                             });
-                        });
-                    }
-                });
-            };
+                        }
+                    });
+                }
+                            };
             populateDetails();
 
             scope.disburseLoan = function(loanApplicationReferenceId) {
@@ -511,6 +514,10 @@
                 scope.commandParam = 'forcedisburse';
                 scope.submit(); 
             };
+
+            scope.displayOnNoActiveLoanApplication = function(){
+               return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || scope.loanApplications.length <= 0);
+            }
         }
     });
     mifosX.ng.application.controller('groupLoanDisbursalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.groupLoanDisbursalActivityController]).run(function($log) {
