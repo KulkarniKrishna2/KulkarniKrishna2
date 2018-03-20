@@ -38,7 +38,7 @@
                         }
                     });
                 }
-                            };
+            };
             populateDetails();
 
             scope.disburseLoan = function(loanApplicationReferenceId) {
