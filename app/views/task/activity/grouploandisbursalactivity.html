@@ -31,7 +31,7 @@
                         </tr>
                     </table>
                 </div>
-                <div ng-if="loanApplications.length <= 0">
+                <div ng-if="displayOnNoActiveLoanApplication()">
                     {{'error.msg.loan.application.data.empty' | translate}}
                 </div>
             </fieldset>
