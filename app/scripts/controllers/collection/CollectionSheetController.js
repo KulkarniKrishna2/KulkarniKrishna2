@@ -26,7 +26,16 @@
             scope.isStaffMandotory = false;
             scope.productiveCollctionSheetSearchParams = {};
             scope.reasonAttendenceList = [];
-            scope.attendenceListForReason = [2,4,5];
+            scope.collectionAttendenceList = [];
+            scope.attendenceListForReason = [2,4,5];            
+            scope.loanRejectReason = {};
+            scope.showText = false;
+            scope.showRejectReason = false;
+
+            resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
+                scope.showRejectReason = data.enabled;
+            });
+
             if(scope.response){
                 scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
                 scope.hideLoanAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.loanAccountNumber;
@@ -49,6 +58,10 @@
 
             resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason',childCodeName:'AttendanceReason'}, function (data) {
                 scope.reasonAttendenceList = data;
+            });
+
+            resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason',childCodeName:'CollectionReason'}, function (data) {
+                scope.collectionReasonList = data;
             });
 
             scope.setvalues = function(index){
@@ -78,7 +91,7 @@
             scope.isTextAvailable = function(data){
                 if(data && data.codeReasonId && data.reasonId){
                     for(var i in scope.reasonAttendenceList){
-                        if(scope.reasonAttendenceList[i].id==data.codeReasonId && scope.reasonAttendenceList[i].name =='Others'){
+                        if(scope.reasonAttendenceList[i].id==data.codeReasonId && scope.reasonAttendenceList[i].name =='Others(attendence)'){
                             for(var j in scope.reasonAttendenceList[i].values){
                                 if(scope.reasonAttendenceList[i].values[j].id==data.reasonId && scope.reasonAttendenceList[i].values[j].name =='Others'){
                                     return true;
@@ -702,7 +715,7 @@
             }
 
             scope.submit = function () {
-
+                
                 if (scope.showPaymentDetails && scope.isRecieptNumbermandatory){
                     if((scope.paymentDetail.receiptNumber == null || scope.paymentDetail.receiptNumber == "")){
                         scope.setErrorMessage('error.msg.receipt.number.mandatory');
@@ -753,6 +766,7 @@
                 //construct loan repayment and savings due transactions
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
                 scope.constructClientChargesPayment();
+                scope.updatebulkRepaymentTransactionsWithReason();
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 scope.formData.bulkSavingsTransactions = scope.bulkSavingsTransactions;
                 scope.formData.clientChargeTransactions = scope.chargeTransactions;
@@ -814,6 +828,53 @@
                     clientsAttendanceDetails.push(attendence);
                 };
                 scope.formData.clientsAttendance = clientsAttendanceDetails;
+            };
+
+
+
+            
+
+            scope.updatebulkRepaymentTransactionsWithReason = function(){
+                for(var i in scope.bulkRepaymentTransactions){
+                    var loanId = scope.bulkRepaymentTransactions[i].loanId;                    
+                    if(scope.loanRejectReason[loanId]){
+                        if(scope.loanRejectReason[loanId].reasonId){
+                            scope.bulkRepaymentTransactions[i].reasonId = scope.loanRejectReason[loanId].reasonId;
+                        }
+                        if(scope.loanRejectReason[loanId].reason){
+                            scope.bulkRepaymentTransactions[i].reason = scope.loanRejectReason[loanId].reason;
+                        }
+
+                    }
+                }
+            };
+
+            scope.getLoanSubReasonValues = function(loanId, codeId){
+
+                if(loanId != undefined && codeId!= undefined){
+                    scope.loanRejectReason[loanId].reasonId = undefined;
+                    scope.loanRejectReason[loanId].reason = undefined;
+                    for(var i in scope.collectionReasonList){
+                        if(scope.collectionReasonList[i].id==codeId){
+                            scope.loanRejectReason[loanId].codeValueOptions =  scope.collectionReasonList[i].values;
+                        }
+                    }
+                }
+            };
+
+            scope.isDescriptionAvailable = function(data){
+                scope.showText = false;
+                if(data && data.reasonId && data.codeReasonId){
+                    for(var i in scope.collectionReasonList){
+                        if(scope.collectionReasonList[i].id==data.codeReasonId && scope.collectionReasonList[i].name =='Others(collections)'){
+                            for(var j in scope.collectionReasonList[i].values){
+                                if(scope.collectionReasonList[i].values[j].id==data.reasonId && scope.collectionReasonList[i].values[j].name =='Others'){
+                                    scope.showText = true;
+                                }
+                            }
+                        }
+                    }
+                } 
             };
 
         }
