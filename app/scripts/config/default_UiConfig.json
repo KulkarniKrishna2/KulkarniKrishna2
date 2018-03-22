@@ -33,7 +33,8 @@
 	  "isMandatory": {
 		"externalId": false,
 		"repaymentsStartingFromDate": false,
-		"loanPurposeId": false
+		"loanPurposeId": false,
+		"undoTransactionReason" :false
 	  },
 	  "isHiddenSection": {
 		"interestRecalculationSection": false,

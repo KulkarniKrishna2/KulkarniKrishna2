@@ -21,6 +21,7 @@
                     class="input-sm form-control">
                     <option value="">{{'label.selectone' | translate}}</option></select>
                 </div>
+                <div ng-show="isError" class="text-danger">{{'validation.msg.TASK_RESCHEDULE.reason.cannot.be.blank' | translate}}</div>
                 <br/>
             </div>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
