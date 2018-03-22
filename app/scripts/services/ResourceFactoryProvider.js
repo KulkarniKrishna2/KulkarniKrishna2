@@ -1299,7 +1299,7 @@
                         reject:{method:'POST',params:{command:'reject'}}
                     }),
                     fileProcessResource:defineResource(apiVer+"/fileprocess/:fileProcessId",{fileProcessId: '@fileProcessId'},{
-                        getAllFiles: {method: 'GET', params: {limit:1000}}
+                        getAllFiles: {method: 'GET', params: {limit:1000, orderBy: 'createdDate', sortOrder: 'DESC'}}
                     }),
                     fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
 
