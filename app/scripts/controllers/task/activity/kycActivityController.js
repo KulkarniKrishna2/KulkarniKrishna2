@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        kycActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        kycActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             function initTask(){
                 scope.clientId = scope.taskconfig['clientId'];
@@ -114,7 +114,7 @@
                                     for (var l in data) {
 
                                         var loandocs = {};
-                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                                         data[l].docUrl = loandocs;
                                     }
                                     scope.identitydocuments[j].documents = data;
@@ -148,7 +148,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('kycActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.kycActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('kycActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.kycActivityController]).run(function ($log) {
         $log.info("kycActivityController initialized");
     });
 }(mifosX.controllers || {}));
