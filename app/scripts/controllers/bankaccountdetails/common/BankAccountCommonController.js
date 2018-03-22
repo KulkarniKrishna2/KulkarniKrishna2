@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter,$upload,$rootScope,API_VERSION,$http) {
+        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter,$upload,$rootScope,API_VERSION,$http,commonUtilService) {
             angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"bankAccountDetails"}));
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
 
@@ -85,7 +85,7 @@
                     scope.bankAccountDocuments = data.bankAccountDocuments || [];
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                             scope.bankAccountDocuments[i].docUrl = docs;   
                         }
                 });
@@ -357,7 +357,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('BankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http',mifosX.controllers.BankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('BankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http', 'CommonUtilService',mifosX.controllers.BankAccountCommonController]).run(function ($log) {
         $log.info("BankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));
