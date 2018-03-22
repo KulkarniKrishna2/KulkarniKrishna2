@@ -31,7 +31,7 @@
 
     <div ng-hide="hideEditUndoTrxnButton" class="pull-right">
         <div class="btn-group">
-            <a href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
+            <a ng-hide="hideEditTrxnButton" href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary" has-permission='ADJUST_LOAN'><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
             <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='ADJUST_LOAN'><i
                     class="icon-trash icon-white"></i>{{ 'label.button.undo' | translate}}</a>
