@@ -4,6 +4,7 @@
             scope.flag = false;
             scope.hideEdit = false;
             scope.isHold = false;
+            scope.isRejectReasonRequired = false;
             resourceFactory.savingsTrxnsResource.get({savingsId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                 scope.transaction = data;
                 if (scope.transaction.transactionType.value == 'Transfer' || scope.transaction.reversed == 'true'
@@ -19,6 +20,13 @@
                     scope.isHold = true;
                 }
             });
+
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount &&
+                scope.response.uiDisplayConfigurations.loanAccount.isMandatory){
+                if(scope.response.uiDisplayConfigurations.loanAccount.isMandatory.undoTransactionReason){
+                   scope.isRejectReasonRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.undoTransactionReason; 
+                }
+            }
 
             scope.getReversalReasonCodes = function(){
                 resourceFactory.codeValueByCodeNameResources.get({codeName: "Transaction Reversal Reason"}, function (data) {
@@ -45,12 +53,19 @@
             
             var UndoTransactionModel = function ($scope, $modalInstance, accountId, transactionId) {
                 $scope.reasons = scope.reversalReasons;
+                $scope.isError = false;
+                $scope.isRejectReasonRequired = scope.isRejectReasonRequired;
                 $scope.undoTransaction = function (reason) {
                     var params = {savingsId: accountId, transactionId: transactionId, command: 'undo'};
                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
                     formData.transactionDate = dateFilter(new Date(), scope.df);
                     if(reason){
                         formData.reason = reason;
+                    }else{
+                        if($scope.isRejectReasonRequired==true){
+                            $scope.isError = true;
+                            return false;
+                        }
                     }
                     resourceFactory.savingsTrxnsResource.save(params, formData, function (data) {
                         $modalInstance.close('delete');
