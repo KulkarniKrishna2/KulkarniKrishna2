@@ -1114,6 +1114,7 @@
                         <div ng-show="chargeTableShow">
                         <table class="table width100">
                             <tr class="graybg">
+                                <th ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="selectAllCharges()" data-ng-model="charges.selectallcharges"</th>
                                 <th>{{'label.heading.name' | translate}}</th>
                                 <th>{{'label.heading.feeorpenalty' | translate}}</th>
                                 <th>{{'label.heading.paymentdueat' | translate}}</th>
@@ -1126,6 +1127,7 @@
                                 <th ng-hide="isGlimEnabled()">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in charges" class="pointer-main">
+                                <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
                                 <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
                                 <td ng-hide="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"fee"}}</td>
@@ -1153,6 +1155,11 @@
                             </tr>
                         </table>
                       </div>
+                      <div class="btn-group col-md-offset-4" data-ng-show="selectedCharges.length > 0">
+                            <button id="waiver" data-ng-click="waivecharges()" class="btn btn-primary">{{'label.heading.waivedselectedcharge' |
+                                translate}}
+                            </button>
+                        </div>
                     </tab>
 
                     <script type="text/ng-template" id="delcharge.html">
@@ -1165,6 +1172,42 @@
                             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                         </div>
+                    </script>
+
+                    <script type="text/ng-template" id="waivecharge.html">
+                        <div class="modal-header silver">
+                            <h3 class="bolder">{{'label.heading.bulkwaiveconfirm' | translate}}</h3>
+                        </div>
+                        <div class="modal-body">
+                             <div>
+                                           
+                                <table class="table width100">
+                                        <tr class="graybg">
+                                                <th>{{'label.heading.name' | translate}}</th>
+                                                <th>{{'label.heading.paymentdueat' | translate}}</th>
+                                                <th>{{'label.heading.dueasof' | translate}}</th>
+                                                <th>{{'label.heading.outstanding' | translate}}</th>
+                                            <tr>
+                                            <tr ng-repeat="charge in selectedCharges" class="pointer-main">
+                                                    <td class="pointer" >{{charge.name}}</td>
+                                                    <td class="pointer">{{charge.chargeTimeType.value}}</td>
+                                                    <td class="pointer" >{{charge.dueDate | DateFormat}}</td>
+                                                    <td class="pointer" >{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
+                                            </tr>
+                                 </table>
+                            </div>
+                            <div class="btn-group col-md-offset-4">
+                                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
+                                </button>
+                                <button id="save1" type="submit" ng-click="submit()" class="btn btn-primary">{{'label.button.confirm' |
+                                    translate}}
+                                </button>
+                            </div>
+                                    <BR><BR>
+                                </fieldset>
+                            </form>
+                        </div>
+                
                     </script>
 
                     <script type="text/ng-template" id="showschedule.html" class="width100">

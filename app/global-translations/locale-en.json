@@ -5652,6 +5652,8 @@
     "label.anchor.waivecharge" : "Waive Charge",
     "label.heading.remainingcharge" : "Remaining Charge",
     "label.heading.waivedcharge" : "Waived Charge",
+    "label.heading.waivedselectedcharge" : "Waive Selected Charges",
+    "label.heading.bulkwaiveconfirm" : "Waiver Confirmation",
     "label.button.waiveglimcharge" : "Waive Glim Charge",
     "label.button.glimprepayloan" : "Glim Prepay Loan",
     "label.anchor.prepayloan" : "Prepay Loan",
