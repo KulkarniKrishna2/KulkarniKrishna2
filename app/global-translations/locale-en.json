@@ -7007,6 +7007,7 @@
      "label.button.resolve.queries" : "Resolve Queries",
      "validation.msg.Sequence Entity Association.selectedSequences.cannot.be.empty" : "Selecting sequences is mandatory. Add atleast one sequence.",
      "label.heading.hour" : "Hour",
+     "label.heading.in.hours" : "In Hours",
 
     "------ end of tensalation file":"---------"
 }
