@@ -349,13 +349,7 @@
                                         <tr>
                                             <td><label>{{ 'label.input.expecteddisbursementon' | translate }}:</label>&nbsp;
                                             </td>
-                                            <td><input id="expectedDisbursementDate" name="expectedDisbursementDate"
-                                                       type="text"
-                                                       datepicker-pop="dd MMMM yyyy"
-                                                       ng-model="formRequestData.disburse.expectedDisbursementDate"
-                                                       is-open="opened" min="minDate" max="'2020-06-22'"
-                                                       class="form-control"
-                                                       required/></td>
+                                              <td>{{formData.approvedData.expectedDisbursementDate | DateFormat}}</td>
                                         </tr>
                                     </table>
                                 </div>
