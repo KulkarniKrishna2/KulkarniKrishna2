@@ -3,7 +3,8 @@
   "uiDisplayConfigurations": {
     "createClient": {
      "isMandatoryField": {
-    "dateOfBirth": true
+    "dateOfBirth": true,
+    "gender": true
     }
   },
     "loanAccount": {
