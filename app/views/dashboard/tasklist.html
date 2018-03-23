@@ -90,12 +90,13 @@
 
                         <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
                             <table id="otherTasks" class="table table-striped card-table">
-                                <thead ng-if="false">
+                                <thead ng-if="true">
                                 <tr>
                                     <th></th>
                                     <th >{{'label.title' | translate}}</th>
                                     <th >{{'label.heading.description' | translate}}</th>
-                                    <th >{{'label.date' | translate}}</th>
+                                    <th >{{'label.heading.createddate' | translate}}</th>
+                                    <th >{{'label.heading.due.date' | translate}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,6 +117,9 @@
                                     </td>
                                     <td class=" pointer" ng-click="goToTask(workFlowTask)">
                                         {{workFlowTask.createdOn}}
+                                    </td>
+                                    <td class=" pointer" ng-click="goToTask(workFlowTask)">
+                                        {{workFlowTask.dueOn}}
                                     </td>
                                 </tr>
                                 </tbody>
