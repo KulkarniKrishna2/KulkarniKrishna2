@@ -1,6 +1,11 @@
 {
   "enableUIDisplayConfiguration": true,
   "uiDisplayConfigurations": {
+    "createClient": {
+     "isMandatoryField": {
+    "dateOfBirth": true
+    }
+  },
     "loanAccount": {
       "isHiddenField": {
         "creditApprisalReportButton": false
