@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SingleTaskController: function (scope, $modal, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $route) {
+        SingleTaskController: function (scope, $modal, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $route, commonUtilService) {
 
             scope.canView = false;
             scope.canComplete = true;
@@ -382,7 +382,7 @@
                     }, function (data) {
                         for (var l in data) {
                             var loandocs = {};
-                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                             data[l].docUrl = loandocs;
                         }
                         scope.taskDocuments = data;
@@ -497,7 +497,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('SingleTaskController', ['$scope', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$route',mifosX.controllers.SingleTaskController]).run(function ($log) {
+    mifosX.ng.application.controller('SingleTaskController', ['$scope', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$route', 'CommonUtilService', mifosX.controllers.SingleTaskController]).run(function ($log) {
         $log.info("SingleTaskController initialized");
     });
 }(mifosX.controllers || {}));
