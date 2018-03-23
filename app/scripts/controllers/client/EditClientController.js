@@ -38,6 +38,10 @@
                 scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
                 scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth) {
+                scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+            }
             scope.minAge = 0;
             scope.maxAge = 0;
             scope.dateOfBirthNotInRange = false;
