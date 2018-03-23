@@ -82,7 +82,7 @@
                 resourceFactory.fileUrlResource.get({fileId: fileId},function(data){
                     var url = data.locationPath;
                     if(data.storageType==1){
-                        url = url +'?'+ CommonUtilService.commonParamsForNewWindow();
+                        url = scope.baseUri + fileId +'/download?'+ CommonUtilService.commonParamsForNewWindow();
                     }
                     window.open(url);
                 });

@@ -13,7 +13,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="pointer-main" ng-repeat="report in reportrequestsData | filter:filterText">
+                    <tr class="pointer-main" ng-repeat="report in reportrequestsData">
                         <td>{{''+report.reportName+'' | translate}}</td>
                         <td  ng-if="report.status.id == 2" class="pointer" data-ng-click="download(report.fileLocationId)">
                             <i class="icon-2x icon-cloud-download"></i></td>
