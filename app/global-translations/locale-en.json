@@ -7009,6 +7009,9 @@
      "validation.msg.Sequence Entity Association.selectedSequences.cannot.be.empty" : "Selecting sequences is mandatory. Add atleast one sequence.",
      "label.heading.hour" : "Hour",
      "label.heading.in.hours" : "In Hours",
+     "validation.msg.taskAssign.templateId.cannot.be.blank" : "Task Name is mandatory",
+     "validation.msg.taskAssign.userId.cannot.be.blank" : "User is mandatory",
+     "validation.msg.taskAssign.entityId.cannot.be.blank":"Center/Client/Village/Office is mandatory",
 
     "------ end of tensalation file":"---------"
 }

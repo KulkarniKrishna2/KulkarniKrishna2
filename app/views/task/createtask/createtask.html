@@ -51,7 +51,7 @@
 	   				<label class="control-label col-sm-3" for="duedate">{{'label.input.dueTime' | translate}}
 					</label>
 		   			<div>
-		   				<timepicker id="dueTime" class="col-sm-2" ng-model="dueTime"></timepicker>
+		   				<timepicker id="dueTime" class="col-sm-2" ng-model="dueTime" ng-change="checkDueTime()"></timepicker>
 		   			</div> 
 		   		</div>
 		   		<div class="col-sm-5 col-md-offset-2">

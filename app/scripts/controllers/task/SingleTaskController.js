@@ -479,6 +479,12 @@
                     $modalInstance.dismiss('cancel');
                 };
 
+                 $scope.checkDueTime = function(){
+                    if(!($scope.rschData.dueTime instanceof Date)){
+                        $scope.rschData.dueTime = new Date();
+                    }
+                 }
+
                 $scope.submitReschedule = function () {            
                     if($scope.rschData.dueTime != undefined){
                         $scope.rschData.dueDate.setHours($scope.rschData.dueTime.getHours());
