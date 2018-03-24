@@ -22,8 +22,16 @@
                         scope.idAndNames=data1.idAndName;
                     });
             };
+
+            scope.checkDueTime = function(){
+                if(!(scope.dueTime instanceof Date)){
+                    scope.dueTime = new Date();
+                }
+            }
+
             scope.submit=function() 
             {
+                
                 scope.first.date.setHours(scope.dueTime.getHours());
                 scope.first.date.setMinutes(scope.dueTime.getMinutes());
                 scope.first.date.setSeconds(scope.dueTime.getSeconds());
