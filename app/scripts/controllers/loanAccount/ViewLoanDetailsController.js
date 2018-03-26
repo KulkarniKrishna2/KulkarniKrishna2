@@ -1047,7 +1047,7 @@
                     document.id = data.resourceId;
                     var loandocs = {};
                     loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
-                    document.docUrl = loandocs;selectedCharges
+                    document.docUrl = loandocs;
                 })
             };
 
