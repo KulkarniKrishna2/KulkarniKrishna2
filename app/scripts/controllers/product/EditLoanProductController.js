@@ -36,6 +36,8 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.allowLoanProductForGroupBankAccount = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccount);
+            var deleteFeeAccountMappings = [];
+            var deletePenaltyAccountMappings = [];
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
@@ -533,10 +535,12 @@
             };
 
             scope.deleteFee = function (index) {
+                deleteFeeAccountMappings.push(scope.specificIncomeAccountMapping[index]);
                 scope.specificIncomeAccountMapping.splice(index, 1);
             };
 
             scope.deletePenalty = function (index) {
+                deletePenaltyAccountMappings.push(scope.penaltySpecificIncomeaccounts[index]);
                 scope.penaltySpecificIncomeaccounts.splice(index, 1);
             };
 
@@ -762,7 +766,7 @@
                         incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId,
                     }
                     if(scope.specificIncomeAccountMapping[i].fundSourceAccountId != null){
-                         var fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId
+                        var fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId
                         temp.fundSourceAccountId = fundSourceAccountId;
                     }
                     
@@ -774,7 +778,10 @@
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
                         incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
-                        fundSourceAccountId: scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId
+                    }
+                    if(scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId != null){
+                        var fundSourceAccountId = scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId 
+                        temp.fundSourceAccountId = fundSourceAccountId;
                     }
                     scope.penaltyToIncomeAccountMappings.push(temp);
                 }
@@ -984,6 +991,8 @@
                         }
                     }
                 }
+                this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
+                this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
 
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
