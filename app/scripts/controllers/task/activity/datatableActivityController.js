@@ -322,26 +322,30 @@
                 var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
                 scope.processData(reqparams);
             };
-
             scope.processData = function(reqparams){
                 resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                     for (var i in data.columnHeaders) {
-                        if (data.columnHeaders[i].columnCode) {
+                        for(var s in data.columnData[0].row){
+                            if(data.columnHeaders[i].columnName === data.columnData[0].row[s].columnName){
+                                 if (data.columnHeaders[i].columnCode) {
                             //logic for display codeValue instead of codeId in view datatable details
                             for (var j in data.columnHeaders[i].columnValues) {
                                 if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP') {
-                                    if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].id) {
+                                    if (data.columnData[0].row[s].value == data.columnHeaders[i].columnValues[j].id) {
                                         data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
                                     }
                                 } else if (data.columnHeaders[i].columnDisplayType == 'CODEVALUE') {
-                                    if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].id) {
+                                    if (data.columnData[0].row[s].value == data.columnHeaders[i].columnValues[j].id) {
                                         data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
                                     }
                                 }
                             }
                         } else {
-                            data.columnHeaders[i].value = data.data[0].row[i];
+                            data.columnHeaders[i].value = data.columnData[0].row[s].value;
                         }
+
+                            }
+                        }      
                     }
                     scope.columnHeaders = data.columnHeaders;
 

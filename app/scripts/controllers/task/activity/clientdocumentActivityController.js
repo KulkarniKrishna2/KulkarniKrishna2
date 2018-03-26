@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        clientdocumentActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope) {
+        clientdocumentActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
@@ -104,7 +104,7 @@
                     for (var l = 0; l < data.length; l++) {
                         if (data[l].id) {
                             var loandocs = {};
-                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                             data[l].docUrl = loandocs;
                         }
                         if(data[l].tagValue){
@@ -135,7 +135,7 @@
                 resourceFactory.documentsGenerateResource.generate({entityType: scope.entityType, entityId: scope.entityId, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                     document.docUrl = loandocs;
                 })
             };
@@ -144,7 +144,7 @@
                 resourceFactory.documentsGenerateResource.reGenerate({entityType: scope.entityType, entityId: scope.entityId, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                     document.docUrl = loandocs;
                 })
             };
@@ -171,7 +171,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('clientdocumentActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('clientdocumentActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
         $log.info("clientdocumentActivityController initialized");
     });
 }(mifosX.controllers || {}));

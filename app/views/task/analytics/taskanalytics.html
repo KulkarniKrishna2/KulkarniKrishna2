@@ -12,11 +12,11 @@
                         </select>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="overflow: scroll;overflow-y:auto;">
                     <table class="table well">
                         <thead>
                         </thead>
-                        <tbody>
+                        <tbody >
                             <tr>
                                 <td bgcolor="#CDCDCD"></td>
                                 <td ng-repeat="taskData in taskDataList" bgcolor="#CDCDCD">{{taskData.name}}</td>
@@ -56,8 +56,8 @@
                         </select>
                     </h3>
                 </div>
-                <div class="panel-body">
-                    <div style="height: 242px;">
+                <div class="panel-body" style="overflow: scroll;overflow-y:auto;">
+                    <div style="height: 280px;">
                         <nvd3-multi-bar-chart
                                 data="barData"
                                 id="barchart"

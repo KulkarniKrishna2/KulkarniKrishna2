@@ -155,7 +155,7 @@
                 </tr>
                 <tr ng-if= "village.rejectReason.name || village.rejectDescription">
                     <td>{{'label.heading.rejectionreason' | translate}}</td>
-                    <td ng-if= "village.rejectReason.name">{{village.rejectReason.name}}</td>
+                    <td ng-if= "village.rejectReason.name">{{village.rejectReason.systemIdentifier}}</td>
                     <td ng-if= "village.rejectDescription">{{village.rejectDescription}}</td>
                 </tr>
                 <tr ng-if="!(village.status.value=='Pending' || village.rejectReason)" class="form-group">

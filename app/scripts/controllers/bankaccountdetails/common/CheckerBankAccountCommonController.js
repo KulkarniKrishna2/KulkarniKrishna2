@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CheckerBankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter,$upload,$rootScope,API_VERSION,$http) {
+        CheckerBankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter,$upload,$rootScope,API_VERSION,$http,commonUtilService) {
             angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"bankAccountDetails"}));
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
 
@@ -76,7 +76,7 @@
                         scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                             scope.bankAccountDocuments[i].docUrl = docs;
                         }
                         scope.documentImg =  scope.bankAccountDocuments[0].docUrl;
@@ -156,7 +156,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CheckerBankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http',mifosX.controllers.CheckerBankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('CheckerBankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http', 'CommonUtilService', mifosX.controllers.CheckerBankAccountCommonController]).run(function ($log) {
         $log.info("CheckerBankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));

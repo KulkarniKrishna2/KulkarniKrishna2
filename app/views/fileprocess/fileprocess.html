@@ -18,6 +18,7 @@
             <th>{{'label.heading.successedrecords' | translate}}</th>
             <th>{{'label.heading.failedrecords' | translate}}</th>
             <th>{{'label.heading.totalrecords' | translate}}</th>
+            <th>{{'label.heading.uploadedDate' | translate}}</th>
             <th>{{'label.heading.actions' | translate}}</th>
         </tr>
         </thead>
@@ -30,6 +31,7 @@
             <td>{{fileProcess.totalSuccessRecords}}</td>
             <td>{{fileProcess.totalFailureRecords}}</td>
             <td>{{fileProcess.totalRecords}}</td>
+            <td>{{fileProcess.createdDate | DateFormat}}</td>
             <td>
                 <a target="_blank" href="{{hostUrl}}{{fileProcess.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
                 <a ng-click="fetchUpdatedData(fileProcess)"><i class="icon-refresh"></i></a>

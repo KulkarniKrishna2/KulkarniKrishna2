@@ -38,6 +38,7 @@
 
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar,clientMembers'}, function (data) {
                 scope.center = data;
+                scope.groupMemberAccountList = data.groupMembers;
                 $rootScope.officeName = data.officeName;
                 $rootScope.officeId = data.officeId;
                 $rootScope.centerName=data.name;
@@ -62,10 +63,6 @@
                         break;
                     }
                 }
-            });
-
-            resourceFactory.centerLookupResource.get({centerId: routeParams.id}, function(data) {
-                scope.groupMemberAccountList = data;
             });
 
             scope.routeTo = function (id) {

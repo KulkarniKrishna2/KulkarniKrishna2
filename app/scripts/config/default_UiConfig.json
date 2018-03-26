@@ -33,7 +33,8 @@
 	  "isMandatory": {
 		"externalId": false,
 		"repaymentsStartingFromDate": false,
-		"loanPurposeId": false
+		"loanPurposeId": false,
+		"undoTransactionReason" :false
 	  },
 	  "isHiddenSection": {
 		"interestRecalculationSection": false,
@@ -145,7 +146,8 @@
         "addressType":false,
         "mobileNumber":false,
         "emailId":false,
-        "maritalStatus":true
+        "maritalStatus":true,
+        "gender":false
 	  }
 	},
 	"defaultGISConfig": {

@@ -24,7 +24,7 @@
                     <label class="control-label col-sm-2" for="startValue">{{'label.input.sequence.start.value' | translate}}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input name="startValue" ng-model="formData.startValue" type="text" class="form-control" required late-Validate/>
+                        <input name="startValue" ng-model="formData.startValue" type="text" class="form-control" required number-format late-Validate/>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="createsequenceform" valattribute="startValue" />
@@ -34,7 +34,7 @@
                     <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.end.value' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input name="endValue" ng-model="formData.endValue" type="text" class="form-control" />
+                        <input number-format name="endValue" ng-model="formData.endValue" type="text" class="form-control" />
                     </div>
                 </div>
 

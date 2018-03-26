@@ -47,13 +47,13 @@
                     <td>{{taskConfigStepsData.actionGroupName}}</td>
                 </tr>
 
-                <tr>
+                <tr ng-show="taskConfigStepsData.tatDuration">
                     <td>{{'label.heading.standardtat' | translate}}</td>
-                    <td>{{taskConfigStepsData.tatDuration}}</td>
+                    <td>{{taskConfigStepsData.tatDuration}}&nbsp;{{'label.heading.hour' | translate}}</td>
                 </tr>
-                <tr>
+                <tr ng-show="taskConfigStepsData.escalationDuration">
                     <td>{{'label.heading.escalation.thersold' | translate}}</td>
-                    <td>{{taskConfigStepsData.escalationDuration}}</td>
+                    <td>{{taskConfigStepsData.escalationDuration}}&nbsp;{{'label.heading.hour' | translate}}</td>
                 </tr>
                 
             </tbody>

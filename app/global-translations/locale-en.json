@@ -906,6 +906,7 @@
     "label.noClientSignature" : "Client Signature is not provided",
     "label.button.getfingerprint": "Get Finger print",
     "label.button.viewguarantees": "View Guarantees",
+    "label.heading.uploadedDate": "uploaded Date",
 
     "#Enumeration & Error Messages": "..",
     "client.search.not.allowed": "Not Allowed to Use Client Search.",
@@ -5651,6 +5652,8 @@
     "label.anchor.waivecharge" : "Waive Charge",
     "label.heading.remainingcharge" : "Remaining Charge",
     "label.heading.waivedcharge" : "Waived Charge",
+    "label.heading.waivedselectedcharge" : "Waive Selected Charges",
+    "label.heading.bulkwaiveconfirm" : "Waiver Confirmation",
     "label.button.waiveglimcharge" : "Waive Glim Charge",
     "label.button.glimprepayloan" : "Glim Prepay Loan",
     "label.anchor.prepayloan" : "Prepay Loan",
@@ -7006,6 +7009,12 @@
      "label.heading.reversalreason" : "Reversal Reason",
      "label.button.resolve.queries" : "Resolve Queries",
      "validation.msg.Sequence Entity Association.selectedSequences.cannot.be.empty" : "Selecting sequences is mandatory. Add atleast one sequence.",
+     "label.heading.hour" : "Hour",
+     "label.heading.in.hours" : "In Hours",
+     "validation.msg.taskAssign.templateId.cannot.be.blank" : "Task Name is mandatory",
+     "validation.msg.taskAssign.userId.cannot.be.blank" : "User is mandatory",
+     "validation.msg.taskAssign.entityId.cannot.be.blank":"Center/Client/Village/Office is mandatory",
+     "error.msg.invalid.sequence.format" : "Sequence `{{params[0].value}}` value must be natural number.",
 
     "------ end of tensalation file":"---------"
 }
