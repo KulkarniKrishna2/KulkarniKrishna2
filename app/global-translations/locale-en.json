@@ -7014,6 +7014,7 @@
      "validation.msg.taskAssign.templateId.cannot.be.blank" : "Task Name is mandatory",
      "validation.msg.taskAssign.userId.cannot.be.blank" : "User is mandatory",
      "validation.msg.taskAssign.entityId.cannot.be.blank":"Center/Client/Village/Office is mandatory",
+     "error.msg.invalid.sequence.format" : "Sequence `{{params[0].value}}` value must be natural number.",
 
     "------ end of tensalation file":"---------"
 }
