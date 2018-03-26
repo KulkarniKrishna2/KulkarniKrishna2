@@ -31,6 +31,7 @@
             scope.slabBasedCharge = "Slab Based";
             scope.installmentAmountSlabChargeType = 1;
             scope.loanapplicationActive = 100;
+            scope.loanapplicationCBApproved = 201;
             scope.loanapplicationApproved = 200;
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
@@ -121,7 +122,7 @@
 
                     resourceFactory.configurationResource.get({configName:'enable-pending-for-approval-stage'}, function (data) {
                         scope.enablependingforapproval = data.enabled;
-                        if(scope.formData.status.id === scope.loanapplicationActive && !scope.enablependingforapproval){
+                        if((scope.formData.status.id === scope.loanapplicationActive || scope.formData.status.id === scope.loanapplicationCBApproved) && !scope.enablependingforapproval){
                             resourceFactory.loanApplicationReferencesResource.update({
                                 loanApplicationReferenceId: scope.loanApplicationReferenceId,
                                 command: 'requestforapproval'
