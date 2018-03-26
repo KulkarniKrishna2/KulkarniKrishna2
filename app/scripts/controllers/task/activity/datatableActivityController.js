@@ -322,7 +322,6 @@
                 var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
                 scope.processData(reqparams);
             };
-
             scope.processData = function(reqparams){
                 resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                     for (var i in data.columnHeaders) {
