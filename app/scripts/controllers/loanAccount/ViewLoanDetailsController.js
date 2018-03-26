@@ -36,6 +36,8 @@
             scope.noteLoaded = false;
             scope.slabBasedCharge = 'Slab Based';
             scope.flatCharge = "Flat";
+            scope.selectedCharges = [];
+            scope.charges = {};
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
@@ -1915,6 +1917,65 @@
                 var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
                 window.open(url);
             }
+
+            scope.selectAllCharges = function () {
+                scope.selectedCharges = [];
+                scope.charges.forEach(element => {
+                    if (!element.actionFlag) {
+                        if (scope.charges.selectallcharges) {
+                            element.selected = true;
+                            scope.selectedCharges.push(element);
+                        } else {
+                            element.selected = false;
+                        }
+                    }
+                });
+            }
+
+            scope.addForSelection = function(charge){
+                if(charge.selected){
+                    scope.selectedCharges.push(charge);
+                }else{
+
+                    for(var i = 0; i < scope.selectedCharges.length; i++){
+                        if ( scope.selectedCharges[i].id === charge.id) {
+                            scope.selectedCharges.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            scope.waivecharges = function () {
+                $modal.open({
+                    templateUrl: 'waivecharge.html',
+                    controller: WaiveChargeCtrl,
+                    resolve: {
+                        selectedCharges: function () {
+                            return scope.selectedCharges;
+                        }
+                    }
+                });
+            };
+
+            var WaiveChargeCtrl = function ($scope, $modalInstance, selectedCharges) {
+                $scope.selectedCharges = selectedCharges;
+                $scope.submit = function () {
+                    var formData = {};
+                    var waiverChargeIds = [];
+                    selectedCharges.forEach(element => {
+                        waiverChargeIds.push(element.id);
+                    });
+                    formData.chargeIds = waiverChargeIds;
+                    resourceFactory.loanChargesResource.save({loanId: routeParams.id,command:'waive'}, formData, function (data) {
+                        $modalInstance.close('delete');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
         }
     });
 
