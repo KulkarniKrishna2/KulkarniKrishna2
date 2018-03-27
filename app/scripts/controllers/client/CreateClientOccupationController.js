@@ -7,6 +7,7 @@
             scope.subOccupations = [];
             scope.formData.clientMonthWiseIncomeExpense = [];
             scope.formData.isMonthWiseIncome = false;
+            scope.totalIncome = 0;
 
             resourceFactory.cashFlowCategoryResource.getAll({isFetchIncomeExpenseDatas: true}, function(data){
                scope.occupations  = data;
@@ -19,7 +20,7 @@
                         if(iterate[index].cashflowCategoryId == occupationId && iterate[index].id == subOccupationId){
                             if(iterate[index].isQuantifierNeeded == true){
                                 scope.quantifierLabel = iterate[index].quantifierLabel;
-                                scope.isQuantifierNeeded = iterate[index].isQuantifierNeeded;
+                                scope.isQuantifierNeeded = iterate[index].isQuantifierNeeded;                                
                             }
                             if(iterate[index].defaultIncome){
                                 scope.formData.totalIncome=iterate[index].defaultIncome;
@@ -33,6 +34,14 @@
                     }
                 }
             }
+
+            scope.updateTotalIncome = function(quantity,income){
+                if(scope.isQuantifierNeeded && quantity && income){
+                    scope.totalIncome = parseFloat(quantity)*parseFloat(income);
+                }else{
+                    scope.totalIncome = undefined;
+                }
+            };
 
             scope.subOccupationNotAvailable = function(occupationId){
                 _.each(scope.occupationOption, function(occupation){

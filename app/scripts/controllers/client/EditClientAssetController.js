@@ -6,6 +6,7 @@
             scope.assetId = routeParams.assetId;
             scope.formData = {};
             scope.formData.isMonthWiseIncome = false;
+            scope.totalIncome = 0;
 
             resourceFactory.cashFlowCategoryResource.getAll({isFetchIncomeExpenseDatas: true}, function(data){
                 scope.occupations  = data;
@@ -24,8 +25,17 @@
                 scope.formData.isPrimaryIncome = data.isPrimaryIncome;
                 scope.formData.isRemmitanceIncome=data.isRemmitanceIncome;
                 scope.isQuantifierNeeded = data.incomeExpenseData.isQuantifierNeeded;
+                scope.updateTotalIncome(scope.formData.quintity, scope.formData.totalIncome);
                 scope.quantifierLabel = data.incomeExpenseData.quantifierLabel;
             });
+
+            scope.updateTotalIncome = function(quantity,income){
+                if(scope.isQuantifierNeeded && quantity && income){
+                    scope.totalIncome = parseFloat(quantity)*parseFloat(income);
+                }else{
+                    scope.totalIncome = undefined;
+                }
+            };
 
             scope.slectedOccupation = function(occupationId, subOccupationId){
                 for(var i in scope.occupations){
