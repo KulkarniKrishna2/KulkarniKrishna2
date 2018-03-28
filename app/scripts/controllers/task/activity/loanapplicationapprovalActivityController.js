@@ -691,8 +691,21 @@
                 scope.submitData.formRequestData.charges = [];
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
-                        if(scope.charges[i].amount > 0) {
-                            var charge = {};
+                        var charge = {};
+                        if (scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
+                            for (var x in scope.charges[i].slabs) {
+                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[x], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
+                                if (slabBasedValue != null) {
+                                    charge.amount = slabBasedValue;
+                                }
+                            }
+                            charge.chargeId = scope.charges[i].chargeId;
+                            charge.isMandatory = scope.charges[i].isMandatory;
+                            if (scope.charges[i].dueDate) {
+                                charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                            }
+                                            
+                        }else if(scope.charges[i].amount > 0) {
                             charge.chargeId = scope.charges[i].chargeId;
                             charge.amount = scope.charges[i].amount;
                             if (scope.charges[i].dueDate) {
@@ -701,8 +714,8 @@
                             charge.isMandatory = scope.charges[i].isMandatory;
                             //charge.locale = scope.optlang.code;
                             //charge.dateFormat = scope.df;
-                            scope.submitData.formRequestData.charges.push(charge);
                         }
+                        scope.submitData.formRequestData.charges.push(charge);  
                     }
                 }
                 angular.copy(scope.submitData.formRequestData.charges,scope.submitData.formValidationData.charges);
@@ -779,18 +792,32 @@
                 }
                 scope.submitData.formRequestData = scope.formRequestData;
                 if (scope.charges.length > 0) {
-                    scope.submitData.formRequestData.charges = [];
                     for (var i in scope.charges) {
                         var charge = {};
-                        charge.chargeId = scope.charges[i].chargeId;
-                        charge.amount = scope.charges[i].amount;
-                        if(scope.charges[i].dueDate){
-                            charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                        if (scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
+                            for (var x in scope.charges[i].slabs) {
+                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[x], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
+                                if (slabBasedValue != null) {
+                                    charge.amount = slabBasedValue;
+                                }
+                            }
+                            charge.chargeId = scope.charges[i].chargeId;
+                            charge.isMandatory = scope.charges[i].isMandatory;
+                            if (scope.charges[i].dueDate) {
+                                charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                            }
+                                            
+                        }else if(scope.charges[i].amount > 0) {
+                            charge.chargeId = scope.charges[i].chargeId;
+                            charge.amount = scope.charges[i].amount;
+                            if (scope.charges[i].dueDate) {
+                                charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                            }
+                            charge.isMandatory = scope.charges[i].isMandatory;
+                            //charge.locale = scope.optlang.code;
+                            //charge.dateFormat = scope.df;
                         }
-                        charge.isMandatory = scope.charges[i].isMandatory;
-                        //charge.locale = scope.optlang.code;
-                        //charge.dateFormat = scope.df;
-                        scope.submitData.formRequestData.charges.push(charge);
+                        scope.submitData.formRequestData.charges.push(charge);  
                     }
                 }
                 /**
