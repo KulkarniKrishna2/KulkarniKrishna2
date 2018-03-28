@@ -54,6 +54,7 @@
                 scope.isDateOfBirthMandatory = true;
             }
             scope.invalidClassificationId = false;
+            scope.submitted = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {

@@ -122,7 +122,7 @@
 							{{'label.heading.due.savings.collections' |
 							translate}}
 						</th>
-						<th  scope="colgroup" colspan="1">{{'label.heading.client.charge' |
+						<th  scope="colgroup"  colspan="1">{{'label.heading.client.charge' |
 							translate}}</th>
 						<th class="empty" scope="colgroup"></th>
 					</tr>
@@ -130,13 +130,18 @@
 						<td>
 							{{'label.heading.groups/clients' | translate}}
 						</td>
-						<th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts" >
+
+						<th scope="colgroup" ng-show="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0">
+						</th>
+						<th scope="colgroup" ng-hide="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0" ng-repeat="loanproduct in collectionsheetdata.loanProducts" >
 							{{loanproduct.name}}/{{'label.heading.charges' | translate}}
 						</th>
-						<th scope="colgroup" ng-repeat="savingproduct in collectionsheetdata.savingsProducts" >
+						<th scope="colgroup" ng-show="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0">
+						</th>
+						<th scope="colgroup" ng-hide="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0" ng-repeat="savingproduct in collectionsheetdata.savingsProducts" >
 							{{savingproduct.name}}/{{'label.heading.deposit' | translate}}/{{'label.heading.withdraw' | translate}}
 						</th>
-						<th ng-show="isClientChargesIncludedInCollectoonSheet" scope="colgroup" >{{'label.heading.client.charge' | translate}}</th>
+						<th  scope="colgroup" >{{'label.heading.client.charge' | translate}}</th>
 						<th>{{'label.heading.attendance' | translate}}</th>
 					</tr>
 					</thead>
@@ -145,9 +150,10 @@
 						<td>
 							<b>{{group.groupName}}</b>
 						</td>
+
 						<td scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;</td>
 						<td scope="colgroup" colspan="{{collectionsheetdata.savingsProducts.length}}">&nbsp;</td>
-						<td colspan="1"  scope="colgroup">&nbsp;</td>
+						<td colspan="1"   scope="colgroup">&nbsp;</td>
 						<td colspan="1" scope="colgroup">&nbsp;</td>
 					</tr>
 					<tr ng-repeat="client in group.clients track by $index" ng-init="parentIndex = $index">
@@ -156,7 +162,10 @@
 								{{client.clientName}}({{client.clientId}})
 							</div>
 						</td>
-						<td  ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+
+						<td scope="colgroup" ng-show="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0">
+						</td>
+						<td ng-hide="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 
 							<span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
 								<div class="col-md-7">
@@ -192,7 +201,10 @@
 	                            </div>
 							</span>
 						</td>
-						<td  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
+
+						<td scope="colgroup" ng-show="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0">
+						</td>
+						<td ng-hide="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0"  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							<div class="col-md-4">
 							<div ng-repeat="savings in client.savings"
 								  ng-show="savingsproduct.id === savings.productId" class="col-md-4">
@@ -220,9 +232,6 @@
 							</div>
 						</td>
 						<td>
-							<!-- <label ng-repeat="attendance in collectionsheetdata.attendanceTypeOptions">
-								<input type="radio" name="attendance{{parentIndex}}" ng-model="client.attendanceType.id" ng-value="attendance.id" />&nbsp;{{attendance.value}}
-							</label> -->
 							<div class="form-group col-sm-12" >
 								<select id="clientsAttendance[$index].attendanceType"
 										ng-model="clientsAttendance[$index].attendanceType" class="input-sm form-control"
@@ -263,6 +272,8 @@
 						<td class="graybg" style="height:30px" ng-show="collectionsheetdata.loanProducts">
 							{{'label.input.grouptotal' | translate}}
 						</td>
+						<td scope="colgroup" ng-show="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0">
+						</td>
 						<td  ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 							  <span ng-repeat="grouptotal in loanGroupsTotal"
 									ng-show="grouptotal.groupId === group.groupId && loanproduct.id === grouptotal.productId">
@@ -270,7 +281,9 @@
 										 number-format ng-model="grouptotal.dueAmount" disabled="disabled">
 							  </span>
 						</td>
-						<td  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
+						<td scope="colgroup" ng-show="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0">
+						</td>
+						<td ng-hide="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0"  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							  <span ng-repeat="grouptotal in savingsGroupsTotal"
 									ng-show="grouptotal.groupId === group.groupId && savingsproduct.id === grouptotal.productId">
 								  <input style="font-weight: bold;" class="col-md-5" type="text"
@@ -287,15 +300,20 @@
 					<tfoot>
 					<tr>
 						<td class="graybg" style="height:30px" ng-show="collectionsheetdata.loanProducts">
-							{{'label.input.total' | translate}}Total
+							{{'label.input.total' | translate}}
 						</td>
-						<td style="height:30px " class="width20" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+						<td scope="colgroup" ng-show="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0">
+						</td>
+						<td style="height:30px " ng-hide="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0" class="width20" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 							  <span ng-repeat="total in loansTotal" ng-show="loanproduct.id == total.productId">
 								<input type="text"  number-format ng-model="total.dueAmount"
 									   disabled="disabled">
 							  </span>
 						</td>
-						<td style="height:30px"  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
+
+						<td scope="colgroup" ng-show="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0">
+						</td>
+						<td  style="height:30px" ng-hide="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							  <span ng-repeat="total in savingsTotal" ng-show="savingsproduct.id == total.productId">
 								<input class="col-md-5" type="text"  number-format ng-model="total.dueAmount"
 									   disabled="disabled">

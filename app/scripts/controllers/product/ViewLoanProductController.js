@@ -67,12 +67,13 @@
                         });
                     }else{
                         if(tempChargeId == scope.feeToIncomeAccountMappingsData[scope.feeToIncomeAccountMappingsData.length-1].feeToIncomeAccountChargeId){
-                            scope.feeToIncomeAccountMappingsData[scope.feeToIncomeAccountMappingsData.length-1].feeToDebitAccountName = scope.loanproduct.feeToIncomeAccountMappings[scope.feeToIncomeAccountMappingsData.length-1].incomeAccount.name;
+                            scope.feeToIncomeAccountMappingsData[scope.feeToIncomeAccountMappingsData.length-1].feeToDebitAccountName = scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.name;
                         }else{
                             scope.feeToIncomeAccountMappingsData.push({
                                 feeToIncomeAccountChargeId: scope.loanproduct.feeToIncomeAccountMappings[i].charge.id,
                                 feeToIncomeAccountChargeName: scope.loanproduct.feeToIncomeAccountMappings[i].charge.name,
-                                feeToIncomeAccountName: scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.name
+                                feeToIncomeAccountName: scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.name,
+                                incomeAccountGlCode: scope.loanproduct.feeToIncomeAccountMappings[i].incomeAccount.glCode
                             });
                         }
                     }
@@ -94,7 +95,7 @@
                         });
                     }else{
                         if(tempChargeId == scope.penaltyToIncomeAccountMappingsData[scope.penaltyToIncomeAccountMappingsData.length-1].chargeId){
-                            scope.penaltyToIncomeAccountMappingsData[scope.penaltyToIncomeAccountMappingsData.length-1].debitAccountName = scope.loanproduct.penaltyToIncomeAccountMappings[scope.penaltyToIncomeAccountMappingsData.length-1].incomeAccount.name;
+                            scope.penaltyToIncomeAccountMappingsData[scope.penaltyToIncomeAccountMappingsData.length-1].debitAccountName = scope.loanproduct.penaltyToIncomeAccountMappings[i].incomeAccount.name;
                         }else{
                             scope.penaltyToIncomeAccountMappingsData.push({
                                 chargeId: scope.loanproduct.penaltyToIncomeAccountMappings[i].charge.id,
