@@ -34,6 +34,10 @@
                             <tr>
                                 <td>{{'label.input.voucher.type' | translate}}</td>
                                 <td>{{voucherType}}</td>
+                            </tr>                            
+                            <tr ng-show="voucherData.costCenter">
+                                <td>{{'label.input.voucher.cost.center' | translate}}</td>
+                                <td>{{voucherData.costCenter.name}}</td>
                             </tr>
                             <tr>
                                 <td>{{'label.input.currency' | translate}}</td>
