@@ -1,12 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TaskListController: function (scope, resourceFactory, location, paginatorService, routeParams) {
-            scope.loggedInUserId = scope.currentSession.user.userId;
+        TaskListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams) {
             scope.formData = {};
             scope.taskTypes = [
-                {id: 'tab1', name: "label.tab.myworkflowtasks", status: 'assigned-workflow', icon:'icon-user',type:'assigned'},
-                {id: 'tab2', name: "label.tab.mytasks", status: 'assigned-nonworkflow', icon:'icon-user',type:'assigned'},
-                {id: 'tab3', name: "label.tab.role", status: 'unassigned', icon:'icon-user',type:'unassigned'}];
+                {id: 'tab1', name: "label.tab.myworkflowtasks", status: 'assigned-workflow', icon:'icon-user',type:'assigned',active:true},
+                {id: 'tab2', name: "label.tab.mytasks", status: 'assigned-nonworkflow', icon:'icon-user',type:'assigned',active:false},
+                {id: 'tab3', name: "label.tab.role", status: 'unassigned', icon:'icon-user',type:'unassigned',active:false}];
             scope.pageSize = 15;
             scope.childrenTaskConfigs = [];
             scope.selectedStatus = 'assigned-workflow';
@@ -47,7 +46,7 @@
             scope.toggleAll = function() {
                 var toggleStatus = !scope.formData.isAllSelected;
                 angular.forEach(scope.workFlowTasks, function(itm){ itm.selected = toggleStatus; });
-            }
+            };
 
             if (!scope.searchCriteria.workFlowT) {
                 scope.searchCriteria.workFlowT = null;
@@ -60,22 +59,22 @@
                 scope.saveSC();
             };
 
-            var fetchFunction = function (offset, limit) {
-                var params = {};
-                params.filterby = scope.selectedStatus;
-                params.offset = offset;
-                params.limit = limit;
-                params.officeId = scope.formData.officeId;
-                params.parentConfigId = scope.formData.parentConfigId;
-                params.childConfigId = scope.formData.childConfigId;
-                params.loanType = scope.formData.loanType;
-                params.centerId = scope.formData.centerId;
-                scope.formParams = params;
+            var fetchFunction = function (offset, limit, callback) {
+                resourceFactory.taskListSearchResource.get({
+                    filterby: scope.selectedStatus,
+                    officeId: scope.formData.officeId,
+                    parentConfigId: scope.formData.parentConfigId,
+                    childConfigId: scope.formData.childConfigId,
+                    loanType: scope.formData.loanType,
+                    centerId: scope.formData.centerId,
+                    offset: offset,
+                    limit: limit
+                }, callback);
 
-                resourceFactory.taskListResource.get(params, function(data) {
-                    scope.workFlowTasks = data.pageItems;
-                    scope.totalTasks = data.totalFilteredRecords;
-                });
+                // resourceFactory.taskListSearchResource.get(params, function(data) {
+                //     scope.workFlowTasks = data;
+                //
+                // });
             };
 
             scope.getResultsPage = function (pageNumber) {
@@ -88,10 +87,9 @@
 
             scope.getWorkFlowTasks = function(filterby) {
                 scope.filterBy = filterby;
-                scope.workFlowTasks = [];
                 scope.selectedStatus = filterby;
                 scope.formData.isAllSelected = false;
-                paginatorService.paginate(fetchFunction, scope.pageSize);
+                scope.taskPagination = paginatorUsingOffsetService.paginate(fetchFunction, scope.pageSize);
             };
 
             if(scope.formData.parentConfigId==undefined){
@@ -99,7 +97,7 @@
             }
             else{
                 scope.filterby='assigned-workflow';
-                scope.getWorkFlowTasks(scope.filterby);
+                scope.getWorkFlowTasks(scope.filterBy);
             }
 
             scope.goToTask = function (task) {
@@ -174,7 +172,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorService', '$routeParams', mifosX.controllers.TaskListController]).run(function ($log) {
+    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', mifosX.controllers.TaskListController]).run(function ($log) {
         $log.info("TaskListController initialized");
     });
 }(mifosX.controllers || {}));

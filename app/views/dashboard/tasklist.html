@@ -81,14 +81,14 @@
     <div id="home" class="row">
         <div class="col-md-12">
             <div class="card-content no-h-padding">
-                <tabset class="paddedtop paddedbottom10" tabset-name="testOne">
-                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)"  ng-init="getWorkFlowTasks(taskType.status)" active="taskType.active" >
+                <tabset class="paddedtop paddedbottom10" >
+                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)">
 
                         <tab-heading>
                             <i class="{{taskType.icon}}"></i> {{taskType.name | translate}}
                         </tab-heading>
 
-                        <div class="table-responsive" data-ng-show="workFlowTasks && workFlowTasks.length > 0">
+                        <div class="table-responsive" data-ng-show="taskPagination.currentPageItems.length > 0">
                             <table id="otherTasks" class="table table-striped card-table">
                                 <thead ng-if="true">
                                 <tr>
@@ -100,7 +100,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr dir-paginate="workFlowTask in workFlowTasks | filter:filterText | itemsPerPage: pageSize" ng-init="workFlowTask.selected = false" total-items="totalTasks" pagination-id="taskType.id"
+                                <tr ng-repeat="workFlowTask in taskPagination.currentPageItems" ng-init="workFlowTask.selected = false"
                                 >
                                     <td >
                                         <ng-form>
@@ -124,10 +124,18 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <dir-pagination-controls pagination-id="taskType.id" boundary-links="false" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+                            <ul class="pager">
+                                <li class="previous">
+                                    <a id="prev" ng-click="taskPagination.previous()" href=""
+                                       ng-hide="!taskPagination.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+                                </li>
+                                <li class="next">
+                                    <a id="next" ng-click="taskPagination.next()" href=""
+                                       ng-hide="!taskPagination.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+                            </ul>
                         </div>
 
-                        <div class="" style="padding:10px;" data-ng-hide="workFlowTasks && workFlowTasks.length > 0">
+                        <div class="" style="padding:10px;" data-ng-hide="taskPagination.currentPageItems && taskPagination.currentPageItems.length > 0">
                             <div class="alert alert-info" style="border-style: dashed;">
                                 <span class="fa fa-info-circle"></span> {{'info.message.taskList.noTasks' | translate}}
                             </div>
