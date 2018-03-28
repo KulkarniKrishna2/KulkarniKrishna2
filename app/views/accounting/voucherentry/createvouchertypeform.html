@@ -38,6 +38,14 @@
                 <div class="col-sm-2">
                     <form-validate valattributeform="createVoucherForm" valattribute="officeId"/>
                 </div>
+                <label class="control-label col-sm-2">{{ 'label.menu.costcenter' | translate}}</label>
+                <div class="col-sm-3">
+                    <select id="costCenterId" name="costCenterId" chosen="costCenterOptions"
+                            ng-options="costCenter.id as costCenter.name for costCenter in costCenterOptions"
+                            ng-model="formData.costCenterId" class="form-control" value="{{office.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
             </div>
 
             <div class="form-group">

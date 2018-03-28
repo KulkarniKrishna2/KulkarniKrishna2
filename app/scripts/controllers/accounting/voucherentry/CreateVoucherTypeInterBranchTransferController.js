@@ -12,13 +12,14 @@
             scope.creditAccounts = [{}];
             scope.numberOfCredits = 1;
             scope.numberOfDebits = 1;
-            
+            scope.costCenterOptions = [];
             resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode}, function (data) {
                 scope.officeOptions = data.templateData.officeOptions;
                 scope.currencyOptions = data.templateData.currencyOptions;
                 scope.debitAccountingOptions = data.templateData.debitAccountingOptions;
                 scope.creditAccountingOptions = data.templateData.creditAccountingOptions;
                 scope.paymentOptions = data.templateData.paymentOptions;
+                scope.costCenterOptions = data.templateData.costCenterOptions;
                 scope.formData.currencyCode = localStorageService.getFromCookies('currencyCode') || scope.currencyOptions[0].code;
                 scope.formData.fromOfficeId = parseInt(localStorageService.getFromCookies('fromOfficeId')) || scope.officeOptions[0].id;
                 scope.formData.toOfficeId = parseInt(localStorageService.getFromCookies('toOfficeId')) || scope.officeOptions[0].id;
