@@ -124,7 +124,7 @@
                         <label>{{ 'label.button.disbursalmode' | translate }}:</label>
                     </td>
                     <td class="width31 paddedbottom10">
-                        <select id="disbursementMode" name="disbursementMode" ng-model="disbursementMode"
+                        <select id="disbursementMode" name="disbursementMode" class="form-control width170px" ng-model="disbursementMode"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
                             value="{{paymentModeOption.id}}" ng-change="changePaymentMode(formData.paymentMode)" class="form-control"
                             >
@@ -482,8 +482,10 @@
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">
-                <td colspan=2>
+                <td >
                     <label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;
+                </td>
+                <td >
                     <input id="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
                 </td>
             </tr>
@@ -686,7 +688,9 @@
         
         <div class="col-md-12">
         <hr/>
+        <div class="col-sm-1">
         <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
+        </div>
         <select ng-model="chargeFormData.chargeId" class="form-control width170px"
                 ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
                 value="{{charge.id}}">
@@ -810,7 +814,9 @@
             <br><br>
         </div>
         <div class="col-md-12 paddedtop" ng-hide = "response.uiDisplayConfigurations.loanAccount.isHiddenSection.collateralSection == true">
+            <div class="col-sm-1">
             <label><strong>{{ 'label.heading.collaterals' | translate }}</strong></label>
+            </div>
             <select ng-model="collateralFormData.collateralIdTemplate" class="form-control width170px"
                     ng-options="collateralTemplate.name for collateralTemplate in collateralOptions"
                     value="{{collateralTemplate.id}}">
@@ -846,7 +852,7 @@
 <div ng-show="previewRepayment" ng-include="'views/loans/loanrepaymentpreview.html'" />
 
 
-<div class="col-md-offset-6">
+<div class="col-md-offset-6 paddedtop10">
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
     <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_LOAN' ng-show="loanaccountinfo" ng-click="isSubmitted = true">{{'label.button.save' |
         translate}}
