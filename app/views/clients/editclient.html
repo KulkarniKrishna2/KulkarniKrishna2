@@ -101,14 +101,14 @@
 			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory"/>
 					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 				</div>
-				<label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
-				<div class="col-sm-1">
+				<div class="col-sm-2">
+					<label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
 					<form-validate valattributeform="editclientform" valattribute="dateofbirth"/>
 				</div>
 
 				<div data-ng-switch on="showNonPersonOptions">
 					<div data-ng-switch-when="false">
-						<label class="control-label col-sm-2">{{'label.input.gender' | translate}}</label>
+						<label class="control-label col-sm-1">{{'label.input.gender' | translate}}</label>
 
 						<div class="col-sm-3">
 							<select id="genderId" ng-model="formData.genderId"  class="form-control"
