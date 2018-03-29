@@ -27,7 +27,7 @@
             scope.productiveCollctionSheetSearchParams = {};
             scope.reasonAttendenceList = [];
             scope.collectionAttendenceList = [];
-            scope.attendenceListForReason = [2,4,5];            
+            scope.attendenceListForReason = [2,4];            
             scope.loanRejectReason = {};
             scope.showText = false;
             scope.showRejectReason = false;
@@ -692,6 +692,15 @@
                     });
                 });
 
+            };
+
+            scope.resetCollectionReasons = function(amount, index){
+                if(amount>0 && index>=0){
+                    scope.loanRejectReason[index].codeReasonId = undefined;
+                    scope.loanRejectReason[index].reasonId = undefined;
+                    scope.loanRejectReason[index].reason = undefined;
+                    scope.isDescriptionAvailable(scope.loanRejectReason[index]);
+                }
             };
 
             scope.calculateTotalCollectionDue = function(){

@@ -21,7 +21,7 @@
             scope.details = false;
             scope.clientsAttendance = [];
             scope.reasonAttendenceList = [];
-            scope.attendenceListForReason = [2,4,5];
+            scope.attendenceListForReason = [2,4];
             scope.loanRejectReason = {};
             scope.showText = false;
             scope.productiveCollctionSheetSearchParams = {};
@@ -156,6 +156,15 @@
             scope.bulkRepaymentTransactionAmountChange = function () {
                 scope.collectionData = scope.collectionsheetdata;
                 scope.total(scope.collectionData);
+            };
+
+            scope.resetCollectionReasons = function(amount , index){
+                if(amount>0 && index>=0){
+                    scope.loanRejectReason[index].codeReasonId = undefined;
+                    scope.loanRejectReason[index].reasonId = undefined;
+                    scope.loanRejectReason[index].reason = undefined;
+                    scope.isDescriptionAvailable(scope.loanRejectReason[index]);
+                }
             };
 
             scope.clientsAttendanceArray = function (groups) {
@@ -364,7 +373,6 @@
             };
 
             scope.updateAttendenceData = function(){
-                scope.formData.clientsAttendance = scope.clientsAttendance;
                 var clientsAttendanceDetails =[];
                 for (var i in scope.clientsAttendance) {
                     var attendence = {};
