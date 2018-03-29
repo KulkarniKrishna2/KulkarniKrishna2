@@ -7,17 +7,17 @@
     <table class="table span12">
         <thead>
         <tr class="graybg">
-            <th class="width10">{{'label.heading.name' | translate}}</th>
+            <th class="width35">{{'label.heading.name' | translate}}</th>
             <th class="text-center width10">{{'label.heading.enabled' | translate}}</th>
             <th class="text-center width10"></th>
             <th class="text-center width30">{{'label.heading.value' | translate}}</th>
-            <th class="text-center width5">{{'label.heading.date' | translate}}</th>
+            <th class="text-center width10">{{'label.heading.date' | translate}}</th>
             <th class="text-center width5"></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="config in configs | orderBy:'name':reverse | filter:filterText">
-            <td class="width40">
+            <td class="width35">
 			{{config.name | translate}}
 			&nbsp; &nbsp; &nbsp;<i class="icon-question-sign icon-white" tooltip="{{'label.tooltip.global.' + config.name | translate}}"></i>
 			</td>
@@ -32,7 +32,7 @@
                         data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'>{{"label.button.disable" | translate}}</button>
             </td>
             <td class="text-center width30">{{config.value}}</td>
-            <td class="text-center width5">{{config.dateValue}}</td>
+            <td class="text-center width10">{{config.dateValue}}</td>
             <td class="text-center width5">
                 <a title="{{'label.edit' | translate}}"  data-ng-show="config.showEditvalue"  
                    href="#/configurations/{{config.id}}/editconfig">
