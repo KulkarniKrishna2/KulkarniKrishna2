@@ -694,7 +694,7 @@
                         var charge = {};
                         if (scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
                             for (var x in scope.charges[i].slabs) {
-                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[x], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
+                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[x], scope.formRequestData.loanAmountApproved, scope.formRequestData.numberOfRepayments);
                                 if (slabBasedValue != null) {
                                     charge.amount = slabBasedValue;
                                 }
@@ -796,7 +796,7 @@
                         var charge = {};
                         if (scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
                             for (var x in scope.charges[i].slabs) {
-                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[x], scope.formData.loanAmountRequested, scope.formData.numberOfRepayments);
+                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[x], scope.formRequestData.loanAmountApproved, scope.formRequestData.numberOfRepayments);
                                 if (slabBasedValue != null) {
                                     charge.amount = slabBasedValue;
                                 }
