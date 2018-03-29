@@ -271,7 +271,6 @@
     "label.input.assignstaff": "Assign staff",
     "label.input.closuredate": "Closure date",
     "label.input.closurereason": "Closure reason",
-    "label.input.description": "Description",
     "label.input.repeat": "Repeat",
     "label.input.comments": "Comments",
     "label.input.closurereasons": "Closure reason",
@@ -3147,7 +3146,6 @@
     "label.heading.command": "Command",
     "label.heading.viewcheckerinbox": "View Checker Inbox",
     "label.heading.checker.action.performed": "Checker Action Performed Successfully",
-    "label.heading.description":"Description",
     "label.heading.position": "Position",
     "label.heading.parent": "Parent",
     "label.heading.codeScore": "Code Score",
@@ -5175,7 +5173,6 @@
     "label.anchor.edit.loanproduct.creditbureau.mapping":"Edit Credit Bureau Mapping",
     "label.anchor.loanproduct.creditbureau.mapping":"Credit Bureau Mapping",
     "label.loanproduct.creditbureau.mapping.description":"Loan product to credit bureau mapping",
-    "label.input.reason" : "Reason",
     "label.heading.alias":"Alias",
     "label.heading.cbid":"Credit Bureau ID",
     "label.heading.country":"Country",
@@ -5306,7 +5303,6 @@
     "label.anchor.edit.expense":"Expense House Hold Expense",
 
     "label.heading.loanpurpose":"Loan Purpose",
-    "label.heading.description":"Description",
     "label.heading.status":"Status",
     "label.heading.loanpurpose.group":"Loan Purpose Group",
     "label.heading.classfication":"Consumption",
@@ -7018,6 +7014,7 @@
      "label.heading.totalincomeamount" : "Total Income Amount",
      "label.menu.costcenter" : "Cost Center",
      "label.input.voucher.cost.center" : "Cost Center",
+     "label.input.reasontype" : "Reason Type",
 
     "------ end of tensalation file":"---------"
 }
