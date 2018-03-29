@@ -2,7 +2,7 @@
 
     <!-- Submit form, new data    -->
     <div class="form-horizontal" ng-show="status=='SUMMARY'">
-        <div class="pull-right" ng-if="!taskCompletedFlag">
+        <div class="pull-right" ng-if="!taskCompletedFlag && isShowEditButton">
             <button id="save" type="submit" class="btn btn-primary" ng-click="showEditForm()">
                         {{'label.button.edit' |
                         translate}}

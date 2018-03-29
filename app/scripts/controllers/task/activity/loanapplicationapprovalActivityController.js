@@ -33,6 +33,7 @@
             scope.loanapplicationActive = 100;
             scope.loanapplicationCBApproved = 201;
             scope.loanapplicationApproved = 200;
+            scope.isShowEditButton = true;
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
@@ -131,8 +132,11 @@
                             });
                         }else if(scope.formData.status.id === scope.loanapplicationApproved){
                             scope.showEditForm();
-                        }else if(scope.formData.status.id > scope.loanapplicationApproved){
+                        }else if(scope.formData.status.id > scope.loanapplicationApproved && scope.formData.status.id != scope.loanapplicationCBApproved){
                             scope.activityDone();
+                            scope.isShowEditButton = false;
+                        }else if(scope.formData.status.id > scope.loanapplicationCBApproved){
+                            scope.isShowEditButton = false;
                         }
                     });
                 });
