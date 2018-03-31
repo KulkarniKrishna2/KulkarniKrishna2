@@ -50,7 +50,7 @@
                         update: { method: 'PUT'}
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', searchConditions: '@searchConditions'}, {
-                        getAllClients: {method: 'GET', params: {limit:1000, searchConditions: '@searchConditions'}},
+                        getAllClients: {method: 'GET', params: {limit:100, searchConditions: '@searchConditions'}},
                         getAllClientsWithoutLimit: {method: 'GET', params: {limit: -1, searchConditions: '@searchConditions'}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
@@ -1133,6 +1133,9 @@
                     taskListResource: defineResource(apiVer + "/tasks",{command:'@command'}, {
                         get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}},
                         update:{method: 'POST',params:{command:'@command'}}
+                    }),
+                    taskListSearchResource: defineResource(apiVer + "/tasks/search",{command:'@command'}, {
+                        get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}, isArray: true}
                     }),
                     bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},

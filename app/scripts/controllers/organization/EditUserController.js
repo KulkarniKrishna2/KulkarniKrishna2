@@ -12,6 +12,7 @@
             scope.user = [];
             scope.formData.roles = [] ;
 
+
             resourceFactory.userListResource.get({userId: routeParams.id, template: 'true'}, function (data) {
                 scope.formData.username = data.username;
                 scope.formData.firstname = data.firstname;
@@ -20,6 +21,7 @@
                 scope.formData.officeId = data.officeId;
                 scope.getOfficeStaff();
                 if(data.staff){
+                    scope.staffName = data.staff.displayName;
                     scope.formData.isLoanOfficer = data.staff.isLoanOfficer;
                     scope.formData.mobileNo = data.staff.mobileNo;
                     scope.formData.isActive = data.staff.isActive;

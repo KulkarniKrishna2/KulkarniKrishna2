@@ -13,6 +13,7 @@
             scope.formData.transactionDate = new Date();
             scope.restrictDate = new Date();
             scope.showTransactionDetails = false;
+            scope.costCenterOptions = [];
             /**
              * Based on the voucher type change the labels
              */
@@ -42,6 +43,7 @@
             resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode}, function (data) {
                 scope.officeOptions = data.templateData.officeOptions;
                 scope.currencyOptions = data.templateData.currencyOptions;
+                scope.costCenterOptions = data.templateData.costCenterOptions;
                 scope.debitAccountingOptions = data.templateData.debitAccountingOptions;
                 scope.creditAccountingOptions = data.templateData.creditAccountingOptions;
                 if (!_.isUndefined(data.templateData.paymentOptions)) {
