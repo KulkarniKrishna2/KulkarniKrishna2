@@ -26,6 +26,18 @@
       "regexValidations" :{
         "mobileNumber":"^\\d*$"
       }
+    },
+    "createLoanApplication": {
+      "isHiddenField": {
+        "expectedDisbursementDate": false,
+        "firstRepaymentDate": false,
+        "interestRatePerPeriod": false
+      },
+      "isMandatoryField": {
+        "expectedDisbursementDate": true,
+        "firstRepaymentDate": true,
+        "interestRatePerPeriod": true
+      }
     }
   }
 }

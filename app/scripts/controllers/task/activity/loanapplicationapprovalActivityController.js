@@ -37,6 +37,7 @@
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
+                 scope.formData.submittedOnDate=dateFilter(new Date(applicationData.submittedOnDate), scope.df);
                  scope.accountType = scope.formData.accountType.value.toLowerCase();
                  scope.loanProductChange(scope.formData.loanProductId);
                  resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
@@ -220,7 +221,7 @@
             };
 
             scope.formDataForValidtion = function () {
-                scope.formValidationData.submittedOnDate = dateFilter(scope.formData.submittedOnDate, scope.df);
+                scope.formValidationData.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
                 scope.formValidationData.clientId = scope.formData.clientId;
                 if (scope.formData.groupId) {
                     scope.formValidationData.groupId = scope.formData.groupId;
