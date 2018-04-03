@@ -17,7 +17,32 @@
                 });
             };
 
+            scope.getDOBValidationData = function(){
+                scope.isDobValidationMandatory = false;
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                        scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
+                        scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
+                        scope.isDobValidationMandatory = true;
+                        if(scope.maxAge>0 && scope.minAge>0){
+                            scope.minDate = new Date();
+                            scope.minDate.setFullYear( scope.minDate.getFullYear() - scope.maxAge);
+                            scope.minDate.setSeconds(0);
+                            scope.minDate.setMinutes(0);
+                            scope.minDate.setHours(0);
+                            scope.maxDate = new Date();
+                            scope.maxDate.setFullYear( scope.maxDate.getFullYear() - scope.minAge);
+                            scope.maxDate.setSeconds(0);
+                            scope.maxDate.setMinutes(0);
+                            scope.maxDate.setHours(0);
+                        }else{
+                            scope.minDateInMillis = undefined;
+                            scope.maxDateInMillis = undefined;
+                        }
+                }
+            };
+
             init();
+            scope.getDOBValidationData();
 
             scope.addExistingClients=function(){
                 scope.available=undefined;
@@ -106,6 +131,7 @@
                 }else{
                     scope.displayAge = false;
                 }
+                scope.validateDOB();
             });
 
             scope.clientOptions = function(value){
@@ -220,7 +246,15 @@
 
                 if (scope.first.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
+                    if(scope.isDobValidationMandatory){
+                        scope.validateDOB();
+                        if(scope.dateOfBirthNotInRange){
+                            return false;
+                        }
+                    }
+                    
                 }
+
 
                 if (this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
                     delete this.formData.fullname;
@@ -252,6 +286,22 @@
                     scope.available.id=data.clientId;
                     scope.add(scope.available);
                 });
+            };
+    
+
+
+            scope.validateDOB = function(){
+                scope.dateOfBirthNotInRange = false;     
+                if(scope.isDobValidationMandatory && scope.first.dateOfBirth) {
+                        if(scope.minDate != undefined && scope.maxDate != undefined){
+                             var date = new Date(scope.first.dateOfBirth);
+                             if(date<scope.minDate || date>scope.maxDate){
+                                scope.dateOfBirthNotInRange = true; 
+                             }
+
+                        }
+                }          
+                
             };
 
         }

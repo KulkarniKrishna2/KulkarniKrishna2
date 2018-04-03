@@ -160,13 +160,13 @@
             scope.colorArray = ['#0070C0', '#70AD46', '#FFC000', '#FF0000'];
 
             scope.getColor = function(status){
-                var colorStyle = {'color':scope.colorArray[1]};
+                var colorStyle = {'color':scope.colorArray[0]};
                 if(status==100){  
-                     colorStyle = {'color':scope.colorArray[2]};
+                     colorStyle = {'color':scope.colorArray[1]};
                 }else if(status==200){
-                    colorStyle = {'color':scope.colorArray[3]};
+                    colorStyle = {'color':scope.colorArray[2]};
                 }else if(status==300){
-                    colorStyle = {'color':scope.colorArray[0]};
+                    colorStyle = {'color':scope.colorArray[3]};
                 }
                 return colorStyle;
             };
