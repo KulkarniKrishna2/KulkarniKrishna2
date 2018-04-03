@@ -17,8 +17,12 @@
                         <td>{{''+report.reportName+'' | translate}}</td>
                         <td  ng-if="report.status.id == 2" class="pointer" data-ng-click="download(report.fileLocationId)">
                             <i class="icon-2x icon-cloud-download"></i></td>
-                        <td  ng-if="report.status.id == 1"><i class="icon-spinner icon-spin icon-large "/> <span class="icon-large"> {{'label.heading.running' | translate}}</span></td>
-                        <td  ng-if="report.status.id == 3"><i class="required icon-large icon-remove-sign">  {{'label.heading.failed' | translate}}</i></td>
+                        <td  ng-if="report.status.id == 1"><i class="icon-spinner icon-spin icon-large "/> <span class="icon-large"> {{'label.heading.running' | translate}}</span>
+                        &nbsp;
+                        <a ng-click="reportrequests()"><i class="icon-refresh"></i></a></td>
+                        <td  ng-if="report.status.id == 3"><i class="required icon-large icon-remove-sign">  {{'label.heading.failed' | translate}}</i>
+                        </td>
+
                         <td>
                         
                         <span ng-repeat="(key, value) in report.displyParams">
