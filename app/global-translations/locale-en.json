@@ -7017,6 +7017,7 @@
      "label.menu.costcenter" : "Cost Center",
      "label.input.voucher.cost.center" : "Cost Center",
      "label.input.reasontype" : "Reason Type",
+     "Bad credentials" : "Invalid credentials",
 
     "------ end of tensalation file":"---------"
 }

@@ -56,17 +56,18 @@
                         </select>
                     </h3>
                 </div>
-                <div class="panel-body" style="overflow: scroll;overflow-y:auto;">
-                    <div style="height: 280px;">
+                <div class="panel-body" >
+                    <div>
                         <nvd3-multi-bar-chart
                                 data="barData"
                                 id="barchart"
-                                width="800"
-                                height="380"
+                                height="400"
                                 tooltips="true"
                                 color="colorFunction()"
                                 showLegend="true"
-                                stacked="true">
+                                stacked="true"
+                                reduceXTicks="true"
+                                staggerLabels="true">
                             <svg></svg>
                         </nvd3-multi-bar-chart>
                     </div>                    
