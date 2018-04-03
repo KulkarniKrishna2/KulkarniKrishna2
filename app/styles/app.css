@@ -1221,6 +1221,9 @@ input#search:-ms-input-placeholder {
 .width60{
     width: 60%;
 }
+.width75{
+    width: 75% !important;
+}
 .width80{
     width: 80%;
 }
