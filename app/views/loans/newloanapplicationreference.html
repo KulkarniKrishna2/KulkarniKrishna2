@@ -37,7 +37,7 @@
                 </td>
                 <td class="width36 paddedbottom10">
                     <select id="loanProductId" name="loanProductId" ng-model="formData.loanProductId"
-                            class="form-control width170px"
+                            class="form-control width75"
                             ng-options="product.id as product.name for product in loanaccountinfo.productOptions"
                             value="{{product.id}}"
                             required ng-change="loanProductChange(formData.loanProductId)">
@@ -67,7 +67,7 @@
                 <td class="paddedbottom10">
                     <select id="loanPurposeId" name="loanPurposeId" ng-model="formData.loanPurposeId"
                             ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                            class="form-control width170px" value="{{loanPurpose.id}}" required>
+                            class="form-control width75" value="{{loanPurpose.id}}" required>
                         <option value="">{{'label.selectpurpose' | translate}}</option>
                     </select>
                     <form-validate valattributeform="newloanapplicationform" valattribute="loanPurposeId"/>
@@ -175,7 +175,7 @@
                     <td class="width31 paddedbottom10">
                         <select id="disbursementMode" name="disbursementMode" ng-model="disbursementModeId"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
-                             ng-change="changeDisbursalMode()" class="form-control"
+                             ng-change="changeDisbursalMode()" class="form-control width170px"
                             >
                             <option value="">{{'label.selectone' | translate}}</option>
                        </select>
@@ -313,7 +313,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12" ng-show="formData.loanProductId">
+        <div class="col-md-12 paddedbottom10" ng-show="formData.loanProductId">
             <hr/>
             <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
             <select ng-model="chargeFormData.chargeId"
