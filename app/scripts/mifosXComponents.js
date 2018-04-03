@@ -525,6 +525,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'pdc/ManagePDCController',
             'pdc/ActionOnPDCController',
             'task/showcase/VillageOnboardingWorkflowController',
+            'organization/BulkRescheduleSavingsAccountInstallmentController'
         ],
         filters: [
             'StatusLookup',

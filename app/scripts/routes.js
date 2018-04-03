@@ -1605,6 +1605,12 @@
             .when('/pdcreport', {
                 templateUrl: 'views/pdc/pdcreport.html'
             })
+            .when('/bulkreschedule', {
+                templateUrl: 'views/organization/bulkreschedule.html'
+            })
+            .when('/reschedulesavingsinstallmentduedate', {
+                templateUrl: 'views/organization/bulksavingsaccountinstallmentreschedule.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
