@@ -310,7 +310,19 @@
   "globalSearchScope" : {
 		"name": "label.search.scope.clients.and.clientIdentifiers",
 		"value": "clients,clientIdentifiers"
-  }
+  },
+  "createLoanApplication": {
+      "isHiddenField": {
+        "expectedDisbursementDate": false,
+        "firstRepaymentDate": false,
+        "interestRatePerPeriod": false
+      },
+      "isMandatoryField": {
+        "expectedDisbursementDate": false,
+        "firstRepaymentDate": false,
+        "interestRatePerPeriod": false
+      }
+    }
   }
 }
 	

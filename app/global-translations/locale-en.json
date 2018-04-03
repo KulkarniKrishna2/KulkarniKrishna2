@@ -453,6 +453,8 @@
     "error.msg.header": "You have the following errors:",
     "error.msg.cibil.connection.failed":"Unable to connect CIBIL servers",
     "error.msg.rule.not.found":"Rule is not configured for this task.Please check the configurations.",
+    "error.msg.rate.of.interest.less.than.minimum.on.loan.product":"Rate of Interest entered is less than the minimum allowed for the loan product",
+    "error.msg.rate.of.interest.more.than.maximum.on.loan.product":"Rate of Interest entered is more than the maximum allowed for the loan product",
     "validation.msg.validation.errors.exist": "Validation errors exist.",
     "validation.msg.productivecollectionsheet.staffId.cannot.be.blank":"Staff is mandatory.",
     "validation.msg.domain.rule.violation": "Errors contain reason for domain rule violation.",

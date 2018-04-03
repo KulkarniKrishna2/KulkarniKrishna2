@@ -240,6 +240,7 @@
             <tr>
                 <td colspan="4">&nbsp;</td>
             </tr>
+            
             <tr>
                 <td class="width14"><label>{{ 'label.input.externalid' | translate }} One:</label>&nbsp;</td>
                 <td class="width36 paddedbottom10">
@@ -263,7 +264,9 @@
                 <td colspan="4">&nbsp;</td>
             </tr>
             <tr data-ng-show="loanaccountinfo.product.isFlatInterestRate && !loanaccountinfo.product.multiDisburseLoan">
-                <td ><label>{{ 'label.input.discountondisbursalamount' | translate }}</label></td>
+                <td>
+                    <label>{{ 'label.input.discountondisbursalamount' | translate }}</label>
+                </td>
                 <td class="paddedbottom10">
                     <input id="discountOnDisbursalAmount" type="text" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
                 </td>
@@ -275,6 +278,26 @@
                 <td>
                     <input id="amountForUpfrontCollection" type="text" ng-model="formData.amountForUpfrontCollection"
                            class="form-control" number-format/>
+                </td>
+            </tr>
+            <tr>
+                <td class="width14" ng-show="!isHiddenExpectedDisbursementDate"><label>{{ 'label.input.expecteddisbursementon' | translate }}:</label>&nbsp;</td>
+                <td class="width36 paddedbottom10" ng-show="!isHiddenExpectedDisbursementDate">
+                    <input id="expectedDisbursementDate" name="expectedDisbursementDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.expectedDisbursementDate" is-open="opened" min="restrictDate"
+                    ng-required="isMandatoryExpectedDisbursementDate"/>
+                </td>
+
+                <td class="width14" ng-show="!isHiddenFirstRepaymentDate"><label>{{ 'label.input.firstrepaymenton' | translate }}:</label>&nbsp;</td>
+                <td class="width36 paddedbottom10" ng-show="!isHiddenFirstRepaymentDate">
+                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.repaymentsStartingFromDate" is-open="opened" ng-required="isMandatoryFirstRepaymentDate" min="restrictDate" />
+                </td>
+            </tr>
+            <tr ng-if="!loanaccountinfo.loanEMIPacks">
+                <td ng-show="!isHiddenRateOfInterest"><label>{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span
+                        class="required" ng-show="isMandatoryRateOfInterest"></span></label></td>
+                <td class="paddedbottom10" ng-show="!isHiddenRateOfInterest">
+                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" ng-required="isMandatoryRateOfInterest" ng-model="formData.interestRatePerPeriod" ng-if = "!interestRatesListAvailable"/> 
+                    &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
                 </td>
             </tr>
             <tr>
@@ -293,6 +316,58 @@
                 <td colspan="4">&nbsp;</td>
             </tr>
         </table>
+
+            <div ng-show="loanaccountinfo.product.multiDisburseLoan">
+                <hr/>
+                <label><strong>{{ 'label.heading.tranchedetails' | translate }}</strong></label>
+                <table class="width100">
+                    <tr>
+                        <td class="width14"><label>{{'label.input.outstandingloanbalance' | translate}}:</label></td>
+                        <td class="width36 paddedbottom10">
+                            <input id="maxOutstandingLoanBalance" type="text"
+                                   ng-model="formData.maxOutstandingLoanBalance" class="form-control" number-format/>&nbsp;
+                            <a title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()"><i
+                                    class="icon-plus icon-white"></i></a>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table width100" ng-show="formData.disbursementData.length>0">
+                    <thead>
+                    <tr class="graybg">
+                        <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                        <th>{{'label.input.principal' | translate}}</th>
+                        <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="disbursementDetail in formData.disbursementData">
+                        <td>
+                            <input id="disbursementDetail[{{$index}}].expectedTrancheDisbursementDate" type="text"
+                                   datepicker-pop="dd MMMM yyyy"
+                                   placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                                   ng-model="disbursementDetail.expectedTrancheDisbursementDate"
+                                   is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" class="form-control"/>
+                        </td>
+                        <td>
+                            <input id="{{disbursementDetail[$index].trancheAmount}}"  class="input-sm form-control" number-format type="text"
+                                   ng-model="disbursementDetail.trancheAmount"
+                                   name="trancheAmount" id="trancheAmount" required=""
+                                   placeholder="{{'label.input.principal' | translate}}">
+                            <form-validate valattributeform="newloanaccountform" valattribute="trancheAmount"/>
+                        </td>
+                        <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
+                            <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text"
+                                   ng-model="disbursementDetail.discountOnDisbursalAmount"
+                                   name="discountOnDisbursalAmount"
+                                   placeholder="{{'label.input.discountondisbursalamount' | translate}}">
+                        </td>
+                        <td><a ng-click="deleteTranches($index)"><i class="icon-remove icon-white"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
         <div class="col-md-12" ng-if="canDisburseToGroupsBanks()">
             <hr/>
