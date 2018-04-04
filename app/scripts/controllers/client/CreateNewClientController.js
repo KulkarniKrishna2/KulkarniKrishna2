@@ -55,6 +55,8 @@
             }
             scope.invalidClassificationId = false;
             scope.submitted = false;
+            scope.isStaffMandatory = false;
+            scope.isStaffRequired = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -74,8 +76,15 @@
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth) {
-                scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth){
+                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                }
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
+                    scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+                }
+                
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField.gender) {
@@ -402,6 +411,14 @@
                 }
             });
 
+            scope.validateStaff = function(){
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
+                }else{
+                    scope.isStaffRequired = false;
+                }
+            };
+            
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
@@ -487,6 +504,11 @@
                 }
 
                 if(scope.dateOfBirthNotInRange){
+                    return false;
+                }
+
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
                     return false;
                 }
                 if (!scope.dateOfBirthNotInRange || !scope.invalidClassificationId || !scope.pincode || !scope.isVillageTownMandatory || !isCountryReadOnly || !isAddressTypeMandatory) {

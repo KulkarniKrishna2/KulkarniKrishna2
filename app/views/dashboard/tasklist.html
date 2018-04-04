@@ -100,7 +100,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="workFlowTask in taskPagination.currentPageItems | orderBy : '-runningStatus'" ng-init="workFlowTask.selected = false"
+                                <tr ng-repeat="workFlowTask in taskPagination.currentPageItems" ng-init="workFlowTask.selected = false"
                                 >
                                     <td >
                                         <ng-form>

@@ -147,7 +147,8 @@
         "mobileNumber":false,
         "emailId":false,
         "maritalStatus":true,
-        "gender":false
+        "gender":false,
+        "staff":false
 	  }
 	},
 	"defaultGISConfig": {
