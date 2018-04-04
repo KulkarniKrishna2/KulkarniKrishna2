@@ -75,7 +75,8 @@
       "isMandatoryField": {
         "dateOfBirth": true,
         "clientClassificationId":true,
-        "mobileNumber":true
+        "mobileNumber":true,
+        "staff":true
       }
     },
     "defaultGISConfig": {

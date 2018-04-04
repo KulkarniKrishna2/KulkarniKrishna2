@@ -30,14 +30,15 @@
 	                    <p class="form-control-static">{{forceOffice.name}}</p>
 	                </div>
 	            </div>
-	            <label class="control-label col-sm-2" ng-show="showStaff">{{'label.input.staff' | translate}}</label>
+	            <label class="control-label col-sm-2" ng-show="showStaff">{{'label.input.staff' | translate}}<span ng-show="isStaffMandatory" class="required">*</span></label>
 
 	            <div class="col-sm-3" ng-show ="showStaff">
 					<select chosen="staffs" id="staffId" ng-model="formData.staffId" ng-disabled="response.uiDisplayConfigurations.createClient.isReadOnlyField.staff == true && formData.staffId != null" class="form-control"
-							ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+							ng-options="staff.id as staff.displayName for staff in staffs" ng-change="validateStaff()" value="{{staff.id}}">
 						<option value="">{{'label.menu.selectloanofficer' | translate}}</option>
 					</select>
 	            </div>
+	            <span class="error" ng-show="isStaffRequired">{{'label.error.required' | translate}}</span>
 	        </div>
 
 			<div class="form-group" ng-show="showLegalForm">

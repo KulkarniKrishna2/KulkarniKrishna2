@@ -19,6 +19,24 @@
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
             scope.isFamilyMembers = true;
+            scope.isStaffMandatory = false;
+            scope.isStaffRequired = false;
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
+                    scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+                }
+                
+            }
+            
+            scope.validateStaff = function(){
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
+                }else{
+                    scope.isStaffRequired = false;
+                }
+            };
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -139,6 +157,10 @@
 
                 if (!scope.opensavingsproduct) {
                     this.formData.savingsProductId = null;
+                }
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
+                    return false;
                 }
 
                 resourceFactory.clientResource.save(this.formData, function (data) {
