@@ -796,7 +796,7 @@
                     delete this.formRequestData.netLoanAmount;
                 }
                 scope.submitData.formRequestData = scope.formRequestData;
-                scope.submitData.formRequestData.charges = {};
+                scope.submitData.formRequestData.charges = [];
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
                         var charge = {};
