@@ -1246,6 +1246,15 @@
                     }),
                     imageResource: defineResource(apiVer + "/:entityType/:entityId/images", {entityType:'@entityType',entityId:'@entityId'}, {
                         get:{method: 'GET', params: {},isArray:true}
+                    }),
+                    fieldOfficersResource: defineResource(apiVer + "/staff/loanofficers", {officeId: '@officeId'}, {
+                        retrievefieldOfficers: {method: 'GET', params: {}, isArray:true},
+                    }),
+                    savingsInstallmentRescheduleResource: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    rescheduleSavingsInstallments: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments", {}, {
+                        reschedule:{method:'POST' , params:{}}
                     })
                 };
             }];

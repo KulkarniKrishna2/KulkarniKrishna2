@@ -1,0 +1,323 @@
+<div class="col-md-12" ng-controller="BulkRescheduleSavingsAccountInstallmentController">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#/organization">{{'label.anchor.organization' |
+                translate}}</a>
+        </li>
+        <li>
+            <a href="#/bulkreschedule">{{'label.anchor.bulkReschedule' | translate}}</a>
+        </li>
+        <li class="active">{{'label.anchor.bulkSavingsReschedule' | translate}}
+        </li>
+    </ul>
+    <form name="rescheduleSavingsInstallmentForm" class="form-horizontal well" novalidate="">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.bulkSavingsReschedule' | translate}}
+            </legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="offices" name="office" id="office" ng-model="officeId" data-ng-options="office.id as office.name for office in offices" data-ng-change="getOfficers()" class="form-control">
+                        <option value="">{{'label.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" data-ng-show="isOfficeSelected">
+                <label class="control-label col-sm-2">{{ 'label.input.fieldofficer' | translate }}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="officers" id="fieldOfficerId" ng-model="fieldOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" class="form-control">
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.reschedule.installmentDueOn' | translate }}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <input id="rescheduleFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" class="form-control" required late-Validate />
+                </div>
+                <div class="col-md-offset-3" data-ng-show="isOfficeSelected">
+                    <button class="btn btn-primary" ng-click="retrieveSavingsInstallmentRescheduleData()">{{'label.button.fetchdetails'| translate}}
+                    </button>
+                </div>
+            </div>
+            <div class="form-group" ng-show="reschedule">
+                <label class="control-label col-sm-2">{{ 'label.input.rescheduledTo' | translate }}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <input id="rescheduledToDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="second.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" class="form-control" required late-Validate />
+                </div>
+            </div>
+            <div class="form-group" ng-show="reschedule">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label>{{'label.input.specificToInstallment' | translate}}&nbsp;&nbsp;&nbsp;
+                                </label> &nbsp;&nbsp;
+
+                                <input type="checkbox" ng-model="specificToInstallment" ng-disabled="true" ng-init="specificToInstallment=true">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group" ng-show="reschedule">
+                <label class="control-label col-sm-2">{{'label.input.rescheduleReasonId' | translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}" ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes" ng-model="formData.rescheduleReasonId">
+                        <option style="display: none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="reschedule">
+                <label class="control-label col-sm-2">{{ 'label.input.submittedon' | translate }}
+                </label>
+                <div class="col-sm-3">
+                    <label class="form-control">{{ third.date | DateFormat }}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" ng-show="reschedule">
+                <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
+                <div class="col-sm-3 paddedbottom10 paddedtop">
+                    <textarea rows="2" style="width: 350px; height: 76px;" class="form-control" ng-model="comments"></textarea>
+                </div>
+            </div>
+            <div class="row paddedleft" ng-show="reschedule">
+                <div class="col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" ng-model="selectAll.checked" ng-change="selectAll(selectAll.checked)">
+                                    </td>
+                                    <td>
+                                        <label>&nbsp;&nbsp;{{'label.input.selectall' | translate}}</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="centers">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <strong>{{'label.heading.centerdetails' | translate}}</strong>
+                                </tr>
+                                <tr ng-repeat-start="center in centers">
+                                    <td>
+                                        <button type="button" style="border: 0" ng-click="expandAll(center, allExpanded = !allExpanded)">
+                                            <span ng-bind="allExpanded ? '-' : '+'"></span>
+                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td>&nbsp;&nbsp;
+                                        <input class="pull-left" type="checkbox" ng-model="center.checked" ng-change="centerLevel(center.checked,center.id)">&nbsp;&nbsp;
+                                        <strong>{{center.name}}</strong>
+                                    </td>
+                                </tr>
+                                <tr ng-if="center.isExpanded">
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat-start="group in center.groupMembers">
+                                                    <td>
+                                                        <button type="button" style="border: 0" ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
+                                                            <span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+                                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input class="pull-left" type="checkbox" ng-model="group.checked" ng-change="centerGroupLevel(group.checked, center.id, group.id)">&nbsp;&nbsp;
+                                                        <strong>{{group.name}}</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-repeat-end ng-if="group.isExpanded">
+                                                    <td></td>
+                                                    <td>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr ng-repeat-start="client in group.clientMembers">
+                                                                    <td>
+                                                                        <button type="button" style="border: 0" ng-click="expandClient(client, clientExpanded = !clientExpanded)">
+                                                                            <span ng-bind="clientExpanded ? '-' : '+'"></span>
+                                                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    </td>
+                                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="centerGroupClientLevel(client.checked, center.id, group.id, client.id)">&nbsp;&nbsp;
+                                                                        <strong>{{client.displayName}}</strong>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat-end ng-if="client.isExpanded">
+                                                                    <td></td>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="account in client.savingsAccountSummaryDatas">
+                                                                                    <td>
+                                                                                        <input class="pull-left" value="account.id" type="checkbox" ng-model="account.checked" ng-change="accounts(account.checked,account.id)" />&nbsp;&nbsp;{{account.productName}}({{account.accountNo}}) </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="center.isExpanded">
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat-start="client in center.clientMembers">
+                                                    <td>
+                                                        <button type="button" style="border: 0" ng-click="expandClient(client, clientExpanded = !clientExpanded)">
+                                                            <span ng-bind="clientExpanded ? '-' : '+'"></span>
+                                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="clientUnderCenterLevel(client.checked, center.id,client.id)">&nbsp;&nbsp;
+                                                        <strong>{{client.displayName}}</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-repeat-end ng-if="client.isExpanded">
+                                                    <td></td>
+                                                    <td>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr ng-repeat="account in client.savingsAccountSummaryDatas">
+                                                                    <td>
+                                                                        <input class="pull-left" value="account.id" type="checkbox" ng-model="account.checked" ng-change="accounts(account.checked,account.id)" />&nbsp;&nbsp;{{account.productName}}({{account.accountNo}})
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="groups">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <strong>{{'label.heading.groupdetails' | translate}}</strong>
+                                </tr>
+                                <tr ng-repeat-start="group in groups">
+                                    <td>
+                                        <button type="button" style="border: 0" ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
+                                            <span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input class="pull-left" type="checkbox" ng-model="group.checked" ng-change="groupLevel(group.checked, group.id)">&nbsp;&nbsp;
+                                        <strong>{{group.name}}</strong>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="group.isExpanded">
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat-start="client in group.clientMembers">
+                                                    <td>
+                                                        <button type="button" style="border: 0" ng-click="expandClient(client, clientExpanded = !clientExpanded)">
+                                                            <span ng-bind="clientExpanded ? '-' : '+'"></span>
+                                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="groupClientLevel(client.checked, group.id, client.id)">&nbsp;&nbsp;
+                                                        <strong>{{client.displayName}}</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-repeat-end ng-if="client.isExpanded">
+                                                    <td></td>
+                                                    <td>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr ng-repeat="account in client.savingsAccountSummaryDatas">
+                                                                    <td>
+                                                                        <input class="pull-left" value="account.id" type="checkbox" ng-model="account.checked" ng-change="accounts(account.checked,loan.id)">&nbsp;&nbsp;{{account.productName}}({{account.accountNo}})
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group" data-ng-show="clients">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <strong>{{'label.heading.clientdetails' | translate}}</strong>
+                                </tr>
+                                <tr ng-repeat-start="client in clients">
+                                    <td>
+                                        <button type="button" style="border: 0" ng-click="expandClient(client, clientExpanded = !clientExpanded)">
+                                            <span ng-bind="clientExpanded ? '-' : '+'"></span>
+                                        </button>&nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        <input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="officeClientLevel(client.checked, client.id)">&nbsp;&nbsp;
+                                        <strong>{{client.displayName}}</strong>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="client.isExpanded">
+
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat="account in client.savingsAccountSummaryDatas">
+                                                    <td>
+                                                        <input class="pull-left" value="account.id" type="checkbox" ng-model="account.checked" ng-change="accounts(account.checked,account.id)">&nbsp;&nbsp;{{account.productName}}({{account.accountNo}})
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-offset-3">
+                <a href="#/bulkreschedule">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button class="btn btn-primary" has-permission="RESCHEDULE_SAVINGSINSTALLMENT" class="btn btn-primary" ng-click="submitDetails()">{{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
