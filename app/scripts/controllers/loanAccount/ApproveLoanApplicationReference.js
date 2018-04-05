@@ -111,7 +111,9 @@
                                 scope.formRequestData.loanEMIPackId = scope.formRequestData.loanEMIPackData.id;
                                 delete scope.formRequestData.loanEMIPackData;
                             }
-                            scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                            if(scope.formRequestData.expectedDisbursementDate){
+                                scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                            }
                             if (approveddata.loanApplicationSanctionTrancheDatas) {
                                 for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
