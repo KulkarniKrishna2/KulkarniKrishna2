@@ -73,6 +73,7 @@
     <div ng-if="!isDisplaySurveys" class="row client">
         <form name="takesurveyform" novalidate="" class="form-horizontal " rc-submit="submit()">
             <fieldset>
+                <div class="form-group"><span class="error" ng-show="!isSurveyDone">{{'lable.error.activity.survey.not.completed'|translate}}</span></div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{'label.input.is.survey.on.behalf.of.others' | translate}}</label>
 
@@ -112,6 +113,7 @@
                 </div>
 
                 <div ng-if="questionDatas && questionDatas.length > 0">
+
                     <div ng-repeat="questionData in questionDatas track by $index" ng-init="questionIndex = $index">
                         <div class="form-group">
                             <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>

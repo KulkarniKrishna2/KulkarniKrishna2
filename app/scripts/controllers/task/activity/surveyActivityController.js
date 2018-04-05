@@ -12,6 +12,7 @@
             scope.showdetails=true;
             scope.entityTypeId = null;
             scope.isSurveyForOthers = false;
+            scope.isSurveyDone = true;
             function initTask() {
                 scope.clientId = scope.taskconfig['clientId'];
                 scope.surveyId = scope.taskconfig['surveyId'];
@@ -129,6 +130,7 @@
                 if (!_.isUndefined(scope.formData.scorecardValues)) {
                     scope.formData.scorecardValues = [];
                 }
+                var responseCount=0;
                 if (scope.questionDatas && scope.questionDatas.length > 0) {
                     for (var i in scope.questionDatas) {
                         if (scope.questionDatas[i].responseDatas) {
@@ -137,6 +139,7 @@
                                     if (_.isUndefined(scope.formData.scorecardValues)) {
                                         scope.formData.scorecardValues = [];
                                     }
+                                    responseCount = responseCount+1;
                                     var scorecardValue = {};
                                     if(scope.questionDatas[i].responseDatas[j].existingId){
                                         scorecardValue.id = scope.questionDatas[i].responseDatas[j].existingId;
@@ -149,6 +152,12 @@
                             }
                         }
                     }
+                }
+                if(scope.questionDatas.length>0 && scope.questionDatas.length!=responseCount){
+                    scope.isSurveyDone = false;
+                    return false;
+                }else{
+                    scope.isSurveyDone = true;
                 }
                 if(scope.formData.id){
                     resourceFactory.takeSurveysResource.update({
