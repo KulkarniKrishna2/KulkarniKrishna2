@@ -33,9 +33,11 @@
             scope.loanapplicationActive = 100;
             scope.loanapplicationCBApproved = 201;
             scope.loanapplicationApproved = 200;
+            scope.isShowEditButton = true;
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
+                 scope.formData.submittedOnDate=dateFilter(new Date(applicationData.submittedOnDate), scope.df);
                  scope.accountType = scope.formData.accountType.value.toLowerCase();
                  scope.loanProductChange(scope.formData.loanProductId);
                  resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
@@ -131,8 +133,11 @@
                             });
                         }else if(scope.formData.status.id === scope.loanapplicationApproved){
                             scope.showEditForm();
-                        }else if(scope.formData.status.id > scope.loanapplicationApproved){
+                        }else if(scope.formData.status.id > scope.loanapplicationApproved && scope.formData.status.id != scope.loanapplicationCBApproved){
                             scope.activityDone();
+                            scope.isShowEditButton = false;
+                        }else if(scope.formData.status.id > scope.loanapplicationCBApproved){
+                            scope.isShowEditButton = false;
                         }
                     });
                 });
@@ -216,7 +221,7 @@
             };
 
             scope.formDataForValidtion = function () {
-                scope.formValidationData.submittedOnDate = dateFilter(scope.formData.submittedOnDate, scope.df);
+                scope.formValidationData.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
                 scope.formValidationData.clientId = scope.formData.clientId;
                 if (scope.formData.groupId) {
                     scope.formValidationData.groupId = scope.formData.groupId;
@@ -791,6 +796,7 @@
                     delete this.formRequestData.netLoanAmount;
                 }
                 scope.submitData.formRequestData = scope.formRequestData;
+                scope.submitData.formRequestData.charges = [];
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
                         var charge = {};

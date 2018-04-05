@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter, $filter) {
-
+        NewLoanApplicationReference: function ($controller,scope, routeParams, resourceFactory, location, dateFilter, $filter) {
+            angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"createLoanApplication"}));
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
 
@@ -11,7 +11,7 @@
             scope.formData.Workflowtype = true;
 
             scope.paymentOptions = [];
-
+            scope.formData.disbursementData=[];
             scope.formData.submittedOnDate = dateFilter(scope.restrictDate,scope.df);
 
             scope.chargeFormData = {}; //For charges
@@ -31,6 +31,37 @@
             scope.disbursementTypeOption = [];
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
+            scope.isHiddenRateOfInterest=false;
+            scope.isHiddenFirstRepaymentDate=false;
+            scope.isHiddenExpectedDisbursementDate=false;
+            scope.isMandatoryRateOfInterest=false;
+            scope.isMandatoryExpectedDisbursementDate=false;
+            scope.isMandatoryFirstRepaymentDate=false;
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate) {
+                scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate) {
+                scope.isMandatoryFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod) {
+                scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.expectedDisbursementDate) {
+                scope.isHiddenExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.expectedDisbursementDate;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate) {
+                scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod) {
+                scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
+            }
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
@@ -180,6 +211,15 @@
             scope.calculateTermFrequency = function (){
                 scope.formData.termFrequency = (scope.formData.repayEvery * scope.formData.numberOfRepayments);
                 scope.formData.termPeriodFrequencyEnum =  scope.formData.repaymentPeriodFrequencyEnum;
+            };
+
+            scope.addTranches = function () {
+                scope.formData.disbursementData.push({
+                });
+            };
+
+            scope.deleteTranches = function (index) {
+                scope.formData.disbursementData.splice(index, 1);
             };
 
             scope.addCharge = function () {
@@ -369,7 +409,12 @@
                         this.formData.charges.push(charge);
                     //}
                 }
+                for(var i=0;i<scope.formData.disbursementData.length;i++) {
+                    this.formData.disbursementData[i].expectedTrancheDisbursementDate=dateFilter(this.formData.disbursementData[i].expectedTrancheDisbursementDate,scope.df);
+                }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
+                this.formData.expectedDisbursementDate=dateFilter(this.formData.expectedDisbursementDate,scope.df);
+                this.formData.repaymentsStartingFromDate=dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
                 this.formData.accountType = scope.inparams.templateType;
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
@@ -441,7 +486,7 @@
             }; 
         }
     });
-    mifosX.ng.application.controller('NewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.NewLoanApplicationReference]).run(function ($log) {
+    mifosX.ng.application.controller('NewLoanApplicationReference', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.NewLoanApplicationReference]).run(function ($log) {
         $log.info("NewLoanApplicationReference initialized");
     });
 }(mifosX.controllers || {}));

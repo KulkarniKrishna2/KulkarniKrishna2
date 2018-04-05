@@ -147,7 +147,8 @@
         "mobileNumber":false,
         "emailId":false,
         "maritalStatus":true,
-        "gender":false
+        "gender":false,
+        "staff":false
 	  }
 	},
 	"defaultGISConfig": {
@@ -310,7 +311,19 @@
   "globalSearchScope" : {
 		"name": "label.search.scope.clients.and.clientIdentifiers",
 		"value": "clients,clientIdentifiers"
-  }
+  },
+  "createLoanApplication": {
+      "isHiddenField": {
+        "expectedDisbursementDate": false,
+        "firstRepaymentDate": false,
+        "interestRatePerPeriod": false
+      },
+      "isMandatoryField": {
+        "expectedDisbursementDate": false,
+        "firstRepaymentDate": false,
+        "interestRatePerPeriod": false
+      }
+    }
   }
 }
 	

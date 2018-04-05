@@ -2,7 +2,7 @@
 
     <!-- Submit form, new data    -->
     <div class="form-horizontal" ng-show="status=='SUMMARY'">
-        <div class="pull-right" ng-if="!taskCompletedFlag">
+        <div class="pull-right" ng-if="!taskCompletedFlag && isShowEditButton">
             <button id="save" type="submit" class="btn btn-primary" ng-click="showEditForm()">
                         {{'label.button.edit' |
                         translate}}
@@ -354,8 +354,16 @@
                                                ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
                                     </td>
 
-                                    <td class="width19"></td>
-                                    <td class="width31 paddedbottom10"></td>
+                                    <td class="width19" ng-show="!response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod">
+                                        <label>{{ 'label.input.nominalinterestrate' | translate }}<span
+                                                class="required"
+                                                ng-show="response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod">*</span>:&nbsp;
+                                        </label>
+                                    </td>
+                                    <td class="width31 paddedbottom10" ng-show="!response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod">
+                                        <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" ng-required="response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod" ng-model="formRequestData.interestRatePerPeriod"/> 
+                                        &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                                    </td>
                                 </tr>
 
                                 <tr>

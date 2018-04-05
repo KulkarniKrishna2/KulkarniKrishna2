@@ -1791,7 +1791,7 @@
                     <select id="specificIncomeAccountMapping[{{$index}}].chargeId"
                             ng-model="specificMapping.chargeId" class="form-control"
                             ng-options="charge.id as charge.name for charge in chargeOptions"
-                            value="{{charge.id}}">
+                            value="{{charge.id}}" ng-change="changeChargeOfFeeSpecificIncomeAccount('{{specificMapping.chargeId}}')">
                             <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </td>
@@ -1840,7 +1840,7 @@
 	                        class="form-control"
 	                        ng-model="penaltySpecificIncomeaccount.chargeId"
 	                        ng-options="charge.id as charge.name for charge in penaltyOptions"
-	                        value="{{charge.id}}">
+	                        value="{{charge.id}}" ng-change="changeChargeOfPenaltySpecificIncomeAccount('{{penaltySpecificIncomeaccount.chargeId}}')">
 	                        <option value="">{{'label.menu.selectone'| translate }}</option>
 	                </select>
 	            </td>

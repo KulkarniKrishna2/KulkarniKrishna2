@@ -173,6 +173,10 @@
                  location.path('/viewtask/' + task.id);
              };
 
+             scope.routeToMem = function(id) {
+                 location.path('/viewclient/' +id);
+             };
+
              function getActiveChildTask(childTasks) {
                  if (childTasks != undefined && childTasks.length > 0) {
                      for (index in childTasks) {

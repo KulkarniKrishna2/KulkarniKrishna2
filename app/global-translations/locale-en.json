@@ -453,6 +453,8 @@
     "error.msg.header": "You have the following errors:",
     "error.msg.cibil.connection.failed":"Unable to connect CIBIL servers",
     "error.msg.rule.not.found":"Rule is not configured for this task.Please check the configurations.",
+    "error.msg.rate.of.interest.less.than.minimum.on.loan.product":"Rate of Interest entered is less than the minimum allowed for the loan product",
+    "error.msg.rate.of.interest.more.than.maximum.on.loan.product":"Rate of Interest entered is more than the maximum allowed for the loan product",
     "validation.msg.validation.errors.exist": "Validation errors exist.",
     "validation.msg.productivecollectionsheet.staffId.cannot.be.blank":"Staff is mandatory.",
     "validation.msg.domain.rule.violation": "Errors contain reason for domain rule violation.",
@@ -2233,6 +2235,7 @@
     "error.msg.loanCharge.cannot.be.added.as.specified.due.date.outside.range": "Specified due date is outside of allowed range of dates which is after {{params[0].value}} and up to and including {{params[1].value}}.",
     "error.msg.loanCharge.cannot.be.added.as.loan.is.closed": "This charge cannot be added as the loan is already closed.",
     "error.msg.loanCharge.cannot.be.added.as.loanCharge.is.waived": "This loan charge cannot be removed as the charge as already been waived.",
+    "error.msg.loanTranche.cannot.be.added.as.loanCharge.is.waived": "This loan tranche cannot be removed as the charge as already been waived.",
     "error.msg.charge.attach.to.loan.product.invalid.currency": "Charge must have the same currency as Loan Product.",
     "error.msg.charge.is.not.active": "The charge {{params[0].value}} with identifier {{params[1].value}} is not allowed as it is an inactive charge.",
     "validation.msg.loan.charge.payment.transaction.chargeId.not.greater.than.zero": " Charge id is mandatory",
@@ -7015,6 +7018,7 @@
      "label.menu.costcenter" : "Cost Center",
      "label.input.voucher.cost.center" : "Cost Center",
      "label.input.reasontype" : "Reason Type",
+     "Bad credentials" : "Invalid credentials",
 
     "------ end of tensalation file":"---------"
 }
