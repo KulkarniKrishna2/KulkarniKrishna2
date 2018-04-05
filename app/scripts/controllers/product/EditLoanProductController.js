@@ -719,6 +719,40 @@
                 }
             };
 
+            scope.changeChargeOfFeeSpecificIncomeAccount = function(oldChargeId) {
+                scope.existFeeSpecificIncomeAccountMapping = [];
+                for (var i in scope.product.feeToIncomeAccountMappings) {
+                    if (scope.product.feeToIncomeAccountMappings[i].charge.id == oldChargeId) {
+                        if (scope.existFeeSpecificIncomeAccountMapping.length > 0) {
+                            scope.existFeeSpecificIncomeAccountMapping[0].fundSourceAccountId = scope.product.feeToIncomeAccountMappings[i].incomeAccount.id;
+                        } else {
+                            scope.existFeeSpecificIncomeAccountMapping.push({
+                                chargeId: scope.product.feeToIncomeAccountMappings[i].charge.id,
+                                incomeAccountId: scope.product.feeToIncomeAccountMappings[i].incomeAccount.id
+                            })
+                            deleteFeeAccountMappings.push(scope.existFeeSpecificIncomeAccountMapping[0]);
+                        }
+                    }
+                };
+
+            };
+            scope.changeChargeOfPenaltySpecificIncomeAccount = function(oldChargeId) {
+                scope.existPenaltySpecificIncomeaccounts = [];
+                for (var i in scope.product.penaltyToIncomeAccountMappings) {
+                    if (scope.product.penaltyToIncomeAccountMappings[i].charge.id == oldChargeId) {
+                        if (scope.existPenaltySpecificIncomeaccounts.length > 0) {
+                            scope.existPenaltySpecificIncomeaccounts[0].fundSourceAccountId = scope.product.penaltyToIncomeAccountMappings[i].incomeAccount.id;
+                        } else {
+                            scope.existPenaltySpecificIncomeaccounts.push({
+                                chargeId: scope.product.penaltyToIncomeAccountMappings[i].charge.id,
+                                incomeAccountId: scope.product.penaltyToIncomeAccountMappings[i].incomeAccount.id
+                            })
+                            deletePenaltyAccountMappings.push(scope.existPenaltySpecificIncomeaccounts[0]);
+                        }
+                    }
+                }
+            };
+
             scope.submit = function () {
                 if(this.formData.multiDisburseLoan == false) {
                     this.formData.allowNegativeLoanBalance = false;
