@@ -31,7 +31,8 @@
       "isHiddenField": {
         "expectedDisbursementDate": false,
         "firstRepaymentDate": false,
-        "interestRatePerPeriod": false
+        "interestRatePerPeriod": false,
+        "tranchedata":false
       },
       "isMandatoryField": {
         "expectedDisbursementDate": true,

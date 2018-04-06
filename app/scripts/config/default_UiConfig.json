@@ -314,9 +314,10 @@
   },
   "createLoanApplication": {
       "isHiddenField": {
-        "expectedDisbursementDate": false,
-        "firstRepaymentDate": false,
-        "interestRatePerPeriod": false
+        "expectedDisbursementDate": true,
+        "firstRepaymentDate": true,
+        "interestRatePerPeriod": true,
+        "tranchedata":true
       },
       "isMandatoryField": {
         "expectedDisbursementDate": false,
