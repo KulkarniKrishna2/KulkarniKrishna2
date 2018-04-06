@@ -3,7 +3,7 @@
         loanapplicationapprovalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.approveloanapplicationdetails = "";
-            scope.status = 'SUMMARY';
+            scope.status = 'UPDATE';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
 
             scope.onReject = function(){
@@ -289,7 +289,7 @@
                 if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     scope.formValidationData.isFloatingInterestRate = false;
                 }
-                if(!_.isUndefined(scope.formRequestData.expectedDisbursementDate)){
+                if(scope.formData.status.id <= scope.loanapplicationCBApproved){
                     scope.status = 'SUMMARY';
                 }
             }
