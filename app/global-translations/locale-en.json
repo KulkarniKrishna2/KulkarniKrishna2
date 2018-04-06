@@ -7020,6 +7020,6 @@
      "label.input.reasontype" : "Reason Type",
      "Bad credentials" : "Invalid credentials",
      "validation.msg.loanapplicationreference.loanApplicationSanctionTrancheDatas.not.be.blank" : "Tranche details can not be blank.",
-
+     "label.button.force.reject": "Force Reject",
     "------ end of tensalation file":"---------"
 }
