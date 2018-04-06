@@ -18,10 +18,21 @@
             scope.isMobileNumberMandatory = false;
             scope.isEmailIdMandatory = false;
             scope.displayAge = false;
+
+            scope.isStaffMandatory = false;
+            scope.isStaffRequired = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
             scope.invalidClassificationId = false;
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
+                    scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+                }
+                
+            }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
@@ -65,6 +76,14 @@
 
                 restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
                 return restrictedDate;
+            };
+
+             scope.validateStaff = function(){
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
+                }else{
+                    scope.isStaffRequired = false;
+                }
             };
 
             function getMinimumRestrictedDate(restrictedDate) {
@@ -255,6 +274,10 @@
                     delete this.formData.firstname;
                     delete this.formData.middlename;
                     delete this.formData.lastname;
+                }
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
+                    return false;
                 }
 
                  if(!scope.dateOfBirthNotInRange || !scope.invalidClassificationId) {
