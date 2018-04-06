@@ -289,7 +289,7 @@
                 if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     scope.formValidationData.isFloatingInterestRate = false;
                 }
-                if(scope.formData.status.id <= scope.loanapplicationCBApproved){
+                if(scope.loanapplicationCBApproved < scope.formData.status.id){
                     scope.status = 'SUMMARY';
                 }
             }
