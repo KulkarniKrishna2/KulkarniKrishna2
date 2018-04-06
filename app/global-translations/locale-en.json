@@ -7019,6 +7019,7 @@
      "label.input.voucher.cost.center" : "Cost Center",
      "label.input.reasontype" : "Reason Type",
      "Bad credentials" : "Invalid credentials",
+     "validation.msg.loanapplicationreference.loanApplicationSanctionTrancheDatas.not.be.blank" : "Tranche details can not be blank.",
 
     "------ end of tensalation file":"---------"
 }

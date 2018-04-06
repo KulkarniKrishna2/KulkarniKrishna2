@@ -258,10 +258,10 @@
                     <div class="col-sm-2" data-ng-if="docData.name && docData.name != ''">
                         <input type="file" id="billFile" name="billFile" ng-file-select="onFileSelect($files)">
                     </div>
-                    <div class="col-md-2" data-ng-if="false">
-                        <button id="uploadFile" type="submit" class="btn btn-primary">{{'label.button.upload' |
+                    <div class="col-md-2" >
+                        <a id="uploadFile" data-ng-click="addDocument()" class="btn btn-primary">{{'label.button.upload' |
                             translate}}
-                        </button>
+                        </a>
                     </div>
                 </div>
 
