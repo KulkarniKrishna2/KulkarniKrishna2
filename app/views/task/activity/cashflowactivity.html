@@ -372,7 +372,7 @@
 
                     <div class="col-sm-3">
                         <input type="number" name="hectare"
-                               ng-model="formData.quintity" class="form-control"/>
+                               ng-model="formData.quintity" class="form-control"   ng-change="updateTotalIncome(formData.quintity,formData.totalIncome)"/>
                     </div>
                 </div>
 
@@ -382,6 +382,11 @@
                     <div class="col-sm-3">
                         <input type="number"  name="income"
                                ng-model="formData.totalIncome" class="form-control"/>
+                    </div>                    
+                    <label ng-show="isQuantifierNeeded" class="control-label col-sm-2">{{ 'label.heading.totalincomeamount' | translate }}</label>
+
+                    <div class="col-sm-3" ng-show="isQuantifierNeeded">
+                        <span  class="form-control">{{totalIncome}}</span>
                     </div>
                 </div>
 
@@ -463,7 +468,7 @@
 
                     <div class="col-sm-3">
                         <input type="number" name="hectare"
-                               ng-model="formData.quintity" class="form-control"/>
+                               ng-model="formData.quintity" class="form-control" ng-change="updateTotalIncome(formData.quintity,formData.totalIncome)"/>
                     </div>
                 </div>
 
@@ -473,6 +478,11 @@
                     <div class="col-sm-3">
                         <input type="number"  name="income"
                                ng-model="formData.totalIncome" class="form-control"/>
+                    </div>
+                    <label ng-show="isQuantifierNeeded" class="control-label col-sm-2">{{ 'label.heading.totalincomeamount' | translate }}</label>
+
+                    <div class="col-sm-3" ng-show="isQuantifierNeeded">
+                        <span  class="form-control">{{totalIncome}}</span>
                     </div>
                 </div>
 

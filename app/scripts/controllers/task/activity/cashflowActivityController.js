@@ -9,6 +9,7 @@
             scope.showEditClientassetdetailsForm = false;
             scope.showAddClienthouseholddetailsForm = false;
             scope.showEditClienthouseholddetailsForm = false;
+             scope.totalIncome = 0;
 
             function hideAll(){
                 scope.showSummary = false;
@@ -72,6 +73,14 @@
                     }
                 });
                 return total;
+            };
+
+            scope.updateTotalIncome = function(quantity,income){
+                if(scope.isQuantifierNeeded && quantity && income){
+                    scope.totalIncome = parseFloat(quantity)*parseFloat(income);
+                }else{
+                    scope.totalIncome = undefined;
+                }
             };
 
             scope.calculateTotalExpense = function(){
@@ -138,9 +147,13 @@
                     scope.formData.quintity = data.quintity;
                     scope.formData.totalIncome = data.totalIncome;
                     scope.formData.totalExpense = data.totalExpense;
+
                     scope.formData.isPrimaryIncome = data.isPrimaryIncome;
                     scope.formData.isRemmitanceIncome=data.isRemmitanceIncome;
-                    scope.isQuantifierNeeded = data.incomeExpenseData.isQuantifierNeeded
+                    scope.isQuantifierNeeded = data.incomeExpenseData.isQuantifierNeeded;
+                    if(scope.isQuantifierNeeded){
+                        scope.updateTotalIncome(scope.formData.quintity, scope.formData.totalIncome);
+                    }
                     scope.quantifierLabel = data.incomeExpenseData.quantifierLabel;
                 });
             };
