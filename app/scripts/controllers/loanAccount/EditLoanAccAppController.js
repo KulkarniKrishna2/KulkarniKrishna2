@@ -13,7 +13,7 @@
             scope.isGLIM = false;
             scope.GLIMData = {};
             scope.clientMembers = [];
-            scope.repeatsOnDayOfMonthOptions = [];
+            scope.repeatsOnDayOfMonthOptions = [-1];
             scope.selectedOnDayOfMonthOptions = [];
             if(scope.response != undefined){
                 scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
