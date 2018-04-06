@@ -162,6 +162,8 @@
             scope.onFileSelect = function ($files) {
                 scope.docData.fName = $files[0].name;
                 scope.files.push($files[0]);
+            };
+            scope.addDocument = function(){
                 scope.newDocuments.push(scope.docData);
                 scope.docData = {};
             };
