@@ -660,7 +660,7 @@
                                     <tr ng-repeat="disbursementDetail in formRequestData.loanApplicationSanctionTrancheDatas track by $index">
                                         <td>{{($index+1)}}</td>
                                         <td>
-                                            <input id="disbursementDetail[{{$index}}].expectedTrancheDisbursementDate"
+                                            <input id="{{disbursementDetail[$index].expectedTrancheDisbursementDate}}"
                                                    name="expectedTrancheDisbursementDate" type="text"
                                                    datepicker-pop="dd MMMM yyyy"
                                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"

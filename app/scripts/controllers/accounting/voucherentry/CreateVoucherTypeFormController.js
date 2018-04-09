@@ -147,9 +147,13 @@
             scope.onFileSelect = function ($files) {
                 scope.docData.fName = $files[0].name;
                 scope.files.push($files[0]);
+            };
+
+            scope.addDocument = function(){
                 scope.documents.push(scope.docData);
                 scope.docData = {};
             };
+
             scope.deleteDocument = function (index) {
                 scope.documents.splice(index, 1);
             };

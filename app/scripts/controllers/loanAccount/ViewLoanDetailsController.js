@@ -49,6 +49,8 @@
             scope.successTransaction = 5;
             scope.failedTransaction = 6;
             scope.closedTransaction = 7;
+            scope.pendingTransaction = 4;
+            scope.initiatedTransaction = 3;
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.canForceDisburse = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -1519,6 +1521,16 @@
 
                 if(statusList.indexOf(transferData.status.id) >= 0){
                     resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'reject'}, function (data) {
+                    fetchBankTransferDetails();
+                    });
+                }
+                
+            };
+            scope.forceReject = function (transferData) {
+                var statusList = [scope.initiatedTransaction,scope.pendingTransaction];
+
+                if(statusList.indexOf(transferData.status.id) >= 0){
+                    resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'force_reject'}, function (data) {
                     fetchBankTransferDetails();
                     });
                 }

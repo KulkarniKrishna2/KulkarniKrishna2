@@ -325,11 +325,11 @@
                                 <input type="file" id="billFile" name="billFile"
                                        ng-file-select="onFileSelect($files)">
                             </div>
-                            <div class="col-md-2" data-ng-if="false">
-                                <button id="uploadFile" type="submit" class="btn btn-primary">
+                            <div class="col-md-2" >
+                                <a id="uploadFile" type="submit" data-ng-click="addDocument()" class="btn btn-primary">
                                     {{'label.button.upload' |
                                     translate}}
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -379,7 +379,7 @@
                             <button id="idUploadDocuments" type="submit" data-ng-click="validate=true"
                                     class="btn btn-primary"
                                     has-permission='UPDATE_{{voucherCode | uppercase}}_VOUCHER'>
-                                {{'label.button.upload' | translate}}
+                                {{'label.button.submit' | translate}}
                             </button>
                         </div>
                     </fieldset>
