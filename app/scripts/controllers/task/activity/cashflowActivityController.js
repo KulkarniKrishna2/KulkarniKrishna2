@@ -145,7 +145,7 @@
                     });
                     scope.formData.incomeExpenseId = data.incomeExpenseData.id;
                     scope.formData.quintity = data.quintity;
-                    scope.formData.totalIncome = data.totalIncome;
+                    scope.formData.totalIncome = data.defaultIncome;
                     scope.formData.totalExpense = data.totalExpense;
 
                     scope.formData.isPrimaryIncome = data.isPrimaryIncome;
@@ -206,6 +206,7 @@
                                     scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
                                 }
                                 scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
+                                scope.updateTotalIncome(scope.formData.quintity, scope.formData.totalIncome);
                             }
                         })
                     }
@@ -217,6 +218,7 @@
                 _.each(scope.occupationOption, function(occupation){
                     if(occupation == occupationId && _.isUndefined(occupation.incomeExpenseDatas)){
                         scope.isQuantifierNeeded = false;
+                        scope.updateTotalIncome(scope.formData.quintity, scope.formData.totalIncome);
                         return scope.isQuantifierNeeded;
                     }
                 })
