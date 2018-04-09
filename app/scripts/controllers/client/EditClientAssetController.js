@@ -20,7 +20,7 @@
                 });
                 scope.formData.incomeExpenseId = data.incomeExpenseData.id;
                 scope.formData.quintity = data.quintity;
-                scope.formData.totalIncome = data.totalIncome;
+                scope.formData.totalIncome = data.defaultIncome;
                 scope.formData.totalExpense = data.totalExpense;
                 scope.formData.isPrimaryIncome = data.isPrimaryIncome;
                 scope.formData.isRemmitanceIncome=data.isRemmitanceIncome;

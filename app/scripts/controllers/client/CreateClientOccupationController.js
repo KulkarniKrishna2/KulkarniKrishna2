@@ -21,6 +21,8 @@
                             if(iterate[index].isQuantifierNeeded == true){
                                 scope.quantifierLabel = iterate[index].quantifierLabel;
                                 scope.isQuantifierNeeded = iterate[index].isQuantifierNeeded;                                
+                            }else{
+                                scope.isQuantifierNeeded = false
                             }
                             if(iterate[index].defaultIncome){
                                 scope.formData.totalIncome=iterate[index].defaultIncome;
@@ -28,10 +30,9 @@
                             if(iterate[index].defaultExpense){
                                 scope.formData.totalExpense=iterate[index].defaultExpense;
                             }
+                            scope.updateTotalIncome(scope.formData.quintity, scope.formData.totalIncome);
                             break;
-                        } else {
-                            scope.isQuantifierNeeded = false;
-                    }
+                        }
                 }
             }
 

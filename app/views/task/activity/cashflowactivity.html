@@ -53,7 +53,8 @@
                 <tr>
                     <th>{{ 'label.heading.assetname' | translate }}</th>
                     <th>{{ 'label.heading.quantity' | translate }}</th>
-                    <th>{{ 'label.heading.income' | translate }}</th>
+                    <th>{{ 'label.heading.default.income' | translate }}</th>
+                    <th>{{ 'label.heading.total.income' | translate }}</th>
                     <th>{{ 'label.heading.expense' | translate }}</th>
                     <th>{{ 'label.heading.net' | translate}}</th>
                     <th>{{}}</th>
@@ -66,6 +67,9 @@
                     </td>
                     <td  data-ng-click="">
                         {{incomeAndExpense.quintity}}
+                    </td>
+                    <td  data-ng-click="">
+                        {{incomeAndExpense.defaultIncome}}
                     </td>
                     <td  data-ng-click="">
                         {{incomeAndExpense.totalIncome}}
@@ -381,7 +385,7 @@
 
                     <div class="col-sm-3">
                         <input type="number"  name="income"
-                               ng-model="formData.totalIncome" class="form-control"/>
+                               ng-model="formData.totalIncome" class="form-control" ng-change="updateTotalIncome(formData.quintity,formData.totalIncome)"/>
                     </div>                    
                     <label ng-show="isQuantifierNeeded" class="control-label col-sm-2">{{ 'label.heading.totalincomeamount' | translate }}</label>
 

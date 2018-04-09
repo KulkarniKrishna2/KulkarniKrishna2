@@ -7021,5 +7021,7 @@
      "Bad credentials" : "Invalid credentials",
      "validation.msg.loanapplicationreference.loanApplicationSanctionTrancheDatas.not.be.blank" : "Tranche details can not be blank.",
      "label.button.force.reject": "Force Reject",
+     "label.heading.total.income" : "Total Income",
+     "label.heading.default.income" : "Default Income",
     "------ end of tensalation file":"---------"
 }
