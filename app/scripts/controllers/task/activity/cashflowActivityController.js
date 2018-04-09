@@ -205,8 +205,7 @@
                                     scope.quantifierLabel = iterate.quantifierLabel;
                                     scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
                                 }
-                            } else {
-                                scope.isQuantifierNeeded = false;
+                                scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
                             }
                         })
                     }
