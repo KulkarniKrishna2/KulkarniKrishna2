@@ -6565,6 +6565,7 @@
     "label.input.toDate" : "To Date",
 
     "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
+    "label.button.force.reject": "Force Reject",
 
     "------ end of tensalation file":"---------"
 }
