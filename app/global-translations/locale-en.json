@@ -1001,6 +1001,8 @@
     "error.msg.vouchers.voucherType.invalid" : "Invalid voucher type",
     "error.msg.voucher.id.invalid" : "Invalid voucher id",
     "error.msg.vouchers.voucher.update.not.supported" : "Voucher update is not supported",
+    "error.msg.identifier.documentExpiryDate.in.the.backdate":"document expiry date cannot be before the current date",
+    "error.msg.identifier.documentIssueDate.in.the.future":"document issue date cannot be in future date",
     "#--------": "------------",
 
     "#Groups": "....",
@@ -5361,6 +5363,9 @@
     "label.input.asset.catagory.type":"Asset Catagory Type",
     "label.input.household.name":"House Hold Expense Name",
     "label.input.house.hold.type":"House Hold Expense Type",
+    "label.input.issueddate":"Document Issued Date",
+    "label.input.expirydate":"Document Expiry Date",
+    "label.heading.issueddate":"Issued Date",
 
     "label.button.create.occupationcatagory":"Create Occupation Catagory",
     "label.button.create.loanpurpose.group":"Create Loan Purpose Group",

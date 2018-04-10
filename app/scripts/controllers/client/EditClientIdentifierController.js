@@ -1,9 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditClientIdentifierController: function (scope, routeParams, location, resourceFactory) {
+        EditClientIdentifierController: function (scope, routeParams, location, resourceFactory,dateFilter) {
             scope.clientId = routeParams.clientId;
             scope.id = routeParams.id;
             scope.formData = {};
+            scope.first = {};
             scope.formData.locale = scope.optlang.code;
             scope.documenttypes = [];
             scope.statusTypes =[];
@@ -28,6 +29,14 @@
                             scope.formData.documentKey = data.documentKey;
                             if(data.description){
                                 scope.formData.description = data.description;
+                            }
+                            if(data.documentIssueDate){
+                                var issueDate = dateFilter(data.documentIssueDate, scope.df);
+                                scope.first.documentIssueDate = new Date(issueDate);
+                            }
+                            if(data.documentExpiryDate){
+                                 var expiryDate = dateFilter(data.documentExpiryDate, scope.df);
+                                scope.first.documentExpiryDate = new Date(expiryDate);
                             }
                         }
                     });
@@ -119,6 +128,14 @@
             };
 
             scope.submit = function () {
+                 this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+               if(scope.first.documentIssueDate){
+                    this.formData.documentIssueDate = dateFilter(scope.first.documentIssueDate, scope.df);
+                }
+               if(scope.first.documentExpiryDate){
+                    this.formData.documentExpiryDate = dateFilter(scope.first.documentExpiryDate, scope.df);
+                }
                 resourceFactory.clientIdenfierResource.update({clientId: scope.clientId, id: scope.id}, this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
                 });
@@ -126,7 +143,7 @@
 
         }
     });
-    mifosX.ng.application.controller('EditClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory', mifosX.controllers.EditClientIdentifierController]).run(function ($log) {
+    mifosX.ng.application.controller('EditClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory','dateFilter', mifosX.controllers.EditClientIdentifierController]).run(function ($log) {
         $log.info("EditClientIdentifierController initialized");
     });
 }(mifosX.controllers || {}));
