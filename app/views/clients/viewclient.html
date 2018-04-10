@@ -804,6 +804,8 @@
 		            <th>{{'label.heading.type' | translate}}</th>
 		            <th>{{'label.heading.identitydocuments' | translate}}</th>
 					<th>{{'label.heading.status' | translate}}</th>
+					<th>{{'label.heading.issueddate' | translate}}</th>
+		            <th>{{'label.heading.expirydate' | translate}}</th>
 		            <th>{{'label.heading.actions' | translate}}</th>
 		        </tr>
 		        </thead>
@@ -822,6 +824,8 @@
 		                  </span>
 		            </td>
 					<td>{{document.status | translate}}</td>
+					<td>{{document.documentIssueDate | DateFormat}}</td>
+					<td>{{document.documentExpiryDate | DateFormat}}</td>
 		            <td>
 		                  <span>
 		                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"

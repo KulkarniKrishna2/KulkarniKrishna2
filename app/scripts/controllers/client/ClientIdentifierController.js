@@ -1,8 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientIdentifierController: function (scope, routeParams, location, resourceFactory) {
+        ClientIdentifierController: function (scope, routeParams, location, resourceFactory,dateFilter) {
             scope.clientId = routeParams.clientId;
             scope.formData = {};
+            scope.first = {};
             scope.documenttypes = [];
             scope.statusTypes =[];
             resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
@@ -101,6 +102,14 @@
             };
 
             scope.submit = function () {
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+               if(scope.first.documentIssueDate){
+                    this.formData.documentIssueDate = dateFilter(scope.first.documentIssueDate, scope.df);
+                }
+               if(scope.first.documentExpiryDate){
+                    this.formData.documentExpiryDate = dateFilter(scope.first.documentExpiryDate, scope.df);
+                }
                 resourceFactory.clientIdenfierResource.save({clientId: scope.clientId}, this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
                 });
@@ -108,7 +117,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory', mifosX.controllers.ClientIdentifierController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory','dateFilter',mifosX.controllers.ClientIdentifierController]).run(function ($log) {
         $log.info("ClientIdentifierController initialized");
     });
 }(mifosX.controllers || {}));
