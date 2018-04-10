@@ -3468,6 +3468,9 @@
     "error.msg.recurringdepositaccount.transaction.in.the.future":"Transactions cannot be done on Future Date",
     "alidation.msg.savingsproduct.effectiveFromDate.is.less.than.date":"Effective date should not be before current date",
     "error.msg.work.flow.workflow.already.created.for.this.village": " duplicate task creation for the village is not allowed",
+    "validation.msg.taskTemplateConfiguration.taskName.cannot.be.blank":"Taskname cannot be blank",
+    "validation.msg.taskTemplateConfiguration.shortName.cannot.be.blank":"Shortname cannot be blank",
+    "validation.msg.taskTemplateConfiguration.entity_id.cannot.be.blank":"Entiy cannot be null",
 
     "#tool tip for global configuration":"..",
     "label.tooltip.global.maker-checker":"Determine if the maker-checker system will be used.",
@@ -6811,6 +6814,7 @@
     
     "error.msg.emi.pack.associate.with.active.loans": "This EMI Pack id cannot be deleted as it is already associated with a Loan Application",
     "error.msg.tasktemplate.duplicate.shortname" : "Task template with shortname `{{params[0].value}}` already exists",
+    "error.msg.tasktemplate.duplicate.taskname" : "Task template with taskname `{{params[0].value}}` already exists",
 
     "label.alert.village.active.message" : "Village is  successfully activate",
     "label.heading.loanutilizationcheck.documents" : "Loanutilizationcheck Documents",
