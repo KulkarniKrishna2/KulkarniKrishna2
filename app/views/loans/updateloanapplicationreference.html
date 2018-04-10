@@ -258,6 +258,26 @@
                            class="form-control" number-format/>
                 </td>
             </tr>
+            <tr>
+                <td class="width14" ng-hide="isHiddenExpectedDisbursementDate"><label>{{ 'label.input.expecteddisbursementon' | translate }}:</label>&nbsp;</td>
+                <td class="width36 paddedbottom10" ng-hide="isHiddenExpectedDisbursementDate">
+                    <input id="expectedDisbursementDate" name="expectedDisbursementDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.expectedDisbursementDate" is-open="opened" min="restrictDate"
+                    ng-required="isMandatoryExpectedDisbursementDate"/>
+                </td>
+
+                <td class="width14" ng-hide="isHiddenFirstRepaymentDate"><label>{{ 'label.input.firstrepaymenton' | translate }}:</label>&nbsp;</td>
+                <td class="width36 paddedbottom10" ng-hide="isHiddenFirstRepaymentDate">
+                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.repaymentsStartingFromDate" is-open="opened" ng-required="isMandatoryFirstRepaymentDate" min="restrictDate" />
+                </td>
+            </tr>
+            <tr ng-if="!loanaccountinfo.loanEMIPacks">
+                <td ng-hide="isHiddenRateOfInterest"><label>{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span
+                        class="required" ng-show="isMandatoryRateOfInterest"></span></label></td>
+                <td class="paddedbottom10" ng-hide="isHiddenRateOfInterest">
+                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" ng-required="isMandatoryRateOfInterest" ng-model="formData.interestRatePerPeriod" ng-if = "!interestRatesListAvailable"/> 
+                    &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                </td>
+            </tr>
 
             <tr ng-if="loanaccountinfo.multiDisburseLoan === true">
                 <td class="width14"><label>Max no of Tranches:</label>&nbsp;</td>

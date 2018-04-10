@@ -593,6 +593,7 @@
     "error.message.group.activation.activity.cannot.complete.before.group.activation":"Group activation activaity cannot completed before group activation",
     "error.msg.other.loan.tranche.disbursement.date.cannot.be.after.maturity.date" : "Loan tranche disbursement date {{params[1].value}} cannot be after loan maturity date {{params[0].value}}",
     "error.msg.tranche.actual.disbursement.date.does.not.match.with.expected.disbursal.date.of.tranche" : "Tranche actual disbursement date does not match with expected disbursement date of tranche",
+    "validation.msg.loanapplicationreference.repaymentsStartingFromDate.is.less.than.date" : "Invalid First Repayment Date",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 

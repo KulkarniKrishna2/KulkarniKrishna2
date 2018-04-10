@@ -30,12 +30,14 @@
             var UPFRONT_FEE = 'upfrontFee';
             scope.slabBasedCharge = "Slab Based";
             scope.installmentAmountSlabChargeType = 1;
-            scope.loanapplicationActive = 100;
+            scope.loanapplicationSubmitted = 100;
             scope.loanapplicationCBApproved = 201;
-            scope.loanapplicationApproved = 200;
+            scope.loanapplicationInApproval = 200;
+            scope.loanapplicationApproved=300
             scope.isShowEditButton = true;
 
-            resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
+            scope.refreshData = function(){
+                resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
                  scope.formData.submittedOnDate=dateFilter(new Date(applicationData.submittedOnDate), scope.df);
                  scope.accountType = scope.formData.accountType.value.toLowerCase();
@@ -49,7 +51,9 @@
                    // scope.formDataForValidtion();
                 });  
             });
+            }
 
+            scope.refreshData();
 
             scope.loadLoanData = function(loanData){
                 if (loanData.loanAppSanctionId) {
@@ -146,20 +150,21 @@
 
                     resourceFactory.configurationResource.get({configName:'enable-pending-for-approval-stage'}, function (data) {
                         scope.enablependingforapproval = data.enabled;
-                        if((scope.formData.status.id === scope.loanapplicationActive || scope.formData.status.id === scope.loanapplicationCBApproved) && !scope.enablependingforapproval){
+                        if((scope.formData.status.id === scope.loanapplicationSubmitted || scope.formData.status.id === scope.loanapplicationCBApproved) && !scope.enablependingforapproval){
                             resourceFactory.loanApplicationReferencesResource.update({
                                 loanApplicationReferenceId: scope.loanApplicationReferenceId,
                                 command: 'requestforapproval'
                             }, {}, function (data) {
                                 scope.showEditForm();
                             });
-                        }else if(scope.formData.status.id === scope.loanapplicationCBApproved){
+                        }else if(scope.formData.status.id != scope.loanapplicationInApproval && (scope.formData.status.id === scope.loanapplicationSubmitted || scope.formData.status.id === scope.loanapplicationCBApproved)){
                             scope.showEditForm();
-                        }else if(scope.formData.status.id > scope.loanapplicationApproved && scope.formData.status.id != scope.loanapplicationCBApproved){
+                        }else if(scope.formData.status.id === scope.loanapplicationApproved){
                             scope.activityDone();
                             scope.isShowEditButton = false;
-                        }else if(scope.formData.status.id > scope.loanapplicationCBApproved){
-                            scope.isShowEditButton = false;
+                        }else if(scope.formData.status.id === scope.loanapplicationInApproval){
+                            scope.isShowEditButton = true;
+                            scope.status= 'SUMMARY';
                         }
                     });
                 });
@@ -168,6 +173,9 @@
             showSummary();
 
             scope.showEditForm=function(){
+                if(scope.status == 'SUMMARY'){
+                    scope.refreshData();
+                }
                 scope.changeLoanEMIPack=false;
                 scope.status = 'UPDATE';
             };
@@ -1221,10 +1229,11 @@
                 }
                 data.amount = amount;
             }
-            scope.showDiscountOnDisbursalAmount = function () {
-                if (scope.loanaccountinfo) {
-                    return (!scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);
+            scope.showDiscountOnDisbursalAmount = function(){
+                if(scope.loanaccountinfo != undefined){
+                    return (!scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);    
                 }
+                return false;  
             };
 
         }

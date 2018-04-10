@@ -86,6 +86,10 @@
                 scope.formData = data;
                 resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (tempData) {
                     scope.paymentModeOptions = tempData.paymentModeOptions;
+                    if(paymentModeOptions.length>0)
+                    {
+                        scope.changePaymentTypeOptions(0);
+                    }
                     scope.filterPaymentTypes(tempData.paymentOptions);
                     scope.updatePaymentType(data.expectedDisbursalPaymentType ,data.disbursementMode);                    
                 });

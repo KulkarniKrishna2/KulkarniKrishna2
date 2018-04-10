@@ -35,9 +35,9 @@
         "tranchedata":false
       },
       "isMandatoryField": {
-        "expectedDisbursementDate": true,
-        "firstRepaymentDate": true,
-        "interestRatePerPeriod": true
+        "expectedDisbursementDate": false,
+        "firstRepaymentDate": false,
+        "interestRatePerPeriod": false
       }
     }
   }

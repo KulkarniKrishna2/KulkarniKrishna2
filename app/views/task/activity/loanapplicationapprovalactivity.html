@@ -47,7 +47,8 @@
 
                     <tr>
                         <th>{{'label.heading.interestperannum' | translate}}:</th>
-                        <td>{{loanaccountinfo.interestRatePerPeriod}}</td>
+                        <td ng-if="formRequestData.interestRatePerPeriod">{{formRequestData.interestRatePerPeriod}}</td>
+                        <td ng-if="formRequestData.interestRatePerPeriod === undefined">{{loanaccountinfo.interestRatePerPeriod}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -337,32 +338,58 @@
 
                                 <tr>
                                     <td class="width25"
-                                        ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
+                                        ng-hide="isHiddenRepaymentsStartingFromDate == true">
                                         <label>{{ 'label.input.firstrepaymenton' | translate }}<span
                                                 class="required"
-                                                ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate">*</span>:&nbsp;
+                                                ng-show="isMandatoryRepaymentsStartingFromDate">*</span>:&nbsp;
                                         </label>
                                         <i class="icon-question-sign"
                                            tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                                     </td>
                                     <td class="width25 paddedbottom10"
-                                        ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
+                                        ng-hide="isHiddenRepaymentsStartingFromDate == true">
                                         <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
                                                type="text" datepicker-pop="dd MMMM yyyy"
                                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
                                                min="minDate" max="'2020-06-22'" class="form-control"
-                                               ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                                               ng-required="isMandatoryRepaymentsStartingFromDate"/>
                                     </td>
 
-                                    <td class="width19" ng-show="!response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod">
+                                    <td class="width19" ng-show="!isHiddenInterestRatePerPeriod">
                                         <label>{{ 'label.input.nominalinterestrate' | translate }}<span
                                                 class="required"
-                                                ng-show="response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod">*</span>:&nbsp;
+                                                ng-show="isMandatoryInterestRatePerPeriod">*</span>:&nbsp;
                                         </label>
                                     </td>
-                                    <td class="width31 paddedbottom10" ng-show="!response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod">
-                                        <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" ng-required="response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod" ng-model="formRequestData.interestRatePerPeriod"/> 
+                                    <td class="width31 paddedbottom10" ng-show="!isHiddenInterestRatePerPeriod">
+                                        <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" ng-required="isMandatoryInterestRatePerPeriod" ng-model="formRequestData.interestRatePerPeriod"/> 
                                         &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="width19"></td>
+                                    <td class="width31 paddedbottom10">
+
+                                    </td>
+                                    <td class="width19"></td>
+                                    <td class="width31 paddedbottom10">
+                                        <label>
+                                            <form-validate ng-if="isHiddenRepaymentsStartingFromDate == true" valattributeform="approveloanapplicationform"
+                                                           valattribute="repaymentsStartingFromDate"/>
+                                        </label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="width25"
+                                        ng-show="!loanaccountinfo.loanEMIPacks && loanaccountinfo.allowUpfrontCollection">
+                                        <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                                    </td>
+                                    <td class="width25 paddedbottom10"
+                                        ng-show="!loanaccountinfo.loanEMIPacks && loanaccountinfo.allowUpfrontCollection">
+                                        <input id="amountForUpfrontCollection" type="text" ng-model="formRequestData.amountForUpfrontCollection"
+                                        class="form-control" number-format/>
                                     </td>
                                 </tr>
 
@@ -436,21 +463,21 @@
 
                                 <tr>
                                     <td class="width25"
-                                        ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
+                                        ng-hide="isHiddenRepaymentsStartingFromDate == true">
                                         <label>{{ 'label.input.firstrepaymenton' | translate }}<span
                                                 class="required"
-                                                ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate">*</span>:&nbsp;
+                                                ng-show="isMandatoryRepaymentsStartingFromDate">*</span>:&nbsp;
                                         </label>
                                         <i class="icon-question-sign"
                                            tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                                     </td>
                                     <td class="width25 paddedbottom10"
-                                        ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
+                                        ng-hide="isHiddenRepaymentsStartingFromDate == true">
                                         <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate"
                                                type="text" datepicker-pop="dd MMMM yyyy"
                                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
                                                min="minDate" max="'2020-06-22'" class="form-control"
-                                               ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                                               ng-required="isMandatoryRepaymentsStartingFromDate"/>
                                     </td>
 
                                     <td class="width19"></td>
