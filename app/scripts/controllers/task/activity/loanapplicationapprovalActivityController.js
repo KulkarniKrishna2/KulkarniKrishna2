@@ -5,7 +5,7 @@
             scope.approveloanapplicationdetails = "";
             scope.status = 'UPDATE';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
-
+            scope.taskCompletedFlag=scope.isTaskCompleted();
             scope.onReject = function(){
 
             };
@@ -112,8 +112,8 @@
             scope.hideClientAdrresssBlock = scope.response.uiDisplayConfigurations.workflow.loanApproval.hiddenField.clientAddress;
             function showSummary(){
                 scope.changeLoanEMIPack=false;
+                scope.status = 'SUMMARY';
                 curIndex = 0;
-                scope.taskCompletedFlag=scope.isTaskCompleted();
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                     scope.formData = applicationData;
                     if (!scope.hideClientAdrresssBlock && applicationData.clientId != undefined && applicationData.clientId != null) {
@@ -151,7 +151,7 @@
                             }, {}, function (data) {
                                 scope.showEditForm();
                             });
-                        }else if(scope.formData.status.id === scope.loanapplicationApproved){
+                        }else if(scope.formData.status.id === scope.loanapplicationCBApproved){
                             scope.showEditForm();
                         }else if(scope.formData.status.id > scope.loanapplicationApproved && scope.formData.status.id != scope.loanapplicationCBApproved){
                             scope.activityDone();
