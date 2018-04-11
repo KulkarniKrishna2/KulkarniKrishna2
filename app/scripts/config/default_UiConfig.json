@@ -322,7 +322,8 @@
       "isMandatoryField": {
         "expectedDisbursementDate": false,
         "firstRepaymentDate": false,
-        "interestRatePerPeriod": false
+        "interestRatePerPeriod": false,
+		"disbursementPaymentMode":false
       }
     }
   }

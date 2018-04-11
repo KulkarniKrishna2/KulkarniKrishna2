@@ -39,7 +39,8 @@
             scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
             scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
             scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
-            
+            scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
                 scope.inparams.templateType = 'jlg';
@@ -432,6 +433,9 @@
 
             scope.changeDisbursalMode = function(){
                 scope.disbursementTypeOption = [];
+                if(scope.isMandatoryDisbursementPaymentMode){
+                    scope.formData.expectedDisbursalPaymentType = null;
+                }
                 if(scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions){
                         for(var i in scope.loanaccountinfo.paymentOptions){
                             if((scope.loanaccountinfo.paymentOptions[i].paymentMode== undefined || 
