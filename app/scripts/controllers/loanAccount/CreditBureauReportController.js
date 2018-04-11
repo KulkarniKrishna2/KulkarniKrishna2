@@ -126,7 +126,9 @@
                                             if (summaty.customerSince > existingLoan.disbursedDate) {
                                                 summaty.customerSince = existingLoan.disbursedDate;
                                             }
-                                            summaty.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                            if(existingLoan.currentOutstanding){
+                                                summaty.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                            }
                                             summaty.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
                                             if (summaty.disbursalDate < existingLoan.disbursedDate) {
                                                 summaty.disbursalDate = existingLoan.disbursedDate;
