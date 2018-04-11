@@ -6,7 +6,6 @@
             scope.status = 'UPDATE';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.taskCompletedFlag=scope.isTaskCompleted();
-            scope.isInitializeEMI= true;
             scope.onReject = function(){
 
             };
@@ -58,6 +57,9 @@
                     if(scope.formRequestData.repaymentsStartingFromDate){
                         scope.formRequestData.repaymentsStartingFromDate = dateFilter(new Date(scope.formRequestData.repaymentsStartingFromDate), scope.df);
                     }
+                    if(scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0){
+                        scope.status = 'SUMMARY';
+                    }
                     delete scope.formRequestData.loanAppSanctionId;
                     delete scope.formRequestData.loanApplicationReferenceId;
                     scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formRequestData.repaymentPeriodFrequency.id;
@@ -72,7 +74,7 @@
                     if(scope.formRequestData.loanEMIPackData){
                         scope.formRequestData.loanEMIPackId = scope.formRequestData.loanEMIPackData.id;
                     }
-                    if (scope.formRequestData.loanEMIPackData && scope.isInitializeEMI) {
+                    if (scope.formRequestData.loanEMIPackData && !scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                         var loanEMIPack = scope.formRequestData.loanEMIPackData;
                         if(loanEMIPack.disbursalAmount1){
                             scope.formRequestData.loanApplicationSanctionTrancheDatas.push({trancheAmount:loanEMIPack.disbursalAmount1});
@@ -774,7 +776,6 @@
                     command: 'submitforapproval'
                 }, this.submitData, function (data) {
                     scope.status = 'SUMMARY';
-                    scope.isInitializeEMI= false;
                     showSummary();
                 });
             };
