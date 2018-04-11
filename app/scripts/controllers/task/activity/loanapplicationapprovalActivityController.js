@@ -6,6 +6,7 @@
             scope.status = 'UPDATE';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.taskCompletedFlag=scope.isTaskCompleted();
+            scope.isInitializeEMI= true;
             scope.onReject = function(){
 
             };
@@ -71,7 +72,7 @@
                     if(scope.formRequestData.loanEMIPackData){
                         scope.formRequestData.loanEMIPackId = scope.formRequestData.loanEMIPackData.id;
                     }
-                    if (scope.formRequestData.loanEMIPackData) {
+                    if (scope.formRequestData.loanEMIPackData && scope.isInitializeEMI) {
                         var loanEMIPack = scope.formRequestData.loanEMIPackData;
                         if(loanEMIPack.disbursalAmount1){
                             scope.formRequestData.loanApplicationSanctionTrancheDatas.push({trancheAmount:loanEMIPack.disbursalAmount1});
@@ -112,7 +113,6 @@
             scope.hideClientAdrresssBlock = scope.response.uiDisplayConfigurations.workflow.loanApproval.hiddenField.clientAddress;
             function showSummary(){
                 scope.changeLoanEMIPack=false;
-                scope.status = 'SUMMARY';
                 curIndex = 0;
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                     scope.formData = applicationData;
@@ -773,6 +773,8 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'submitforapproval'
                 }, this.submitData, function (data) {
+                    scope.status = 'SUMMARY';
+                    scope.isInitializeEMI= false;
                     showSummary();
                 });
             };
@@ -861,6 +863,7 @@
                     if (onSuccess) {
                         onSuccess();
                     }
+                    scope.status = 'SUMMARY';
                     showSummary();
                 });
             };
