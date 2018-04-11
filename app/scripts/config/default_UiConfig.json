@@ -12,7 +12,7 @@
 		"repaymentFrequencyType": false,
 		"repaymentFrequencyNthDayType": false,
 		"repaymentFrequencyDayOfWeekType": false,
-		"interestChargedFromDate": false,
+		"interestChargedFromDate": true,
 		"repaymentsStartingFromDate": false,
 		"interestType": false,
 		"amortizationType": false,
@@ -60,7 +60,7 @@
 		"fundOption":false
 	  },
 	  "isAutoPopulate": {
-		"interestChargedFromDate": false
+		"interestChargedFromDate": true
 	  },
 	  "isDefaultValue": {
 		"syncDisbursementWithMeeting": false,
