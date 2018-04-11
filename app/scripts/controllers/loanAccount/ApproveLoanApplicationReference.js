@@ -668,6 +668,9 @@
             scope.addTranches = function () {
                 var loanApplicationSanctionTrancheDatas = {};
                 loanApplicationSanctionTrancheDatas.fixedEmiAmount = scope.formData.fixedEmiAmount;
+                if(scope.formRequestData.loanApplicationSanctionTrancheDatas.length<1){
+                    loanApplicationSanctionTrancheDatas.expectedTrancheDisbursementDate = scope.formRequestData.expectedDisbursementDate;
+                }
                 scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
             };
 
