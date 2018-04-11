@@ -68,15 +68,17 @@
                     if (data.countryData && data.countryData.countryId) {
                         scope.formData.countryId = data.countryData.countryId;
                     }
-                    for(var i in scope.districts)
+                    if(data.districtData && data.districtData.districtId){
+                        scope.formData.districtId = data.districtData.districtId;
+                    }
+                   for(var i in scope.districts)
                     {
-                        if( data.talukaData.districtId == scope.districts[i].districtId){
+                        if( data.districtData && data.districtData.districtId == scope.districts[i].districtId){
                             scope.talukas = scope.districts[i].talukaDatas;
                         }
                     }
                     if (data.talukaData && data.talukaData.talukaId) {
                         scope.formData.talukaId = data.talukaData.talukaId;
-                        scope.formData.districtId = data.talukaData.districtId;
                     }
                 });
             }
