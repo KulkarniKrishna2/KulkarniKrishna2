@@ -149,7 +149,9 @@
                                         scope.activeLoan.summaries.push(summaty);
                                     }
                                     scope.activeLoan.totalSummary.noOfActiveLoans += 1;
-                                    scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                    if(existingLoan.currentOutstanding){
+                                        scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                    }
                                     scope.activeLoan.totalSummary.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
                                     scope.activeLoan.totalSummary.totalOverDueAmount += existingLoan.amtOverdue;
                                 }
