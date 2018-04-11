@@ -170,15 +170,16 @@
             <hr/>
             <tr>
                     <td class="width19">
-                        <label>{{ 'label.button.disbursalmode' | translate }}:</label>
+                        <label>{{ 'label.button.disbursalmode' | translate }}<span ng-show="isMandatoryDisbursementPaymentMode" class="required">*</span>:</label>
                     </td>
                     <td class="width31 paddedbottom10">
                         <select id="disbursementMode" name="disbursementMode" ng-model="disbursementModeId"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
-                             ng-change="changeDisbursalMode()" class="form-control width170px"
+                             ng-change="changeDisbursalMode()" class="form-control width170px" ng-required="isMandatoryDisbursementPaymentMode"
                             >
                             <option value="">{{'label.selectone' | translate}}</option>
                        </select>
+                        <form-validate valattributeform="newloanapplicationform" valattribute="disbursementMode"/>
                     </td>
                     <td>
                         <label>{{ 'label.button.repaymentsmode' | translate }}:</label>
@@ -186,22 +187,21 @@
                     <td class="width31">
                         <select id="repaymentMode" ng-model="repaymentModeId"
                                 ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
-                                 value="{{paymentModeOption.id}}" ng-change="changeRepaymentMode()" class="form-control width170px"
-                                value="{{paymentOption.id}}">
+                                 value="{{paymentModeOption.id}}" ng-change="changeRepaymentMode()" class="form-control width170px">
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>
                     </td>
                 </tr>
             <tr>
                 <td class="width19">
-                    <label>{{ 'label.button.disbursal' | translate }}:</label>
+                    <label>{{ 'label.button.disbursal' | translate }}<span ng-show="isMandatoryDisbursementPaymentMode" class="required">*</span>:</label>
                 </td>
                 <td class="width31 paddedbottom10">
-                    <select id="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType"
-                            ng-options="paymentOption.id as paymentOption.name for paymentOption in disbursementTypeOption " class="form-control width170px"
-                            value="{{paymentOption.id}}">
+                    <select id="expectedDisbursalPaymentType" name="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType"
+                            ng-options="paymentOption.id as paymentOption.name for paymentOption in disbursementTypeOption " class="form-control width170px" ng-required="isMandatoryDisbursementPaymentMode" >
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
+                    <form-validate valattributeform="newloanapplicationform" valattribute="expectedDisbursalPaymentType"/>
                 </td>
                 <td>
                     <label>{{ 'label.button.repayments' | translate }}:</label>

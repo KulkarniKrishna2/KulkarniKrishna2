@@ -150,15 +150,16 @@
             </tr>
              <tr>
                     <td class="width19">
-                        <label>{{ 'label.button.disbursalmode' | translate }}:</label>
+                        <label>{{ 'label.button.disbursalmode' | translate }}<span ng-show="isMandatoryDisbursementPaymentMode" class="required">*</span>:</label>
                     </td>
                     <td class="width31 paddedbottom10">
                         <select id="disbursementMode" name="disbursementMode" ng-model="disbursementMode"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
                             value="{{paymentModeOption.id}}" ng-change="changePaymentMode(formData.paymentMode)" class="form-control"
-                            >
+                            ng-required="isMandatoryDisbursementPaymentMode">
                             <option value="">{{'label.selectone' | translate}}</option>
                        </select>
+                        <form-validate valattributeform="updateloanapplicationform" valattribute="disbursementMode"/>
                     </td>
                     <td>
                         <label>{{ 'label.button.repaymentsmode' | translate }}:</label>
@@ -176,14 +177,15 @@
 
             <tr>
                 <td class="width19">
-                    <label>{{ 'label.button.disbursal' | translate }}:</label>
+                    <label>{{ 'label.button.disbursal' | translate }}<span ng-show="isMandatoryDisbursementPaymentMode" class="required">*</span>:</label>
                 </td>
                 <td class="width31 paddedbottom10">
-                    <select id="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType"
+                    <select id="expectedDisbursalPaymentType" name="expectedDisbursalPaymentType" ng-model="formData.expectedDisbursalPaymentType"
                             ng-options="paymentOption.id as paymentOption.name for paymentOption in disbursementTypeOption " class="form-control width170px"
-                            value="{{paymentOption.id}}">
+                            value="{{paymentOption.id}}" ng-required="isMandatoryDisbursementPaymentMode">
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
+                    <form-validate valattributeform="updateloanapplicationform" valattribute="expectedDisbursalPaymentType"/>
                 </td>
                 <td>
                     <label>{{ 'label.button.repayments' | translate }}:</label>
@@ -279,7 +281,7 @@
                 <div class="col-sm-3" ng-if="parentGroups.length > 1">
                     <select id="groupId"  name = "groupId" ng-model="formData.groupId" class="form-control"
                             ng-options="parentGroup.id as parentGroup.name for parentGroup in parentGroups"
-                            value="{{parentGroup.id}}" required">
+                            value="{{parentGroup.id}}" required>
                       <option value="">{{'label.menu.selectgroup' | translate}}</option>
                     </select>
                      <form-validate valattributeform="updateloanapplicationform" valattribute="groupId"/>

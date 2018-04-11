@@ -16,6 +16,7 @@
             scope.canDisburseToGroupBankAccounts = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
 
             scope.paymentModeOptions = [];
             scope.repaymentTypeOption = [];
