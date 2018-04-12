@@ -113,5 +113,21 @@
             <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
         </div>
         </script>
+        <script type="text/ng-template" id="delete.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+           
+            <div ng-show="error != null" class="error">
+                {{'label.error' | translate}}: {{error}}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancelDelete()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitDelete()">{{'label.heading.delete' | translate}}</button>
+        </div>
+    </script>
     </div>
 </div>

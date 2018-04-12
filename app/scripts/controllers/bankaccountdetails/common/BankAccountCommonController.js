@@ -184,12 +184,24 @@
             };
 
             scope.delete = function () {
-                resourceFactory.bankAccountDetailResource.delete({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
-                    route.reload();
-                    // populateDetails();
-                    // scope.viewConfig.showSummary=false;
-                    // scope.viewConfig.hasData=false;
+                $modal.open({
+                    templateUrl: 'delete.html',
+                    controller: DeleteCtrl,
+                    windowClass: 'modalwidth700'
                 });
+
+            };
+
+            var DeleteCtrl = function ($scope, $modalInstance) {
+                $scope.cancelDelete = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                $scope.submitDelete = function () {
+                    resourceFactory.bankAccountDetailResource.delete({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
+                        $modalInstance.close('delete');
+                        location.path('/viewclient/' + getEntityId());
+                    });
+                };
             };
 
             scope.onFileSelect = function ($files) {
@@ -197,7 +209,7 @@
                 if(!_.isUndefined(scope.docFile)){
                     scope.fileError=false;
                 }
-            };
+            }; 
 
             scope.cancel = function (){
                 if(scope.viewConfig.hasData){
