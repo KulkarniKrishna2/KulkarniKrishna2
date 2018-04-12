@@ -28,10 +28,11 @@
                     <td>{{ 'label.heading.referenceNumber' | translate }}</td>
                     <td>{{transferData.referenceNumber}}</td>
                 </tr>
-                <tr ng-if="transferData.utrNumber!=undefined || transferData.poNumber!=undefined">
+                <tr ng-if="transferData.utrNumber!=undefined || transferData.poNumber!=undefined || transferData.rrNumber!=undefined">
                     <td>{{ 'label.heading.description' | translate }}</td>
-                    <td><span>{{ 'label.heading.utrNumber' | translate }}:&nbsp;{{transferData.utrNumber}} | </span>
-                        <span>{{ 'label.heading.poNumber' | translate }}:&nbsp;{{transferData.poNumber}}</span>
+                    <td><span ng-if="transferData.utrNumber!=undefined">{{ 'label.heading.utrNumber' | translate }}:&nbsp;{{transferData.utrNumber}}  </span>
+                        <span ng-if="transferData.poNumber!=undefined" >{{ 'label.heading.poNumber' | translate }}:&nbsp;{{transferData.poNumber}} |</span>
+                        <span ng-if="transferData.rrNumber!=undefined">{{ 'label.heading.rrNumber' | translate }}:&nbsp;{{transferData.rrNumber}}</span>
                     </td>
                 </tr>
                 <tr class="span2"></tr>
