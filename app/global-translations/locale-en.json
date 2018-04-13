@@ -6842,6 +6842,7 @@
     "label.input.toDate" : "To Date",
 
     "error.msg.proxyuserconfiguration.already.exits" : "Proxy user mapping already exists",
+    "label.button.force.reject": "Force Reject",
 
     "label.heading.no.of.mfi":"Active MFIs",
     "label.heading.hh.status":"HH Status",
