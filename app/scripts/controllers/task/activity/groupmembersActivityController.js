@@ -246,8 +246,7 @@
                                         entityType: "loanApplication",
                                         entityId: data1[j].loanApplicationReferenceId
                                     }, function(data2) {
-                                        if (data2 != undefined &&
-                                            data2.status.id > 1 &&  data2.status.id < 7 ) {
+                                        if (data2 != undefined && data2.status.id > 1) {
                                             resourceFactory.taskExecutionChildrenResource.getAll({
                                                 taskId: data2.id
                                             }, function(children) {

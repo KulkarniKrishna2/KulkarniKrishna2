@@ -126,7 +126,9 @@
                                             if (summaty.customerSince > existingLoan.disbursedDate) {
                                                 summaty.customerSince = existingLoan.disbursedDate;
                                             }
-                                            summaty.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                            if(existingLoan.currentOutstanding){
+                                                summaty.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                            }
                                             summaty.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
                                             if (summaty.disbursalDate < existingLoan.disbursedDate) {
                                                 summaty.disbursalDate = existingLoan.disbursedDate;
@@ -147,7 +149,9 @@
                                         scope.activeLoan.summaries.push(summaty);
                                     }
                                     scope.activeLoan.totalSummary.noOfActiveLoans += 1;
-                                    scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                    if(existingLoan.currentOutstanding){
+                                        scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                    }
                                     scope.activeLoan.totalSummary.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
                                     scope.activeLoan.totalSummary.totalOverDueAmount += existingLoan.amtOverdue;
                                 }

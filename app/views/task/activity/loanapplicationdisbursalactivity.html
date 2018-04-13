@@ -318,6 +318,11 @@
                                             </td>
                                             <td>{{formData.approvedData.approvedOnDate | DateFormat}}</td>
                                         </tr>
+                                        <tr ng-show="!isHiddenInterestRatePerPeriod">
+                                            <td><label>{{ 'label.input.nominalinterestrate' | translate }}:</label>&nbsp;
+                                            </td>
+                                            <td>{{formData.approvedData.interestRatePerPeriod}}&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}</td>
+                                        </tr>
                                     </table>
                                 </div>
                                 <div class="col-md-6">
@@ -350,6 +355,11 @@
                                             <td><label>{{ 'label.input.expecteddisbursementon' | translate }}:</label>&nbsp;
                                             </td>
                                               <td>{{formData.approvedData.expectedDisbursementDate | DateFormat}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td ng-show="formData.approvedData.amountForUpfrontCollection != undefined"><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;
+                                            </td>
+                                              <td>{{formData.approvedData.amountForUpfrontCollection}}</td>
                                         </tr>
                                     </table>
                                 </div>
