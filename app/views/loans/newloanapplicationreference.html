@@ -424,6 +424,8 @@
             </tr>
         </table>
 
+        <div ng-show="previewRepayment" ng-include="'views/loans/loanrepaymentpreview.html'" />
+
         <div class="col-md-offset-5" ng-show="formData.loanProductId">
             <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                 translate}}
@@ -432,6 +434,9 @@
                 {{'label.button.save' |
                 translate}}
             </button>
+            <a  ng-show="showPreviewRepayments()" class="btn btn-primary" ng-click="previewRepayments()">{{'label.button.schedulepreview' | translate}}</a>
+            <a ng-show="showBackToPreviewRepayments()" class="btn btn-primary" ng-click="previewRepayment=!previewRepayment">{{'label.anchor.backtoloaninfo'
+            | translate}}</a>
         </div>
     </form>
 </div>

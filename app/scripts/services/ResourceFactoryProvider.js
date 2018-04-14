@@ -1482,6 +1482,9 @@
                         update: { method: 'PUT' },
                         updateStatus: {method: 'PUT', params: {command: 'updatestatus'}},
                         post:{ method: 'POST' }
+                    }),
+                    loanApplicationReferencesRepaymentScheduleResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/repaymentschedule", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                       repaymentSchedule: {method: 'POST', params: {}}
                     })
                 };
             }];
