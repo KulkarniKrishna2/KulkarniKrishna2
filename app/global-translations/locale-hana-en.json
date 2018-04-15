@@ -1,0 +1,17 @@
+{
+    "label.input.statename": "Township",
+    "label.input.districtname": "Ward/VillageTract",
+    "label.input.talukname": "Village",
+    "label.menu.selectState": "Select Township",
+    "label.menu.selectDistrict": "Select Ward/VillageTract",
+    "label.menu.selectTaluka": "Select Village",
+    "label.heading.state": "Township",
+    "label.heading.district": "Ward/VillageTract",
+    "label.heading.taluk": "Village",
+    "label.input.state": "Township",
+    "label.input.district": "Ward/VillageTract",
+    "label.input.taluk": "Village",
+    "label.heading.talukname":"Village",
+    "label.heading.statename":"Township",
+    "label.heading.districtname":"Ward/VillageTract"
+}

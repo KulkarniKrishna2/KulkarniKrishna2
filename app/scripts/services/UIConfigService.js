@@ -19,6 +19,7 @@
                             if (data.enableUIDisplayConfiguration != null && data.enableUIDisplayConfiguration == true) {
                                 scope.response = data;
                                 scope.responseDefaultGisData = data;
+                                scope.$emit("uiConfigServicePerformed", scope.response);
                             }
                         }
                     }).error(function (data) {
@@ -35,6 +36,7 @@
                         if (result.enableUIDisplayConfiguration != null && result.enableUIDisplayConfiguration == true) {
                             scope.response = result;
                             scope.responseDefaultGisData = result;
+                            scope.$emit("uiConfigServicePerformed", scope.response);
                         }
                     }).error(function (tenantSpecificData) {
                         console.log("Configuration file not found");

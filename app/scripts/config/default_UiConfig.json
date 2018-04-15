@@ -294,6 +294,11 @@
 		  "clientAddress": true
 		}
 	  }
+	},
+	"entityType":{
+	  "isHiddenMenu": {
+		"village":false
+	  }
 	}
   }
  }

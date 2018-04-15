@@ -65,7 +65,7 @@
                     location.path('/viewrecurringdepositaccount/' + id);
                 }
             };
-
+            scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
@@ -604,7 +604,7 @@
                 $scope.delete = function () {
                     http({
                         method: 'DELETE',
-                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images'
                     }).then(function (imageData) {
                         if (!scope.$$phase) {
                             scope.$apply();
@@ -635,7 +635,7 @@
                                 name: 'clientSignature',
                                 description: 'client signature'
                             },
-                            file: scope.file,
+                            file: scope.file
                         }).then(function (imageData) {
                                 // to fix IE not refreshing the model
                                 if (!scope.$$phase) {
@@ -909,7 +909,7 @@
                                 }
                                 scope.singleRow.push(row);
                             }
-                            var index = scope.datatabledetails.columnData[0].row.findIndex(x => x.columnName==data.columnHeaders[i].columnName);
+                            var index = scope.datatabledetails.columnData[0].row.findIndex(x >= x.columnName==data.columnHeaders[i].columnName);
                             if(index > 0 ){
                                 if(data.columnHeaders[i].displayName != undefined && data.columnHeaders[i].displayName != 'null') {
                                    scope.datatabledetails.columnData[0].row[index].displayName = data.columnHeaders[i].displayName;
@@ -932,7 +932,7 @@
                                 for (var i in data.sectionedColumnList[l].columns) {
                                     for (var j in data.columnHeaders) {
                                         if(data.sectionedColumnList[l].columns[i].columnName == data.columnHeaders[j].columnName ){
-                                            var index = scope.sections.findIndex(x => x.displayName==data.sectionedColumnList[l].displayName);
+                                            var index = scope.sections.findIndex(x >= x.displayName==data.sectionedColumnList[l].displayName);
                                             if (!scope.datatabledetails.isMultirow) {   
                                                 var row = {};
                                                 if(data.columnHeaders[j].displayName != undefined && data.columnHeaders[j].displayName != 'null') {
