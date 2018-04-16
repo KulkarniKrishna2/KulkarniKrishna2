@@ -72,6 +72,9 @@
                         scope.formData.countryId = data.countryData.countryId;
                     }
                     scope.talukas = data.districtData.talukaDatas;
+                    if(scope.talukas.length >0){
+                        scope.isShowTaluka= true;
+                    }
                     if (data.talukaData && data.talukaData.talukaId) {
                         scope.formData.talukaId = data.talukaData.talukaId;
                     }
@@ -116,6 +119,7 @@
             }
 
             scope.changeDistrict = function (districtId) {
+
                 if (districtId != null) {
                     scope.talukas = null;
                     scope.selectDistrict = _.filter(scope.districts, function (districts) {
@@ -126,6 +130,11 @@
                         delete scope.formData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
+                    if(scope.talukas.length > 0){
+                        scope.isShowTaluka = true;
+                    }else{
+                        scope.isShowTaluka= false;
+                    }
                 }
             }
             

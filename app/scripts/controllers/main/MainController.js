@@ -58,7 +58,12 @@
             }
 
             uiConfigService.init(scope, $rootScope.tenantIdentifier);
-
+            scope.$on('uiConfigServicePerformed', function(event, response) {
+                scope.response = response;
+                if(scope.response && scope.response.uiDisplayConfigurations ) {
+                    scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
+                }
+            });
             //hides loader
             scope.domReady = true;
             scope.activity = {};

@@ -97,6 +97,16 @@
 			"isMandatory": {
 				"bankIFSCCode": true
 			}
+		},
+		"defaultGISConfig": {
+	      "address": {
+	        "countryName": "Myanmar"
+	      }
+	    },
+		"entityType":{
+		  "isHiddenMenu": {
+			"village":true
+		  }
 		}
 	}
 }
