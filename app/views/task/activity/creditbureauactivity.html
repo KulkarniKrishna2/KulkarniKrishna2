@@ -97,10 +97,10 @@
                                     <span><strong>{{'label.heading.serialno' | translate}}</strong></span>
                                 </td>
                                 <td>
-                                    <span><strong>{{'label.heading.name.of.mfi' | translate}}</strong></span>
+                                    <span><strong>{{'label.heading.lender' | translate}}</strong></span>
                                 </td>
                                 <td>
-                                    <span><strong>{{'label.heading.customer.since' | translate}}</strong></span>
+                                    <span><strong>{{'label.heading.lendername' | translate}}</strong></span>
                                 </td>
                                 <td>
                                     <span><strong>{{'label.heading.no.of.active.loans' | translate}}</strong></span>
@@ -112,10 +112,7 @@
                                     <span><strong>{{'label.heading.total.emi.amount' | translate}}</strong></span>
                                 </td>
                                 <td>
-                                    <span><strong>{{'label.heading.disbursaldate' | translate}}</strong></span>
-                                </td>
-                                <td>
-                                    <span><strong>{{'label.heading.overdue.amount' | translate}}</strong></span>
+                                    <span><strong>{{'label.heading.dpd' | translate}}</strong></span>
                                 </td>
                             </tr>
                             <tr ng-repeat="summary in activeLoan.summaries | orderBy:'-totalOutstandingAmount' track by $index" ng-init="summaryIndex = $index">
@@ -123,10 +120,10 @@
                                     <span>{{(summaryIndex+1)}}</span>
                                 </td>
                                 <td>
-                                    <span>{{summary.lenderName}}</span>
+                                    <span>{{summary.lenderType}}</span>
                                 </td>
                                 <td>
-                                    <span>{{summary.customerSince |DateFormat}}</span>
+                                    <span>{{summary.lenderName}}</span>
                                 </td>
                                 <td>
                                     <span>{{summary.noOfActiveLoans}}</span>
@@ -138,10 +135,7 @@
                                     <span>{{summary.totalEMIAmount |number : 2}}</span>
                                 </td>
                                 <td>
-                                    <span>{{summary.disbursalDate |DateFormat}}</span>
-                                </td>
-                                <td>
-                                    <span>{{summary.totalOverDueAmount |number}}</span>
+                                    <span>{{summary.totalDpd}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -166,9 +160,6 @@
                                 <td>
                                     &nbsp;
                                 </td>
-                                <td>
-                                    <span><strong>{{activeLoan.totalSummary.totalOverDueAmount | number}}</strong></span>
-                                </td>
                             </tr>
                         </table>
                     </div>
@@ -185,7 +176,10 @@
                                     <span><strong>{{'label.heading.serialno' | translate}}</strong></span>
                                 </td>
                                 <td>
-                                    <span><strong>{{'label.heading.name.of.mfi' | translate}}</strong></span>
+                                    <span><strong>{{'label.heading.lender' | translate}}</strong></span>
+                                </td>
+                                <td>
+                                    <span><strong>{{'label.heading.lendername' | translate}}</strong></span>
                                 </td>
                                 <td>
                                     <span><strong>{{'label.heading.customer.since' | translate}}</strong></span>
@@ -206,6 +200,9 @@
                             <tr ng-repeat="summary in closedLoan.summaries | orderBy:'lastClosureDate' :true track by $index" ng-init="summaryIndex = $index">
                                 <td>
                                     <span>{{(summaryIndex+1)}}</span>
+                                </td>
+                                <td>
+                                    <span>{{summary.lenderType}}</span>
                                 </td>
                                 <td>
                                     <span>{{summary.lenderName}}</span>
@@ -241,6 +238,9 @@
                                 </td>
                                 <td>
                                     <span><strong>{{closedLoan.totalSummary.totalDisbursalAmount | number}}</strong></span>
+                                </td>
+                                <td>
+                                    &nbsp;
                                 </td>
                                 <td>
                                     &nbsp;
