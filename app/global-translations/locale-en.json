@@ -5849,6 +5849,9 @@
     "label.camactivity.loanterms":"Loan Terms",
     "label.camactivity.existingloans":"Existing Loans",
     "label.heading.closedLoansSummary":"Closed Loans Summary",
+    "label.heading.lender" : "Lender",
+    "label.heading.lendername" : "Lender Name",
+    "label.heading.dpd" : "DPD",
 
     "profilerating":".....",
     "label.anchor.profile.rating":"Profile Ratings",

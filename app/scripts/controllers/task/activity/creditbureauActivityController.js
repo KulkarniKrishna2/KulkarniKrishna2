@@ -40,6 +40,7 @@
                                     scope.activeLoan.totalSummary.totalOutstandingAmount = 0;
                                     scope.activeLoan.totalSummary.totalEMIAmount = 0;
                                     scope.activeLoan.totalSummary.totalOverDueAmount = 0;
+                                    scope.activeLoan.totalSummary.totalDpd = 0;
                                 }
                                 if (existingLoan.lenderName) {
                                     var isLenderPresent = false;
@@ -58,6 +59,7 @@
                                                 summaty.disbursalDate = existingLoan.disbursedDate;
                                             }
                                             summaty.totalOverDueAmount += existingLoan.amtOverdue;
+                                            summaty.totalDpd = summaty.totalDpd+","+existingLoan.dpd;
                                             scope.activeLoan.summaries[j] = summaty;
                                             break;
                                         }
@@ -70,6 +72,8 @@
                                         summaty.totalEMIAmount = convertEMIAmountToMonthlyAmount(existingLoan);
                                         summaty.disbursalDate = existingLoan.disbursedDate;
                                         summaty.totalOverDueAmount = existingLoan.amtOverdue;
+                                        summaty.lenderType = existingLoan.lenderType;
+                                        summaty.totalDpd = existingLoan.dpd;
                                         scope.activeLoan.summaries.push(summaty);
                                     }
                                     scope.activeLoan.totalSummary.noOfActiveLoans += 1;
@@ -154,6 +158,7 @@
                                                 summaty.lastClosureDate = existingLoan.closedDate;
                                             }
                                             summaty.totalWriteOffAmount += existingLoan.writtenOffAmount;
+                                            summaty.lenderType = existingLoan.lenderType;
                                             scope.closedLoan.summaries[j] = summaty;
                                             break;
                                         }
@@ -167,6 +172,8 @@
                                             summaty.lastClosureDate = existingLoan.closedDate;
                                         }
                                         summaty.totalWriteOffAmount = existingLoan.writtenOffAmount;
+                                        summaty.lenderType = existingLoan.lenderType;
+                                        summaty.dpd = existingLoan.dpd;
                                         scope.closedLoan.summaries.push(summaty);
                                     }
                                     scope.closedLoan.totalSummary.noOfClosedLoans += 1;
