@@ -5850,6 +5850,9 @@
     "label.camactivity.loanterms":"Loan Terms",
     "label.camactivity.existingloans":"Existing Loans",
     "label.heading.closedLoansSummary":"Closed Loans Summary",
+    "label.heading.lender" : "Lender",
+    "label.heading.lendername" : "Lender Name",
+    "label.heading.dpd" : "DPD",
 
     "profilerating":".....",
     "label.anchor.profile.rating":"Profile Ratings",
@@ -7035,5 +7038,6 @@
      "label.button.force.reject": "Force Reject",
      "label.heading.total.income" : "Total Income",
      "label.heading.default.income" : "Default Income",
+     "error.msg.discount.on.disbursal.is.available.only.for.flat.interest.rate" : "Discount on disbursal is available only with Flat interest rate.",
     "------ end of tensalation file":"---------"
 }
