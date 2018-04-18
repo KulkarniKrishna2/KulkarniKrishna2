@@ -7036,5 +7036,6 @@
      "label.button.force.reject": "Force Reject",
      "label.heading.total.income" : "Total Income",
      "label.heading.default.income" : "Default Income",
+     "error.msg.discount.on.disbursal.is.available.only.for.flat.interest.rate" : "Discount on disbursal is available only with Flat interest rate.",
     "------ end of tensalation file":"---------"
 }
