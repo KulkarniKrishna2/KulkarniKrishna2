@@ -4791,6 +4791,7 @@
     "label.heading.utrNumber":"UTR",
     "label.heading.poNumber":"PO",
     "label.heading.referenceNumber":"Reference Number",
+    "label.heading.rrNumber" :"RR",
 
     "label.externalServices":"External Services Configuration",
     "label.S3.description":"S3 Amazon Service Configuration",

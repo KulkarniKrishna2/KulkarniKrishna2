@@ -921,14 +921,16 @@
                                 <td class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.amount}}</td>
                                 <td class="pointer">{{transferData.status.value}}</td>
                                 <td>
-                                    <button class="btn btn-link" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction"
-                                        has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
-                                    <button class="btn btn-link" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction || transferData.status.id == failedTransaction"
-                                        has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
-                                    <button class="btn btn-link" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction || transferData.status.id == pendingTransaction"
-                                        has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
-                                    <button class="btn btn-link" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction"
-                                        has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction"
+                                            has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
+                                        <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction || transferData.status.id == failedTransaction"
+                                            has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
+                                        <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction || transferData.status.id == pendingTransaction"
+                                            has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
+                                        <button class="btn btn-danger" type="button" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction"
+                                            has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
+                                    </div>
                                 </td>
                                 <td class="pointer" data-ng-click="viewTransferDetails(transferData)"></td>
                             </tr>
