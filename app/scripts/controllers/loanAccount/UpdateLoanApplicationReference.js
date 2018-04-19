@@ -151,6 +151,11 @@
                             scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                             scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                             scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
+                            if(scope.loanaccountinfo.multiDisburseLoan == true && scope.loanaccountinfo.product && scope.loanaccountinfo.product.maxTrancheCount){
+                                scope.formData.noOfTranche = parseInt(scope.loanaccountinfo.product.maxTrancheCount);
+                            }else{
+                                delete scope.formData.noOfTranche;
+                            }
                             delete scope.formData.loanEMIPackId;
                         }
 
