@@ -395,6 +395,22 @@
                         this.formData.charges.push(charge);
                     //}
                 }
+                if (scope.loanaccountinfo.overdueCharges && scope.loanaccountinfo.overdueCharges.length > 0) {
+                    for (var i in scope.loanaccountinfo.overdueCharges) {
+                        if (scope.loanaccountinfo.overdueCharges[i].chargeData.amount > 0) {
+                            var charge = {};
+                            if (scope.loanaccountinfo.overdueCharges[i].chargeData.id) {
+                                charge.chargeId = scope.loanaccountinfo.overdueCharges[i].chargeData.id;
+                            }
+                            charge.amount = scope.loanaccountinfo.overdueCharges[i].chargeData.amount;
+                            charge.isMandatory = scope.loanaccountinfo.overdueCharges[i].isMandatory;
+                            charge.isAmountNonEditable = scope.loanaccountinfo.overdueCharges[i].isAmountNonEditable;
+                            charge.locale = scope.optlang.code;
+                            charge.dateFormat = scope.df;
+                            this.formData.charges.push(charge);
+                        }
+                    }
+                }
                 for(var i=0;i<scope.formData.disbursementData.length;i++) {
                     this.formData.disbursementData[i].expectedTrancheDisbursementDate=dateFilter(this.formData.disbursementData[i].expectedTrancheDisbursementDate,scope.df);
                 }

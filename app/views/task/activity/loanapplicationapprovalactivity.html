@@ -226,7 +226,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div ng-if="existingCharges.length > 0">
+                            <div ng-if="existingFeeCharges.length > 0">
                                 <table class="width100">
                                     <tr class="bottomborder">
                                         <td colspan="5"><strong>{{'label.heading.charges' | translate}}</strong></td>
@@ -238,7 +238,31 @@
                                         <td>{{'label.heading.collectedon' | translate}}</td>
                                         <td>{{'label.checkbox.ismandatory' | translate}}</td>
                                     </tr>
-                                    <tr ng-repeat="charge in existingCharges">
+                                    <tr ng-repeat="charge in existingFeeCharges">
+                                        <td>{{charge.name}}</td>
+                                        <td>{{charge.chargeCalculationType.value}}</td>
+                                        <td>{{charge.amount|number}}</td>
+                                        <td>{{charge.chargeTimeType.value}}</td>
+                                        <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><br/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div ng-if="existingPenalCharges.length > 0">
+                                <table class="width100">
+                                    <tr class="bottomborder">
+                                        <td colspan="5"><strong>{{'label.heading.overduepenalitycharge' | translate}}</strong></td>
+                                    </tr>
+                                    <tr class="bottomborder graybg">
+                                        <td>{{'label.heading.name' | translate}}</td>
+                                        <td>{{'label.heading.type' | translate}}</td>
+                                        <td>{{'label.heading.amount' | translate}}</td>
+                                        <td>{{'label.heading.collectedon' | translate}}</td>
+                                        <td>{{'label.checkbox.ismandatory' | translate}}</td>
+                                    </tr>
+                                    <tr ng-repeat="charge in existingPenalCharges">
                                         <td>{{charge.name}}</td>
                                         <td>{{charge.chargeCalculationType.value}}</td>
                                         <td>{{charge.amount|number}}</td>
@@ -873,7 +897,7 @@
                                 </select>
                                 <a href="javascript:void(0)" ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
                             </div>
-                            <table class="table" class="width100" ng-show="charges.length>0">
+                            <table class="table" class="width100" ng-show="feeCharges.length>0">
                                 <tr class="graybg">
                                     <th>{{'label.heading.name' | translate}}</th>
                                     <th>{{'label.heading.type' | translate}}</th>
@@ -882,16 +906,16 @@
                                     <th>{{'label.heading.date' | translate}}</th>
                                     <th>{{'label.heading.actions' | translate}}</th>
                                 </tr>
-                                <tr ng-repeat="charge in charges">
+                                <tr ng-repeat="charge in feeCharges">
                                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                                     <td>{{charge.chargeCalculationType.value}}</td>
-                                    <td><input id="{{charges[$index].amount}}" class="form-control" type="text"
+                                    <td><input id="{{feeCharges[$index].amount}}" class="form-control" type="text"
                                                ng-model="charge.amount"
                                                placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
                         || charge.chargeCalculationType.id == 6"></td>
                                     <td>{{charge.chargeTimeType.value}}</td>
                                     <td>
-                                        <input id="charges[{{$index}}].duedate" type="text"
+                                        <input id="feeCharges[{{$index}}].duedate" type="text"
                                                datepicker-pop="dd MMMM yyyy"
                                                class="form-control"
                                                placeholder="{{'label.input.duedate' | translate}}"
@@ -902,6 +926,26 @@
                                 </tr>
                             </table>
 
+                            <div ng-show="penalCharges.length>0">
+                                    <label><strong>{{ 'label.heading.overduepenalitycharge' | translate }}</strong></label>
+                                    <table class="table" class="width100" >
+                                        <tr class="graybg">
+                                            <th>{{'label.heading.name' | translate}}</th>
+                                            <th>{{'label.heading.type' | translate}}</th>
+                                            <th>{{'label.heading.amount' | translate}}</th>
+                                            <th>{{'label.heading.collectedon' | translate}}</th>
+                                        </tr>
+                                        <tr ng-repeat="charge in penalCharges">
+                                            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                                            <td>{{charge.chargeCalculationType.value}}</td>
+                                            <td ng-if="charge.isAmountNonEditable">{{charge.amount | number}}</td>
+                                            <td ng-if="!charge.isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text" ng-model="charge.amount"
+                                                placeholder="{{'label.input.amount' | translate}}" number-format /></td>
+                                            <td>{{charge.chargeTimeType.value}}</td>
+                                        </tr>
+                                    </table>
+                                </div><br><br>                    
+    
                             <div>
                                 <button type="button" class="btn btn-primary pull-right"
                                         ng-show="repaymentscheduleinfo.periods.length > 0 && response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.viewReportButton"

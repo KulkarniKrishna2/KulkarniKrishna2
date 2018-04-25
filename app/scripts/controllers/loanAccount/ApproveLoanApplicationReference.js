@@ -57,6 +57,10 @@
                             }
                         }
                         angular.copy(scope.charges,scope.existingCharges);
+                        scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
+                        scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
                 });
             };
@@ -295,11 +299,13 @@
                 if (scope.charges.length > 0) {
                     scope.formValidationData.charges = [];
                     for (var i in scope.charges) {
-                        scope.formValidationData.charges.push({
-                            chargeId: scope.charges[i].chargeId,
-                            amount: scope.charges[i].amount,
-                            dueDate: dateFilter(scope.charges[i].dueDate, scope.df)
-                        });
+                        if (!scope.charges[i].penalty) {
+                            scope.formValidationData.charges.push({
+                                chargeId: scope.charges[i].chargeId,
+                                amount: scope.charges[i].amount,
+                                dueDate: dateFilter(scope.charges[i].dueDate, scope.df)
+                            });
+                        }
                     }
                 }
 
@@ -625,6 +631,8 @@
                 scope.submitData.formRequestData = scope.formRequestData;
                 if (scope.charges.length > 0) {
                     scope.submitData.formRequestData.charges = [];
+                    scope.submitData.formValidationData.charges = [];
+                    scope.submitData.formValidationData.overdueCharges = [];
                     for (var i in scope.charges) {
                         //if (scope.charges[i].amount > 0){
                             var charge = {};
@@ -637,10 +645,19 @@
                         //charge.locale = scope.optlang.code;
                         //charge.dateFormat = scope.df;
                         scope.submitData.formRequestData.charges.push(charge);
+                        if (scope.charges[i].penalty && scope.loanaccountinfo.overdueCharges) {
+                            var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
+                                return element.chargeData.id == scope.charges[i].id;
+                            });
+                            if (overdueCharge) {
+                                scope.submitData.formValidationData.overdueCharges.push({ productChargeId: overdueCharge.id, amount: charge.amount });
+                            }
+                        } else {
+                            scope.submitData.formValidationData.charges.push(charge);
+                        }
                         //}
                     }
                 }
-                angular.copy(scope.submitData.formRequestData.charges, scope.submitData.formValidationData.charges);
                 /**
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}

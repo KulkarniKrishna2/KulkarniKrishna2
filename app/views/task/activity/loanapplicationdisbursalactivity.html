@@ -248,7 +248,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div ng-if="charges.length > 0" ng-hide="formData.status.id > 200">
+                            <div ng-if="feeCharges.length > 0" ng-hide="formData.status.id > 200">
                                 <table class="width100">
                                     <tr class="bottomborder">
                                         <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
@@ -259,7 +259,29 @@
                                         <td>{{'label.heading.amount' | translate}}</td>
                                         <td>{{'label.heading.collectedon' | translate}}</td>
                                     </tr>
-                                    <tr ng-repeat="charge in charges">
+                                    <tr ng-repeat="charge in feeCharges">
+                                        <td>{{charge.name}}</td>
+                                        <td>{{charge.chargeCalculationType.value}}</td>
+                                        <td>{{charge.amount|number}}</td>
+                                        <td>{{charge.chargeTimeType.value}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><br/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div ng-if="penalCharges.length > 0" ng-hide="formData.status.id > 200">
+                                <table class="width100">
+                                    <tr class="bottomborder">
+                                        <td colspan="4"><strong>{{'label.heading.overduepenalitycharge' | translate}}</strong></td>
+                                    </tr>
+                                    <tr class="bottomborder graybg">
+                                        <td>{{'label.heading.name' | translate}}</td>
+                                        <td>{{'label.heading.type' | translate}}</td>
+                                        <td>{{'label.heading.amount' | translate}}</td>
+                                        <td>{{'label.heading.collectedon' | translate}}</td>
+                                    </tr>
+                                    <tr ng-repeat="charge in penalCharges">
                                         <td>{{charge.name}}</td>
                                         <td>{{charge.chargeCalculationType.value}}</td>
                                         <td>{{charge.amount|number}}</td>
@@ -392,7 +414,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div width="width100" ng-if="charges.length > 0">
+                                <div width="width100" ng-if="feeCharges.length > 0">
                                     <table class="width100">
                                         <tr class="bottomborder">
                                             <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong>
@@ -404,7 +426,30 @@
                                             <td>{{'label.heading.amount' | translate}}</td>
                                             <td>{{'label.heading.collectedon' | translate}}</td>
                                         </tr>
-                                        <tr ng-repeat="charge in charges">
+                                        <tr ng-repeat="charge in feeCharges">
+                                            <td>{{charge.name}}</td>
+                                            <td>{{charge.chargeCalculationType.value}}</td>
+                                            <td>{{charge.amount|number}}</td>
+                                            <td>{{charge.chargeTimeType.value}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4"><br/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div width="width100" ng-if="penalCharges.length > 0">
+                                    <table class="width100">
+                                        <tr class="bottomborder">
+                                            <td colspan="4"><strong>{{'label.heading.overduepenalitycharge' | translate}}</strong>
+                                            </td>
+                                        </tr>
+                                        <tr class="bottomborder graybg">
+                                            <td>{{'label.heading.name' | translate}}</td>
+                                            <td>{{'label.heading.type' | translate}}</td>
+                                            <td>{{'label.heading.amount' | translate}}</td>
+                                            <td>{{'label.heading.collectedon' | translate}}</td>
+                                        </tr>
+                                        <tr ng-repeat="charge in penalCharges">
                                             <td>{{charge.name}}</td>
                                             <td>{{charge.chargeCalculationType.value}}</td>
                                             <td>{{charge.amount|number}}</td>

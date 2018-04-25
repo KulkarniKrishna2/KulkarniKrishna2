@@ -968,6 +968,7 @@
                         }else if(associations === 'charges'){
                             scope.ischarges = true;
                             scope.loandetails.charges = scope.loanSpecificData.charges;
+                            scope.loandetails.overdueCharges = scope.loanSpecificData.overdueCharges;
                             if (scope.loandetails.charges) {
                                 scope.charges = scope.loandetails.charges;
                                 for (var i in scope.charges) {

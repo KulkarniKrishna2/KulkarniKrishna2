@@ -1095,10 +1095,10 @@
                                 <th>{{'label.heading.collectedon' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in loandetails.overdueCharges">
-                                <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
-                                <td>{{charge.chargeCalculationType.value}}</td>
-                                <td>{{charge.amount | number}}</td>
-                                <td>{{charge.chargeTimeType.value}}</td>
+                                <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
+                                <td>{{charge.chargeData.chargeCalculationType.value}}</td>
+                                <td>{{charge.chargeData.amount | number}}</td>
+                                <td>{{charge.chargeData.chargeTimeType.value}}</td>
                             </tr>
                         </table>
                     </tab>

@@ -187,6 +187,8 @@
                                         }
                                     }
                                 }
+                                scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                                scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                             }
                         }
                     }else{
@@ -226,7 +228,7 @@
 
                     }
                 });
-
+                
             };
 
             scope.getSlabBasedAmount = function(slab, amount , repayment){
@@ -399,6 +401,8 @@
                                 }
                             }
                         }
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
                 });
             };

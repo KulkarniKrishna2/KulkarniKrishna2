@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        loanapplicationdisbursalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        loanapplicationdisbursalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $filter) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.issubmitted = false;
@@ -266,6 +266,8 @@
                                 }
                             }
                         }
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
                 });
             };
@@ -292,14 +294,14 @@
 
             scope.previewRepayments = function (isDisplayData) {
 
-                if (scope.charges.length > 0) {
+                if (scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
-                    for (var i in scope.charges) {
+                    for (var i in scope.feeCharges) {
                         var chargeData = {};
-                        chargeData.chargeId = scope.charges[i].chargeId;
-                        chargeData.amount = scope.charges[i].amount;
-                        if(scope.charges[i].dueDate){
-                            chargeData.dueDate = dateFilter(new Date(scope.charges[i].dueDate), scope.df);
+                        chargeData.chargeId = scope.feeCharges[i].chargeId;
+                        chargeData.amount = scope.feeCharges[i].amount;
+                        if(scope.feeCharges[i].dueDate){
+                            chargeData.dueDate = dateFilter(new Date(scope.feeCharges[i].dueDate), scope.df);
                         }
                         scope.formRequestData.submitApplication.charges.push(chargeData);
                     }
@@ -374,19 +376,32 @@
 
             scope.submit = function () {
                 scope.previewRepayments(false);
-                if (scope.charges.length > 0) {
+                if (scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
-                    for (var i in scope.charges) {
+                    for (var i in scope.feeCharges) {
                         var chargeData = {};
-                        chargeData.chargeId = scope.charges[i].chargeId;
-                        chargeData.amount = scope.charges[i].amount;
-                        if(scope.charges[i].dueDate){
+                        chargeData.chargeId = scope.feeCharges[i].chargeId;
+                        chargeData.amount = scope.feeCharges[i].amount;
+                        if(scope.feeCharges[i].dueDate){
                             chargeData.dueDate = dateFilter(new Date(scope.charges[i].dueDate), scope.df);
                         }
                         scope.formRequestData.submitApplication.charges.push(chargeData);
                     }
                 }
-
+                if (scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
+                    scope.formRequestData.submitApplication.overdueCharges = [];
+                    for (var i in scope.penalCharges) {
+                        var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
+                            return element.chargeData.id == scope.penalCharges[i].id;
+                        });
+                        if (overdueCharge) {
+                            var chargeData = {};
+                            chargeData.productChargeId = overdueCharge.id;
+                            chargeData.amount = scope.penalCharges[i].amount;
+                            scope.formRequestData.submitApplication.overdueCharges.push(chargeData);
+                        }
+                    }
+                }
                 if (scope.formRequestData.submitApplication.disbursementData != undefined && scope.formRequestData.submitApplication.disbursementData.length > 0) {
                     for (var i in  scope.formRequestData.submitApplication.disbursementData) {
                         if(i==0 && this.formRequestData.disburse.expectedDisbursementDate){
@@ -605,7 +620,7 @@
 
         }
     });
-    mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$filter', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {
         $log.info("loanapplicationdisbursalActivityController initialized");
     });
 }(mifosX.controllers || {}));

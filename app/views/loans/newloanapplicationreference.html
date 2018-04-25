@@ -426,6 +426,26 @@
             </tr>
         </table>
 
+        <div ng-show="loanaccountinfo.overdueCharges.length>0">
+            <label><strong>{{ 'label.heading.overduepenalitycharge' | translate }}</strong></label>
+            <table class="table" class="width100" >
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.collectedon' | translate}}</th>
+                </tr>
+                <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
+                    <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
+                    <td>{{charge.chargeData.chargeCalculationType.value}}</td>
+                    <td ng-if="charge.isAmountNonEditable">{{charge.chargeData.amount | number}}</td>
+                    <td ng-if="!charge.isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text" ng-model="charge.chargeData.amount"
+                        placeholder="{{'label.input.amount' | translate}}" number-format /></td>
+                    <td>{{charge.chargeData.chargeTimeType.value}}</td>
+                </tr>
+            </table>
+        </div><br><br>
+
         <div ng-show="previewRepayment" ng-include="'views/loans/loanrepaymentpreview.html'" />
 
         <div class="col-md-offset-5" ng-show="formData.loanProductId">
