@@ -38,6 +38,9 @@
         "expectedDisbursementDate": true,
         "firstRepaymentDate": false,
         "interestRatePerPeriod": true
+      },
+      "isMandatory": {
+        "trancheData":true
       }
     }
   }

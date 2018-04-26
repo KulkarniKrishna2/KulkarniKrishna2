@@ -18,6 +18,7 @@
 
             scope.formRequestData = {};
             scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
+            scope.loanApplicationReferenceTrancheDatas = [];
             scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.restrictDate), scope.df);
 
             scope.charges = [];
@@ -42,15 +43,29 @@
                  scope.formData.submittedOnDate=dateFilter(new Date(applicationData.submittedOnDate), scope.df);
                  scope.accountType = scope.formData.accountType.value.toLowerCase();
                  scope.loanProductChange(scope.formData.loanProductId);
+                 scope.formRequestData.interestRatePerPeriod = applicationData.interestRatePerPeriod;
+                 scope.formRequestData.amountForUpfrontCollection = applicationData.amountForUpfrontCollection;
+                 if(applicationData.expectedDisbursementDate != undefined){
+                        scope.formRequestData.expectedDisbursementDate=dateFilter(new Date(applicationData.expectedDisbursementDate), scope.df);
+                 }
+                 if(applicationData.expectedFirstRepaymentOnDate != undefined){
+                        scope.formRequestData.repaymentsStartingFromDate=dateFilter(new Date(applicationData.expectedFirstRepaymentOnDate), scope.df);
+                 }
                  resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId
                 }, function (loanData) {
-                    scope.loadLoanData(loanData);
-                    scope.isInitLoad = false;
+                        scope.loadLoanData(loanData);
+                        scope.isInitLoad = false;
                     //scope.formRequestData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                    // scope.formDataForValidtion();
-                });  
-            });
+                    });  
+                });
+
+                resourceFactory.loanApplicationReferencesTrancheResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationTrancheData) {
+                    if(applicationTrancheData){
+                        scope.loanApplicationReferenceTrancheDatas = applicationTrancheData;
+                    }
+                });
             }
 
             scope.refreshData();
@@ -58,11 +73,9 @@
             scope.loadLoanData = function(loanData){
                 if (loanData.loanAppSanctionId) {
                     scope.formRequestData = loanData;
+                    scope.status = 'SUMMARY';
                     if(scope.formRequestData.repaymentsStartingFromDate){
                         scope.formRequestData.repaymentsStartingFromDate = dateFilter(new Date(scope.formRequestData.repaymentsStartingFromDate), scope.df);
-                    }
-                    if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0){
-                        scope.status = 'SUMMARY';
                     }
                     delete scope.formRequestData.loanAppSanctionId;
                     delete scope.formRequestData.loanApplicationReferenceId;
@@ -162,9 +175,6 @@
                         }else if(scope.formData.status.id === scope.loanapplicationApproved){
                             scope.activityDone();
                             scope.isShowEditButton = false;
-                        }else if(scope.formData.status.id === scope.loanapplicationInApproval){
-                            scope.isShowEditButton = true;
-                            scope.status= 'SUMMARY';
                         }
                     });
                 });
@@ -173,9 +183,6 @@
             showSummary();
 
             scope.showEditForm=function(){
-                if(scope.status == 'SUMMARY'){
-                    scope.refreshData();
-                }
                 scope.changeLoanEMIPack=false;
                 scope.status = 'UPDATE';
             };
@@ -328,14 +335,22 @@
             scope.constructTranches = function () {
                 var noOfTranche = scope.formData.noOfTranche;
                 var i = 0;
-                while (i < noOfTranche) {
-                    var loanApplicationSanctionTrancheDatas = {};
+                if(scope.formRequestData.loanApplicationSanctionTrancheDatas.length===0){
+                    if(scope.loanApplicationReferenceTrancheDatas){
+                        for (var i = 0; i < scope.loanApplicationReferenceTrancheDatas.length; i++) {
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(scope.loanApplicationReferenceTrancheDatas[i]);
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.loanApplicationReferenceTrancheDatas[i].expectedTrancheDisbursementDate),  scope.df);
+                        }
+                    }else{
+                        while (i < noOfTranche) {
+                             var loanApplicationSanctionTrancheDatas = {};
                     //loanApplicationSanctionTrancheDatas.fixedEmiAmount = scope.formData.fixedEmiAmount;
-                    scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                    i++;
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                            i++;
+                        }
+                    }
+            
                 }
-
-
             };
 
             scope.rejectApprovalLoanAppRef = function () {
@@ -504,7 +519,12 @@
                         }
                     }
                 }else{
-                    if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas[0]) {
+                    if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length>0){
+                        for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate),  scope.df);
+                        }
+                    }
+                    else{
                         if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
                             var dateValue = scope.formRequestData.expectedDisbursementDate;
                             if ((new Date(dateValue)).toString() != 'Invalid Date') {
@@ -685,7 +705,7 @@
                     var length = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
                     for (var i = 0; i < length; i++) {
                         if(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate != undefined){
-                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate, scope.df);
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
                             scope.formRequestData.loanApplicationSanctionTrancheDatas[i].locale = scope.optlang.code;
                             scope.formRequestData.loanApplicationSanctionTrancheDatas[i].dateFormat = scope.df;
                         }else {
