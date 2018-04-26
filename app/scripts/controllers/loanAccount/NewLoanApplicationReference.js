@@ -129,7 +129,9 @@
                     }
                     if(scope.loanaccountinfo.multiDisburseLoan == true && scope.loanaccountinfo.product && scope.loanaccountinfo.product.maxTrancheCount){
                         scope.formData.noOfTranche = parseInt(scope.loanaccountinfo.product.maxTrancheCount);
+                        scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.product.maxPrincipal;
                     }
+                    scope.formData.interestRatePerPeriod = scope.loanaccountinfo.product.interestRatePerPeriod;
                     scope.formData.termFrequency = (scope.loanaccountinfo.repaymentEvery * scope.loanaccountinfo.numberOfRepayments);
                     scope.formData.termPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                     scope.charges = [];//scope.loanaccountinfo.charges || [];
