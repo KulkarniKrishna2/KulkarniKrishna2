@@ -538,8 +538,9 @@
             };
 
             scope.submit = function () {
-                // Make sure charges and collaterals are empty before initializing.
+                // Make sure charges, overdue charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
+                delete scope.formData.overdueCharges;
                 delete scope.formData.collateral;
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
@@ -556,6 +557,18 @@
                                 amount: scope.charges[i].amount,
                                 dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
                                 upfrontChargesAmount: scope.charges[i].glims
+                            });
+                        }
+                    }
+                }
+
+                if (scope.loanaccountinfo.overdueCharges && scope.loanaccountinfo.overdueCharges.length > 0) {
+                    scope.formData.overdueCharges = [];
+                    for (var i in scope.loanaccountinfo.overdueCharges) {
+                        if (scope.loanaccountinfo.overdueCharges[i].chargeData.amount > 0) {
+                            scope.formData.overdueCharges.push({
+                                productChargeId: scope.loanaccountinfo.overdueCharges[i].id,
+                                amount: scope.loanaccountinfo.overdueCharges[i].chargeData.amount
                             });
                         }
                     }

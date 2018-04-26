@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        ViewLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter, $filter) {
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             var curIndex = 0;
@@ -134,6 +134,8 @@
                                 }
                             }
                         }
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
                 });
             };
@@ -157,7 +159,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.ViewLoanApplicationReference]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.ViewLoanApplicationReference]).run(function ($log) {
         $log.info("ViewLoanApplicationReference initialized");
     });
 }(mifosX.controllers || {}));

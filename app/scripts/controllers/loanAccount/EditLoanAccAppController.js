@@ -285,7 +285,7 @@
                 scope.productLoanCharges = scope.loanaccountinfo.product.charges || [];
                 if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                     for(var i in scope.productLoanCharges){
-                        if(scope.productLoanCharges[i].chargeData){
+                        if(scope.productLoanCharges[i].chargeData && !scope.productLoanCharges[i].chargeData.penalty){
                             //if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
                                 var isChargeAdded = false;
                                 var loanChargeAmount = 0;
@@ -648,6 +648,7 @@
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
+                delete scope.formData.overdueCharges;
                 delete scope.formData.collateral;
 
                 if (scope.formData.disbursementData.length > 0) {
@@ -670,6 +671,18 @@
                                 amount: scope.charges[i].amountOrPercentage,
                                 dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
                                 upfrontChargesAmount: scope.charges[i].glims
+                            });
+                        }
+                    }
+                }
+                
+                if (scope.loanaccountinfo.overdueCharges && scope.loanaccountinfo.overdueCharges.length > 0) {
+                    scope.formData.overdueCharges = [];
+                    for (var i in scope.loanaccountinfo.overdueCharges) {
+                        if (scope.loanaccountinfo.overdueCharges[i].chargeData.amount > 0) {
+                            scope.formData.overdueCharges.push({
+                                id: scope.loanaccountinfo.overdueCharges[i].id,
+                                amount: scope.loanaccountinfo.overdueCharges[i].chargeData.amount
                             });
                         }
                     }

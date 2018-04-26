@@ -200,6 +200,10 @@
                             }
                         }
                         angular.copy(scope.charges,scope.existingCharges);
+                        scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
+                        scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
                 });
             };
@@ -370,11 +374,13 @@
                 if (scope.charges.length > 0) {
                     scope.formValidationData.charges = [];
                     for (var i in scope.charges) {
-                        scope.formValidationData.charges.push({
-                            chargeId: scope.charges[i].chargeId,
-                            amount: scope.charges[i].amount,
-                            dueDate: dateFilter(scope.charges[i].dueDate, scope.df)
-                        });
+                        if (!scope.charges[i].penalty) {
+                            scope.formValidationData.charges.push({
+                                chargeId: scope.charges[i].chargeId,
+                                amount: scope.charges[i].amount,
+                                dueDate: dateFilter(scope.charges[i].dueDate, scope.df)
+                            });
+                        }
                     }
                 }
 
@@ -728,6 +734,8 @@
                 angular.copy(scope.formRequestData,scope.submitData.formRequestData);
                 scope.submitData.formRequestData.syncRepaymentsWithMeeting = scope.submitData.formValidationData.syncRepaymentsWithMeeting;
                 scope.submitData.formRequestData.charges = [];
+                scope.submitData.formValidationData.charges = [];
+                scope.submitData.formValidationData.overdueCharges = [];
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
                         var charge = {};
@@ -754,10 +762,19 @@
                             //charge.locale = scope.optlang.code;
                             //charge.dateFormat = scope.df;
                         }
-                        scope.submitData.formRequestData.charges.push(charge);  
+                        scope.submitData.formRequestData.charges.push(charge);
+                        if (scope.charges[i].penalty && scope.loanaccountinfo.overdueCharges) {
+                            var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
+                                return element.chargeData.id == scope.charges[i].id;
+                            });
+                            if (overdueCharge) {
+                                scope.submitData.formValidationData.overdueCharges.push({ productChargeId: overdueCharge.id, amount: charge.amount });
+                            }
+                        } else {
+                            scope.submitData.formValidationData.charges.push(charge);
+                        }
                     }
                 }
-                angular.copy(scope.submitData.formRequestData.charges,scope.submitData.formValidationData.charges);
                 /**
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
@@ -858,7 +875,17 @@
                             //charge.locale = scope.optlang.code;
                             //charge.dateFormat = scope.df;
                         }
-                        scope.submitData.formRequestData.charges.push(charge);  
+                        scope.submitData.formRequestData.charges.push(charge);
+                        if (scope.charges[i].penalty && scope.loanaccountinfo.overdueCharges) {
+                            var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
+                                return element.chargeData.id == scope.charges[i].id;
+                            });
+                            if (overdueCharge) {
+                                scope.submitData.formValidationData.overdueCharges.push({ productChargeId: overdueCharge.id, amount: charge.amount });
+                            }
+                        } else {
+                            scope.submitData.formValidationData.charges.push(charge);
+                        }
                     }
                 }
                 /**
