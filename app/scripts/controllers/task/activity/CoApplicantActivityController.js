@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CoApplicantActivityController: function ($controller,scope, routeParams, resourceFactory, dateFilter, location, $q, $modal) {
-            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope,$key:"createClient"}));
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.clientId = scope.taskconfig['clientId'];
             scope.restrictDate = new Date();
