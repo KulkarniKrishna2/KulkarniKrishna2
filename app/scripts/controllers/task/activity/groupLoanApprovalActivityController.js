@@ -158,14 +158,20 @@
                                 scope.formRequestData.loanEMIPackId = scope.formRequestData.loanEMIPackData.id;
                                 delete scope.formRequestData.loanEMIPackData;
                             }
-                            scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                            if(scope.formRequestData.expectedDisbursementDate){
+                                scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                            }else {
+                                scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
+                            }
                             if (approvedData.loanApplicationSanctionTrancheDatas) {
                                 for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
                                 }
                             }
-                            if (scope.formRequestData.approvedOnDate) {
-                                scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate), scope.df);
+                            if(scope.formRequestData.approvedOnDate){
+                                scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate),scope.df);
+                            }else{
+                                scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.restrictDate), scope.df);
                             }
                         } else {
                             if (scope.formData.loanEMIPackData) {
@@ -469,11 +475,11 @@
                                 var len = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
                                 for (var i = 0; i < len; i++) {
                                     if (scope.formRequestData.repaymentPeriodFrequencyEnum === 0) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 1) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * 7 * disbursalEMIs[i]));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * 7 * disbursalEMIs[i]));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
-                                        date = date.setMonth(date.getMonth()(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
+                                        date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     }
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
@@ -540,11 +546,11 @@
                                         }
                                     }
                                     if (scope.formRequestData.repaymentPeriodFrequencyEnum === 0) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * emiPackNumber));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * emiPackNumber));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 1) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * 7 * emiPackNumber));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * 7 * emiPackNumber));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
-                                        date = date.setMonth(date.getMonth()(parseInt(scope.formRequestData.repayEvery) * emiPackNumber));
+                                        date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * emiPackNumber));
                                     }
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
                                     dateValue = scope.formRequestData.repaymentsStartingFromDate;
@@ -558,11 +564,11 @@
                                 var len = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
                                 for (var i = 0; i < len; i++) {
                                     if (scope.formRequestData.repaymentPeriodFrequencyEnum === 0) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 1) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * 7 * disbursalEMIs[i]));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * 7 * disbursalEMIs[i]));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
-                                        date = date.setMonth(date.getMonth()(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
+                                        date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     }
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
@@ -638,11 +644,11 @@
                                 var len = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
                                 for (var i = 0; i < len; i++) {
                                     if (scope.formRequestData.repaymentPeriodFrequencyEnum === 0) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 1) {
-                                        date = date.setDate(date.getDate()(parseInt(scope.formRequestData.repayEvery) * 7 * disbursalEMIs[i]));
+                                        date = date.setDate(date.getDate()+(parseInt(scope.formRequestData.repayEvery) * 7 * disbursalEMIs[i]));
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
-                                        date = date.setMonth(date.getMonth()(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
+                                        date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     }
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
@@ -827,7 +833,7 @@
             };
 
             scope.displayOnNoActiveLoanApplication = function(){
-               return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || scope.loanApplications.length <= 0);
+               return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || (scope.loanApplications && scope.loanApplications.length <= 0));
             }
             
         }
