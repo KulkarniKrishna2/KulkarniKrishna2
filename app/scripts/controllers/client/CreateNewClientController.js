@@ -374,9 +374,7 @@
                         delete scope.formAddressData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
-                    if(scope.talukas.length == 0){
-                        scope.showTalukas = false;
-                    }
+                    scope.showTalukas = (scope.talukas.length > 0); 
                 }
             }
 
