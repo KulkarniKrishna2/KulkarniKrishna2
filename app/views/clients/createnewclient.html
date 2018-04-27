@@ -348,7 +348,7 @@
 					<label class="control-label col-sm-2">
 						{{'label.input.statename' | translate}}  <span class="required">*</span>
 					</label>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<select chosen="states" id="stateId" name="states" ng-model="formAddressData.stateId" class="form-control"
 								ng-options="state.stateId as state.stateName for state in states"
 								value="{{state.stateId}}"
@@ -359,7 +359,7 @@
 					<div class="col-sm-1 paddinglr0px">
 						<form-validate valattributeform="createclientform" valattribute="states"/>
 					</div>
-					<label class="control-label col-sm-1">
+					<label class="control-label col-sm-2">
 						{{'label.input.districtname' | translate}}  <span class="required">*</span>
 					</label>
 
@@ -374,24 +374,23 @@
 					<div class="col-sm-1 paddinglr0px">
 						<form-validate valattributeform="createclientform" valattribute="districts"/>
 					</div>
-					<div class="col-sm-1">
-					</div>
+					<div class="col-sm-1"></div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2">
-						{{'label.input.talukname' | translate}}  <span class="required">*</span>
+					<label ng-if="showTalukas" class="control-label col-sm-2">
+						{{'label.input.talukname' | translate}}  <span ng-if="showTalukas" class="required">*</span>
 					</label>
-					<div class="col-sm-3">
+					<div ng-if="showTalukas" class="col-sm-2">
 						<select chosen="talukas" id="talukaId" name="talukas" ng-model="formAddressData.talukaId"
 								ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
 								value="{{taluka.talukaId}}" required late-validate="">
 							<option value="">{{'label.menu.selectTaluka' | translate}}</option>
 						</select>
 					</div>
-					<div class="col-sm-1 paddinglr0px">
+					<div ng-if="showTalukas" class="col-sm-1 paddinglr0px">
 						<form-validate valattributeform="createclientform" valattribute="talukas"/>
 					</div>
-					<label ng-show = "!pincode" class="control-label col-sm-1" for="pincode">{{'label.input.pincode' | translate}}
+					<label ng-show = "!pincode" class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
 						<span class="required">*</span>
 					</label>
 

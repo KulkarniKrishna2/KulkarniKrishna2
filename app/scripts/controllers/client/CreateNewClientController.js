@@ -50,6 +50,7 @@
                 scope.isDateOfBirthMandatory = true;
             }
             scope.invalidClassificationId = false;
+            scope.showTalukas = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -373,6 +374,9 @@
                         delete scope.formAddressData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
+                    if(scope.talukas.length == 0){
+                        scope.showTalukas = false;
+                    }
                 }
             }
 
