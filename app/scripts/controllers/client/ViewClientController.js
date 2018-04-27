@@ -981,7 +981,8 @@
             scope.saveNote = function () {
                 resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {
                     var today = new Date();
-                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
+                    var loggedInUserName = scope.currentSession.user.name;
+                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: loggedInUserName, createdOn: today };
                     scope.clientNotes.push(temp);
                     scope.formData.note = "";
                     scope.predicate = '-id';
