@@ -2,6 +2,10 @@
     mifosX.controllers = _.extend(module, {
 
         RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, http, API_VERSION, $rootScope, $sce) {
+            if($rootScope.retryReportData){
+                scope.retryReportData = $rootScope.retryReportData;
+                delete $rootScope.retryReportData;
+            }
             scope.isCollapsed = false; //displays options div on startup
             scope.hideTable = true; //hides the results div on startup
             scope.hidePentahoReport = true; //hides the results div on startup
@@ -25,7 +29,6 @@
             scope.pentahoReportParameters = [];
             scope.type = "pie";
             scope.restrictedDate = getMaximumRestrictedDate(new Date()) ;
-
             if(scope.response  && scope.response.uiDisplayConfigurations &&
                 scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.reportNames.indexOf(scope.reportName) > 0) {
                 scope.restrictedDate = scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.restrictedDate;
@@ -119,6 +122,7 @@
                 params.parameterType = true;
                 var successFunction = getSuccuessFunction(paramData);
                 resourceFactory.runReportsResource.getReport(params, successFunction);
+                buildRequestParamsData();
             }
 
             scope.getDependencies = function (paramData) {
@@ -264,6 +268,20 @@
                     }
                 }
             }
+
+        function buildRequestParamsData(){
+            if(scope.retryReportData && scope.retryReportData.inputParams && scope.reportParams.length>0){
+                for (var i in scope.reportParams) {
+                        var param = scope.reportParams[i].inputName;
+                            for(var j in scope.reportParams[i].selectOptions){
+                            if(scope.reportParams[i].selectOptions[j].id == scope.retryReportData.inputParams[param][0]){
+                                scope.formData[param] = scope.reportParams[i].selectOptions[j];
+                            }
+                        }
+                }
+            }
+            
+        }
 
             function buildReportParmsForReportRequest() {
                 var reportParams = {};

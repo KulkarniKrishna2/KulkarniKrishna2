@@ -87,6 +87,10 @@
                     window.open(url);
                 });
             }
+            scope.rerunreport = function (report) {
+                $rootScope.retryReportData = report;
+                location.path('/run_report/' + report.reportName).search({reportId: report.id, type: report.reportType});
+            }
         }
     });
     mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','$rootScope','API_VERSION','CommonUtilService', mifosX.controllers.ViewReportsController]).run(function ($log) {
