@@ -529,12 +529,11 @@
                 this.formPreviewRepaymentData.loanTermFrequencyType = this.formData.termPeriodFrequencyEnum;
 
                 if (this.formPreviewRepaymentData.disbursementData.length > 0) {
-                    this.formPreviewRepaymentData.disbursementData[0].expectedDisbursementDate = dateFilter(this.formPreviewRepaymentData.disbursementData[0].expectedTrancheDisbursementDate, scope.df);
-                    this.formPreviewRepaymentData.disbursementData[0].principal = this.formPreviewRepaymentData.disbursementData[0].trancheAmount;
-                    delete this.formPreviewRepaymentData.disbursementData[0].expectedTrancheDisbursementDate;
-                    delete this.formPreviewRepaymentData.disbursementData[0].trancheAmount;
-                    for (var i = 1 ; i<=this.formPreviewRepaymentData.disbursementData.length;i++) {
-                        this.formPreviewRepaymentData.disbursementData.splice(i,1);
+                    for (var i = 0 ; i<this.formPreviewRepaymentData.disbursementData.length;i++) {
+                        this.formPreviewRepaymentData.disbursementData[i].expectedDisbursementDate = dateFilter(this.formPreviewRepaymentData.disbursementData[i].expectedTrancheDisbursementDate, scope.df);
+                        this.formPreviewRepaymentData.disbursementData[i].principal = this.formPreviewRepaymentData.disbursementData[i].trancheAmount;
+                        delete this.formPreviewRepaymentData.disbursementData[i].expectedTrancheDisbursementDate;
+                        delete this.formPreviewRepaymentData.disbursementData[i].trancheAmount;
                     }
                 }       
 

@@ -168,6 +168,7 @@
 
                         scope.formData.termFrequency = (scope.loanaccountinfo.repaymentEvery * scope.loanaccountinfo.numberOfRepayments);
                         scope.formData.termPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
+                        scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                         scope.charges = [];//scope.loanaccountinfo.charges || [];
                         if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                             for(var i in scope.productLoanCharges){
