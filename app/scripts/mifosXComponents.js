@@ -525,7 +525,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'pdc/ManagePDCController',
             'pdc/ActionOnPDCController',
             'task/showcase/VillageOnboardingWorkflowController',
-            'organization/BulkRescheduleSavingsAccountInstallmentController'
+            'organization/BulkRescheduleSavingsAccountInstallmentController',
+            'organization/bulktransfer/InitiateBulkTransferController',
+            'organization/bulktransfer/BulkTransferController',
+            'organization/bulktransfer/ViewBulkTransferController'
         ],
         filters: [
             'StatusLookup',
