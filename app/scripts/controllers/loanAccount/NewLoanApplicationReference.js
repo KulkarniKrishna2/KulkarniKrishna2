@@ -131,6 +131,9 @@
                     if(scope.loanaccountinfo.multiDisburseLoan == true && scope.loanaccountinfo.product){
                         if(scope.loanaccountinfo.product.maxTrancheCount){
                             scope.formData.noOfTranche = parseInt(scope.loanaccountinfo.product.maxTrancheCount);
+                            if (scope.formData.noOfTranche && scope.formData.noOfTranche > 0) {
+                                scope.constructTranches();
+                            }
                         }
                         scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.product.outstandingLoanBalance;
                     }
@@ -209,6 +212,16 @@
 
             scope.deleteTranches = function (index) {
                 scope.formData.disbursementData.splice(index, 1);
+            };
+
+            scope.constructTranches = function () {
+                var noOfTranche = scope.formData.noOfTranche;
+                var i = 0;
+                while (i < noOfTranche) {
+                    var loanApplicationReferenceTrancheDatas = {};
+                    scope.formData.disbursementData.push(loanApplicationReferenceTrancheDatas);
+                    i++;
+                }
             };
 
             scope.addCharge = function () {
