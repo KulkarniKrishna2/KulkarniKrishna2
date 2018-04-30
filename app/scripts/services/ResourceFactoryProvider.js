@@ -1255,6 +1255,14 @@
                     }),
                     rescheduleSavingsInstallments: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments", {}, {
                         reschedule:{method:'POST' , params:{}}
+                    }),
+                    bulkTransferTemplateResource: defineResource(apiVer + "/bulktransfer/template", {}, {
+                        get:{method:'GET' , params:{}}
+                    }),
+                    bulkTransferResource: defineResource(apiVer + "/bulktransfer/:branchTransferId", {branchTransferId:'@branchTransferId'}, {
+                        getAll:{method:'GET' , params:{}, isArray:true},
+                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
+                        actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
                     })
                 };
             }];

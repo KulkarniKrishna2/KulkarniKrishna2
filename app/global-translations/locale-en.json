@@ -6409,5 +6409,28 @@
     "validation.msg.savingsaccount.adjustedDueDate.cannot.be.blank": "Reschedule to date cannot be blank.",
     "validation.msg.reschedule installment.rescheduleFromDate.is.less.than.date" : "Reschedule from date cannot be before current date",
 
+    "#Bulk Transfer" : "",
+    "label.anchor.bulk.transfer" : "Bulk Transfer",
+    "label.define.bulk.transfer" : "Transfer Staff, Centers, Groups and Clients between offices",   
+    "label.anchor.initiate.bulk.transfer" : "Initiate Bulk Transfer",
+    "label.define.initiate.bulk.transfer":"Initiate bulk transfer of Staff, Centers, Groups and Clients",
+    "label.input.assign.to.staff" : "Assign to Staff",
+    "label.heading.from.office" : "From Office",
+    "label.heading.to.office" : "To Office",
+    "label.heading.from.staff" : "From Staff",
+    "label.heading.to.staff" : "To Staff",
+    "label.heading.is.transfer.staff" : "Is transfer Staff",
+    "label.heading.requested.data" : "Requested Data",
+    "label.input.is.transfer.staff" : "Is transfer Staff",
+    "error.msg.branch.transfer.state.must.be.submitted.and.pending.to.reject" : "Branch transfer request must be in submitted and pending state.",
+    "error.msg.branch.transfer.state.must.be.submitted.and.pending.to.approve" : "Branch transfer request must be in submitted and pending state.",
+    "label.heading.transfer.staff.also" : "Transfer Staff Also",
+    "label.view.bulk.transfer" : "View bulk transfer request",
+    "label.anchor.view.bulk.transfer" : "View Bulk Transfer",
+    "validation.msg.bulktransfer.fromOfficeId.same.as.toOfficeId" : "Bulk Transfer from office and to office can not be same.",
+    "label.anchor.bulk.transfer.request" : "Bulk Transfer Request",
+    "validation.msg.bulktransfer.fromStaffId.not.greater.than.zero" : "From Staff is invalid.",
+    "validation.msg.bulktransfer.fromStaffId.cannot.be.blank" : "From Staff must be selected",
+
     "------ end of tensalation file":"---------"
 }

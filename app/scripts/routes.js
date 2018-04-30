@@ -1610,6 +1610,18 @@
             })
             .when('/reschedulesavingsinstallmentduedate', {
                 templateUrl: 'views/organization/bulksavingsaccountinstallmentreschedule.html'
+            })            
+            .when('/viewbulktransfer', {
+                templateUrl: 'views/organization/bulktransfer/bulktransfermenu.html'
+            })
+            .when('/bulktransfer', {
+                templateUrl: 'views/organization/bulktransfer/bulktransfer.html'
+            })
+            .when('/viewbulktransfer/:id', {
+                templateUrl: 'views/organization/bulktransfer/viewbulktransfer.html'
+            })
+            .when('/initiatebulktransfer', {
+                templateUrl: 'views/organization/bulktransfer/initiatebulktransfer.html'
             })
         $locationProvider.html5Mode(false);
     };
