@@ -17,6 +17,7 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+            scope.formData.disbursementData=[];
 
             scope.paymentModeOptions = [];
             scope.repaymentTypeOption = [];
@@ -31,6 +32,7 @@
             scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
             scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
             scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
+            scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
             scope.previewRepayment = false;
             scope.isMultiDisburse = false;
 
@@ -71,23 +73,25 @@
                     scope.formData.discountOnDisbursalAmount = scope.applicationData.discountOnDisbursalAmount;
                 }
                 scope.loanProductChange(applicationData.loanProductId, false);
+                scope.formData.interestRatePerPeriod=applicationData.interestRatePerPeriod;
+                if(applicationData.expectedDisbursementDate != undefined){
+                        scope.formData.expectedDisbursementDate=dateFilter(new Date(applicationData.expectedDisbursementDate), scope.df);
+                }
+                if(applicationData.expectedFirstRepaymentOnDate != undefined){
+                        scope.formData.repaymentsStartingFromDate=dateFilter(new Date(applicationData.expectedFirstRepaymentOnDate), scope.df);
+                }
+                if(applicationData.maxOutstandingLoanBalance){
+                        scope.formData.maxOutstandingLoanBalance = approveddata.maxOutstandingLoanBalance;
+                }
             });
 
-            resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
-                loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                command: 'approveddata'
-                }, function (approveddata) {
-                    scope.formData.interestRatePerPeriod=approveddata.interestRatePerPeriod;
-                    if(approveddata.expectedDisbursementDate != undefined){
-                        scope.formData.expectedDisbursementDate=dateFilter(new Date(approveddata.expectedDisbursementDate), scope.df);
+            resourceFactory.loanApplicationReferencesTrancheResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationTrancheData) {
+                    if(applicationTrancheData){
+                        scope.formData.disbursementData = applicationTrancheData;
+                        for (var i in applicationTrancheData) {
+                            scope.formData.disbursementData[i].expectedTrancheDisbursementDate = dateFilter(new Date(applicationTrancheData[i].expectedTrancheDisbursementDate),  scope.df);
+                        }
                     }
-                    if(approveddata.repaymentsStartingFromDate != undefined){
-                        scope.formData.repaymentsStartingFromDate=dateFilter(new Date(approveddata.repaymentsStartingFromDate), scope.df);
-                    }
-                    if(approveddata.loanApplicationSanctionTrancheDatas){
-                        scope.loanApplicationSanctionTrancheDatas = approveddata.loanApplicationSanctionTrancheDatas;
-                    }
-                   
             });
 
             var curIndex = 0;
@@ -122,6 +126,9 @@
                     scope.productLoanCharges = data.product.charges || [];
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     scope.isMultiDisburse = scope.product.multiDisburseLoan;
+                    if(scope.isMultiDisburse){
+                        scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.product.outstandingLoanBalance;
+                    }
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
                         for(var i = 0; i < len; i++){
@@ -408,6 +415,15 @@
                 scope.formData.termPeriodFrequencyEnum =  scope.formData.repaymentPeriodFrequencyEnum;
             };
 
+            scope.addTranches = function () {
+                scope.formData.disbursementData.push({
+                });
+            };
+
+            scope.deleteTranches = function (index) {
+                scope.formData.disbursementData.splice(index, 1);
+            };
+
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
@@ -443,6 +459,13 @@
                 if(scope.formData.repaymentsStartingFromDate != undefined){
                     this.formData.repaymentsStartingFromDate=dateFilter(new Date(scope.formData.repaymentsStartingFromDate),scope.df);
                 }
+                if(scope.formData.noOfTranche && scope.formData.noOfTranche > 0 && scope.loanReferenceTrancheData){
+                    for(var i=0;i<scope.formData.disbursementData.length;i++) {
+                        this.formData.disbursementData[i].expectedTrancheDisbursementDate=dateFilter(this.formData.disbursementData[i].expectedTrancheDisbursementDate,scope.df);
+                    }
+                }else{
+                    delete this.formData.disbursementData;
+                }
                 for(var i = 0 ; i < scope.charges.length; i++) {
                     var charge = {};
                     if (scope.charges[i].loanAppChargeId) {
@@ -460,6 +483,7 @@
                     this.formData.charges.push(charge);
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
+                this.formData.noOfTranche = parseInt(this.formData.noOfTranche);
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId}, this.formData, function (data) {

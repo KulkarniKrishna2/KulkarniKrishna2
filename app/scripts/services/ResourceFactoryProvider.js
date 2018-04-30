@@ -252,6 +252,9 @@
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    loanApplicationReferencesTrancheResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/tranchedatas", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        getByLoanAppId: {method: 'GET', params: {}, isArray: true}
+                    }),
                     loanApplicationOverViewsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/overviews", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         getByClientId: {method: 'GET', params: {}, isArray: true},
                         getByLoanAppId: {method: 'GET', params: {}},
