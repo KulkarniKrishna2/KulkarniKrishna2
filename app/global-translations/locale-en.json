@@ -7038,5 +7038,9 @@
      "label.heading.total.income" : "Total Income",
      "label.heading.default.income" : "Default Income",
      "error.msg.discount.on.disbursal.is.available.only.for.flat.interest.rate" : "Discount on disbursal is available only with Flat interest rate.",
+    "invalid.name.format":"Please enter a valid name",
+    "invalid.accountnumber.format":"Please enter a valid account number",
+    "invalid.bankCity.format":"Please enter a valid city name",
+    "invalid.branchName.format":"Please enter a valid branch name",
     "------ end of tensalation file":"---------"
 }

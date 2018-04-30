@@ -12,10 +12,13 @@
 
                 <div class="col-sm-3">
                     <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
-                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')" />
+                           type="text"  ng-pattern="/^[a-zA-Z]+([a-zA-Z\s][a-zA-Z]+)*$/" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')" />
                 </div>
                <div class="col-sm-2">
-                <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountHolderName"/>
+                   <span ng-show="bankaccountdetail.bankAccountHolderName.$error.pattern">
+                        <small class="required">{{'invalid.name.format' | translate}}</small>
+                   </span>
+                   <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountHolderName"/>
                 </div>
             </div>
             <div class="form-group" ng-if="!isElemHidden('bankAccountNumberRepeat')">
@@ -24,12 +27,15 @@
 
                 <div class="col-sm-3">
                     <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
-                           type="password" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
+                           type="password" ng-pattern="/^[a-zA-Z0-9_]*$/" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
                 </div>
                 <div class="col-sm-2">
-                     <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
-                <small class="required">
-                    {{'label.mismatch.account.number' | translate}}</small></span>
+                    <span ng-show="bankaccountdetail.bankAccountNumberRepeat.$error.pattern">
+                        <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                    </span>
+                    <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
+                        <small class="required">{{'label.mismatch.account.number' | translate}}</small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumberRepeat"/>
                 </div>
             </div>
@@ -39,9 +45,12 @@
 
                 <div class="col-sm-3">
                     <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                           type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
+                           type="text" ng-pattern="/^[a-zA-Z0-9_]*$/" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-2">
+                    <span ng-show="bankaccountdetail.bankAccountNumber.$error.pattern">
+                        <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumber"/>
                 </div>
             </div>
@@ -70,13 +79,13 @@
                            ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
                 </div>
                 <div class="col-sm-2">
-                    <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
+                     <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
                         <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
                      </span>
                      <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
                         <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
                      </span>
-                    <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat"/>
+                     <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat"/>
                 </div>
             </div>
             <div class="form-group" ng-if="!isElemHidden('bankIFSCCode')">
@@ -89,10 +98,11 @@
                 </div>
                 <div class="col-sm-3">
                     <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
-                    <small class="required" ng-show="bankaccountdetail.bankIFSCCode.$error.pattern">
-                    {{'inavalid.ifsc.format' | translate}}</small></span>
+                       <small class="required" ng-show="bankaccountdetail.bankIFSCCode.$error.pattern">
+                          {{'inavalid.ifsc.format' | translate}}</small></span>
                     <span ng-show="bankaccountdetail.bankIFSCCode.$error.minlength">
-                       <small class="required"> {{'error.msg.ifsc.minimum.number' | translate}}</small></span>
+                       <small class="required"> {{'error.msg.ifsc.minimum.number' | translate}}</small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="bankIFSCCode"/>
                 </div>
             </div>
@@ -106,8 +116,10 @@
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.micrCode.$invalid && bankaccountdetail.micrCode.$dirty">
-                <small class="required" ng-show="bankaccountdetail.micrCode.$error.pattern">
-                    {{'inavalid.micr.format' | translate}}</small></span>
+                        <small class="required" ng-show="bankaccountdetail.micrCode.$error.pattern">
+                            {{'inavalid.micr.format' | translate}}
+                        </small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="micrCode"/>
                 </div>
             </div>
@@ -129,9 +141,12 @@
                     <span ng-show="isElemMandatory('branchName')" class="required">*</span></label>
                 <div class="col-sm-3">
                     <input name="branchName" id="branchName" ng-model="formData.branchName"
-                           type="text" ng-required="isElemMandatory('branchName')" class="form-control"/>
+                           type="text" ng-pattern="/^[A-Za-z]*$/" maxlength="20" ng-required="isElemMandatory('branchName')" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
+                    <span ng-show="bankaccountdetail.branchName.$error.pattern">
+                        <small class="required">{{'invalid.branchName.format' | translate}}</small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="branchName"/>
                 </div>
             </div>
@@ -141,9 +156,12 @@
 
                 <div class="col-sm-3">
                     <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
-                           type="text" class="form-control" ng-required="isElemMandatory('bankCity')"/>
+                           type="text" ng-pattern="/^[A-Za-z]*$/" maxlength="20"  class="form-control" ng-required="isElemMandatory('bankCity')"/>
                 </div>
                 <div class="col-sm-2">
+                    <span ng-show="bankaccountdetail.bankCity.$error.pattern">
+                        <small class="required">{{'invalid.bankCity.format' | translate}}</small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="bankCity"/>
                 </div>
             </div>
@@ -157,8 +175,10 @@
                 </div>
                 <div class="col-sm-2">
                      <span ng-show="bankaccountdetail.mobileNumber.$invalid && bankaccountdetail.mobileNumber.$dirty">
-                <small class="required" ng-show="bankaccountdetail.mobileNumber.$error.pattern">
-                    {{'label.must.be.ten.digits.numeric' | translate}}</small></span>
+                         <small class="required" ng-show="bankaccountdetail.mobileNumber.$error.pattern">
+                             {{'label.must.be.ten.digits.numeric' | translate}}
+                         </small>
+                     </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="mobileNumber"/>
                 </div>
             </div>
