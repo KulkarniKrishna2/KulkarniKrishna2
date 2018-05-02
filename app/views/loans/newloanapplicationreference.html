@@ -319,7 +319,7 @@
             </tr>
         </table>
 
-            <div ng-show="loanaccountinfo.product.multiDisburseLoan && !isHiddenTrancheData">
+            <div ng-if="loanaccountinfo.product.multiDisburseLoan && !isHiddenTrancheData">
                 <hr/>
                 <label><strong>{{ 'label.heading.tranchedetails' | translate }}</strong></label>
                 <table class="width100">
