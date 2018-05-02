@@ -37,6 +37,9 @@
             scope.loanapplicationApproved=300
             scope.isShowEditButton = true;
 
+            scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
+            scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+
             scope.refreshData = function(){
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
@@ -740,9 +743,6 @@
                 scope.submitData.formValidationData = scope.formValidationData;
                 if(scope.formRequestData.netLoanAmount != undefined){
                     delete scope.formRequestData.netLoanAmount;
-                }
-                if(scope.formRequestData.isFlatInterestRate != undefined){
-                    delete scope.formRequestData.isFlatInterestRate;
                 }
 
                 angular.copy(scope.formRequestData,scope.submitData.formRequestData);

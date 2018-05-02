@@ -246,6 +246,11 @@
                                        <td><label>{{ 'label.input.discountondisbursalamount' | translate }}:</label>&nbsp;</td>
                                         <td>{{formData.discountOnDisbursalAmount|number}}</td>
                                     </tr>
+                                    <tr>
+                                        <th>{{'label.heading.interestperannum' | translate}}:</th>
+                                        <td ng-if="formRequestData.interestRatePerPeriod">{{formRequestData.interestRatePerPeriod}}</td>
+                                        <td ng-if="formRequestData.interestRatePerPeriod === undefined">{{loanaccountinfo.interestRatePerPeriod}}</td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
@@ -488,6 +493,19 @@
                                     <td class="width36 paddedbottom10">
                                         <input id="discountondisbursalamount" name="discountondisbursalamount" type="text"
                                         ng-model="formRequestData.discountOnDisbursalAmount" class="form-control" number-format/>
+                                    </td>
+                                </tr>
+
+                                <tr >
+                                    <td class="width19" ng-show="!isHiddenInterestRatePerPeriod">
+                                        <label>{{ 'label.input.nominalinterestrate' | translate }}<span
+                                                class="required"
+                                                ng-show="isMandatoryInterestRatePerPeriod">*</span>:&nbsp;
+                                        </label>
+                                    </td>
+                                    <td class="width31 paddedbottom10" ng-show="!isHiddenInterestRatePerPeriod">
+                                        <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" ng-required="isMandatoryInterestRatePerPeriod" ng-model="formRequestData.interestRatePerPeriod"/> 
+                                        &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
                                     </td>
                                 </tr>
 
