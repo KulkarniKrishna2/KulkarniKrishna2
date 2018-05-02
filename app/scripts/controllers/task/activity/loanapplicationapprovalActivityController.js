@@ -305,7 +305,6 @@
                 scope.formValidationData.numberOfRepayments = scope.formRequestData.numberOfRepayments;
                 scope.formValidationData.repaymentEvery = scope.formRequestData.repayEvery;
                 scope.formValidationData.repaymentFrequencyType = scope.formRequestData.repaymentPeriodFrequencyEnum;
-
                 scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formValidationData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formValidationData.interestType = scope.loanaccountinfo.interestType.id;
@@ -478,7 +477,12 @@
             };
 
             scope.$watch('formRequestData.expectedDisbursementDate', function () {
-                scope.initializeTrancheDetails();
+                if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
+                        var dateValue = scope.formRequestData.expectedDisbursementDate;
+                    if ((new Date(dateValue)).toString() != 'Invalid Date') {
+                        scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
+                    }
+                }
             });
             scope.initializeTrancheDetails = function(){
                 if(scope.formRequestData.loanEMIPackId){
@@ -526,15 +530,6 @@
                         for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                             scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate),  scope.df);
                         }
-                    }
-                    else{
-                        if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
-                            var dateValue = scope.formRequestData.expectedDisbursementDate;
-                            if ((new Date(dateValue)).toString() != 'Invalid Date') {
-                                scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
-                            }
-                        }
-
                     }
                 }
             }
