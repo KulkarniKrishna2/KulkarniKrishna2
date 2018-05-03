@@ -67,7 +67,7 @@
                     };
                     scope.reqFields.push(temp);
                     if ((temp.displayType == 'select' || temp.displayType == 'multiselect') && temp.parentParameterName == null) {
-                        intializeParams(temp, {});
+                        intializeParams(temp, {},true);
                     } else if (temp.displayType == 'date') {
                         scope.reportDateParams.push(temp);
                     } else if (temp.displayType == 'text') {
@@ -115,17 +115,17 @@
                 return successFunction;
             }
 
-            function intializeParams(paramData, params) {
+            function intializeParams(paramData, params,isRerun) {
                 scope.errorStatus = undefined;
                 scope.errorDetails = [];
                 params.reportSource = paramData.name;
                 params.parameterType = true;
                 var successFunction = getSuccuessFunction(paramData);
                 resourceFactory.runReportsResource.getReport(params, successFunction);
-                buildRequestParamsData();
+                buildRequestParamsData(isRerun);
             }
 
-            scope.getDependencies = function (paramData) {
+            scope.getDependencies = function (paramData,isRerun) {
                 for (var i = 0; i < scope.reqFields.length; i++) {
                     var temp = scope.reqFields[i];
                     if (temp.parentParameterName == paramData.name) {
@@ -133,7 +133,7 @@
                             var parentParamValue = this.formData[paramData.inputName].id;
                             if (parentParamValue != undefined) {
                                 eval("var params={};params." + paramData.inputName + "='" + parentParamValue + "';");
-                                intializeParams(temp, params);
+                                intializeParams(temp, params,isRerun);
                             }
                         } else if (temp.displayType == 'date') {
                             scope.reportDateParams.push(temp);
@@ -269,8 +269,8 @@
                 }
             }
 
-        function buildRequestParamsData(){
-            if(scope.retryReportData && scope.retryReportData.inputParams && scope.reportParams.length>0){
+        function buildRequestParamsData(isRerun){
+            if(scope.retryReportData && scope.retryReportData.inputParams && scope.reportParams.length>0 && isRerun){
                 for (var i in scope.reportParams) {
                         var param = scope.reportParams[i].inputName;
                             for(var j in scope.reportParams[i].selectOptions){
