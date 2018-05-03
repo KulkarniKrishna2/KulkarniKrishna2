@@ -304,7 +304,7 @@
                     <td class="width36 paddedbottom10">
                         <input id="maxOutstandingLoanBalance" type="text" class="form-control" ng-model="formData.maxOutstandingLoanBalance" number-format>&nbsp;
                         <a title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()"
-                        ng-show="formData.disbursementData.length < loanaccountinfo.product.maxTrancheCount"><i
+                        ng-show="formData.disbursementData.length < formData.noOfTranche"><i
                                 class="icon-plus icon-white"></i></a>
                     </td>
                 </tr>
