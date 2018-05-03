@@ -223,7 +223,11 @@
                 scope.formValidationData.loanTermFrequency = scope.formRequestData.termFrequency;
                 scope.formValidationData.loanTermFrequencyType = scope.formRequestData.termPeriodFrequencyEnum;
 
-                scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                if(scope.formRequestData.interestRatePerPeriod){
+                    scope.formValidationData.interestRatePerPeriod = scope.formRequestData.interestRatePerPeriod; 
+                }else{
+                    scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                }
                 scope.formValidationData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formValidationData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formValidationData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
@@ -366,6 +370,10 @@
                 }
 
                 this.formValidationData.principal = this.formRequestData.loanAmountApproved;
+
+                if(scope.formRequestData.interestRatePerPeriod){
+                    this.formValidationData.interestRatePerPeriod = scope.formRequestData.interestRatePerPeriod; 
+                }
 
                 this.formValidationData.loanType = scope.inparams.templateType;
                 if (scope.formRequestData.expectedDisbursementDate) {
