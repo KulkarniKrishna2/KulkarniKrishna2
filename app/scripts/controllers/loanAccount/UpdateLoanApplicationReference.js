@@ -534,11 +534,11 @@
             };
 
             scope.showBackToPreviewRepayments = function(){
-                return (!scope.isHiddenExpectedDisbursementDate && !scope.isMultiDisburse && (scope.loanaccountinfo && scope.previewRepayment));
+                return (!scope.isHiddenExpectedDisbursementDate && (scope.loanaccountinfo && scope.previewRepayment));
             };
 
             scope.showPreviewRepayments = function(){
-                return (!scope.isHiddenExpectedDisbursementDate && !scope.isMultiDisburse && (scope.loanaccountinfo && !scope.previewRepayment));
+                return (!scope.isHiddenExpectedDisbursementDate && (scope.loanaccountinfo && !scope.previewRepayment));
             };
 
             scope.previewRepayments = function(data) {
@@ -567,6 +567,24 @@
                 if (this.formData.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                     scope.calculateLoanScheduleData.syncRepaymentsWithMeeting = this.formData.syncRepaymentsWithMeeting;
+                }
+
+                if (scope.loanaccountinfo.calendarOptions) {
+                    if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
+                        scope.calculateLoanScheduleData.syncDisbursementWithMeeting = false;
+                    } else {
+                        scope.calculateLoanScheduleData.syncDisbursementWithMeeting = true;
+                        this.calculateLoanScheduleData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    }
+                }
+
+                if (this.calculateLoanScheduleData.disbursementData.length > 0) {
+                    for (var i = 0 ; i<this.calculateLoanScheduleData.disbursementData.length;i++) {
+                        this.calculateLoanScheduleData.disbursementData[i].expectedDisbursementDate = dateFilter(this.calculateLoanScheduleData.disbursementData[i].expectedTrancheDisbursementDate, scope.df);
+                        this.calculateLoanScheduleData.disbursementData[i].principal = this.calculateLoanScheduleData.disbursementData[i].trancheAmount;
+                        delete this.calculateLoanScheduleData.disbursementData[i].expectedTrancheDisbursementDate;
+                        delete this.calculateLoanScheduleData.disbursementData[i].trancheAmount;
+                    }
                 }
 
                 if(this.loanaccountinfo.loanEMIPacks && scope.formData.loanEMIPackId){
@@ -598,6 +616,21 @@
                     scope.calculateLoanScheduleData.repaymentEvery = scope.formData.repayEvery;  
                     scope.calculateLoanScheduleData.loanTermFrequencyType =  scope.formData.termPeriodFrequencyEnum;
                 }
+
+                if(scope.product){
+                    this.calculateLoanScheduleData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.product.allowPartialPeriodInterestCalcualtion;
+                    this.calculateLoanScheduleData.transactionProcessingStrategyId = this.product.transactionProcessingStrategyId;
+                    this.calculateLoanScheduleData.interestCalculationPeriodType = this.product.interestCalculationPeriodType.id;
+                    this.calculateLoanScheduleData.interestType = this.product.interestType.id;
+                    this.calculateLoanScheduleData.amortizationType = scope.product.amortizationType.id; 
+                }
+
+                if(this.formData.interestRatePerPeriod){
+                    this.calculateLoanScheduleData.interestRatePerPeriod = this.formData.interestRatePerPeriod;
+                }else{
+                    this.calculateLoanScheduleData.interestRatePerPeriod = scope.product.interestRatePerPeriod;
+                }
+
                 scope.calculateLoanScheduleData.interestRatePerPeriod = scope.formData.interestRatePerPeriod;
                
                 delete   scope.calculateLoanScheduleData.loanProductId;
