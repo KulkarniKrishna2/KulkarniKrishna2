@@ -276,10 +276,10 @@
                     }
                     scope.formRequestData.submitApplication.fundId = scope.loanaccountinfo.fundId;
                     if (scope.formData.approvedData.interestRatePerPeriod) {
-+                        scope.formRequestData.submitApplication.interestRatePerPeriod = scope.formData.approvedData.interestRatePerPeriod;
-+                    }else{
-+                        scope.formRequestData.submitApplication.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
-+                    }
+                        scope.formRequestData.submitApplication.interestRatePerPeriod = scope.formData.approvedData.interestRatePerPeriod;
+                    }else{
+                        scope.formRequestData.submitApplication.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                    }
                     scope.formRequestData.submitApplication.amortizationType = scope.loanaccountinfo.amortizationType.id;
                     scope.formRequestData.submitApplication.interestType = scope.loanaccountinfo.interestType.id;
                     scope.formRequestData.submitApplication.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
