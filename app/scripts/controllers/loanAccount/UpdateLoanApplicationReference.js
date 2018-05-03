@@ -598,7 +598,7 @@
                     scope.calculateLoanScheduleData.repaymentEvery = scope.formData.repayEvery;  
                     scope.calculateLoanScheduleData.loanTermFrequencyType =  scope.formData.termPeriodFrequencyEnum;
                 }
-                scope.calculateLoanScheduleData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                scope.calculateLoanScheduleData.interestRatePerPeriod = scope.formData.interestRatePerPeriod;
                
                 delete   scope.calculateLoanScheduleData.loanProductId;
                 delete   scope.calculateLoanScheduleData.loanAmountRequested;
