@@ -457,6 +457,18 @@
                     this.formValidationData.maxOutstandingLoanBalance = this.formRequestData.maxOutstandingLoanBalance;
                 }
 
+                if(this.formRequestData.amountForUpfrontCollection && this.formRequestData.amountForUpfrontCollection > 0){
+                    this.formValidationData.amountForUpfrontCollection = this.formRequestData.amountForUpfrontCollection;
+                }else{
+                    delete this.formValidationData.amountForUpfrontCollection;
+                }
+
+                if(this.formRequestData.discountOnDisbursalAmount && this.formRequestData.discountOnDisbursalAmount > 0){
+                    this.formValidationData.discountOnDisbursalAmount = this.formRequestData.discountOnDisbursalAmount;
+                }else{
+                    delete this.formValidationData.discountOnDisbursalAmount;
+                }
+
                 this.formValidationData.loanTermFrequency = this.formRequestData.termFrequency;
                 this.formValidationData.loanTermFrequencyType = this.formRequestData.termPeriodFrequencyEnum;
                 this.formValidationData.numberOfRepayments = this.formRequestData.numberOfRepayments;
