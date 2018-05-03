@@ -477,12 +477,7 @@
             };
 
             scope.$watch('formRequestData.expectedDisbursementDate', function () {
-                if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
-                        var dateValue = scope.formRequestData.expectedDisbursementDate;
-                    if ((new Date(dateValue)).toString() != 'Invalid Date') {
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
-                    }
-                }
+                scope.initializeTrancheDetails();
             });
             scope.initializeTrancheDetails = function(){
                 if(scope.formRequestData.loanEMIPackId){
@@ -529,6 +524,12 @@
                     if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length>0){
                         for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                             scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate),  scope.df);
+                        }
+                        if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
+                            var dateValue = scope.formRequestData.expectedDisbursementDate;
+                            if ((new Date(dateValue)).toString() != 'Invalid Date') {
+                                scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
+                            }
                         }
                     }
                 }
