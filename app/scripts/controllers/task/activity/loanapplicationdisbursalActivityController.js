@@ -158,7 +158,6 @@
                                 scope.formRequestData.disburse.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
                             }
                             if(scope.formData.approvedData.amountForUpfrontCollection){
-                                scope.formRequestData.disburse.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                                 scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                             }
                             scope.loanProductChange(scope.formData.loanProductId);
