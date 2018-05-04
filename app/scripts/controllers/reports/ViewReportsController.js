@@ -89,7 +89,7 @@
             }
             scope.rerunreport = function (report) {
                 $rootScope.retryReportData = report;
-                location.path('/run_report/' + report.reportName).search({reportId: report.id, type: report.reportType});
+                location.path('/run_report/' + report.reportName).search({reportId: report.reportId, type: report.reportType});
             }
         }
     });
