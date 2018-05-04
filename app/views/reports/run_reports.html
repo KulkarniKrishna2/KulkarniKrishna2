@@ -30,8 +30,8 @@
                     <select  chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
 							ng-options="selectOption as selectOption.name for selectOption in reportParam.selectOptions"
 							value="{{selectOption}}"
-							class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required
-	                    	ng-init="formData[reportParam.inputName]=reportParam.selectOptions[0];getDependencies(reportParam);">
+							class="form-control input-xlarge" ng-change="getDependencies(reportParam,false)" required
+	                    	ng-init="formData[reportParam.inputName]=reportParam.selectOptions[0];getDependencies(reportParam,true);">
 	                </select>
 	            </div>
 	        </div>
@@ -43,7 +43,7 @@
 					<select  multiple chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
 							 ng-options="selectOption as selectOption.name for selectOption in reportParam.selectOptions"
 							 value="{{selectOption}}"
-							 class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
+							 class="form-control input-xlarge" ng-change="getDependencies(reportParam,false)" required>
 					</select>
 				</div>
 			</div>

@@ -41,6 +41,7 @@
             scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
             scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
             scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+            scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
@@ -127,9 +128,14 @@
                             }
                         })
                     }
-                    if(scope.loanaccountinfo.multiDisburseLoan == true && scope.loanaccountinfo.product && scope.loanaccountinfo.product.maxTrancheCount){
-                        scope.formData.noOfTranche = parseInt(scope.loanaccountinfo.product.maxTrancheCount);
-                        scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.product.maxPrincipal;
+                    if(scope.loanaccountinfo.multiDisburseLoan == true && scope.loanaccountinfo.product){
+                        if(scope.loanaccountinfo.product.maxTrancheCount){
+                            scope.formData.noOfTranche = parseInt(scope.loanaccountinfo.product.maxTrancheCount);
+                            if (scope.formData.noOfTranche && scope.formData.noOfTranche > 0) {
+                                scope.constructTranches();
+                            }
+                        }
+                        scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.product.outstandingLoanBalance;
                     }
                     scope.formData.interestRatePerPeriod = scope.loanaccountinfo.product.interestRatePerPeriod;
                     scope.formData.termFrequency = (scope.loanaccountinfo.repaymentEvery * scope.loanaccountinfo.numberOfRepayments);
@@ -206,6 +212,16 @@
 
             scope.deleteTranches = function (index) {
                 scope.formData.disbursementData.splice(index, 1);
+            };
+
+            scope.constructTranches = function () {
+                var noOfTranche = scope.formData.noOfTranche;
+                var i = 0;
+                while (i < noOfTranche) {
+                    var loanApplicationReferenceTrancheDatas = {};
+                    scope.formData.disbursementData.push(loanApplicationReferenceTrancheDatas);
+                    i++;
+                }
             };
 
             scope.addCharge = function () {
@@ -411,8 +427,12 @@
                         }
                     }
                 }
-                for(var i=0;i<scope.formData.disbursementData.length;i++) {
-                    this.formData.disbursementData[i].expectedTrancheDisbursementDate=dateFilter(this.formData.disbursementData[i].expectedTrancheDisbursementDate,scope.df);
+                if(scope.formData.noOfTranche && scope.formData.noOfTranche > 0 && scope.loanReferenceTrancheData){
+                    for(var i=0;i<scope.formData.disbursementData.length;i++) {
+                        this.formData.disbursementData[i].expectedTrancheDisbursementDate=dateFilter(this.formData.disbursementData[i].expectedTrancheDisbursementDate,scope.df);
+                    }
+                }else{
+                    delete this.formData.disbursementData;
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
                 this.formData.expectedDisbursementDate=dateFilter(this.formData.expectedDisbursementDate,scope.df);
@@ -518,19 +538,18 @@
                 }
 
                 this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,scope.df);
-                this.formPreviewRepaymentData.submittedOnDate = dateFilter(scope.formData.submittedOnDate);
+                this.formPreviewRepaymentData.submittedOnDate = dateFilter(scope.formData.submittedOnDate,scope.df);
                 this.formPreviewRepaymentData.interestChargedFromDate = this.formPreviewRepaymentData.expectedDisbursementDate;
                 this.formPreviewRepaymentData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
                 
                 this.formPreviewRepaymentData.loanTermFrequencyType = this.formData.termPeriodFrequencyEnum;
 
                 if (this.formPreviewRepaymentData.disbursementData.length > 0) {
-                    this.formPreviewRepaymentData.disbursementData[0].expectedDisbursementDate = dateFilter(this.formPreviewRepaymentData.disbursementData[0].expectedTrancheDisbursementDate, scope.df);
-                    this.formPreviewRepaymentData.disbursementData[0].principal = this.formPreviewRepaymentData.disbursementData[0].trancheAmount;
-                    delete this.formPreviewRepaymentData.disbursementData[0].expectedTrancheDisbursementDate;
-                    delete this.formPreviewRepaymentData.disbursementData[0].trancheAmount;
-                    for (var i = 1 ; i<=this.formPreviewRepaymentData.disbursementData.length;i++) {
-                        this.formPreviewRepaymentData.disbursementData.splice(i,1);
+                    for (var i = 0 ; i<this.formPreviewRepaymentData.disbursementData.length;i++) {
+                        this.formPreviewRepaymentData.disbursementData[i].expectedDisbursementDate = dateFilter(this.formPreviewRepaymentData.disbursementData[i].expectedTrancheDisbursementDate, scope.df);
+                        this.formPreviewRepaymentData.disbursementData[i].principal = this.formPreviewRepaymentData.disbursementData[i].trancheAmount;
+                        delete this.formPreviewRepaymentData.disbursementData[i].expectedTrancheDisbursementDate;
+                        delete this.formPreviewRepaymentData.disbursementData[i].trancheAmount;
                     }
                 }       
 

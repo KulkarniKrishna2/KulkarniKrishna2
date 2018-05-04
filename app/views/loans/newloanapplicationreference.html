@@ -319,7 +319,7 @@
             </tr>
         </table>
 
-            <div ng-show="loanaccountinfo.product.multiDisburseLoan && !isHiddenTrancheData">
+            <div ng-if="loanaccountinfo.product.multiDisburseLoan && !isHiddenTrancheData">
                 <hr/>
                 <label><strong>{{ 'label.heading.tranchedetails' | translate }}</strong></label>
                 <table class="width100">
@@ -328,12 +328,13 @@
                         <td class="width36 paddedbottom10">
                             <input id="maxOutstandingLoanBalance" type="text"
                                    ng-model="formData.maxOutstandingLoanBalance" class="form-control" number-format/>&nbsp;
-                            <a title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()"><i
+                            <a title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()"
+                            ng-show="formData.disbursementData.length < loanaccountinfo.product.maxTrancheCount"><i
                                     class="icon-plus icon-white"></i></a>
                         </td>
                     </tr>
                 </table>
-                <table class="table width100" ng-show="formData.disbursementData.length>0">
+                <table class="table width100" ng-show="formData.disbursementData && formData.disbursementData.length>0">
                     <thead>
                     <tr class="graybg">
                         <th>{{'label.input.expecteddisbursementon' | translate}}</th>
@@ -356,7 +357,7 @@
                                    ng-model="disbursementDetail.trancheAmount"
                                    name="trancheAmount" id="trancheAmount" required=""
                                    placeholder="{{'label.input.principal' | translate}}">
-                            <form-validate valattributeform="newloanaccountform" valattribute="trancheAmount"/>
+                            <form-validate valattributeform="newloanapplicationform" valattribute="trancheAmount"/>
                         </td>
                         <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
                             <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text"
