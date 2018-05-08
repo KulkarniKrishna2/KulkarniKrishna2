@@ -33,6 +33,8 @@
 
             if(scope.response != undefined){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
+                scope.showActivation = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.activate;
+                scope.showaddclients = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addclients;
             }
 
             scope.$watch(scope.formData.officeId, function() {
