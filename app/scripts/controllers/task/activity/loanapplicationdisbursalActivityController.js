@@ -366,9 +366,11 @@
                             if(i == 0){
                                 disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.actualDisbursementDate), scope.df);
                                 disbursementData.principal = scope.formRequestData.disburse.transactionAmount;
+                                disbursementData.discountOnDisbursalAmount= scope.formRequestData.disburse.discountOnDisbursalAmount;
                             }else{
                                 disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate), scope.df);
                                 disbursementData.principal = scope.formRequestData.submitApplication.disbursementData[i].principal;
+                                disbursementData.discountOnDisbursalAmount= scope.formRequestData.submitApplication.disbursementData[i].discountOnDisbursalAmount;
                             }
                             scope.formRequestPreveieData.disbursementData.push(disbursementData);
                             //break;
