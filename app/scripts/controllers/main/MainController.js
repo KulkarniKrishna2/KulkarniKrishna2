@@ -180,12 +180,16 @@
             });
 
             scope.configs = [];
+            scope.isLoanEmiPackEnabled = false;
             scope.getAllGlobalConfigurations = function () {
                 scope.configs = [];
                 resourceFactory.configurationResource.get(function (data) {
                     for (var i in data.globalConfiguration) {
                         if(data.globalConfiguration[i].name == "allow-inter-branch-transaction"){
                             scope.showCollections = data.globalConfiguration[i].enabled;
+                        }
+                        if(data.globalConfiguration[i].name='Allow emi packs for loan'){
+                            scope.isLoanEmiPackEnabled = data.globalConfiguration[i].enabled;
                         }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])

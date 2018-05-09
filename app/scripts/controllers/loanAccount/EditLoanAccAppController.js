@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter) {
-
             scope.previewRepayment = false;
             scope.formData = {};
             scope.temp = {};
@@ -23,7 +22,10 @@
                 scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
                 scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
             }
-            scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+            
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+            }
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -94,6 +96,9 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
+                if(data.loanEMIPackData){
+                    scope.formData.loanEMIPackId = data.loanEMIPackData.id;
+                }
                 scope.paymentModeOptions = data.paymentModeOptions || [];
                 if(scope.loanaccountinfo.expectedDisbursalPaymentType){
                     scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
@@ -720,6 +725,22 @@
                 this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 this.formData.loanTermFrequency = scope.loanTerm;
+                 if(this.formData.loanEMIPackId && this.formData.loanEMIPackId>0){
+                    for(var i in scope.loanaccountinfo.loanEMIPacks){
+                        if(scope.loanaccountinfo.loanEMIPacks[i].id==this.formData.loanEMIPackId){
+                            this.formData.fixedEmiAmount = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
+                            this.formData.principal = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
+                            this.formData.repaymentEvery = scope.loanaccountinfo.loanEMIPacks[i].repaymentEvery;
+                            this.formData.repaymentFrequencyType = scope.loanaccountinfo.loanEMIPacks[i].repaymentFrequencyType.id;
+                            this.formData.numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                            this.formData.repaymentEvery = scope.loanaccountinfo.loanEMIPacks[i].repaymentEvery;
+                            this.formData.loanTermFrequencyType = scope.loanaccountinfo.loanEMIPacks[i].repaymentFrequencyType.id;
+                            this.formData.loanTermFrequencyType = scope.loanaccountinfo.loanEMIPacks[i].repaymentFrequencyType.id;
+                            this.formData.loanTermFrequency = parseInt(scope.loanaccountinfo.loanEMIPacks[i].repaymentEvery*this.formData.numberOfRepayments);  
+                        }
+                    }
+                }
+
                 if (scope.loanaccountinfo.product.isFlatInterestRate && scope.formData.discountOnDisbursalAmount == undefined && !scope.loanaccountinfo.multiDisburseLoan) {
                     this.formData.discountOnDisbursalAmount = null;
                 }
@@ -746,6 +767,7 @@
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
+
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
