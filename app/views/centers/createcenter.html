@@ -61,7 +61,7 @@
 					<form-validate valattributeform="createcenterform" valattribute="staffs"/>
 				</div>
 	        </div>
-	        <div class="form-group" ng-hide="isWorkflowEnabled">
+	        <div class="form-group" ng-if="showActivation && !isWorkflowEnabled" >
 	            <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
 	
 	            <div class="col-sm-3">
@@ -95,7 +95,7 @@
 	                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 	            </div>
 	        </div>
-            <div class="form-group">
+            <div class="form-group" ng-if="showaddclients">
                 <label class="control-label col-sm-2">{{'label.input.select.groups' | translate}}:</label>
 
                 <div class="col-sm-9 col-md-9">

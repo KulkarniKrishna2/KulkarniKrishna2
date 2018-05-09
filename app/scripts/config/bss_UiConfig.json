@@ -137,7 +137,7 @@
 		"externalId": false,
 		"submittedOn": false,
 		"openSavingsProduct": false,
-		"activate": false
+		"activate": true
 	  },
 	  "isMandatoryField": {
 		"dateOfBirth": false,
@@ -180,7 +180,7 @@
 		"showSubmittedOn" : true,
 		"showStaff" : true,
 		"addclients" : true,
-		"activate": false
+		"activate": true
 	  }
 	},
 	"createGroup": {
@@ -199,8 +199,8 @@
 		"groupExternalId": false,
 		"submittedOn": false,
 		"staff": false,
-		"addclients": false,
-		"activate": false
+		"activate": true,
+		"addclients": true
 	  }
 	},
 	"labelChanges": {
@@ -327,9 +327,6 @@
         "firstRepaymentDate": false,
         "interestRatePerPeriod": false,
 		"disbursementPaymentMode":false
-      },
-      "isMandatory": {
-      	"trancheData":false
       }
     }
   }

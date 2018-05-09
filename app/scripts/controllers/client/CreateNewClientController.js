@@ -70,6 +70,7 @@
                 scope.showExternalId = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.externalId;
                 scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.submittedOn;
                 scope.showOpenSavingsProduct = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.openSavingsProduct;
+                scope.showActivation = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.activate;
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isHiddenField && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
@@ -441,6 +442,10 @@
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
                     this.formData.submittedOnDate = reqDate;
+                    if(!scope.showActivation){
+                       this.formData.active = true;
+                       this.formData.activationDate = reqDate;
+                    }
                 }
                 if (scope.first.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);

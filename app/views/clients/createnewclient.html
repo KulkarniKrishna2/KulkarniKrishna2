@@ -424,7 +424,7 @@
 
 			</div>
 
-			<div ng-hide="isWorkflowEnabled">
+			<div ng-if="showActivation && !isWorkflowEnabled">
 				<div class="form-group" has-permission="ACTIVATE_CLIENT">
 		            <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
 
