@@ -385,11 +385,7 @@
 
                 if (scope.formRequestData.submitApplication.disbursementData != undefined && scope.formRequestData.submitApplication.disbursementData.length > 0) {
                     for (var i in  scope.formRequestData.submitApplication.disbursementData) {
-                        if(i==0 && this.formRequestData.disburse.expectedDisbursementDate){
-                            scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.expectedDisbursementDate), scope.df)
-                        }else{
-                            scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate, scope.df);
-                        }
+                        scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate, scope.df);
                     }
                 } else {
                     delete  scope.formRequestData.submitApplication.disbursementData;
@@ -423,9 +419,6 @@
 
                 this.formRequestData.submitApplication.loanType = scope.inparams.templateType;
                 this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(scope.date.expectedDisbursementDate), scope.df);
-                if(this.formRequestData.disburse.expectedDisbursementDate){
-                    this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.expectedDisbursementDate), scope.df)
-                }
                 this.formRequestData.submitApplication.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
 
                 this.formRequestData.submitApplication.createStandingInstructionAtDisbursement = scope.formRequestData.createStandingInstructionAtDisbursement;
@@ -435,13 +428,6 @@
 
                 if (this.formRequestData.disburse.actualDisbursementDate) {
                     this.formRequestData.disburse.actualDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.actualDisbursementDate), scope.df);
-                    this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.actualDisbursementDate), scope.df);
-
-                }else{
-                    this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(scope.date.expectedDisbursementDate), scope.df);
-                }
-                if(this.formRequestData.disburse.expectedDisbursementDate){
-                    this.formRequestData.disburse.expectedDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.expectedDisbursementDate), scope.df)
                 }
                 this.formRequestData.disburse.locale = scope.optlang.code;
                 this.formRequestData.disburse.dateFormat = scope.df;
