@@ -172,10 +172,10 @@
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
             <hr/>
         </div>
-        <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true && response.uiDisplayConfigurations.loanAccount.isHiddenField.createStandingInstruction == true">
-        <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
+        <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true && response.uiDisplayConfigurations.loanAccount.isHiddenField.createStandingInstruction == true && isLoanEmiPackEnabled">
+        <label ng-show="loanaccountinfo && !isLoanEmiPackEnabled"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
         </div>
-        <table ng-show="loanaccountinfo" ng-hide="previewRepayment" class="width100">
+        <table ng-show="loanaccountinfo && !isLoanEmiPackEnabled" ng-hide="previewRepayment" class="width100">
             <tr>
                 <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
                     <label>{{ 'label.input.linksavings' | translate }}:</label>
@@ -239,8 +239,70 @@
             </div>
         </div>
         <hr ng-show="isGLIM"/>
-        <label><strong>{{ 'label.heading.terms' | translate }}</strong></label>
-        <table class="width100">
+        <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                <td colspan="4">
+                    <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
+                </td>
+            </tr>
+            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                <td colspan="4">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
+                </td>
+            </tr>
+            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                <td colspan="4">
+                    <div>
+                        <table class="table  table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+                                <td class="col-md-1">
+                                    <input type="radio" ng-model="formData.loanEMIPackId" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" value="{{loanEMIPack.id}}"/>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.combinedRepayEvery}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.numberOfRepayments}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.fixedEmi}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
+                                    <span>{{loanEMIPack.disbursalAmount1}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
+                                    <span>{{loanEMIPack.disbursalAmount2}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
+                                    <span>{{loanEMIPack.disbursalAmount3}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
+                                    <span>{{loanEMIPack.disbursalAmount4}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        <label  ng-if="!isLoanEmiPackEnabled" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+        <table class="width100" ng-if="!isLoanEmiPackEnabled">
             <tr>
                 <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
@@ -759,8 +821,8 @@
                 </tr>
             </table>
         </div><br><br>
-        <hr ng-show="pledges.length>0"/>
-        <div class="col-md-12" ng-show="pledges.length>0">
+        <hr ng-show="pledges.length>0 && !isLoanEmiPackEnabled"/>
+        <div class="col-md-12" ng-show="pledges.length>0 && !isLoanEmiPackEnabled">
             <label><strong>{{ 'label.view.collaterals' | translate }}</strong></label>
             <br>
             <div class="">
@@ -815,7 +877,7 @@
             </table>
             <br><br>
         </div>
-        <div class="col-md-12 paddedtop" ng-hide = "response.uiDisplayConfigurations.loanAccount.isHiddenSection.collateralSection == true">
+        <div class="col-md-12 paddedtop" ng-hide = "response.uiDisplayConfigurations.loanAccount.isHiddenSection.collateralSection == true  || isLoanEmiPackEnabled">
             <div class="col-sm-1">
             <label><strong>{{ 'label.heading.collaterals' | translate }}</strong></label>
             </div>
