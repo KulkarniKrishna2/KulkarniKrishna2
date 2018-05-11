@@ -27,7 +27,8 @@
             scope.isBigLogoPath = false;
             scope.isLargeLogoPath = false;
             scope.showCollections = false;
-
+            scope.searchRule = true;
+            scope.searchRuleLabel = 'label.tooltip.exactsearch';
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
                 $http.get('scripts/config/LogoConfig.json').success(function(datas) {
@@ -235,11 +236,18 @@
             scope.changeScope = function (searchScope) {
                 scope.currentScope = searchScope ;
             }
-
+            scope.onSearchRuleChange = function(searchRule){
+               scope.searchRule=searchRule;
+               if(scope.searchRule){
+                scope.searchRuleLabel = 'label.tooltip.exactsearch';
+               }else{
+                scope.searchRuleLabel = 'label.tooltip.likesearch';
+               }
+            }
             scope.search = function () {
                 var resource;
                 var searchString=scope.search.query;
-                var exactMatch=false;
+                var exactMatch= scope.searchRule;
                 if(searchString != null){
                     searchString = searchString.replace(/(^"|"$)/g, '');
                     var n = searchString.localeCompare(scope.search.query);

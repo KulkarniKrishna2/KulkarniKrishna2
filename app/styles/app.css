@@ -552,6 +552,10 @@ tr.pointer-main:hover {
     margin-bottom: 10px;
 }
 
+.tooltip.bottom {
+   margin-top:-80px;
+}
+
 .loading-widget-div {
     position: fixed;
     top: 50%;

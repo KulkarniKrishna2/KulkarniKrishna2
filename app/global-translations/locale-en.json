@@ -6963,6 +6963,8 @@
     "label.input.standardtat" : "Standard TAT",
     "label.heading.standardtat" : "Standard TAT",
     "label.heading.escalation.thersold" : "Escalation Thershold",
+    "label.tooltip.exactsearch" : "search-on-exact-match",
+    "label.tooltip.likesearch" : "search-on-like-match",
 
 
     "label.heading.total.task.count" : "Total Task Count",
