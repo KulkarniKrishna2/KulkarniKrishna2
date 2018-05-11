@@ -48,6 +48,7 @@
                             scope.loanApplicationReferenceId = scope.loanApplicationId;
                             scope.loanId = scope.taskData.configValues.loanId;
                             scope.groupId=scope.taskData.configValues.groupId;
+                            scope.centerId=scope.taskData.configValues.centerId;
                         }
                     }
                     if(scope.loanId!=undefined){
@@ -79,6 +80,11 @@
                     if(scope.groupId){
                        resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
                            scope.groupData = data;
+                       });
+                   }
+                   if(scope.centerId){
+                       resourceFactory.centerResource.get({centerId: scope.centerId, associations: 'all'}, function (data) {
+                           scope.centerData = data;
                        });
                    }
                 });

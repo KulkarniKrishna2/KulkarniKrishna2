@@ -7044,5 +7044,13 @@
     "invalid.accountnumber.format":"Please enter a valid account number",
     "invalid.bankCity.format":"Please enter a valid city name",
     "invalid.branchName.format":"Please enter a valid branch name",
+
+    "label.button.add.subgroup" : "Add Sub-Group",
+    "label.info.totalmembers" : "Total Members",
+    "label.heading.FCSM.No" : "FCSM No",
+    "label.heading.KYC" : "KYC",
+    "label.heading.keyah" : "KeyAh",
+    "label.heading.create.subgroup" : "Create SubGroup",
+    "label.heading.create.member" : "Create Member",
     "------ end of tensalation file":"---------"
 }

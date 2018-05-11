@@ -43,6 +43,17 @@
                     <div class="col-md-6"> {{'label.input.status' | translate}} :&nbsp; {{groupData.status.value}}</div>
                 </div>
             </div>
+            <div class="row well" ng-if="centerData">
+                <h3><strong>{{'label.heading.centerdetails' | translate}}<span>:</span></strong></h3>
+                <div class="row">
+                    <div class="col-md-6"><span>{{'label.heading.centername' | translate}}:&nbsp;</span><span><a href="#/viewcenter/{{centerData.id}}"> {{centerData.name}}</a></span></div>
+                    <div class="col-md-6"><span> {{'label.input.status' | translate}} :&nbsp; {{centerData.status.value}}</span></div>
+                </div>             
+                <div class="row">
+                    <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{centerData.officeName}}</div>
+                    <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{centerData.staffName}}</div>
+                </div>
+            </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
         </div>
