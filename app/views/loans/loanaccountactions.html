@@ -154,7 +154,7 @@
                min="'2000-01-01'" />
     </div>
 </div>
-<div class="form-group" ng-if="showApprovalAmount">
+<div class="form-group" ng-if="showApprovalAmount && !isLoanEmiPackEnabled">
     <label class="control-label col-sm-2">{{ 'label.heading.approvedamount' |
         translate}}</label>
 
@@ -213,6 +213,49 @@
         </table>
     </div>
 </div>
+
+
+<div class="form-group" ng-if="isLoanEmiPackEnabled && (action =='approve' || action =='disburse')">
+    <label class="control-label col-sm-2">{{ 'label.heading.chooseloanemipack' | translate }}</label>
+    <div class="col-sm-3">
+        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control"  placeholder="{{'label.input.filterbytext' | translate}}"/>
+    </div>
+</div>
+<div class="form-group" ng-if="isLoanEmiPackEnabled && (action =='approve' || action =='disburse')">    
+    <div class="col-sm-offset-2">
+        <table class="table well col-sm-9">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="loanEMIPack in loanEMIPacks | filter:filterText">
+                                <td class="col-md-1">
+                                    <input type="radio" ng-model="formData.loanEMIPackId" name="emipack"  value="{{loanEMIPack.id}}"/>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.combinedRepayEvery}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.numberOfRepayments}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{loanEMIPack.fixedEmi}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+    </div>
+</div>    
+
 <div ng-if="showSubsidyamountReleasedField">
     <div class="form-group" >
         <label class="control-label col-sm-2" for="subsidyamountreleased">{{ 'label.input.subsidyamountreleased' |
@@ -230,7 +273,7 @@
 </div>
 
     <div ng-hide="disbursementDetails">
-    <div class="form-group" ng-if="showAmountField">
+    <div class="form-group" ng-if="showAmountField  && !(isLoanEmiPackEnabled  && (action =='approve' || action =='disburse'))">
         <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
             translate}}<span class="required">*</span></label>
 
@@ -243,7 +286,7 @@
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
     </div>
-        <div class="form-group" ng-if="showdiscountOnDisburse">
+        <div class="form-group" ng-if="showdiscountOnDisburse && !(isLoanEmiPackEnabled  && (action =='approve' || action =='disburse'))">
             <label class="control-label col-sm-2">{{ 'label.input.discountondisbursalamount' |
                 translate}}</label>
 
@@ -469,7 +512,7 @@
 
 
 
-    <div class="form-group" ng-if="showEMIAmountField">
+    <div class="form-group" ng-if="showEMIAmountField  && !(isLoanEmiPackEnabled  && (action =='approve' || action =='disburse'))">
         <label class="control-label col-sm-2" for="fixedEmiAmount">{{ 'label.input.fixedemiamount' | translate}}</label>
 
         <div class="col-sm-3">

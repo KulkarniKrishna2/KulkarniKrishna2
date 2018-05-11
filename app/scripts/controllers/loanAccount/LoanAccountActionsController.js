@@ -345,6 +345,13 @@
                 
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        if(data.loanEMIPacks && scope.isLoanEmiPackEnabled){
+                            scope.loanEMIPacks = data.loanEMIPacks;
+                            if(data.loanEMIPackData){
+                                scope.formData.loanEMIPackId = data.loanEMIPackData.id;
+                            }
+                        }
+                        
                         scope.paymentModeOptions = data.paymentModeOptions;
                         scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
                         scope.updatePaymentType(data.expectedPaymentId);
@@ -406,6 +413,13 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.accountId, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.clientId = data.clientId;
+                        if(data.loanEMIPacks && scope.isLoanEmiPackEnabled){
+                            scope.loanEMIPacks = data.loanEMIPacks;
+                            if(data.loanEMIPackData){
+                                scope.formData.loanEMIPackId = data.loanEMIPackData.id;
+                            }
+                        }
+                        
                         scope.isFlatInterestRate = data.flatInterestRate != null;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
@@ -1160,6 +1174,17 @@
                     this.formData.adjustRepaymentDate = dateFilter(this.formData.adjustRepaymentDate, scope.df);
                     this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                     if(!scope.trancheError) {
+                        if(scope.action=="disburse" && scope.isLoanEmiPackEnabled){
+                            if(this.formData.loanEMIPackId && this.formData.loanEMIPackId>0){
+                                for(var i in scope.loanEMIPacks){
+                                    if(scope.loanEMIPacks[i].id == this.formData.loanEMIPackId ){
+                                        this.formData.transactionAmount = scope.loanEMIPacks[i].sanctionAmount;
+                                        this.formData.fixedEmiAmount = scope.loanEMIPacks[i].fixedEmi;
+                                    }
+                                }
+                            }
+                            
+                        }
                         resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
                         });

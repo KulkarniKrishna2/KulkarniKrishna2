@@ -260,10 +260,6 @@
                                 <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                                 <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
                                 <th>{{ 'label.heading.fixedEmi' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -282,18 +278,6 @@
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.fixedEmi}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
-                                    <span>{{loanEMIPack.disbursalAmount1}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
-                                    <span>{{loanEMIPack.disbursalAmount2}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
-                                    <span>{{loanEMIPack.disbursalAmount3}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
-                                    <span>{{loanEMIPack.disbursalAmount4}}</span>
                                 </td>
                             </tr>
                             </tbody>

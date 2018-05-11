@@ -250,7 +250,8 @@
             </div>
         </div>
         <hr ng-show="isGLIM"/>  
-        <div  class="col-sm-12"><table ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled">      
+        <div  class="col-sm-12"><table ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled"> 
+        <table>     
             <tr  class="col-sm-12">
                 <td> 
                     <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
@@ -259,29 +260,24 @@
                     <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1" placeholder="{{'label.input.filterbytext' | translate}}"/>
                 </td>
             </tr>
-        </table> </div>  
-        <table ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled">
-            <tr ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled" class="width100">
-                <td >
-                    <div>
-                        <table class="table  table-striped">
+        </table> 
+        </div> 
+        <br/>
+        <div class="col-sm-offset-2"  ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled">
+           <table class="well table col-sm-12">
                             <thead>
-                            <tr>
+                            <tr  class="graybg">
                                 <th></th>
                                 <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
                                 <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
                                 <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
                                 <th>{{ 'label.heading.fixedEmi' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
-                                <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
                                 <td class="col-md-1">
-                                    <input type="radio" ng-model="formData.loanEMIPackId" name="emipack" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" value="{{loanEMIPack.id}}"/>
+                                    <input type="radio" ng-model="formData.loanEMIPackId" name="emipack" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" class="form-control" value="{{loanEMIPack.id}}"/>
                                 </td>
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.sanctionAmount}}</span>
@@ -295,25 +291,11 @@
                                 <td class="col-md-1">
                                     <span>{{loanEMIPack.fixedEmi}}</span>
                                 </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
-                                    <span>{{loanEMIPack.disbursalAmount1}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
-                                    <span>{{loanEMIPack.disbursalAmount2}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
-                                    <span>{{loanEMIPack.disbursalAmount3}}</span>
-                                </td>
-                                <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
-                                    <span>{{loanEMIPack.disbursalAmount4}}</span>
-                                </td>
                             </tr>
                             </tbody>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </table>
+           </table>            
+        </div> 
+        
         <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
         <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled" ng-hide="previewRepayment" class="width100">
