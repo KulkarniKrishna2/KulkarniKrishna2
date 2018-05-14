@@ -83,6 +83,7 @@
                                 group.status.value = result.entityStatus.value;
                                 group.status.code = result.entityStatus.code;
                                 group.externalId = result.entityExternalId;
+                                group.referenceNumber = result.entityReferenceNumber;
                                 scope.actualGroups.push(group);
                             }
                         }

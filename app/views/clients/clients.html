@@ -62,6 +62,14 @@
                             <input placeholder="Identifier Id" id="documentNumber" type="text" name="documentNumber" ng-model="searchConditions.documentNumber" class="form-control"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.clientreferenceno' | translate}}</label>
+                        <div class="col-sm-3">
+                            <input placeholder="client ref#" id="referenceNumber" type="text" name="referenceNumber" ng-model="searchConditions.referenceNumber" class="form-control"/>
+                        </div>
+                        <div class="col-sm-5">
+                        </div>
+                    </div>
 
                     <div class="col-md-offset-5">
                         <button id="reset" type="button" data-ng-click="resetSearchData()" class="btn btn-primary">{{'label.button.reset'| translate}}</button>
@@ -86,6 +94,7 @@
                     <thead ng-if="clients.currentPageItems.length > 0">
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.clientreferenceno' | translate}}</th>
                             <th>{{'label.heading.clientno' | translate}}</th>
                             <th>{{'label.heading.mobilenumber' | translate}}</th>
                             <th>{{'label.heading.office' | translate}}</th>
@@ -98,6 +107,7 @@
                             <span ng-if = "!displayNameInReverseOrder">{{client.displayName}}</span>
                             <span ng-if = "displayNameInReverseOrder" ng-init="reverseDisplayName(client)">{{client.displayNameInReverseOrder}}</span>
                         </td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)">{{client.referenceNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.mobileNo}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
