@@ -275,7 +275,8 @@
     "label.input.comments": "Comments",
     "label.input.closurereasons": "Closure reason",
     "label.input.enteractivationdate": "Enter activation date",
-    "label.input.filterbynameorstatusoroffice": "Filter by name/status/office",
+    "label.input.filterbynameorstatusoroffice": "Filter by name/status/office/group ref#",
+    "label.input.filterbynameorstatusorofficeforcenter": "Filter by name/status/office/center ref#",
     "label.input.filterbyname": "Filter by name",
     "label.input.transactiondate": "Transaction date",
     "label.input.subsidyreleasedate": "Subsidy Release Date",
@@ -1152,8 +1153,8 @@
     "#Inputs":"..",
     "label.input.select.groups":"Select and add groups",
     "label.input.searchforgroup":"Search for a Group",
-    "label.input.searchByNameExternalId" : "Find by name/externalId",
-
+    "label.input.searchByNameExternalId" : "Find by name/externalId/group ref#",
+    "label.input.searchByNameExternalIdforcenter" : "Find by name/externalId/center ref#",
     "#Misc Labels": "..",
     "label.selectcenter": "Select center",
     "label.selectclients": "Select clients",
@@ -3025,7 +3026,7 @@
     "label.input.openedon": "Opened on",
     "label.input.parentoffice": "Parent office",
     "label.input.newfund": "New Fund",
-    "label.input.filterbynameexternalid": "Filter by name/external id",
+    "label.input.filterbynameexternalid": "Filter by name/external id/office ref#",
     "label.input.fromAccountId":"From Account Id",
     "label.input.tosavingsofficer" : "To Savings Officer",
     "label.input.percentage":"Percentage",
@@ -7046,7 +7047,6 @@
     "invalid.accountnumber.format":"Please enter a valid account number",
     "invalid.bankCity.format":"Please enter a valid city name",
     "invalid.branchName.format":"Please enter a valid branch name",
-
     "label.button.add.subgroup" : "Add Sub-Group",
     "label.info.totalmembers" : "Total Members",
     "label.heading.FCSM.No" : "FCSM No",
@@ -7054,5 +7054,10 @@
     "label.heading.keyah" : "KeyAh",
     "label.heading.create.subgroup" : "Create SubGroup",
     "label.heading.create.member" : "Create Member",
-    "------ end of tensalation file":"---------"
+     "label.heading.clientreferenceno" : "client ref#",
+     "label.heading.groupreferenceno": "group ref#",
+     "label.heading.centerreferenceno": "center ref#",
+     "label.heading.officereferenceno": "office ref#",
+     "label.input.clientreferenceno":"client ref#",
+     "------ end of tensalation file":"---------"
 }

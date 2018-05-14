@@ -83,6 +83,7 @@
                                 center.status.value = result.entityStatus.value;
                                 center.status.code = result.entityStatus.code;
                                 center.externalId = result.entityExternalId;
+                                center.referenceNumber = result.entityReferenceNumber;
                                 scope.actualCenters.push(center);
                             }
                         }
