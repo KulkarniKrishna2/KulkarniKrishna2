@@ -67,7 +67,8 @@
                 if(!scope.searchText){
                     scope.initPage();
                 } else {
-                    resourceFactory.globalSearch.search({query: scope.searchText ,  resource: "villages"}, function (data) {
+                    var exactMatch= scope.searchRule;
+                    resourceFactory.globalSearch.search({query: scope.searchText ,  resource: "villages",exactMatch: exactMatch}, function (data) {
                         var arrayLength = data.length;
                         for (var i = 0; i < arrayLength; i++) {
                             var result = data[i];

@@ -59,7 +59,7 @@
                 scope.filterText = "";
                 var searchString = scope.searchText;
                 searchString = searchString.replace(/(^"|"$)/g, '');
-                var exactMatch=false;
+                var exactMatch= scope.searchRule;
                 var n = searchString.localeCompare(scope.searchText);
                 if(n!=0)
                 {

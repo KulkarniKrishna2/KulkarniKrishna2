@@ -236,9 +236,12 @@
                             </ul>
                         </li>
                     </ul>
-
                     <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
-                        <div class="input-group" style="width:250px">
+                        <div class="input-group" style="width:280px">
+                            <div class="input-group-btn search-panel " style="width:20px">
+                            <input id="searchRule" ng-bind="searchRuleLabel" tooltip="{{ searchRuleLabel | translate }}"  tooltip-placement= "tooltip.bottom" type="checkbox" ng-model="searchRule" ng-change="onSearchRuleChange(searchRule)">
+                            </input>
+                            </div>
                             <div class="input-group-btn search-panel">
                                 <button type="button" class="btn btn-warn dropdown-toggle" data-toggle="dropdown">
                                     {{currentScope.name | translate}}<span class="caret"></span>
