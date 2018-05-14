@@ -866,6 +866,13 @@
             scope.canDisburseToGroupsBanks = function(){
                 return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
             };
+
+            scope.updateSlabBasedChargeForEmiPack = function(principal){
+                if(principal){
+                    scope.formData.principal = principal;
+                    scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
+                }
+            }
         }
     });
     mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {

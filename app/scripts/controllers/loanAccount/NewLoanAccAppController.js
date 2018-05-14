@@ -731,6 +731,13 @@
                     
                 }
             }, true);
+
+            scope.updateSlabBasedChargeForEmiPack = function(principal){
+                if(principal){
+                    scope.formData.principal = principal;
+                    scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
+                }
+            }
                 
             scope.$watch('repaymentMode', function (newValue, oldValue, scope) {
                 scope.repaymentTypeOption = [];
