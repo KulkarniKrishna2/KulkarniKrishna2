@@ -402,7 +402,13 @@
                 this.formValidationData.repaymentFrequencyType = this.formRequestData.repaymentPeriodFrequencyEnum;
                 if(this.formRequestData.amountForUpfrontCollection && this.formRequestData.amountForUpfrontCollection > 0){
                     this.formValidationData.amountForUpfrontCollection = this.formRequestData.amountForUpfrontCollection;
-                }           
+                }  
+
+                if(this.formRequestData.discountOnDisbursalAmount && this.formRequestData.discountOnDisbursalAmount > 0){
+                    this.formValidationData.discountOnDisbursalAmount = this.formRequestData.discountOnDisbursalAmount;
+                }else{
+                    delete this.formValidationData.discountOnDisbursalAmount;
+                }         
 
                 this.formValidationData.locale = scope.optlang.code;
                 this.formValidationData.dateFormat = scope.df;
