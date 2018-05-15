@@ -461,7 +461,7 @@
                 if(scope.formData.expectedDisbursementDate != undefined){
                     this.formData.expectedDisbursementDate=dateFilter(new Date(scope.formData.expectedDisbursementDate),scope.df);
                 }
-                if(scope.formData.repaymentsStartingFromDate != undefined){
+                if(scope.formData.repaymentsStartingFromDate){
                     this.formData.repaymentsStartingFromDate=dateFilter(new Date(scope.formData.repaymentsStartingFromDate),scope.df);
                 }
                 if(scope.formData.noOfTranche && scope.formData.noOfTranche > 0 && scope.loanReferenceTrancheData){

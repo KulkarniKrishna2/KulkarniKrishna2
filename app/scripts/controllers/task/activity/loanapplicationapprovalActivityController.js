@@ -816,10 +816,6 @@
                  * @type {{}|*}
                  */
 
-                if(scope.submitData.formValidationData.disbursementData){
-                    delete scope.submitData.formValidationData.disbursementData;
-                }
-
                 if(scope.submitData.formValidationData.fixedEmiAmount){
                     delete scope.submitData.formValidationData.disbursementData;
                 }

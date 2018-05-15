@@ -520,6 +520,18 @@
                                     </td>
                                 </tr>
 
+                                <tr>
+                                    <td class="width19"
+                                        ng-show="!loanaccountinfo.loanEMIPacks && loanaccountinfo.allowUpfrontCollection">
+                                        <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                                    </td>
+                                    <td class="width36 paddedbottom10"
+                                        ng-show="!loanaccountinfo.loanEMIPacks && loanaccountinfo.allowUpfrontCollection">
+                                        <input id="amountForUpfrontCollection" type="text" ng-model="formRequestData.amountForUpfrontCollection"
+                                        class="form-control" number-format/>
+                                    </td>
+                                </tr>
+
                                 <tr >
                                     <td class="width19" ng-show="!isHiddenInterestRatePerPeriod">
                                         <label>{{ 'label.input.nominalinterestrate' | translate }}<span
@@ -783,7 +795,7 @@
                                             <a href="javascript:void(0)"
                                                title="{{ 'label.button.addtranch' | translate }}"
                                                ng-click="addTranches()"
-                                               ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length < loanaccountinfo.product.maxTrancheCount">
+                                               ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length < formData.noOfTranche">
                                                 <i class="icon-plus icon-white"></i>
                                             </a>
                                         </td>
