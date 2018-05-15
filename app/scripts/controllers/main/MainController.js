@@ -189,7 +189,7 @@
                         if(data.globalConfiguration[i].name == "allow-inter-branch-transaction"){
                             scope.showCollections = data.globalConfiguration[i].enabled;
                         }
-                        if(data.globalConfiguration[i].name='Allow emi packs for loan'){
+                        if(data.globalConfiguration[i].name=='Allow emi packs for loan'){
                             scope.isLoanEmiPackEnabled = data.globalConfiguration[i].enabled;
                         }
                         data.globalConfiguration[i].showEditvalue = true;
