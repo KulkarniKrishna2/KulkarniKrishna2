@@ -7034,9 +7034,10 @@
      "label.heading.total.income" : "Total Income",
      "label.heading.default.income" : "Default Income",
      "error.msg.discount.on.disbursal.is.available.only.for.flat.interest.rate" : "Discount on disbursal is available only with Flat interest rate.",
-    "invalid.name.format":"Please enter a valid name",
-    "invalid.accountnumber.format":"Please enter a valid account number",
-    "invalid.bankCity.format":"Please enter a valid city name",
-    "invalid.branchName.format":"Please enter a valid branch name",
+    "invalid.name.format":"Commas, special characters and more than 50 characters are not allowed",
+    "invalid.accountnumber.format":"Special characters, space and more than 50 characters are not allowed",
+    "invalid.bankCity.format":"Special characters, spaces, digits and more than 20 characters are not allowed",
+    "invalid.branchName.format":"Special characters, spaces, digits and more than 20 characters are not allowed.",
+    "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
     "------ end of tensalation file":"---------"
 }
