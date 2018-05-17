@@ -7059,5 +7059,12 @@
      "label.heading.centerreferenceno": "center ref#",
      "label.heading.officereferenceno": "office ref#",
      "label.input.clientreferenceno":"client ref#",
+
+    "label.heading.isslabbasedcharge" : "Is Slab Based Charge",
+    "label.input.isslabbasedcharge" : "Is Slab Based Charge",
+    "label.input.inmultiplesof": "In multiples of",
+    "label.heading.inmultiplesof": "In multiples of",
+    "label.heading.roundingmode" : "Rounding Mode",
+    
      "------ end of tensalation file":"---------"
 }

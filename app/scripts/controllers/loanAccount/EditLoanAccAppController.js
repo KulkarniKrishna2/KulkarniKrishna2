@@ -481,7 +481,7 @@
                     var amount = 0;
                     for(var i in data.glims){
                         if(data.glims[i].isClientSelected){
-                            if(data.chargeCalculationType.value == scope.slabBasedCharge){
+                            if(data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased){
                                 if (data.slabs){
                                     var isInRange = false;
                                     for(var j in data.slabs){
@@ -517,7 +517,7 @@
                     return data;
 
                 }else{
-                    if(data.chargeCalculationType.value == scope.slabBasedCharge){                    
+                    if(data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased){                    
                         for(var j in data.slabs){
                             var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],scope.formData.principal,scope.formData.numberOfRepayments);
                                 if(slabBasedValue != null){
@@ -564,7 +564,7 @@
             scope.updateSlabBasedCharges = function(){         
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
                     for(var i in scope.charges){
-                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge) {
+                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) {
                             scope.charges[i] = scope.updateChargeForSlab(scope.charges[i]);
                         }
                     }

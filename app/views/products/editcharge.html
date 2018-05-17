@@ -62,7 +62,15 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group" ng-show="showSlabBasedCharges">
+            <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isslabbasedcharge' | translate}}</label>
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="isSlabBased" type="checkbox" ng-model="formData.isSlabBased" ng-change="showSlabBasedCharges = formData.isSlabBased">
+                        </label>
+                    </div>
+            </div>
+            <div class="form-group" ng-show="showSlabBasedCharges || formData.isSlabBased">
                     <label class="control-label col-sm-2">{{'label.input.slabchargetype' | translate}}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
@@ -74,7 +82,7 @@
                         </select>
                     </div>
             </div>
-            <div class="form-group" ng-show="showSlabBasedCharges && slabChargeType">
+            <div class="form-group" ng-show="(showSlabBasedCharges  || formData.isSlabBased) && slabChargeType">
                 <label class="control-label col-sm-2">{{'label.input.slabbasedcharges' | translate}}<span
                         class="required">*</span></label>
                 <div class="form-group">
@@ -95,7 +103,7 @@
                     </a>
                 </div>
             </div>
-            <div class="form-group center-block" ng-show="showSlabBasedCharges">
+            <div class="form-group center-block" ng-show="showSlabBasedCharges  || formData.isSlabBased">
                 <div class="col-sm-12 center-block">
                     <div class="col-sm-3">&nbsp;</div>
                     <div class="col-sm-9">
@@ -116,6 +124,12 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.inmultiplesof' | translate}}</label>
+                    <div class="col-sm-3">
+                        <input id="inMultiplesOf" type="text" ng-model="formData.inMultiplesOf"  class="form-control" number-format>
+                    </div>
+                </div>
             <div class="form-group" ng-hide="showdatefield || flag">
                 <label class="control-label col-sm-2">{{'label.input.chargepaymentby' | translate}}<span
                         class="required">*</span></label>
@@ -180,12 +194,12 @@
                     <form-validate valattributeform="editchargeform" valattribute="feeInterval"/>
                 </div>
             </div>
-            <div class="form-group" ng-show="!showSlabBasedCharges">
+            <div class="form-group" ng-if="!(showSlabBasedCharges  || formData.isSlabBased)">
                 <label class="control-label col-sm-2" for="amount">{{'label.input.amount' | translate}}<span
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input name="amount" type="text" id="amount" ng-model="formData.amount" class="form-control" number-format ng-required="!showSlabBasedCharges"/>
+                    <input name="amount" type="text" id="amount" ng-model="formData.amount" class="form-control" number-format ng-required="!(showSlabBasedCharges  || formData.isSlabBased)"/>
                     <span class="error" ng-show="issubmitted && editchargeform.amount.$error.required">{{'label.error.required'|translate}}</span>
                 </div>
             </div>
@@ -387,7 +401,7 @@
             <div class="form-group" ng-show="formData.emiRoundingGoalSeek == true">
                 <label class="control-label col-sm-2" for="glimChargeCalculation">{{'label.input.glimchargecalculationtype' | translate}}<span
                         class="required">*</span></label>
-                <div class="col-sm-3" ng-repeat="glimCalculationOption in glimChargeCalculationTypeOptions">
+                <div class="col-sm-3" ng-repeat="glimCalculationOption in roundingTypeOptions">
                     <label class="radio">
                         <input id="'glimChargeCalculation'+{{$index}}" type="radio" value="{{glimCalculationOption.id}}" ng-model="formData.glimChargeCalculation" data-ng-change="setChoice()">
                         {{glimCalculationOption.value}}
@@ -402,12 +416,12 @@
                 <label class="control-label col-sm-2" for="isGlimCharge">{{'label.heading.glimcharge' | translate}}</label>
                 <div class="col-sm-3">
                     <label class="checkbox">
-                        <input id="isGlimCharge" type="checkbox" ng-model="formData.isGlimCharge">
+                        <input id="isGlimCharge" type="checkbox" ng-model="formData.isGlimCharge"  data-ng-change="updateRoundingModeOptions();">
                     </label>
                 </div>
             </div>
 
-            <div class="form-group" ng-show="showSlabBasedCharges">
+            <div class="form-group" ng-show="showSlabBasedCharges  || formData.isSlabBased">
                 <label class="control-label col-sm-2" for="isGlimCharge">{{'label.heading.subslabs' | translate}}&nbsp;{{getSubSlabHeading(subSlabChargeType) | translate}}</label>
                 <div class="col-sm-3">
                     <label class="checkbox">
@@ -415,7 +429,7 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group" ng-show="showSlabBasedCharges && isSubSlabSEnabled">
+            <div class="form-group" ng-show="(showSlabBasedCharges  || formData.isSlabBased) && isSubSlabSEnabled">
                     <label class="control-label col-sm-2">{{'label.input.subslabchargetype' | translate}}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">

@@ -20,6 +20,8 @@
             scope.loanChargeCalculationTypePercentageAmountAndFees = 7;
             scope.installmentAmountSlabType = 1;
             scope.installmentNumberSlabType = 2;
+            scope.roundingTypeOptions = [];
+            scope.defaultRoundingOptions = [1,4,5];
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -31,6 +33,7 @@
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
+                scope.updateRoundingModeOptions();
             });
 
             scope.sortByFromLoanAmount = function(v1, v2){
@@ -38,6 +41,23 @@
                     return v1.fromLoanAmount.localeCompare(v2.fromLoanAmount);
                 }
             }
+
+            scope.updateRoundingModeOptions = function(){
+                scope.roundingTypeOptions = [];
+                scope.formData.glimChargeCalculation = undefined;
+                for (var i in scope.glimChargeCalculationTypeOptions) {
+                    if(scope.formData.isGlimCharge==true){
+                        if(scope.glimChargeCalculationTypeOptions[i].id<4){
+                            scope.roundingTypeOptions.push(scope.glimChargeCalculationTypeOptions[i]);
+                        }
+                        
+                    }else{
+                        if(scope.defaultRoundingOptions.indexOf(scope.glimChargeCalculationTypeOptions[i].id) >=0){
+                            scope.roundingTypeOptions.push(scope.glimChargeCalculationTypeOptions[i]);
+                        }
+                    }
+                };
+            }; 
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
                 switch(chargeAppliesId) {
