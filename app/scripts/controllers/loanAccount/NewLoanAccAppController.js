@@ -213,8 +213,9 @@
 
             scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
+                    
                     for(var i in scope.charges){
-                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
+                        if((scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) && scope.charges[i].slabs.length > 0) {
                                 if(scope.isGLIM){
                                     scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
                                     scope.updateChargeForSlab(scope.charges[i]);
@@ -699,7 +700,7 @@
 
             scope.isChargeAmountNonEditable = function (charge) {
                 if ((charge.chargeTimeType.value == UPFRONT_FEE
-                    && charge.chargeCalculationType.value == SLAB_BASED) || charge.isAmountNonEditable) {
+                    && charge.chargeCalculationType.value == SLAB_BASED) || charge.isAmountNonEditable || charge.isSlabBased) {
                     return true;
                 }
                 return false;

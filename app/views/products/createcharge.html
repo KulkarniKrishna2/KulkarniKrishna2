@@ -81,8 +81,16 @@
                      <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="chargecalculation"/>
                     </div>
+                </div>                   
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isslabbasedcharge' | translate}}</label>
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="isSlabBased" type="checkbox" ng-model="formData.isSlabBased">
+                        </label>
+                    </div>
                 </div>
-                <div class="form-group" ng-show="showSlabBasedCharges">
+                <div class="form-group" ng-show="showSlabBasedCharges || formData.isSlabBased">
                     <label class="control-label col-sm-2">{{'label.input.slabchargetype' | translate}}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
@@ -94,7 +102,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group" ng-show="showSlabBasedCharges && slabChargeType">
+                <div class="form-group" ng-show="(showSlabBasedCharges || formData.isSlabBased) && slabChargeType">
                     <label class="control-label col-sm-2">{{'label.input.slabbasedcharges' | translate}}<span
                             class="required">*</span></label>
                     <div class="form-group">
@@ -135,6 +143,12 @@
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.inmultiplesof' | translate}}</label>
+                    <div class="col-sm-3">
+                        <input id="inMultiplesOf" type="text" ng-model="formData.inMultiplesOf"  class="form-control" number-format>
                     </div>
                 </div>
                 <div class="form-group" ng-show="showChargePaymentByField">
@@ -212,12 +226,12 @@
                         <form-validate valattributeform="createchargeform" valattribute="feeInterval"/>
                     </div>
                 </div>
-                <div class="form-group" ng-show="!showSlabBasedCharges">
+                <div class="form-group" ng-if="!(showSlabBasedCharges  || formData.isSlabBased)">
                     <label class="control-label col-sm-2" for="amount">{{'label.input.amount' | translate}}<span
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="amount" name="amount" type="text" ng-model="formData.amount" class="form-control" number-format ng-required="!showSlabBasedCharges"/>
+                        <input id="amount" name="amount" type="text" ng-model="formData.amount" class="form-control" number-format/>
                     </div>
                     <span class="error" ng-show="issubmitted && createchargeform.amount.$error.required">{{'label.error.required'|translate}}</span>
                 </div>
@@ -411,6 +425,14 @@
                     <div class="col-sm-3">
                         <input id="maxCap" name="maxCap" type="text" ng-model="formData.maxCap" class="form-control" number-format/>
                     </div>
+                </div>             
+                <div class="form-group" ng-show="showIsGlimCharge">
+                    <label class="control-label col-sm-2" for="isGlimCharge">{{'label.heading.glimcharge' | translate}}</label>
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="isGlimCharge" type="checkbox" ng-model="formData.isGlimCharge" data-ng-change="setChoice();updateRoundingModeOptions();">
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group" ng-show="showEmiRoundingGoalSeek">
                     <label class="control-label col-sm-2" for="emiRoundingGoalSeek">{{'label.input.applygoalseektoroundemi' | translate}}</label>
@@ -423,7 +445,7 @@
                 <div class="form-group" ng-show="formData.emiRoundingGoalSeek == true">
                     <label class="control-label col-sm-2" for="glimChargeCalculation">{{'label.input.glimchargecalculationtype' | translate}}<span
                             class="required">*</span></label>
-                    <div class="col-sm-3" ng-repeat="glimCalculationOption in glimChargeCalculationTypeOptions">
+                    <div class="col-sm-3" ng-repeat="glimCalculationOption in roundingTypeOptions">
                         <label class="radio">
                             <input id="'glimChargeCalculation'+{{$index}}" type="radio" value="{{glimCalculationOption.id}}" ng-model="formData.glimChargeCalculation" data-ng-change="setChoice()">
                             {{glimCalculationOption.value}}
@@ -432,14 +454,6 @@
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="glimChargeCalculation"/>
-                    </div>
-                </div>
-                <div class="form-group" ng-show="showIsGlimCharge">
-                    <label class="control-label col-sm-2" for="isGlimCharge">{{'label.heading.glimcharge' | translate}}</label>
-                    <div class="col-sm-3">
-                        <label class="checkbox">
-                            <input id="isGlimCharge" type="checkbox" ng-model="formData.isGlimCharge" data-ng-change="setChoice()">
-                        </label>
                     </div>
                 </div>
                 <div class="form-group" ng-show="showSlabBasedCharges">

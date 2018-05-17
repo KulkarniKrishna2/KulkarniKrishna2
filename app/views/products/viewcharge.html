@@ -40,7 +40,7 @@
 	                    <td>{{'label.heading.currency' | translate}}</td>
 	                    <td>{{charge.currency.name}}</td>
 	                </tr>
-	                <tr>
+	                <tr  ng-hide="charge.isSlabBased  || charge.chargeCalculationType.value == slabBasedCharge">
 	                    <td>{{'label.heading.amount' | translate}}</td>
 	                    <td>{{charge.amount|number}}</td>
 	                </tr>
@@ -63,6 +63,14 @@
 	                <tr>
 	                    <td>{{'label.heading.chargecalculationtype' | translate}}</td>
 	                    <td>{{charge.chargeCalculationType.value}}</td>
+	                </tr>
+	                <tr ng-show="charge.isSlabBased  || charge.chargeCalculationType.value == slabBasedCharge">
+	                    <td>{{'label.heading.isslabbasedcharge' | translate}}</td>
+	                    <td>{{charge.isSlabBased  || charge.chargeCalculationType.value == slabBasedCharge}}</td>
+	                </tr>
+	                <tr ng-show="inMultiplesof">
+	                    <td>{{'label.heading.inmultiplesof' | translate}}</td>
+	                    <td>{{charge.inMultiplesof}}</td>
 	                </tr>
 	                <tr>
 	                    <td>{{'label.heading.active' | translate}}</td>
@@ -137,14 +145,15 @@
 						<td>{{charge.emiRoundingGoalSeek}}</td>
 					</tr>
 					<tr ng-if="charge.emiRoundingGoalSeek == true">
-						<td>{{'label.input.glimchargecalculationtype' | translate}}</td>
+						<td ng-if="charge.isGlimCharge">{{'label.input.glimchargecalculationtype' | translate}}</td>
+						<td ng-if="charge.isGlimCharge==false">{{'label.heading.roundingmode' | translate}}</td>
 						<td>{{charge.glimChargeCalculation.value}}</td>
 					<tr>
 						<td>{{'label.input.iscapitalize' | translate}}</td>
 						<td>{{charge.isCapitalized}}</td>
 					</tr>
 	            </table>
-				<div class="form-group" ng-show="charge.chargeCalculationType.value == slabBasedCharge && charge.slabs.length>0">
+				<div class="form-group" ng-show="(charge.isSlabBased  || charge.chargeCalculationType.value == slabBasedCharge) && charge.slabs.length>0">
 					<label>{{'label.heading.slabbasedcharges' | translate}}</label><br>
 					<table class="table">
 						<tr class="graybg">
