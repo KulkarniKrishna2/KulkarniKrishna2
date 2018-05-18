@@ -1,0 +1,118 @@
+<div class="col-md-12" ng-controller="PendingValueDateTransactionsController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.pendingvaluedatetransactions' | translate}}</li>
+    </ul>
+    <br>
+    <div class="form-horizontal">
+        <api-validate></api-validate>
+        <fieldset>
+            <!-- <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.office' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control" ng-options="office.id as office.name for office in offices"
+                        value="{{office.id}}" ng-change="changeOffice(formData.officeId)"></select>
+                </div>
+                <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control" ng-options="staff.id as staff.displayName for staff in staffs"
+                        ng-change="validateStaff()" value="{{staff.id}}">
+                        <option value="">--{{'label.menu.selectloanofficer' | translate}}--</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.transactiondate' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="transactionDate" type="text" name="transactionDate" datepicker-pop="dd MMMM yyyy" ng-model="first.transactionDate" is-open="opened1"
+                        class="form-control" />
+                </div>
+                <div>
+                    <button id="search" type="button" data-ng-click="searchData()" class="btn btn-primary" has-permission='READ_LOAN'>
+                        {{'label.button.search'| translate}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div id="print">        
+        <table class="table">
+            <colgroup span="4"></colgroup>
+            <thead ng-if="transactions.currentPageItems.length > 0">
+                <tr class="graybg">
+                    <th><input type="checkbox" ng-model="activeall" ng-change="selectAll(activeall)"/></th>
+                    <th class="pointer">{{'label.heading.office' | translate}}</th>
+                    <th class="pointer">{{'label.heading.transactiondate' | translate}}</th>
+                    <th class="pointer">{{'label.heading.transactiontype' | translate}}</th>
+                    <th class="pointer">{{'label.heading.amount' | translate}}</th>
+                    <th class="pointer" colspan="5" scope="colgroup">{{'label.heading.breakdown' | translate}}</th>
+                </tr>
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th class="pointer" scope="col">{{'label.heading.principal' | translate}}</th>
+                    <th class="pointer" scope="col">{{'label.heading.interest' | translate}}</th>
+                    <th class="pointer" scope="col">{{'label.heading.fees' | translate}}</th>
+                    <th class="pointer" scope="col">{{'label.heading.penalities' | translate}}</th>
+                    <th class="pointer" scope="col">{{'label.heading.overpaid' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-if="transactions.currentPageItems.length > 0" ng-repeat="transaction in transactions.currentPageItems">
+                    <td class="pointer"><input type="checkbox" ng-model="transaction.checkbox" ng-change="transactionSelected(transaction.id, transaction.checkbox)"/></td>
+                    <td class="pointer">{{transaction.officeName}}</td>
+                    <td class="pointer">{{transaction.date | DateFormat}}</td>
+                    <td class="pointer">{{transaction.type.value}}</td>
+                    <td class="pointer">{{transaction.amount | number}}</td>
+                    <td class="pointer">{{transaction.principalPortion | number}}</td>
+                    <td class="pointer">{{transaction.interestPortion | number}}</td>
+                    <td class="pointer">{{transaction.feeChargesPortion | number}}</td>
+                    <td class="pointer">{{transaction.penaltyChargesPortion | number}}</td>
+                    <td class="pointer">{{transaction.overpaymentPortion | number}}</td>
+                </tr>
+                <tr ng-if="transactions.isResponsePresent && transactions.currentPageItems.length == 0">
+                    <td>
+                        <div class="alert alert-info col-sm-12" style="border-style: dashed;">
+                            <span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul class="pager">
+            <li class="previous">
+                <a id="prev" ng-click="transactions.previous()" href="" ng-hide="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+            </li>
+            <li class="next">
+                <a id="next" ng-click="transactions.next()" href="" ng-hide="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a>
+            </li>
+        </ul>
+    </div>
+    <form name="valueDateForm" novalidate="" class="form-horizontal" rc-submit="submit()">
+        <fieldset>
+            <div class="form-group" ng-if="transactions.currentPageItems.length > 0" >
+                <label class="control-label col-sm-2">{{'label.input.valuedate' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="valueDate" type="text" name="valueDate" datepicker-pop="dd MMMM yyyy" ng-model="first.valueDate" is-open="opened2"
+                        class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="valueDateForm" valattribute="valueDate" />
+                </div>
+            </div>
+            <div class="col-md-offset-3" ng-if="transactions.currentPageItems.length > 0" >
+                <button id="submit" type="submit" class="btn btn-primary" has-permission='READ_LOAN'>
+                    {{'label.button.submit'| translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

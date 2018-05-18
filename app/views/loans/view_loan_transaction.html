@@ -32,11 +32,17 @@
 
     <div ng-hide="hideEditUndoTrxnButton" class="pull-right">
         <div class="btn-group">
+            <a ng-if="isValuedateUpdateRequired" ng-click="updateValueDate(transaction.accountId, transaction.id)" class="btn btn-success" has-permission='UPDATE_VALUEDATE_LOANTRANSACTION'>
+                {{ 'label.button.updatevaluedate' | translate}}</a>
             <a ng-hide="hideEditTrxnButton" href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary" has-permission='ADJUST_LOAN'><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
             <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='ADJUST_LOAN'><i
                     class="icon-trash icon-white"></i>{{ 'label.button.undo' | translate}}</a>
         </div>
+    </div>
+    <div ng-if="transaction.type.disbursement && isValuedateUpdateRequired" class="pull-right">
+        <a ng-click="updateValueDate(transaction.accountId, transaction.id)" class="btn btn-success" has-permission='UPDATE_VALUEDATE_LOANTRANSACTION'>
+            {{ 'label.button.updatevaluedate' | translate}}</a>
     </div>
 
     <div class="row-fluid">
@@ -214,9 +220,26 @@
             <button class="btn btn-primary" ng-click="submitUtrn()">{{'label.button.submit' | translate}}</button>
         </div>
     </script>
-
-
-
-
+    <script type="text/ng-template" id="updatevaluedate.html">
+        <form class="form-horizontal" rc-submit="updateTransaction()">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.updatevaluedate' | translate}}</h3>
+            </div>
+            <div class="modal-body" style="height: 300px;">
+                <api-validate></api-validate>
+                <div class="form-group" >
+                    <label class="control-label col-sm-3">{{'label.heading.valuedate' | translate}}<span class="required">*</span></label>
+                    <div class="col-sm-4">
+                        <input id="valueDate" type="text" name="valueDate" datepicker-pop="dd MMMM yyyy"
+                            ng-model="formRequestData.valueDate" is-open="opened1" class="form-control" required/>
+                    </div>
+                </div>   
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+                <button class="btn btn-primary">{{'label.button.submit' | translate}}</button>
+            </div>
+        </form>
+    </script>
     </div>
 </div>

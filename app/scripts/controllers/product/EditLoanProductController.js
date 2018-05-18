@@ -328,6 +328,8 @@
                         scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccount.id;
                     }
                     scope.formData.transfersInSuspenseAccountId = scope.product.accountingMappings.transfersInSuspenseAccount.id;
+                    scope.formData.valueDateSuspenseAccountId = scope.product.accountingMappings.valueDateSuspenseAccount.id;
+                    scope.formData.valueDateSuspensePayableAccountId = scope.product.accountingMappings.valueDateSuspensePayableAccount.id;
                     scope.formData.interestOnLoanAccountId = scope.product.accountingMappings.interestOnLoanAccount.id;
                     scope.formData.incomeFromFeeAccountId = scope.product.accountingMappings.incomeFromFeeAccount.id;
                     scope.formData.incomeFromPenaltyAccountId = scope.product.accountingMappings.incomeFromPenaltyAccount.id;

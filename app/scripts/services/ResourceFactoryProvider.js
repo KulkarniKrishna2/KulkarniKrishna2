@@ -1477,6 +1477,12 @@
                     loanTrxnForUtrNumberResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/utrnumber", {loanId: '@loanId', transactionId: '@transactionId'}, {
                         update: {method: 'PUT'}
                     }),
+                    loanTransactionValueDateResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/updatevaluedate", {loanId: '@loanId', transactionId: '@transactionId'}, {
+                        update: {method: 'PUT'}
+                    }),
+                    valueDateTransactionsResource: defineResource(apiVer + "/valuedatetransactions/loans", {}, {
+                        update: {method: 'PUT'}
+                    }),
                     clientParentGroupsResource: defineResource(apiVer + "/clients/:clientId/groupdetails", {clientId: '@clientId'}, {
                        getParentGroups: {method:'GET', params: {}, isArray: true}
                     }),

@@ -1779,6 +1779,9 @@
             .when('/initiatebulktransfer', {
                 templateUrl: 'views/organization/bulktransfer/initiatebulktransfer.html'
             })
+            .when('/loans/pendingvaluedatetransactions', {
+                templateUrl: 'views/loans/pendingvaluedatetransactions.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
