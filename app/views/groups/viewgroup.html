@@ -159,7 +159,8 @@
 									        <table class="table table-condensed marginbottom0" style="display:inline-table;">
 									            <thead>
 										            <tr class="graybg">
-										                <th>{{'label.heading.accnum' | translate}}</th>
+										                <th ng-if="!isHideAccountNumber">{{'label.heading.accnum' | translate}}</th>
+														<th ng-if="!isHideReferenceNumber">{{'label.input.referenceno' | translate}}</th>
 										                <th>{{'label.heading.name' | translate}}</th>
 										                <th>{{ 'label.heading.actions' | translate }}</th>
 														<th></th>
@@ -169,7 +170,7 @@
 										            <tr class="pointer-main" ng-repeat="member in group.clientMembers">
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">
 										                	<i class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
-										                		{{member.accountNo}}
+															<span ng-if="!isHideReferenceNumber">{{member.referenceNumber}} </span><span ng-if="!isHideAccountNumber">{{member.accountNo}}-</span>
 										                </td>
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
 										                </td>

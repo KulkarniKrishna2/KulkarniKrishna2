@@ -73,7 +73,7 @@
                 <div class="col-sm-3 col-md-3">
                     <label class="control-label col-sm-12 center">{{ 'lable.heading.clientscgt' | translate }}</label>
                     <select multiple ng-model="selectedClients" class="form-control clear">
-                        <option ng-repeat="client in clientMembers" value="{{client.id}}">{{client.id}} | {{client.displayName}}</option>
+                        <option ng-repeat="client in clientMembers" value="{{client.id}}">{{client.id}} | {{client.displayName}}<span ng-if="client.referenceNumber">({{client.referenceNumber}})</span></option>
                     </select>
                 </div>
             </div>

@@ -101,7 +101,9 @@
 	"viewClient": {
 	  "isHiddenField": {
 		"pincode": false,
-		"displayNameInReverseOrder": false
+		"displayNameInReverseOrder": false,
+		"accountNo":false,
+		"referenceNo": true
 	  	}
 	},
 	"collectionSheet": {
@@ -288,7 +290,9 @@
 	},
 	"viewGroup":{
 	  	"isHiddenField": {
-	  		"createGroup" : false
+	  		"createGroup" : false,
+		    "accountNo":false,
+		    "referenceNo": true
 	  	}
 	},
 	"createMandates":{
@@ -331,7 +335,13 @@
       "isMandatory": {
       	"trancheData":false
       }
-    }
+    },
+	"viewCenter":{
+	  "isHiddenField": {
+		"accountNo" : false,
+		"referenceNo": true
+	  }
+	}
   }
 }
 	

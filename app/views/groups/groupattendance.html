@@ -22,7 +22,7 @@
 		                </thead>
 		                <tbody>
 		                <tr ng-repeat="client in clients">
-		                    <td>{{client.displayName}}<span class="required">*</span></td>
+		                    <td>{{client.displayName}}({{client.referenceNumber}})<span class="required">*</span></td>
 		                    <td>
 		                        <div>
 		                            <select ng-model="client.attendanceType"

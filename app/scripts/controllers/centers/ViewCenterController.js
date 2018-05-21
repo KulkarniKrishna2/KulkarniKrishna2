@@ -13,6 +13,8 @@
             scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
             $rootScope.centerId = routeParams.id
             scope.sections = [];
+            scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.accountNo;
+            scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
