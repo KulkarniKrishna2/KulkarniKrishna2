@@ -331,7 +331,7 @@
                 var reportParams = scope.formData;
                 var displayParams = {};
                 var params = {};
-                reportParams['output-type'] = "XLS";
+                reportParams['output-type'] = "CSV";
 
                 for (var i = 0; i < scope.reportParams.length; i++) {
                     var element = scope.reportParams[i];
