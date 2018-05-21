@@ -7054,17 +7054,18 @@
     "label.heading.keyah" : "KeyAh",
     "label.heading.create.subgroup" : "Create SubGroup",
     "label.heading.create.member" : "Create Member",
-     "label.heading.clientreferenceno" : "client ref#",
-     "label.heading.groupreferenceno": "group ref#",
-     "label.heading.centerreferenceno": "center ref#",
-     "label.heading.officereferenceno": "office ref#",
-     "label.input.clientreferenceno":"client ref#",
+     "label.heading.clientreferenceno" : "Client Ref#",
+     "label.heading.groupreferenceno": "Group Ref#",
+     "label.heading.centerreferenceno": "Center Ref#",
+     "label.heading.officereferenceno": "Office Ref#",
+     "label.input.clientreferenceno":"Client Ref#",
 
     "label.heading.isslabbasedcharge" : "Is Slab Based Charge",
     "label.input.isslabbasedcharge" : "Is Slab Based Charge",
     "label.input.inmultiplesof": "In multiples of",
     "label.heading.inmultiplesof": "In multiples of",
     "label.heading.roundingmode" : "Rounding Mode",
+    "label.input.referenceno":"Reference Number",
     
      "------ end of tensalation file":"---------"
 }

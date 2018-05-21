@@ -21,7 +21,7 @@
 		                </thead>
 		                <tbody>
 		                <tr ng-repeat="client in clients">
-		                    <td>{{client.displayName}}</td>
+		                    <td>{{client.displayName}}({{client.referenceNumber}})</td>
 		                    <td>
 		                        <div>
 		                            <select ng-model="tempData[client.id]" class="form-control">

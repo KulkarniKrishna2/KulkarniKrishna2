@@ -9,7 +9,8 @@
             scope.destinationGroup = "";
             scope.groupId = routeParams.id;
             scope.isCenter = false;
-
+            scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.accountNo;
+            scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'activeClientMembers'}, function (data) {
                 scope.data = data;
                 if(data.groupLevel && data.groupLevel==1)

@@ -101,7 +101,9 @@
 	"viewClient": {
 	  "isHiddenField": {
 		"pincode": false,
-		"displayNameInReverseOrder": false
+		"displayNameInReverseOrder": false,
+		"accountNo":true,
+		"referenceNo": false
 	  	}
 	},
 	"collectionSheet": {
@@ -288,7 +290,9 @@
 	},
 	"viewGroup":{
 	  	"isHiddenField": {
-	  		"createGroup" : false
+	  		"createGroup" : false,
+		  	"accountNo":true,
+		    "referenceNo": false
 	  	}
 	},
 	"createMandates":{
@@ -328,7 +332,13 @@
         "interestRatePerPeriod": false,
 		"disbursementPaymentMode":false
       }
-    }
+    },
+	"viewCenter":{
+	  "isHiddenField": {
+		"accountNo" : true,
+		"referenceNo": false
+	  }
+	}
   }
 }
 	

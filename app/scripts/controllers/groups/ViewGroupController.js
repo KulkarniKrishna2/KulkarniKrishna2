@@ -11,6 +11,8 @@
             scope.editMeeting = false;
             scope.sections = [];
             scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.accountNo;
+            scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
