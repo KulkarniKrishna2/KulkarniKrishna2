@@ -151,7 +151,7 @@
 								  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
 									            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}&staffId={{group.staffId}}&centerId={{group.centerId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
 									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
-									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP'>
+									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP' ng-hide="isHideCreateEntity">
 									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
 									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>
 									                <i class="icon-arrow-right icon-white"></i>{{'label.button.transferclients' | translate }}</a>

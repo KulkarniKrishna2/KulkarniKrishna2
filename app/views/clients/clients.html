@@ -4,8 +4,9 @@
     </ul>
     <api-validate></api-validate>
 
-    <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
+    <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT' ng-hide="isHideCreateEntity"><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
     <div class="clearfix"></div>
+    <br ng-if="isHideCreate">
     <div class="form-horizontal">
         <div ng-if="!isSearchData">
             <form name="searchClientsForm">

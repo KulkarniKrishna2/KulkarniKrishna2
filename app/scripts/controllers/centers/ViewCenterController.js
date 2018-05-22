@@ -15,6 +15,12 @@
             scope.sections = [];
             scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.accountNo;
             scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo;
+            scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            scope.hideManageGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+            scope.isHideCreateEntity = false;
+            if(scope.isWorkflowEnabled && scope.hideManageGroup){
+                scope.isHideCreateEntity = true;
+            }
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };

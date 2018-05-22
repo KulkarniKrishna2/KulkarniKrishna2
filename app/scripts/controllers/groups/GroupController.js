@@ -5,6 +5,12 @@
             scope.actualGroups = [];
             scope.searchText = "";
             scope.searchResults = [];
+            scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            scope.hideCreateGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+            scope.isHideCreateEntity = false;
+            if(scope.isWorkflowEnabled && scope.hideCreateGroup){
+                scope.isHideCreateEntity = true;
+            }
             scope.routeTo = function (id) {
                 location.path('/viewgroup/' + id);
             };
@@ -93,7 +99,7 @@
                     });
                 }
             }
-            scope.showGroup = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+
         }
     });
     mifosX.ng.application.controller('GroupController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.GroupController]).run(function ($log) {
