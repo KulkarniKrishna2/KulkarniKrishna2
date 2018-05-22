@@ -565,6 +565,9 @@
                         getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),
+                    centerWorkflowResource: defineResource(apiVer + "/centers/:centerId/workflowData", {centerId: '@centerId'}, {
+                    get: {method: 'GET', params: {}}
+                    }),
                     centerMeetingResource: defineResource(apiVer + "/centers/:centerId/meetings/:templateSource", {centerId: '@centerId', templateSource: '@templateSource'}, {
                         getMeetingInfo: {method: 'GET', params: {}}
                     }),

@@ -5,7 +5,7 @@
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
-                resourceFactory.centerResource.get({ centerId: scope.centerId, associations: 'groupMembers,clientMembers' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts' }, function (data) {
                     scope.centerDetails = data;
                 });
 
@@ -323,7 +323,7 @@
 
             }
 
-            scope.viewMemberDetails = function (groupId, memberId) {
+            scope.viewMemberDetails = function (groupId, activeClientMember) {
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',
                     controller: ViewMemberCtrl,
@@ -331,20 +331,26 @@
                     size: 'lg',
                     resolve: {
                         memberParams: function () {
-                            return { 'memberId': memberId, 'groupId' : groupId };
+                            return { 'groupId': groupId, 'activeClientMember' : activeClientMember };
                         }
                     }
                 });
             }
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
-                $scope.clientId = memberParams.memberId;
+                $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = false;
                 $scope.shownidentityform = false;
                 $scope.shownFamilyMembersForm = false;
                 $scope.showLoanAccountForm = false;
+                $scope.isLoanAccountExist = false;
 
+                //loan account
+                if(memberParams.activeClientMember.loanAccountBasicData){
+                    $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
+                    $scope.isLoanAccountExist = true;
+                }
                 $scope.setDefaultGISConfig = function () {
                     if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address) {
                         if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
@@ -481,6 +487,13 @@
                 }
                 getClientData();
 
+
+                function getprofileRating(){
+                 resourceFactory.profileRating.get({entityType: 1,entityId : scope.clientId}, function (data) {
+                    scope.profileRatingData = data;
+                 });
+                };
+                getprofileRating();
 
                 $scope.entityAddressLoaded = false;
                 $scope.fetchEntityAddress = function () {
@@ -1009,16 +1022,6 @@
                     $scope.loanAccountFormData.collectInterestUpfront = $scope.loanaccountinfo.product.collectInterestUpfront;
                 }
 
-                $scope.clientAccountsLoaded = false;
-                $scope.getClientAccounts = function(){
-                    if(!$scope.clientAccountsLoaded){
-                        $scope.clientAccountsLoaded = true;
-                        resourceFactory.clientAccountsOverviewsResource.get({clientId: $scope.clientId}, function (data) {
-                            $scope.clientAccounts = data;
-                        });
-                    }
-                };
-
                 $scope.newLoanAccountSubmit = function () {
                     // Make sure charges, overdue charges and collaterals are empty before initializing.
                     delete $scope.loanAccountFormData.charges;
@@ -1121,6 +1124,108 @@
 
             }
 
+            //client reject reason method call
+            scope.clientRejection = function (memberId) {
+                $modal.open({
+                    templateUrl: 'views/task/popup/clientreject.html',
+                    controller: clientRejectionCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'memberId': memberId };
+                        }
+                    }
+                });
+            }
+            var clientRejectionCtrl = function ($scope, $modalInstance, memberParams) {
+
+                $scope.error = null;
+                $scope.rejectFormData = {};
+                $scope.values = [];
+
+                resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason'}, function (data) {
+                $scope.codes = data;
+                });
+
+                $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitReject = function () {
+                    if((!$scope.rejectFormData.reasonCode) || !$scope.rejectFormData.description) {
+                        $scope.error = 'Specify Rejection Reason';
+                        return false;
+                    }
+
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
+                        $modalInstance.close('reject');
+                        $route.reload();
+                    });
+                };
+
+                $scope.getDependentCodeValues = function(codeName){
+                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
+                };
+
+                $scope.initDescription = function(reasonId){
+                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
+                        $scope.displayDescription = true; 
+                    }else{
+                        $scope.displayDescription = false;
+                    }
+                };
+            }
+
+            scope.groupRejection = function (memberId) {
+                $modal.open({
+                    templateUrl: 'views/task/popup/groupreject.html',
+                    controller: groupRejectionCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'memberId': memberId };
+                        }
+                    }
+                });
+            }
+            var groupRejectionCtrl = function ($scope, $modalInstance, memberParams) {
+
+                $scope.error = null;
+                $scope.rejectFormData = {};
+                $scope.values = [];
+
+                resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason'}, function (data) {
+                $scope.codes = data;
+                });
+
+                $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitReject = function () {
+                    if((!$scope.rejectFormData.reasonCode) || !$scope.rejectFormData.description) {
+                        $scope.error = 'Specify Rejection Reason';
+                        return false;
+                    }
+
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
+                        $modalInstance.close('reject');
+                        $route.reload();
+                    });
+                };
+
+                $scope.getDependentCodeValues = function(codeName){
+                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
+                };
+
+                $scope.initDescription = function(reasonId){
+                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
+                        $scope.displayDescription = true; 
+                    }else{
+                        $scope.displayDescription = false;
+                    }
+                };
+            }
 
         }
     });
