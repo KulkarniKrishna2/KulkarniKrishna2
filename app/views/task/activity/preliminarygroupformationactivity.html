@@ -1,9 +1,9 @@
 <div ng-controller="PreliminaryGroupFormationActivityController">
 	<div>
 		<span>
-			<a href="" class="btn btn-primary" ng-click="createSubGroup(centerDetails)">
-				<i class="glyphicon glyphicon-plus"></i>&nbsp;{{'label.button.add.subgroup' | translate}}</a>
-			<span style="text-align:right">{{'label.info.totalmembers' | translate}} : 5</span>
+			<a class="icon-group icon-large" ng-click="createSubGroup(centerDetails)" tooltip="{{'label.button.add.subgroup' | translate}}">
+			</a>&nbsp;&nbsp;
+			<span style="text-align:right">{{'label.info.totalmembers' | translate}} : {{centerDetails.totalCenterMembers}}</span>
 		</span>
 	</div>
 	<div>
@@ -17,31 +17,38 @@
 					<th class="col-md-4">{{'label.heading.keyah' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
-				<tbody ng-repeat="groupMember in centerDetails.groupMembers">
+				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="6">
-							<span>{{groupMember.name}}
-								<a href="" class="btn btn-primary" ng-click="createMemberInGroup(groupMember.id, groupMember.officeId)">
-									<i class="glyphicon glyphicon-plus"></i>&nbsp;{{'label.heading.create.member' | translate}}
+						<td colspan="5">
+							<span>{{groupMember.fcsmNumber}}&nbsp;&nbsp;
+								<a class="icon-user icon-large" ng-click="createMemberInGroup(groupMember.id, groupMember.officeId)" tooltip="{{'label.heading.create.member' | translate}}">
 								</a>
 							</span>
 						</td>
+						<td>
+							<a class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></a>
+						</td>
 					</tr>
 					<tr>
-						<td colspan="6">
-							<table class="table table-hover">
-								<tbody ng-repeat="activeClientMember in groupMember.activeClientMembers">
-									<tr ng-click="viewMemberDetails(groupMember.id, activeClientMember.id)">
-										<td class="col-md-2">{{activeClientMember.displayName}}</td>
-										<td class="col-md-2">{{activeClientMember.accountNo}}</td>
-										<td class="col-md-1">abcd</td>
-										<td class="col-md-2">abcd</td>
-										<td class="col-md-4">abcd</td>
-										<td class="col-md-1">abcd</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
+						<tr ng-repeat="activeClientMember in groupMember.memberData">
+							<td class="col-md-2">
+								<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
+							</td>
+							<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+							<td class="col-md-1">{{activeClientMember.age}}</td>
+							<td class="col-md-2">{{activeClientMember.clientIdentifier.documentKey}}</td>
+							<td class="col-md-4">
+								<span ng-repeat="r in [1, 2, 3, 4, 5]">
+									<i ng-if="activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore && activeClientMember.profileRatingScoreData.finalScore >= r"
+									 class="icon-star"></i>
+									<i ng-if="activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore && activeClientMember.profileRatingScoreData.finalScore < r"
+									 class="icon-star-empty"></i>
+									<i ng-if="activeClientMember.profileRatingScoreData === undefined || activeClientMember.profileRatingScoreData.finalScore === undefined"
+									 class="icon-star-empty"></i>
+								</span>
+							</td>
+							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+						</tr>
 					</tr>
 				</tbody>
 			</table>

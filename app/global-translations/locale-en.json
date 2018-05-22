@@ -7059,6 +7059,13 @@
      "label.heading.centerreferenceno": "Center Ref#",
      "label.heading.officereferenceno": "Office Ref#",
      "label.input.clientreferenceno":"Client Ref#",
+     "label.info.activeborrowers" : "Total Borrowers",
+     "label.heading.loanpurpose": "Loan Purpose",
+     "label.heading.loanproduct": "Loan Product",
+     "label.heading.loanpack": "Loan Pack",
+     "label.heading.processingfee": "Processing Fee",
+     "label.heading.singleinsurance": "Single Insurance",
+     "label.heading.doubleinsurance": "Double Insurance",
 
     "label.heading.isslabbasedcharge" : "Is Slab Based Charge",
     "label.input.isslabbasedcharge" : "Is Slab Based Charge",
@@ -7066,6 +7073,8 @@
     "label.heading.inmultiplesof": "In multiples of",
     "label.heading.roundingmode" : "Rounding Mode",
     "label.input.referenceno":"Reference Number",
+    "label.view.add.loanapplication": "Add LoanApplication",
+    "label.view.edit.loanapplication": "Edit LoanApplication",
     
      "------ end of tensalation file":"---------"
 }

@@ -17,7 +17,7 @@
 	</div>
 	<br>
 	<tabset class="overflowhidden marginbottom0" tabset-name="memberTabset">
-		<tab heading="{{'label.heading.address' | translate}}" select="fetchEntityAddress()">
+		<tab heading="{{'label.heading.address' | translate}}" select="fetchEntityAddress()" ng-show="!showaddressform">
 			<div class="pull-right">
 				<a href="" ng-click="loadNewAdressForm()" ng-if="!showaddressform" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
 					<i class="icon-plus icon-white"></i>
@@ -263,7 +263,7 @@
 				</div>
 			</div>
 		</tab>
-		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()">
+		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()" ng-show="!shownidentityform">
 			<div class="pull-right">
 				<a href="" ng-click="loadIdentitiesForm()" ng-if="!shownidentityform && !shownUploadIdentifierDocumentForm" class="btn btn-primary"
 				    has-permission='CREATE_CLIENTIDENTIFIER'>
@@ -444,7 +444,7 @@
 
 
 		</tab>
-		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="getFamilyDetails()">
+		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="getFamilyDetails()" ng-show="!shownFamilyMembersForm">
 			<div class="pull-right">
 				<a href="" ng-click="familyMembersForm()" ng-if="!shownFamilyMembersForm" class="btn btn-primary" has-permission='CREATE_FAMILYDETAIL'>
 					<i class="icon-plus icon-white"></i>
@@ -640,9 +640,9 @@
 				</table>
 			</div>
 		</tab>
-		<tab heading="{{'label.heading.accounts' | translate}}" select="getClientAccounts()">
+		<tab heading="{{'label.heading.accounts' | translate}}">
 			<div class="pull-right">
-				<a href="" ng-click="getLoanAccountFormDetails()" ng-if="!showLoanAccountForm" class="btn btn-primary" has-permission='CREATE_LOAN'>
+				<a href="" ng-click="getLoanAccountFormDetails()" ng-if="!showLoanAccountForm && !isLoanAccountExist" class="btn btn-primary" has-permission='CREATE_LOAN'>
 					<i class="icon-plus icon-white"></i>
 					{{'label.button.add'|translate}}
 				</a>
@@ -654,7 +654,7 @@
 				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()" 
 				 class="form-horizontal well">
 					<fieldset>
-						<legend>{{'label.view.add.familymember' | translate}}</legend>
+						<legend>{{'label.view.add.loanapplication' | translate}}</legend>
 					<div class="form-group">
 						<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
 							<span class="required">*</span>:&nbsp;
@@ -694,6 +694,41 @@
 							  valattribute="loanPurposeId" />
 						</div>
 						<div class="col-sm-4"></div>
+					</div>
+					<br>
+					<div>
+						<label ng-show="loanaccountinfo.calendarOptions">
+							<i class="icon-calendar icon-white"></i>&nbsp;
+							<strong>{{ 'label.heading.meetingdetails' | translate }}</strong>
+						</label>
+						<table ng-show="loanaccountinfo.calendarOptions" class="width100">
+							<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
+								<td class="width14">
+									<label>{{ 'label.heading.startdate' | translate }}:</label>
+								</td>
+								<td class="width36">{{calendar.startDate | DateFormat}}</td>
+								<td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+									<label>{{ 'label.heading.repeatson' | translate }}:</label>
+								</td>
+								<td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+									{{calendar.humanReadable}}</td>
+							</tr>
+							<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
+								<td align="center">
+									<input type="checkbox" ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting)"
+									 ng-model="temp.syncRepaymentsWithMeeting" ng-change="syncRepaymentsWithMeetingchange()" />
+								</td>
+								<td>
+									<label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
+								</td>
+								<td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+									<input type="checkbox" ng-model="formData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()" />
+								</td>
+								<td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+									<label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label>
+								</td>
+							</tr>
+						</table>
 					</div>
 					<br>
 					<div  class="form-group" ng-if="loanAccountFormData.productId">
@@ -741,8 +776,52 @@
 			                        </tr>
 			                </tbody>
 			           </table>            
-			        </div> 
-
+					</div> 	
+					<div ng-if="loanAccountFormData.productId">
+						<div class="col-sm-1">
+							<label>
+								<strong>{{ 'label.heading.charges' | translate }}</strong>
+							</label>
+						</div>
+						<select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+						 value="{{charge.id}}" class="form-control width170px">
+							<option value="">{{'label.selectcharge' | translate}}</option>
+						</select>
+						<a ng-click="addCharge()">
+							<i class="icon-plus icon-white"></i>
+						</a>
+					</div>
+					<table class="table" class="width100" ng-show="charges.length>0">
+						<tr class="graybg">
+							<th>{{'label.heading.name' | translate}}</th>
+							<th>{{'label.heading.type' | translate}}</th>
+							<th>{{'label.heading.amount' | translate}}</th>
+							<th>{{'label.heading.collectedon' | translate}}</th>
+							<th>{{'label.heading.date' | translate}}</th>
+							<th>{{'label.heading.iscapitalized' | translate}}</th>
+							<th>{{'label.heading.actions' | translate}}</th>
+						</tr>
+						<tr ng-repeat="charge in charges">
+							<td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+							<td>{{charge.chargeCalculationType.value}}</td>
+							<td>
+								<input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}"
+								 number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)">
+							</td>
+							<td>{{charge.chargeTimeType.value}}</td>
+							<td>
+								<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+								 ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
+								 max="'2020-06-22'" />
+							</td>
+							<td>{{charge.isCapitalized}}</td>
+							<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>
+								<a ng-click="deleteCharge($index)">
+									<i class="icon-remove icon-white"></i>
+								</a>
+							</td>
+						</tr>
+					</table>
 						<div class="col-md-offset-2 paddedleft">
 							<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
 								{{'label.button.cancel'|translate}}</a>
@@ -764,13 +843,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="pointer-main" 
-						    ng-repeat="clientLoanAccount in clientAccounts.loanAccounts">
-							<td class="pointer">{{clientLoanAccount.accountNo}}</td>
-							<td class="pointer">{{clientLoanAccount.productName}}</td>
-							<td class="pointer">{{clientLoanAccount.status.value}}</td>
-							<td class="pointer">{{clientLoanAccount.loanType.value}}
-							</td>
+						<tr class="pointer-main" >
+							<td class="pointer">{{loanAccountData.accountNo}}</td>
+							<td class="pointer">{{loanAccountData.loanProductName}}</td>
+							<td class="pointer">{{loanAccountData.status.value}}</td>
+							<td class="pointer">{{loanAccountData.loanType.value}}</td>
 						</tr>
 					</tbody>
 				</table>

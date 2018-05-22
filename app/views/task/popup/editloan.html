@@ -1,0 +1,103 @@
+<div ng-if="showLoanAccountForm">
+	<api-validate></api-validate>
+				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()" 
+				 class="form-horizontal well">
+					<fieldset>
+						<legend>{{'label.view.edit.loanapplication' | translate}}</legend>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
+							<span class="required">*</span>:&nbsp;
+						</label>
+						<div class="col-sm-3">
+								<select id="productId" ng-model="loanAccountFormData.productId" 
+								  name="productId" class="form-control"
+								  ng-options="product.id as product.name for product in products" 
+								  value="{{product.id}}"
+								  ng-change="loanProductChange(loanAccountFormData.productId)" 
+								  required="required">
+							        <option style="display:none" value="">
+							        {{'label.selectloanproduct' | translate}}</option>
+						        </select>
+						</div>
+						<div class="col-sm-3">
+							<form-validate valattributeform="newloanaccountform" 
+							   valattribute="productId" />
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+					<br>
+					<div class="form-group" ng-if="loanAccountFormData.productId">
+						<label class="control-label col-sm-2">
+						   {{ 'label.input.loanpurpose' | translate }}<span class="required">*</span>:&nbsp;
+						</label>
+						<div class="col-sm-3">
+							<select  id="loanPurposeId"  name ="loanPurposeId" 
+							  ng-model="loanAccountFormData.loanPurposeId"
+                              ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                              class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+				                <option value="">{{'label.selectpurpose' | translate}}</option>
+				            </select>
+						</div>
+						<div class="col-sm-3">
+							<form-validate valattributeform="newloanaccountform" 
+							  valattribute="loanPurposeId" />
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+					<br>
+					<div  class="form-group" ng-if="loanAccountFormData.productId">
+						<label class="control-label col-sm-2">
+						   {{ 'label.heading.chooseloanemipack' | translate }}:
+						</label>
+						<div class="col-sm-3">
+							<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1" placeholder="{{'label.input.filterbytext' | translate}}"/>
+						</div>
+						<div class="col-sm-7">
+						</div>
+			        </div> 
+			        <br/>
+			        <div class="col-sm-offset-2"  
+			           ng-if="loanAccountFormData.productId && loanaccountinfo.loanEMIPacks">
+			           <table class="well table col-sm-12">
+			                <thead>
+			                    <tr  class="graybg">
+			                        <th></th>
+			                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+			                        <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+			                        <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+			                        <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                    <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+			                        <td class="col-md-1">
+			                                <input type="radio" 
+			                                  ng-model="loanAccountFormData.loanEMIPackId" 
+			                                  name="emipack" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" class="form-control" value="{{loanEMIPack.id}}"/>
+			                        </td>
+			                        <td class="col-md-1">
+			                            <span>{{loanEMIPack.sanctionAmount}}</span>
+			                        </td>
+			                        <td class="col-md-1">
+			                            <span>{{loanEMIPack.combinedRepayEvery}}</span>
+			                        </td>
+			                        <td class="col-md-1">
+			                            <span>{{loanEMIPack.numberOfRepayments}}</span>
+			                        </td>
+			                        <td class="col-md-1">
+			                            <span>{{loanEMIPack.fixedEmi}}</span>
+			                        </td>
+			                        </tr>
+			                </tbody>
+			           </table>            
+			        </div> 
+
+						<div class="col-md-offset-2 paddedleft">
+							<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
+								{{'label.button.cancel'|translate}}</a>
+							<a id="save" ng-click="newLoanAccountSubmit()" type="submit" class="btn btn-primary">
+								{{'label.button.save' |translate}}</a>
+						</div>
+			    </fieldset>
+				</form>
+			</div>

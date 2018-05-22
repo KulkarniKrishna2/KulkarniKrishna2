@@ -1,0 +1,49 @@
+<div ng-controller="BulkJlgLoanApplicationActivityController">
+	<div>
+		<span style="text-align:left">{{'label.info.totalmembers' | translate}} : {{centerDetails.totalCenterMembers}}&nbsp;&nbsp;{{'label.info.activeborrowers' | translate}} : {{centerDetails.totalBorrowerMembers}}</span>
+	</div>
+	<div>
+		<div>
+			<table class="table table-striped" width="100%">
+				<thead>
+					<th class="col-md-2">{{'label.heading.entity' | translate}}</th>
+					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.age' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.KYC' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.loanpack' | translate}}</th>
+					<th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.singleinsurance' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.doubleinsurance' | translate}}</th>
+					<th class="col-md-1"> </th>
+					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
+				</thead>
+				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
+					<tr>
+						<td colspan="11">
+							<span>{{groupMember.fcsmNumber}}
+							</span>
+						</td>
+						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+					</tr> 
+						<tr ng-repeat="activeClientMember in groupMember.memberData">
+							<td class="col-md-2"><a href= "" ng-click= "viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
+							</td>
+							<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+							<td class="col-md-1">{{activeClientMember.age}}</td>
+							<td class="col-md-1">{{activeClientMember.clientIdentifier.documentKey}}</td>
+							<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
+							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount}}</td>
+							<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
+							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amountOrPercentage}}</td>
+							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amountOrPercentage}}</td>
+							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[2].amountOrPercentage}}</td>
+							<td><a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
+							<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
