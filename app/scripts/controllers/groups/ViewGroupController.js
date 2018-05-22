@@ -13,6 +13,12 @@
             scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.accountNo;
             scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
+            scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            scope.hideManageMember = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+            scope.isHideCreateEntity = false;
+            if(scope.isWorkflowEnabled && scope.hideManageMember){
+                scope.isHideCreateEntity = true;
+            }
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };

@@ -100,6 +100,7 @@
 	},
 	"viewClient": {
 	  "isHiddenField": {
+	  	"createClient" : false,
 		"pincode": false,
 		"displayNameInReverseOrder": false,
 		"accountNo":false,

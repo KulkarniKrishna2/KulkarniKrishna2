@@ -3,6 +3,12 @@
         ClientController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
             scope.isSearchData = true;
             scope.clientsPerPage = 15;
+            scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            scope.hideCreateClient = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient;
+            scope.isHideCreateEntity = false;
+            if(scope.isWorkflowEnabled && scope.hideCreateClient){
+                scope.isHideCreateEntity = true;
+            }
             /**
              * Get the record based on the offset limit
              */
