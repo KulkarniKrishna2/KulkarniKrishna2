@@ -203,7 +203,8 @@
 		"staff": false,
 		"activate": true,
 		"addclients": true
-	  }
+	  },
+	  "selfActivate":true
 	},
 	"labelChanges": {
 	  "calendarChagesEffectiveFrom": true
