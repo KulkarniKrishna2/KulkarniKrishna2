@@ -1991,6 +1991,7 @@
     "label.button.fetchpenalties":"Fetch Penalties",
     "label.button.applypenalties":"Apply Penalties",
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
+    "label.button.viewsearchparameters": "View Parameters",
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",
