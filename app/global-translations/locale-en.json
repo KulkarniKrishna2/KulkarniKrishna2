@@ -4754,6 +4754,7 @@
     "validation.msg.bank.account.detail.ifscCode.cannot.be.blank":"Bank IFSC Code required",
     "validation.msg.bank.account.detail.name.cannot.be.blank":"Bank Account Holder Name required",
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.not.supported":"Bank Account Details not supported",
+    "error.msg.beneficiary.bank.account.is.not.active":"Beneficiary bank account is not active",
 
     "bankAccountType.savingsaccount":"Savings Account",
     "bankAccountType.currentaccount":"Current Account",
@@ -6445,7 +6446,7 @@
     "validation.msg.datatable.columns.on.sectioning.data.table.all.columns.should.be.part.of.one.or.other.sections" : "Each column should be mapped to a section",
     "error.msg.amount.more.than.disbursal.amount" : "Total purpose amount should not more than disbursement amount",
     "validation.msg.loanutilizationcheck.loanUtilizationChecks.cannot.be.empty" : "Audit Date can not be empty",
-    "validation.msg.invalid.dateFormat.format" : "Audit date can not be empty",
+    "validation.msg.invalid.dateFormat.format" : "Some error with the date entered.Please contact system administrator.",
     "validation.msg.loanutilizationcheck.amount.cannot.be.blank" :"Amount should not be empty",
     "validation.msg.loanutilizationcheck.auditDoneOn.cannot.be.blank" :"Audit date can not be empty",
     "error.msg.fund.mapping.loan.invalid.loan.id" : "Invalid loan id are {{params[0].value}} .  Remove these loan id.",
@@ -7040,9 +7041,11 @@
      "label.heading.total.income" : "Total Income",
      "label.heading.default.income" : "Default Income",
      "error.msg.discount.on.disbursal.is.available.only.for.flat.interest.rate" : "Discount on disbursal is available only with Flat interest rate.",
-    "invalid.name.format":"Please enter a valid name",
-    "invalid.accountnumber.format":"Please enter a valid account number",
-    "invalid.bankCity.format":"Please enter a valid city name",
-    "invalid.branchName.format":"Please enter a valid branch name",
+    "invalid.name.format":"Commas, special characters and more than 50 characters are not allowed",
+    "invalid.accountnumber.format":"Special characters, space and more than 50 characters are not allowed",
+    "invalid.bankCity.format":"Special characters, spaces, digits and more than 20 characters are not allowed",
+    "invalid.branchName.format":"Special characters, spaces, digits and more than 20 characters are not allowed.",
+    "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
+    "validation.msg.loanapplicationreference.submittedOnDate.is.greater.than.date" : "Loan application submission date cannot be a future date.",
     "------ end of tensalation file":"---------"
 }
