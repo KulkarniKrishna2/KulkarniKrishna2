@@ -343,6 +343,9 @@
 		"accountNo" : false,
 		"referenceNo": true
 	  }
+	},
+	"createoffice":{
+		"selfActive" : false
 	}
   }
 }
