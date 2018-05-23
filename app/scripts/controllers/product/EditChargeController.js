@@ -14,12 +14,11 @@
             scope.installmentAmountSlabType = 1;
             scope.showOverdueOptions = false;
             scope.showPercentageTyeOptions = false;
-            scope.roundingTypeOptions = [];
-            scope.defaultRoundingOptions = [1,4,5];
+            scope.roundingModeOptions = [];
+            scope.chargeAppliesToLoan = 1;
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
-                console.log(data);
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
@@ -29,7 +28,7 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
-
+                    scope.roundingModeOptions = data.roundingModeTypeOptions || [];
                     scope.showIsGlimCharge = true;
                     scope.showEmiRoundingGoalSeek = true;
                     scope.showMinimunCapping = true;
@@ -80,12 +79,13 @@
                     glimChargeCalculation: data.glimChargeCalculation.id,
                     slabs: data.slabs,
                     isSlabBased:data.isSlabBased,
-                    inMultiplesOf: data.inMultiplesof,
+                    decimalPlaces: data.decimalPlaces,
                     isCapitalized: data.isCapitalized
                 };
-                
-                scope.slabChargeTypeOptions = data.slabChargeTypeOptions;
-                scope.updateRoundingModeOptions();       
+                if(data.roundingMode){
+                    scope.formData.roundingMode = data.roundingMode.id;
+                }
+                scope.slabChargeTypeOptions = data.slabChargeTypeOptions;  
 
                 if(data.chargeCalculationType.id == scope.slabBasedChargeCalculation || scope.formData.isSlabBased) {
                     scope.updateSlabOptionsValues(data.slabs);
@@ -161,22 +161,6 @@
 
             });
 
-            scope.updateRoundingModeOptions = function(){
-                scope.roundingTypeOptions = [];
-                scope.formData.glimChargeCalculation = undefined;
-                for (var i in scope.glimChargeCalculationTypeOptions) {
-                    if(scope.formData.isGlimCharge==true){
-                        if(scope.glimChargeCalculationTypeOptions[i].id<4){
-                            scope.roundingTypeOptions.push(scope.glimChargeCalculationTypeOptions[i]);
-                        }
-                        
-                    }else{
-                        if(scope.defaultRoundingOptions.indexOf(scope.glimChargeCalculationTypeOptions[i].id) >=0){
-                            scope.roundingTypeOptions.push(scope.glimChargeCalculationTypeOptions[i]);
-                        }
-                    }
-                };
-            };
 
             scope.updateSlabOptionsValues = function(slabs){
                 scope.isSubSlabSEnabled = false;

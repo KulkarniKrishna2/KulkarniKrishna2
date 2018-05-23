@@ -5,12 +5,18 @@
             scope.taxComponents = [];
             scope.restrictDate = new Date('2025-06-22');
             scope.formData = {};
+            scope.roundingModeOptions = [];
 
             resourceFactory.taxgroup.get({taxGroupId: routeParams.taxGroupId, template: 'true'}, function (data) {
                 scope.data = data;
+                scope.roundingModeOptions = data.roundingModeTypeOptions;
                 scope.createTaxComponents();
                 scope.formData = {
-                    name: scope.data.name
+                    name: scope.data.name,
+                    decimalPlaces: scope.data.decimalPlaces
+                }
+                if(scope.data.roundingMode){
+                    scope.formData.roundingMode = scope.data.roundingMode.id;
                 }
             });
 
@@ -21,6 +27,10 @@
                     taxComponentDetail.name = taxMapping.taxComponent.name;
                     taxComponentDetail.taxComponentId = taxMapping.taxComponent.id;
                     taxComponentDetail.date = new Date(taxMapping.startDate);
+                    taxComponentDetail.decimalPlaces = taxMapping.decimalPlaces;
+                    if(taxMapping.roundingMode){
+                        taxComponentDetail.roundingMode = taxMapping.roundingMode.id;
+                    }
                     if (taxMapping.endDate) {
                         taxComponentDetail.endDate = new Date(taxMapping.endDate);
                         taxComponentDetail.canModify = false;
@@ -51,6 +61,8 @@
                     var taxComponentDetail = {};
                     taxComponentDetail.id = taxcomponent.id;
                     taxComponentDetail.taxComponentId = taxcomponent.taxComponentId;
+                    taxComponentDetail.decimalPlaces = taxcomponent.decimalPlaces;
+                    taxComponentDetail.roundingMode = taxcomponent.roundingMode;
                     if (taxcomponent.new) {
                         taxComponentDetail.startDate = dateFilter(taxcomponent.date, scope.df);
                     } else {

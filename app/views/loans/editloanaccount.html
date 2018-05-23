@@ -113,8 +113,8 @@
             </tr>
         </table>
 
-        <hr/>
-        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel"  class="width100">
+        <hr ng-show="!isLoanEmiPackEnabled"/>
+        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && !isLoanEmiPackEnabled"  class="width100">
             <div>
                 <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.preferredpaymentchannel' | translate }}</strong></label>
             </div>
@@ -170,7 +170,7 @@
             </table>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-            <hr/>
+            <hr ng-show="!isLoanEmiPackEnabled"/>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true && response.uiDisplayConfigurations.loanAccount.isHiddenField.createStandingInstruction == true && isLoanEmiPackEnabled">
         <label ng-show="loanaccountinfo && !isLoanEmiPackEnabled"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
