@@ -23,16 +23,33 @@
                     <form-validate valattributeform="createtaxgroupform" valattribute="name"/>
                 </div>
             </div>
+            <div class="form-group" ng-show="!formData.isGlimCharge && formData.chargeAppliesTo == chargeAppliesToLoan">
+                    <label class="control-label col-sm-2">{{'label.input.roundingmode' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select id="roundingMode" name="roundingMode" ng-model="formData.roundingMode"
+                                ng-options="roundingMode.id  as roundingMode.value for roundingMode in roundingModeOptions"
+                                value="{{roundingMode.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <label class="control-label col-sm-2">{{'label.heading.decimalplaces' | translate}}</label>
+                    <div class="col-sm-3">
+                        <input id="decimalPlaces" type="text" ng-model="formData.decimalPlaces"  class="form-control" number-format>
+                    </div>
+            </div>
             <h3>{{ 'label.heading.taxcomponent' | translate }}</h3>
 
             <div class="form-group col-sm-12 grbgcolor">
-                <label class="col-sm-4">{{ 'label.input.taxcomponent' | translate }}</label>
-                <label class="col-sm-4">{{ 'label.input.startdate' | translate }}</label>
+                <label class="col-sm-3">{{ 'label.input.taxcomponent' | translate }}</label>
+                <label class="col-sm-3">{{ 'label.input.startdate' | translate }}</label>
+                <label class="col-sm-2">{{ 'label.input.roundingmode' | translate }}</label>
+                <label class="col-sm-2">{{ 'label.input.decimalplaces' | translate }}</label>
+
                 <label class="col-sm-2"> <a ng-click="addTaxComponent()"><i
                         class="icon-plus icon-white">{{'label.add.row' | translate}}</i></a></label>
             </div>
             <div class="form-group col-sm-12" ng-repeat="taxcomponent in taxComponents">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <select id="taxComponents[{{$index}}].taxcomponent" ng-model="taxcomponent.taxComponentId"
                             chosen="data.taxComponents"
                             ng-options="component.id as component.name for component in data.taxComponents"
@@ -40,11 +57,21 @@
                         <option value="">{{'label.select' | translate}}</option>
                     </select>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <input id="taxComponents[{{$index}}].startDate" sort type="text"
                            datepicker-pop="dd MMMM yyyy" ng-model="taxcomponent.date"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
-                </div>
+                </div>                
+                    <div class="col-sm-2">
+                        <select id="taxComponents[{{$index}}].roundingMode" name="roundingMode" ng-model="taxcomponent.roundingMode"
+                                ng-options="roundingMode.id  as roundingMode.value for roundingMode in roundingModeOptions"
+                                value="{{roundingMode.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>                    
+                    <div class="col-sm-2">
+                        <input id="taxComponents[{{$index}}].decimalPlaces" type="text" ng-model="taxcomponent.decimalPlaces"  class="form-control" number-format>
+                    </div>
                 <div class="col-sm-2"><a ng-click="deleteTaxComponent($index)"><i
                         class="icon-remove  icon-white"></i></a></div>
             </div>

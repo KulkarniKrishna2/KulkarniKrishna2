@@ -23,21 +23,42 @@
                     {{taxgroup.name}}
                 </div>
             </div>
+            <div class="form-group"  ng-show="taxgroup.roundingMode">
+                <label class="text-right  col-sm-2">{{ 'label.heading.roundingmode' | translate }}</label>
+                <div class="col-sm-3">
+                    {{taxgroup.roundingMode.value}}
+                </div>
+            </div>
+            <div class="form-group"  ng-show="taxgroup.decimalPlaces">
+                <label class="text-right  col-sm-2">{{ 'label.heading.decimalplaces' | translate }}</label>
+
+                <div class="col-sm-3">
+                    {{taxgroup.decimalPlaces}}
+                </div>
+            </div>
 
             <div class="form-group col-sm-12 grbgcolor">
-                <label class=" col-sm-4">{{ 'label.input.taxcomponent' | translate }}</label>
-                <label class=" col-sm-4">{{ 'label.input.startdate' | translate }}</label>
-                <label class=" col-sm-4">{{ 'label.input.enddate' | translate }}</label>
+                <label class=" col-sm-3">{{ 'label.input.taxcomponent' | translate }}</label>
+                <label class=" col-sm-2">{{ 'label.input.startdate' | translate }}</label>
+                <label class=" col-sm-2">{{ 'label.input.enddate' | translate }}</label>                
+                <label class=" col-sm-2">{{ 'label.heading.roundingmode' | translate }}</label>
+                <label class=" col-sm-2">{{ 'label.heading.decimalplaces' | translate }}</label>
             </div>
             <div class="form-group col-sm-12" ng-repeat="taxgroup in taxgroup.taxAssociations">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     {{taxgroup.taxComponent.name}}
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     {{taxgroup.startDate | DateFormat}}
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     {{taxgroup.endDate | DateFormat}}
+                </div>
+                <div class="col-sm-2">
+                    {{taxgroup.roundingMode.value}}
+                </div>
+                <div class="col-sm-2">
+                    {{taxgroup.decimalPlaces}}
                 </div>
             </div>
 

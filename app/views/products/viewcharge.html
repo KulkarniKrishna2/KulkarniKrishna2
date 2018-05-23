@@ -140,14 +140,22 @@
 						<td>{{'label.input.maxCap' | translate}}</td>
 						<td>{{charge.maxCap}}</td>
 					</tr>
-					<tr>
+					<tr  ng-if="charge.isGlimCharge && charge.chargeAppliesTo.id==chargeAppliesToLoan">
 						<td>{{'label.input.applygoalseektoroundemi' | translate}}</td>
 						<td>{{charge.emiRoundingGoalSeek}}</td>
 					</tr>
-					<tr ng-if="charge.emiRoundingGoalSeek == true">
-						<td ng-if="charge.isGlimCharge">{{'label.input.glimchargecalculationtype' | translate}}</td>
-						<td ng-if="charge.isGlimCharge==false">{{'label.heading.roundingmode' | translate}}</td>
+					<tr ng-if="charge.isGlimCharge && charge.chargeAppliesTo.id==chargeAppliesToLoan">
+						<td>{{'label.input.glimchargecalculationtype' | translate}}</td>
 						<td>{{charge.glimChargeCalculation.value}}</td>
+					</tr>
+					<tr ng-if="!charge.isGlimCharge && charge.roundingMode && charge.chargeAppliesTo.id==chargeAppliesToLoan">
+						<td>{{'label.heading.roundingmode' | translate}}</td>
+						<td>{{charge.roundingMode.value}}</td>
+					</tr>
+					<tr ng-if="!charge.isGlimCharge && charge.decimalPlaces && charge.chargeAppliesTo.id==chargeAppliesToLoan">
+						<td>{{'label.heading.decimalplaces' | translate}}</td>
+						<td>{{charge.decimalPlaces}}</td>
+					</tr>	
 					<tr>
 						<td>{{'label.input.iscapitalize' | translate}}</td>
 						<td>{{charge.isCapitalized}}</td>

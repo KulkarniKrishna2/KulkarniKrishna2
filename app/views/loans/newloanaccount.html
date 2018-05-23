@@ -111,8 +111,8 @@
                     <label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
-        <hr/>
-        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel"  class="width100">
+        <hr ng-show="!isLoanEmiPackEnabled"/>
+        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && !isLoanEmiPackEnabled"  class="width100">
             <div>
                 <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.preferredpaymentchannel' | translate }}</strong></label>
             </div>
@@ -178,7 +178,7 @@
             
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-            <hr ng-show="loanaccountinfo"/>
+            <hr ng-show="loanaccountinfo && !isLoanEmiPackEnabled"/>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
         <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>

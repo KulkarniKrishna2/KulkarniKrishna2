@@ -5,8 +5,10 @@
             scope.restrictDate = new Date('2025-06-22');
             scope.formData = {};
             scope.tempAccounts = [];
+            scope.roundingModeOptions = [];
             resourceFactory.taxgrouptemplate.get(function (data) {
                 scope.data = data;
+                scope.roundingModeOptions = data.roundingModeTypeOptions;
             });
 
             scope.addTaxComponent = function () {
@@ -26,6 +28,8 @@
                         var taxComponentDetail = {};
                         taxComponentDetail.taxComponentId = taxcomponent.taxComponentId;
                         taxComponentDetail.startDate =  dateFilter(taxcomponent.date, scope.df);
+                        taxComponentDetail.roundingMode = taxcomponent.roundingMode;
+                        taxComponentDetail.decimalPlaces = taxcomponent.decimalPlaces;
                         scope.formData.taxComponents.push(taxComponentDetail);
                     });
             }

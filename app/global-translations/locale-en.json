@@ -7075,6 +7075,7 @@
     "label.input.referenceno":"Reference Number",
     "label.view.add.loanapplication": "Add LoanApplication",
     "label.view.edit.loanapplication": "Edit LoanApplication",
+    "label.input.roundingmode" : "Rounding Mode",
     
      "------ end of tensalation file":"---------"
 }

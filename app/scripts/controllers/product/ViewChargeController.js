@@ -5,6 +5,7 @@
             scope.choice = 0;
             scope.slabBasedCharge = 'Slab Based';
             scope.installmentAmountSlabType = 1;
+            scope.chargeAppliesToLoan = 1;
             
             resourceFactory.chargeResource.get({chargeId: routeParams.id}, function (data) {
                 scope.charge = data;
