@@ -204,7 +204,8 @@
 		"staff": false,
 		"addclients": false,
 		"activate": false
-	  }
+	  },
+	  "selfActivate":false
 	},
 	"labelChanges": {
 	  "calendarChagesEffectiveFrom": true

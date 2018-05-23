@@ -22,7 +22,8 @@
 	  "isHiddenMenu": {
 		"activate": true,
 		"addclients": true
-	  }
+	  },
+	  "selfActivate":true
 	},
 	"viewGroup":{
 	  	"isHiddenField": {

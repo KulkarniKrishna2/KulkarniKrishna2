@@ -15,6 +15,7 @@
             scope.formData = {};
             scope.formData.clientMembers = [];
             scope.forceOffice = null;
+            scope.selfActivate = scope.response.uiDisplayConfigurations.createGroup.selfActivate;
 
             var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
             if (routeParams.centerId) {
@@ -128,6 +129,10 @@
         	}else {
         		scope.cancel = "#/groups"
         	}
+
+            if(scope.selfActivate){
+                scope.formData.active = true;
+            }
 
             scope.submit = function () {
                 for (var i in scope.addedClients) {
