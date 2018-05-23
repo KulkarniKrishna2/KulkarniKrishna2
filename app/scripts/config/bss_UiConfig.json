@@ -37,6 +37,9 @@
 		"accountNo" : true,
 		"referenceNo": false
 	  }
+	},
+	"createOffice":{
+		"selfActive" : true
 	}
   }
 }
