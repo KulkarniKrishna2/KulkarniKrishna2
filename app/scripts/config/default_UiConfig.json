@@ -294,7 +294,8 @@
 	  	"isHiddenField": {
 	  		"createGroup" : false,
 		    "accountNo":false,
-		    "referenceNo": true
+		  "referenceNo": true,
+		  "meeting": false
 	  	}
 	},
 	"createMandates":{
