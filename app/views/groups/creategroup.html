@@ -35,13 +35,13 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2" for="name" ng-if="isReferenceNumberAsNameEnable">{{'label.input.name' | translate}}<span
-	                    class="required" ng-if="isReferenceNumberAsNameEnable">*</span></label>
+	            <label class="control-label col-sm-2" for="name" ng-if="!isReferenceNumberAsNameEnable">{{'label.input.name' | translate}}<span
+	                    class="required" ng-if="!isReferenceNumberAsNameEnable">*</span></label>
 
-	            <div class="col-sm-3" ng-if="isReferenceNumberAsNameEnable">
+	            <div class="col-sm-3" ng-if="!isReferenceNumberAsNameEnable">
 	                <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
 	            </div>
-	            <div class="col-sm-2" ng-if="isReferenceNumberAsNameEnable">
+	            <div class="col-sm-2" ng-if="!isReferenceNumberAsNameEnable">
 	                <form-validate valattributeform="creategroupform" valattribute="name"/>
 	            </div>
 	            <label class="control-label col-sm-2" ng-show = "showSubmittedOn">{{'label.input.submittedon' | translate}}:</label>
