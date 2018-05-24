@@ -202,6 +202,11 @@
 
 			<div class="row span" style="margin-left:1px;margin-top:20px" ng-repeat="address in addressData">
 				<div class="col-sm-6 col-md-6">
+						<div class="span gray-head" ng-show="addressData.length > 0">
+								<span class="boldlabel">
+									<strong>{{address.addressEntityData[0].addressType.name}}</strong>
+								</span>
+								</div>
 					<table class="table table-stripped table-bordered" ng-show="addressData.length > 0">
 
 						<tr>
@@ -436,6 +441,9 @@
 								<a href="" ng-click="uploadClientDocumentIdentifier(document.id)" has-permission='CREATE_DOCUMENT'>
 									<i class="icon-cloud-upload"></i>
 								</a>
+								<a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
+		                         has-permission='DELETE_CLIENTIDENTIFIER'><i
+		                              class="icon-remove"></i></a>
 							</span>
 						</td>
 					</tr>
@@ -455,7 +463,7 @@
 			<br>
 			<div ng-if="shownFamilyMembersForm">
 				<api-validate></api-validate>
-				<form name="familyMembersFormData" novalidate="" class="form-horizontal well" rc-submit="submitFamilyMembers()">
+				<form name="createFamilyDetails" novalidate="" class="form-horizontal well" rc-submit="submitFamilyMembers()">
 					<fieldset>
 						<legend>{{'label.view.add.familymember' | translate}}</legend>
 
@@ -479,7 +487,7 @@
 							</label>
 
 							<div class="col-sm-3">
-								<input ng-autofocus="true" type="text" id="firstName" name="firstName" ng-model="familyMembersFormData.firstname" class="form-control"
+								<input type="text" id="firstName" name="firstName" ng-model="familyMembersFormData.firstname" class="form-control"
 								    required late-validate/>
 							</div>
 							<div class="col-sm-2">
@@ -491,11 +499,8 @@
 							</label>
 
 							<div class="col-sm-3">
-								<input ng-autofocus="true" type="text" id="middleName" name="middleName" ng-model="familyMembersFormData.middlename" class="form-control"
-								    required late-validate/>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="createFamilyDetails" valattribute="middleName" />
+								<input type="text" id="middleName" name="middleName" ng-model="familyMembersFormData.middlename" class="form-control"
+								/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -504,7 +509,7 @@
 							</label>
 
 							<div class="col-sm-3">
-								<input ng-autofocus="true" type="text" id="lastName" name="lastName" ng-model="familyMembersFormData.lastname" class="form-control"
+								<input type="text" id="lastName" name="lastName" ng-model="familyMembersFormData.lastname" class="form-control"
 								    required late-validate/>
 							</div>
 							<div class="col-sm-2">
@@ -536,11 +541,9 @@
 							<label class="control-label col-sm-2">{{ 'label.input.age' | translate }}
 								<span class="required">*</span>
 							</label>
-							</label>
-
 							<div class="col-sm-2">
-								<input id="age" type="text" name="age" ng-model="familyMembersFormData.age" class="form-control" />
-							</div>
+									<input type="text" ng-model="familyMembersFormData.age" class="form-control" />
+								</div>
 							<div class="col-sm-2">
 								<form-validate valattributeform="createFamilyDetails" valattribute="age" />
 							</div>
@@ -722,7 +725,7 @@
 									<label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
 								</td>
 								<td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-									<input type="checkbox" ng-model="formData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()" />
+									<input type="checkbox" ng-model="loanAccountFormData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()" />
 								</td>
 								<td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
 									<label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label>
@@ -759,7 +762,7 @@
 			                        <td class="col-md-1">
 			                                <input type="radio" 
 			                                  ng-model="loanAccountFormData.loanEMIPackId" 
-			                                  name="emipack" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()" class="form-control" value="{{loanEMIPack.id}}"/>
+			                                  name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack.sanctionAmount)" class="form-control" value="{{loanEMIPack.id}}"/>
 			                        </td>
 			                        <td class="col-md-1">
 			                            <span>{{loanEMIPack.sanctionAmount}}</span>

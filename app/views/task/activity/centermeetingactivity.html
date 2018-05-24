@@ -1,0 +1,161 @@
+<div class="col-md-12" ng-controller="CenterMeetingActivityController">
+        <ul class="breadcrumb" ng-show="entityType=='groups'">
+            <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+            <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+            <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
+        </ul>
+        <ul class="breadcrumb" ng-show="entityType=='centers'">
+            <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+            <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+            <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
+        </ul>
+        <api-validate></api-validate>
+    
+        <form ng-submit="submit()">
+            <div class="form-group">
+    
+                <label class="control-label offset2"><h3>{{'label.heading.attachmeeting' | translate}}</h3></label>
+                <div>
+                    <table class="col-sm-8">
+                        <tr>
+                            <td class="col-sm-2 text-right">
+                                <label class="control-label">{{'label.input.meetingstartdate' | translate}}<span
+                                        class="required">*</span></label>
+                            </td>
+                            <td class="col-sm-2">
+                                <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                                       is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control"/>
+                            </td>
+                            <td class="col-sm-2 text-right">
+                                <label class="control-label">{{'label.input.meetingtime' | translate}}<span class="required"></span></label>
+                            </td>
+                            <td class="col-sm-3">
+                                <timepicker ng-model="meetingtime"></timepicker>
+                            </td>
+                        </tr>'
+                        <tr>
+                            <td class="col-sm-2 text-right">
+                                <label class="control-label">{{'label.input.location' |translate}}</label>
+                            </td>
+                            <td class="col-sm-2">
+                                <input type="text" ng-model="formData.location" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2 text-right">
+                                <label class="control-label">{{'label.input.repeat' | translate}}</label>
+                            </td>
+                            <td class="col-sm-2">
+                                <input type="checkbox" ng-model="formData.repeating" ng-true-value="true"
+                                       ng-false-value="false">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2 text-right">
+                                <span ng-show="formData.repeating"><label class="control-label offset2 paddedtop"><h4
+                                        class="paddedleft paddedtop">{{'label.heading.repeatdetails'
+                                    | translate}}</h4></label></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="col-sm-8" ng-show="formData.repeating">
+                    <tr>
+                        <td class="col-sm-2 text-right">
+                            <label class="control-label">{{'label.input.repeats' | translate}}</label>
+                        </td>
+                        <td class="col-sm-2">
+                            <select ng-model="formData.frequency" class="form-control"
+                                    ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
+                                    ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"><option value=""></option></select>
+                        </td>
+                        <td class="col-sm-2 text-right">
+                            <label class="control-label">{{'label.input.repeatsevery' | translate}}</label>
+                        </td>
+                        <td ng-if="!showAsTextBox" class="col-sm-2" >
+                            <select class="form-control" ng-model="formData.interval"
+                                    ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions">{{repeatsEveryOption}}
+                            </select>
+                        </td>
+                        <td ng-if="showAsTextBox" class="col-sm-2" >
+                            <input type="number" min="1" max="365" ng-model="formData.interval" class="form-control" >
+                        </td>
+                        <td class="col-sm-2">
+                            <label >{{periodValue}} </label>
+                            <label ng-show="formData.frequency=='2' || formData.frequency == 3"> - on -  </label>
+                        </td>
+                    </tr>
+                </table>
+    
+                <table class="col-sm-4">
+                    <tr ng-show="formData.frequency == 3">
+                        <td class="col-sm-2">
+                            <select id="repeatsOnNthDayOfMonth" class="form-control" ng-model="formData.repeatsOnNthDayOfMonth"
+                                    ng-options="repeatsOnNthDayOfMonth.id as repeatsOnNthDayOfMonth.value for repeatsOnNthDayOfMonth in frequencyNthDayOptions"
+                                    value="{{repeatsOnNthDayOfMonth.id}}"><option value=""></option></select>&nbsp;
+                        </td>
+                        <td class="col-sm-2" data-ng-hide="formData.repeatsOnNthDayOfMonth == -2">
+                            <select id="repeatsOnLastWeekdayOfMonth" class="form-control" ng-model="formData.repeatsOnLastWeekdayOfMonth"
+                                    ng-options="repeatsOnLastWeekdayOfMonth.value as repeatsOnLastWeekdayOfMonth.name for repeatsOnLastWeekdayOfMonth in frequencyDayOfWeekOptions"
+                                    value="{{repeatsOnLastWeekdayOfMonth.value}}"><option value=""></option></select>&nbsp;
+                        </td>
+                        <td class="col-sm-2" data-ng-show="formData.repeatsOnNthDayOfMonth == -2">
+                            <!--select  ng-hide="formData.interval == 1" id="repeatsOnDayOfMonth"  class="form-control"  ng-model="formData.repeatsOnDayOfMonth"
+                                    ng-options="repeatsOnDayOfMonth as repeatsOnDayOfMonth for repeatsOnDayOfMonth in repeatsOnDayOfMonthOptions"
+                                    value="{{repeatsOnDayOfMonth}}"></select-->&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <div class="form-group"  data-ng-show="formData.frequency == 3 && formData.repeatsOnNthDayOfMonth == -2">
+                    <div class="col-sm-3 col-md-3 col-md-offset-1">
+                        <label class="control-label col-sm-9">{{ 'label.input.availablemonthdays' | translate }}</label>
+                        <select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" multiple>
+                            <option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+                                {{onday}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1 col-md-1 paddedtop25px">
+                        <button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+                                class="icon-double-angle-right"></i></button>
+                        <br/>
+                        <button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+                                class="icon-double-angle-left"></i></button>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <label class="control-label col-sm-9">{{ 'label.input.selectedmonthdays' | translate}}</label>
+                        <select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin" multiple>
+                            <option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+                                {{onday}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <table class="col-sm-4">
+                    <tr ng-show="formData.repeating">
+                        <td class="col-sm-2">
+                            <select ng-show="formData.frequency=='2'" class="form-control"
+                                                     ng-model="formData.repeatsOnDay"
+                                                     ng-options="repeatsOnOption.value as repeatsOnOption.name for repeatsOnOption in repeatsOnOptions"
+                                                     value="{{repeatsOnOption.name}}">
+                                <option value=""></option>
+                            </select>
+                        </td>
+                        <td class="col-sm-2"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-8 center">
+                <div>
+                    <a ng-show="entityType=='groups'" href="#/viewgroup/{{groupOrCenterId}}" class="btn btn-default">{{'label.button.cancel'
+                        | translate}}</a>
+                    <a id="cancel" ng-show="entityType=='centers'" href="#/viewcenter/{{groupOrCenterId}}"
+                       class="btn btn-default">{{'label.button.cancel'
+                        | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>

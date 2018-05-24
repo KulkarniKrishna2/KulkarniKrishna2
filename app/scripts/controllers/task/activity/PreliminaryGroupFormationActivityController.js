@@ -28,18 +28,26 @@
 
             var CreateSubGroupCtrl = function ($scope, $modalInstance, centerDetails) {
                 $scope.subGroupFormData = {};
+                $scope.first = {};
+                $scope.first.submitondate = new Date();
+                $scope.restrictDate = new Date();
                 $scope.subGroupFormData.officeId = scope.centerDetails.officeId;
                 $scope.officeName = scope.centerDetails.officeName;
                 $scope.subGroupFormData.staffId = scope.centerDetails.staffId;
-                $scope.submitondate = new Date();
                 $scope.staffName = scope.centerDetails.staffName;
-                $scope.subGroupFormData.clientMembers = [];
                 $scope.subGroupFormData.centerId = scope.centerDetails.id;
                 $scope.subGroupFormData.locale = scope.optlang.code;
                 $scope.subGroupFormData.dateFormat = scope.df;
-                $scope.subGroupFormData.active = false;
+                $scope.subGroupFormData.active = true;
 
                 $scope.submit = function () {
+
+                    if ($scope.first.submitondate) {
+                        reqDat = dateFilter($scope.first.submitondate, scope.df);
+                        $scope.subGroupFormData.submittedOnDate = reqDat;
+                        $scope.subGroupFormData.activationDate = reqDat;
+                    }
+
                     resourceFactory.groupResource.save(this.subGroupFormData, function (data) {
                         $modalInstance.close('createsubgroup');
                         $route.reload();
@@ -250,7 +258,7 @@
                     var reqDate = dateFilter($scope.first.date, scope.df);
 
                     $scope.formData.locale = scope.optlang.code;
-                    $scope.formData.active = $scope.formData.active || false;
+                    $scope.formData.active = true;
                     $scope.formData.dateFormat = scope.df;
                     $scope.formData.activationDate = reqDate;
 
@@ -261,6 +269,7 @@
                     if ($scope.first.submitondate) {
                         reqDate = dateFilter($scope.first.submitondate, scope.df);
                         $scope.formData.submittedOnDate = reqDate;
+                        $scope.formData.activationDate = reqDate;
                     }
                     if ($scope.first.dateOfBirth) {
                         $scope.formData.dateOfBirth = dateFilter($scope.first.dateOfBirth, scope.df);
@@ -469,8 +478,6 @@
                 }
 
 
-
-
                 function getClientData() {
                     resourceFactory.clientResource.get({ clientId: $scope.clientId, associations: 'hierarchyLookup' }, function (data) {
                         $scope.clientDetails = data;
@@ -486,14 +493,6 @@
                     });
                 }
                 getClientData();
-
-
-                function getprofileRating(){
-                 resourceFactory.profileRating.get({entityType: 1,entityId : scope.clientId}, function (data) {
-                    scope.profileRatingData = data;
-                 });
-                };
-                getprofileRating();
 
                 $scope.entityAddressLoaded = false;
                 $scope.fetchEntityAddress = function () {
@@ -628,7 +627,11 @@
                     }
                 };
 
-
+                $scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
+                    resourceFactory.clientIdenfierResource.delete({clientId: $scope.clientId, id: entityId}, '', function (data) {
+                        $scope.identitydocuments.splice(index, 1);
+                    });
+                };
                 $scope.loadIdentitiesForm = function () {
                     $scope.shownidentityform = true;
 
@@ -659,6 +662,7 @@
                     }
                     resourceFactory.clientIdenfierResource.save({ clientId: $scope.clientId }, $scope.identityFormData, function (data) {
                         $scope.shownidentityform = false;
+                        $scope.clientIdentityDocumentsLoaded = false;
                         $scope.getClientIdentityDocuments();
                     });
                 };
@@ -686,6 +690,7 @@
                         file: $scope.file
                     }).then(function (data) {
                         $scope.shownUploadIdentifierDocumentForm = false;
+                        $scope.clientIdentityDocumentsLoaded = false;
                         $scope.getClientIdentityDocuments();
                     });
                 };
@@ -755,6 +760,7 @@
                     $scope.familyMembersFormData.locale = scope.optlang.code;
                     resourceFactory.familyDetails.save({ clientId: $scope.clientId }, $scope.familyMembersFormData, function (data) {
                         $scope.shownFamilyMembersForm = false;
+                        $scope.familyDetailsLoaded = false;
                         $scope.getFamilyDetails();
                     });
                 };
@@ -839,39 +845,24 @@
                         $scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
                     }
                 }
-
-                $scope.updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack = function(){
-                    if($scope.loanAccountFormData.loanEMIPackId != undefined){
-                        for(var i in $scope.loanaccountinfo.loanEMIPacks){
-                            if($scope.loanaccountinfo.loanEMIPacks[i].id == $scope.loanAccountFormData.loanEMIPackId){
-                                var loanAmountRequested = $scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
-                                var numberOfRepayments = $scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
-                                $scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                $scope.updateSlabBasedAmountChargeAmount = function(loanAmountRequested, numberOfRepayments){
-                    if(loanAmountRequested != '' && loanAmountRequested != undefined && numberOfRepayments != '' && numberOfRepayments != undefined){
-                        for(var i in $scope.charges){
-                            if($scope.charges[i].chargeCalculationType.value == $scope.slabBasedCharge && $scope.charges[i].slabs.length > 0) {
-                                    for(var j in $scope.charges[i].slabs){
-                                        var slabBasedValue = $scope.getSlabBasedAmount($scope.charges[i].slabs[j],loanAmountRequested,numberOfRepayments);
-                                        if(slabBasedValue != null) {
-                                            $scope.charges[i].amount = slabBasedValue;
-                                            break;
-                                        } else {
-                                            $scope.charges[i].amount = undefined;
-                                        }
+                $scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function () {
+                    if ($scope.loanAccountFormData.principal != '' && $scope.loanAccountFormData.principal != undefined && $scope.loanAccountFormData.numberOfRepayments != '' && $scope.loanAccountFormData.numberOfRepayments != undefined) {
+                        for (var i in $scope.charges) {
+                            if (($scope.charges[i].chargeCalculationType.value == $scope.slabBasedCharge || $scope.charges[i].isSlabBased) && $scope.charges[i].slabs.length > 0) {
+                                for (var j in $scope.charges[i].slabs) {
+                                    var slabBasedValue = $scope.getSlabBasedAmount($scope.charges[i].slabs[j], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                    if (slabBasedValue != null) {
+                                        $scope.charges[i].amount = slabBasedValue;
+                                        break;
+                                    } else {
+                                        $scope.charges[i].amount = undefined;
                                     }
+                                }
                             }
                         }
                     }
-                }
+                };
 
-                
                 $scope.loanProductChange = function (loanProductId) {
                     $scope.inparams.productId = loanProductId;
                     $scope.interestRatesListPerPeriod = [];
@@ -953,6 +944,37 @@
                     }
                     return null;
     
+                };
+
+                $scope.addCharge = function () {
+                    if ($scope.chargeFormData.chargeId) {
+                        resourceFactory.chargeResource.get({ chargeId: this.chargeFormData.chargeId, template: 'true' }, function (data) {
+                            data.chargeId = data.id;
+                            data.isMandatory = false;
+                            if (data.chargeCalculationType.value == $scope.slabBasedCharge && data.slabs.length > 0) {
+                                for (var i in data.slabs) {
+                                    var slabBasedValue = $scope.getSlabBasedAmount(data.slabs[i], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                    if (slabBasedValue != null) {
+                                        data.amount = slabBasedValue;
+                                    }
+                                }
+                            }
+                            $scope.charges.push(data);
+                            $scope.chargeFormData.chargeId = undefined;
+                        });
+                    }
+                }
+
+                $scope.deleteCharge = function (index) {
+                    $scope.charges.splice(index, 1);
+                }
+
+                $scope.isChargeAmountNonEditable = function (charge) {
+                    if ((charge.chargeTimeType.value == UPFRONT_FEE
+                        && charge.chargeCalculationType.value == SLAB_BASED) || charge.isAmountNonEditable || charge.isSlabBased) {
+                        return true;
+                    }
+                    return false;
                 };
 
                 $scope.previewClientLoanAccInfo = function () {
@@ -1105,9 +1127,16 @@
     
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
                         $scope.showLoanAccountForm = false;
-                        $scope.getClientAccounts();
+                        $scope.clientJlgLoanAccount();
                     });
                 };
+
+                $scope.clientJlgLoanAccount = function(){
+                    $scope.type = 'jlg';
+                    resourceFactory.clientJlgLoanAccount.get({ type: $scope.type, clientId: $scope.clientId, groupId: $scope.groupId}, function (data) {
+                        $scope.loanAccountData = data;
+                });
+            }
 
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
                     scope.$watch('date.second ', function(){

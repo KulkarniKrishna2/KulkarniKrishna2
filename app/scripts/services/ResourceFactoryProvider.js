@@ -1491,6 +1491,9 @@
                     }),
                     loanApplicationReferencesRepaymentScheduleResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/repaymentschedule", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                        repaymentSchedule: {method: 'POST', params: {}}
+                    }),
+                    clientJlgLoanAccount: defineResource(apiVer + "/accounts/:type/:clientId/:groupId", {type:'@type',clientId:'@clientId',groupId:'@groupId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];
