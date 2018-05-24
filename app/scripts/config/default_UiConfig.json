@@ -149,6 +149,9 @@
         "maritalStatus":true,
         "gender":false,
         "staff":false
+	  },
+	  "isAutoPopulate": {
+		"genderOption": true
 	  }
 	},
 	"defaultGISConfig": {

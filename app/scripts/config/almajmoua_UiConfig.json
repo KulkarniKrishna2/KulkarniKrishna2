@@ -11,7 +11,11 @@
 		"pincode": true
 	  },
 	  "isMandatoryField": {
-		"villageTown":true
+		"villageTown":true,
+		"gender":true
+	  },
+	  "isAutoPopulate": {
+		"genderOption": false
 	  }
 	},
 	"defaultGISConfig": {
