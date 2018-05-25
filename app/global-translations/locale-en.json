@@ -7076,6 +7076,14 @@
     "label.view.add.loanapplication": "Add LoanApplication",
     "label.view.edit.loanapplication": "Edit LoanApplication",
     "label.input.roundingmode" : "Rounding Mode",
-    
+    "error.msg.center.groups.count.must.be.in.permissible.range":"Number of group in the center with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
+    "error.msg.calendar.new.start.date.cannot.be.in.past" : "Next meeting date can't be less than current date",
+    "validation.msg.group.closureReasonId.cannot.be.blank" : "closure reason can not be blank",
+    "validation.msg.center.closureReasonId.cannot.be.blank": "closure reason can not be blank",
+    "error.msg.center.clients.count.must.be.in.permissible.range":"Number of clients in the center with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
+    "error.msg.group.members.count.must.be.in.permissible.range" : "Number of members in the group with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
+    "validation.msg.charge.minValue.not.greater.than.zero" : "Loan amount should not be less then zero",
+    "validation.msg.charges.taxGroupId.modification.not.supported" : "Tax group cannot be modify",
+    "error.msg.maturity.date.exceeding.defined.period" : "Maturity date can not be exceeded",
      "------ end of tensalation file":"---------"
 }
