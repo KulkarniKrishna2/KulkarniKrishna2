@@ -7066,6 +7066,8 @@
      "label.heading.processingfee": "Processing Fee",
      "label.heading.singleinsurance": "Single Insurance",
      "label.heading.doubleinsurance": "Double Insurance",
+     "label.input.familymembertypeid":"Family Member ID Type",
+     "label.input.familymemberuniqueno": "Family Member Unique No",
 
     "label.heading.isslabbasedcharge" : "Is Slab Based Charge",
     "label.input.isslabbasedcharge" : "Is Slab Based Charge",

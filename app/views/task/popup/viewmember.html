@@ -1,5 +1,5 @@
-<div class="col-md-12" style="background-color: white">
-	<br>
+<div class="popup-max-height well vertical-scrollbar">
+	<i class="pull-right icon-remove icon-1-2x pointer" ng-click="close()"></i>
 	<div class="row">
 		<div class="col-md-8 col-sm-8">
 			<h3 class="client-title">
@@ -10,850 +10,867 @@
 				<strong ng-if="!displayNameInReverseOrder">{{clientDetails.displayName}} </strong>
 				<strong ng-if="displayNameInReverseOrder">{{clientDetails.displayNameInReverseOrder}} </strong>
 				<small>
-					{{ 'label.heading.clientno' | translate }}: {{clientDetails.accountNo}}
+					{{ 'label.heading.clientreferenceno' | translate }}: {{clientDetails.referenceNumber}}
 				</small>
 			</h3>
 		</div>
 	</div>
 	<br>
 	<tabset class="overflowhidden marginbottom0" tabset-name="memberTabset">
-		<tab heading="{{'label.heading.address' | translate}}" select="fetchEntityAddress()" ng-show="!showaddressform">
-			<div class="pull-right">
-				<a href="" ng-click="loadNewAdressForm()" ng-if="!showaddressform" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
-					<i class="icon-plus icon-white"></i>
-					{{'label.button.add'|translate}}
-				</a>
-			</div>
-			<br>
-			<br>
 
+		<tab heading="{{'label.heading.address' | translate}}" select="fetchEntityAddress()">
 			<div>
+				<div ng-if="!showaddressform" class="pull-right">
+					<a href="" ng-click="loadNewAdressForm()" ng-if="!showaddressform" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
+						<i class="icon-plus icon-white"></i>
+						{{'label.button.add'|translate}}
+					</a>
+				</div>
 
-				<form name="clientaddressform" novalidate="" class="form-horizontal well" rc-submit="submit()" ng-if="showaddressform">
-					<api-validate></api-validate>
-					<fieldset>
-						<legend>{{'label.heading.addclientaddress' | translate}}</legend>
+				<div ng-if="showaddressform">
+					<form name="clientaddressform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+						<api-validate></api-validate>
+						<fieldset>
+							<legend>{{'label.heading.addclientaddress' | translate}}</legend>
 
-						<div class="form-group">
-							<label class="control-label col-sm-2">
-								{{'label.input.addresstype' | translate}}
-								<span ng-show="isAddressTypeMandatory" class="required">*</span>
-							</label>
-							<div class="col-sm-3">
-								<select chosen="addressType" id="addresstypeId" name="addressType" ng-model="formData.addressTypes[0]" class="form-control"
-								    ng-options="address.id as address.name for address in addressType" value="{{address.id}}" ng-required="isAddressTypeMandatory">
-									<option value="">{{'label.menu.addressType' | translate}}</option>
-								</select>
-							</div>
-							<div class="col-sm-1 paddinglr0px">
-								<form-validate ng-if="isAddressTypeMandatory" valattributeform="clientaddressform" valattribute="addressType" />
-							</div>
-						</div>
-
-						<div class="form-group" ng-if="isPopulateClientAddressFromVillages">
-							<label class="control-label col-sm-2">
-								{{'label.input.villages' | translate}}
-								<span class="required">*</span>
-							</label>
-							</label>
-							<div class="col-sm-3">
-								<select chosen="villages" id="villageId" name="villages" ng-model="formData.villageId" class="form-control" ng-options="village.villageId as village.villageName for village in villages"
-								    value="{{village.villageId}}" ng-change="changeVillage()" required late-validate="">
-									<option value="">{{'label.menu.selectVillages' | translate}}</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="clientaddressform" valattribute="villages" />
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}
-							</label>
-
-							<div class="col-sm-3">
-								<input type="text" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}
-							</label>
-
-							<div class="col-sm-3">
-								<input type="text" id="streetname" name="streetName" ng-model="formData.addressLineOne" class="form-control" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}
-								<span ng-show="isVillageTownMandatory" class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<input type="text" id="villagename" name="villageTown" ng-model="formData.villageTown" class="form-control" ng-required="isVillageTownMandatory"
-								/>
-							</div>
-							<div class="col-sm-1 paddinglr0px">
-								<form-validate valattributeform="clientaddressform" valattribute="villageTown" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2">
-								{{'label.input.countryname' | translate}}
-								<span class="required">*</span>
-							</label>
-							</label>
-
-							<div class="col-sm-3">
-								<select chosen="countries" id="countryId" name="countries" ng-model="formData.countryId" class="form-control" ng-options="country.countryId as country.countryName for country in countries"
-								    ng-disabled="isCountryReadOnly" value="{{country.countryId}}" ng-change="changeCountry(formData.countryId)" required
-								    late-validate="">
-									<option value="">{{'label.menu.selectCountry' | translate}}</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="clientaddressform" valattribute="countries" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2">
-								{{'label.input.statename' | translate}}
-								<span class="required">*</span>
-							</label>
-							</label>
-
-							<div class="col-sm-3">
-								<select chosen="states" id="stateId" name="states" ng-model="formData.stateId" class="form-control" ng-options="state.stateId as state.stateName for state in states"
-								    value="{{state.stateId}}" ng-change="changeState(formData.stateId)" required late-validate="">
-									<option value="">{{'label.menu.selectState' | translate}}</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="clientaddressform" valattribute="states" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2">
-								{{'label.input.districtname' | translate}}
-								<span class="required">*</span>
-							</label>
-							</label>
-
-							<div class="col-sm-3">
-								<select chosen="districts" id="districtId" name="districts" ng-model="formData.districtId" class="form-control" ng-options="district.districtId as district.districtName for district in districts"
-								    value="{{district.districtId}}" ng-change="changeDistrict(formData.districtId)" required late-validate="">
-									<option value="">{{'label.menu.selectDistrict' | translate}}</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="clientaddressform" valattribute="districts" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2">
-								{{'label.input.talukname' | translate}}
-								<span class="required">*</span>
-							</label>
-							</label>
-							<div class="col-sm-3">
-								<select chosen="talukas" id="talukaId" name="talukas" ng-model="formData.talukaId" ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
-								    value="{{taluka.talukaId}}" required late-validate="">
-									<option value="">{{'label.menu.selectTaluka' | translate}}</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="clientaddressform" valattribute="talukas" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label ng-show="!pincode" class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3" ng-if="!pincode">
-								<input type="text" id="pincode" name="pincode" ng-minlength="6" maxlength="6" ng-model="formData.postalCode" class="form-control"
-								    ng-pattern="/^([1-9])([0-9]){5}$/" required/>
-							</div>
-							<span ng-show="clientaddressform.pincode.$error.pattern">
-								<small class="required" ng-show="clientaddressform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
-							</span>
-							<div class="col-sm-2">
-								<form-validate valattributeform="clientaddressform" valattribute="pincode" />
-							</div>
-						</div>
-
-						<div class="col-md-offset-5">
-							<a id="cancel" ng-click="closeAddressForm()" class="btn btn-default">{{'label.button.cancel' | translate}}
-							</a>
-							<button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
-								{{'label.button.save' | translate}}</button>
-						</div>
-
-					</fieldset>
-				</form>
-
-
-			</div>
-
-			<div class="row span" style="margin-left:1px;margin-top:20px" ng-repeat="address in addressData">
-				<div class="col-sm-6 col-md-6">
-						<div class="span gray-head" ng-show="addressData.length > 0">
-								<span class="boldlabel">
-									<strong>{{address.addressEntityData[0].addressType.name}}</strong>
-								</span>
+							<div class="form-group">
+								<label class="control-label col-sm-2">
+									{{'label.input.addresstype' | translate}}
+									<span ng-show="isAddressTypeMandatory" class="required">*</span>
+								</label>
+								<div class="col-sm-3">
+									<select chosen="addressType" id="addresstypeId" name="addressType" ng-model="formData.addressTypes[0]" class="form-control"
+									 ng-options="address.id as address.name for address in addressType" value="{{address.id}}" ng-required="isAddressTypeMandatory">
+										<option value="">{{'label.menu.addressType' | translate}}</option>
+									</select>
 								</div>
-					<table class="table table-stripped table-bordered" ng-show="addressData.length > 0">
+								<div class="col-sm-1 paddinglr0px">
+									<form-validate ng-if="isAddressTypeMandatory" valattributeform="clientaddressform" valattribute="addressType" />
+								</div>
+							</div>
 
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.houseno' | translate}}</th>
+							<div class="form-group" ng-if="isPopulateClientAddressFromVillages">
+								<label class="control-label col-sm-2">
+									{{'label.input.villages' | translate}}
+									<span class="required">*</span>
+								</label>
+								</label>
+								<div class="col-sm-3">
+									<select chosen="villages" id="villageId" name="villages" ng-model="formData.villageId" class="form-control" ng-options="village.villageId as village.villageName for village in villages"
+									 value="{{village.villageId}}" ng-change="changeVillage()" required late-validate="">
+										<option value="">{{'label.menu.selectVillages' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="clientaddressform" valattribute="villages" />
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}
+								</label>
+
+								<div class="col-sm-3">
+									<input type="text" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}
+								</label>
+
+								<div class="col-sm-3">
+									<input type="text" id="streetname" name="streetName" ng-model="formData.addressLineOne" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}
+									<span ng-show="isVillageTownMandatory" class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<input type="text" id="villagename" name="villageTown" ng-model="formData.villageTown" class="form-control" ng-required="isVillageTownMandatory"
+									/>
+								</div>
+								<div class="col-sm-1 paddinglr0px">
+									<form-validate valattributeform="clientaddressform" valattribute="villageTown" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2">
+									{{'label.input.countryname' | translate}}
+									<span class="required">*</span>
+								</label>
+								</label>
+
+								<div class="col-sm-3">
+									<select chosen="countries" id="countryId" name="countries" ng-model="formData.countryId" class="form-control" ng-options="country.countryId as country.countryName for country in countries"
+									 ng-disabled="isCountryReadOnly" value="{{country.countryId}}" ng-change="changeCountry(formData.countryId)" required
+									 late-validate="">
+										<option value="">{{'label.menu.selectCountry' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="clientaddressform" valattribute="countries" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2">
+									{{'label.input.statename' | translate}}
+									<span class="required">*</span>
+								</label>
+								</label>
+
+								<div class="col-sm-3">
+									<select chosen="states" id="stateId" name="states" ng-model="formData.stateId" class="form-control" ng-options="state.stateId as state.stateName for state in states"
+									 value="{{state.stateId}}" ng-change="changeState(formData.stateId)" required late-validate="">
+										<option value="">{{'label.menu.selectState' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="clientaddressform" valattribute="states" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2">
+									{{'label.input.districtname' | translate}}
+									<span class="required">*</span>
+								</label>
+								</label>
+
+								<div class="col-sm-3">
+									<select chosen="districts" id="districtId" name="districts" ng-model="formData.districtId" class="form-control" ng-options="district.districtId as district.districtName for district in districts"
+									 value="{{district.districtId}}" ng-change="changeDistrict(formData.districtId)" required late-validate="">
+										<option value="">{{'label.menu.selectDistrict' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="clientaddressform" valattribute="districts" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2">
+									{{'label.input.talukname' | translate}}
+									<span class="required">*</span>
+								</label>
+								</label>
+								<div class="col-sm-3">
+									<select chosen="talukas" id="talukaId" name="talukas" ng-model="formData.talukaId" ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
+									 value="{{taluka.talukaId}}" required late-validate="">
+										<option value="">{{'label.menu.selectTaluka' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="clientaddressform" valattribute="talukas" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label ng-show="!pincode" class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3" ng-if="!pincode">
+									<input type="text" id="pincode" name="pincode" ng-minlength="6" maxlength="6" ng-model="formData.postalCode" class="form-control"
+									 ng-pattern="/^([1-9])([0-9]){5}$/" required/>
+								</div>
+								<span ng-show="clientaddressform.pincode.$error.pattern">
+									<small class="required" ng-show="clientaddressform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
+								</span>
+								<div class="col-sm-2">
+									<form-validate valattributeform="clientaddressform" valattribute="pincode" />
+								</div>
+							</div>
+
+							<div class="col-md-offset-5">
+								<a id="cancel" ng-click="closeAddressForm()" class="btn btn-default">{{'label.button.cancel' | translate}}
+								</a>
+								<button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
+									{{'label.button.save' | translate}}</button>
+							</div>
+
+						</fieldset>
+					</form>
+
+
+				</div>
+
+				<div class="row span" style="margin-left:1px;margin-top:20px" ng-repeat="address in addressData">
+					<div class="col-sm-6 col-md-6">
+						<div class="span gray-head" ng-show="addressData.length > 0">
+							<span class="boldlabel">
+								<strong>{{address.addressEntityData[0].addressType.name}}</strong>
+							</span>
+						</div>
+						<table class="table table-stripped table-bordered" ng-show="addressData.length > 0">
+
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.houseno' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.houseNo}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.streetname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.addressLineOne}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.address.line.two' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.addressLineTwo}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.villageTown}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.talukaData.talukaName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.countryname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.countryData.countryName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.statename' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.stateData.stateName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.districtname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.districtData.districtName}}</span>
+								</td>
+							</tr>
+							<tr ng-if="!pincode">
+								<th class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.postalCode}}</span>
+								</td>
+							</tr>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</tab>
+
+		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()">
+			<div>
+				<div class="pull-right" ng-if="!shownidentityform && !shownUploadIdentifierDocumentForm">
+					<a href="" ng-click="loadIdentitiesForm()" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
+						<i class="icon-plus icon-white"></i>
+						{{'label.button.add'|translate}}
+					</a>
+				</div>
+
+				<div class="row" ng-if="shownidentityform">
+					<form name="uploaddocumentform" novalidate="" class="form-horizontal well" rc-submit="submitIdentitfyForm()">
+						<api-validate></api-validate>
+						<fieldset>
+							<legend>{{'label.heading.addclientidentifier' | translate}}</legend>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="documentTypeId">{{'label.input.identitydocumenttype' | translate}}
+									<span class="required">*</span>
+								</label>
+								<div class="col-sm-3">
+									<select id="documentTypeId" ng-model="identityFormData.documentTypeId" name="documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
+									 value="{{documenttype.id}}" required="required" class="form-control">
+									</select>
+								</div>
+								<div class="col-sm-3">
+									<form-validate valattributeform="uploaddocumentform" valattribute="documentTypeId" />
+								</div>
+							</div>
+
+							<div ng-hide="response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status" class="form-group">
+								<label class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<select id="status" name="status" ng-model="identityFormData.status" ng-options="status.id as status.value for status in statusTypes"
+									 value="{{status.id}}" required="required" class="form-control">
+									</select>
+								</div>
+								<div class="col-sm-3">
+									<form-validate valattributeform="uploaddocumentform" valattribute="status" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2">{{'label.input.issueddate' | translate}}</label>
+
+								<div class="col-sm-3">
+									<input id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="dd MMMM yyyy" ng-model="first.documentIssueDate"
+									 is-open="opened1" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2">{{'label.input.expirydate' | translate}}</label>
+
+								<div class="col-sm-3">
+									<input id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="dd MMMM yyyy" ng-model="first.documentExpiryDate"
+									 is-open="opened1" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="documentKey">{{'label.input.uniqueidentification' | translate}}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<input id="documentKey" type="text" name="documentKey" ng-model="identityFormData.documentKey" required="required" class="form-control"
+									 required late-Validate/>
+								</div>
+								<div class="col-sm-3">
+									<form-validate valattributeform="uploaddocumentform" valattribute="documentKey" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
+
+								<div class="col-sm-3">
+									<textarea id="description" rows="2" ng-model="identityFormData.description" class="form-control"></textarea>
+								</div>
+							</div>
+
+							<div class="col-md-offset-3">
+								<a id="cancel" href="" ng-click="closeIdentityForm()" class="btn btn-default">
+									{{'label.button.cancel' | translate}}
+								</a>
+								<button id="save" type="submit" has-permission='CREATE_CLIENTIDENTIFIER' class="btn btn-primary">{{'label.button.save' | translate}}</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+
+				<div ng-if="shownUploadIdentifierDocumentForm">
+					<form name="uploaddocumentform" novalidate="" class="form-horizontal well" ng-submit="uploadDocument()">
+						<api-validate></api-validate>
+						<fieldset>
+							<legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="name">
+									{{'label.input.name' | translate}}
+									<span class="required">*</span>
+								</label>
+								<div class="col-sm-3">
+									<input id="name" ng-autofocus="true" type="text" name="name" ng-model="documentFormData.name" class="form-control" required
+									 late-Validate/>
+								</div>
+								<div class="col-sm-3">
+									<span ng-show="uploaddocumentform.name.$invalid">
+										<small class="error" ng-show="uploaddocumentform.name.$error.req">
+											Required Field
+										</small>
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<input type="file" id="file" ng-file-select="onFileSelect($files)">
+								</div>
+							</div>
+
+							<div class="col-md-offset-3">
+								<a id="cancel" href="" class="btn btn-default" ng-click="closeDocumentUploadForm()">{{'label.button.cancel' | translate}}
+								</a>
+								<button id="save" type="submit" ng-disabled="!uploaddocumentform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
+									{{'label.button.save' | translate}}
+								</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+
+				<br>
+				<table class="table" ng-show="identitydocuments.length > 0">
+					<thead>
+						<tr class="graybg">
+							<th>{{'label.heading.id' | translate}}</th>
+							<th>{{'label.heading.description' | translate}}</th>
+							<th>{{'label.heading.type' | translate}}</th>
+							<th>{{'label.heading.identitydocuments' | translate}}</th>
+							<th>{{'label.heading.status' | translate}}</th>
+							<th>{{'label.heading.issueddate' | translate}}</th>
+							<th>{{'label.heading.expirydate' | translate}}</th>
+							<th>{{'label.heading.actions' | translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="document in identitydocuments">
+							<td>{{document.documentKey}}</td>
+							<td>{{document.description}}</td>
+							<td>{{document.documentType.name}}</td>
 							<td>
-								<span class="padded-td">{{address.houseNo}}</span>
+								<span ng-repeat="file in document.documents">
+									{{file.fileName}}&nbsp;&nbsp;
+									<a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'>
+										<i class="icon-eye-open text-success"></i>
+									</a>
+									<a target="_blank" ng-click="download(file.docUrl)" has-permission='READ_DOCUMENT'>
+										<i class="icon-cloud-download"></i>
+									</a>
+								</span>
+							</td>
+							<td>{{document.status | translate}}</td>
+							<td>{{document.documentIssueDate | DateFormat}}</td>
+							<td>{{document.documentExpiryDate | DateFormat}}</td>
+							<td>
+								<span>
+									<a href="" ng-click="uploadClientDocumentIdentifier(document.id)" has-permission='CREATE_DOCUMENT'>
+										<i class="icon-cloud-upload"></i>
+									</a>
+									<a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)" has-permission='DELETE_CLIENTIDENTIFIER'>
+										<i class="icon-remove"></i>
+									</a>
+								</span>
 							</td>
 						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.streetname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.addressLineOne}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.address.line.two' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.addressLineTwo}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.villageTown}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.talukaData.talukaName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.countryname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.countryData.countryName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.statename' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.stateData.stateName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.districtname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.districtData.districtName}}</span>
-							</td>
-						</tr>
-						<tr ng-if="!pincode">
-							<th class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.postalCode}}</span>
-							</td>
-						</tr>
-						</tr>
+					</tbody>
+				</table>
+			</div>
+		</tab>
+
+		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="getFamilyDetails()">
+			<div>
+				<div class="pull-right" ng-if="!shownFamilyMembersForm">
+					<a href="" ng-click="familyMembersForm()" class="btn btn-primary" has-permission='CREATE_FAMILYDETAIL'>
+						<i class="icon-plus icon-white"></i>
+						{{'label.button.add'|translate}}
+					</a>
+				</div>
+
+				<div ng-if="shownFamilyMembersForm">
+					<api-validate></api-validate>
+					<form name="createFamilyDetails" novalidate="" class="form-horizontal well" rc-submit="submitFamilyMembers()">
+						<fieldset>
+							<legend>{{'label.view.add.familymember' | translate}}</legend>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
+
+								<div class="col-sm-3">
+									<select id="salutation" name="salutation" ng-model="familyMembersFormData.salutationId" class="form-control" ng-options="salutationOption.id as salutationOption.name for salutationOption in salutationOptions "
+									 value="salutationOption.id">
+										<option value="">--{{'label.input.selectoptions' | translate}}--</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="createFamilyDetails" valattribute="salutation" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="firstName">{{ 'label.input.firstName' | translate }}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<input type="text" id="firstName" name="firstName" ng-model="familyMembersFormData.firstname" class="form-control" required
+									 late-validate/>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="createFamilyDetails" valattribute="firstName" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="middlename">{{ 'label.input.middlename' | translate }}
+								</label>
+
+								<div class="col-sm-3">
+									<input type="text" id="middleName" name="middleName" ng-model="familyMembersFormData.middlename" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="lastName">{{ 'label.input.lastName' | translate }}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<input type="text" id="lastName" name="lastName" ng-model="familyMembersFormData.lastname" class="form-control" required
+									 late-validate/>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="createFamilyDetails" valattribute="lastName" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<select id="relationship" name="relationship" ng-model="familyMembersFormData.relationshipId" class="form-control" ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
+									 value="relationshipOption.id">
+										<option value="">--{{'label.input.selectoptions' | translate}}--</option>
+									</select>
+								</div>
+								<label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}</label>
+
+								<div class="col-sm-3">
+									<select id="gender" name="gender" ng-model="familyMembersFormData.genderId" class="form-control" ng-options="genderOption.id as genderOption.name for genderOption in genderOptions"
+									 value="genderOption.id">
+										<option value="">--{{'label.input.selectoptions' | translate}}--</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+									<label class="control-label col-sm-2" for="documentTypeId">{{'label.input.familymembertypeid' | translate}}
+										<span class="required">*</span>
+									</label>
+									<div class="col-sm-3">
+										<select id="documentTypeId" ng-model="identityFormData.documentTypeId" name="documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
+										 value="{{documenttype.id}}" required="required" class="form-control">
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<form-validate valattributeform="uploaddocumentform" valattribute="documentTypeId" />
+									</div>
+								</div>
+	
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="uniqueNo">{{ 'label.input.familymemberuniqueno' | translate }}
+									<span class="required">*</span>
+								</label>
+							
+								<div class="col-sm-3">
+									<input type="text" id="uniqueNo" name="uniqueNo" ng-model="familyMembersFormData.uniqueNo" class="form-control" required
+									 late-validate/>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="createFamilyDetails" valattribute="uniqueNo" />
+								</div>
+							</div>
+								<div class="form-group">
+								<label class="control-label col-sm-2">{{ 'label.input.age' | translate }}
+									<span class="required">*</span>
+								</label>
+								<div class="col-sm-2">
+									<input type="text" ng-model="familyMembersFormData.age" class="form-control" />
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="createFamilyDetails" valattribute="age" />
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2"></label>
+
+								<div class="col-sm-3">
+									<input id="isDependent" type="checkbox" ng-model="familyMembersFormData.isDependent"> {{'label.input.dependent' | translate }}
+								</div>
+								<div class="col-sm-3">
+									<input id="isSeriousIllness" type="checkbox" ng-model="familyMembersFormData.isSeriousIllness"> {{'label.input.isSeriousIllness' | translate }}
+								</div>
+								<div class="col-sm-3">
+									<input id="isDeceased" type="checkbox" ng-model="familyMembersFormData.isDeceased"> {{'label.input.isDeceased' | translate }}
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div>
+									<label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
+
+									<div class="col-sm-3">
+										<select id="occupationId" name="occupation" ng-model="occupationOption" class="form-control" ng-options="occupationOption as occupationOption.name for occupationOption in occupationOptions"
+										 value="occupationOption.id">
+											<option value="">--{{'label.input.selectoptions' | translate}}--</option>
+										</select>
+									</div>
+								</div>
+								<div>
+									<label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
+
+									<div class="col-sm-3">
+										<select id="subOccupation" name="subOccupation" ng-model="familyMembersFormData.occupationDetailsId" class="form-control"
+										 ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas" value="subOccupation.id">
+											<option value="">--{{'label.input.selectoptions' | translate}}--</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2">{{ 'label.input.education' | translate }}</label>
+
+								<div class="col-sm-3">
+									<select id="education" name="education" ng-model="familyMembersFormData.educationId" class="form-control" ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
+									 value="occupationOption.id">
+										<option value="">--{{'label.input.selectoptions' | translate}}--</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="createFamilyDetails" valattribute="education" />
+								</div>
+							</div>
+
+							<div class="col-md-offset-2 paddedleft">
+								<a id="cancel" href="" ng-click="closeFamilyMembersForm()" class="btn btn-default">
+									{{'label.button.cancel'|translate}}</a>
+								<a id="save" ng-click="submitFamilyMembers()" type="submit" class="btn btn-primary">
+									{{'label.button.save' |translate}}</a>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<br>
+				<br>
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>{{ 'label.heading.name' | translate }}</th>
+								<th>{{ 'label.heading.belongs.to.families.of' | translate }}</th>
+								<th>{{ 'label.heading.age' | translate }}</th>
+								<th>{{ 'label.heading.dependent' | translate }}</th>
+								<th>{{ 'label.heading.medical.condition' | translate }}</th>
+								<th>{{ 'label.heading.deceased' | translate }}</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="pointer-main" ng-repeat="familyMember in familyMembers">
+								<td class="pointer">{{familyMember.firstname}} {{familyMember.lastname}}
+								</td>
+								<td class="pointer">
+									{{familyMember.relationship.name}}
+								</td>
+								<td class="pointer">{{familyMember.age}}</td>
+								<td class="pointer">{{familyMember.isDependent == true ? 'Yes' : 'No'}}
+								</td>
+								<td class="pointer">{{familyMember.isSeriousIllness == true ? 'Yes' : 'No'}}
+								</td>
+								<td class="pointer">{{familyMember.isDeceased == true ? 'Yes' : 'No'}}
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
 		</tab>
-		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()" ng-show="!shownidentityform">
-			<div class="pull-right">
-				<a href="" ng-click="loadIdentitiesForm()" ng-if="!shownidentityform && !shownUploadIdentifierDocumentForm" class="btn btn-primary"
-				    has-permission='CREATE_CLIENTIDENTIFIER'>
-					<i class="icon-plus icon-white"></i>
-					{{'label.button.add'|translate}}
-				</a>
-			</div>
-			<br>
-			<br>
 
-			<div class="row" ng-if="shownidentityform">
-				<form name="uploaddocumentform" novalidate="" class="form-horizontal well" rc-submit="submitIdentitfyForm()">
-					<api-validate></api-validate>
-					<fieldset>
-						<legend>{{'label.heading.addclientidentifier' | translate}}</legend>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="documentTypeId">{{'label.input.identitydocumenttype' | translate}}
-								<span class="required">*</span>
-							</label>
-							<div class="col-sm-3">
-								<select id="documentTypeId" ng-model="identityFormData.documentTypeId" name="documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
-								    value="{{documenttype.id}}" required="required" class="form-control">
-								</select>
-							</div>
-							<div class="col-sm-3">
-								<form-validate valattributeform="uploaddocumentform" valattribute="documentTypeId" />
-							</div>
-						</div>
-
-						<div ng-hide="response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status" class="form-group">
-							<label class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<select id="status" name="status" ng-model="identityFormData.status" ng-options="status.id as status.value for status in statusTypes"
-								    value="{{status.id}}" required="required" class="form-control">
-								</select>
-							</div>
-							<div class="col-sm-3">
-								<form-validate valattributeform="uploaddocumentform" valattribute="status" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2">{{'label.input.issueddate' | translate}}</label>
-
-							<div class="col-sm-3">
-								<input id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="dd MMMM yyyy" ng-model="first.documentIssueDate"
-								    is-open="opened1" class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2">{{'label.input.expirydate' | translate}}</label>
-
-							<div class="col-sm-3">
-								<input id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="dd MMMM yyyy" ng-model="first.documentExpiryDate"
-								    is-open="opened1" class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="documentKey">{{'label.input.uniqueidentification' | translate}}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<input id="documentKey" type="text" name="documentKey" ng-model="identityFormData.documentKey" required="required" class="form-control"
-								    required late-Validate/>
-							</div>
-							<div class="col-sm-3">
-								<form-validate valattributeform="uploaddocumentform" valattribute="documentKey" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
-
-							<div class="col-sm-3">
-								<textarea id="description" rows="2" ng-model="identityFormData.description" class="form-control"></textarea>
-							</div>
-						</div>
-
-						<div class="col-md-offset-3">
-							<a id="cancel" href="" ng-click="closeIdentityForm()" class="btn btn-default">
-								{{'label.button.cancel' | translate}}
-							</a>
-							<button id="save" type="submit" has-permission='CREATE_CLIENTIDENTIFIER' class="btn btn-primary">{{'label.button.save' | translate}}</button>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-			<div ng-if="shownUploadIdentifierDocumentForm">
-				<form name="uploaddocumentform" novalidate="" class="form-horizontal well" ng-submit="uploadDocument()">
-					<api-validate></api-validate>
-					<fieldset>
-						<legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="name">
-								{{'label.input.name' | translate}}
-								<span class="required">*</span>
-							</label>
-							<div class="col-sm-3">
-								<input id="name" ng-autofocus="true" type="text" name="name" ng-model="documentFormData.name" class="form-control" required
-								    late-Validate/>
-							</div>
-							<div class="col-sm-3">
-								<span ng-show="uploaddocumentform.name.$invalid">
-									<small class="error" ng-show="uploaddocumentform.name.$error.req">
-										Required Field
-									</small>
-								</span>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<input type="file" id="file" ng-file-select="onFileSelect($files)">
-							</div>
-						</div>
-
-						<div class="col-md-offset-3">
-							<a id="cancel" href="" class="btn btn-default" ng-click="closeDocumentUploadForm()">{{'label.button.cancel' | translate}}
-							</a>
-							<button id="save" type="submit" ng-disabled="!uploaddocumentform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
-								{{'label.button.save' | translate}}
-							</button>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-
-			<br>
-			<table class="table" ng-show="identitydocuments.length > 0">
-				<thead>
-					<tr class="graybg">
-						<th>{{'label.heading.id' | translate}}</th>
-						<th>{{'label.heading.description' | translate}}</th>
-						<th>{{'label.heading.type' | translate}}</th>
-						<th>{{'label.heading.identitydocuments' | translate}}</th>
-						<th>{{'label.heading.status' | translate}}</th>
-						<th>{{'label.heading.issueddate' | translate}}</th>
-						<th>{{'label.heading.expirydate' | translate}}</th>
-						<th>{{'label.heading.actions' | translate}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="document in identitydocuments">
-						<td>{{document.documentKey}}</td>
-						<td>{{document.description}}</td>
-						<td>{{document.documentType.name}}</td>
-						<td>
-							<span ng-repeat="file in document.documents">
-								{{file.fileName}}&nbsp;&nbsp;
-								<a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'>
-									<i class="icon-eye-open text-success"></i>
-								</a>
-								<a target="_blank" ng-click="download(file.docUrl)" has-permission='READ_DOCUMENT'>
-									<i class="icon-cloud-download"></i>
-								</a>
-							</span>
-						</td>
-						<td>{{document.status | translate}}</td>
-						<td>{{document.documentIssueDate | DateFormat}}</td>
-						<td>{{document.documentExpiryDate | DateFormat}}</td>
-						<td>
-							<span>
-								<a href="" ng-click="uploadClientDocumentIdentifier(document.id)" has-permission='CREATE_DOCUMENT'>
-									<i class="icon-cloud-upload"></i>
-								</a>
-								<a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
-		                         has-permission='DELETE_CLIENTIDENTIFIER'><i
-		                              class="icon-remove"></i></a>
-							</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-
-		</tab>
-		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="getFamilyDetails()" ng-show="!shownFamilyMembersForm">
-			<div class="pull-right">
-				<a href="" ng-click="familyMembersForm()" ng-if="!shownFamilyMembersForm" class="btn btn-primary" has-permission='CREATE_FAMILYDETAIL'>
-					<i class="icon-plus icon-white"></i>
-					{{'label.button.add'|translate}}
-				</a>
-			</div>
-			<br>
-			<br>
-			<div ng-if="shownFamilyMembersForm">
-				<api-validate></api-validate>
-				<form name="createFamilyDetails" novalidate="" class="form-horizontal well" rc-submit="submitFamilyMembers()">
-					<fieldset>
-						<legend>{{'label.view.add.familymember' | translate}}</legend>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
-
-							<div class="col-sm-3">
-								<select id="salutation" name="salutation" ng-model="familyMembersFormData.salutationId" class="form-control" ng-options="salutationOption.id as salutationOption.name for salutationOption in salutationOptions "
-								    value="salutationOption.id">
-									<option value="">--{{'label.input.selectoptions' | translate}}--</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="createFamilyDetails" valattribute="salutation" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="firstName">{{ 'label.input.firstName' | translate }}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<input type="text" id="firstName" name="firstName" ng-model="familyMembersFormData.firstname" class="form-control"
-								    required late-validate/>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="createFamilyDetails" valattribute="firstName" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="middlename">{{ 'label.input.middlename' | translate }}
-							</label>
-
-							<div class="col-sm-3">
-								<input type="text" id="middleName" name="middleName" ng-model="familyMembersFormData.middlename" class="form-control"
-								/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="lastName">{{ 'label.input.lastName' | translate }}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<input type="text" id="lastName" name="lastName" ng-model="familyMembersFormData.lastname" class="form-control"
-								    required late-validate/>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="createFamilyDetails" valattribute="lastName" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}
-								<span class="required">*</span>
-							</label>
-
-							<div class="col-sm-3">
-								<select id="relationship" name="relationship" ng-model="familyMembersFormData.relationshipId" class="form-control" ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
-								    value="relationshipOption.id">
-									<option value="">--{{'label.input.selectoptions' | translate}}--</option>
-								</select>
-							</div>
-							<label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}</label>
-
-							<div class="col-sm-3">
-								<select id="gender" name="gender" ng-model="familyMembersFormData.genderId" class="form-control" ng-options="genderOption.id as genderOption.name for genderOption in genderOptions"
-								    value="genderOption.id">
-									<option value="">--{{'label.input.selectoptions' | translate}}--</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2">{{ 'label.input.age' | translate }}
-								<span class="required">*</span>
-							</label>
-							<div class="col-sm-2">
-									<input type="text" ng-model="familyMembersFormData.age" class="form-control" />
-								</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="createFamilyDetails" valattribute="age" />
-							</div>
-
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2"></label>
-
-							<div class="col-sm-3">
-								<input id="isDependent" type="checkbox" ng-model="familyMembersFormData.isDependent"> {{'label.input.dependent' | translate }}
-							</div>
-							<div class="col-sm-3">
-								<input id="isSeriousIllness" type="checkbox" ng-model="familyMembersFormData.isSeriousIllness"> {{'label.input.isSeriousIllness' | translate }}
-							</div>
-							<div class="col-sm-3">
-								<input id="isDeceased" type="checkbox" ng-model="familyMembersFormData.isDeceased"> {{'label.input.isDeceased' | translate }}
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div>
-								<label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
-
-								<div class="col-sm-3">
-									<select id="occupationId" name="occupation" ng-model="occupationOption" class="form-control" ng-options="occupationOption as occupationOption.name for occupationOption in occupationOptions"
-									    value="occupationOption.id">
-										<option value="">--{{'label.input.selectoptions' | translate}}--</option>
-									</select>
-								</div>
-							</div>
-							<div>
-								<label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
-
-								<div class="col-sm-3">
-									<select id="subOccupation" name="subOccupation" ng-model="familyMembersFormData.occupationDetailsId" class="form-control"
-									    ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas" value="subOccupation.id">
-										<option value="">--{{'label.input.selectoptions' | translate}}--</option>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2">{{ 'label.input.education' | translate }}</label>
-
-							<div class="col-sm-3">
-								<select id="education" name="education" ng-model="familyMembersFormData.educationId" class="form-control" ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
-								    value="occupationOption.id">
-									<option value="">--{{'label.input.selectoptions' | translate}}--</option>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<form-validate valattributeform="createFamilyDetails" valattribute="education" />
-							</div>
-						</div>
-
-						<div class="col-md-offset-2 paddedleft">
-							<a id="cancel" href="" ng-click="closeFamilyMembersForm()" class="btn btn-default">
-								{{'label.button.cancel'|translate}}</a>
-							<a id="save" ng-click="submitFamilyMembers()" type="submit" class="btn btn-primary">
-								{{'label.button.save' |translate}}</a>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-			<br>
-			<br>
-			<div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>{{ 'label.heading.name' | translate }}</th>
-							<th>{{ 'label.heading.belongs.to.families.of' | translate }}</th>
-							<th>{{ 'label.heading.age' | translate }}</th>
-							<th>{{ 'label.heading.dependent' | translate }}</th>
-							<th>{{ 'label.heading.medical.condition' | translate }}</th>
-							<th>{{ 'label.heading.deceased' | translate }}</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="pointer-main" ng-repeat="familyMember in familyMembers">
-							<td class="pointer">{{familyMember.firstname}} {{familyMember.lastname}}
-							</td>
-							<td class="pointer">
-								{{familyMember.relationship.name}}
-							</td>
-							<td class="pointer">{{familyMember.age}}</td>
-							<td class="pointer">{{familyMember.isDependent == true ? 'Yes' : 'No'}}
-							</td>
-							<td class="pointer">{{familyMember.isSeriousIllness == true ? 'Yes' : 'No'}}
-							</td>
-							<td class="pointer">{{familyMember.isDeceased == true ? 'Yes' : 'No'}}
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</tab>
 		<tab heading="{{'label.heading.accounts' | translate}}">
-			<div class="pull-right">
-				<a href="" ng-click="getLoanAccountFormDetails()" ng-if="!showLoanAccountForm && !isLoanAccountExist" class="btn btn-primary" has-permission='CREATE_LOAN'>
-					<i class="icon-plus icon-white"></i>
-					{{'label.button.add'|translate}}
-				</a>
-			</div>
-			<br>
-			<br>
-			<div ng-if="showLoanAccountForm">
-				<api-validate></api-validate>
-				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()" 
-				 class="form-horizontal well">
-					<fieldset>
-						<legend>{{'label.view.add.loanapplication' | translate}}</legend>
-					<div class="form-group">
-						<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
-							<span class="required">*</span>:&nbsp;
-						</label>
-						<div class="col-sm-3">
-								<select id="productId" ng-model="loanAccountFormData.productId" 
-								  name="productId" class="form-control"
-								  ng-options="product.id as product.name for product in products" 
-								  value="{{product.id}}"
-								  ng-change="loanProductChange(loanAccountFormData.productId)" 
-								  required="required">
-							        <option style="display:none" value="">
-							        {{'label.selectloanproduct' | translate}}</option>
-						        </select>
-						</div>
-						<div class="col-sm-3">
-							<form-validate valattributeform="newloanaccountform" 
-							   valattribute="productId" />
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<br>
-					<div class="form-group" ng-if="loanAccountFormData.productId">
-						<label class="control-label col-sm-2">
-						   {{ 'label.input.loanpurpose' | translate }}<span class="required">*</span>:&nbsp;
-						</label>
-						<div class="col-sm-3">
-							<select  id="loanPurposeId"  name ="loanPurposeId" 
-							  ng-model="loanAccountFormData.loanPurposeId"
-                              ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                              class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
-				                <option value="">{{'label.selectpurpose' | translate}}</option>
-				            </select>
-						</div>
-						<div class="col-sm-3">
-							<form-validate valattributeform="newloanaccountform" 
-							  valattribute="loanPurposeId" />
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<br>
-					<div>
-						<label ng-show="loanaccountinfo.calendarOptions">
-							<i class="icon-calendar icon-white"></i>&nbsp;
-							<strong>{{ 'label.heading.meetingdetails' | translate }}</strong>
-						</label>
-						<table ng-show="loanaccountinfo.calendarOptions" class="width100">
-							<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
-								<td class="width14">
-									<label>{{ 'label.heading.startdate' | translate }}:</label>
-								</td>
-								<td class="width36">{{calendar.startDate | DateFormat}}</td>
-								<td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-									<label>{{ 'label.heading.repeatson' | translate }}:</label>
-								</td>
-								<td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-									{{calendar.humanReadable}}</td>
-							</tr>
-							<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
-								<td align="center">
-									<input type="checkbox" ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting)"
-									 ng-model="temp.syncRepaymentsWithMeeting" ng-change="syncRepaymentsWithMeetingchange()" />
-								</td>
-								<td>
-									<label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
-								</td>
-								<td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-									<input type="checkbox" ng-model="loanAccountFormData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()" />
-								</td>
-								<td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-									<label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<br>
-					<div  class="form-group" ng-if="loanAccountFormData.productId">
-						<label class="control-label col-sm-2">
-						   {{ 'label.heading.chooseloanemipack' | translate }}:
-						</label>
-						<div class="col-sm-3">
-							<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1" placeholder="{{'label.input.filterbytext' | translate}}"/>
-						</div>
-						<div class="col-sm-7">
-						</div>
-			        </div> 
-			        <br/>
-			        <div class="col-sm-offset-2"  
-			           ng-if="loanAccountFormData.productId && loanaccountinfo.loanEMIPacks">
-			           <table class="well table col-sm-12">
-			                <thead>
-			                    <tr  class="graybg">
-			                        <th></th>
-			                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
-			                        <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
-			                        <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-			                        <th>{{ 'label.heading.fixedEmi' | translate }}</th>
-			                    </tr>
-			                </thead>
-			                <tbody>
-			                    <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
-			                        <td class="col-md-1">
-			                                <input type="radio" 
-			                                  ng-model="loanAccountFormData.loanEMIPackId" 
-			                                  name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack.sanctionAmount)" class="form-control" value="{{loanEMIPack.id}}"/>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.sanctionAmount}}</span>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.combinedRepayEvery}}</span>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.numberOfRepayments}}</span>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.fixedEmi}}</span>
-			                        </td>
-			                        </tr>
-			                </tbody>
-			           </table>            
-					</div> 	
-					<div ng-if="loanAccountFormData.productId">
-						<div class="col-sm-1">
-							<label>
-								<strong>{{ 'label.heading.charges' | translate }}</strong>
-							</label>
-						</div>
-						<select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
-						 value="{{charge.id}}" class="form-control width170px">
-							<option value="">{{'label.selectcharge' | translate}}</option>
-						</select>
-						<a ng-click="addCharge()">
-							<i class="icon-plus icon-white"></i>
-						</a>
-					</div>
-					<table class="table" class="width100" ng-show="charges.length>0">
-						<tr class="graybg">
-							<th>{{'label.heading.name' | translate}}</th>
-							<th>{{'label.heading.type' | translate}}</th>
-							<th>{{'label.heading.amount' | translate}}</th>
-							<th>{{'label.heading.collectedon' | translate}}</th>
-							<th>{{'label.heading.date' | translate}}</th>
-							<th>{{'label.heading.iscapitalized' | translate}}</th>
-							<th>{{'label.heading.actions' | translate}}</th>
-						</tr>
-						<tr ng-repeat="charge in charges">
-							<td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
-							<td>{{charge.chargeCalculationType.value}}</td>
-							<td>
-								<input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}"
-								 number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)">
-							</td>
-							<td>{{charge.chargeTimeType.value}}</td>
-							<td>
-								<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
-								 ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
-								 max="'2020-06-22'" />
-							</td>
-							<td>{{charge.isCapitalized}}</td>
-							<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>
-								<a ng-click="deleteCharge($index)">
-									<i class="icon-remove icon-white"></i>
-								</a>
-							</td>
-						</tr>
-					</table>
-						<div class="col-md-offset-2 paddedleft">
-							<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
-								{{'label.button.cancel'|translate}}</a>
-							<a id="save" ng-click="newLoanAccountSubmit()" type="submit" class="btn btn-primary">
-								{{'label.button.save' |translate}}</a>
-						</div>
-			    </fieldset>
-				</form>
-			</div>
 			<div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>{{ 'label.heading.accountno' | translate }}</th>
-							<th>{{ 'label.heading.productname' | translate }}</th>
-							<th>{{ 'label.heading.status' | translate }}</th>
-							<th>{{ 'label.heading.loantype' | translate }}</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="pointer-main" >
-							<td class="pointer">{{loanAccountData.accountNo}}</td>
-							<td class="pointer">{{loanAccountData.loanProductName}}</td>
-							<td class="pointer">{{loanAccountData.status.value}}</td>
-							<td class="pointer">{{loanAccountData.loanType.value}}</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="pull-right" ng-if="!showLoanAccountForm && !isLoanAccountExist">
+					<a href="" ng-click="getLoanAccountFormDetails()" class="btn btn-primary" has-permission='CREATE_LOAN'>
+						<i class="icon-plus icon-white"></i>
+						{{'label.button.add'|translate}}
+					</a>
+				</div>
+				<div ng-if="showLoanAccountForm">
+					<api-validate></api-validate>
+					<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()" class="form-horizontal well">
+						<fieldset>
+							<legend>{{'label.view.add.loanapplication' | translate}}</legend>
+							<div class="form-group">
+								<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
+									<span class="required">*</span>:&nbsp;
+								</label>
+								<div class="col-sm-3">
+									<select id="productId" ng-model="loanAccountFormData.productId" name="productId" class="form-control" ng-options="product.id as product.name for product in products"
+									 value="{{product.id}}" ng-change="loanProductChange(loanAccountFormData.productId)" required="required">
+										<option style="display:none" value="">
+											{{'label.selectloanproduct' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-3">
+									<form-validate valattributeform="newloanaccountform" valattribute="productId" />
+								</div>
+								<div class="col-sm-4"></div>
+							</div>
+							<br>
+							<div class="form-group" ng-if="loanAccountFormData.productId">
+								<label class="control-label col-sm-2">
+									{{ 'label.input.loanpurpose' | translate }}
+									<span class="required">*</span>:&nbsp;
+								</label>
+								<div class="col-sm-3">
+									<select id="loanPurposeId" name="loanPurposeId" ng-model="loanAccountFormData.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+									 class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+										<option value="">{{'label.selectpurpose' | translate}}</option>
+									</select>
+								</div>
+								<div class="col-sm-3">
+									<form-validate valattributeform="newloanaccountform" valattribute="loanPurposeId" />
+								</div>
+								<div class="col-sm-4"></div>
+							</div>
+							<br>
+							<div>
+								<label ng-show="loanaccountinfo.calendarOptions">
+									<i class="icon-calendar icon-white"></i>&nbsp;
+									<strong>{{ 'label.heading.meetingdetails' | translate }}</strong>
+								</label>
+								<table ng-show="loanaccountinfo.calendarOptions" class="width100">
+									<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
+										<td class="width14">
+											<label>{{ 'label.heading.startdate' | translate }}:</label>
+										</td>
+										<td class="width36">{{calendar.startDate | DateFormat}}</td>
+										<td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+											<label>{{ 'label.heading.repeatson' | translate }}:</label>
+										</td>
+										<td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+											{{calendar.humanReadable}}</td>
+									</tr>
+									<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
+										<td align="center">
+											<input type="checkbox" ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting)"
+											 ng-model="temp.syncRepaymentsWithMeeting" ng-change="syncRepaymentsWithMeetingchange()" />
+										</td>
+										<td>
+											<label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
+										</td>
+										<td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+											<input type="checkbox" ng-model="loanAccountFormData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()"
+											/>
+										</td>
+										<td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+											<label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div class="form-group" ng-if="loanAccountFormData.productId">
+								<label class="control-label col-sm-2">
+									{{ 'label.heading.chooseloanemipack' | translate }}:
+								</label>
+								<div class="col-sm-3">
+									<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1"
+									 placeholder="{{'label.input.filterbytext' | translate}}" />
+								</div>
+								<div class="col-sm-7">
+								</div>
+							</div>
+							<br/>
+							<div class="col-sm-offset-2" ng-if="loanAccountFormData.productId && loanaccountinfo.loanEMIPacks">
+								<table class="well table col-sm-12">
+									<thead>
+										<tr class="graybg">
+											<th></th>
+											<th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+											<th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+											<th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+											<th>{{ 'label.heading.fixedEmi' | translate }}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+											<td class="col-md-1">
+												<input type="radio" ng-model="loanAccountFormData.loanEMIPackId" name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack.sanctionAmount)"
+												 class="form-control" value="{{loanEMIPack.id}}" />
+											</td>
+											<td class="col-md-1">
+												<span>{{loanEMIPack.sanctionAmount}}</span>
+											</td>
+											<td class="col-md-1">
+												<span>{{loanEMIPack.combinedRepayEvery}}</span>
+											</td>
+											<td class="col-md-1">
+												<span>{{loanEMIPack.numberOfRepayments}}</span>
+											</td>
+											<td class="col-md-1">
+												<span>{{loanEMIPack.fixedEmi}}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div ng-if="loanAccountFormData.productId">
+								<div class="col-sm-1">
+									<label>
+										<strong>{{ 'label.heading.charges' | translate }}</strong>
+									</label>
+								</div>
+								<select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+								 value="{{charge.id}}" class="form-control width170px">
+									<option value="">{{'label.selectcharge' | translate}}</option>
+								</select>
+								<a ng-click="addCharge()">
+									<i class="icon-plus icon-white"></i>
+								</a>
+							</div>
+							<table class="table" class="width100" ng-show="charges.length>0">
+								<tr class="graybg">
+									<th>{{'label.heading.name' | translate}}</th>
+									<th>{{'label.heading.type' | translate}}</th>
+									<th>{{'label.heading.amount' | translate}}</th>
+									<th>{{'label.heading.collectedon' | translate}}</th>
+									<th>{{'label.heading.date' | translate}}</th>
+									<th>{{'label.heading.actions' | translate}}</th>
+								</tr>
+								<tr ng-repeat="charge in charges">
+									<td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+									<td>{{charge.chargeCalculationType.value}}</td>
+									<td>
+										<input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}"
+										 number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)">
+									</td>
+									<td>{{charge.chargeTimeType.value}}</td>
+									<td>
+										<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+										 ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
+										 max="'2020-06-22'" />
+									</td>
+									<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>
+										<a ng-click="deleteCharge($index)">
+											<i class="icon-remove icon-white"></i>
+										</a>
+									</td>
+								</tr>
+							</table>
+							<div class="col-md-offset-2 paddedleft">
+								<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
+									{{'label.button.cancel'|translate}}</a>
+								<a id="save" ng-click="newLoanAccountSubmit()" type="submit" class="btn btn-primary">
+									{{'label.button.save' |translate}}</a>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>{{ 'label.heading.accountno' | translate }}</th>
+								<th>{{ 'label.heading.productname' | translate }}</th>
+								<th>{{ 'label.heading.status' | translate }}</th>
+								<th>{{ 'label.heading.loantype' | translate }}</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="pointer-main">
+								<td class="pointer">{{loanAccountData.accountNo}}</td>
+								<td class="pointer">{{loanAccountData.loanProductName}}</td>
+								<td class="pointer">{{loanAccountData.status.value}}</td>
+								<td class="pointer">{{loanAccountData.loanType.value}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</tab>
 	</tabset>

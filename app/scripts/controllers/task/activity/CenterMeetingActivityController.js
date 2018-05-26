@@ -6,31 +6,61 @@
             scope.entityType = "centers"
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
+            scope.isCenterMeetingAttached = false;
+            scope.isCenterMeetingEdit = false;
             scope.showAsTextBox = true;
+            scope.formData = {};
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
-            resourceFactory.attachMeetingResource.get({groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId,
-                templateSource: 'template'}, function (data) {
+            resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'collectionMeetingCalendar' }, function (data) {
+                scope.centerMeetingData = data;
+                if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
+                    scope.isCenterMeetingAttached = true;
+                    scope.isCenterMeetingEdit = false;
+                    var today = new Date();
+                    if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
+                        scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                    }
+                }
+            });
+            resourceFactory.attachMeetingResource.get({
+                groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId,
+                templateSource: 'template'
+            }, function (data) {
                 scope.groupCenterData = data;
                 scope.restrictDate = new Date();
                 scope.first = {};
                 scope.periodValue = "day(s)";
                 scope.repeatsOptions = [
-                    {id: 1, value: "daily"},
-                    {id: 2, value: "weekly"},
-                    {id: 3, value: "monthly"},
-                    {id: 4, value: "yearly"}
+                    { id: 1, value: "daily" },
+                    { id: 2, value: "weekly" },
+                    { id: 3, value: "monthly" },
+                    { id: 4, value: "yearly" }
                 ];
-                scope.repeatsEveryOptions = ["1", "2", "3"];
+                scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                 //to display default in select boxes
                 scope.formData = {
                     repeating: 'true',
                     frequency: '0',
                     interval: '1'
                 }
+                scope.formData.frequency = scope.repeatsOptions[1].id;
+                scope.formData.interval = '2';
+                scope.periodValue = "week(s)";
+                scope.showAsTextBox = false;
+                scope.repeatsOnOptions = [
+                    { name: "MON", value: "1" },
+                    { name: "TUE", value: "2" },
+                    { name: "WED", value: "3" },
+                    { name: "THU", value: "4" },
+                    { name: "FRI", value: "5" },
+                    { name: "SAT", value: "6" },
+                    { name: "SUN", value: "7" }
+                ]
             });
-            scope.meetingtime = new Date();
+            scope.formData.availablemeetingTime = new Date();
+            console.log('tet : ', scope.formData.meetingTime);
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
@@ -38,17 +68,17 @@
                     scope.showAsTextBox = true;
                 }
                 if (period == 2) {
-                    scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
-                    scope.formData.repeatsOnDay = '1';
+                    scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
+                    scope.formData.repeatsOnDay = '2';
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions = [
-                        {name: "MON", value: "1"},
-                        {name: "TUE", value: "2"},
-                        {name: "WED", value: "3"},
-                        {name: "THU", value: "4"},
-                        {name: "FRI", value: "5"},
-                        {name: "SAT", value: "6"},
-                        {name: "SUN", value: "7"}
+                        { name: "MON", value: "1" },
+                        { name: "TUE", value: "2" },
+                        { name: "WED", value: "3" },
+                        { name: "THU", value: "4" },
+                        { name: "FRI", value: "5" },
+                        { name: "SAT", value: "6" },
+                        { name: "SUN", value: "7" }
                     ]
                     scope.showAsTextBox = false;
                 }
@@ -56,21 +86,21 @@
                     scope.periodValue = "month(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
                     scope.frequencyNthDayOptions = [
-                        {id: 1, value: "first"},
-                        {id: 2, value: "second"},
-                        {id: 3, value: "third"},
-                        {id: 4, value: "fourth"},
-                        {id: -1, value: "last"},
-                        {id: -2, value: "on day"}
+                        { id: 1, value: "first" },
+                        { id: 2, value: "second" },
+                        { id: 3, value: "third" },
+                        { id: 4, value: "fourth" },
+                        { id: -1, value: "last" },
+                        { id: -2, value: "on day" }
                     ];
                     scope.frequencyDayOfWeekOptions = [
-                        {name: "MON", value: "1"},
-                        {name: "TUE", value: "2"},
-                        {name: "WED", value: "3"},
-                        {name: "THU", value: "4"},
-                        {name: "FRI", value: "5"},
-                        {name: "SAT", value: "6"},
-                        {name: "SUN", value: "7"}
+                        { name: "MON", value: "1" },
+                        { name: "TUE", value: "2" },
+                        { name: "WED", value: "3" },
+                        { name: "THU", value: "4" },
+                        { name: "FRI", value: "5" },
+                        { name: "SAT", value: "6" },
+                        { name: "SUN", value: "7" }
                     ];
                     scope.showAsTextBox = false;
                 }
@@ -87,26 +117,59 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
-                this.formData.timeFormat='HH:mm:ss';
-                this.formData.location=scope.formData.location;
-                this.formData.meetingtime = dateFilter(scope.meetingtime,'HH:mm');
-               this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
-                if (scope.entityType == "groups") {
-                    this.formData.title = "groups_" + scope.groupOrCenterId + "_CollectionMeeting";
-                    scope.r = "viewgroup/";
-                }
-                else if (scope.entityType == "centers") {
-                    this.formData.title = "centers_" + scope.groupOrCenterId + "_CollectionMeeting";
-                    scope.r = "viewcenter/";
-                }
-
+                this.formData.timeFormat = 'HH:mm:ss';
+                this.formData.location = scope.formData.location;
+                console.log('scope.meetingtimeL ', scope.formData.meetingTime);
+                this.formData.meetingtime = dateFilter(scope.formData.meetingTime, 'HH:mm');
+                this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                scope.formData.meetingTime = undefined;
+                if (scope.isCenterMeetingEdit) {
+                    this.formData.title = scope.calendarData.title;
+                    this.formData.repeating = true;
+                    if (this.formData.interval < 0) {
+                        scope.formData.interval = Math.abs(this.formData.interval);
+                    }
+                    resourceFactory.attachMeetingResource.update({
+                        groupOrCenter: scope.entityType,
+                        groupOrCenterId: scope.groupOrCenterId, templateSource: scope.calendarId
+                    }, this.formData, function (data) {
+                        scope.getCenterMeeting();
+                    });
+                } else {
+                    if (scope.entityType == "groups") {
+                        this.formData.title = "groups_" + scope.groupOrCenterId + "_CollectionMeeting";
+                    }
+                    else if (scope.entityType == "centers") {
+                        this.formData.title = "centers_" + scope.groupOrCenterId + "_CollectionMeeting";
+                    }
+                    resourceFactory.attachMeetingResource.save({ groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId }, this.formData, function (data) {
+                        scope.getCenterMeeting();
+                    });
+                }
 
-                resourceFactory.attachMeetingResource.save({groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId}, this.formData, function (data) {
-                    location.path(scope.r + scope.groupOrCenterId);
-                });
             };
-
+            scope.cancel = function () {
+                scope.isCenterMeetingAttached = true;
+                scope.isCenterMeetingEdit = false;
+                var today = new Date();
+                if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
+                    scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                }
+            }
+            scope.getCenterMeeting = function () {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'collectionMeetingCalendar' }, function (data) {
+                    scope.centerMeetingData = data;
+                    if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
+                        scope.isCenterMeetingAttached = true;
+                        scope.isCenterMeetingEdit = false;
+                        var today = new Date();
+                        if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
+                            scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                        }
+                    }
+                });
+            }
             scope.addMonthDay = function () {
                 for (var i in this.available) {
                     for (var j in scope.repeatsOnDayOfMonthOptions) {
@@ -139,10 +202,57 @@
                 scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
             };
 
-            scope.sortNumber = function(a,b)
-            {
+            scope.sortNumber = function (a, b) {
                 return a - b;
             };
+
+            scope.updateMeeting = function (data) {
+                scope.isCenterMeetingEdit = true;
+                scope.isCenterMeetingAttached = false;
+                scope.calendarId = data.id;
+                scope.calendarData = data;
+                scope.first = { date: new Date(data.startDate) };
+                scope.location = data.location;
+                var today = new Date();
+                if (data.meetingTime == undefined) {
+                    scope.formData.meetingTime = new Date();
+                }
+                if (data.meetingTime != undefined) {
+                    scope.formData.meetingTime = new Date(data.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                }
+                scope.repeatsEveryOptions = [1, 2, 3];
+                scope.selectedPeriod(scope.calendarData.frequency.id);
+                //to display default in select boxes
+                scope.formData = {
+                    repeating: scope.calendarData.repeating,
+                    frequency: scope.calendarData.frequency.id,
+                    interval: Math.abs(scope.calendarData.interval),
+                    location: scope.calendarData.location
+                }
+                for (var i in scope.repeatsEveryOptions) {
+                    if (scope.formData.interval == scope.repeatsEveryOptions[i]) {
+                        scope.formData.interval = scope.repeatsEveryOptions[i];
+                    }
+                }
+                //update interval option
+                for (var i in scope.repeatsEveryOptions) {
+                    if (scope.repeatsEveryOptions[i] == scope.calendarData.interval) {
+                        scope.formData.interval = scope.repeatsEveryOptions[i];
+                    }
+                }
+                //update radio button option
+                if (scope.formData.frequency == 2) {
+                    scope.formData.repeatsOnDay = scope.calendarData.repeatsOnDay.id.toString();
+                } else if (scope.formData.frequency == 3) {
+                    scope.formData.repeatsOnNthDayOfMonth = scope.calendarData.repeatsOnNthDayOfMonth.id;
+                    if (scope.calendarData.repeatsOnDay) {
+                        scope.formData.repeatsOnLastWeekdayOfMonth = scope.calendarData.repeatsOnDay.id;
+                    }
+                    if (scope.calendarData.repeatsOnDayOfMonth) {
+                        scope.selectedOnDayOfMonthOptions = scope.calendarData.repeatsOnDayOfMonth;
+                    }
+                }
+            }
         }
     });
     mifosX.ng.application.controller('CenterMeetingActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CenterMeetingActivityController]).run(function ($log) {

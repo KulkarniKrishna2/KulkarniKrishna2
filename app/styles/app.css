@@ -1264,6 +1264,9 @@ input#search:-ms-input-placeholder {
 .modalwidth700 .modal-dialog {
     width: 700px;
 }
+.modalwidth90 .modal-dialog {
+    width: 90%;
+}
 .width450px{
     width: 450px;
 }
@@ -1669,4 +1672,12 @@ figure {
 
 .font-size-14pt {
     font-size: 14pt !important;
+}
+
+.icon-1-2x {
+    font-size: 1.2em;
+}
+
+.popup-max-height {
+    max-height: 100% !important;
 }

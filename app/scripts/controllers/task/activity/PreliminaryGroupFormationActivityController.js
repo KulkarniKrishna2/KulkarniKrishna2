@@ -17,7 +17,7 @@
                 $modal.open({
                     templateUrl: 'views/task/popup/createsubgroup.html',
                     controller: CreateSubGroupCtrl,
-                    windowClass: 'modalwidth700',
+                    windowClass: 'modalwidth90',
                     resolve: {
                         centerDetails: function () {
                             return centerDetails;
@@ -56,6 +56,10 @@
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
+                };
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
                 };
 
             };
@@ -330,13 +334,16 @@
                     $modalInstance.dismiss('cancel');
                 };
 
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
             }
 
             scope.viewMemberDetails = function (groupId, activeClientMember) {
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',
                     controller: ViewMemberCtrl,
-                    windowClass: 'app-modal-window',
+                    windowClass: 'modalwidth90',
                     size: 'lg',
                     resolve: {
                         memberParams: function () {
@@ -477,6 +484,9 @@
                     }
                 }
 
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
 
                 function getClientData() {
                     resourceFactory.clientResource.get({ clientId: $scope.clientId, associations: 'hierarchyLookup' }, function (data) {
@@ -753,6 +763,10 @@
                         $scope.occupationOptions = data.occupationOptions;
                     });
 
+                    resourceFactory.clientIdenfierTemplateResource.get({ clientId: $scope.clientId }, function (data) {
+                        $scope.documenttypes = data.allowedDocumentTypes;
+                    });
+                    
                 }
 
                 $scope.submitFamilyMembers = function () {
@@ -1128,6 +1142,7 @@
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
                         $scope.showLoanAccountForm = false;
                         $scope.clientJlgLoanAccount();
+                        initTask();
                     });
                 };
 
@@ -1135,6 +1150,7 @@
                     $scope.type = 'jlg';
                     resourceFactory.clientJlgLoanAccount.get({ type: $scope.type, clientId: $scope.clientId, groupId: $scope.groupId}, function (data) {
                         $scope.loanAccountData = data;
+                        $scope.isLoanAccountExist = true;
                 });
             }
 
@@ -1148,6 +1164,7 @@
 
                 $scope.closeLoanAccountForm = function () {
                     $scope.showLoanAccountForm = false;
+
                 }
 
 
