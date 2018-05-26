@@ -159,7 +159,11 @@
                     if(data.changes.isWorkflowCreated === true){
                         location.path('/grouponboarding/' + data.resourceId+'/workflow');
                     }else{
-                        location.path('/viewgroup/' + data.resourceId);
+                        if (routeParams.centerId) {
+                            location.path('/viewcenter/' + routeParams.centerId);
+                        }else {
+                            location.path('/viewgroup/' + data.resourceId);
+                        }
                     }
                 });
             };

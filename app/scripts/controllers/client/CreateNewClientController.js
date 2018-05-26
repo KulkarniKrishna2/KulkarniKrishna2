@@ -538,7 +538,11 @@
                             if (scope.enableCreateClientLoop){
                                 location.path('/createclient/').search({groupId: scope.groupId,officeId: scope.officeId,staffId: scope.staffId,centerId: scope.centerId,clientId: data.clientId});
                             } else{
-                                location.path('/viewclient/' + data.clientId).search('');
+                                if(routeParams.groupId){
+                                    location.path('/viewgroup/' + routeParams.groupId);
+                                }else{
+                                    location.path('/viewclient/' + data.clientId).search('');
+                                }
                             }
                         }
                         else
