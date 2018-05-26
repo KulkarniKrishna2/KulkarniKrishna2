@@ -402,9 +402,15 @@
     
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
                         $scope.showLoanAccountForm = false;
-                        $scope.getClientAccounts();
+                        $scope.clientJlgLoanAccount();
                     });
                 };
+
+                $scope.clientJlgLoanAccount = function(){
+                    $scope.type = 'jlg';
+                    resourceFactory.clientJlgLoanAccount.get({ type: $scope.type, clientId: $scope.clientId, groupId: $scope.groupId}, function (data) {
+                        $scope.loanAccountData = data;
+                });
 
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
                     scope.$watch('date.second ', function(){
@@ -745,6 +751,7 @@
             }
             
         }
+     }
     });
     mifosX.ng.application.controller('BulkLoanApplicationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.BulkLoanApplicationActivityController]).run(function ($log) {
         $log.info("BulkLoanApplicationActivityController initialized");
