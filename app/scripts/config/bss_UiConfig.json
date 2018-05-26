@@ -29,7 +29,8 @@
 	  	"isHiddenField": {
 	  		"createGroup" : true,
 		  	"accountNo":true,
-		    "referenceNo": false
+		  "referenceNo": false,
+		  "meeting": true
 	  	}
 	},
 	"viewCenter":{

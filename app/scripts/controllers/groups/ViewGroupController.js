@@ -15,6 +15,7 @@
             scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.hideManageMember = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+            scope.isShowMeetingDetails = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.meeting;
             scope.isHideCreateEntity = false;
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;
