@@ -540,7 +540,7 @@
 										<span class="required">*</span>
 									</label>
 									<div class="col-sm-3">
-										<select id="documentTypeId" ng-model="identityFormData.documentTypeId" name="documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
+										<select id="documentTypeId" ng-model="familyMembersFormData.documentTypeId" name="documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
 										 value="{{documenttype.id}}" required="required" class="form-control">
 										</select>
 									</div>
@@ -555,7 +555,7 @@
 								</label>
 							
 								<div class="col-sm-3">
-									<input type="text" id="uniqueNo" name="uniqueNo" ng-model="familyMembersFormData.uniqueNo" class="form-control" required
+									<input type="text" id="documentKey" name="documentKey" ng-model="familyMembersFormData.documentKey" class="form-control" required
 									 late-validate/>
 								</div>
 								<div class="col-sm-2">
