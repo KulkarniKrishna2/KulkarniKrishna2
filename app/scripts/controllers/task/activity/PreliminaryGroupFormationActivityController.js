@@ -345,7 +345,8 @@
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',
                     controller: ViewMemberCtrl,
-                    windowClass: 'modalwidth90',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     size: 'lg',
                     resolve: {
                         memberParams: function () {
@@ -363,6 +364,7 @@
                 $scope.shownFamilyMembersForm = false;
                 $scope.showLoanAccountForm = false;
                 $scope.isLoanAccountExist = false;
+                $scope.showOnlyLoanTab = true;
 
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){

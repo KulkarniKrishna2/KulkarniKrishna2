@@ -26,7 +26,7 @@
 							</span>
 						</td>
 						<td>
-							<a class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></a>
+							<a class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}" class="btn btn-xs btn-primary ng-binding"></a>
 						</td>
 					</tr>
 					<tr>
@@ -47,7 +47,8 @@
 									 class="icon-star-empty"></i>
 								</span>
 							</td>
-							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
+							class="btn btn-xs btn-primary ng-binding"></td>
 						</tr>
 					</tr>
 				</tbody>

@@ -16,7 +16,8 @@
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',
                     controller: ViewMemberCtrl,
-                    windowClass: 'app-modal-window',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     size: 'lg',
                     resolve: {
                         memberParams: function () {
@@ -34,12 +35,34 @@
                 $scope.shownFamilyMembersForm = true;
                 $scope.showLoanAccountForm = false;
                 $scope.isLoanAccountExist = false;
+                $scope.showOnlyLoanTab = false;
 
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
                     $scope.isLoanAccountExist = true;
                 }
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+
+                function getClientData() {
+                    resourceFactory.clientResource.get({ clientId: $scope.clientId, associations: 'hierarchyLookup' }, function (data) {
+                        $scope.clientDetails = data;
+                        if ($scope.clientDetails.lastname != undefined) {
+                            $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.lastname.concat(" ");
+                        }
+                        if ($scope.clientDetails.middlename != undefined) {
+                            $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.displayNameInReverseOrder.concat($scope.clientDetails.middlename).concat(" ");
+                        }
+                        if ($scope.clientDetails.firstname != undefined) {
+                            $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.displayNameInReverseOrder.concat($scope.clientDetails.firstname);
+                        }
+                    });
+                }
+                getClientData();
+
                 $scope.getLoanAccountFormDetails = function(){
                         $scope.showLoanAccountForm = true;
                         $scope.clientId = $scope.clientId;
@@ -430,7 +453,8 @@
                 $modal.open({
                 templateUrl: 'views/task/popup/editLoan.html',
                 controller: editLoanCtrl,
-                windowClass: 'app-modal-window',
+                backdrop: 'static',
+                windowClass: 'app-modal-window-full-screen',
                 size: 'lg',
                 resolve: {
                  memberParams: function () {
@@ -644,7 +668,11 @@
 
                 $scope.closeLoanAccountForm = function () {
                     $scope.showLoanAccountForm = false;
+                    $modalInstance.dismiss('closeLoanAccountForm');
                 }
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
             }
 
             //client reject reason call

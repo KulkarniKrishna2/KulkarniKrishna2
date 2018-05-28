@@ -1,0 +1,108 @@
+<div>
+	<div class="modal-header silver">
+		<h3 class="bolder">
+			{{'label.heading.disburseloanaccount' | translate}}
+			<i class="icon-remove pointer pull-right" ng-click="close()"></i>
+		</h3>
+	</div>
+	<div class="modal-body well">
+		<div class="margin-plus-10px">
+			<div>
+				<h3 class="client-title">
+					<i class="icon-circle {{clientDetails.status.code | StatusLookup}}"></i>
+					<small ng-if="client.subStatus.description">
+						[{{clientDetails.subStatus.description}}]
+					</small>
+					<strong ng-if="!displayNameInReverseOrder">{{clientDetails.displayName}} </strong>
+					<strong ng-if="displayNameInReverseOrder">{{clientDetails.displayNameInReverseOrder}} </strong>
+					<small>
+						{{ 'label.heading.clientreferenceno' | translate }}: {{clientDetails.referenceNumber}}
+					</small>
+				</h3>
+			</div>
+
+			<div>
+				<api-validate></api-validate>
+				<form class="form-horizontal" name="loanactionform" novalidate="" rc-submit="submit()">
+					<fieldset>
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{'label.input.disbursedondate' | translate}}
+								<span class="required">*</span>
+							</label>
+
+							<div class="col-sm-3">
+								<input id="{{actualDisbursementDate}}" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.actualDisbursementDate"
+								 min="'2000-01-01'" max="'2020-06-22'" />
+							</div>
+						</div>
+
+						<div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymentmode' | translate}}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<select id="paymentMode" name="paymentMode" ng-model="paymentMode" ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
+									 value="{{paymentModeOption.id}}" ng-change="getPaymentTypeOtions()" class="form-control">
+										<option value="">{{'label.selectone' | translate}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}
+									<span class="required">*</span>
+								</label>
+
+								<div class="col-sm-3">
+									<select id="paymentTypeId" ng-model="formData.paymentTypeId" class="form-control" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
+									 value="{{paymentType.id}}"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-2">
+									<table class="table well col-sm-9">
+										<thead>
+											<tr>
+												<th></th>
+												<th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+												<th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+												<th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+												<th>{{ 'label.heading.fixedEmi' | translate }}</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="loanEMIPack in loanEMIPacks | filter:filterText">
+												<td class="col-md-1">
+													<input type="radio" ng-model="formData.loanEMIPackId" name="emipack" value="{{loanEMIPack.id}}" ng-disabled="true" />
+												</td>
+												<td class="col-md-1">
+													<span>{{loanEMIPack.sanctionAmount}}</span>
+												</td>
+												<td class="col-md-1">
+													<span>{{loanEMIPack.combinedRepayEvery}}</span>
+												</td>
+												<td class="col-md-1">
+													<span>{{loanEMIPack.numberOfRepayments}}</span>
+												</td>
+												<td class="col-md-1">
+													<span>{{loanEMIPack.fixedEmi}}</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="col-md-offset-5">
+								<a id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate}}
+								</a>
+								<button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{'label.button.disburse' | translate}}
+								</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

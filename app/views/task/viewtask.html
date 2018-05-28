@@ -46,7 +46,13 @@
             <div class="row well" ng-if="centerData">
                 <h3><strong>{{'label.heading.centerdetails' | translate}}<span>:</span></strong></h3>
                 <div class="row">
-                    <div class="col-md-6"><span>{{'label.heading.centername' | translate}}:&nbsp;</span><span><a href="#/viewcenter/{{centerData.id}}"> {{centerData.name}}</a></span></div>
+                    <div class="col-md-6"><span>{{'label.heading.centername' | translate}}:&nbsp;</span><span><a href="#/viewcenter/{{centerData.id}}"> {{centerData.name}}</a></span>
+                        &nbsp;<span>
+                            <small>
+                                {{ 'label.heading.centerreferenceno' | translate }}: {{centerData.referenceNumber}}
+                            </small>
+                        </span>
+                    </div>
                     <div class="col-md-6"><span> {{'label.input.status' | translate}} :&nbsp; {{centerData.status.value}}</span></div>
                 </div>             
                 <div class="row">

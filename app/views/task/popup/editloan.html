@@ -1,9 +1,16 @@
-<div ng-if="showLoanAccountForm">
-	<api-validate></api-validate>
-				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()" 
-				 class="form-horizontal well">
+<div>
+<div class="modal-header silver">
+		<h3 class="bolder">
+				{{'label.view.edit.loanapplication' | translate}}
+			<i class="icon-remove pointer pull-right" ng-click="close()"></i>
+		</h3>
+</div>
+<div class="modal-body well">
+	<div class="margin-plus-10px">
+		<div ng-if="showLoanAccountForm">
+			<api-validate></api-validate>
+				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()">
 					<fieldset>
-						<legend>{{'label.view.edit.loanapplication' | translate}}</legend>
 					<div class="form-group">
 						<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
 							<span class="required">*</span>:&nbsp;
@@ -99,5 +106,8 @@
 								{{'label.button.save' |translate}}</a>
 						</div>
 			    </fieldset>
-				</form>
-			</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>	
