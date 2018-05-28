@@ -1507,7 +1507,7 @@
                     cgtResource: defineResource(apiVer + "/cgt/completiondate", {},{
                        persistCgtCompletionDate: {method: 'POST', params: {}}
                     }),
-                    loanResource: defineResource(apiVer + "/loans/updatedisbursementdate", {},{
+                    loanResourceTemp: defineResource(apiVer + "/loans/updatedisbursementdate", {},{
                        updateexpecteddisbursementdate: {method: 'POST', params: {}}
                     })
                 };
