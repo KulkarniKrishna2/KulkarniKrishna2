@@ -6,6 +6,7 @@
                 scope.centerId = scope.taskconfig.centerId;
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts' }, function (data) {
                     scope.centerDetails = data;
+                    scope.officeId = scope.centerDetails.officeId;
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
@@ -1281,7 +1282,36 @@
                     });
                 };
             }
+            function getprofileRating(activeClientMember){
+                resourceFactory.profileRating.get({entityType: 1,entityId : activeClientMember.id}, function (data) {
+                    scope.profileRatingData = data;
+                });
+                initTask();
+            };
 
+            scope.reComputeProfileRating = function (activeClientMember) {
+                scope.profileRatingData = {};
+                resourceFactory.computeProfileRatingTemplate.get(function (response) {
+                    for(var i in response.scopeEntityTypeOptions){
+                        if(response.scopeEntityTypeOptions[i].value === 'OFFICE'){
+                            scope.profileRatingData.scopeEntityType = response.scopeEntityTypeOptions[i].id;
+                            scope.profileRatingData.scopeEntityId =  scope.officeId;
+                            break;
+                        }
+                    }
+                    for(var i in response.entityTypeOptions){
+                        if(response.entityTypeOptions[i].value === 'CLIENT'){
+                            scope.profileRatingData.entityType = response.entityTypeOptions[i].id;
+                            scope.profileRatingData.entityId =  activeClientMember.id;
+                            break;
+                        }
+                    }
+                    scope.profileRatingData.locale = "en";
+                    resourceFactory.computeProfileRating.save(scope.profileRatingData, function (response) {
+                        getprofileRating(activeClientMember);
+                    });
+                });
+            }
         }
     });
     mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
