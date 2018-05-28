@@ -137,6 +137,10 @@ body {
     padding-left: 30px;
 }
 
+.paddedright30px {
+    padding-right: 30px;
+}
+
 .paddedleft80 {
     padding-left: 8%;
 }
@@ -157,6 +161,10 @@ padding-top: 10px;
 
 .paddedtop25px {
     padding-top: 25px;
+}
+
+.paddedtop15px {
+    padding-top: 15px;
 }
 
 .paddedtop10 {
@@ -933,6 +941,14 @@ input.marginbottom3px, textarea.marginbottom3px  {
     overflow: hidden;
     background-color: #e5e5e5;
 }
+.left-nav .dividermargin10px {
+    background-color: #bbbbbb;
+    border-bottom: none;
+    height: 1px;
+    margin: 10px;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
 .tooltip-wide .tooltip {
     min-width:180px;
 }
@@ -1264,8 +1280,38 @@ input#search:-ms-input-placeholder {
 .modalwidth700 .modal-dialog {
     width: 700px;
 }
-.modalwidth90 .modal-dialog {
-    width: 90%;
+.modalwidth60 .modal-dialog {
+    width: 60% !important;
+}
+.modalwidth800 .modal-dialog {
+    width: 800px;
+}
+.modalwidth900 .modal-dialog {
+    width: 900px;
+    min-height: 900px;
+}
+.large-Modal .modal-dialog{
+  height: 400px;
+  width:400px; 
+  margin: auto;
+  position: absolute;
+  top:0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.modal-dialog {
+    margin: 50px auto !important;
+}
+.modal-body {
+    max-height: 475px !important;
+}
+.app-modal-window-full-screen .modal-dialog {
+    min-width: 90% !important;
+    max-width: 90% !important;
+}
+.app-modal-max-height {
+    max-height: 100% !important;
 }
 .width450px{
     width: 450px;
@@ -1540,11 +1586,6 @@ figure {
     border: 1px solid black;
 }
 
-.app-modal-window .modal-dialog {
-    width: 900px;
-}
-
-
 .nav-pills.nav-wizard > li {
   position: relative;
   overflow: visible;
@@ -1683,4 +1724,7 @@ figure {
 }
 .backgroundred{
     background-color: #f4b5ba;
+}
+.margin-plus-10px{
+    margin: 10px !important;
 }

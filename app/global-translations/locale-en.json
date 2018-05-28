@@ -7068,6 +7068,7 @@
      "label.heading.doubleinsurance": "Double Insurance",
      "label.input.familymembertypeid":"Family Member ID Type",
      "label.input.familymemberuniqueno": "Family Member Unique No",
+     "label.heading.viewMember": "View Member",
 
     "label.heading.isslabbasedcharge" : "Is Slab Based Charge",
     "label.input.isslabbasedcharge" : "Is Slab Based Charge",

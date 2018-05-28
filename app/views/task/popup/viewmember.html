@@ -1,7 +1,13 @@
-<div class="popup-max-height well vertical-scrollbar">
-	<i class="pull-right icon-remove icon-1-2x pointer" ng-click="close()"></i>
-	<div class="row">
-		<div class="col-md-8 col-sm-8">
+<div>
+<div class="modal-header silver">
+		<h3 class="bolder">
+			{{'label.heading.viewMember' | translate}}
+			<i class="icon-remove pointer pull-right" ng-click="close()"></i>
+		</h3>
+</div>
+<div class="modal-body well">
+	<div class="margin-plus-10px">
+		<div>
 			<h3 class="client-title">
 				<i class="icon-circle {{clientDetails.status.code | StatusLookup}}"></i>
 				<small ng-if="client.subStatus.description">
@@ -14,11 +20,9 @@
 				</small>
 			</h3>
 		</div>
-	</div>
-	<br>
 	<tabset class="overflowhidden marginbottom0" tabset-name="memberTabset">
 
-		<tab heading="{{'label.heading.address' | translate}}" select="fetchEntityAddress()">
+		<tab heading="{{'label.heading.address' | translate}}" select="fetchEntityAddress()" ng-if="showOnlyLoanTab">
 			<div>
 				<div ng-if="!showaddressform" class="pull-right">
 					<a href="" ng-click="loadNewAdressForm()" ng-if="!showaddressform" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
@@ -269,7 +273,7 @@
 			</div>
 		</tab>
 
-		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()">
+		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()" ng-if="showOnlyLoanTab">
 			<div>
 				<div class="pull-right" ng-if="!shownidentityform && !shownUploadIdentifierDocumentForm">
 					<a href="" ng-click="loadIdentitiesForm()" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
@@ -452,7 +456,7 @@
 			</div>
 		</tab>
 
-		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="getFamilyDetails()">
+		<tab heading="{{ 'label.heading.familydetails' | translate }}" select="getFamilyDetails()" ng-if="showOnlyLoanTab">
 			<div>
 				<div class="pull-right" ng-if="!shownFamilyMembersForm">
 					<a href="" ng-click="familyMembersForm()" class="btn btn-primary" has-permission='CREATE_FAMILYDETAIL'>
@@ -874,10 +878,11 @@
 			</div>
 		</tab>
 	</tabset>
-
+  </div>
 	<script type="text/ng-template" id="viewDocument.html">
 		<div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
 			<view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
 		</div>
 	</script>
+</div>
 </div>

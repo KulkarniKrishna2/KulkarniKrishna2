@@ -25,7 +25,8 @@
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
-						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"
+						class="btn btn-xs btn-primary ng-binding"></td>
 					</tr> 
 						<tr ng-repeat="activeClientMember in groupMember.memberData">
 							<td class="col-md-2"><a href= "" ng-click= "viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
@@ -40,7 +41,8 @@
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amountOrPercentage}}</td>
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[2].amountOrPercentage}}</td>
 							<td><a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
-							<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+							<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
+							class="btn btn-xs btn-primary ng-binding"></td>
 						</tr>
 				</tbody>
 			</table>

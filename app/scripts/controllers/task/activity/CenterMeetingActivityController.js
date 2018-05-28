@@ -10,6 +10,7 @@
             scope.isCenterMeetingEdit = false;
             scope.showAsTextBox = true;
             scope.formData = {};
+            scope.formData.meetingTime = new Date();
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -59,8 +60,6 @@
                     { name: "SUN", value: "7" }
                 ]
             });
-            scope.formData.availablemeetingTime = new Date();
-            console.log('tet : ', scope.formData.meetingTime);
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
@@ -119,7 +118,6 @@
                 this.formData.typeId = "1";
                 this.formData.timeFormat = 'HH:mm:ss';
                 this.formData.location = scope.formData.location;
-                console.log('scope.meetingtimeL ', scope.formData.meetingTime);
                 this.formData.meetingtime = dateFilter(scope.formData.meetingTime, 'HH:mm');
                 this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;

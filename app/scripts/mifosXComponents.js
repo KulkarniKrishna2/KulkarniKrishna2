@@ -582,9 +582,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/PreliminaryGroupFormationActivityController',
             'task/activity/BulkLoanApplicationActivityController',
             'task/activity/CenterMeetingActivityController',
-            'task/activity/BulkLoanApplicationActivityController',
             'task/activity/CreditBureauCheckActivityController',
-            'task/activity/CreditApprovalActivityController'
+            'task/activity/CreditApprovalActivityController',
+            'task/activity/DisbursalActivityController'
         ],
         filters: [
             'StatusLookup',
