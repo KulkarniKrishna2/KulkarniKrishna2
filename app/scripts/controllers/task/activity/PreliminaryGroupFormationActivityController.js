@@ -2,11 +2,13 @@
     mifosX.controllers = _.extend(module, {
         PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
-
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts' }, function (data) {
                     scope.centerDetails = data;
+                    scope.rejectTypes = data.rejectTypes;
+                    scope.clientClosureReasons = data.clientClosureReasons;
+                    scope.groupClosureReasons = data.groupClosureReasons;
                 });
 
             };
@@ -1172,9 +1174,11 @@
 
             //client reject reason method call
             scope.clientRejection = function (memberId) {
+                var templateUrl = 'views/task/popup/closeclient.html';
+                
                 $modal.open({
-                    templateUrl: 'views/task/popup/clientreject.html',
-                    controller: clientRejectionCtrl,
+                    templateUrl: templateUrl,
+                    controller: clientCloseCtrl,
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
@@ -1183,49 +1187,54 @@
                     }
                 });
             }
-            var clientRejectionCtrl = function ($scope, $modalInstance, memberParams) {
+            var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
 
                 $scope.error = null;
-                $scope.rejectFormData = {};
-                $scope.values = [];
-
-                resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason'}, function (data) {
-                $scope.codes = data;
-                });
-
-                $scope.cancelReject = function () {
+                $scope.isError = false;
+                $scope.isClosureDate = true;
+                $scope.isRejectType = true;
+                $scope.isReason = true;
+                $scope.rejectClientData = {};                
+                $scope.rejectClientData.locale = scope.optlang.code;
+                $scope.rejectClientData.dateFormat = scope.df;
+                $scope.rejectTypes = scope.rejectTypes;
+                $scope.clientClosureReasons = scope.clientClosureReasons;
+                $scope.rejectClientData.closureDate = dateFilter(new Date(), scope.df);
+                $scope.cancelClientClose = function () {
                     $modalInstance.dismiss('cancel');
                 };
-
-                $scope.submitReject = function () {
-                    if((!$scope.rejectFormData.reasonCode) || !$scope.rejectFormData.description) {
-                        $scope.error = 'Specify Rejection Reason';
+                if($scope.rejectClientData.closureDate){
+                    $scope.rejectClientData.closureDate = dateFilter($scope.rejectClientData.closureDate, scope.df);
+                }
+                $scope.submitClientClose = function () {
+                    $scope.isError = false;
+                    if($scope.rejectClientData.rejectType==undefined || $scope.rejectClientData.rejectType==null || $scope.rejectClientData.rejectType.length==0){
+                        $scope.isRejectType = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectClientData.closureReasonId==undefined || $scope.rejectClientData.closureReasonId==null){
+                        $scope.isReason = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectClientData.closureDate==undefined || $scope.rejectClientData.closureDate==null || $scope.rejectClientData.closureDate.length==0){
+                        $scope.isClosureDate = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.isError){
                         return false;
                     }
-
-                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
-                        $modalInstance.close('reject');
-                        $route.reload();
+                    resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
+                       $modalInstance.dismiss('cancel');
                     });
                 };
 
-                $scope.getDependentCodeValues = function(codeName){
-                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
-                };
-
-                $scope.initDescription = function(reasonId){
-                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
-                        $scope.displayDescription = true; 
-                    }else{
-                        $scope.displayDescription = false;
-                    }
-                };
             }
 
             scope.groupRejection = function (memberId) {
+                var templateUrl = 'views/task/popup/closegroup.html';
                 $modal.open({
-                    templateUrl: 'views/task/popup/groupreject.html',
-                    controller: groupRejectionCtrl,
+                    templateUrl: templateUrl,
+                    controller: groupCloseCtrl,
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
@@ -1234,42 +1243,40 @@
                     }
                 });
             }
-            var groupRejectionCtrl = function ($scope, $modalInstance, memberParams) {
+            var groupCloseCtrl = function ($scope, $modalInstance, memberParams) {
 
                 $scope.error = null;
-                $scope.rejectFormData = {};
-                $scope.values = [];
+                $scope.isError = false;
+                $scope.isClosureDate = true;
+                $scope.isReason = true;
+                $scope.rejectGroupData = {};                
+                $scope.rejectGroupData.locale = scope.optlang.code;
+                $scope.rejectGroupData.dateFormat = scope.df;
+                $scope.rejectGroupData.closureDate = dateFilter(new Date(), scope.df);
+                $scope.groupClosureReasons = scope.groupClosureReasons;
 
-                resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason'}, function (data) {
-                $scope.codes = data;
-                });
-
-                $scope.cancelReject = function () {
+                $scope.cancelGroupClose = function () {
                     $modalInstance.dismiss('cancel');
                 };
-
-                $scope.submitReject = function () {
-                    if((!$scope.rejectFormData.reasonCode) || !$scope.rejectFormData.description) {
-                        $scope.error = 'Specify Rejection Reason';
+                if($scope.rejectGroupData.closureDate){
+                    $scope.rejectGroupData.closureDate = dateFilter($scope.rejectGroupData.closureDate, scope.df);
+                }
+                $scope.submitGroupClose = function () {
+                    $scope.isError = false;
+                    if($scope.rejectGroupData.closureReasonId==undefined || $scope.rejectGroupData.closureReasonId==null){
+                        $scope.isReason = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectGroupData.closureDate==undefined || $scope.rejectGroupData.closureDate==null || $scope.rejectGroupData.closureDate.length==0){
+                        $scope.isClosureDate = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.isError){
                         return false;
                     }
-
-                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
-                        $modalInstance.close('reject');
-                        $route.reload();
+                    resourceFactory.groupResource.save({groupId: memberParams.memberId, command: 'close'}, $scope.rejectGroupData, function (data) {
+                        $modalInstance.dismiss('cancel');
                     });
-                };
-
-                $scope.getDependentCodeValues = function(codeName){
-                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
-                };
-
-                $scope.initDescription = function(reasonId){
-                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
-                        $scope.displayDescription = true; 
-                    }else{
-                        $scope.displayDescription = false;
-                    }
                 };
             }
 
