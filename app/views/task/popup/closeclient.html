@@ -1,0 +1,61 @@
+<div class="modal-header silver">
+        <div>
+            <h3 class="bolder">{{'label.heading.rejectclient' | translate}}</h3>
+        </div> 
+        <div class="modal-body" style="height:300px">
+            <api-validate></api-validate>           
+            <div ng-show="error != null" class="error">
+                {{'label.error' | translate}}: {{error}}
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.input.closuredate' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-4">
+                    <input id="closureDate" class="date-disable form-control col-sm-3" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rejectClientData.closureDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  required late-Validate/>
+                </div>
+                <div class="col-sm-5" ng-show="!isClosureDate">
+                    <span class="error">{{'label.requiredfield' | translate}}</span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="control-label col-sm-3" >{{'label.input.rejectiontype' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-4">
+                    <select  id="rejectType" name="rejectType" ng-model="rejectClientData.rejectType" ng-options="rejectType.id as rejectType.value for rejectType in rejectTypes" value="{{rejectType.id}}" 
+                    class="input-sm form-control"   required late-Validate>
+                    <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>                
+                
+                <div class="col-sm-5" ng-show="!isRejectType">
+                    <span class="error">{{'label.requiredfield' | translate}}</span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.input.closurereasons' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-4">
+                    <select id="closureReasonId" ng-model="rejectClientData.closureReasonId"
+                            ng-options="reason.id as reason.name for reason in clientClosureReasons" value="{{reason.id}}" class="form-control"   required late-Validate>
+                            <option value="">{{'label.selectone' | translate}}</option></select>
+                    </select>
+                </div>
+
+                <div class="col-sm-5" ng-show="!isReason">
+                    <span class="error">{{'label.requiredfield' | translate}}</span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="control-label col-sm-3" >{{'label.heading.notes' | translate}}</label>
+                <div class="col-sm-4">
+                    <textarea  class="input-sm form-control"  id="rejectClientData.note" name="note" ng-model="rejectClientData.note"/>
+                </div>
+            </div>
+            <br/>
+        </div>
+        <div  class="col-md-offset-3 paddedleft paddedbottom">
+            <button class="btn btn-warning" ng-click="cancelClientClose()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitClientClose()">{{'label.button.confirm' | translate}}</button>
+        </div>
+</div>        

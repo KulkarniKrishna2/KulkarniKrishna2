@@ -1,0 +1,44 @@
+<div class="modal-header silver">
+        <div>
+            <h3 class="bolder">{{'label.heading.rejectgroup' | translate}}</h3>
+        </div> 
+        <div class="modal-body" style="height:300px">
+            <api-validate></api-validate>           
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.input.rejectdate' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-4">
+                <input id="closureDate" class="date-disable form-control col-sm-3" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rejectGroupData.closureDate"
+                       is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
+                </div>
+                <div class="col-sm-5" ng-show="!isClosureDate">
+                    <span class="error">{{'label.requiredfield' | translate}}</span>
+                </div>
+             </div>   
+            <br/>
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.heading.reason' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-4">
+                <select id="closureReasonId" ng-model="rejectGroupData.closureReasonId"
+                        ng-options="reason.id as reason.name for reason in groupClosureReasons" value="{{reason.id}}" class="form-control">
+                        <option value="">{{'label.selectone' | translate}}</option></select>
+                </select>
+                </div>
+                 <div class="col-sm-5" ng-show="!isReason">
+                    <span class="error">{{'label.requiredfield' | translate}}</span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="control-label col-sm-3" >{{'label.heading.notes' | translate}}</label>
+                <div class="col-sm-4">
+                    <textarea  class="input-sm form-control"  id="rejectGroupData.note" name="note" ng-model="rejectGroupData.note"/>
+                </div>
+            </div>
+        </div>
+        <div  class="col-md-offset-3 paddedleft paddedbottom">
+            <button class="btn btn-warning" ng-click="cancelGroupClose()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="submitGroupClose()">{{'label.button.confirm' | translate}}</button>
+        </div>
+</div>        
