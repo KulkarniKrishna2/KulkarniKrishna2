@@ -1494,6 +1494,15 @@
                     }),
                     clientJlgLoanAccount: defineResource(apiVer + "/accounts/:type/:clientId/:groupId", {type:'@type',clientId:'@clientId',groupId:'@groupId'}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    loanProposalReviewTemplateResource: defineResource(apiVer + '/loans/:loanId/proposalreview/template', {loanId: '@loanId'}, {
+                        get: {method: "GET", params: {}, isArray: true}
+                    }),
+                    loanProposalReviewResource: defineResource(apiVer + '/loans/:loanId/proposalreview', {loanId: '@loanId'}, {
+                        post: {method: "POST"}
+                    }),
+                    loanProposalReviewHistoryResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/reviewhistory", {loanId:'@loanId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true}
                     })
                 };
             }];

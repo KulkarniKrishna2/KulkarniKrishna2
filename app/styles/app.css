@@ -1681,3 +1681,6 @@ figure {
 .popup-max-height {
     max-height: 100% !important;
 }
+.backgroundred{
+    background-color: #f4b5ba;
+}

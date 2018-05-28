@@ -7078,6 +7078,7 @@
     "label.view.add.loanapplication": "Add LoanApplication",
     "label.view.edit.loanapplication": "Edit LoanApplication",
     "label.input.roundingmode" : "Rounding Mode",
+
     "error.msg.center.groups.count.must.be.in.permissible.range":"Number of group in the center with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
     "error.msg.calendar.new.start.date.cannot.be.in.past" : "Next meeting date can't be less than current date",
     "validation.msg.group.closureReasonId.cannot.be.blank" : "closure reason can not be blank",
@@ -7092,6 +7093,26 @@
     "label.heading.rejectclient" : "Reject Client",
     "label.heading.rejectgroup" : "Reject Group",
     "label.input.rejectdate" : "Reject Date",
+
+    "label.heading.amount.outstanding" : "Amount Outstanding",
+    "label.heading.arrears.amount" : "Arrears Amount",
+    "label.heading.applied.amount" : "Applied Amount",
+    "label.heading.recommended.amount" : "Recommended Amount",
+    "label.button.review" : "Review",
+    "label.heading.review" : "Review",
+    "label.input.review.reason" : "Review Reason",
+    "label.input.review.reason.notes" : "Reason Notes",
+    "label.input.review.loans.prepay" : "Client loan list for prepay",
+    "label.heading.prepay.amount" : "Prepay Amount",
+    "label.heading.prepay.repayment.date" : "Prepayment Date",
+    "error.msg.select.prepay.account" : "Please Select Atleast One PrePay Account",
+    "error.msg.file.mandatory" : "Attachment File Is Mandatory",
+    "error.msg.reason.notes.mandatory" : "Review Reason Notes Is Mandatory",
+    "label.button.history" : "History",
+    "label.heading.loan.amount" : "Loan Amount",
+    "label.headin.timestamp" : "TimeStamp",
+    "label.heading.history.review" : "Review",
+    "label.heading.review.reason" : "Reason",
     
      "------ end of tensalation file":"---------"
 }

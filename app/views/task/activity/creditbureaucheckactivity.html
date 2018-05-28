@@ -1,0 +1,83 @@
+<div ng-controller="CreditBureauCheckActivityController">
+	<div>
+		<span style="text-align:left">{{'label.info.totalmembers' | translate}} : {{centerDetails.totalCenterMembers}}&nbsp;&nbsp;{{'label.info.activeborrowers'
+			| translate}} : {{centerDetails.totalBorrowerMembers}}</span>
+	</div>
+	<div>
+		<div>
+			<table class="table table-striped" width="100%">
+				<thead>
+					<th class="col-md-2">{{'label.heading.entity' | translate}}</th>
+					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.amount.outstanding' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.dpd' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.arrears.amount' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.attendance' | translate}}</th>
+					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
+					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
+				</thead>
+				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
+					<tr>
+						<td colspan="11">
+							<span>{{groupMember.fcsmNumber}}
+							</span>
+						</td>
+						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+					</tr>
+					<tr ng-repeat="activeClientMember in groupMember.memberData" ng-class="{backgroundred: (activeClientMember.clientLevelCriteriaResultData.score > 0 && 
+						  activeClientMember.clientLevelCriteriaResultData.score < 5)}">
+						<td class="col-md-2">{{activeClientMember.displayName}}
+						</td>
+						<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+						<td class="col-md-1">{{activeClientMember.cbExistingLoansSummaryData.totalOutstanding}}</td>
+						<td class="col-md-1 cell-overflow">{{activeClientMember.cbExistingLoansSummaryData.totalDPD}}
+						</td>
+						<td class="col-md-1">
+							{{activeClientMember.cbExistingLoansSummaryData.totalArrears}}
+						</td>
+						<td class="col-md-2 cell-overflow">
+							{{activeClientMember.loanAccountBasicData.principalAmount}}
+						</td>
+						<td class="col-md-1">
+							{{activeClientMember.loanAccountBasicData.loanProposalReviewData.recommendedAmount}}
+						</td>
+						<td class="col-md-1">
+							<a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" ng-if="activeClientMember.cbExistingLoansSummaryData"
+							    title="Edit Loan">
+								<i class="icon-edit icon-white"></i>
+							</a>
+						</td>
+						<td class="col-md-1">
+							<a href="" class="btn btn-primary" ng-if="!activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData"
+							    ng-click="initiateCreditBureauReport(activeClientMember.loanAccountBasicData.id)">initiateCB</a>
+						</td>
+						<td class="col-md-1">
+							<a target="_blank" title="View CreditBureau Report" ng-if="activeClientMember.cbExistingLoansSummaryData" data-ng-click="openViewDocument(activeClientMember.cbExistingLoansSummaryData.creditBureauEnquiryId)"
+							    has-permission='READ_CREDIT_BUREAU_REPORT'>
+								<i class="icon-eye-open text-success"></i>
+							</a>
+						</td>
+						<td class="col-md-1">
+							<a target="_blank" ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && 
+						  activeClientMember.clientLevelCriteriaResultData.score < 5" data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
+                                   activeClientMember.loanAccountBasicData.id,
+                                   activeClientMember.loanAccountBasicData.loanProposalReviewData.id)" class="btn btn-danger">{{'label.button.review' | translate}}
+							</a>
+						</td>
+
+						<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script type="text/ng-template" id="viewDocument.html">
+		<div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+			<view-document-directive ng-entity-type="{{data.reportEntityType}}" ng-entity-id="{{data.enquiryId}}"></view-document-directive>
+		</div>
+	</script>
+</div>

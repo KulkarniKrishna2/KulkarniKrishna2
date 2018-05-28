@@ -1,0 +1,28 @@
+<div class="col-md-12" style="background-color: white">
+	
+	<legend>{{'label.heading.history.review' | translate}}</legend>
+		<table class="table table-bordered">
+			<thead>
+				<th>{{'label.heading.action' | translate}}</th>
+				<th>{{'label.heading.user' | translate}}</th>
+				<th>{{'label.heading.loan.amount' | translate}}</th>
+				<th>{{'label.heading.review.reason' | translate}}</th>
+				<th>{{'label.headin.timestamp'| translate}}</th>
+			</thead>>
+			<tbody>
+			    <tr ng-repeat = "history in reviewHistory">
+					<td>{{history.action}}</td>
+					<td>{{history.reviewerName}}</td>
+					<td>{{history.recommendedAmount}}</td>
+					<td>{{history.reviewReson}}</td>
+					<td>{{history.reviewDoneOn | DateFormat}}<</td>
+			    </tr>
+			</tbody>
+		</table>
+		<br>
+	    <div class="col-md-offset-5">
+			<a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+			</a>
+		</div>
+		<br>
+</div>

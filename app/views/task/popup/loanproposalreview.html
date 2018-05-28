@@ -1,0 +1,88 @@
+<div class="popup-max-height well vertical-scrollbar">
+	<br>
+	<br>
+	<form name="reviewform" novalidate="" class="form-horizontal well" rc-submit="submitReview()">
+		<api-validate></api-validate>
+		<fieldset>
+			<legend>{{'label.heading.review' | translate}}</legend>
+			<div class="form-group">
+				<label class="control-label col-md-3">
+					{{'label.input.review.reason' | translate}}
+					<span class="required">*</span>
+				</label>
+				<div class="col-md-4">
+					<select id="reviewReasonId" name="reviewReasonId" ng-model="reviewFormData.reviewReasonId" ng-options="codeValue.id as codeValue.name for codeValue in codeValues"
+					    value="{{codeValue.id}}" class="form-control" ng-change="reviewReasonChange(reviewFormData.reviewReasonId)">
+						<option value="">{{'label.selectone' | translate}}</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<form-validate valattributeform="reviewform" valattribute="reviewReasonId" />
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<br>
+			<div ng-if="isPrepayAtBSSReason">
+				<label class="control-label col-md-3">
+					{{'label.input.review.loans.prepay' | translate}}
+					<span class="required">*</span>
+				</label>
+				<div class="col-md-9">
+					<table class="table table-bordered">
+						<thead>
+							<th>{{'label.heading.loan' | translate}}</th>
+							<th>{{'label.heading.prepay.amount' | translate}}</th>
+							<th></th>
+						</thead>>
+						<tbody>
+							<tr ng-repeat="loanAccount in clientLoanAccounts | filter:  '300'">
+								<td>{{loanAccount.loanType.value}} - {{loanAccount.accountNo}}</td>
+								<td>{{loanAccount.loanBalance}}</td>
+								<td>
+									<input type="checkbox" ng-model="isAccChecked" ng-change="detectPreclosureAccount(loanAccount, isAccChecked, $index)"></input>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+			<div class="form-group" ng-if="showReasonNotesOption">
+				<label class="control-label col-md-3">
+					{{'label.input.review.reason.notes' | translate}}
+					<span ng-if="isReasonNotesMandatory" class="required">*</span>
+				</label>
+				<div class="col-md-4">
+					<textarea id="reviewReasonNotes" name="reviewReasonNotes" ng-model="reviewFormData.reviewReasonNotes" rows="4" cols="50">
+					</textarea>
+				</div>
+				<div class="col-md-2">
+					<form-validate valattributeform="reviewform" valattribute="reviewReasonNotes" />
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<br>
+			<div class="form-group" ng-if="showAttachmentOption">
+				<label class="control-label col-md-3" for="file">{{'label.input.selectfile' | translate}}
+					<span class="required">*</span>
+				</label>
+
+				<div class="col-md-4">
+					<input id="file" type="file" ng-file-select="onFileSelect($files)">
+				</div>
+
+				<div class="col-md-5"></div>
+			</div>
+			<br>
+			<div class="col-md-offset-5">
+				<a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+				</a>
+				<button id="save" type="submit" class="btn btn-primary">
+					{{'label.button.save' | translate}}
+				</button>
+			</div>
+
+
+		</fieldset>
+	</form>
+</div>
