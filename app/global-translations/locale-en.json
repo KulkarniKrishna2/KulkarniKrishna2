@@ -7115,5 +7115,8 @@
     "label.heading.history.review" : "Review",
     "label.heading.review.reason" : "Reason",
     
+    "#BSS workflow " : "",
+    "label.heading.single.double.insurance" : "Single/Double Insurance",
+    "label.heading.cgt.completed.date" : "CGT completed Date",
      "------ end of tensalation file":"---------"
 }

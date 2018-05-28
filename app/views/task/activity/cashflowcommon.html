@@ -1,6 +1,4 @@
-<div class="col-md-12" ng-controller="cashflowActivityController" >  
-<div ng-include = "views/task/activity/cashflowcommon.html"></div>
-   <!--  <div ng-if="showSummary">
+ <div ng-if="showSummary">
         <div class="form-horizontal">
             <h3>{{'label.heading.occupationdetails' | translate}}
                 <button ng-click="addClientoccupationdetails()" ng-show="!isTaskCompleted()" class="btn-primary"><i class="icon-plus"></i></button>
@@ -624,7 +622,7 @@
                                 class="form-control"
                                 ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
                                 value="subOccupation.id" ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)" ng-required="true">
-                            <option value="">{{'label.input.selectoptions' | translate}}</option>
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                         <form-validate valattributeform="showEditClienthouseholddetailsForm" valattribute="subOccupation"/>
                     </div>
@@ -659,5 +657,4 @@
                 </div>
             </fieldset>
         </form>
-    </div> -->
-</div>
+    </div>

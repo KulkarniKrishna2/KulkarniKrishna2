@@ -1503,6 +1503,12 @@
                     }),
                     loanProposalReviewHistoryResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/reviewhistory", {loanId:'@loanId'},{
                         getAll: {method: 'GET', params: {}, isArray : true}
+                    }),
+                    cgtResource: defineResource(apiVer + "/cgt/completiondate", {},{
+                       persistCgtCompletionDate: {method: 'POST', params: {}}
+                    }),
+                    loanResource: defineResource(apiVer + "/loans/updatedisbursementdate", {},{
+                       updateexpecteddisbursementdate: {method: 'POST', params: {}}
                     })
                 };
             }];
