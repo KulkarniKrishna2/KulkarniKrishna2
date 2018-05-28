@@ -46,6 +46,9 @@
 									<i ng-if="activeClientMember.profileRatingScoreData === undefined || activeClientMember.profileRatingScoreData.finalScore === undefined"
 									 class="icon-star-empty"></i>
 								</span>
+								<button class="btn btn-warning" ng-click="reComputeProfileRating(activeClientMember)">
+										<i class="icon-repeat"></i>
+								</button>
 							</td>
 							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
 							class="btn btn-xs btn-primary ng-binding"></td>

@@ -212,6 +212,12 @@
                 scope.first = { date: new Date(data.startDate) };
                 scope.location = data.location;
                 var today = new Date();
+                scope.formData = {
+                    repeating: scope.calendarData.repeating,
+                    frequency: scope.calendarData.frequency.id,
+                    interval: Math.abs(scope.calendarData.interval),
+                    location: scope.calendarData.location
+                }
                 if (data.meetingTime == undefined) {
                     scope.formData.meetingTime = new Date();
                 }
@@ -221,12 +227,7 @@
                 scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
                 //to display default in select boxes
-                scope.formData = {
-                    repeating: scope.calendarData.repeating,
-                    frequency: scope.calendarData.frequency.id,
-                    interval: Math.abs(scope.calendarData.interval),
-                    location: scope.calendarData.location
-                }
+                
                 for (var i in scope.repeatsEveryOptions) {
                     if (scope.formData.interval == scope.repeatsEveryOptions[i]) {
                         scope.formData.interval = scope.repeatsEveryOptions[i];
