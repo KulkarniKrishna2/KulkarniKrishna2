@@ -11,6 +11,7 @@
             scope.showAsTextBox = true;
             scope.formData = {};
             scope.formData.meetingTime = new Date();
+            scope.formData.repeating = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
