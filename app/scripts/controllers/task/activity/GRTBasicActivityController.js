@@ -70,7 +70,7 @@
                 this.formData.loanAccounts = scope.loanIds;
                 this.completedDate = completedDate;
 
-                resourceFactory.loanResource.updateexpecteddisbursementdate(this.formData, function(data) {
+                resourceFactory.loanUpdateDisbursementDateResource.updateexpecteddisbursementdate(this.formData, function(data) {
 
                 });
             };

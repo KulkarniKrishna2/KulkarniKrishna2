@@ -54,7 +54,7 @@
                 this.formData.loanAccounts = scope.loanIds;
                 this.completedDate = completedDate;
 
-                resourceFactory.cgtResource.persistCgtCompletionDate(this.formData, function(data) {
+                resourceFactory.cgtBasicActivityResource.persistCgtCompletionDate(this.formData, function(data) {
 
                 });
             };
