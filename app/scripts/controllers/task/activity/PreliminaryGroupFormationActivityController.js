@@ -20,7 +20,8 @@
                 $modal.open({
                     templateUrl: 'views/task/popup/createsubgroup.html',
                     controller: CreateSubGroupCtrl,
-                    windowClass: 'modalwidth90',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     resolve: {
                         centerDetails: function () {
                             return centerDetails;
@@ -71,7 +72,8 @@
                 $modal.open({
                     templateUrl: 'views/task/popup/createmember.html',
                     controller: CreateMemberCtrl,
-                    windowClass: 'app-modal-window',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     size: 'lg',
                     resolve: {
                         groupParameterInfo: function () {
@@ -1282,6 +1284,7 @@
                     });
                 };
             }
+            //client profile rating 
             function getprofileRating(activeClientMember){
                 resourceFactory.profileRating.get({entityType: 1,entityId : activeClientMember.id}, function (data) {
                     scope.profileRatingData = data;
