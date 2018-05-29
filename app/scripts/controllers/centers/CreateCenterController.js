@@ -131,9 +131,15 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
+                
                 resourceFactory.centerResource.save(this.formData, function (data) {
-                    location.path('/viewcenter/' + data.resourceId);
+                    if(data.changes.isWorkflowCreated === true){
+                        location.path('/centeronboarding/' + data.resourceId+'/workflow');
+                    }else{
+                        location.path('/viewcenter/' + data.resourceId);
+                    }
                 });
+
             };
         }
     });

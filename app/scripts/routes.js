@@ -1746,6 +1746,9 @@
             .when('/editSequenceEntityAssociation/:id',{
                 templateUrl: 'views/customsequence/editsequenceentityassociation.html'
             })
+            .when('/centeronboarding/:centerId/workflow', {
+                templateUrl: 'views/task/showcase/centeronboardingworkflow.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
