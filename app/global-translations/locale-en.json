@@ -7118,5 +7118,6 @@
     "#BSS workflow " : "",
     "label.heading.single.double.insurance" : "Single/Double Insurance",
     "label.heading.cgt.completed.date" : "CGT completed Date",
+    "validation.msg.cgt.completedDate.cannot.be.blank" : "CGT completion date cann't be blank.",
      "------ end of tensalation file":"---------"
 }
