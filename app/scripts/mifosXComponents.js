@@ -15,7 +15,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'PaginatorUsingOffset',
             'UIConfigService',
             'CommonUtilService',
-            'ExcelExportTableService'
+            'ExcelExportTableService',
+            'PopUpUtilService'
         ],
         controllers: [
             'main/MainController',
