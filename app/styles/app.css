@@ -1722,7 +1722,7 @@ figure {
 .popup-max-height {
     max-height: 100% !important;
 }
-.backgroundred{
+table.table.table-striped tr.backgroundred td{
     background-color: #f4b5ba;
 }
 .margin-plus-10px{
