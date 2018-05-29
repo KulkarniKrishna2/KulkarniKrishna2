@@ -8,7 +8,7 @@
                 </td>
 
                 <td class="col-md-2">
-                    <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control col-sm-2" />
+                    <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control col-sm-2" />
                 </td>
                 <td class="col-md-5"></td>
                 <td>
@@ -40,7 +40,7 @@
                         </td>
                     </tr>
                     <tr ng-repeat="activeClientMember in groupMember.memberData">
-                        <td class="col-md-2"><a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}	<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i></a>
+                        <td class="col-md-2">{{activeClientMember.displayName}}	<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
                         </td>
                         <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
                         <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
@@ -48,16 +48,10 @@
                         <td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amountOrPercentage}}</td>
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amountOrPercentage}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amountOrPercentage}}</td>
-                        <!-- <td class="col-md-1"><a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>
-                    <! ng-hide="clientdocument.id"  -->
-                        <!-- <a  ng-click="generateDocument()" tooltip="{{'label.tooltip.generate.document' | translate}}"><i class="icon-link"></i></a></td> -->
-
-                        <td>
-                            <input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id)">
+                        <td class="col-md-1"><input class="pull-left" type="checkbox"
+                        ng-model="client.checked" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id)">
                         </td>
-                      
-                        <td>
-                            <a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
+                        <td class="col-md-1"> <a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
                         <td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
                     </tr>
                 </tbody>

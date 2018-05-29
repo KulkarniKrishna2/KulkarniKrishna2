@@ -7119,5 +7119,7 @@
     "label.heading.single.double.insurance" : "Single/Double Insurance",
     "label.heading.cgt.completed.date" : "CGT completed Date",
     "validation.msg.cgt.completedDate.cannot.be.blank" : "CGT completion date cann't be blank.",
+    "validation.msg.cgt.completedDate.is.less.than.date" : "CGT completion date cann't be before client or group activation date",
+    "validation.msg.cgt.completedDate.is.greater.than.date" : "CGT completion date cann't be future date",
      "------ end of tensalation file":"---------"
 }

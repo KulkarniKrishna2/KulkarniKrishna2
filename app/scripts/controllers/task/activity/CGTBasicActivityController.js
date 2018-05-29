@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        CGTBasicActivityController: function($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, dateFilter) {
+        CGTBasicActivityController: function($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, route, $http, $rootScope,CommonUtilService, $route, $upload, API_VERSION, dateFilter) {
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
@@ -44,7 +44,6 @@
                         scope.loanIds.splice(indexOfLoanId, 1);
                     }
                 }
-
             };
 
             scope.submit = function() {
@@ -52,18 +51,52 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.loanAccounts = scope.loanIds;
-                this.completedDate = completedDate;
+                this.formData.completedDate = completedDate;
+                this.formData.loanOfficerId = scope.centerDetails.staffId;
 
                 resourceFactory.cgtBasicActivityResource.persistCgtCompletionDate(this.formData, function(data) {
-
+                    initTask();
                 });
             };
+
+            //client profile rating 
+            function getprofileRating(activeClientMember){
+                resourceFactory.profileRating.get({entityType: 1,entityId : activeClientMember.id}, function (data) {
+                    scope.profileRatingData = data;
+                });
+                initTask();
+            };
+
+            scope.reComputeProfileRating = function (activeClientMember) {
+                scope.profileRatingData = {};
+                resourceFactory.computeProfileRatingTemplate.get(function (response) {
+                    for(var i in response.scopeEntityTypeOptions){
+                        if(response.scopeEntityTypeOptions[i].value === 'OFFICE'){
+                            scope.profileRatingData.scopeEntityType = response.scopeEntityTypeOptions[i].id;
+                            scope.profileRatingData.scopeEntityId =  scope.officeId;
+                            break;
+                        }
+                    }
+                    for(var i in response.entityTypeOptions){
+                        if(response.entityTypeOptions[i].value === 'CLIENT'){
+                            scope.profileRatingData.entityType = response.entityTypeOptions[i].id;
+                            scope.profileRatingData.entityId =  activeClientMember.id;
+                            break;
+                        }
+                    }
+                    scope.profileRatingData.locale = "en";
+                    resourceFactory.computeProfileRating.save(scope.profileRatingData, function (response) {
+                        getprofileRating(activeClientMember);
+                    });
+                });
+            }
 
             scope.viewMemberDetails = function(groupId, activeClientMember) {
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',
                     controller: ViewMemberCtrl,
-                    windowClass: 'app-modal-window',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     size: 'lg',
                     resolve: {
                         memberParams: function() {
@@ -90,123 +123,7 @@
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
                     $scope.isLoanAccountExist = true;
                 }
-                $scope.setDefaultGISConfig = function() {
-                    if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address) {
-                        if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
-
-                            var countryName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName;
-                            $scope.defaultCountry = _.filter($scope.countries, function(country) {
-                                return country.countryName === countryName;
-
-                            });
-                            $scope.formData.countryId = $scope.defaultCountry[0].countryId;
-                            $scope.states = $scope.defaultCountry[0].statesDatas;
-                        }
-
-                        if ($scope.states && $scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
-                            var stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
-                            $scope.defaultState = _.filter(scope.states, function(state) {
-                                return state.stateName === stateName;
-
-                            });
-                            $scope.formData.stateId = scope.defaultState[0].stateId;
-                            $scope.districts = scope.defaultState[0].districtDatas;
-                        }
-
-                    }
-
-                };
-
-                $scope.changeCountry = function(countryId) {
-                    if (countryId != null) {
-                        $scope.selectCountry = _.filter($scope.countries, function(country) {
-                            return country.countryId == countryId;
-                        })
-                        if ($scope.formData.stateId) {
-                            delete $scope.formData.stateId;
-                        }
-                        if ($scope.formData.districtId) {
-                            delete $scope.formData.districtId;
-                        }
-                        if ($scope.formData.talukaId) {
-                            delete $scope.formData.talukaId;
-                        }
-
-                        $scope.states = $scope.selectCountry[0].statesDatas;
-                    }
-                }
-
-                $scope.changeState = function(stateId) {
-                    if (stateId != null) {
-                        $scope.selectState = _.filter($scope.states, function(state) {
-                            return state.stateId == stateId;
-                        })
-                        if ($scope.formData.districtId) {
-                            delete scope.formData.districtId;
-                        }
-                        if ($scope.formData.talukaId) {
-                            delete scope.formData.talukaId;
-                        }
-                        $scope.districts = $scope.selectState[0].districtDatas;
-                    }
-                }
-
-                $scope.changeDistrict = function(districtId) {
-                    if (districtId != null) {
-                        $scope.selectDistrict = _.filter($scope.districts, function(districts) {
-                            return districts.districtId == districtId;
-                        })
-
-                        if ($scope.formData.talukaId) {
-                            delete $scope.formData.talukaId;
-                        }
-                        $scope.talukas = $scope.selectDistrict[0].talukaDatas;
-                    }
-                }
-
-                $scope.changeVillage = function() {
-                    if ($scope.formData.villageId != null && $scope.formData.villageId != undefined) {
-                        if ($scope.formData.districtId) {
-                            delete $scope.formData.districtId;
-                        }
-                        if ($scope.formData.talukaId) {
-                            delete $scope.formData.talukaId;
-                        }
-                        $scope.formData.villageTown = null;
-                        $scope.talukas = null;
-                        $scope.formData.postalCode = null;
-                        $scope.districts = null;
-                        resourceFactory.villageResource.get({
-                            villageId: $scope.formData.villageId
-                        }, function(response) {
-                            if (response.addressData.length > 0) {
-                                if (response.villageName) {
-                                    $scope.formData.villageTown = response.villageName;
-                                }
-                                if (response.addressData[0].countryData) {
-                                    $scope.formData.countryId = response.addressData[0].countryData.countryId;
-                                    scope.changeCountry($scope.formData.countryId)
-                                }
-                                if (response.addressData[0].stateData) {
-                                    $scope.formData.stateId = response.addressData[0].stateData.stateId;
-                                    scope.changeState($scope.formData.stateId);
-                                }
-                                if (response.addressData[0].districtData) {
-                                    $scope.formData.districtId = response.addressData[0].districtData.districtId;
-                                    scope.changeDistrict($scope.formData.districtId);
-                                }
-
-                                if (response.addressData[0].talukaData) {
-                                    $scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
-                                }
-                                if (response.addressData[0].postalCode) {
-                                    $scope.formData.postalCode = response.addressData[0].postalCode;
-                                }
-                            }
-
-                        });
-                    }
-                }
+               
 
                 function getClientData() {
                     resourceFactory.clientResource.get({
@@ -226,305 +143,6 @@
                     });
                 }
                 getClientData();
-
-                function getprofileRating() {
-                    resourceFactory.profileRating.get({
-                        entityType: 1,
-                        entityId: scope.clientId
-                    }, function(data) {
-                        scope.profileRatingData = data;
-                    });
-                };
-                getprofileRating();
-
-                $scope.entityAddressLoaded = false;
-                $scope.fetchEntityAddress = function() {
-                    if (!$scope.entityAddressLoaded) {
-                        resourceFactory.addressDataResource.getAll({
-                            entityType: "clients",
-                            entityId: $scope.clientId
-                        }, function(response) {
-                            if (response != null) {
-                                $scope.addressData = response;
-                            }
-                        });
-                        $scope.entityAddressLoaded = true;
-                    }
-                }
-
-                $scope.loadNewAdressForm = function() {
-                    $scope.showaddressform = !$scope.showaddressform;
-                    $scope.addressType = [];
-                    $scope.countrys = [];
-                    $scope.states = [];
-                    $scope.districts = [];
-                    $scope.talukas = [];
-                    $scope.formData = {};
-                    $scope.formDataList = [$scope.formData];
-                    $scope.formData.addressTypes = [];
-                    var villageConfig = 'populate_client_address_from_villages';
-                    $scope.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled(villageConfig);
-                    $scope.isAddressTypeMandatory = false;
-                    $scope.isCountryReadOnly = false;
-                    $scope.pincode = false;
-                    $scope.isVillageTownMandatory = false;
-                    $scope.isCountryReadOnly = false;
-                    $scope.isAddressTypeMandatory = false;
-                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
-                        $scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
-                    }
-                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
-                        $scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
-                    }
-                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
-                        $scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
-                    }
-                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
-                        $scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
-                    }
-                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
-                        $scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
-                    }
-                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
-                        $scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
-                    }
-                    resourceFactory.addressTemplateResource.get({}, function(data) {
-                        $scope.addressType = data.addressTypeOptions;
-                        $scope.countries = data.countryDatas;
-                        $scope.setDefaultGISConfig();
-                    });
-
-                    resourceFactory.villageResource.getAllVillages({
-                        officeId: routeParams.officeId,
-                        limit: 1000
-                    }, function(data) {
-                        $scope.villages = data;
-                    });
-                }
-
-                $scope.submit = function() {
-
-                    $scope.entityType = "clients";
-                    $scope.formData.locale = scope.optlang.code;
-                    $scope.formData.dateFormat = scope.df;
-
-                    if ($scope.formData.countryId == null || $scope.formData.countryId == "") {
-                        delete $scope.formData.countryId;
-                    }
-                    if ($scope.formData.stateId == null || $scope.formData.stateId == "") {
-                        delete $scope.formData.stateId;
-                    }
-                    if ($scope.formData.districtId == null || $scope.formData.districtId == "") {
-                        delete $scope.formData.districtId;
-                    }
-                    if ($scope.formData.talukaId == null || $scope.formData.talukaId == "") {
-                        delete $scope.formData.talukaId;
-                    }
-                    if ($scope.formData.addressTypes == null || $scope.formData.addressTypes == "") {
-                        delete $scope.formData.addressTypes;
-                    }
-                    if ($scope.formData.houseNo == null || $scope.formData.houseNo == "") {
-                        delete $scope.formData.houseNo;
-                    }
-                    if ($scope.formData.addressLineOne == null || $scope.formData.addressLineOne == "") {
-                        delete $scope.formData.addressLineOne;
-                    }
-                    resourceFactory.addressResource.create({
-                        entityType: $scope.entityType,
-                        entityId: $scope.clientId
-                    }, {
-                        addresses: $scope.formDataList
-                    }, function(data) {
-                        $scope.showaddressform = false;
-                        resourceFactory.addressDataResource.getAll({
-                            entityType: "clients",
-                            entityId: $scope.clientId
-                        }, function(response) {
-                            if (response != null) {
-                                $scope.addressData = response;
-                            }
-                        });
-                    });
-                };
-
-                $scope.closeAddressForm = function() {
-                    $scope.showaddressform = false;
-                }
-
-                //client identities related
-
-                $scope.clientIdentityDocumentsLoaded = false;
-                $scope.getClientIdentityDocuments = function() {
-                    if (!$scope.clientIdentityDocumentsLoaded) {
-                        resourceFactory.clientResource.getAllClientDocuments({
-                            clientId: $scope.clientId,
-                            anotherresource: 'identifiers'
-                        }, function(data) {
-                            $scope.identitydocuments = data;
-                            for (var i = 0; i < $scope.identitydocuments.length; i++) {
-                                resourceFactory.clientIdentifierResource.get({
-                                    clientIdentityId: $scope.identitydocuments[i].id
-                                }, function(data) {
-                                    for (var j = 0; j < $scope.identitydocuments.length; j++) {
-                                        if (data.length > 0 && $scope.identitydocuments[j].id == data[0].parentEntityId) {
-                                            for (var l in data) {
-
-                                                var loandocs = {};
-                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
-                                                data[l].docUrl = loandocs;
-                                            }
-                                            $scope.identitydocuments[j].documents = data;
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                        $scope.clientIdentityDocumentsLoaded = true;
-                    }
-                };
-
-                $scope.loadIdentitiesForm = function() {
-                    $scope.shownidentityform = true;
-
-                    $scope.identityFormData = {};
-                    $scope.first = {};
-                    $scope.documenttypes = [];
-                    $scope.statusTypes = [];
-                    resourceFactory.clientIdenfierTemplateResource.get({
-                        clientId: $scope.clientId
-                    }, function(data) {
-                        $scope.documenttypes = data.allowedDocumentTypes;
-                        $scope.identityFormData.documentTypeId = data.allowedDocumentTypes[0].id;
-                        $scope.statusTypes = data.clientIdentifierStatusOptions;
-                        if (data.clientIdentifierStatusOptions && scope.response &&
-                            scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status) {
-                            $scope.identityFormData.status = data.clientIdentifierStatusOptions[1].id;
-                        }
-                    });
-
-                }
-
-                $scope.submitIdentitfyForm = function() {
-                    $scope.identityFormData.locale = scope.optlang.code;
-                    $scope.identityFormData.dateFormat = scope.df;
-                    if ($scope.first.documentIssueDate) {
-                        $scope.identityFormData.documentIssueDate = dateFilter($scope.first.documentIssueDate, scope.df);
-                    }
-                    if ($scope.first.documentExpiryDate) {
-                        $scope.identityFormData.documentExpiryDate = dateFilter($scope.first.documentExpiryDate, scope.df);
-                    }
-                    resourceFactory.clientIdenfierResource.save({
-                        clientId: $scope.clientId
-                    }, $scope.identityFormData, function(data) {
-                        $scope.shownidentityform = false;
-                        $scope.getClientIdentityDocuments();
-                    });
-                };
-
-                $scope.closeIdentityForm = function() {
-                    $scope.shownidentityform = false;
-                }
-
-                $scope.uploadClientDocumentIdentifier = function(clientIdentifierId) {
-                    $scope.shownUploadIdentifierDocumentForm = true;
-                    $scope.shownidentityform = false;
-                    $scope.clientIdentifierId = clientIdentifierId;
-                    $scope.documentFormData = {};
-
-                }
-
-                $scope.onFileSelect = function($files) {
-                    $scope.file = $files[0];
-                };
-
-                $scope.uploadDocument = function() {
-                    $upload.upload({
-                        url: $rootScope.hostUrl + API_VERSION + '/client_identifiers/' + $scope.clientIdentifierId + '/documents',
-                        data: $scope.documentFormData,
-                        file: $scope.file
-                    }).then(function(data) {
-                        $scope.shownUploadIdentifierDocumentForm = false;
-                        $scope.getClientIdentityDocuments();
-                    });
-                };
-
-                $scope.closeDocumentUploadForm = function() {
-                    $scope.shownUploadIdentifierDocumentForm = false;
-                }
-
-                var viewDocumentCtrl = function($scope, $modalInstance, documentDetail) {
-                    $scope.data = documentDetail;
-                    $scope.close = function() {
-                        $modalInstance.close('close');
-                    };
-                };
-
-                $scope.openViewDocument = function(documentDetail) {
-                    $modal.open({
-                        templateUrl: 'viewDocument.html',
-                        controller: viewDocumentCtrl,
-                        resolve: {
-                            documentDetail: function() {
-                                return documentDetail;
-                            }
-                        }
-                    });
-                };
-
-                $scope.download = function(docUrl) {
-                    var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
-                    window.open(url);
-                }
-
-                $scope.familyDetailsLoaded = false;
-                $scope.getFamilyDetails = function() {
-                    if (!$scope.familyDetailsLoaded) {
-                        resourceFactory.familyDetails.getAll({
-                            clientId: $scope.clientId
-                        }, function(data) {
-                            $scope.familyMembers = data;
-                        });
-                        $scope.familyDetailsLoaded = true;
-                    }
-                };
-
-                $scope.familyMembersForm = function() {
-                    $scope.shownFamilyMembersForm = true;
-                    $scope.salutationOptions = [];
-                    $scope.relationshipOptions = [];
-                    $scope.genderOptions = [];
-                    $scope.educationOptions = [];
-                    $scope.occupationOptions = [];
-                    $scope.subOccupations = [];
-                    $scope.isExisitingClient = false;
-                    $scope.familyMembersFormData = {};
-
-                    resourceFactory.familyDetailsTemplate.get({
-                        clientId: $scope.clientId
-                    }, function(data) {
-                        $scope.salutationOptions = data.salutationOptions;
-                        $scope.relationshipOptions = data.relationshipOptions;
-                        $scope.genderOptions = data.genderOptions;
-                        $scope.educationOptions = data.educationOptions;
-                        $scope.occupationOptions = data.occupationOptions;
-                    });
-
-                }
-
-                $scope.submitFamilyMembers = function() {
-                    $scope.familyMembersFormData.dateFormat = scope.df;
-                    $scope.familyMembersFormData.locale = scope.optlang.code;
-                    resourceFactory.familyDetails.save({
-                        clientId: $scope.clientId
-                    }, $scope.familyMembersFormData, function(data) {
-                        $scope.shownFamilyMembersForm = false;
-                        $scope.getFamilyDetails();
-                    });
-                };
-
-                $scope.closeFamilyMembersForm = function() {
-                    $scope.shownFamilyMembersForm = false;
-                }
 
                 //loan account
 
@@ -636,6 +254,26 @@
                         }
                     }
                 }
+
+                 $scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function () {
+                    if ($scope.loanAccountFormData.principal != '' && $scope.loanAccountFormData.principal != undefined && $scope.loanAccountFormData.numberOfRepayments != '' && $scope.loanAccountFormData.numberOfRepayments != undefined) {
+
+                        for (var i in $scope.charges) {
+                            if (($scope.charges[i].chargeCalculationType.value == $scope.slabBasedCharge || $scope.charges[i].isSlabBased) && $scope.charges[i].slabs.length > 0) {
+                                for (var j in $scope.charges[i].slabs) {
+                                    var slabBasedValue = $scope.getSlabBasedAmount($scope.charges[i].slabs[j], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                    if (slabBasedValue != null) {
+                                        $scope.charges[i].amount = slabBasedValue;
+                                        break;
+                                    } else {
+                                        $scope.charges[i].amount = undefined;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+
 
                 $scope.loanProductChange = function(loanProductId) {
                     $scope.inparams.productId = loanProductId;
@@ -1141,11 +779,15 @@
                         });
                 };
 
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+
             }
 
         }
     });
-    mifosX.ng.application.controller('CGTBasicActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', 'dateFilter', mifosX.controllers.CGTBasicActivityController]).run(function($log) {
+    mifosX.ng.application.controller('CGTBasicActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope','CommonUtilService', '$route', '$upload', 'API_VERSION', 'dateFilter', mifosX.controllers.CGTBasicActivityController]).run(function($log) {
         $log.info("CGTBasicActivityController initialized");
     });
 }(mifosX.controllers || {}));
