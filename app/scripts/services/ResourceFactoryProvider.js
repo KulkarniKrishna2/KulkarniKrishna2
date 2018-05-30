@@ -182,6 +182,9 @@
                     reportsByCategoryResource: defineResource(apiVer + "/reports/category/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                     }),
+                    reportsByEntityResource: defineResource(apiVer + "/reports/entityreport/:id", {id: '@id'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                    }),
                     reportsResourceCommands: defineResource(apiVer + "/reports/:id", {id: '@id'}, {
                         activate: {method: 'POST',  params:{command : 'activate'}},
                         deActivate: {method: 'POST', params:{command : 'deActivate'}}

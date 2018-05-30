@@ -392,6 +392,9 @@
     "label.button.accountlimits":"Account Limits",
     "label.button.initiateworkflow":"Intiate Workflow",
     "label.button.viewworkflow":"View Workflow",
+    "label.button.clientprofilereport":"Client Profile Reports",
+    "label.button.loanaccountreport":"Loan Account Reports",
+    "label.button.savingaccountreport":"Saving Account Reports",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -1609,6 +1612,8 @@
     "label.input.sql": "Sql",
     "label.input.piechart":"Pie Chart",
     "label.input.barchart":"Bar Chart",
+    "label.input.embeddedreport": "Is screen embedded report",
+    "label.input.embeddedscreentype": "Embedded screen",
 
 
     "#Buttons": "..",
@@ -1863,6 +1868,9 @@
     "label.anchor.reschedulerequest":"Reschedule Request",
     "label.anchor.prepayment":"Prepayment",
     "label.anchor.applypenalties":"Apply Penalties",
+    "label.anchor.clientprofilereports":"Client Reports",
+    "label.anchor.loanaccountreports":"Loan Reports",
+    "label.anchor.savingaccountreports":"Saving Reports",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -2436,6 +2444,10 @@
     "label.anchor.viewshareaccount": "View Share Account",
     "label.heading.deposit" : "deposit",
     "label.heading.withdraw": "withdraw",
+    "label.heading.clientprofilereports":"Client Reports",
+    "label.heading.loanaccountreports":"Loan Reports",
+    "label.heading.savingaccountreports":"Saving Reports",
+
     "#Inputs": "..",
     "label.input.charges": "Charges",
     "label.input.chargecalculation": "Charge calculation",
@@ -7045,5 +7057,6 @@
     "invalid.branchName.format":"Special characters, spaces, digits and more than 20 characters are not allowed.",
     "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
     "validation.msg.loanapplicationreference.submittedOnDate.is.greater.than.date" : "Loan application submission date cannot be a future date.",
+    "error.msg.reporting.error" : "report error",
     "------ end of tensalation file":"---------"
 }

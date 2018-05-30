@@ -189,6 +189,11 @@
                               <li class="{{button.icon}}" ng-repeat="button in buttons.options">
                                   <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
                               </li>
+                              <li class="{{button.icon}}">
+                                  <a href="#/reports/{{savingaccountdetails.id}}/savingaccountreports">
+                                      {{'label.button.savingaccountreport' | translate}}
+                                  </a>
+                              </li>
                           </ul>
                       </span>
                 </div>

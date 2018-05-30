@@ -95,6 +95,7 @@
             }
 
             scope.submit = function () {
+                this.formData.locale = "en";
                 scope.formData.reportClassifications = [] ;
                 for (var i in scope.selectedCategories) {
                     scope.formData.reportClassifications.push(scope.selectedCategories[i].id) ;
@@ -102,6 +103,10 @@
                 scope.temp = deepCopy(scope.reportParameters);
                 for (var i in scope.temp) {
                     delete scope.temp[i].allowedParameterName;
+                }
+                if(!scope.formData.isEmbeddedReport)
+                {
+                    delete this.formData.embeddedReportType;
                 }
                 this.formData.reportParameters = scope.temp;
                 resourceFactory.reportsResource.save(this.formData, function (data) {

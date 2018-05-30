@@ -1746,6 +1746,9 @@
             .when('/editSequenceEntityAssociation/:id',{
                 templateUrl: 'views/customsequence/editsequenceentityassociation.html'
             })
+            .when('/reports/:id/:action', {
+                templateUrl: 'views/reports/individualaccountreport.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
