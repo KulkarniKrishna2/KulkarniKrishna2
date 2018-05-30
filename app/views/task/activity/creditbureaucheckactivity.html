@@ -18,7 +18,7 @@
 					<th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.attendance' | translate}}</th>
-					<th class="col-md-1"></th>
+					<th class="col-md-1"><a href="" ng-if = "showBulkCBInitiate" ng-click="initiateBulkCreditBureauReport()"><i class="icon-bullseye icon-large"  tooltip="{{'label.tooltip.initiate.credit.bureau' | translate}}"></i></a></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
@@ -55,8 +55,8 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a href="" class="btn btn-primary" ng-if="!activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData"
-							    ng-click="initiateCreditBureauReport(activeClientMember.loanAccountBasicData.id)">initiateCB</a>
+							<a href="" ng-if="!activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData"
+							    ng-click="initiateCreditBureauReport(activeClientMember.loanAccountBasicData.id)"><i class="icon-bullseye"  tooltip="{{'label.tooltip.initiate.credit.bureau' | translate}}"></i></a>
 						</td>
 						<td class="col-md-1">
 							<a target="_blank" title="View CreditBureau Report" ng-if="activeClientMember.cbExistingLoansSummaryData" data-ng-click="openViewDocument(activeClientMember.cbExistingLoansSummaryData.creditBureauEnquiryId)"
