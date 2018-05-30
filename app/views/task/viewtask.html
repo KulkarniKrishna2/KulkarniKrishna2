@@ -59,6 +59,10 @@
                     <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{centerData.officeName}}</div>
                     <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{centerData.staffName}}</div>
                 </div>
+                <div class="row">
+                        <div class="col-md-6"> {{'label.heading.meetingStartDate' | translate}}:&nbsp;{{centerData.meetingStartDate | DateFormat}}</div>
+                        <div class="col-md-6">{{'label.heading.nextMeetigDate' | translate}}: &nbsp;{{centerData.nextMeetigDate | DateFormat}}</div>
+                    </div>
             </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>

@@ -4,17 +4,17 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-3">
-                    <legend ng-show="!isCenterMeetingEdit" class="control-label offset2">
+                    <label ng-show="!isCenterMeetingEdit" class="control-label offset2">
                         {{'label.heading.attachmeeting' | translate}}
-                    </legend>
-                    <legend ng-show="isCenterMeetingEdit">{{'label.heading.editmeeting' | translate}}
-                    </legend>
+                    </label>
+                    <label ng-show="isCenterMeetingEdit">{{'label.heading.editmeeting' | translate}}
+                    </label>
                 </div>
                 <div class="col-md-4">
-                    <legend>{{'label.heading.expecteddisbursementdate' | translate}}</legend>
+                    <label>{{'label.heading.expecteddisbursementdate' | translate}}</label>
                 </div>
                 <div class="col-md-3">
-                    <legend>{{expecteddisbursementon | DateFormat}}</legend>
+                    <label>{{expecteddisbursementon | DateFormat}}</label>
                 </div>
             </div>
             <div>
