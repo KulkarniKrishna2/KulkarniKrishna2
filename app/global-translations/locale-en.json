@@ -1117,7 +1117,7 @@
     "error.msg.group.not.active.exception": "The Group with id `{{params[0].value}}` is not active.",
     "error.msg.group.disassociate.client.has.group.saving": "Client with identifier `{{params[0].value}}` cannot be disassociated, it has group savings.",
     "validation.msg.calendar.cannot.be.before.groups.activation.date":"Meeting date cannot be before group activation date",
-    "error.msg.Group.close.active.clients.exist":"Cannot close. Group has active clients",
+    "error.msg.Group.close.active.clients.exist":"Cannot close. Group has active/onHold clients associate with it",
     "error.msg.group.members.count.must.be.in.permissible.range":"This action caused a group Validation Error: Number of Clients must be between `{{params[1].value}}` and `{{params[2].value}}` ",
 
     "#-----------": "------------",
@@ -5357,9 +5357,7 @@
     "label.input.loan.purpose.group.type":"Group Type",
     "label.input.loan.purpose.groups":"Groups",
     "label.input.loan.purpose.group":"Group",
-    "label.input.type":"Type",
     "label.input.occ.categary":"Occuapation Category Name",
-    "label.input.shortName":"Short Name",
     "label.input.cashflow.type":"Cashflow Type",
     "label.input.category.type":"Category Type",
     "label.input.incomegen.asset.type":"Income Generating Asset Type",

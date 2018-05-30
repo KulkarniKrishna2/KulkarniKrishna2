@@ -11,12 +11,21 @@
             scope.showAsTextBox = true;
             scope.formData = {};
             scope.formData.meetingTime = new Date();
-            scope.formData.repeating = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
-            resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'collectionMeetingCalendar' }, function (data) {
+            resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'groupMembers, loanaccounts, collectionMeetingCalendar' }, function (data) {
                 scope.centerMeetingData = data;
+                for (var i in scope.centerMeetingData.subGroupMembers) {
+                    for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
+                        if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate){
+                            scope.expecteddisbursementon = scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate;
+                        break;
+                    }
+                }
+
+            }
+            
                 if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
                     scope.isCenterMeetingAttached = true;
                     scope.isCenterMeetingEdit = false;
