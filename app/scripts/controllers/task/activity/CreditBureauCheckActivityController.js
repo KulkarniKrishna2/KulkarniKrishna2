@@ -3,19 +3,10 @@
         CreditBureauCheckActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
-            scope.showBulkCBInitiate = false;
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview' }, function (data) {
                     scope.centerDetails = data;
-                    for(var i in scope.centerDetails.subGroupMembers){
-                        for(var j in scope.centerDetails.subGroupMembers[i].memberData){
-                            if(!scope.centerDetails.subGroupMembers[i].memberData[j].cbExistingLoansSummaryData && scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData){
-                                scope.showBulkCBInitiate = true;
-                                break;
-                            }
-                        }
-                    }
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
@@ -51,22 +42,6 @@
                             
                         })
                     
-                });
-            };
-
-            scope.initiateBulkCreditBureauReport = function () {    
-
-                scope.entityType = "center";
-                scope.isForce = true;
-                scope.isClientCBCriteriaToRun = true;
-
-                resourceFactory.creditBureauBulkReportResource.get({
-                    entityType: scope.entityType,
-                    entityId:  scope.centerId ,
-                    isForce: scope.isForce,
-                    isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
-                }, function (loansSummary) {
-                    initTask();
                 });
             };
 
