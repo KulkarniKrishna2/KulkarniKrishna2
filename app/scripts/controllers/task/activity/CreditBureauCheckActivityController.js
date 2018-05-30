@@ -13,6 +13,7 @@
             initTask();
 
             scope.initiateCreditBureauReport = function (loanId) {    
+                scope.errorDetails=[];
 
                 scope.entityType = "loan";
                 scope.isForce = true;
@@ -24,7 +25,19 @@
                     isForce: scope.isForce,
                     isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
                 }, function (loansSummary) {
-                    initTask();
+                    scope.checkCBData = loansSummary
+                        resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({'enquiryId' : scope.checkCBData.creditBureauEnquiryId},function(summary){
+                            scope.checkCBData = summary;
+                            if(scope.checkCBData != null && scope.checkCBData.errors == null){
+                                initTask();
+                            }else{
+                                if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                                    return scope.errorDetails.push([{code: scope.checkCBData.errors}]);
+                                }
+                            }
+                            
+                        })
+                    
                 });
             };
 
