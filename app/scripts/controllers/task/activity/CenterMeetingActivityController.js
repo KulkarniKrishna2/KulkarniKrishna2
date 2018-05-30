@@ -11,12 +11,20 @@
             scope.showAsTextBox = true;
             scope.formData = {};
             scope.formData.meetingTime = new Date();
-            scope.formData.repeating = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
-            resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'collectionMeetingCalendar' }, function (data) {
+            resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'groupMembers, loanaccounts, collectionMeetingCalendar' }, function (data) {
                 scope.centerMeetingData = data;
+                for (var i in scope.centerMeetingData.subGroupMembers) {
+                    for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
+                        if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {
+                            scope.expecteddisbursementon = scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate;
+                            break;
+                        }
+                    }
+
+                }
                 if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
                     scope.isCenterMeetingAttached = true;
                     scope.isCenterMeetingEdit = false;
@@ -24,6 +32,12 @@
                     if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
                         scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                     }
+                }
+                if (scope.expecteddisbursementon) {
+                    var twoWeeks = 1000 * 60 * 60 * 24 * 14;
+                    scope.minMeetingDate = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
+                    var date = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
+                    scope.maxMeetingDate = new Date(date.getTime()+twoWeeks);
                 }
             });
             resourceFactory.attachMeetingResource.get({
@@ -43,7 +57,7 @@
                 scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                 //to display default in select boxes
                 scope.formData = {
-                    repeating: 'true',
+                    repeating: true,
                     frequency: '0',
                     interval: '1'
                 }
@@ -228,7 +242,7 @@
                 scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
                 //to display default in select boxes
-                
+
                 for (var i in scope.repeatsEveryOptions) {
                     if (scope.formData.interval == scope.repeatsEveryOptions[i]) {
                         scope.formData.interval = scope.repeatsEveryOptions[i];

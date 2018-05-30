@@ -369,6 +369,7 @@
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = true;
                 $scope.displayCashFlow = false;
+                var UPFRONT_FEE = 'upfrontFee';
 
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){
@@ -494,6 +495,7 @@
 
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
+                    initTask();
                 };
 
                 function getClientData() {
@@ -1209,9 +1211,6 @@
                 $scope.cancelClientClose = function () {
                     $modalInstance.dismiss('cancel');
                 };
-                if($scope.rejectClientData.closureDate){
-                    $scope.rejectClientData.closureDate = dateFilter($scope.rejectClientData.closureDate, scope.df);
-                }
                 $scope.submitClientClose = function () {
                     $scope.isError = false;
                     if($scope.rejectClientData.rejectType==undefined || $scope.rejectClientData.rejectType==null || $scope.rejectClientData.rejectType.length==0){
@@ -1229,8 +1228,12 @@
                     if($scope.isError){
                         return false;
                     }
+                    if($scope.rejectClientData.closureDate){
+                        $scope.rejectClientData.closureDate = dateFilter($scope.rejectClientData.closureDate, scope.df);
+                    }
                     resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
                        $modalInstance.dismiss('cancel');
+                       initTask();
                     });
                 };
 
@@ -1264,9 +1267,7 @@
                 $scope.cancelGroupClose = function () {
                     $modalInstance.dismiss('cancel');
                 };
-                if($scope.rejectGroupData.closureDate){
-                    $scope.rejectGroupData.closureDate = dateFilter($scope.rejectGroupData.closureDate, scope.df);
-                }
+
                 $scope.submitGroupClose = function () {
                     $scope.isError = false;
                     if($scope.rejectGroupData.closureReasonId==undefined || $scope.rejectGroupData.closureReasonId==null){
@@ -1280,8 +1281,12 @@
                     if($scope.isError){
                         return false;
                     }
+                    if($scope.rejectGroupData.closureDate){
+                        $scope.rejectGroupData.closureDate = dateFilter($scope.rejectGroupData.closureDate, scope.df);
+                    }
                     resourceFactory.groupResource.save({groupId: memberParams.memberId, command: 'close'}, $scope.rejectGroupData, function (data) {
                         $modalInstance.dismiss('cancel');
+                        initTask();
                     });
                 };
             }

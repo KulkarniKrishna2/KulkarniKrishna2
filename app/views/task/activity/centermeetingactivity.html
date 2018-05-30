@@ -2,12 +2,21 @@
     <api-validate></api-validate>
     <form ng-submit="submit()" ng-if=!isCenterMeetingAttached>
         <div class="form-group">
-
-            <label ng-show="!isCenterMeetingEdit" class="control-label offset2">
-                <h3>{{'label.heading.attachmeeting' | translate}}</h3>
-            </label>
-            <legend ng-show="isCenterMeetingEdit">{{'label.heading.editmeeting' | translate}}
-            </legend>
+            <div class="row">
+                <div class="col-md-3">
+                    <legend ng-show="!isCenterMeetingEdit" class="control-label offset2">
+                        {{'label.heading.attachmeeting' | translate}}
+                    </legend>
+                    <legend ng-show="isCenterMeetingEdit">{{'label.heading.editmeeting' | translate}}
+                    </legend>
+                </div>
+                <div class="col-md-4">
+                    <legend>{{'label.heading.expecteddisbursementdate' | translate}}</legend>
+                </div>
+                <div class="col-md-3">
+                    <legend>{{expecteddisbursementon | DateFormat}}</legend>
+                </div>
+            </div>
             <div>
                 <table class="col-sm-8">
                     <tr>
@@ -17,8 +26,8 @@
                             </label>
                         </td>
                         <td class="col-sm-2">
-                            <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'"
-                                max="'2050-01-01'" class="form-control" />
+                            <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minMeetingDate"
+                                max="maxMeetingDate" class="form-control" />
                         </td>
                         <td class="col-sm-2 text-right">
                             <label class="control-label">{{'label.input.meetingtime' | translate}}

@@ -16,12 +16,17 @@
                             }
                         }
                     }
+                    scope.rejectTypes = data.rejectTypes;
+                    scope.clientClosureReasons = data.clientClosureReasons;
+                    scope.groupClosureReasons = data.groupClosureReasons;
+                    scope.officeId = scope.centerDetails.officeId;
                 });
 
             };
             initTask();
 
             scope.initiateCreditBureauReport = function (loanId) {    
+                scope.errorDetails=[];
 
                 scope.entityType = "loan";
                 scope.isForce = true;
@@ -33,7 +38,19 @@
                     isForce: scope.isForce,
                     isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
                 }, function (loansSummary) {
-                    initTask();
+                    scope.checkCBData = loansSummary
+                        resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({'enquiryId' : scope.checkCBData.creditBureauEnquiryId},function(summary){
+                            scope.checkCBData = summary;
+                            if(scope.checkCBData != null && scope.checkCBData.errors == null){
+                                initTask();
+                            }else{
+                                if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                                    return scope.errorDetails.push([{code: scope.checkCBData.errors}]);
+                                }
+                            }
+                            
+                        })
+                    
                 });
             };
 
@@ -212,6 +229,118 @@
                     $modalInstance.dismiss('cancel');
                 };
             }//end of reviewReasonCtrl
+
+            //client reject reason method call
+            scope.clientRejection = function (memberId) {
+                var templateUrl = 'views/task/popup/closeclient.html';
+                
+                $modal.open({
+                    templateUrl: templateUrl,
+                    controller: clientCloseCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'memberId': memberId };
+                        }
+                    }
+                });
+            }
+            var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
+
+                $scope.error = null;
+                $scope.isError = false;
+                $scope.isClosureDate = true;
+                $scope.isRejectType = true;
+                $scope.isReason = true;
+                $scope.rejectClientData = {};                
+                $scope.rejectClientData.locale = scope.optlang.code;
+                $scope.rejectClientData.dateFormat = scope.df;
+                $scope.rejectTypes = scope.rejectTypes;
+                $scope.clientClosureReasons = scope.clientClosureReasons;
+                $scope.rejectClientData.closureDate = dateFilter(new Date(), scope.df);
+                $scope.cancelClientClose = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                $scope.submitClientClose = function () {
+                    $scope.isError = false;
+                    if($scope.rejectClientData.rejectType==undefined || $scope.rejectClientData.rejectType==null || $scope.rejectClientData.rejectType.length==0){
+                        $scope.isRejectType = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectClientData.closureReasonId==undefined || $scope.rejectClientData.closureReasonId==null){
+                        $scope.isReason = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectClientData.closureDate==undefined || $scope.rejectClientData.closureDate==null || $scope.rejectClientData.closureDate.length==0){
+                        $scope.isClosureDate = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.isError){
+                        return false;
+                    }
+                    if($scope.rejectClientData.closureDate){
+                        $scope.rejectClientData.closureDate = dateFilter($scope.rejectClientData.closureDate, scope.df);
+                    }
+                    resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
+                       $modalInstance.dismiss('cancel');
+                       initTask();
+                    });
+                };
+
+            }
+
+            scope.groupRejection = function (memberId) {
+                var templateUrl = 'views/task/popup/closegroup.html';
+                $modal.open({
+                    templateUrl: templateUrl,
+                    controller: groupCloseCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'memberId': memberId };
+                        }
+                    }
+                });
+            }
+            var groupCloseCtrl = function ($scope, $modalInstance, memberParams) {
+
+                $scope.error = null;
+                $scope.isError = false;
+                $scope.isClosureDate = true;
+                $scope.isReason = true;
+                $scope.rejectGroupData = {};                
+                $scope.rejectGroupData.locale = scope.optlang.code;
+                $scope.rejectGroupData.dateFormat = scope.df;
+                $scope.rejectGroupData.closureDate = dateFilter(new Date(), scope.df);
+                $scope.groupClosureReasons = scope.groupClosureReasons;
+
+                $scope.cancelGroupClose = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitGroupClose = function () {
+                    $scope.isError = false;
+                    if($scope.rejectGroupData.closureReasonId==undefined || $scope.rejectGroupData.closureReasonId==null){
+                        $scope.isReason = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectGroupData.closureDate==undefined || $scope.rejectGroupData.closureDate==null || $scope.rejectGroupData.closureDate.length==0){
+                        $scope.isClosureDate = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.isError){
+                        return false;
+                    }
+                    if($scope.rejectGroupData.closureDate){
+                        $scope.rejectGroupData.closureDate = dateFilter($scope.rejectGroupData.closureDate, scope.df);
+                    }
+                    resourceFactory.groupResource.save({groupId: memberParams.memberId, command: 'close'}, $scope.rejectGroupData, function (data) {
+                        $modalInstance.dismiss('cancel');
+                        initTask();
+                    });
+                };
+            }
+            //end rejection controller
         }
     });
     mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {
