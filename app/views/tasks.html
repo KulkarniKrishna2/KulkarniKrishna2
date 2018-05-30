@@ -351,7 +351,7 @@
 				</tab>
 				<tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN' ng-click="resetsearchparams()">
 				    <div class="head-affix" class="col-sm-12">
-				        <table class="table condensed-table">
+				        <table class="table condensed-table" ng-show = "showSearchParameters">
 				            <thead>
 							<tr>
 								<th>
@@ -372,6 +372,7 @@
 									</select>
 
 								</th>
+							</tr>
 							<tr>
 								<th>
 									<label class="control-label col-sm-3">{{ 'label.input.center' | translate }}</label>
@@ -393,9 +394,15 @@
 							</tr>
 							<tr>
 								<th>
+									<label class="control-label col-sm-3">{{ 'label.input.approvedondate' | translate }}</label>
+									<input type="text" datepicker-pop="dd MMMM yyyy" id = "approvedOn" ng-model="approvedOn" is-open="opened" max="restrictDate"/>
+								</th>
+								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
 									<input type="text" datepicker-pop="dd MMMM yyyy" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
 								</th>
+							</tr>
+							<tr>
 								<th>
 									<label class="control-label col-sm-3">{{ 'label.input.disbursementchannel' | translate }}</label>
 									<select chosen="paymentTypes" id="disbursementchannel" ng-model="paymentTypeId"
@@ -406,22 +413,36 @@
 
 								</th>
 								<th>
-									<div class="rowleft">
+									<div class="col-sm-5">
 										<button  class="btn btn-primary" data-ng-click="loanDisburseSearch()" has-permission='DISBURSE_LOAN'><i
 												class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
 							</tr>
+						</thead>
+						</table>
+						<table class="table condensed-table" ng-show = "hideResult">
+				            <thead>
 				            <tr>
 				                <th>
-				                    <input ng-autofocus="true" ng-model="filterText2" type="text" class="input-sm form-control"
-				                           placeholder="{{'label.input.filterbyname' | translate}}">
+				                    <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount" class="form-control"
+                   					number-format required late-Validate ng-readonly="true">
 				                </th>
 				                <th>
 				                    <button type="button" class="btn btn-success" data-ng-click="disburseLoan()" has-permission='DISBURSE_LOAN'><i class="icon-ok"></i>{{'label.button.disburse'
 				                        | translate}}
 				                    </button>
+				                </th>
+				                <th>
+				                    <button type="button" class="btn btn-success" data-ng-click="viewSearchParameters()">{{'label.button.viewsearchparameters' | translate}}
+				                    </button>
+				                </th>
+				            </tr>
+				            <tr>
+				                <th>
+				                    <input ng-autofocus="true" ng-model="filterText2" type="text" class="input-sm form-control"
+				                           placeholder="{{'label.input.filterbyname' | translate}}">
 				                </th>
 				            </tr>
 				            </thead>
@@ -445,7 +466,7 @@
 						</div>
 					</script>
 				    <div>
-				        <table class="table condensed-table" data-ng-show="loanDisburseData">
+				        <table class="table condensed-table" data-ng-show="loanDisburseData" ng-hide = "showSearchParameters">
 				            <thead>
 				            <tr class="graybg">
 				            	<th><input type="checkbox" ng-click="loanDisbursalAllCheckBoxesClicked()" ng-checked="loanDisbursalAllCheckBoxesMet()"/></th>
@@ -454,12 +475,13 @@
 								<th>{{'label.heading.principal' | translate}}</th>
 								<th>{{'label.heading.disbursementchannel' | translate}}</th>
 								<th>{{'label.input.receiptnumber' | translate}}</th>
+								<th>{{'label.input.notes' | translate}}</th>
 				            </tr>
 				            </thead>
 				            <tbody>
 				            <tr class="pointer-main"
 								data-ng-repeat="loan in loanDisburseData | filter:filterText2">
-				            	<td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]"></td> 
+				            	<td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]" ng-change="getTotalAmount(loanDisburseData)"></td> 
 				                <td  ng-if = "loan.loanType.value == 'GLIM' || loan.loanType.value == 'Group'" class="pointer"><a href='#/viewgroup/{{loan.group.id}}'>{{loan.group.name}}</a></td>
 				                <td ng-if = "loan.loanType.value == 'Individual' || loan.loanType.value == 'JLG'" class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
 				                <td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}({{loan.accountNo}})</a></td>
@@ -467,6 +489,9 @@
 								<td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.expectedDisbursalPaymentType.name}}</a></td>
 								<td>
 									<input ng-model="loan.receiptNumber" type="text" class="input-sm form-control">
+								</td>
+								<td>
+									<input ng-model="loan.note" type="text" class="input-sm form-control">
 								</td>
 				            </tr>
 				            </tbody>
