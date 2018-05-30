@@ -7112,6 +7112,7 @@
     "label.headin.timestamp" : "TimeStamp",
     "label.heading.history.review" : "Review",
     "label.heading.review.reason" : "Reason",
+    "label.heading.expecteddisbursementdate" : "Expected Disbursement Date",
     
     "#BSS workflow " : "",
     "label.heading.single.double.insurance" : "Single/Double Insurance",
