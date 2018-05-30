@@ -368,6 +368,7 @@
                 $scope.showLoanAccountForm = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = true;
+                $scope.displayCashFlow = false;
 
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){
