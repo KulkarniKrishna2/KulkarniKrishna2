@@ -471,6 +471,7 @@
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
                 $scope.showLoanAccountForm = true;
+                $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
                 $scope.groupId = memberParams.groupId;
                 $scope.restrictDate = new Date();
@@ -820,6 +821,7 @@
                     $scope.constructSubmitData();
                     resourceFactory.loanResource.put({loanId: memberParams.loanAccountBasicData.id}, $scope.editLoanAccountdata, function (data) {
                         $scope.closeLoanAccountForm();
+                        initTask();
                     });
                 };
 
@@ -830,6 +832,7 @@
                 $scope.constructFormData = function (data) {
                     $scope.editLoanAccountdata.productId = data.loanProductId;
                     $scope.loanProductChange($scope.editLoanAccountdata.productId);
+                    $scope.editLoanAccountdata.loanPurposeId = data.loanPurposeId;
                     if(data.loanEMIPackData){
                         $scope.editLoanAccountdata.loanEMIPackId = data.loanEMIPackData.id;
                         $scope.editLoanAccountdata.principal = data.loanEMIPackData.sanctionAmount;

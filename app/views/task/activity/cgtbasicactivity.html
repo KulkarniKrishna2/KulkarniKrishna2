@@ -47,8 +47,8 @@
 							<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount}}</td>
 							<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
-							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amountOrPercentage}}</td>
-							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amountOrPercentage}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amountOrPercentage}}</td>
+							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount}}</td>
+							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amount}}</td>
 							<td class="col-md-1"><a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>
                     <!-- ng-hide="clientdocument.id"  --><a  ng-click="generateDocument()" tooltip="{{'label.tooltip.generate.document' | translate}}"><i class="icon-link"></i></a></td>
 							
