@@ -674,7 +674,7 @@
                             }
                         });
                     scope.showDateField = true;
-                    scope.showNoteField = false;
+                    scope.showNoteField = true;
                     scope.showAmountField = true;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
