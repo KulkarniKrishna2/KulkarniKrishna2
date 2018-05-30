@@ -119,10 +119,8 @@
                 $scope.showaddressform = false;
                 $scope.shownidentityform = false;
                 $scope.shownFamilyMembersForm = false;
-                $scope.displayCashFlow = true;
                 $scope.showLoanAccountForm = true;
                 $scope.isLoanAccountExist = true;
-
 
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {

@@ -1509,10 +1509,7 @@
                     }),
                     loanUpdateDisbursementDateResource: defineResource(apiVer + "/loans/updatedisbursementdate", {},{
                        updateexpecteddisbursementdate: {method: 'POST', params: {}}
-                    }),
-                    creditBureauBulkReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/bulkinitiate", {entityType: '@entityType',entityId: '@entityId'}, {
-                        get: {method: 'GET', params: {}, isArray : true}
-                    }),
+                    })
                 };
             }];
         }
