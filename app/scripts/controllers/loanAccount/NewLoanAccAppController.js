@@ -211,7 +211,7 @@
                 });
             }
 
-            scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function(){
+            scope.$watch('formData.principal', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
                     for(var i in scope.charges){
                         if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
@@ -235,7 +235,7 @@
                         }
                     }
                 }
-            };
+            });
 
             scope.updateSlabBasedChargeForGlim = function(chargeData){
                 var clientChargeAmount = 0;
