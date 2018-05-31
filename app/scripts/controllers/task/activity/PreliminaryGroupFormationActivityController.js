@@ -994,8 +994,7 @@
                 }
 
                 $scope.isChargeAmountNonEditable = function (charge) {
-                    if ((charge.chargeTimeType.value == UPFRONT_FEE
-                        && charge.chargeCalculationType.value == SLAB_BASED) || charge.isAmountNonEditable || charge.isSlabBased) {
+                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
                         return true;
                     }
                     return false;

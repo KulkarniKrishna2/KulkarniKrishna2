@@ -3,6 +3,7 @@
         CenterMeetingActivityController: function ($controller, scope, resourceFactory, location, routeParams, dateFilter) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.groupOrCenterId = scope.taskconfig.centerId;
+            scope.tempFormData = {};
             scope.entityType = "centers"
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
@@ -64,6 +65,7 @@
                 scope.formData.interval = '2';
                 scope.periodValue = "week(s)";
                 scope.showAsTextBox = false;
+               
                 scope.repeatsOnOptions = [
                     { name: "MON", value: "1" },
                     { name: "TUE", value: "2" },
@@ -73,8 +75,8 @@
                     { name: "SAT", value: "6" },
                     { name: "SUN", value: "7" }
                 ]
+                scope.tempFormData.meetingTime = new Date();
             });
-            scope.formData.meetingTime = new Date();
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
@@ -133,10 +135,9 @@
                 this.formData.typeId = "1";
                 this.formData.timeFormat = 'HH:mm:ss';
                 this.formData.location = scope.formData.location;
-                this.formData.meetingtime = dateFilter(scope.formData.meetingTime, 'HH:mm');
+                this.formData.meetingtime = dateFilter(new Date(scope.tempFormData.meetingTime), 'HH:mm');
                 this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
-                scope.formData.meetingTime = undefined;
                 if (scope.isCenterMeetingEdit) {
                     this.formData.title = scope.calendarData.title;
                     this.formData.repeating = true;
@@ -234,10 +235,10 @@
                     location: scope.calendarData.location
                 }
                 if (data.meetingTime == undefined) {
-                    scope.formData.meetingTime = new Date();
+                    scope.tempFormData.meetingTime = new Date();
                 }
                 if (data.meetingTime != undefined) {
-                    scope.formData.meetingTime = new Date(data.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                    scope.tempFormData.meetingTime = new Date(data.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                 }
                 scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
