@@ -5,7 +5,7 @@
     </div>
     <div>
         <div>
-            <table class="table table-striped" width="100%">
+            <table class="table" width="100%">
                 <thead>
                     <th class="col-md-2">{{'label.heading.entity' | translate}}</th>
                     <th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -25,7 +25,8 @@
                         </td>
                         <!-- <td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td> -->
                     </tr>
-                    <tr ng-repeat="activeClientMember in groupMember.memberData">
+                    <tr ng-repeat="activeClientMember in groupMember.memberData" 
+                      ng-class ="activeClientMember.color">
                         <td class="col-md-2"> {{activeClientMember.displayName}} </td>
                         <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
                         <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
@@ -35,7 +36,9 @@
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amountOrPercentage}}</td>
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[2].amountOrPercentage}}</td>
                         <td class="col-md-1">
-                                <a tooltip="{{'label.button.disburse' | translate}}" ng-click="loanDisburse(groupMember.id, activeClientMember)" class="btn btn-xs btn-primary ng-binding">
+                                <a tooltip="{{'label.button.disburse' | translate}}" 
+                                 ng-disabled = "activeClientMember.isClientFinishedThisTask"
+                                ng-click="loanDisburse(groupMember.id, activeClientMember)" class="btn btn-xs btn-primary ng-binding">
                                     <i class="icon-flag icon-white"></i>
                                 </a>
                             </td>
