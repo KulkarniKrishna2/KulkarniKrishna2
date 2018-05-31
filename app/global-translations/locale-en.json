@@ -7059,5 +7059,9 @@
     "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
     "validation.msg.loanapplicationreference.submittedOnDate.is.greater.than.date" : "Loan application submission date cannot be a future date.",
     "error.msg.reporting.error" : "report error",
+    "label.input.considerTenureForIRRCalculation" : "Consider Tenure For IRR Calculation",
+    "label.heading.considerTenureForIRRCalculation" : "Consider Tenure For IRR Calculation",
+    "label.heading.apr" : "APR",
+
     "------ end of tensalation file":"---------"
 }

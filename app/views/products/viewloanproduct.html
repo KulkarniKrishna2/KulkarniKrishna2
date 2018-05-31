@@ -240,6 +240,11 @@
     <td colspan="3">{{loanproduct.isFlatInterestRate | YesOrNo}}
     </td>
 </tr>
+<tr ng-show="loanproduct.isFlatInterestRate">
+    <td>{{'label.heading.considerTenureForIRRCalculation' | translate}}:</td>
+    <td colspan="3">{{loanproduct.considerTenureForIRRCalculation | YesOrNo}}
+    </td>
+</tr>
 <tr>
     <td>{{'label.heading.interestcalculationperiod' | translate}}</td>
     <td colspan="3">{{loanproduct.interestCalculationPeriodType.value}}</td>

@@ -393,12 +393,12 @@
                             </tr>
                             <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
                                 <td>{{'label.heading.interestrate' | translate}}</td>
-                                <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</span>
+                                <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}({{'label.heading.apr' | translate}})</span>
                                 </td>
                             </tr>
                             <tr ng-show="loandetails.flatInterestRate != null">
                                 <td>{{'label.heading.flatinterestrate' | translate}}</td>
-                                <td><span class="padded-td">{{loandetails.flatInterestRate}}</span>
+                                <td><span class="padded-td">{{loandetails.flatInterestRate}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}</span>
                                 </td>
                             </tr>
                             <tr>
