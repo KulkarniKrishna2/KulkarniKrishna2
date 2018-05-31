@@ -5,7 +5,10 @@
 	</div>
 	<div>
 		<div>
-			<table class="table table-striped" width="100%">
+			<api-validate></api-validate>
+		</div>
+		<div>
+			<table class="table" width="100%">
 				<thead>
 					<th class="col-md-2">{{'label.heading.entity' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -23,14 +26,14 @@
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="11">
+						<td colspan="13">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
 						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
 					</tr>
-					<tr ng-repeat="activeClientMember in groupMember.memberData" ng-class="{backgroundred: (activeClientMember.clientLevelCriteriaResultData.score > 0 && 
-						  activeClientMember.clientLevelCriteriaResultData.score < 5)}">
+					<tr ng-repeat="activeClientMember in groupMember.memberData" 
+					  ng-class ="activeClientMember.color">
 						<td class="col-md-2">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 						</td>
@@ -64,10 +67,20 @@
 								<i class="icon-eye-open text-success"></i>
 							</a>
 						</td>
+						<td class="col-md-1"><input class="pull-left" type="checkbox"
+                            ng-disabled = "activeClientMember.isClientFinishedThisTask"
+                        ng-model="client.checked" ng-change="
+                        captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
+                        </td>
 						<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
 					</tr>
 				</tbody>
 			</table>
+			<div class="col-md-offset-11">
+                <button type="button" ng-click="moveMembersToNextStep()" class="btn btn-primary">
+                	{{'label.button.save' | translate}}
+                </button>
+            </div>
 		</div>
 	</div>
 </div>

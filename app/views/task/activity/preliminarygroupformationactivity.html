@@ -8,18 +8,22 @@
 	</div>
 	<div>
 		<div>
-			<table class="table table-striped" width="100%">
+		     <api-validate></api-validate>
+	    </div>
+		<div>
+			<table class="table" width="100%">
 				<thead>
 					<th class="col-md-2">{{'label.heading.entity' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.age' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.KYC' | translate}}</th>
-					<th class="col-md-4">{{'label.heading.keyah' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.keyah' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
+					<th class="col-md-1"></th>
 				</thead>
-				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
+				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers" >
 					<tr>
-						<td colspan="5">
+						<td colspan="6">
 							<span>{{groupMember.fcsmNumber}}&nbsp;&nbsp;
 								<a class="icon-user icon-large" ng-click="createMemberInGroup(groupMember.id, groupMember.officeId)" tooltip="{{'label.heading.create.member' | translate}}">
 								</a>
@@ -30,14 +34,17 @@
 						</td>
 					</tr>
 					<tr>
-						<tr ng-repeat="activeClientMember in groupMember.memberData">
+						<tr ng-repeat="activeClientMember in groupMember.memberData" 
+						ng-class ="activeClientMember.color">
 							<td class="col-md-2">
-								<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
+								<a href="" ng-disabled="activeClientMember.isClientFinishedThisTask"
+								ng-click="viewMemberDetails(groupMember.id, activeClientMember)" 
+								>{{activeClientMember.displayName}}</a>
 							</td>
 							<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
 							<td class="col-md-1">{{activeClientMember.age}}</td>
 							<td class="col-md-2">{{activeClientMember.clientIdentifier.documentKey}}</td>
-							<td class="col-md-4">
+							<td class="col-md-3">
 								<span ng-repeat="r in [1, 2, 3, 4, 5]">
 									<i ng-if="activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore && activeClientMember.profileRatingScoreData.finalScore >= r"
 									 class="icon-star"></i>
@@ -46,16 +53,25 @@
 									<i ng-if="activeClientMember.profileRatingScoreData === undefined || activeClientMember.profileRatingScoreData.finalScore === undefined"
 									 class="icon-star-empty"></i>
 								</span>
-								<button class="btn btn-warning" ng-click="reComputeProfileRating(activeClientMember)">
+								<button class="btn btn-warning" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="reComputeProfileRating(activeClientMember)">
 										<i class="icon-repeat"></i>
 								</button>
 							</td>
+							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
+                             ng-disabled="activeClientMember.isClientFinishedThisTask"
+							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
+							ng-disabled="activeClientMember.isClientFinishedThisTask"
 							class="btn btn-xs btn-primary ng-binding"></td>
 						</tr>
 					</tr>
 				</tbody>
 			</table>
+			<div class="col-md-offset-11">
+				<button type="button" ng-click="moveMembersToNextStep()" class="btn btn-primary"
+					>{{'label.button.save' |
+					translate}}</button>
+			</div>
 		</div>
 	</div>
 	<script type="text/ng-template" id="createsubgroup.html">

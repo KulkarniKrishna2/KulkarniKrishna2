@@ -6,6 +6,7 @@
             scope.showBulkCBInitiate = false;
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
+                scope.taskInfoTrackArray = [];
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -19,6 +20,47 @@
                                 break;
                             }
                         }
+                    }
+                    //logic to disable and highlight member
+                    for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
+
+                        for(var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++){
+
+                              var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
+                              var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                              if(clientLevelTaskTrackObj == undefined || clientLevelTaskTrackObj == null){
+                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                  scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                              }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
+                                    if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                        if(clientLevelCriteriaObj.score == 5){
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                        }         
+                                    }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                        if(clientLevelCriteriaObj.score == 5){
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                        }
+                                    }
+                              }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
+                                  if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                   }
+                                   if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                   }
+                              }
+                        }
+
                     }
                 });
 
@@ -643,6 +685,7 @@
                     $modalInstance.dismiss('close');
                 };
             }
+
             //client reject reason method call
             scope.clientRejection = function (memberId) {
                 var templateUrl = 'views/task/popup/closeclient.html';
@@ -754,6 +797,34 @@
                 };
             }
             //end rejection controller
+
+            scope.captureMembersToNextStep = function(clientId, loanId, isChecked, idx){
+                    if(isChecked){
+                        scope.taskInfoTrackArray.push(
+                            {'clientId' : clientId, 
+                             'currentTaskId' : scope.taskData.id,
+                             'loanId' : loanId})
+                    }else{
+                        scope.taskInfoTrackArray.splice(idx,1);
+                    }
+            }
+            
+            scope.moveMembersToNextStep = function(){
+                scope.errorDetails = [];
+                if(scope.taskInfoTrackArray.length == 0){
+                    return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                }
+
+                scope.taskTrackingFormData = {};
+                scope.taskTrackingFormData.taskInfoTrackArray = [];
+
+                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+                 
+                resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
+                    initTask();
+                })
+
+            }
         }
     });
     mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {

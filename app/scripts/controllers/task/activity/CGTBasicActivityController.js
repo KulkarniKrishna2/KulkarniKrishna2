@@ -12,15 +12,57 @@
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
+                scope.taskInfoTrackArray = [];
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
-                    associations: 'groupMembers,profileratings,loanaccounts'
+                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria'
                 }, function(data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
+                    //logic to disable and highlight member
+                    for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
+
+                        for(var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++){
+
+                              var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
+                              var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                              if(clientLevelTaskTrackObj == undefined || clientLevelTaskTrackObj == null){
+                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                  scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                              }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
+                                    if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                        if(clientLevelCriteriaObj.score == 5){
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                        }         
+                                    }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                        if(clientLevelCriteriaObj.score == 5){
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                        }
+                                    }
+                              }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
+                                  if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                   }
+                                   if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                   }
+                              }
+                        }
+
+                    }
                 });
 
             };
@@ -50,17 +92,41 @@
                 }
             };
 
-            scope.submit = function() {
+            scope.submit = function() {          
+                //tracking request validation
+                scope.errorDetails = [];
+                if(scope.taskInfoTrackArray.length == 0){
+                    return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                }
+
+                scope.batchRequests = [];
+
+                //cgt request body formation
                 var completedDate = dateFilter(scope.first.date, scope.df);
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.loanAccounts = scope.loanIds;
                 this.formData.completedDate = completedDate;
                 this.formData.loanOfficerId = scope.centerDetails.staffId;
+                var relativeUrl = "cgt/completiondate";
+                var requestSequence = 1;
+                scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeUrl,
+                            method: "POST", body: JSON.stringify(scope.formData)});
 
-                resourceFactory.cgtBasicActivityResource.persistCgtCompletionDate(this.formData, function(data) {
+                //tracking request body formation 
+                scope.taskTrackingFormData = {};
+                scope.taskTrackingFormData.taskInfoTrackArray = [];
+                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+                var relativeTrackUrl = "tasktracking/clientlevel";
+                requestSequence = requestSequence + 1;
+                scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeTrackUrl,
+                            method: "POST", body: JSON.stringify(scope.taskTrackingFormData)});
+
+                //batch call
+                resourceFactory.batchResource.post({'enclosingTransaction':true},scope.batchRequests, function (data) {
                     initTask();
                 });
+
             };
 
             //client profile rating 
@@ -942,6 +1008,17 @@
                         initTask();
                     });
                 };
+            }
+
+            scope.captureMembersToNextStep = function(clientId, loanId, isChecked, idx){
+                    if(isChecked){
+                        scope.taskInfoTrackArray.push(
+                            {'clientId' : clientId, 
+                             'currentTaskId' : scope.taskData.id,
+                             'loanId' : loanId})
+                    }else{
+                        scope.taskInfoTrackArray.splice(idx,1);
+                    }
             }
         }
     });

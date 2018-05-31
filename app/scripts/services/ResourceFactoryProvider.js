@@ -1512,6 +1512,9 @@
                     }),
                     creditBureauBulkReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/bulkinitiate", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}, isArray : true}
+                    }),
+                    clientLevelTaskTrackingResource: defineResource(apiVer +"/tasktracking/clientlevel", {},{
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];
