@@ -175,6 +175,7 @@
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
+                    considerTenureForIRRCalculation : scope.product.considerTenureForIRRCalculation,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
                     calculateIrr:scope.product.calculateIrr,
                     splitDisbursementForCharges:scope.product.splitDisbursementForCharges

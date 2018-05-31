@@ -732,6 +732,16 @@
 				   ng-model="formData.isFlatInterestRate">
 		</label>
 	</div>
+	<label class="control-label col-sm-3 col-sm-offset-1"  ng-show="formData.isFlatInterestRate">{{ 'label.input.considerTenureForIRRCalculation' | translate }}<span
+            class="required">*</span>
+    </label>
+
+    <div class="col-sm-2"   ng-show="formData.isFlatInterestRate">
+        <label class="checkbox control-label">
+            <input id="considerTenureForIRRCalculation" type="checkbox"
+                   ng-model="formData.considerTenureForIRRCalculation">
+        </label>
+    </div>
 </div>
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.interestcalculationperiod' | translate }}<span
