@@ -369,6 +369,7 @@
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = true;
                 var UPFRONT_FEE = 'upfrontFee';
+                $scope.displayCashFlow = false;
 
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){

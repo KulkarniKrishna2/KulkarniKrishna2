@@ -877,7 +877,7 @@
 				</div>
 			</div>
 		</tab>
-		<tab heading="{{'label.heading.cashflow' | translate}}" select="getCashFlow()">
+		<tab heading="{{'label.heading.cashflow' | translate}}" select="getCashFlow()" ng-if ="displayCashFlow">
 			<div ng-include = "'views/task/activity/cashflowcommon.html'"></div>
 		</tab>
 	</tabset>
