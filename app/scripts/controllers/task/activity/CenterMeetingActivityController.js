@@ -10,7 +10,6 @@
             scope.isCenterMeetingEdit = false;
             scope.showAsTextBox = true;
             scope.formData = {};
-            scope.formData.meetingTime = new Date();
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -75,6 +74,7 @@
                     { name: "SUN", value: "7" }
                 ]
             });
+            scope.formData.meetingTime = new Date();
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
