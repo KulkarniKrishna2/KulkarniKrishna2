@@ -205,7 +205,8 @@
                     $modalInstance.dismiss('cancel');
                 };
             }//end of reviewReasonCtrl
-            //lona account edit 
+
+         //lona account edit 
 
             scope.editLoan = function (loanAccountBasicData, groupId) {
                 $modal.open({
@@ -308,7 +309,7 @@
                             $scope.loanaccountinfo.charges[i] = $scope.updateChargeForSlab($scope.loanaccountinfo.charges[i]);                        
                         }
                     }
-                    $scope.charges = scope.loanaccountinfo.charges || [];
+                    $scope.charges = $scope.loanaccountinfo.charges || [];
                     if(refreshLoanCharges){
                         $scope.charges = [];
                     }
@@ -437,6 +438,12 @@
                         });
                     }
                 } 
+                $scope.isChargeAmountNonEditable = function (charge) {
+                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
+                        return true;
+                    }
+                    return false;
+                };
                 //on loan product change
                 $scope.loanProductChange = function (loanProductId) {
                     $scope.inparams.productId = loanProductId;
@@ -446,7 +453,9 @@
                     $scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                     resourceFactory.loanResource.get($scope.inparams, function (data) {
                         $scope.loanaccountinfo = data;
-
+                        var refreshLoanCharges  = true;
+                        $scope.previewClientLoanAccInfo(refreshLoanCharges);
+                        $scope.updateSlabBasedCharges();
                         $scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                         $scope.productLoanCharges = data.product.charges || [];
                         if ($scope.productLoanCharges && $scope.productLoanCharges.length > 0) {
@@ -514,13 +523,13 @@
                 $scope.updateChargesForEdit = function(){
                     if ($scope.charges.length > 0) {
                         $scope.editLoanAccountdata.charges = [];
-                        for (var i in scope.charges) {
+                        for (var i in $scope.charges) {
                             if ($scope.charges[i].amountOrPercentage > 0) {
                                 $scope.editLoanAccountdata.charges.push({
-                                    id: scope.charges[i].id,
-                                    chargeId: scope.charges[i].chargeId,
-                                    amount: scope.charges[i].amountOrPercentage,
-                                    dueDate: dateFilter(scope.charges[i].dueDate, scope.df)
+                                    id: $scope.charges[i].id,
+                                    chargeId: $scope.charges[i].chargeId,
+                                    amount: $scope.charges[i].amountOrPercentage,
+                                    dueDate: dateFilter($scope.charges[i].dueDate, scope.df)
                                 });
                             }
                         }
@@ -569,6 +578,7 @@
                     var todaydate = dateFilter(new Date(),scope.df);                   
                     $scope.editLoanAccountdata.interestChargedFromDate = todaydate;
                     $scope.editLoanAccountdata.submittedOnDate = todaydate;
+                   $scope.editLoanAccountdata.loanType = $scope.inparams.templateType = 'jlg';
                     $scope.editLoanAccountdata.expectedDisbursementDate = todaydate;                 
                     $scope.editLoanAccountdata.disbursementData = [];                    
                     $scope.constructSubmitData();
