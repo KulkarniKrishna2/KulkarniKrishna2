@@ -53,8 +53,7 @@
 									<i ng-if="activeClientMember.profileRatingScoreData === undefined || activeClientMember.profileRatingScoreData.finalScore === undefined"
 									 class="icon-star-empty"></i>
 								</span>
-								<button class="btn btn-warning" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="reComputeProfileRating(activeClientMember)">
-										<i class="icon-repeat"></i>
+								<button class="btn btn-warning" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="reComputeProfileRating(activeClientMember.id)"><i class="icon-repeat"></i>
 								</button>
 							</td>
 							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"

@@ -374,6 +374,7 @@
                         resourceFactory.clientResource.save($scope.formData, function (data) {
                             $modalInstance.close('createmember');
                             $route.reload();
+                            scope.reComputeProfileRating(data.clientId);
                         });
                     }
 
@@ -653,6 +654,7 @@
                             if (response != null) {
                                 $scope.addressData = response;
                             }
+
                         });
                     });
                 };
@@ -728,6 +730,7 @@
                         $scope.shownidentityform = false;
                         $scope.clientIdentityDocumentsLoaded = false;
                         $scope.getClientIdentityDocuments();
+                        scope.reComputeProfileRating($scope.clientId);
                     });
                 };
 
@@ -830,6 +833,7 @@
                         $scope.shownFamilyMembersForm = false;
                         $scope.familyDetailsLoaded = false;
                         $scope.getFamilyDetails();
+                        scope.reComputeProfileRating($scope.clientId);
                     });
                 };
 
@@ -1334,14 +1338,14 @@
                 };
             }
             //client profile rating 
-            function getprofileRating(activeClientMember){
-                resourceFactory.profileRating.get({entityType: 1,entityId : activeClientMember.id}, function (data) {
+            function getprofileRating(clientId){
+                resourceFactory.profileRating.get({entityType: 1,entityId : clientId}, function (data) {
                     scope.profileRatingData = data;
                 });
                 initTask();
             };
 
-            scope.reComputeProfileRating = function (activeClientMember) {
+            scope.reComputeProfileRating = function (clientId) {
                 scope.profileRatingData = {};
                 resourceFactory.computeProfileRatingTemplate.get(function (response) {
                     for(var i in response.scopeEntityTypeOptions){
@@ -1354,13 +1358,13 @@
                     for(var i in response.entityTypeOptions){
                         if(response.entityTypeOptions[i].value === 'CLIENT'){
                             scope.profileRatingData.entityType = response.entityTypeOptions[i].id;
-                            scope.profileRatingData.entityId =  activeClientMember.id;
+                            scope.profileRatingData.entityId =  clientId;
                             break;
                         }
                     }
                     scope.profileRatingData.locale = "en";
                     resourceFactory.computeProfileRating.save(scope.profileRatingData, function (response) {
-                        getprofileRating(activeClientMember);
+                        getprofileRating(clientId);
                     });
                 });
             }
