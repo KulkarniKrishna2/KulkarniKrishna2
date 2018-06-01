@@ -7124,5 +7124,6 @@
     "validation.msg.cgt.completedDate.is.greater.than.date" : "CGT completion date cann't be future date",
     "label.tooltip.initiate.credit.bureau" : "Intitiate Credit Bureau",
     "error.msg.select.atleast.one.member" : "Please Select Atlease One Member",
+    "label.button.relase.client" : "Release Client.",
      "------ end of tensalation file":"---------"
 }
