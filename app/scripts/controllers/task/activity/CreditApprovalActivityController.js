@@ -782,6 +782,32 @@
                         scope.taskInfoTrackArray.splice(idx,1);
                     }
             }
+
+            scope.approveLoan = function(data){
+                for(var i in data){
+                    var approvalData = {};
+                    approvalData.locale = scope.optlang.code;
+                    approvalData.dateFormat = scope.df;
+                    approvalData.disbursementData = [];
+                    approvalData.expectedDisbursementDate = dateFilter(new Date(),scope.df);
+                    approvalData.approvedOnDate = dateFilter(new Date(),scope.df);
+                    approvalData.dateFormat = scope.df;
+                    
+                    var params = {command: "approve", loanId: data[i].loanId};
+
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: data[i].loanId, associations: 'multiDisburseDetails'}, function (loandata) {
+                            console.log(loandata);
+                            approvalData.loanEMIPackId = loandata.loanEMIPackData.id;
+                            approvalData.approvedLoanAmount = loandata.loanEMIPackData.sanctionAmount;
+                            resourceFactory.LoanAccountResource.save(params, approvalData, function (approveddata) {
+                            
+                          }); 
+                    });
+
+                        
+                }
+
+            }
             
             scope.moveMembersToNextStep = function(){
                 scope.errorDetails = [];
@@ -793,7 +819,7 @@
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
-                 
+                 scope.approveLoan(scope.taskInfoTrackArray);
                 resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
                     initTask();
                 })
