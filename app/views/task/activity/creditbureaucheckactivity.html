@@ -8,7 +8,7 @@
 	</div>
 	<div>
 		<div>
-			<table class="table table-striped" width="100%">
+			<table class="table" width="100%">
 				<thead>
 					<th class="col-md-2">{{'label.heading.entity' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -21,18 +21,19 @@
 					<th class="col-md-1"><a href="" ng-if = "showBulkCBInitiate" ng-click="initiateBulkCreditBureauReport()"><i class="icon-bullseye icon-large"  tooltip="{{'label.tooltip.initiate.credit.bureau' | translate}}"></i></a></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="11">
+						<td colspan="12">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
 						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
 					</tr>
-					<tr ng-repeat="activeClientMember in groupMember.memberData" ng-class="{backgroundred: (activeClientMember.clientLevelCriteriaResultData.score > 0 && 
-						  activeClientMember.clientLevelCriteriaResultData.score < 5)}">
+					<tr ng-repeat="activeClientMember in groupMember.memberData" 
+					    ng-class ="activeClientMember.color">
 						<td class="col-md-2">{{activeClientMember.displayName}}
 						</td>
 						<td class="col-md-1">{{activeClientMember.fcsmNumber}}</td>
@@ -71,11 +72,18 @@
                                    activeClientMember.loanAccountBasicData.loanProposalReviewData.id)" class="btn btn-danger">{{'label.button.review' | translate}}
 							</a>
 						</td>
-
+                        <td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
+                             ng-disabled="activeClientMember.isClientFinishedThisTask"
+							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-1"><a href="javascript:void(0)" ng-click="clientRejection(activeClientMember.id)"><i class="icon-remove-circle"></i></a></td>
 					</tr>
 				</tbody>
 			</table>
+			<div class="col-md-offset-11">
+				<button type="button" ng-click="moveMembersToNextStep()" class="btn btn-primary"
+					>{{'label.button.save' |
+					translate}}</button>
+			</div>
 		</div>
 	</div>
 	<script type="text/ng-template" id="viewDocument.html">

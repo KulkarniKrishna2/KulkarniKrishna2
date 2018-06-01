@@ -1728,3 +1728,12 @@ table.table.table-striped tr.backgroundred td{
 .margin-plus-10px{
     margin: 10px !important;
 }
+.background-red {
+    background-color: #f4b5ba;
+}
+.background-grey {
+    background-color: #cacfd1;
+}
+.background-none {
+    background-color: none;
+}

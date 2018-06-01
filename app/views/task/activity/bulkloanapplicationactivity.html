@@ -4,34 +4,39 @@
 	</div>
 	<div>
 		<div>
-			<table class="table table-striped" width="100%">
+			<api-validate></api-validate>
+		</div>
+		<div>
+			<table class="table" width="100%">
 				<thead>
 					<th class="col-md-2">{{'label.heading.entity' | translate}}</th>
-					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.age' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.KYC' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanpack' | translate}}</th>
-					<th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.loanpurpose' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.singleinsurance' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.doubleinsurance' | translate}}</th>
 					<th class="col-md-1"> </th>
+					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="11">
+						<td colspan="12">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
 						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"
 						class="btn btn-xs btn-primary ng-binding"></td>
 					</tr> 
-						<tr ng-repeat="activeClientMember in groupMember.memberData">
+						<tr ng-repeat="activeClientMember in groupMember.memberData" 
+						 ng-class ="activeClientMember.color">
 							<td class="col-md-2"><a href= "" ng-click= "viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 							</td>
-							<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+							<td class="col-md-1">{{activeClientMember.fcsmNumber}}</td>
 							<td class="col-md-1">{{activeClientMember.age}}</td>
 							<td class="col-md-1">{{activeClientMember.clientIdentifier.documentKey}}</td>
 							<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
@@ -41,11 +46,19 @@
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount}}</td>
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[2].amount}}</td>
 							<td><i class="icon-edit icon-white pointer" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"></i></td>
+							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
+                             ng-disabled="activeClientMember.isClientFinishedThisTask"
+							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 							<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
 							class="btn btn-xs btn-primary ng-binding"></td>
 						</tr>
 				</tbody>
 			</table>
+			<div class="col-md-offset-11">
+				<button type="button" ng-click="moveMembersToNextStep()" class="btn btn-primary"
+					>{{'label.button.save' |
+					translate}}</button>
+			</div>
 		</div>
 	</div>
 	</div>

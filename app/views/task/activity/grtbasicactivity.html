@@ -1,5 +1,8 @@
 <div ng-controller="GRTBasicActivityController">
     <div>
+        <api-validate></api-validate>
+    </div>
+    <div>
         <table class="table" width="100%">
             <tr>
                 <td class="col-md-2">
@@ -19,7 +22,7 @@
     </div>
     <div>
         <div>
-            <table class="table table-striped" width="100%">
+            <table class="table" width="100%">
                 <thead>
                     <th class="col-md-2">{{'label.heading.entity' | translate}}</th>
                     <th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -39,7 +42,8 @@
 							</span>
                         </td>
                     </tr>
-                    <tr ng-repeat="activeClientMember in groupMember.memberData">
+                    <tr ng-repeat="activeClientMember in groupMember.memberData" 
+                        ng-class ="activeClientMember.color">
                         <td class="col-md-2">{{activeClientMember.displayName}}	<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
                         </td>
                         <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
@@ -49,7 +53,9 @@
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount}}</td>
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amount}}</td>
                         <td class="col-md-1"><input class="pull-left" type="checkbox"
-                        ng-model="client.checked" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id)">
+                            ng-disabled = "activeClientMember.isClientFinishedThisTask"
+                        ng-model="client.checked" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id);
+                        captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
                         </td>
                         <td class="col-md-1"> <a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
                         <td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
