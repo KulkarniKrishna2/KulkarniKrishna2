@@ -352,6 +352,9 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;
                 this.formData.penalty = this.formData.penalty || false;
+                if(this.formData.emiRoundingGoalSeek != true){
+                    this.formData.glimChargeCalculation = undefined;
+                }
                 resourceFactory.chargeResource.update({chargeId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });
