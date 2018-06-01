@@ -1749,6 +1749,9 @@
             .when('/centeronboarding/:centerId/workflow', {
                 templateUrl: 'views/task/showcase/centeronboardingworkflow.html'
             })
+            .when('/history/:entityType/:entityId',{
+                templateUrl: 'views/common/viewhistory.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

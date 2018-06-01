@@ -278,7 +278,13 @@
 								<li>
 									<a href="#/clients/{{client.id}}/accountlimits" has-permission='READ_CUSTOMERACCOUNTLIMITS'>{{'label.button.accountlimits' | translate }}</a>
 								</li>
-						    </ul>
+										<li>
+											<a href="#/history/{{entityType}}/{{client.id}}"
+											   has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
+												translate }}</a>
+										</li>
+
+									</ul>
 						</span>
 				    </div>
 				    <div ng-hide="client.isWorkflowEnabled">	

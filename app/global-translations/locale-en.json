@@ -7087,7 +7087,6 @@
     "validation.msg.charge.minValue.not.greater.than.zero" : "Loan amount should not be less then zero",
     "validation.msg.charges.taxGroupId.modification.not.supported" : "Tax group cannot be modify",
     "error.msg.maturity.date.exceeding.defined.period" : "Maturity date can not be exceeded",
-
     "label.input.rejectiontype" : "Reject Type",
     "label.heading.rejectclient" : "Reject Client",
     "label.heading.rejectgroup" : "Reject Group",
@@ -7125,5 +7124,7 @@
     "label.tooltip.initiate.credit.bureau" : "Intitiate Credit Bureau",
     "error.msg.select.atleast.one.member" : "Please Select Atlease One Member",
     "label.button.relase.client" : "Release Client.",
+    "label.button.viewhistory" : "View History",
+    "label.heading.viewhistory" : "View History",
      "------ end of tensalation file":"---------"
 }

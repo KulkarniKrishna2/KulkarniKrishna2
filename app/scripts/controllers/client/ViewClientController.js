@@ -29,6 +29,9 @@
             scope.showSmartcard = true;
             scope.clientId = routeParams.id;
             scope.entityType = routeParams.entityType;
+            if(!scope.entityType){
+                scope.entityType = "client";
+            }
             scope.entityId = routeParams.id;
             scope.isCenter=false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
@@ -507,7 +510,7 @@
                 $scope.delete = function () {
                     http({
                         method: 'DELETE',
-                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images',
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images'
                     }).then(function (imageData) {
                         if (!scope.$$phase) {
                             scope.$apply();
@@ -538,7 +541,7 @@
                                 name: 'clientSignature',
                                 description: 'client signature'
                             },
-                            file: scope.file,
+                            file: scope.file
                         }).then(function (imageData) {
                             // to fix IE not refreshing the model
                             if (!scope.$$phase) {

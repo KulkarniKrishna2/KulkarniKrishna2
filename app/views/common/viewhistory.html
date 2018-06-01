@@ -1,0 +1,26 @@
+<div ng-class="col-md-12" name="history" ng-controller="ViewHistoryController">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend class="bolder">{{'label.heading.viewhistory' | translate}}</legend>
+    </fieldset>
+    <table class="table span12">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.action' | translate}}</th>
+            <th>{{'label.heading.entity' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{'label.heading.madeby' | translate}}</th>
+            <th>{{'label.heading.madedate' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="highlight-row pointer" ng-repeat="history in historydatas">
+            <td>{{history.actionName}}</td>
+            <td>{{history.entityName}}</td>
+            <td>{{history.officeName}}</td>
+            <td>{{history.makerName}}</td>
+            <td>{{history.makerTime | DateTimeFormat}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

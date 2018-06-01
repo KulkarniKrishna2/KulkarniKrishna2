@@ -43,7 +43,7 @@
             scope.routeToCGT = function (id) {
                 location.path('/viewcgt/' + id);
             };
-
+            scope.entityType = "center";
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar,clientMembers'}, function (data) {
                 scope.center = data;
                 scope.groupMemberAccountList = data.groupMembers;
