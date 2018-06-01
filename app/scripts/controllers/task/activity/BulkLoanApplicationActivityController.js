@@ -637,7 +637,7 @@
 
                 };
 
-                    $scope.updateSlabBasedCharges = function(){  
+                    $scope.updateSlabBasedCharges = function(){    
                         if($scope.editLoanAccountdata.principal != '' && $scope.editLoanAccountdata.principal != undefined){
                             for(var i in $scope.charges){
                                 if($scope.charges[i].chargeCalculationType.value == $scope.slabBasedCharge || $scope.charges[i].isSlabBased) {
@@ -661,6 +661,7 @@
                                     var slabBasedValue = $scope.getSlabBasedAmount(data.slabs[j],$scope.editLoanAccountdata.principal,$scope.editLoanAccountdata.numberOfRepayments);
                                     if(slabBasedValue != null){
                                         data.amountOrPercentage = slabBasedValue;
+                                        return data;
                                     }else {
                                          data.amountOrPercentage = undefined;
                                     }
