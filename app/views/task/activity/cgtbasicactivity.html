@@ -47,7 +47,7 @@
 							</span>
 						</td>
 					</tr>
-					<tr ng-repeat="activeClientMember in groupMember.memberData">
+					<tr ng-repeat="activeClientMember in groupMember.memberData"  ng-class ="activeClientMember.color">
 						<td class="col-md-1">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}
 								<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
@@ -83,7 +83,7 @@
 						</td>
 
 						<td class="col-md-1">
-							<input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id)">
+							<input class="pull-left" type="checkbox" ng-model="client.checked" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
 						</td>
 
 						<td class="col-md-1">
