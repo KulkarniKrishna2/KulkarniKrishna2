@@ -7126,5 +7126,6 @@
     "label.button.relase.client" : "Release Client.",
     "label.button.viewhistory" : "View History",
     "label.heading.viewhistory" : "View History",
+    "validation.msg.CIBIL_COMBO.Address.cannot.be.blank" : "Address cann't be blank.",
      "------ end of tensalation file":"---------"
 }
