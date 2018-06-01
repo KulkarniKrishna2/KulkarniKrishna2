@@ -61,9 +61,11 @@
 							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
                              ng-disabled="activeClientMember.isClientFinishedThisTask"
 							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
-							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
+							<td class="col-md-1 icon-remove-circle"  ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
 							ng-disabled="activeClientMember.isClientFinishedThisTask"
 							class="btn btn-xs btn-primary ng-binding"></td>
+							<td class="col-md-1" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'"><button ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}" 
+							class="btn btn-primary">Release</button></td>
 						</tr>
 					</tr>
 				</tbody>
