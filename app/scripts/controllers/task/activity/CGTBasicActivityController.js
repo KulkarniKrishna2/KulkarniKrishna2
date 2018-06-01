@@ -137,6 +137,15 @@
                 initTask();
             };
 
+            scope.score = function(activeClientMember){
+                if(activeClientMember && activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore){
+                    var tempscore = activeClientMember.profileRatingScoreData.finalScore * 20 || 0;
+                    return "'"+tempscore+"%'";
+                }
+                return '0%';
+            }
+
+            
             scope.reComputeProfileRating = function (clientId) {
                 scope.profileRatingData = {};
                 resourceFactory.computeProfileRatingTemplate.get(function (response) {

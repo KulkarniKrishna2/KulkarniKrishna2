@@ -1,154 +1,153 @@
 <div>
-<div class="modal-header silver">
+	<div class="modal-header silver">
 		<h3 class="bolder">
-				{{'label.view.edit.loanapplication' | translate}}
+			{{'label.view.edit.loanapplication' | translate}}
 			<i class="icon-remove pointer pull-right" ng-click="close()"></i>
 		</h3>
-</div>
-<div class="modal-body well">
-	<div class="margin-plus-10px">
-		<div ng-if="showLoanAccountForm">
-			<api-validate></api-validate>
+	</div>
+	<div class="modal-body well">
+		<div class="margin-plus-10px">
+			<div ng-if="showLoanAccountForm">
+				<api-validate></api-validate>
 				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()">
 					<fieldset>
-					<div class="form-group">
-						<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
-							<span class="required">*</span>:&nbsp;
-						</label>
-						<div class="col-sm-3">
-								<select id="productId" ng-model="editLoanAccountdata.productId" 
-								  name="productId" class="form-control"
-								  ng-options="product.id as product.name for product in products" 
-								  value="{{product.id}}"
-								  ng-change="loanProductChange(editLoanAccountdata.productId)" 
-								  required="required">
-							        <option style="display:none" value="">
-							        {{'label.selectloanproduct' | translate}}</option>
-						        </select>
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
+								<span class="required">*</span>:&nbsp;
+							</label>
+							<div class="col-sm-3">
+								<select id="productId" ng-model="editLoanAccountdata.productId" name="productId" class="form-control" ng-options="product.id as product.name for product in products"
+								    value="{{product.id}}" ng-change="loanProductChange(editLoanAccountdata.productId)" required="required">
+									<option style="display:none" value="">
+										{{'label.selectloanproduct' | translate}}</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<form-validate valattributeform="newloanaccountform" valattribute="productId" />
+							</div>
+							<div class="col-sm-4"></div>
 						</div>
-						<div class="col-sm-3">
-							<form-validate valattributeform="newloanaccountform" 
-							   valattribute="productId" />
+						<br></br>
+						<div class="form-group" ng-if="editLoanAccountdata.productId">
+							<label class="control-label col-sm-2">
+								{{ 'label.input.loanpurpose' | translate }}
+								<span class="required">*</span>:&nbsp;
+							</label>
+							<div class="col-sm-3">
+								<select id="loanPurposeId" name="loanPurposeId" ng-model="editLoanAccountdata.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+								    class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+									<option value="">{{'label.selectpurpose' | translate}}</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<form-validate valattributeform="newloanaccountform" valattribute="loanPurposeId" />
+							</div>
+							<div class="col-sm-4"></div>
 						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<br>
-					<div class="form-group" ng-if="editLoanAccountdata.productId">
-						<label class="control-label col-sm-2">
-						   {{ 'label.input.loanpurpose' | translate }}<span class="required">*</span>:&nbsp;
-						</label>
-						<div class="col-sm-3">
-							<select  id="loanPurposeId"  name ="loanPurposeId" 
-							  ng-model="editLoanAccountdata.loanPurposeId"
-                              ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                              class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
-				                <option value="">{{'label.selectpurpose' | translate}}</option>
-				            </select>
+						<br></br>
+						<div class="form-group" ng-if="editLoanAccountdata.productId">
+							<div class="col-sm-12">
+								<table class="table">
+									<thead>
+										<tr class="graybg">
+											<th></th>
+											<th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+											<th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+											<th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+											<th>{{ 'label.heading.fixedEmi' | translate }}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+											<td>
+												<input type="radio" ng-model="editLoanAccountdata.loanEMIPackId" name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack)"
+												    value="{{loanEMIPack.id}}" />
+											</td>
+											<td>
+												<span>{{loanEMIPack.sanctionAmount}}</span>
+											</td>
+											<td>
+												<span>{{loanEMIPack.combinedRepayEvery}}</span>
+											</td>
+											<td>
+												<span>{{loanEMIPack.numberOfRepayments}}</span>
+											</td>
+											<td>
+												<span>{{loanEMIPack.fixedEmi}}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-						<div class="col-sm-3">
-							<form-validate valattributeform="newloanaccountform" 
-							  valattribute="loanPurposeId" />
+						<br></br>	
+						<div class="form-group">
+							<table>
+								<tr class="paddedbottom10">
+									<td>
+										<div class="col-sm-1">
+											<label>
+												<strong>{{ 'label.heading.charges' | translate }}</strong>
+											</label>
+										</div>
+									</td>
+									<td>
+										<div class="col-sm-3">
+											<select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+											    value="{{charge.id}}" class="form-control width170px">
+												<option value="">{{'label.selectcharge' | translate}}</option>
+											</select>
+
+										</div>
+									</td>
+									<td>
+										<i class="icon-plus icon-white pointer" ng-click="addCharge()"></i>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">&nbsp;</td>
+								</tr>
+							</table>
 						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<br>
-					<div  class="form-group" ng-if="editLoanAccountdata.productId">
-						<label class="control-label col-sm-2">
-						   {{ 'label.heading.chooseloanemipack' | translate }}:
-						</label>
-						<div class="col-sm-3">
-							<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1" placeholder="{{'label.input.filterbytext' | translate}}"/>
-						</div>
-						<div class="col-sm-7">
-						</div>
-			        </div> 
-			        <br/>
-			        <div class="col-sm-offset-2"  
-			           ng-if="editLoanAccountdata.productId">
-			           <table class="well table col-sm-12">
-			                <thead>
-			                    <tr  class="graybg">
-			                        <th></th>
-			                        <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
-			                        <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
-			                        <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
-			                        <th>{{ 'label.heading.fixedEmi' | translate }}</th>
-			                    </tr>
-			                </thead>
-			                <tbody>
-			                    <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
-			                        <td class="col-md-1">
-			                                <input type="radio" 
-			                                  ng-model="editLoanAccountdata.loanEMIPackId" 
-			                                  name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack)" class="form-control" value="{{loanEMIPack.id}}"/>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.sanctionAmount}}</span>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.combinedRepayEvery}}</span>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.numberOfRepayments}}</span>
-			                        </td>
-			                        <td class="col-md-1">
-			                            <span>{{loanEMIPack.fixedEmi}}</span>
-			                        </td>
-			                        </tr>
-			                </tbody>
-			           </table>            
-			        </div> 
-
-
-			        <div>
-
-
-	   <div class="col-sm-1">
-        <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
-        </div>
-        <select ng-model="chargeFormData.chargeId" class="form-control width170px"
-                ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
-                value="{{charge.id}}">
-            <option value="">{{'label.selectcharge' | translate}}</option>
-        </select>
-        <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
-        </div>
-        <table class="table" class="width100" ng-show="charges.length>0">
-            <tr class="graybg">
-                <th>{{'label.heading.name' | translate}}</th>
-                <th>{{'label.heading.type' | translate}}</th>
-                <th>{{'label.heading.amount' | translate}}</th>
-                <th>{{'label.heading.collectedon' | translate}}</th>
-                <th>{{'label.heading.date' | translate}}</th>
-                <th>{{'label.heading.actions' | translate}}</th>
-            </tr>
-            <tr ng-repeat="charge in charges">
-                <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
-                <td>{{charge.chargeCalculationType.value}}</td>
-                <td><input id="{{charges[$index].amount}}" class="form-control" number-format type="text" ng-model="charge.amountOrPercentage"
-                           placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
-                <td>{{charge.chargeTimeType.value}}</td>
-                <td>
-                    <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
-                           placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                           is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate" max="'2020-06-22'"/>
-                </td>
-                <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
-            </tr>
-        </table>
-
-
-			        </div>
-
-						<div class="col-md-offset-2 paddedleft">
-							<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
-								{{'label.button.cancel'|translate}}</a>
-							<a id="save" ng-click="EditLoanAccountSubmit()" type="submit" class="btn btn-primary">
-								{{'label.button.save' |translate}}</a>
-						</div>
-			    </fieldset>
+						<table class="table" class="width100" ng-show="charges.length>0">
+							<tr class="graybg">
+								<th>{{'label.heading.name' | translate}}</th>
+								<th>{{'label.heading.type' | translate}}</th>
+								<th>{{'label.heading.amount' | translate}}</th>
+								<th>{{'label.heading.collectedon' | translate}}</th>
+								<th>{{'label.heading.date' | translate}}</th>
+								<th>{{'label.heading.actions' | translate}}</th>
+							</tr>
+							<tr ng-repeat="charge in charges">
+								<td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+								<td>{{charge.chargeCalculationType.value}}</td>
+								<td>
+									<input id="{{charges[$index].amount}}" class="form-control" number-format type="text" ng-model="charge.amountOrPercentage"
+									    placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)">
+								</td>
+								<td>{{charge.chargeTimeType.value}}</td>
+								<td>
+									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+									    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
+									    max="'2020-06-22'" />
+								</td>
+								<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>
+									<a ng-click="deleteCharge($index)">
+										<i class="icon-remove icon-white"></i>
+									</a>
+								</td>
+							</tr>
+						</table>
+			</div>
+			<div class="col-md-offset-2 paddedleft">
+				<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
+					{{'label.button.cancel'|translate}}</a>
+				<a id="save" ng-click="EditLoanAccountSubmit()" type="submit" class="btn btn-primary">
+					{{'label.button.save' |translate}}</a>
+			</div>
+			</fieldset>
 			</form>
 		</div>
 	</div>
 </div>
-</div>	
+</div>

@@ -9,22 +9,25 @@
 		<label>{{'label.heading.cgt.completed.date' | translate}}</label>
 		 
 	</td>
+		</td>
 
-	<td class="col-md-2">
-		<input  id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control col-sm-2"/>
-	</td>
-	<td class="col-md-5"></td>
-	<td>
-		<span>{{'label.info.totalmembers' | translate}} : {{centerDetails.totalCenterMembers}}&nbsp;&nbsp;{{'label.info.activeborrowers' | translate}} : {{centerDetails.totalBorrowerMembers}}</span>
-	</td>
-		</tr>
-	</table>
+				<td class="col-md-2">
+					<input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened1"
+					    min="'2000-01-01'" max="restrictDate" class="form-control col-sm-2" />
+				</td>
+				<td class="col-md-5"></td>
+				<td>
+					<span>{{'label.info.totalmembers' | translate}} : {{centerDetails.totalCenterMembers}}&nbsp;&nbsp;{{'label.info.activeborrowers'
+						| translate}} : {{centerDetails.totalBorrowerMembers}}</span>
+				</td>
+			</tr>
+		</table>
 	</div>
 	<div>
 		<div>
-			<table class="table" width="100%">
+			<table class="table table-striped">
 				<thead>
-					<th class="col-md-1">{{'label.heading.entity' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanpack'| translate}}</th>
@@ -34,62 +37,65 @@
 					<th class="col-md-1"></th>
 					<th class="col-md-2">{{'label.heading.keyah' | translate}}</th>
 					<th class="col-md-2"></th>
+					<th>&nbsp;</th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="11">
+						<td colspan="12">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
-					</tr> 
-						<tr ng-repeat="activeClientMember in groupMember.memberData" 
-						    ng-class ="activeClientMember.color">
-							<td class="col-md-1"><a href= ""  ng-click= "viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}	<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i></a>
-							</td>
-							<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
-							<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
-							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount}}</td>
-							<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
-							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount}}</td>
-							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amount}}</td>
-							<td class="col-md-1"><a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>
-                    <!-- ng-hide="clientdocument.id"  --><a  ng-click="generateDocument()" tooltip="{{'label.tooltip.generate.document' | translate}}"><i class="icon-link"></i></a></td>
-							
-							
-							<td class="col-md-2">
-								<span ng-repeat="r in [1, 2, 3, 4, 5]">
-									<i ng-if="activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore && activeClientMember.profileRatingScoreData.finalScore >= r"
-									 class="icon-star"></i>
-									<i ng-if="activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore && activeClientMember.profileRatingScoreData.finalScore < r"
-									 class="icon-star-empty"></i>
-									<i ng-if="activeClientMember.profileRatingScoreData === undefined || activeClientMember.profileRatingScoreData.finalScore === undefined"
-									 class="icon-star-empty"></i>
-								</span>
-								<button class="btn btn-warning" ng-click="reComputeProfileRating(activeClientMember.id)">
-										<i class="icon-repeat"></i>
-								</button>
-							</td>
-							<td class="col-md-1">
-							<a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
-							
-            				<td class="col-md-1">
-            					<input class="pull-left" type="checkbox"
-								 ng-model="client.checked"
-								 ng-disabled="activeClientMember.isClientFinishedThisTask"
-								 ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id);
-								 captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
-							</td>
-        					
-							<td class="col-md-1 icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
-						</tr>
+					</tr>
+					<tr ng-repeat="activeClientMember in groupMember.memberData">
+						<td class="col-md-1">
+							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}
+								<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
+							</a>
+						</td>
+						<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+						<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
+						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
+						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
+						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount | number}}</td>
+						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount | number}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amount | number}}</td>
+						<td class="col-md-1">
+							<a ng-show="clientdocument.id" target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}">
+								<i class="icon-cloud-download"></i>
+							</a>
+							<a ng-click="generateDocument()" tooltip="{{'label.tooltip.generate.document' | translate}}">
+								<i class="icon-link"></i>
+							</a>
+						</td>
+
+						<td class="col-md-2">
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="{{activeClientMember.profileRatingScoreData.finalScore*20}}"
+									aria-valuemin="0" aria-valuemax="100" ng-style="{'width': {{score(activeClientMember)}}}">
+									{{activeClientMember.profileRatingScoreData.finalScore*20 | number}}%
+								</div>
+							</div> 
+						</td>
+						<td class="col-md-1">
+							<a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)">
+								<i class="icon-edit icon-white"></i>
+							</a>
+						</td>
+
+						<td class="col-md-1">
+							<input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id)">
+						</td>
+
+						<td class="col-md-1">
+							<i class="icon-remove-circle pointer right" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></i>
+						</td>
+					</tr>
 				</tbody>
 			</table>
-				<div class="col-md-offset-11">
-				<button type="button" ng-click="submit()" class="btn btn-primary"
-					has-permission='UPDATE_COMPLETION_DATE_CGT'>{{'label.button.save' |
-					translate}}</button>
-					</div>
+			<div class="col-md-offset-11">
+				<button type="button" ng-click="submit()" class="btn btn-primary" has-permission='UPDATE_COMPLETION_DATE_CGT'>{{'label.button.save' | translate}}
+				</button>
+			</div>
 		</div>
 	</div>
 </div>
