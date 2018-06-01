@@ -39,6 +39,16 @@
                     var date = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
                     scope.maxMeetingDate = new Date(date.getTime()+twoWeeks);
                 }
+                var weekday = new Array(7);
+                weekday[0] = "Sunday";
+                weekday[1] = "Monday";
+                weekday[2] = "Tuesday";
+                weekday[3] = "Wednesday";
+                weekday[4] = "Thursday";
+                weekday[5] = "Friday";
+                weekday[6] = "Saturday";
+                var disbursedate = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
+                scope.disbursementDay = weekday[disbursedate.getDay()];
             });
             resourceFactory.attachMeetingResource.get({
                 groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId,
@@ -76,6 +86,7 @@
                     { name: "SUN", value: "7" }
                 ]
                 scope.tempFormData.meetingTime = new Date();
+                scope.locationOptions = data.meetingLocations;
             });
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
@@ -134,7 +145,7 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 this.formData.timeFormat = 'HH:mm:ss';
-                this.formData.location = scope.formData.location;
+                this.formData.locationId = scope.formData.locationId;
                 this.formData.meetingtime = dateFilter(new Date(scope.tempFormData.meetingTime), 'HH:mm');
                 this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
@@ -226,13 +237,14 @@
                 scope.calendarId = data.id;
                 scope.calendarData = data;
                 scope.first = { date: new Date(data.startDate) };
-                scope.location = data.location;
+                scope.locationId = scope.calendarData.locationId;
                 var today = new Date();
                 scope.formData = {
                     repeating: scope.calendarData.repeating,
                     frequency: scope.calendarData.frequency.id,
                     interval: Math.abs(scope.calendarData.interval),
-                    location: scope.calendarData.location
+                    location: scope.calendarData.location,
+                    locationId: scope.calendarData.locationId
                 }
                 if (data.meetingTime == undefined) {
                     scope.tempFormData.meetingTime = new Date();

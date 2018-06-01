@@ -477,6 +477,7 @@
                     $scope.type = 'jlg';
                     resourceFactory.clientJlgLoanAccount.get({ type: $scope.type, clientId: $scope.clientId, groupId: $scope.groupId }, function (data) {
                         $scope.loanAccountData = data;
+                        $scope.isLoanAccountExist = true;
                     });
 
                     if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {

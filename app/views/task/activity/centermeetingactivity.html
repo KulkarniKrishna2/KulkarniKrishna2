@@ -10,11 +10,9 @@
                     <label ng-show="isCenterMeetingEdit">{{'label.heading.editmeeting' | translate}}
                     </label>
                 </div>
-                <div class="col-md-4">
-                    <label>{{'label.heading.expecteddisbursementdate' | translate}}</label>
-                </div>
-                <div class="col-md-3">
-                    <label>{{expecteddisbursementon | DateFormat}}</label>
+                <div class="col-md-5">
+                    <label><span> {{'label.heading.expecteddisbursementdate' | translate}}</span> &nbsp;&nbsp;
+                    <span> {{expecteddisbursementon | DateFormat}} </span> &nbsp;&nbsp;<span>{{disbursementDay}}</span></label>
                 </div>
             </div>
             <div>
@@ -37,13 +35,15 @@
                         <td class="col-sm-3">
                             <timepicker ng-model="tempFormData.meetingTime"></timepicker>
                         </td>
-                    </tr>'
+                    </tr>
                     <tr>
                         <td class="col-sm-2 text-right">
-                            <label class="control-label">{{'label.input.location' |translate}}</label>
+                            <label class="control-label">{{'label.input.centermeetinglocation' |translate}}</label>
                         </td>
                         <td class="col-sm-2">
-                         <input type="text" ng-model="formData.location" class="form-control">
+                                <select ng-model="formData.locationId" class="form-control"  ng-options="location.id as location.name for location in locationOptions"
+                                value="{{location.id}}">
+                               <option value=""></option>
                         </td>
                     </tr>
                     <tr>
@@ -150,7 +150,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-sm-8 center">
+        <div class="col-sm-8 center paddedbottom10">
             <div>
                 <a id="cancel" ng-if="isCenterMeetingEdit" class="btn btn-default" href="" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>
