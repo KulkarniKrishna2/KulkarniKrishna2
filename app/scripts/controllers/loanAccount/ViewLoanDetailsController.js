@@ -89,7 +89,7 @@
                 ;
             };
             scope.hideTransactionDetails = false;
-
+            scope.entityType ="loan";
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
@@ -270,6 +270,9 @@
                         break;
                     case "tranche.disburse.to.groups.bank.accounts":
                         location.path('/loanaccount/' + accountId + '/disbursetogroupbankaccounts');
+                        break;
+                    case "viewhistory":
+                        location.path('/history/' + scope.entityType +'/'+ accountId);
                         break;
                 }
             };
@@ -453,6 +456,10 @@
                             {
                                 name: "button.loanscreenreport",
                                 taskPermissionName: 'READ_LOAN'
+                            },
+                            {
+                                name: "button.viewhistory",
+                                taskPermissionName: 'READ_PORTFOLIOHISTORY'
                             }
                         ]
 
@@ -512,6 +519,10 @@
                             {
                                 name: "button.loanscreenreport",
                                 taskPermissionName: 'READ_LOAN'
+                            },
+                            {
+                                name: "button.viewhistory",
+                                taskPermissionName: 'READ_PORTFOLIOHISTORY'
                             }
                         ]
                     };
@@ -620,6 +631,10 @@
                             {
                                 name: "button.applypenalties",
                                 taskPermissionName: 'EXECUTE_OVERDUECHARGE'
+                            },
+                            {
+                                name: "button.viewhistory",
+                                taskPermissionName: 'READ_PORTFOLIOHISTORY'
                             }
                         ]
 

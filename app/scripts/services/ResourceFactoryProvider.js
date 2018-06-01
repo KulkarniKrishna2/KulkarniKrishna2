@@ -180,7 +180,7 @@
                         getAll: {method: 'GET', params: {usageTrackingEnabledOnly : '@usageTrackingEnabledOnly'}, isArray: true}
                     }),
                     reportsByCategoryResource: defineResource(apiVer + "/reports/category/:id", {id: '@id'}, {
-                        get: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}, isArray: true}
                     }),
                     reportsResourceCommands: defineResource(apiVer + "/reports/:id", {id: '@id'}, {
                         activate: {method: 'POST',  params:{command : 'activate'}},
@@ -257,7 +257,7 @@
                     }),
                     loanApplicationOverViewsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/overviews", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         getByClientId: {method: 'GET', params: {}, isArray: true},
-                        getByLoanAppId: {method: 'GET', params: {}},
+                        getByLoanAppId: {method: 'GET', params: {}}
                     }),
                     loanCoApplicantsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/coapplicants/:coApplicantId", {loanApplicationReferenceId: '@loanApplicationReferenceId', coApplicantId: '@coApplicantId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
@@ -268,7 +268,7 @@
                         template: {method: 'GET', params: {}}
                     }),
                     creditBureauEnquiriesResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     creditBureauReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/initiate", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
@@ -1176,7 +1176,7 @@
                         save: {method: 'POST', params: {}}
                     }),
                     bankAccountTransferTemplateResource: defineResource(apiVer + "/banktransaction/:bankTransferId/template", {bankTransferId:"@bankTransferId"}, {
-                        get: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}}
                     }),
                     taskConfigResource: defineResource(apiVer + "/tasks/config/:withTemplate", {}, {
                         getTemplate: {method: 'GET', params: {withTemplate:"template", parentConfigId: '@parentConfigId'}}
@@ -1514,7 +1514,12 @@
                         get: {method: 'GET', params: {}, isArray : true}
                     }),
                     clientLevelTaskTrackingResource: defineResource(apiVer +"/tasktracking/clientlevel", {},{
-                        get: {method: 'GET', params: {}}
+                        get: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    historyResource: defineResource(apiVer + "/:entityType/:entityId/history", {entityType:'@entityType',entityId:'@entityId'}, {
+                        get: {method: 'GET', params: {},isArray: true}
+
                     })
                 };
             }];

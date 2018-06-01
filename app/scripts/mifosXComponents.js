@@ -589,7 +589,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/CGTBasicActivityController',
             'task/activity/GRTBasicActivityController',
             'task/showcase/CenterOnboardingWorkflowController',
-            'task/activity/kotakApprovalActivityController'
+            'task/activity/kotakApprovalActivityController',
+            'common/ViewHistoryController'
         ],
         filters: [
             'StatusLookup',
