@@ -43,10 +43,10 @@
                                         }         
                                     }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
                                         if(clientLevelCriteriaObj.score == 5){
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                               scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
                                         }
                                     }

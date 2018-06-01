@@ -5,8 +5,49 @@
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
+                    //logic to disable and highlight member
+                    for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
+
+                        for(var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++){
+
+                              var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
+                              var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                              if(clientLevelTaskTrackObj == undefined || clientLevelTaskTrackObj == null){
+                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                  scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                              }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
+                                    if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                        if(clientLevelCriteriaObj.score == 5){
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                        }         
+                                    }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                        if(clientLevelCriteriaObj.score == 5){
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                        }
+                                    }
+                              }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
+                                  if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                   }
+                                   if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                   }
+                              }
+                        }
+
+                    }
                 });
 
             };
@@ -42,6 +83,7 @@
                 $scope.formData = {};
                 $scope.taskPermissionName = 'DISBURSE_LOAN';
                 $scope.formData.actualDisbursementDate = new Date();
+                $scope.taskInfoTrackArray = [];
 
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
@@ -147,6 +189,21 @@
                 };
 
                 $scope.submit = function () {
+                    if($scope.clientId != null && scope.taskData.id !=null && $scope.loanId){
+                        $scope.taskInfoTrackArray.push(
+                            {'clientId' : $scope.clientId, 
+                             'currentTaskId' : scope.taskData.id,
+                             'loanId' : $scope.loanId})
+                    }    
+
+                    //tracking request validation
+                    $scope.errorDetails = [];
+                    if($scope.taskInfoTrackArray.length == 0){
+                        return $scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                    }
+
+                    $scope.batchRequests = [];
+
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                     var reqDate = dateFilter($scope.formData.actualDisbursementDate, scope.df);
@@ -159,9 +216,31 @@
                             }
                         }
                     }
-                    resourceFactory.LoanAccountResource.save({loanId: $scope.loanId, command: 'disburse'}, this.formData, function (data) {
-                        $modalInstance.dismiss('cancel');
+                    var relativeUrl = "loans/" + $scope.loanId + "?command=disburse"
+                    var requestSequence = 1;
+                    $scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeUrl,
+                            method: "POST", body: JSON.stringify(this.formData)});
+
+
+                   //tracking request body formation 
+                    $scope.taskTrackingFormData = {};
+                    $scope.taskTrackingFormData.taskInfoTrackArray = [];
+                    $scope.taskTrackingFormData.taskInfoTrackArray = $scope.taskInfoTrackArray.slice();
+                    var relativeTrackUrl = "tasktracking/clientlevel";
+                    requestSequence = requestSequence + 1;
+                    $scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeTrackUrl,
+                                method: "POST", body: JSON.stringify($scope.taskTrackingFormData)});
+
+                    //batch call
+                    resourceFactory.batchResource.post({'enclosingTransaction':true},$scope.batchRequests, function (data) {
+                        $modalInstance.close();
+                        initTask();
                     });
+
+
+                    /*resourceFactory.LoanAccountResource.save({loanId: $scope.loanId, command: 'disburse'}, this.formData, function (data) {
+                        $modalInstance.dismiss('cancel');
+                    });*/
                 }  
 
             }
