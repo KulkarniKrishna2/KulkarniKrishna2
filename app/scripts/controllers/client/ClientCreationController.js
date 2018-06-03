@@ -57,7 +57,7 @@
                 scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled &&  data.isWorkflowEnableForBranch);
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
                 }

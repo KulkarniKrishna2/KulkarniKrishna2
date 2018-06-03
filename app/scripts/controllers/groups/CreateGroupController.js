@@ -24,7 +24,7 @@
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 if(routeParams.officeId) {
                     scope.formData.officeId = routeParams.officeId;
                     for(var i in data.officeOptions) {

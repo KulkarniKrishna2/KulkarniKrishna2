@@ -1482,6 +1482,9 @@
                         update: { method: 'PUT' },
                         updateStatus: {method: 'PUT', params: {command: 'updatestatus'}},
                         post:{ method: 'POST' }
+                    }),
+                    initiateGroupWorkflowResource: defineResource(apiVer + "/groups/:groupId", {groupId: '@groupId'}, {
+                        save:{method:'POST', params:{}}
                     })
                 };
             }];

@@ -161,7 +161,7 @@
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.formData.legalFormId = scope.clientLegalFormOptions[0].id;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 scope.maritalStatusOptions = data.maritalStatusOptions;
 
                 if(scope.genderOptions[0]) {
