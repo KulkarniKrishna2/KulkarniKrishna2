@@ -158,6 +158,7 @@
                 $scope.submitted = false;
                 $scope.isStaffMandatory = false;
                 $scope.isStaffRequired = false;
+                $scope.restrictDate = new Date();
 
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -213,20 +214,20 @@
                     }
                 } else {
                     $scope.minAge = 0;
-                    $scope.maxAge = scope.restrictDate;
+                    $scope.maxAge = 100;
 
                 }
                 $scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
                 $scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
                 function getMaximumRestrictedDate(restrictedDate) {
 
-                    restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
+                    restrictedDate.setYear(restrictedDate.getFullYear() - $scope.minAge);
                     return restrictedDate;
                 };
 
                 function getMinimumRestrictedDate(restrictedDate) {
 
-                    restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
+                    restrictedDate.setYear(restrictedDate.getFullYear() - $scope.maxAge);
                     return restrictedDate;
                 };
 

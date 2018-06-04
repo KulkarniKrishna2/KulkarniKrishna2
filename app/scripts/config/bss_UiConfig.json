@@ -11,6 +11,13 @@
 	"createClient": {
 	  "isHiddenField": {
 		"activate": true
+	  },
+	  "isValidateDOBField": {
+		"active": true,
+		"ageCriteria": {
+		  "minAge": "18",
+		  "maxAge": "58"
+		}
 	  }
 	},
 	"createCenter": {
