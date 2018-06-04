@@ -7128,5 +7128,6 @@
     "label.button.viewhistory" : "View History",
     "label.heading.viewhistory" : "View History",
     "validation.msg.CIBIL_COMBO.Address.cannot.be.blank" : "Address cann't be blank.",
+    "error.msg.report.not.found" : "Report not found",
      "------ end of tensalation file":"---------"
 }

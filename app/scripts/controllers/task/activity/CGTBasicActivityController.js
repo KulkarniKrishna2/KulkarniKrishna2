@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        CGTBasicActivityController: function($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, route, $http, $rootScope,CommonUtilService, $route, $upload, API_VERSION, dateFilter) {
+        CGTBasicActivityController: function($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, route, $http, $rootScope,commonUtilService, $route, $upload, API_VERSION, dateFilter) {
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
@@ -9,6 +9,7 @@
             scope.first = {};
             scope.first.date = new Date();
             scope.formData = {};
+            scope.entityType = "loans";
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
@@ -68,16 +69,26 @@
             };
             initTask();
 
-            scope.generateDocument = function(document) {
-                resourceFactory.documentsGenerateResource.generate({
+            scope.generateDocument = function(activeClientMember) {
+                resourceFactory.reportGenerateResource.generate({
                     entityType: scope.entityType,
-                    entityId: scope.entityId,
-                    identifier: document.reportIdentifier
+                    entityId: activeClientMember.loanAccountBasicData.loanProductId
                 }, function(data) {
-                    document.id = data.resourceId;
+                    activeClientMember.document = {};
+                    activeClientMember.document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                    document.docUrl = loandocs;
+                    loandocs = API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.loanProductId + '/documents/' +  activeClientMember.document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                    activeClientMember.document.docUrl = loandocs;
+                })
+            };
+
+            scope.reGenerateDocument = function (activeClientMember){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType: scope.entityType, entityId: activeClientMember.loanAccountBasicData.loanProductId, identifier: activeClientMember.document.id }, function(data){
+                    activeClientMember.document = {};
+                    activeClientMember.document.id = data.resourceId;
+                    var loandocs = {};
+                    loandocs = API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.loanProductId + '/documents/' + activeClientMember.document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                    activeClientMember.document.docUrl = loandocs;
                 })
             };
 

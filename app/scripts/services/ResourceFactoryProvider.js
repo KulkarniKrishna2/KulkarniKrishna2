@@ -1520,6 +1520,9 @@
                     historyResource: defineResource(apiVer + "/:entityType/:entityId/history", {entityType:'@entityType',entityId:'@entityId'}, {
                         get: {method: 'GET', params: {},isArray: true}
 
+                    }),
+                    reportGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generatereport", {entityType: '@entityType', entityId: '@entityId'}, {
+                        generate: {method: 'POST', params: {command:"generate"}}
                     })
                 };
             }];
