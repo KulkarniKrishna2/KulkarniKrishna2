@@ -272,6 +272,7 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.savingproducts = data.savingProductOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 if(scope.isPopulateClientAddressFromVillages ) {
                     resourceFactory.villageResource.getAllVillages({officeId: officeId, limit: 1000}, function (data) {
