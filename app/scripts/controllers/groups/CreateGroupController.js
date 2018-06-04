@@ -99,6 +99,7 @@
                 resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
                 }, function (data) {
                     scope.staffs = data.staffOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
                     scope.clients = data.clientOptions;

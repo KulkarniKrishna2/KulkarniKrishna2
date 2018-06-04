@@ -45,6 +45,7 @@
                 resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true, villageStatus:'active'}, function (data) {
                     scope.villages = data.villageOptions;
