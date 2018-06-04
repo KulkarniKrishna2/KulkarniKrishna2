@@ -324,7 +324,7 @@
 
             scope.initiateWorkflow = function(){
                 resourceFactory.initiateGroupWorkflowResource.save({groupId: routeParams.id, command: 'initiateworkflow'}, this.formData, function (data) {
-                    location.path("/grouponboarding/" + data.groupId +"/workflow");
+                    location.path("/grouponboarding/" + routeParams.id +"/workflow");
                 });
             }
         }
