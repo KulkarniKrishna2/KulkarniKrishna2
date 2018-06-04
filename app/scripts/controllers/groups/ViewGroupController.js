@@ -321,6 +321,12 @@
             scope.isGlimOverpaidOption = function(loanaccount){
                 return (loanaccount.status.value =='Overpaid' && loanaccount.loanType.value == 'GLIM');
             };
+
+            scope.initiateWorkflow = function(){
+                resourceFactory.initiateGroupWorkflowResource.save({groupId: routeParams.id, command: 'initiateworkflow'}, this.formData, function (data) {
+                    location.path("/grouponboarding/" + data.groupId +"/workflow");
+                });
+            }
         }
     });
     mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {

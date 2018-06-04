@@ -21,7 +21,7 @@
                 scope.staffs = data.staffOptions;
                 scope.groups = data.groupMembersOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
 
                 if(scope.response != undefined && scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.active){
                     scope.choice = 1;
