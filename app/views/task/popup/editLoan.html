@@ -46,6 +46,15 @@
 						</div>
 						<br></br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
+							<div>
+								<label class="control-label col-sm-2">
+									{{ 'label.heading.chooseloanemipack' | translate }}:
+								</label>
+								<div class="col-sm-3">
+									<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
+								</div>
+							</div>
+							<br>
 							<div class="col-sm-12">
 								<table class="table">
 									<thead>
