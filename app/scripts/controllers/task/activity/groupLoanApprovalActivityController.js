@@ -11,7 +11,8 @@
             scope.formRequestData = {};
             scope.existingCharges = [];
             var currentIndex = 0;
-            scope.taskStatus = scope.taskconfig.status.value;   
+            scope.taskStatus = scope.taskconfig.status.value;  
+            scope.chargeFormData = {}; 
 
             function populateDetails() {
                 if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
