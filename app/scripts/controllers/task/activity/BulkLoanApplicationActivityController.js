@@ -699,7 +699,7 @@
                         });
 
                     $scope.updateChargeForSlab = function(data){
-                        if(data.isSlabBased){               
+                        if(data.isSlabBased || data.chargeCalculationType.value == $scope.slabBasedCharge){               
                                 for(var j in data.slabs){
                                     var slabBasedValue = $scope.getSlabBasedAmount(data.slabs[j],$scope.editLoanAccountdata.principal,$scope.editLoanAccountdata.numberOfRepayments);
                                     if(slabBasedValue != null){
@@ -728,7 +728,7 @@
                     }
                 } 
                 $scope.isChargeAmountNonEditable = function (charge) {
-                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
+                    if ((charge.chargeCalculationType.value == $scope.slabBasedCharge) || charge.isAmountNonEditable || charge.isSlabBased) {
                         return true;
                     }
                     return false;
@@ -756,7 +756,7 @@
                                             charge.chargeId = charge.id;
                                             charge.isMandatory = $scope.productLoanCharges[i].isMandatory;
                                             charge.isAmountNonEditable = $scope.productLoanCharges[i].isAmountNonEditable;
-                                            if (charge.chargeCalculationType.value == $scope.slabBasedCharge && charge.slabs.length > 0) {
+                                            if ((charge.chargeCalculationType.value == $scope.slabBasedCharge || charge.isSlabBased) && charge.slabs.length > 0) {
                                                 for (var i in charge.slabs) {
                                                     var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs[i], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
                                                     if (slabBasedValue != null) {
