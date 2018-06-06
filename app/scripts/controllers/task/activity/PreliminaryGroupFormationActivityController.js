@@ -655,7 +655,7 @@
                             if (response != null) {
                                 $scope.addressData = response;
                             }
-
+                        scope.reComputeProfileRating($scope.clientId);
                         });
                     });
                 };
@@ -1213,8 +1213,8 @@
             }
 
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
-                    scope.$watch('date.second ', function(){
-                        if($scope.date.second != '' && $scope.date.second != undefined){
+                    scope.$watch('date.second ', function() {
+                        if($scope.date.second != undefined && $scope.date.second != ''){
                             $scope.date.third = $scope.date.second;
                         }
                     });

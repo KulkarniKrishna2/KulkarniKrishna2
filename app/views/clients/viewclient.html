@@ -413,6 +413,11 @@
 					                <td><span class="padded-td">{{client.mobileNo}}</span>
 					                </td>
 					            </tr>
+					            <tr data-ng-show="client.emailId">
+					                <th class="table-bold">{{ 'label.input.email' | translate }}</th>
+					                <td>{{client.emailId}}
+					                </td>
+					            </tr>
 					            <tr data-ng-show="client.gender.name">
 					                <th class="table-bold">{{ 'label.input.gender' | translate }}</th>
 					                <td><span class="padded-td">{{client.gender.name}}</span>
