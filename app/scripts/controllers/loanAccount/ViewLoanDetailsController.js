@@ -38,10 +38,13 @@
             scope.flatCharge = "Flat";
             scope.selectedCharges = [];
             scope.charges = {};
+            scope.hideNetDisbursedAmount = false;
+
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
+                scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
             }
 
             scope.draftedTransaction = 1;

@@ -90,7 +90,8 @@
 		"interestRateChat": false,
 		"charges": false,
 		"addCharges": false,
-		"prepayLoanButton" : true
+		"prepayLoanButton" : true,
+		"netDisbursedAmount" : false
 	  }
 	},
 	"clientAccount": {
