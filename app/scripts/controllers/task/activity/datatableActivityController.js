@@ -59,6 +59,7 @@
                                         row.key = data.columnHeaders[i].columnName;
                                     }
                                     row.columnDisplayType = data.columnHeaders[i].columnDisplayType;
+                                    row.formula = data.columnHeaders[i].formula;
                                     for(var j in data.columnData[0].row){
                                         if(data.columnHeaders[i].columnName == data.columnData[0].row[j].columnName){
                                            row.value = data.columnData[0].row[j].value;
@@ -100,6 +101,7 @@
                                                     row.key = data.sectionedColumnList[l].columns[i].columnName;
                                                 }
                                                 row.columnDisplayType = data.sectionedColumnList[l].columns[i].columnDisplayType;
+                                                row.formula = data.columnHeaders[i].formula;
                                                 for(var k in data.columnData[0].row){
                                                     if(data.sectionedColumnList[l].columns[i].columnName == data.columnData[0].row[k].columnName){
                                                         row.value = data.columnData[0].row[k].value;
@@ -200,8 +202,27 @@
                         }    
                         scope.sectionedColumnHeaders = data.sectionedColumnList;
                     }
+                    scope.evaluateFormulas();
 
                 });
+            };
+
+            scope.evaluateFormulas = function() {
+                for (var i in scope.columnHeaders) {
+                    if (scope.columnHeaders[i].formula) {
+                        var formulaString = scope.columnHeaders[i].formula;
+                        scope.formData[scope.columnHeaders[i].columnName] = "";
+                        for (var j in scope.columnHeaders) {
+                            if (formulaString.indexOf("{" + scope.columnHeaders[j].columnName + "}") > -1 && !_.isUndefined(scope.formData[scope.columnHeaders[j].columnName])) {
+                                scope.formData[scope.columnHeaders[j].columnName] = scope.formData[scope.columnHeaders[j].columnName];
+                                formulaString = formulaString.replace("{" + scope.columnHeaders[j].columnName + "}", scope.formData[scope.columnHeaders[j].columnName]);
+                                if (formulaString.indexOf('{') == -1) {
+                                    scope.formData[scope.columnHeaders[i].columnName] = eval(formulaString);
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             scope.changeVillage = function (id) {
@@ -240,10 +261,18 @@
                     } else if (type == 'BOOLEAN') {
                         fieldType = 'BOOLEAN';
                     } else {
-                        fieldType = 'TEXT';
+                        fieldType = type ;
                     }
                 }
                 return fieldType;
+            };
+            
+            scope.isNumericField = function(type) {
+                var isNumericField = false;
+                if (type == 'INTEGER' || type == 'DECIMAL') {
+                    isNumericField = true;
+                }
+                return isNumericField;
             };
 
             scope.dateTimeFormat = function () {
