@@ -8,6 +8,11 @@
 		"referenceNo": false
 	  	}
 	},
+	"viewLoanAccountDetails": {
+	  "isHiddenFeild": {
+		"netDisbursedAmount" : true
+	  }
+	},
 	"createClient": {
 	  "isHiddenField": {
 		"activate": true
