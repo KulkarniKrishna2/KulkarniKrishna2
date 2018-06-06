@@ -881,15 +881,23 @@
                     $scope.showLoanAccountForm = false;
                 }
 
+                $scope.getLoanData = function(loanId){
+                    resourceFactory.loanResource.get({loanId: loanId, template: true, associations: 'charges,meeting',staffInSelectedOfficeOnly:true}, function (data) {
+                        $scope.loanaccountinfo = data;
+                        $scope.charges = data.charges;
+                    });
+                }
+                  
+
                 $scope.constructFormData = function (data) {
                     $scope.editLoanAccountdata.productId = data.loanProductId;
-                    $scope.loanProductChange($scope.editLoanAccountdata.productId);
                     $scope.editLoanAccountdata.loanPurposeId = data.loanPurposeId;
                     if(data.loanEMIPackData){
                         $scope.editLoanAccountdata.loanEMIPackId = data.loanEMIPackData.id;
                         $scope.editLoanAccountdata.principal = data.loanEMIPackData.sanctionAmount;
                         $scope.editLoanAccountdata.numberOfRepayments = data.loanEMIPackData.numberOfRepayments;
                     }
+                    $scope.getLoanData(data.id);
                  }
 
                  $scope.updateSlabBasedChargeForEmiPack = function(loanEMIPackData){
