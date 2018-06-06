@@ -68,6 +68,13 @@
 								<i class="icon-eye-open text-success"></i>
 							</a>
 						</td>
+						<td class="col-md-1">
+							<a target="_blank" title="View CreditBureau Criteria Result" 
+							ng-if="activeClientMember.clientLevelCriteriaResultData" 
+							data-ng-click="openViewCBCriteriaResult(activeClientMember.clientLevelCriteriaResultData.ruleResult)">
+								<i class="icon-question-sign"></i>
+							</a>
+						</td>
 						<td class="col-md-1"><input class="pull-left" type="checkbox"
                             ng-disabled = "activeClientMember.isClientFinishedThisTask"
                         ng-model="client.checked" ng-change="
