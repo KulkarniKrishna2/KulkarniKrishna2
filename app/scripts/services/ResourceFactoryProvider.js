@@ -420,6 +420,7 @@
                         reverse: {method: 'POST', params: {command: 'reverse'}},
                         search: {method: 'GET', params: {}}
                     }),
+                    frequentPostingResource: defineResource(apiVer+ "/frequentpostings",{},{}),
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {accId: "@accId"}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getView: {method: 'GET', params: {}}
