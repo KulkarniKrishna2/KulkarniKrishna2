@@ -320,7 +320,8 @@
         "expectedDisbursementDate": true,
         "firstRepaymentDate": true,
         "interestRatePerPeriod": true,
-        "tranchedata":true
+        "tranchedata":true,
+        "printReportButton": false
       },
       "isMandatoryField": {
         "expectedDisbursementDate": false,
