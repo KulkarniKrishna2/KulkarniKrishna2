@@ -10,7 +10,11 @@
                     var colName = data.columnHeaderData[i].columnName;
                     if(colName == 'id'){
                         data.columnHeaderData.splice(i, 1);
-                        colName = data.columnHeaderData[i].columnName;
+                        if(data.columnHeaderData.length > i) {
+                            colName = data.columnHeaderData[i].columnName;
+                        }else{
+                            colName = data.columnHeaderData[data.columnHeaderData.length-1].columnName;
+                        }
                     }
                     
                     if(idList.indexOf(colName) >= 0 ){

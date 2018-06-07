@@ -74,9 +74,10 @@
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
 
+                scope.rowstosplice = [];
                 for (var i in data.columnHeaders) {
                     if (data.columnHeaders[i].visible != undefined && !data.columnHeaders[i].visible) {
-                        data.columnHeaders.splice(data.columnHeaders.indexOf(i), 1);
+                        scope.rowstosplice.push(i);
                     } else {
                         if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
                             scope.formDat[data.columnHeaders[i].columnName] = {};
@@ -90,6 +91,9 @@
 
                         }
                     }
+                }
+                for(var i in scope.rowstosplice){
+                    data.columnHeaders.splice(data.columnHeaders.indexOf(scope.rowstosplice[i]), 1);
                 }
                 if(scope.newcolumnHeaders != ""){
                     scope.columnHeaders = scope.newcolumnHeaders;
