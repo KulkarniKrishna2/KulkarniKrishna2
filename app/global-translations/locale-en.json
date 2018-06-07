@@ -87,6 +87,7 @@
     "label.heading.date": "Date",
     "label.heading.transactiontype": "Transaction Type",
     "label.heading.due": "Due",
+    "label.heading.duetax": "Due (Tax)",
     "label.heading.paid": "Paid",
     "label.heading.waived": "Waived",
     "label.heading.outstanding": "Outstanding",
@@ -3206,6 +3207,7 @@
     "label.heading.mandatoryifvisible": "Mandatory If Visible",
     "label.heading.nodalidentifier": "Nodal Identifier",
     "label.heading.nodalAccountType": "Nodal Account Type",
+    "label.heading.chargetaxdetails": "Charge Tax Details",
 
     "#Anchors": "..",
     "label.anchor.templates": "Templates",
@@ -6390,6 +6392,7 @@
     "label.heading.cheque.amount" : "Cheque Amount",
     "label.input.increment.cheque.no" : "Increment Cheque No",
     "label.heading.due.date": "Due Date",
+    "label.heading.totalchargeamount": "Total Charge Amount",
     "validation.msg.pdc.chequeNumbers.and.chequeDates.both.size.not.equal" : "No of PDC is exceeding the no of repayments",
     "lable.anchor.pdc" : "PDC",
     "lable.anchor.pdc.detailed.view" : "PDC Detailed View",
