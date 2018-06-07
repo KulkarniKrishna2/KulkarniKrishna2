@@ -825,6 +825,29 @@
                 })
 
             }
+
+            //CB critieria result view
+            scope.openViewCBCriteriaResult = function(criteriaResult){
+                    var templateUrl = 'views/task/popup/clientcbcriteriaresult.html';
+                    $modal.open({
+                        templateUrl: templateUrl,
+                        controller: viewClientCBCriteriaResultCtrl,
+                        windowClass: 'modalwidth700',
+                        resolve: {
+                            memberParams: function () {
+                                return { 'criteriaResult': criteriaResult };
+                            }
+                        }
+                    });
+            }
+
+            var viewClientCBCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.cbCriteriaResult = JSON.parse(memberParams.criteriaResult);
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+            }
         }
     });
     mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {

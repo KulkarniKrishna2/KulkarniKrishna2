@@ -19,11 +19,13 @@
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
+					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="12">
+						<td colspan="14">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
@@ -63,8 +65,15 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a target="_blank" ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && 
-						  activeClientMember.clientLevelCriteriaResultData.score < 5" data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
+							<a target="_blank" title="View CreditBureau Criteria Result" 
+							ng-if="activeClientMember.clientLevelCriteriaResultData" 
+							data-ng-click="openViewCBCriteriaResult(activeClientMember.clientLevelCriteriaResultData.ruleResult)">
+								<i class="icon-question-sign"></i>
+							</a>
+						</td>
+						<td class="col-md-1">
+							<a target="_blank" 
+							ng-if="activeClientMember.clientLevelCriteriaResultData" data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
                                    activeClientMember.loanAccountBasicData.id,
                                    activeClientMember.loanAccountBasicData.loanProposalReviewData.id)" class="btn btn-danger">{{'label.button.review' | translate}}
 							</a>
