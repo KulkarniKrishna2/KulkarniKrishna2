@@ -1,0 +1,67 @@
+<div>
+    <div class="modal-header silver">
+        <h3 class="bolder">
+            {{'label.heading.managemembers' | translate}}
+            <i class="icon-remove pointer pull-right" ng-click="close()"></i>
+        </h3>
+    </div>
+    <div class="modal-body well">
+        <div class="margin-plus-10px">
+                <api-validate></api-validate>
+                <form name="managemembers" class="form-horizontal well">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <legend>{{'label.heading.associatenewmembers' | translate}}</legend>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
+                                    <div class="col-sm-4 col-md-4">
+                                        <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                                               typeahead-min-length="3"
+                                               typeahead-editable="false"
+                                               typeahead="client as client.displayName for client in clientOptions($viewValue)"
+                                               typeahead-on-select="viewClient(available)"/>
+                                    </div>
+                                    <div class="col-sm-1 col-md-1">
+                                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                            {{ 'label.button.add' | translate }} 
+                                            <i class="icon-double-angle-right"></i></button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div data-ng-show="available" class="col-md-6 col-md-offset-1">
+                                        <p>{{'label.heading.groupdetails' | translate}}</p>
+                                        <table class="table">
+                                            <tr>
+                                                <td>{{'label.heading.name' | translate}}</td>
+                                                <td>{{client.displayName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ 'label.heading.id' | translate }}</td>
+                                                <td valign="top">{{client.id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ 'label.heading.office' | translate }}</td>
+                                                <td>{{client.officeName}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <legend>{{'label.heading.groupmembers' | translate}}</legend>
+                                <div class="form-group" ng-repeat="members in allMembers">
+                                    <div class="col-sm-6 col-md-6">
+                                        <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})"
+                                               type="text"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+               </form> 
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
+        PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, $q) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
@@ -1419,9 +1419,81 @@
 
             }
 
+            scope.manageMembersInGroup = function (groupId, officeId) {
+                $modal.open({
+                    templateUrl: 'views/task/popup/managemembers.html',
+                    controller: manageMembersCtrl,
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
+                    size: 'lg',
+                    resolve: {
+                        manageMembersParamInfo: function () {
+                            return { 'groupId': groupId, 'officeId':officeId};
+                        }
+                    }
+                });
+            }
+
+            var manageMembersCtrl = function ($scope, $modalInstance, manageMembersParamInfo) {
+
+                 $scope.groupId = manageMembersParamInfo.groupId;
+                 $scope.officeId = manageMembersParamInfo.officeId;
+                 $scope.group = [];
+                 $scope.allMembers = []; 
+                 /*$scope.available = null;*/
+
+                 $scope.viewClient = function (item) {
+                    $scope.client = item;
+                    $scope.available = $scope.client;
+                };
+
+                $scope.clientOptions = function(value){
+                    var deferred = $q.defer();
+                    resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: value, orderBy : 'displayName', officeId : $scope.officeId,
+                    sortOrder : 'ASC', orphansOnly : true, groupId:$scope.groupId}, function (data) {
+                        deferred.resolve(data.pageItems);
+                    });
+                    return deferred.promise;
+                };
+
+                resourceFactory.groupResource.get({groupId: $scope.groupId, associations: 'clientMembers', template: 'true'}, function (data) {
+                    if(data.groupLevel!=undefined && data.groupLevel==1){
+                        $scope.center=data;
+                    }
+                    else{
+                        $scope.group = data;
+                    }
+                    if(data.clientMembers) {
+                        $scope.allMembers = data.clientMembers;
+                    }
+                });
+            
+                $scope.add = function () {
+                    if($scope.available != ""){
+                        $scope.associate = {};
+                        $scope.associate.clientMembers = [];
+                        $scope.associate.clientMembers[0] = $scope.available.id;
+                        resourceFactory.groupResource.save({groupId: $scope.groupId, command: 'associateClients'}, $scope.associate, function (data) {
+                            var temp = {};
+                            temp.id = $scope.available.id;
+                            temp.displayName = $scope.available.displayName;
+                            $scope.allMembers.push(temp);
+                            delete $scope.available;
+                            $modalInstance.dismiss('cancel');
+                            initTask();
+                        });
+                    }
+                };
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+
+            }
+
         }
     });
-    mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', '$q', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
         $log.info("PreliminaryGroupFormationActivityController initialized");
     });
 }(mifosX.controllers || {}));
