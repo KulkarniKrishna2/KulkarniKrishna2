@@ -541,19 +541,16 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="documentTypeId">{{'label.input.familymembertypeid' | translate}}
-											<span class="required">*</span>
 										</label>
 										<div class="col-sm-3">
 											<select id="documentTypeId" ng-model="familyMembersFormData.documentTypeId" name="documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
-											    value="{{documenttype.id}}" required="required" class="form-control">
+											 ng-change="documentTypeChange()" value="{{documenttype.id}}" class="form-control" >
+												<option value="">{{'label.menu.select' | translate}}</option>
 											</select>
-										</div>
-										<div class="col-sm-3">
-											<form-validate valattributeform="uploaddocumentform" valattribute="documentTypeId" />
 										</div>
 									</div>
 
-									<div class="form-group">
+									<div class="form-group" ng-if="familyMembersFormData.documentTypeId">
 										<label class="control-label col-sm-2" for="uniqueNo">{{ 'label.input.familymemberuniqueno' | translate }}
 											<span class="required">*</span>
 										</label>

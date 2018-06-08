@@ -135,8 +135,8 @@
                 $modal.open({
                     templateUrl : 'views/task/popup/loanproposalreview.html',
                     controller : reviewReasonCtrl,
-                    windowClass: 'app-modal-window',
-                    size: 'lg',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     resolve: {
                         reviewParameterInfo: function () {
                             return { 'clientId': clientId, 'loanId': loanId, 'reviewId' : reviewId };
@@ -161,6 +161,7 @@
                 $scope.showAttachmentOption = false;
                 $scope.clientLoanAccounts = [];
                 $scope.preClosureTempFormData = [];
+                $scope.preClosureFormData = [];
                 $scope.isAccChecked = false;
 
                 resourceFactory.loanProposalReviewTemplateResource.get({loanId: $scope.loanId}, function (data) {
@@ -208,15 +209,19 @@
                     }
                 }
 
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+
                 $scope.detectPreclosureAccount = function(loanAccount,isAccChecked,idx){
                     if(isAccChecked){
                         $scope.preClosureTempFormData.push(
                             {'preclosureLoanId' : loanAccount.id, 
                              'preclosureAmount' : loanAccount.loanBalance,
                              'locale' : scope.optlang.code,
-                             'dateFormat' : scope.df});
+                             'dateFormat' : scope.df,});
                     }else{
-                        $scope.preClosureTempFormData.splice(idx,1);
+                        $scope.preClosureTempFormData[idx] = undefined;
                     }
 
                 }
@@ -229,7 +234,6 @@
                     $scope.errorDetails = [];
                     $scope.reviewFormData.locale = scope.optlang.code;
                     $scope.reviewFormData.clientId = $scope.clientId;
-
                     if($scope.isOutstandingReason){
                         if($scope.file == undefined){
                             return $scope.errorDetails.push([{code: 'error.msg.file.mandatory'}]);
@@ -251,10 +255,19 @@
                     if($scope.isPrepayAtBSSReason){
                         if($scope.preClosureTempFormData == undefined || $scope.preClosureTempFormData.length == 0){
                             return $scope.errorDetails.push([{code: 'error.msg.select.prepay.account'}]);
-                        }else{
-                            delete $scope.errorDetails;
                         }
-
+                        for (var i in $scope.preClosureTempFormData) {
+                            if ($scope.preClosureTempFormData[i].preclosureDate) {
+                                var reqDate = dateFilter($scope.preClosureTempFormData[i].preclosureDate, scope.df);
+                                $scope.preClosureTempFormData[i].preclosureDate = reqDate;
+                                $scope.errorDetails = [];
+                            } else {
+                                return $scope.errorDetails.push([{
+                                    code: 'error.msg.preclosure.date.required'
+                                }]);
+                            }
+                        }
+                      
                         $scope.reviewFormData.preclosures = [];
                         $scope.reviewFormData.preclosures = $scope.preClosureTempFormData.slice();
                     }

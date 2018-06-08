@@ -1,28 +1,51 @@
-<div class="col-md-12" style="background-color: white">
-	
-	<legend>{{'label.heading.history.review' | translate}}</legend>
-		<table class="table table-bordered">
-			<thead>
-				<th>{{'label.heading.action' | translate}}</th>
-				<th>{{'label.heading.user' | translate}}</th>
-				<th>{{'label.heading.loan.amount' | translate}}</th>
-				<th>{{'label.heading.review.reason' | translate}}</th>
-				<th>{{'label.headin.timestamp'| translate}}</th>
-			</thead>>
-			<tbody>
-			    <tr ng-repeat = "history in reviewHistory">
-					<td>{{history.action}}</td>
-					<td>{{history.reviewerName}}</td>
-					<td>{{history.recommendedAmount}}</td>
-					<td>{{history.reviewReson}}</td>
-					<td>{{history.reviewDoneOn | DateFormat}}<</td>
-			    </tr>
-			</tbody>
-		</table>
-		<br>
-	    <div class="col-md-offset-5">
-			<a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
-			</a>
+<div>
+	<div class="modal-header silver">
+		<h3 class="bolder">
+			{{'label.heading.history.review' | translate}}
+			<i class="icon-remove pointer pull-right" ng-click="close()"></i>
+		</h3>
+	</div>
+	<div class="modal-body well">
+		<div class="margin-plus-10px">
+			<table class="table table-bordered">
+				<thead>
+					<th>{{'label.heading.action' | translate}}</th>
+					<th>{{'label.heading.user' | translate}}</th>
+					<th>{{'label.heading.loan.amount' | translate}}</th>
+					<th>{{'label.heading.review.reason' | translate}}</th>
+					<th>{{'label.heading.review.reason.notes' | translate}}</th>
+					<th>{{'label.heading.review.loanid.closure.date' | translate}}</th>
+					<th>{{'label.heading.actions' | translate}}</th>
+					<th>{{'label.heading.timestamp'| translate}}</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="history in reviewHistory">
+						<td>{{history.action}}</td>
+						<td>{{history.reviewerName}}</td>
+						<td>{{history.recommendedAmount}}</td>
+						<td>{{history.reviewReson}}</td>
+						<td>{{history.reviewReasonNotes}}</td>
+						<td><span>{{history.loanId}} &nbsp; &nbsp; </span><span>{{history.preclosureDate | DateFormat}}</span></td>
+						<td>
+							<span ng-if="history.documentId">
+								{{history.fileName}}&nbsp;&nbsp;
+								<a target="_blank" data-ng-click="openViewDocument(history.id,history.documentId)" has-permission='READ_DOCUMENT'>
+									<i class="icon-eye-open text-success"></i>
+								</a>
+								<a target="_blank" ng-click="download(history.id,history.documentId)" has-permission='READ_DOCUMENT'>
+									<i class="icon-cloud-download"></i>
+								</a>
+							</span>
+							<span ng-if="history.">
+
+							</span>
+						</td>
+						<td>{{history.reviewDoneOn | DateFormat}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
 		</div>
 		<br>
+	</div>
 </div>

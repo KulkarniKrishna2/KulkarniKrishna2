@@ -830,6 +830,12 @@
                 $scope.submitFamilyMembers = function () {
                     $scope.familyMembersFormData.dateFormat = scope.df;
                     $scope.familyMembersFormData.locale = scope.optlang.code;
+                    if (!$scope.familyMembersFormData.documentTypeId) {
+                        if ($scope.familyMembersFormData.documentKey != undefined) {
+                            delete $scope.familyMembersFormData.documentKey;
+                            delete $scope.familyMembersFormData.documentTypeId;
+                        }
+                    }
                     resourceFactory.familyDetails.save({ clientId: $scope.clientId }, $scope.familyMembersFormData, function (data) {
                         $scope.shownFamilyMembersForm = false;
                         $scope.familyDetailsLoaded = false;
