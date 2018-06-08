@@ -22,7 +22,7 @@
 						<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
-					<tr>
+					<tr ng-show = "groupMember.active">
 						<td colspan="6" class="col-md-10">
 							<span>{{groupMember.fcsmNumber}}&nbsp;&nbsp;
 								<a class="icon-user icon-large" ng-click="createMemberInGroup(groupMember.id, groupMember.officeId)" tooltip="{{'label.heading.create.member' | translate}}">
