@@ -94,6 +94,7 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.loans = scope.loanIds;
                 this.formData.expectedDisbursementDate = expectedDisbursementDate;
+                this.formData.updateGrt = true;
                 var relativeUrl = "loans/updatedisbursementdate";
                 var requestSequence = 1;
                 scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeUrl,
