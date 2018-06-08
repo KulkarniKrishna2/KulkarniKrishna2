@@ -7111,7 +7111,7 @@
     "label.headin.timestamp" : "TimeStamp",
     "label.heading.history.review" : "Review",
     "label.heading.review.reason" : "Reason",
-    "label.heading.expecteddisbursementdate" : "Expected Disbursement On:",
+    "label.heading.expecteddisbursementdate" : "Expected Disbursement On",
     "label.heading.meetingStartDate" : "Meeting Start Date",
     "label.heading.nextMeetigDate" : "Next Meeting Date",
     "label.input.centermeetinglocation":"Center Meeting Location",

@@ -1,22 +1,23 @@
 <div class="col-md-12" ng-controller="CenterMeetingActivityController">
-    <api-validate></api-validate>
     <form ng-submit="submit()" ng-if=!isCenterMeetingAttached>
         <div class="form-group">
             <div class="row">
                 <div class="col-md-3">
                     <label ng-show="!isCenterMeetingEdit" class="control-label offset2">
-                        {{'label.heading.attachmeeting' | translate}}
+                        <b>{{'label.heading.attachmeeting' | translate}}</b>
                     </label>
-                    <label ng-show="isCenterMeetingEdit">{{'label.heading.editmeeting' | translate}}
-                    </label>
+                    <label ng-show="isCenterMeetingEdit"><b>{{'label.heading.editmeeting' | translate}}
+                    </b></label>
                 </div>
-                <div class="col-md-5">
-                    <label><span> {{'label.heading.expecteddisbursementdate' | translate}}</span> &nbsp;&nbsp;
-                    <span> {{expecteddisbursementon | DateFormat}} </span> &nbsp;&nbsp;<span>{{disbursementDay}}</span></label>
+                <div class="form-group">
+                    <label class ="control-label col-sm-3 text-right"><b> {{'label.heading.expecteddisbursementdate' | translate}}</b> </label>
+                    <div class="col-sm-2">
+                   <input id="expectedDisbursementOnDate" type="text" name="expectedDisbursementOnDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.expectedDisbursementDate" is-open="opened" class="form-control"/></div>
                 </div>
             </div>
+            <br/>
             <div>
-                <table class="col-sm-8">
+                <table>
                     <tr>
                         <td class="col-sm-2 text-right">
                             <label class="control-label">{{'label.input.meetingstartdate' | translate}}
@@ -24,7 +25,7 @@
                             </label>
                         </td>
                         <td class="col-sm-2">
-                            <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minMeetingDate"
+                            <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"  min="minMeetingDate"
                                 max="maxMeetingDate" class="form-control" />
                         </td>
                         <td class="col-sm-2 text-right">
@@ -32,12 +33,10 @@
                                 <span class="required"></span>
                             </label>
                         </td>
-                        <td class="col-sm-3">
+                        <td class="col-sm-2">
                             <timepicker ng-model="tempFormData.meetingTime"></timepicker>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="col-sm-2 text-right">
+                         <td class="col-sm-2 text-right">
                             <label class="control-label">{{'label.input.centermeetinglocation' |translate}}</label>
                         </td>
                         <td class="col-sm-2">
@@ -54,16 +53,10 @@
                             <input type="checkbox" ng-model="formData.repeating" ng-bind="formData.repeating" ng-disabled="true">
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-sm-2 text-right">
-                            <span ng-show="formData.repeating">
-                                <label class="control-label offset2 paddedtop">
-                                    <h4 class="paddedleft paddedtop">{{'label.heading.repeatdetails' | translate}}</h4>
-                                </label>
-                            </span>
-                        </td>
-                    </tr>
                 </table>
+            </div>
+            <div ng-show="formData.repeating">
+                <label class="control-label offset2 paddedtop"><b class="paddedleft paddedtop">{{'label.heading.repeatdetails' | translate}}</b></label>
             </div>
             <table class="col-sm-8" ng-show="formData.repeating">
                 <tr>
@@ -150,8 +143,10 @@
                 </tr>
             </table>
         </div>
-        <div class="col-sm-8 center paddedbottom10">
+       
+        <div class="col-sm-12 center paddedbottom10">
             <div>
+             <br/>
                 <a id="cancel" ng-if="isCenterMeetingEdit" class="btn btn-default" href="" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>
                     {{'label.button.save' | translate}}

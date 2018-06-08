@@ -11,6 +11,8 @@
             scope.isCenterMeetingEdit = false;
             scope.showAsTextBox = true;
             scope.formData = {};
+            scope.first = {};
+            scope.disbursementDateFound = false;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -18,10 +20,14 @@
                 scope.centerMeetingData = data;
                 for (var i in scope.centerMeetingData.subGroupMembers) {
                     for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
-                        if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {
-                            scope.expecteddisbursementon = scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate;
+                        if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {               
+                            scope.formData.expectedDisbursementDate = new Date(dateFilter(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate, scope.df)); 
+                            scope.disbursementDateFound = true;
                             break;
                         }
+                    }
+                    if(scope.disbursementDateFound){
+                        break;
                     }
 
                 }
@@ -33,11 +39,11 @@
                         scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                     }
                 }
-                if (scope.expecteddisbursementon) {
+                if (scope.formData.expectedDisbursementDate != undefined) {
                     var twoWeeks = 1000 * 60 * 60 * 24 * 14;
-                    scope.minMeetingDate = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
-                    var date = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
-                    scope.maxMeetingDate = new Date(date.getTime()+twoWeeks);
+                    scope.minMeetingDate = scope.formData.expectedDisbursementDate;
+                    var date = new Date(dateFilter(scope.formData.expectedDisbursementDate,scope.df));
+                    scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+twoWeeks);
                 }
                 var weekday = new Array(7);
                 weekday[0] = "Sunday";
@@ -47,7 +53,7 @@
                 weekday[4] = "Thursday";
                 weekday[5] = "Friday";
                 weekday[6] = "Saturday";
-                var disbursedate = new Date(dateFilter(scope.expecteddisbursementon,scope.df));
+                var disbursedate = new Date(dateFilter(scope.formData.expectedDisbursementDate,scope.df));
                 scope.disbursementDay = weekday[disbursedate.getDay()];
             });
             resourceFactory.attachMeetingResource.get({
@@ -88,6 +94,7 @@
                 scope.tempFormData.meetingTime = new Date();
                 scope.locationOptions = data.meetingLocations;
             });
+
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
@@ -138,6 +145,15 @@
                 }
             }
 
+            scope.$watch('formData.expectedDisbursementDate', function() {
+                if (scope.formData.expectedDisbursementDate) {
+                    var twoWeeks = 1000 * 60 * 60 * 24 * 14;
+                    scope.minMeetingDate = scope.formData.expectedDisbursementDate;
+                    scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+twoWeeks);
+                    scope.first.date = scope.minMeetingDate;
+                }
+            });
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
@@ -149,6 +165,9 @@
                 this.formData.meetingtime = dateFilter(new Date(scope.tempFormData.meetingTime), 'HH:mm');
                 this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                
+                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
+                  
                 if (scope.isCenterMeetingEdit) {
                     this.formData.title = scope.calendarData.title;
                     this.formData.repeating = true;
@@ -244,7 +263,8 @@
                     frequency: scope.calendarData.frequency.id,
                     interval: Math.abs(scope.calendarData.interval),
                     location: scope.calendarData.location,
-                    locationId: scope.calendarData.locationId
+                    locationId: scope.calendarData.locationId,
+                    expectedDisbursementDate: scope.formData.expectedDisbursementDate
                 }
                 if (data.meetingTime == undefined) {
                     scope.tempFormData.meetingTime = new Date();
