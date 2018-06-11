@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreditApprovalActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
+        CreditApprovalActivityController: function ($q, $controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             function initTask() {
@@ -81,8 +81,8 @@
                   $modal.open({
                     templateUrl : 'views/task/popup/loanproposalhistoryreview.html',
                     controller : reviewHistoryCtrl,
-                    windowClass: 'app-modal-window',
-                    size: 'lg',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     resolve: {
                         historyParameterInfo: function () {
                             return {'loanId': loanId };
@@ -90,29 +90,60 @@
                     }
                 })
             }
+            
+             var reviewHistoryCtrl = function ($scope, $modalInstance, historyParameterInfo) {
 
-             var reviewHistoryCtrl = function($scope, $modalInstance, historyParameterInfo){
 
+                 $scope.loanId = historyParameterInfo.loanId;
+                 $scope.reviewHistory = []
 
-                $scope.loanId = historyParameterInfo.loanId;
-                $scope.reviewHistory = []
+                 resourceFactory.loanProposalReviewHistoryResource.getAll({
+                     loanId: $scope.loanId
+                 }, function (data) {
+                     $scope.reviewHistory = data.slice();
+                 });
 
-                resourceFactory.loanProposalReviewHistoryResource.getAll({loanId: $scope.loanId}, function (data) {
-                   $scope.reviewHistory = data.slice();
-                });
+                 $scope.close = function () {
+                     $modalInstance.dismiss('close');
+                 };
 
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-            }
+                 //view review reason document
+
+                 $scope.openViewDocument = function (historyId, documentId) {
+                    scope.reportEntityType = "loan_proposal_review";
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
+                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                    url = $sce.trustAsResourceUrl(url);
+                    $http.get(url, { responseType: 'arraybuffer' }).
+                    success(function(data, status, headers, config) {
+                        var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain',];
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], { type: contentType });
+                        var fileContent = URL.createObjectURL(file);
+                        if (supportedContentTypes.indexOf(contentType) > -1) {
+                            var docData = $sce.trustAsResourceUrl(fileContent);
+                            window.open(docData);
+                        }
+                    });
+                 };
+
+                 //downloan the reason document
+                 $scope.download = function (historyId, documentId) {
+                    scope.reportEntityType = "loan_proposal_review";
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
+                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                     window.open(url);
+                 }
+
+             }
 
             //Credit Bureau Review
             scope.captureReviewReason = function(clientId, loanId, reviewId){
                 $modal.open({
                     templateUrl : 'views/task/popup/loanproposalreview.html',
                     controller : reviewReasonCtrl,
-                    windowClass: 'app-modal-window',
-                    size: 'lg',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
                     resolve: {
                         reviewParameterInfo: function () {
                             return { 'clientId': clientId, 'loanId': loanId, 'reviewId' : reviewId };
@@ -190,9 +221,9 @@
                             {'preclosureLoanId' : loanAccount.id, 
                              'preclosureAmount' : loanAccount.loanBalance,
                              'locale' : scope.optlang.code,
-                             'dateFormat' : scope.df});
+                             'dateFormat' : scope.df,});
                     }else{
-                        $scope.preClosureTempFormData.splice(idx,1);
+                        $scope.preClosureTempFormData[idx] = undefined;
                     }
 
                 }
@@ -227,10 +258,18 @@
                     if($scope.isPrepayAtBSSReason){
                         if($scope.preClosureTempFormData == undefined || $scope.preClosureTempFormData.length == 0){
                             return $scope.errorDetails.push([{code: 'error.msg.select.prepay.account'}]);
-                        }else{
-                            delete $scope.errorDetails;
                         }
-
+                        for (var i in $scope.preClosureTempFormData) {
+                            if ($scope.preClosureTempFormData[i].preclosureDate) {
+                                  var reqDate = dateFilter($scope.preClosureTempFormData[i].preclosureDate, scope.df);
+                                  $scope.preClosureTempFormData[i].preclosureDate = reqDate;
+                                  $scope.errorDetails = [];
+                                   } else {
+                                       return $scope.errorDetails.push([{
+                                           code: 'error.msg.preclosure.date.required'
+                                    }]);
+                                }
+                            }
                         $scope.reviewFormData.preclosures = [];
                         $scope.reviewFormData.preclosures = $scope.preClosureTempFormData.slice();
                     }
@@ -783,30 +822,40 @@
                     }
             }
 
-            scope.approveLoan = function(data){
-                for(var i in data){
-                    var approvalData = {};
-                    approvalData.locale = scope.optlang.code;
-                    approvalData.dateFormat = scope.df;
-                    approvalData.disbursementData = [];
-                    approvalData.expectedDisbursementDate = dateFilter(new Date(),scope.df);
-                    approvalData.approvedOnDate = dateFilter(new Date(),scope.df);
-                    approvalData.dateFormat = scope.df;
-                    
-                    var params = {command: "approve", loanId: data[i].loanId};
-
-                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: data[i].loanId, associations: 'multiDisburseDetails'}, function (loandata) {
-                            console.log(loandata);
-                            approvalData.loanEMIPackId = loandata.loanEMIPackData.id;
-                            approvalData.approvedLoanAmount = loandata.loanEMIPackData.sanctionAmount;
-                            resourceFactory.LoanAccountResource.save(params, approvalData, function (approveddata) {
-                            
-                          }); 
-                    });
-
-                        
+            scope.approveLoan = function (data) {
+                for (var i in data) {
+                    scope.approveLoanQueue(data[i]);
                 }
 
+            }
+
+            scope.approveLoanQueue = function (data) {
+                var deferred = $q.defer();
+                var approvalData = {};
+                approvalData.locale = scope.optlang.code;
+                approvalData.dateFormat = scope.df;
+                approvalData.disbursementData = [];
+                approvalData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
+                approvalData.approvedOnDate = dateFilter(new Date(), scope.df);
+                approvalData.dateFormat = scope.df;
+
+                resourceFactory.LoanAccountResource.getLoanAccountDetails({
+                    loanId: data.loanId,
+                    associations: 'multiDisburseDetails'
+                }, function (loandata) {
+                    console.log(loandata);
+                    approvalData.loanEMIPackId = loandata.loanEMIPackData.id;
+                    approvalData.approvedLoanAmount = loandata.loanEMIPackData.sanctionAmount;
+                    var params = {
+                        command: "approve",
+                        loanId: data.loanId
+                    };
+                    resourceFactory.LoanAccountResource.save(params, approvalData, function (approveddata) {
+                        console.log(approveddata);
+                        deferred.resolve(data);
+                    });
+                });
+                return deferred.promise;
             }
             
             scope.moveMembersToNextStep = function(){
@@ -851,7 +900,7 @@
             
         }
     });
-    mifosX.ng.application.controller('CreditApprovalActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditApprovalActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('CreditApprovalActivityController', ['$q', '$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditApprovalActivityController]).run(function ($log) {
         $log.info("CreditApprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));
