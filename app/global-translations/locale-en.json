@@ -7135,5 +7135,6 @@
     "error.msg.report.not.found" : "Report not found",
     "label.heading.cb.criteria.result" : "CB Check Criteria Result",
     "label.heading.percentage" : "%",
+    "label.button.edit.loan" : "Edit Loan",
      "------ end of tensalation file":"---------"
 }

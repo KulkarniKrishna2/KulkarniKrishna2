@@ -11,7 +11,7 @@
 		     <api-validate></api-validate>
 	    </div>
 		<div>
-			<table class="table table-striped">
+			<table class="table">
 				<thead>
 						<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 						<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -22,7 +22,7 @@
 						<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
-					<tr ng-show = "groupMember.active">
+					<tr ng-show = "groupMember.active" class="background-gold">
 						<td colspan="6" class="col-md-10">
 							<span>{{groupMember.fcsmNumber}}&nbsp;&nbsp;
 								<a class="icon-user icon-large btn btn-default btn-sm" ng-click="createMemberInGroup(groupMember.id, groupMember.officeId)" tooltip="{{'label.heading.create.member' | translate}}"> Add
@@ -34,7 +34,11 @@
 							</span>
 						</td>
 						<td class="col-mod-2">
-							<i class="icon-remove-circle pointer" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></i>
+							<a type="button" class="btn btn-danger btn-xs" 
+                                 ng-disabled = "{{taskData.possibleActions.length == 0}}"
+								ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}">
+									<i class="icon-remove-circle pointer"></i>
+							</a>
 						</td>
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" ng-class ="activeClientMember.color">
@@ -56,7 +60,9 @@
 							ng-disabled="activeClientMember.isClientFinishedThisTask"
 							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-1">
-							<i class="icon-remove-circle pointer" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask"></i>
+							<a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+								<i class="icon-remove-circle pointer"></i>
+							</a>
 						</td>
 					</tr>
 				</tbody>

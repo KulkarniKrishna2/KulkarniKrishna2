@@ -1729,11 +1729,14 @@ table.table.table-striped tr.backgroundred td{
     margin: 10px !important;
 }
 .background-red {
-    background-color: #ffdddd;
+    background-color: #ffe7dd;
 }
 .background-grey {
     background-color: #ddf4ff;
 }
 .background-none {
     background-color: none;
+}
+.background-gold{
+    background-color:#ffffe0;
 }
