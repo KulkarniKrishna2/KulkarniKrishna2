@@ -7,7 +7,7 @@
 			<api-validate></api-validate>
 		</div>
 		<div>
-			<table class="table table-striped">
+			<table class="table">
 				<thead>
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -23,13 +23,18 @@
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
-					<tr>
+					<tr class="background-gold">
 						<td colspan="11">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
-						<td class="icon-remove-circle col-mod-2" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"
-						class="btn btn-xs btn-primary ng-binding"></td>
+						<td class="col-md-1">
+								<a type="button" class="btn btn-danger btn-xs" 
+                                 ng-disabled = "{{taskData.possibleActions.length == 0}}"
+								 ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}">
+									<i class="icon-remove-circle pointer"></i>
+								</a>
+						</td>
 					</tr> 
 						<tr ng-repeat="activeClientMember in groupMember.memberData" 
 						 ng-class ="activeClientMember.color">
@@ -43,12 +48,21 @@
 							<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount | number}}</td>
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount | number}} &nbsp; &nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amount | number}}</td>
-							<td><i class="icon-edit icon-white pointer" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"></i></td>
+							<td class="col-md-1">
+								<a type="button" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" tooltip="{{'label.button.edit.loan' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+									<i class="icon-edit icon-white pointer"></i>
+								</a>
+						    </td>
 							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
                              ng-disabled="activeClientMember.isClientFinishedThisTask"
 							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 							<td class="col-md-1"> <i class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
 							class="btn btn-xs btn-primary ng-binding"></i></td>
+							<td class="col-md-1">
+								<a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+									<i class="icon-remove-circle pointer"></i>
+								</a>
+						    </td>
 						</tr>
 				</tbody>
 			</table>

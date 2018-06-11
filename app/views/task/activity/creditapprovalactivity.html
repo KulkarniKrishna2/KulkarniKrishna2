@@ -8,7 +8,7 @@
 			<api-validate></api-validate>
 		</div>
 		<div>
-			<table class="table table-striped">
+			<table class="table">
 				<thead>
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
@@ -22,16 +22,21 @@
 					<th class="col-md-1"> </th>
 					<th class="col-md-1"> </th>
 					<th class="col-md-1"> </th>
+					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
-					<tr>
-						<td colspan="12">
+					<tr  class="background-gold">
+						<td colspan="13">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
 						<td class="col-md-1">
-							<i class="icon-remove-circle pointer" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></i>
+							<a type="button" class="btn btn-danger btn-xs" 
+                                 ng-disabled = "{{taskData.possibleActions.length == 0}}"
+								ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}">
+									<i class="icon-remove-circle pointer"></i>
+							</a>
 						</td> 
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
@@ -51,15 +56,20 @@
 								{{'label.button.history' | translate}}</a>
 						</td>
 						<td class="col-md-1">
-							<a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)">
-								<i class="icon-edit icon-white"></i>
+							<a type="button" class="btn btn-default btn-xs" 
+							ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"
+							ng-disabled="activeClientMember.isClientFinishedThisTask"
+							title = "{{'label.button.edit.loan' | translate}}">
+									<i class="icon-edit icon-white pointer"></i>
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a target="_blank" ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && 
-						               activeClientMember.clientLevelCriteriaResultData.score < 5" data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
+							<a type="button" ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && 
+						               activeClientMember.clientLevelCriteriaResultData.score < 5" 
+                            ng-disabled="activeClientMember.isClientFinishedThisTask"
+						    data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
                                    activeClientMember.loanAccountBasicData.id,
-                                   activeClientMember.loanAccountBasicData.loanProposalReviewData.id)" class="btn btn-danger">{{'label.button.review' | translate}}
+                                   activeClientMember.loanAccountBasicData.loanProposalReviewData.id)" class="btn btn-danger btn-xs">{{'label.button.review' | translate}}
 							</a>
 						</td>
 						<td class="col-md-1">
@@ -81,7 +91,9 @@
                         captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
                         </td>
 						<td class="col-mod-1" >
-							<i class="icon-remove-circle pointer" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></i>
+							<a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+							    <i class="icon-remove-circle pointer"></i>
+							</a>
 						</td>
 					</tr>
 				</tbody>
