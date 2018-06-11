@@ -58,7 +58,7 @@
                         captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
                         </td>
                         <td class="col-md-1"> <a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"><i class="icon-edit icon-white"></i></a></td>
-                        <td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+                        <td class="col-md-1"><i class="icon-remove-circle " ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"></i></td>
                     </tr>
                 </tbody>
             </table>

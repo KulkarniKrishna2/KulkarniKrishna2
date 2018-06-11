@@ -28,7 +28,7 @@
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
-						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"
+						<td class="icon-remove-circle col-mod-2" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"
 						class="btn btn-xs btn-primary ng-binding"></td>
 					</tr> 
 						<tr ng-repeat="activeClientMember in groupMember.memberData" 
@@ -47,8 +47,8 @@
 							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
                              ng-disabled="activeClientMember.isClientFinishedThisTask"
 							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
-							<td class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
-							class="btn btn-xs btn-primary ng-binding"></td>
+							<td class="col-md-1"> <i class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
+							class="btn btn-xs btn-primary ng-binding"></i></td>
 						</tr>
 				</tbody>
 			</table>

@@ -15,6 +15,7 @@
 					<th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.attendance' | translate}}</th>
+					<th class="col-md-1"></th>
 					<th class="col-md-1"><a href="" ng-if = "showBulkCBInitiate" ng-click="initiateBulkCreditBureauReport()"><i class="icon-bullseye icon-large"  tooltip="{{'label.tooltip.initiate.credit.bureau' | translate}}"></i></a></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
@@ -24,11 +25,11 @@
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr>
-						<td colspan="13">
+						<td colspan="14">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
-						<td class="icon-remove-circle" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
+						<td class="icon-remove-circle col-mod-2" ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}"></td>
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
 					    ng-class ="activeClientMember.color">
@@ -46,6 +47,9 @@
 						</td>
 						<td class="col-md-1">
 							{{activeClientMember.loanAccountBasicData.loanProposalReviewData.recommendedAmount}}
+						</td>
+						<td class="col-md-1">
+						{{activeClientMember.attendancePercentage |number}}{{'label.heading.percentage' | translate}}
 						</td>
 						<td class="col-md-1">
 							<a ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" ng-if="activeClientMember.cbExistingLoansSummaryData"
