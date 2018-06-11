@@ -496,6 +496,7 @@
     "error.msg.glaccount.id.invalid": "General Ledger account with identifier `{{params[0].value}}` does not exist.",
     "error.msg.calendar.id.invalid": "Calendar with identifier `{{params[0].value}}` does not exist.",
     "validation.msg.calendar.title.cannot.be.blank": "Title is mandatory.",
+    "validation.msg.calendar.repeatsOnDay.cannot.be.blank": "RepeatsOnDay is mandatory.",
     "validation.msg.calendar.startDate.cannot.be.blank": "Start Date is mandatory.",
     "validation.msg.calendar.typeId.cannot.be.blank": "Calendar Type is mandatory.",
     "validation.msg.calendar.recurrence.cannot.be.blank": "Recurrence is mandatory.",
@@ -7079,7 +7080,10 @@
     "label.input.roundingmode" : "Rounding Mode",
 
     "error.msg.center.groups.count.must.be.in.permissible.range":"Number of group in the center with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
+    "error.msg.Residential Address.address.with.addresstype.already.exists":"Address type `{{params[0].value}}` already exists for `{{params[1].value}}` with identifier `{{params[2].value}}`", 
     "error.msg.calendar.new.start.date.cannot.be.in.past" : "Next meeting date can't be less than current date",
+    "validation.msg.calendar.multiple.collection.calendar.not.supported" : "Meeting date is already attached",
+    "error.msg.loan.disbursal.account.is.not.approve.not.disbursed.state" : "The loan is not approved yet, Cannot disburse",
     "validation.msg.group.closureReasonId.cannot.be.blank" : "closure reason can not be blank",
     "validation.msg.center.closureReasonId.cannot.be.blank": "closure reason can not be blank",
     "error.msg.center.clients.count.must.be.in.permissible.range":"Number of clients in the center with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
