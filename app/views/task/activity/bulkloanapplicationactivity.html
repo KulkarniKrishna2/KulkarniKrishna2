@@ -12,7 +12,7 @@
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.age' | translate}}</th>
-					<th class="col-md-1">{{'label.heading.KYC' | translate}}</th>
+					<th class="col-md-2">{{'label.heading.KYC' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanpack' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanpurpose' | translate}}</th>
@@ -42,7 +42,8 @@
 							</td>
 							<td class="col-md-1">{{activeClientMember.fcsmNumber}}</td>
 							<td class="col-md-1">{{activeClientMember.age}}</td>
-							<td class="col-md-1">{{activeClientMember.clientIdentifier.documentKey}}</td>
+							<td class="col-md-2">{{activeClientMember.clientIdentifier.documentKey}}
+							</td>
 							<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
 							<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
@@ -56,8 +57,6 @@
 							<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
                              ng-disabled="activeClientMember.isClientFinishedThisTask"
 							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
-							<td class="col-md-1"> <i class="icon-remove-circle" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}"
-							class="btn btn-xs btn-primary ng-binding"></i></td>
 							<td class="col-md-1">
 								<a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 									<i class="icon-remove-circle pointer"></i>
