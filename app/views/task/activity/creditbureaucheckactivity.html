@@ -89,7 +89,8 @@
 						</td>
 						<td class="col-md-1">
 							<a type = "button" 
-							ng-if="activeClientMember.clientLevelCriteriaResultData" 
+							ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && 
+						               activeClientMember.clientLevelCriteriaResultData.score < 5" 
 							ng-disabled="activeClientMember.isClientFinishedThisTask"
 							data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
                                    activeClientMember.loanAccountBasicData.id,
