@@ -7065,6 +7065,6 @@
     "label.input.considerTenureForIRRCalculation" : "Consider Tenure For IRR Calculation",
     "label.heading.considerTenureForIRRCalculation" : "Consider Tenure For IRR Calculation",
     "label.heading.apr" : "APR",
-
+    "label.input.associate.with.loan" : "Associated With Loan",
     "------ end of tensalation file":"---------"
 }
