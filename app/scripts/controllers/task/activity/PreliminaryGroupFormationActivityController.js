@@ -474,10 +474,10 @@
                             return state.stateId == stateId;
                         })
                         if ($scope.formData.districtId) {
-                            delete scope.formData.districtId;
+                            delete $scope.formData.districtId;
                         }
                         if ($scope.formData.talukaId) {
-                            delete scope.formData.talukaId;
+                            delete $scope.formData.talukaId;
                         }
                         $scope.districts = $scope.selectState[0].districtDatas;
                     }
@@ -516,15 +516,15 @@
                                 }
                                 if (response.addressData[0].countryData) {
                                     $scope.formData.countryId = response.addressData[0].countryData.countryId;
-                                    scope.changeCountry($scope.formData.countryId)
+                                    $scope.changeCountry($scope.formData.countryId)
                                 }
                                 if (response.addressData[0].stateData) {
                                     $scope.formData.stateId = response.addressData[0].stateData.stateId;
-                                    scope.changeState($scope.formData.stateId);
+                                    $scope.changeState($scope.formData.stateId);
                                 }
                                 if (response.addressData[0].districtData) {
                                     $scope.formData.districtId = response.addressData[0].districtData.districtId;
-                                    scope.changeDistrict($scope.formData.districtId);
+                                    $scope.changeDistrict($scope.formData.districtId);
                                 }
 
                                 if (response.addressData[0].talukaData) {
