@@ -193,7 +193,7 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command'}, {
+                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command',associateAppTable: '@associateAppTable',isFetchAssociateTable: '@isFetchAssociateTable'}, {
                         getAllDataTables: {method: 'GET', params: {}, isArray: true},
                         getTableDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}

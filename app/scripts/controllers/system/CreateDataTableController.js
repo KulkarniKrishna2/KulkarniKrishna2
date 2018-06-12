@@ -248,6 +248,7 @@
                     scope.columnNotMappedToSectionError = false;
                     delete scope.errorDetails;
                     scope.formData.multiRow = scope.formData.multiRow || false;
+                    scope.formData.associateWithLoan = scope.formData.associateWithLoan || false;
                     scope.formData.columns = scope.columns;
                     for (var i in scope.formData.columns) {
                         if(scope.formData.columns[i].when == null){

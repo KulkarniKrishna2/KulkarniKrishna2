@@ -7041,5 +7041,6 @@
     "invalid.branchName.format":"Special characters, spaces, digits and more than 20 characters are not allowed.",
     "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
     "validation.msg.loanapplicationreference.submittedOnDate.is.greater.than.date" : "Loan application submission date cannot be a future date.",
+    "label.input.associate.with.loan" : "Associated With Loan",
     "------ end of tensalation file":"---------"
 }

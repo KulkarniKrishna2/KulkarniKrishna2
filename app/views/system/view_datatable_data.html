@@ -1,14 +1,14 @@
 
 <table data-ng-show="datatabledetails.isMultirow" class="table">
     <thead>
-    <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
+    <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="hideField(column)" >
         <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
         <label ng-if="column.displayName == undefined || column.displayName == 'null'"> {{column.columnName | prettifyDataTableColumn}} </label>
     </th>
     </thead>
     <tbody>
     <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
-        <td class="pointer" ng-repeat="row in data.row track by $index"  ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1"
+        <td class="pointer" ng-repeat="row in data.row track by $index"  ng-init="multirowDataIndex = $index" ng-hide="hideField(row)"
             ng-click="viewDataTable(datatable.registeredTableName,data)">{{row.value}}
         </td>
     </tr>
@@ -16,7 +16,7 @@
 </table>
 <div ng-show = "!isSectioned">
     <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
-        <tr ng-repeat="value in singleRow " ng-hide="$index == 0">
+        <tr ng-repeat="value in singleRow ">
             <td class="graybg" style="font-weight: bold">{{value.key | prettifyDataTableColumn}}</td>
             <td><pre style="border: 0">{{value.value}}</pre></td>
         </tr>
