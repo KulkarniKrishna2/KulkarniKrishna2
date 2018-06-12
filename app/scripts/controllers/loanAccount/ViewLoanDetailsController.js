@@ -1455,6 +1455,27 @@
                 });
             };
 
+            scope.showTaxDetails = function (charge) {
+                scope.chargeId = charge;
+                $modal.open({
+                    templateUrl: 'showTaxDetails.html',
+                    controller: showTaxDetailsCtrl,
+                    windowClass: 'app-modal-window'
+                });
+            };
+
+            var showTaxDetailsCtrl = function ($scope, $modalInstance) {
+                
+                resourceFactory.loanResource.get({ resourceType: 'charges', loanId: routeParams.id, resourceId: scope.chargeId}, function (data) {
+                    $scope.charge = data;
+                    $scope.taxDetails = data.loanChargeTaxDetails;
+                });
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
             var PreviewScheduleCtrl = function ($scope, $modalInstance) {
                 $scope.loandetails = scope.loandetails;
                 resourceFactory.loanResource.get({loanId: routeParams.id, resourceType: 'schedulepreview'}, function (data) {
