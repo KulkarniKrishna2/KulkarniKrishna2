@@ -1700,6 +1700,7 @@
     "label.heading.loanprepayments": "Loan Prepayments",
     "label.heading.loanwaiveinterest": "Waive Interest",
     "label.heading.writeoffloanaccount": "Write Off Loan Account",
+    "label.heading.returnloanaccount": "Return Loan",
     "label.heading.closeloanaccountasrescheduled": "Close Loan Account as Rescheduled",
     "label.heading.closeloanaccount": "Close Loan Account",
     "label.heading.unassignloanofficer": "Unassign Loan Officer",
@@ -1907,6 +1908,7 @@
     "label.input.disbursedondate": "Disbursed on",
     "label.input.interestwaivedon": "Interest waived on",
     "label.input.writeoffondate": "Write off on",
+    "label.input.returnondate": "Return loan on",
     "label.input.closedondate": "Closed on",
     "label.input.loanofficerunassigneddate": "Unassigned on",
     "label.input.paymenttype": "Payment type",
@@ -2002,6 +2004,7 @@
     "label.button.applypenalties":"Apply Penalties",
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
     "label.button.viewsearchparameters": "View Parameters",
+    "label.button.returnloan":"Return Loan",
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",
@@ -2430,6 +2433,7 @@
     "label.heading.create.credit.bureau" : "Create Credit Bureau",
     "label.heading.foreclosure" : "Preclosure",
     "label.input.dataTableDisplayName":"Data Table Display Name",
+    "label.anchor.returnloan" : "Return Loan",
     "#Anchors": "..",
     "label.anchor.addsavingcharges": "Add Saving Charges",
     "label.anchor.viewsavingaccount": "View Saving Account",
@@ -7080,6 +7084,8 @@
      "label.heading.ifsc":"IFSC",
      "label.button.add.bankaccountdetails": "Add Bank Account Details",
      "label.button.add.bankaccount": "Add Bank Account to loan",
+     "error.msg.return.loan.update.not.allowed":"Loan transaction update not allowed as loan is returned",
+     "error.msg.loan.returned.transaction.already.exits.for.this.loan":"Cannot return loan, transaction for loan already exits",
      
     "------ end of tensalation file":"---------"
 }
