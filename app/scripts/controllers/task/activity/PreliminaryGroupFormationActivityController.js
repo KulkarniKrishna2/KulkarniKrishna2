@@ -173,10 +173,20 @@
                     $scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.submittedOn;
                     $scope.showOpenSavingsProduct = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.openSavingsProduct;
                 }
+               
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                    scope.response.uiDisplayConfigurations.createClient.isHiddenField && scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
-                    $scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+                    scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
+                    if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
+                        $scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+                    }
+                    if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm) {
+                        $scope.isHidelegalForm = scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
+                    }
+                    if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType) {
+                        $scope.isHideclientType = scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType;
+                    }
                 }
+                
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
 

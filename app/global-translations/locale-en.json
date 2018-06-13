@@ -7142,5 +7142,7 @@
     "label.button.edit.loan" : "Edit Loan",
     "label.input.exclude.adjusted.rounded.amount.with.interest" : "Exclude adjusted rounded amount with interest",
     "label.heading.exclude.adjusted.rounded.amount.with.interest" : "Exclude adjusted rounded amount with interest",
+    "label.button.relase.client" : "Release Client.",
+    "label.heading.attachments": "Attachments",
      "------ end of tensalation file":"---------"
 }

@@ -916,6 +916,18 @@
                     $modalInstance.dismiss('close');
                 };
             }
+            
+            scope.releaseClient = function (clientId) {
+                var releaseClientFormData = {};
+                releaseClientFormData.locale = scope.optlang.code;
+                releaseClientFormData.dateFormat = scope.df;
+                releaseClientFormData.reactivationDate = dateFilter(new Date(),scope.df);
+                var queryParams = {clientId: clientId, command: 'reactivate'};
+                resourceFactory.clientResource.save(queryParams,releaseClientFormData, function (data) {
+                    initTask();
+                });
+
+            }
 
              //client reject reason method call
              scope.clientRejection = function (memberId) {
