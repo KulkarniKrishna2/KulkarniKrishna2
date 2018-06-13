@@ -19,8 +19,12 @@
             scope.numberOfCredits = 1;
             scope.numberOfDebits = 1;
             scope.error = null;
-            resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false}, function (data) {
+            resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, companyCode:0}, function (data) {
                 scope.glAccounts = data;
+            });
+
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
+               scope.companyCodeForGlaccountCodeValues = data;
             });
 
             resourceFactory.paymentTypeResource.getAll( function (data) {
@@ -87,6 +91,12 @@
                 }
             }
 
+            scope.changeAccountsAsPerCompanyCodes = function(companyCodeForGlaccountCode){
+                resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, companyCode:companyCodeForGlaccountCode}, function (data) {
+                    scope.glAccounts = data;
+                });
+            }
+
             scope.submit = function () {
                 var jeTransaction = new Object();
                 var reqDate = dateFilter(scope.first.date, scope.df);
@@ -103,6 +113,7 @@
                 jeTransaction.routingCode = this.formData.routingCode;
                 jeTransaction.receiptNumber = this.formData.receiptNumber;
                 jeTransaction.bankNumber = this.formData.bankNumber;
+                jeTransaction.companyCode = this.formData.companyCodeForGlaccountCodeValues;
 
                 //Construct credits array
                 jeTransaction.credits = [];

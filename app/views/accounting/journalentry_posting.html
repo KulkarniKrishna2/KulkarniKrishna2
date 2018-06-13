@@ -36,6 +36,18 @@
 	                <form-validate valattributeform="journalpostingform" valattribute="currency"/>
 	            </div>
 	        </div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{'label.input.companycodeforglaccounts' | translate}}</label>
+				<div class="col-sm-3">
+				<select id="companyCodeForGlaccountCodeValues" ng-change = "changeAccountsAsPerCompanyCodes(formData.companyCodeForGlaccountCodeValues)" name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues" class="form-control"
+						ng-options="companyCodeForGlaccountCode.id as companyCodeForGlaccountCode.name for companyCodeForGlaccountCode  in companyCodeForGlaccountCodeValues"
+						value="{{companyCodeForGlaccountCode.name}}">
+				</select>
+				<div class="col-sm-2">
+					<form-validate valattributeform="journalpostingform" valattribute="companyCodeForGlaccountCodeValues"/>
+				</div>
+				</div>
+			</div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
 	                    class="required">*</span></label>
@@ -67,8 +79,7 @@
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
 	            <div class="col-sm-3">
-	                <input type="text" id="referenc
-	                eNumber" ng-model="formData.referenceNumber" class="form-control">
+	                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber" class="form-control">
 	            </div>
 	            
 	            <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
