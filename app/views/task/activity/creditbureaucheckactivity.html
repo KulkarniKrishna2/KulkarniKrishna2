@@ -7,6 +7,7 @@
 		<div>
 			<table class="table">
 				<thead>
+					<th class="col-md-1"></th>
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.amount.outstanding' | translate}}</th>
@@ -17,7 +18,6 @@
 					<th class="col-md-1">{{'label.heading.attendance' | translate}}</th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"><a href="" ng-if = "showBulkCBInitiate" ng-click="initiateBulkCreditBureauReport()"><i class="icon-bullseye icon-large"  tooltip="{{'label.tooltip.initiate.credit.bureau' | translate}}"></i></a></th>
-					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
@@ -38,7 +38,10 @@
 						</td>
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
-					    ng-class ="activeClientMember.color">
+						ng-class ="activeClientMember.color">
+						<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
+							ng-disabled="activeClientMember.isClientFinishedThisTask"
+							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-2">{{activeClientMember.displayName}}
 						</td>
 						<td class="col-md-1">{{activeClientMember.fcsmNumber}}</td>
@@ -97,9 +100,6 @@
                                    activeClientMember.loanAccountBasicData.loanProposalReviewData.id)" class="btn btn-danger btn-xs">{{'label.button.review' | translate}}
 							</a>
 						</td>
-                        <td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
-                             ng-disabled="activeClientMember.isClientFinishedThisTask"
-							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-1">
                             <a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 							    <i class="icon-remove-circle pointer"></i>

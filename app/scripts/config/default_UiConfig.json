@@ -348,6 +348,11 @@
 	},
 	"createoffice":{
 		"selfActive" : false
+	},
+	"createJlgLoan": {
+		"isHiddenField": {
+			"jlgLoan": true
+		}
 	}
   }
 }

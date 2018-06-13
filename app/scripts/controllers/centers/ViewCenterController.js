@@ -17,6 +17,7 @@
             scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.hideManageGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+            scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
             scope.isHideCreateEntity = false;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;

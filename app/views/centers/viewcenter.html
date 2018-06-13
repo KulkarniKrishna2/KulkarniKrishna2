@@ -187,7 +187,7 @@
 												<span ng-if="!isHideReferenceNumber">{{client.referenceNumber}}| </span><span ng-if="!isHideAccountNumber">{{client.accountNo}}-</span>{{client.displayName}}
 											</th>
 											<td align="center" colspan="3">
-												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)" ng-disabled="isHideJlgLoan"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
                                             <td ng-if="isLoanApplication">

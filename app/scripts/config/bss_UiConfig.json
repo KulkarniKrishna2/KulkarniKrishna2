@@ -53,6 +53,11 @@
 	},
 	"createOffice":{
 		"selfActive" : true
+	},
+	"createJlgLoan": {
+		"isHiddenField": {
+			"jlgLoan": true
+		}
 	}
   }
 }
