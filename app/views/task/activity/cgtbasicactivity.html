@@ -26,6 +26,7 @@
 		<div>
 			<table class="table">
 				<thead>
+					<th>&nbsp;</th>
 					<th class="col-md-1">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
@@ -36,7 +37,6 @@
 					<th class="col-md-1"></th>
 					<th class="col-md-2">{{'label.heading.keyah' | translate}}</th>
 					<th class="col-md-2"></th>
-					<th>&nbsp;</th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
@@ -47,6 +47,9 @@
 						</td>
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData"  ng-class ="activeClientMember.color">
+						<td class="col-md-1">
+							<input class="pull-left" type="checkbox" ng-model="client.checked" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
+						</td>
 						<td class="col-md-1">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}
 								<i ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
@@ -76,9 +79,6 @@
 							title = "{{'label.button.edit.loan' | translate}}">
 									<i class="icon-edit icon-white pointer"></i>
 							</a>
-						</td>
-						<td class="col-md-1">
-							<input class="pull-left" type="checkbox" ng-model="client.checked" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
 						</td>
 						<td class="col-md-1">
 						    <a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">

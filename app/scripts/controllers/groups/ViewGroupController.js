@@ -16,6 +16,7 @@
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.hideManageMember = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
             scope.isShowMeetingDetails = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.meeting;
+            scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
             scope.isHideCreateEntity = false;
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;

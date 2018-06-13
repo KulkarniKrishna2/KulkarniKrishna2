@@ -10,6 +10,7 @@
 		<div>
 			<table class="table">
 				<thead>
+					<th class="col-md-1"></th>
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
@@ -22,7 +23,6 @@
 					<th class="col-md-1"> </th>
 					<th class="col-md-1"> </th>
 					<th class="col-md-1"> </th>
-					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
@@ -41,6 +41,11 @@
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
 					  ng-class ="activeClientMember.color">
+					  	<td class="col-md-1"><input class="pull-left" type="checkbox"
+						ng-disabled = "activeClientMember.isClientFinishedThisTask"
+						ng-model="client.checked" ng-change="
+						captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
+						</td>
 						<td class="col-md-2">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 						</td>
@@ -85,11 +90,6 @@
 								<i class="icon-question-sign"></i>
 							</a>
 						</td>
-						<td class="col-md-1"><input class="pull-left" type="checkbox"
-                            ng-disabled = "activeClientMember.isClientFinishedThisTask"
-                        ng-model="client.checked" ng-change="
-                        captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
-                        </td>
 						<td class="col-mod-1" >
 							<a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 							    <i class="icon-remove-circle pointer"></i>
