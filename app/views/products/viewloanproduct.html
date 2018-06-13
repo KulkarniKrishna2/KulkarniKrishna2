@@ -332,6 +332,10 @@
     <td>{{'label.input.adjustinterestamountforrounding' | translate}}</td>
     <td colspan="3">{{loanproduct.adjustInterestForRounding | YesOrNo}}</td>
 </tr>
+<tr ng-show="loanproduct.adjustInterestForRounding">
+    <td>{{'label.heading.exclude.adjusted.rounded.amount.with.interest' | translate}}</td>
+    <td colspan="3">{{loanproduct.excludeAdjustedRoundedAmountWithInterest | YesOrNo}}</td>
+</tr>
 <tr>
     <td>{{'label.input.firstinstallmentinmultiplesof' | translate}}</td>
     <td colspan="3">{{loanproduct.adjustedInstallmentInMultiplesOf}}</td>

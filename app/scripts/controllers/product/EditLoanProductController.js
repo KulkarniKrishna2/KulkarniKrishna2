@@ -162,6 +162,7 @@
                     canDefineInstallmentAmount: scope.product.canDefineInstallmentAmount,
                     adjustFirstEMIAmount: scope.product.adjustFirstEMIAmount,
                     adjustInterestForRounding: scope.product.adjustInterestForRounding,
+                    excludeAdjustedRoundedAmountWithInterest: scope.product.excludeAdjustedRoundedAmountWithInterest,
                     adjustedInstallmentInMultiplesOf: scope.product.adjustedInstallmentInMultiplesOf,
                     syncExpectedWithDisbursementDate: scope.product.syncExpectedWithDisbursementDate,
                     closeLoanOnOverpayment: scope.product.closeLoanOnOverpayment,

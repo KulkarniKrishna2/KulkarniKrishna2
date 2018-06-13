@@ -7140,5 +7140,7 @@
     "label.heading.cb.criteria.result" : "CB Check Criteria Result",
     "label.heading.percentage" : "%",
     "label.button.edit.loan" : "Edit Loan",
+    "label.input.exclude.adjusted.rounded.amount.with.interest" : "Exclude adjusted rounded amount with interest",
+    "label.heading.exclude.adjusted.rounded.amount.with.interest" : "Exclude adjusted rounded amount with interest",
      "------ end of tensalation file":"---------"
 }
