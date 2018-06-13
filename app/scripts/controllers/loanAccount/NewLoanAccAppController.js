@@ -513,11 +513,13 @@
                                 scope.formData.numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
                                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
                                 scope.formData.principal = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
+                                scope.formData.repaymentEvery = scope.loanaccountinfo.loanEMIPacks[i].repaymentEvery;
                         }
                     }
                 }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
+                    scope.adjustedInterest = data.periods[data.periods.length-1].adjustedInterestAmountDue;                    
                     scope.previewRepayment = true;
                 });
 
@@ -634,6 +636,17 @@
                 else{
                     if(scope.formData.interestRatePerPeriod != undefined){
                         delete scope.formData.interestRatePerPeriod;
+                    }
+                }
+
+                if(scope.formData.loanEMIPackId>0){
+                    for(var i in scope.loanaccountinfo.loanEMIPacks){
+                        if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
+                                this.formData.numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                                this.formData.fixedEmiAmount = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
+                                this.formData.principal = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
+                                this.formData.repaymentEvery = scope.loanaccountinfo.loanEMIPacks[i].repaymentEvery;
+                        }
                     }
                 }
 

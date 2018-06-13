@@ -91,10 +91,10 @@
             <td>{{period.principalDisbursed | number}}</td>
             <td>{{period.principalDue| number}}</td>
             <td>{{period.principalLoanBalanceOutstanding| number}}</td>
-            <td>{{period.interestDue| number}}</td>
+            <td>{{(period.interestDue + period.adjustedInterestAmountDue) | number}}</td>
             <td>{{period.feeChargesDue| number}}</td>
             <td>{{period.penaltyChargesDue| number}}</td>
-            <td>{{period.totalDueForPeriod| number}}</td>
+            <td>{{(period.totalDueForPeriod + period.adjustedInterestAmountDue)| number}}</td>
         </tr>
         <tfoot class="ui-widget-header">
         <tr>
@@ -103,7 +103,7 @@
             <td>{{repaymentscheduleinfo.totalPrincipalDisbursed| number}}</td>
             <td>{{repaymentscheduleinfo.totalPrincipalExpected| number}}</td>
             <td></td>
-            <td>{{repaymentscheduleinfo.totalInterestCharged| number}}</td>
+            <td>{{(repaymentscheduleinfo.totalInterestCharged + adjustedInterest)| number}}</td>
             <td>{{repaymentscheduleinfo.totalFeeChargesCharged| number}}</td>
             <td>{{repaymentscheduleinfo.totalPenaltyChargesCharged| number}}</td>
             <td>{{repaymentscheduleinfo.totalRepaymentExpected| number}}</td>
