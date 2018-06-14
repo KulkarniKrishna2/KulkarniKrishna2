@@ -13,16 +13,20 @@
             scope.formData = {};
             scope.first = {};
             scope.disbursementDateFound = false;
+            scope.expectedDisbursementOnDate = null;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
-            resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'groupMembers, loanaccounts, collectionMeetingCalendar' }, function (data) {
+
+           function initTask() {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'groupMembers, loanaccounts, collectionMeetingCalendar' }, function (data) {
                 scope.centerMeetingData = data;
                 for (var i in scope.centerMeetingData.subGroupMembers) {
                     for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
                         if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {               
                             scope.formData.expectedDisbursementDate = new Date(dateFilter(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate, scope.df)); 
                             scope.disbursementDateFound = true;
+                            scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
                             break;
                         }
                     }
@@ -56,6 +60,9 @@
                 var disbursedate = new Date(dateFilter(scope.formData.expectedDisbursementDate,scope.df));
                 scope.disbursementDay = weekday[disbursedate.getDay()];
             });
+        };
+        
+        initTask(); 
             resourceFactory.attachMeetingResource.get({
                 groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId,
                 templateSource: 'template'
@@ -150,7 +157,7 @@
                     var twoWeeks = 1000 * 60 * 60 * 24 * 14;
                     scope.minMeetingDate = scope.formData.expectedDisbursementDate;
                     scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+twoWeeks);
-                    scope.first.date = scope.minMeetingDate;
+                    scope.first.date = null;
                 }
             });
 
@@ -179,6 +186,7 @@
                         groupOrCenterId: scope.groupOrCenterId, templateSource: scope.calendarId
                     }, this.formData, function (data) {
                         scope.getCenterMeeting();
+                        initTask();
                     });
                 } else {
                     if (scope.entityType == "groups") {
@@ -189,6 +197,7 @@
                     }
                     resourceFactory.attachMeetingResource.save({ groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId }, this.formData, function (data) {
                         scope.getCenterMeeting();
+                        initTask();
                     });
                 }
 
