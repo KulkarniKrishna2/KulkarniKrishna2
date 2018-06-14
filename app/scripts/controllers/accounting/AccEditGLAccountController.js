@@ -8,6 +8,9 @@
             scope.accountOptions = [];
             scope.glClassificationTypeId ;
 
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
+                scope.companyCodeForGlaccountCodeValues = data;
+            });
             resourceFactory.accountCoaResource.get({glAccountId: routeParams.id, template: 'true'}, function (data) {
                 scope.coadata = data;
                 scope.glAccountId = data.id;
@@ -15,6 +18,9 @@
                 scope.usageTypes = data.usageOptions;
                 if(data.glClassificationType) {
                     scope.glClassificationTypeId = data.glClassificationType.id;
+                }
+                if(data.companyCode){
+                    scope.companyCodeForGlaccountCodeValueId = data.companyCode.id;
                 }
                 scope.formData = {
                     name: data.name,
@@ -25,7 +31,8 @@
                     tagId: data.tagId.id,
                     usage: data.usage.id,
                     parentId: data.parentId,
-                    glClassificationType : scope.glClassificationTypeId
+                    glClassificationType : scope.glClassificationTypeId,
+                    companyCodeForGlaccountCodeValues: scope.companyCodeForGlaccountCodeValueId
                 };
 
                 //to display tag name on i/p field
