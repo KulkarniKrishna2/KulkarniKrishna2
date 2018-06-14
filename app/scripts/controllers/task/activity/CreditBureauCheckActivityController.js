@@ -495,6 +495,7 @@
                                     var slabBasedValue = $scope.getSlabBasedAmount(data.slabs[j],$scope.editLoanAccountdata.principal,$scope.editLoanAccountdata.numberOfRepayments);
                                     if(slabBasedValue != null){
                                         data.amountOrPercentage = slabBasedValue;
+                                        return data;
                                     }else {
                                          data.amountOrPercentage = undefined;
                                     }
@@ -671,6 +672,13 @@
                     $scope.showLoanAccountForm = false;
                 }
 
+                $scope.getLoanData = function(loanId){
+                    resourceFactory.loanResource.get({loanId: loanId, template: true, associations: 'charges,meeting',staffInSelectedOfficeOnly:true}, function (data) {
+                        $scope.loanaccountinfo = data;
+                        $scope.charges = data.charges;
+                    });
+                }
+
                 $scope.constructFormData = function (data) {
                     $scope.editLoanAccountdata.productId = data.loanProductId;
                     $scope.loanProductChange($scope.editLoanAccountdata.productId);
@@ -680,6 +688,7 @@
                         $scope.editLoanAccountdata.principal = data.loanEMIPackData.sanctionAmount;
                         $scope.editLoanAccountdata.numberOfRepayments = data.loanEMIPackData.numberOfRepayments;
                     }
+                    $scope.getLoanData(data.id);
                  }
 
                  $scope.updateSlabBasedChargeForEmiPack = function(loanEMIPackData){
@@ -697,6 +706,18 @@
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
                 };
+            }
+
+            scope.releaseClient = function (clientId) {
+                var releaseClientFormData = {};
+                releaseClientFormData.locale = scope.optlang.code;
+                releaseClientFormData.dateFormat = scope.df;
+                releaseClientFormData.reactivationDate = dateFilter(new Date(),scope.df);
+                var queryParams = {clientId: clientId, command: 'reactivate'};
+                resourceFactory.clientResource.save(queryParams,releaseClientFormData, function (data) {
+                    initTask();
+                });
+
             }
 
             //client reject reason method call

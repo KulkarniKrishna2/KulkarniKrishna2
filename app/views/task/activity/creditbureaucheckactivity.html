@@ -38,9 +38,8 @@
 						</td>
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
-						ng-class ="activeClientMember.color"
-						ng-if="!activeClientMember.isClientFinishedThisTask">
-						<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
+						ng-class ="activeClientMember.color">
+						<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
 							ng-disabled="activeClientMember.isClientFinishedThisTask"
 							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-2">{{activeClientMember.displayName}}
@@ -102,8 +101,11 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-                            <a type="button" class="btn btn-danger btn-xs" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+                            <a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember.id)" tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 							    <i class="icon-remove-circle pointer"></i>
+							</a>
+							<a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+								<i class="icon-unlock pointer"></i>
 							</a>
 						</td>
 					</tr>

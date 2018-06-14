@@ -15,7 +15,10 @@
 	},
 	"createClient": {
 	  "isHiddenField": {
-		"activate": true
+		"activate": true,
+		"hideClientClassification": true,
+		"legalForm":true,
+		"clientType":true
 	  },
 	  "isValidateDOBField": {
 		"active": true,
@@ -27,8 +30,12 @@
 	},
 	"createCenter": {
 	  "isHiddenField": {
-		"activate": true
-	  }
+		"activate": true,
+		"villageOptions": false
+		},
+		"isReadOnlyField": {
+			"name": false
+			}
 	},
 	"createGroup": {
 	  "isHiddenMenu": {

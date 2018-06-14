@@ -134,6 +134,7 @@
 	  },
 	  "isHiddenField": {
 		"hideClientClassification": false,
+		"clientType":false,
 		"staff": false,
         "pincode": false,
 		"legalForm": false,
