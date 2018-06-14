@@ -38,7 +38,8 @@
 						</td>
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
-						ng-class ="activeClientMember.color">
+						ng-class ="activeClientMember.color"
+						ng-if="!activeClientMember.isClientFinishedThisTask">
 						<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked"
 							ng-disabled="activeClientMember.isClientFinishedThisTask"
 							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
