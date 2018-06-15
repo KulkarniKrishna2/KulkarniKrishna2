@@ -7150,6 +7150,7 @@
     "label.input.lossandgainfromadjustment" : "Loss and gain from Adjustment",
     "label.tooltip.lossandgainfromadjustment" : "Income Account , for adjusted rounded value",
     "label.heading.lossandgainfromadjustment" : "Loss and gain from Adjustment",
-    
+    "validation.msg.clientLevelTaskTracking.loanId.cannot.be.blank" : "Client with id `{{params[1].value}}` doesn't have loan account attached in the workflow",
+
      "------ end of tensalation file":"---------"
 }
