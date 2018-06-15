@@ -63,6 +63,13 @@
                         <div class="col-md-6"> {{'label.heading.meetingStartDate' | translate}}:&nbsp;{{centerData.meetingStartDate | DateFormat}}</div>
                         <div class="col-md-6">{{'label.heading.nextMeetigDate' | translate}}: &nbsp;{{centerData.nextMeetigDate | DateFormat}}</div>
                     </div>
+                <div class="row">
+                        <a class="btn btn-info" 
+                           style = "text-align: right;float: right;"
+                           ng-click="getCWFClientsTaskStepsInfo(centerData.id)">
+                            {{'label.button.members.steps.info' | translate}}
+                        </a>
+                    </div>    
             </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
