@@ -327,6 +327,8 @@
                         scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccount.id;
                         scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccount.id;
                     }
+                    scope.formData.lossGainWithAdjustmentAccountId = scope.product.accountingMappings.lossGainWithAdjustmentAccount.id;
+                    
                     scope.formData.transfersInSuspenseAccountId = scope.product.accountingMappings.transfersInSuspenseAccount.id;
                     scope.formData.interestOnLoanAccountId = scope.product.accountingMappings.interestOnLoanAccount.id;
                     scope.formData.incomeFromFeeAccountId = scope.product.accountingMappings.incomeFromFeeAccount.id;
