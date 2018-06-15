@@ -4,6 +4,7 @@
             scope.first = {};
             scope.managecode = routeParams.managecode;
             scope.restrictDate = new Date();
+            scope.isGroupNameReadOnly = scope.response.uiDisplayConfigurations.viewGroup.isReadOnlyField.groupName;
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.editGroup = data;
                 scope.isWorkflowEnabled = data.isWorkflowEnabled;
