@@ -309,6 +309,13 @@
                     }
                 }
             }
+            scope.$watch('first.date', function() {
+                if (scope.first.date) {
+                    scope.firstMeetingDate = new Date(scope.first.date);
+                    scope.repeatsOnDay = scope.firstMeetingDate.getDay();
+                    scope.formData.repeatsOnDay = scope.repeatsOnOptions[scope.repeatsOnDay];
+                }
+            });
         }
     });
     mifosX.ng.application.controller('CenterMeetingActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CenterMeetingActivityController]).run(function ($log) {
