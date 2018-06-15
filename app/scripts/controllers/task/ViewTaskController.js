@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        ViewTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $modal) {
             scope.taskId = routeParams.taskId;
             scope.taskData = {};
             scope.isWorkflowTask = false;
@@ -91,9 +91,34 @@
             }
 
             init();
+
+            //Center workflow Members steps info 
+            scope.getCWFClientsTaskStepsInfo = function(centerId){
+                    var templateUrl = 'views/task/popup/membersstepsinfo.html';
+                    $modal.open({
+                        templateUrl: templateUrl,
+                        controller: viewCWFClientsTaskStepsInfoCtrl,
+                        windowClass: 'modalwidth700',
+                        resolve: {
+                            CenterParams: function () {
+                                return { 'centerId': centerId };
+                            }
+                        }
+                    });
+            }
+
+            var viewCWFClientsTaskStepsInfoCtrl = function ($scope, $modalInstance, CenterParams) {
+                resourceFactory.clientsTaskStepsTrackingResource.get({centerId: CenterParams.centerId}, function (data) {
+                     $scope.membersStepsInfo = data;
+                });
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+            }
         }
     });
-    mifosX.ng.application.controller('ViewTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.ViewTaskController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$modal',mifosX.controllers.ViewTaskController]).run(function ($log) {
         $log.info("ViewTaskController initialized");
     });
 }(mifosX.controllers || {}));
