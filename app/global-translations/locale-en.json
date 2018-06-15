@@ -7145,5 +7145,11 @@
     "label.button.relase.client" : "Release Client.",
     "label.heading.attachments": "Attachments",
     "validation.msg.calendar.repeatsOnDay.cannot.be.blank" : "Calendar repeatation day cann't be blank",
+
+    "product.acocunting ":"acocunting",
+    "label.input.lossandgainfromadjustment" : "Loss and gain from Adjustment",
+    "label.tooltip.lossandgainfromadjustment" : "Income Account , for adjusted rounded value",
+    "label.heading.lossandgainfromadjustment" : "Loss and gain from Adjustment",
+    
      "------ end of tensalation file":"---------"
 }
