@@ -26,6 +26,8 @@
             scope.originalSections = [];
             scope.columnNotMappedToSectionError = false;
             scope.isDuplicateColumnName = false;
+            scope.formData.associateWithLoan = false;
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -57,7 +59,9 @@
                         }
                     }
                 }
-
+                if(data.associateApplicationTableName){
+                    scope.formData.associateWithLoan = true;
+                }
                 var temp = [];
                 var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
                 for (var i in data.columnHeaderData) {
@@ -516,6 +520,7 @@
                 		}
                 	}
                 }
+                scope.formData.associateWithLoan = scope.formData.associateWithLoan || false;
                 scope.formData.addSections = scope.addSections;
                 scope.formData.changeSections = scope.changeSections;
                 scope.formData.dropSections = scope.dropSections;
@@ -523,6 +528,12 @@
                 location.path('/viewdatatable/' + data.resourceIdentifier);
                 });
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.name) >= 0) {
+                return true;
+               }
+               return false;
+            }
         }
     });
     mifosX.ng.application.controller('EditDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditDataTableController]).run(function ($log) {

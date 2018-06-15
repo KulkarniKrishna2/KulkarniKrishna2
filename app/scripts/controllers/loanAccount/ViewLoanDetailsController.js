@@ -56,6 +56,8 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.canDisburseToGroupBankAccount = false;
+            scope.fromEntity = 'loan';
+            var  idList = ['id','client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
 
             scope.isGlimEnabled = function(){
                 return scope.isGlim && !scope.isGlimPaymentAsGroup;
@@ -351,7 +353,7 @@
                     });
                 }
 
-                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : true}, function (data) {
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : true,isFetchAssociateTable: true}, function (data) {
                     scope.datatables = data;
                 });
                
@@ -1146,7 +1148,7 @@
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
-                    entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
+                    entityId: routeParams.id, genericResultSet: 'true',associateAppTable:'m_loan'}, function (data) {
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
@@ -1193,12 +1195,17 @@
                                        break;
                                     }
                                 }
-                                scope.singleRow.push(row);
+                                if(idList.indexOf(row.key) < 0){
+                                    scope.singleRow.push(row);
+                                }
+                                
                             }
+
                             var index = scope.datatabledetails.columnData[0].row.findIndex(x => x.columnName==data.columnHeaders[i].columnName);
                             if(index > 0 ){
                                 if(data.columnHeaders[i].displayName != undefined && data.columnHeaders[i].displayName != 'null') {
                                     scope.datatabledetails.columnData[0].row[index].displayName = data.columnHeaders[i].displayName;
+
                                 } 
                             }
                         }
@@ -1272,9 +1279,11 @@
 
             scope.viewDataTable = function (registeredTableName,data){
                 if (scope.datatabledetails.isMultirow) {
-                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.loandetails.id+"/"+data.row[0].value);
+                    var multiURL = "/viewdatatableentry/"+registeredTableName+"/"+scope.loandetails.id+"/" + data.row[0].value;
+                    location.path(multiURL).search({fromEntity:scope.fromEntity});
                 }else{
-                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.loandetails.id);
+                    var singleURL = "/viewsingledatatableentry/"+registeredTableName+"/"+scope.loandetails.id;
+                    location.path(singleURL).search({fromEntity:scope.fromEntity});;
                 }
             };
 
@@ -1988,6 +1997,12 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.columnName) >= 0) {
+                return true;
+               }
+               return false;
+            }
         }
     });
 
