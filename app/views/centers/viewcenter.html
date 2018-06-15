@@ -130,7 +130,7 @@
 										  <a href="#/history/{{entityType}}/{{center.id}}"
 											 has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
 											  translate }}</a>
-									  </li
+									  </li>
 			                      </ul>
 			                  </span>
 			            </div>
@@ -167,7 +167,7 @@
 											<th colspan="13" class="pointer" data-ng-click="routeToGroup(group.id)">
 												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
 												<i tooltip-placement="right" tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}"></i>
-												<span ng-if="!isHideReferenceNumber">{{group.referenceNumber}}| </span><span ng-if="!isHideAccountNumber">{{group.accountNo}}-</span>{{group.name}}
+												<span ng-if="!isHideAccountNumber">{{group.accountNo}}-</span>{{group.name}}
 											</th>
                                             <th colspan="4">{{ 'label.heading.actions' | translate }}</th>
 

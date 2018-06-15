@@ -301,7 +301,10 @@
 		    "accountNo":false,
 		  "referenceNo": true,
 		  "meeting": false
-	  	}
+	  	},
+	    "isReadOnlyField" :{
+		  "groupName" : false
+	    }
 	},
 	"createMandates":{
 			"showEMIBalance": false

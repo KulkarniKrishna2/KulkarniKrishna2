@@ -57,7 +57,10 @@
 				"accountNo": true,
 				"referenceNo": false,
 				"meeting": true
-			}
+			},
+		    "isReadOnlyField" :{
+			 "groupName" : true
+		    }
 		},
 		"viewCenter": {
 			"isHiddenField": {
