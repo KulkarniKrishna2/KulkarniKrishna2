@@ -1,71 +1,82 @@
 {
-  "enableUIDisplayConfiguration": true,
-  "uiDisplayConfigurations": {
-	"viewClient": {
-	  "isHiddenField": {
-	  	"createClient" : true,
-		"accountNo":true,
-		"referenceNo": false
-	  	}
-	},
-	"viewLoanAccountDetails": {
-	  "isHiddenFeild": {
-		"netDisbursedAmount" : true
-	  }
-	},
-	"createClient": {
-	  "isHiddenField": {
-		"activate": true,
-		"hideClientClassification": true,
-		"legalForm":true,
-		"clientType":true
-	  },
-	  "isValidateDOBField": {
-		"active": true,
-		"ageCriteria": {
-		  "minAge": "18",
-		  "maxAge": "58"
-		}
-	  }
-	},
-	"createCenter": {
-	  "isHiddenField": {
-		"activate": true,
-		"villageOptions": false
-		},
-		"isReadOnlyField": {
-			"name": false
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+		"viewClient": {
+			"isHiddenField": {
+				"createClient": true,
+				"accountNo": true,
+				"referenceNo": false
 			}
-	},
-	"createGroup": {
-	  "isHiddenMenu": {
-		"activate": true,
-		"addclients": true
-	  },
-	  "selfActivate":true
-	},
-	"viewGroup":{
-	  	"isHiddenField": {
-	  		"createGroup" : true,
-		  	"accountNo":true,
-		  "referenceNo": false,
-		  "meeting": true
-	  	}
-	},
-	"viewCenter":{
-	  "isHiddenField": {
-		"accountNo" : true,
-		"referenceNo": false
-	  }
-	},
-	"createOffice":{
-		"selfActive" : true
-	},
-	"createJlgLoan": {
-		"isHiddenField": {
-			"jlgLoan": true
+		},
+		"viewLoanAccountDetails": {
+			"isHiddenFeild": {
+				"netDisbursedAmount": true
+			}
+		},
+		"createClient": {
+			"isHiddenField": {
+				"activate": true,
+				"hideClientClassification": true,
+				"legalForm": true,
+				"clientType": true
+			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": "18",
+					"maxAge": "58"
+				}
+			},
+			"isMandatoryField": {
+				"dateOfBirth": true,
+				"maritalStatus":false
+			},
+			"isValidMobileNumber":{
+				"mobileNumberPattern":"/^[0-9]{10,10}$/"
+			}
+		},
+		"createCenter": {
+			"isHiddenField": {
+				"activate": true,
+				"villageOptions": false
+			},
+			"isReadOnlyField": {
+				"name": false
+			}
+		},
+		"createGroup": {
+			"isHiddenMenu": {
+				"activate": true,
+				"addclients": true
+			},
+			"selfActivate": true
+		},
+		"viewGroup": {
+			"isHiddenField": {
+				"createGroup": true,
+				"accountNo": true,
+				"referenceNo": false,
+				"meeting": true
+			}
+		},
+		"viewCenter": {
+			"isHiddenField": {
+				"accountNo": true,
+				"referenceNo": false
+			}
+		},
+		"createOffice": {
+			"selfActive": true
+		},
+		"createJlgLoan": {
+			"isHiddenField": {
+				"jlgLoan": true
+			}
+		},
+		"defaultGISConfig": {
+			"address": {
+			"countryName": "India"
+			}
 		}
 	}
-  }
 }
-	

@@ -14,7 +14,9 @@
 					<th>{{'label.heading.loan.amount' | translate}}</th>
 					<th>{{'label.heading.review.reason' | translate}}</th>
 					<th>{{'label.heading.review.reason.notes' | translate}}</th>
-					<th>{{'label.heading.review.loanid.closure.date' | translate}}</th>
+					<th>{{'label.heading.review.current.loanid' | translate}}</th>
+					<th>{{'label.heading.review.preclousre.loanid' | translate}}</th>
+					<th>{{'label.heading.preclosure.date' | translate}}</th>
 					<th>{{'label.heading.attachments' | translate}}</th>
 					<th>{{'label.heading.timestamp'| translate}}</th>
 				</thead>
@@ -25,7 +27,9 @@
 						<td>{{history.recommendedAmount}}</td>
 						<td>{{history.reviewReson}}</td>
 						<td>{{history.reviewReasonNotes}}</td>
-						<td><span>{{history.loanId}} &nbsp; &nbsp; </span><span>{{history.preclosureDate | DateFormat}}</span></td>
+						<td>{{history.loanId}}</td>
+						<td>{{history.preclosureLoanId}}</td>
+						<td>{{history.preclosureDate | DateFormat}}</td>
 						<td>
 							<span ng-if="history.documentId">
 								{{history.fileName}}&nbsp;&nbsp;

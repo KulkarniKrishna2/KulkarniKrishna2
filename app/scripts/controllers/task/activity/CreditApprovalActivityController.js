@@ -856,7 +856,6 @@
                 approvalData.locale = scope.optlang.code;
                 approvalData.dateFormat = scope.df;
                 approvalData.disbursementData = [];
-                approvalData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
                 approvalData.approvedOnDate = dateFilter(new Date(), scope.df);
                 approvalData.dateFormat = scope.df;
 

@@ -41,10 +41,10 @@
 	            <span class="error" ng-show="isStaffRequired">{{'label.error.required' | translate}}</span>
 	        </div>
 
-			<div ng-hide= "isHidelegalForm" class="form-group" ng-show="showLegalForm">
+			<div class="form-group" ng-if="showLegalForm">
 				<label class="control-label col-sm-2">{{'label.input.legalForm' | translate}}</label>
 
-				<div class="col-sm-3" ng-if="isHidelegalForm">
+				<div class="col-sm-3">
 					<select id="legalFormId" ng-model="formData.legalFormId"  class="form-control"
 							ng-options="legalForm.id as legalForm.value for legalForm in clientLegalFormOptions" value="{{legalForm.id}}"
 							ng-change="displayPersonOrNonPersonOptions(formData.legalFormId)">
@@ -242,20 +242,22 @@
 
                 <div class="col-sm-3">
                     <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
-                           ng-pattern="/^[0-9]+$/"  ng-required="isMobileNumberMandatory" class="form-control"/>
+                           ng-pattern="{{mobileNumberPattern}}"  ng-required="isMobileNumberMandatory" class="form-control"/>
 					 <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                     <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
-						{{'label.mustbenumeric' | translate}}</small></span>
+						{{'label.invalid.mobileNumber' | translate}}</small></span>
+					<span ng-show="isMobileNumberMandatory">
 					<form-validate valattributeform="createclientform" valattribute="mobileNo"/>
+					</span>
                 </div>
                 <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
                 <div class="col-sm-3">
                 	<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
-                	ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                	ng-pattern="{{mobileNumberPattern}}"  class="form-control"/>
                 	<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
                 		<small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
-                			{{'label.mustbenumeric' | translate}}</small></span>
+                			{{'label.invalid.mobileNumber' | translate}}</small></span>
                 		</div>
                 	</div>
 	            

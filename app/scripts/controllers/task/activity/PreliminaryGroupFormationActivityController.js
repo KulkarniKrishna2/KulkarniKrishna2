@@ -179,9 +179,6 @@
                     if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                         $scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
                     }
-                    if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm) {
-                        $scope.isHidelegalForm = scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
-                    }
                     if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType) {
                         $scope.isHideclientType = scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType;
                     }
@@ -241,6 +238,10 @@
                     return restrictedDate;
                 };
 
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                    scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                    $scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+                }
                 $scope.getMemberTemplate = function () {
 
                     var requestParams = { 'staffInSelectedOfficeOnly': true };
@@ -509,6 +510,9 @@
 
                 $scope.changeVillage = function () {
                     if ($scope.formData.villageId != null && $scope.formData.villageId != undefined) {
+                        if($scope.formData.stateId){
+                            delete $scope.formData.stateId;
+                        }
                         if ($scope.formData.districtId) {
                             delete $scope.formData.districtId;
                         }
@@ -519,6 +523,7 @@
                         $scope.talukas = null;
                         $scope.formData.postalCode = null;
                         $scope.districts = null;
+                        $scope.states = null;
                         resourceFactory.villageResource.get({ villageId: $scope.formData.villageId }, function (response) {
                             if (response.addressData.length > 0) {
                                 if (response.villageName) {

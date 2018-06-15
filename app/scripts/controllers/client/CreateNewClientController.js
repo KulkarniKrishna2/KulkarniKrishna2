@@ -77,9 +77,6 @@
                 if(scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                 scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
                 }
-                if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm) {
-                    scope.isHidelegalForm = scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
-                }
                 if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType) {
                     scope.isHideclientType = scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType;
                 }
@@ -150,7 +147,11 @@
                 restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
                 return restrictedDate;
             };
-
+            
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+            }
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
