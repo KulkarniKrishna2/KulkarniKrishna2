@@ -6424,6 +6424,7 @@
     "label.anchor.bulk.transfer.request" : "Bulk Transfer Request",
     "validation.msg.bulktransfer.fromStaffId.not.greater.than.zero" : "From Staff is invalid.",
     "validation.msg.bulktransfer.fromStaffId.cannot.be.blank" : "From Staff must be selected",
+    "validation.msg.recurringdepositaccount.recurringFrequencyType.is.not.one.of.expected.enumerations" : "Recurring Frequency is not valid.",
 
     "------ end of tensalation file":"---------"
 }

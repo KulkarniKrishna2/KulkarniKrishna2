@@ -64,7 +64,8 @@
 				"middleName": true,
 				"externalId": true,
 				"submittedOn": true,
-				"openSavingsProduct": true
+				"openSavingsProduct": true,
+				"villageTown": true
 			}
 		},
 		"createCenter": {
