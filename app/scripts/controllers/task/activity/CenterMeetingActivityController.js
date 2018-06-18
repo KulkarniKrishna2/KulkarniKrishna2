@@ -313,7 +313,11 @@
                 if (scope.first.date) {
                     scope.firstMeetingDate = new Date(scope.first.date);
                     scope.repeatsOnDay = scope.firstMeetingDate.getDay();
-                    scope.formData.repeatsOnDay = scope.repeatsOnOptions[scope.repeatsOnDay];
+                    if(scope.repeatsOnDay === 0){
+                        //getDay() sunday give "0" repeatsOnOption sunday value is 7
+                      scope.repeatsOnDay = 7;  
+                    }
+                    scope.formData.repeatsOnDay = scope.repeatsOnDay.toString();
                 }
             });
         }

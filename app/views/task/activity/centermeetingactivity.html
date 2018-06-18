@@ -131,15 +131,17 @@
                     </select>
                 </div>
             </div>
-            <div class="col-sm-2">
-                <tr ng-show="formData.repeating">
-                    <td class="col-sm-2">
-                        <input type="text" ng-show="formData.frequency=='2'" ng-readonly="true" class="form-control" ng-model="formData.repeatsOnDay.name">
-                        </input>
-                    </td>
-                    <td class="col-sm-2"></td>
-                </tr>
-            </div>
+                <table class="col-sm-4">
+                    <tr ng-show="formData.repeating">
+                        <td class="col-sm-2">
+                            <select ng-show="formData.frequency=='2'" class="form-control" ng-model="formData.repeatsOnDay" ng-options="repeatsOnOption.value as repeatsOnOption.name for repeatsOnOption in repeatsOnOptions"
+                                value="{{repeatsOnOption.name}}" ng-disabled="true">
+                                <option value=""></option>
+                            </select>
+                        </td>
+                        <td class="col-sm-2"></td>
+                    </tr>
+                </table>
         </div>
        
         <div class="col-sm-12 center paddedbottom10">
