@@ -45,6 +45,7 @@
                 </div>
 
                 <div class="form-group">
+                    <div>
                     <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
@@ -54,6 +55,20 @@
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="transactionDate"/>
+                    </div>
+                    </div>
+                    <div >
+                        <label class="control-label col-sm-2">{{'label.input.companycodeforglaccounts' | translate}}</label>
+                        <div class="col-sm-3">
+                            <select id="companyCodeForGlaccountCodeValues" ng-change = "changeAccountsAsPerCompanyCodes(formData.companyCodeForGlaccountCodeValues)" name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues" class="form-control"
+                                    ng-options="companyCodeForGlaccountCode.id as companyCodeForGlaccountCode.name for companyCodeForGlaccountCode  in companyCodeForGlaccountCodeValues"
+                                    value="{{companyCodeForGlaccountCode.name}}">
+                                <option value="">{{'label.selectcompanycode' | translate}}</option>
+                            </select>
+                            <div class="col-sm-2">
+                                <form-validate valattributeform="journalpostingform" valattribute="companyCodeForGlaccountCodeValues"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

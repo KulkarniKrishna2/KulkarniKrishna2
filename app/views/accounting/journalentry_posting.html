@@ -42,6 +42,7 @@
 				<select id="companyCodeForGlaccountCodeValues" ng-change = "changeAccountsAsPerCompanyCodes(formData.companyCodeForGlaccountCodeValues)" name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues" class="form-control"
 						ng-options="companyCodeForGlaccountCode.id as companyCodeForGlaccountCode.name for companyCodeForGlaccountCode  in companyCodeForGlaccountCodeValues"
 						value="{{companyCodeForGlaccountCode.name}}">
+					<option value="">{{'label.selectcompanycode' | translate}}</option>
 				</select>
 				<div class="col-sm-2">
 					<form-validate valattributeform="journalpostingform" valattribute="companyCodeForGlaccountCodeValues"/>
