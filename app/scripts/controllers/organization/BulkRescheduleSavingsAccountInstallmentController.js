@@ -16,6 +16,8 @@
             scope.groupMemberLoanData=[];
             scope.centerData.groupMembers = [];
             scope.centerData.clientMembers = [];
+            scope.reschedule = false;
+            scope.noDataFound = false;
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -30,14 +32,20 @@
             
             scope.retrieveSavingsInstallmentRescheduleData = function () {
                 scope.savingsAccounts = [];
-                scope.selectAll.checked=false;
-                scope.reschedule = true; 
+                scope.selectAll.checked = false;
                 resourceFactory.savingsInstallmentRescheduleResource.get({officeId: scope.officeId, officerId: scope.fieldOfficerId, rescheduleFromDate: dateFilter(scope.first.date, scope.df)}, function (data) {
                     scope.accountSummaryCollection = data.accountSummaryCollection;
                     scope.centers = scope.accountSummaryCollection.centerDataList;
                     scope.groups = scope.accountSummaryCollection.groups;
                     scope.clients = scope.accountSummaryCollection.clients;
                     scope.codes = data.rescheduleReasons;
+                    if(scope.centers.length > 0 || scope.groups.length > 0 || scope.clients.length > 0){
+                        scope.noDataFound = false;
+                        scope.reschedule = true; 
+                    }else{
+                        scope.noDataFound = true;
+                        scope.reschedule = false;
+                    }
                 });
             };
   

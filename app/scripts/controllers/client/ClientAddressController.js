@@ -39,6 +39,9 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
             }
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown) {
+                scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown;
+            }
             resourceFactory.addressTemplateResource.get({}, function (data) {
                 scope.addressType = data.addressTypeOptions;
                 scope.countries = data.countryDatas;
