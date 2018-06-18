@@ -7156,5 +7156,8 @@
     "label.button.members.steps.info" : "Members Steps Info",
     "label.heading.isworkflowcompleted":"Is Workflow Completed",
     "label.heading.members.steps.info" : "Members Workflow Steps Info",
+
+    "label.input.preclose.emi.rounding" : "Preclose Emi Rounding",
+    "label.heading.preclose.emi.rounding" : "Preclose Emi Rounding",
      "------ end of tensalation file":"---------"
 }

@@ -163,6 +163,7 @@
                     adjustFirstEMIAmount: scope.product.adjustFirstEMIAmount,
                     adjustInterestForRounding: scope.product.adjustInterestForRounding,
                     excludeAdjustedRoundedAmountWithInterest: scope.product.excludeAdjustedRoundedAmountWithInterest,
+                    precloseEmiRounding: scope.product.precloseEmiRounding,
                     adjustedInstallmentInMultiplesOf: scope.product.adjustedInstallmentInMultiplesOf,
                     syncExpectedWithDisbursementDate: scope.product.syncExpectedWithDisbursementDate,
                     closeLoanOnOverpayment: scope.product.closeLoanOnOverpayment,
