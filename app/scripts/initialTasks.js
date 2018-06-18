@@ -2,7 +2,7 @@
 (function (mifosX) {
     var defineHeaders = function ($httpProvider, $translateProvider, ResourceFactoryProvider, HttpServiceProvider, $idleProvider, $keepaliveProvider, IDLE_DURATION, WARN_DURATION, KEEPALIVE_INTERVAL) {
         var mainLink = getLocation(window.location.href);
-        var baseApiUrl = "https://demo.openmf.org";
+        var baseApiUrl = "https://demo.finflux.io";
         var host = "";
         var portNumber = "";
         //accessing from openmf server
@@ -18,7 +18,19 @@
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
             }
             host = "https://" + mainLink.hostname;
-        }
+        }else if (mainLink.hostname.indexOf('finflux.io') >= 0) {
+            var hostname = window.location.hostname;
+            domains = hostname.split('.');
+            // For multi tenant hosting
+            if (domains[0] == "demo") {
+                $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
+                ResourceFactoryProvider.setTenantIdenetifier('default');
+            } else {
+                $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = domains[0];
+                ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
+            }
+            host = "https://" + mainLink.hostname;
+        } 
         //accessing from a file system or other servers
         else {
             if (mainLink.hostname != "") {
