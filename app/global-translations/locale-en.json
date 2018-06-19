@@ -7156,8 +7156,9 @@
     "label.button.members.steps.info" : "Members Steps Info",
     "label.heading.isworkflowcompleted":"Is Workflow Completed",
     "label.heading.members.steps.info" : "Members Workflow Steps Info",
-
     "label.input.preclose.emi.rounding" : "Preclose Emi Rounding",
     "label.heading.preclose.emi.rounding" : "Preclose Emi Rounding",
+    "error.msg.exceed.max.clients.limit" : "Can not be added a member more than max limit:",
+    "error.msg.exceed.max.group.limit" : "Can not be added a group more than max limit:",
      "------ end of tensalation file":"---------"
 }

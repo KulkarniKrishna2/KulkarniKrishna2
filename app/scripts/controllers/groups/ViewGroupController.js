@@ -21,6 +21,7 @@
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;
             }
+            scope.exceedMaxLimit = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -332,6 +333,31 @@
             scope.isGlimOverpaidOption = function(loanaccount){
                 return (loanaccount.status.value =='Overpaid' && loanaccount.loanType.value == 'GLIM');
             };
+            var activeMembers = 0;
+            var getActiveMembers = function(){
+                if(scope.group.clientMembers){
+                    for(var i in scope.group.clientMembers){
+                        if(scope.group.clientMembers[i].status.value =='Active' || scope.group.clientMembers[i].status.value == 'Transfer in progress'){
+                            activeMembers = activeMembers + 1;
+                        }
+                    }
+                }
+            }
+            scope.addMember = function(){
+                scope.exceedMaxLimit = false;
+                getActiveMembers();
+                if(scope.isMaxClientInGroupEnable && scope.group.clientMembers && (scope.maxClientLimit <= activeMembers)){
+                    scope.exceedMaxLimit = true;
+                }else{
+                    location.path('/addmember').search({
+                    groupId:scope.group.id,
+                    officeId:scope.group.officeId,
+                    staffId:scope.group.staffId,
+                    centerId:scope.group.centerId
+                });
+                }
+                
+            }
         }
     });
     mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {

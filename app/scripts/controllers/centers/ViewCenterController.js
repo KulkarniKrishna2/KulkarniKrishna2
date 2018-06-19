@@ -22,6 +22,7 @@
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
+            scope.exceedMaxLimit = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -298,6 +299,30 @@
 
             scope.viewLoanUtilizationCheck = function(loanId, utilizationCheckId){
                 location.path("/center/"+routeParams.id+"/loans/"+loanId+"/viewloanutilization/"+utilizationCheckId);
+            }
+
+            var activeGroupMembers = 0;
+            var getActiveGroupMembers = function(){
+                if(scope.center.groupMembers){
+                    for(var i in scope.center.groupMembers){
+                        if(scope.center.groupMembers[i].status.value =='Active'){
+                            activeGroupMembers = activeGroupMembers + 1;
+                        }
+                    }
+                }
+            }
+            scope.addgroup = function(){
+                scope.exceedMaxLimit = false;
+                getActiveGroupMembers();
+                if(scope.isMaxGroupInCenterEnable && scope.center.groupMembers && (scope.maxGroupLimit <= activeGroupMembers)){
+                    scope.exceedMaxLimit = true;
+                }else{
+                    location.path('/addgroup').search({
+                        centerId:scope.center.id,
+                        officeId:scope.center.officeId,
+                        staffId:scope.center.staffId
+                });
+                }    
             }
         }
     });

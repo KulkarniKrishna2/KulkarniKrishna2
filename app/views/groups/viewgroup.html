@@ -142,6 +142,9 @@
 		                <div data-ng-show="group.status.value=='Closed'">
 				            <h3>{{'label.heading.groupclosed' | translate}}</h3>
 				        </div>
+				        <div class="form-horizontal error" ng-if="exceedMaxLimit">
+				        	{{ 'error.msg.exceed.max.clients.limit' | translate }}{{maxClientLimit}}
+				        </div>
 		                <div id="center" class="row">
 		                	<div class="col-md-7">
 		                		<div class="panel panel-default">
@@ -154,8 +157,8 @@
 								  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
 								  			</a>
 								  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
-									            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}&staffId={{group.staffId}}&centerId={{group.centerId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
-									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
+									            <button class="btn btn-primary pull-right" ng-click="addMember()" ng-disabled="exceedMaxLimit" has-permission='CREATE_CLIENT'>
+									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</button>
 									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP' ng-hide="isHideCreateEntity">
 									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
 									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>
