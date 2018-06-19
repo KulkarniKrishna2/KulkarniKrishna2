@@ -836,6 +836,9 @@
             scope.displayOnNoActiveLoanApplication = function(){
                return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || (scope.loanApplications && scope.loanApplications.length <= 0));
             }
+            scope.changeEmi = function(){
+                scope.changeLoanEMIPack=true;
+            }
             
         }
     });
