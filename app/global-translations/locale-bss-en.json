@@ -119,5 +119,7 @@
   "validation.msg.savingsproduct.taxGroupId.cannot.be.blank":"Tax subgroup is required for with hold tax",
   "validation.msg.tax.group.total.percentage.is.greater.than.max":"Subgroup total percentage must be less than 100 at any point of time",
   "validation.msg.tax.component.group.total.percentage.is.greater.than.max":"One of the subgroup total is more than 100 with this modification",
-  "validation.msg.calendar.cannot.be.before.groups.activation.date":"Meeting date cannot be before subgroup activation date"
+  "validation.msg.calendar.cannot.be.before.groups.activation.date":"Meeting date cannot be before subgroup activation date",
+  "error.msg.exceed.max.group.limit" : "Can not be added a subgroup more than max limit:",
+  "------ end of tensalation file":"---------"
 }

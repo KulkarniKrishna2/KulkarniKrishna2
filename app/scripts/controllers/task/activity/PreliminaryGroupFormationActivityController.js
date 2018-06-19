@@ -59,19 +59,36 @@
             };
             initTask();
 
-
-            scope.createSubGroup = function (centerDetails) {
-                $modal.open({
-                    templateUrl: 'views/task/popup/createsubgroup.html',
-                    controller: CreateSubGroupCtrl,
-                    backdrop: 'static',
-                    windowClass: 'app-modal-window-full-screen',
-                    resolve: {
-                        centerDetails: function () {
-                            return centerDetails;
+            var activeGroupMembers = 0;
+            var getActiveGroupMembers = function(){
+                activeGroupMembers = 0;
+                if(scope.centerDetails.subGroupMembers){
+                    for(var i in scope.centerDetails.subGroupMembers){
+                        if(scope.centerDetails.subGroupMembers[i].status.value =='Active'){
+                            activeGroupMembers = activeGroupMembers + 1;
                         }
                     }
-                });
+                }
+            }
+
+            scope.createSubGroup = function (centerDetails) {
+                scope.exceedMaxSubGroupLimit = false;
+                getActiveGroupMembers();
+                if(scope.isMaxGroupInCenterEnable && (scope.maxGroupLimit <= activeGroupMembers)){
+                    scope.exceedMaxSubGroupLimit = true;
+                }else{
+                    $modal.open({
+                        templateUrl: 'views/task/popup/createsubgroup.html',
+                        controller: CreateSubGroupCtrl,
+                        backdrop: 'static',
+                        windowClass: 'app-modal-window-full-screen',
+                        resolve: {
+                            centerDetails: function () {
+                                return centerDetails;
+                            }
+                        }
+                    });
+                }
             };
 
             var CreateSubGroupCtrl = function ($scope, $modalInstance, centerDetails) {
@@ -111,20 +128,40 @@
                 };
 
             };
+            var activeMembers = 0;
+            var getActiveMembers = function(groupId){
+                activeMembers = 0;
+                if(scope.centerDetails.subGroupMembers){
+                    for(var i in scope.centerDetails.subGroupMembers){
+                        if(groupId == scope.centerDetails.subGroupMembers[i].id){
+                            for(var j in scope.centerDetails.subGroupMembers[i].memberData){
+                                if(scope.centerDetails.subGroupMembers[i].memberData && (scope.centerDetails.subGroupMembers[i].memberData[j].status.value =='Active' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'Transfer in progress')){
+                                    activeMembers = activeMembers + 1;
+                                }
+                            }
 
+                    }   }    
+                }
+            }
             scope.createMemberInGroup = function (groupId, officeId) {
-                $modal.open({
-                    templateUrl: 'views/task/popup/createmember.html',
-                    controller: CreateMemberCtrl,
-                    backdrop: 'static',
-                    windowClass: 'app-modal-window-full-screen',
-                    size: 'lg',
-                    resolve: {
-                        groupParameterInfo: function () {
-                            return { 'groupId': groupId, 'officeId': officeId };
+                scope.exceedMaxSubGroupLimit = false;
+                getActiveMembers(groupId);
+                if(scope.isMaxClientInGroupEnable  && (scope.maxClientLimit <= activeMembers)){
+                    scope.exceedMaxLimit = true;
+                }else{
+                    $modal.open({
+                        templateUrl: 'views/task/popup/createmember.html',
+                        controller: CreateMemberCtrl,
+                        backdrop: 'static',
+                        windowClass: 'app-modal-window-full-screen',
+                        size: 'lg',
+                        resolve: {
+                            groupParameterInfo: function () {
+                                return { 'groupId': groupId, 'officeId': officeId };
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             var CreateMemberCtrl = function ($scope, $modalInstance, groupParameterInfo) {

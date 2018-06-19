@@ -10,6 +10,12 @@
 		<div>
 		     <api-validate></api-validate>
 	    </div>
+	    <div class="form-horizontal error" ng-if="exceedMaxSubGroupLimit">
+			{{ 'error.msg.exceed.max.group.limit' | translate }}{{maxGroupLimit}}
+		</div>
+	    <div class="form-horizontal error" ng-if="exceedMaxLimit">
+			{{ 'error.msg.exceed.max.clients.limit' | translate }}{{maxClientLimit}}
+		</div>
 		<div>
 			<table class="table">
 				<thead>

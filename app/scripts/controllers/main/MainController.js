@@ -195,6 +195,16 @@
                         if(data.globalConfiguration[i].name=='show reference number as a name in group'){
                             scope.isReferenceNumberAsNameEnable = data.globalConfiguration[i].enabled;
                         }
+                        if(data.globalConfiguration[i].name=='max-clients-in-group'){
+                            scope.isMaxClientInGroupEnable = data.globalConfiguration[i].enabled;
+                            scope.maxClientLimit = data.globalConfiguration[i].value;
+
+                        }
+                        if(data.globalConfiguration[i].name=='max-groups-in-center'){
+                            scope.isMaxGroupInCenterEnable = data.globalConfiguration[i].enabled;
+                            scope.maxGroupLimit = data.globalConfiguration[i].value;
+
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
