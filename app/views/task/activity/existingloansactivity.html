@@ -49,13 +49,15 @@
 			 <form name="existingLoan" novalidate="" class="form-horizontal" rc-submit="submit()">
 	            <fieldset>
 	                <div class="form-group row">
-	                    <label class="control-label col-sm-2">{{ 'label.input.source' | translate }}</label>
+	                    <label class="control-label col-sm-2">{{ 'label.input.source' | translate }}<span
+								class="required">*</span></label>
 	                    <div class="col-sm-4">
 	                        <select id="source" name="source" ng-model="formData.sourceId" class="form-control"
 	                                ng-options="existingLoanSource.id as existingLoanSource.name for existingLoanSource in existingLoanSourceOption"
-	                                value="existingLoanSource.id">
+	                                value="existingLoanSource.id" required late-validate>
 	                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
 	                        </select>
+							<form-validate valattributeform="source" valattribute="amountBorrowed"/>
 	                    </div>
 	                    <label class="control-label col-sm-2">{{ 'label.input.creditbureau' | translate }}</label>
 	                    <div class="col-sm-4">
