@@ -20,6 +20,7 @@
                 scope.genderOptions = data.genderOptions;
                 scope.educationOptions = data.educationOptions;
                 scope.occupationOptions = data.occupationOptions;
+                scope.relationshipGenderData = data.relationshipGenderData;
 
                 resourceFactory.familyDetails.get({
                     clientId: scope.clientId,
@@ -160,6 +161,15 @@
                     }
                 });
             };
+            scope.findRelationCodeValue = function(value){
+                if(scope.relationshipGenderData && scope.relationshipGenderData.codeValueRelations){
+                    for(var i in scope.relationshipGenderData.codeValueRelations){
+                        if(scope.relationshipGenderData.codeValueRelations[i].codeValueFrom === value){
+                            scope.formData.genderId = scope.relationshipGenderData.codeValueRelations[i].codeValueTo;
+                        }
+                    }
+                }
+            }
 
             scope.submit = function () {
                 if(scope.formData.dateOfBirth) {
