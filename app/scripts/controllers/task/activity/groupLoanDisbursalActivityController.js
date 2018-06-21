@@ -80,7 +80,9 @@
                     loanApplicationReferenceId: scope.loanApplicationReferenceId
                 }, function(data) {
                     scope.formData = data;
-                    scope.formRequestData.disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
+                    if(data.expectedDisbursalPaymentType) {
+                        scope.formRequestData.disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
+                    }
                     resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,
                         command: 'loanapplicationcharges'
