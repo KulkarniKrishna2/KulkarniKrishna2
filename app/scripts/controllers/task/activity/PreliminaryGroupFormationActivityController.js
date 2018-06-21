@@ -897,6 +897,7 @@
                     });
                 };
                 $scope.findRelationCodeValue = function(value){
+                    $scope.familyMembersFormData.genderId = null;
                     if($scope.relationshipGenderData && $scope.relationshipGenderData.codeValueRelations){
                         for(var i in $scope.relationshipGenderData.codeValueRelations){
                             if($scope.relationshipGenderData.codeValueRelations[i].codeValueFrom === value){
