@@ -520,7 +520,7 @@
 										</label>
 
 										<div class="col-sm-3">
-											<select id="relationship" name="relationship" ng-model="familyMembersFormData.relationshipId" class="form-control" ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
+											<select id="relationship" name="relationship" ng-model="familyMembersFormData.relationshipId" ng-change="findRelationCodeValue(familyMembersFormData.relationshipId)" class="form-control" ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
 											    value="relationshipOption.id">
 												<option value="">--{{'label.input.selectoptions' | translate}}--</option>
 											</select>

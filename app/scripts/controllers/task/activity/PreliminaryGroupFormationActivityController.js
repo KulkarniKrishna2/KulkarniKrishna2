@@ -871,6 +871,7 @@
                         $scope.genderOptions = data.genderOptions;
                         $scope.educationOptions = data.educationOptions;
                         $scope.occupationOptions = data.occupationOptions;
+                        $scope.relationshipGenderData = data.relationshipGenderData;
                     });
 
                     resourceFactory.clientIdenfierTemplateResource.get({ clientId: $scope.clientId }, function (data) {
@@ -895,6 +896,16 @@
                         scope.reComputeProfileRating($scope.clientId);
                     });
                 };
+                $scope.findRelationCodeValue = function(value){
+                    if($scope.relationshipGenderData && $scope.relationshipGenderData.codeValueRelations){
+                        for(var i in $scope.relationshipGenderData.codeValueRelations){
+                            if($scope.relationshipGenderData.codeValueRelations[i].codeValueFrom === value){
+                                    $scope.familyMembersFormData.genderId = $scope.relationshipGenderData.codeValueRelations[i].codeValueTo;
+                            }
+                        }
+                    }
+                }
+
 
                 $scope.closeFamilyMembersForm = function () {
                     $scope.shownFamilyMembersForm = false;

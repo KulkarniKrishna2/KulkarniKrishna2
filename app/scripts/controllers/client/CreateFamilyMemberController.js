@@ -18,6 +18,7 @@
                 scope.genderOptions = data.genderOptions;
                 scope.educationOptions = data.educationOptions;
                 scope.occupationOptions = data.occupationOptions;
+                scope.relationshipGenderData = data.relationshipGenderData;
             });
 
             scope.submit = function () {
@@ -96,6 +97,15 @@
                     }
                 });
             };
+            scope.findRelationCodeValue = function(value){
+                if(scope.relationshipGenderData && scope.relationshipGenderData.codeValueRelations){
+                    for(var i in scope.relationshipGenderData.codeValueRelations){
+                        if(scope.relationshipGenderData.codeValueRelations[i].codeValueFrom === value){
+                            scope.genderId = scope.relationshipGenderData.codeValueRelations[i].codeValueTo;
+                        }
+                    }
+                }
+            }
 
         }
     });
