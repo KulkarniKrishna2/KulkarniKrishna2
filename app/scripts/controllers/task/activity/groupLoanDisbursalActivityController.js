@@ -74,15 +74,13 @@
                 }, function(data) {
                     scope.paymentTypes = data.paymentOptions;
                     scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions;
-                    if (scope.paymentTypes) {
-                        scope.formRequestData.disburse.paymentTypeId = scope.paymentTypes[0].id;
-                    }
                 });
 
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId
                 }, function(data) {
                     scope.formData = data;
+                    scope.formRequestData.disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
                     resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,
                         command: 'loanapplicationcharges'
