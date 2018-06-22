@@ -248,6 +248,14 @@
                     if(status == 'active'){
                         scope.activeLoanApplications = data;
                         angular.copy(scope.activeLoanApplications,scope.loanApplications);
+                        if(scope.activeLoanApplications.length > 0){
+                            for(var i in scope.buttonsArray.singlebuttons){
+                                if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                                    scope.buttonsArray.singlebuttons[i].isEnableButton = false;
+                                    break;
+                                }
+                            }
+                        }
                     }else if(status == 'rejected'){
                         scope.rejectedLoanApplications = data;
                         angular.copy(scope.rejectedLoanApplications,scope.loanApplications);
