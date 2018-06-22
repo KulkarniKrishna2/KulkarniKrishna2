@@ -7160,5 +7160,7 @@
     "label.heading.preclose.emi.rounding" : "Preclose Emi Rounding",
     "error.msg.exceed.max.clients.limit" : "Can not be added a member more than max limit:",
     "error.msg.exceed.max.group.limit" : "Can not be added a group more than max limit:",
+    "label.heading.originated.loan.officer" :"Originated Loan officer",
+    "label.heading.managed.by.loan.officer" :"Managed By Loan officer",
      "------ end of tensalation file":"---------"
 }

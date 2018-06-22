@@ -360,9 +360,13 @@
 						                        </td>
 						                    </tr>
 						                    <tr data-ng-show="center.staffName">
-						                        <th>{{ 'label.heading.staff' | translate }}</th>
+						                    	<tr>
+						                        <th>{{ 'label.heading.originated.loan.officer' | translate }}</th>
+						                        <td><span class="padded-td">{{center.originatedStaffName}}</span>
+						                        </td></tr>
+						                        <tr><th>{{ 'label.heading.managed.by.loan.officer' | translate }}</th>
 						                        <td><span class="padded-td">{{center.staffName}}</span>
-						                        </td>
+						                        </td></tr>
 						                    </tr>
 						                </table>
 										<br/>
