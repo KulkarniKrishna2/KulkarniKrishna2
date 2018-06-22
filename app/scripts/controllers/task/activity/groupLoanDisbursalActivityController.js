@@ -233,6 +233,7 @@
 
             scope.charges = [];
             scope.constructExistingCharges = function(index, chargeId) {
+                scope.charges = [];
                 resourceFactory.chargeResource.get({
                     chargeId: chargeId,
                     template: 'true'
