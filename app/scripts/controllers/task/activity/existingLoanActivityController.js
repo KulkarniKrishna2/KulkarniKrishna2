@@ -93,6 +93,9 @@
                 if (!_.isUndefined(scope.formData.disbursedDate)) {
                     this.formData.disbursedDate = dateFilter(scope.formData.disbursedDate, scope.df);
                 }
+                if(!this.formData.sourceId){
+                    this.formData.sourceId = null;
+                }
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 resourceFactory.clientExistingLoan.update({
@@ -124,6 +127,9 @@
                 }
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
+                if(!this.formData.sourceId){
+                    this.formData.sourceId = null;
+                }
                 resourceFactory.clientExistingLoan.save({clientId: scope.clientId}, this.formData, function (data) {
                     existingLoans();
                     scope.addExistingLoan = false;
