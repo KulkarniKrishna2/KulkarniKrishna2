@@ -7162,5 +7162,6 @@
     "error.msg.exceed.max.group.limit" : "Can not be added a group more than max limit:",
     "label.heading.originated.loan.officer" :"Originated Loan officer",
     "label.heading.managed.by.loan.officer" :"Managed By Loan officer",
+    "validation.msg.loanproduct.incomeFromRecoveryAccountId.cannot.be.blank" : "Income from recovery account cann't be blank.",
      "------ end of tensalation file":"---------"
 }
