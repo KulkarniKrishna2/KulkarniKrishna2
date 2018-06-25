@@ -68,18 +68,22 @@
                     var colName = data.columnHeaderData[i].columnName;
                     if(colName == 'id'){
                          data.columnHeaderData.splice(i, 1);
-                         colName = data.columnHeaderData[i].columnName;
+                         if(data.columnHeaderData.length > i) {
+                            colName = data.columnHeaderData[i].columnName;
+                        }else{
+                            colName = data.columnHeaderData[data.columnHeaderData.length-1].columnName;
+                        }
                     }
                     
                     if(idList.indexOf(colName) >= 0 ){
                         data.columnHeaderData.splice(i, 1);
                     }
                     var tempColumn = {};
-                    if (data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
+                    if (data.columnHeaderData.length > i && data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
                         temp = data.columnHeaderData[i].columnName.split("_cd_");
                         tempColumn.columnName = temp[1];
                     }
-                    if (data.columnHeaderData[i].columnCode) {
+                    if (data.columnHeaderData.length > i && data.columnHeaderData[i].columnCode) {
                         tempColumn.code = data.columnHeaderData[i].columnCode;
                     }
                     scope.tempData.push(tempColumn);

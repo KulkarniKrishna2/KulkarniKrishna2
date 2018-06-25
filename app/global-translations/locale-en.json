@@ -7044,5 +7044,6 @@
     "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
     "validation.msg.loanapplicationreference.submittedOnDate.is.greater.than.date" : "Loan application submission date cannot be a future date.",
     "label.input.associate.with.loan" : "Associated With Loan",
+    "error.msg.columns.dependson.same.as.name": "Invalid column association.Column cannot be associated with same column",
     "------ end of tensalation file":"---------"
 }
