@@ -306,7 +306,9 @@
                     attendence.reasonId = scope.clientsAttendance[i].reasonId;
                     attendence.reason = scope.clientsAttendance[i].reason;
                     attendence.attendanceType = scope.clientsAttendance[i].attendanceType;
-                    clientsAttendanceDetails.push(attendence);
+                    if(attendence.clientId) {
+                        clientsAttendanceDetails.push(attendence);
+                    }
                 };
                 scope.formData.clientsAttendance = clientsAttendanceDetails;
             };
