@@ -246,6 +246,7 @@
                 } else {
                     scope.isEmptyDatatable = false;
                     scope.columnNotMappedToSectionError = false;
+                    scope.isDepandsOnSameAsNameError = false;
                     delete scope.errorDetails;
                     scope.formData.multiRow = scope.formData.multiRow || false;
                     scope.formData.associateWithLoan = scope.formData.associateWithLoan || false;
@@ -319,7 +320,13 @@
                             delete this.formData.columns[i].sectionName;
                         }
                     }
-
+                    for(var i in scope.columns){
+                        if(scope.columns[i].name === scope.columns[i].dependsOn){
+                        scope.isDepandsOnSameAsNameError = true;
+                        scope.labelColumnError = "dependson.same.as.name";
+                        return false;
+                    }
+                    }
                     resourceFactory.DataTablesResource.save(this.formData, function (data) {
                         location.path('/viewdatatable/' + data.resourceIdentifier);
                     });
