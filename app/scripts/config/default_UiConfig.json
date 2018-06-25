@@ -149,7 +149,10 @@
         "maritalStatus":true,
         "gender":false,
         "staff":false
-	  }
+	  },
+	  "isValidMobileNumber": {
+        "mobileNumberPattern":"/^[0-9]+$/"
+      }
 	},
 	"defaultGISConfig": {
 	  "address": {
