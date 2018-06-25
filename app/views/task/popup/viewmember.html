@@ -726,11 +726,6 @@
 													<label>{{ 'label.heading.startdate' | translate }}:</label>
 												</td>
 												<td class="width36">{{calendar.startDate | DateFormat}}</td>
-												<td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-													<label>{{ 'label.heading.repeatson' | translate }}:</label>
-												</td>
-												<td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-													{{calendar.humanReadable}}</td>
 											</tr>
 											<tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
 												<td align="center">
@@ -739,13 +734,6 @@
 												</td>
 												<td>
 													<label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
-												</td>
-												<td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-													<input type="checkbox" ng-model="loanAccountFormData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()"
-													/>
-												</td>
-												<td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
-													<label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label>
 												</td>
 											</tr>
 										</table>
