@@ -73,10 +73,15 @@
                         }else{
                             colName = data.columnHeaderData[data.columnHeaderData.length-1].columnName;
                         }
+                         colName = data.columnHeaderData[i].columnName;
                     }
                     
                     if(idList.indexOf(colName) >= 0 ){
                         data.columnHeaderData.splice(i, 1);
+                        colName = data.columnHeaderData[i].columnName;
+                        if(idList.indexOf(colName) >= 0 ){
+                            data.columnHeaderData.splice(i, 1);
+                        }
                     }
                     var tempColumn = {};
                     if (data.columnHeaderData.length > i && data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
