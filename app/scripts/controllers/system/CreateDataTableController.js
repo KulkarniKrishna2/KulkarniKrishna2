@@ -25,6 +25,7 @@
             scope.isDuplicateColumnName = false;
             scope.labelColumnError = "";
             scope.scopeOptionsAvailable = {};
+            scope.isShowRestrictScope = false;
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -124,11 +125,15 @@
             scope.resetScope = function () {
                 scope.available = [];
                 scope.selected = [];
+                scope.isShowRestrictScope = false;
                 var restrictScopeEnabled = true;
                 angular.copy(scope.scopeOptionsAvailable,scope.scopeOptions);
                 var scopeType = '';
                 if(scope.formData.apptableName == 'm_client'){
                     scopeType = 'Client Legal Form';
+                }
+                if(scope.formData.apptableName == 'm_client'||scope.formData.apptableName == 'm_loan'||scope.formData.apptableName == 'm_savings_account'){
+                    scope.isShowRestrictScope = true;
                 }
                 scope.changeEntity(restrictScopeEnabled, scopeType);
             }
