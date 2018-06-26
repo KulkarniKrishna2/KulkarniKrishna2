@@ -63,7 +63,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.multirow' | translate }}</label>
 				<div class="form-inline col-sm-3"><input type="checkbox" ng-model="formData.multiRow"/></div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-show="isShowRestrictScope">
 				<label class="control-label col-sm-2">{{ 'label.input.restrictscope' | translate }}</label>
 				<div class="form-inline col-sm-3"><input type="checkbox" ng-model="formData.restrictscope" ng-change="changeEntity(formData.restrictscope, 'Client Legal Form')"/></div>
 			</div>
