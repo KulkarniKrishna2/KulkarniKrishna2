@@ -1,0 +1,62 @@
+<div class="col-md-12" data-ng-controller="WorkflowBankApprovalListController">
+    <div>
+        <h3 class="paddedleft">
+            <strong>{{'label.heading.kotak.credit.approval.list' | translate}}</strong>
+        </h3>
+    </div>
+    <hr/>
+    <div id="home" class="row">
+        <div class="col-md-12">
+            <div class="card-content no-h-padding">
+                <tabset class="paddedtop paddedbottom10">
+                   <tab ng-repeat="taskType in taskTypes" ng-click="changeInTab(taskType.grouping)"   ng-if = "taskType.showtab" class='{{taskType.active}}'>
+                        <tab-heading>
+                            {{taskType.name | translate}}
+                        </tab-heading>
+                        <div class="table-responsive" 
+                            data-ng-show="taskPagination.currentPageItems.length > 0">
+                            <table id="bankapprovals" class="table table-striped card-table">
+                                <tbody>
+                                <tr ng-repeat="workflowBankApproval in taskPagination.currentPageItems" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
+                                    <td class=" pointer">
+                                        {{workflowBankApproval.officeName}}
+                                    </td>
+                                    <td class=" pointer">
+                                     <span> {{workflowBankApproval.clientName}} 
+                                     ({{workflowBankApproval.clientFCSMNumber}}) </span>
+                                    </td>
+                                    <td class=" pointer">
+                                      {{workflowBankApproval.productName}}({{workflowBankApproval.requestLoanAmount}})
+                                    </td>
+                                    <td class=" pointer">
+                                        <i tooltip-placement="right" class="icon-circle " ng-style="getColor(workflowBankApproval.runningStatus)"></i>
+                                        {{workflowBankApproval.workflowLoanStatus.value}}
+                                    </td>    
+                                    <td class=" pointer">
+                                        {{workflowBankApproval.taskCreatedDate | DateTimeFormat}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <ul class="pager">
+                                <li class="previous">
+                                    <a id="prev" ng-click="taskPagination.previous()" href=""
+                                       ng-hide="!taskPagination.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+                                </li>
+                                <li class="next">
+                                    <a id="next" ng-click="taskPagination.next()" href=""
+                                       ng-hide="!taskPagination.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="" style="padding:10px;" data-ng-hide="taskPagination.currentPageItems && taskPagination.currentPageItems.length > 0">
+                            <div class="alert alert-info" style="border-style: dashed;">
+                                <span class="fa fa-info-circle"></span> {{'info.message.taskList.noTasks' | translate}}
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

@@ -590,7 +590,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/GRTBasicActivityController',
             'task/showcase/CenterOnboardingWorkflowController',
             'task/activity/kotakApprovalActivityController',
-            'common/ViewHistoryController'
+            'common/ViewHistoryController',
+            'dashboard/WorkflowBankApprovalListController',
+            'task/bankapproval/WorkflowBankApprovalActionController',
+            'task/bankapproval/ClientLevelQueryResolveController'
         ],
         filters: [
             'StatusLookup',

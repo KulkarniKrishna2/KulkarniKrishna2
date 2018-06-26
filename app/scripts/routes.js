@@ -1755,6 +1755,15 @@
             .when('/history/:entityType/:entityId',{
                 templateUrl: 'views/common/viewhistory.html'
             })
+            .when('/workflowbankapprovallist',{
+                templateUrl: 'views/dashboard/workflowbankapprovallist.html'
+            })    
+            .when('/workflowbankapprovalaction/:trackerId/:workflowBankApprovalId',{
+                templateUrl: 'views/task/bankapproval/workflowbankapprovalaction.html'
+            })
+            .when('/clientlevelqueryresolve/:trackerId/:workflowBankApprovalId',{
+                templateUrl: 'views/task/bankapproval/clientlevelqueryresolve.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

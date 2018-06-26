@@ -1539,6 +1539,22 @@
                     entityWorkflowResource: defineResource(apiVer + "/workflows/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         getWorkflows: {method: 'GET', params: {}, isArray: true}
                     }),
+                    bankApprovalListSearchResource: defineResource(apiVer + "/tasktracking/bankapprovals/search",{}, {
+                        get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}, isArray: true}
+                    }),
+                    bankApprovalTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/bankapproval/template",{trackerId:'@trackerId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    bankApprovalActionResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId",{bankApproveId:'@bankApproveId'}, {
+                        doAction: {method: 'POST', params: {}}
+                    }),
+                    taskClientLevelQueryResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId/query/:queryId",{bankApproveId:'@bankApproveId', queryId:'@queryId'}, {
+                        raiseQuery: {method: 'POST', params: {}},
+                        resolveQuery: {method: 'PUT'}
+                    }),
+                    taskClientLevelQueryResolveTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/query/template",{trackerId:'@trackerId'}, {
+                        get: {method: 'GET', params: {}}
+                    })
                 };
             }];
         }

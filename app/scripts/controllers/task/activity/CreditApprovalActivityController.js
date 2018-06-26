@@ -858,41 +858,6 @@
                         scope.taskInfoTrackArray.splice(idx,1);
                     }
             }
-
-            scope.approveLoan = function (data) {
-                for (var i in data) {
-                    scope.approveLoanQueue(data[i]);
-                }
-
-            }
-
-            scope.approveLoanQueue = function (data) {
-                var deferred = $q.defer();
-                var approvalData = {};
-                approvalData.locale = scope.optlang.code;
-                approvalData.dateFormat = scope.df;
-                approvalData.disbursementData = [];
-                approvalData.approvedOnDate = dateFilter(new Date(), scope.df);
-                approvalData.dateFormat = scope.df;
-
-                resourceFactory.LoanAccountResource.getLoanAccountDetails({
-                    loanId: data.loanId,
-                    associations: 'multiDisburseDetails'
-                }, function (loandata) {
-                    console.log(loandata);
-                    approvalData.loanEMIPackId = loandata.loanEMIPackData.id;
-                    approvalData.approvedLoanAmount = loandata.loanEMIPackData.sanctionAmount;
-                    var params = {
-                        command: "approve",
-                        loanId: data.loanId
-                    };
-                    resourceFactory.LoanAccountResource.save(params, approvalData, function (approveddata) {
-                        console.log(approveddata);
-                        deferred.resolve(data);
-                    });
-                });
-                return deferred.promise;
-            }
             
             scope.moveMembersToNextStep = function(){
                 scope.errorDetails = [];
@@ -904,7 +869,6 @@
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
-                 scope.approveLoan(scope.taskInfoTrackArray);
                 resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
                     initTask();
                 })
