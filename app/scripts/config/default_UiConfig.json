@@ -324,6 +324,9 @@
 	 	"rejectReason":false,
 		"rejectDescription": false,
 		"rejectCodes":false
+	  },
+	  "PGFValidation" : {
+	  	"profileRatingPercentage" :  ""
 	  }
 	},
   "globalSearchScope" : {
