@@ -80,6 +80,11 @@
 			"address": {
 			"countryName": "India"
 			}
+		},
+		"workflow": {
+	  		"PGFValidation" : {
+	  			"profileRatingPercentage" :  80
+	  		}
 		}
 	}
 }

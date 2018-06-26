@@ -6,6 +6,12 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.isMemberChecked = false;
                 scope.taskInfoTrackArray = [];
+                scope.clientProfileRatingScoreForSuccess = 0;
+
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.PGFValidation && scope.response.uiDisplayConfigurations.workflow.PGFValidation.profileRatingPercentage) {
+                    scope.clientProfileRatingScoreForSuccess = scope.response.uiDisplayConfigurations.workflow.PGFValidation.profileRatingPercentage;
+                }
 
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
@@ -70,6 +76,13 @@
                     }
                 }
             }
+
+            scope.validateClient = function(activeClientMember){
+                if(activeClientMember.profileRatingScoreData){
+                   return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore *20 < scope.clientProfileRatingScoreForSuccess); 
+                }
+                return activeClientMember.status.code === 'clientStatusType.onHold';
+            };
 
             scope.createSubGroup = function (centerDetails) {
                 scope.exceedMaxSubGroupLimit = false;
