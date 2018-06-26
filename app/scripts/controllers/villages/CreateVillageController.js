@@ -39,6 +39,9 @@
                 }
             });
 
+            if(scope.response && scope.response.uiDisplayConfigurations.createVillage.autoActivate){
+                scope.autoActivate = !scope.response.uiDisplayConfigurations.createVillage.autoActivate;
+            }
             resourceFactory.addressTemplateResource.get({}, function (data) {
                 scope.countries = data.countryDatas;
                 scope.setDefaultGISConfig();
@@ -195,6 +198,9 @@
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
                     this.formData.submittedOnDate = reqDate;
+                    if(!scope.autoActivate){
+                        this.formData.activatedOnDate = reqDate;
+                    }
                 }
                 if (scope.formAddressData.countryId == null || scope.formAddressData.countryId == ""){
                     delete scope.formAddressData.countryId;

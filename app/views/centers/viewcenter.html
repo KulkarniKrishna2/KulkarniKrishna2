@@ -204,8 +204,11 @@
 						                    	class="icon-stop {{loan.status.code | StatusLookup}}"></i>
 						                    <i ng-show="loan.inArrears" tooltip-placement="right" tooltip="{{loan.status.value}}"
 						                     	class="icon-stop {{loan.status.code | StatusLookup}}overdue"></i>
-											<td class="pointer text-right" colspan="7" data-ng-click="routeToLoan(loan.id)">
+											<td ng-hide="showProductShortName" class="pointer text-right" colspan="5" data-ng-click="routeToLoan(loan.id)">
 												{{loan.accountNo}} - {{loan.shortProductName}}
+											</td>
+											<td ng-show="showProductShortName" class="pointer text-right" colspan="5" data-ng-click="routeToLoan(loan.id)">
+												{{loan.accountNo}}
 											</td>
 											<td class="pointer text-left" colspan="2" data-ng-click="routeToLoan(loan.id)">
 												{{loan.originalLoan}}

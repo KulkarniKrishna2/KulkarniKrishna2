@@ -99,6 +99,12 @@
                     });
                 }
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup &&
+                scope.response.uiDisplayConfigurations.viewGroup.isHiddenField) {
+                if (scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.groupName) {
+                    scope.hideGroupName = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.groupName;
+                }
+            }
 
         }
     });

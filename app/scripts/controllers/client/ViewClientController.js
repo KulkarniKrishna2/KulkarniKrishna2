@@ -44,6 +44,10 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder) {
                 scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createNewLoan &&
+                scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField && scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan) {
+                scope.hideNewLoan = scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan;
+            }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
         
             scope.routeToLoan = function (id) {
@@ -210,6 +214,13 @@
                     for(var i in scope.buttonsArray.singlebuttons){
                         if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
                             scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                            break;
+                        }
+                    };
+
+                    for (var i in scope.buttonsArray.singlebuttons) {
+                        if (scope.hideNewLoan && scope.buttonsArray.singlebuttons[i].name == 'label.button.newloan') {
+                            scope.buttonsArray.singlebuttons.splice(i,1);
                             break;
                         }
                     };

@@ -21,6 +21,10 @@
                 scope.relationshipGenderData = data.relationshipGenderData;
             });
 
+            resourceFactory.clientIdenfierTemplateResource.get({ clientId: scope.clientId }, function (data) {
+                scope.documentTypes = data.allowedDocumentTypes;
+            });
+
             scope.submit = function () {
                 if (scope.salutationId) {
                     this.formData.salutationId = scope.salutationId;
@@ -39,6 +43,12 @@
                 }
                 scope.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
+                if (!scope.formData.documentTypeId) {
+                    if (scope.formData.documentKey != undefined) {
+                        delete scope.formData.documentKey;
+                        delete scope.formData.documentTypeId;
+                    }
+                }
                 resourceFactory.familyDetails.save({clientId: scope.clientId}, this.formData, function (data) {
                     location.path('/listfamilydetails/' + scope.clientId)
                 });

@@ -18,6 +18,7 @@
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.hideManageGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
             scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
+            scope.showProductShortName = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.showProductShortName;
             scope.isHideCreateEntity = false;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
