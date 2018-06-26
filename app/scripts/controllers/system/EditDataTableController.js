@@ -28,6 +28,7 @@
             scope.isDuplicateColumnName = false;
             scope.formData.associateWithLoan = false;
             scope.isShowRestrictScope = false;
+            scope.isAssociateWithLoanReadonly = false;
             var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
@@ -45,6 +46,9 @@
                 scope.formData.dataTableDisplayName = data.registeredTableDisplayName;
                 if(data.scopingCriteriaEnum != undefined && data.scopingCriteriaEnum != null) {
                     scope.formData.restrictscope = true;
+                }
+                if(data.associateApplicationTableName){
+                    scope.isAssociateWithLoanReadonly = true;
                 }
                 if(scope.formData.apptableName == 'm_client'||scope.formData.apptableName == 'm_loan'||scope.formData.apptableName == 'm_savings_account'){
                     scope.isShowRestrictScope = true;
