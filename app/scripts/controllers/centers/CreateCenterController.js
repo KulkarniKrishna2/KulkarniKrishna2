@@ -107,10 +107,9 @@
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activationDate = reqDate;
-                if(scope.response != undefined && !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions){
+                /*if(scope.response != undefined && !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions){
                     this.formData.name = scope.villageCount.villageName +" "+ (scope.villageCount.counter+1);
-                }
-
+                }*/
 
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
