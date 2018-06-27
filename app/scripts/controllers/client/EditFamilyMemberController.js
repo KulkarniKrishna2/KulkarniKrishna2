@@ -22,6 +22,10 @@
                 scope.occupationOptions = data.occupationOptions;
                 scope.relationshipGenderData = data.relationshipGenderData;
 
+                resourceFactory.clientIdenfierTemplateResource.get({ clientId: scope.clientId }, function (data) {
+                    scope.documentTypes = data.allowedDocumentTypes;
+                });
+
                 resourceFactory.familyDetails.get({
                     clientId: scope.clientId,
                     familyDetailId: scope.familyDetailId
@@ -59,6 +63,12 @@
                     if(data.occupation){
                         scope.occupationOption = data.occupation;
                         scope.formData.occupationDetailsId = scope.occupationOption.id;
+                    }
+                    if(data.documentType && data.documentType.id){
+                        scope.formData.documentTypeId = data.documentType.id;
+                    }
+                    if(data.documentKey){
+                        scope.formData.documentKey = data.documentKey;
                     }
                 });
             });
@@ -178,7 +188,12 @@
                 }
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
-
+                if (!scope.formData.documentTypeId) {
+                    if (scope.formData.documentKey != undefined) {
+                        delete scope.formData.documentKey;
+                        delete scope.formData.documentTypeId;
+                    }
+                }
                 resourceFactory.familyDetails.update({
                     clientId: scope.clientId,
                     familyDetailId: scope.familyDetailId

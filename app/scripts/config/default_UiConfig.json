@@ -91,7 +91,8 @@
 		"charges": false,
 		"addCharges": false,
 		"prepayLoanButton" : true,
-		"netDisbursedAmount" : false
+		"netDisbursedAmount" : false,
+		"showProductShortName":false
 	  }
 	},
 	"clientAccount": {
@@ -189,7 +190,10 @@
 		"showStaff" : true,
 		"addclients" : true,
 		"activate": false
-	  }
+		},
+		"isAutoPopulate": {
+			"name": true
+			}
 	},
 	"createGroup": {
 	  "isReadOnlyField": {
@@ -231,7 +235,8 @@
 	  },
 	  "isHiddenField": {
 		"villageCode": false
-	  }
+		},
+		"autoActivate": false
 	},
 	"clientIdentifier": {
 	  "identitiesMatchLuhnsAlgorithm": {
@@ -300,7 +305,8 @@
 	  		"createGroup" : false,
 		    "accountNo":false,
 		  "referenceNo": true,
-		  "meeting": false
+			"meeting": false,
+			"groupName": false
 	  	},
 	    "isReadOnlyField" :{
 		  "groupName" : false
@@ -361,7 +367,12 @@
 	},
 	"createJlgLoan": {
 		"isHiddenField": {
-			"jlgLoan": true
+			"jlgLoan": false
+		}
+	},
+	"createNewLoan": {
+		"isHiddenField": {
+			"newLoan": false
 		}
 	}
   }

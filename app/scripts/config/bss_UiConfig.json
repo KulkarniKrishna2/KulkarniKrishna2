@@ -10,7 +10,8 @@
 		},
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
-				"netDisbursedAmount": true
+				"netDisbursedAmount": true,
+				"showProductShortName":true
 			}
 		},
 		"createClient": {
@@ -42,6 +43,9 @@
 			},
 			"isReadOnlyField": {
 				"name": false
+			},
+			"isAutoPopulate": {
+				"name": false
 			}
 		},
 		"createGroup": {
@@ -56,7 +60,8 @@
 				"createGroup": true,
 				"accountNo": true,
 				"referenceNo": false,
-				"meeting": true
+				"meeting": true,
+				"groupName": true
 			},
 		    "isReadOnlyField" :{
 			 "groupName" : true
@@ -84,7 +89,18 @@
 		"workflow": {
 	  		"PGFValidation" : {
 	  			"profileRatingPercentage" :  80
-	  		}
+			  }
+			},
+		"createVillage": {
+			"isReadOnlyField": {
+			  "active": true
+			},
+			"autoActivate": true
+		},
+		"createNewLoan": {
+			"isHiddenField": {
+				"newLoan": true
+			}
 		}
 	}
 }
