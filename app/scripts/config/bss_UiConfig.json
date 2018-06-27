@@ -101,6 +101,11 @@
 			"isHiddenField": {
 				"newLoan": true
 			}
+		},
+		"createCharges": {
+			"isHiddenField": {
+				"chargeCategoryType": false
+			}
 		}
 	}
 }

@@ -16,7 +16,12 @@
             scope.showPercentageTyeOptions = false;
             scope.roundingModeOptions = [];
             scope.chargeAppliesToLoan = 1;
+            scope.showChargeCategoryType = false;
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
+                scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
+                scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
+            }
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
@@ -84,6 +89,9 @@
                 };
                 if(data.roundingMode){
                     scope.formData.roundingMode = data.roundingMode.id;
+                }
+                if(data.chargeCategoryType &&  data.chargeCategoryType.id){
+                    scope.formData.chargeCategoryType = data.chargeCategoryType.id;
                 }
                 scope.slabChargeTypeOptions = data.slabChargeTypeOptions;  
 

@@ -6,6 +6,7 @@
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
+                scope.chargesCategory = [];
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -56,7 +57,14 @@
 
             };
             initTask();
-
+            scope.filterCharges = function (chargeData,categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
             scope.viewMemberDetails = function (groupId, activeClientMember) {
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',

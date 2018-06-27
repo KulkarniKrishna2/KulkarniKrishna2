@@ -63,6 +63,10 @@
 	                <tr>
 	                    <td>{{'label.heading.chargecalculationtype' | translate}}</td>
 	                    <td>{{charge.chargeCalculationType.value}}</td>
+					</tr>
+					<tr ng-if="showChargeCategoryType">
+	                    <td>{{'label.heading.chargeCategoryType' | translate}}</td>
+	                    <td>{{charge.chargeCategoryType.value}}</td>
 	                </tr>
 	                <tr ng-show="charge.isSlabBased  || charge.chargeCalculationType.value == slabBasedCharge">
 	                    <td>{{'label.heading.isslabbasedcharge' | translate}}</td>
