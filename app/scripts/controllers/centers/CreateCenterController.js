@@ -14,6 +14,11 @@
             scope.isHiddenVillageOption = true;
             scope.villageCount = {};
             scope.count = "";
+            scope.officeName = "";
+            scope.isBranchNameIncluded = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName){
+                scope.isBranchNameIncluded = scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName;
+            }
 
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
@@ -35,7 +40,14 @@
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
             }
 
-            scope.$watch(scope.formData.officeId, function() {
+            scope.$watch('formData.officeId', function() {
+                if(scope.isBranchNameIncluded && scope.formData.officeId && scope.offices.length>0){
+                    for (var i in scope.offices){
+                        if(scope.offices[i].id==scope.formData.officeId){
+                            scope.officeName = scope.offices[i].name;
+                        }
+                    }
+                }
                 scope.changeOffice();
             });
 
