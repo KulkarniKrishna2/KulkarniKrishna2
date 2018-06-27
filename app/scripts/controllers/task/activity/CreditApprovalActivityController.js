@@ -58,6 +58,14 @@
             };
             initTask();
 
+            scope.filterCharges = function (chargeData,categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
             scope.openViewDocument = function(enquiryId) {
                 scope.reportEntityType = "CreditBureau";
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + scope.reportEntityType + '/' +

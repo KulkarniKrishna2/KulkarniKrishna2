@@ -7163,5 +7163,8 @@
     "label.heading.originated.loan.officer" :"Originated Loan officer",
     "label.heading.managed.by.loan.officer" :"Managed By Loan officer",
     "validation.msg.loanproduct.incomeFromRecoveryAccountId.cannot.be.blank" : "Income from recovery account cann't be blank.",
+    "label.input.chargeCategoryType": "Charge CategoryType",
+    "label.selectCategoryType": "Select CategoryType",
+    "label.heading.chargeCategoryType": "Charge Category Type",
      "------ end of tensalation file":"---------"
 }

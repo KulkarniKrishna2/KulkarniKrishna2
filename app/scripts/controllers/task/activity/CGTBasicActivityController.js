@@ -69,6 +69,15 @@
             };
             initTask();
 
+            scope.filterCharges = function (chargeData,categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
+
             scope.generateDocument = function(activeClientMember) {
                 resourceFactory.reportGenerateResource.generate({
                     entityType: scope.entityType,

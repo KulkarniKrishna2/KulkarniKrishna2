@@ -6,7 +6,13 @@
             scope.slabBasedCharge = 'Slab Based';
             scope.installmentAmountSlabType = 1;
             scope.chargeAppliesToLoan = 1;
+            scope.showChargeCategoryType = false;
             
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
+                scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
+                scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
+            }
+
             resourceFactory.chargeResource.get({chargeId: routeParams.id}, function (data) {
                 scope.charge = data;
             });

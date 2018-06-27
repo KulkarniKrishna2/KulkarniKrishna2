@@ -68,6 +68,15 @@
             };
             initTask();
 
+            scope.filterCharges = function (chargeData,categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
+            
             scope.addLoan = function (value, loanId) {
                 if (value) {
                     scope.loanIds.push(loanId);
