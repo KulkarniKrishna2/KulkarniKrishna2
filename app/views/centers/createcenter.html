@@ -36,15 +36,24 @@
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
 	                    class="required">*</span></label>
-	
-	            <div class="col-sm-3" ng-if="isBranchNameIncluded">
+				<div class="col-sm-3" ng-if="isBranchNameIncluded && formData.villageId">
+					<input type="text" id="name" name="name" ng-model="formData.name"
+							value="{{villageCount.villageName}} ({{officeName}}) C{{count}}" class="form-control"
+							ng-disabled="isHiddenVillageOption"/>
+				</div>
+	            <div class="col-sm-3" ng-if="isBranchNameIncluded && formData.villageId == undefined">
 	                <input type="text" id="name" name="name" ng-model="formData.name"
-						   value="{{villageCount.villageName}} ({{officeName}}) C{{count}}" class="form-control"
+						   value="" class="form-control"
 						   ng-disabled="isHiddenVillageOption"/>
 	            </div>
-	            <div class="col-sm-3" ng-if="!isBranchNameIncluded">
+	            <div class="col-sm-3" ng-if="!isBranchNameIncluded && formData.villageId">
 	                <input type="text" id="name" name="name" ng-model="formData.name"
 						   value="{{villageCount.villageName}} C{{count}}" class="form-control"
+						   ng-disabled="isHiddenVillageOption"/>
+				</div>
+				<div class="col-sm-3" ng-if="!isBranchNameIncluded && formData.villageId == undefined">
+	                <input type="text" id="name" name="name" ng-model="formData.name"
+						   value="" class="form-control"
 						   ng-disabled="isHiddenVillageOption"/>
 	            </div>
 	            <div class="col-sm-3">
