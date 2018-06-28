@@ -40,16 +40,28 @@
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
             }
 
-            scope.$watch('formData.officeId', function() {
-                if(scope.isBranchNameIncluded && scope.formData.officeId && scope.offices.length>0){
-                    for (var i in scope.offices){
-                        if(scope.offices[i].id==scope.formData.officeId){
-                            scope.officeName = scope.offices[i].name;
-                        }
-                    }
-                }
+            scope.$watch('formData.officeId', function() {                
                 scope.changeOffice();
+                scope.updateCenterName();
             });
+
+            scope.updateCenterName = function () {
+                if(scope.formData.villageId && scope.villageCount && scope.count){
+                    if(scope.isBranchNameIncluded){
+                        for (var i in scope.offices){
+                            if(scope.offices[i].id==scope.formData.officeId){
+                                scope.officeName = scope.offices[i].name;
+                                scope.formData.name = scope.villageCount.villageName+' ('+scope.officeName+') C'+scope.count;
+                            }
+                        }
+                        
+                    }else{
+                        scope.formData.name = scope.villageCount.villageName+' C'+scope.count;
+                    }
+                }else{
+                    scope.formData.name = undefined;
+                }
+            };
 
             scope.changeOffice = function () {
                 scope.formData.villageId = null;
@@ -71,6 +83,7 @@
                     villageId: scope.formData.villageId}, function (data) {
                     scope.villageCount = data.villageCounter;
                     scope.count = scope.villageCount.counter+1;
+                    scope.updateCenterName();
                 });
             }
 
