@@ -878,6 +878,9 @@
 				<tab heading="{{'label.heading.cashflow' | translate}}" select="getCashFlow()" ng-if="displayCashFlow">
 					<div ng-include="'views/task/activity/cashflowcommon.html'"></div>
 				</tab>
+				<tab heading="{{surveyName}}" select="getSurveyDetails()" ng-if="displaySurveyInfo">
+					<div ng-include="'views/task/activity/surveycommonactivity.html'"></div>
+				</tab>
 			</tabset>
 		</div>
 		<script type="text/ng-template" id="viewDocument.html">

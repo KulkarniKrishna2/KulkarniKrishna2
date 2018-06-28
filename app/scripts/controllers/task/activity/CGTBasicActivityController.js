@@ -217,13 +217,14 @@
                 $scope.showLoanAccountForm = false;
                 $scope.isLoanAccountExist = true;
                 $scope.displayCashFlow = true;
-
+                $scope.displaySurveyInfo = true;
+                $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
                     $scope.isLoanAccountExist = true;
                 }
-               
+
 
                 function getClientData() {
                     resourceFactory.clientResource.get({
@@ -516,6 +517,71 @@
                     $modalInstance.dismiss('close');
                     initTask();
                 };
+                $scope.getSurveyDetails = function() {
+                    $scope.formData = {};
+                    $scope.isValidEntityType = false;
+                    scope.surveyEntityTypeId = scope.response.uiDisplayConfigurations.viewClient.surveyEntityTypeId;
+                    $scope.locationUrl= 'views/task/activity/surveycommonactivity.html';
+                    if(scope.surveyEntityTypeId.length > 0){
+                        resourceFactory.takeSurveysResource.getAll({entityType : scope.surveyEntityTypeId,entityId:$scope.clientId}, function (surveys) {
+                            $scope.surveys = surveys;
+                            if($scope.surveys.length > 0){
+                                $scope.viewSurveyDetails = true;
+                            }else{
+                                if($scope.surveyName.length > 0){
+                                    resourceFactory.surveyResourceByName.getBySurveyName({surveyName: $scope.surveyName}, function (surveyData) {
+                                        $scope.viewSurveyDetails = false;
+                                        $scope.isValidEntityType = true;
+                                        $scope.completeSurveyData = surveyData;
+                                        $scope.surveyData = {};
+                                        $scope.surveyId = surveyData.id;
+                                        $scope.entityTypeId = surveyData.entityTypeId;
+                                        $scope.questionDatas = surveyData.questionDatas;
+                                    });
+                                }
+                            }
+                        });
+                    }
+
+                }
+
+                $scope.submitSurveyDetails = function(){
+                    scope.formData.surveyId = $scope.surveyId;
+                    scope.formData.entityId = $scope.clientId;
+                    scope.formData.surveyedOn = new Date();
+                    scope.formData.surveyedBy = scope.centerDetails.staffId;
+                    if(!_.isUndefined(scope.formData.scorecardValues)){
+                        scope.formData.scorecardValues = [];
+                    }
+                    if($scope.questionDatas && $scope.questionDatas.length > 0){
+                        for(var i in $scope.questionDatas){
+                            if($scope.questionDatas[i].responseDatas){
+                                for(var j in $scope.questionDatas[i].responseDatas){
+                                    if($scope.questionDatas[i].responseDatas[j].responseId && $scope.questionDatas[i].responseDatas[j].responseId > 0){
+                                        if(_.isUndefined(scope.formData.scorecardValues)){
+                                            scope.formData.scorecardValues = [];
+                                        }
+                                        var scorecardValue = {};
+                                        scorecardValue.questionId  = $scope.questionDatas[i].id;
+                                        scorecardValue.responseId  = $scope.questionDatas[i].responseDatas[j].responseId;
+                                        scorecardValue.value  = $scope.questionDatas[i].responseDatas[j].value;
+                                        scope.formData.scorecardValues.push(scorecardValue);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    resourceFactory.takeSurveysResource.post({entityType: $scope.entityTypeId,entityId: $scope.clientId},scope.formData, function (data) {
+                        $scope.viewSurveyDetails = true;
+                        resourceFactory.takeSurveysResource.getAll({entityType : $scope.entityTypeId,entityId:$scope.clientId}, function (surveys) {
+                            $scope.surveys = surveys;
+                            location.path(locationUrl);
+                        });
+                    });
+                }
+                $scope.closeSurveyForm = function(){
+                    $modalInstance.dismiss('takeNewSurveyFrom');
+                }
 
             }
            //lona account edit 
@@ -1074,6 +1140,7 @@
                         scope.taskInfoTrackArray.splice(idx,1);
                     }
             }
+
         }
     });
     mifosX.ng.application.controller('CGTBasicActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope','CommonUtilService', '$route', '$upload', 'API_VERSION', 'dateFilter', mifosX.controllers.CGTBasicActivityController]).run(function($log) {

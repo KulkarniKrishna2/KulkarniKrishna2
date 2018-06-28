@@ -1526,6 +1526,9 @@
                     }),
                     clientsTaskStepsTrackingResource: defineResource(apiVer +"/tasktracking/clientsstepsinfo/:centerId", {centerId:'@centerId'},{
                         get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    surveyResourceByName: defineResource(apiVer + "/surveys/surveyname/:surveyName", { surveyName:'@surveyName'}, {
+                        getBySurveyName: {method: 'GET', params: {}}
                     })
                 };
             }];
