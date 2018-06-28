@@ -25,6 +25,7 @@
             scope.isDuplicateColumnName = false;
             scope.labelColumnError = "";
             scope.scopeOptionsAvailable = {};
+            scope.isShowRestrictScope = false;
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -124,11 +125,15 @@
             scope.resetScope = function () {
                 scope.available = [];
                 scope.selected = [];
+                scope.isShowRestrictScope = false;
                 var restrictScopeEnabled = true;
                 angular.copy(scope.scopeOptionsAvailable,scope.scopeOptions);
                 var scopeType = '';
                 if(scope.formData.apptableName == 'm_client'){
                     scopeType = 'Client Legal Form';
+                }
+                if(scope.formData.apptableName == 'm_client'||scope.formData.apptableName == 'm_loan'||scope.formData.apptableName == 'm_savings_account'){
+                    scope.isShowRestrictScope = true;
                 }
                 scope.changeEntity(restrictScopeEnabled, scopeType);
             }
@@ -246,8 +251,10 @@
                 } else {
                     scope.isEmptyDatatable = false;
                     scope.columnNotMappedToSectionError = false;
+                    scope.isDepandsOnSameAsNameError = false;
                     delete scope.errorDetails;
                     scope.formData.multiRow = scope.formData.multiRow || false;
+                    scope.formData.associateWithLoan = scope.formData.associateWithLoan || false;
                     scope.formData.columns = scope.columns;
                     for (var i in scope.formData.columns) {
                         if(scope.formData.columns[i].when == null){
@@ -318,7 +325,13 @@
                             delete this.formData.columns[i].sectionName;
                         }
                     }
-
+                    for(var i in scope.columns){
+                        if(scope.columns[i].name === scope.columns[i].dependsOn){
+                        scope.isDepandsOnSameAsNameError = true;
+                        scope.labelColumnError = "dependson.same.as.name";
+                        return false;
+                    }
+                    }
                     resourceFactory.DataTablesResource.save(this.formData, function (data) {
                         location.path('/viewdatatable/' + data.resourceIdentifier);
                     });

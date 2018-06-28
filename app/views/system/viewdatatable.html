@@ -31,7 +31,7 @@
             <legend>{{datatable.registeredTableName}}</legend>
                        
             <h4 ng-show ="datatable.registeredTableDisplayName">{{'label.heading.displayName'| translate}}: {{datatable.registeredTableDisplayName}}</h4>
-            <strong>{{'label.heading.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}
+            <strong>{{'label.heading.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}<span ng-if="datatable.associateApplicationTableName"> {{'label.and'| translate}} {{datatable.associateApplicationTableName}}</span>
             <table class="table width100">
                 <tr class="form-group">
                     <td class="width100">
@@ -46,7 +46,7 @@
                                 <th class="col-sm-2"></th>
                             </tr>
                         </table>
-                        <div class="horizontal"  ng-repeat="column in datatable.columnHeaderData" class="width100">
+                        <div class="horizontal"  ng-repeat="column in datatable.columnHeaderData" class="width100" ng-hide="hideField(column)">
                             <div  class="width100"  ng-init="columnArray[$index].isVisible = false;">
                                 <table class="table width100">
                                     <tr>

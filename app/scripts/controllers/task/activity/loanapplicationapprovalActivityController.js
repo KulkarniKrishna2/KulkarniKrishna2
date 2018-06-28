@@ -81,6 +81,9 @@
                     if(scope.formRequestData.repaymentsStartingFromDate){
                         scope.formRequestData.repaymentsStartingFromDate = dateFilter(new Date(scope.formRequestData.repaymentsStartingFromDate), scope.df);
                     }
+                    if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0){
+                        scope.status = 'SUMMARY';
+                    }
                     delete scope.formRequestData.loanAppSanctionId;
                     delete scope.formRequestData.loanApplicationReferenceId;
                     scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formRequestData.repaymentPeriodFrequency.id;

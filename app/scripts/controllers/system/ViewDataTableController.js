@@ -1,11 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewDataTableController: function (scope, routeParams, resourceFactory, location, $modal) {
-
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
             resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName}, function (data) {
-
                 var temp = [];
-                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
                 for (var i in data.columnHeaderData){
                     var colName = data.columnHeaderData[i].columnName;
                     if(colName == 'id'){
@@ -15,7 +13,7 @@
                     
                     if(idList.indexOf(colName) >= 0 ){
                         data.columnHeaderData.splice(i, 1);
-                    }
+                    } 
                 }
 
                 for (var i = 0; i < data.columnHeaderData.length; i++) {
@@ -57,7 +55,15 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.columnName) >= 0) {
+                return true;
+               }
+               return false;
+            }
+            
         }
+        
     });
     mifosX.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewDataTableController]).run(function ($log) {
         $log.info("ViewDataTableController initialized");

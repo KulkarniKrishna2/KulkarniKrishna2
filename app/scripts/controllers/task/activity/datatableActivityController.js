@@ -9,6 +9,7 @@
             scope.isViewMultiRowTable = false;
             scope.resourceId = "";
             scope.isWorkFlow = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            var  idList = ['id','client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             scope.getDetails = function () {
                 resourceFactory.DataTablesResource.getTableDetails({
@@ -66,6 +67,7 @@
                                            break;
                                         }
                                     }
+                                    if(idList.indexOf(row.key) < 0)
                                     scope.singleRow.push(row);
                                 } else {
                                    
@@ -162,12 +164,12 @@
                     if (colName == 'id') {
                         data.columnHeaders.splice(0, 1);
                     }
-
-                    colName = data.columnHeaders[0].columnName;
-                    if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
-                        colName == 'savings_account_id' || colName == 'loan_application_reference_id' || colName == 'villages_id') {
-                        data.columnHeaders.splice(0, 1);
-                        scope.isCenter = colName == 'center_id' ? true : false;
+                    for (var i in data.columnHeaders){
+                        var colName = data.columnHeaders[i].columnName;
+                        if(idList.indexOf(colName) >= 0 ){
+                            data.columnHeaders.splice(i, 1);
+                            scope.isCenter = colName == 'center_id' ? true : false;
+                        } 
                     }
 
                     for (var i in data.columnHeaders) {
@@ -426,10 +428,12 @@
                 }
 
                 colName = scope.columnHeaders[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
-                    colName == 'savings_account_id'  || colName == 'loan_application_reference_id' || colName == 'villages_id') {
-                    scope.columnHeaders.splice(0, 1);
-                    scope.isCenter = colName == 'center_id' ? true : false;
+                for (var i in scope.columnHeaders){
+                    var colName = scope.columnHeaders[i].columnName;
+                    if(idList.indexOf(colName) >= 0 ){
+                        scope.columnHeaders.splice(i, 1);
+                        scope.isCenter = colName == 'center_id' ? true : false;
+                    } 
                 }
 
                 if(!scope.isSectioned){
@@ -570,6 +574,12 @@
                 var reqParameters = {datatablename: scope.tableName, entityId: scope.entityId, resourceId: scope.resourceId, genericResultSet: 'true'};
                 scope.processData(reqParameters);
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.columnName) >= 0) {
+                return true;
+               }
+               return false;
+            }
         }
     });
     mifosX.ng.application.controller('datatableActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.datatableActivityController]).run(function ($log) {

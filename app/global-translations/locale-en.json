@@ -7065,6 +7065,7 @@
     "label.input.considerTenureForIRRCalculation" : "Consider Tenure For IRR Calculation",
     "label.heading.considerTenureForIRRCalculation" : "Consider Tenure For IRR Calculation",
     "label.heading.apr" : "APR",
-
+    "label.input.associate.with.loan" : "Associated With Loan",
+    "error.msg.columns.dependson.same.as.name": "Invalid column association.Column cannot be associated with same column",
     "------ end of tensalation file":"---------"
 }
