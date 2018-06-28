@@ -6,7 +6,9 @@
 				"createClient": true,
 				"accountNo": true,
 				"referenceNo": false
-			}
+			},
+		  "takeSurveyName":"Member info",
+		  "surveyEntityTypeId":"1"
 		},
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
