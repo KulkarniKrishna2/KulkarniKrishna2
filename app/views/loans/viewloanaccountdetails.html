@@ -935,6 +935,28 @@
                             </tr>
                         </table>
                     </tab>
+                    <tab has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}">
+                        <div class="pull-right">
+                              <a has-permission='CREATE_ASSIGNBANKACCOUNTDETAIL' ng-hide="loanBankAccountDetailAssociation" href="#/client/{{loandetails.clientId}}/bankaccountdetails/loan/{{loandetails.id}}" ng-show="createPossible" class="btn btn-primary">{{'label.button.add.bankaccount' | translate}} </a>
+                        </div>
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.holdername' | translate}}</th>
+                                <th>{{'label.heading.accountnumber' | translate}}</th>
+                                <th>{{'label.heading.ifsc' | translate}}</th>
+                                <th >{{'label.input.actions' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="bankAccountDetail in loanBankAccountDetailAssociation" >
+                                <td >{{bankAccountDetail.name}}</td>
+                                <td >{{bankAccountDetail.accountNumber}}</td>
+                                <td >{{bankAccountDetail.ifscCode}}</td>
+                                <td >
+                                  <button  has-permission='DELETE_ASSIGNBANKACCOUNTDETAIL' class="btn btn-info" type="button" ng-click="removeLoanBankAccountAssociation(bankAccountDetail.id)">{{'label.button.removebankaccount' | translate}}
+                                  </button>
+                              </td>
+                            </tr>
+                        </table>
+                    </tab>
 
                     <tab ng-if="loandetails.collateral" active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
                         <table class="table" ng-show="loandetails.collateral">

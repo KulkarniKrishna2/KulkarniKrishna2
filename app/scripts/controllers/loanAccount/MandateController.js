@@ -21,8 +21,9 @@
             if(scope.isCreate){
                 resourceFactory.mandateTemplateResource.getCreateTemplate({loanId:scope.loanId,showEMIBalance:scope.showEMIBalance}, function (data) {
                     scope.populate(data);
-                    if(data.bankAccountDetails) {
-                        scope.showBankDetails = true ;
+                    if(data.clientId){
+                        scope.clientId = data.clientId;
+                        scope.fetchBankDetails();
                     }
                 });
             }else if(scope.isUpdate){
@@ -47,6 +48,15 @@
                 scope.formData.micr = scope.mandate.bankAccountDetails.micrCode || '';
                 scope.formData.ifsc = scope.mandate.bankAccountDetails.ifscCode || '';
                 scope.formData.accountType = scope.mandate.bankAccountDetails.accountType.id;
+            }
+
+            scope.fetchBankDetails = function() {
+                    resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
+                    if(data && data.length>0) {
+                        scope.showBankDetails = true ;
+                        scope.bankAccountDetails = data;
+                    }
+                });
             }
 
             scope.populate = function(data){

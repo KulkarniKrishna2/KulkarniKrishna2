@@ -335,6 +335,12 @@
                 }
             }
 
+            scope.fetchBankDetailsData = function(){
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
+                    scope.bankAccountDetails = data;
+                });
+            };
+
             scope.formDisbursementData = function(){
                  scope.modelName = 'actualDisbursementDate';
                     if(scope.response){
@@ -452,6 +458,7 @@
                 case "disburse":
                     scope.formDisbursementData();
                     scope.getPaymentTypeOtions();
+                    scope.fetchBankDetailsData();
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
                 case "disbursetosavings":
@@ -1002,6 +1009,7 @@
 
                 if (scope.action == "disburse" || scope.action == "forcedisburse"){
                     scope.constructGlimClientMembersData();
+                    scope.formData.bankAccountDetailId;
                 }
 
                 if(scope.action == 'disbursetogroupbankaccounts'){
