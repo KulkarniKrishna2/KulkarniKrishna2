@@ -179,7 +179,8 @@
 		"showSubmittedOn" : true,
 		"showStaff" : true,
 		"addclients" : true
-	  }
+	  },
+      "nameWithBranchName": false
 	},
 	"createGroup": {
 	  "isReadOnlyField": {
