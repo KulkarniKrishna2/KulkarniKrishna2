@@ -454,7 +454,7 @@
             scope.$watch('formRequestData.expectedDisbursementDate', function () {
                 scope.initializeTrancheDetails();
             });
-            scope.initailizeTrancheDetails = function(){
+            scope.initializeTrancheDetails = function(){
                 if(scope.formRequestData.loanEMIPackId){
                     var len = scope.loanaccountinfo.loanEMIPacks.length;
                     var loanEMIPack = {};
