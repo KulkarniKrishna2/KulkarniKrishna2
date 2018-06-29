@@ -57,8 +57,11 @@
                     <label class="control-label col-sm-4">
                         Component Key : {{componentData.key}}
                     </label>
-                    <label class="control-label col-sm-6">
+                    <label class="control-label col-sm-4">
                         Component Name : {{componentData.text}}
+                    </label>
+                    <label class="control-label col-sm-4">
+                        Component Weightage : {{componentData.weightage}}
                     </label>
                 </div>
                 <div ng-if="componentData.questionDatas.length > 0">
@@ -68,8 +71,11 @@
                             <label class="control-label col-sm-4">
                                 Question Key : {{questionData.key}}
                             </label>
-                            <label class="control-label col-sm-6">
+                            <label class="control-label col-sm-4">
                                 Question Name : {{questionData.text}}
+                            </label>
+                            <label class="control-label col-sm-4">
+                                Question Weightage : {{questionData.weightage}}
                             </label>
                             <legend ng-show="questionData.responseDatas && questionData.responseDatas.length > 0"></legend>
                         </div>

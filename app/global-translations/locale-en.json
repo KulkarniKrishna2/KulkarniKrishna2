@@ -6496,6 +6496,7 @@
     "error.msg.columns.not.mapped.to.section" : "One or more columns are not mapped to any section. To continue, map each column to a section.",
     "label.village.assigned.to.loanofficer" : "Village assigned to loan officer : ",
     "label.input.co.officer.required" : "Co officer required",
+    "label.input.consider.survey.weightage" : "Consider survey weightage",
     "validation.msg.datatable.sections.cannot.be.empty" : "On allowing sections, section names must be entered.",
 
     "#Bank Account Validation" : "",
@@ -7047,5 +7048,12 @@
     "invalid.branchName.format":"Special characters, spaces, digits and more than 20 characters are not allowed.",
     "invalid.bankName.format":"Double space, special characters, digits and more than 20 characters are not allowed.",
     "validation.msg.loanapplicationreference.submittedOnDate.is.greater.than.date" : "Loan application submission date cannot be a future date.",
+    
+    "label.survey.component" : "Component",
+    "label.survey.no.of.questions" : "No of Questions",
+    "label.survey.component.weight" : "Weight",
+    "label.survey.component.max.score" : "Max Score",
+    "label.survey.component.actual.score" : "Actual Score",
+
     "------ end of tensalation file":"---------"
 }

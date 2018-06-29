@@ -60,25 +60,43 @@
                 </div>
             </div>
 
-            <div ng-if="questionDatas && questionDatas.length > 0">
-                <legend></legend>
-                <div ng-repeat="questionData in questionDatas track by $index" ng-init="questionIndex = $index">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>
-                        <div class="col-sm-10">{{questionData.text}} ?</div>
-                    </div>
-                    <div ng-if="questionData.responseDatas && questionData.responseDatas.length > 0">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">{{'label.survey.answers' |translate}}&nbsp;:&nbsp;</label>
-                            <div class="col-sm-10">
-                                <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
-                                    <input type="radio" name="response{{questionIndex}}" value="{{responseData.id}}" ng-model="responseData.responseId">
-                                        {{responseData.text}}<br>
+            <div ng-if="componentDatas && componentDatas.length > 0">
+                <div ng-repeat="componentData in componentDatas" ng-if="componentData.isEnabled">
+                    <h3>{{componentData.text}}</h3><small>{{componentData.description}}</small>
+                    <div ng-if="componentData.questionList && componentData.questionList.length > 0">
+                        <legend></legend>
+                        <div ng-repeat="questionData in componentData.questionList track by $index" ng-init="questionIndex = $index" ng-if="questionData.isEnabled">
+                            <div class="form-group row">
+                                <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>
+                                <div class="col-sm-10">{{questionData.text}} ?</div>
+                            </div>
+                            <div ng-if="questionData.responseDatas && questionData.responseDatas.length > 0">
+                                <div class="form-group row" ng-if="questionData.questionType.value=='single_select'">
+                                    <label class="control-label col-md-2">{{'label.survey.answers' |translate}}&nbsp;:&nbsp;</label>
+                                    <div class="col-md-10">
+                                        <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
+                                            <input type="radio" name="response{{questionData.id}}" value="{{responseData.id}}" ng-model="questionData.responseId"
+                                                   ng-change="onResponseChange(questionData)">
+                                                {{responseData.text}}<br>
+                                        </div>
+                                        <input type="text" name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox" style="width:400px">
+                                    </div>
+                                </div>
+                                <div class="form-group row" ng-if="questionData.questionType.value=='multi_select'">
+                                    <label class="control-label col-md-2">{{'label.survey.answers' |translate}}&nbsp;:&nbsp;</label>
+                                    <div class="col-md-10">
+                                        <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
+                                            <input type="checkbox" name="response{{questionData.id}}{{responseData.id}}"  ng-model="bool"
+                                                   ng-change="onCheckboxResponseChange(questionData,bool,responseData)">
+                                            {{responseData.text}}<br>
+                                        </div>
+                                        <input type="text" name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox" style="width:400px">
+                                    </div>
                                 </div>
                             </div>
+                            <legend></legend>
                         </div>
                     </div>
-                    <legend></legend>
                 </div>
             </div>
 

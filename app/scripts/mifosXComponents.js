@@ -579,7 +579,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'customsequence/CreateSequenceDetailsController',
             'customsequence/SequenceEntityAssociationListController',
             'customsequence/CreateSequenceEntityAssociationController',
-            'customsequence/SequenceEntityAssociationCommonController'
+            'customsequence/SequenceEntityAssociationCommonController',
+            'survey/SurveySummaryDetailsController'
         ],
         filters: [
             'StatusLookup',

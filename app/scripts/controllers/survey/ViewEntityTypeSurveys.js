@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewEntityTypeSurveys: function (scope, routeParams, resourceFactory, location) {
+        ViewEntityTypeSurveys: function (scope, routeParams, resourceFactory, location, $modal, anchorScroll) {
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
             scope.isValidEntityType = false;
@@ -48,9 +48,62 @@
                     });
                 }
             });
+
+            scope.viewSurveySummaryDetails = function(survey,type){
+                if(_.isUndefined(survey.summaryDetails)){
+                    var summaryDetails = [];
+                    var displaySurveyDatas = [];
+                    if(survey && survey.surveyTakenComponentDatas){
+                        for(var i in survey.surveyTakenComponentDatas){
+                            var componentData = survey.surveyTakenComponentDatas[i].componentData;
+                            componentData.actualScore = survey.surveyTakenComponentDatas[i].actualScore;
+                            componentData.maxScore = survey.surveyTakenComponentDatas[i].maxScore;
+                            componentData.isComponentData = true;
+                            componentData.noOfQuestions = 0;
+                            displaySurveyDatas.push(componentData);
+                            if(survey.surveyTakenComponentDatas[i].scorecardValues){
+                                var slNo = 0;
+                                for(var j in survey.surveyTakenComponentDatas[i].scorecardValues){
+                                    var scorecardData = survey.surveyTakenComponentDatas[i].scorecardValues[j];
+                                    if(componentData.key === scorecardData.questionData.componentKey){
+                                        componentData.noOfQuestions += 1;
+                                        slNo = parseInt(slNo)+1;
+                                        scorecardData.slNo = slNo;
+                                        scorecardData.isComponentData = false;
+                                        displaySurveyDatas.push(scorecardData);
+                                    }
+                                }
+                            }
+                            summaryDetails.push(componentData);
+                        }
+                    }
+                    survey.summaryDetails = summaryDetails || [];
+                    survey.displaySurveyDatas = displaySurveyDatas || [];
+                }
+                if(type == 'isShowShortSummary'){
+                    survey.isShowShortSummary = true;
+                    survey.isShowDetailSummary = false;
+                    //scope.scrollto('#showShortSummaryId'+index);
+                }else{
+                    survey.isShowShortSummary = false;
+                    survey.isShowDetailSummary = true;
+                    //scope.scrollto('#showDetailSummaryId'+index);
+                }
+            };
+
+            scope.scrollto = function (link){
+                console.log(link);
+                //location.hash(link);
+                //anchorScroll();
+                //var currentElement = angular.element('#'+link);
+                //currentElement.scrollIntoView();
+                var currentElement = document.querySelector(link);
+                currentElement.scrollIntoView({block: 'start',  behaviour: 'smooth'});
+                //currentElement.scrollBy(0, -1);
+            };
         }
     });
-    mifosX.ng.application.controller('ViewEntityTypeSurveys', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewEntityTypeSurveys]).run(function ($log) {
+    mifosX.ng.application.controller('ViewEntityTypeSurveys', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal','$anchorScroll', mifosX.controllers.ViewEntityTypeSurveys]).run(function ($log) {
         $log.info("ViewEntityTypeSurveys initialized");
     });
 }(mifosX.controllers || {}));

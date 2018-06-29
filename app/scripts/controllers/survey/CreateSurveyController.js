@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         CreateSurveyController: function (scope, resourceFactory, location, $modal) {
             scope.formData = {};
+            scope.formData.considerWeightage = false;
             resourceFactory.surveyTemplateResource.get({}, function (data) {
                 scope.surveyEntityTypes = data.surveyEntityTypes;
             });
@@ -10,7 +11,9 @@
                 if (_.isUndefined(scope.formData.componentDatas)){
                     scope.formData.componentDatas = [];
                 }
-                scope.formData.componentDatas.push({});
+                var componentData = {};
+                componentData.weightage = 1.00;
+                scope.formData.componentDatas.push(componentData);
             };
 
             scope.addNewQuestion = function (index) {
@@ -19,6 +22,7 @@
                     scope.formData.componentDatas[index].questionDatas = [];
                 }
                 questionData.componentKey = scope.formData.componentDatas[index].key;
+                questionData.weightage = 1.00;
                 scope.formData.componentDatas[index].questionDatas.push(questionData);
             };
 
