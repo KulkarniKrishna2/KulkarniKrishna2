@@ -56,38 +56,142 @@
 
             scope.getSurveyDetails = function(surveyId){
                 if(surveyId){
-                    resourceFactory.surveyResource.getBySurveyId({surveyId: surveyId}, function (surveyData) {
+                    resourceFactory.surveyResource.getBySurveyId({surveyId: surveyId, entityType : scope.entityType, entityId: scope.entityId}, function (surveyData) {
                         scope.completeSurveyData = surveyData;
                         scope.surveyData = {};
+                        scope.componentDatas = surveyData.componentDatas;
                         scope.questionDatas = surveyData.questionDatas;
+                        scope.populateData();
                     });
                 }
             };
 
-            scope.submit = function () {
-                scope.formData.surveyId = scope.surveyId;
-                scope.formData.entityId = scope.entityId;
-                if(!_.isUndefined(scope.formData.scorecardValues)){
-                    scope.formData.scorecardValues = [];
+            scope.populateData = function () {
+                scope.idToQuestionMap={};
+                scope.keyToComponentMap={};
+                scope.idToComponentMap={};
+                scope.componentDatas.forEach(function (component) {
+                    component.isEnabled = !component.showOnCondition;
+                    component.questionList = [];
+                    scope.idToComponentMap[component.id] = component;
+                    scope.keyToComponentMap[component.key] = component;
+                });
+                scope.questionDatas.forEach(function (question) {
+                    question.finalScore = 0;
+                    question.isEnabled = !question.showOnCondition;
+                    if(question.otherResponseEnabled){
+                        question.responseDatas.push({id:-1,text:"Others",value:0});
+                    }
+                    scope.idToQuestionMap[question.id] = question;
+                    var myComponent = scope.keyToComponentMap[question.componentKey];
+                    if(myComponent != undefined){
+                        myComponent.questionList.push(question);
+                    }
+                });
+            };
+
+            scope.onCheckboxResponseChange = function(questionData, bool,responseData){
+                var selectedResponses=[];
+                var unselectedResponses=[];
+
+                if(questionData.selectedResponses==undefined){
+                  questionData.selectedResponses=[];
                 }
-                if(scope.questionDatas && scope.questionDatas.length > 0){
-                    for(var i in scope.questionDatas){
-                        if(scope.questionDatas[i].responseDatas){
-                            for(var j in scope.questionDatas[i].responseDatas){
-                                if(scope.questionDatas[i].responseDatas[j].responseId && scope.questionDatas[i].responseDatas[j].responseId > 0){
-                                    if(_.isUndefined(scope.formData.scorecardValues)){
-                                        scope.formData.scorecardValues = [];
-                                    }
-                                    var scorecardValue = {};
-                                    scorecardValue.questionId  = scope.questionDatas[i].id;
-                                    scorecardValue.responseId  = scope.questionDatas[i].responseDatas[j].responseId;
-                                    scorecardValue.value  = scope.questionDatas[i].responseDatas[j].value;
-                                    scope.formData.scorecardValues.push(scorecardValue);
-                                }
-                            }
+                if(bool){
+                    if(responseData.id ==-1){
+                        questionData.enableOtherTextBox = true;
+                    }
+                  questionData.selectedResponses.push(responseData.id);
+                }else{
+                    if(responseData.id ==-1){
+                        questionData.enableOtherTextBox = false;
+                    }
+                    var index = questionData.selectedResponses.indexOf(responseData.id);
+                    questionData.selectedResponses.splice(index,1);
+                }
+                var score = 0;
+                questionData.responseDatas.forEach(function (tmpResponse) {
+                    if( questionData.selectedResponses.indexOf(tmpResponse.id)!=-1){
+                        score = score + tmpResponse.value;
+                        selectedResponses.push(tmpResponse);
+                    }else{
+                        unselectedResponses.push(tmpResponse);
+                    }
+
+                });
+                questionData.finalScore = score;
+
+                refreshComponentsAndQuestions(unselectedResponses,false);
+                refreshComponentsAndQuestions(selectedResponses,true);
+
+            };
+
+            var refreshComponentsAndQuestions = function (responses, makeComponentsAndQuestionsEnable) {
+                responses.forEach(function (responseData) {
+                    if(responseData.enableItemsOnSelect){
+                        if(responseData.enableItemsOnSelect.components) {
+                            responseData.enableItemsOnSelect.components.forEach(function (componentId) {
+                                scope.idToComponentMap[componentId].isEnabled = makeComponentsAndQuestionsEnable;
+                            });
+                        }
+                        if(responseData.enableItemsOnSelect.questions) {
+                            responseData.enableItemsOnSelect.questions.forEach(function (questionId) {
+                                scope.idToQuestionMap[questionId].isEnabled = makeComponentsAndQuestionsEnable;
+                            });
                         }
                     }
+                });
+
+            };
+            scope.onResponseChange = function(questionData){
+                var selectedResponses=[];
+                var unselectedResponses=[];
+                if(questionData.responseId == -1){
+                    questionData.enableOtherTextBox = true;
+                }else{
+                    questionData.enableOtherTextBox = false;
                 }
+                questionData.responseDatas.forEach(function (responseData) {
+                    if(questionData.responseId==responseData.id){
+                        questionData.finalScore = responseData.value;
+                        selectedResponses.push(responseData);
+                    }else{
+                        unselectedResponses.push(responseData);
+                    }
+                });
+                refreshComponentsAndQuestions(unselectedResponses,false);
+                refreshComponentsAndQuestions(selectedResponses,true);
+
+            };
+
+            scope.submit = function () {
+                scope.formData.surveyId = scope.completeSurveyData.id;
+                scope.formData.entityId = scope.entityId;
+                scope.formData.scorecardValues = [];
+                scope.questionDatas.forEach(function (questionData) {
+                    var componentData = scope.keyToComponentMap[questionData.componentKey];
+                    if(componentData.isEnabled && questionData.isEnabled) {
+                        if (questionData.responseId || (questionData.selectedResponses != undefined && questionData.selectedResponses.length > 0)) {
+                            var scorecardValue = {};
+                            scorecardValue.questionId = questionData.id;
+                            if (questionData.questionType.value == 'single_select') {
+                                scorecardValue.responseId = questionData.responseId;
+                                if (questionData.enableOtherTextBox && questionData.otherResponse) {
+                                    scorecardValue.responseJson = {};
+                                    scorecardValue.responseJson.other = questionData.otherResponse;
+                                }
+                            } else if (questionData.questionType.value == 'multi_select') {
+                                scorecardValue.responseJson = {};
+                                scorecardValue.responseJson.responses = questionData.selectedResponses;
+                                if (questionData.enableOtherTextBox && questionData.otherResponse) {
+                                    scorecardValue.responseJson.other = questionData.otherResponse;
+                                }
+                            }
+                            scorecardValue.value = questionData.finalScore;
+                            scope.formData.scorecardValues.push(scorecardValue);
+                        }
+                    }
+                });
                 resourceFactory.takeSurveysResource.post({entityType: scope.entityTypeId,entityId: scope.entityId},scope.formData, function (data) {
                     location.path(locationUrl);
                 });

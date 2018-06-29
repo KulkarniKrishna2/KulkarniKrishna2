@@ -1,144 +1,221 @@
 <div class="col-md-12 col-sm-12" ng-controller="surveyActivityController">
-    <div ng-if="isDisplaySurveys" class="row">
-        <div>
-            <div class="pull-right" ng-if="surveys && surveys.length > 0">
-                <div class="btn-group">
-                    <a id="takesurvey" ng-if="!isTaskCompleted()" ng-click="takeNewSurvey()" class="btn btn-primary">
-                        <i class="icon-edit-sign icon-white"></i>
-                        {{'label.button.edit.survey' | translate}}
+    <div ng-if="isDisplaySurveys">
+        <div class="col-md-12 col-sm-12" ng-show="surveys && surveys.length > 0">
+            <span>
+                <span>
+                    {{'label.input.name' | translate}}:&nbsp;
+                </span>
+                <span>
+                    {{surveys[0].surveyName}}&nbsp;
+                    <a ng-if="!showdetails" ng-click="toggleDetailsView()">
+                        ({{ 'label.button.viewdetails' |translate }})
                     </a>
-                </div>
-            </div>
-            <div class="col-md-12 col-sm-12" ng-show="surveys && surveys.length > 0">
-                <div class="row well">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <span>{{'label.survey.name' | translate}}:&nbsp;</span>
-                                <span>{{surveys[0].surveyName}}&nbsp; 
-                                    <a ng-if="!showdetails"ng-click="toggleDetailsView()">
-                                        ({{ 'label.button.viewdetails' |translate }})
-                                    </a>
-                                    <a ng-if="showdetails"ng-click="toggleDetailsView()">
-                                        ({{ 'label.button.hidedetails' |translate }})
-                                    </a>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="col-md-6">
-                            <span>{{'label.survey.taken.date' | translate}}:&nbsp;</span>
-                            <span>{{surveys[0].surveyedOn}}</span>
-                        </div>
-                    </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>{{'label.survey.taken.doneby' | translate}}:</span>
-                        <span>&nbsp;{{surveys[0].surveyedByName}}</span>
-                    </div>
-                    <div class="col-md-6">
-                        <span>{{'label.survey.taken.score' | translate}}:</span>
-                        <span>{{surveys[0].totalScore}}</span>
-                    </div>
-                </div>
-                <div class="row" ng-if="surveys[0].coSurveyedByName">
-                    <div class="col-md-6">
-                        <span>{{'label.co.survey.done.by' | translate}}:</span>
-                        <span>&nbsp;{{surveys[0].coSurveyedByName}}</span>
-                    </div>
-                    <div class="col-md-6">
+                    <a ng-if="showdetails" ng-click="toggleDetailsView()">
+                        ({{ 'label.button.hidedetails' |translate }})
+                    </a>
+                </span>
+                &nbsp;|&nbsp;
+            </span>
 
-                    </div>
-                </div>
-            </div>
-            <div>
-                <table class="table" ng-show="surveys && surveys.length > 0 && showdetails">
-                <thead>
-                    <tr class="graybg">
-                        <th>{{'label.heading.questionname' | translate}}</th>
-                        <th>{{'label.heading.answername' | translate}}</th>
-                        <th>{{'label.survey.taken.score' | translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="scorecard in surveys[0].scorecardValues">
-                    <td>{{scorecard.questionName}}</td>
-                    <td>{{scorecard.answerName}}</td>
-                    <td>{{scorecard.value}}</td>
+            <span>
+                <span>{{'label.survey.taken.date' | translate}}:&nbsp;</span>
+                <span>{{surveys[0].surveyedOn}}</span>
+                &nbsp;|&nbsp;
+            </span>
+
+            <span>
+                <span>{{'label.survey.taken.doneby' | translate}}:</span>
+                <span>&nbsp;{{surveys[0].surveyedByName}}</span>
+                &nbsp;|&nbsp;
+            </span>
+
+            <span>
+                <span>{{'label.survey.component.max.score' | translate}}:</span>
+                <span>{{surveys[0].maxScore | number}}</span>
+                &nbsp;|&nbsp;
+            </span>
+
+            <span>
+                <span>{{'label.survey.component.actual.score' | translate}}:</span>
+                <span>{{surveys[0].actualScore | number}}</span>
+            </span>
+
+            <span ng-if="surveys[0].coSurveyedByName">
+                &nbsp;|&nbsp;
+                <span>{{'label.co.survey.done.by' | translate}}:&nbsp;</span>
+                <span>{{surveys[0].coSurveyedByName}}</span>
+            </span>
+
+            <span class="pull-right" ng-if="!isTaskCompleted()">
+                <a id="takesurvey" class="btn btn-primary" ng-click="takeNewSurvey()">
+                    <i class="icon-edit-sign"></i>
+                </a>
+            </span>
+        </div>
+
+        <div ng-show="surveyData && surveyData.componentDatas.length > 0 && showdetails">
+            <table border="1" class="table table-condensed col-md-12">
+                <tr class="graybg">
+                    <th>{{'label.survey.component' | translate}}</th>
+                    <th>{{'label.heading.questionname' | translate}}</th>
+                    <th>{{'label.survey.component.weight' | translate}}</th>
+                    <th>{{'label.heading.answername' | translate}}</th>
+                    <th>{{'label.survey.component.max.score' | translate}}</th>
+                    <th>{{'label.survey.component.actual.score' | translate}}</th>
                 </tr>
-                </tbody>
+                <tr ng-repeat="displaySurveyData in displaySurveyDatas">
+                    <td colspan="2" ng-if="displaySurveyData.isComponentData">
+                        <span>
+                            <strong>{{displaySurveyData.text}}</strong>
+                        </span>&nbsp;
+                    </td>
+                    <td ng-if="!displaySurveyData.isComponentData">
+                        <span>{{displaySurveyData.slNo}}</span>
+                    </td>
+                    <td ng-if="!displaySurveyData.isComponentData">
+                        <span>{{displaySurveyData.questionName}}&nbsp;</span>
+                    </td>
+                    <td ng-if="!displaySurveyData.isComponentData">
+                        <span>{{displaySurveyData.questionWeightage | number}}</span>&nbsp;
+                    </td>
+                    <td ng-if="!displaySurveyData.isComponentData">
+                        <div ng-if="displaySurveyData.questionData.questionType.value=='single_select'">
+                            <div>{{displaySurveyData.answerName}}</div>
+                            <div ng-if="displaySurveyData.responseJson && displaySurveyData.responseJson.other">
+                                <span>Other : {{displaySurveyData.responseJson.other}}</span>
+                            </div>
+                        </div>
+                        <div ng-if="displaySurveyData.questionData.questionType.value=='multi_select' && displaySurveyData.responseJson!=undefined">
+                            <div ng-repeat="response in displaySurveyData.responseJson.responseDatas">
+                                <li> 
+                                    {{response.text}}
+                                    <span ng-if="response.id == -1 && displaySurveyData.responseJson && displaySurveyData.responseJson.other">: {{displaySurveyData.responseJson.other}}</span>
+                                </li>
+                            </div>
+                        </div>
+                    </td>
+                    <td ng-if="!displaySurveyData.isComponentData">
+                        <span>{{displaySurveyData.maxScore | number}}</span>&nbsp;
+                    </td>
+                    <td ng-if="!displaySurveyData.isComponentData">
+                        <span>{{displaySurveyData.actualScore | number}}</span>&nbsp;
+                    </td>
+                    <td ng-if="displaySurveyData.isComponentData">
+                        <span>
+                            <strong>{{displaySurveyData.weightage | number}}</strong>
+                        </span>&nbsp;
+                    </td>
+                    <td ng-if="displaySurveyData.isComponentData">
+                        <span></span>&nbsp;
+                    </td>
+                    <td ng-if="displaySurveyData.isComponentData">
+                        <span>
+                            <strong>{{displaySurveyData.maxScore | number}}</strong>
+                        </span>&nbsp;
+                    </td>
+                    <td ng-if="displaySurveyData.isComponentData">
+                        <span>
+                            <strong>{{displaySurveyData.actualScore | number}}</strong>
+                        </span>&nbsp;
+                    </td>
+                </tr>
             </table>
-            </div>
         </div>
     </div>
-</div>
-    <div ng-if="!isDisplaySurveys" class="row client">
+
+    <div ng-if="!isDisplaySurveys" class="client">
         <form name="takesurveyform" novalidate="" class="form-horizontal " rc-submit="submit()">
             <fieldset>
-                <div class="form-group"><span class="error" ng-show="!isSurveyDone">{{'lable.error.activity.survey.not.completed'|translate}}</span></div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{'label.input.is.survey.on.behalf.of.others' | translate}}</label>
+                    <span class="error" ng-show="!isSurveyDone">{{'lable.error.activity.survey.not.completed'|translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">{{'label.input.is.survey.on.behalf.of.others' | translate}}</label>
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <input id="surveyCheckbox" type="checkbox" ng-model="isSurveyForOthers" ng-change="updateSurveyedBy()">
                     </div>
                 </div>
                 <div class="form-group" ng-show="isSurveyForOthers">
-                    <label class="control-label col-sm-2">{{'label.survey.done.by' | translate}}<span class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{'label.survey.done.by' | translate}}
+                        <span class="required">*</span>
+                    </label>
                     <div class="col-sm-2">
-                        <select id="surveyedBy" name="surveyedBy" ng-model="formData.surveyedBy" class="form-control"
-                                ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
-                                value="{{loanOfficer.id}}" ng-required="isSurveyForOthers" late-validate="" ng-change="checkSurveyedBy()">
+                        <select id="surveyedBy" name="surveyedBy" ng-model="formData.surveyedBy" class="form-control" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+                            value="{{loanOfficer.id}}" ng-required="isSurveyForOthers" late-validate="" ng-change="checkSurveyedBy()">
                             <option value="">{{'label.selectloanofficer' | translate}}</option>
                         </select>
-                        <form-validate valattributeform="takesurveyform" valattribute="surveyedBy"/>
+                        <form-validate valattributeform="takesurveyform" valattribute="surveyedBy" />
                     </div>
 
                     <div ng-if="completeSurveyData.coOfficerRequired == true">
-                        <label class="control-label col-sm-2">{{'label.co.survey.done.by' | translate}}<span class="required">*</span></label>
+                        <label class="control-label col-sm-2">{{'label.co.survey.done.by' | translate}}
+                            <span class="required">*</span>
+                        </label>
                         <div class="col-sm-2">
-                            <select id="coSurveyedBy" name="coSurveyedBy" ng-model="formData.coSurveyedBy" class="form-control"
-                                    ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
-                                    value="{{loanOfficer.id}}" required late-validate="" ng-change="checkCoSurveyedBy()">
+                            <select id="coSurveyedBy" name="coSurveyedBy" ng-model="formData.coSurveyedBy" class="form-control" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+                                value="{{loanOfficer.id}}" required late-validate="" ng-change="checkCoSurveyedBy()">
                                 <option value="">{{'label.selectloanofficer' | translate}}</option>
                             </select>
-                            <form-validate valattributeform="takesurveyform" valattribute="coSurveyedBy"/>
+                            <form-validate valattributeform="takesurveyform" valattribute="coSurveyedBy" />
                         </div>
                     </div>
 
-                    <label class="control-label col-sm-2">{{'label.survey.done.on' | translate}}<span class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{'label.survey.done.on' | translate}}
+                        <span class="required">*</span>
+                    </label>
                     <div class="col-sm-2">
-                        <input id="surveyedOn" type="text" name="surveyedOn" datepicker-pop="dd MMMM yyyy" max="restrictDate"
-                               ng-model="formData.surveyedOn" is-open="opened1" class="form-control" required/>
-                        <form-validate valattributeform="takesurveyform" valattribute="surveyedOn"/>
+                        <input id="surveyedOn" type="text" name="surveyedOn" datepicker-pop="dd MMMM yyyy" max="restrictDate" ng-model="formData.surveyedOn"
+                            is-open="opened1" class="form-control" required/>
+                        <form-validate valattributeform="takesurveyform" valattribute="surveyedOn" />
                     </div>
                 </div>
 
-                <div ng-if="questionDatas && questionDatas.length > 0">
-
-                    <div ng-repeat="questionData in questionDatas track by $index" ng-init="questionIndex = $index">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>
-                            <div class="col-sm-10">{{questionData.text}} ?</div>
-                        </div>
-                        <div ng-if="questionData.responseDatas && questionData.responseDatas.length > 0">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{'label.survey.answers' |translate}}<span class="required">*</span>&nbsp;:&nbsp;</label>
-                               <div class="col-sm-10">
-                                    <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
-                                        <input type="radio" name="response{{questionIndex}}" id="response{{responseIndex}}" value="{{responseData.id}}" ng-change="changeResponse(questionIndex, responseIndex)" ng-model="responseData.responseId">
-                                        <label ng-if ="!responseData.image">{{responseData.text}}</label>
-                                        <img  ng-if ="responseData.image" ng-src="{{responseData.image}}" title="{{responseData.text}}"/><br/>
+                <div ng-if="componentDatas && componentDatas.length > 0">
+                    <div ng-repeat="componentData in componentDatas" ng-if="componentData.isEnabled">
+                        <h3>{{componentData.text}}</h3>
+                        <small>{{componentData.description}}</small>
+                        <div ng-if="componentData.questionList && componentData.questionList.length > 0">
+                            <legend></legend>
+                            <div ng-repeat="questionData in componentData.questionList track by $index" ng-init="questionIndex = $index" ng-if="questionData.isEnabled">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>
+                                    <div class="col-sm-10">{{questionData.text}} ?</div>
+                                </div>
+                                <div ng-if="questionData.responseDatas && questionData.responseDatas.length > 0">
+                                    <div class="form-group row" ng-if="questionData.questionType.value=='single_select'">
+                                        <label class="control-label col-md-2">{{'label.survey.answers' |translate}}&nbsp;:&nbsp;</label>
+                                        <div class="col-md-10">
+                                            <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
+                                                <input type="radio" name="response{{questionData.id}}" value="{{responseData.id}}" ng-model="questionData.responseId" ng-change="onResponseChange(questionData)">
+                                                <label ng-if="!responseData.image">{{responseData.text}}</label>
+                                                <img ng-if="responseData.image" ng-src="{{responseData.image}}" title="{{responseData.text}}" />
+                                            </div>
+                                            <input type="text" name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox"
+                                                style="width:400px">
+                                        </div>
                                     </div>
-                                    <form-validate valattributeform="takesurveyform" valattribute="response{{questionIndex}}"/>
-                                </div> 
+                                    <div class="form-group row" ng-if="questionData.questionType.value=='multi_select'">
+                                        <label class="control-label col-md-2">{{'label.survey.answers' |translate}}&nbsp;:&nbsp;</label>
+                                        <div class="col-md-10">
+                                            <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
+                                                <input type="checkbox" name="response{{questionData.id}}{{responseData.id}}" ng-model="responseData.isChecked" ng-change="onCheckboxResponseChange(questionData,responseData)">
+                                                <label ng-if="!responseData.image">{{responseData.text}}</label>
+                                                <img ng-if="responseData.image" ng-src="{{responseData.image}}" title="{{responseData.text}}" />
+                                            </div>
+                                            <input type="text" name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox"
+                                                style="width:400px">
+                                        </div>
+                                    </div>
+                                </div>
+                                <legend></legend>
                             </div>
                         </div>
-                        <legend></legend>
                     </div>
                 </div>
 
                 <div class="col-md-offset-5">
-                    <a ng-if="false" id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' |
-                        translate }}</a>
+                    <a ng-if="false" id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
                     <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>
             </fieldset>
