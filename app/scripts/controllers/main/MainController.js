@@ -249,11 +249,13 @@
             };
 
             scope.logout = function () {
-                scope.currentSession = sessionManager.clear();
-                scope.resetPassword = false;
-                $rootScope.isUserSwitched = false;
-                delete $rootScope.proxyToken;
-                location.path('/').replace();
+                resourceFactory.myAccountResource.logout(function (data) {
+                    scope.currentSession = sessionManager.clear();
+                    scope.resetPassword = false;
+                    $rootScope.isUserSwitched = false;
+                    delete $rootScope.proxyToken;
+                    location.path('/').replace();
+                });
             };
 
             scope.switchToMe = function() {

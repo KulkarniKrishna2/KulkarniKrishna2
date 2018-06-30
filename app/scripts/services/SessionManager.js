@@ -5,30 +5,33 @@
 
             this.get = function (data) {
                 var isOauth = SECURITY === 'oauth';
-		        var accessToken = null;
-                if(isOauth){
+                var accessToken = null;
+
+                if (isOauth) {
                     accessToken = localStorageService.getFromLocalStorage("tokendetails").access_token;
-                }
-                if (data.shouldRenewPassword) {
-                    if(isOauth){
-                        httpService.setAuthorization(data.accessToken,true);
+                    if (data.shouldRenewPassword) {
+                        httpService.setAuthorization(accessToken, true);
                     } else {
-                        httpService.setAuthorization(data.base64EncodedAuthenticationKey,false);
+                        webStorage.add("sessionData", { userId: data.userId, authenticationKey: accessToken, userPermissions: data.permissions });
+                        httpService.setAuthorization(accessToken, true);
+                        return { user: new mifosX.models.LoggedInUser(data) };
                     }
                 } else {
-                    if(isOauth){
-                        webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.accessToken, userPermissions: data.permissions});
-                        httpService.setAuthorization(data.accessToken, true);
-                    } else {
-                        webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey, userPermissions: data.permissions});
+                    if (data.shouldRenewPassword) {
                         httpService.setAuthorization(data.base64EncodedAuthenticationKey, false);
+                    } else {
+                        webStorage.add("sessionData", { userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey, userPermissions: data.permissions });
+                        httpService.setAuthorization(data.base64EncodedAuthenticationKey, false);
+                        return { user: new mifosX.models.LoggedInUser(data) };
                     }
-                    return {user: new mifosX.models.LoggedInUser(data)};
                 };
             }
 
             this.clear = function () {
                 webStorage.remove("sessionData");
+                webStorage.remove("tokendetails");
+                webStorage.remove("userData");
+                webStorage.remove("userPermissions");
                 httpService.cancelAuthorization();
                 return EMPTY_SESSION;
             };

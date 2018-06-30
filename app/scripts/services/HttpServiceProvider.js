@@ -40,7 +40,10 @@
                         };
                     });
                     this.setAuthorization = function (key, isOauth) {
-                        if(isOauth){
+                        if (key) {
+                            key = key.replace(/^"|"$/g, '');
+                        }
+                        if (isOauth) {
                             http.defaults.headers.common.Authorization = "bearer " + key;
                         } else {
                             http.defaults.headers.common.Authorization = "Basic " + key;
