@@ -32,7 +32,8 @@
 			},
 			"isMandatoryField": {
 				"dateOfBirth": true,
-				"maritalStatus":false
+				"maritalStatus":false,
+			    "addressType":true
 			},
 			"isValidMobileNumber":{
 				"mobileNumberPattern":"/^[0-9]{10,10}$/"

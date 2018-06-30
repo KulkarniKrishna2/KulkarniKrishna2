@@ -938,7 +938,7 @@
             }
 
              //client reject reason method call
-             scope.clientRejection = function (memberId) {
+             scope.clientRejection = function (member) {
                 var templateUrl = 'views/task/popup/closeclient.html';
                 
                 $modal.open({
@@ -947,7 +947,9 @@
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
-                            return { 'memberId': memberId };
+                            return { 'memberId': member.id,
+                                'memberName': member.displayName,
+                                'fcsmNumber':member.fcsmNumber };
                         }
                     }
                 });
@@ -959,7 +961,9 @@
                 $scope.isClosureDate = true;
                 $scope.isRejectType = true;
                 $scope.isReason = true;
-                $scope.rejectClientData = {};                
+                $scope.rejectClientData = {};
+                $scope.memberName = memberParams.memberName;
+                $scope.fcsmNumber = memberParams.fcsmNumber;
                 $scope.rejectClientData.locale = scope.optlang.code;
                 $scope.rejectClientData.dateFormat = scope.df;
                 $scope.rejectTypes = scope.rejectTypes;
@@ -996,7 +1000,7 @@
 
             }
 
-            scope.groupRejection = function (memberId) {
+            scope.groupRejection = function (member) {
                 var templateUrl = 'views/task/popup/closegroup.html';
                 $modal.open({
                     templateUrl: templateUrl,
@@ -1004,7 +1008,9 @@
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
-                            return { 'memberId': memberId };
+                            return { 'memberId': member.id,
+                                'memberName': member.name,
+                                'fcsmNumber':member.fcsmNumber };
                         }
                     }
                 });
@@ -1015,7 +1021,9 @@
                 $scope.isError = false;
                 $scope.isClosureDate = true;
                 $scope.isReason = true;
-                $scope.rejectGroupData = {};                
+                $scope.rejectGroupData = {};
+                $scope.memberName = memberParams.memberName;
+                $scope.fcsmNumber = memberParams.fcsmNumber;
                 $scope.rejectGroupData.locale = scope.optlang.code;
                 $scope.rejectGroupData.dateFormat = scope.df;
                 $scope.rejectGroupData.closureDate = dateFilter(new Date(), scope.df);

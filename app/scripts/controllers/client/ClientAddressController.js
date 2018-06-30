@@ -15,7 +15,6 @@
             scope.formData.addressTypes = [];
             var villageConfig = 'populate_client_address_from_villages';
             scope.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled(villageConfig);
-            scope.isAddressTypeMandatory = false;
             scope.isCountryReadOnly = false;
             scope.pincode = false;
             scope.isVillageTownMandatory = false;
