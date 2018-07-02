@@ -705,7 +705,7 @@
 										</label>
 										<div class="col-sm-3">
 											<select id="loanPurposeId" name="loanPurposeId" ng-model="loanAccountFormData.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-											    class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+											    class="form-control" value="{{loanPurpose.id}}" ng-required="true">
 												<option value="">{{'label.selectpurpose' | translate}}</option>
 											</select>
 										</div>
