@@ -1584,6 +1584,18 @@
                 };
 
             }
+            scope.isActiveMember = function(activeClientMember){
+                if(activeClientMember.status.code == 'clientStatusType.onHold' || activeClientMember.status.code == 'clientStatusType.active'){
+                    return true;
+                }
+                return false;
+            }
+            scope.isActiveSubGroup = function(groupMember){
+                if(groupMember.status.value == 'Active'){
+                    return true;
+                }
+                return false;
+            }
 
         }
     });

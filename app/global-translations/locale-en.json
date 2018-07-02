@@ -7167,5 +7167,7 @@
     "label.selectCategoryType": "Select CategoryType",
     "label.heading.chargeCategoryType": "Charge Category Type",
     "error.msg.user.associate.with.other.resource" : "User associate with other resource : `{{params[0].value}}`",
+    "error.msg.group.submittedOnDate.in.the.future" : "Submitted date should not be future date",
+    "error.msg.group.activationDate.in.the.future" : "Activation date should not be future date",
      "------ end of tensalation file":"---------"
 }

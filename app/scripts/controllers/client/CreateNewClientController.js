@@ -319,6 +319,7 @@
                     scope.talukas = null;
                     scope.formAddressData.postalCode = null;
                     scope.districts = null;
+                    scope.states= null;
                     resourceFactory.villageResource.get({villageId:villageId},function (response) {
                         if (response.addressData.length > 0) {
                             if(response.villageName){
