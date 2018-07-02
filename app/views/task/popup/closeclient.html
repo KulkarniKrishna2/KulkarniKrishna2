@@ -1,14 +1,20 @@
 <div class="modal-header silver">
         <div>
+            <h3 class="bolder">
+                {{memberName}} <small> {{ 'label.heading.clientreferenceno' | translate }}: {{fcsmNumber}}</small>
+            </h3>
+        </div>
+        <hr>
+        <div>
             <h3 class="bolder">{{'label.heading.rejectclient' | translate}}</h3>
-        </div> 
+        </div>
         <div class="modal-body" style="height:300px">
             <api-validate></api-validate>           
             <div ng-show="error != null" class="error">
                 {{'label.error' | translate}}: {{error}}
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3">{{ 'label.input.closuredate' | translate }}<span
+                <label class="control-label col-sm-3">{{ 'label.input.rejectdate' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-4">
                     <input id="closureDate" class="date-disable form-control col-sm-3" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rejectClientData.closureDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  required late-Validate/>
@@ -32,7 +38,7 @@
             </div>
             <br/>
             <div class="form-group">
-                <label class="control-label col-sm-3">{{ 'label.input.closurereasons' | translate }}<span
+                <label class="control-label col-sm-3">{{ 'label.heading.rejectionreason' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-4">
                     <select id="closureReasonId" ng-model="rejectClientData.closureReasonId"

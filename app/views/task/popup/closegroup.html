@@ -1,4 +1,11 @@
 <div class="modal-header silver">
+    <br>
+    <div>
+        <h4 class="icon-group icon-large" tooltip="{{'label.heading.group' | translate}}">
+             {{memberName}}
+        </h4>
+    </div>
+    <hr>
         <div>
             <h3 class="bolder">{{'label.heading.rejectgroup' | translate}}</h3>
         </div> 
@@ -17,7 +24,7 @@
              </div>   
             <br/>
             <div class="form-group">
-                <label class="control-label col-sm-3">{{ 'label.heading.reason' | translate }}<span
+                <label class="control-label col-sm-3">{{ 'label.heading.rejectionreason' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-4">
                 <select id="closureReasonId" ng-model="rejectGroupData.closureReasonId"

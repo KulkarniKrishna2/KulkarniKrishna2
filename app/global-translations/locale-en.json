@@ -7166,5 +7166,6 @@
     "label.input.chargeCategoryType": "Charge CategoryType",
     "label.selectCategoryType": "Select CategoryType",
     "label.heading.chargeCategoryType": "Charge Category Type",
+    "error.msg.user.associate.with.other.resource" : "User associate with other resource : `{{params[0].value}}`",
      "------ end of tensalation file":"---------"
 }

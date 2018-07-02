@@ -658,7 +658,7 @@
                     var todaydate = dateFilter(new Date(),scope.df);                   
                     $scope.editLoanAccountdata.interestChargedFromDate = todaydate;
                     $scope.editLoanAccountdata.submittedOnDate = todaydate;
-                   $scope.editLoanAccountdata.loanType = $scope.inparams.templateType = 'jlg';
+                    $scope.editLoanAccountdata.loanType = $scope.inparams.templateType = 'jlg';
                     $scope.editLoanAccountdata.expectedDisbursementDate = todaydate;                 
                     $scope.editLoanAccountdata.disbursementData = [];                    
                     $scope.constructSubmitData();
@@ -730,7 +730,9 @@
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
-                            return { 'memberId': memberId };
+                            return { 'memberId': member.id,
+                                'memberName': member.displayName,
+                                'fcsmNumber':member.fcsmNumber };
                         }
                     }
                 });
@@ -742,7 +744,9 @@
                 $scope.isClosureDate = true;
                 $scope.isRejectType = true;
                 $scope.isReason = true;
-                $scope.rejectClientData = {};                
+                $scope.rejectClientData = {};
+                $scope.memberName = memberParams.memberName;
+                $scope.fcsmNumber = memberParams.fcsmNumber;
                 $scope.rejectClientData.locale = scope.optlang.code;
                 $scope.rejectClientData.dateFormat = scope.df;
                 $scope.rejectTypes = scope.rejectTypes;
@@ -787,7 +791,9 @@
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
-                            return { 'memberId': memberId };
+                            return { 'memberId': member.id,
+                                'memberName': member.name,
+                                'fcsmNumber':member.fcsmNumber };
                         }
                     }
                 });
@@ -798,7 +804,9 @@
                 $scope.isError = false;
                 $scope.isClosureDate = true;
                 $scope.isReason = true;
-                $scope.rejectGroupData = {};                
+                $scope.rejectGroupData = {};
+                $scope.memberName = memberParams.memberName;
+                $scope.fcsmNumber = memberParams.fcsmNumber;
                 $scope.rejectGroupData.locale = scope.optlang.code;
                 $scope.rejectGroupData.dateFormat = scope.df;
                 $scope.rejectGroupData.closureDate = dateFilter(new Date(), scope.df);
