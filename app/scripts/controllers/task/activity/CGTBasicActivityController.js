@@ -1150,7 +1150,18 @@
                         scope.taskInfoTrackArray.splice(idx,1);
                     }
             }
-
+            scope.isActiveMember = function(activeClientMember){
+               if(activeClientMember.status.code == 'clientStatusType.onHold' || activeClientMember.status.code == 'clientStatusType.active'){
+                   return true;
+               }
+                return false;
+            }
+            scope.isActiveSubGroup = function(groupMember){
+                if(groupMember.status.value == 'Active'){
+                    return true;
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('CGTBasicActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope','CommonUtilService', '$route', '$upload', 'API_VERSION', 'dateFilter', mifosX.controllers.CGTBasicActivityController]).run(function($log) {

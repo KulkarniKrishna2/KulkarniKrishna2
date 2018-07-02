@@ -364,7 +364,7 @@
 						{{'label.input.statename' | translate}}  <span class="required">*</span>
 					</label>
 					<div class="col-sm-3">
-						<select chosen="states" id="stateId" name="states" ng-model="formAddressData.stateId" class="form-control"
+						<select chosen="states" id="stateId" name="states" ng-model="formAddressData.stateId"
 								ng-options="state.stateId as state.stateName for state in states"
 								value="{{state.stateId}}"
 								ng-change="changeState(formAddressData.stateId)" required late-validate="">
