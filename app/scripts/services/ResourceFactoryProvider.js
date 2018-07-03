@@ -1412,7 +1412,8 @@
                     }),
                     myAccountResource: defineResource(apiVer + "/myaccount/:command", {command: '@command'}, {
                         get: {method: 'GET', params: {}},
-                        changePassword: {method:'POST', params:{command:'changepassword'}}
+                        changePassword: {method:'POST', params:{command:'changepassword'}},
+                        logout: { method: 'POST', params: { command: 'logout' } }
                     }),                    
                     userPasswordResource: defineResource(apiVer + "/users/resetpassword", {}, {
                         resetpassword: {method:'POST', params:{}}
