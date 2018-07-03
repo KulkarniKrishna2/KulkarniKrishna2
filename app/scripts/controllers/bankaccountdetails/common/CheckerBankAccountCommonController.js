@@ -15,6 +15,7 @@
             scope.bankAccountTypeOptions = [];
             scope.deFaultBankName = null;
             scope.bankAccountDocuments = [];
+            scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -22,6 +23,10 @@
 
             function getEntityId(){
                 return scope.commonConfig.bankAccount.entityId;
+            }
+
+            function getClientBankAccountDetailAssociationId(){
+                return scope.clientBankAccountDetailAssociationId;
             }
 
             function underTask(){
@@ -37,7 +42,7 @@
             }
 
             function populateDetails(){
-                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
+                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()}, function (data) {
                     scope.externalservices = data.externalServiceOptions;
                     scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                     if(data.checkerInfo!=undefined){
@@ -89,7 +94,7 @@
                 if(!isFormValid()){
                     return false;
                 }
-                resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'updateCheckerInfo'},scope.formData,
+                resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(), command:'updateCheckerInfo'},scope.formData,
                     function (data) {
                         populateDetails();
                         scope.viewConfig.showSummary=true;

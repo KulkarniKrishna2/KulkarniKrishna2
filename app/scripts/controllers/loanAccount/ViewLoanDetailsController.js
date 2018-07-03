@@ -783,6 +783,7 @@
                     fetchBankTransferDetails();
                 }
                 scope.isOverPaidOrGLIM();
+                fetchBankDetailAssociation();
                 //enableOrDisableLoanLockButtons();
             });
 
@@ -807,6 +808,12 @@
                        scope.transferDetails = scope.closedTransferDetails; 
                        scope.viewClosedTransactions = true;
                     }
+                });
+            };
+
+            fetchBankDetailAssociation = function(){
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: routeParams.id}, function (data) {
+                    scope.loanBankAccountDetailAssociation = data;
                 });
             };
 
@@ -1576,6 +1583,13 @@
                 }
                 
             };
+
+            scope.removeLoanBankAccountAssociation = function (bankAccountDetailId){
+                resourceFactory.loanBankAccountAssociationResources.delete({entityType: "loans",entityId: scope.loandetails.id, bankAccountId: bankAccountDetailId}, function (data) {
+                    scope.bankAccountDetails = data;
+                    route.reload();
+                });
+            }
 
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {

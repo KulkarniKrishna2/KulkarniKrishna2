@@ -15,6 +15,7 @@
             scope.bankAccountTypeOptions = [];
             scope.deFaultBankName = null;
             scope.bankAccountDocuments= [];
+            scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -24,8 +25,12 @@
                 return scope.commonConfig.bankAccount.entityId;
             }
 
+            function getClientBankAccountDetailAssociationId(){
+                return scope.clientBankAccountDetailAssociationId;
+            }
+
             function populateDetails(){
-                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
+                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()}, function (data) {
                     scope.externalservices = data.externalServiceOptions;
                     scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                     scope.bankAccountData = data;
@@ -70,7 +75,7 @@
                 }
                 
                 delete scope.errorDetails;
-                resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
+                resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(), command:'activate'},scope.formData,
                     function (data) {
                         scope.viewConfig.showSummary=true;
                         scope.doActionAndRefresh('activitycomplete');
