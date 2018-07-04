@@ -8,7 +8,8 @@
 				"referenceNo": false
 			},
 		  "takeSurveyName":"Member info",
-		  "surveyEntityTypeId":"1"
+		  "surveyEntityTypeId":"1",
+		  "activateOnReinitiate":false
 		},
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {

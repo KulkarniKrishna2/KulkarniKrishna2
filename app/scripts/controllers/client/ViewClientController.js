@@ -49,6 +49,7 @@
                 scope.hideNewLoan = scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan;
             }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
+            scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
         
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -198,6 +199,16 @@
                                 scope.buttons.splice(1, 0, activateOption);
                             }
                         }
+                    }
+                    if(data.status.value == "Closed" && !scope.activateOnReinitiate){
+                        var activateOption = {
+                            name: "label.button.activate",
+                            href: "#/client",
+                            subhref: "activate",
+                            icon: "icon-ok-sign",
+                            taskPermissionName: "ACTIVATE_CLIENT"
+                        };
+                        scope.buttons.splice(0, 1, activateOption);
                     }
     
                     scope.buttonsArray = {
