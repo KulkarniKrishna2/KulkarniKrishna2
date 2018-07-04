@@ -7169,5 +7169,8 @@
     "error.msg.user.associate.with.other.resource" : "User associate with other resource : `{{params[0].value}}`",
     "error.msg.group.submittedOnDate.in.the.future" : "Submitted date should not be future date",
     "error.msg.group.activationDate.in.the.future" : "Activation date should not be future date",
+    "invalid.streetName.format" :"Invalid Street name",
+    "invalid.houseNo.format": "Invalid house name",
+    "invalid.villageTown.format" : "Invalid villagetown name",
      "------ end of tensalation file":"---------"
 }
