@@ -16,10 +16,15 @@
             populateDetails();
 
             scope.submit = function (bankAccountDetailId){
-                resourceFactory.loanBankAccountAssociationResources.create({entityType: "loans",entityId: scope.loanId, bankAccountId: bankAccountDetailId}, function (data) {
-                    scope.bankAccountDetails = data;
-                    scope.routeTo();
-                });
+                if(bankAccountDetailId != undefined) {
+                    scope.validateMessage = '';
+                    resourceFactory.loanBankAccountAssociationResources.create({entityType: "loans",entityId: scope.loanId, bankAccountId: bankAccountDetailId}, function (data) {
+                        scope.bankAccountDetails = data;
+                        scope.routeTo();
+                    });
+                } else{
+                    scope.validateMessage = 'Please choose an bank account';
+                }
             }
 
             scope.routeTo = function () {
