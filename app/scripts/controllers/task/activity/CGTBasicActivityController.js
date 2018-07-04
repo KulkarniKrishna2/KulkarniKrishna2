@@ -520,6 +520,7 @@
                 $scope.getSurveyDetails = function() {
                     $scope.formData = {};
                     $scope.isValidEntityType = false;
+                    $scope.isSurveyDone = true;
                     scope.surveyEntityTypeId = scope.response.uiDisplayConfigurations.viewClient.surveyEntityTypeId;
                     $scope.locationUrl= 'views/task/activity/surveycommonactivity.html';
                     if(scope.surveyEntityTypeId.length > 0){
@@ -553,6 +554,7 @@
                     if(!_.isUndefined(scope.formData.scorecardValues)){
                         scope.formData.scorecardValues = [];
                     }
+                    var responseCount=0;
                     if($scope.questionDatas && $scope.questionDatas.length > 0){
                         for(var i in $scope.questionDatas){
                             if($scope.questionDatas[i].responseDatas){
@@ -561,6 +563,7 @@
                                         if(_.isUndefined(scope.formData.scorecardValues)){
                                             scope.formData.scorecardValues = [];
                                         }
+                                        responseCount = responseCount+1;
                                         var scorecardValue = {};
                                         scorecardValue.questionId  = $scope.questionDatas[i].id;
                                         scorecardValue.responseId  = $scope.questionDatas[i].responseDatas[j].responseId;
@@ -570,6 +573,12 @@
                                 }
                             }
                         }
+                    }
+                    if($scope.questionDatas.length>0 && $scope.questionDatas.length!=responseCount){
+                        $scope.isSurveyDone = false;
+                        return false;
+                    }else{
+                        $scope.isSurveyDone = true;
                     }
                     resourceFactory.takeSurveysResource.post({entityType: $scope.entityTypeId,entityId: $scope.clientId},scope.formData, function (data) {
                         $scope.viewSurveyDetails = true;
