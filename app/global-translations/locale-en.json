@@ -7024,6 +7024,8 @@
      "label.input.voucher.cost.center" : "Cost Center",
      "label.input.reasontype" : "Reason Type",
      "Bad credentials" : "Invalid credentials",
+     "label.menu.selectentity" : "select Entity",
+     "label.menu.selectcolumn" : "Select Column",
 
     "------ end of tensalation file":"---------"
 }
