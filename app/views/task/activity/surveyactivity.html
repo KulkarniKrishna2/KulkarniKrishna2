@@ -124,7 +124,7 @@
                                 <label class="control-label col-sm-2">{{'label.survey.answers' |translate}}<span class="required">*</span>&nbsp;:&nbsp;</label>
                                <div class="col-sm-10">
                                     <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
-                                        <input type="radio" name="response{{questionIndex}}" id="response{{responseIndex}}" value="{{responseData.id}}" ng-change="changeResponse(questionIndex, responseIndex)" ng-model="responseData.responseId">
+                                        <input type="radio" name="response{{questionIndex}}" id="response{{responseIndex}}" value="{{responseData.id}}" ng-change="changeResponse(questionIndex, responseIndex)" ng-model="responseData.responseId" required />
                                         <label ng-if ="!responseData.image">{{responseData.text}}</label>
                                         <img  ng-if ="responseData.image" ng-src="{{responseData.image}}" title="{{responseData.text}}"/><br/>
                                     </div>
