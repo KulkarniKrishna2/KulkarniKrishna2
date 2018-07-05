@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewCenterController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
-
+            scope.uiData = {};
             scope.center = [];
             scope.staffData = {};
             scope.formData = {};
@@ -49,6 +49,9 @@
             scope.entityType = "center";
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar,clientMembers'}, function (data) {
                 scope.center = data;
+                if(scope.center.isWorkflowEnabled){
+                    fetchAllConfiguredWorkFlows();
+                }
                 scope.groupMemberAccountList = data.groupMembers;
                 $rootScope.officeName = data.officeName;
                 $rootScope.officeId = data.officeId;
@@ -64,6 +67,27 @@
                 }
                 //scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime);
             });
+
+            function fetchAllConfiguredWorkFlows() {
+                scope.uiData.isNewLoanCycle = true;
+                resourceFactory.entityWorkflowResource.getWorkflows({
+                    entityType: scope.entityType,
+                    entityId: routeParams.id
+                }, function (workFlows) {
+                    scope.workFlows = workFlows;
+                    for (var i in scope.workFlows) {
+                        if (scope.workFlows[i].status) {
+                            if (scope.workFlows[i].status.value == 'initiated') {
+                                if (scope.workFlows[i].eventType.systemCode == 'loancycle') {
+                                    scope.uiData.isNewLoanCycle = false;
+                                }
+                            } else if (scope.workFlows[i].status.value == 'completed') {
+                                scope.uiData.isCompletedWorkflows = true;
+                            }
+                        }
+                    }
+                });
+            };
 
             resourceFactory.cgtResource.getAll({entityId: routeParams.id}, function(data) {
                 scope.cgt = data;
@@ -325,6 +349,20 @@
                 });
                 }    
             }
+
+            scope.initiateNewWorkFlow = function(eventType){
+                resourceFactory.initiateWorkflowResource.initiateWorkflow({
+                    entityType: "center",
+                    eventType : eventType,
+                    entityId: routeParams.id
+                }, function(data) {
+                    location.path('/centeronboarding/'+eventType+'/'+ routeParams.id+'/workflow');
+                });
+            };
+
+            scope.viewCenterWorkflow =  function(workFlow){
+                location.path('/centeronboarding/'+workFlow.eventType.systemCode+'/'+ routeParams.id+'/workflow');
+            };
         }
     });
 

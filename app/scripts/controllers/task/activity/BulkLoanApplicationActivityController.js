@@ -7,7 +7,7 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.chargesCategory = [];
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;

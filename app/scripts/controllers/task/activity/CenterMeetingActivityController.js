@@ -19,48 +19,52 @@
             }
 
            function initTask() {
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'groupMembers, loanaccounts, collectionMeetingCalendar' }, function (data) {
-                scope.centerMeetingData = data;
-                for (var i in scope.centerMeetingData.subGroupMembers) {
-                    for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
-                        if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {               
-                            scope.formData.expectedDisbursementDate = new Date(dateFilter(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate, scope.df)); 
-                            scope.disbursementDateFound = true;
-                            scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
-                            break;
-                        }
-                    }
-                    if(scope.disbursementDateFound){
-                        break;
-                    }
+               resourceFactory.centerWorkflowResource.get({
+                   centerId: scope.groupOrCenterId,
+                   eventType: scope.eventType,
+                   associations: 'groupMembers, loanaccounts, collectionMeetingCalendar'
+               }, function (data) {
+                   scope.centerMeetingData = data;
+                   for (var i in scope.centerMeetingData.subGroupMembers) {
+                       for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
+                           if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {
+                               scope.formData.expectedDisbursementDate = new Date(dateFilter(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate, scope.df));
+                               scope.disbursementDateFound = true;
+                               scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
+                               break;
+                           }
+                       }
+                       if (scope.disbursementDateFound) {
+                           break;
+                       }
 
-                }
-                if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
-                    scope.isCenterMeetingAttached = true;
-                    scope.isCenterMeetingEdit = false;
-                    var today = new Date();
-                    if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
-                        scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
-                    }
-                }
-                if (scope.formData.expectedDisbursementDate != undefined) {
-                    var twoWeeks = 1000 * 60 * 60 * 24 * 14;
-                    scope.minMeetingDate = scope.formData.expectedDisbursementDate;
-                    var date = new Date(dateFilter(scope.formData.expectedDisbursementDate,scope.df));
-                    scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+twoWeeks);
-                }
-                var weekday = new Array(7);
-                weekday[0] = "Sunday";
-                weekday[1] = "Monday";
-                weekday[2] = "Tuesday";
-                weekday[3] = "Wednesday";
-                weekday[4] = "Thursday";
-                weekday[5] = "Friday";
-                weekday[6] = "Saturday";
-                var disbursedate = new Date(dateFilter(scope.formData.expectedDisbursementDate,scope.df));
-                scope.disbursementDay = weekday[disbursedate.getDay()];
-            });
-        };
+                   }
+                   if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
+                       scope.isCenterMeetingAttached = true;
+                       scope.isCenterMeetingEdit = false;
+                       var today = new Date();
+                       if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
+                           scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                       }
+                   }
+                   if (scope.formData.expectedDisbursementDate != undefined) {
+                       var twoWeeks = 1000 * 60 * 60 * 24 * 14;
+                       scope.minMeetingDate = scope.formData.expectedDisbursementDate;
+                       var date = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
+                       scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime() + twoWeeks);
+                   }
+                   var weekday = new Array(7);
+                   weekday[0] = "Sunday";
+                   weekday[1] = "Monday";
+                   weekday[2] = "Tuesday";
+                   weekday[3] = "Wednesday";
+                   weekday[4] = "Thursday";
+                   weekday[5] = "Friday";
+                   weekday[6] = "Saturday";
+                   var disbursedate = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
+                   scope.disbursementDay = weekday[disbursedate.getDay()];
+               });
+           };
         
         initTask(); 
             resourceFactory.attachMeetingResource.get({
@@ -211,7 +215,7 @@
                 }
             }
             scope.getCenterMeeting = function () {
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, associations: 'collectionMeetingCalendar' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.groupOrCenterId, eventType : scope.eventType, associations: 'collectionMeetingCalendar' }, function (data) {
                     scope.centerMeetingData = data;
                     if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
                         scope.isCenterMeetingAttached = true;

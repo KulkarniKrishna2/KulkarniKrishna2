@@ -36,6 +36,9 @@
 
             function initTask(){
                 if(scope.taskData != undefined){
+                    if(scope.taskData.eventType){
+                        scope.eventType = scope.taskData.eventType.systemCode;
+                    }
                     scope.taskconfig = _.extend({},scope.taskData.configValues);
                     scope.taskconfig.status = scope.taskData.status;
                     scope.showCriteriaResult =false;

@@ -138,7 +138,7 @@
                 
                 resourceFactory.centerResource.save(this.formData, function (data) {
                     if(data.changes.isWorkflowCreated === true){
-                        location.path('/centeronboarding/' + data.resourceId+'/workflow');
+                        location.path('/centeronboarding/create/'+ data.resourceId+'/workflow');
                     }else{
                         location.path('/viewcenter/' + data.resourceId);
                     }

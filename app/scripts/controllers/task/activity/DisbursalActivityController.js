@@ -5,7 +5,7 @@
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId,eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){

@@ -566,7 +566,7 @@
                         update: { method: 'PUT'}
                     }),
                     centerWorkflowResource: defineResource(apiVer + "/centers/:centerId/workflowData", {centerId: '@centerId'}, {
-                    get: {method: 'GET', params: {}}
+                        get: {method: 'GET', params: {}}
                     }),
                     centerMeetingResource: defineResource(apiVer + "/centers/:centerId/meetings/:templateSource", {centerId: '@centerId', templateSource: '@templateSource'}, {
                         getMeetingInfo: {method: 'GET', params: {}}
@@ -1111,6 +1111,12 @@
                     entityTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:entityId/execute/template", {entityType: '@entityType',entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    entityEventTaskExecutionResource: defineResource(apiVer + "/tasks/:entityType/:eventType/:entityId/execute/template", {entityType: '@entityType',eventType: '@eventType',entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    initiateWorkflowResource: defineResource(apiVer + "/tasks/:entityType/:eventType/:entityId/initiate/workflow", {entityType: '@entityType',eventType: '@eventType',entityId: '@entityId'}, {
+                        initiateWorkflow: {method: 'POST', params: {}}
+                    }),
                     taskExecutionActionResource: defineResource(apiVer + "/tasks/:taskId/execute/actions",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
@@ -1529,7 +1535,10 @@
                     }),
                     surveyResourceByName: defineResource(apiVer + "/surveys/surveyname/:surveyName", { surveyName:'@surveyName'}, {
                         getBySurveyName: {method: 'GET', params: {}}
-                    })
+                    }),
+                    entityWorkflowResource: defineResource(apiVer + "/workflows/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getWorkflows: {method: 'GET', params: {}, isArray: true}
+                    }),
                 };
             }];
         }

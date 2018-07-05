@@ -37,7 +37,20 @@
                 </div>
                 <div class="col-sm-2">
                    <form-validate valattributeform="createentitymappingform" valattribute="entityType"/>
-                </div>                              
+                </div>
+                
+                <label class="control-label col-sm-2" >{{'label.heading.eventtype' |translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                   <select chosen="workflowEntityMappingTemplate.taskEventTypeOptions" 
+                        id="eventType" name="eventType" ng-model="formData.eventType"
+                        class="form-control" ng-options="entityType.id as entityType.value for entityType in workflowEntityMappingTemplate.taskEventTypeOptions"
+                        value="{{entityType.id}}" required late-Validate>
+                        <option value="">--{{'label.menu.selectone' |translate}}--</option>
+                   </select>
+                </div>
+                <div class="col-sm-2">
+                   <form-validate valattributeform="createentitymappingform" valattribute="eventType"/>
+                </div>
             </div>
             <br><br>
             <div class="form-group col-sm-12" ng-if = "isLoanProductEntitySelected">
@@ -56,7 +69,7 @@
                     <button type="button" class="btn btn-primary" data-ng-click="removeLoanProduct()"><i
                             class="icon-double-angle-left"></i></button>
                 </div>
-                <div class="col-sm-3 >
+                <div class="col-sm-3">
                     <label class="control-label">{{ 'label.input.selectedloanproducts' | translate}}</label>
                     <select id="selectedloanproduct" ng-model="selected" name="selectedloanproduct" class="form-control multiselectmin" multiple>
                         <option ng-repeat="selectedloanproduct in selectedLoanProducts" value="{{selectedloanproduct.id}}">
