@@ -6638,6 +6638,7 @@
     "label.heading.workflowentitymapping":"Workflow-Entity Mapping",
     "label.button.mapworkflowentity":"Map Workflow-Entity",
     "label.heading.entitytype":"Entity Type",
+    "label.heading.eventtype":"Event Type",
     "label.anchor.viewworkflowentitymapping":"View Workflow-Entity Mapping",
     "label.anchor.createworkflowentitymapping":"Create Workflow-Entity Mapping",
     "label.input.availableloanproducts":"Available Loan Products",
@@ -7172,5 +7173,10 @@
     "invalid.streetName.format" :"Invalid Street name",
     "invalid.houseNo.format": "Invalid house name",
     "invalid.villageTown.format" : "Invalid villagetown name",
+
+    "label.button.next.loan.cycle" : "Next Loan Cycle",
+    "label.input.pending" : "Pending",
+    "label.button.workflow.history":"Workflow History",
+
      "------ end of tensalation file":"---------"
 }

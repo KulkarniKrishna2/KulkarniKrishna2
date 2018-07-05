@@ -16,6 +16,7 @@
                 <tr>
                     <th>{{'label.heading.workflow' | translate}}</th>
                     <th>{{'label.heading.entitytype' | translate}}</th>
+                    <th>{{'label.heading.eventtype' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                        data-ng-click="routeToView(enittyMapping)">
                     <td class="pointer">{{enittyMapping.taskConfig.name}}</td>
                     <td class="pointer">{{enittyMapping.entityType.value}}</td>
+                    <td class="pointer">{{enittyMapping.eventType.value}}</td>
                 </tr>
             </tbody>
         </table>

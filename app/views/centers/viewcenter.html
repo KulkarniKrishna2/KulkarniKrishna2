@@ -43,6 +43,32 @@
 			</h3>
 		</div>
 	</div>
+
+	<div ng-if="center.isWorkflowEnabled">
+		<table ng-if="workFlows">
+			<tr ng-repeat="workFlow in workFlows" ng-if="workFlow.parentWorkFlowStep && workFlow.status.value == 'initiated'">
+				<td>
+					{{'label.input.pending' | translate}}&nbsp;:&nbsp;
+				</td>
+				<td>
+					<a class="btn-link" ng-click="viewCenterWorkflow(workFlow)">{{workFlow.parentWorkFlowStep.name}}</a>
+				</td>
+			</tr>
+		</table>
+
+		<div ng-if="uiData.isCompletedWorkflows" class="btn-group pull-right">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				{{'label.button.workflow.history' | translate}}
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li ng-repeat="workFlow in workFlows" ng-if="workFlow.parentWorkFlowStep && workFlow.status.value == 'completed'">
+					<a ng-click="viewCenterWorkflow(workFlow)">{{workFlow.parentWorkFlowStep.name}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
 	<script type="text/ng-template" id="delete.html">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -70,70 +96,69 @@
 			<tab heading="{{ 'label.heading.general' | translate }}">
 			    <div>
 			        <div class="col-md-12 primarydiv" data-ng-hide="center.status.value == 'Closed'">
-			            <div class="btn-group pull-right">
-			                <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active' || center.isWorkflowEnabled" has-permission='ACTIVATE_CENTER'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
-			                <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary"  has-permission='UPDATE_CENTER'>
-			                    <i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
-			                <button class="btn btn-primary" ng-click="addgroup()" ng-disabled="exceedMaxLimit" has-permission='CREATE_GROUP'><i
-				                    class="icon-plus-sign-alt icon-white"></i>{{ 'addgroup' | translate }}</button>
-                            <a href="#/managegroupmembers/{{center.id}}" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER' ng-hide="isHideCreateEntity">
-                                <i class="icon-edit icon-white"></i>{{'label.button.managegroups' | translate }}</a>
-			                <a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" has-permission='CREATE_SAVINGSACCOUNT'
-			                   class="btn btn-primary"><i class="icon-file icon-white"></i>{{ 'label.button.centersavingapplication' | translate }}</a>
-							<a ng-show="center.active" href="#/jlgsavingAccountcenterby/{{center.id}}"
-							   class="btn btn-primary"><i
-									class="icon-copy icon-white"></i>{{ 'label.button.bulkjlgsavingapplication' |
-								translate }}</a>
-							<a ng-show="center.isWorkflowEnabled && center.workflowId" href="#/centeronboarding/{{center.id}}/workflow"
-                       class="pull right btn btn-primary"><i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
-			                <span class="btn-group dropdown" on-toggle="toggled(open)">
-			                      <a class="btn btn-primary dropdown-toggle">
-			                          {{ 'label.button.more' | translate}}
-			                          <span class="caret"></span>
-			                      </a>
-			                      <ul class="dropdown dropdown-menu dropdown-menu-right">
-			                         <li>
-                                          <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}"
-                                              data-ng-show="center.collectionMeetingCalendar" has-permission='SAVEORUPDATEATTENDANCE_MEETING'>{{
-				                                  'label.button.attendance' | translate }}</a>
-			                         </li>
-			                          <li>
-			                              <a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
-			                                  'label.button.assignstaff' | translate }}</a>
-			                          </li>
-			                          <li>
-			                              <a data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId" has-permission='UNASSIGNSTAFF_GROUP'>{{
-			                                  'label.button.unassignstaff' | translate }}</a>
-			                          </li>
-			                          <li>
-			                              <a data-ng-click="deleteCenter()" data-ng-hide="center.status.value=='Active'" has-permission='DELETE_CENTER'>{{
-			                                  'label.button.delete' | translate }}</a>
-			                          </li>
-			                          <li>
-			                              <a href="#/closecenter/{{center.id}}" has-permission='CLOSE_CENTER'>{{ 'label.button.close' | translate }}</a>
-			                          </li>
-			                          <li data-ng-show="center.status.value=='Active'">
-			                              <a href="#/attachmeeting/{{center.id}}/centers" data-ng-hide="center.collectionMeetingCalendar" has-permission='CREATE_MEETING'>{{ 'label.button.attachmeeting' | translate }}</a>
-			                          </li>
-									  <li>
-										<a ng-click= "viewStaffAssignmentHistory()" has-permission='READ_Staff Assignment History'>{{ 'label.button.staffassignmenthistory' | translate }}</a>
-									  </li>
-									  <li>
-										  <a href="#/bulkundotransactions/{{center.id}}" has-permission='READ_GROUP'>{{
-											  'label.button.bulk.undo.transactions' | translate }}</a>
-									  </li>
+						<div class="btn-group pull-right">
+							<a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active' || center.isWorkflowEnabled"
+								has-permission='ACTIVATE_CENTER'>
+								<i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
+							<a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_CENTER'>
+								<i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
+							<button class="btn btn-primary" ng-click="addgroup()" ng-disabled="exceedMaxLimit" has-permission='CREATE_GROUP'>
+								<i class="icon-plus-sign-alt icon-white"></i>{{ 'addgroup' | translate }}</button>
+							<a href="#/managegroupmembers/{{center.id}}" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER' ng-hide="isHideCreateEntity">
+								<i class="icon-edit icon-white"></i>{{'label.button.managegroups' | translate }}</a>
+							<a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" has-permission='CREATE_SAVINGSACCOUNT'
+								class="btn btn-primary">
+								<i class="icon-file icon-white"></i>{{ 'label.button.centersavingapplication' | translate }}</a>
+							<a ng-show="center.active" href="#/jlgsavingAccountcenterby/{{center.id}}" class="btn btn-primary">
+								<i class="icon-copy icon-white"></i>{{ 'label.button.bulkjlgsavingapplication' | translate }}</a>
 
-									  <li>
-										  <a href="#/centers/{{center.id}}/surveys">{{'label.button.view.surveys' | translate }}</a>
-									  </li>
-									  <li>
-										  <a href="#/history/{{entityType}}/{{center.id}}"
-											 has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
-											  translate }}</a>
-									  </li>
-			                      </ul>
-			                  </span>
-			            </div>
+							<a ng-if="center.isWorkflowEnabled && center.workflowId && false" href="#/centeronboarding/{{center.id}}/workflow" class="pull right btn btn-primary">
+								<i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
+
+							<a ng-if="center.isWorkflowEnabled && center.workflowId && uiData.isNewLoanCycle" class="pull right btn btn-primary" ng-click="initiateNewWorkFlow('loancycle')">
+								<i class="icon-white"></i>{{'label.button.next.loan.cycle' | translate}}</a>
+
+							<span class="btn-group dropdown" on-toggle="toggled(open)">
+								<a class="btn btn-primary dropdown-toggle">
+									{{ 'label.button.more' | translate}}
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown dropdown-menu dropdown-menu-right">
+									<li>
+										<a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}" data-ng-show="center.collectionMeetingCalendar"
+											has-permission='SAVEORUPDATEATTENDANCE_MEETING'>{{ 'label.button.attendance' | translate }}</a>
+									</li>
+									<li>
+										<a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{ 'label.button.assignstaff' | translate }}</a>
+									</li>
+									<li>
+										<a data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId" has-permission='UNASSIGNSTAFF_GROUP'>{{ 'label.button.unassignstaff' | translate }}</a>
+									</li>
+									<li>
+										<a data-ng-click="deleteCenter()" data-ng-hide="center.status.value=='Active'" has-permission='DELETE_CENTER'>{{ 'label.button.delete' | translate }}</a>
+									</li>
+									<li>
+										<a href="#/closecenter/{{center.id}}" has-permission='CLOSE_CENTER'>{{ 'label.button.close' | translate }}</a>
+									</li>
+									<li data-ng-show="center.status.value=='Active'">
+										<a href="#/attachmeeting/{{center.id}}/centers" data-ng-hide="center.collectionMeetingCalendar" has-permission='CREATE_MEETING'>{{ 'label.button.attachmeeting' | translate }}</a>
+									</li>
+									<li>
+										<a ng-click="viewStaffAssignmentHistory()" has-permission='READ_Staff Assignment History'>{{ 'label.button.staffassignmenthistory' | translate }}</a>
+									</li>
+									<li>
+										<a href="#/bulkundotransactions/{{center.id}}" has-permission='READ_GROUP'>{{ 'label.button.bulk.undo.transactions' | translate }}</a>
+									</li>
+
+									<li>
+										<a href="#/centers/{{center.id}}/surveys">{{'label.button.view.surveys' | translate }}</a>
+									</li>
+									<li>
+										<a href="#/history/{{entityType}}/{{center.id}}" has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' | translate }}</a>
+									</li>
+								</ul>
+							</span>
+						</div>
 			        </div>
 			        <br/>
 			        <div class="col-md-12">

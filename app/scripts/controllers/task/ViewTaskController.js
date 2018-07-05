@@ -74,14 +74,14 @@
                                 });
                             }
                         });
-
-
                     };
+
                     if(scope.groupId){
                        resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
                            scope.groupData = data;
                        });
                    }
+                   
                    if(scope.centerId){
                        resourceFactory.centerResource.get({centerId: scope.centerId, associations: 'all'}, function (data) {
                            scope.centerData = data;
