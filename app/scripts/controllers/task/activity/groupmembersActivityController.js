@@ -12,6 +12,142 @@
             scope.groupId = scope.taskconfig['groupId'];
             scope.isTaskComplete = false;
             scope.formData.Workflowtype = true;
+            scope.isStaffMandatory = false;
+            scope.isStaffRequired = false;
+            scope.addressFromVillages = false;
+
+            scope.changeVillage = function (villageId) {
+                if(villageId != null){
+
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
+                    scope.formAddressData.villageTown = null
+                    scope.talukas = null;
+                    scope.formAddressData.postalCode = null;
+                    scope.districts = null;
+                    resourceFactory.villageResource.get({villageId:villageId},function (response) {
+                        if (response.addressData.length > 0) {
+                            if(response.villageName){
+                                scope.formAddressData.villageTown = response.villageName;
+                            }
+
+                            if (response.addressData[0].countryData) {
+                                scope.formAddressData.countryId = response.addressData[0].countryData.countryId;
+                                scope.changeCountry(scope.formAddressData.countryId);
+                            }
+
+                            if (response.addressData[0].stateData) {
+                                scope.formAddressData.stateId = response.addressData[0].stateData.stateId;
+                                scope.changeState(scope.formAddressData.stateId);
+                            }
+                            if (response.addressData[0].districtData) {
+                                scope.formAddressData.districtId = response.addressData[0].districtData.districtId;
+                                scope.changeDistrict(scope.formAddressData.districtId);
+                            }
+
+                            if (response.addressData[0].talukaData) {
+                                scope.formAddressData.talukaId = response.addressData[0].talukaData.talukaId;
+                            }
+
+                            if (response.addressData[0].postalCode) {
+                                scope.formAddressData.postalCode = response.addressData[0].postalCode;
+                            }
+                        }
+                    });
+
+                }
+
+            }
+
+            scope.changeOffice = function (officeId) {
+                resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: officeId
+                }, function (data) {
+                    scope.staffs = data.staffOptions;
+                    scope.savingproducts = data.savingProductOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
+                });
+                if(scope.isPopulateClientAddressFromVillages ) {
+                    resourceFactory.villageResource.getAllVillages({officeId: officeId, limit: 1000}, function (data) {
+                        scope.villages = data;
+                    });
+                }
+            };
+
+            var villageConfig = 'populate_client_address_from_villages';
+            resourceFactory.configurationResource.get({configName: villageConfig}, function (response) {
+                if (response.enabled == true){
+                    scope.addressFromVillages = true;
+                }else {
+                    scope.addressFromVillages = false;
+                }
+
+            });
+
+            if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
+                scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+            }
+
+            scope.validateStaff = function(){
+                if(scope.isStaffMandatory && (scope.formData.staffId==undefined || scope.formData.staffId==null)){
+                    scope.isStaffRequired = true;
+                }else{
+                    scope.isStaffRequired = false;
+                }
+            };
+
+            scope.changeCountry = function (countryId) {
+                if (countryId != null) {
+                    scope.selectCountry = _.filter(scope.countries, function (country) {
+                        return country.countryId == countryId;
+                    })
+                    if(scope.formAddressData.stateId){
+                        delete scope.formAddressData.stateId;
+                    }
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
+                    scope.states = scope.selectCountry[0].statesDatas;
+                    scope.districts = null;
+                    scope.talukas = null;
+                }
+            }
+
+            scope.changeState = function (stateId) {
+                if (stateId != null) {
+                    scope.selectState = _.filter(scope.states, function (state) {
+                        return state.stateId == stateId;
+                    })
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
+
+                    scope.districts = scope.selectState[0].districtDatas;
+                    scope.talukas = null;
+                }
+            }
+
+            scope.changeDistrict = function (districtId) {
+                if (districtId != null) {
+                    scope.selectDistrict = _.filter(scope.districts, function (districts) {
+                        return districts.districtId == districtId;
+                    })
+
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
+                    scope.talukas = scope.selectDistrict[0].talukaDatas;
+                }
+            }
 
             scope.clientOptions = function(value){
                 var deferred = $q.defer();
@@ -49,6 +185,9 @@
                  scope.showNonPersonOptions = false;
                  scope.clientPersonId = 1;
                  scope.isFamilyMembers = true;
+                 scope.formAddressData = {};
+                 scope.formAddressData.addressTypes = [];
+                 scope.formAddressData.districtId ;
                  var requestParams = {
                      staffInSelectedOfficeOnly: true
                  };
@@ -112,7 +251,7 @@
                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
                      scope.offices = data.officeOptions;
                      scope.staffs = data.staffOptions;
-                     scope.addClientformData.officeId = scope.offices[0].id;
+                    scope.addClientformData.officeId = scope.group.officeId;
                      scope.savingproducts = data.savingProductOptions;
                      scope.genderOptions = data.genderOptions;
                      scope.clienttypeOptions = data.clientTypeOptions;
@@ -149,6 +288,24 @@
                     if(scope.maritalStatusOptions[0]) {
                         scope.addClientformData.maritalStatusId = scope.maritalStatusOptions[0].id;
                     }
+                    var addressConfig = 'enable-clients-address';
+                    resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
+                        if (response.enabled == true) {
+                            scope.enableClientAddress = true;
+                            resourceFactory.villageResource.getAllVillages({officeId:scope.addClientformData.officeId, limit: 1000},function (data) {
+                                scope.villages = data;
+                            });
+                            resourceFactory.addressTemplateResource.get({}, function (data) {
+                                scope.addressType = data.addressTypeOptions;
+                                scope.countries = data.countryDatas;
+                                scope.setDefaultGISConfig();
+                            });
+
+                        } else {
+                            scope.enableClientAddress = false;
+                        }
+
+                    });
                  });
              };
 
@@ -390,6 +547,34 @@
         };
 
         scope.setDefaultGISConfig = function() {
+
+            if(scope.responseDefaultGisData && scope.response && scope.response.uiDisplayConfigurations && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address){
+                if(scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
+
+                    var countryName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName;
+                    scope.defaultCountry = _.filter(scope.countries, function (country) {
+                        return country.countryName === countryName;
+
+                    });
+                    scope.formAddressData.countryId = scope.defaultCountry[0].countryId;
+                    scope.states = scope.defaultCountry[0].statesDatas;
+                }
+
+                if(scope.states && scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
+                    var stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
+                    scope.defaultState = _.filter(scope.states, function (state) {
+                        return state.stateName === stateName;
+
+                    });
+                    scope.formAddressData.stateId =  scope.defaultState[0].stateId;
+                    scope.districts = scope.defaultState[0].districtDatas;
+                }
+
+                if(scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.addressType) {
+                    scope.formAddressData.addressTypes[0] = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.addressType;
+                }
+
+            }
             if (scope.paymentOptions) {
                 if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType) {
                     if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType.expectedDisbursalPaymentType) {
@@ -503,6 +688,9 @@
             }, function(data) {
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;
+            });
+            resourceFactory.villageResource.getAllVillages({officeId:officeId, limit: 1000},function (data) {
+                scope.villages = data;
             });
         };
 
