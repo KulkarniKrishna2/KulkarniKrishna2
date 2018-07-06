@@ -71,7 +71,7 @@
                 scope.errorDetails=[];
 
                 scope.entityType = "loan";
-                scope.isForce = true;
+                scope.isForce = false;
                 scope.isClientCBCriteriaToRun = true;
 
                 resourceFactory.creditBureauReportResource.get({
@@ -99,7 +99,7 @@
             scope.initiateBulkCreditBureauReport = function () {    
 
                 scope.entityType = "center";
-                scope.isForce = true;
+                scope.isForce = false;
                 scope.isClientCBCriteriaToRun = true;
 
                 resourceFactory.creditBureauBulkReportResource.get({

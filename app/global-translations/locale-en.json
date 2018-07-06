@@ -7173,10 +7173,10 @@
     "invalid.streetName.format" :"Invalid Street name",
     "invalid.houseNo.format": "Invalid house name",
     "invalid.villageTown.format" : "Invalid villagetown name",
-
     "label.button.next.loan.cycle" : "Next Loan Cycle",
     "label.input.pending" : "Pending",
     "label.button.workflow.history":"Workflow History",
-
+    "label.tooltip.complete.data.check.to.continue" : "complete the data check to continue",
+    "label.tooltip.cb.initiation.not.done" : "cb initiation not done",
      "------ end of tensalation file":"---------"
 }
