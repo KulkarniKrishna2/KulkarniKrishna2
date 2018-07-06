@@ -36,7 +36,8 @@
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination',
             'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
             'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json',
-            'ui-sortable': '../bower_components/angular-ui-sortable/sortable'
+            'ui-sortable': '../bower_components/angular-ui-sortable/sortable',
+            'angular-recaptcha': '../bower_components/angular-recaptcha/release/angular-recaptcha'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },
@@ -70,6 +71,7 @@
             'angularXml2json': {deps: ['angular']},
             'jquery-ui': {deps: ["jquery"]},
             'ui-sortable': {deps: ["jquery-ui", "angular"]},
+            'angular-recaptcha': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -101,7 +103,8 @@
                     'angular-loading-bar',
                     'angularXml2json',
                     'jquery-ui',
-                    'ui-sortable'
+                    'ui-sortable',
+                    'angular-recaptcha'
                 ],
                 exports: 'mifosX'
             }

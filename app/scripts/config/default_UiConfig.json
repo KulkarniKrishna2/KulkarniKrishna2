@@ -1,7 +1,10 @@
 {
   "enableUIDisplayConfiguration": true,
   "uiDisplayConfigurations": {
-	"loanAccount": {
+		"loginSecurity": {
+			"isEnabledRecaptcha": false
+		},
+		"loanAccount": {
 	  "isHiddenField": {
 		"fundId": false,
 		"externalId": false,

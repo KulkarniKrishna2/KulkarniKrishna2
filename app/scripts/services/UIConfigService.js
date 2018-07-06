@@ -18,8 +18,11 @@
                             if (data.enableUIDisplayConfiguration != null && data.enableUIDisplayConfiguration == true) {
                                 scope.response = data;
                                 scope.responseDefaultGisData = data;
-                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope && scope.response.uiDisplayConfigurations.globalSearchScope) {
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope) {
                                     scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
+                                }
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
+                                    scope.mainControllerUIConfigData.isEnabledRecaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledRecaptcha;
                                 }
                             }
                         }
@@ -39,6 +42,9 @@
                             scope.responseDefaultGisData = result;
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope && scope.response.uiDisplayConfigurations.globalSearchScope) {
                                 scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
+                            }
+                            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
+                                scope.mainControllerUIConfigData.isEnabledRecaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledRecaptcha;
                             }
                         }
                     }).error(function (tenantSpecificData) {

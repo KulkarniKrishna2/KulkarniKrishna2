@@ -1,6 +1,9 @@
 {
 	"enableUIDisplayConfiguration": true,
 	"uiDisplayConfigurations": {
+		"loginSecurity": {
+			"isEnabledRecaptcha": true
+		},
 		"viewClient": {
 			"isHiddenField": {
 				"createClient": true,

@@ -4,6 +4,8 @@
                   uiConfigService, $http, authenticationService, resourceFactory) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
+            scope.mainControllerUIConfigData = {};
+            scope.mainControllerUIConfigData.isEnabledRecaptcha = false;
             if (QueryParameters["username"] != undefined && QueryParameters["username"] != "" && QueryParameters["password"] != undefined &&
                 QueryParameters["password"] != "" && QueryParameters["landingPath"] != undefined && QueryParameters["landingPath"] != "") {
                 scope.hideLoginPannel = true;

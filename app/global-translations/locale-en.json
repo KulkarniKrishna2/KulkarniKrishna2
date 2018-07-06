@@ -7179,5 +7179,8 @@
     "label.tooltip.complete.data.check.to.continue" : "complete the data check to continue",
     "label.tooltip.cb.initiation.not.done" : "cb initiation not done",
     "label.heading.amount.or.percentage":"Amount/Percentage",
+
+    "error.recaptcha.connection.failed":"Please resolve the captcha and submit!",
+    
      "------ end of tensalation file":"---------"
 }
