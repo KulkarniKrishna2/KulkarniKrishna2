@@ -338,8 +338,22 @@
             scope.fetchBankDetailsData = function(){
                 resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
                     scope.bankAccountDetails = data;
+                    scope.populateAttachedBankAccount(data);
                 });
             };
+
+            scope.populateAttachedBankAccount = function(data) {
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: scope.accountId}, function (data) {
+                    if(scope.bankAccountDetails && scope.bankAccountDetails.length >0 && data ) {
+                        for (var i = 0; i < scope.bankAccountDetails.length; i++) {
+                            if(data[0].id === scope.bankAccountDetails[i].id){
+                                scope.bankAccountDetails[i].checked = true;
+                                break;
+                            }
+                        }
+                    }
+                });
+            }
 
             scope.formDisbursementData = function(){
                  scope.modelName = 'actualDisbursementDate';
