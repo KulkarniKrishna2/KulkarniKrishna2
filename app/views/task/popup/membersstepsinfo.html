@@ -10,12 +10,14 @@
             <table class="table table-striped">
                 <thead>
                     <th>{{'label.heading.clientname' | translate}}</th>
+                    <th>{{'label.heading.referenceNumber' | translate}}</th>
                     <th>{{'label.heading.workflowstep.name' | translate}}</th>
                     <th>{{'label.heading.isworkflowcompleted' | translate}}</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="memberStepInfo in membersStepsInfo">
                         <td>{{memberStepInfo.clientName}}</td>
+                        <td>{{memberStepInfo.fcsmNumber}}</td>
                         <td>{{memberStepInfo.currentTaskName}}</td>
                         <td>{{memberStepInfo.isWorkflowCompleted}}</td>
                     </tr>
