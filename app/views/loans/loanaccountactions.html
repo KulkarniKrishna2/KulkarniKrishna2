@@ -447,6 +447,16 @@
         </div>
     </div>
 
+    <div class="form-group" ng-if="isReturnLoan">
+        <label class="control-label col-sm-2" for="returnLoanAmount">{{ 'label.input.amount' |
+            translate}}</label>
+
+        <div class="col-sm-3">
+            <input id="returnLoanAmount" type="text" name="amount" ng-model="returnLoanAmount"
+                   class="form-control" readonly>
+        </div>
+    </div>
+
     <div class="form-group"  ng-show="isLoanWriteOff">
         <label class="control-label col-sm-2">
             {{'label.input.reason' | translate}}

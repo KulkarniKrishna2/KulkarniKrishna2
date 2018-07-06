@@ -76,7 +76,8 @@
             };
 
             scope.hideAccruals = function(transaction){
-                if((transaction.type.accrual || transaction.type.accrualSuspense || transaction.type.accrualWrittenOff || transaction.type.accrualSuspenseReverse)
+                if((transaction.type.accrual || transaction.type.accrualSuspense || transaction.type.accrualWrittenOff || transaction.type.accrualSuspenseReverse
+                    || transaction.type.accrualReverse)
                     && !scope.hideTransactions.type.accrual){
                     return false;
                 }
@@ -162,6 +163,9 @@
                         break;
                     case "writeoff":
                         location.path('/loanaccount/' + accountId + '/writeoff');
+                        break;
+                    case "returnloan":
+                        location.path('/loanaccount/' + accountId + '/returnloan');
                         break;
                     case "recoverypayment":
                         location.path('/loanaccount/' + accountId + '/recoverypayment');
@@ -622,6 +626,10 @@
                             {
                                 name: "button.applypenalties",
                                 taskPermissionName: 'EXECUTE_OVERDUECHARGE'
+                            },
+                            {
+                                name: "button.returnloan",
+                                taskPermissionName: 'RETURNLOAN_LOAN'
                             }
                         ]
 
