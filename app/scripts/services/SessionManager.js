@@ -29,12 +29,18 @@
 
             this.clear = function () {
                 webStorage.remove("sessionData");
+                httpService.cancelAuthorization();
+                return EMPTY_SESSION;
+            };
+
+            this.clearAll =function(){
+                webStorage.remove("sessionData");
                 webStorage.remove("tokendetails");
                 webStorage.remove("userData");
                 webStorage.remove("userPermissions");
                 httpService.cancelAuthorization();
                 return EMPTY_SESSION;
-            };
+            }
 
             this.restore = function (handler) {
                 var sessionData = webStorage.get('sessionData');
