@@ -44,7 +44,7 @@
 							ng-disabled="activeClientMember.isClientFinishedThisTask||(!activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData)" data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.cb.initiation.not.done' | translate}}"
 							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-1" ng-if="activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData"><input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
-													ng-disabled="activeClientMember.isClientFinishedThisTask||(activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData)"
+													ng-disabled="activeClientMember.isClientFinishedThisTask||(!activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData)"
 													ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 						<td class="col-md-2">{{activeClientMember.displayName}}
 						</td>

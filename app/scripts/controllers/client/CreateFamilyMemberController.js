@@ -11,6 +11,7 @@
             scope.subOccupations = [];
             scope.isExisitingClient = false;
             scope.formData = {};
+            scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
 
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;

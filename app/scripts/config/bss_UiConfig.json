@@ -7,6 +7,11 @@
 				"accountNo": true,
 				"referenceNo": false
 			},
+		    "familyDeatils":{
+			  "isHiddenField": {
+			   "salutation": true
+			 }
+		    },
 		  "takeSurveyName":"Member info",
 		  "surveyEntityTypeId":"1",
 		  "activateOnReinitiate":false
@@ -22,7 +27,8 @@
 				"activate": true,
 				"hideClientClassification": true,
 				"legalForm": true,
-				"clientType": true
+				"clientType": true,
+			  	"staff": true
 			},
 			"isValidateDOBField": {
 				"active": true,
@@ -68,7 +74,8 @@
 				"groupName": true
 			},
 		    "isReadOnlyField" :{
-			 "groupName" : true
+			 "groupName" : true,
+			  "activationDate" : true
 		    }
 		},
 		"viewCenter": {
@@ -110,6 +117,12 @@
 			"isHiddenField": {
 				"chargeCategoryType": false
 			}
+		},
+	    "clientIdentifier": {
+		  "hiddenFields": {
+			"documentExpiryDate": true,
+			"documentIssueDate":true
+		  }
 		}
 	}
 }
