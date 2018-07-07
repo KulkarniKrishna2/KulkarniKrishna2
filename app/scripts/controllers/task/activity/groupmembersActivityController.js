@@ -505,7 +505,7 @@
                 if (scope.loanaccountinfo.paymentOptions) {
                     scope.paymentOptions = scope.loanaccountinfo.paymentOptions;
                 }
-                scope.setDefaultGISConfig();
+                scope.setPaymentType();
                 if (scope.loanaccountinfo.loanOfficerId) {
                     scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId;
                 }
@@ -546,6 +546,35 @@
             });
         };
 
+        scope.setPaymentType = function(){
+            if (scope.paymentOptions) {
+                if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType) {
+                    if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType.expectedDisbursalPaymentType) {
+                        for (var i = 0; i < scope.paymentOptions.length; i++) {
+                            var paymentTypeName = scope.paymentOptions[i].name;
+                            var defaultPaymentTypeName = scope.responseDefaultGisData.
+                                uiDisplayConfigurations.defaultGISConfig.paymentType.expectedDisbursalPaymentType;
+                            if (paymentTypeName == defaultPaymentTypeName) {
+                                var paymentOptionId = scope.paymentOptions[i].id;
+                                scope.formData.expectedDisbursalPaymentType = paymentOptionId;
+                            }
+                        }
+                    }
+                    if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType.expectedRepaymentPaymentType) {
+                        for (var i = 0; i < scope.paymentOptions.length; i++) {
+                            var paymentTypeName = scope.paymentOptions[i].name;
+                            var defaultPaymentTypeName = scope.responseDefaultGisData.
+                                uiDisplayConfigurations.defaultGISConfig.paymentType.expectedRepaymentPaymentType;
+                            if (paymentTypeName == defaultPaymentTypeName) {
+                                var paymentOptionId = scope.paymentOptions[i].id;
+                                scope.formData.expectedRepaymentPaymentType = paymentOptionId;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
         scope.setDefaultGISConfig = function() {
 
             if(scope.responseDefaultGisData && scope.response && scope.response.uiDisplayConfigurations && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address){
@@ -574,32 +603,6 @@
                     scope.formAddressData.addressTypes[0] = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.addressType;
                 }
 
-            }
-            if (scope.paymentOptions) {
-                if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType) {
-                    if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType.expectedDisbursalPaymentType) {
-                        for (var i = 0; i < scope.paymentOptions.length; i++) {
-                            var paymentTypeName = scope.paymentOptions[i].name;
-                            var defaultPaymentTypeName = scope.responseDefaultGisData.
-                            uiDisplayConfigurations.defaultGISConfig.paymentType.expectedDisbursalPaymentType;
-                            if (paymentTypeName == defaultPaymentTypeName) {
-                                var paymentOptionId = scope.paymentOptions[i].id;
-                                scope.formData.expectedDisbursalPaymentType = paymentOptionId;
-                            }
-                        }
-                    }
-                    if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType.expectedRepaymentPaymentType) {
-                        for (var i = 0; i < scope.paymentOptions.length; i++) {
-                            var paymentTypeName = scope.paymentOptions[i].name;
-                            var defaultPaymentTypeName = scope.responseDefaultGisData.
-                            uiDisplayConfigurations.defaultGISConfig.paymentType.expectedRepaymentPaymentType;
-                            if (paymentTypeName == defaultPaymentTypeName) {
-                                var paymentOptionId = scope.paymentOptions[i].id;
-                                scope.formData.expectedRepaymentPaymentType = paymentOptionId;
-                            }
-                        }
-                    }
-                }
             }
         };
 
