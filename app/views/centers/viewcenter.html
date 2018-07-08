@@ -129,10 +129,10 @@
 											has-permission='SAVEORUPDATEATTENDANCE_MEETING'>{{ 'label.button.attendance' | translate }}</a>
 									</li>
 									<li>
-										<a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{ 'label.button.assignstaff' | translate }}</a>
+										<a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId && showUnAssignStaffButton" has-permission='ASSIGNSTAFF_GROUP'>{{ 'label.button.assignstaff' | translate }}</a>
 									</li>
 									<li>
-										<a data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId" has-permission='UNASSIGNSTAFF_GROUP'>{{ 'label.button.unassignstaff' | translate }}</a>
+										<a data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId && showUnAssignStaffButton" has-permission='UNASSIGNSTAFF_GROUP'>{{ 'label.button.unassignstaff' | translate }}</a>
 									</li>
 									<li>
 										<a data-ng-click="deleteCenter()" data-ng-hide="center.status.value=='Active'" has-permission='DELETE_CENTER'>{{ 'label.button.delete' | translate }}</a>
