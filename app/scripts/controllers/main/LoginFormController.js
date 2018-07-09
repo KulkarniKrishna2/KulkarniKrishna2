@@ -1,6 +1,73 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoginFormController: function (scope, authenticationService, resourceFactory, httpService, $timeout, commonUtilService) {
+        LoginFormController: function (scope, authenticationService, resourceFactory, httpService, $timeout, commonUtilService, vcRecaptchaService) {
+            /**
+             * reCaptcha
+             */
+            scope.reCaptchaResponse = null;
+            scope.widgetId = null;
+
+            scope.reCaptchaModel = {
+                siteKey: '6Lfum2IUAAAAAM3WJUx4akRuNEiYLN6J-TI__37d'
+            };
+
+            scope.setResponse = function (response) {
+                //console.info('Response available');
+                scope.reCaptchaResponse = response;
+                delete scope.authenticationErrorMessage;
+                delete scope.authenticationFailed;
+            };
+
+            scope.setWidgetId = function (widgetId) {
+                //console.info('Created widget ID: %s', widgetId);
+                scope.widgetId = widgetId;
+            };
+
+            /*scope.cbExpiration = function () {
+                 //console.info('Captcha expired. Resetting response object');
+                 vcRecaptchaService.reload(scope.widgetId);
+                 scope.reCaptchaResponse = null;
+            };*/
+
+            scope.reCaptchaSubmit = function () {
+                if (scope.mainControllerUIConfigData.isEnabledRecaptcha) {
+                    delete scope.authenticationErrorMessage;
+                    delete scope.authenticationFailed;
+                    if (vcRecaptchaService.getResponse() === "") { //if string is empty
+                        scope.authenticationErrorMessage = 'error.recaptcha.connection.failed';
+                        scope.authenticationFailed = true;
+                        //vcRecaptchaService.reload(scope.widgetId);
+                    } else {
+                        scope.login();
+                        setTimeout(function () {
+                            vcRecaptchaService.reload(scope.widgetId);
+                        }, 2000);
+                    }
+                    //var siteVerifyURL = "https://www.google.com/recaptcha/api/siteverify"
+                    /**
+                     * SERVER SIDE VALIDATION
+                     *
+                     * You need to implement your server side validation here.
+                     * Send the reCaptcha response to the server and use some of the server side APIs to validate it
+                     * See https://developers.google.com/recaptcha/docs/verify
+                     */
+                    /*console.log('sending the captcha response to the server', scope.reCaptchaResponse);
+
+                    if (valid) {
+                        console.log('Success');
+                    } else {
+                        console.log('Failed validation');
+
+                        // In case of a failed validation you need to reload the captcha
+                        // because each response can be checked just once
+                        vcRecaptchaService.reload(scope.widgetId);
+                    }*/
+                } else {
+                    scope.login();
+                }
+            };
+            
+            ///////////////////////////////////////
             scope.loginCredentials = {};
             scope.passwordDetails = {};
             scope.authenticationFailed = false;
@@ -10,6 +77,10 @@
             scope.login = function () {
                 scope.load = true;
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+            };
+
+            scope.correctCaptcha = function(response) {
+                alert(response);
             };
 
             scope.loginWithOTP = function() {
@@ -88,7 +159,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', 'ResourceFactory', 'HttpService','$timeout', 'CommonUtilService', mifosX.controllers.LoginFormController]).run(function ($log) {
+    mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', 'ResourceFactory', 'HttpService','$timeout', 'CommonUtilService', 'vcRecaptchaService', mifosX.controllers.LoginFormController]).run(function ($log) {
         $log.info("LoginFormController initialized");
     });
 }(mifosX.controllers || {}));
