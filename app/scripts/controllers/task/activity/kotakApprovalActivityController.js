@@ -127,6 +127,33 @@
 
              }
 
+            scope.captureMembersToNextStep = function(clientId, loanId, isChecked, idx){
+                    if(isChecked){
+                        scope.taskInfoTrackArray.push(
+                            {'clientId' : clientId, 
+                             'currentTaskId' : scope.taskData.id,
+                             'loanId' : loanId})
+                    }else{
+                        scope.taskInfoTrackArray.splice(idx,1);
+                    }
+            }
+            
+            scope.moveMembersToNextStep = function(){
+                scope.errorDetails = [];
+                if(scope.taskInfoTrackArray.length == 0){
+                    return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                }
+
+                scope.taskTrackingFormData = {};
+                scope.taskTrackingFormData.taskInfoTrackArray = [];
+
+                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+                resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
+                    initTask();
+                })
+
+            }
+
 
         }
         });
