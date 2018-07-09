@@ -84,7 +84,8 @@
 		"viewCenter": {
 			"isHiddenField": {
 				"accountNo": true,
-				"referenceNo": false
+				"referenceNo": false,
+			  	"unassignStaffCenter": true
 			}
 		},
 		"createOffice": {
