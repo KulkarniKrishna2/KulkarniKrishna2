@@ -7179,8 +7179,25 @@
     "label.tooltip.complete.data.check.to.continue" : "complete the data check to continue",
     "label.tooltip.cb.initiation.not.done" : "cb initiation not done",
     "label.heading.amount.or.percentage":"Amount/Percentage",
-
     "error.recaptcha.connection.failed":"Please resolve the captcha and submit!",
-    
+    "label.heading.kotak.approval.status" : "Kotak Approval Status",
+    "label.anchor.kotak.approval" : "Kotak Approval",
+    "label.heading.kotak.credit.approval.list" : "Kotak Credit Approval Task List",
+    "label.tab.kotak.approval.loans" : "Kotak Approval Loans",
+    "label.tab.system.approved" : "System Approved",
+    "label.tab.ODU.review.loans" : "ODU Review Loans",
+    "label.anchor.workflow.bankapproval.list" : "WorkflowBankApprovalList",
+    "label.heading.bankapproval" : "Bank Approval",
+    "label.heading.applicantdetails":"Applicant Details",
+    "label.heading.criteria.check.result":"Criteria Check result",
+    "label.button.raise.query" : "Raise Query",
+    "label.heading.raise.query" : "Raise Query",
+    "label.heading.resolve.query" : "Resolve Query",
+    "label.button.resolve" : "Resolve",
+    "label.heading.bss.loans.summary" : "BSS Loans Summary",
+    "label.heading.prepay.loan.info" : "Prepay Loan Info",
+    "label.heading.prepay.loan" : "Prepay Loan",
+    "label.heading.total.current.outstanding":"Total Current Outstanding",
+    "label.heading.final.outstanding":"Final Outstanding",
      "------ end of tensalation file":"---------"
 }
