@@ -42,7 +42,7 @@
 
                             <div class="col-sm-3">
                                 <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
-                                       min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                                       min="'2000-01-01'" max="restrictDate" class="form-control" ng-disabled="isActivationReadOnly"/>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             class="required">*</span></label>
                 <div class="col-sm-3">
         			<input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                           is-open="opened" min="mindate" max="restrictDate" required class="form-control"/>
+                           is-open="opened" min="mindate" max="restrictDate" class="form-control"  required />
                 </div>
             </div>
             <div class="form-group">

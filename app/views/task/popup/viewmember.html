@@ -323,7 +323,7 @@
 											<form-validate valattributeform="uploaddocumentform" valattribute="status" />
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group" ng-hide="isHideDocumentIssueDate">
 										<label class="control-label col-sm-2">{{'label.input.issueddate' | translate}}</label>
 
 										<div class="col-sm-3">
@@ -331,7 +331,7 @@
 											    is-open="opened1" class="form-control" />
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group" ng-hide="isHideDocumentExpiryDate">
 										<label class="control-label col-sm-2">{{'label.input.expirydate' | translate}}</label>
 
 										<div class="col-sm-3">
@@ -479,7 +479,7 @@
 								<fieldset>
 									<legend>{{'label.view.add.familymember' | translate}}</legend>
 
-									<div class="form-group">
+									<div class="form-group" ng-hide="isHideSalutation">
 										<label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
 
 										<div class="col-sm-3">

@@ -108,6 +108,11 @@
 		"accountNo":false,
 		"referenceNo": true
 	  	},
+	  "familyDeatils":{
+		"isHiddenField": {
+		  "salutation": false
+		}
+	  },
 	  "takeSurveyName":"",
 	  "surveyEntityTypeId":"",
 	  "activateOnReinitiate":true
@@ -246,7 +251,9 @@
 		"clientIdentifierValidation": false
 	  },
 	  "hiddenFields": {
-		"status": false
+		"status": false,
+		"documentExpiryDate": false,
+		"documentIssueDate":false
 	  }
 	},
 	"reportParameterConfiguration": {
@@ -312,7 +319,8 @@
 			"groupName": false
 	  	},
 	    "isReadOnlyField" :{
-		  "groupName" : false
+		  "groupName" : false,
+		  "activationDate" : false
 	    }
 	},
 	"createMandates":{

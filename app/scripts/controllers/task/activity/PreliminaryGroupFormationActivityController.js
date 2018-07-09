@@ -216,7 +216,7 @@
                 }
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
-                    $scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
+                    $scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staff;
                     $scope.showLegalForm = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
                     $scope.showMiddleName = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName;
                     $scope.showExternalId = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.externalId;
@@ -511,6 +511,9 @@
 
                 };
 
+                $scope.isHideDocumentExpiryDate = scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
+                $scope.isHideDocumentIssueDate = scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
+                $scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
                 $scope.changeCountry = function (countryId) {
                     if (countryId != null) {
                         $scope.selectCountry = _.filter($scope.countries, function (country) {
@@ -775,6 +778,7 @@
                         $scope.documenttypes = data.allowedDocumentTypes;
                         $scope.identityFormData.documentTypeId = data.allowedDocumentTypes[0].id;
                         $scope.statusTypes = data.clientIdentifierStatusOptions;
+                        $scope.identityFormData.status = $scope.statusTypes[1].id;
                         if (data.clientIdentifierStatusOptions && scope.response &&
                             scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status) {
                             $scope.identityFormData.status = data.clientIdentifierStatusOptions[1].id;
