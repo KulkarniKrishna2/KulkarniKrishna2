@@ -111,6 +111,7 @@
                 scope.trancheAmountLimitTypeOptions = scope.product.trancheAmountLimitTypeOptions;
                 scope.formData.trancheAmountLimitType = scope.trancheAmountLimitTypeOptions[0].id;
                 scope.formData.trancheLoanClosureType = scope.trancheLoanClosureTypeOptions[0].id;
+                scope.formData.borrowerCycleType = scope.product.borrowerCycleType.id;
             });
 
             scope.variableName = function(minDurationType){
