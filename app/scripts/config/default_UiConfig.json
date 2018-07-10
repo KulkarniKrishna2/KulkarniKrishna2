@@ -199,7 +199,8 @@
 		"submittedOn": false,
 		"staff": false,
 		"addclients": false
-	  }
+	  },
+	  "centerNameIncluded": false
 	},
 	"labelChanges": {
 	  "calendarChagesEffectiveFrom": true

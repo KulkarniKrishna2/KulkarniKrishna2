@@ -16,6 +16,9 @@
       },
       "nameWithBranchName": true
     },
+    "createGroup": {
+      "centerNameIncluded": true
+    },
     "workflow": {
       "loanApproval": {
         "hiddenField": {
