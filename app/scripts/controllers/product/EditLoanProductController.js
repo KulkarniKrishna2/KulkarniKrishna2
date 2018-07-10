@@ -179,7 +179,8 @@
                     isFlatInterestRate : scope.product.isFlatInterestRate,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
                     calculateIrr:scope.product.calculateIrr,
-                    splitDisbursementForCharges:scope.product.splitDisbursementForCharges
+                    splitDisbursementForCharges:scope.product.splitDisbursementForCharges,
+                    borrowerCycleType : scope.product.borrowerCycleType.id
                 };
                 if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
                     scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
