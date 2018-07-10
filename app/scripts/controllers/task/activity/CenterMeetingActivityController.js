@@ -180,15 +180,19 @@
                 this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                   
                 if (scope.isCenterMeetingEdit) {
-                    this.formData.title = scope.calendarData.title;
-                    this.formData.repeating = true;
-                    if (this.formData.interval < 0) {
-                        scope.formData.interval = Math.abs(this.formData.interval);
-                    }
+                    var updateFormData = {};
+                    updateFormData.locale = scope.optlang.code;
+                    updateFormData.dateFormat = scope.df;
+                    updateFormData.reschedulebasedOnMeetingDates = true;
+                    var startDate = new Date(dateFilter(scope.centerMeetingData.collectionMeetingCalendar.startDate, scope.df));
+                    updateFormData.presentMeetingDate = dateFilter(startDate, scope.df);
+                    updateFormData.newMeetingDate = dateFilter(scope.first.date, scope.df);
+                    updateFormData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                     resourceFactory.attachMeetingResource.update({
                         groupOrCenter: scope.entityType,
-                        groupOrCenterId: scope.groupOrCenterId, templateSource: scope.calendarId
-                    }, this.formData, function (data) {
+                        groupOrCenterId: scope.groupOrCenterId, templateSource: scope.calendarId,
+                        isUpdateFutureMeeting : true
+                    }, updateFormData, function (data) {
                         scope.getCenterMeeting();
                         initTask();
                     });
