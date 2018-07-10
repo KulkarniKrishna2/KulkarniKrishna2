@@ -150,10 +150,10 @@
     </td>
 </tr>
 
-<tr class="bottomborder" ng-show="loanproduct.useBorrowerCycle">
+<tr class="bottomborder" ng-show="loanproduct.borrowerCycleType.id != 0">
     <td colspan="4"><strong>{{'label.heading.principalCycleVariations' | translate}}:</strong></td>
 </tr>
-<tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
+<tr class="bottomborder graybg" ng-show="loanproduct.borrowerCycleType.id != 0">
     <td>{{'label.input.cyclenumber' | translate}}</td>
     <td>{{'label.input.minimum' | translate}}</td>
     <td>{{'label.input.default' | translate}}</td>
@@ -167,10 +167,10 @@
     <td>{{borrowerCycleVariation.defaultValue}}</td>
     <td>{{borrowerCycleVariation.maxValue}}</td>
 </tr>
-<tr class="bottomborder" ng-show="loanproduct.useBorrowerCycle">
+<tr class="bottomborder" ng-show="loanproduct.borrowerCycleType.id != 0">
     <td colspan="4"><strong>{{'label.heading.numerOfRepaymentCycleVariations' | translate}}</strong></td>
 </tr>
-<tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
+<tr class="bottomborder graybg" ng-show="loanproduct.borrowerCycleType.id != 0">
     <td>{{'label.input.cyclenumber' | translate}}</td>
     <td>{{'label.input.minimum' | translate}}</td>
     <td>{{'label.input.default' | translate}}</td>
@@ -184,10 +184,10 @@
     <td>{{borrowerCycleVariation.defaultValue}}</td>
     <td>{{borrowerCycleVariation.maxValue}}</td>
 </tr>
-<tr class="bottomborder" ng-show="loanproduct.useBorrowerCycle">
+<tr class="bottomborder" ng-show="loanproduct.borrowerCycleType.id != 0">
     <td colspan="4"><strong>{{'label.heading.interestRateCycleVariations' | translate}}</strong></td>
 </tr>
-<tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
+<tr class="bottomborder graybg" ng-show="loanproduct.borrowerCycleType.id != 0">
     <td>{{'label.input.cyclenumber' | translate}}</td>
     <td ng-show = "isInterestRateListPerCycleNotAvailable" >{{'label.input.minimum' | translate}}</td>
     <td>{{'label.input.default' | translate}}</td>
