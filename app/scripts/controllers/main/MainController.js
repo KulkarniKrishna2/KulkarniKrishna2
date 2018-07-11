@@ -136,15 +136,17 @@
             scope.started = false;
             scope.$on('$idleTimeout', function () {
                 scope.logout();
-                $idle.unwatch();
-                scope.started = false;
             });
 
             // Log out the user when the window/tab is closed.
             window.onunload = function () {
-                scope.logout();
+                scope.currentSession = sessionManager.clear();
+                scope.resetPassword = false;
+                $rootScope.isUserSwitched = false;
+                delete $rootScope.proxyToken;
                 $idle.unwatch();
                 scope.started = false;
+                location.path('/').replace();
             };
 
             scope.start = function (session) {
@@ -176,7 +178,11 @@
 
 
             scope.$on("RefreshAuthenticationFailureEvent", function () {
-                scope.logout();
+                scope.currentSession = sessionManager.clearAll();
+                scope.resetPassword = false;
+                $rootScope.isUserSwitched = false;
+                delete $rootScope.proxyToken;
+                location.path('/').replace();
             });
 
             scope.configs = [];
@@ -249,11 +255,15 @@
             };
 
             scope.logout = function () {
-                scope.currentSession = sessionManager.clear();
-                scope.resetPassword = false;
-                $rootScope.isUserSwitched = false;
-                delete $rootScope.proxyToken;
-                location.path('/').replace();
+                resourceFactory.myAccountResource.logout(function (data) {
+                    scope.currentSession = sessionManager.clearAll();
+                    scope.resetPassword = false;
+                    $rootScope.isUserSwitched = false;
+                    delete $rootScope.proxyToken;
+                    $idle.unwatch();
+                    scope.started = false;
+                    location.path('/').replace();
+                });
             };
 
             scope.switchToMe = function() {

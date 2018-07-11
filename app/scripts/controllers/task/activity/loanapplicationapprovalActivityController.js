@@ -558,6 +558,9 @@
                         if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
                             var dateValue = scope.formRequestData.expectedDisbursementDate;
                             if ((new Date(dateValue)).toString() != 'Invalid Date') {
+                                for(var i in scope.formRequestData.loanApplicationSanctionTrancheDatas){
+                                  scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);  
+                                }
                                 scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
                             }
                         }

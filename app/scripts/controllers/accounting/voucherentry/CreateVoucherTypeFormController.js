@@ -36,11 +36,32 @@
                     transactionId: routeParams.transactionId
                 };
             }
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
+                scope.companyCodeForGlaccountCodeValues = data;
+            });
+
+            scope.changeAccountsAsPerCompanyCodes = function(companyCodeForGlaccountCode){
+                if(companyCodeForGlaccountCode == undefined){
+                    companyCodeForGlaccountCode = 0;
+                }
+                resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode,"companyCode":companyCodeForGlaccountCode}, function (data) {
+                    scope.officeOptions = data.templateData.officeOptions;
+                    scope.currencyOptions = data.templateData.currencyOptions;
+                    scope.costCenterOptions = data.templateData.costCenterOptions;
+                    scope.debitAccountingOptions = data.templateData.debitAccountingOptions;
+                    scope.creditAccountingOptions = data.templateData.creditAccountingOptions;
+                    if (!_.isUndefined(data.templateData.paymentOptions)) {
+                        scope.paymentOptions = data.templateData.paymentOptions;
+                    }
+                    scope.formData.currencyCode = localStorageService.getFromCookies('currencyCode') || scope.currencyOptions[0].code;
+                    scope.formData.officeId = parseInt(localStorageService.getFromCookies('officeId')) || scope.officeOptions[0].id;
+                });
+            }
 
             /**
              * Getting Voucher Template Data based on the voucher code
              */
-            resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode}, function (data) {
+            resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode,"companyCode":0}, function (data) {
                 scope.officeOptions = data.templateData.officeOptions;
                 scope.currencyOptions = data.templateData.currencyOptions;
                 scope.costCenterOptions = data.templateData.costCenterOptions;

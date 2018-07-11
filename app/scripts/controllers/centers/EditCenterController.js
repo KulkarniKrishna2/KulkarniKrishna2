@@ -9,7 +9,7 @@
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 scope.formData = {
                     name: data.name,
                     externalId: data.externalId,

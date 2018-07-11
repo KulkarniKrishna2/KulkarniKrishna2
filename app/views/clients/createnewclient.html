@@ -242,20 +242,20 @@
 
                 <div class="col-sm-3">
                     <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
-                           ng-pattern="/^[0-9]+$/"  ng-required="isMobileNumberMandatory" class="form-control"/>
+                           ng-pattern={{mobileNumberPattern}}  ng-required="isMobileNumberMandatory" class="form-control"/>
 					 <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                     <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
-						{{'label.mustbenumeric' | translate}}</small></span>
+						{{'label.must.be.ten.digits.numeric' | translate}}</small></span>
 					<form-validate valattributeform="createclientform" valattribute="mobileNo"/>
                 </div>
                 <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
                 <div class="col-sm-3">
                 	<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
-                	ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                	ng-pattern="{{mobileNumberPattern}}"  class="form-control"/>
                 	<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
                 		<small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
-                			{{'label.mustbenumeric' | translate}}</small></span>
+                			{{'label.must.be.ten.digits.numeric' | translate}}</small></span>
                 		</div>
                 	</div>
 	            

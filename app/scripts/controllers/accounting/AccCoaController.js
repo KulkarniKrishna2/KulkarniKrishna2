@@ -7,6 +7,10 @@
             scope.coadata = [];
             scope.isTreeView = false;
             scope.accountsPerPage = 100;
+
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
+                scope.companyCodeForGlaccountCodeValues = data;
+            });
             
             resourceFactory.accountCoaTemplateResource.get({type: '0'}, function (data) {
                 scope.accountData = data;
@@ -23,7 +27,8 @@
                     isPagination: true,
                     type: scope.accountType,
                     usage: scope.usageType,
-                    classificationType: scope.classification
+                    classificationType: scope.classification,
+                    companyCode:scope.companyCode
                 };
                 resourceFactory.accountCoaResource.getAllAccountCoasPage(searchParams, function (data) {
                     scope.totalAccounts = data.totalFilteredRecords;
@@ -57,6 +62,10 @@
 
             scope.changeClassificationType = function () {
                 scope.classification = scope.formData.glClassificationType;
+            };
+
+            scope.changecompanyCode = function () {
+                scope.companyCode = scope.formData.companyCode;
             };
 
             scope.routeTo = function (id) {

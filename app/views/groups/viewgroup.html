@@ -73,7 +73,7 @@
 			<div class="col-md-12 primarydiv">
 			    <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
 			        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP'
-			           data-ng-hide="group.status.value=='Active' || group.isWorkflowEnabled"><i class="icon-check-sign icon-white"></i>{{
+			           data-ng-hide="group.status.value=='Active' || (group.isWorkflowEnabled && group.isWorkflowEnableForBranch)"><i class="icon-check-sign icon-white"></i>{{
 			            'label.button.activate' | translate }}</a>
 					<a ng-show="group.active && group.clientMembers.length>0" href="#/newgrouploanindividualmonitoringloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
 							class="icon-plus-sign icon-white"></i>{{ 'label.button.glimapplication' | translate }}</a>
@@ -88,8 +88,12 @@
 						}}</a>
 			        <a ng-show="group.active && group.clientMembers.length>0" href="#/newjlgloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
 			                class="icon-copy icon-white"></i>{{ 'label.button.bulkjlgloanapplication' | translate }}</a>
-			        <a ng-show="group.isWorkflowEnabled && group.workflowId" href="#/grouponboarding/{{group.id}}/workflow" class="btn btn-primary"><i
+			        <a ng-show="group.isWorkflowEnabled && group.workflowId && group.isWorkflowEnableForBranch" href="#/grouponboarding/{{group.id}}/workflow" class="btn btn-primary"><i
 			                class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
+
+			        <a ng-show="group.isWorkflowEnableForBranch && !group.isActiveExistingWorkflow" ng-click="initiateWorkflow()" class="btn btn-primary"><i
+			                class="icon-white"></i>{{'label.button.initiateworkflow' | translate}}</a>
+
 			        <a ng-show="allowBankAccountForGroups" href="#/groups/{{group.id}}/bankaccountdetails" has-permission='READ_GROUP_BANKACCOUNTDETAIL' class="btn btn-primary">{{ 'label.button.bankaccountdetails' | translate }}</a>
                     <span class="btn-group dropdown" on-toggle="toggled(open)">
                       <a class="btn btn-primary dropdown-toggle">

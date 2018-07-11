@@ -152,7 +152,10 @@
 	  },
 	  "isAutoPopulate": {
 		"genderOption": true
-	  }
+	  },
+	  "isValidMobileNumber": {
+        "mobileNumberPattern":"/^[0-9]+$/"
+      }
 	},
 	"defaultGISConfig": {
 	  "address": {

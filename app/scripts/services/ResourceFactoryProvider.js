@@ -426,6 +426,7 @@
                         reverse: {method: 'POST', params: {command: 'reverse'}},
                         search: {method: 'GET', params: {}}
                     }),
+                    frequentPostingResource: defineResource(apiVer+ "/frequentpostings",{},{}),
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {accId: "@accId"}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getView: {method: 'GET', params: {}}
@@ -1431,7 +1432,8 @@
                     }),
                     myAccountResource: defineResource(apiVer + "/myaccount/:command", {command: '@command'}, {
                         get: {method: 'GET', params: {}},
-                        changePassword: {method:'POST', params:{command:'changepassword'}}
+                        changePassword: {method:'POST', params:{command:'changepassword'}},
+                        logout: { method: 'POST', params: { command: 'logout' } }
                     }),                    
                     userPasswordResource: defineResource(apiVer + "/users/resetpassword", {}, {
                         resetpassword: {method:'POST', params:{}}
@@ -1505,6 +1507,9 @@
                     }),
                     loanApplicationReferencesRepaymentScheduleResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/repaymentschedule", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                        repaymentSchedule: {method: 'POST', params: {}}
+                    }),
+                    initiateGroupWorkflowResource: defineResource(apiVer + "/groups/:groupId", {groupId: '@groupId'}, {
+                        save:{method:'POST', params:{}}
                     })
                 };
             }];

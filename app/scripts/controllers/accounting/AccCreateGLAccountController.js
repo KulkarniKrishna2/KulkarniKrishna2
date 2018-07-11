@@ -6,6 +6,9 @@
             scope.usageTypes = [];
             scope.headerTypes = [];
 
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
+                scope.companyCodeForGlaccountCodeValues = data;
+            });
             resourceFactory.accountCoaTemplateResource.get({type: '0'}, function (data) {
                 scope.coadata = data;
                 scope.accountTypes = data.accountTypeOptions;

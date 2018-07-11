@@ -348,13 +348,10 @@
                     if(!_.isUndefined(scope.client.id)){
                         isLoadClientDataTables = true;
                         scope.clientDatatablesLoaded = true;
-                        var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
-                        if (associatedEntityId == null) {
-                            associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
-                        } else if (associatedEntityId == null) {
-                            associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
-                        }
-                        var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
+                        var associatedEntityLegalId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
+                        var associatedEntityClientTypeId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
+                        var associatedEntityClassificationId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+                        var dataTableParams = {apptable: 'm_client', associatedEntityLegalId: associatedEntityLegalId,associatedEntityClientTypeId:associatedEntityClientTypeId,associatedEntityClassificationId:associatedEntityClassificationId, isFetchBasicData : false};
                         resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
                             scope.datatables = data;
                         });

@@ -414,9 +414,14 @@
     "label.savesuccessfully":"Saved Successfully",
     "label.nodatafound":"No data was found related to the search parameters entered.",
     "label.mustbenumeric":"Must be numeric",
+<<<<<<< HEAD
     "label.must.be.ten.digits.numeric":"Must be Ten digits numeric",
     "inavalid.ifsc.format":"Special characters, space and more than 11 characters are not allowed",
     "invalid.accountnumber.format" : "Special characters, space are not allowed",
+=======
+    "label.must.be.ten.digits.numeric":"Must be valid Ten digits numeric",
+    "inavalid.ifsc.format":"Special characters, space and more than 11 characters are not allowed",
+>>>>>>> v18.01.1_CHAITANYA_PROD
     "label.mustbe6digitnumber":"Pincode Must be a 6 digit number",
     "label.percentage": "Percentage",
     "label.outstanding.amount":"Loan outstanding amount",
@@ -1418,6 +1423,7 @@
     "label.input.manualentriesallowed": "Manual entries allowed",
     "label.input.glClassificationType": "GL classification",
     "label.input.affectedglentries": "Affected GL entries",
+    "label.input.companycodeforglaccounts": "Company Code",
     "label.input.currency": "Currency",
     "label.input.referencenumber": "Reference number",
     "label.input.searchbytransaction": "Search by transaction",
@@ -2018,6 +2024,7 @@
     "label.selectfromdate": "Select From Date",
     "label.selecttodate": "Select To Date",
     "label.selectglclassfication": "Select GL classfication",
+    "label.selectcompanycode": "Select Company Code",
     "#tool tip for loan products":"..",
     "label.tooltip.fundsource":"an Asset account(typically Bank or cash) that is debited during repayments/payments an credited using disbursals.",
     "label.tooltip.loanportfolio":"an Asset account that is debited during disbursement and credited during principal repayment/writeoff.",
@@ -7102,5 +7109,7 @@
      "label.menu.selectentity" : "select Entity",
      "label.menu.selectcolumn" : "Select Column",
 
+    "label.input.associate.with.loan" : "Associated With Loan",
+    "error.msg.columns.dependson.same.as.name": "Invalid column association.Column cannot be associated with same column",
     "------ end of tensalation file":"---------"
 }

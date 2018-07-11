@@ -26,7 +26,7 @@
                 scope.staffs = data.staffOptions;
                 scope.groups = data.groupMembersOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
 
                 if(scope.response != undefined && scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.active){
                     scope.choice = 1;
@@ -69,6 +69,7 @@
                 resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true, villageStatus:'active'}, function (data) {
                     scope.villages = data.villageOptions;

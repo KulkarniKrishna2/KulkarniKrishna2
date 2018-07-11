@@ -37,7 +37,7 @@
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 if(routeParams.officeId) {
                     scope.formData.officeId = routeParams.officeId;
                     for(var i in data.officeOptions) {
@@ -112,6 +112,7 @@
                 resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
                 }, function (data) {
                     scope.staffs = data.staffOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
                     scope.clients = data.clientOptions;
