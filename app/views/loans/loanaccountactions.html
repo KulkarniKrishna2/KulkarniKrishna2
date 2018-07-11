@@ -447,6 +447,16 @@
         </div>
     </div>
 
+    <div class="form-group" ng-if="isReturnLoan">
+        <label class="control-label col-sm-2" for="returnLoanAmount">{{ 'label.input.amount' |
+            translate}}</label>
+
+        <div class="col-sm-3">
+            <input id="returnLoanAmount" type="text" name="amount" ng-model="returnLoanAmount"
+                   class="form-control" readonly>
+        </div>
+    </div>
+
     <div class="form-group"  ng-show="isLoanWriteOff">
         <label class="control-label col-sm-2">
             {{'label.input.reason' | translate}}
@@ -564,6 +574,41 @@
                 <div class="col-sm-3">
                     <input id="bankNumber" class="form-control" type="text" ng-model="formData.bankNumber">
                 </div>
+            </div>
+        </div>
+        <div class="form-group" ng-show="(action == 'disburse')">
+            <label class="control-label col-sm-2">{{ 'label.anchor.showbankaccountdetails' | translate}}</label>
+            <div class="col-sm-3">
+                <a class="btn btn-primary" ng-click="showBankAccountDetails=!showBankAccountDetails">
+                    <i ng-show="showBankAccountDetails" class="icon-minus icon-white"></i>
+                    <i ng-show="!showBankAccountDetails" class="icon-plus icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="form-group" ng-show="showBankAccountDetails">
+            <div ng-if="bankAccountDetails.length > 0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>{{'label.heading.holdername' | translate}}</th>
+                            <th>{{'label.heading.accountnumber' | translate}}</th>
+                            <th>{{'label.heading.ifsc' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pointer-main"  ng-repeat="bankAccountDetail in bankAccountDetails">
+                            <td class="col-md-1"></td>
+                            <td class="col-md-1">
+                                <input type="radio" ng-model="formData.bankAccountDetailId" ng-checked="bankAccountDetail.checked" value="{{bankAccountDetail.id}}"/>
+                            </td>
+                            <td class="col-md-1">{{bankAccountDetail.name}}</td>
+                            <td class="col-md-1">{{bankAccountDetail.accountNumber}}</td>
+                            <td class="col-md-1">{{bankAccountDetail.ifscCode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -488,6 +488,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/UserActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
+            'reports/IndividualAccountReportController',
             'dashboard/WorkFlowStepDashboardController',
             'dashboard/TaskListController',
             'bankaccountdetails/BankAccountDetailController',
@@ -580,7 +581,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'customsequence/SequenceEntityAssociationListController',
             'customsequence/CreateSequenceEntityAssociationController',
             'customsequence/SequenceEntityAssociationCommonController',
-            'survey/SurveySummaryDetailsController'
+            'survey/SurveySummaryDetailsController',
+            'client/ClientBankAccountDetailsController',
+            'bankaccountdetails/common/CreateBankAccountDetailController',
+            'bankaccountdetails/common/AddBankAccountDetailsToLoanController'
         ],
         filters: [
             'StatusLookup',

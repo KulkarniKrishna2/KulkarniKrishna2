@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        loanapplicationapprovalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        loanapplicationapprovalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $sce, $modal) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.approveloanapplicationdetails = "";
             scope.status = 'UPDATE';
@@ -39,6 +39,7 @@
 
             scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
             scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+            scope.hidePrintReportButton = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.printReportButton;
 
             scope.refreshData = function(){
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
@@ -79,6 +80,9 @@
                     scope.status = 'SUMMARY';
                     if(scope.formRequestData.repaymentsStartingFromDate){
                         scope.formRequestData.repaymentsStartingFromDate = dateFilter(new Date(scope.formRequestData.repaymentsStartingFromDate), scope.df);
+                    }
+                    if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0){
+                        scope.status = 'SUMMARY';
                     }
                     delete scope.formRequestData.loanAppSanctionId;
                     delete scope.formRequestData.loanApplicationReferenceId;
@@ -936,6 +940,55 @@
                 });
             };
 
+            scope.printSchedule = function () {
+                $modal.open({
+                    templateUrl: 'printschedule.html',
+                    controller: printScheduleCtrl,
+                    windowClass: 'app-modal-window'
+                });
+            };
+
+            var printScheduleCtrl = function ($scope, $modalInstance) {
+                scope.formData.outputType = "PDF";
+                scope.formData.reportName = "Client Pre-Agreement Report";
+
+                if(!_.isUndefined(scope.formRequestData.expectedDisbursementDate)){
+                    scope.formRequestData.expectedDisbursementDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
+                }else {
+                    scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.restrictDate), scope.df);
+                }
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.formData.reportName);
+                                reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
+                            
+                var inQueryParameters = null;
+
+                   
+                        inQueryParameters = "R_clientId=";
+                        inQueryParameters = inQueryParameters+scope.loanApplicationReferenceId;
+                        inQueryParameters = inQueryParameters+"&R_expectedDisbursementDate="+scope.formRequestData.expectedDisbursementDate;
+
+                    if (inQueryParameters > "") reportURL += "&" + inQueryParameters;
+
+                        // Allow untrusted urls for the ajax request.
+                        // http://docs.angularjs.org/error/$sce/insecurl
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+
+                http.get(reportURL, {responseType: 'arraybuffer'}).
+                    success(function(data, status, headers, config) {
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], {type: contentType});
+                        var fileContent = URL.createObjectURL(file);
+
+                            // Pass the form data to the iframe as a data url.
+                        $scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                    }); 
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
             scope.cancel = function () {
                 if (scope.formData.groupId) {
                     location.path('/viewgroup/' + scope.formData.groupId);
@@ -1300,7 +1353,7 @@
 
     });
     mifosX.ng.application.controller('loanapplicationapprovalActivityController', ['$controller','$scope', 'ResourceFactory', '$location',
-        'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationapprovalActivityController]).run(function ($log) {
+        'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$sce', '$modal', mifosX.controllers.loanapplicationapprovalActivityController]).run(function ($log) {
         $log.info("loanapplicationapprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));

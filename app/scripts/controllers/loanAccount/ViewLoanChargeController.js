@@ -6,6 +6,7 @@
             scope.chargeId = routeParams.id;
             scope.upfrontFee = "Upfront Fee";
             scope.slabBasedCharge = "Slab Based";
+            scope.showTaxDetails = false;
             if (routeParams.loanstatus == 'Submitted and pending approval') {
                 scope.showEditButtons = true;
             }
@@ -14,6 +15,7 @@
             }
             resourceFactory.loanResource.get({ resourceType: 'charges', loanId: scope.loanId, resourceId: scope.chargeId}, function (data) {
                 scope.charge = data;
+                scope.taxDetails = data.loanChargeTaxDetails;
             });
             scope.deleteCharge = function () {
                 $modal.open({
@@ -37,6 +39,13 @@
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
             };
+            scope.showTaxDetail = function () {
+                if(scope.showTaxDetails == false){
+                    scope.showTaxDetails = true;
+                } else {
+                    scope.showTaxDetails = false;
+                }
+            }
 
         }
     });

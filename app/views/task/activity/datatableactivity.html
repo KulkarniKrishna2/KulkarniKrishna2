@@ -5,7 +5,7 @@
         <form class="form-horizontal"  ng-submit="submit()">
             <fieldset>
                 <div ng-if="!isSectioned">
-                    <div class="form-group" ng-repeat="columnHeader in columnHeaders">
+                    <div class="form-group" ng-repeat="columnHeader in columnHeaders" ng-hide="hideField(columnHeader)">
                         <div ng-include src="'views/task/activity/datatableactivityentry.html'"></div>
                     </div>
                 </div>
@@ -35,14 +35,14 @@
     <div ng-show="status=='VIEW' && !isViewMultiRowTable">
         <table class="table" data-ng-show="datatabledetails.isMultirow">
             <thead>
-            <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="multirowThIndex == 0 || multirowThIndex == 1" >
+            <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="hideField(column)" >
                             <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
                             <label ng-if="column.displayName == undefined || column.displayName == 'null'"> {{column.columnName | prettifyDataTableColumn}} </label> 
                         </th>
             </thead>
             <tbody>
                 <tr class="pointer-main" ng-repeat="data in datatabledetails.columnData">
-                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="multirowDataIndex == 0 || multirowDataIndex == 1" ng-click="viewMultiRowDataTable(data.row[0].value)">
+                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-init="multirowDataIndex = $index" ng-hide="hideField(row)" ng-click="viewMultiRowDataTable(data.row[0].value)">
                         <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DECIMAL'">{{row.value|number}}</label>
                         <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType === 'DATE'">{{row.value|DateFormat}}</label>
                         <label ng-if="datatabledetails.columnHeaders[$index].columnDisplayType !== 'DECIMAL' && datatabledetails.columnHeaders[$index].columnDisplayType !== 'DATE'">{{row.value}}</label>
@@ -85,7 +85,7 @@
         <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
         <hr>
         <table class="width100" ng-show="!isSectioned">
-            <tr ng-repeat="column in columnHeaders | orderBy:'orderPosition'">
+            <tr ng-repeat="column in columnHeaders | orderBy:'orderPosition'" ng-hide="hideField(column)">
                 <td class="width30">
                     <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</label>
                     <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</label>

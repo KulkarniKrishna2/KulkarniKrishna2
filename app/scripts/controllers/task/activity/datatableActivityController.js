@@ -9,6 +9,7 @@
             scope.isViewMultiRowTable = false;
             scope.resourceId = "";
             scope.isWorkFlow = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            var  idList = ['id','client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             scope.getDetails = function () {
                 resourceFactory.DataTablesResource.getTableDetails({
@@ -59,12 +60,14 @@
                                         row.key = data.columnHeaders[i].columnName;
                                     }
                                     row.columnDisplayType = data.columnHeaders[i].columnDisplayType;
+                                    row.formula = data.columnHeaders[i].formula;
                                     for(var j in data.columnData[0].row){
                                         if(data.columnHeaders[i].columnName == data.columnData[0].row[j].columnName){
                                            row.value = data.columnData[0].row[j].value;
                                            break;
                                         }
                                     }
+                                    if(idList.indexOf(row.key) < 0)
                                     scope.singleRow.push(row);
                                 } else {
                                    
@@ -100,6 +103,7 @@
                                                     row.key = data.sectionedColumnList[l].columns[i].columnName;
                                                 }
                                                 row.columnDisplayType = data.sectionedColumnList[l].columns[i].columnDisplayType;
+                                                row.formula = data.columnHeaders[i].formula;
                                                 for(var k in data.columnData[0].row){
                                                     if(data.sectionedColumnList[l].columns[i].columnName == data.columnData[0].row[k].columnName){
                                                         row.value = data.columnData[0].row[k].value;
@@ -160,12 +164,12 @@
                     if (colName == 'id') {
                         data.columnHeaders.splice(0, 1);
                     }
-
-                    colName = data.columnHeaders[0].columnName;
-                    if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
-                        colName == 'savings_account_id' || colName == 'loan_application_reference_id' || colName == 'villages_id') {
-                        data.columnHeaders.splice(0, 1);
-                        scope.isCenter = colName == 'center_id' ? true : false;
+                    for (var i in data.columnHeaders){
+                        var colName = data.columnHeaders[i].columnName;
+                        if(idList.indexOf(colName) >= 0 ){
+                            data.columnHeaders.splice(i, 1);
+                            scope.isCenter = colName == 'center_id' ? true : false;
+                        } 
                     }
 
                     for (var i in data.columnHeaders) {
@@ -200,8 +204,27 @@
                         }    
                         scope.sectionedColumnHeaders = data.sectionedColumnList;
                     }
+                    scope.evaluateFormulas();
 
                 });
+            };
+
+            scope.evaluateFormulas = function() {
+                for (var i in scope.columnHeaders) {
+                    if (scope.columnHeaders[i].formula) {
+                        var formulaString = scope.columnHeaders[i].formula;
+                        scope.formData[scope.columnHeaders[i].columnName] = "";
+                        for (var j in scope.columnHeaders) {
+                            if (formulaString.indexOf("{" + scope.columnHeaders[j].columnName + "}") > -1 && !_.isUndefined(scope.formData[scope.columnHeaders[j].columnName])) {
+                                scope.formData[scope.columnHeaders[j].columnName] = scope.formData[scope.columnHeaders[j].columnName];
+                                formulaString = formulaString.replace("{" + scope.columnHeaders[j].columnName + "}", scope.formData[scope.columnHeaders[j].columnName]);
+                                if (formulaString.indexOf('{') == -1) {
+                                    scope.formData[scope.columnHeaders[i].columnName] = eval(formulaString);
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             scope.changeVillage = function (id) {
@@ -240,10 +263,18 @@
                     } else if (type == 'BOOLEAN') {
                         fieldType = 'BOOLEAN';
                     } else {
-                        fieldType = 'TEXT';
+                        fieldType = type ;
                     }
                 }
                 return fieldType;
+            };
+            
+            scope.isNumericField = function(type) {
+                var isNumericField = false;
+                if (type == 'INTEGER' || type == 'DECIMAL') {
+                    isNumericField = true;
+                }
+                return isNumericField;
             };
 
             scope.dateTimeFormat = function () {
@@ -397,10 +428,12 @@
                 }
 
                 colName = scope.columnHeaders[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' ||
-                    colName == 'savings_account_id'  || colName == 'loan_application_reference_id' || colName == 'villages_id') {
-                    scope.columnHeaders.splice(0, 1);
-                    scope.isCenter = colName == 'center_id' ? true : false;
+                for (var i in scope.columnHeaders){
+                    var colName = scope.columnHeaders[i].columnName;
+                    if(idList.indexOf(colName) >= 0 ){
+                        scope.columnHeaders.splice(i, 1);
+                        scope.isCenter = colName == 'center_id' ? true : false;
+                    } 
                 }
 
                 if(!scope.isSectioned){
@@ -541,6 +574,12 @@
                 var reqParameters = {datatablename: scope.tableName, entityId: scope.entityId, resourceId: scope.resourceId, genericResultSet: 'true'};
                 scope.processData(reqParameters);
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.columnName) >= 0) {
+                return true;
+               }
+               return false;
+            }
         }
     });
     mifosX.ng.application.controller('datatableActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.datatableActivityController]).run(function ($log) {

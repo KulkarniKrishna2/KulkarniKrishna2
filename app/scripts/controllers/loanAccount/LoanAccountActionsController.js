@@ -335,6 +335,26 @@
                 }
             }
 
+            scope.fetchBankDetailsData = function(){
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
+                    scope.bankAccountDetails = data;
+                    scope.populateAttachedBankAccount(data);
+                });
+            };
+
+            scope.populateAttachedBankAccount = function(data) {
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: scope.accountId}, function (data) {
+                    if(scope.bankAccountDetails && scope.bankAccountDetails.length >0 && data ) {
+                        for (var i = 0; i < scope.bankAccountDetails.length; i++) {
+                            if(data[0].id === scope.bankAccountDetails[i].id){
+                                scope.bankAccountDetails[i].checked = true;
+                                break;
+                            }
+                        }
+                    }
+                });
+            }
+
             scope.formDisbursementData = function(){
                  scope.modelName = 'actualDisbursementDate';
                     if(scope.response){
@@ -452,6 +472,7 @@
                 case "disburse":
                     scope.formDisbursementData();
                     scope.getPaymentTypeOtions();
+                    scope.fetchBankDetailsData();
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
                 case "disbursetosavings":
@@ -606,6 +627,17 @@
                         }
                     });
                     break;
+                case "returnloan":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'returnloan'}, function (data) {
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        scope.returnLoanAmount = data.amount;
+                        scope.isReturnLoan = true;
+                    });
+                    scope.title = 'label.heading.returnloanaccount';
+                    scope.labelName = 'label.input.returnondate';
+                    scope.taskPermissionName = 'RETURNLOAN_LOAN';
+                    break;
                 case "close-rescheduled":
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'close-rescheduled'}, function (data) {
@@ -674,7 +706,7 @@
                             }
                         });
                     scope.showDateField = true;
-                    scope.showNoteField = false;
+                    scope.showNoteField = true;
                     scope.showAmountField = true;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
@@ -1002,6 +1034,7 @@
 
                 if (scope.action == "disburse" || scope.action == "forcedisburse"){
                     scope.constructGlimClientMembersData();
+                    scope.formData.bankAccountDetailId;
                 }
 
                 if(scope.action == 'disbursetogroupbankaccounts'){
@@ -1053,7 +1086,8 @@
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
-                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment" || scope.action == "refundByCash") {
+                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment" || scope.action == "refundByCash"
+                    || scope.action == "returnloan") {
 
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';

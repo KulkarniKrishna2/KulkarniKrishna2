@@ -50,6 +50,7 @@
             scope.isEmailIdMandatory = false;
             scope.isGenderMandatory = false;
             scope.displayAge = false;
+            scope.isGenderAutoPopulate = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -110,6 +111,9 @@
                 scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
                 scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isAutoPopulate) {
+                scope.isGenderAutoPopulate = scope.response.uiDisplayConfigurations.createClient.isAutoPopulate.genderOption;
+            }
             scope.minAge = 0;
             scope.maxAge = 0;
             scope.dateOfBirthNotInRange = false;
@@ -164,9 +168,12 @@
                 scope.isWorkflowEnabled = data.isWorkflowEnabled;
                 scope.maritalStatusOptions = data.maritalStatusOptions;
 
-                if(scope.genderOptions[0]) {
-                    scope.formData.genderId = scope.genderOptions[0].id;
+                if(scope.isGenderAutoPopulate) {
+                    if(scope.genderOptions[0]) {
+                        scope.formData.genderId = scope.genderOptions[0].id;
+                    }
                 }
+
                 if(scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
                      scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
                      scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;

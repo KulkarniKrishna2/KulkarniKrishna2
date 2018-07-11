@@ -43,7 +43,7 @@
         <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
         <hr>
         <table class="width100" ng-show = "!isSectioned">
-            <tr ng-repeat="column in columnHeaders | orderBy:'orderPosition'">
+            <tr ng-repeat="column in columnHeaders | orderBy:'orderPosition' " ng-hide="hideField(column)">
                 <td class="width30">
                     <label ng-show="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}}:</label>
                     <label ng-show="column.displayName == undefined || column.displayName == 'null'">{{column.columnName | prettifyDataTableColumn}}:</label>

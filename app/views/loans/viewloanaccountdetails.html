@@ -265,6 +265,11 @@
                                       {{'label.button.glimrecoverypayment' | translate}}
                                   </a>
                               </li>
+                              <li class="{{button.icon}}">
+                                  <a href="#/reports/{{loandetails.id}}/loanaccountreports">
+                                      {{'label.button.loanaccountreport' | translate}}
+                                  </a>
+                              </li>
                           </ul>
                       </span>
                 </div>
@@ -344,7 +349,7 @@
             </div>
             <div class="row paddedleft">
                 <hr class="marginbottom"/>
-                <tabset>
+                <tabset tabset-name="loanTabset">
                     <tab active="tabs[0].active" heading="{{'label.heading.accountdetail' | translate}}">
                         <table class="table table-striped">
                             <thead>
@@ -388,12 +393,12 @@
                             </tr>
                             <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
                                 <td>{{'label.heading.interestrate' | translate}}</td>
-                                <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</span>
+                                <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}({{'label.heading.apr' | translate}})</span>
                                 </td>
                             </tr>
                             <tr ng-show="loandetails.flatInterestRate != null">
                                 <td>{{'label.heading.flatinterestrate' | translate}}</td>
-                                <td><span class="padded-td">{{loandetails.flatInterestRate}}</span>
+                                <td><span class="padded-td">{{loandetails.flatInterestRate}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -936,6 +941,28 @@
                             </tr>
                         </table>
                     </tab>
+                    <tab has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}">
+                        <div class="pull-right">
+                              <a has-permission='CREATE_ASSIGNBANKACCOUNTDETAIL' ng-hide="loanBankAccountDetailAssociation" href="#/client/{{loandetails.clientId}}/bankaccountdetails/loan/{{loandetails.id}}" ng-show="createPossible" class="btn btn-primary">{{'label.button.add.bankaccount' | translate}} </a>
+                        </div>
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.holdername' | translate}}</th>
+                                <th>{{'label.heading.accountnumber' | translate}}</th>
+                                <th>{{'label.heading.ifsc' | translate}}</th>
+                                <th >{{'label.input.actions' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="bankAccountDetail in loanBankAccountDetailAssociation" >
+                                <td >{{bankAccountDetail.name}}</td>
+                                <td >{{bankAccountDetail.accountNumber}}</td>
+                                <td >{{bankAccountDetail.ifscCode}}</td>
+                                <td >
+                                  <button  has-permission='DELETE_ASSIGNBANKACCOUNTDETAIL' class="btn btn-info" type="button" ng-click="removeLoanBankAccountAssociation(bankAccountDetail.id)">{{'label.button.removebankaccount' | translate}}
+                                  </button>
+                              </td>
+                            </tr>
+                        </table>
+                    </tab>
 
                     <tab ng-if="loandetails.collateral" active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
                         <table class="table" ng-show="loandetails.collateral">
@@ -1127,11 +1154,12 @@
                                 <th>{{'label.heading.paymentdueat' | translate}}</th>
                                 <th>{{'label.heading.dueasof' | translate}}</th>
                                 <th>{{'label.heading.calculationtype' | translate}}</th>
-                                <th>{{'label.heading.due' | translate}}</th>
+                                <th>{{'label.heading.duetax' | translate}}</th>
                                 <th>{{'label.heading.paid' | translate}}</th>
                                 <th>{{'label.heading.waived' | translate}}</th>
                                 <th>{{'label.heading.outstanding' | translate}}</th>
                                 <th ng-hide="isGlimEnabled()">{{'label.heading.actions' | translate}}</th>
+                                <th>{{'label.heading.info' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in charges" class="pointer-main">
                                 <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
@@ -1140,8 +1168,9 @@
                                 <td ng-hide="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"fee"}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeTimeType.value}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.dueDate | DateFormat}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeCalculationType.value}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount| number}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.amountOrPercentage + "  " +charge.chargeCalculationType.value}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}{{" ( "}}{{(charge.taxAmount | number : 2) || "0"}}
+                                {{" )"}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
@@ -1159,6 +1188,7 @@
                                        href="#/loanaccountcharge/{{loandetails.id}}/paycharge/{{charge.id}}">{{"label.button.pay" |
                                         translate}}</a>
                                 </td>
+                                <td ng-show="charge.taxAmount" class="pointer" ng-click="showTaxDetails(charge.id)"><i class="icon-info ng-scope icon-primary"></i></td>
                             </tr>
                         </table>
                       </div>
@@ -1335,6 +1365,38 @@
                             <br/>
                         </div>
 
+                    </script>
+
+                    <script type="text/ng-template" id="showTaxDetails.html" class="width50">
+                        <div class="width100">
+
+                            <div class="modal-header silver">
+                                <h3 class="bolder">{{'label.heading.chargetaxdetails' | translate}}</h3>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="row span" style="margin-left:-1px;margin-top: -20px;margin-right:-1px">
+
+                                <div class="col-sm-6 col-md-6">
+                                    <table class="table table-striped table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <td>{{'label.heading.chargeamount' | translate}}</td>
+                                            <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountSansTax}}</td>
+                                          </tr>
+                                          <tr ng-repeat="taxDetail in taxDetails">
+                                            <td>{{taxDetail.taxComponentName}}</td>
+                                            <td>{{charge.currency.displaySymbol}}&nbsp;{{taxDetail.amount}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>{{'label.heading.totalchargeamount' | translate}}</td>
+                                              <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amount}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
                     </script>
 
                     <tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">

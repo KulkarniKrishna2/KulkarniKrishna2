@@ -258,7 +258,7 @@
                         class="required">*</span>:</label></td>
                 <td class="width31 paddedbottom10">
                     <input type="text"  class="form-control" id="principal" name="principal" ng-model="formData.principal"
-                           number-format required late-Validate  ng-change="updateSlabBasedAmountOnChangePrincipalOrRepayment()" ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                           number-format required late-Validate  ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="newloanaccountform" valattribute="principal"/>
                 </td>
                 <td class="width14"><label ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1">{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>

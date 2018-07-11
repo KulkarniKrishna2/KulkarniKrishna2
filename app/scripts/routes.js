@@ -1503,6 +1503,18 @@
             .when('/bankaccountdetails/:entityType/:entityId', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
             })
+            .when('/client/:clientId/bankaccountdetails/loan/:entityId', {
+                templateUrl: 'views/bankaccountdetails/common/bank_account_details.html'
+            })
+            .when('/clients/:clientId/bankaccountdetails', {
+                templateUrl: 'views/clients/clientbankaccountdetails.html'
+            })
+            .when('/:entityType/:entityId/bankaccountdetails/:clientBankAccountDetailAssociationId', {
+                templateUrl: 'views/bankaccountdetails/bank_account_details.html'
+            })
+            .when('/:entityType/:entityId/addbankaccountdetail', {
+                templateUrl: 'views/bankaccountdetails/common/createbankaccount.html'
+            })
             .when('/createcgt', {
                 templateUrl: 'views/cgt/createcgt.html'
             })
@@ -1745,6 +1757,9 @@
             })
             .when('/editSequenceEntityAssociation/:id',{
                 templateUrl: 'views/customsequence/editsequenceentityassociation.html'
+            })
+            .when('/reports/:id/:action', {
+                templateUrl: 'views/reports/individualaccountreport.html'
             })
         $locationProvider.html5Mode(false);
     };

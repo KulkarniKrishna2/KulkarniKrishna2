@@ -25,7 +25,8 @@
                     },
                     {
                         name: "label.button.bankaccountdetails",
-                        href: "#/bankaccountdetails/clients",
+                        href: "#/clients",
+                        subhref: "bankaccountdetails",
                         icon: "",
                         taskPermissionName: "READ_BANKACCOUNTDETAIL"
                     },
@@ -98,7 +99,8 @@
                     },
                     {
                         name: "label.button.bankaccountdetails",
-                        href: "#/bankaccountdetails/clients",
+                        href: "#/clients",
+                        subhref: "bankaccountdetails",
                         icon: "",
                         taskPermissionName: "READ_BANKACCOUNTDETAIL"
                     },

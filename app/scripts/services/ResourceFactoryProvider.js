@@ -182,6 +182,9 @@
                     reportsByCategoryResource: defineResource(apiVer + "/reports/category/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                     }),
+                    reportsByEntityResource: defineResource(apiVer + "/reports/entityreport/:id", {id: '@id'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                    }),
                     reportsResourceCommands: defineResource(apiVer + "/reports/:id", {id: '@id'}, {
                         activate: {method: 'POST',  params:{command : 'activate'}},
                         deActivate: {method: 'POST', params:{command : 'deActivate'}}
@@ -193,7 +196,7 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command'}, {
+                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command',associateAppTable: '@associateAppTable',isFetchAssociateTable: '@isFetchAssociateTable'}, {
                         getAllDataTables: {method: 'GET', params: {}, isArray: true},
                         getTableDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
@@ -1140,14 +1143,28 @@
                     taskListSearchResource: defineResource(apiVer + "/tasks/search",{command:'@command'}, {
                         get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}, isArray: true}
                     }),
-                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
+                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'},
                         get: {method: 'GET'},
                         update: {method: 'PUT'},
                         delete: {method: 'DELETE'}
                     }),
-                    bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/action", {entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
+                    bankAccountDetailResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'},
+                        get: {method: 'GET'},
+                        update: {method: 'PUT'},
+                        delete: {method: 'DELETE'}
+                    }),
+                    loanBankAccountAssociationResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/loans/:bankAccountId", {entityType: "@entityType",entityId: '@entityId',bankAccountId: '@bankAccountId'}, {
+                        create: {method: 'POST'},
+                        delete: {method: 'DELETE'}
+                    }),
+                    bankAccountDetailsTemplateResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/template", {entityType: "@entityType",entityId: '@entityId'}, {
+                        get: {method: 'GET'},
+                    }),
+                    bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId/action", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId', command:'@command'}, {
                         doAction: {method: 'POST',params:{command:'@command'}}
                     }),
                     bankAccountDetailWorkflowResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {

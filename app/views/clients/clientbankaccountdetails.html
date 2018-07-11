@@ -1,0 +1,38 @@
+<div class="col-md-12" ng-controller="ClientBankAccountDetailsController">
+        <div>
+            <ul class="breadcrumb">
+                <li>
+                    <a ng-href="#/viewclient/{{entityId}}">{{'label.heading.client' | translate}}</a>
+                </li>
+                <li>{{'label.anchor.bankaccountdetails'|translate}}</li>
+            </ul>
+        </div>
+        <a href="#/clients/{{entityId}}/addbankaccountdetail" class="btn btn-primary pull-right" has-permission='READ_BANKACCOUNTDETAIL' ng-show="showAddBankAccountsButton">
+            <i class="icon-plus icon-white"></i>{{'label.button.add.bankaccountdetails' | translate}}
+        </a>
+        <div class="span grey-head">
+            <h3>
+                <strong>{{'label.heading.bank.account.details' | translate}}</strong>
+            </h3>
+        </div>
+        <div ng-if="bankAccountDetails.length > 0">
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.serialno' | translate}}</th>
+                        <th>{{'label.heading.holdername' | translate}}</th>
+                        <th>{{'label.heading.accountnumber' | translate}}</th>
+                        <th>{{'label.heading.ifsc' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pointer-main"  ng-repeat="record in bankAccountDetails">
+                        <td class="pointer" data-ng-click="routeTo(record.id)">{{$index+1}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.accountNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.ifscCode}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</div>

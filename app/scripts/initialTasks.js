@@ -18,7 +18,7 @@
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
             }
             host = "https://" + mainLink.hostname;
-        }else if (mainLink.hostname.indexOf('finflux.io') >= 0) {
+        } else if (mainLink.hostname.indexOf('finflux.io') >= 0) {
             var hostname = window.location.hostname;
             domains = hostname.split('.');
             // For multi tenant hosting

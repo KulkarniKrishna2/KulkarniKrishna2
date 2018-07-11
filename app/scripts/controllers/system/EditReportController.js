@@ -14,6 +14,10 @@
                 scope.formData.trackUsage = data.trackUsage;
                 scope.formData.reportType = data.reportType;
                 scope.disableFields = false;
+                if(data.embeddedReportType){
+                    scope.reportdetail.embeddedReportType = data.embeddedReportType;
+                    scope.reportdetail.isEmbeddedReport = true;
+                }
 
                 if(scope.reportdetail.coreReport == true){
                     scope.disableFields = true;
@@ -126,9 +130,15 @@
                         reportSql: scope.reportdetail.reportSql,
                         reportParameters: scope.reportdetail.reportParameters,
                         trackUsage: scope.reportdetail.trackUsage,
-                        reportClassifications:scope.reportClassifications
+                        reportClassifications:scope.reportClassifications,
+                        embeddedReportType:scope.reportdetail.embeddedReportType
                     }
                 }
+                if(!scope.reportdetail.isEmbeddedReport)
+                {
+                    delete this.formData.embeddedReportType;
+                }
+                this.formData.locale = "en";
                 resourceFactory.reportsResource.update({id: routeParams.id}, this.formData, function (data) {
                     location.path('/system/viewreport/' + data.resourceId);
                 });
