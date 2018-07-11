@@ -50,11 +50,11 @@
 
                             <div class="col-sm-6">
                                 <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
-                                       type="password" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
+                                       type="password" ng-pattern="regexPattern('bankAccountNumber')"  class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
                                 <div>
-                                    <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
-                                    <small class="required">
-                                        {{'label.mismatch.account.number' | translate}}</small></span>
+                                    <span ng-show="checkerbankaccountdetail.bankAccountNumberRepeat.$error.pattern">
+                                        <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                                    </span>
                                     <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountNumberRepeat"/>
                                 </div>
                             </div>
@@ -66,8 +66,11 @@
 
                             <div class="col-sm-6">
                                 <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                                       type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
+                                       type="text" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
                                 <div>
+                                    <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
+                                        <small class="required">{{'label.mismatch.account.number' | translate}}</small>
+                                    </span>
                                     <form validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountNumber"/>
                                 </div>
                             </div>
@@ -94,7 +97,7 @@
 
                             <div class="col-sm-6">
                                 <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
-                                       minlength="11" maxlength="11" ng-pattern="/^[a-zA-Z0-9]*$/" type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
+                                       minlength="11" maxlength="11" ng-pattern="regexPattern('bankIFSCCode')" type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
                                 <div>
                                     <span ng-show="checkerbankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
                                         <small class="required">{{'inavalid.ifsc.format' | translate}}</small>

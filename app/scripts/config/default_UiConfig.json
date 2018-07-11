@@ -182,7 +182,8 @@
 		"showSubmittedOn" : true,
 		"showStaff" : true,
 		"addclients" : true
-	  }
+	  },
+      "nameWithBranchName": false
 	},
 	"createGroup": {
 	  "isReadOnlyField": {
@@ -201,7 +202,8 @@
 		"submittedOn": false,
 		"staff": false,
 		"addclients": false
-	  }
+	  },
+	  "centerNameIncluded": false
 	},
 	"labelChanges": {
 	  "calendarChagesEffectiveFrom": true

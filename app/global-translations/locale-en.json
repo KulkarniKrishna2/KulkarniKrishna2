@@ -415,7 +415,8 @@
     "label.nodatafound":"No data was found related to the search parameters entered.",
     "label.mustbenumeric":"Must be numeric",
     "label.must.be.ten.digits.numeric":"Must be Ten digits numeric",
-    "inavalid.ifsc.format":"Invalid IFSC code format",
+    "inavalid.ifsc.format":"Special characters, space and more than 11 characters are not allowed",
+    "invalid.accountnumber.format" : "Special characters, space are not allowed",
     "label.mustbe6digitnumber":"Pincode Must be a 6 digit number",
     "label.percentage": "Percentage",
     "label.outstanding.amount":"Loan outstanding amount",
@@ -6592,6 +6593,7 @@
     "error.msg.entityType.client.income.expense.is.locked" : "Client income expense is locked",
     "error.msg.entityType.bank.account.details.is.locked" : "Bank account details is locked",
     "error.msg.entityType.existing.loan.is.locked" : "Existing loan is locked",
+    "error.msg.kyc.aadhar.not.found":"Adhaar is mandatory for CB check",
 
     "error.msg.loan.transaction.tranche.disbursement.date.must.be.unique" : "Tranche  disburse date must be unique.",
     "error.msg.unable.to.disburse.loan.as.all.bank.transactions.are.not.in.success.or.rejected.or.closed.status" : "One or more Bank Transaction/s is/are active.To disburse loan, all bank transactions must be in Success, Closed or Rejected status.",
@@ -7097,5 +7099,8 @@
      "error.msg.return.loan.update.not.allowed":"Loan transaction update not allowed as loan is returned",
      "error.msg.loan.returned.transaction.already.exits.for.this.loan":"Cannot return loan, transaction for loan already exits",
      
+     "label.menu.selectentity" : "select Entity",
+     "label.menu.selectcolumn" : "Select Column",
+
     "------ end of tensalation file":"---------"
 }

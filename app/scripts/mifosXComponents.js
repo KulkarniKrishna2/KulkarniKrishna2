@@ -584,7 +584,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'survey/SurveySummaryDetailsController',
             'client/ClientBankAccountDetailsController',
             'bankaccountdetails/common/CreateBankAccountDetailController',
-            'bankaccountdetails/common/AddBankAccountDetailsToLoanController'
+            'bankaccountdetails/common/AddBankAccountDetailsToLoanController',
+            'customsequence/ViewSequenceEntityAssociationController'
         ],
         filters: [
             'StatusLookup',

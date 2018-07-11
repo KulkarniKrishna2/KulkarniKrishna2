@@ -13,7 +13,11 @@
       },
       "isHiddenField": {
         "villageOptions": false
-      }
+      },
+      "nameWithBranchName": true
+    },
+    "createGroup": {
+      "centerNameIncluded": true
     },
     "workflow": {
       "loanApproval": {
