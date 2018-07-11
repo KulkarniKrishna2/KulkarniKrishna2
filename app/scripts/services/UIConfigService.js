@@ -21,6 +21,7 @@
                                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope && scope.response.uiDisplayConfigurations.globalSearchScope) {
                                     scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
                                 }
+                                scope.$emit("uiConfigServicePerformed", scope.response);
                             }
                         }
                     }).error(function (data) {
@@ -40,6 +41,7 @@
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearchScope && scope.response.uiDisplayConfigurations.globalSearchScope) {
                                 scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
                             }
+                            scope.$emit("uiConfigServicePerformed", scope.response);
                         }
                     }).error(function (tenantSpecificData) {
                         console.log("Configuration file not found");

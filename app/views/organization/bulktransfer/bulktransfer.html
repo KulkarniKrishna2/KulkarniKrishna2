@@ -1,0 +1,31 @@
+<div class="col-md-12" ng-controller="BulkTransferController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/viewbulktransfer">{{'label.anchor.bulk.transfer' |
+                translate}}</a></li>
+        <li class="active">{{'label.anchor.bulk.transfer' | translate}}</li>
+    </ul>
+    <table class="table well" >
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.status' | translate}}</th>
+            <th>{{'label.heading.from.office' | translate}}</th>
+            <th>{{'label.heading.to.office' | translate}}</th>
+            <th>{{'label.heading.from.staff' | translate}}</th>
+            <th>{{'label.heading.to.staff' | translate}}</th>
+            <th>{{'label.heading.is.transfer.staff' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="bulkTransfer in bulkTransfers" class="pointer-main" ng-click="routeTo(bulkTransfer.id)">
+            <td>{{bulkTransfer.status.value}}</td>
+            <td>{{bulkTransfer.fromOffice.name}}</td>
+            <td>{{bulkTransfer.toOffice.name}}</td>
+            <td>{{bulkTransfer.fromStaff.name}}</td>
+            <td>{{bulkTransfer.toStaff.name}}</td>
+            <td>{{bulkTransfer.isStaffTransfer}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

@@ -75,6 +75,9 @@
                     {
                         if( data.districtData && data.districtData.districtId == scope.districts[i].districtId){
                             scope.talukas = scope.districts[i].talukaDatas;
+                            if(scope.talukas.length >0){
+                                scope.isShowTaluka= true;
+                            }
                         }
                     }
                     if (data.talukaData && data.talukaData.talukaId) {
@@ -121,6 +124,7 @@
             }
 
             scope.changeDistrict = function (districtId) {
+
                 if (districtId != null) {
                     scope.talukas = null;
                     scope.selectDistrict = _.filter(scope.districts, function (districts) {
@@ -131,6 +135,11 @@
                         delete scope.formData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
+                    if(scope.talukas.length > 0){
+                        scope.isShowTaluka = true;
+                    }else{
+                        scope.isShowTaluka= false;
+                    }
                 }
             }
             

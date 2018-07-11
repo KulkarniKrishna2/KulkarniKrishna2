@@ -64,7 +64,8 @@
 				"middleName": true,
 				"externalId": true,
 				"submittedOn": true,
-				"openSavingsProduct": true
+				"openSavingsProduct": true,
+				"villageTown": true
 			}
 		},
 		"createCenter": {
@@ -97,6 +98,16 @@
 			"isMandatory": {
 				"bankIFSCCode": true
 			}
+		},
+		"defaultGISConfig": {
+	      "address": {
+	        "countryName": "Myanmar"
+	      }
+	    },
+		"entityType":{
+		  "isHiddenMenu": {
+			"village":true
+		  }
 		}
 	}
 }

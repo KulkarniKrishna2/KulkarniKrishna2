@@ -585,7 +585,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientBankAccountDetailsController',
             'bankaccountdetails/common/CreateBankAccountDetailController',
             'bankaccountdetails/common/AddBankAccountDetailsToLoanController',
-            'customsequence/ViewSequenceEntityAssociationController'
+            'customsequence/ViewSequenceEntityAssociationController',
+            'organization/BulkRescheduleSavingsAccountInstallmentController',
+            'organization/bulktransfer/InitiateBulkTransferController',
+            'organization/bulktransfer/BulkTransferController',
+            'organization/bulktransfer/ViewBulkTransferController'
         ],
         filters: [
             'StatusLookup',

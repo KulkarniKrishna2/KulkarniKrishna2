@@ -892,7 +892,8 @@
 									<span class="padded-td">{{address.addressLineTwo}}</span>
 								</td>
 							</tr>
-							<tr>
+							
+							<tr ng-hide="hideVillage">
 								<th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
 								<td>
 									<span class="padded-td">{{address.villageTown}}</span>

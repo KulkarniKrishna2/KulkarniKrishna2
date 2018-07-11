@@ -58,6 +58,7 @@
             scope.submitted = false;
             scope.isStaffMandatory = false;
             scope.isStaffRequired = false;
+            scope.showTalukas = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -402,6 +403,7 @@
                         delete scope.formAddressData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
+                    scope.showTalukas = (scope.talukas.length > 0); 
                 }
             }
 

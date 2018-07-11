@@ -1514,6 +1514,23 @@
                     loanTopupResource: defineResource(apiVer + "/loans/:loanId/loantopupdetails", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
+                    fieldOfficersResource: defineResource(apiVer + "/staff/loanofficers", {officeId: '@officeId'}, {
+                        retrievefieldOfficers: {method: 'GET', params: {}, isArray:true},
+                    }),
+                    savingsInstallmentRescheduleResource: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    rescheduleSavingsInstallments: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments", {}, {
+                        reschedule:{method:'POST' , params:{}}
+                    }),
+                    bulkTransferTemplateResource: defineResource(apiVer + "/bulktransfer/template", {}, {
+                        get:{method:'GET' , params:{}}
+                    }),
+                    bulkTransferResource: defineResource(apiVer + "/bulktransfer/:branchTransferId", {branchTransferId:'@branchTransferId'}, {
+                        getAll:{method:'GET' , params:{}, isArray:true},
+                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
+                        actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
+                    })
                 };
             }];
         }

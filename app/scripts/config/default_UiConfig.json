@@ -136,7 +136,8 @@
 		"middleName": false,
 		"externalId": false,
 		"submittedOn": false,
-		"openSavingsProduct": false
+		"openSavingsProduct": false,
+		"villageTown":false
 	  },
 	  "isMandatoryField": {
 		"dateOfBirth": false,
@@ -337,7 +338,12 @@
       "isMandatory": {
       	"trancheData":false
       }
-    }
+    },
+	"entityType":{
+	  "isHiddenMenu": {
+		"village":false
+	  }
+	}
   }
 }
 	

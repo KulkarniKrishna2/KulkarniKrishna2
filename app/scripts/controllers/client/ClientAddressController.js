@@ -20,7 +20,8 @@
             scope.pincode = false;
             scope.isVillageTownMandatory = false;
             scope.isCountryReadOnly = false;
-            scope.isAddressTypeMandatory = false;           
+            scope.isAddressTypeMandatory = false;
+            scope.isShowTaluka = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
             }
@@ -38,6 +39,9 @@
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+            }
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown) {
+                scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown;
             }
             resourceFactory.addressTemplateResource.get({}, function (data) {
                 scope.addressType = data.addressTypeOptions;
@@ -119,6 +123,11 @@
                         delete scope.formData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
+                    if(scope.talukas.length > 0){
+                        scope.isShowTaluka = true;
+                    }else{
+                        scope.isShowTaluka = false;
+                    }
                 }
             }
 

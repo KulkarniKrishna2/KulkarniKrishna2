@@ -81,7 +81,6 @@
                         }else{
                             colName = data.columnHeaderData[data.columnHeaderData.length-1].columnName;
                         }
-                         colName = data.columnHeaderData[i].columnName;
                     }
                     
                     if(idList.indexOf(colName) >= 0 ){
