@@ -14,6 +14,7 @@
   "label.anchor.createofficeglaccount":"Create Field Office GL Account Mapping",
   "label.anchor.editofficeglaccount":"Edit Field Office GL Account Mapping",
   "label.anchor.viewofficeglaccount":"View Field Office GL Account Mapping",
+  "label.anchor.kotak.approval" : "Kotak Approval",
   
   "#Buttons": "..",
   "label.button.creategroup" : "Create Subgroup",
@@ -66,6 +67,9 @@
   "label.heading.viewofficeglaccount":"View Field Office GL Account Mapping",
   "label.heading.define.search.voucher.entry" : "Search by field office, type, date and voucher number",
   "label.heading.office.code" : "Field Office Code",
+  "label.heading.kotak.approval.status" : "Kotak Approval Status",
+  "label.heading.kotak.credit.approval.list" : "Kotak Credit Approval Task List",
+  "label.heading.bss.loans.summary" : "BSS Loans Summary",
 
   "#Menu Links": "..",
   "label.menu.selectgroup": "Select Subgroup",
@@ -153,6 +157,8 @@
   "label.office": "Field Office",
   "label.listofofficeglaccounts":"List of Field Office GL Account Mappings",
   "taskTemplateEntityType.office":"Field Office",
+  "label.tab.kotak.approval.loans" : "Kotak Approval Loans",
+  "label.tab.ODU.review.loans" : "ODU Review Loans",
 
   "#Enumeration & Error Messages": "..",
   "error.msg.client.attach.to.group.invalid.office": "The subgroup and its client's must belong to the same field office.",

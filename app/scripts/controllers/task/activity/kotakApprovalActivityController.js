@@ -155,6 +155,84 @@
             }
 
 
+
+            scope.releaseClient = function (clientId) {
+                var releaseClientFormData = {};
+                releaseClientFormData.locale = scope.optlang.code;
+                releaseClientFormData.dateFormat = scope.df;
+                releaseClientFormData.reactivationDate = dateFilter(new Date(),scope.df);
+                var queryParams = {clientId: clientId, command: 'reactivate'};
+                resourceFactory.clientResource.save(queryParams,releaseClientFormData, function (data) {
+                    initTask();
+                });
+
+            }
+            
+            //client reject reason method call
+            scope.clientRejection = function (member) {
+                var templateUrl = 'views/task/popup/closeclient.html';
+                
+                $modal.open({
+                    templateUrl: templateUrl,
+                    controller: clientCloseCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'memberId': member.id,
+                                'memberName': member.displayName,
+                                'fcsmNumber':member.fcsmNumber };
+                        }
+                    }
+                });
+            }
+            var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
+
+                $scope.error = null;
+                $scope.isError = false;
+                $scope.isClosureDate = true;
+                $scope.isRejectType = true;
+                $scope.isReason = true;
+                $scope.rejectClientData = {};
+                $scope.memberName = memberParams.memberName;
+                $scope.fcsmNumber = memberParams.fcsmNumber;
+                $scope.rejectClientData.locale = scope.optlang.code;
+                $scope.rejectClientData.dateFormat = scope.df;
+                $scope.rejectTypes = scope.rejectTypes;
+                $scope.clientClosureReasons = scope.clientClosureReasons;
+                $scope.rejectClientData.closureDate = dateFilter(new Date(), scope.df);
+                $scope.cancelClientClose = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                $scope.submitClientClose = function () {
+                    $scope.isError = false;
+                    if($scope.rejectClientData.rejectType==undefined || $scope.rejectClientData.rejectType==null || $scope.rejectClientData.rejectType.length==0){
+                        $scope.isRejectType = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectClientData.closureReasonId==undefined || $scope.rejectClientData.closureReasonId==null){
+                        $scope.isReason = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.rejectClientData.closureDate==undefined || $scope.rejectClientData.closureDate==null || $scope.rejectClientData.closureDate.length==0){
+                        $scope.isClosureDate = false;
+                        $scope.isError = true;
+                    }
+                    if($scope.isError){
+                        return false;
+                    }
+                    if($scope.rejectClientData.closureDate){
+                        $scope.rejectClientData.closureDate = dateFilter($scope.rejectClientData.closureDate, scope.df);
+                    }
+                    resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
+                       $modalInstance.dismiss('cancel');
+                       initTask();
+                    });
+                };
+
+            }
+            
+
+
         }
         });
     mifosX.ng.application.controller('kotakApprovalActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.kotakApprovalActivityController]).run(function ($log) {
