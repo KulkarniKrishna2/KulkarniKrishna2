@@ -19,22 +19,15 @@
 					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
 					<th class="col-md-1"> </th>
-					<th class="col-md-2">{{'label.heading.kotak.approval.status' | translate}} </th>
+					<th class="col-md-2 cell-overflow">{{'label.heading.kotak.approval.status' | translate}} </th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr  class="background-gold">
-						<td colspan="10">
+						<td colspan="11">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
-						<td class="col-md-1">
-							<a type="button" class="btn btn-danger btn-xs" 
-                                 ng-disabled = "{{taskData.possibleActions.length == 0}}"
-								ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}">
-									<i class="icon-remove-circle pointer"></i>
-							</a>
-						</td> 
 					</tr>
 					<tr ng-repeat="activeClientMember in groupMember.memberData" 
 					  ng-class ="activeClientMember.color"
@@ -44,12 +37,12 @@
 						ng-model="client.checked" ng-change="
 						captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
 						</td>
-						<td class="col-md-2">
+						<td class="col-md-2 cell-overflow">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 						</td>
-						<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+						<td class="col-md-2 cell-overflow">{{activeClientMember.fcsmNumber}}</td>
 						<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
-						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
+						<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
 						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
 						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount | number}}</td>
 						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount | number}}&nbsp;&nbsp; {{activeClientMember.loanAccountBasicData.charges[2].amount | number}}</td>
@@ -58,14 +51,14 @@
 							    class="btn btn-default">
 								{{'label.button.history' | translate}}</a>
 						</td>
-						<td class="col-md-2">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
+						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
 						<td class="col-mod-1" >
-							<!-- <a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember.id)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+							 <a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask || !activeClientMember.loanAccountBasicData.isNotLoanApproved">
 							    <i class="icon-remove-circle pointer"></i>
 							</a>
 							<a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 								<i class="icon-unlock pointer"></i>
-							</a> -->
+							</a>
 						</td>
 					</tr>
 				</tbody>

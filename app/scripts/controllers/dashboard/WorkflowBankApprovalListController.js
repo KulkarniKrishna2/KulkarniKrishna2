@@ -67,15 +67,6 @@
 
             checkPermission();
 
-            scope.getResultsPage = function (pageNumber) {
-                scope.formParams.offset = ((pageNumber - 1) * scope.pageSize);
-                scope.formParams.limit = scope.pageSize;
-                resourceFactory.taskListResource.get(scope.formParams, function (data) {
-                    scope.workFlowTasks = data.pageItems;
-                });
-            };
-
-
             scope.goToBankApprovalView = function (bankApproveObj, groupingType) {
                 if(bankApproveObj != undefined){
                     if(groupingType == 'ManualApprove'){
