@@ -1966,6 +1966,14 @@
                 });
             };
 
+            scope.getLoanTopDetails = function(){
+                if(scope.loanTopupDetails == undefined || scope.loanTopupDetails.length==0){                    
+                    resourceFactory.loanTopupResource.get({loanId: routeParams.id}, function (data) {
+                        scope.loanTopupDetails = data;
+                    });
+                }
+            }
+
             var enableOrDisableLoanLockButtons = function () {
                 for(var i in scope.buttons.singlebuttons){
                     if(scope.buttons.singlebuttons[i].taskPermissionName == 'DISBURSALUNDO_LOAN'){

@@ -506,22 +506,40 @@
                     <input id="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
                 </td>
             </tr>
+            
             <tr ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
-                <td class="paddedbottom10">
-                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup"/>
+                <td class="paddedbottom10" colspan="3">
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()"/>
                 </td>
-                <td ng-show="formData.isTopup == true"><label>{{ 'label.input.loanIdToClose' | translate }}</label></td>
-                <td class="width36 paddedbottom10" ng-show="formData.isTopup == true">
-                    <select chosen="loanaccountinfo.clientActiveLoanOptions" id="loanIdToClose" ng-model="formData.loanIdToClose"
-                            ng-options="loanSummary.id as (loanSummary.accountNo +'('+ loanSummary.productName +')') for loanSummary in loanaccountinfo.clientActiveLoanOptions" class="form-control width170px" 
-                            value="{{loanSummary.id}}"/>
+            </tr>
+            <tr ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
+                <td></td>
+                <td class="width36 paddedbottom10"  colspan="2" ng-show="formData.isTopup == true">
+                     
+                     <div  style="display: block; max-height: 300px; overflow-y: auto">
+                        <table class="table well" style="table-layout: fixed">
+                            <thead>
+                                <tr class="graybg"> 
+                                    <th><input type="checkbox" ng-model="isAllLoanToClose" ng-change="selectAllLoanToClose(isAllLoanToClose)"></th>
+                                    <th>{{'label.heading.loanIdToClose' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="loanTopupDetail in loanaccountinfo.clientActiveLoanOptions">
+                                    <td><input type="checkbox" ng-model="loanTopupDetail.isSelected" ng-change="updateAllCheckbox()"></td>
+                                    <td>{{loanTopupDetail.accountNo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>                    
                 </td>
             </tr>
             <tr ng-show="showIsDeferPaymentsForHalfTheLoanTerm">
                 <td><label>{{ 'label.heading.deferpaymentsforhalftheloanterm' | translate }}</label></td>
                 <td><input type="checkbox"  ng-model="formData.deferPaymentsForHalfTheLoanTerm"/></td>
             </tr>
+
             <tr>
                 <td colspan="4" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true"><hr></td>
             </tr>
@@ -701,7 +719,7 @@
                     <div class="col-sm-3" ng-if="parentGroups.length > 1">
                         <select id="groupId"  name = "groupId" ng-model="formData.groupId" class="form-control"
                                 ng-options="parentGroup.id as parentGroup.name for parentGroup in parentGroups"
-                                value="{{parentGroup.id}}" required">
+                                value="{{parentGroup.id}}" required>
                           <option value="">{{'label.menu.selectgroup' | translate}}</option>
                         </select>
                          <form-validate valattributeform="newloanaccountform" valattribute="groupId"/>

@@ -482,14 +482,6 @@
                                 <td>{{'label.input.isTopup' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.isTopup}}</span></td>
                             </tr>
-                            <tr data-ng-show="loandetails.isTopup">
-                                <td>{{'label.heading.loanIdToClose' | translate}}</td>
-                                <td><span class="padded-td"><a href="#/viewloanaccount/{{loandetails.closureLoanId| number}}">{{loandetails.closureLoanAccountNo}}</a></span></td>
-                            </tr>
-                            <tr data-ng-show="loandetails.isTopup">
-                                <td>{{'label.heading.topupAmount' | translate}}</td>
-                                <td><span class="padded-td">{{loandetails.topupAmount| number}}</span></td>
-                            </tr>
                             <tr>
                                 <td>{{ 'label.input.recalculateinterest' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.isInterestRecalculationEnabled | YesOrNo }}</span></td>
@@ -979,6 +971,29 @@
                             </tr>
                             </tbody>
                         </table>
+                    </tab>
+
+                    <tab ng-show="loandetails.isTopup" heading="{{'label.heading.loantopupdetails' | translate}}" ng-click="getLoanTopDetails()">
+                                  <br/>
+                                <table class="table  table-striped well">
+                                    <thead>
+                                      <tr  class="graybg">
+                                          <th>{{'label.heading.loanIdToClose' | translate}}</th>
+                                          <th>{{'label.heading.topupAmount' | translate}}</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="loanTopupDetail in loanTopupDetails">
+                                          <td>
+                                            <span class="padded-td">
+                                              <a href="#/viewloanaccount/{{loanTopupDetail.closureLoanId}}">{{loanTopupDetail.closureLoanAccountNo}}</a>
+                                            </span>
+                                          </td>
+                                          <td>{{loanTopupDetail.topupAmount| number}}</td>
+                                      </tr>
+                                  </tbody>
+                                </table>
+
                     </tab>
 
                     <tab active="isGlimTabActive" heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails.length>0">

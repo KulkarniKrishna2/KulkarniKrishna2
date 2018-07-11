@@ -92,9 +92,21 @@
 
             };
 
-            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
+            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
                 scope.paymentModeOptions = data.paymentModeOptions || [];
+                if(data.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length>0 && data.loanTopupDetailsData.length>0){
+                    for(var i in data.loanTopupDetailsData){
+                        var closureLoanId = data.loanTopupDetailsData[i].closureLoanId;
+                        for (var j = 0; j < scope.loanaccountinfo.clientActiveLoanOptions.length; j++) {
+                            if(scope.loanaccountinfo.clientActiveLoanOptions[j].id==closureLoanId){
+                                scope.loanaccountinfo.clientActiveLoanOptions[j].isSelected = true;
+                            }
+                        };
+                    }
+                    scope.isAllLoanToClose = (scope.loanaccountinfo.clientActiveLoanOptions.length==data.loanTopupDetailsData.length);
+                    
+                }
                 if(scope.loanaccountinfo.expectedDisbursalPaymentType){
                     scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
                     if(scope.loanaccountinfo.expectedDisbursalPaymentType.paymentMode){
@@ -746,9 +758,35 @@
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
+            };
+
+            scope.selectAllLoanToClose = function(isAllLoanToClose){
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                }
+            }
+
+            scope.updateAllCheckbox = function(){
+                var isAll = true;
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected == undefined || scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==false){
+                        isAll = false;
+                    }
+                }
+                scope.isAllLoanToClose = isAll;
             };
 
             scope.getProductPledges = function(data){

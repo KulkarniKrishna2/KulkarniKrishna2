@@ -7106,5 +7106,9 @@
 
     "label.input.associate.with.loan" : "Associated With Loan",
     "error.msg.columns.dependson.same.as.name": "Invalid column association.Column cannot be associated with same column",
+
+     "validation.msg.loan.loanIdToClose.cannot.be.empty" : "Please select loan to close with topup",
+     "label.heading.loantopupdetails" : "Loan Topup Details",
+
     "------ end of tensalation file":"---------"
 }
