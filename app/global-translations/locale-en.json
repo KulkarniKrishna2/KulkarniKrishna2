@@ -414,14 +414,9 @@
     "label.savesuccessfully":"Saved Successfully",
     "label.nodatafound":"No data was found related to the search parameters entered.",
     "label.mustbenumeric":"Must be numeric",
-<<<<<<< HEAD
     "label.must.be.ten.digits.numeric":"Must be Ten digits numeric",
     "inavalid.ifsc.format":"Special characters, space and more than 11 characters are not allowed",
     "invalid.accountnumber.format" : "Special characters, space are not allowed",
-=======
-    "label.must.be.ten.digits.numeric":"Must be valid Ten digits numeric",
-    "inavalid.ifsc.format":"Special characters, space and more than 11 characters are not allowed",
->>>>>>> v18.01.1_CHAITANYA_PROD
     "label.mustbe6digitnumber":"Pincode Must be a 6 digit number",
     "label.percentage": "Percentage",
     "label.outstanding.amount":"Loan outstanding amount",
