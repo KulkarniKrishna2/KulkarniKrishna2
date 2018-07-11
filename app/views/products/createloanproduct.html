@@ -258,7 +258,7 @@
         <form-validate valattributeform="createloanproductform" valattribute="principal"/>
     </div>
 </div>
-<div class="form-group" ng-show="formData.useBorrowerCycle">
+<div class="form-group" ng-show="formData.borrowerCycleType != 0">
     <label class="control-label col-sm-2">{{'label.heading.principalCycleVariations' | translate}}
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.principalcyclevariations' | translate}}"
            tooltip-append-to-body="true"></i>
@@ -333,7 +333,7 @@
     </div>
 </div>
 
-<div class="form-group" ng-show="formData.useBorrowerCycle">
+<div class="form-group" ng-show="formData.borrowerCycleType != 0">
     <label class="control-label col-sm-2">{{'label.heading.numerOfRepaymentCycleVariations' | translate}}
         <i class="icon-question-sign"
            tooltip="{{'label.tooltip.loanproduct.numerofrepaymentcyclevariations' | translate}}"
@@ -521,14 +521,14 @@
         <form-validate valattributeform="createloanproductform" valattribute="interestRatePerPeriod" />
     </div>
 </div>
-<div class="form-group" ng-if="formData.useBorrowerCycle">
+<div class="form-group" ng-if="formData.borrowerCycleType != 0">
     <label class="control-label col-sm-2">{{'label.heading.interestRateCycleVariations' | translate}}<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.interestratecyclevariations' | translate}}" tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
         <a class="btn btn-primary" ng-click="addInterestRateVariation()">{{ 'label.button.add' | translate }}</a>
     </div>
 </div>
-<div class="form-group" ng-if="formData.useBorrowerCycle && configureInterestRatesChart">
+<div class="form-group" ng-if="formData.borrowerCycleType != 0 && configureInterestRatesChart">
     <div data-ng-show="irFlag" class="col-md-9 col-sm-offset-2">
         <table class="table">
             <tr class="graybg">
@@ -588,7 +588,7 @@
     </div>
 </div>
 
-<div class="form-group" ng-if="formData.useBorrowerCycle && !configureInterestRatesChart">
+<div class="form-group" ng-if="formData.borrowerCycleType != 0 && !configureInterestRatesChart">
         <div data-ng-show="irFlag" class="col-md-9 col-sm-offset-2">
         <table class="table">
             <tr class="graybg">

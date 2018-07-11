@@ -109,7 +109,6 @@
                     fundId: scope.product.fundId,
                     applicableForLoanType: scope.product.applicableForLoanType.id,
                     includeInBorrowerCycle: scope.product.includeInBorrowerCycle,
-                    useBorrowerCycle: scope.product.useBorrowerCycle,
                     currencyCode: scope.product.currency.code,
                     digitsAfterDecimal: scope.product.currency.decimalPlaces,
                     inMultiplesOf: scope.product.currency.inMultiplesOf,

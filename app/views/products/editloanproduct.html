@@ -228,7 +228,7 @@
 	        <form-validate valattributeform="editloanproductform" valattribute="principal"/>
 	    </div>
 	</div>
-	<div class="form-group" ng-show="formData.useBorrowerCycle">
+	<div class="form-group" ng-show="formData.borrowerCycleType != 0">
 	    <label class="control-label col-sm-2">{{'label.heading.principalCycleVariations' | translate}}
 	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.principalcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
@@ -299,7 +299,7 @@
 	    </div>
 	</div>
 
-	<div class="form-group" ng-show="formData.useBorrowerCycle">
+	<div class="form-group" ng-show="formData.borrowerCycleType != 0">
 	    <label class="control-label col-sm-2">{{'label.heading.numerOfRepaymentCycleVariations' | translate}}
 	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.numerofrepaymentcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
@@ -484,7 +484,7 @@
 		</div>
 	</div>
 
-	<div class="form-group" ng-if="formData.useBorrowerCycle && configureInterestRatesChart">
+	<div class="form-group" ng-if="formData.borrowerCycleType != 0 && configureInterestRatesChart">
 		<label class="control-label col-sm-2">{{'label.heading.interestRateCycleVariations' | translate}}<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.interestratecyclevariations' | translate}}" tooltip-append-to-body="true"></i>
 		</label>
 		<div class="col-sm-2">
@@ -549,7 +549,7 @@
 		</div>
 	</div>
 
-	<div class="form-group" ng-show="formData.useBorrowerCycle && !configureInterestRatesChart">
+	<div class="form-group" ng-show="formData.borrowerCycleType != 0 && !configureInterestRatesChart">
 		<label class="control-label col-sm-2">{{'label.heading.interestRateCycleVariations' | translate}}<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.interestratecyclevariations' | translate}}" tooltip-append-to-body="true"></i>
 		</label>
 	    <div class="col-sm-2">

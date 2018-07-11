@@ -125,7 +125,7 @@
                     scope.isEnableRestrictionForClientProfile = true;
                     scope.entityProfileMappingData = scope.loanproduct.loanProductEntityProfileMappingDatas[0];
                 };
-                if(scope.loanproduct.useBorrowerCycle == true && scope.loanproduct.interestRateVariationsForBorrowerCycle.length > 0 &&
+                if(scope.loanproduct.borrowerCycleType.id != 0 && scope.loanproduct.interestRateVariationsForBorrowerCycle.length > 0 &&
                     scope.loanproduct.interestRateVariationsForBorrowerCycle[0].loanInterestRatesListPerCycle.length > 0){
                     scope.isInterestRateListPerCycleNotAvailable = false;
                 }
