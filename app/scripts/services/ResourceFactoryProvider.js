@@ -1510,7 +1510,10 @@
                     }),
                     initiateGroupWorkflowResource: defineResource(apiVer + "/groups/:groupId", {groupId: '@groupId'}, {
                         save:{method:'POST', params:{}}
-                    })
+                    }),
+                    loanTopupResource: defineResource(apiVer + "/loans/:loanId/loantopupdetails", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
                 };
             }];
         }
