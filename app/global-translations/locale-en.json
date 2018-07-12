@@ -7198,5 +7198,7 @@
     "label.heading.query" : "Query",
     "validation.reject.action.already.done.by.user": "Reject Action Already DoneBy User On This Entity, so Same User Should Not Do Approve Action",
     "validation.approve.action.already.done.by.user": "Approve Action Already DoneBy User On This Entity, so Same User Should Not Do Reject Action",
+    "label.heading.client.log" : "client log",
+    "label.heading.loan.log" : "loan log",
      "------ end of tensalation file":"---------"
 }

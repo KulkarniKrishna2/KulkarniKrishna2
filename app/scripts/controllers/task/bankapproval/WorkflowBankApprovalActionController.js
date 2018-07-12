@@ -13,6 +13,8 @@
         scope.finalOutstanding = 0;
         scope.clientImagePresent = false;
         scope.showResolveQueryButton = false;
+        scope.isDisplayClientLog = false;
+        scope.isDisplayLoanLog = false;
 
         resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
             scope.bankApprovalTemplateData = bankApprovalTemplate;
@@ -203,6 +205,22 @@
                                 scope.clientImagePresent = true;
                             });
                         }       
+                });
+            }
+
+            scope.displayClientLog = function(clientId){
+                scope.isDisplayClientLog = true;
+                scope.isDisplayLoanLog = false;
+                resourceFactory.historyResource.get({entityType: 'client',entityId: clientId}, function (data) {
+                    scope.clientLogs = data;
+                });
+            }
+
+            scope.displayLoanLog = function(loanId){
+                scope.isDisplayClientLog = false;
+                scope.isDisplayLoanLog = true;
+                resourceFactory.historyResource.get({entityType: 'loan',entityId: loanId}, function (data) {
+                    scope.loanLogs = data;
                 });
             }
 

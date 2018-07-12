@@ -296,6 +296,46 @@
                    {{'label.button.resolve' | translate}}
                 </a>
             </div>
+            <br><br>
+            <div>
+                <span class="pull-left">
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayClientLog" ng-click="displayClientLog(bankApprovalTemplateData.memberData.id)">{{'label.heading.client.log' | translate}}</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayLoanLog" 
+                    ng-click="displayLoanLog(bankApprovalTemplateData.loanAccountBasicData.id)">{{'label.heading.loan.log' | translate}}</button>
+                    &nbsp;
+                </span>
+            </div>    
+            <br><br>
+            <div>    
+		        <table class="tabel table-striped" ng-if="isDisplayClientLog || isDisplayLoanLog">
+			        <thead>
+			            <th class="col-md-2">{{'label.heading.action' | translate}}</th>
+			            <th class="col-md-2">{{'label.heading.entity' | translate}}</th>
+			            <th class="col-md-2">{{'label.heading.office' | translate}}</th>
+			            <th class="col-md-3">{{'label.heading.madeby' | translate}}</th>
+			            <th class="col-md-3">{{'label.heading.madedate' | translate}}</th>
+			        </thead>
+			        <tbody>
+			        <tr ng-repeat="clientLog in clientLogs" 
+			           ng-if = "isDisplayClientLog">
+			            <td class="col-md-2">{{clientLog.actionName}}</td>
+			            <td class="col-md-2">{{clientLog.entityName}}</td>
+			            <td class="col-md-2">{{clientLog.officeName}}</td>
+			            <td class="col-md-3">{{clientLog.makerName}}</td>
+			            <td class="col-md-3">{{clientLog.makerTime | DateTimeFormat}}</td>
+			        </tr>
+			        <tr ng-repeat="loanLog in loanLogs" 
+			           ng-if="isDisplayLoanLog">
+			            <td class="col-md-2">{{loanLog.actionName}}</td>
+			            <td class="col-md-2">{{loanLog.entityName}}</td>
+			            <td class="col-md-2">{{loanLog.officeName}}</td>
+			            <td class="col-md-3">{{loanLog.makerName}}</td>
+			            <td class="col-md-3">{{loanLog.makerTime | DateTimeFormat}}</td>
+			        </tr>
+			        </tbody>
+		        </table>
+            </div>
 
 	<script type="text/ng-template" id="viewDocument.html">
 	    	 <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
