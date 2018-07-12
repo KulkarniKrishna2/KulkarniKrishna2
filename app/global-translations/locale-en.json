@@ -6904,7 +6904,7 @@
     "label.heading.resolvedon" : "Resolved On",
     "label.heading.resolvedby" : "Resolved By",
     "label.heading.resolution" : "Resolution",
-    "label.heading.queries.resolution": "Queries and resolution",
+    "label.heading.queries.resolution": "Queries and resolutions",
     "error.msg.holiday.duplicate.date" : "Selected date is already mappped to a holiday.",
     "validation.msg.transaction authentication.authenticationRuleId.cannot.be.blank":"Transaction authentication rule has been set. Transaction should be authenticated before disbursing.",
 
@@ -7195,5 +7195,8 @@
     "label.heading.prepay.loan" : "Prepay Loan",
     "label.heading.total.current.outstanding":"Total Current Outstanding",
     "label.heading.final.outstanding":"Final Outstanding",
+    "label.heading.query" : "Query",
+    "validation.reject.action.already.done.by.user": "Reject Action Already DoneBy User On This Entity, so Same User Should Not Do Approve Action",
+    "validation.approve.action.already.done.by.user": "Approve Action Already DoneBy User On This Entity, so Same User Should Not Do Reject Action",
      "------ end of tensalation file":"---------"
 }

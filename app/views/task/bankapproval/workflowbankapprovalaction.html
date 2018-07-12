@@ -6,6 +6,9 @@
             </ul>
         </div>
         <br>
+        <div>
+        	<api-validate></api-validate>
+        </div>
         <legend><strong>{{'label.heading.applicantdetails' | translate}}</strong></legend>
         <div class="col-md-12">
 	        <div class="col-md-3">
@@ -62,6 +65,25 @@
 		    </ul>
 		    <br>
 	    </div> 
+	    <br>
+	    <legend><strong>{{'label.heading.queries.resolution' | translate}}</strong></legend>
+	    <div>
+	    	<table class="table table-bordered">
+	    		<tbody ng-repeat = "queryData in bankApprovalTemplateData.queryList">
+	    			<tr>
+	    				<td class = "col-md-2 graybg">{{'label.heading.query' | translate}} {{$index + 1}}
+	    				</td>
+	    				<td>{{queryData.query}}</td>
+	    			</tr>
+	    			<tr>
+	    				<td class = "col-md-2 graybg">{{'label.heading.resolution' | translate}} 
+	    					{{$index + 1}}
+	    				</td>
+	    				<td>{{queryData.resolution}}</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    </div>
 	    <br>
 	    <legend><strong>{{'label.heading.loanterms' | translate}}</strong></legend>
 	    <div>
@@ -266,6 +288,12 @@
                    ng-if = "showUndoApproveButton" 
                    has-permission = "UNDO_APPROVAL_TASK_CLIENT_LEVEL_BANK_APPROVE">
                    {{'label.button.undoapproval' | translate}}
+                </a>
+                <a id="resolveQuery" class="btn btn-primary" 
+                   ng-click="routeToResolveQuery()"
+                   ng-if = "showResolveQueryButton" 
+                   has-permission = "READ_TASK_CLIENT_LEVEL_QUERY">
+                   {{'label.button.resolve' | translate}}
                 </a>
             </div>
 
