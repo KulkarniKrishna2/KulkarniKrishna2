@@ -80,16 +80,18 @@
             };
 
 
-            scope.colorArray = ['#0070C0', '#70AD46', '#FFC000', '#FF0000'];
+            scope.colorArray = ['#bdbebf', '#0ba50b', '#44f444', '#f4444f', '#000107'];
 
             scope.getColor = function(status){
                 var colorStyle = {'color':scope.colorArray[0]};
-                if(status==100){  
+                if(status == "SystemApproved" || status == "KotakApproved"){  
                      colorStyle = {'color':scope.colorArray[1]};
-                }else if(status==200){
+                }else if(status =="SystemApprovedWithDeviation"){
                     colorStyle = {'color':scope.colorArray[2]};
-                }else if(status==300){
+                }else if(status== "UnderKotakApproval" || status== "ODUReviewed" || status== "UnderODUReview"){
                     colorStyle = {'color':scope.colorArray[3]};
+                }else if(status== "KotakRejected"){
+                    colorStyle = {'color':scope.colorArray[4]};
                 }
                 return colorStyle;
             };

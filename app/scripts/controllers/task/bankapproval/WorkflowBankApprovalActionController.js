@@ -12,6 +12,7 @@
         scope.totalPreclosureAmount = 0
         scope.finalOutstanding = 0;
         scope.clientImagePresent = false;
+        scope.showResolveQueryButton = false;
 
         resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
             scope.bankApprovalTemplateData = bankApprovalTemplate;
@@ -135,6 +136,10 @@
 
             }
 
+            scope.routeToResolveQuery = function(){
+                location.path('/clientlevelqueryresolve/' + scope.trackerId + '/' + scope.bankApprovalId);
+            }
+
 
             var checkWorkFlowLoanStatus = function(workflowLoanStatus){
                 if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed"){
@@ -142,16 +147,25 @@
                     scope.showRejectButton = true;
                     scope.showApproveButton = true;
                     scope.showUndoApproveButton = false;
+                    scope.showResolveQueryButton = false;
                 }else if(workflowLoanStatus == "KotakApproved"){
                     scope.showRaiseQueryButton = false;
                     scope.showRejectButton = false;
                     scope.showApproveButton = false;
                     scope.showUndoApproveButton = true;
+                    scope.showResolveQueryButton = false;
+                }else if(workflowLoanStatus == "UnderODUReview"){
+                    scope.showRaiseQueryButton = false;
+                    scope.showRejectButton = false;
+                    scope.showApproveButton = false;
+                    scope.showUndoApproveButton = false;
+                    scope.showResolveQueryButton = true;
                 }else{
                     scope.showRaiseQueryButton = false;
                     scope.showRejectButton = false;
                     scope.showApproveButton = false;
                     scope.showUndoApproveButton = false;
+                    scope.showResolveQueryButton = false;
                 }
             }       
 
