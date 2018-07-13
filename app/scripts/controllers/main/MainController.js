@@ -6,6 +6,7 @@
             scope.hideLoginPannel = false;
             scope.mainControllerUIConfigData = {};
             scope.mainControllerUIConfigData.isEnabledRecaptcha = false;
+            scope.mainControllerUIConfigData.isEnabledBrowserSecurity = false;
             if (QueryParameters["username"] != undefined && QueryParameters["username"] != "" && QueryParameters["password"] != undefined &&
                 QueryParameters["password"] != "" && QueryParameters["landingPath"] != undefined && QueryParameters["landingPath"] != "") {
                 scope.hideLoginPannel = true;
@@ -431,7 +432,21 @@
                 location.path('/viewclient/' + id);
             };
 
-
+            scope.$watch('mainControllerUIConfigData.isEnabledBrowserSecurity', function (newValue, oldValue) {
+                if (!angular.equals(newValue, oldValue) && scope.mainControllerUIConfigData.isEnabledBrowserSecurity) {
+                    document.onkeydown = function (e) {
+                        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode ===
+                                117 || e.keycode === 17 || e.keycode === 85)) {
+                            e.preventDefault();
+                            return false;
+                        } else if (e.keyCode == 123) {
+                            e.preventDefault();
+                            return false;
+                        }
+                        return true;
+                    };
+                }
+            });
 
             sessionManager.restore(function (session) {
                 scope.currentSession = session;

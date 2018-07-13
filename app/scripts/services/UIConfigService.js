@@ -24,6 +24,9 @@
                                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
                                     scope.mainControllerUIConfigData.isEnabledRecaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledRecaptcha;
                                 }
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
+                                    scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
+                                }
                             }
                         }
                     }).error(function (data) {
@@ -45,6 +48,9 @@
                             }
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
                                 scope.mainControllerUIConfigData.isEnabledRecaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledRecaptcha;
+                            }
+                            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
+                                scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
                             }
                         }
                     }).error(function (tenantSpecificData) {
