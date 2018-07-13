@@ -29,7 +29,11 @@
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                               if(clientLevelTaskTrackObj == undefined){
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                if (scope.eventType && scope.eventType == 'create') {
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                } else {
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                }
                                   scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
                               }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
                                     if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){

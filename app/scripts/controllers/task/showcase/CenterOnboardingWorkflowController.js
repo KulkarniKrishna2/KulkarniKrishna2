@@ -1,11 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CenterOnboardingWorkflowController: function (scope, resourceFactory, routeParams) {
-            var eventType = routeParams.eventType;
+            scope.eventType = routeParams.eventType;
             scope.centerId = routeParams.centerId;
 
             function init() {
-
                 resourceFactory.centerResource.get({
                     centerId: scope.centerId,
                     associations: 'all'
@@ -18,7 +17,7 @@
             function fetchTask() {
                 resourceFactory.entityEventTaskExecutionResource.get({
                     entityType: "center",
-                    eventType: eventType,
+                    eventType: scope.eventType,
                     entityId: scope.centerId
                 }, function (data) {
                     scope.taskData = data;

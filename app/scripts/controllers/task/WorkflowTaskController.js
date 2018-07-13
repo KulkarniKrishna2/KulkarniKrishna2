@@ -32,7 +32,6 @@
 
             function initWorkflowTask() {
                 if (scope.tasks != undefined && scope.tasks.length > 0) {
-
                     scope.currentTaskId = scope.tasks[0].id;
                     for (index in scope.tasks) {
                         var task = scope.tasks[index];
