@@ -15,13 +15,17 @@
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                               if(clientLevelTaskTrackObj == undefined){
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                  if (scope.eventType && scope.eventType == 'create') {
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                  } else {
+                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                  }
                                   scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
                               }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
                                     if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
                                         if(clientLevelCriteriaObj.score == 5){
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";

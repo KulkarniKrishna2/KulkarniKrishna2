@@ -77,9 +77,12 @@
                 }, function (workFlows) {
                     scope.workFlows = workFlows;
                     for (var i in scope.workFlows) {
-                        if (scope.workFlows[i].status) {
+                        if (scope.workFlows[i] && scope.workFlows[i].status) {
                             if (scope.workFlows[i].status.value == 'initiated') {
-                                if (scope.workFlows[i].eventType.systemCode == 'loancycle') {
+                                if (scope.uiData.isNewLoanCycle && scope.workFlows[i].eventType.systemCode == 'loancycle') {
+                                    scope.uiData.isNewLoanCycle = false;
+                                }
+                                if (scope.workFlows[i].eventType.systemCode == 'create') {
                                     scope.uiData.isNewLoanCycle = false;
                                 }
                             } else if (scope.workFlows[i].status.value == 'completed') {

@@ -115,7 +115,7 @@
 							<a ng-if="center.isWorkflowEnabled && center.workflowId && false" href="#/centeronboarding/{{center.id}}/workflow" class="pull right btn btn-primary">
 								<i class="icon-white"></i>{{'label.heading.view.workflow' | translate}}</a>
 
-							<a ng-if="center.isWorkflowEnabled && center.workflowId && uiData.isNewLoanCycle" class="pull right btn btn-primary" ng-click="initiateNewWorkFlow('loancycle')">
+							<a ng-if="center.isWorkflowEnabled && uiData.isNewLoanCycle" class="pull right btn btn-primary" ng-click="initiateNewWorkFlow('loancycle')">
 								<i class="icon-white"></i>{{'label.button.next.loan.cycle' | translate}}</a>
 
 							<span class="btn-group dropdown" on-toggle="toggled(open)">

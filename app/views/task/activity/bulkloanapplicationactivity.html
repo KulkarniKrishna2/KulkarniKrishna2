@@ -37,10 +37,10 @@
 						</td>
 					</tr> 
 						<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember"
-						 ng-class ="activeClientMember.color"
-						 ng-if="!activeClientMember.isClientFinishedThisTask" >
-						 <td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
-							ng-disabled="activeClientMember.isClientFinishedThisTask"
+						 ng-class ="activeClientMember.color" >
+						 <td class="col-md-1">
+							 <input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+							ng-disabled="activeClientMember.isClientFinishedThisTask || activeClientMember.loanAccountBasicData == undefined"
 							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
 							<td class="col-md-2"><a href= "" ng-click= "viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 							</td>
@@ -54,7 +54,7 @@
 							<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount | number}} &nbsp;</span></td>
 							<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount | number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount | number}} &nbsp;</span></td>
 							<td class="col-md-1">
-								<a type="button" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" tooltip="{{'label.button.edit.loan' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+								<a ng-if="activeClientMember.loanAccountBasicData" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" tooltip="{{'label.button.edit.loan' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 									<i class="icon-edit icon-white pointer"></i>
 								</a>
 						    </td>
