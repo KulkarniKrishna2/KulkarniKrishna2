@@ -7200,5 +7200,9 @@
     "validation.approve.action.already.done.by.user": "Approve Action Already DoneBy User On This Entity, so Same User Should Not Do Reject Action",
     "label.heading.client.log" : "client log",
     "label.heading.loan.log" : "loan log",
+    "label.allStatus" : "All Status",
+    "label.placeholder.expected.disbursement.date" : "ExpectedDisbursementDate",
+    "label.placeholder.task.created.date" : "TaskCreatedDate",
+    "label.placeholder.clientId" : "ClientId",
      "------ end of tensalation file":"---------"
 }

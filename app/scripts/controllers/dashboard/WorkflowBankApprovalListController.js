@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        WorkflowBankApprovalListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams, $rootScope) {
+        WorkflowBankApprovalListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams, $rootScope, dateFilter) {
             scope.formData = {};
             scope.taskTypes = [
                 {id: 'tab1', name: "label.tab.kotak.approval.loans", grouping: 'ManualApprove', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_BANK_APPROVE', active: false, showtab : false},
@@ -10,12 +10,24 @@
             scope.selectedStatus = 'Invalid';
             scope.filterBy = 'Invalid';
             scope.workflowLoanStatusList = [];
+            scope.offices = [];
+            scope.dateFormat = "dd MMMM yyyy";
+
+            resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
+                 scope.offices = officelist.allowedParents;
+            })
 
             var fetchFunction = function (offset, limit, callback) {
                 resourceFactory.bankApprovalListSearchResource.get({
                     filterby: scope.filterBy,
                     offset: offset,
-                    limit: limit
+                    limit: limit,
+                    officeId : scope.formData.officeId,
+                    workflowLoanStatus : scope.formData.workflowLoanStatus,
+                    clientId : scope.formData.clientId,
+                    dateFormat : scope.dateFormat,
+                    expectedDisbursementDate : (scope.formData.expectedDisbursementDate != undefined) ?  dateFilter(scope.formData.expectedDisbursementDate, scope.df) : null,
+                    taskCreatedDate : (scope.formData.taskCreatedDate != undefined) ?  dateFilter(scope.formData.taskCreatedDate, scope.df) : null
                 }, callback);
 
             };
@@ -98,7 +110,7 @@
 
         }
     });
-    mifosX.ng.application.controller('WorkflowBankApprovalListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', '$rootScope', mifosX.controllers.WorkflowBankApprovalListController]).run(function ($log) {
+    mifosX.ng.application.controller('WorkflowBankApprovalListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', '$rootScope', 'dateFilter', mifosX.controllers.WorkflowBankApprovalListController]).run(function ($log) {
         $log.info("WorkflowBankApprovalListController initialized");
     });
 }(mifosX.controllers || {}));
