@@ -1554,6 +1554,9 @@
                     }),
                     taskClientLevelQueryResolveTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/query/template",{trackerId:'@trackerId'}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    officeDropDownResource: defineResource(apiVer + "/offices/template", {}, {
+                        getAllOffices: {method: 'GET', params: {}}
                     })
                 };
             }];
