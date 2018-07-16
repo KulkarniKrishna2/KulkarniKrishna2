@@ -6,7 +6,7 @@
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview,workflowloanstatus' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview,workflowloanstatus' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
@@ -20,8 +20,12 @@
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                               if(clientLevelTaskTrackObj == undefined){
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                if (scope.eventType && scope.eventType == 'create') {
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                } else {
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                }
+                                scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
                               }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
                                     if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
                                         if(clientLevelCriteriaObj.score == 5){
