@@ -433,10 +433,11 @@
             };
 
             scope.$watch('mainControllerUIConfigData.isEnabledBrowserSecurity', function (newValue, oldValue) {
+                //Key Ref : https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes  
                 if (!angular.equals(newValue, oldValue) && scope.mainControllerUIConfigData.isEnabledBrowserSecurity) {
                     document.onkeydown = function (e) {
                         if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode ===
-                                117 || e.keycode === 17 || e.keycode === 85)) {
+                                117 || e.keycode === 17)) {
                             e.preventDefault();
                             return false;
                         } else if (e.keyCode == 123) {
@@ -444,6 +445,16 @@
                             return false;
                         }
                         return true;
+                    };
+                    document.oncontextmenu = function(e){
+                        e.preventDefault();
+                        return false;
+                    };
+                    document.onclick = function(e){
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            return false;
+                        }
                     };
                 }
             });
