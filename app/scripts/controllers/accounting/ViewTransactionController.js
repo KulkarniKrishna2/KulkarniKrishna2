@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal, http, API_VERSION, $rootScope, $sce, $window) {
+        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal, http, API_VERSION, $rootScope, $sce, $window, $filter) {
             scope.flag = false;
             scope.manualEntry = false;
             scope.productName = routeParams.productName;
@@ -21,7 +21,7 @@
             scope.reportName = 'Journal Voucher';
             scope.reportOutputType = 'PDF';
             scope.dataTableName = 'f_journal_entry';
-            scope.transactions = [];
+            scope.jetransactions = [];
 			scope.sections = [];
             scope.isReverseDisabled = false;
             scope.isReversalEntry = false;
@@ -31,27 +31,38 @@
 
             if(!routeParams.isTransactionReferenceNumber) {
                 resourceFactory.journalEntriesResource.get({trxid: routeParams.transactionId}, function (data) {
-                    scope.transactions.push(data);
+                    scope.jetransactions.push(data);
                     if (data.reversed == false) {
                         scope.flag = true;
                     }
                     scope.isReversalEntry = data.isReversalEntry;
                     scope.manualEntry = data.manualEntry;
-                    scope.transaction = scope.transactions[0];
+                    // scope.transaction = scope.jetransactions[0];
                     scope.transactionNumber = scope.transaction.transactionId;
+                    scope.parseTransactions(scope.jetransactions);
                 });
             }else{
                 resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId, transactionDetails:true}, function (data) {
                     scope.transactionNumber = routeParams.transactionId;
-                    scope.transactions = data.pageItems;
+                    scope.jetransactions = data.pageItems;
                     for (var i in data.pageItems) {
                         scope.manualEntry = data.pageItems[i].manualEntry;
                         if (data.pageItems[i].reversed == false) {
                             scope.flag = true;
                         }
                     }
-                    scope.transaction =  scope.transactions[0];
+                    // scope.transaction =  scope.jetransactions[0];
+                    scope.parseTransactions(scope.jetransactions);
                 });
+            }
+
+            scope.parseTransactions = function (transactionEntries) {
+                if (!_.isUndefined(transactionEntries) && transactionEntries.length > 0) {
+                    _.each(transactionEntries, function(entry) {
+                        entry.transactionDate = $filter('DateFormat')(entry.transactionDate);
+                    });
+                    scope.parsedTransactions = _.groupBy(transactionEntries, 'transactionDate');
+                }
             }
 
             scope.confirmation = function () {
@@ -302,7 +313,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', '$http', 'API_VERSION', '$rootScope', '$sce', '$window', mifosX.controllers.ViewTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', '$http', 'API_VERSION', '$rootScope', '$sce', '$window', '$filter', mifosX.controllers.ViewTransactionController]).run(function ($log) {
         $log.info("ViewTransactionController initialized");
     });
 }(mifosX.controllers || {}));

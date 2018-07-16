@@ -47,6 +47,8 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.isInvalid = false;
+            scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
+            scope.showValueDateField = false;
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -270,6 +272,9 @@
                         scope.netAmount = scope.loanTransactionData.netDisbursalAmount;
                         scope.nextRepaymentDate = new Date(scope.loanTransactionData.possibleNextRepaymentDate) || new Date();
                         scope.formData[scope.modelName] = new Date();
+                        if (scope.isValueDateEnabled) {
+                            scope.showValueDateField = true;
+                        }
                         if (scope.loanTransactionData.fixedEmiAmount) {
                             scope.formData.fixedEmiAmount = scope.loanTransactionData.fixedEmiAmount;
                             scope.showEMIAmountField = true;
@@ -306,6 +311,7 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
                        scope.formData.transactionAmount = data.amount;
                         scope.formData[scope.modelName] = new Date();
+                        scope.formData.valueDate = scope.formData[scope.modelName];
                         if (data.fixedEmiAmount) {
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
@@ -357,6 +363,9 @@
 
             scope.formDisbursementData = function(){
                  scope.modelName = 'actualDisbursementDate';
+                 if (scope.isValueDateEnabled) {
+                     scope.showValueDateField = true;
+                 }
                     if(scope.response){
                         scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
                     }                    
@@ -482,6 +491,9 @@
                     break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
                         if(glimData.length>0 ){
@@ -520,6 +532,9 @@
                 case "prepayment":
                     scope.modelName = 'transactionDate';
                     scope.formData.transactionDate =  new Date();
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.paymentTypeResource.getAll({}, function (data) {
                         scope.paymentTypes = data;
                         scope.getPaymentTypeOtions();
@@ -536,6 +551,9 @@
                     break;
                 case "prepayloan":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -558,6 +576,9 @@
                     break;
                 case "prepay":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -666,6 +687,9 @@
                     break;
                 case "refund":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'refund'}, function (data) {
                         scope.amount = data.amount;
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -747,6 +771,9 @@
                         if (data.dueDate) {
                             scope.formData.transactionDate = new Date(data.dueDate);
                         }
+                        if (scope.isValueDateEnabled) {
+                            scope.showValueDateField = true;
+                        }
                         if (data.chargeTimeType.value === "Instalment Fee" && data.installmentChargeData) {
                             scope.installmentCharges = data.installmentChargeData;
                             scope.formData.installmentNumber = data.installmentChargeData[0].installmentNumber;
@@ -799,6 +826,9 @@
                     break;
                 case "recoverypayment":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'recoverypayment'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.paymentModeOptions = data.paymentModeOptions;
@@ -1079,6 +1109,9 @@
 
                 if (this.formData[scope.modelName]) {
                     this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName], scope.df);
+                }
+                if (this.formData.valueDate) {
+                    this.formData.valueDate = dateFilter(this.formData.valueDate, scope.df);
                 }
                 if (scope.action != "undoapproval" && scope.action != "undodisbursal" || scope.action === "paycharge") {
                     this.formData.locale = scope.optlang.code;

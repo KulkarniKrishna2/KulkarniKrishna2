@@ -1,11 +1,12 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
+        ViewLoanTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal, route) {
 
             scope.glimTransactions = [];
             scope.groupBankAccountDetails = {};
             scope.reversalReasons = [];
             scope.isRejectReasonRequired = false;
+            scope.isValuedateUpdateRequired = false;
 
             function init(){
                 resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
@@ -15,10 +16,12 @@
                 scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
                 scope.transaction.updatedDate = new Date(scope.transaction.updatedDate.iLocalMillis);
                 scope.groupBankAccountDetails = data.bankAccountDetailsData;
+                if (scope.transaction.txnValueDateStatus && scope.transaction.txnValueDateStatus.id==1 && !scope.transaction.manuallyReversed) {
+                    scope.isValuedateUpdateRequired = true;
+                }
+                scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
                 scope.isUndoEditTrxnEnabled();
                 scope.getReversalReasonCodes();
-
-
              });
             };
 
@@ -43,7 +46,7 @@
                 if (scope.transaction.type.contra || scope.transaction.type.revokeSubsidy || scope.transaction.type.addSubsidy || scope.transaction.type.disbursement) {
                     scope.hideEditUndoTrxnButton = true;
                 }
-                if(scope.transaction.transfer){
+                if(scope.transaction.transfer || scope.isValueDateEnabled){
                     scope.hideEditTrxnButton = true;    
                 }
             }
@@ -115,12 +118,43 @@
                  $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-                
+            };
+
+            scope.updateValueDate = function (accountId, transactionId) {
+                $modal.open({
+                    templateUrl: 'updatevaluedate.html',
+                    controller: UpdateValueDateCtrl,
+                    resolve: {
+                        accountId: function () {
+                          return accountId;
+                        },
+                        transactionId: function () {
+                          return transactionId;
+                        }
+                    }
+                });
+            };
+            
+            var UpdateValueDateCtrl = function ($scope, $modalInstance, accountId, transactionId) {
+                $scope.formRequestData = {dateFormat: scope.df, locale: scope.optlang.code};
+                $scope.formRequestData.valueDate = new Date();
+                $scope.updateTransaction = function (reason) {
+                    var params = {loanId: accountId, transactionId: transactionId};
+                    $scope.formRequestData.valueDate = dateFilter($scope.formRequestData.valueDate, scope.df);
+                    resourceFactory.loanTransactionValueDateResource.update(params, $scope.formRequestData, function (data) {
+                        $modalInstance.close('updatevaluedate');
+                        scope.isValuedateUpdateRequired = false;
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
             init();
         }
     });
-    mifosX.ng.application.controller('ViewLoanTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', mifosX.controllers.ViewLoanTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', '$route', mifosX.controllers.ViewLoanTransactionController]).run(function ($log) {
         $log.info("ViewLoanTransactionController initialized");
     });
 }(mifosX.controllers || {}));

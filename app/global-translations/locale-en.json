@@ -241,6 +241,8 @@
     "label.anchor.updatedefaultaccount": "Update Default Savings Account",
     "label.anchor.savingsaccountlimits":"Savings Account Limits",
     "label.anchor.loanaccountlimits":"Loan Account Limits",
+    "label.anchor.pendingvaluedatetransactions": "Pending value date transactions",
+    
     "#Inputs": "..",
     "label.input.name": "Name",
     "label.input.applicantname":"Applicant Name",
@@ -2046,6 +2048,8 @@
     "label.tooltip.frequencytocompounding":"The Frequency for compounding interest/fee may be weekly, fortnightly, monthly or quarterly thereby increasing the outstanding balance",
     "label.tooltip.frequencycompoundinginterval":"This field accompanies the 'Frequency for compounding on outstanding principle' . Ex: selecting the interval as 1 and the frequency as monthly, would result in the outstanding balance (increase) being calculated for every month.",
     "label.tooltip.frequencycompoundingdate":"The date on which the increased outstanding balance will be calculated.",
+    "label.tooltip.valuedatesuspense":"an Asset account that is debited on valuedate initiate and credited on value date completes.",
+    "label.tooltip.valuedatesuspensepayable":"an Liability account that is debited on valuedate initiate and credited on value date completes.",
 
     "label.tooltip.numberofdays":"A loan is in arrears once the number of days entered into this field is exceeded. If this field is blank, the loan will be in arrears the day after a scheduled payment is missed. ",
     "label.tooltip.maxNumberofDays":"A loan is a NPA (non performing asset) once the number of days entered into this field is exceeded. If this field is blank, the loan will be an NPA the day after a scheduled payment is missed.",
@@ -2458,6 +2462,8 @@
     "label.heading.loanaccountreports":"Loan Reports",
     "label.heading.savingaccountreports":"Saving Reports",
 
+    "label.heading.updatevaluedate": "Update Value Date",
+    "label.heading.valuedate": "Value date",
     "#Inputs": "..",
     "label.input.charges": "Charges",
     "label.input.chargecalculation": "Charge calculation",
@@ -2574,6 +2580,7 @@
     "label.button.rejectadditionalshares": "Reject Additional Shares",
     "label.button.redeemshares": "Redeem Shares",
     "label.button.addslabcharges" : "Add Slab Charges",
+    "label.button.updatevaluedate": "Update ValueDate",
 
     "#Misc Labels": "..",
     "label.selectcharge": "Select charge",
@@ -3599,6 +3606,8 @@
     "label.heading.fundsourcesforpayment": "Fund Sources for Payment",
     "label.heading.feestospecificincome": "Fees to Specific Income Account",
     "label.heading.penaltiesspecifictoincomeacc": "Penalties to Specific Income Account",
+    "label.heading.valuedatesuspense":"Valuedate suspense",
+    "label.heading.valuedatesuspensepayable":"Valuedate suspense payable",
     "label.heading.items": "Items",
     "label.heading.currencyinmultiplesof": "Currency in Multiples Of",
     "label.heading.nominalannualinterestrate": "Nominal Annual Interest Rate(%)",
@@ -3786,6 +3795,9 @@
     "label.input.npapenaltiessuspense": "Penalties Suspense Account for NPA",
     "label.input.loseswrittenoff": "Losses written off",
     "label.input.overpaymentliability": "Over payment liability",
+    "label.input.valuedatesuspense":"Valuedate suspense",
+    "label.input.valuedatesuspensepayable":"Valuedate suspense payable",
+    "label.input.valuedate": "Value Date",
     "label.input.chargesappliesto": "Charges applies to",
     "label.input.ispenalty": "Is penalty?",
     "label.input.multiplesof": "Multiples of",

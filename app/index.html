@@ -138,6 +138,9 @@
         <div class="left-nav tooltip-wide">
             <ul class="nav nav-stacked margin-nav">
 
+                <li ng-if="isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction')"><a class="black" href="#/loans/pendingvaluedatetransactions"><i class="icon-list-alt icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="Pending Valuedate Loan transactions"></i></a></li>
+                <li ng-if="isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction')" class="divider"></li>
+                
                 <li><a class="black" href="#/richdashboard"><i class="icon-bar-chart icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.dashboard' | translate}}"></i></a></li>
                 <li class="divider"></li>
 

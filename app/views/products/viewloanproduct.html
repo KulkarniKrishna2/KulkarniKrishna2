@@ -648,6 +648,10 @@
                 <td colspan="3">{{loanproduct.accountingMappings.transfersInSuspenseAccount.name}}&nbsp;({{loanproduct.accountingMappings.transfersInSuspenseAccount.glCode}})</td>
             </tr>
             <tr>
+                <td>{{'label.heading.valuedatesuspense' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.valueDateSuspenseAccount.name}}&nbsp;({{loanproduct.accountingMappings.valueDateSuspenseAccount.glCode}})</td>
+            </tr>
+            <tr>
                 <td>{{'label.heading.incomefrominterest' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.interestOnLoanAccount.name}}&nbsp;({{loanproduct.accountingMappings.interestOnLoanAccount.glCode}})</td>
             </tr>
@@ -690,6 +694,10 @@
             <tr ng-show="loanproduct.accountingMappings.subsidyAccountId">
                 <td>{{'label.input.subsidyAccount' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.subsidyAccountId.name}}&nbsp;({{loanproduct.accountingMappings.subsidyAccountId.glCode}})</td>
+            </tr>
+            <tr>
+                <td>{{'label.heading.valuedatesuspensepayable' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.valueDateSuspensePayableAccount.name}}&nbsp;({{loanproduct.accountingMappings.valueDateSuspensePayableAccount.glCode}})</td>
             </tr>
             <tr>
                 <td colspan="3"><br/></td>
