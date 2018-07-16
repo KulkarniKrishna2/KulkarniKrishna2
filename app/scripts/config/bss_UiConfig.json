@@ -4,6 +4,9 @@
 		"loginSecurity": {
 			"isEnabledRecaptcha": true
 		},
+		"browserSecurity": {
+			"isEnabledBrowserSecurity": true
+		},
 		"viewClient": {
 			"isHiddenField": {
 				"createClient": true,

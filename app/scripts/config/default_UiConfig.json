@@ -4,6 +4,9 @@
 		"loginSecurity": {
 			"isEnabledRecaptcha": false
 		},
+		"browserSecurity": {
+			"isEnabledBrowserSecurity": false
+		},
 		"loanAccount": {
 	  "isHiddenField": {
 		"fundId": false,

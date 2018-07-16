@@ -620,6 +620,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'CkEditorDirective',
             'AutofocusDirective',
             'SummaryDirective',
+            'DisableRightClickDirective',
             'FormValidateDirective',
             'FormSubmitValidateDirective',
             'ApiValidationDirective',
