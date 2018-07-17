@@ -174,6 +174,7 @@ angular.module('notificationWidget', [])
                         $rootScope.errorStatus = 'No connection. Verify application is running.';
                     } else if (rejection.status == 401) {
                         $rootScope.errorStatus = 'Unauthorized';
+                        $rootScope.$broadcast("UnauthorizedRequest", rejection.data);
                     } else if (rejection.status == 405) {
                         $rootScope.errorStatus = 'HTTP verb not supported [405]';
                     } else if (rejection.status == 500) {
