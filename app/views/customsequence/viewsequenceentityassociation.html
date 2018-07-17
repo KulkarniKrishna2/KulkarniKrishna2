@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-controller="SequenceEntityAssociationCommonController">
+<div class="col-md-12" ng-controller="ViewSequenceEntityAssociationController">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/sequencemanagement">{{'label.anchor.sequence.management' | translate}}</a></li>
@@ -12,23 +12,19 @@
             <div class="col-md-6">
                 <div class="form-group paddedtop">
                     <span><b>{{'label.heading.entity' | translate}}:&nbsp;</b></span>
-                    <span>{{entityType}}</span>
+                    <span>{{sequenceAssociationsDetails.entityType.value}}</span>
                 </div>
-                <div class="form-group paddedtop" ng-if="entityId">
-                    <span><b>{{'label.heading.productname' | translate}}:&nbsp;</b></span>
-                    <span>{{entityId}}</span>
-                </div>
-                <div class="form-group paddedtop" ng-if="subEntityType">
-                    <span><b>{{'label.heading.applicable.to' | translate}}:&nbsp;</b></span>
-                    <span>{{subEntityType}}</span>
+                <div class="form-group paddedtop" ng-if="sequenceAssociationsDetails.entityName">
+                    <span><b>{{'label.heading.entityname' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceAssociationsDetails.entityName}}</span>
                 </div>
                 <div class="form-group paddedtop">
                     <span><b>{{'label.heading.applicable.field' | translate}}:&nbsp;</b></span>
-                    <span>{{applicableColumn}}</span>
+                    <span>{{sequenceAssociationsDetails.sequenceForField.value}}</span>
                 </div>
                 <div class="form-group paddedtop">
                     <span><b>{{'label.input.status' | translate}}:&nbsp;</b></span>
-                    <span>{{sequenceAssociationsDetails.status}}</span>
+                    <span>{{sequenceAssociationsDetails.status.value}}</span>
                 </div>
                 <div class="form-group paddedtop">
                     <span><b>{{'label.heading.selected.sequences' | translate}}:&nbsp;</b></span><span>

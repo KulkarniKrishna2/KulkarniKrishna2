@@ -27,9 +27,9 @@
             <tbody>
                 <tr class="pointer-main" ng-repeat="record in sequenceAssociationDetails">
                     <td class="pointer" data-ng-click="routeTo(record.id)">{{$index+1}}</td>
-                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.entityType}}</td>
-                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.sequenceForField}}</td>
-                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.status}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.entityType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.sequenceForField.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.id)">{{record.status.value}}</td>
                 </tr>
             </tbody>
         </table>
