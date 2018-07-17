@@ -35,6 +35,7 @@
             function init() {
                 resourceFactory.taskExecutionTemplateResource.get({taskId: getTaskId()}, function (data) {
                     scope.taskData = data;
+                    scope.eventType = data.eventType.systemCode;
                     if (scope.taskData != undefined) {
                         if (scope.taskData.taskType.id == 1) {
                             scope.isWorkflowTask = true;
@@ -108,8 +109,11 @@
             }
 
             var viewCWFClientsTaskStepsInfoCtrl = function ($scope, $modalInstance, CenterParams) {
-                resourceFactory.clientsTaskStepsTrackingResource.get({centerId: CenterParams.centerId}, function (data) {
-                     $scope.membersStepsInfo = data;
+                resourceFactory.clientsTaskStepsTrackingResource.get({
+                    centerId: CenterParams.centerId,
+                    eventType: scope.eventType
+                }, function (data) {
+                    $scope.membersStepsInfo = data;
                 });
 
                 $scope.close = function () {

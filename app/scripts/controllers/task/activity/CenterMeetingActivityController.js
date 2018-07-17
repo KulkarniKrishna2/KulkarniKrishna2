@@ -157,7 +157,7 @@
             }
 
             scope.$watch('formData.expectedDisbursementDate', function() {
-                if (scope.formData.expectedDisbursementDate) {
+                if (scope.formData.expectedDisbursementDate && !scope.isEditExpectedDisbursementDateOnly) {
                     var twoWeeks = 1000 * 60 * 60 * 24 * 14;
                     scope.minMeetingDate = scope.formData.expectedDisbursementDate;
                     scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+twoWeeks);
@@ -179,7 +179,7 @@
                 
                 this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                   
-                if (scope.isCenterMeetingEdit) {
+                if (scope.isCenterMeetingEdit || scope.isEditExpectedDisbursementDateOnly) {
                     var updateFormData = {};
                     updateFormData.locale = scope.optlang.code;
                     updateFormData.dateFormat = scope.df;
@@ -211,6 +211,7 @@
 
             };
             scope.cancel = function () {
+                scope.isEditExpectedDisbursementDateOnly = false;
                 scope.isCenterMeetingAttached = true;
                 scope.isCenterMeetingEdit = false;
                 var today = new Date();
@@ -267,9 +268,12 @@
                 return a - b;
             };
 
-            scope.updateMeeting = function (data) {
-                scope.isCenterMeetingEdit = true;
-                scope.isCenterMeetingAttached = false;
+            scope.updateMeeting = function (data,isCenterMeetingEdit) {
+                scope.isCenterMeetingEdit = isCenterMeetingEdit;
+                scope.isEditExpectedDisbursementDateOnly = !isCenterMeetingEdit;
+                if(isCenterMeetingEdit){
+                    scope.isCenterMeetingAttached = false;
+                }
                 scope.calendarId = data.id;
                 scope.calendarData = data;
                 scope.first = { date: new Date(data.startDate) };
@@ -317,6 +321,7 @@
                     }
                 }
             }
+
             scope.$watch('first.date', function() {
                 if (scope.first.date) {
                     scope.firstMeetingDate = new Date(scope.first.date);

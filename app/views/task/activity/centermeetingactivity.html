@@ -147,7 +147,7 @@
         <div class="col-sm-12 center paddedbottom10">
             <div>
              <br/>
-                <a id="cancel" ng-if="isCenterMeetingEdit" class="btn btn-default" href="" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+                <a id="cancel" ng-if="isCenterMeetingEdit" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>
                     {{'label.button.save' | translate}}
                 </button>
@@ -165,7 +165,16 @@
                       <strong>{{'label.heading.expecteddisbursementdate' | translate}}</strong> 
                     
                     </td>
-                    <td><span class="padded-td"> {{expectedDisbursementOnDate | DateFormat}}</span></td>
+                    <td>
+                        <span class="padded-td" ng-if="!isEditExpectedDisbursementDateOnly">
+                            {{expectedDisbursementOnDate | DateFormat}}
+                            <a ng-click="updateMeeting(centerMeetingData.collectionMeetingCalendar,false)" ng-show="centerMeetingData.collectionMeetingCalendar"
+                                has-permission='UPDATE_MEETING'>
+                                <i class="icon-edit icon-white"></i>
+                            </a>
+                        </span>
+                        <input ng-if="isEditExpectedDisbursementDateOnly" id="editExpectedDisbursementOnDate" type="text" name="editExpectedDisbursementOnDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.expectedDisbursementDate" is-open="opened" class="form-control"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -173,7 +182,7 @@
                     </td>
                     <td>
                         <span class="padded-td">{{centerMeetingData.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
-                            <a href="" ng-click="updateMeeting(centerMeetingData.collectionMeetingCalendar)" ng-show="centerMeetingData.collectionMeetingCalendar"
+                            <a ng-click="updateMeeting(centerMeetingData.collectionMeetingCalendar,true)" ng-show="centerMeetingData.collectionMeetingCalendar"
                                 has-permission='UPDATE_MEETING'>
                                 <i class="icon-edit icon-white"></i>
                             </a>
@@ -206,6 +215,15 @@
                     </td>
                 </tr>
             </table>
+        </div>
+        <div class="col-sm-12 center paddedbottom10" ng-if="isEditExpectedDisbursementDateOnly">
+            <div>
+                <br/>
+                <a id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="button" ng-click="submit()" class="btn btn-primary" has-permission='CREATE_MEETING'>
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
         </div>
     </form>
 </div>
