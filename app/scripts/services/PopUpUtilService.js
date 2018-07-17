@@ -4,6 +4,7 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         PopUpUtilService: function ($modal) {
+
             this.openFullScreenPopUp = function (templateUrl, controller, scope) {
                 var windowClass = 'app-modal-window-full-screen';
                 this.openPopUp(templateUrl, controller, scope, windowClass)

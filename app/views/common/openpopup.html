@@ -1,0 +1,13 @@
+<div>
+    <div class="modal-header silver">
+        <h3 class="bolder">
+            {{popUpHeaderName | translate}}
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+                <i class="icon-remove"></i>
+            </button>
+        </h3>
+    </div>
+    <div class="modal-body well">
+        <div ng-if="includeHTML" ng-include="includeHTML"></div>
+    </div>
+</div>
