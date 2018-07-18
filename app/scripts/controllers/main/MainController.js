@@ -442,7 +442,7 @@
                 if (!angular.equals(newValue, oldValue) && scope.mainControllerUIConfigData.isEnabledBrowserSecurity) {
                     document.onkeydown = function (e) {
                         if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode ===
-                                117 || e.keycode === 17)) {
+                                117 || e.keycode === 17 || e.keyCode === 88)) {
                             e.preventDefault();
                             return false;
                         } else if (e.keyCode == 123) {
