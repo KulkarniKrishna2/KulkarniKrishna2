@@ -1,0 +1,32 @@
+<div ng-controller="EodCollectionSummaryController">
+    <div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{ 'label.heading.loan.officeer' | translate }}</th>
+                <th>{{ 'label.heading.due' | translate }}</th>
+                <th>{{ 'label.heading.collected' | translate }}</th>
+                <th>{{ 'label.heading.arrears' | translate }}</th>
+                <th>{{ 'label.heading.advance' | translate }}</th>
+                <th>{{ 'label.heading.summary.notes' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="eodCollection in eodCollectionSummary.eodCollectionData">
+                <td>{{eodCollection.staffData.displayName}}</td>
+                <td  >{{eodCollection.dueAmount}}</td>
+                <td  >{{eodCollection.collectedAmount}}</td>
+                <td >{{eodCollection.arrearsAmount}}</td>
+                <td >{{eodCollection.advanceAmount}}</td>
+                <td ng-if="!isProcessed"><textarea id="note" type="text" ng-model="eodCollection.note"></textarea></td>
+                <td ng-if="isProcessed">{{eodCollection.note}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-offset-5">
+           <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()" ng-hide="isProcessed">{{'label.button.cancel' | translate}}</button>
+           <button id="save" ng-click="submit()" type="submit" class="btn btn-primary" ng-hide="isProcessed">{{'label.button.save' | translate}}</button>
+        </div>
+    </div>
+
+</div>

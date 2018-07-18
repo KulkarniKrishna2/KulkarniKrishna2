@@ -1740,3 +1740,7 @@ table.table.table-striped tr.backgroundred td{
 .background-gold{
     background-color:#ffffe0;
 }
+
+.min-height-250px {
+    min-height: 250px !important;
+}

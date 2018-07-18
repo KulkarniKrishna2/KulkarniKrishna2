@@ -1,0 +1,98 @@
+<div class="col-md-12" ng-controller="EodProcessController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.eod.process' | translate}}</li>
+    </ul>
+
+    <legend>{{'label.heading.eod' | translate}}
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="initiateEOD()"><i class="icon-plus icon-white"></i>{{'label.button.initiate.eod' | translate}}</button>
+        </div>
+    </legend>
+    <form ng-submit="search()" class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.office' | translate}}</label>
+            <div class="col-sm-3">
+                <select chosen="offices" id="officeId" ng-model="searchConditions.officeId"  class="form-control"
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                    <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2">{{'label.input.eod.type' | translate}}</label>
+            <div class="col-sm-3" >
+                <select chosen="eodClosureTypeOptions" id="closureTypeId" ng-model="searchConditions.eodClosureTypeId" class="form-control"
+                        ng-options="closureType.id as closureType.value for closureType in eodClosureTypeOptions"  value="{{closureType.id}}">
+                    <option value="">{{'label.menu.select.eod.type' | translate}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}</label>
+            <div class="col-sm-3">
+                <input id="fromDate" type="text" name="fromDate" datepicker-pop="dd MMMM yyyy"
+                       ng-model="first.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
+            </div>
+            <label class="control-label col-sm-2">{{'label.input.todate' | translate}}</label>
+            <div class="col-sm-3">
+                <input id="toDate" type="text" name="toDate" datepicker-pop="dd MMMM yyyy"
+                       ng-model="first.toDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.show.office.eod.not.complete' | translate }}</label>
+            <div class="col-sm-3">
+                <input id="showPendingEod" type="checkbox" ng-model="searchConditions.showPendingEod" ng-true-value="true"
+                       ng-false-value="false">
+            </div>
+        </div>
+        <div class="col-md-offset-5">
+            <button id="search" type="button" data-ng-click="searchData()" class="btn btn-primary"
+                    has-permission='READ_EOD_PROCESS'>{{'label.button.search'| translate}}
+            </button>
+        </div>
+    </form>
+    <br>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{ 'label.heading.office' | translate }}</th>
+                    <th>{{ 'label.heading.accountingclosuredate' | translate }}</th>
+                    <th class="center" colspan="3">{{ 'label.heading.status' | translate }}</th>
+                    <th >{{ 'label.heading.comments' | translate }}</th>
+                    <th>{{ 'label.heading.closeaccountingcreatedby' | translate }}</th>
+                    <th>{{ 'label.heading.view.or.edit' | translate }}</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>{{ 'label.heading.operational.closure' | translate }}</th>
+                    <th>{{ 'label.heading.financial.closure' | translate }}</th>
+                    <th>{{ 'label.heading.audit.closure' | translate }}</th>
+                    <th></th>
+                    <th></th>
+                    <th>
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="eodProcess in eodProcessDatas.currentPageItems">
+                    <td class="pointer">{{eodProcess.officeData.name}}</td>
+                    <td class="pointer">{{eodProcess.eodDate | DateFormat}}</td>
+                    <td class="pointer">{{eodProcess.isOperationalClosureDone}}</td>
+                    <td class="pointer">{{eodProcess.isFinancialClosureDone}}</td>
+                    <td class="pointer" ></td>
+                    <td class="pointer"></td>
+                    <td class="pointer">{{eodProcess.createdBy.lastname}},{{eodProcess.createdBy.firstname}}</td>
+                    <td class="pointer">
+                        <button class="btn btn-primary" ng-click="viewEOD(eodProcess.id)" tooltip="{{'label.button.view.eod' | translate}}" has-permission='READ_EOD_PROCESS'><i class="icon-eye-open "></i></button>
+                        <button class="btn btn-danger" ng-click="rejectEOD(eodProcess.id)" tooltip="{{'label.button.reject.eod' | translate}}" has-permission='DELETE_EOD_PROCESS'><i class="icon-remove-circle pointer"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

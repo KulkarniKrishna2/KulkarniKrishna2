@@ -1,0 +1,67 @@
+<div ng-controller="EodFinancialSummaryController">
+    <div class="pull-right">
+        <button class="btn btn-primary" ng-click="createJournalVoucher(eodProcessId)" ng-hide="isFinancialClosureDone">{{'label.button.journal.voucher' | translate}}</button>
+    </div>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th style="width:40%">{{ 'label.heading.cash' | translate }}</th>
+                    <th style="width:20%">{{ 'label.heading.in' | translate }}</th>
+                    <th style="width:20%">{{ 'label.heading.out' | translate }}</th>
+                    <th style="width:20%">{{ 'label.heading.balance' | translate }}</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div ng-repeat="account in cashAccounts">
+            <table class="table">
+
+                <tr ng-repeat="financialData in cashMapData[account]">
+                    <td style="width:40%"><span ng-if="highLightedType.indexOf(financialData.transactionType)>-1"><b>{{financialData.account.name}}</b></span>
+                        <span ng-if="highLightedType.indexOf(financialData.transactionType)<0">{{financialData.account.name}}</span></td>
+                    <td style="width:20%">{{financialData.inAmount}}</td>
+                    <td style="width:20%">{{financialData.outAmount}}</td>
+                    <td style="width:20%">{{financialData.balanceAmount}}</td>
+                </tr>
+            </table>
+            <hr/>
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th  style="width:40%">{{ 'label.heading.bank' | translate }}</th>
+                    <th style="width:20%">{{ 'label.heading.in' | translate }}</th>
+                    <th style="width:20%">{{ 'label.heading.out' | translate }}</th>
+                    <th style="width:20%">{{ 'label.heading.balance' | translate }}</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div ng-repeat="account in bankAccounts">
+            <table class="table">
+                <tr ng-repeat="financialData in bankMapData[account]">
+                    <td style="width:40%">
+                        <span ng-if="highLightedType.indexOf(financialData.transactionType)>-1">
+                            <b>{{financialData.account.name}}</b>
+                        </span>
+                        <span ng-if="highLightedType.indexOf(financialData.transactionType)<0">
+                            {{financialData.account.name}}
+                        </span>
+                    </td>
+                    <td style="width:20%">{{financialData.inAmount}}</td>
+                    <td style="width:20%">{{financialData.outAmount}}</td>
+                    <td style="width:20%">{{financialData.balanceAmount}}</td>
+                </tr>
+            </table>
+            <hr/>
+        </div>
+        <br>
+        <div class="col-md-offset-5">
+            <button id="cancel"  class="btn btn-default" ng-click="cancel()" ng-hide="isFinancialClosureDone" >{{'label.button.cancel' | translate}}</button>
+            <button id="save" ng-click="submit()" type="submit" class="btn btn-primary" ng-hide="isFinancialClosureDone">{{'label.button.save' | translate}}</button>
+        </div>
+    </div>
+</div>

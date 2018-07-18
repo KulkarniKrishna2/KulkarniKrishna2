@@ -1,0 +1,31 @@
+<div ng-controller="EodOperationalSummaryController">
+    <div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{ 'label.heading.tansaction.type' | translate }}</th>
+                <th>{{ 'label.heading.planned' | translate }}</th>
+                <th>{{ 'label.heading.actual' | translate }}</th>
+                <th></th>
+                <th>{{ 'label.heading.summary.notes' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  ng-repeat="operationalData in eodSummary.eodOprationalData">
+                <td >{{operationalData.summaryType.value}}</td>
+                <td >{{operationalData.plannedAmount}}</td>
+                <td >{{operationalData.actualAmount}}</td>
+                <td><button class="btn btn-primary" ng-click="showProductSummary(eodSummary.eodProcessData.id,operationalData.summaryType.value,operationalData.summary)"><i class="icon-plus-sign icon-white"></i></button></td>
+                <td ng-if="!isOperationalClosureDone"><textarea id="note"  ng-model="operationalData.note"/></textarea></td>
+                <td ng-if="isOperationalClosureDone">{{operationalData.note}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="col-md-offset-5">
+            <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()" ng-hide="isOperationalClosureDone">{{'label.button.cancel' | translate}}</button>
+            <button id="save" ng-click="submit()" type="submit" class="btn btn-primary" ng-hide="isOperationalClosureDone">{{'label.button.save' | translate}}</button>
+        </div>
+    </div>
+
+</div>

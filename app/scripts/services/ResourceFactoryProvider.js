@@ -1557,6 +1557,18 @@
                     }),
                     officeDropDownResource: defineResource(apiVer + "/offices/template", {}, {
                         getAllOffices: {method: 'GET', params: {}}
+                    }),
+                    eodProcessResource: defineResource(apiVer + "/eodprocess/:eodProcessId",{eodProcessId:'@eodProcessId',searchConditions: '@searchConditions'}, {
+                        initiate: {method: 'POST', params: {}},
+                        getAll:{method: 'GET', params: {},isArray: true},
+                        getEodCollections:{method: 'GET', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+                    eodProcessTemplateResource:defineResource(apiVer + "/eodprocess/template",{}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    eodSummaryResource:defineResource(apiVer + "/eodsummary/:eodProcessId/:resourceName",{eodProcessId:'@eodProcessId',resourceName:'@resourceName'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];
