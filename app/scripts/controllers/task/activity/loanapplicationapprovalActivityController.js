@@ -5,6 +5,7 @@
             scope.approveloanapplicationdetails = "";
             scope.status = 'SUMMARY';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
+            scope.isPendingForApprovalStageEnabled = scope.isSystemGlobalConfigurationEnabled('enable-pending-for-approval-stage');
 
             scope.onReject = function(){
 
@@ -63,7 +64,9 @@
                     delete scope.formRequestData.repaymentPeriodFrequency;
                     scope.formRequestData.termPeriodFrequencyEnum = scope.formRequestData.termPeriodFrequency.id;
                     delete scope.formRequestData.termPeriodFrequency;
-                    scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                    if(scope.formRequestData.expectedDisbursementDate != undefined){
+                        scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                    }
                     if (loanData.loanApplicationSanctionTrancheDatas) {
                         for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                             scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
@@ -1069,7 +1072,15 @@
                     }
                 }else if(actionName === 'activitycomplete'){
                     if(scope.status=='SUMMARY'){
-                        scope.doActionAndRefresh(actionName);
+                        if(scope.isPendingForApprovalStageEnabled){ 
+                            if(scope.formData.status.id === scope.loanapplicationApproved){
+                                scope.doActionAndRefresh(actionName);
+                            }else{
+                                scope.setTaskActionExecutionError("lable.error.activity.loanapplication.not.submitted");
+                            }
+                        }else{
+                            scope.doActionAndRefresh(actionName);
+                        }
                     }
                     else{
                         scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");

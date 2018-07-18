@@ -4595,6 +4595,7 @@
     "error.msg.loan.days.between.first.repayment.and.disbursal.are.less.than.minimum.days.or.periods.allowed" : "Minimum days between disbursal and first repayment should be {{params[2].value}} ",
     "error.msg.loan.application.approval.date.cannot.be.before.the.loan.min.approval.date" : "Approval Date Cannot be before {{params[0].value}}",
     "error.msg.loan.application.disbursement.date.cannot.be.before.the.loan.min.disbursement.date" : "Disbursement Date Cannot be before {{params[0].value}}",
+    "lable.error.activity.loanapplication.not.submitted" : "Please submit loan application data to complete the activity",
 
     "#------------------": "------------",
 
