@@ -112,17 +112,25 @@
                 scope.load = false;
                 scope.authenticationFailed = false;
                 scope.otpPanel = false;
-                timer = $timeout(function(){
+                timer = $timeout(function () {
                     delete scope.loginCredentials.password;
                     delete scope.loginCredentials.otp;
-                },2000);
-             });
+                }, 2000);
+            });
 
             scope.$on("UserAuthenticationEnterOTPEvent", function (event, data) {
                 scope.otpPanel = true;
                 scope.loginCredentials.otpTokenId = data.otpTokenId;
-                
-             });
+            });
+
+            scope.$on("UnauthorizedRequest", function (event, data) {
+                scope.authenticationFailed = true;
+                if (data && data.error && data.error == 'invalid_token') {
+                    scope.authenticationErrorMessage = 'label.error.session.expired';
+                } else if (data && data.error_description) {
+                    scope.authenticationErrorMessage = data.error_description;
+                }
+            });
 
             /*This logic is no longer required as enter button is binded with text field for submit.
             $('#pwd').keypress(function (e) {

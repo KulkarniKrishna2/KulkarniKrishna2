@@ -178,6 +178,11 @@
                 scope.getAllGlobalConfigurations();
             });
 
+            scope.$on("UnauthorizedRequest", function (event, data) {
+                if (data && data.error && data.error == 'invalid_token') {
+                    scope.logout();
+                }
+            });
 
             scope.$on("RefreshAuthenticationFailureEvent", function () {
                 scope.logout();
