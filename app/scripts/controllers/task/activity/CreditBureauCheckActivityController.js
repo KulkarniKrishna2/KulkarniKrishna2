@@ -725,7 +725,8 @@
             }
 
             //client reject reason method call
-            scope.clientRejection = function (memberId) {
+            scope.clientRejection = function (member) {
+                
                 var templateUrl = 'views/task/popup/closeclient.html';
                 
                 $modal.open({
@@ -787,7 +788,7 @@
 
             }
 
-            scope.groupRejection = function (memberId) {
+            scope.groupRejection = function (member) {
                 var templateUrl = 'views/task/popup/closegroup.html';
                 $modal.open({
                     templateUrl: templateUrl,

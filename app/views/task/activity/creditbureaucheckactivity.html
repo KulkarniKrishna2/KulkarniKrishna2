@@ -94,11 +94,11 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember)"
+							<a class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember)"
 							    tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 								<i class="icon-remove-circle pointer"></i>
 							</a>
-							<a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="releaseClient(activeClientMember.id)"
+							<a class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="releaseClient(activeClientMember.id)"
 							    tooltip="{{'label.button.relase.client' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 								<i class="icon-unlock pointer"></i>
 							</a>

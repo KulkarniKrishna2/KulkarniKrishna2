@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewTaskController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $modal) {
+        ViewTaskController: function (scope, resourceFactory, routeParams, popUpUtilService) {
             scope.taskId = routeParams.taskId;
             scope.taskData = {};
             scope.isWorkflowTask = false;
@@ -101,34 +101,17 @@
 
             //Center workflow Members steps info 
             scope.getCWFClientsTaskStepsInfo = function(centerId){
-                    var templateUrl = 'views/task/popup/membersstepsinfo.html';
-                    $modal.open({
-                        templateUrl: templateUrl,
-                        controller: viewCWFClientsTaskStepsInfoCtrl,
-                        windowClass: 'modalwidth700',
-                        resolve: {
-                            CenterParams: function () {
-                                return { 'centerId': centerId };
-                            }
-                        }
-                    });
-            }
-
-            var viewCWFClientsTaskStepsInfoCtrl = function ($scope, $modalInstance, CenterParams) {
-                resourceFactory.clientsTaskStepsTrackingResource.get({
-                    centerId: CenterParams.centerId,
-                    eventType: scope.eventType
-                }, function (data) {
-                    $scope.membersStepsInfo = data;
-                });
-
-                $scope.close = function () {
-                    $modalInstance.dismiss('close');
-                };
+                scope.cwfCenterId = centerId;
+                scope.popUpHeaderName = "label.heading.members.steps.info"
+                scope.includeHTML = 'views/task/popup/membersstepsinfo.html';
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewCWFClientsTaskStepsInfoController';
+                var windowClass = 'modalwidth700';
+                popUpUtilService.openPopUp(templateUrl, controller, scope, windowClass);
             }
         }
     });
-    mifosX.ng.application.controller('ViewTaskController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$modal',mifosX.controllers.ViewTaskController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTaskController', ['$scope', 'ResourceFactory', '$routeParams', 'PopUpUtilService', mifosX.controllers.ViewTaskController]).run(function ($log) {
         $log.info("ViewTaskController initialized");
     });
 }(mifosX.controllers || {}));
