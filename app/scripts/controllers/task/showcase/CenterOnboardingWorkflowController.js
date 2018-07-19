@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CenterOnboardingWorkflowController: function (scope, resourceFactory, routeParams) {
+        CenterOnboardingWorkflowController: function (scope, resourceFactory, routeParams, popUpUtilService) {
             scope.eventType = routeParams.eventType;
             scope.centerId = routeParams.centerId;
 
@@ -25,9 +25,20 @@
             }
 
             init();
+
+            //Center workflow Members steps info 
+            scope.getCWFClientsTaskStepsInfo = function(centerId){
+                scope.cwfCenterId = centerId;
+                scope.popUpHeaderName = "label.heading.members.steps.info"
+                scope.includeHTML = 'views/task/popup/membersstepsinfo.html';
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewCWFClientsTaskStepsInfoController';
+                var windowClass = 'modalwidth700';
+                popUpUtilService.openPopUp(templateUrl, controller, scope, windowClass);
+            }
         }
     });
-    mifosX.ng.application.controller('CenterOnboardingWorkflowController', ['$scope', 'ResourceFactory', '$routeParams', mifosX.controllers.CenterOnboardingWorkflowController]).run(function ($log) {
+    mifosX.ng.application.controller('CenterOnboardingWorkflowController', ['$scope', 'ResourceFactory', '$routeParams', 'PopUpUtilService', mifosX.controllers.CenterOnboardingWorkflowController]).run(function ($log) {
         $log.info("CenterOnboardingWorkflowController initialized");
     });
 }(mifosX.controllers || {}));

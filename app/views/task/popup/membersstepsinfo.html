@@ -1,29 +1,18 @@
 <div>
-    <div class="modal-header silver">
-        <h3 class="bolder">
-            {{'label.heading.members.steps.info' | translate}}
-            <i class="icon-remove pointer pull-right" ng-click="close()"></i>
-        </h3>
-    </div>
-    <div class="modal-body well">
-        <div class="margin-plus-10px">
-            <table class="table table-striped">
-                <thead>
-                    <th>{{'label.heading.clientname' | translate}}</th>
-                    <th>{{'label.heading.referenceNumber' | translate}}</th>
-                    <th>{{'label.heading.workflowstep.name' | translate}}</th>
-                    <th>{{'label.heading.isworkflowcompleted' | translate}}</th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="memberStepInfo in membersStepsInfo">
-                        <td>{{memberStepInfo.clientName}}</td>
-                        <td>{{memberStepInfo.fcsmNumber}}</td>
-                        <td>{{memberStepInfo.currentTaskName}}</td>
-                        <td>{{memberStepInfo.isWorkflowCompleted}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+            <th>{{'label.heading.clientname' | translate}}</th>
+            <th>{{'label.heading.referenceNumber' | translate}}</th>
+            <th>{{'label.heading.workflowstep.name' | translate}}</th>
+            <th>{{'label.heading.isworkflowcompleted' | translate}}</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="memberStepInfo in membersStepsInfo">
+                <td>{{memberStepInfo.clientName}}</td>
+                <td>{{memberStepInfo.fcsmNumber}}</td>
+                <td>{{memberStepInfo.currentTaskName}}</td>
+                <td>{{memberStepInfo.isWorkflowCompleted}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

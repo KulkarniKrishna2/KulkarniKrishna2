@@ -24,6 +24,12 @@
                 <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{centerData.officeName}}</div>
                 <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{centerData.staffName}}</div>
             </div>
+
+            <div class="row">
+                <a class="btn btn-info" style="text-align: right;float: right;" ng-click="getCWFClientsTaskStepsInfo(centerData.id)">
+                    {{'label.button.members.steps.info' | translate}}
+                </a>
+            </div>
         </div>
 
         <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
