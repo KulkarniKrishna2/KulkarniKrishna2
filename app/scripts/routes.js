@@ -1764,6 +1764,15 @@
             .when('/clientlevelqueryresolve/:trackerId/:workflowBankApprovalId',{
                 templateUrl: 'views/task/bankapproval/clientlevelqueryresolve.html'
             })
+            .when('/eodprocess', {
+                templateUrl: 'views/accounting/eodprocess/eodprocess.html'
+            })
+            .when('/initiateeodprocess', {
+                templateUrl: 'views/accounting/eodprocess/initiateeodprocess.html'
+            })
+            .when('/eodonboarding/:eventType/:eodprocessId/workflow', {
+                templateUrl: 'views/accounting/eodprocess/eodonboardingworkflow.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

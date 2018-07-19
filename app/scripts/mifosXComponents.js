@@ -593,7 +593,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'common/ViewHistoryController',
             'dashboard/WorkflowBankApprovalListController',
             'task/bankapproval/WorkflowBankApprovalActionController',
-            'task/bankapproval/ClientLevelQueryResolveController'
+            'task/bankapproval/ClientLevelQueryResolveController',
+            'accounting/eodprocess/EodProcessController',
+            'accounting/eodprocess/InitiateEodProcessController',
+            'accounting/eodprocess/EodOnBoardingWorkflowController',
+            'accounting/eodprocess/EodCollectionSummaryController',
+            'accounting/eodprocess/EodFinancialSummaryController',
+            'accounting/eodprocess/EodOperationalSummaryController',
+            'accounting/eodprocess/CreateJournalVoucherController'
         ],
         filters: [
             'StatusLookup',

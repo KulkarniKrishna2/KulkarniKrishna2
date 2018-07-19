@@ -1,0 +1,21 @@
+<div class="modal-body well">
+    <div class="margin-plus-10px">
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{ labelName | translate }}</th>
+            <th>{{ 'label.heading.planned' | translate }}</th>
+            <th>{{ 'label.heading.actual' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  ng-repeat="data in dataList  track by $index">
+            <td >{{data.name}}</td>
+            <td >{{data.plannedAmount}}</td>
+            <td >{{data.actualAmount}}</td>
+        </tr>
+        </tbody>
+    </table>
+        <button class="btn btn-warning " ng-click="close()">{{'label.button.back' | translate}}</button>
+    </div>
+</div>
