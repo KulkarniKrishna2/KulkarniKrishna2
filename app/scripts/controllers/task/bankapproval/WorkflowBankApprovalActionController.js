@@ -15,6 +15,7 @@
         scope.showResolveQueryButton = false;
         scope.isDisplayClientLog = false;
         scope.isDisplayLoanLog = false;
+        scope.loanLogs = [];
 
         resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
             scope.bankApprovalTemplateData = bankApprovalTemplate;
@@ -219,12 +220,41 @@
             scope.displayLoanLog = function(loanId){
                 scope.isDisplayClientLog = false;
                 scope.isDisplayLoanLog = true;
-                resourceFactory.historyResource.get({entityType: 'loan',entityId: loanId}, function (data) {
-                    scope.loanLogs = data;
-                });
+                if(scope.loanLogs.length==0){
+                    resourceFactory.loanProposalReviewHistoryResource.getAll({
+                         loanId: loanId
+                     }, function (data) {
+                         scope.loanLogs = data;
+                     });
+                }
             }
 
-        }
+            scope.download = function (historyId, documentId) {
+                    scope.reportEntityType = "loan_proposal_review";
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
+                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                     window.open(url);
+                 }
+
+            scope.openViewDocument = function (historyId, documentId) {
+                    scope.reportEntityType = "loan_proposal_review";
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
+                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                    url = $sce.trustAsResourceUrl(url);
+                    $http.get(url, { responseType: 'arraybuffer' }).
+                    success(function(data, status, headers, config) {
+                        var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain',];
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], { type: contentType });
+                        var fileContent = URL.createObjectURL(file);
+                        if (supportedContentTypes.indexOf(contentType) > -1) {
+                            var docData = $sce.trustAsResourceUrl(fileContent);
+                            window.open(docData);
+                        }
+                    });
+                }
+            }
+
     });
     mifosX.ng.application.controller('WorkflowBankApprovalActionController', ['$scope', 'ResourceFactory','$location', '$routeParams', 'API_VERSION', 'CommonUtilService', '$modal', '$rootScope', 'dateFilter', '$sce', '$http', mifosX.controllers.WorkflowBankApprovalActionController]).run(function ($log) {
         $log.info("WorkflowBankApprovalActionController initialized");
