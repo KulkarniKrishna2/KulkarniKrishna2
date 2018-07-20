@@ -32,7 +32,7 @@
 							</span>
 						</td>
 						<td class="col-md-1">
-							<a type="button" class="btn btn-danger btn-xs" 
+							<a type="button" class="btn btn-danger btn-xs" ng-hide="eventType == 'loancycle'"
                                  ng-disabled = "{{taskData.possibleActions.length == 0}}"
 								ng-click="groupRejection(groupMember.id)" tooltip="{{'label.button.reject' | translate}}">
 									<i class="icon-remove-circle pointer"></i>
@@ -92,7 +92,7 @@
 							</a>
 						</td>
 						<td class="col-mod-1" >
-							<a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
+							<a type="button" class="btn btn-danger btn-xs" ng-hide="hideClient(activeClientMember)" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 							    <i class="icon-remove-circle pointer"></i>
 							</a>
 							<a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
