@@ -1099,6 +1099,13 @@
                 }
                 return false;
             }
+
+            scope.hideClient = function(activeClientMember){
+                if(activeClientMember.status.code == 'clientStatusType.onHold' || scope.eventType == 'loancycle'){
+                    return true;
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('BulkLoanApplicationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.BulkLoanApplicationActivityController]).run(function ($log) {
