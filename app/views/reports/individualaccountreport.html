@@ -1,0 +1,50 @@
+<div class="col-md-12" ng-controller="IndividualAccountReportController">
+    <div>
+        <ul class="breadcrumb">
+            <li ng-show="action=='loanaccountreports'"><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li ng-show="action=='savingaccountreports'"><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
+            <li ng-show="action=='clientprofilereports'"><a href="#/viewclient/{{accountId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+                <li class="active">{{'label.anchor.'+action | translate}}</li>
+        </ul>
+    </div>
+    <form name="individualaccountreport" novalidate="" class="form-horizontal well"  rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.'+action | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="reportName">{{ 'label.input.reportname' | translate }}<span class="required">*</span></label>
+                
+                <div class="col-sm-3">
+                    <select id="reportName"  name="reportName" class="form-control col-sm-3" ng-model="formData.reportName"
+                            ng-options="reportdetail.reportName as reportdetail.reportName for reportdetail in reportdetails" value="{{reportdetail.reportName}}" ng-required="true">
+                            <option value="" >--{{'label.menu.selectreport' | translate}}--</option>
+                    </select>
+                    <form-validate valattributeform="individualaccountreport" valattribute="reportName"/>
+                </div>
+
+                <label class="control-label pull-left ng-binding">{{ 'label.input.outputtype' | translate }}</label>
+
+                <div class="col-sm-2">
+                    <select class="form-control input-xlarge" ng-model="formData.outputType">
+                        <option value="HTML">{{ 'label.input.showreport' | translate }}</option>
+                        <option value="XLS">{{ 'label.input.exportexcel' | translate }}</option>
+                        <option value="XLSX">{{ 'label.input.exportexcel2' | translate }}</option>
+                        <option value="CSV">{{ 'label.input.exportcsv' | translate }}</option>
+                        <option value="PDF">{{ 'label.input.pdfformat' | translate }}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2">
+                    <button id="run" type="submit"  class="btn btn-primary control" >{{ 'label.button.runreport' | translate }}</button>
+                </div>
+            </div>
+            
+            <div collapse="hidePentahoReport" class="row alert-block span tab-content">
+                <br>
+                <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px" style="float:left"></iframe>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

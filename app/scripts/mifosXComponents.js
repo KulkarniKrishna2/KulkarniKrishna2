@@ -63,6 +63,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/RejectLoanRescheduleRequestController',
             'loanAccount/PreviewLoanRepaymentScheduleController',
             'loanAccount/LoanForeclosureController',
+            'loanAccount/PendingValueDateTransactionsController',
             'groups/AssignStaffController',
             'client/ClientController',
             'client/EditClientController',
@@ -488,6 +489,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/UserActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
+            'reports/IndividualAccountReportController',
             'dashboard/WorkFlowStepDashboardController',
             'dashboard/TaskListController',
             'bankaccountdetails/BankAccountDetailController',
@@ -601,7 +603,16 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/eodprocess/EodFinancialSummaryController',
             'accounting/eodprocess/EodOperationalSummaryController',
             'accounting/eodprocess/CreateJournalVoucherController',
-            'task/popup/ViewCWFClientsTaskStepsInfoController'
+            'task/popup/ViewCWFClientsTaskStepsInfoController',
+            'survey/SurveySummaryDetailsController',
+            'client/ClientBankAccountDetailsController',
+            'bankaccountdetails/common/CreateBankAccountDetailController',
+            'bankaccountdetails/common/AddBankAccountDetailsToLoanController',
+            'customsequence/ViewSequenceEntityAssociationController',
+            'organization/BulkRescheduleSavingsAccountInstallmentController',
+            'organization/bulktransfer/InitiateBulkTransferController',
+            'organization/bulktransfer/BulkTransferController',
+            'organization/bulktransfer/ViewBulkTransferController'
         ],
         filters: [
             'StatusLookup',

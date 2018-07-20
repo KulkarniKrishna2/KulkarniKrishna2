@@ -1,36 +1,200 @@
 <div class="col-md-12" ng-controller="ViewEntityTypeSurveys">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/{{entityTypeUrl}}">{{entityTypeName | translate}}</a></li>
-            <li><a href="#/{{backUrl}}">{{entityDisplayName | translate}}</a></li>
+            <li>
+                <a href="#/{{entityTypeUrl}}">{{entityTypeName | translate}}</a>
+            </li>
+            <li>
+                <a href="#/{{backUrl}}">{{entityDisplayName | translate}}</a>
+            </li>
             <li class="active">{{'label.anchor.surveys' | translate}}</li>
         </ul>
     </div>
     <div>
         <div class="pull-right">
             <div class="btn-group">
-                <a href="#/{{entityType}}/{{entityId}}/takesurvey" class="btn btn-primary"><i
-                        class="icon-plus-sign icon-white"></i>{{'label.button.take.survey' | translate}}</a>
+                <a href="#/{{entityType}}/{{entityId}}/takesurvey" class="btn btn-primary">
+                    <i class="icon-plus-sign icon-white"></i>{{'label.button.take.survey' | translate}}</a>
+            </div>
+        </div>
+
+        <div ng-show="false">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="row">
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.name' | translate}}
+                            </div>
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.taken.date' | translate}}
+                            </div>
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.taken.doneby' | translate}}
+                            </div>
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.taken.score' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-repeat="survey in surveys">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="row">
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{survey.surveyName}}
+                            </div>
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.taken.date' | translate}}
+                            </div>
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.taken.doneby' | translate}}
+                            </div>
+                            <div class="graybg col-xs-3 col-sm-3">
+                                {{'label.survey.taken.score' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <table class="table" ng-show="surveys && surveys.length > 0">
             <thead>
-            <tr class="graybg">
-                <th>{{'label.survey.name' | translate}}</th>
-                <th>{{'label.survey.taken.date' | translate}}</th>
-                <th>{{'label.survey.taken.doneby' | translate}}</th>
-                <th>{{'label.survey.taken.score' | translate}}</th>
-            </tr>
+                <tr class="graybg">
+                    <th>{{'label.survey.name' | translate}}</th>
+                    <th>{{'label.survey.taken.date' | translate}}</th>
+                    <th>{{'label.survey.taken.doneby' | translate}}</th>
+                    <th>{{'label.survey.component.max.score' | translate}}</th>
+                    <th>{{'label.survey.component.actual.score' | translate}}</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="survey in surveys">
-                <td>{{survey.surveyName}}</td>
-                <td>{{survey.surveyedOn}}</td>
-                <td>{{survey.surveyedByName}}</td>
-                <td>{{survey.totalScore}}</td>
-            </tr>
+                <tr class="bottomborder" ng-repeat-start="survey in surveys">
+                    <td>{{survey.surveyName}}</td>
+                    <td>{{survey.surveyedOn}}</td>
+                    <td>{{survey.surveyedByName}}</td>
+                    <td>{{survey.maxScore | number}}</td>
+                    <td>{{survey.actualScore | number}}</td>
+                    <td>
+                        <i class="icon-double-angle-right pointer" ng-click="viewSurveySummaryDetails(survey,'isShowShortSummary')"></i>
+                    </td>
+                    <td>
+                        <i class="icon-eye-open pointer" ng-click="viewSurveySummaryDetails(survey,'isShowDetailSummary')"></i>
+                    </td>
+                </tr>
+                <tr ng-repeat-end>
+                    <td colspan="7" ng-if="survey.isShowShortSummary">
+                        <div>
+                            <form class="form-horizontal">
+                                <div class="clear"></div>
+                                <fieldset>
+                                    <div>
+                                        <table class="table border1px">
+                                            <thead>
+                                                <tr class="graybg">
+                                                    <th>{{survey.surveyedOn}}</th>
+                                                    <th>{{'label.survey.no.of.questions' | translate}}</th>
+                                                    <th>{{'label.survey.component.weight' | translate}}</th>
+                                                    <th>{{'label.survey.component.max.score' | translate}}</th>
+                                                    <th>{{'label.survey.component.actual.score' | translate}}</th>
+                                                    <th>
+                                                        <i class="icon-remove" ng-click="survey.isShowShortSummary = false"></i>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="summary in survey.summaryDetails">
+                                                    <td>{{summary.text}}</td>
+                                                    <td>{{summary.noOfQuestions}}</td>
+                                                    <td>{{summary.weightage | number}}</td>
+                                                    <td>{{summary.maxScore | number}}</td>
+                                                    <td>{{summary.actualScore | number}}</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </td>
+                    <td colspan="7" ng-if="survey.isShowDetailSummary">
+                        <div>
+                            <table border="0" class="table col-md-12 border1px">
+                                <tr class="graybg">
+                                    <th class="width12">{{'label.survey.component' | translate}}</th>
+                                    <th>{{'label.heading.questionname' | translate}}</th>
+                                    <th>{{'label.survey.component.weight' | translate}}</th>
+                                    <th>{{'label.heading.answername' | translate}}</th>
+                                    <th>{{'label.survey.component.max.score' | translate}}</th>
+                                    <th>{{'label.survey.component.actual.score' | translate}}</th>
+                                    <th>
+                                        <i class="icon-remove" ng-click="survey.isShowDetailSummary = false"></i>
+                                    </th>
+                                </tr>
+                                <tr class="bottomborder" ng-repeat="displaySurveyData in survey.displaySurveyDatas">
+                                    <td colspan="2" ng-if="displaySurveyData.isComponentData">
+                                        <span>
+                                            <strong>{{displaySurveyData.text}}</strong>
+                                        </span>&nbsp;</td>
+                                    <td ng-if="!displaySurveyData.isComponentData">
+                                        <span>{{displaySurveyData.slNo}}</span>
+                                    </td>
+                                    <td ng-if="!displaySurveyData.isComponentData">
+                                        <span>{{displaySurveyData.questionName}}&nbsp;</span>
+                                    </td>
+                                    <td ng-if="!displaySurveyData.isComponentData">
+                                        <span>{{displaySurveyData.questionWeightage | number}}</span>&nbsp;</td>
+                                    <td ng-if="!displaySurveyData.isComponentData">
+                                        <div ng-if="displaySurveyData.questionData.questionType.value=='single_select'">
+                                            <div>{{displaySurveyData.answerName}}</div>
+                                            <div ng-if="displaySurveyData.responseJson && displaySurveyData.responseJson.other">
+                                                <span>Other : {{displaySurveyData.responseJson.other}}</span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="displaySurveyData.questionData.questionType.value=='multi_select' && displaySurveyData.responseJson!=undefined">
+                                            <div ng-repeat="response in displaySurveyData.responseJson.responseDatas">
+                                                <li> {{response.text}}
+                                                    <span ng-if="response.id == -1 && displaySurveyData.responseJson && displaySurveyData.responseJson.other">: {{displaySurveyData.responseJson.other}}</span>
+                                                </li>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td ng-if="!displaySurveyData.isComponentData">
+                                        <span>{{displaySurveyData.maxScore | number}}</span>&nbsp;</td>
+                                    <td ng-if="!displaySurveyData.isComponentData">
+                                        <span>{{displaySurveyData.actualScore | number}}</span>&nbsp;</td>
+                                    <td ng-if="displaySurveyData.isComponentData">
+                                        <span>
+                                            <strong>{{displaySurveyData.weightage | number}}</strong>
+                                        </span>&nbsp;</td>
+                                    <td ng-if="displaySurveyData.isComponentData">
+                                        <span></span>&nbsp;</td>
+                                    <td ng-if="displaySurveyData.isComponentData">
+                                        <span>
+                                            <strong>{{displaySurveyData.maxScore | number}}</strong>
+                                        </span>&nbsp;</td>
+                                    <td ng-if="displaySurveyData.isComponentData">
+                                        <span>
+                                            <strong>{{displaySurveyData.actualScore | number}}</strong>
+                                        </span>&nbsp;</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<script ng-if="false" type="text/ng-template" id="surveysummarydetails.html">
+    <div ng-include="'views/survey/surveysummarydetails.html'"></div>
+</script>

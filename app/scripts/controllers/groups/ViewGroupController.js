@@ -333,6 +333,7 @@
             scope.isGlimOverpaidOption = function(loanaccount){
                 return (loanaccount.status.value =='Overpaid' && loanaccount.loanType.value == 'GLIM');
             };
+
             var activeMembers = 0;
             var getActiveMembers = function(){
                 if(scope.group.clientMembers){
@@ -343,6 +344,7 @@
                     }
                 }
             }
+
             scope.addMember = function(){
                 scope.exceedMaxLimit = false;
                 getActiveMembers();
@@ -350,13 +352,18 @@
                     scope.exceedMaxLimit = true;
                 }else{
                     location.path('/addmember').search({
-                    groupId:scope.group.id,
-                    officeId:scope.group.officeId,
-                    staffId:scope.group.staffId,
-                    centerId:scope.group.centerId
-                });
+                        groupId:scope.group.id,
+                        officeId:scope.group.officeId,
+                        staffId:scope.group.staffId,
+                        centerId:scope.group.centerId
+                    });
                 }
-                
+            }  
+
+            scope.initiateWorkflow = function(){
+                resourceFactory.initiateGroupWorkflowResource.save({groupId: routeParams.id, command: 'initiateworkflow'}, this.formData, function (data) {
+                    location.path("/grouponboarding/" + routeParams.id +"/workflow");
+                });
             }
         }
     });

@@ -129,8 +129,8 @@
                     jeTransaction.debits.push(temp);
                 }
 
-                resourceFactory.journalEntriesResource.save(jeTransaction, function (data) {
-                    location.path('/viewtransactions/' + data.transactionId);
+                resourceFactory.frequentPostingResource.save(jeTransaction, function (data) {
+                    location.path('/viewtransactions/' + data.resourceId);
                 });
             }
         }

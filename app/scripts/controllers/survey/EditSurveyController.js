@@ -33,6 +33,7 @@
                         }
                         scope.formData.active = scope.surveyData.active;
                         scope.formData.coOfficerRequired = scope.surveyData.coOfficerRequired;
+                        scope.formData.considerWeightage = scope.surveyData.considerWeightage;
                     });
                 });
             };

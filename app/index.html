@@ -152,6 +152,7 @@
                 </div>
                 <div class="col-md-3"></div>
             </div>
+            
             <!-- Navbar -->
             <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
                 <div class="left-nav tooltip-wide">
@@ -289,7 +290,7 @@
                                         <li>
                                             <a href="#/centers" has-permission='READ_CENTER'>{{ 'label.anchor.centers' | translate }}</a>
                                         </li>
-                                        <li>
+                                        <li ng-hide="hideVillage">
                                             <a href="#/villages" has-permission='READ_VILLAGE'>{{ 'label.anchor.villages' | translate }}</a>
                                         </li>
                                     </ul>

@@ -11,7 +11,8 @@
             scope.formRequestData = {};
             scope.existingCharges = [];
             var currentIndex = 0;
-            scope.taskStatus = scope.taskconfig.status.value;   
+            scope.taskStatus = scope.taskconfig.status.value;  
+            scope.chargeFormData = {}; 
 
             function populateDetails() {
                 if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
@@ -59,6 +60,8 @@
                 scope.showLoans = false;
                 scope.approveForm = true
                 scope.restrictDate = new Date();
+                scope.charges = [];
+                scope.existingCharges = [];
                 scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.restrictDate), scope.df);
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                 loanApplicationReferenceId: scope.loanApplicationReferenceId}, function(applicationData) {
@@ -76,6 +79,7 @@
                         }
                     });
                 });
+                currentIndex = 0;
             };
 
             scope.constructExistingCharges = function(index, chargeId) {
@@ -166,6 +170,9 @@
                             if (approvedData.loanApplicationSanctionTrancheDatas) {
                                 for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                                     scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
+                                }
+                                if(scope.formRequestData.loanApplicationSanctionTrancheDatas.length == 0){
+                                    scope.constructTranches();
                                 }
                             }
                             if(scope.formRequestData.approvedOnDate){
@@ -834,6 +841,9 @@
 
             scope.displayOnNoActiveLoanApplication = function(){
                return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || (scope.loanApplications && scope.loanApplications.length <= 0));
+            }
+            scope.changeEmi = function(){
+                scope.changeLoanEMIPack=true;
             }
             
         }

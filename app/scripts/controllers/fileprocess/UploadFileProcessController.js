@@ -29,7 +29,7 @@
             };
             
             scope.onFileProcessTypeChange= function(fileProcessTypeSystemCode){
-                if(fileProcessTypeSystemCode == 'sanctionedButNotDisbursed' || fileProcessTypeSystemCode == 'bulkCBApproval'){
+                if(fileProcessTypeSystemCode == 'sanctionedButNotDisbursed' || fileProcessTypeSystemCode == 'bulkCBApproval' || fileProcessTypeSystemCode == 'bookedButNotDisbursed'){
                     scope.isSourceTypeReq = true;
                 }else{
                      scope.isSourceTypeReq = false;

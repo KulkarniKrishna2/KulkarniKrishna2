@@ -47,6 +47,8 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.isInvalid = false;
+            scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
+            scope.showValueDateField = false;
             
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
@@ -270,6 +272,9 @@
                         scope.netAmount = scope.loanTransactionData.netDisbursalAmount;
                         scope.nextRepaymentDate = new Date(scope.loanTransactionData.possibleNextRepaymentDate) || new Date();
                         scope.formData[scope.modelName] = new Date();
+                        if (scope.isValueDateEnabled) {
+                            scope.showValueDateField = true;
+                        }
                         if (scope.loanTransactionData.fixedEmiAmount) {
                             scope.formData.fixedEmiAmount = scope.loanTransactionData.fixedEmiAmount;
                             scope.showEMIAmountField = true;
@@ -306,6 +311,7 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
                        scope.formData.transactionAmount = data.amount;
                         scope.formData[scope.modelName] = new Date();
+                        scope.formData.valueDate = scope.formData[scope.modelName];
                         if (data.fixedEmiAmount) {
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
@@ -335,8 +341,31 @@
                 }
             }
 
+            scope.fetchBankDetailsData = function(){
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
+                    scope.bankAccountDetails = data;
+                    scope.populateAttachedBankAccount(data);
+                });
+            };
+
+            scope.populateAttachedBankAccount = function(data) {
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: scope.accountId}, function (data) {
+                    if(scope.bankAccountDetails && scope.bankAccountDetails.length >0 && data ) {
+                        for (var i = 0; i < scope.bankAccountDetails.length; i++) {
+                            if(data[0].id === scope.bankAccountDetails[i].id){
+                                scope.bankAccountDetails[i].checked = true;
+                                break;
+                            }
+                        }
+                    }
+                });
+            }
+
             scope.formDisbursementData = function(){
                  scope.modelName = 'actualDisbursementDate';
+                 if (scope.isValueDateEnabled) {
+                     scope.showValueDateField = true;
+                 }
                     if(scope.response){
                         scope.showNetDisbursalAmount = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.netDisbursalAmount;
                     }                    
@@ -466,6 +495,7 @@
                 case "disburse":
                     scope.formDisbursementData();
                     scope.getPaymentTypeOtions();
+                    scope.fetchBankDetailsData();
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
                 case "disbursetosavings":
@@ -475,6 +505,9 @@
                     break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
                         if(glimData.length>0 ){
@@ -513,6 +546,9 @@
                 case "prepayment":
                     scope.modelName = 'transactionDate';
                     scope.formData.transactionDate =  new Date();
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.paymentTypeResource.getAll({}, function (data) {
                         scope.paymentTypes = data;
                         scope.getPaymentTypeOtions();
@@ -529,6 +565,9 @@
                     break;
                 case "prepayloan":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -551,6 +590,9 @@
                     break;
                 case "prepay":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -620,6 +662,17 @@
                         }
                     });
                     break;
+                case "returnloan":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'returnloan'}, function (data) {
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        scope.returnLoanAmount = data.amount;
+                        scope.isReturnLoan = true;
+                    });
+                    scope.title = 'label.heading.returnloanaccount';
+                    scope.labelName = 'label.input.returnondate';
+                    scope.taskPermissionName = 'RETURNLOAN_LOAN';
+                    break;
                 case "close-rescheduled":
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'close-rescheduled'}, function (data) {
@@ -648,6 +701,9 @@
                     break;
                 case "refund":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'refund'}, function (data) {
                         scope.amount = data.amount;
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -688,7 +744,7 @@
                             }
                         });
                     scope.showDateField = true;
-                    scope.showNoteField = false;
+                    scope.showNoteField = true;
                     scope.showAmountField = true;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
@@ -728,6 +784,9 @@
                     resourceFactory.LoanAccountResource.get({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId, command: 'pay'}, function (data) {
                         if (data.dueDate) {
                             scope.formData.transactionDate = new Date(data.dueDate);
+                        }
+                        if (scope.isValueDateEnabled) {
+                            scope.showValueDateField = true;
                         }
                         if (data.chargeTimeType.value === "Instalment Fee" && data.installmentChargeData) {
                             scope.installmentCharges = data.installmentChargeData;
@@ -781,6 +840,9 @@
                     break;
                 case "recoverypayment":
                     scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'recoverypayment'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.paymentModeOptions = data.paymentModeOptions;
@@ -1016,6 +1078,7 @@
 
                 if (scope.action == "disburse" || scope.action == "forcedisburse"){
                     scope.constructGlimClientMembersData();
+                    scope.formData.bankAccountDetailId;
                 }
 
                 if(scope.action == 'disbursetogroupbankaccounts'){
@@ -1061,13 +1124,17 @@
                 if (this.formData[scope.modelName]) {
                     this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName], scope.df);
                 }
+                if (this.formData.valueDate) {
+                    this.formData.valueDate = dateFilter(this.formData.valueDate, scope.df);
+                }
                 if (scope.action != "undoapproval" && scope.action != "undodisbursal" || scope.action === "paycharge") {
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
-                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment" || scope.action == "refundByCash") {
+                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment" || scope.action == "refundByCash"
+                    || scope.action == "returnloan") {
 
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';

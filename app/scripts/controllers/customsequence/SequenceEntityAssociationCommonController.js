@@ -6,40 +6,42 @@
             scope.sequenceEntityAssociationId = routeParams.id;
             scope.formData.locale = scope.optlang.code;
             scope.selectedSequences = [];
+            scope.productIdApplicableFor = [7,10,201];
 
-            function populateDetails() {
-                scope.labelStatus = "activate";
-                resourceFactory.customSequenceAssociationResource.get({
-                    sequenceEntityAssociationId: scope.sequenceEntityAssociationId
-                }, function(data) {
-                    scope.sequenceAssociationsDetails = data;
-                    scope.availableSequences = scope.sequenceAssociationsDetails.availableSequences;
-                    scope.entityType = scope.sequenceAssociationsDetails.entityType;
-                    scope.selectedSequences = scope.sequenceAssociationsDetails.selectedSequences;
-
-                    if (scope.sequenceAssociationsDetails.status.toUpperCase() === 'ACTIVE') {
-                        scope.labelStatus = "inactivate";
-                    }
-                    if (scope.sequenceAssociationsDetails.entityType === 'LOAN_PRODUCTS') {
-                        resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
-                            scope.products = data;
-                            scope.productName = scope.products[scope.products.findIndex(x => x.id == scope.sequenceAssociationsDetails.entityId)].name;
-                            scope.entityId = scope.productName;
-                        });
-
-                        resourceFactory.loanApplicationSequenceTemplateResource.get(function(data) {
-                            scope.loanSequenceTemplateData = data;
-                            scope.loanEntityTypes = scope.loanSequenceTemplateData.loanEntityTypes;
-                            scope.subEntityType = scope.loanEntityTypes[scope.loanEntityTypes.findIndex(x => x.id === scope.sequenceAssociationsDetails.subEntityType)].value;
-                            scope.applicableColumns = scope.loanSequenceTemplateData.applicableColumns;
-                            scope.applicableColumn = scope.applicableColumns[scope.applicableColumns.findIndex(x => x.id == scope.sequenceAssociationsDetails.sequenceForFieldId)].value;
-                        });
-
-                    }
+            scope.getAllActiveLoanProducts = function(){
+                resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
+                    scope.products = data;
                 });
             };
 
-            populateDetails();
+            scope.populateDetails = function() {
+                scope.labelStatus = "activate";
+                resourceFactory.customSequenceAssociationResource.get({
+                    sequenceEntityAssociationId: scope.sequenceEntityAssociationId,'command' :'template'
+                }, function(data) {
+                    scope.entityTypes = data.templateData.applicableOnEntities;
+                    scope.sequenceAssociationsDetails = data;
+                    if(data.entityType){
+                        scope.entityType = data.entityType.id;
+                        if(data.product){
+                            if(scope.productIdApplicableFor.indexOf(scope.entityType)>-1){
+                                scope.getAllActiveLoanProducts();
+                            }
+                            scope.productId = data.product.id;
+                        }
+                        
+                    }
+                    scope.applicableColumns = data.templateData.applicableColumns;
+                    if(data.sequenceForField){
+                        scope.applicableColumn = data.sequenceForField.id;
+                    }
+                    scope.availableSequences = scope.sequenceAssociationsDetails.availableSequences;
+                    scope.selectedSequences = scope.sequenceAssociationsDetails.selectedSequences;
+                    
+                });
+            };
+
+            scope.populateDetails();
 
             scope.addSequence = function() {
                 for (var i in this.selectedSequence) {
@@ -67,33 +69,6 @@
                 var temp = scope.selectedSequences[index];
                 scope.availableSequences.push(temp);
                 scope.selectedSequences.splice(index, 1);
-            };
-
-            scope.changeStatus = function() {
-                if (scope.labelStatus === 'inactivate') {
-                    scope.formData.status = scope.sequenceAssociationsDetails.availableStatus[scope.sequenceAssociationsDetails.availableStatus.findIndex(x => x.value.toLowerCase() == 'inactive')].id;
-                } else {
-                    scope.formData.status = scope.sequenceAssociationsDetails.availableStatus[scope.sequenceAssociationsDetails.availableStatus.findIndex(x => x.value.toLowerCase() == 'active')].id;
-                }
-                scope.formData.locale = scope.optlang.code;
-
-                resourceFactory.customSequenceAssociationResource.updateStatus({
-                        sequenceEntityAssociationId: scope.sequenceEntityAssociationId
-                    }, scope.formData,
-                    function(data) {
-                        populateDetails();
-                    }
-                );
-            };
-
-            scope.removeSequence = function(index) {
-                var temp = scope.selectedSequences[index];
-                scope.availableSequences.push(temp);
-                scope.selectedSequences.splice(index, 1);
-            };
-
-            scope.edit = function() {
-                location.path('/editSequenceEntityAssociation/' + scope.sequenceEntityAssociationId)
             };
 
             scope.submit = function() {

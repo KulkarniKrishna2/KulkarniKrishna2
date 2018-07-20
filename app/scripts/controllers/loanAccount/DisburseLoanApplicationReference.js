@@ -241,6 +241,9 @@
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                     }
+                    if (data.clientId) {
+                        scope.clientId = data.clientId;
+                    }
                     if (data.group) {
                         scope.groupName = data.group.name;
                     }
@@ -303,6 +306,7 @@
                     if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
+                    scope.fetchBankAccountDetails();
 
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
@@ -310,6 +314,12 @@
 
                 });
             };
+
+            scope.fetchBankAccountDetails = function() {
+                resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
+                    scope.bankAccountDetails = data;
+                });
+            }
 
             scope.requestApprovalLoanAppRef = function () {
                 resourceFactory.loanApplicationReferencesResource.update({
@@ -433,9 +443,11 @@
                             if(i == 0){
                                 disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.actualDisbursementDate), scope.df);
                                 disbursementData.principal = scope.formRequestData.disburse.transactionAmount;
+                                disbursementData.discountOnDisbursalAmount= scope.formRequestData.disburse.discountOnDisbursalAmount;
                             }else{
                                 disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate), scope.df);
                                 disbursementData.principal = scope.formRequestData.submitApplication.disbursementData[i].principal;
+                                disbursementData.discountOnDisbursalAmount= scope.formRequestData.submitApplication.disbursementData[i].discountOnDisbursalAmount;
                             }
                             scope.formRequestPreveieData.disbursementData.push(disbursementData);
                             //break;
@@ -556,6 +568,9 @@
 
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
+                if(scope.formData.bankAccountDetailId){
+                    this.formRequestData.disburse.bankAccountDetailId = scope.formData.bankAccountDetailId;
+                }
 
                 if(scope.formData.expectedDisbursalPaymentType && scope.formData.expectedDisbursalPaymentType.name){
                     this.formRequestData.expectedDisbursalPaymentType = scope.formData.expectedDisbursalPaymentType.id;

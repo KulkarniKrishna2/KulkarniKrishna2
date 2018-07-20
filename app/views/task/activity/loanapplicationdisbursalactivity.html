@@ -616,18 +616,19 @@
                                                     <option value="">{{'label.selectone' | translate}}</option>
                                                </select>
                                             </td>
-                                            <td class="width25">
+                                        </tr>
+                                        <tr>
+                                            <td class="width25" ng-show="paymentTypeOptions.length>0">
                                                 <label>{{ 'label.input.paymenttype' | translate}}<span
                                                         class="required">*</span></label>
                                             </td>
-                                            <td class="width25 paddedbottom10">
+                                            <td class="width25 paddedbottom10" ng-show="paymentTypeOptions.length>0">
                                                 <select id="paymentTypeId"
                                                         ng-model="formRequestData.disburse.paymentTypeId"
                                                         class="form-control"
                                                         ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
                                                         value="{{paymentType.id}}"></select>
                                             </td>
-
                                         </tr>
                                     </table>
 

@@ -182,6 +182,9 @@
                     reportsByCategoryResource: defineResource(apiVer + "/reports/category/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
+                    reportsByEntityResource: defineResource(apiVer + "/reports/entityreport/:id", {id: '@id'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                    }),
                     reportsResourceCommands: defineResource(apiVer + "/reports/:id", {id: '@id'}, {
                         activate: {method: 'POST',  params:{command : 'activate'}},
                         deActivate: {method: 'POST', params:{command : 'deActivate'}}
@@ -193,7 +196,7 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command'}, {
+                    DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename: '@datatablename', entityId: '@entityId', resourceId: '@resourceId', command: '@command',associateAppTable: '@associateAppTable',isFetchAssociateTable: '@isFetchAssociateTable'}, {
                         getAllDataTables: {method: 'GET', params: {}, isArray: true},
                         getTableDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
@@ -423,6 +426,7 @@
                         reverse: {method: 'POST', params: {command: 'reverse'}},
                         search: {method: 'GET', params: {}}
                     }),
+                    frequentPostingResource: defineResource(apiVer+ "/frequentpostings",{},{}),
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {accId: "@accId"}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getView: {method: 'GET', params: {}}
@@ -1149,14 +1153,28 @@
                     taskListSearchResource: defineResource(apiVer + "/tasks/search",{command:'@command'}, {
                         get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}, isArray: true}
                     }),
-                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
+                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'},
                         get: {method: 'GET'},
                         update: {method: 'PUT'},
                         delete: {method: 'DELETE'}
                     }),
-                    bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/action", {entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
+                    bankAccountDetailResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        create: {method: 'POST'},
+                        get: {method: 'GET'},
+                        update: {method: 'PUT'},
+                        delete: {method: 'DELETE'}
+                    }),
+                    loanBankAccountAssociationResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/loans/:bankAccountId", {entityType: "@entityType",entityId: '@entityId',bankAccountId: '@bankAccountId'}, {
+                        create: {method: 'POST'},
+                        delete: {method: 'DELETE'}
+                    }),
+                    bankAccountDetailsTemplateResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/template", {entityType: "@entityType",entityId: '@entityId'}, {
+                        get: {method: 'GET'},
+                    }),
+                    bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId/action", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId', command:'@command'}, {
                         doAction: {method: 'POST',params:{command:'@command'}}
                     }),
                     bankAccountDetailWorkflowResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
@@ -1423,7 +1441,8 @@
                     }),
                     myAccountResource: defineResource(apiVer + "/myaccount/:command", {command: '@command'}, {
                         get: {method: 'GET', params: {}},
-                        changePassword: {method:'POST', params:{command:'changepassword'}}
+                        changePassword: {method:'POST', params:{command:'changepassword'}},
+                        logout: { method: 'POST', params: { command: 'logout' } }
                     }),                    
                     userPasswordResource: defineResource(apiVer + "/users/resetpassword", {}, {
                         resetpassword: {method:'POST', params:{}}
@@ -1465,6 +1484,12 @@
                         get: {method: 'GET', params: {}}
                     }),
                     loanTrxnForUtrNumberResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/utrnumber", {loanId: '@loanId', transactionId: '@transactionId'}, {
+                        update: {method: 'PUT'}
+                    }),
+                    loanTransactionValueDateResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/updatevaluedate", {loanId: '@loanId', transactionId: '@transactionId'}, {
+                        update: {method: 'PUT'}
+                    }),
+                    valueDateTransactionsResource: defineResource(apiVer + "/valuedatetransactions/loans", {}, {
                         update: {method: 'PUT'}
                     }),
                     clientParentGroupsResource: defineResource(apiVer + "/clients/:clientId/groupdetails", {clientId: '@clientId'}, {
@@ -1569,6 +1594,29 @@
                     }),
                     eodSummaryResource:defineResource(apiVer + "/eodsummary/:eodProcessId/:resourceName",{eodProcessId:'@eodProcessId',resourceName:'@resourceName'}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    initiateGroupWorkflowResource: defineResource(apiVer + "/groups/:groupId", {groupId: '@groupId'}, {
+                        save:{method:'POST', params:{}}
+                    }),
+                    loanTopupResource: defineResource(apiVer + "/loans/:loanId/loantopupdetails", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    fieldOfficersResource: defineResource(apiVer + "/staff/loanofficers", {officeId: '@officeId'}, {
+                        retrievefieldOfficers: {method: 'GET', params: {}, isArray:true},
+                    }),
+                    savingsInstallmentRescheduleResource: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    rescheduleSavingsInstallments: defineResource(apiVer + "/savingsaccounts/bulkrescheduleinstallments", {}, {
+                        reschedule:{method:'POST' , params:{}}
+                    }),
+                    bulkTransferTemplateResource: defineResource(apiVer + "/bulktransfer/template", {}, {
+                        get:{method:'GET' , params:{}}
+                    }),
+                    bulkTransferResource: defineResource(apiVer + "/bulktransfer/:branchTransferId", {branchTransferId:'@branchTransferId'}, {
+                        getAll:{method:'GET' , params:{}, isArray:true},
+                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
+                        actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
                     })
                 };
             }];

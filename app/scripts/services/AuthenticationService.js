@@ -17,10 +17,10 @@
             var apiVer = '/fineract-provider/api/v1';
 
             var getUserDetails = function(data){
-
+                httpService.setAuthorization(data.access_token, true);
                 localStorageService.addToLocalStorage('tokendetails', data);
                 setTimer(data.expires_in);
-                httpService.get( apiVer + "/userdetails?access_token=" + data.access_token)
+                httpService.get(apiVer + "/userdetails")
                     .success(onSuccess)
                     .error(onFailure);
 
@@ -46,7 +46,13 @@
             var getAccessToken = function(){
                 var refreshToken = localStorageService.getFromLocalStorage("tokendetails").refresh_token;
                 httpService.cancelAuthorization();
-                httpService.post( "/fineract-provider/api/oauth/token?&client_id=community-app&grant_type=refresh_token&client_secret=123&refresh_token=" + refreshToken)
+                var accesPayload = {
+                    client_id: 'community-app',
+                    grant_type: 'refresh_token',
+                    client_secret: '123',
+                    refresh_token: refreshToken
+                };
+                httpService.post("/fineract-provider/api/oauth/token", accesPayload)
                     .success(updateAccessDetails).error(onRefreshFailure);
             }
 

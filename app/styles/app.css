@@ -1722,6 +1722,7 @@ figure {
 .popup-max-height {
     max-height: 100% !important;
 }
+
 table.table.table-striped tr.backgroundred td{
     background-color: #f4b5ba;
 }
@@ -1743,4 +1744,8 @@ table.table.table-striped tr.backgroundred td{
 
 .min-height-250px {
     min-height: 250px !important;
+}
+
+.margin-plus-10px{
+    margin: 10px !important;
 }

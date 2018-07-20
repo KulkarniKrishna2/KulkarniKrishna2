@@ -50,6 +50,7 @@
             scope.isEmailIdMandatory = false;
             scope.isGenderMandatory = false;
             scope.displayAge = false;
+            scope.isGenderAutoPopulate = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
@@ -57,11 +58,16 @@
             scope.submitted = false;
             scope.isStaffMandatory = false;
             scope.isStaffRequired = false;
+            scope.showTalukas = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+           }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
                 scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
@@ -116,6 +122,9 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
                 scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
                 scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isAutoPopulate) {
+                scope.isGenderAutoPopulate = scope.response.uiDisplayConfigurations.createClient.isAutoPopulate.genderOption;
             }
             scope.minAge = 0;
             scope.maxAge = 0;
@@ -172,12 +181,15 @@
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.formData.legalFormId = scope.clientLegalFormOptions[0].id;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 scope.maritalStatusOptions = data.maritalStatusOptions;
 
-                if(scope.genderOptions[0]) {
-                    scope.formData.genderId = scope.genderOptions[0].id;
+                if(scope.isGenderAutoPopulate) {
+                    if(scope.genderOptions[0]) {
+                        scope.formData.genderId = scope.genderOptions[0].id;
+                    }
                 }
+
                 if(scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
                      scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
                      scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
@@ -283,6 +295,7 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.savingproducts = data.savingProductOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 if(scope.isPopulateClientAddressFromVillages ) {
                     resourceFactory.villageResource.getAllVillages({officeId: officeId, limit: 1000}, function (data) {
@@ -402,6 +415,7 @@
                         delete scope.formAddressData.talukaId;
                     }
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
+                    scope.showTalukas = (scope.talukas.length > 0); 
                 }
             }
 

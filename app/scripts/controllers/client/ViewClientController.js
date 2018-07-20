@@ -81,6 +81,165 @@
 
             scope.initiateCreditBureauEnquiry = function () {
                 location.path('/create/creditbureau/client/' + scope.clientId);
+            }
+            scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
+            function constructActiveLoanSummary() {
+                if (scope.existingLoans) {
+                    for (var i in scope.existingLoans) {
+                        var existingLoan = scope.existingLoans[i];
+                        if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
+                            if (existingLoan.loanStatus && existingLoan.loanStatus.id === 300) {
+                                if (_.isUndefined(scope.activeLoan)) {
+                                    scope.viewCreditBureauReport = true;
+                                    scope.activeLoan = {};
+                                    scope.activeLoan.summaries = [];
+                                    scope.activeLoan.totalSummary = {};
+                                    scope.activeLoan.totalSummary.noOfActiveLoans = 0;
+                                    scope.activeLoan.totalSummary.totalOutstandingAmount = 0;
+                                    scope.activeLoan.totalSummary.totalEMIAmount = 0;
+                                    scope.activeLoan.totalSummary.totalOverDueAmount = 0;
+                                }
+                                if (existingLoan.lenderName) {
+                                    var isLenderPresent = false;
+                                    var summaty = {};
+                                    for (var j in scope.activeLoan.summaries) {
+                                        if (existingLoan.lenderName === scope.activeLoan.summaries[j].lenderName) {
+                                            summaty = scope.activeLoan.summaries[j];
+                                            isLenderPresent = true;
+                                            summaty.noOfActiveLoans += 1;
+                                            if (summaty.customerSince > existingLoan.disbursedDate) {
+                                                summaty.customerSince = existingLoan.disbursedDate;
+                                            }
+                                            summaty.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                            summaty.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
+                                            if (summaty.disbursalDate < existingLoan.disbursedDate) {
+                                                summaty.disbursalDate = existingLoan.disbursedDate;
+                                            }
+                                            summaty.totalOverDueAmount += existingLoan.amtOverdue;
+                                            scope.activeLoan.summaries[j] = summaty;
+                                            break;
+                                        }
+                                    }
+                                    if (!isLenderPresent) {
+                                        summaty.lenderName = existingLoan.lenderName;
+                                        summaty.customerSince = existingLoan.disbursedDate;
+                                        summaty.noOfActiveLoans = 1;
+                                        summaty.totalOutstandingAmount = existingLoan.currentOutstanding;
+                                        summaty.totalEMIAmount = convertEMIAmountToMonthlyAmount(existingLoan);
+                                        summaty.disbursalDate = existingLoan.disbursedDate;
+                                        summaty.totalOverDueAmount = existingLoan.amtOverdue;
+                                        scope.activeLoan.summaries.push(summaty);
+                                    }
+                                    scope.activeLoan.totalSummary.noOfActiveLoans += 1;
+                                    scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
+                                    scope.activeLoan.totalSummary.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
+                                    scope.activeLoan.totalSummary.totalOverDueAmount += existingLoan.amtOverdue;
+                                }
+                            }
+                        }
+                    }
+                    if (!_.isUndefined(scope.activeLoan) && !_.isUndefined(scope.activeLoan.summaries)) {
+                        if (scope.activeLoan.summaries.length > 0) {
+                            scope.isReportPresent = true;
+                        }
+                    }
+                }
+            };
+
+            function constructClosedLoanSummary() {
+                if (scope.existingLoans) {
+                    for (var i in scope.existingLoans) {
+                        var existingLoan = scope.existingLoans[i];
+                        var isValidData = false;
+                       dData = true;
+                        if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
+                            if (existingLoan.loanStatus && existingLoan.loanStatus.id === 600) {
+                                if (_.isUndefined(scope.closedLoan)) {
+                                    scope.closedLoan = {};
+                                    scope.closedLoan.summaries = [];
+                                    scope.closedLoan.totalSummary = {};
+                                    scope.closedLoan.totalSummary.noOfClosedLoans = 0;
+                                    scope.closedLoan.totalSummary.totalDisbursalAmount = 0;
+                                    scope.closedLoan.totalSummary.totalWriteOffAmount = 0;
+                                }
+                                if (existingLoan.lenderName) {
+                                    var isLenderPresent = false;
+                                    var summaty = {};
+                                    for (var j in scope.closedLoan.summaries) {
+                                        if (existingLoan.lenderName === scope.closedLoan.summaries[j].lenderName) {
+                                            summaty = scope.closedLoan.summaries[j];
+                                            isLenderPresent = true;
+                                            summaty.noOfClosedLoans += 1;
+                                            if (summaty.customerSince > existingLoan.disbursedDate) {
+                                                summaty.customerSince = existingLoan.disbursedDate;
+                                            }
+                                            summaty.totalDisbursalAmount += existingLoan.amountBorrowed;
+                                            if (summaty.lastClosureDate) {
+                                                if (existingLoan.closedDate && summaty.lastClosureDate < existingLoan.closedDate) {
+                                                    summaty.lastClosureDate = existingLoan.closedDate;
+                                                }
+                                            } else if (existingLoan.closedDate) {
+                                                summaty.lastClosureDate = existingLoan.closedDate;
+                                            }
+                                            summaty.totalWriteOffAmount += existingLoan.writtenOffAmount;
+                                            scope.closedLoan.summaries[j] = summaty;
+                                            break;
+                                        }
+                                    }
+                                    if (!isLenderPresent) {
+                                        summaty.lenderName = existingLoan.lenderName;
+                                        summaty.customerSince = existingLoan.disbursedDate;
+                                        summaty.noOfClosedLoans = 1;
+                                        summaty.totalDisbursalAmount = existingLoan.amountBorrowed;
+                                        if (existingLoan.closedDate) {
+                                            summaty.lastClosureDate = existingLoan.closedDate;
+                                        }
+                                        summaty.totalWriteOffAmount = existingLoan.writtenOffAmount;
+                                        scope.closedLoan.summaries.push(summaty);
+                                    }
+                                    scope.closedLoan.totalSummary.noOfClosedLoans += 1;
+                                    scope.closedLoan.totalSummary.totalDisbursalAmount += existingLoan.amountBorrowed;
+                                    scope.closedLoan.totalSummary.totalWriteOffAmount += existingLoan.writtenOffAmount;
+                                }
+                            }
+                        }
+                        if (!_.isUndefined(scope.closedLoan) && !_.isUndefined(scope.closedLoan.summaries)) {
+                            if (scope.closedLoan.summaries.length > 0) {
+                                scope.isReportPresent = true;
+                            }
+                        }
+                    }
+                }
+            };
+            scope.isReportPresent = false;
+            function constructLoanSummary() {
+                if (!_.isUndefined(scope.activeLoan)) {
+                    delete scope.activeLoan;
+                }
+                if (!_.isUndefined(scope.closedLoan)) {
+                    delete scope.closedLoan;
+                }
+                constructActiveLoanSummary();
+                constructClosedLoanSummary();
+                findcustomerSinceFromEachMFI();
+            };
+
+            function findcustomerSinceFromEachMFI() {
+                if(scope.activeLoan && scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0){
+                    if(scope.closedLoan && scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0){
+                        for(var i in scope.activeLoan.summaries){
+                            for(var j in scope.closedLoan.summaries){
+                                if(scope.activeLoan.summaries[i].lenderName === scope.closedLoan.summaries[j].lenderName){
+                                    if (scope.activeLoan.summaries[i].customerSince > scope.closedLoan.summaries[j].customerSince) {
+                                        scope.activeLoan.summaries[i].customerSince = scope.closedLoan.summaries[j].customerSince
+                                    }else if(scope.closedLoan.summaries[j].customerSince > scope.activeLoan.summaries[i].customerSince){
+                                        scope.closedLoan.summaries[i].customerSince = scope.activeLoan.summaries[j].customerSince
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             scope.clientCreditBureauReportSummaryLoaded = false;
@@ -273,6 +432,14 @@
                     if(status == 'active'){
                         scope.activeLoanApplications = data;
                         angular.copy(scope.activeLoanApplications,scope.loanApplications);
+                        if(scope.activeLoanApplications.length > 0){
+                            for(var i in scope.buttonsArray.singlebuttons){
+                                if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                                    scope.buttonsArray.singlebuttons[i].isEnableButton = false;
+                                    break;
+                                }
+                            }
+                        }
                     }else if(status == 'rejected'){
                         scope.rejectedLoanApplications = data;
                         angular.copy(scope.rejectedLoanApplications,scope.loanApplications);
@@ -365,13 +532,10 @@
                     if(!_.isUndefined(scope.client.id)){
                         isLoadClientDataTables = true;
                         scope.clientDatatablesLoaded = true;
-                        var associatedEntityId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
-                        if (associatedEntityId == null) {
-                            associatedEntityId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
-                        } else if (associatedEntityId == null) {
-                            associatedEntityId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
-                        }
-                        var dataTableParams = {apptable: 'm_client', associatedEntityId: associatedEntityId, isFetchBasicData : false};
+                        var associatedEntityLegalId = scope.client.legalForm != undefined ? scope.client.legalForm.id : null;
+                        var associatedEntityClientTypeId = scope.client.clientType.id != undefined ? scope.client.clientType.id : null;
+                        var associatedEntityClassificationId = scope.client.clientClassification.id != undefined ? scope.client.clientClassification.id : null;
+                        var dataTableParams = {apptable: 'm_client', associatedEntityLegalId: associatedEntityLegalId,associatedEntityClientTypeId:associatedEntityClientTypeId,associatedEntityClassificationId:associatedEntityClassificationId, isFetchBasicData : false};
                         resourceFactory.DataTablesResource.getAllDataTables(dataTableParams, function (data) {
                             scope.datatables = data;
                         });

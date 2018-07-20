@@ -64,12 +64,13 @@
                             </h3>
                         </div>
 
+                        <div ng-repeat="(transactionDate, transactions) in parsedTransactions" ng-init="transaction=transactions[0]">
                         <table class="width100">
                             <tr>
                                 <td class="width14"></td>
                                 <td class="width36"></td>
                                 <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
-                                <td class="width31">{{transaction.transactionDate | DateFormat}}</td>
+                                <td class="width31">{{transactionDate}}</td>
                             </tr>
                             <tr>
                                 <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
@@ -112,7 +113,7 @@
                         </div>
                         <hr/>
                         <div  class="row paddedleft">
-                            <div class="col-md-12">
+                            <div class="col-md-12" ng-if="$last">
                                 <h3 class="bolder">{{ 'label.heading.details' | translate }}&nbsp;:&nbsp;
                                     <a class="pointer" ng-click="viewentitytransaction(transaction.entityId,transaction.transactionId)" ng-show="transaction.entityId" tooltip="View Journal Entries">
                                         {{'label.button.showentitytransaction' | translate}}
@@ -156,18 +157,14 @@
                                     <td>{{'label.input.banknumber' | translate}}</td>
                                     <td>{{transaction.transactionDetails.paymentDetails.bankNumber}}</td>
                                 </tr>
-                                <tr>
-                                    <td>{{'label.createdby' | translate}}</td>
-                                    <td>{{transaction.createdByUserName}}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{'label.createdon' | translate}}</td>
-                                    <td>{{transaction.createdDate | DateFormat}}</td>
-                                </tr>
                             </table>
-                            <div class="text-center form-group">
+                            <div class="text-center form-group" ng-if="$last">
                                 <span><a id="backpage" ng-click="back()" class="btn btn-primary icon-backward"></i>&nbsp;&nbsp;{{ 'label.button.back' | translate }}</a></span>
                             </div>
+                            <div ng-if!="$last">
+                                <hr/>
+                            </div>
+                        </div>
                         </div>
                         <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
                             <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>

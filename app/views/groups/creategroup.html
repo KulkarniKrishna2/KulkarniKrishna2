@@ -38,8 +38,8 @@
 	            <label class="control-label col-sm-2" for="name" ng-if="!isReferenceNumberAsNameEnable">{{'label.input.name' | translate}}<span
 	                    class="required" ng-if="!isReferenceNumberAsNameEnable">*</span></label>
 
-	            <div class="col-sm-3" ng-if="!isReferenceNumberAsNameEnable">
-	                <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+	            <div class="col-sm-3">
+	                <input type="text" id="name" name="name" ng-model="formData.name"  ng-readonly="isCenterNameIncluded" class="form-control" required late-Validate/>
 	            </div>
 	            <div class="col-sm-2" ng-if="!isReferenceNumberAsNameEnable">
 	                <form-validate valattributeform="creategroupform" valattribute="name"/>

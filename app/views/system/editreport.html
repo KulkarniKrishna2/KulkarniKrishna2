@@ -35,7 +35,12 @@
                                         value="">
                                 </select>
                             </td>
-                            <td class="width20 paddedbottom10">
+                            <td class="width20 paddedbottom10" ng-show="formData.reportType=='Pentaho'">
+                                    <input type="checkbox" ng-model="reportdetail.isEmbeddedReport">
+
+                                <label class="control-label">{{ 'label.input.embeddedreport' | translate }}</label>
+                            </td>
+                            <td class="width20 paddedbottom10" ng-show="formData.reportType=='Chart'">
                                 <label class="control-label">{{ 'label.input.reportsubtype' | translate }}&nbsp;</label>
                                 <select ng-model="reportdetail.reportSubType" class="form-control width170px"
                                         ng-options="reportSubType for reportSubType in reportdetail.allowedReportSubTypes" ng-disabled="disableFields"
@@ -44,7 +49,26 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr ng-show="reportdetail.isEmbeddedReport">
+                            <td class="width20 paddedbottom10">
+                                <label class="control-label">{{ 'label.input.embeddedscreentype' | translate }}&nbsp;<span
+                                        class="required">*</span></label>
+                                <select id="embeddedReportType" name="embeddedReportType" ng-model="reportdetail.embeddedReportType" class="form-control width170px" ng-options="embeddedReportType.id as embeddedReportType.value for embeddedReportType  in reportdetail.embeddedReportTypes"
+                                        value="{{embeddedReportType.id}}">
+                                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                                </select>
+                                <form-validate valattributeform="editreportrform" valattribute="embeddedReportType"/>
+                            </td>
+                            <td class="width30 paddedbottom10">
+                                <label class="control-label">{{ 'label.input.description' | translate }}</label>
+                                <div class="form-inline">
+                                <textarea id="description" class="form-control" rows="2" ng-model="reportdetail.description"></textarea>
+                                </div>
+                            </td>
+                            <td class="width20">
+                            </td>
+                        </tr>
+                        <tr ng-hide="reportdetail.isEmbeddedReport">
                             <td class="width30 paddedbottom10">
                                 <label class="control-label">{{ 'label.input.reportcategory' | translate
                                     }}&nbsp;</label>
@@ -61,7 +85,7 @@
                             <td class="width20 paddedbottom10">
                             </td>
                         </tr>
-                        <tr>
+                        <tr ng-hide="reportdetail.isEmbeddedReport">
                             <td class="width30">
                                 <label class="control-label">{{ 'label.input.description' | translate }}</label>
 
@@ -84,7 +108,7 @@
 
             <tr class="col-md-1 minheight30px"></tr>
 
-            <tr class="form-group">
+            <tr class="form-group" ng-hide="reportdetail.isEmbeddedReport">
                 <td class="width10">
                     <div data-ng-switch on="formData.reportType">
                         <div data-ng-switch-when="Pentaho"></div>
@@ -117,7 +141,7 @@
                 </td>
             </tr>
             <tr class="col-md-1 minheight30px"></tr>
-            <tr class="form-group">
+            <tr class="form-group" ng-hide="reportdetail.isEmbeddedReport">
                 <td class="width11">
                     <label class="control-label col-sm-2"><h4>{{ 'label.heading.reportCategories' | translate }}</h4></label>
                 </td>
@@ -153,7 +177,7 @@
                 </td>
             </tr>
             <tr class="col-md-1 minheight30px"></tr>
-            <tr class="form-group">
+            <tr class="form-group" ng-hide="reportdetail.isEmbeddedReport">
                 <td class="width10">
                     <label class="control-label col-sm-2"><h4>{{ 'label.heading.reportparameters' | translate }}</h4></label>
                 </td>

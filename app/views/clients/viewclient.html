@@ -278,16 +278,18 @@
 								<li>
 									<a href="#/clients/{{client.id}}/accountlimits" has-permission='READ_CUSTOMERACCOUNTLIMITS'>{{'label.button.accountlimits' | translate }}</a>
 								</li>
-										<li>
-											<a href="#/history/{{entityType}}/{{client.id}}"
-											   has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
-												translate }}</a>
-										</li>
-
-									</ul>
+								<li>
+									<a href="#/history/{{entityType}}/{{client.id}}"
+										has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
+										translate }}</a>
+								</li>
+								<li>
+									<a href="#/reports/{{client.id}}/clientprofilereports">{{'label.button.clientprofilereport' | translate }}</a>
+								</li>
+						    </ul>
 						</span>
 				    </div>
-				    <div ng-hide="client.isWorkflowEnabled">	
+				    <div ng-hide="client.isWorkflowEnabled && client.isWorkflowEnableForBranch">	
 						<div class="pull-right" ng-show="loanApplicationReferenceId && client.status.value === 'Pending'">
 							  <a href="#/client/{{client.id}}/activate/{{loanApplicationReferenceId}}" class="btn btn-primary"
 								 has-permission='ACTIVATE_CLIENT'><i
@@ -901,7 +903,8 @@
 									<span class="padded-td">{{address.addressLineTwo}}</span>
 								</td>
 							</tr>
-							<tr>
+							
+							<tr ng-hide="hideVillage">
 								<th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
 								<td>
 									<span class="padded-td">{{address.villageTown}}</span>

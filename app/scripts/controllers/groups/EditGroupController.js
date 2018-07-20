@@ -8,7 +8,7 @@
             scope.isActivationReadOnly = scope.response.uiDisplayConfigurations.viewGroup.isReadOnlyField.activationDate;
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.editGroup = data;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 scope.formData = {
                     name: data.name,
                     externalId: data.externalId,

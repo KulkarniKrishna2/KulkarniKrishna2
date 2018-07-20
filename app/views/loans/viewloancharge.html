@@ -73,5 +73,23 @@
                 <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountOutstanding}}</td>
             </tr>
         </table>
+
+        <br>
+        <h3 ng-show="taxDetails"><i class="icon-plus icon-white btn btn-danger" ng-click="showTaxDetail()"></i>
+        {{'label.heading.chargetaxdetails' | translate}} </h3>
+        <table width="100%" ng-show="showTaxDetails == true" >
+            <tr>
+                <td width="20%">{{'label.heading.chargeamount' | translate}}</td>
+                <td width="80%">{{charge.currency.displaySymbol}}&nbsp;{{charge.amountSansTax}}</td>
+            </tr>
+            <tr ng-repeat="taxDetail in taxDetails">
+                <td>{{taxDetail.taxComponentName}}</td>
+                <td>{{charge.currency.displaySymbol}}&nbsp;{{taxDetail.amount}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.heading.totalchargeamount' | translate}}</td>
+                <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amount}}</td>
+            </tr>
+        </table>
     </div>
 </div>

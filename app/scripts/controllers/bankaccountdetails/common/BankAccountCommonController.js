@@ -17,6 +17,11 @@
             scope.fileError=false;
             scope.addPicture=true;
             scope.bankAccountDocuments = [];
+            if(scope.clientBankAccountDetailAssociationId != undefined){
+                scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
+            } else {
+                scope.clientBankAccountDetailAssociationId = scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId;
+            }
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -24,6 +29,10 @@
 
             function getEntityId(){
                 return scope.commonConfig.bankAccount.entityId;
+            }
+
+            function getClientBankAccountDetailAssociationId(){
+                return scope.clientBankAccountDetailAssociationId;
             }
 
             function underTask(){
@@ -39,7 +48,7 @@
             }
 
             function populateDetails(){
-                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
+                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId(),clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()}, function (data) {
                     scope.externalservices = data.externalServiceOptions;
                     scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                     scope.formData = {
@@ -109,10 +118,11 @@
             };
 
             function submitData(){
-                resourceFactory.bankAccountDetailResource.create({entityType: getEntityType(),entityId: getEntityId()},scope.formData,
+                resourceFactory.bankAccountDetailResources.create({entityType: getEntityType(),entityId: getEntityId()},scope.formData,
                     function (data) {
-                        populateDetails();
-                        enableShowSummary();
+                        scope.clientBankAccountDetailAssociationId = data.resourceId;
+                        scope.routeToViewBankAccountdetails();
+                        //enableShowSummary();
                 });
             };
 
@@ -162,10 +172,22 @@
             
             function updateData()
             {
-                resourceFactory.bankAccountDetailResource.update({entityType: getEntityType(),entityId: getEntityId()},scope.formData, function (data) {
+                resourceFactory.bankAccountDetailResource.update({entityType: getEntityType(),entityId: getEntityId(),clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()},scope.formData, function (data) {
+                    if (data.changes && 'bankAccountDetailId' in data.changes){
                         populateDetails();
-                    });
+                    } else{
+                        scope.routeToBankAccountdetails();
+                    }
+                });
             }
+
+            scope.routeToViewBankAccountdetails = function () {
+                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' +  getClientBankAccountDetailAssociationId());
+            };
+
+            scope.routeToBankAccountdetails = function () {
+                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails' );
+            };
 
             var submitAccountDocuments = function (postComplete) {
                 $upload.upload({
@@ -197,9 +219,9 @@
                     $modalInstance.dismiss('cancel');
                 };
                 $scope.submitDelete = function () {
-                    resourceFactory.bankAccountDetailResource.delete({entityType: getEntityType(),entityId: getEntityId()}, function (data) {
+                    resourceFactory.bankAccountDetailResource.delete({entityType: getEntityType(),entityId: getEntityId(),clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()}, function (data) {
                         $modalInstance.close('delete');
-                        location.path('/viewclient/' + getEntityId());
+                        scope.routeToBankAccountdetails();
                     });
                 };
             };
@@ -242,7 +264,7 @@
             };
 
             scope.activate = function () {
-                resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
+                resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),command:'activate'},scope.formData,
                     function (data) {
                         populateDetails();
                         enableShowSummary();
@@ -252,7 +274,20 @@
             };
 
             function init() {
-                populateDetails();
+                if(scope.clientBankAccountDetailAssociationId!=undefined){
+                    populateDetails();
+                }else{
+                    populateTemplate();
+                }
+            }
+
+            function populateTemplate() {
+                resourceFactory.bankAccountDetailsTemplateResource.get({entityType:scope.entityType, entityId: scope.entityId}, function (data) {
+                    var bankData = {bankAccountData:data};
+                    angular.extend(scope.commonConfig,bankData);
+                    scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
+                    scope.formData.accountTypeId = data.bankAccountTypeOptions[0].id;
+                });
             }
 
             function enableShowSummary(){
@@ -272,7 +307,7 @@
                          scope.doActionAndRefresh(actionName);
                      }
                  }else if(actionName === 'approve') {
-                     resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),command:'activate'},scope.formData,
+                     resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(),clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),command:'activate'},scope.formData,
                          function (data) {
                              scope.doActionAndRefresh(actionName);
                              populateDetails();

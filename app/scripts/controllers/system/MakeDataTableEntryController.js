@@ -23,6 +23,8 @@
             scope.tableDisplayName = scope.tableName;
 			scope.isSectioned = false;
             scope.sectionedColumnHeaders = [];
+            scope.associateAppTable = null;
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             if (routeParams.fromEntity == 'client') {
                     scope.clientName = $rootScope.clientname;
@@ -41,6 +43,7 @@
                     scope.loanproduct = true;
                     scope.clientId = $rootScope.clientId;
                     scope.LoanHolderclientName = $rootScope.LoanHolderclientName;
+                    scope.associateAppTable = 'm_loan';
             }
             if (routeParams.fromEntity == 'office') {
                     scope.officeName =  $rootScope.officeName;
@@ -56,7 +59,7 @@
                 scope.showSelect=false;
             }
 
-            resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
+            resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true',associateAppTable: scope.associateAppTable}, function (data) {
 
                 scope.tableDisplayName = data.registeredDataTableDisplayName != null ? data.registeredDataTableDisplayName: scope.tableName;
                 var colName = data.columnHeaders[0].columnName;
@@ -69,14 +72,18 @@
                     data.columnHeaders.splice(0, 1);
                     scope.dataTableName = 'f_journal_entry';
                 }
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
-                    data.columnHeaders.splice(0, 1);
-                    scope.isCenter = colName == 'center_id' ? true : false;
+                for (var i in data.columnHeaders){
+                    var colName = data.columnHeaders[i].columnName;
+                    if(idList.indexOf(colName) >= 0 ){
+                        data.columnHeaders.splice(i, 1);
+                        scope.isCenter = colName == 'center_id' ? true : false;
+                    } 
                 }
 
+                scope.rowstosplice = [];
                 for (var i in data.columnHeaders) {
                     if (data.columnHeaders[i].visible != undefined && !data.columnHeaders[i].visible) {
-                        data.columnHeaders.splice(data.columnHeaders.indexOf(i), 1);
+                        scope.rowstosplice.push(i);
                     } else {
                         if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
                             scope.formDat[data.columnHeaders[i].columnName] = {};
@@ -90,6 +97,9 @@
 
                         }
                     }
+                }
+                for(var i in scope.rowstosplice){
+                    data.columnHeaders.splice(data.columnHeaders.indexOf(scope.rowstosplice[i]), 1);
                 }
                 if(scope.newcolumnHeaders != ""){
                     scope.columnHeaders = scope.newcolumnHeaders;
@@ -311,6 +321,9 @@
                         }
                     }
                 }
+                if(scope.fromEntity == 'loan'){
+                    this.formData.appTable = 'm_loan';
+                }
                 var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true', command: scope.dataTableName};
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.dateTimeFormat();
@@ -352,6 +365,12 @@
                     location.path(destination);
                 });
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.columnName) >= 0) {
+                return true;
+               }
+               return false;
+            }
 
         }
     });

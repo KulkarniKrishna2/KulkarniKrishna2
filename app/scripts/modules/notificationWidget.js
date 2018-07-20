@@ -156,7 +156,10 @@ angular.module('notificationWidget', [])
                     //now our data array will hold the return response
                     //either it's a batch response or a normal response
                     var data = [];
-                    if (rejection.config.url.indexOf('batches') > 0) {
+                    if (rejection.data instanceof ArrayBuffer) {
+                        var decodedString = String.fromCharCode.apply(null, new Uint8Array(rejection.data));
+                        data.push({body: decodedString});
+                    } else if (rejection.config.url.indexOf('batches') > 0) {
                         data = rejection.data;
                     }
                     else {

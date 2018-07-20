@@ -18,6 +18,8 @@
             scope.requestIdentifier = "loanId";
             scope.rdapprovetemplate = {};
             scope.rdactivatetemplate = {};
+            scope.showSearchParameters = true;
+            scope.hideResult = false;
             scope.rescheduleData = function(){                
             scope.loanRescheduleData = [];
             scope.checkForBulkLoanRescheduleApprovalData = [];
@@ -114,6 +116,11 @@
 
             }
 
+            scope.viewSearchParameters = function(){
+                scope.showSearchParameters = true;
+                scope.hideResult = false;
+            }
+
             scope.clientSearch = function(){
                 scope.clients = [];
                 scope.loans = [];
@@ -167,6 +174,8 @@
                     });
             };
             scope.loanDisburseSearch = function(){
+                scope.showSearchParameters = false;
+                scope.hideResult = true;
                 scope.clients = [];
                 scope.loans = [];
                 scope.checkData = [];
@@ -178,6 +187,9 @@
                 searchConditions.loanStatus = 200;
                 if(this.expectedDisbursementOn){
                     searchConditions.loanExpectedDisbursedOnDate = this.expectedDisbursementOn.getFullYear()+'-'+(this.expectedDisbursementOn.getMonth()+1)+'-'+this.expectedDisbursementOn.getDate();
+                }
+                if(this.approvedOn){
+                    searchConditions.loanApprovedOnDate = this.approvedOn.getFullYear()+'-'+(this.approvedOn.getMonth()+1)+'-'+this.approvedOn.getDate();
                 }
                     var staffId = this.loanOfficerId;
                     if (this.centerId || this.groupId) {
@@ -293,6 +305,7 @@
                         scope.loanDisbursalTemplate[scope.loanDisburseData[i].id] = newValue;
                     };
                 }
+                scope.getTotalAmount(scope.loanDisburseData);
             }
             scope.loanDisbursalAllCheckBoxesMet = function() {
                 var checkBoxesMet = 0;
@@ -306,6 +319,7 @@
                     });
                     return (checkBoxesMet===scope.loanDisburseData.length);
                 }
+                scope.getTotalAmount(scope.loanDisburseData);
             }
 
             scope.checkerInboxAllCheckBoxesClicked = function() {
@@ -385,6 +399,19 @@
                     });
                 }
             };
+
+            scope.getTotalAmount = function(data) {
+                var amount = 0;
+                if(data && data.length>0) {
+                    for (var i=0; i<data.length; i++) {
+                        if ((scope.loanDisbursalTemplate[scope.loanDisburseData[i].id]) && angular.isDefined(data[i].principal)) {
+                            amount = amount + parseFloat(data[i].principal);
+                        }
+                    }
+                }
+                    this.formData.transactionAmount = amount.toFixed(2);
+            };
+
             var CheckerApproveCtrl = function ($scope, $modalInstance, action) {
                 $scope.approve = function () {
                     var totalApprove = 0;
@@ -748,6 +775,7 @@
                                 disburse.paymentTypeId = data.expectedDisbursalPaymentType.id;
                             }
                                 disburse.receiptNumber = data.receiptNumber;
+                                disburse.note = data.note;
                             }
                         });
                         if (value == true) {

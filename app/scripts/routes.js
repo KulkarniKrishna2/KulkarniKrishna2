@@ -1503,6 +1503,18 @@
             .when('/bankaccountdetails/:entityType/:entityId', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
             })
+            .when('/client/:clientId/bankaccountdetails/loan/:entityId', {
+                templateUrl: 'views/bankaccountdetails/common/bank_account_details.html'
+            })
+            .when('/clients/:clientId/bankaccountdetails', {
+                templateUrl: 'views/clients/clientbankaccountdetails.html'
+            })
+            .when('/:entityType/:entityId/bankaccountdetails/:clientBankAccountDetailAssociationId', {
+                templateUrl: 'views/bankaccountdetails/bank_account_details.html'
+            })
+            .when('/:entityType/:entityId/addbankaccountdetail', {
+                templateUrl: 'views/bankaccountdetails/common/createbankaccount.html'
+            })
             .when('/createcgt', {
                 templateUrl: 'views/cgt/createcgt.html'
             })
@@ -1772,6 +1784,30 @@
             })
             .when('/eodonboarding/:eventType/:eodprocessId/workflow', {
                 templateUrl: 'views/accounting/eodprocess/eodonboardingworkflow.html'
+            })
+            .when('/reports/:id/:action', {
+                templateUrl: 'views/reports/individualaccountreport.html'
+            })
+            .when('/bulkreschedule', {
+                templateUrl: 'views/organization/bulkreschedule.html'
+            })
+            .when('/reschedulesavingsinstallmentduedate', {
+                templateUrl: 'views/organization/bulksavingsaccountinstallmentreschedule.html'
+            })            
+            .when('/viewbulktransfer', {
+                templateUrl: 'views/organization/bulktransfer/bulktransfermenu.html'
+            })
+            .when('/bulktransfer', {
+                templateUrl: 'views/organization/bulktransfer/bulktransfer.html'
+            })
+            .when('/viewbulktransfer/:id', {
+                templateUrl: 'views/organization/bulktransfer/viewbulktransfer.html'
+            })
+            .when('/initiatebulktransfer', {
+                templateUrl: 'views/organization/bulktransfer/initiatebulktransfer.html'
+            })
+            .when('/loans/pendingvaluedatetransactions', {
+                templateUrl: 'views/loans/pendingvaluedatetransactions.html'
             })
         $locationProvider.html5Mode(false);
     };

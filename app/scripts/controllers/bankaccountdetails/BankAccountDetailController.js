@@ -4,16 +4,20 @@
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
             scope.clientId=routeParams.entityId;
+            scope.clientBankAccountDetailAssociationId=routeParams.clientBankAccountDetailAssociationId;
 
             var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
-                entityId:scope.entityId}};
+                entityId:scope.entityId,
+                clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId}};
             if(scope.commonConfig === undefined){
                 scope.commonConfig = {};
             }
             angular.extend(scope.commonConfig,bankAccountConfig);
 
             function populateDetails() {
-                resourceFactory.bankAccountDetailResource.get({entityType:scope.entityType, entityId: scope.entityId}, function (data) {
+            
+                resourceFactory.bankAccountDetailResource.get({entityType:scope.entityType, entityId: scope.entityId, clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId}, function (data) {
+
                     var bankData = {bankAccountData:data};
                     angular.extend(scope.commonConfig,bankData);
                     if(data!=undefined && data.id!=undefined){
@@ -24,9 +28,9 @@
                         }
                     }else{
                         createWorkflow(true);
+                        templateResource();
                     }
                 });
-
             }
 
             function createWorkflow(forceCreate){
@@ -45,6 +49,17 @@
 
                 });
             }
+
+            function templateResource(){
+                resourceFactory.bankAccountDetailsTemplateResource.get({
+                    entityType: scope.entityType,
+                    entityId: scope.entityId
+                }, function (data) {
+                    var bankData = {bankAccountData:data};
+
+                });
+            }
+
             function init(){
                 populateDetails();
             }

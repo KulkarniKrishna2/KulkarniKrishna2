@@ -16,16 +16,29 @@
             scope.formData.clientMembers = [];
             scope.forceOffice = null;
             scope.selfActivate = scope.response.uiDisplayConfigurations.createGroup.selfActivate;
+            scope.isCenterNameIncluded = false;
+            scope.centerName = "";
 
             var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
             if (routeParams.centerId) {
                 requestParams.centerId = routeParams.centerId;
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createGroup.centerNameIncluded){
+                    scope.isCenterNameIncluded = scope.response.uiDisplayConfigurations.createGroup.centerNameIncluded;
+                    if(scope.isCenterNameIncluded==true){
+                        resourceFactory.centerResource.get({centerId: routeParams.centerId}, function (data) {
+                            scope.centerName = data.name;
+                            var counter = parseInt(data.groupCounter)+1;
+                            scope.formData.name = scope.centerName+" G"+counter;
+                        });
+                    }
+                }
+
             }
             resourceFactory.groupTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
-                scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 if(routeParams.officeId) {
                     scope.formData.officeId = routeParams.officeId;
                     for(var i in data.officeOptions) {
@@ -101,6 +114,7 @@
                 resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
                 }, function (data) {
                     scope.staffs = data.staffOptions;
+                    scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
                 resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
                     scope.clients = data.clientOptions;

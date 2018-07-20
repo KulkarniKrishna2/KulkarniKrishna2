@@ -26,6 +26,10 @@
             scope.originalSections = [];
             scope.columnNotMappedToSectionError = false;
             scope.isDuplicateColumnName = false;
+            scope.formData.associateWithLoan = false;
+            scope.isShowRestrictScope = false;
+            scope.isAssociateWithLoanReadonly = false;
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             resourceFactory.codeResources.getAllCodes({}, function (data) {
                 scope.codes = data;
@@ -43,6 +47,12 @@
                 if(data.scopingCriteriaEnum != undefined && data.scopingCriteriaEnum != null) {
                     scope.formData.restrictscope = true;
                 }
+                if(data.associateApplicationTableName){
+                    scope.isAssociateWithLoanReadonly = true;
+                }
+                if(scope.formData.apptableName == 'm_client'||scope.formData.apptableName == 'm_loan'||scope.formData.apptableName == 'm_savings_account'){
+                    scope.isShowRestrictScope = true;
+                }
                 for (var n in data.scopeCriteriaData) {
                     for (var m in data.scopeCriteriaData[n].allowedValueOptions) {
                         if (m == 0) {
@@ -57,25 +67,35 @@
                         }
                     }
                 }
-
+                if(data.associateApplicationTableName){
+                    scope.formData.associateWithLoan = true;
+                }
                 var temp = [];
                 var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
                 for (var i in data.columnHeaderData) {
                     var colName = data.columnHeaderData[i].columnName;
                     if(colName == 'id'){
                          data.columnHeaderData.splice(i, 1);
-                         colName = data.columnHeaderData[i].columnName;
+                         if(data.columnHeaderData.length > i) {
+                            colName = data.columnHeaderData[i].columnName;
+                        }else{
+                            colName = data.columnHeaderData[data.columnHeaderData.length-1].columnName;
+                        }
                     }
                     
                     if(idList.indexOf(colName) >= 0 ){
                         data.columnHeaderData.splice(i, 1);
+                        colName = data.columnHeaderData[i].columnName;
+                        if(idList.indexOf(colName) >= 0 ){
+                            data.columnHeaderData.splice(i, 1);
+                        }
                     }
                     var tempColumn = {};
-                    if (data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
+                    if (data.columnHeaderData.length > i && data.columnHeaderData[i].columnName.indexOf("_cd_") > 0) {
                         temp = data.columnHeaderData[i].columnName.split("_cd_");
                         tempColumn.columnName = temp[1];
                     }
-                    if (data.columnHeaderData[i].columnCode) {
+                    if (data.columnHeaderData.length > i && data.columnHeaderData[i].columnCode) {
                         tempColumn.code = data.columnHeaderData[i].columnCode;
                     }
                     scope.tempData.push(tempColumn);
@@ -516,6 +536,7 @@
                 		}
                 	}
                 }
+                scope.formData.associateWithLoan = scope.formData.associateWithLoan || false;
                 scope.formData.addSections = scope.addSections;
                 scope.formData.changeSections = scope.changeSections;
                 scope.formData.dropSections = scope.dropSections;
@@ -523,6 +544,12 @@
                 location.path('/viewdatatable/' + data.resourceIdentifier);
                 });
             };
+            scope.hideField = function(data){
+               if(idList.indexOf(data.name) >= 0) {
+                return true;
+               }
+               return false;
+            }
         }
     });
     mifosX.ng.application.controller('EditDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditDataTableController]).run(function ($log) {

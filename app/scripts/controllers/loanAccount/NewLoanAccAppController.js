@@ -211,7 +211,7 @@
                 });
             }
 
-            scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function(){
+            scope.$watch('formData.principal', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
                     
                     for(var i in scope.charges){
@@ -236,7 +236,7 @@
                         }
                     }
                 }
-            };
+            });
 
             scope.updateSlabBasedChargeForGlim = function(chargeData){
                 var clientChargeAmount = 0;
@@ -649,10 +649,37 @@
                         }
                     }
                 }
+                
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
 
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
+            };
+
+            scope.selectAllLoanToClose = function(isAllLoanToClose){
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                }
+            }
+
+            scope.updateAllCheckbox = function(){
+                var isAll = true;
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected == undefined || scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==false){
+                        isAll = false;
+                    }
+                }
+                scope.isAllLoanToClose = isAll;
             };
 
             scope.getProductPledges = function(data){

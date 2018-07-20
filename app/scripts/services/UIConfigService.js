@@ -27,6 +27,7 @@
                                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
                                     scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
                                 }
+                                scope.$emit("uiConfigServicePerformed", scope.response);
                             }
                         }
                     }).error(function (data) {
@@ -52,6 +53,7 @@
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
                                 scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
                             }
+                            scope.$emit("uiConfigServicePerformed", scope.response);
                         }
                     }).error(function (tenantSpecificData) {
                         console.log("Configuration file not found");

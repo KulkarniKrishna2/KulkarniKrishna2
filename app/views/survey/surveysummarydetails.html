@@ -1,0 +1,37 @@
+<div ng-controller="SurveySummaryDetailsController">
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="clear"></div>
+            <fieldset>
+                <div>
+                    <table class="table border1px">
+                        <thead>
+                            <tr class="graybg">
+                                <th>{{'label.survey.component' | translate}}</th>
+                                <th>{{'label.survey.no.of.questions' | translate}}</th>
+                                <th>{{'label.survey.component.weight' | translate}}</th>
+                                <th>{{'label.survey.component.max.score' | translate}}</th>
+                                <th>{{'label.survey.component.actual.score' | translate}}</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody>
+                            <tr ng-repeat="summary in survey.summaryDetails">
+                                <td>{{summary.text}}</td>
+                                <td>{{summary.noOfQuestions}}</td>
+                                <td>{{summary.weightage}}</td>
+                                <td>{{summary.maxScore | number}}</td>
+                                <td>{{summary.actualScore | number}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                        translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

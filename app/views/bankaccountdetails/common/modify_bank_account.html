@@ -12,7 +12,7 @@
 
                 <div class="col-sm-3">
                     <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
-                           type="text"  ng-pattern="/^[a-zA-Z]+([a-zA-Z\s][a-zA-Z]+)*$/" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')" />
+                           type="text"  ng-pattern="regexPattern('bankAccountHolderName')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')" />
                 </div>
                <div class="col-sm-2">
                    <span ng-show="bankaccountdetail.bankAccountHolderName.$error.pattern">
@@ -27,7 +27,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
-                           type="password" ng-pattern="/^[a-zA-Z0-9_]*$/" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
+                           type="password" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.bankAccountNumberRepeat.$error.pattern">
@@ -45,7 +45,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                           type="text" ng-pattern="/^[a-zA-Z0-9_]*$/" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
+                           type="text" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.bankAccountNumber.$error.pattern">
@@ -76,7 +76,7 @@
                 <div class="col-sm-3">
                     <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
                            minlength="11" maxlength="11" type="password"
-                           ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
+                           ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
                 </div>
                 <div class="col-sm-2">
                      <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
@@ -94,7 +94,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                           ng-minlength="11" maxlength="11" type="text" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
+                           ng-minlength="11" maxlength="11" type="text" ng-pattern="regexPattern('bankIFSCCode')"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
                 </div>
                 <div class="col-sm-3">
                     <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
@@ -130,9 +130,12 @@
 
                 <div class="col-sm-3">
                     <input name="bankName" id="bankName" ng-model="formData.bankName"
-                           type="text" class="form-control" ng-required="isElemMandatory('bankName')"/>
+                           type="text" ng-pattern="regexPattern('bankName')" class="form-control" ng-required="isElemMandatory('bankName')"/>
                 </div>
                 <div class="col-sm-2">
+                    <span ng-show="bankaccountdetail.bankName.$error.pattern">
+                        <small class="required">{{'invalid.bankName.format' | translate}}</small>
+                    </span>
                     <form-validate valattributeform="bankaccountdetail" valattribute="bankName"/>
                 </div>
             </div>
@@ -141,7 +144,7 @@
                     <span ng-show="isElemMandatory('branchName')" class="required">*</span></label>
                 <div class="col-sm-3">
                     <input name="branchName" id="branchName" ng-model="formData.branchName"
-                           type="text" ng-pattern="/^[A-Za-z]*$/" maxlength="20" ng-required="isElemMandatory('branchName')" class="form-control"/>
+                           type="text" ng-pattern="regexPattern('bankCity')" ng-required="isElemMandatory('branchName')" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.branchName.$error.pattern">
@@ -156,7 +159,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
-                           type="text" ng-pattern="/^[A-Za-z]*$/" maxlength="20"  class="form-control" ng-required="isElemMandatory('bankCity')"/>
+                           type="text" ng-pattern="regexPattern('bankCity')" class="form-control" ng-required="isElemMandatory('bankCity')"/>
                 </div>
                 <div class="col-sm-2">
                     <span ng-show="bankaccountdetail.bankCity.$error.pattern">

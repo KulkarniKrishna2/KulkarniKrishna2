@@ -176,6 +176,7 @@
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
                     weeksInYearType : scope.product.weeksInYearType.id,
                     isFlatInterestRate : scope.product.isFlatInterestRate,
+                    considerTenureForIRRCalculation : scope.product.considerTenureForIRRCalculation,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
                     calculateIrr:scope.product.calculateIrr,
                     splitDisbursementForCharges:scope.product.splitDisbursementForCharges,
@@ -331,6 +332,8 @@
                     scope.formData.lossGainWithAdjustmentAccountId = scope.product.accountingMappings.lossGainWithAdjustmentAccount.id;
                     
                     scope.formData.transfersInSuspenseAccountId = scope.product.accountingMappings.transfersInSuspenseAccount.id;
+                    scope.formData.valueDateSuspenseAccountId = scope.product.accountingMappings.valueDateSuspenseAccount.id;
+                    scope.formData.valueDateSuspensePayableAccountId = scope.product.accountingMappings.valueDateSuspensePayableAccount.id;
                     scope.formData.interestOnLoanAccountId = scope.product.accountingMappings.interestOnLoanAccount.id;
                     scope.formData.incomeFromFeeAccountId = scope.product.accountingMappings.incomeFromFeeAccount.id;
                     scope.formData.incomeFromPenaltyAccountId = scope.product.accountingMappings.incomeFromPenaltyAccount.id;
