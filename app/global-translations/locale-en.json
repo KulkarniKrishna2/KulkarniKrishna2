@@ -7241,5 +7241,6 @@
     "label.heading.cash" : "CASH",
     "label.button.view.eod": "View EOD",
     "label.button.reject.eod": "Reject EOD",
+	"error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
      "------ end of tensalation file":"---------"
 }

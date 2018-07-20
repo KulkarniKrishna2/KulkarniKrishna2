@@ -4,6 +4,7 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.showBulkCBInitiate = false;
+
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
@@ -91,7 +92,14 @@
                                 initTask();
                             }else{
                                 if(scope.checkCBData != null && scope.checkCBData.errors != null){
-                                    return scope.errorDetails.push([{code: scope.checkCBData.errors}]);
+                                    var errorObj = new Object();
+                                    errorObj.args = {
+                                        params: []
+                                    };
+                                    var description = scope.checkCBData.errors[0].description;
+                                    errorObj.args.params.push({value: description});
+
+                                    return scope.errorDetails.push(errorObj);
                                 }
                             }
                             
@@ -100,8 +108,8 @@
                 });
             };
 
-            scope.initiateBulkCreditBureauReport = function () {    
-
+            scope.initiateBulkCreditBureauReport = function () {
+                scope.errorDetails = [];
                 scope.entityType = "center";
                 scope.isForce = false;
                 scope.isClientCBCriteriaToRun = true;
@@ -112,7 +120,19 @@
                     isForce: scope.isForce,
                     isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
                 }, function (loansSummary) {
-                    initTask();
+                    if(loansSummary != null && loansSummary[0].errors == null){
+                        initTask();
+                    }else{
+                        if(loansSummary != null && loansSummary[0].errors != null){
+                            var errorObj = new Object();
+                            var description = loansSummary[0].errors[0].description;
+                            errorObj.args = {
+                                params: []
+                            };
+                            errorObj.args.params.push({value: description});
+                            return scope.errorDetails.push(errorObj);
+                        }
+                    }
                 });
             };
 
@@ -906,6 +926,16 @@
                     return true;
                 }
                 return false;
+            }
+            scope.showCBInitiate = function(member){
+                if(member.cbExistingLoansSummaryData && member.loanAccountBasicData){
+                    if(member.cbExistingLoansSummaryData.isCBReportExpired){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                return true;
             }
         }
     });
