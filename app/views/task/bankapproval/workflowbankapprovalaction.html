@@ -308,7 +308,7 @@
             </div>    
             <br><br>
             <div>    
-		        <table class="tabel table-striped" ng-if="isDisplayClientLog || isDisplayLoanLog">
+		        <table class="tabel table-striped" ng-if="isDisplayClientLog">
 			        <thead>
 			            <th class="col-md-2">{{'label.heading.action' | translate}}</th>
 			            <th class="col-md-2">{{'label.heading.entity' | translate}}</th>
@@ -335,6 +335,47 @@
 			        </tr>
 			        </tbody>
 		        </table>
+		        <table class="table table-bordered"  ng-if="isDisplayLoanLog">
+				<thead>
+					<th>{{'label.heading.action' | translate}}</th>
+					<th>{{'label.heading.user' | translate}}</th>
+					<th>{{'label.heading.loan.amount' | translate}}</th>
+					<th>{{'label.heading.review.reason' | translate}}</th>
+					<th>{{'label.heading.review.reason.notes' | translate}}</th>
+					<th>{{'label.heading.review.current.loanid' | translate}}</th>
+					<th>{{'label.heading.review.preclousre.loanid' | translate}}</th>
+					<th>{{'label.heading.preclosure.date' | translate}}</th>
+					<th>{{'label.heading.attachments' | translate}}</th>
+					<th>{{'label.heading.timestamp'| translate}}</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="history in loanLogs">
+						<td>{{history.action}}</td>
+						<td>{{history.reviewerName}}</td>
+						<td>{{history.recommendedAmount}}</td>
+						<td>{{history.reviewReson}}</td>
+						<td>{{history.reviewReasonNotes}}</td>
+						<td>{{history.loanId}}</td>
+						<td>{{history.preclosureLoanId}}</td>
+						<td>{{history.preclosureDate | DateFormat}}</td>
+						<td>
+							<span ng-if="history.documentId">
+								{{history.fileName}}&nbsp;&nbsp;
+								<a target="_blank" data-ng-click="openViewDocument(history.id,history.documentId)" has-permission='READ_DOCUMENT'>
+									<i class="icon-eye-open text-success"></i>
+								</a>
+								<a target="_blank" ng-click="download(history.id,history.documentId)" has-permission='READ_DOCUMENT'>
+									<i class="icon-cloud-download"></i>
+								</a>
+							</span>
+							<span ng-if="history.">
+
+							</span>
+						</td>
+						<td>{{history.reviewDoneOn | DateFormat}}</td>
+					</tr>
+				</tbody>
+			</table>
             </div>
 
 	<script type="text/ng-template" id="viewDocument.html">
