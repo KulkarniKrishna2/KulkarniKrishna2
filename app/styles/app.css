@@ -155,6 +155,15 @@ body {
     padding-left: 15px;
 }
 
+.paddedright30px {
+     padding-right: 30px;
+ }
+
+
+.paddedtop15px {
+     padding-top: 15px;
+ }
+
 .paddedtop {
 padding-top: 10px;
 }

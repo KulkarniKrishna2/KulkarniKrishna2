@@ -78,11 +78,57 @@
 
             <div class="row task-action">
                 <span class="pull-left">
+                    <button ng-if="taskData.taskType.id == 2 && taskData.parentId != null" type="button" class="btn btn-link" ng-disabled="isDisplayAdhocTasks" ng-click="displayAdhocTasks()">Tasks</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="displayNotes()">Notes</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="displayAttachments()">Attachments</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayActionLogs" ng-click="displayActionLogs()">Action Logs</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayQueries" has-permission='READ_TASK_QUERY'ng-click="displayQueries()">{{'label.button.queries.resolution' | translate}}</button>&nbsp;
                 </span>
+            </div>
+
+            <div class="row client" ng-if="isDisplayAdhocTasks">
+                <form ng-if="!isTaskCompleted()">
+                    <div class="form-group">
+                        <div class="col-sm-12 col-md-12">
+                            <span class="pull-right ">
+                                <button class="btn btn-default" type="button" ng-click="addAdhocTask()" has-permission='CREATE_ADHOCTASK'>{{'label.button.createTask' | translate}}
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+                <div class="col-sm-12 col-md-12">
+                    <table id="otherTasks" class="table table-striped card-table" ng-if="adhocTaskList">
+                        <thead>
+                        <tr>
+                            <th>{{'label.title' | translate}}</th>
+                            <th>{{'label.heading.description' | translate}}</th>
+                            <th>{{'label.heading.createddate' | translate}}</th>
+                            <th>{{'label.heading.due.date' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="adhocTask in adhocTaskList">
+
+                            <td class=" pointer" ng-click="goToTask(adhocTask)">
+                                <!--<i tooltip-placement="right" class="icon-circle " ng-style="getColor(workFlowTask.runningStatus)"></i>-->
+                                {{adhocTask.name}}
+
+                            </td>
+                            <td class=" pointer" ng-click="goToTask(adhocTask)">
+                                <span ng-if="adhocTask.description">{{adhocTask.description}}</span>
+                            </td>
+                            <td class=" pointer" ng-click="goToTask(adhocTask)">
+                                {{adhocTask.createdOn}}
+                            </td>
+                            <td class=" pointer" ng-click="goToTask(adhocTask)">
+                                {{adhocTask.dueOn}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="row client" ng-if="isDisplayNotes">
@@ -354,33 +400,39 @@
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.reschedule' | translate}}</h3>
         </div>
-            <div class="modal-body">
-             <api-validate></api-validate>   
-                <div class="col-sm-12">
-                    <label class="control-label col-sm-2" for="duedate">{{'label.input.duedate' | translate}}<span class="required">*</span>
-                    </label>
-                    <div class="col-sm-4">
-                        <span style="padding-left:17px"><input id="duedate"  name = "duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rschData.dueDate" is-open="opened" min="restrictDate" readonly="true" /></span>
-                    </div>
-                    <div class="col-sm-6">
-                    </div>                            
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <div class="col-sm-12">
+                <label class="control-label col-sm-2" for="duedate">{{'label.input.duedate' | translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-4">
+                    <span style="padding-left:17px">
+                        <input id="duedate" name="duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rschData.dueDate"
+                               is-open="opened" min="restrictDate" readonly="true" />
+                    </span>
                 </div>
-                <div class="col-sm-12" style="padding-top:40px;padding-bottom:15px;">
-                    <label class="control-label col-sm-2" for="duedate">{{'label.input.dueTime' | translate}}<span class="required">*</span>
-                    </label>
-                    <div class="col-sm-4">
-                        <timepicker id="dueTime"  
-                              ng-model="rschData.dueTime" ng-change="checkDueTime()"></timepicker>
-                    </div>
-                    <div class="col-sm-6">
-                    </div>
+            </div>
+
+            <div class="col-sm-12" style="padding-top:40px;padding-bottom:15px;">
+                <label class="control-label col-sm-2" for="duedate">{{'label.input.dueTime' | translate}}<span class="required">*</span>
+                </label>
+                <div class="col-sm-4">
+                    <timepicker id="dueTime"
+                                ng-model="rschData.dueTime" ng-change="checkDueTime()"></timepicker>
                 </div>
-                <div class="col-sm-12" style="padding-top:25px;padding-bottom:40px;">
-                    <label class="control-label col-sm-2" >{{'label.input.reason' | translate}}<span class="required">*</span></label>
-                    <div class="col-sm-10">
-                        <input id="rescheduleReason" type = "textarea" name = "rescheduleReason" ng-model="rescheduleFormData.reason" class="form-control">
-                    </div>
-                </div>  
+                <div class="col-sm-6">
+                </div>
+            </div>
+
+            <div class="col-sm-12" style="padding-top:25px;padding-bottom:40px;">
+                <label class="control-label col-sm-2">{{'label.input.reason' | translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-10">
+                    <input id="rescheduleReason" type="textarea" name="rescheduleReason" ng-model="rescheduleFormData.reason" class="form-control">
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
                 <button class="btn btn-warning" ng-click="cancelReschedule()">{{'label.button.cancel' | translate}}</button>

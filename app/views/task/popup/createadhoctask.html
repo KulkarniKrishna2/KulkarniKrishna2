@@ -1,0 +1,59 @@
+<div class="modal-header silver">
+    <h3 class="bolder">{{'label.heading.addtask' | translate}}</h3>
+</div>
+<div class="modal-body paddedleft30px paddedright30px">
+    <api-validate></api-validate>
+    <div class="row form-group">
+        <label class="control-label col-sm-3" for="taskName">{{'label.view.taskType' | translate}}
+            <span class="required">*</span>
+        </label>
+        <div class="col-sm-6">
+            <select class="form-control" id="taskName" ng-model="adhocTaskData.templateId" ng-options="taskTemplate.id as taskTemplate.taskName for taskTemplate in taskTemplates"></select>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <label class="control-label col-sm-3 " for="summary">{{'label.input.summary' | translate}}
+            <span class="required">*</span>
+        </label>
+        <div class="col-sm-6">
+            <textarea rows="2" class="form-control" ng-model="adhocTaskData.configValues.summary" id="summary" placeholder="{{'label.input.summary' | translate}}"></textarea>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <label class="control-label col-sm-3 marginbuttontop25px" for="tempDate">{{'label.input.duedate' | translate}}
+            <span class="required">*</span>
+        </label>
+        <div class="col-sm-5">
+            <input class="form-control marginbuttontop25px" id="tempDate" name="tempDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="adhocTaskData.tempDate"
+                is-open="opened" min="restrictDate" placeholder="Due Date" />
+        </div>
+        <div class="col-sm-3">
+            <timepicker id="dueTime" ng-model="adhocTaskData.dueTime" ng-change="checkDueTime()"></timepicker>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <label class="control-label col-sm-3" for="textarea">{{'label.input.enternote' | translate}}
+            <span class="required">*</span>
+        </label>
+        <div class="col-sm-6">
+            <textarea rows="4" class="form-control" id="textarea" placeholder="{{'label.input.enternote' | translate}}" ng-model="adhocTaskData.configValues.note"></textarea>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <label class="control-label col-sm-3" for="assignUser">{{'label.view.assignToUser' | translate}}
+            <span class="required">*</span>
+        </label>
+        <div class="col-sm-6">
+            <select class="form-control" id="assignUser" ng-model="adhocTaskData.assignedUser" ng-options="appuser.id as appuser.username for appuser in appusers"></select>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    <button class="btn btn-primary" ng-click="submitAdhocTask()">{{'label.button.submit' | translate}}</button>
+</div>

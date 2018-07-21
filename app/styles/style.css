@@ -186,3 +186,14 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.ellipsis, .one-line {
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pad-left-10 {
+    padding-left: 10px;
+}

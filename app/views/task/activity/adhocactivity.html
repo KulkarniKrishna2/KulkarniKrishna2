@@ -2,7 +2,42 @@
 
   <!-- Submit form, new data    -->
   <form class="form-horizontal"  ng-submit="submit()">
-    <table class="table">
+	  <div ng-if="taskData.entityType.value=='TASK'">
+
+
+		  <div class="row paddedtop15px">
+			  <div class="col-md-3 text-right">
+				  <strong>Summary:</strong>
+			  </div>
+			  <div class="col-md-9">{{activityData.summary}}</div>
+		  </div>
+
+		  <div class="row paddedtop15px">
+			  <div class="col-md-3 text-right">
+				  <strong>Note:</strong>
+			  </div>
+			  <div class="col-md-9">{{activityData.note}}</div>
+		  </div>
+
+		  <div class="row paddedtop15px" ng-if="activityData.resolution">
+			  <div class="col-md-3 text-right">
+				  <strong>Resolution:</strong>
+			  </div>
+			  <div class="col-md-9">{{activityData.resolution}}</div>
+		  </div>
+
+		  <div class="row paddedtop15px" ng-if="!activityData.resolution">
+			  <label class="control-label col-sm-3" for="reasoning"><strong>{{'label.input.reasoning' | translate}}
+				  <span class="required">*</span></strong>
+			  </label>
+			  <div class="col-sm-9">
+        		<textarea rows="4" class="form-control marginbottom0px" id="reasoning" placeholder="{{'label.input.enternote' | translate}}"
+						  ng-model="adhocFormData.resolution"></textarea>
+			  </div>
+		  </div>
+
+	  </div>
+	  <table class="table" ng-if="taskData.entityType.value!='TASK'">
     	<tr>
     		<td>
     			<label for="entityName">{{activityData.entityType}}:
