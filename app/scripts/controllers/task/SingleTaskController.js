@@ -6,6 +6,7 @@
             scope.canComplete = true;
             scope.possibleActions = [];
             scope.taskNotes = [];
+            scope.adhocTasks = [];
             scope.actionLogs = [];
             scope.noteData = {};
             scope.showCriteriaResult =false;
@@ -76,7 +77,7 @@
                     }
 
                     if(scope.taskData.status.value != 'inactive' || scope.taskData.status.value != 'completed' || scope.taskData.status.value != 'cancelled'){
-                        if(scope.taskData.taskActivity != null && scope.taskData.taskActivity.name == "Adhoc"){
+                        if(scope.taskData.taskActivity != null){
                            scope.canReschedule = true;
                         }
                     }
@@ -85,10 +86,15 @@
                             scope.dueTime = new Date(scope.taskData.dueTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                             scope.dueTimeToDisplay = dateFilter(scope.dueTime, "HH:mm:ss");
                     }
+
+                    if(scope.taskData.taskType.id==2 &&  scope.taskData.parentId!=null) {
+                        scope.displayAdhocTasks();
+                    }else {
+                        scope.displayNotes();
+                    }
                 }
             }
 
-            initTask();
             scope.getTaskId = function(){
                 return scope.taskData.id;
             }
@@ -291,6 +297,16 @@
                 }
             }
 
+            function populateAdhocTasks(){
+                if (scope.isDisplayAdhocTasks) {
+                    resourceFactory.entitySingleTasksResource.getAll({entityId: scope.taskData.parentId, entityType:"task"}, function (data) {
+                        scope.adhocTaskData={};
+                        scope.adhocTaskList = data;
+                        console.log(scope.adhocTaskList);
+                    });
+                }
+            }
+
             function populateTaskActionLogs() {
                 if (scope.isDisplayActionLogs) {
                     resourceFactory.taskExecutionActionLogResource.getAll({taskId: scope.taskData.id, isArchived:scope.isTaskArchived}, function (data) {
@@ -352,29 +368,47 @@
                 });
             };
 
-            scope.displayNotes = function () {
-                scope.isDisplayNotes=true;
+            var disableAllFooter = function(){
+                scope.isDisplayAdhocTasks=false;
+                scope.isDisplayNotes=false;
                 scope.isDisplayAttachments=false;
                 scope.isDisplayActionLogs=false;
                 scope.isDisplayQueries = false;
+            };
+
+            scope.displayAdhocTasks = function () {
+                disableAllFooter();
+                scope.isDisplayAdhocTasks=true;
+                populateAdhocTasks();
+            };
+
+            scope.displayNotes = function () {
+                disableAllFooter();
+                scope.isDisplayNotes=true;
                 populateTaskNotes();
             };
 
             scope.displayAttachments = function () {
-                scope.isDisplayNotes=false;
+                disableAllFooter();
                 scope.isDisplayAttachments=true;
-                scope.isDisplayActionLogs=false;
-                scope.isDisplayQueries = false;
                 getTaskDocuments();
             };
 
             scope.displayActionLogs = function () {
-                scope.isDisplayNotes=false;
-                scope.isDisplayAttachments=false;
+                disableAllFooter();
                 scope.isDisplayActionLogs=true;
-                scope.isDisplayQueries = false;
                 populateTaskActionLogs();
             };
+
+            scope.goToTask = function(task) {
+                if (task.parentId != undefined) {
+                    location.path('/viewtask/' + task.parentId);
+                } else {
+                    location.path('/viewtask/' + task.id);
+                }
+            };
+
+            initTask();
 
             function getTaskDocuments() {
                 scope.docData={};
@@ -393,7 +427,7 @@
                 }
             };
 
-            getTaskDocuments();
+            // getTaskDocuments();
 
             scope.deleteTaskDocument = function (documentId, index) {
                 resourceFactory.documentsResource.delete({entityType : 'tasks',entityId: scope.taskData.id, documentId: documentId}, '', function (data) {
@@ -453,6 +487,65 @@
                 }
             }
 
+            scope.addAdhocTask = function () {
+                $modal.open({
+                    templateUrl: 'views/task/popup/createadhoctask.html',
+                    controller: CreateAdhocTaskCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
+
+            var CreateAdhocTaskCtrl = function ($scope, $modalInstance) {
+
+                $scope.adhocTaskData = {};
+                $scope.rescheduleFormData = {};
+
+                $scope.restrictDate = new Date();
+                $scope.adhocTaskData.configValues = scope.taskData.configValues;
+                $scope.adhocTaskData.entityType = "task";
+                $scope.adhocTaskData.entityId = scope.taskData.parentId;
+
+                resourceFactory.taskAssignTemplateResource.get(function (data) {
+                    $scope.taskTemplates=data.taskConfigTemplateObject;
+                    $scope.appusers=data.user;
+                    if($scope.taskTemplates!=undefined && $scope.taskTemplates.length > 0){
+                        $scope.adhocTaskData.templateId = $scope.taskTemplates[0].id;
+                    }
+                    if($scope.appusers!=undefined && $scope.appusers.length > 0){
+                        $scope.adhocTaskData.assignedUser = $scope.appusers[0].id;
+                    }
+
+                });
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.checkDueTime = function(){
+                    if(!($scope.adhocTaskData.dueTime instanceof Date)){
+                        $scope.adhocTaskData.dueTime = new Date();
+                    }
+                };
+
+                $scope.submitAdhocTask = function () {
+                    $scope.adhocTaskData.description = $scope.adhocTaskData.configValues.summary;
+                    $scope.adhocTaskData.shortDescription = $scope.adhocTaskData.configValues.summary;
+                    if($scope.adhocTaskData.dueTime != undefined){
+                        $scope.adhocTaskData.tempDate.setHours($scope.adhocTaskData.dueTime.getHours());
+                        $scope.adhocTaskData.tempDate.setMinutes($scope.adhocTaskData.dueTime.getMinutes());
+                        $scope.adhocTaskData.tempDate.setSeconds($scope.adhocTaskData.dueTime.getSeconds());
+                    }
+                    $scope.adhocTaskData.dueDate = dateFilter($scope.adhocTaskData.tempDate, 'dd MMMM yyyy HH:mm:ss');
+                    $scope.adhocTaskData.dateFormat='dd MMMM yyyy HH:mm:ss';
+                    console.log($scope.adhocTaskData);
+                    // $scope.adhocTaskData.locale = $scope.adhocTaskData.localeObj;
+                    resourceFactory.adhocTaskResource.create({},$scope.adhocTaskData, function (data) {
+                        $modalInstance.close();
+                        scope.displayAdhocTasks();
+                    });
+                };
+            };
+
             scope.reschedule = function (taskDataObj, actionValue, localeObj) {
                 $modal.open({
                     templateUrl: 'reschedule.html',
@@ -486,7 +579,7 @@
                     if(!($scope.rschData.dueTime instanceof Date)){
                         $scope.rschData.dueTime = new Date();
                     }
-                 }
+                 };
 
                 $scope.submitReschedule = function () {            
                     if($scope.rschData.dueTime != undefined){
@@ -504,6 +597,8 @@
                     });
                 };
             };
+
+            initTask();
         }
     });
     mifosX.ng.application.controller('SingleTaskController', ['$scope', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$route', 'CommonUtilService', mifosX.controllers.SingleTaskController]).run(function ($log) {

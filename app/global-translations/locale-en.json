@@ -7361,5 +7361,19 @@
     "validation.msg.bulktransfer.fromStaffId.cannot.be.blank" : "From Staff must be selected",
     "validation.msg.recurringdepositaccount.recurringFrequencyType.is.not.one.of.expected.enumerations" : "Recurring Frequency is not valid.",
 
+    "label.heading.application.number":"Application Number",
+    "label.stage":"Stage",
+    "label.tab.myworkflowstatus": "My Workflow Status",
+    "label.heading.reschedule.reason":"Reschedule Reason",
+
+    "label.heading.addtask":"Add Task",
+    "label.view.taskType":"Task Type",
+    "label.view.assignToUser":"Assign User",
+    "error.provide resolution":"Please provide resolution",
+    "label.input.reasoning":"Reasoning",
+    "label.tab.mywatch":"My Watch",
+    "label.input.summary":"Summary",
+
+
     "------ end of tensalation file":"---------"
 }

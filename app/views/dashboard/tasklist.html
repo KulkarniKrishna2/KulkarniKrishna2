@@ -2,51 +2,53 @@
     <div>
         <h3 class="paddedleft">
             <strong>{{'label.heading.workflow.tasks' | translate}}</strong>
-        
-        <a href="#/taskcreate" class="btn btn-primary pull-right">
-            <i class="icon-plus icon-white"></i>{{'label.button.createTask' | translate}}</a>
-            </h3>
+
+            <a href="#/taskcreate" class="btn btn-primary pull-right">
+                <i class="icon-plus icon-white"></i>{{'label.button.createTask' | translate}}</a>
+        </h3>
     </div>
     <hr/>
     <table class="table">
         <tr>
             <td>
                 <div>
-                    <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected">
-                    &nbsp;&nbsp;
-                    <button ng-if="filterBy == 'unassigned'" ng-disabled="!hasAnyRowSelected()" class="btn btn-primary"
-                            ng-click="assignMe()">{{'label.button.assign' | translate}}
+                    <input type="checkbox" ng-click="toggleAll()" ng-model="formData.isAllSelected"> &nbsp;&nbsp;
+                    <button ng-if="filterBy == 'unassigned'" ng-disabled="!hasAnyRowSelected()" class="btn btn-primary" ng-click="assignMe()">{{'label.button.assign' | translate}}
                     </button>
-                    <button ng-if="filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow'"
-                            ng-disabled="!hasAnyRowSelected()"
-                            class="btn btn-primary" ng-click="unassignMe()">{{'label.button.unassign' | translate}}
+                    <button ng-if="filterBy == 'assigned-workflow' || filterBy == 'assigned-nonworkflow'" ng-disabled="!hasAnyRowSelected()" class="btn btn-primary" ng-click="unassignMe()">{{'label.button.unassign' | translate}}
                     </button>
                 </div>
             </td>
             <td>
                 <div>
-                    <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control"
-                            ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-                            data-placeholder="Office">
+                    <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" data-placeholder="Office">
                         <option value="">{{'label.alloffice' | translate}}</option>
                     </select>
                 </div>
             </td>
             <td>
                 <div>
-                    <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId"
-                            class="form-control"
-                            ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs"
-                            value="{{childrenTaskConfig.id}}"
-                            data-placeholder="Stage">
+                    <select chosen="parentTaskConfigs" id="workflow" ng-model="formData.parentConfigId"  class="form-control"
+                            ng-options="parentTaskConfig.id as parentTaskConfig.name for parentTaskConfig in parentTaskConfigs" value="{{parentTaskConfig.id}}"
+                            data-ng-change="getChildrenTaskConfigs()" data-placeholder="Workflow">
+                        <option value="">{{'label.allWorkflows' | translate}}</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <select chosen="childrenTaskConfigs" id="stage" ng-model="formData.childConfigId" class="form-control" ng-options="childrenTaskConfig.id as childrenTaskConfig.name for childrenTaskConfig in childrenTaskConfigs" value="{{childrenTaskConfig.id}}" data-placeholder="Stage">
                         <option value="">{{'label.allStages' | translate}}</option>
                     </select>
                 </div>
             </td>
 
+
         </tr>
         <tr>
             <td></td>
+
+
             <td>
                 <div>
                     <select chosen="loanAccountTypeOptions" id="loanType" ng-model="formData.loanType"
@@ -58,11 +60,10 @@
                     </select>
                 </div>
             </td>
+
             <td ng-if="filterByCenter">
                 <div>
-                    <select chosen="centers" id="center" ng-model="formData.centerId" class="form-control"
-                            ng-options="center.id as center.name for center in centers" value="{{center.id}}"
-                            data-placeholder="{{'label.anchor.centers' | translate}}">
+                    <select chosen="centers" id="center" ng-model="formData.centerId" class="form-control" ng-options="center.id as center.name for center in centers" value="{{center.id}}" data-placeholder="{{'label.anchor.centers' | translate}}">
                         <option value="">{{'label.allCenters' | translate}}</option>
                     </select>
                 </div>
@@ -95,13 +96,26 @@
                                     <th></th>
                                     <th >{{'label.title' | translate}}</th>
                                     <th >{{'label.heading.description' | translate}}</th>
-                                    <th >{{'label.heading.createddate' | translate}}</th>
-                                    <th >{{'label.heading.due.date' | translate}}</th>
+                                    <th >{{'label.heading.createddate' | translate}}
+                                        &nbsp;
+                                        <a class="pad-left-10" ng-click="sortTable('createdDate')">
+                                            <span ng-if="sortBy !='createdDate'"><i class="icon-sort"></i></span>
+                                            <span ng-if="sortBy =='createdDate' && sortType == 'desc'"><i class="icon-sort-down"></i></span>
+                                            <span ng-if="sortBy =='createdDate' && sortType == 'asc'"><i class="icon-sort-up"></i></span>
+                                        </a>
+                                    </th>
+                                    <th >{{'label.heading.due.date' | translate}}
+                                        <a class="pad-left-10" ng-click="sortTable('dueDate')">
+                                            <span ng-if="sortBy !='dueDate'"><i class="icon-sort"></i></span>
+                                            <span ng-if="sortBy =='dueDate' && sortType == 'desc'"><i class="icon-sort-down"></i></span>
+                                            <span ng-if="sortBy =='dueDate' && sortType == 'asc'"><i class="icon-sort-up"></i></span>
+                                        </a>
+                                    </th>
+                                    <!--<th style="max-width: 200px">{{'label.heading.reschedule.reason' | translate}}</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="workFlowTask in taskPagination.currentPageItems" ng-init="workFlowTask.selected = false"
-                                >
+                                <tr ng-repeat="workFlowTask in taskPagination.currentPageItems" ng-init="workFlowTask.selected = false">
                                     <td >
                                         <ng-form>
                                             <input type="checkbox" ng-model="workFlowTask.selected"/>
@@ -121,6 +135,10 @@
                                     <td class=" pointer" ng-click="goToTask(workFlowTask)">
                                         {{workFlowTask.dueOn}}
                                     </td>
+                                    <!--<td style="max-width: 200px">-->
+
+                                        <!--<div class="one-line" tooltip="{{workFlowTask.rescheduleReason}}">{{workFlowTask.rescheduleReason}}</div>-->
+                                    <!--</td>-->
                                 </tr>
                                 </tbody>
                             </table>

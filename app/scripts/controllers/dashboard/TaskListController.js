@@ -1,11 +1,12 @@
-(function (module) {
+(function(module) {
     mifosX.controllers = _.extend(module, {
-        TaskListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams) {
+        TaskListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams,bootstrapToolTip) {
             scope.formData = {};
             scope.taskTypes = [
-                {id: 'tab1', name: "label.tab.myworkflowtasks", status: 'assigned-workflow', icon:'icon-user',type:'assigned',active:true},
+                {id: 'tab1', name: "label.tab.myworkflowstatus", status: 'assigned-workflow', icon:'icon-user',type:'assigned',active:true},
                 {id: 'tab2', name: "label.tab.mytasks", status: 'assigned-nonworkflow', icon:'icon-user',type:'assigned',active:false},
-                {id: 'tab3', name: "label.tab.role", status: 'unassigned', icon:'icon-user',type:'unassigned',active:false}];
+                {id: 'tab3', name: "label.tab.role", status: 'unassigned', icon:'icon-user',type:'unassigned',active:false},
+                {id: 'tab4', name: "label.tab.mywatch", status: 'watchers-workflow', icon: 'icon-user'}];
             scope.pageSize = 15;
             scope.childrenTaskConfigs = [];
             scope.selectedStatus = 'assigned-workflow';
@@ -16,10 +17,12 @@
             scope.formData.parentConfigId = routeParams.parentConfigId;
             scope.formData.childConfigId = routeParams.childConfigId;
             scope.formData.officeId = routeParams.officeId;
+            scope.sortBy = 'dueDate';
+            scope.sortType = 'asc';
 
-            scope.getChildrenTaskConfigs = function () {
+            scope.getChildrenTaskConfigs = function() {
                 scope.formData.childConfigId = null;
-                resourceFactory.taskConfigResource.getTemplate({parentConfigId: scope.formData.parentConfigId}, function(data) {
+                resourceFactory.taskConfigResource.getTemplate({ parentConfigId: scope.formData.parentConfigId }, function(data) {
                     scope.childrenTaskConfigs = data.taskConfigs;
                 });
             };
@@ -30,7 +33,7 @@
                 scope.loanAccountTypeOptions = data.loanAccoutTypeOptions;
             });
 
-            scope.onLoanTypeChange = function (loanTypeId) {
+            scope.onLoanTypeChange = function(loanTypeId) {
                 scope.filterByCenter = false;
                 for (var i in scope.loanAccountTypeOptions) {
                     if (scope.loanAccountTypeOptions[i].id == loanTypeId && scope.loanAccountTypeOptions[i].value == "JLG") {
@@ -39,7 +42,7 @@
                 }
             };
 
-            resourceFactory.centerResource.getAllCenters(function(data){
+            resourceFactory.centerResource.getAllCenters(function(data) {
                 scope.centers = data;
             });
 
@@ -54,7 +57,7 @@
             }
             scope.filterText = scope.searchCriteria.workFlowT;
 
-            scope.onFilter = function () {
+            scope.onFilter = function() {
                 scope.searchCriteria.workFlowT = scope.filterText;
                 scope.saveSC();
             };
@@ -62,6 +65,8 @@
             var fetchFunction = function (offset, limit, callback) {
                 resourceFactory.taskListSearchResource.get({
                     filterby: scope.selectedStatus,
+                    orderBy:scope.sortBy,
+                    sortOrder:scope.sortType,
                     officeId: scope.formData.officeId,
                     parentConfigId: scope.formData.parentConfigId,
                     childConfigId: scope.formData.childConfigId,
@@ -70,17 +75,12 @@
                     offset: offset,
                     limit: limit
                 }, callback);
-
-                // resourceFactory.taskListSearchResource.get(params, function(data) {
-                //     scope.workFlowTasks = data;
-                //
-                // });
             };
 
-            scope.getResultsPage = function (pageNumber) {
+            scope.getResultsPage = function(pageNumber) {
                 scope.formParams.offset = ((pageNumber - 1) * scope.pageSize);
                 scope.formParams.limit = scope.pageSize;
-                resourceFactory.taskListResource.get(scope.formParams, function (data) {
+                resourceFactory.taskListResource.get(scope.formParams, function(data) {
                     scope.workFlowTasks = data.pageItems;
                 });
             };
@@ -92,7 +92,7 @@
                 scope.taskPagination = paginatorUsingOffsetService.paginate(fetchFunction, scope.pageSize);
             };
 
-            if(scope.formData.parentConfigId==undefined){
+            if (scope.formData.parentConfigId == undefined) {
                 scope.getWorkFlowTasks(scope.filterBy);
             }
             else{
@@ -100,58 +100,58 @@
                 scope.getWorkFlowTasks(scope.filterBy);
             }
 
-            scope.goToTask = function (task) {
-                if(task.parentTaskId !=undefined){
+            scope.goToTask = function(task) {
+                if (task.parentTaskId != undefined) {
                     location.path('/viewtask/' + task.parentTaskId);
-                }else{
+                } else {
                     location.path('/viewtask/' + task.taskId);
                 }
             };
 
-            scope.configValue = function(task, config ){
-                    if(task != undefined && task.configValues!=undefined){
-                        return task.configValues[config];
-                    }
-                    return undefined;
+            scope.configValue = function(task, config) {
+                if (task != undefined && task.configValues != undefined) {
+                    return task.configValues[config];
+                }
+                return undefined;
             };
 
-            scope.hasAnyRowSelected = function(){
+            scope.hasAnyRowSelected = function() {
                 var selectedTasks = [];
-                angular.forEach(scope.workFlowTasks, function(itm){
-                    if(itm.selected == true){
+                angular.forEach(scope.workFlowTasks, function(itm) {
+                    if (itm.selected == true) {
                         selectedTasks.push(itm.taskId);
                     }
                 });
-                if(selectedTasks.length>0) {
+                if (selectedTasks.length > 0) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             };
 
-            scope.assignMe = function(){
+            scope.assignMe = function() {
                 var selectedTasks = [];
-                angular.forEach(scope.workFlowTasks, function(itm){
-                    if(itm.selected == true){
+                angular.forEach(scope.workFlowTasks, function(itm) {
+                    if (itm.selected == true) {
                         selectedTasks.push(itm.taskId);
                     }
                 });
-                if(selectedTasks.length>0){
-                    resourceFactory.taskListResource.update({command:"assign"}, selectedTasks,function (data) {
+                if (selectedTasks.length > 0) {
+                    resourceFactory.taskListResource.update({ command: "assign" }, selectedTasks, function(data) {
                         scope.getWorkFlowTasks(scope.filterBy);
                     });
                 }
             }
 
-            scope.unassignMe = function(){
+            scope.unassignMe = function() {
                 var selectedTasks = [];
-                angular.forEach(scope.workFlowTasks, function(itm){
-                    if(itm.selected == true){
+                angular.forEach(scope.workFlowTasks, function(itm) {
+                    if (itm.selected == true) {
                         selectedTasks.push(itm.taskId);
                     }
                 });
-                if(selectedTasks.length>0){
-                    resourceFactory.taskListResource.update({command:"unassign"}, selectedTasks,function (data) {
+                if (selectedTasks.length > 0) {
+                    resourceFactory.taskListResource.update({ command: "unassign" }, selectedTasks, function(data) {
                         scope.getWorkFlowTasks(scope.filterBy);
                     });
                 }
@@ -161,8 +161,8 @@
 
             scope.getColor = function(status){
                 var colorStyle = {'color':scope.colorArray[0]};
-                if(status==100){  
-                     colorStyle = {'color':scope.colorArray[1]};
+                if(status==100){
+                    colorStyle = {'color':scope.colorArray[1]};
                 }else if(status==200){
                     colorStyle = {'color':scope.colorArray[2]};
                 }else if(status==300){
@@ -170,6 +170,29 @@
                 }
                 return colorStyle;
             };
+
+            scope.sortTable = function(sortBy){
+                if(scope.sortBy == sortBy){
+                    if(scope.sortType == 'asc'){
+                        scope.sortType = 'desc';
+                    }else{
+                        scope.sortType = 'asc';
+                    }
+                }else{
+                    scope.sortBy = sortBy;
+                    scope.sortType = 'asc';
+                }
+
+                scope.taskPagination = paginatorUsingOffsetService.paginate(fetchFunction, scope.pageSize);
+
+            };
+
+            scope.isCancelled = function(workFlowTask) {
+                if (workFlowTask.parentTaskStatus.toLowerCase() == 'cancelled' || workFlowTask.taskStatus.toLowerCase() == 'cancelled') {
+                    return true;
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', mifosX.controllers.TaskListController]).run(function ($log) {

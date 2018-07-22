@@ -1135,6 +1135,15 @@
                     taskExecutionChildrenResource: defineResource(apiVer + "/tasks/:taskId/execute/children",{taskId: '@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
+                    updateTaskConfigResource: defineResource(apiVer + "/tasks/:taskId/execute/updateconfig",{taskId:'@taskId'}, {
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    adhocTaskResource: defineResource(apiVer + "/task/adhoc", {}, {
+                        create: {method: 'POST', params: {}}
+                    }),
+                    entitySingleTasksResource: defineResource(apiVer + "/tasks/:entityType/:entityId/singletasks", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {} ,isArray:true}
+                    }),
                     reportAuditResource: defineResource(apiVer + "/reportaudits/:id", {id: '@id'}, {
                         getAll: {method: 'GET', params: {}, isArray: false},
                         get: {method: 'GET', params: {id: '@id'}, isArray: false}
