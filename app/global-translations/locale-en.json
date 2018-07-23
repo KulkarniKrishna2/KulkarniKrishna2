@@ -1608,6 +1608,7 @@
     "label.input.exportexcel2": "Excel 2007 format",
     "label.input.exportcsv": "CSV format",
     "label.input.pdfformat": "PDF format",
+    "label.input.rtfformat": "RTF format",
     "label.input.reportname": "Report name",
     "label.input.reporttype": "Report type",
     "label.input.reportsubtype": "Report sub type",
