@@ -19,7 +19,7 @@
             if (routeParams.officeId != undefined) {
                 params.officeId = routeParams.officeId;
             }
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive:true}, function (data) {
                 scope.offices = data;
                 for (var i in data) {
                     data[i].children = [];

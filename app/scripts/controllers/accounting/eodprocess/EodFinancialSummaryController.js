@@ -87,6 +87,7 @@
                 var templateUrl = 'views/common/openpopup.html';
                 var controller = 'CreateJournalVoucherController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+                scope.init();
             };
             scope.submit = function(){
                 scope.constructRequestBody(scope.eodFinancialSummary);
