@@ -239,19 +239,19 @@
             </div>
         </div>
         <hr ng-show="isGLIM"/>
-        <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
-                <td colspan="4">
-                    <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
+        <tr ng-if="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled" class="width100">
+                <td colspan="4" ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled">
+                    <label ng-if="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled"><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
                 </td>
-            </tr>
-            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
-                <td colspan="4">
-                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
+        </tr>
+        <tr ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled" class="width100">
+                <td colspan="4" ng-if="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled">
+                    <input ng-autofocus="true" ng-model="filterText" ng-if="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
                 </td>
-            </tr>
-            <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+        </tr>
+        <tr ng-show="loanaccountinfo.loanEMIPacks  && isLoanEmiPackEnabled" class="width100">
                 <td colspan="4">
-                    <div>
+                    <div  ng-show="loanaccountinfo.loanEMIPacks  && isLoanEmiPackEnabled">
                         <table class="table  table-striped">
                             <thead>
                             <tr>
@@ -284,7 +284,7 @@
                         </table>
                     </div>
                 </td>
-            </tr>
+        </tr>
         <label  ng-if="!isLoanEmiPackEnabled" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
         <table class="width100" ng-if="!isLoanEmiPackEnabled">
             <tr>

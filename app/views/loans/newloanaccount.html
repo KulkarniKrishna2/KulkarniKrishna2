@@ -251,7 +251,7 @@
         </div>
         <hr ng-show="isGLIM"/>  
         <div  class="col-sm-12"><table ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled"> 
-        <table>     
+        <table ng-show="loanaccountinfo.loanEMIPacks && isLoanEmiPackEnabled">     
             <tr  class="col-sm-12">
                 <td> 
                     <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
