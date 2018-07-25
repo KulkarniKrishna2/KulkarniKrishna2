@@ -48,6 +48,7 @@
                             scope.loanApplicationReferenceId = scope.loanApplicationId;
                             scope.loanId = scope.taskData.configValues.loanId;
                             scope.groupId=scope.taskData.configValues.groupId;
+                            scope.eodProcessId = scope.taskData.configValues.eodProcessId;
                         }
                     }
                     if(scope.loanId!=undefined){
@@ -80,6 +81,12 @@
                        resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
                            scope.groupData = data;
                        });
+                   }
+                   if(scope.eodProcessId) {
+                    resourceFactory.eodProcessResource.get({eodProcessId:scope.eodProcessId},
+                        function(data){
+                            scope.eodData = data;
+                    });
                    }
                 });
             }

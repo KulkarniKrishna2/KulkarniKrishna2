@@ -43,6 +43,12 @@
                     <div class="col-md-6"> {{'label.input.status' | translate}} :&nbsp; {{groupData.status.value}}</div>
                 </div>
             </div>
+            <div class="row well" ng-if="eodData">
+                <h3><strong>{{'label.heading.eod' | translate}}<span>:</span></strong></h3>
+                    <div class="col-md-6"><span>{{'label.input.closingdate' | translate}}:&nbsp;</span><span>{{eodData.eodDate | DateFormat}}</span>
+                    </div>
+                    <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{eodData.officeData.name}}</span></div>
+            </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
         </div>
