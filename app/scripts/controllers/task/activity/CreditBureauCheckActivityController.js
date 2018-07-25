@@ -943,6 +943,12 @@
                 }
                 return false;
             }
+            scope.disableCBCheck = function(activeClientMember){
+                if(activeClientMember.isClientFinishedThisTask||(activeClientMember.cbExistingLoansSummaryData == undefined && !scope.isCBCheckEnable)){
+                    return true;
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {

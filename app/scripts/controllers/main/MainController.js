@@ -213,6 +213,10 @@
                             scope.maxGroupLimit = data.globalConfiguration[i].value;
 
                         }
+                        if(data.globalConfiguration[i].name=='cb check validation for workflow'){
+                            scope.isCBCheckEnable = data.globalConfiguration[i].enabled;
+
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }

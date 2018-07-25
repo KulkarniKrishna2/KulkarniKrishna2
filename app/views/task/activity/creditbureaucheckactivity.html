@@ -44,7 +44,7 @@
 					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember" ng-class="activeClientMember.color"
 						ng-if="!activeClientMember.isClientFinishedThisTask">
 						<td class="col-md-1">
-							<input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-disabled="activeClientMember.isClientFinishedThisTask"
+							<input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-disabled="disableCBCheck(activeClientMember)"
 							    data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.cb.initiation.not.done' | translate}}" ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input>
 						</td>
 						<td class="col-md-2">{{activeClientMember.displayName}}</td>
