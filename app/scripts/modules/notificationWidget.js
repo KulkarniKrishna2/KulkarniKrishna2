@@ -21,6 +21,84 @@ angular.module('notificationWidget', [])
                 });
             }
 
+            function error(rejection) {
+                $rootScope.errorDetails = [];
+                //works with batch requests as well
+                //now our data array will hold the return response
+                //either it's a batch response or a normal response
+                var data = [];
+                if (rejection.config.url.indexOf('batches') > 0) {
+                    data = rejection.data;
+                }
+                else {
+                    //just push a single response into data
+                    var res = {};
+                    res.body = JSON.stringify(rejection.data);
+                    data.push(res);
+                }
+
+                if (rejection.status != 2010) {
+                    setTimer(rejection.config.method + rejection.config.url);
+                }
+
+                if (rejection.status === 0) {
+                    $rootScope.errorStatus = 'No connection. Verify application is running.';
+                } else if (rejection.status == 401) {
+                    $rootScope.errorStatus = 'Unauthorized';
+                    $rootScope.$broadcast("UnauthorizedRequest", rejection.data);
+                } else if (rejection.status == 405) {
+                    $rootScope.errorStatus = 'HTTP verb not supported [405]';
+                } else if (rejection.status == 500) {
+                    $rootScope.errorStatus = 'Internal Server Error [500].';
+                } else if (rejection.status == 2010) {
+                    $rootScope.errorStatus = 'Duplicate request';
+                } else {
+                    for (var i = 0; i < data.length; i++) {
+                        var jsonErrors = JSON.parse(data[i].body);
+                        var valErrors = jsonErrors.errors;
+                        var errorArray = new Array();
+                        var arrayIndex = 0;
+                        if (valErrors) {
+                            for (var j in valErrors) {
+                                var temp = valErrors[j];
+                                // add error class to input in dialog
+                                var fieldId = '#' + temp.parameterName;
+                                $(fieldId).addClass("validationerror");
+
+                                // for views using ui add the classes instead of ids
+                                var fieldClass = "." + temp.parameterName;
+                                $(fieldClass).eq(data[i].requestId).addClass("validationerror");
+
+                                var errorObj = new Object();
+                                errorObj.field = temp.parameterName;
+                                errorObj.code = temp.userMessageGlobalisationCode;
+                                errorObj.body = jsonErrors;
+                                errorObj.args = {params: []};
+                                for (var k in temp.args) {
+                                    errorObj.args.params.push({value: temp.args[k].value});
+                                }
+                                errorArray[arrayIndex] = errorObj;
+                                arrayIndex++;
+                            }
+                            ;
+                        } else {
+                            /***
+                             * Update user password api call won't return errors array,
+                             * if user enters a password which is used previously
+                             */
+                            if (jsonErrors.userMessageGlobalisationCode) {
+                                var errorObj = new Object();
+                                errorObj.code = jsonErrors.userMessageGlobalisationCode;
+                                errorArray[arrayIndex] = errorObj;
+                                arrayIndex++;
+                            }
+                        }
+                        $rootScope.errorDetails.push(errorArray);
+                    }
+                }
+                return $q.reject(rejection);
+            }
+
             var setTimer = function(url){
                 $timeout(function(){ delete $rootScope.requestsInProgressAPIs[url];}, 1 * 1200);
             };
@@ -151,82 +229,7 @@ angular.module('notificationWidget', [])
                         notificationChannel.requestEnded();
                     }
 
-                    $rootScope.errorDetails = [];
-                    //works with batch requests as well
-                    //now our data array will hold the return response
-                    //either it's a batch response or a normal response
-                    var data = [];
-                    if (rejection.config.url.indexOf('batches') > 0) {
-                        data = rejection.data;
-                    }
-                    else {
-                        //just push a single response into data
-                        var res = {};
-                        res.body = JSON.stringify(rejection.data);
-                        data.push(res);
-                    }
-
-                    if(rejection.status != 2010){
-                        setTimer(rejection.config.method + rejection.config.url);
-                    }
-
-                    if (rejection.status === 0) {
-                        $rootScope.errorStatus = 'No connection. Verify application is running.';
-                    } else if (rejection.status == 401) {
-                        $rootScope.errorStatus = 'Unauthorized';
-                        $rootScope.$broadcast("UnauthorizedRequest", rejection.data);
-                    } else if (rejection.status == 405) {
-                        $rootScope.errorStatus = 'HTTP verb not supported [405]';
-                    } else if (rejection.status == 500) {
-                        $rootScope.errorStatus = 'Internal Server Error [500].';
-                    } else if (rejection.status == 2010) {
-                        $rootScope.errorStatus = 'Duplicate request';
-                    }else {
-                        for(var i = 0; i < data.length; i++) {
-                            //console.log(data[i]);
-                            var jsonErrors = JSON.parse(data[i].body);
-                            var valErrors = jsonErrors.errors;
-                            var errorArray = new Array();
-                            var arrayIndex = 0;
-                            if (valErrors) {
-                                for (var j in valErrors) {
-                                    var temp = valErrors[j];
-                                    // add error class to input in dialog
-                                    var fieldId = '#' + temp.parameterName;
-                                    $(fieldId).addClass("validationerror");
-
-                                    // for views using ui add the classes instead of ids
-                                    var fieldClass = "."+temp.parameterName;
-                                    $(fieldClass).eq(data[i].requestId).addClass("validationerror");
-
-                                    var errorObj = new Object();
-                                    errorObj.field = temp.parameterName;
-                                    errorObj.code = temp.userMessageGlobalisationCode;
-                                    errorObj.body = jsonErrors;
-                                    errorObj.args = {params: []};
-                                    for (var k in temp.args) {
-                                        errorObj.args.params.push({value: temp.args[k].value});
-                                    }
-                                    errorArray[arrayIndex] = errorObj;
-                                    arrayIndex++;
-                                };
-                            } else {
-                                /***
-                                 * Update user password api call won't return errors array,
-                                 * if user enters a password which is used previously
-                                 */
-                                if (jsonErrors.userMessageGlobalisationCode) {
-                                    var errorObj = new Object();
-                                    errorObj.code = jsonErrors.userMessageGlobalisationCode;
-                                    errorArray[arrayIndex] = errorObj;
-                                    arrayIndex++;
-                                }
-                            }
-                            $rootScope.errorDetails.push(errorArray);
-                            console.log(errorArray);
-                        }
-                    }
-                    return $q.reject(rejection);
+                   return error(rejection);
                 }
             }
         })

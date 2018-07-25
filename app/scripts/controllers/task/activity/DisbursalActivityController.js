@@ -194,6 +194,7 @@
 
                 $scope.submit = function () {
                     if($scope.clientId != null && scope.taskData.id !=null && $scope.loanId){
+                        $scope.taskInfoTrackArray = [];
                         $scope.taskInfoTrackArray.push(
                             {'clientId' : $scope.clientId, 
                              'currentTaskId' : scope.taskData.id,
@@ -237,8 +238,13 @@
 
                     //batch call
                     resourceFactory.batchResource.post({'enclosingTransaction':true},$scope.batchRequests, function (data) {
-                        $modalInstance.close();
-                        initTask();
+                        if(data[data.length-1].requestId == data.length){
+                            $modalInstance.close();
+                            initTask();
+                        }else{
+                            $modalInstance.close();
+                        }
+
                     });
 
 
