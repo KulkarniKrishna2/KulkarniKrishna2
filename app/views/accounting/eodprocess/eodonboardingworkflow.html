@@ -1,0 +1,18 @@
+<div class="col-md-12 col-sm-12" ng-controller="EodOnBoardingWorkflowController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/eodprocess">{{'label.anchor.eod.process' | translate}}</a></li>
+        <li class="active">{{'label.anchor.initiate.eod.process' | translate}}</li>
+    </ul>
+    <div class="col-md-12 col-sm-12">
+        <div class="row well">
+            <h3><strong>{{'label.heading.eod' | translate}}<span>:</span></strong></h3>
+            <div class="row">
+                 <div class="col-md-6"><span>{{'label.input.closingdate' | translate}}:&nbsp;</span><span>{{eodData.eodDate | DateFormat}}</span>
+                 </div>
+                 <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{eodData.officeData.name}}</span></div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>
+</div>

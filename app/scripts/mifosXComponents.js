@@ -15,7 +15,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'PaginatorUsingOffset',
             'UIConfigService',
             'CommonUtilService',
-            'ExcelExportTableService'
+            'ExcelExportTableService',
+            'PopUpUtilService'
         ],
         controllers: [
             'main/MainController',
@@ -579,7 +580,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'customsequence/SequenceEntityAssociationListController',
             'customsequence/CreateSequenceEntityAssociationController',
             'customsequence/SequenceEntityAssociationCommonController',
-            'customsequence/ViewSequenceEntityAssociationController'
+            'customsequence/ViewSequenceEntityAssociationController',
+            'accounting/eodprocess/EodProcessController',
+            'accounting/eodprocess/InitiateEodProcessController',
+            'accounting/eodprocess/EodOnBoardingWorkflowController',
+            'accounting/eodprocess/EodCollectionSummaryController',
+            'accounting/eodprocess/EodFinancialSummaryController',
+            'accounting/eodprocess/EodOperationalSummaryController',
+            'accounting/eodprocess/CreateJournalVoucherController'
         ],
         filters: [
             'StatusLookup',
