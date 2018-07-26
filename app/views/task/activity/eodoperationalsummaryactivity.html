@@ -16,8 +16,7 @@
                 <td >{{operationalData.plannedAmount}}</td>
                 <td >{{operationalData.actualAmount}}</td>
                 <td><button class="btn btn-primary" ng-click="showProductSummary(eodSummary.eodProcessData.id,operationalData.summaryType.value,operationalData.summary)"><i class="icon-plus-sign icon-white"></i></button></td>
-                <td ng-if="!isOperationalClosureDone"><textarea id="note"  ng-model="operationalData.note"/></textarea></td>
-                <td ng-if="isOperationalClosureDone">{{operationalData.note}}</td>
+                <td ><textarea id="note"  ng-model="operationalData.note" data-ng-disabled="isOperationalClosureDone"></textarea></td>
             </tr>
             </tbody>
         </table>
