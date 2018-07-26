@@ -1722,6 +1722,15 @@
             .when('/workflowanalytics', {
                 templateUrl: 'views/task/analytics/taskanalytics.html'
             })
+            .when('/sequencepattern',{
+                templateUrl: 'views/customsequence/sequencepatternlist.html'
+            })
+            .when('/sequencepattern/addsequencepattern',{
+                templateUrl: 'views/customsequence/createsequencepattern.html'
+            })
+            .when('/sequencepattern/:id',{
+                templateUrl: 'views/customsequence/viewsequencepattern.html'
+            })
             .when('/customsequences',{
                 templateUrl: 'views/customsequence/sequencedetailslist.html'
             })

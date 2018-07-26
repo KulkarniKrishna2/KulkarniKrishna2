@@ -1,0 +1,34 @@
+<div class="col-md-12" ng-controller="SequencePatternListController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/sequencemanagement">{{'label.anchor.sequence.management'|
+                translate}}</a></li>
+            <li class="active">{{'label.anchor.sequence.pattern' | translate}}
+            </li>
+        </ul>
+    </div>
+    <a href="#/sequencepattern/addsequencepattern" class="btn btn-primary pull-right" has-permission='CREATE_SEQUENCE_PATTERN'>
+        <i class="icon-plus icon-white"></i>{{'label.button.add.sequence.pattern' | translate}}
+    </a>
+    <div class="span grey-head">
+        <h3>
+                <strong>{{'label.heading.sequence.pattern.details' | translate}}</strong>
+            </h3>
+    </div>
+    <div ng-if="sequencePatternDetails.length > 0">
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.serialno' | translate}}</th>
+                    <th>{{'label.heading.name' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="record in sequencePatternDetails">
+                    <td class="pointer" data-ng-click="routeTo(record.sequencePatternId)">{{$index+1}}</td>
+                    <td class="pointer" data-ng-click="routeTo(record.sequencePatternId)">{{record.sequencePatternName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

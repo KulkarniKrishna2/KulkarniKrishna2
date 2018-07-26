@@ -120,6 +120,10 @@
                 <td>{{ 'label.heading.banknumber' | translate}}</td>
                 <td>{{transaction.paymentDetailData.bankNumber}}</td>
             </tr>
+            <tr ng-show="transaction.paymentDetailData.onlineReceiptNumber">
+                <td>{{ 'label.heading.onlinereceiptnumber' | translate}}</td>
+                <td>{{transaction.paymentDetailData.onlineReceiptNumber}}</td>
+            </tr>
         </table>
         <hr ng-show="glimTransactions"/>
         <div class="row" ng-show="glimTransactions">

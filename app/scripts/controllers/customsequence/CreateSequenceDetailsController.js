@@ -3,7 +3,14 @@
         CreateSequenceDetailsController: function(scope, routeParams, resourceFactory, location, route) {
 
             scope.formData = {};
+            scope.sequenceType = {};
             scope.formData.locale = scope.optlang.code;
+
+            resourceFactory.customSequenceTemplateResource.get(this.formData, function(data) {
+                    scope.sequencePatternData = data.sequencePatternData;
+                    scope.sequenceType = data.sequenceType;
+                    scope.sequenceType.splice(0, 1);
+                });
 
             scope.submit = function() {
                 resourceFactory.customSequenceResource.save(this.formData, function(data) {

@@ -5,25 +5,27 @@
             scope.formData = {};
             scope.formData.locale = scope.optlang.code;
             scope.selectedSequences = [];
+            scope.productIdApplicableFor = [7,10,201];
+            scope.staffIdApplicableFor = [6]
 
             resourceFactory.sequenceAssociationTemplateResource.get(function(data) {
                 scope.entityTypes = data.applicableOnEntities;
-                scope.entityType = scope.entityTypes[scope.entityTypes.findIndex(x => x.value === 'Loan Products')];
+                scope.applicableColumns = data.applicableColumns;
+                scope.formData.applicableColumn = data.applicableColumns[0].id;
                 scope.sequenceDetails = data.sequenceDetails;
             });
 
-            resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
-                scope.products = data;
-            });
-
-            resourceFactory.loanApplicationSequenceTemplateResource.get(function(data) {
-                scope.loanSequenceTemplateData = data;
-                scope.loanEntityTypes = scope.loanSequenceTemplateData.loanEntityTypes;
-                scope.subEntityType = scope.loanEntityTypes[scope.loanEntityTypes.findIndex(x => x.value === 'Loan Applications')];
-                scope.applicableColumns = scope.loanSequenceTemplateData.applicableColumns;
-                scope.applicableColumn = scope.applicableColumns[0];
-
-            });
+            scope.getData = function(entityType){
+                if(scope.productIdApplicableFor.indexOf(scope.formData.entityType)>-1){
+                    resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
+                        scope.products = data;
+                    });
+                } else if(scope.staffIdApplicableFor.indexOf(scope.formData.entityType)>-1){
+                    resourceFactory.employeeResource.getAllEmployees(function(data) {
+                        scope.employees = data.pageItems;
+                    });
+                }
+            }            
 
             scope.addSequence = function() {
                 for (var i in this.selectedSequence) {
@@ -54,9 +56,6 @@
             };
 
             scope.submit = function() {
-                scope.formData.entityType = scope.entityType.id;
-                scope.formData.subEntityType = scope.subEntityType.id;
-                scope.formData.applicableColumn = scope.applicableColumn.id;
                 scope.formData.selectedSequences = scope.selectedSequences;
                 for (var i = 0; i < scope.formData.selectedSequences.length;) {
                     delete scope.formData.selectedSequences[i].name;

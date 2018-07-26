@@ -1,0 +1,40 @@
+<div class="col-md-12" ng-controller="ViewSequencePatternController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a ng-href="#/sequencepattern">{{ 'label.anchor.sequence.pattern' | translate}}</a></li>
+            <li class="active">{{'label.heading.sequence.details' | translate}}
+            </li>
+        </ul>
+    </div>
+    <legend>{{'label.heading.sequence.details' | translate}}</legend>
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.heading.name' | translate}}:&nbsp;</b></span>
+                    <span>{{sequencePatternName}}</span>
+                </div>
+                <div class="form-group center-block" ng-show="sequencePatternDetails.length>0">
+                    <div class="col-sm-12 center-block">
+                        <div class="col-sm-3">&nbsp;</div>
+                            <table class="table">
+                                <tr class="graybg">
+                                    <th>{{'label.heading.sequence.entitytype' | translate}}</th>
+                                    <th>{{'label.heading.sequence.filedname' | translate}}</th>
+                                    <th>{{'label.heading.sequence.length' | translate}}</th>
+                                    <th>{{'label.heading.sequence.order' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                                <tr ng-repeat="patternsData in sequencePatternDetails">
+                                    <td>{{patternsData.entityType}}</td>
+                                    <td>{{patternsData.fieldName}}</td>
+                                    <td>{{patternsData.length}}</td>
+                                    <td>{{patternsData.patternOrder}}</td>
+                                </tr>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
