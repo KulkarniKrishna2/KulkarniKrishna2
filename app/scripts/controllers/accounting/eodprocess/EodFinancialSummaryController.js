@@ -57,7 +57,9 @@
             scope.constructCashMapData = function(){
                 scope.cashMapData = {};
                 for(var i in scope.eodCashSummary){
-                    scope.cashMapData[scope.eodCashSummary[i].account.id] = [];
+                    if(scope.cashMapData[scope.eodCashSummary[i].account.id]==undefined){
+                       scope.cashMapData[scope.eodCashSummary[i].account.id]  = [];
+                    }                    
                     if(scope.eodCashSummary[i].transactionType==0){
                         scope.cashMapData[scope.eodCashSummary[i].account.id].push(scope.eodCashSummary[i]);
                     }else{
@@ -70,7 +72,9 @@
             scope.constructBankMapData = function(){
                 scope.bankMapData = {};
                 for(var i in scope.eodBankSummary){
-                    scope.bankMapData[scope.eodBankSummary[i].account.id] = [];
+                    if(scope.bankMapData[scope.eodBankSummary[i].account.id]==undefined){
+                       scope.bankMapData[scope.eodBankSummary[i].account.id] = [];
+                    }                    
                     if(scope.eodBankSummary[i].transactionType==0){
                         scope.bankMapData[scope.eodBankSummary[i].account.id].push(scope.eodBankSummary[i]);
                     }else{
