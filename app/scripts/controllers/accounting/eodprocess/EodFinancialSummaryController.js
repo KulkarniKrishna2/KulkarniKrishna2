@@ -57,8 +57,8 @@
             scope.constructCashMapData = function(){
                 scope.cashMapData = {};
                 for(var i in scope.eodCashSummary){
+                    scope.cashMapData[scope.eodCashSummary[i].account.id] = [];
                     if(scope.eodCashSummary[i].transactionType==0){
-                        scope.cashMapData[scope.eodCashSummary[i].account.id] = [];
                         scope.cashMapData[scope.eodCashSummary[i].account.id].push(scope.eodCashSummary[i]);
                     }else{
                         scope.cashMapData[scope.eodCashSummary[i].account.id].push(scope.eodCashSummary[i]);
@@ -70,8 +70,8 @@
             scope.constructBankMapData = function(){
                 scope.bankMapData = {};
                 for(var i in scope.eodBankSummary){
+                    scope.bankMapData[scope.eodBankSummary[i].account.id] = [];
                     if(scope.eodBankSummary[i].transactionType==0){
-                        scope.bankMapData[scope.eodBankSummary[i].account.id] = [];
                         scope.bankMapData[scope.eodBankSummary[i].account.id].push(scope.eodBankSummary[i]);
                     }else{
                         scope.bankMapData[scope.eodBankSummary[i].account.id].push(scope.eodBankSummary[i]);
@@ -100,7 +100,6 @@
             scope.constructRequestBody = function(financialData){
                 scope.requestBody.financialData = [];
                 for(var i in financialData){
-                    console.log(financialData[i]);
                     var data = {};
                     data.accountId = financialData[i].account.id;
                     data.transactionTypeId = financialData[i].transactionType;
