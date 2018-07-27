@@ -2499,6 +2499,7 @@
     "label.input.increasemonthby": "Increase Month By",
     "label.input.dayofmonth": "Day of the Month",
     "label.input.loanpurpose": "Loan purpose",
+    "label.input.loanpurposegroup": "Loan Purpose Group",
     "label.input.months":"months",
     "label.input.weeks":"weeks",
     "label.input.depositamount":"Deposit Amount",

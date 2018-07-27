@@ -193,6 +193,12 @@
 
                 scope.formData.loanOfficerId = data.loanOfficerId;
                 scope.formData.loanPurposeId = data.loanPurposeId;
+                if(data.loanPurposeId){
+                    resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
+                    scope.formData.loanPurposeId = data.loanPurposeId;
+                    scope.loanPurposeGroups = loanPurposeGroupsdata;
+                    scope.getParentLoanPurpose(data.loanPurposeId);
+                });
                 scope.formData.externalId = data.externalId;
 
                 //update collaterals
@@ -205,6 +211,22 @@
                 scope.previewClientLoanAccInfo();
 
             });
+
+            scope.getParentLoanPurpose = function (loanPurposeId) {
+                if(scope.loanPurposeGroups && scope.loanPurposeGroups.length>0){
+                    for(var i=0; i< scope.loanPurposeGroups.length; i++){
+                        if(scope.loanPurposeGroups[i].loanPurposeDatas && scope.loanPurposeGroups[i].loanPurposeDatas.length >0){
+
+                            for(var j=0; j< scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
+                                if(scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
+                                    scope.formData.loanPurposeGroupId = scope.loanPurposeGroups[i].id;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
              scope.$watch('productLoanCharges', function(){
                 if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
@@ -442,6 +464,14 @@
                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.amountForUpfrontCollection ;
             }
 
+            scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
+                resourceFactory.loanPurposeGroupResource.get({
+                    loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
+                }, function (data) {
+                    scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                });
+            }
+
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
@@ -593,6 +623,7 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
+                delete scope.formData.loanPurposeGroupId;
 
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
@@ -655,6 +686,7 @@
                 delete scope.formData.charges;
                 delete scope.formData.overdueCharges;
                 delete scope.formData.collateral;
+                delete scope.formData.loanPurposeGroupId;
 
                 if (scope.formData.disbursementData.length > 0) {
                     for (var i in scope.formData.disbursementData) {
