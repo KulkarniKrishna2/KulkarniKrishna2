@@ -8,6 +8,25 @@
             
             function initTask() {
                 scope.documentTagOptions = [];
+
+                scope.uiData = {};
+                scope.isUploadDocument = true;
+                scope.uiData.isUploadDocument = true;
+                scope.uiData.isUploadDocumentTagMandatory = false;
+                scope.uiData.isDocumentRestrictedForTags = false;
+                if (scope.taskconfig.hasOwnProperty('documentConfiguration')) {
+                    scope.documentConfiguration = scope.taskconfig['documentConfiguration'];
+                    if (!_.isUndefined(scope.documentConfiguration.isUploadDocument)) {
+                        scope.uiData.isUploadDocument = scope.documentConfiguration.isUploadDocument;
+                    }
+                    if (!_.isUndefined(scope.documentConfiguration.isUploadDocumentTagMandatory)) {
+                        scope.uiData.isUploadDocumentTagMandatory = scope.documentConfiguration.isUploadDocumentTagMandatory;
+                    }
+                    if (!_.isUndefined(scope.documentConfiguration.isDocumentRestrictedForTags)) {
+                        scope.uiData.isDocumentRestrictedForTags = scope.documentConfiguration.isDocumentRestrictedForTags;
+                    }
+                }
+                
                 if (scope.taskconfig.hasOwnProperty('entityType')) {
                     scope.entityType = scope.taskconfig['entityType'];
                     switch (scope.entityType) {
@@ -15,6 +34,12 @@
                             scope.loanApplicationId = scope.taskconfig['loanApplicationId'];
                             scope.entityId = scope.taskconfig['loanApplicationId'];
                             scope.documentTagName = 'Loan Application Document Tags';
+                            if(!_.isUndefined(scope.documentConfiguration) && !_.isUndefined(scope.documentConfiguration.documentRestrictedForTags)){
+                                scope.documentRestrictedForTags = [];
+                                for(var i in scope.documentConfiguration.documentRestrictedForTags){
+                                    scope.documentRestrictedForTags.push(scope.documentConfiguration.documentRestrictedForTags[i].tagName);
+                                }
+                            }
                             break;
                         case "centers":
                             scope.centerId = scope.taskconfig['centerId'];
@@ -95,17 +120,34 @@
 
             function getDocumentTags() {
                 resourceFactory.codeValueByCodeNameResources.get({codeName: scope.documentTagName}, function (codeValueData) {
-                scope.documentTagOptions = codeValueData;
-            });
+                    scope.documentTagOptions = [];
+                    if(scope.uiData.isDocumentRestrictedForTags){
+                        if(!_.isUndefined(scope.documentConfiguration.documentRestrictedForTags)){
+                            for(var i in scope.documentConfiguration.documentRestrictedForTags){
+                                for(var j in codeValueData){
+                                    if(scope.documentConfiguration.documentRestrictedForTags[i].tagName === codeValueData[j].name 
+                                    && scope.documentConfiguration.documentRestrictedForTags[i].isUploadDocument === true){
+                                        scope.documentTagOptions.push(codeValueData[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        scope.documentTagOptions = codeValueData;
+                    }
+                });
             };
+
+            function documentsURL(document){
+                return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+            };
+
             function getDocuments() {
                 resourceFactory.documentsResource.getAllDocuments({entityType: scope.entityType, entityId: scope.entityId}, function (data) {
                     scope.clientdocuments = {};
                     for (var l = 0; l < data.length; l++) {
                         if (data[l].id) {
-                            var loandocs = {};
-                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                            data[l].docUrl = loandocs;
+                            data[l].docUrl = documentsURL(data[l]);
                         }
                         if(data[l].tagValue){
                             scope.pushDocumentToTag(data[l], data[l].tagValue);
@@ -116,42 +158,71 @@
                 });
             };
 
-            scope.pushDocumentToTag = function(document, tagValue){
-                if (scope.clientdocuments.hasOwnProperty(tagValue)) {
-                    scope.clientdocuments[tagValue].push(document);
+            scope.pushDocumentToTag = function (document, tagValue) {
+                if (!_.isUndefined(scope.documentRestrictedForTags)) {
+                    if (tagValue != 'uploadedDocuments') {
+                        if (scope.documentRestrictedForTags.indexOf(tagValue) > -1) {
+                            var isDocumentRequired = true;
+                            for (var i in scope.documentConfiguration.documentRestrictedForTags) {
+                                if (scope.documentConfiguration.documentRestrictedForTags[i].tagName === tagValue) {
+                                    if (scope.documentConfiguration.documentRestrictedForTags[i].reportIdentifiers) {
+                                        if (scope.documentConfiguration.documentRestrictedForTags[i].reportIdentifiers.indexOf(document.reportIdentifier) > -1) {
+                                            isDocumentRequired = true;
+                                        } else {
+                                            isDocumentRequired = false;
+                                        }
+                                    } else {
+                                        isDocumentRequired = true;
+                                    }
+                                }
+                            }
+                            if (isDocumentRequired) {
+                                if (scope.clientdocuments.hasOwnProperty(tagValue)) {
+                                    scope.clientdocuments[tagValue].push(document);
+                                } else {
+                                    scope.clientdocuments[tagValue] = [];
+                                    scope.clientdocuments[tagValue].push(document);
+                                }
+                            }
+                        }
+                    } else {
+                        if (scope.clientdocuments.hasOwnProperty(tagValue)) {
+                            scope.clientdocuments[tagValue].push(document);
+                        } else {
+                            scope.clientdocuments[tagValue] = [];
+                            scope.clientdocuments[tagValue].push(document);
+                        }
+                    }
                 } else {
-                    scope.clientdocuments[tagValue] = [];
-                    scope.clientdocuments[tagValue].push(document);
+                    if (scope.clientdocuments.hasOwnProperty(tagValue)) {
+                        scope.clientdocuments[tagValue].push(document);
+                    } else {
+                        scope.clientdocuments[tagValue] = [];
+                        scope.clientdocuments[tagValue].push(document);
+                    }
                 }
             };
 
             scope.deleteDocument = function (documentId, index, tagValue) {
                 resourceFactory.documentsResource.delete({entityType: scope.entityType, entityId: scope.entityId, documentId: documentId.id}, '', function (data) {
-                    scope.clientdocuments[tagValue].splice(index, 1);
+                    //scope.clientdocuments[tagValue].splice(index, 1);
+                    getDocuments();
                 });
             };
 
             scope.generateDocument = function (document){
                 resourceFactory.documentsGenerateResource.generate({entityType: scope.entityType, entityId: scope.entityId, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
-                    var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                    document.docUrl = loandocs;
+                    document.docUrl = documentsURL(document);
                 })
             };
 
             scope.reGenerateDocument = function (document){
                 resourceFactory.documentsGenerateResource.reGenerate({entityType: scope.entityType, entityId: scope.entityId, identifier: document.id}, function(data){
                     document.id = data.resourceId;
-                    var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                    document.docUrl = loandocs;
+                    document.docUrl = documentsURL(document);
                 })
             };
-            scope.isRequired = false;
-            scope.validateField = function(){
-                scope.isRequired = true;
-            }
 
             scope.submit = function () {
                 $upload.upload({
@@ -159,15 +230,21 @@
                     data: scope.formData,
                     file: scope.file
                 }).then(function (data) {
-                        // to fix IE not refreshing the model
-                        if (!scope.$$phase) {
-                            scope.$apply();
-                        }
-                        scope.activityDone();
-                        getDocuments();
-                        scope.formData = {};
-                        scope.isRequired = false;
-                    });
+                    // to fix IE not refreshing the model
+                    if (!scope.$$phase) {
+                        scope.$apply();
+                    }
+                    scope.activityDone();
+                    getDocuments();
+                    scope.formData = {};
+                    $files = [];
+                    scope.file = undefined;
+                });
+            };
+
+            scope.download = function(document){
+                var url = $rootScope.hostUrl + document.docUrl + commonUtilService.commonParamsForNewWindow();
+                window.open(url);
             };
         }
     });
