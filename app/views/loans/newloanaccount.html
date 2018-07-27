@@ -35,6 +35,17 @@
         </td>
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
+        
+        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}</label></td>
+        <td class="paddedbottom10" ng-show = "loanPurposeGroups" >
+            <select chosen="loanPurposeGroups" id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
+                    ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
+                    class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
+                <option value="">{{'label.selectpurpose' | translate}}</option>
+            </select>
+        </td>
+
+
         <td><label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
         <td class="paddedbottom10">
@@ -44,13 +55,6 @@
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
             <form-validate valattributeform="newloanaccountform" valattribute="loanpurpose"/>
-        </td>
-        <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
-        <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
-            <select id="fundId" ng-model="formData.fundId" class="form-control width170px"
-                    ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions"  value="{{fund.id}}" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption">
-                <option value="">{{'label.selectfund' | translate}}</option>
-            </select>
         </td>
     </tr>
     <tr ng-show="formData.productId">
@@ -81,6 +85,16 @@
         <td class="paddedbottom10" ng-if ="!response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
             <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control" ng-readonly="extenalIdReadOnlyType"
                     />
+        </td>
+    </tr>
+    <tr ng-show="formData.productId && showLoanPurpose">
+        
+        <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
+        <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
+            <select id="fundId" ng-model="formData.fundId" class="form-control width170px"
+                    ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions"  value="{{fund.id}}" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption">
+                <option value="">{{'label.selectfund' | translate}}</option>
+            </select>
         </td>
     </tr>
 </table>
