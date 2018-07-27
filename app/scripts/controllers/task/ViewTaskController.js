@@ -89,11 +89,12 @@
                            scope.centerData = data;
                        });
                    }
-                   if(scope.eodProcessId) {}
-                    resourceFactory.eodProcessResource.get({eodProcessId:scope.eodProcessId},
-                        function(data){
+
+                   if (scope.eodProcessId) {
+                       resourceFactory.eodProcessResource.get({ eodProcessId: scope.eodProcessId}, function (data) {
                             scope.eodData = data;
                         });
+                   }
                 });
             }
 

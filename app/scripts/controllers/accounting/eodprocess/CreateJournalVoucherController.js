@@ -95,7 +95,7 @@
 
             $scope.submit = function () {
                 var jeTransaction = new Object();
-                var reqDate = dateFilter(scope.first.date, scope.df);
+                var reqDate = dateFilter($scope.first.date, $scope.df);
                 jeTransaction.locale = $scope.optlang.code;
                 jeTransaction.dateFormat = $scope.df;
                 jeTransaction.officeId = this.formData.officeId;
@@ -132,6 +132,7 @@
                 }
 
                 resourceFactory.journalEntriesResource.save(jeTransaction, function (data) {
+                    $modalInstance.dismiss('cancel');
                     route.reload();
                 });
             }

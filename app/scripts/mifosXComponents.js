@@ -582,6 +582,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'customsequence/SequenceEntityAssociationListController',
             'customsequence/CreateSequenceEntityAssociationController',
             'customsequence/SequenceEntityAssociationCommonController',
+<<<<<<< HEAD
             'task/activity/PreliminaryGroupFormationActivityController',
             'task/activity/BulkLoanApplicationActivityController',
             'task/activity/CenterMeetingActivityController',
@@ -608,7 +609,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientBankAccountDetailsController',
             'bankaccountdetails/common/CreateBankAccountDetailController',
             'bankaccountdetails/common/AddBankAccountDetailsToLoanController',
-            'customsequence/ViewSequenceEntityAssociationController',
             'organization/BulkRescheduleSavingsAccountInstallmentController',
             'organization/bulktransfer/InitiateBulkTransferController',
             'organization/bulktransfer/BulkTransferController',

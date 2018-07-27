@@ -15,12 +15,8 @@
                     });
             }
             function fetchTask() {
-                resourceFactory.entityEventTaskExecutionResource.get({
-                    entityType: "eod_process",
-                    eventType: eventType,
-                    entityId: scope.eodProcessId
-                }, function (data) {
-                    scope.taskData = data;
+                resourceFactory.entityTaskExecutionResource.get({entityType: "eod_process", entityId:scope.eodProcessId}, function (taskData) {
+                    scope.taskData = taskData;
                 });
             }
             init();

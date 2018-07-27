@@ -9,7 +9,7 @@
 
             resourceFactory.villageResource.get({villageId: routeParams.id, template:'true'}, function (data) {
                 scope.edit = data;
-                scope.isWorkflowEnabled = true; //data.isWorkflowEnabled;
+                scope.isWorkflowEnabled = data.isWorkflowEnabled;
                 scope.formData = {
                     villageName: data.villageName,
                     externalId: data.externalId,

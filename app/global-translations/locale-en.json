@@ -4646,6 +4646,7 @@
     "error.msg.loan.days.between.first.repayment.and.disbursal.are.less.than.minimum.days.or.periods.allowed" : "Minimum days between disbursal and first repayment should be {{params[2].value}} ",
     "error.msg.loan.application.approval.date.cannot.be.before.the.loan.min.approval.date" : "Approval Date Cannot be before {{params[0].value}}",
     "error.msg.loan.application.disbursement.date.cannot.be.before.the.loan.min.disbursement.date" : "Disbursement Date Cannot be before {{params[0].value}}",
+    "lable.error.activity.loanapplication.not.submitted" : "Please submit loan application data to complete the activity",
 
     "#------------------": "------------",
 
@@ -7281,8 +7282,6 @@
     "label.heading.audit.closure": "Audit Closure",
     "label.heading.view.or.edit": "View/Delete",
     "label.heading.loan.officeer": "LO",
-    "label.heading.due": "DUE",
-    "label.heading.arrears": "ARREARS",
     "label.heading.collected": "COLLECTED",
     "label.heading.advance": "ADVANCE",
     "label.heading.summary.notes": "NOTES",
@@ -7400,5 +7399,7 @@
     "validation.msg.Sequence Patterns.patterns.cannot.be.empty" : "Sequence patterns cannot be empty",
     "error.msg.already.exits" : "Name already exits",
 
-    "------ end of tensalation file":"---------"
+    "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
+    
+     "------ end of tensalation file":"---------"
 }
