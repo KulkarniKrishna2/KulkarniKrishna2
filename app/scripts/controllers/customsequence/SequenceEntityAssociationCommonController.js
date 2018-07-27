@@ -19,10 +19,12 @@
                 resourceFactory.customSequenceAssociationResource.get({
                     sequenceEntityAssociationId: scope.sequenceEntityAssociationId,'command' :'template'
                 }, function(data) {
-                    scope.entityTypes = data.templateData.applicableOnEntities;
+                    scope.entityTypes = [data.entityType];
                     scope.sequenceAssociationsDetails = data;
                     if(data.entityType){
                         scope.entityType = data.entityType.id;
+                        scope.entityNames = [data.entityName];
+                        scope.entityName = data.entityName;
                         if(data.product){
                             if(scope.productIdApplicableFor.indexOf(scope.entityType)>-1){
                                 scope.getAllActiveLoanProducts();
@@ -31,7 +33,7 @@
                         }
                         
                     }
-                    scope.applicableColumns = data.templateData.applicableColumns;
+                    scope.applicableColumns = [data.sequenceForField];
                     if(data.sequenceForField){
                         scope.applicableColumn = data.sequenceForField.id;
                     }

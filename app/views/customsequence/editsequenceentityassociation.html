@@ -19,10 +19,9 @@
                     </select>
                 </div>
 
-                <label class="control-label col-sm-2" ng-if="productId">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
-                <div class="col-sm-3" ng-if="productId">
-                    <select id="productId" name="productId" ng-model="productId" class="form-control" ng-options="product.id as product.name for product in products" value="{{product.id}}"  ng-disabled="true" late-validate>
-                        <option value="">{{'label.selectloanproduct' | translate}}</option>
+                <label class="control-label col-sm-2" ng-if="entityNames">{{ 'label.heading.entityname' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-3" ng-if="entityNames">
+                    <select id="entityName" name="entityName" ng-model="entityName" class="form-control" ng-options="entityName for entityName in entityNames" ng-disabled="true" late-validate>
                     </select>
                 </div>
             </div>

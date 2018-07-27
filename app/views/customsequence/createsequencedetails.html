@@ -39,6 +39,29 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.prefix.type' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="sequencePrefixType" name="sequencePrefixType" ng-model="formData.sequencePrefixType"
+                                ng-options="type for type in sequenceType" class="form-control" required>
+                            <option value="">{{'label.selectprefixtype' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.sequencePrefixType === 'PATTERN'">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.prefix.pattern' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="sequencePrefixId" name="sequencePrefixId" ng-model="formData.sequencePrefixId"
+                                ng-options="sequencePatternName.sequencePatternId as sequencePatternName.sequencePatternName for sequencePatternName in sequencePatternData"
+                                value="{{sequencePatternName.sequencePatternId}}" class="form-control" required>
+                            <option value="">{{'label.input.select.prefix.pattern' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.sequencePrefixType === 'CUSTOM'">
                     <label class="control-label col-sm-2" for="prefix">{{'label.input.sequence.prefix' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -47,6 +70,29 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.suffix.type' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="sequenceSuffixType" name="sequenceSuffixType" ng-model="formData.sequenceSuffixType"
+                                ng-options="type for type in sequenceType" class="form-control" required>
+                            <option value="">{{'label.selectsuffixtype' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.sequenceSuffixType === 'PATTERN'">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.suffix.pattern' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="sequenceSuffixId" name="sequenceSuffixId" ng-model="formData.sequenceSuffixId"
+                                ng-options="sequencePatternName.sequencePatternId as sequencePatternName.sequencePatternName for sequencePatternName in sequencePatternData"
+                                value="{{sequencePatternName.sequencePatternId}}" class="form-control" required>
+                            <option value="">{{'label.input.select.suffix.pattern' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.sequenceSuffixType === 'CUSTOM'">
                     <label class="control-label col-sm-2" for="suffix">{{'label.input.sequence.suffix' | translate}}</label>
 
                     <div class="col-sm-3">

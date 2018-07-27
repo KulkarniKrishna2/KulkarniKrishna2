@@ -1510,6 +1510,17 @@
                     codeHierarchyResource: defineResource(apiVer + "/codes/childCodes",{}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
+                    sequencePatternTemplateResource: defineResource(apiVer + "/sequencepattern/template", {}, {
+                        get:{method: 'GET', params: {}}
+                    }),
+                    sequencePatternResource: defineResource(apiVer + "/sequencepattern/:sequencePatternId", {sequencePatternId: '@sequencePatternId'}, {
+                        retrieveAll: {method: 'GET', params: {}, isArray: true},
+                        get:{method: 'GET', params: {},  isArray: true},
+                        post:{ method: 'POST' }
+                    }),
+                    customSequenceTemplateResource: defineResource(apiVer + "/sequences/template", {}, {
+                        get:{method: 'GET', params: {}}
+                    }),
                     customSequenceResource: defineResource(apiVer + "/sequences/:sequenceId", {sequenceId: '@sequenceId'}, {
                         retrieveAll: {method: 'GET', params: {}, isArray: true},
                         get:{method: 'GET', params: {}},

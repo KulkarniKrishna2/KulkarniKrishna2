@@ -1,0 +1,88 @@
+<div class="col-md-12" ng-controller="CreateSequencePattrenController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> </li>
+            <li><a ng-href="#/sequencepattern">{{ 'label.anchor.sequence.pattern' | translate}}</a></li>
+            <li class="active">{{'label.anchor.add.sequence.pattern' | translate}} </li>
+        </ul>
+        <form name="createsequencepatternform" novalidate="" class="form-horizontal well">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.anchor.add.sequence.pattern' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.patternName" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createsequencepatternform" valattribute="name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 center-block">
+                        <div class="form-group">
+                                <label class="control-label col-sm-2">{{'label.heading.pattern' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <select chosen="entityTypeOptions" id="entityType" ng-model="pattern.entityType"  class="form-control"
+                                        ng-options="entityType.value for entityType in entityTypeOptions" value="{{accountType.value}}"
+                                        ng-change="getPrefixTypeOptions(pattern.entityType)">
+                                            <option value="">--{{'label.menu.selectEntityType' | translate}}--</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                            <select chosen="prefixTypeOptions" id="PrefixType" ng-model="pattern.fieldName"  class="form-control"
+                                                    ng-options="PrefixType.value for PrefixType in prefixTypeOptions" value="{{accountType.value}}">
+                                                <option value="">--{{'label.menu.selectPrefixField' | translate}}--</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input id="patternLength" type="text" ng-model="pattern.length" name="patternLength"
+                                             placeholder="{{'label.input.length' | translate}}" number-format class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input id="patternOrder" type="text" ng-model="pattern.order" name="patternOrder" value="{{patterns.length + 1}}" ng-disabled = true;
+                                             placeholder="{{'label.input.order' | translate}}" number-format class="form-control"/>
+                                    </div>
+                                    <div>
+                                        <a id="addsubslab">
+                                            <button  class="btn btn-default" ng-click="addPattern(pattern)"><i class="icon-plus icon-white"></i></button>
+                                        </a>
+                                    </div>
+                                </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group center-block" ng-show="patterns.length>0">
+                    <div class="col-sm-12 center-block">
+                        <div class="col-sm-3">&nbsp;</div>
+                            <table class="table">
+                                <tr class="graybg">
+                                    <th>{{'label.heading.sequence.entitytype' | translate}}</th>
+                                    <th>{{'label.heading.sequence.filedname' | translate}}</th>
+                                    <th>{{'label.heading.sequence.length' | translate}}</th>
+                                    <th>{{'label.heading.sequence.order' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                                <tr ng-repeat="patternsData in patterns">
+                                    <td>{{patternsData.entityType}}</td>
+                                    <td>{{patternsData.fieldName}}</td>
+                                    <td>{{patternsData.length}}</td>
+                                    <td>{{patternsData.order}}</td>
+                                    <td><a ng-click="deletePattern(patternsData)"><i class="icon-remove icon-white"></i></a></td>
+                                </tr>
+                            </table>
+                    </div>
+                </div>
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/sequencepattern">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" ng-click="submit()" class="btn btn-primary" has-permission='CREATE_SEQUENCE_PATTERN'>{{'label.button.save' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

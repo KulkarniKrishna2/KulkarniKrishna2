@@ -612,7 +612,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/BulkRescheduleSavingsAccountInstallmentController',
             'organization/bulktransfer/InitiateBulkTransferController',
             'organization/bulktransfer/BulkTransferController',
-            'organization/bulktransfer/ViewBulkTransferController'
+            'organization/bulktransfer/ViewBulkTransferController',
+            'customsequence/SequencePatternListController',
+            'customsequence/CreateSequencePattrenController',
+            'customsequence/ViewSequencePatternController',
+            'customsequence/ViewSequenceEntityAssociationController'
         ],
         filters: [
             'StatusLookup',
