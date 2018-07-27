@@ -1755,6 +1755,12 @@
             .when('/eodonboarding/:eventType/:eodprocessId/workflow', {
                 templateUrl: 'views/accounting/eodprocess/eodonboardingworkflow.html'
             })
+            .when('/addofficeaddress/:officeId', {
+                templateUrl: 'views/organization/addofficeaddress.html'
+            })
+            .when('/editofficeaddress/:officeId/:addressId', {
+                templateUrl: 'views/organization/editofficeaddress.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

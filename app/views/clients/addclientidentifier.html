@@ -22,6 +22,17 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="subCategoryTypeId">{{'label.input.document.subCategoryTypeId' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <select id="subCategoryTypeId" ng-model="formData.subCategoryTypeId"
+                            ng-options="documentCategory.id as documentCategory.name for documentCategory in documentCategories"
+                            value="{{documentCategory.id}}" class="form-control">
+                    </select>
+                </div>
+            </div>
+
             <div ng-hide="response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status"  class="form-group">
                 <label class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}<span
                         class="required">*</span></label>
