@@ -58,9 +58,9 @@
                 scope.cashMapData = {};
                 for(var i in scope.eodCashSummary){
                     if(scope.cashMapData[scope.eodCashSummary[i].account.id]==undefined){
-                        scope.cashMapData[scope.eodCashSummary[i].account.id] = [];
+                       scope.cashMapData[scope.eodCashSummary[i].account.id]  = [];
                     }                    
-                    if(scope.eodCashSummary[i].transactionType==0){                        
+                    if(scope.eodCashSummary[i].transactionType==0){
                         scope.cashMapData[scope.eodCashSummary[i].account.id].push(scope.eodCashSummary[i]);
                     }else{
                         scope.cashMapData[scope.eodCashSummary[i].account.id].push(scope.eodCashSummary[i]);
@@ -73,14 +73,13 @@
                 scope.bankMapData = {};
                 for(var i in scope.eodBankSummary){
                     if(scope.bankMapData[scope.eodBankSummary[i].account.id]==undefined){
-                        scope.bankMapData[scope.eodBankSummary[i].account.id] = [];
+                       scope.bankMapData[scope.eodBankSummary[i].account.id] = [];
                     }                    
-                    if(scope.eodBankSummary[i].transactionType==0){                        
+                    if(scope.eodBankSummary[i].transactionType==0){
                         scope.bankMapData[scope.eodBankSummary[i].account.id].push(scope.eodBankSummary[i]);
                     }else{
                         scope.bankMapData[scope.eodBankSummary[i].account.id].push(scope.eodBankSummary[i]);
                     }
-
                 }
                 scope.bankAccounts =  Object.keys(scope.bankMapData);
             }
@@ -91,6 +90,7 @@
                 var templateUrl = 'views/common/openpopup.html';
                 var controller = 'CreateJournalVoucherController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+                scope.init();
             };
             
             scope.submit = function(){

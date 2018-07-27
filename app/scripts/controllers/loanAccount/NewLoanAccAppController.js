@@ -198,6 +198,10 @@
                     }
                 });
 
+                resourceFactory.loanPurposeGroupResource.getAll(function (data) {
+                    scope.loanPurposeGroups = data;
+                });
+
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
@@ -211,9 +215,16 @@
                 });
             }
 
+            scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
+                resourceFactory.loanPurposeGroupResource.get({
+                    loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
+                }, function (data) {
+                    scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                });
+            }
+
             scope.$watch('formData.principal', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
-                    
                     for(var i in scope.charges){
                         if((scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) && scope.charges[i].slabs.length > 0) {
                                 if(scope.isGLIM){
@@ -451,6 +462,7 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
+                delete scope.formData.loanPurposeGroupId;
 
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
@@ -554,6 +566,7 @@
                 delete scope.formData.charges;
                 delete scope.formData.overdueCharges;
                 delete scope.formData.collateral;
+                delete scope.formData.loanPurposeGroupId;
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);

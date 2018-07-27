@@ -53,7 +53,7 @@
 						</td>
 						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
 						<td class="col-mod-1" >
-							 <a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask || !activeClientMember.loanAccountBasicData.isNotLoanApproved">
+							 <a type="button" class="btn btn-danger btn-xs" ng-hide="hideClient(activeClientMember)" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask || !activeClientMember.loanAccountBasicData.isNotLoanApproved">
 							    <i class="icon-remove-circle pointer"></i>
 							</a>
 							<a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">

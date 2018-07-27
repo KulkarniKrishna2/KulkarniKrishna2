@@ -2530,6 +2530,7 @@
     "label.input.increasemonthby": "Increase Month By",
     "label.input.dayofmonth": "Day of the Month",
     "label.input.loanpurpose": "Loan purpose",
+    "label.input.loanpurposegroup": "Loan Purpose Group",
     "label.input.months":"months",
     "label.input.weeks":"weeks",
     "label.input.depositamount":"Deposit Amount",
@@ -7401,5 +7402,5 @@
 
     "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
     
-     "------ end of tensalation file":"---------"
+    "------ end of tensalation file":"---------"
 }

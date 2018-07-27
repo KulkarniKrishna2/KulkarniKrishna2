@@ -234,6 +234,13 @@
                 };
 
             }
+
+            scope.hideClient = function(activeClientMember){
+                if(activeClientMember.status.code == 'clientStatusType.onHold' || scope.eventType == 'loancycle'){
+                    return true;
+                }
+                return false;
+            }
             
 
 

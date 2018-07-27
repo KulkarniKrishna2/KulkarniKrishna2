@@ -661,6 +661,7 @@
                     $scope.isVillageTownMandatory = false;
                     $scope.isCountryReadOnly = false;
                     $scope.isAddressTypeMandatory = false;
+                    $scope.formData.villageId =  memberParams.activeClientMember.villageId;
                     if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                         $scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
                     }
@@ -683,6 +684,7 @@
                         $scope.addressType = data.addressTypeOptions;
                         $scope.countries = data.countryDatas;
                         $scope.setDefaultGISConfig();
+                        $scope.changeVillage();
                     });
 
                     resourceFactory.villageResource.getAllVillages({ officeId: routeParams.officeId, limit: 1000 }, function (data) {
@@ -1301,7 +1303,7 @@
 
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
                     scope.$watch('date.second ', function() {
-                        if($scope.date.second != undefined && $scope.date.second != ''){
+                        if($scope.date && $scope.date.second != undefined && $scope.date.second != ''){
                             $scope.date.third = $scope.date.second;
                         }
                     });

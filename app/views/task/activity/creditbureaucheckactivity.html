@@ -4,6 +4,7 @@
 			| translate}} : {{centerDetails.totalBorrowerMembers}}</span>
 	</div>
 	<div>
+		<api-validate></api-validate>
 		<div>
 			<table class="table">
 				<thead>
@@ -34,7 +35,7 @@
 							</span>
 						</td>
 						<td class="col-md-1">
-							<a type="button" class="btn btn-danger btn-xs" ng-disabled="{{taskData.possibleActions.length == 0}}" ng-click="groupRejection(groupMember)"
+							<a type="button" class="btn btn-danger btn-xs" ng-hide="eventType == 'loancycle'" ng-disabled="{{taskData.possibleActions.length == 0}}" ng-click="groupRejection(groupMember)"
 							    tooltip="{{'label.button.reject' | translate}}">
 								<i class="icon-remove-circle pointer"></i>
 							</a>
@@ -43,7 +44,7 @@
 					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember" ng-class="activeClientMember.color"
 						ng-if="!activeClientMember.isClientFinishedThisTask">
 						<td class="col-md-1">
-							<input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-disabled="activeClientMember.isClientFinishedThisTask"
+							<input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-disabled="disableCBCheck(activeClientMember)"
 							    data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.cb.initiation.not.done' | translate}}" ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input>
 						</td>
 						<td class="col-md-2">{{activeClientMember.displayName}}</td>
@@ -69,19 +70,19 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a href="" ng-if="!activeClientMember.cbExistingLoansSummaryData && activeClientMember.loanAccountBasicData" ng-disabled="activeClientMember.isClientFinishedThisTask"
+							<a href="" ng-if="showCBInitiate(activeClientMember)" ng-disabled="activeClientMember.isClientFinishedThisTask"
 							    ng-click="initiateCreditBureauReport(activeClientMember.loanAccountBasicData.id)" title="{{'label.tooltip.initiate.credit.bureau' | translate}}">
 								<i class="icon-bullseye"></i>
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a target="_blank" title="View CreditBureau Report" ng-if="activeClientMember.cbExistingLoansSummaryData" data-ng-click="openViewDocument(activeClientMember.cbExistingLoansSummaryData.creditBureauEnquiryId)"
+							<a target="_blank" title="View CreditBureau Report" ng-if="!showCBInitiate(activeClientMember)" data-ng-click="openViewDocument(activeClientMember.cbExistingLoansSummaryData.creditBureauEnquiryId)"
 							    has-permission='READ_CREDIT_BUREAU_REPORT'>
 								<i class="icon-eye-open text-success"></i>
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a target="_blank" title="View CreditBureau Criteria Result" ng-if="activeClientMember.clientLevelCriteriaResultData" data-ng-click="openViewCBCriteriaResult(activeClientMember.clientLevelCriteriaResultData.ruleResult)">
+							<a target="_blank" title="View CreditBureau Criteria Result" ng-if="!showCBInitiate(activeClientMember)" data-ng-click="openViewCBCriteriaResult(activeClientMember.clientLevelCriteriaResultData.ruleResult)">
 								<i class="icon-question-sign"></i>
 							</a>
 						</td>
@@ -94,7 +95,7 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-click="clientRejection(activeClientMember)"
+							<a class="btn btn-danger btn-xs" ng-hide="hideClient(activeClientMember)" ng-click="clientRejection(activeClientMember)"
 							    tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 								<i class="icon-remove-circle pointer"></i>
 							</a>
