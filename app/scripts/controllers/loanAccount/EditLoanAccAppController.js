@@ -210,7 +210,7 @@
 
                 scope.previewClientLoanAccInfo();
 
-            });
+            };
 
             scope.getParentLoanPurpose = function (loanPurposeId) {
                 if(scope.loanPurposeGroups && scope.loanPurposeGroups.length>0){
@@ -905,6 +905,7 @@
                     scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
                 }
             }
+        });
         }
     });
     mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
