@@ -36,7 +36,7 @@
                     resourceFactory.myAccountResource.changePassword(credentialsData, function (data) {
                         $modalInstance.close('modal');
                         if (data.resourceId == userId) {
-                            scope.logout();
+                            scope.logoutFromUi();
                         };
                     });
                 };
