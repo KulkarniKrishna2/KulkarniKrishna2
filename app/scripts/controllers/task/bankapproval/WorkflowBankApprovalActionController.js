@@ -16,7 +16,6 @@
         scope.isDisplayClientLog = false;
         scope.isDisplayLoanLog = false;
         scope.loanLogs = [];
-
         resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
             scope.bankApprovalTemplateData = bankApprovalTemplate;
             if(scope.bankApprovalTemplateData != undefined){
@@ -51,6 +50,18 @@
                 }
                 scope.finalOutstanding = scope.bssCurrentOutstanding - scope.totalPreclosureAmount;  
                 checkWorkFlowLoanStatus(scope.bankApprovalTemplateData.workflowLoanStatus.code);   
+            }
+            if(scope.bankApprovalTemplateData.queryList){
+                var queryData = scope.bankApprovalTemplateData.queryList;
+                for(var i in scope.bankApprovalTemplateData.queryList){
+                    var queryData = scope.bankApprovalTemplateData.queryList[i];
+                    if(queryData.documentId){
+                        var querydocs = {};
+                        querydocs = API_VERSION + '/' + queryData.parentEntityType + '/' + queryData.queryId + '/documents/' + queryData.documentId + '/attachment?';
+                        scope.bankApprovalTemplateData.queryList[i].docUrl = querydocs;
+                    }
+
+                }
             }
 
         });
@@ -225,21 +236,23 @@
                          loanId: loanId
                      }, function (data) {
                          scope.loanLogs = data;
+                        if(scope.loanLogs){
+                            for(var i in scope.loanLogs){
+                                var history = scope.loanLogs[i];
+                                if(history.documentId){
+                                    var historyDoc = {};
+                                    var historyDoc = API_VERSION + '/' + history.parentEntityType + '/' + history.id + '/documents/' + history.documentId + '/attachment?';
+                                    scope.loanLogs[i].docUrl = historyDoc;
+                                }
+                            }
+                        }
                      });
                 }
             }
 
-            scope.download = function (historyId, documentId) {
-                    scope.reportEntityType = "loan_proposal_review";
-                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
-                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
-                     window.open(url);
-                 }
-
-            scope.openViewDocument = function (historyId, documentId) {
-                    scope.reportEntityType = "loan_proposal_review";
-                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
-                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+            scope.openViewDocument = function (docUrl) {
+                var tabWindowId = window.open('about:blank', '_blank');
+                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
                     url = $sce.trustAsResourceUrl(url);
                     $http.get(url, { responseType: 'arraybuffer' }).
                     success(function(data, status, headers, config) {
@@ -249,11 +262,12 @@
                         var fileContent = URL.createObjectURL(file);
                         if (supportedContentTypes.indexOf(contentType) > -1) {
                             var docData = $sce.trustAsResourceUrl(fileContent);
-                            window.open(docData);
+                            tabWindowId.location.href = docData;
                         }
                     });
-                }
+                };
             }
+
 
     });
     mifosX.ng.application.controller('WorkflowBankApprovalActionController', ['$scope', 'ResourceFactory','$location', '$routeParams', 'API_VERSION', 'CommonUtilService', '$modal', '$rootScope', 'dateFilter', '$sce', '$http', mifosX.controllers.WorkflowBankApprovalActionController]).run(function ($log) {
