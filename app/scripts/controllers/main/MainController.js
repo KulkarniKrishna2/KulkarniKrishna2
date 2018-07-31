@@ -308,6 +308,16 @@
                 });
             };
 
+            scope.logoutFromUi = function () {
+                scope.currentSession = sessionManager.clearAll();
+                scope.resetPassword = false;
+                $rootScope.isUserSwitched = false;
+                delete $rootScope.proxyToken;
+                $idle.unwatch();
+                scope.started = false;
+                location.path('/').replace();
+            };
+
             scope.switchToMe = function() {
                 $rootScope.isUserSwitched = false;
                 $rootScope.targetUserName = undefined;
