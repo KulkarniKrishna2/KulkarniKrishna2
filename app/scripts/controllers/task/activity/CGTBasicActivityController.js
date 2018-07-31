@@ -82,23 +82,17 @@
             scope.generateDocument = function(activeClientMember) {
                 resourceFactory.reportGenerateResource.generate({
                     entityType: scope.entityType,
-                    entityId: activeClientMember.loanAccountBasicData.loanProductId
+                    entityId: activeClientMember.loanAccountBasicData.id
                 }, function(data) {
                     activeClientMember.document = {};
-                    activeClientMember.document.id = data.resourceId;
-                    var loandocs = {};
-                    loandocs = API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.loanProductId + '/documents/' +  activeClientMember.document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                    activeClientMember.document.docUrl = loandocs;
+                    activeClientMember.loanAccountBasicData.documentId = data.resourceId;
                 })
             };
 
             scope.reGenerateDocument = function (activeClientMember){
-                resourceFactory.documentsGenerateResource.reGenerate({entityType: scope.entityType, entityId: activeClientMember.loanAccountBasicData.loanProductId, identifier: activeClientMember.document.id }, function(data){
+                resourceFactory.documentsGenerateResource.reGenerate({entityType: scope.entityType, entityId: activeClientMember.loanAccountBasicData.id, identifier: activeClientMember.document.id }, function(data){
                     activeClientMember.document = {};
-                    activeClientMember.document.id = data.resourceId;
-                    var loandocs = {};
-                    loandocs = API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.loanProductId + '/documents/' + activeClientMember.document.id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                    activeClientMember.document.docUrl = loandocs;
+                    activeClientMember.loanAccountBasicData.documentId = data.resourceId;
                 })
             };
 
@@ -1171,6 +1165,11 @@
                     return true;
                 }
                 return false;
+            }
+            scope.download = function(activeClientMember){
+                var url = {};
+                url = $rootScope.hostUrl + API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.id + '/documents/' +  activeClientMember.loanAccountBasicData.documentId + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                window.open(url);
             }
         }
     });
