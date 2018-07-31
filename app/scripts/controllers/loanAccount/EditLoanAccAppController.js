@@ -195,33 +195,31 @@
 
                 if (scope.clientId && scope.groupId) {
                     scope.templateType = 'jlg';
-                }
-                else if (scope.groupId) {
+                }else if (scope.groupId) {
                     scope.templateType = 'group';
-                }
-                else if (scope.clientId) {
+                }else if (scope.clientId) {
                     scope.templateType = 'individual';
                 }
 
                 scope.formData.loanOfficerId = data.loanOfficerId;
                 scope.formData.loanPurposeId = data.loanPurposeId;
-                if(data.loanPurposeId){
-                    resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
-                    scope.formData.loanPurposeId = data.loanPurposeId;
-                    scope.loanPurposeGroups = loanPurposeGroupsdata;
-                    scope.getParentLoanPurpose(data.loanPurposeId);
-                });
-                scope.formData.externalId = data.externalId;
+                if (data.loanPurposeId) {
+                    resourceFactory.loanPurposeGroupResource.getAll({ isFetchLoanPurposeDatas: 'true' }, function (loanPurposeGroupsdata) {
+                        scope.formData.loanPurposeId = data.loanPurposeId;
+                        scope.loanPurposeGroups = loanPurposeGroupsdata;
+                        scope.getParentLoanPurpose(data.loanPurposeId);
+                    });
+                    scope.formData.externalId = data.externalId;
 
-                //update collaterals
-                if (scope.loanaccountinfo.collateral) {
-                    for (var i in scope.loanaccountinfo.collateral) {
-                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
+                    //update collaterals
+                    if (scope.loanaccountinfo.collateral) {
+                        for (var i in scope.loanaccountinfo.collateral) {
+                            scope.collaterals.push({ type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description });
+                        }
                     }
+
+                    scope.previewClientLoanAccInfo();
                 }
-
-                scope.previewClientLoanAccInfo();
-
             });
 
             scope.getParentLoanPurpose = function (loanPurposeId) {
