@@ -215,9 +215,7 @@
                 $scope.error = null;
                 $scope.rejectFormData = {};
                 $scope.values = [];
-                if(scope.isRejectDescriptionMandatory && !scope.isRejectCodesMandatory){
-                    $scope.displayDescription = true;
-                }
+                $scope.otherReason = false;
                 if(scope.action.codes && scope.action.codes.length >= 1){ 
                     $scope.codes = scope.action.codes; 
                     $scope.rejectioReasonsAvailable= true;
@@ -240,15 +238,17 @@
                 };
 
                 $scope.getDependentCodeValues = function(codeName){
+                    $scope.otherReason = codeName.indexOf("Others")>-1;
                     $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
                 };
 
                 $scope.initDescription = function(reasonId){
-                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
-                        $scope.displayDescription = true; 
-                    }else{
+                    $scope.subOtherReason = $scope.values[$scope.values.findIndex(x => x.id == reasonId)].name.indexOf("Other")>-1;
+                    if($scope.subOtherReason==true && $scope.otherReason==true ){
+                        $scope.displayDescription = true;
+                      }else{
                         $scope.displayDescription = false;
-                    }
+                      }
                 };
             };
 
