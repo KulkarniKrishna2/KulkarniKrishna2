@@ -34,6 +34,8 @@
         <div class="btn-group">
             <a ng-hide="hideEditTrxnButton" href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary" has-permission='ADJUST_LOAN'><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
+               <a ng-hide="hideEditTrxnButton" href="#/loanaccountrectification/{{transaction.accountId}}?transactionId={{transaction.id}}&transferAmount={{transaction.amount}}"
+               class="btn btn-primary" has-permission='RECTIFY_LOAN'><i class="icon-pencil icon-white"></i>{{ 'label.button.rectify' | translate}}</a>
             <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='ADJUST_LOAN'><i
                     class="icon-trash icon-white"></i>{{ 'label.button.undo' | translate}}</a>
         </div>
@@ -47,7 +49,11 @@
             </tr>
             <tr>
                 <td>{{ 'label.heading.type' | translate}}</td>
-                <td>{{transaction.type.value}}</td>
+                <td>{{transaction.type.value}} 
+                    <a  ng-if="transaction.transfer && transaction.transfer.transferType" href="#/viewaccounttransfers/{{transaction.transfer.id}}?redirectPath=viewloanaccount&accoutId={{transaction.accountId}}">
+                        (<span style="color: royalblue">{{ transaction.transfer.transferType.code | translate}}</span>)
+                    </a>
+                </td>
             </tr>
             <tr>
                 <td>{{ 'label.heading.date' | translate}}</td>
