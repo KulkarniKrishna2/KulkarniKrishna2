@@ -219,6 +219,8 @@
                 if(scope.action.codes && scope.action.codes.length >= 1){ 
                     $scope.codes = scope.action.codes; 
                     $scope.rejectioReasonsAvailable= true;
+                }else{
+                    $scope.rejectioReasonsAvailable= false;
                 }
 
                 $scope.cancelReject = function () {
@@ -226,11 +228,12 @@
                 };
 
                 $scope.submitReject = function () {
-                    if(($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
-                        $scope.error = 'Specify Rejection Reason';
-                        return false;
+                    if($scope.rejectioReasonsAvailable == true){
+                        if(($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
+                            $scope.error = 'Specify Rejection Reason';
+                            return false;
+                        }
                     }
-
                     resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
                         $modalInstance.close('reject');
                         $route.reload();
