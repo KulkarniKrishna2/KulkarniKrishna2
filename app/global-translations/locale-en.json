@@ -3042,6 +3042,7 @@
     "label.input.taxcomponents":"Tax Components",
     "label.input.taxcomponent":"Tax Component",
     "label.input.taxgroup":"Tax Group",
+    "label.input.taxgrouptg":"Tax Group (tg)",
     "label.input.repaymentscheduleFrom":"Reschedule fromm Installment On",
     "label.input.loanOfficer":"Loan Officer",
     "label.overdue.tilldate":"Overdue Charge Run  Till",
@@ -3298,6 +3299,8 @@
     "label.input.restrictscope": "Restrict Scope",
     "label.input.available": "Available",
     "label.input.selected": "Selected",
+    "label.input.branchbr":"Branch (BR)",
+    "label.input.companycode":"Comapany Code (CC)",
 
     "#Localize system defined codes":"...",
     "Customer Identifier":"Customer identifier",
@@ -5059,6 +5062,7 @@
     "label.input.branch" : "Branch",
     "label.input.selectoriginalfile" : "Select Original File",
     "label.menu.selectbranch" : "Select Branch",
+    "label.menu.selecttaxgroup" : "Select Tax Group",
     "label.button.viewbankstatementdetails" : "View Details",
     "label.button.search" : "Search",
     "label.button.reconcile" : "Reconcile",
@@ -6936,6 +6940,8 @@
 
     "label.heading.paymentmode" : "Payment Mode",
     "label.heading.applicablefor" : "Applicable For",
+    "label.heading.sequenceentityidentifier" : "Sequence Entity Identifier",
+    "label.heading.sequenceentityvalue" : "Sequence Entity Value",
     "label.heading.serviceprovider" : "Service Provider",
     "label.button.repaymentsmode" : "Repayment Mode",
     "label.button.disbursalmode" : "Disbursal Mode",
