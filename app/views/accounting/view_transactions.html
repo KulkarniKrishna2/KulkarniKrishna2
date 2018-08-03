@@ -65,6 +65,12 @@
                         </div>
 
                         <table class="width100">
+                            <tr ng-if="transaction.receiptNumber">
+                                <td class="width14"></td>
+                                <td class="width36"></td>
+                                <td class="width19"><label>{{'label.input.receiptnumber' | translate}}</label></td>
+                                <td class="width31">{{transaction.receiptNumber}}</td>
+                            </tr>
                             <tr>
                                 <td class="width14"></td>
                                 <td class="width36"></td>

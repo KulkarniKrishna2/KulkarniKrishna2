@@ -23,6 +23,12 @@
                 if(entityType.id == 3){
                     scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.office"];
                 }
+                if(entityType.id == 4){
+                    scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.glaccount"];
+                }
+                if(entityType.id == 5){
+                    scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.taxgroup"];
+                }
             }
 
             scope.addPattern = function (pattern) {
