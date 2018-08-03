@@ -1761,6 +1761,9 @@
             .when('/editofficeaddress/:officeId/:addressId', {
                 templateUrl: 'views/organization/editofficeaddress.html'
             })
+            .when('/organization/registereddevices', {
+                templateUrl: 'views/organization/registereddevices/viewregistereddevices.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

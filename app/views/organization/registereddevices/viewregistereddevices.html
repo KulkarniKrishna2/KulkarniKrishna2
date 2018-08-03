@@ -1,0 +1,24 @@
+<div class="col-md-12" ng-controller="RegisteredDeviceController">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+        </li>
+        <li class="active">{{'label.anchor.manage.devices' | translate}}</li>
+    </ul>
+
+    <div class="container">
+        <h2>{{'label.device.list' |translate}}</h2>
+
+        <tabset has-permission='READ_REGISTERED_DEVICE'>
+            <tab heading="{{'label.pending.devices' | translate}}" select="fetchDevices('pending')">
+                <div ng-if="uiData.status == 'pending'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
+            </tab>
+            <tab heading="{{'label.activated.devices' | translate}}" select="fetchDevices('activated')">
+                <div ng-if="uiData.status == 'activated'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
+            </tab>
+            <tab heading="{{'label.deactivated.devices' | translate}}" select="fetchDevices('deactivated')">
+                <div ng-if="uiData.status == 'deactivated'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
+            </tab>
+        </tabset>
+    </div>
+</div>
