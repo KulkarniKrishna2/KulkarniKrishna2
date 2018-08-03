@@ -1,0 +1,24 @@
+<table class="table">
+    <tr>
+        <th ng-if="uiData.status == 'pending'">{{'label.input.requred.user' |translate}}</th>
+        <th>{{'label.device.id' | translate}}</th>
+        <th>{{'label.device.model' | translate}}</th>
+        <th>{{'label.action' | translate}}</th>
+    </tr>
+    <tr ng-repeat="device in registeredDevices track by $index">
+
+        <td ng-if="uiData.status == 'pending'">{{device.lastLoggedInUserData.username}}</td>
+        <td>{{device.deviceId}}</td>
+        <td>{{device.deviceModel}}</td>
+        <td ng-if="uiData.status == 'pending'">
+            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.activate' | translate}}</a> |
+            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'deactivate')">{{'label.deactivate' | translate}}</a>
+        </td>
+        <td ng-if="uiData.status == 'activated'">
+            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'deactivate')">{{'label.deactivate' | translate}}</a>
+        </td>
+        <td ng-if="uiData.status == 'deactivated'">
+            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.activate' | translate}}</a>
+        </td>
+    </tr>
+</table>
