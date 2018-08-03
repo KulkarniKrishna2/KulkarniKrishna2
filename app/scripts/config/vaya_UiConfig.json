@@ -4,6 +4,9 @@
     "loanAccount": {
       "isHiddenField": {
         "interestChargedFromDate": true
+      },
+      "isAutoPopulate": {
+        "interestChargedFromDate": true
       }
     },
     "createCenter": {
