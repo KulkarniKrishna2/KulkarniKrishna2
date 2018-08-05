@@ -14,7 +14,7 @@
                     <th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
                     <th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
                     <th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
-                    <th class="col-md-1">{{'label.heading.actions' | translate}}</th>
+                    <th class="col-md-2">{{'label.heading.actions' | translate}}</th>
                 </thead>
                 <tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
                     <tr>
@@ -33,7 +33,13 @@
                         <td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[0].amount | number}}</td>
                         <td class="col-md-1">{{activeClientMember.loanAccountBasicData.charges[1].amount|number}}&nbsp;&nbsp;{{activeClientMember.loanAccountBasicData.charges[2].amount |number}}</td>
-                        <td class="col-md-1">
+                        <td class="col-md-2">
+                                <a tooltip="{{'label.button.modifyapplication' | translate}}" ng-if="isEditApprovedLoan"
+                                    ng-disabled = "activeClientMember.isClientFinishedThisTask"
+                                    has-permission="UPDATE_APPROVEDLOAN"
+                                    ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" class="btn btn-xs btn-primary ng-binding">
+                                <i class="icon-edit icon-white"></i>
+                                </a>
                                 <a tooltip="{{'label.button.disburse' | translate}}" 
                                  ng-disabled = "activeClientMember.isClientFinishedThisTask"
                                 ng-click="loanDisburse(groupMember.id, activeClientMember)" class="btn btn-xs btn-primary ng-binding">

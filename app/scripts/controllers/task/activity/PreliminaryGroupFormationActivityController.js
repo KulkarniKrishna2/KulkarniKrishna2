@@ -4,9 +4,9 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
-                scope.isMemberChecked = false;
                 scope.taskInfoTrackArray = [];
                 scope.clientProfileRatingScoreForSuccess = 0;
+                scope.isAllClientFinishedThisTask = true;
 
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                     scope.response.uiDisplayConfigurations.workflow.PGFValidation && scope.response.uiDisplayConfigurations.workflow.PGFValidation.profileRatingPercentage) {
@@ -26,9 +26,11 @@
 
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                              scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                               if(clientLevelTaskTrackObj == undefined || clientLevelTaskTrackObj == null){
                                   scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                   scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                  scope.isAllClientFinishedThisTask = false;
                               }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
                                     if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
                                         if(clientLevelCriteriaObj.score == 5){
@@ -55,6 +57,7 @@
                                    if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
                                       scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                       scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                      scope.isAllClientFinishedThisTask = false;
                                    }
                               }
                         }
@@ -1491,16 +1494,20 @@
             }
 
 
-             scope.captureMembersToNextStep = function(clientId, loanId, isChecked, idx){
+             scope.captureMembersToNextStep = function(clientId, loanId, isChecked){
                     if(isChecked){
                         scope.taskInfoTrackArray.push(
                             {'clientId' : clientId, 
                              'currentTaskId' : scope.taskData.id,
                              'loanId' : loanId})
                     }else{
-                        scope.taskInfoTrackArray.splice(idx,1);
+                        var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
+                        if(idx >= 0){
+                            scope.taskInfoTrackArray.splice(idx,1);
+                        }
+
                     }
-            }
+             }
             
             scope.moveMembersToNextStep = function(){
                 scope.errorDetails = [];
@@ -1602,7 +1609,23 @@
                 }
                 return false;
             }
+            scope.validateAllClients = function(centerDetails,isAllChecked){
+                    scope.taskInfoTrackArray = [];
+                    for(var i in centerDetails.subGroupMembers){
+                        for(var j in centerDetails.subGroupMembers[i].memberData){
+                            var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
+                            if(isAllChecked){
+                                if(activeClientMember.status.code != 'clientStatusType.onHold' && activeClientMember.profileRatingScoreData.finalScore *20 >= scope.clientProfileRatingScoreForSuccess && !activeClientMember.isClientFinishedThisTask){
+                                    centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                    scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                }
+                            }else{
+                                centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                            }
 
+                        }
+                    }
+            }
         }
     });
     mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', '$q', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {

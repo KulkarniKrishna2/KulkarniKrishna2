@@ -94,189 +94,6 @@
 
             };
 
-            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
-                scope.loanaccountinfo = data;
-                if(data.loanEMIPackData){
-                    scope.formData.loanEMIPackId = data.loanEMIPackData.id;
-                }
-                scope.paymentModeOptions = data.paymentModeOptions || [];
-                if(scope.loanaccountinfo.expectedDisbursalPaymentType){
-                    scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
-                    if(scope.loanaccountinfo.expectedDisbursalPaymentType.paymentMode){
-                        scope.disbursementMode = scope.loanaccountinfo.expectedDisbursalPaymentType.paymentMode.id;
-                    }else{
-                        scope.disbursementMode = scope.manualPaymentMode;
-                    }
-                }
-                if(scope.loanaccountinfo.expectedRepaymentPaymentType){
-                    scope.formData.expectedRepaymentPaymentType = scope.loanaccountinfo.expectedRepaymentPaymentType.id;
-                    if(scope.loanaccountinfo.expectedRepaymentPaymentType.paymentMode){
-                        scope.repaymentMode = scope.loanaccountinfo.expectedRepaymentPaymentType.paymentMode.id;
-                    }else{
-                        scope.repaymentMode = scope.manualPaymentMode;
-                    }
-                }
-
-                if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
-                        scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
-                        scope.interestRatesListAvailable = true;
-                }
-                scope.canDisburseToGroupBankAccounts = scope.loanaccountinfo.allowsDisbursementToGroupBankAccounts;
-                if(scope.loanaccountinfo.loanType.value == "GLIM") {
-                    resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
-                        scope.GLIMData = glimData;
-                        /*scope.isGLIM = (glimData.length > 0);*/
-                        scope.isGLIM = scope.GLIMData[0].isActive;
-                        if (scope.isGLIM){
-                            scope.formData.clientMembers = [];
-                            for (var i=0;i<glimData.length;i++) {
-                                scope.formData.clientMembers[i] = {};
-                                scope.formData.clientMembers[i].id = glimData[i].clientId;
-                                scope.formData.clientMembers[i].glimId = glimData[i].id;
-                                scope.formData.clientMembers[i].clientName = glimData[i].clientName;
-                                scope.formData.clientMembers[i].clientExternalID = glimData[i].clientExternalID;
-                                scope.formData.clientMembers[i].transactionAmount = glimData[i].proposedAmount;
-                                scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
-                                scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
-                                scope.formData.clientMembers[i].accountNo = glimData[i].clientId;
-                                scope.formData.clientMembers[i].displayName = glimData[i].clientName;
-                                scope.formData.clientMembers[i].upfrontChargeAmount = glimData[i].chargeAmount;
-                            }
-
-                            scope.templateType = 'glim';
-                            scope.glimAutoCalPrincipalAmount();
-
-                            scope.previewClientLoanAccInfo();
-                        }
-                    });
-                }
-
-                scope.getProductPledges(scope.loanaccountinfo);
-
-                resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
-                    scope.collateralOptions = data.loanCollateralOptions || [];
-                });
-
-
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
-                    scope.$watch('formData.expectedDisbursementDate ', function(){
-                        if(scope.formData.expectedDisbursementDate != '' && scope.formData.expectedDisbursementDate != undefined){
-                            scope.formData.interestChargedFromDate = scope.formData.expectedDisbursementDate;
-                        }
-                    });
-                }
-
-                if (data.clientId) {
-                    scope.clientId = data.clientId;
-                    scope.clientName = data.clientName;
-                    scope.formData.clientId = scope.clientId;
-                    resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
-                        scope.parentGroups = data;
-                    });
-                }
-
-                if (data.group) {
-                    scope.groupId = data.group.id;
-                    scope.groupName = data.group.name;
-                    scope.formData.groupId = scope.groupId;
-                }
-
-                if (scope.clientId && scope.groupId) {
-                    scope.templateType = 'jlg';
-                }
-                else if (scope.groupId) {
-                    scope.templateType = 'group';
-                }
-                else if (scope.clientId) {
-                    scope.templateType = 'individual';
-                }
-
-                scope.formData.loanOfficerId = data.loanOfficerId;
-                scope.formData.loanPurposeId = data.loanPurposeId;
-                if(data.loanPurposeId){
-                    resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
-                    scope.formData.loanPurposeId = data.loanPurposeId;
-                    scope.loanPurposeGroups = loanPurposeGroupsdata;
-                    scope.getParentLoanPurpose(data.loanPurposeId);
-                });
-                scope.formData.externalId = data.externalId;
-
-                //update collaterals
-                if (scope.loanaccountinfo.collateral) {
-                    for (var i in scope.loanaccountinfo.collateral) {
-                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
-                    }
-                }
-
-                scope.previewClientLoanAccInfo();
-
-            };
-
-            scope.getParentLoanPurpose = function (loanPurposeId) {
-                if(scope.loanPurposeGroups && scope.loanPurposeGroups.length>0){
-                    for(var i=0; i< scope.loanPurposeGroups.length; i++){
-                        if(scope.loanPurposeGroups[i].loanPurposeDatas && scope.loanPurposeGroups[i].loanPurposeDatas.length >0){
-
-                            for(var j=0; j< scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
-                                if(scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
-                                    scope.formData.loanPurposeGroupId = scope.loanPurposeGroups[i].id;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-             scope.$watch('productLoanCharges', function(){
-                if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
-                    for(var i in scope.loanaccountinfo.chargeOptions){
-                        if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge){ 
-                            var isProductCharge = false;
-                            for(var j in scope.productLoanCharges){
-                                if(!scope.loanaccountinfo.chargeOptions[i].id == scope.productLoanCharges[j].chargeData.id){                                
-                                   var isProductCharge = true;
-                                }
-                            }    
-                            if(!isProductCharge){
-                                scope.loanaccountinfo.chargeOptions.splice(i,1); 
-                            }
-                        }                        
-                    }
-                }
-            });
-
-            scope.loanProductChange = function (loanProductId) {
-                scope.interestRatesListPerPeriod = [];
-                scope.interestRatesListAvailable = false;
-                var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType };
-                var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType, fetchRDAccountOnly: scope.fetchRDAccountOnly };
-                if (scope.clientId) {
-                    inparams.clientId = scope.clientId;
-                }
-                if (scope.groupId) {
-                    inparams.groupId = scope.groupId;
-                }
-
-                inparams.staffInSelectedOfficeOnly = true;
-                resourceFactory.loanResource.get(inparams, function (data) {
-                    scope.loanaccountinfo = data;
-                    scope.collaterals = [];
-                    var refreshLoanCharges  = true;
-                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
-                    scope.previewClientLoanAccInfo(refreshLoanCharges);
-                    scope.updateSlabBasedCharges();
-                    if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
-                       scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
-                       scope.interestRatesListAvailable = true;
-                    }
-                });
-
-                resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
-                    scope.collateralOptions = data.loanCollateralOptions || [];
-                });
-            }
-
             scope.previewClientLoanAccInfo = function (refreshLoanCharges) {
                 if ( _.isUndefined(refreshLoanCharges)) {
                     refreshLoanCharges = false; }
@@ -409,7 +226,7 @@
                 scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
                 scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
                 scope.formData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
-				scope.formData.recurringMoratoriumOnPrincipalPeriods = scope.loanaccountinfo.recurringMoratoriumOnPrincipalPeriods;
+                scope.formData.recurringMoratoriumOnPrincipalPeriods = scope.loanaccountinfo.recurringMoratoriumOnPrincipalPeriods;
                 scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
                 scope.formData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
                 scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
@@ -463,6 +280,190 @@
                 }
                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.amountForUpfrontCollection ;
             }
+
+            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
+                scope.loanaccountinfo = data;
+                if(data.loanEMIPackData){
+                    scope.formData.loanEMIPackId = data.loanEMIPackData.id;
+                }
+                scope.paymentModeOptions = data.paymentModeOptions || [];
+                if(scope.loanaccountinfo.expectedDisbursalPaymentType){
+                    scope.formData.expectedDisbursalPaymentType = scope.loanaccountinfo.expectedDisbursalPaymentType.id;
+                    if(scope.loanaccountinfo.expectedDisbursalPaymentType.paymentMode){
+                        scope.disbursementMode = scope.loanaccountinfo.expectedDisbursalPaymentType.paymentMode.id;
+                    }else{
+                        scope.disbursementMode = scope.manualPaymentMode;
+                    }
+                }
+                if(scope.loanaccountinfo.expectedRepaymentPaymentType){
+                    scope.formData.expectedRepaymentPaymentType = scope.loanaccountinfo.expectedRepaymentPaymentType.id;
+                    if(scope.loanaccountinfo.expectedRepaymentPaymentType.paymentMode){
+                        scope.repaymentMode = scope.loanaccountinfo.expectedRepaymentPaymentType.paymentMode.id;
+                    }else{
+                        scope.repaymentMode = scope.manualPaymentMode;
+                    }
+                }
+
+                if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
+                        scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
+                        scope.interestRatesListAvailable = true;
+                }
+                scope.canDisburseToGroupBankAccounts = scope.loanaccountinfo.allowsDisbursementToGroupBankAccounts;
+                if(scope.loanaccountinfo.loanType.value == "GLIM") {
+                    resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
+                        scope.GLIMData = glimData;
+                        /*scope.isGLIM = (glimData.length > 0);*/
+                        scope.isGLIM = scope.GLIMData[0].isActive;
+                        if (scope.isGLIM){
+                            scope.formData.clientMembers = [];
+                            for (var i=0;i<glimData.length;i++) {
+                                scope.formData.clientMembers[i] = {};
+                                scope.formData.clientMembers[i].id = glimData[i].clientId;
+                                scope.formData.clientMembers[i].glimId = glimData[i].id;
+                                scope.formData.clientMembers[i].clientName = glimData[i].clientName;
+                                scope.formData.clientMembers[i].clientExternalID = glimData[i].clientExternalID;
+                                scope.formData.clientMembers[i].transactionAmount = glimData[i].proposedAmount;
+                                scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
+                                scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                                scope.formData.clientMembers[i].accountNo = glimData[i].clientId;
+                                scope.formData.clientMembers[i].displayName = glimData[i].clientName;
+                                scope.formData.clientMembers[i].upfrontChargeAmount = glimData[i].chargeAmount;
+                            }
+
+                            scope.templateType = 'glim';
+                            scope.glimAutoCalPrincipalAmount();
+
+                            scope.previewClientLoanAccInfo();
+                        }
+                    });
+                }
+
+
+                resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
+                    scope.collateralOptions = data.loanCollateralOptions || [];
+                });
+
+
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
+                    scope.$watch('formData.expectedDisbursementDate ', function(){
+                        if(scope.formData.expectedDisbursementDate != '' && scope.formData.expectedDisbursementDate != undefined){
+                            scope.formData.interestChargedFromDate = scope.formData.expectedDisbursementDate;
+                        }
+                    });
+                }
+
+                if (data.clientId) {
+                    scope.clientId = data.clientId;
+                    scope.clientName = data.clientName;
+                    scope.formData.clientId = scope.clientId;
+                    resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
+                        scope.parentGroups = data;
+                    });
+                }
+
+                if (data.group) {
+                    scope.groupId = data.group.id;
+                    scope.groupName = data.group.name;
+                    scope.formData.groupId = scope.groupId;
+                }
+
+                if (scope.clientId && scope.groupId) {
+                    scope.templateType = 'jlg';
+                }
+                else if (scope.groupId) {
+                    scope.templateType = 'group';
+                }
+                else if (scope.clientId) {
+                    scope.templateType = 'individual';
+                }
+
+                scope.formData.loanOfficerId = data.loanOfficerId;
+                scope.formData.loanPurposeId = data.loanPurposeId;
+                if(data.loanPurposeId){
+                    resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
+                    scope.formData.loanPurposeId = data.loanPurposeId;
+                    scope.loanPurposeGroups = loanPurposeGroupsdata;
+                    scope.getParentLoanPurpose(data.loanPurposeId);
+                });
+                scope.formData.externalId = data.externalId;
+
+                //update collaterals
+                if (scope.loanaccountinfo.collateral) {
+                    for (var i in scope.loanaccountinfo.collateral) {
+                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
+                    }
+                }
+
+                scope.previewClientLoanAccInfo();
+
+            };
+
+            scope.getParentLoanPurpose = function (loanPurposeId) {
+                if(scope.loanPurposeGroups && scope.loanPurposeGroups.length>0){
+                    for(var i=0; i< scope.loanPurposeGroups.length; i++){
+                        if(scope.loanPurposeGroups[i].loanPurposeDatas && scope.loanPurposeGroups[i].loanPurposeDatas.length >0){
+
+                            for(var j=0; j< scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
+                                if(scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
+                                    scope.formData.loanPurposeGroupId = scope.loanPurposeGroups[i].id;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+             scope.$watch('productLoanCharges', function(){
+                if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
+                    for(var i in scope.loanaccountinfo.chargeOptions){
+                        if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge){ 
+                            var isProductCharge = false;
+                            for(var j in scope.productLoanCharges){
+                                if(!scope.loanaccountinfo.chargeOptions[i].id == scope.productLoanCharges[j].chargeData.id){                                
+                                   var isProductCharge = true;
+                                }
+                            }    
+                            if(!isProductCharge){
+                                scope.loanaccountinfo.chargeOptions.splice(i,1); 
+                            }
+                        }                        
+                    }
+                }
+            });
+
+            scope.loanProductChange = function (loanProductId) {
+                scope.interestRatesListPerPeriod = [];
+                scope.interestRatesListAvailable = false;
+                var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType };
+                var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType, fetchRDAccountOnly: scope.fetchRDAccountOnly };
+                if (scope.clientId) {
+                    inparams.clientId = scope.clientId;
+                }
+                if (scope.groupId) {
+                    inparams.groupId = scope.groupId;
+                }
+
+                inparams.staffInSelectedOfficeOnly = true;
+                resourceFactory.loanResource.get(inparams, function (data) {
+                    scope.loanaccountinfo = data;
+                    scope.collaterals = [];
+                    var refreshLoanCharges  = true;
+                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
+                    scope.previewClientLoanAccInfo(refreshLoanCharges);
+                    scope.updateSlabBasedCharges();
+                    if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
+                       scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
+                       scope.interestRatesListAvailable = true;
+                    }
+                });
+
+                resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
+                    scope.collateralOptions = data.loanCollateralOptions || [];
+                });
+            }
+
+            
 
             scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
                 resourceFactory.loanPurposeGroupResource.get({
@@ -804,13 +805,6 @@
                     location.path('/viewloanaccount/' + data.loanId);
                 });
             };
-
-            scope.getProductPledges = function(data){
-                scope.pledges = data.loanProductCollateralPledgesOptions;
-                scope.formData.pledgeId = data.pledgeId;
-                scope.changePledge(scope.formData.pledgeId);
-            };
-
             scope.changePledge = function(pledgeId){
                 resourceFactory.pledgeResource.get({'pledgeId' : pledgeId,association: 'collateralDetails'}, function(data){
                     scope.formData.pledgeId = pledgeId;
@@ -818,6 +812,13 @@
                     scope.formData.collateralUserValue = data.userValue;
                 });
             };
+
+            scope.getProductPledges = function(data){
+                scope.pledges = data.loanProductCollateralPledgesOptions;
+                scope.formData.pledgeId = data.pledgeId;
+                scope.changePledge(scope.formData.pledgeId);
+            };
+            scope.getProductPledges(scope.loanaccountinfo);
 
             scope.cancel = function () {
                 location.path('/viewloanaccount/' + routeParams.id);
@@ -897,6 +898,32 @@
            
             scope.canDisburseToGroupsBanks = function(){
                 return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
+            };
+            scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function(){
+                if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
+
+                    for(var i in scope.charges){
+                        if((scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) && scope.charges[i].slabs.length > 0) {
+                            if(scope.isGLIM){
+                                scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
+                                scope.updateChargeForSlab(scope.charges[i]);
+                            }else{
+                                for(var j in scope.charges[i].slabs){
+                                    var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs[j],scope.formData.principal,scope.formData.numberOfRepayments);
+                                    if(slabBasedValue != null) {
+                                        scope.charges[i].amount = slabBasedValue;
+                                        break;
+                                    } else {
+                                        scope.charges[i].amount = undefined;
+                                    }
+                                    scope.updateChargeForSlab(scope.charges[i]);
+                                }
+
+                            }
+
+                        }
+                    }
+                }
             };
 
             scope.updateSlabBasedChargeForEmiPack = function(principal){
