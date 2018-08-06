@@ -1,7 +1,7 @@
 (function (module) {
   mifosX.controllers = _.extend(module, {
 
-    RegisteredDeviceController: function (scope, resourceFactory) {
+    RegisteredDeviceController: function (scope, resourceFactory, location) {
 
       scope.uiData = {};
       scope.fetchDevices = function (status) {
@@ -14,6 +14,10 @@
       }
       scope.fetchDevices('pending');
 
+      scope.routeTo = function (device) {
+        location.path('/organization/registereddevices/' + device.id);
+      };
+
       scope.deviceAction = function (index, device, command) {
         resourceFactory.registeredDevicesResource.action({
           'registeredDeviceId': device.id,
@@ -24,7 +28,7 @@
       }
     }
   });
-  mifosX.ng.application.controller('RegisteredDeviceController', ['$scope', 'ResourceFactory', mifosX.controllers.RegisteredDeviceController]).run(function ($log) {
+  mifosX.ng.application.controller('RegisteredDeviceController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.RegisteredDeviceController]).run(function ($log) {
     $log.info("RegisteredDeviceController initialized");
   });
 }(mifosX.controllers || {}));

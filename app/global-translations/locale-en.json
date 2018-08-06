@@ -1199,7 +1199,6 @@
     "label.heading.completeddate": "Completed Date",
     "label.heading.loanofficer": "Loan officer",
     "label.heading.location": "Location",
-    "label.heading.action": "Actions",
     "label.heading.status": "Status",
     "label.heading.editcgtday": "Edit CGT Day",
     "label.heading.viewcgtdays": "View CGT Day",
@@ -6990,7 +6989,6 @@
     "label.button.add.sequence" : "Add sequence",
     "label.anchor.sequence.management" : "Sequence Management",
     "label.view.sequence.management" : "Sequence Management",
-    "label.view.registered.devices": "View all devices",
     "label.anchor.sequence.associations" : "Sequence Associations",
     "label.button.map.sequence" : "Map sequence ",
     "label.heading.applicable.field" : "Applicable field",
@@ -7082,24 +7080,22 @@
 
     "label.sftp.description" : "SFTP server details for transfer",
     "label.anchor.sftp" : "SFTP",
-    
+     
+    "label.view.registered.devices": "View all devices",
     "label.anchor.manage.devices": "Manage Devices",
     "label.input.requred.user": "Requested User",
     "label.registered.user": "Registered User",
     "label.device.id": " Device Id",
     "label.device.model": "Device Model",
-    "label.action": "Action",
-    "label.activate": "Activate",
-    "label.deactivate": "Deactivate",
     "label.device.list": "Device List",
     "label.pending.devices": "Pending Devices",
     "label.activated.devices": "Activated Devices",
     "label.deactivated.devices": "Deactivated Devices",
-    "label.anchor.linked.devices" : "Linked Devices",
-    "label.last.login.date.time" : "Last Login",
-    "label.last.login.location" : "Last Login Location",
     "label.heading.associated.users": "Associated Users",
     "label.heading.last.login" : "Last login",
+    "label.anchor.linked.devices" : "Linked Devices",
+    "label.last.login.date" : "Last Login Date",
+    "label.last.login.location" : "Last Login Location",
 
     "------ end of tensalation file": "---------"
 }

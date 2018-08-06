@@ -1762,7 +1762,7 @@
                 templateUrl: 'views/organization/editofficeaddress.html'
             })
             .when('/organization/registereddevices', {
-                templateUrl: 'views/organization/registereddevices/viewregistereddevices.html'
+                templateUrl: 'views/organization/registereddevices/registereddevices.html'
             })
             .when('/organization/registereddevices/:registeredDeviceId', {
                 templateUrl: 'views/organization/registereddevices/viewregistereddevice.html'

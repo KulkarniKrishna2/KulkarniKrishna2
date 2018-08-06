@@ -2,10 +2,18 @@
     mifosX.controllers = _.extend(module, {
         ViewUserController: function (scope, routeParams, route, location, resourceFactory, $modal, commonUtilService) {
             scope.user = [];
+            scope.uiData = {};
             scope.formData = {};
-            resourceFactory.userListResource.get({userId: routeParams.id}, function (data) {
+            resourceFactory.userListResource.get({
+                userId: routeParams.id
+            }, function (data) {
                 scope.user = data;
             });
+
+            scope.routeToDevice = function (device) {
+                location.path('/organization/registereddevices/' + device.id);
+            };
+
             scope.open = function () {
                 $modal.open({
                     templateUrl: 'password.html',
@@ -22,18 +30,18 @@
                 $scope.changePassword = function () {
                     this.formData['userId'] = routeParams.id;
                     var credentialsData = {};
-                    angular.copy(this.formData,credentialsData);
-                    if(credentialsData.password){
+                    angular.copy(this.formData, credentialsData);
+                    if (credentialsData.password) {
                         credentialsData.password = commonUtilService.encrypt(credentialsData.password);
                     }
-                    if(credentialsData.repeatPassword){
+                    if (credentialsData.repeatPassword) {
                         credentialsData.repeatPassword = commonUtilService.encrypt(credentialsData.repeatPassword);
                     }
                     resourceFactory.userPasswordResource.resetpassword(credentialsData, function (data) {
                         $modalInstance.close('activate');
                         if (data.resourceId == scope.currentSession.user.userId) {
                             scope.logout();
-                        } else{
+                        } else {
                             route.reload();
                         };
                     });
@@ -45,7 +53,9 @@
 
             var UserDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
-                    resourceFactory.userListResource.delete({userId: routeParams.id}, {}, function (data) {
+                    resourceFactory.userListResource.delete({
+                        userId: routeParams.id
+                    }, {}, function (data) {
                         $modalInstance.close('delete');
                         location.path('/users');
                         // added dummy request param because Content-Type header gets removed
@@ -66,7 +76,10 @@
 
             var UserUnlockCtrl = function ($scope, $modalInstance) {
                 $scope.unlock = function () {
-                    resourceFactory.userListResource.post({userId: routeParams.id, command:'unlock'}, {}, function (data) {
+                    resourceFactory.userListResource.post({
+                        userId: routeParams.id,
+                        command: 'unlock'
+                    }, {}, function (data) {
                         $modalInstance.close('unlock');
                         location.path('/users');
                     });
@@ -76,6 +89,24 @@
                 };
             };
 
+            scope.fetchDevicesToUser = function () {
+                scope.uiData.isFetchDevicesToUser = true
+                resourceFactory.userRegisteredDevicesResource.getAll({
+                    userId: routeParams.id
+                }, function (data) {
+                    scope.devicesToUser = data;
+                });
+            };
+
+            scope.deviceAction = function (device, command) {
+                resourceFactory.userRegisteredDeviceResource.action({
+                    registeredDeviceId: device.id,
+                    userId: routeParams.id,
+                    command: command
+                }, {}, function () {
+                    scope.fetchDevicesToUser();
+                });
+            };
         }
     });
     mifosX.ng.application.controller('ViewUserController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', 'CommonUtilService', mifosX.controllers.ViewUserController]).run(function ($log) {
