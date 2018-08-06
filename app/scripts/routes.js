@@ -1773,6 +1773,10 @@
             .when('/eodonboarding/:eventType/:eodprocessId/workflow', {
                 templateUrl: 'views/accounting/eodprocess/eodonboardingworkflow.html'
             })
+            .when('/organization/registereddevices', {
+                templateUrl: 'views/organization/registereddevices/viewregistereddevices.html'
+            })
+            
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

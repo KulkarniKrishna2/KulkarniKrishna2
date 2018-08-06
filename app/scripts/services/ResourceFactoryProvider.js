@@ -1569,7 +1569,11 @@
                     }),
                     eodSummaryResource:defineResource(apiVer + "/eodsummary/:eodProcessId/:resourceName",{eodProcessId:'@eodProcessId',resourceName:'@resourceName'}, {
                         get: {method: 'GET', params: {}}
-                    })
+                    }),
+                    registeredDevicesResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId", { registeredDeviceId: '@registeredDeviceId'}, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        action: { method: 'PUT', params: {} }
+                    }),
                 };
             }];
         }
