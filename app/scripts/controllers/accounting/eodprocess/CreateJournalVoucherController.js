@@ -24,7 +24,11 @@
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 $scope.offices = data;
-                $scope.formData.officeId = $scope.offices[0].id;
+                if($scope.officeId){
+                    $scope.formData.officeId = $scope.officeId;
+                }else{
+                    $scope.formData.officeId = $scope.offices[0].id;
+                }                
                 $scope.getAccountingRules();
             });
 
