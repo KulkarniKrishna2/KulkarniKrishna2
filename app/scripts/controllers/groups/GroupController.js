@@ -8,6 +8,7 @@
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.hideCreateGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
             scope.isHideCreateEntity = false;
+            scope.hideGroupName = false;
             if(scope.isWorkflowEnabled && scope.hideCreateGroup){
                 scope.isHideCreateEntity = true;
             }

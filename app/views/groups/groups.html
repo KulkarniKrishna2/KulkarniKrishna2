@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups"  pagination-id="groups">
-                <td class="pointer" data-ng-click="routeTo(group.id)" ng-show="showGroupName">{{group.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(group.id)" ng-hide="hideGroupName">{{group.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(group.id)">{{group.referenceNumber}}</td>
                 <td class="pointer" data-ng-click="routeTo(group.id)">{{group.accountNo}}</td>
                 <td class="pointer" data-ng-click="routeTo(group.id)">{{group.externalId}}</td>
