@@ -1774,9 +1774,8 @@
                 templateUrl: 'views/accounting/eodprocess/eodonboardingworkflow.html'
             })
             .when('/organization/registereddevices', {
-                templateUrl: 'views/organization/registereddevices/viewregistereddevices.html'
+                templateUrl: 'views/organization/registereddevices/registereddevices.html'
             })
-            
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
