@@ -337,6 +337,7 @@
                 $scope.isCenter = false;
                 $scope.installmentAmountSlabChargeType = 1;
                 $scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+                $scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
                 var SLAB_BASED = 'slabBasedCharge';
                 var UPFRONT_FEE = 'upfrontFee';
                 $scope.paymentModeOptions = [];
