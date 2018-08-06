@@ -13,7 +13,6 @@
             $scope.restrictDate = new Date();
             $scope.showPaymentDetails = false;
 
-
             resourceFactory.paymentTypeResource.getAll(function (data) {
                 $scope.paymentTypes = data;
             });
@@ -24,7 +23,12 @@
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 $scope.offices = data;
-                $scope.formData.officeId = $scope.offices[0].id;
+                if($scope.officeId){
+                    $scope.formData.officeId = $scope.officeId;
+                }else{
+                    $scope.formData.officeId = $scope.offices[0].id;
+                }
+                
                 $scope.getAccountingRules();
             });
 

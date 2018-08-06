@@ -9,10 +9,12 @@
             scope.cashAccounts = [];
             scope.highLightedType = [0,1,4];
             scope.isFinancialClosureDone = false;
+            
             scope.init =function(){
                 resourceFactory.eodSummaryResource.get({eodProcessId:scope.eodProcessId,resourceName:'financial'},
                     function(financialData){
                         scope.eodFinancialSummary = financialData.eodFinancialData;
+                        scope.officeId = financialData.eodProcessData.officeData.id;
                         scope.constructData();
                         scope.isFinancialClosureDone = financialData.eodProcessData.isFinancialClosureDone;
                     });
