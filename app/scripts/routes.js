@@ -1764,6 +1764,9 @@
             .when('/organization/registereddevices', {
                 templateUrl: 'views/organization/registereddevices/viewregistereddevices.html'
             })
+            .when('/organization/registereddevices/:registeredDeviceId', {
+                templateUrl: 'views/organization/registereddevices/viewregistereddevice.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

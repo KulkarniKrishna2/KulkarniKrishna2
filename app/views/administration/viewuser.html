@@ -3,6 +3,114 @@
         <li><a href="#/users">{{'label.anchor.users' | translate}}</a></li>
         <li class="active">{{user.firstname}}&nbsp;{{user.lastname}}</li>
     </ul>
+    <br>
+    <tabset>
+        <tab heading="User Details">
+            <div class="well">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a href="#/edituser/{{user.id}}" class="btn btn-primary" has-permission='UPDATE_USER'>
+                            <i class="icon-edit icon-white"></i>
+                            {{'label.button.edit' | translate}}</a>
+                        <button type="button" ng-click="deleteuser()" class="btn btn-primary" has-permission='DELETE_USER'>
+                            <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
+                        </button>
+                        <button type="button" class="btn btn-danger" data-ng-click="open()" has-permission='RESETPASSWORD_USER'>
+                            <i class="icon-cog icon-white"></i>
+                            {{'label.button.resetPassword' | translate}}
+                        </button>
+                        <button type="button" ng-hide="user.accountNonLocked" class="btn btn-primary" data-ng-click="unlockuser()" has-permission='UNLOCK_USER'>
+                            <i class="icon-cog icon-white"></i>
+                            {{'label.button.unlock' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <h3 class="bolder">{{user.firstname}}&nbsp;{{user.lastname}}</h3>
+                <div class="row">
+                    <div class="col-md-5">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <td>{{'label.heading.loginname' | translate}}:</td>
+                                <td>{{user.username}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.firstname' | translate}}:</td>
+                                <td>{{user.firstname}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.lastname' | translate}}:</td>
+                                <td>{{user.lastname}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.email' | translate}}:</td>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.lastlogintime' | translate}}:</td>
+                                <td>{{user.lastLoginDate}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.office' | translate}}:</td>
+                                <td>{{user.officeName}}</td>
+                            </tr>
+                            <tr data-ng-show="user.staff">
+                                <td>{{'label.heading.staff' | translate}}:</td>
+                                <td>{{user.staff.displayName}}</td>
+                            </tr>
+                            <tr>
+                                <td valign="top">{{'label.heading.roles' | translate}}:</td>
+                                <td>
+                                    <table>
+                                        <tr ng-repeat="role in user.selectedRoles">
+                                            <td>
+                                                <span style="margin-left: -20px">{{role.name}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab has-permission='READ_REGISTERED_DEVICE' heading="{{'label.anchor.linked.devices' | translate}}" select="fetchDevicesToUser()">
+            <table class="table" ng-if="uiData.isFetchDevicesToUser">
+                <tr>
+                    <th>{{'label.device.id' | translate}}</th>
+                    <th>{{'label.device.model' | translate}}</th>
+                    <th>{{'label.last.login.date.time' | translate}}</th>
+                    <th>{{'label.last.login.location' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
+                </tr>
+                <tr class="pointer-main" ng-repeat="device in devicesToUser" ng-if="device.status.systemCode == 'activated'">
+
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.deviceId}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.deviceModel}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.registeredDeviceToUserDatas[0].lastLoggedInDate | DateTimeFormat}}</td>
+                    <td>
+                        <a href=http://maps.google.com/?q={{device.registeredDeviceToUserDatas[0].latitude}},{{device.registeredDeviceToUserDatas[0].longitude}}
+                            target="_blank">{{'label.location' | translate }}</a>
+                    </td>
+                    <td ng-click="routeToDevice(device)">{{device.registeredDeviceToUserDatas[0].status.value}}</td>
+                    <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'pending'">
+                        <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.activate' | translate}}</a> |
+                        <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                    </td>
+                    <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'activated'">
+                        <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                    </td>
+                    <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'deactivated'">
+                        <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.activate' | translate}}</a>
+                    </td>
+                </tr>
+
+                </tr>
+            </table>
+        </tab>
+    </tabset>
+
 
     <script type="text/ng-template" id="password.html">
         <form name="changePasswordForm" novalidate="" class="form-horizontal well" rc-submit="changePassword()">

@@ -592,7 +592,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/eodprocess/EodOperationalSummaryController',
             'accounting/eodprocess/CreateJournalVoucherController',
             'task/popup/ViewCWFClientsTaskStepsInfoController',
-            'organization/registereddevices/RegisteredDeviceController'
+            'organization/registereddevices/RegisteredDeviceController',
+            'organization/registereddevices/ViewRegisteredDeviceController'
         ],
         filters: [
             'StatusLookup',
