@@ -112,8 +112,8 @@
 
 						<div class="col-sm-3">
 							<select id="genderId" ng-model="formData.genderId"  class="form-control"
-									ng-options="gender.id as gender.name for gender in genderOptions" value="{{gender.id}}">
-								<option value="">--{{'label.menu.gender' | translate}}--</option>
+									ng-options="gender.id as gender.name for gender in genderOptions" value="{{gender.id}}" data-ng-disabled="isGenderReadOnly">
+								<option value="" >--{{'label.menu.gender' | translate}}--</option>
 							</select>
 						</div>
 					</div>

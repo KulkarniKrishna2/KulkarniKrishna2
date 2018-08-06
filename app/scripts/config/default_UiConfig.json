@@ -119,7 +119,8 @@
 	  "isReadOnlyField": {
 		"staff": false,
 		"pincode": false,
-		"active": false
+		"active": false,
+		"gender": false
 	  },
 	  "isValidateDOBField": {
 		"active": false,
@@ -149,7 +150,8 @@
         "maritalStatus":true,
         "gender":false,
         "staff":false
-	  }
+	  },
+	  "defaultGender":""
 	},
 	"defaultGISConfig": {
 	  "address": {

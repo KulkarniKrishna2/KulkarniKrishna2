@@ -57,7 +57,8 @@
             scope.submitted = false;
             scope.isStaffMandatory = false;
             scope.isStaffRequired = false;
-
+            
+            scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender; 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
@@ -164,9 +165,16 @@
                 scope.isWorkflowEnabled = data.isWorkflowEnabled;
                 scope.maritalStatusOptions = data.maritalStatusOptions;
 
-                if(scope.genderOptions[0]) {
+                scope.defaultGender = scope.response.uiDisplayConfigurations.createClient.defaultGender;
+                if(scope.genderOptions){
                     scope.formData.genderId = scope.genderOptions[0].id;
+                for(var i in scope.genderOptions){
+                    if(scope.genderOptions[i].name === scope.defaultGender){
+                        scope.formData.genderId = scope.genderOptions[i].id;
+                    }
                 }
+                }
+                
                 if(scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
                      scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
                      scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
