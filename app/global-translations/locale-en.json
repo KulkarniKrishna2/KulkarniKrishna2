@@ -1314,6 +1314,12 @@
     "label.heading.fromaccounttype": "From Account Type",
     "label.heading.fromClient":"From Client",
     "label.heading.toClient":"To Client",
+    "accountTransferType.account.transfer":"Account Transfer",
+    "accountTransferType.loan.repayment":"Payment Transfer",
+    "accountTransferType.charge.payment":"Charge payment Transfer",
+    "accountTransferType.interest.transfer":"Interest Transfer",
+    "accountTransferType.loan.rectification":"Rectification",
+    "label.anchor.viewaccount":"View account",
     "label.heading.executionTime":"Execution Time",
     "label.heading.currency": "Currency",
     "label.heading.transferringto": "Transferring To",
@@ -1810,6 +1816,7 @@
     "label.heading.deferpaymentsforhalftheloanterm":"Defer Payments For Half The Loan Term ?",
     "label.heading.applypenalties":"Apply Penalties",
     "label.heading.penalty.charge.not.applicable":"Penalty charges not applicable for this Loan Account",
+    "label.heading.loanrectification":"Loan rectification",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -1865,6 +1872,7 @@
     "label.anchor.reschedulerequest":"Reschedule Request",
     "label.anchor.prepayment":"Prepayment",
     "label.anchor.applypenalties":"Apply Penalties",
+    "label.anchor.loanrectification":"Loan rectification",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -1993,6 +2001,7 @@
     "label.button.fetchpenalties":"Fetch Penalties",
     "label.button.applypenalties":"Apply Penalties",
     "label.button.fetch.creditbureaureport":"Fetch Credit Bureau Report",
+    "label.button.rectify": "Rectify",
 
     "#Misc Labels": "..",
     "label.selectpurpose": "Select purpose",

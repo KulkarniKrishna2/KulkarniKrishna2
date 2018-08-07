@@ -48,6 +48,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/NewJLGLoanAccAppController',
             'loanAccount/LoanDocumentController',
             'loanAccount/MandateController',
+            'loanAccount/LoanRectificationController',
             'system/ViewMandatesController',
             'system/DownloadMandatesController',
             'system/UploadMandatesController',

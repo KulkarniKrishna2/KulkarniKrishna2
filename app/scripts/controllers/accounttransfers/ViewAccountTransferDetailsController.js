@@ -2,14 +2,9 @@
     mifosX.controllers = _.extend(module, {
         ViewAccountTransferDetailsController: function (scope, resourceFactory, location, routeParams) {
 
-            scope.redirectPath = "viewsavingaccount";
+            scope.redirectPath = routeParams.redirectPath+"/"+routeParams.accoutId;
             resourceFactory.accountTransferResource.get({transferId: routeParams.id}, function (data) {
                 scope.transferData = data;
-                if(scope.transferData.toAccountDepositType.value == 'Recurring Deposit'){
-                    scope.redirectPath = "viewrecurringdepositaccount";
-                }else{
-                    scope.redirectPath = "viewsavingaccount";
-                }
             });
 
 
