@@ -1574,6 +1574,13 @@
                         getAll: { method: 'GET', params: {}, isArray: true },
                         action: { method: 'PUT', params: {} }
                     }),
+                    userRegisteredDevicesResource: defineResource(apiVer + "/registereddevices/users/:userId", { userId: '@userId'}, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        action: { method: 'PUT', params: {} }
+                    }),
+                    userRegisteredDeviceResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId/users/:userId", {registeredDeviceId : '@registeredDeviceId', userId: '@userId'}, {
+                        action: { method: 'PUT', params: {} }
+                    })
                 };
             }];
         }
