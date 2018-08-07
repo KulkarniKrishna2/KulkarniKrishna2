@@ -39,7 +39,7 @@
 				<div class="col-sm-3">
 	                <input type="text" id="name" name="name" ng-model="formData.name"
 						   value="{{villageCount.villageName}} {{count}}" class="form-control"
-						   ng-disabled="isHiddenVillageOption"/>
+						   ng-disabled="response.uiDisplayConfigurations.createCenter.isReadOnlyField.name"/>
 				</div>
 	            <div class="col-sm-3">
 	                <form-validate valattributeform="createcenterform" valattribute="name"/>
