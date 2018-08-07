@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        loanapplicationdisbursalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        loanapplicationdisbursalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, $modal, $route) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.issubmitted = false;
@@ -598,10 +598,66 @@
 
             };
 
+            scope.rejectWorkflow = function () {
+                $modal.open({
+                    templateUrl: 'reject.html',
+                    controller: RejectCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
 
+            var RejectCtrl = function ($scope, $modalInstance) {
+                
+                $scope.rejectioReasonsAvailable = false;
+                $scope.displayDescription = false;
+                $scope.isRejectReasonMandatory =  scope.isRejectReasonMandatory;
+                $scope.error = null;
+                $scope.rejectFormData = {};
+                $scope.values = [];
+                $scope.otherReason = false;
+                resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason',childCodeName:'Loan Rejection'}, function (data) {
+                    if(data.length >= 1){
+                        $scope.codes = data; 
+                        $scope.rejectioReasonsAvailable= true;
+                    }else{
+                        $scope.rejectioReasonsAvailable= false;
+                    }
+                });
+
+                $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitReject = function () {
+                    if($scope.rejectioReasonsAvailable == true){
+                        if(($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
+                            $scope.error = 'Specify Rejection Reason';
+                            return false;
+                        }
+                    }
+                    resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
+                        $modalInstance.close('reject');
+                        $route.reload();
+                    });
+                };
+
+                $scope.getDependentCodeValues = function(codeName){
+                    $scope.otherReason = codeName.indexOf("Others")>-1;
+                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
+                };
+
+                $scope.initDescription = function(reasonId){
+                    $scope.subOtherReason = $scope.values[$scope.values.findIndex(x => x.id == reasonId)].name.indexOf("Other")>-1;
+                    if($scope.subOtherReason==true && $scope.otherReason==true ){
+                        $scope.displayDescription = true;
+                      }else{
+                        $scope.displayDescription = false;
+                      }
+                };
+            };
         }
     });
-    mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$modal', '$route', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {
         $log.info("loanapplicationdisbursalActivityController initialized");
     });
 }(mifosX.controllers || {}));
