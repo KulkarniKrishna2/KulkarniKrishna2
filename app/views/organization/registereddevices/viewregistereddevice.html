@@ -1,0 +1,41 @@
+<div class="col-md-12" ng-controller="ViewRegisteredDeviceController">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+        </li>
+        <li class="active">{{'label.anchor.manage.devices' | translate}}</li>
+    </ul>
+    <div class="container">
+        <h3>{{'label.device.id' | translate}}:&nbsp;{{registeredDeviceUsers.deviceId}}</h3>
+        <h3>{{'label.device.model' | translate}}:&nbsp;{{registeredDeviceUsers.deviceModel}}</h3>
+        <h3>{{'label.heading.associated.users' | translate}}</h3>
+        <table class="table">
+            <tr>
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.last.login.date.time' | translate}}</th>
+                <th>{{'label.last.login.location' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+            <tr ng-repeat="user in registeredDeviceUsers.registeredDeviceToUserDatas">
+                <td>{{user.appUserData.username}}</td>
+                <td>{{user.lastLoggedInDate | DateTimeFormat}}</td>
+                <td>
+                    <a href="http://maps.google.com/?q={{user.latitude}},{{user.longitude}}" target=" ">{{'label.heading.location' | translate}}</a>
+                </td>
+                <td>{{user.status.value}}</td>
+                <td ng-if="user.status.systemCode == 'pending'">
+                    <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.activate' | translate}}</a> |
+                    <a ng-click="userActionOnDevice(user,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                </td>
+                <td ng-if="user.status.systemCode == 'activated'">
+                    <a ng-click="userActionOnDevice(user,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                </td>
+                <td ng-if="user.status.systemCode == 'deactivated'">
+                    <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.activate' | translate}}</a>
+                </td>
+                <td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -7260,10 +7260,10 @@
     "label.deactivated.devices": "Deactivated Devices",
 
     "label.anchor.linked.devices" : "Linked Devices",
-    "label.last.login.date" : "Last Login Date",
+    "label.last.login.date.time" : "Last Login",
     "label.last.login.location" : "Last Login Location",
-
-
+    "label.heading.associated.users": "Associated Users",
+    "label.heading.last.login" : "Last login",
 
     "------ end of tensalation file": "---------"
 }

@@ -1572,6 +1572,7 @@
                     }),
                     registeredDevicesResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId", { registeredDeviceId: '@registeredDeviceId'}, {
                         getAll: { method: 'GET', params: {}, isArray: true },
+                        getOne: { method: 'GET', params: {} },
                         action: { method: 'PUT', params: {} }
                     }),
                     userRegisteredDevicesResource: defineResource(apiVer + "/registereddevices/users/:userId", { userId: '@userId'}, {
