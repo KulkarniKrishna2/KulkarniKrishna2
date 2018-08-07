@@ -47,6 +47,9 @@
       "isMandatoryField": {
         "dateOfBirth": true
       }
+    },
+    "viewGroup":{
+      "searchForActivegroups": true
     }
   }
 }
