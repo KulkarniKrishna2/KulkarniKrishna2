@@ -289,7 +289,7 @@
 	  	"isHiddenField": {
 	  		"createGroup" : false
 	  	},
-	  	"searchForActivegroups": false
+	  	"searchForActivegroups": true
 	},
 	"createMandates":{
 			"showEMIBalance": false

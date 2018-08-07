@@ -49,7 +49,7 @@
       }
     },
     "viewGroup":{
-      "searchForActivegroups": true
+      "searchForActivegroups": false
     }
   }
 }

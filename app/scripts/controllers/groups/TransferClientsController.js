@@ -22,8 +22,8 @@
             scope.groups = function(value){
                 var groupSearchParams = {name : value, orderBy : 'name', officeId : scope.data.officeId,
                     sortOrder : 'ASC'};
-                if(!(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup
-                 && scope.response.uiDisplayConfigurations.viewGroup.searchForActivegroups)){
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup
+                 && scope.response.uiDisplayConfigurations.viewGroup.searchForActivegroups){
                     groupSearchParams.status = 'ACTIVE';
                 }
                 var deferred = $q.defer();
