@@ -76,6 +76,9 @@
     },
     "viewGroup":{
       "searchForActivegroups": false
+    },
+    "createLoanApplication": {
+      "newLoanApplicationLimitAllowed" : true
     }
   }
 }
