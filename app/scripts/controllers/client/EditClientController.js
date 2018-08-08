@@ -17,11 +17,13 @@
             scope.isExternalIdMandatory = false;
             scope.isMobileNumberMandatory = false;
             scope.isEmailIdMandatory = false;
-            scope.displayAge = false;
+            scope.displayAge = false; 
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
             scope.invalidClassificationId = false;
+
+            scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender;   
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
@@ -165,6 +167,7 @@
                 if(data.maritalStatus && data.maritalStatus.id){
                     scope.formData.maritalStatusId = data.maritalStatus.id;
                 }
+
 
             });
 

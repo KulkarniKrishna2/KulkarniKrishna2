@@ -40,6 +40,9 @@
       }
     },
     "createClient": {
+      "isReadOnlyField": {
+        "gender": true
+      },
       "isValidateDOBField": {
         "active": true,
         "ageCriteria": {
@@ -49,7 +52,8 @@
       },
       "isMandatoryField": {
         "dateOfBirth": true
-      }
+      },
+      "defaultGender":"Female"
     },
     "bankAccountDetails": {
       "isMandatory": {
