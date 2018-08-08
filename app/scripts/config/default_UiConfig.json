@@ -380,7 +380,7 @@
 		"unassignStaffCenter": false
 	  }
 	},
-	"createoffice":{
+	"createOffice":{
 		"selfActive" : false
 	},
 	"createJlgLoan": {
