@@ -26,7 +26,7 @@
 		<div>
 			<table class="table">
 				<thead>
-					<th>&nbsp;</th>
+					<th><input type="checkbox" ng-model="isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
 					<th class="col-md-1">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
@@ -57,8 +57,8 @@
 					    ng-class ="activeClientMember.color"
 					    ng-if="!activeClientMember.isClientFinishedThisTask">
 						<td class="col-md-1">
-							<input class="pull-left" type="checkbox" ng-model="client.checked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
-							 ng-disabled="activeClientMember.isClientFinishedThisTask" ng-change="addLoan(client.checked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
+							<input class="pull-left" type="checkbox" ng-model="activeClientMember.isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+							 ng-disabled="activeClientMember.isClientFinishedThisTask" ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked )">
 						</td>
 						<td class="col-md-1">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}
@@ -102,7 +102,7 @@
 				</tbody>
 			</table>
 			<div class="col-md-offset-11">
-				<button type="button" ng-click="submit()" class="btn btn-primary" has-permission='UPDATE_COMPLETION_DATE_CGT'>{{'label.button.save' | translate}}
+				<button type="button" data-ng-disabled="isAllClientFinishedThisTask" ng-click="submit()" class="btn btn-primary" has-permission='UPDATE_COMPLETION_DATE_CGT'>{{'label.button.save' | translate}}
 				</button>
 			</div>
 		</div>

@@ -10,7 +10,7 @@
 		<div>
 			<table class="table">
 				<thead>
-					<th class="col-md-1"></th>
+					<th class="col-md-1"><input type="checkbox" ng-model="isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
@@ -44,8 +44,8 @@
 					  ng-if="!activeClientMember.isClientFinishedThisTask && activeClientMember.loanAccountBasicData">
 					  	<td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
 						ng-disabled = "activeClientMember.isClientFinishedThisTask"
-						ng-model="client.checked" ng-change="
-						captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, client.checked, $index)">
+						ng-model="activeClientMember.isMemberChecked" ng-change="
+						captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
 						</td>
 						<td class="col-md-2">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
@@ -103,7 +103,7 @@
 				</tbody>
 			</table>
 			<div class="col-md-offset-11">
-                <button type="button" ng-click="moveMembersToNextStep()" class="btn btn-primary">
+                <button type="button" data-ng-disabled="isAllClientFinishedThisTask" ng-click="moveMembersToNextStep()" class="btn btn-primary">
                 	{{'label.button.save' | translate}}
                 </button>
             </div>

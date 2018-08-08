@@ -6,6 +6,7 @@
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
+                scope.isAllClientFinishedThisTask = true;
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -19,6 +20,7 @@
 
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                              scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                               if(clientLevelTaskTrackObj == undefined){
                                 if (scope.eventType && scope.eventType == 'create') {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
@@ -52,6 +54,7 @@
                                    if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
                                       scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                       scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                       scope.isAllClientFinishedThisTask = false;
                                    }
                               }
                         }
@@ -852,15 +855,19 @@
                 };
             }
 
-            scope.captureMembersToNextStep = function(clientId, loanId, isChecked, idx){
-                    if(isChecked){
-                        scope.taskInfoTrackArray.push(
-                            {'clientId' : clientId, 
-                             'currentTaskId' : scope.taskData.id,
-                             'loanId' : loanId})
-                    }else{
+            scope.captureMembersToNextStep = function(clientId, loanId, isChecked){
+                if(isChecked){
+                    scope.taskInfoTrackArray.push(
+                        {'clientId' : clientId,
+                            'currentTaskId' : scope.taskData.id,
+                            'loanId' : loanId})
+                }else{
+                    var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
+                    if(idx >= 0){
                         scope.taskInfoTrackArray.splice(idx,1);
                     }
+
+                }
             }
             
             scope.moveMembersToNextStep = function(){
@@ -920,6 +927,23 @@
                     return true;
                 }
                 return false;
+            }
+            scope.validateAllClients = function(centerDetails,isAllChecked){
+                scope.taskInfoTrackArray = [];
+                for(var i in centerDetails.subGroupMembers){
+                    for(var j in centerDetails.subGroupMembers[i].memberData){
+                        var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
+                        if(isAllChecked){
+                            if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask){
+                                centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                            }
+                        }else{
+                            centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                        }
+
+                    }
+                }
             }
 
         }
