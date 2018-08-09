@@ -367,6 +367,25 @@
             scope.viewCenterWorkflow =  function(workFlow){
                 location.path('/centeronboarding/'+workFlow.eventType.systemCode+'/'+ routeParams.id+'/workflow');
             };
+
+            scope.getLoanStatusCode = function (loan) {
+                if (loan.status) {
+                    if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid') {
+                        return loan.status.code + "." + loan.subStatus.code;
+                    }
+                    return loan.status.code;
+                }
+            };
+
+            scope.getLoanStatusValue = function (loan, subStatusRequested) {
+                if (loan.status) {
+                    if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid' && subStatusRequested) {
+                        return loan.subStatus.value;
+                    }
+                    return loan.status.value;
+                }
+            };
+
         }
     });
 

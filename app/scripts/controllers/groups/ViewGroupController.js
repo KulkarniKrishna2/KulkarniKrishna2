@@ -358,6 +358,25 @@
                 }
                 
             }
+
+            scope.getLoanStatusCode = function (loan) {
+                if (loan.status) {
+                    if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid') {
+                        return loan.status.code + "." + loan.subStatus.code;
+                    }
+                    return loan.status.code;
+                }
+            };
+
+            scope.getLoanStatusValue = function (loan, subStatusRequested) {
+                if (loan.status) {
+                    if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid' && subStatusRequested) {
+                        return loan.subStatus.value;
+                    }
+                    return loan.status.value;
+                }
+            };
+
         }
     });
     mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {
