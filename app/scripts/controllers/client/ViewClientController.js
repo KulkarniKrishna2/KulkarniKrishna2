@@ -432,11 +432,18 @@
                     if(status == 'active'){
                         scope.activeLoanApplications = data;
                         angular.copy(scope.activeLoanApplications,scope.loanApplications);
-                        if(scope.activeLoanApplications.length > 0){
-                            for(var i in scope.buttonsArray.singlebuttons){
-                                if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                                    scope.buttonsArray.singlebuttons[i].isEnableButton = false;
-                                    break;
+                        if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed) {
+                            if(scope.activeLoanApplications.length > 0){
+                                for(var j=0 ;j<scope.activeLoanApplications.length; j++){
+                                    if (!(scope.activeLoanApplications[j].status.id >= 400)) {
+                                        for(var i in scope.buttonsArray.singlebuttons){
+                                            if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
+                                                scope.buttonsArray.singlebuttons[i].isEnableButton = false;
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    } 
                                 }
                             }
                         }

@@ -138,7 +138,8 @@
 			"isReadOnlyField": {
 				"staff": false,
 				"pincode": false,
-				"active": false
+				"active": false,
+				"gender": false
 			},
 			"isValidateDOBField": {
 				"active": false,
@@ -147,6 +148,7 @@
 					"maxAge": ""
 				}
 			},
+			"defaultGender":"",
 			"isHiddenField": {
 				"hideClientClassification": false,
 				"clientType": false,
@@ -306,7 +308,7 @@
 		},
 		"savingsAccount": {
 			"overDraft": {
-				"overdraftLimitHeading": "",
+				"overdraftLimiting": "",
 				"isHiddenField": {
 					"amountTobePaid": false
 				},
@@ -329,6 +331,7 @@
 				"meeting": false,
 				"groupName": false
 			},
+			"searchForActivegroups": false,
 			"isReadOnlyField": {
 				"groupName": false,
 				"activationDate": false
@@ -377,7 +380,8 @@
 			},
 			"isMandatory": {
 				"trancheData": false
-			}
+			},
+			"newLoanApplicationLimitAllowed" : false
 		},
 		"viewCenter": {
 			"isHiddenField": {

@@ -60,6 +60,7 @@
             scope.isStaffRequired = false;
             scope.showTalukas = true;
 
+            scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender; 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
@@ -67,7 +68,7 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
                 scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
-           }
+            }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
                 scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
@@ -190,6 +191,17 @@
                     }
                 }
 
+                scope.defaultGender = scope.response.uiDisplayConfigurations.createClient.defaultGender;
+                if(scope.defaultGender && scope.genderOptions){
+                    scope.formData.genderId = scope.genderOptions[0].id;
+                    for(var i in scope.genderOptions){
+                        if(scope.genderOptions[i].name === scope.defaultGender){
+                            scope.formData.genderId = scope.genderOptions[i].id;
+                            break;
+                        }
+                    }
+                }
+                
                 if(scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
                      scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
                      scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;

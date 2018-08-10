@@ -38,6 +38,7 @@
                 scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
                 scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
            }
+            scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender;   
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
@@ -206,6 +207,7 @@
                 if(data.maritalStatus && data.maritalStatus.id){
                     scope.formData.maritalStatusId = data.maritalStatus.id;
                 }
+
 
             });
 

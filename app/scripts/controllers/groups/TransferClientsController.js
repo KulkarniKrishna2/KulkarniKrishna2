@@ -21,9 +21,14 @@
             });
 
             scope.groups = function(value){
+                var groupSearchParams = {name : value, orderBy : 'name', officeId : scope.data.officeId,
+                    sortOrder : 'ASC'};
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup
+                 && scope.response.uiDisplayConfigurations.viewGroup.searchForActivegroups){
+                    groupSearchParams.status = 'ACTIVE';
+                }
                 var deferred = $q.defer();
-                resourceFactory.groupResource.getAllGroups({name : value, orderBy : 'name', officeId : scope.data.officeId,
-                    sortOrder : 'ASC', status: 'ACTIVE'}, function(data){
+                resourceFactory.groupResource.getAllGroups(groupSearchParams , function(data){
                     scope.group = _.reject(data, function (group) {
                         return group.id == routeParams.id;
                     });

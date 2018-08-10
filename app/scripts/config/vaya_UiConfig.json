@@ -37,6 +37,9 @@
       }
     },
     "createClient": {
+      "isReadOnlyField": {
+        "gender": true
+      },
       "isValidateDOBField": {
         "active": true,
         "ageCriteria": {
@@ -47,7 +50,13 @@
       "isMandatoryField": {
         "dateOfBirth": true
       }
+    },
+    "viewGroup":{
+      "searchForActivegroups": false
+    },
+    "createLoanApplication": {
+      "newLoanApplicationLimitAllowed" : true
+      },
+    "defaultGender":"Female"
     }
-  }
-}
-	
+ }
