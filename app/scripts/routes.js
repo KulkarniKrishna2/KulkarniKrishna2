@@ -1766,6 +1766,9 @@
             })
             .when('/editSequenceEntityAssociation/:id',{
                 templateUrl: 'views/customsequence/editsequenceentityassociation.html'
+            }) 
+            .when('/loanaccountrectification/:loanId', {
+                templateUrl: 'views/loans/loanrectification.html'
             })
             .when('/centeronboarding/:centerId/workflow', {
                 templateUrl: 'views/task/showcase/centeronboardingworkflow.html'

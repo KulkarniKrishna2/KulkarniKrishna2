@@ -290,7 +290,7 @@
 
             scope.routeTo = function (accountId, transactionId, accountTransfer, transferId) {
                 if (accountTransfer) {
-                    location.path('/viewaccounttransfers/' + transferId);
+                    location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewrecurringdepositaccount').search('accoutId',accountId);
                 } else {
                     location.path('/viewrecurringdepositaccounttrxn/' + accountId + '/' + transactionId);
                 }

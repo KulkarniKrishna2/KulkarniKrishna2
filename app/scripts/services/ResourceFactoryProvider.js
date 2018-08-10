@@ -316,6 +316,9 @@
                     loanTrxnsResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId", {loanId: '@loanId', transactionId: '@transactionId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    loanRectifyTrxnsResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/rectify", {loanId: '@loanId', transactionId: '@transactionId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     LoanAccountResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:chargeId", {loanId: '@loanId', resourceType: '@resourceType', chargeId: '@chargeId'}, {
                         getLoanAccountDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}

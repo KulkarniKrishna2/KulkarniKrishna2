@@ -31,7 +31,7 @@
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
                 if (accountTransfer) {
-                    location.path('/viewaccounttransfers/' + transferId);
+                    location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId);
                 } else {
                     location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
                 }

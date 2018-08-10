@@ -1,0 +1,100 @@
+<div ng-controller="LoanRectificationController">
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/viewloanaccount/{{formData.fromAccountId}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.loanrectification' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="rectificationform" autocomplete="off" novalidate="" rc-submit="submit()">
+        <fieldset>
+            <legend>{{ 'label.heading.loanrectification' | translate }}</legend>
+            <div class="row paddedleft">
+                <label>
+                    <strong>{{ 'label.heading.transferringfrom' | translate}}</strong>
+                </label>
+                <table class="table table-striped">
+                    <tr>
+                        <tr>
+                            <td class="width20">{{'label.heading.applicant' | translate}}</td>
+                            <td class="width30">{{transfer.fromClient.displayName}}</td>
+                            <td class="width20">{{'label.heading.office' | translate}}</td>
+                            <td class="width30">{{transfer.fromOffice.name}}</td>
+                        </tr>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.loanaccount' | translate}}</td>
+                        <td>{{transfer.fromAccount.productName}}&nbsp;-&nbsp;#{{transfer.fromAccount.accountNo}}</td>
+                        <td>{{'label.input.transfer.amount' | translate}}</td>
+                        <td>{{formData.transferAmount | number}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row paddedleft">
+                <label>
+                    <strong>{{ 'label.heading.transferringto' | translate}} &nbsp;&nbsp;&nbsp;</strong>
+                </label>
+            </div>
+            <div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="toOfficeId">{{ 'label.input.office' | translate }}
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <select id="toOfficeId" ng-model="formData.toOfficeId" name="office" class="form-control" ng-options="toOffice.id as toOffice.name for toOffice in toOffices"
+                            ng-change="changeoffice()" value="{{toOffice.id}}" required>
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="rectificationform" valattribute="office" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="toClientId">{{ 'label.input.client' | translate }}
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <input id="toClientId" ng-model="formData.toClientData" name="client" class="form-control" type="text" typeahead="(toClient.id + ' ' + toClient.displayName) as (toClient.id + ' ' + toClient.displayName) for toClient in toClients | filter:$viewValue | limitTo:8"
+                            typeahead-on-select="changeClient($item)" autocomplete="off" required>
+                        <form-validate valattributeform="rectificationform" valattribute="client" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="toAccountId">{{ 'label.input.account' | translate }}
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber" class="form-control" ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts"
+                            ng-change="changeEvent()" value="{{toAccount.id}}" required>
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="rectificationform" valattribute="accountnumber" />
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="transferDescription">{{ 'label.input.note' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <textarea type="text" id="transferDescription" name="transferDescription" class="form-control" rows="2" ng-model="formData.note"></textarea>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="rectificationform" valattribute="transferDescription" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" class="btn btn-default" data-ng-click="back()">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='RECTIFY_LOAN'>{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
