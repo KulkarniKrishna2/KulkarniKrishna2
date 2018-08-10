@@ -36,6 +36,14 @@
                   </table>
                </span>
                 </div>
+                <div class="form-group paddedtop" ng-if= "sequenceAssociationsDetails.sequenceEntityIdentifier">
+                    <span><b>{{'label.heading.sequenceentityidentifier' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceAssociationsDetails.sequenceEntityIdentifier}}</span>
+                </div>
+                <div class="form-group paddedtop" ng-if= "sequenceAssociationsDetails.sequenceEntityValue">
+                    <span><b>{{'label.heading.sequenceentityvalue' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceAssociationsDetails.sequenceEntityValue}}</span>
+                </div>
 
             </div>
         </div>
