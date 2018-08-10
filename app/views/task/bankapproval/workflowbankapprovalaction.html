@@ -81,6 +81,20 @@
 	    				</td>
 	    				<td>{{queryData.resolution}}</td>
 	    			</tr>
+					<tr>
+						<td class = "col-md-2 graybg">{{'label.heading.attachments' | translate}}
+							{{$index + 1}}
+						</td>
+						<td><span ng-if="queryData.documentId"> {{queryData.fileName}}&nbsp;&nbsp;
+								<a target="_blank" data-ng-click="openViewDocument(queryData.docUrl)" has-permission='READ_DOCUMENT'>
+									<i class="icon-eye-open text-success"></i>
+								</a>
+								<a target="_blank" ng-click="download(queryData.docUrl)" has-permission='READ_DOCUMENT'>
+									<i class="icon-cloud-download"></i>
+								</a>
+							</span>
+						</td>
+					</tr>
 	    		</tbody>
 	    	</table>
 	    </div>
@@ -361,10 +375,10 @@
 						<td>
 							<span ng-if="history.documentId">
 								{{history.fileName}}&nbsp;&nbsp;
-								<a target="_blank" data-ng-click="openViewDocument(history.id,history.documentId)" has-permission='READ_DOCUMENT'>
+								<a target="_blank" data-ng-click="openViewDocument(history.docUrl)" has-permission='READ_DOCUMENT'>
 									<i class="icon-eye-open text-success"></i>
 								</a>
-								<a target="_blank" ng-click="download(history.id,history.documentId)" has-permission='READ_DOCUMENT'>
+								<a target="_blank" ng-click="downloadHistory(history.docUrl)" has-permission='READ_DOCUMENT'>
 									<i class="icon-cloud-download"></i>
 								</a>
 							</span>

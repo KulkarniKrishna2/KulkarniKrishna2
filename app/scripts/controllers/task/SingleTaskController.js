@@ -224,12 +224,12 @@
                 $scope.error = null;
                 $scope.rejectFormData = {};
                 $scope.values = [];
-                if(scope.isRejectDescriptionMandatory && !scope.isRejectCodesMandatory){
-                    $scope.displayDescription = true;
-                }
+                $scope.otherReason = false;
                 if(scope.action.codes && scope.action.codes.length >= 1){ 
                     $scope.codes = scope.action.codes; 
                     $scope.rejectioReasonsAvailable= true;
+                }else{
+                    $scope.rejectioReasonsAvailable= false;
                 }
 
                 $scope.cancelReject = function () {
@@ -237,11 +237,12 @@
                 };
 
                 $scope.submitReject = function () {
-                    if(($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
-                        $scope.error = 'Specify Rejection Reason';
-                        return false;
+                    if($scope.rejectioReasonsAvailable == true){
+                        if(($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
+                            $scope.error = 'Specify Rejection Reason';
+                            return false;
+                        }
                     }
-
                     resourceFactory.taskExecutionResource.doAction({taskId:scope.taskData.id,action:'reject'},$scope.rejectFormData, function (data) {
                         $modalInstance.close('reject');
                         $route.reload();
@@ -249,15 +250,17 @@
                 };
 
                 $scope.getDependentCodeValues = function(codeName){
+                    $scope.otherReason = codeName.indexOf("Others")>-1;
                     $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
                 };
 
                 $scope.initDescription = function(reasonId){
-                    if(scope.isRejectDescriptionMandatory && $scope.values[$scope.values.findIndex(x => x.id == reasonId)].description === 'Others'){
-                        $scope.displayDescription = true; 
-                    }else{
+                    $scope.subOtherReason = $scope.values[$scope.values.findIndex(x => x.id == reasonId)].name.indexOf("Other")>-1;
+                    if($scope.subOtherReason==true && $scope.otherReason==true ){
+                        $scope.displayDescription = true;
+                      }else{
                         $scope.displayDescription = false;
-                    }
+                      }
                 };
             };
 

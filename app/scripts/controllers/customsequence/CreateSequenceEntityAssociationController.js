@@ -6,7 +6,9 @@
             scope.formData.locale = scope.optlang.code;
             scope.selectedSequences = [];
             scope.productIdApplicableFor = [7,10,201];
-            scope.staffIdApplicableFor = [6]
+            scope.staffIdApplicableFor = [6];
+            scope.ifApplicableField = [3];
+            scope.formGstData = {};
 
             resourceFactory.sequenceAssociationTemplateResource.get(function(data) {
                 scope.entityTypes = data.applicableOnEntities;
@@ -24,8 +26,22 @@
                     resourceFactory.employeeResource.getAllEmployees(function(data) {
                         scope.employees = data.pageItems;
                     });
+                } 
+            }
+
+            scope.getEntityData = function(applicableColumn){
+                if(scope.ifApplicableField.indexOf(scope.formData.applicableColumn)>-1){
+                    resourceFactory.officeResource.getAllOffices(function (data) {
+                        scope.offices = data;
+                    });
+                    resourceFactory.codeValueResource.getAllCodeValues({codeId: '66'}, function (data) {
+                        scope.codevalues = data;
+                    });
+                    resourceFactory.taxgroup.getAll(function (data) {
+                        scope.taxGroups = data;
+                    });
                 }
-            }            
+            }   
 
             scope.addSequence = function() {
                 for (var i in this.selectedSequence) {
@@ -56,6 +72,10 @@
             };
 
             scope.submit = function() {
+                if (scope.formGstData) {
+                    scope.formData.sequenceEntityIdentifier = 'tg_br_cc';
+                    scope.formData.sequenceEntityValue = scope.formGstData.taxGroupId + '_' +scope.formGstData.officeId + '_' + scope.formGstData.codevalue;
+                }
                 scope.formData.selectedSequences = scope.selectedSequences;
                 for (var i = 0; i < scope.formData.selectedSequences.length;) {
                     delete scope.formData.selectedSequences[i].name;

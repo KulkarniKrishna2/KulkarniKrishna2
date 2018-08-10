@@ -343,7 +343,7 @@
                 <br/>
             </div>
             
-            <div class="form-group" ng-if ="displayDescription">
+            <div class="form-group" ng-if ="rejectioReasonsAvailable && displayDescription">
                 <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-4">
                     <textarea  class="input-sm form-control"  id="description" name="description" ng-model="rejectFormData.description"/>

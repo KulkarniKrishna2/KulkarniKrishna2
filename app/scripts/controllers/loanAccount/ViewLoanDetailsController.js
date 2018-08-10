@@ -39,6 +39,7 @@
             scope.selectedCharges = [];
             scope.charges = {};
             scope.hideNetDisbursedAmount = false;
+            scope.options = [];
 
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
@@ -753,6 +754,14 @@
                     }
 
                 }
+                if (data.status.value == "Rejected") {
+                    scope.options.push(
+                        {
+                            name: "button.viewhistory",
+                            taskPermissionName: 'READ_PORTFOLIOHISTORY'
+                        });
+                    scope.buttons = {options: scope.options};
+                }
 
                 if (data.status.value == "Overpaid" && !scope.isGlim ) {
                     scope.singlebuttons.push(
@@ -794,7 +803,12 @@
                         });
                 }
                 if (data.status.value == "Overpaid" ||  data.status.value == "Closed (written off)" || data.status.value == "Closed (obligations met)") {
-                    scope.buttons = {singlebuttons: scope.singlebuttons};
+                    scope.options.push(
+                        {
+                            name: "button.viewhistory",
+                            taskPermissionName: 'READ_PORTFOLIOHISTORY'
+                        });
+                    scope.buttons = {singlebuttons: scope.singlebuttons,options: scope.options};
                 }
                 scope.isWriteOff = false;
                 if(scope.loandetails.summary!=null) {
