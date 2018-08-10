@@ -31,7 +31,7 @@
             scope.routeToMem = function (id) {
                 location.path('/viewclient/' + id);
             };
-            scope.entityType = "group";
+            scope.defaultEntityType = "group";
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
                 scope.group = data;
                 $rootScope.groupNameDataParameter = data.name;

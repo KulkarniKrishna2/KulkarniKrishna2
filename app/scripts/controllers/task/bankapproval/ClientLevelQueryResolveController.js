@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientLevelQueryResolveController: function (scope, resourceFactory, location, routeParams, API_VERSION, CommonUtilService, $modal, $rootScope, dateFilter, $http) {
+        ClientLevelQueryResolveController: function (scope, resourceFactory, location, routeParams, API_VERSION, CommonUtilService, $modal, $rootScope, dateFilter, $http,$upload) {
            
             scope.trackerId = routeParams.trackerId;
             scope.bankApprovalId = routeParams.workflowBankApprovalId;
@@ -20,11 +20,19 @@
                 }
             });
 
-            scope.submit = function (approveId) {
+            scope.onFileSelect = function ($files) {
+                scope.file = $files[0];
+            };
 
-                resourceFactory.taskClientLevelQueryResource.resolveQuery({bankApproveId:scope.bankApprovalId, queryId: scope.queryId}, scope.resolveFormData, function (data) {
-                        location.path('/workflowbankapprovallist');
-               });
+
+            scope.submit = function (approveId) {
+                $upload.upload({
+                    url: $rootScope.hostUrl + API_VERSION + '/tasktracking/bankapproval/' + scope.bankApprovalId + '/query/' + scope.queryId,
+                    data: {'data' : scope.resolveFormData} ,
+                    file: scope.file
+                }).then(function (data) {
+                    location.path('/workflowbankapprovallist');
+                });
                 
             }    
 
@@ -53,7 +61,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ClientLevelQueryResolveController', ['$scope', 'ResourceFactory','$location', '$routeParams', 'API_VERSION', 'CommonUtilService', '$modal', '$rootScope', 'dateFilter', '$http', mifosX.controllers.ClientLevelQueryResolveController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientLevelQueryResolveController', ['$scope', 'ResourceFactory','$location', '$routeParams', 'API_VERSION', 'CommonUtilService', '$modal', '$rootScope', 'dateFilter', '$http','$upload', mifosX.controllers.ClientLevelQueryResolveController]).run(function ($log) {
         $log.info("ClientLevelQueryResolveController initialized");
     });
 }(mifosX.controllers || {}));

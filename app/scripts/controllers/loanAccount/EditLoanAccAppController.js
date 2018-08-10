@@ -217,7 +217,6 @@
                             scope.collaterals.push({ type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description });
                         }
                     }
-
                     scope.previewClientLoanAccInfo();
                 }
             });

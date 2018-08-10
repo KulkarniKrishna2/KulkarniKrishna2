@@ -132,13 +132,28 @@
 							  <a href="#/groups/{{group.id}}/creditbureausummary">{{ 'label.anchor.credit.bureau.summary' | translate }}</a>
 						  </li>
 						  <li>
-							  <a href="#/history/{{entityType}}/{{group.id}}"
+							  <a href="#/history/{{defaultEntityType}}/{{group.id}}"
 								 has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
 								  translate }}</a>
 						  </li>
                       </ul>
                     </span>
 			    </div>
+				<div class="btn-group pull-right" data-ng-show="group.status.value == 'Closed'">
+					<span class="btn-group dropdown" on-toggle="toggled(open)">
+                      <a class="btn btn-primary dropdown-toggle">
+						  {{ 'label.button.more' | translate}}
+						  <span class="caret"></span>
+					  </a>
+                      <ul class="dropdown dropdown-menu dropdown-menu-right">
+						  <li>
+							  <a href="#/history/{{defaulteEntityType}}/{{group.id}}"
+								 has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
+								  translate }}</a>
+						  </li>
+					  </ul>
+                    </span>
+				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="row client">
