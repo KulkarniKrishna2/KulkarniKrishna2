@@ -13,7 +13,6 @@
             $scope.restrictDate = new Date();
             $scope.showPaymentDetails = false;
 
-
             resourceFactory.paymentTypeResource.getAll(function (data) {
                 $scope.paymentTypes = data;
             });

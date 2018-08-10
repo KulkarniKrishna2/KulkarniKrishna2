@@ -1624,7 +1624,25 @@
             scope.download = function(docUrl){
                 var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
                 window.open(url);
-            }
+            };
+
+            scope.getLoanStatusCode = function (loan) {
+                if (loan.status) {
+                    if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid') {
+                        return loan.status.code + "." + loan.subStatus.code;
+                    }
+                    return loan.status.code;
+                }
+            };
+
+            scope.getLoanStatusValue = function (loan, subStatusRequested) {
+                if (loan.status) {
+                    if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid' && subStatusRequested) {
+                        return loan.subStatus.value;
+                    }
+                    return loan.status.value;
+                }
+            };
 
         }
     });

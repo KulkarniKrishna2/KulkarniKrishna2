@@ -1821,6 +1821,12 @@
             .when('/loans/pendingvaluedatetransactions', {
                 templateUrl: 'views/loans/pendingvaluedatetransactions.html'
             })
+            .when('/organization/registereddevices', {
+                templateUrl: 'views/organization/registereddevices/registereddevices.html'
+            })
+            .when('/organization/registereddevices/:registeredDeviceId', {
+                templateUrl: 'views/organization/registereddevices/viewregistereddevice.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

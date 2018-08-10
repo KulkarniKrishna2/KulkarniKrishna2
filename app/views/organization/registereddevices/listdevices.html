@@ -1,0 +1,24 @@
+<table class="table">
+    <tr>
+        <th ng-if="uiData.status == 'pending'">{{'label.input.requred.user' |translate}}</th>
+        <th>{{'label.device.id' | translate}}</th>
+        <th>{{'label.device.model' | translate}}</th>
+        <th>{{'label.heading.action' | translate}}</th>
+    </tr>
+    <tr class="pointer-main" ng-repeat="device in registeredDevices track by $index">
+
+        <td class="pointer" ng-if="uiData.status == 'pending'" ng-click="routeTo(device)">{{device.lastLoggedInUserData.username}}</td>
+        <td class="pointer" ng-click="routeTo(device)">{{device.deviceId}}</td>
+        <td class="pointer" ng-click="routeTo(device)">{{device.deviceModel}}</td>
+        <td ng-if="uiData.status == 'pending'">
+            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a> |
+            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+        </td>
+        <td ng-if="uiData.status == 'activated'">
+            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+        </td>
+        <td ng-if="uiData.status == 'deactivated'">
+            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a>
+        </td>
+    </tr>
+</table>

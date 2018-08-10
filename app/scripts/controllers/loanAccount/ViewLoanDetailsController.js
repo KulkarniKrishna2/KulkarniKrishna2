@@ -2087,6 +2087,15 @@
                }
                return false;
             }
+            scope.getStatusCode = function () {
+                if (scope.loandetails.status) {
+                    if (scope.loandetails.subStatus) {
+                        return scope.loandetails.status.code + "." + scope.loandetails.subStatus.code;
+                    } else {
+                        return scope.loandetails.status.code;
+                    }
+                }
+            };
         }
     });
 

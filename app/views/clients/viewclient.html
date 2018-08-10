@@ -524,10 +524,10 @@
 					<tr class="pointer-main"
 						ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
 						<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-							<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
-								class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
-							<i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
-								 class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
+							<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{getLoanStatusValue(loanaccount, true)}}"
+								class="icon-stop {{getLoanStatusCode(loanaccount) | StatusLookup}}"></i>
+							<i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{getLoanStatusValue(loanaccount, true)}}"
+								 class="icon-stop {{getLoanStatusCode(loanaccount) | StatusLookup}}overdue"></i>
 							{{loanaccount.accountNo}}
 						</td>
 						<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.productName}}</td>
@@ -576,7 +576,7 @@
 					<tr class="pointer-main"
 						ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isClosed">
 						<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-							<i tooltip-placement="right" tooltip="{{loanaccount.status.value}}" class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
+							<i tooltip-placement="right" tooltip="{{getLoanStatusValue(loanaccount, true)}}" class="icon-stop {{getLoanStatusCode(loanaccount) | StatusLookup}}"></i>
 							{{loanaccount.accountNo}}
 						</td>
 						<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.productName}}</td>

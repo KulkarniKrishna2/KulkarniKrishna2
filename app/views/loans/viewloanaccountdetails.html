@@ -212,9 +212,9 @@
             <div class="span gray-head" style="margin-left:0%;">
                       <span style="margin-left: 10px;font-size:20px">
                             <strong> <i ng-hide="loandetails.inArrears"
-                                        class="icon-stop {{loandetails.status.code | StatusLookup}}"></i>
+                                        class="icon-stop {{getStatusCode(loandetails) | StatusLookup}}"></i>
                                 <i ng-show="loandetails.inArrears"
-                                   class="icon-stop {{loandetails.status.code | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
+                                   class="icon-stop {{getStatusCode(loandetails) | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
                       </span>
 
                     <span class="pull-right" ng-if="loandetails.status.active">

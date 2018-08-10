@@ -12,6 +12,7 @@
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
+                    scope.isAllClientFinishedThisTask = true;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
 
@@ -19,6 +20,7 @@
 
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                              scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                               if(clientLevelTaskTrackObj == undefined){
                                 if (scope.eventType && scope.eventType == 'create') {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
@@ -60,6 +62,9 @@
                                     }else{
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = true;
                                     }
+                              }
+                              if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                  scope.isAllClientFinishedThisTask = false;
                               }
 
                         }
@@ -131,15 +136,19 @@
 
              }
 
-            scope.captureMembersToNextStep = function(clientId, loanId, isChecked, idx){
-                    if(isChecked){
-                        scope.taskInfoTrackArray.push(
-                            {'clientId' : clientId, 
-                             'currentTaskId' : scope.taskData.id,
-                             'loanId' : loanId})
-                    }else{
+            scope.captureMembersToNextStep = function(clientId, loanId, isChecked){
+                if(isChecked){
+                    scope.taskInfoTrackArray.push(
+                        {'clientId' : clientId,
+                            'currentTaskId' : scope.taskData.id,
+                            'loanId' : loanId})
+                }else{
+                    var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
+                    if(idx >= 0){
                         scope.taskInfoTrackArray.splice(idx,1);
                     }
+
+                }
             }
             
             scope.moveMembersToNextStep = function(){
@@ -240,6 +249,23 @@
                     return true;
                 }
                 return false;
+            }
+            scope.validateAllClients = function(centerDetails,isAllChecked){
+                scope.taskInfoTrackArray = [];
+                for(var i in centerDetails.subGroupMembers){
+                    for(var j in centerDetails.subGroupMembers[i].memberData){
+                        var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
+                        if(isAllChecked){
+                            if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask && !activeClientMember.loanAccountBasicData.isNotLoanApproved){
+                                centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                            }
+                        }else{
+                            centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                        }
+
+                    }
+                }
             }
             
 

@@ -9,7 +9,7 @@
 		<div>
 			<table class="table">
 				<thead>
-					<th class="col-md-1"> </th>
+					<th class="col-md-1"> <input type="checkbox" ng-model="isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
 					<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.age' | translate}}</th>
@@ -39,9 +39,9 @@
 						<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember"
 						 ng-class ="activeClientMember.color"  ng-if="!activeClientMember.isClientFinishedThisTask">
 						 <td class="col-md-1">
-							 <input type="checkbox" ng-model="isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+							 <input type="checkbox" ng-model="activeClientMember.isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
 							ng-disabled="activeClientMember.isClientFinishedThisTask || activeClientMember.loanAccountBasicData == undefined"
-							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked, $index)"></input></td>
+							ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)"></input></td>
 							<td class="col-md-2"><a href= "" ng-click= "viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 							</td>
 							<td class="col-md-1">{{activeClientMember.fcsmNumber}}</td>
@@ -70,7 +70,7 @@
 				</tbody>
 			</table>
 			<div class="col-md-offset-11">
-				<button type="button" ng-click="moveMembersToNextStep()" class="btn btn-primary"
+				<button type="button" data-ng-disabled="isAllClientFinishedThisTask" ng-click="moveMembersToNextStep()" class="btn btn-primary"
 					>{{'label.button.save' |
 					translate}}</button>
 			</div>

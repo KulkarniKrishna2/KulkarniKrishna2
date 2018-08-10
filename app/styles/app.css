@@ -312,6 +312,10 @@ color: #800080
     background-color: #FF0000;
 }
 
+.statusexpired {
+    color: #ac3d21;
+}
+
 td.labelrow {
     padding: 0 0 10px;
 }
