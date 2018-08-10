@@ -7265,5 +7265,7 @@
     "label.heading.associated.users": "Associated Users",
     "label.heading.last.login" : "Last login",
 
+    "label.only.text" : "Only Text",
+
     "------ end of tensalation file": "---------"
 }

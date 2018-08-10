@@ -13,6 +13,15 @@
             scope.formData = {};
             scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
 
+            scope.$watch('formData.dateOfBirth', function (newValue, oldValue) {
+                if (scope.formData.dateOfBirth != undefined) {
+                    var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
+                    var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.formData.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                } 
+            });
+
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;
                 scope.relationshipOptions = data.relationshipOptions;
@@ -84,7 +93,7 @@
                 return deferred.promise;
             };
 
-             scope.add = function () {
+            scope.add = function () {
                 if(scope.available != ""){
                     scope.getClientDetails(scope.available.entityId);
                 }
@@ -108,6 +117,7 @@
                     }
                 });
             };
+            
             scope.findRelationCodeValue = function(value){
                 scope.genderId = null;
                 if(scope.relationshipGenderData && scope.relationshipGenderData.codeValueRelations){
