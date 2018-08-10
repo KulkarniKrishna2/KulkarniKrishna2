@@ -499,10 +499,10 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" id="firstName" name="firstName" ng-model="familyMembersFormData.firstname" class="form-control" required
-											    late-validate/>
+											<input type="text" id="firstName" name="firstName" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="familyMembersFormData.firstname" class="form-control" />
 										</div>
 										<div class="col-sm-2">
+												<span class="error" ng-show="createFamilyDetails.firstName.$invalid  ">{{'label.only.text' | translate}}</span>
 											<form-validate valattributeform="createFamilyDetails" valattribute="firstName" />
 										</div>
 									</div>
@@ -511,15 +511,24 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" id="middleName" name="middleName" ng-model="familyMembersFormData.middlename" class="form-control" />
+											<input type="text" id="middleName" name="middleName" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="familyMembersFormData.middlename" class="form-control" />
+										</div>
+										<div class="col-sm-2">
+												<span class="error" ng-show="createFamilyDetails.middleName.$invalid">{{'label.only.text' | translate}}</span>
+											<form-validate valattributeform="createFamilyDetails" valattribute="firstName" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="lastName">{{ 'label.input.lastName' | translate }}
+												<span class="required">*</span>
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" id="lastName" name="lastName" ng-model="familyMembersFormData.lastname" class="form-control"/>
+											<input type="text" id="lastName" name="lastName" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="familyMembersFormData.lastname" class="form-control"/>
+										</div>
+										<div class="col-sm-2">
+												<span class="error" ng-show="createFamilyDetails.lastName.$invalid">{{'label.only.text' | translate}}</span>
+											<form-validate valattributeform="createFamilyDetails" valattribute="firstName" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -567,17 +576,35 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">{{ 'label.input.age' | translate }}
-											<span class="required">*</span>
-										</label>
-										<div class="col-sm-2">
-											<input type="text" ng-model="familyMembersFormData.age" class="form-control" />
+											<label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}
+											   
+											</label>
+											<div class="col-sm-3">
+												<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="familyMembersFormData.dateOfBirth" 
+													 is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+												<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
+													| translate}}</span>
+											</div>
+											<div class="col-sm-2">
+												
+												<form-validate valattributeform="createFamilyDetails" valattribute="dateofbirth" />
+											</div>
 										</div>
-										<div class="col-sm-2">
-											<form-validate valattributeform="createFamilyDetails" valattribute="age" />
+										<div class="form-group">
+												<label class="control-label col-sm-2">{{ 'label.input.age' | translate }} <span
+														class="required">*</span></label>
+												</label>
+							
+												<div class="col-sm-2">
+													<input id="age" type="text" name="age"
+														   ng-model="familyMembersFormData.age" class="form-control" placeholder="{{familyMembersFormData.age}}"/>
+												</div>
+												<div class="col-sm-2">
+													<form-validate valattributeform="createFamilyDetails" valattribute="age"/>
+												</div>
+							
 										</div>
-
-									</div>
+		
 									<div class="form-group">
 										<label class="control-label col-sm-2"></label>
 
