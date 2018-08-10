@@ -21,16 +21,28 @@
             scope.details = false;
             scope.clientsAttendance = [];
             scope.reasonAttendenceList = [];
-            scope.attendenceListForReason = [2,4];
+            scope.absentAttendenceType = 4;
+            scope.leaveAttendenceType = 2;
+            scope.attendenceListForReason = [scope.absentAttendenceType,scope.leaveAttendenceType];
             scope.loanRejectReason = {};
             scope.showText = false;
             scope.productiveCollctionSheetSearchParams = {};
             scope.collectionReasonList = [];
             scope.showRejectReason = false;
+            scope.isRejectReasonMandatory = false;
+            scope.requiredFieldErrorMessage = "Required field";
+
 
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.isMandatory){
+                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
+                   scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason; 
+                }
+            }
 
             resourceFactory.centerResource.getAllMeetingFallCenters(params, function (data) {
                 if (data[0]) {
@@ -66,6 +78,9 @@
                             scope.loanRejectReason[loanId].codeValueOptions =  scope.collectionReasonList[i].values;
                         }
                     }
+                }else{
+                    scope.loanRejectReason[loanId].reasonId = undefined;
+                    scope.loanRejectReason[loanId].reason = undefined;
                 }
             };
 
@@ -78,7 +93,9 @@
                                     return true;
                                 }
                             }
-                            scope.clientsAttendance[index].codeValueOptions =  scope.reasonAttendenceList[i].values;
+                            if(index){
+                                scope.clientsAttendance[index].codeValueOptions =  scope.reasonAttendenceList[i].values;
+                            }                            
                         }
                     }
                 }else{
@@ -245,21 +262,24 @@
                     var cl = scope.clientArray.length;
                     for (var j = 0; j < cl; j++) {
                         scope.loanArray = scope.clientArray[j].loans;
-                        var ll = scope.loanArray.length;
-                        for (var k = 0; k < ll; k++) {
-                            scope.loan = scope.loanArray[k];
-                            var tempData = {
-                                    loanId: scope.loan.loanId,
-                                    transactionAmount: scope.loan.totalDue
-                                };
-                            scope.bulkRepaymentTransactions.push(tempData);
+                        if(scope.loanArray){
+                            var ll = scope.loanArray.length;
+                            for (var k = 0; k < ll; k++) {
+                                scope.loan = scope.loanArray[k];
+                                var tempData = {
+                                        loanId: scope.loan.loanId,
+                                        transactionAmount: scope.loan.totalDue
+                                    };
+                                scope.bulkRepaymentTransactions.push(tempData);
 
-                            for (var l = 0; l < loanProductArrayDup.length; l++) {
-                                if (loanProductArrayDup[l].productId == scope.loan.productId) {
-                                    loanProductArrayDup[l].transactionAmount = Number(loanProductArrayDup[l].transactionAmount + Number(scope.loan.totalDue));
+                                for (var l = 0; l < loanProductArrayDup.length; l++) {
+                                    if (loanProductArrayDup[l].productId == scope.loan.productId) {
+                                        loanProductArrayDup[l].transactionAmount = Number(loanProductArrayDup[l].transactionAmount + Number(scope.loan.totalDue));
+                                    }
                                 }
                             }
                         }
+                        
                     }
                     temp.loanProductArrayDup = loanProductArrayDup;
                     scope.groupTotal.push(temp);
@@ -324,6 +344,21 @@
                 if (scope.productiveCollctionSheetSearchParams.transactionDate != undefined && scope.productiveCollctionSheetSearchParams.transactionDate != null) {
                     scope.formData.searchParams = scope.productiveCollctionSheetSearchParams;
                 }
+                if(scope.isRejectReasonMandatory==true){
+                    if(scope.collectionReasonList.length>0){
+                        var isValid = scope.validateForMandatoryCollectionReason(scope.formData.bulkRepaymentTransactions);
+                        if(isValid==false){
+                            return isValid;
+                        }
+                    }
+                    if(scope.reasonAttendenceList.length>0){
+                        var isValid = scope.validateForMandatoryAttendenceReason(scope.formData.clientsAttendance);
+                        if(isValid==false){
+                            return isValid;
+                        }
+                    }
+                    
+                }
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                     for (var i = 0; i < centerIdArray.length; i++) {
                         if (scope.centerId === centerIdArray[i].id && centerIdArray.length >= 1) {
@@ -355,6 +390,51 @@
                         scope.formData.forcedSubmitOfCollectionSheet = true;
                     }
                 });
+            };
+
+            scope.validateForMandatoryAttendenceReason = function(data){                
+                for(var i in data){
+
+                    if(scope.attendenceListForReason.indexOf(data[i].attendanceType)>-1){
+                        if(data[i].reasonId==undefined){
+                            scope.clientsAttendance[i].error = scope.requiredFieldErrorMessage;
+                            return false;
+                        }else{
+                           var isTextRequired = scope.isTextAvailable(scope.clientsAttendance[i]);
+                                if(isTextRequired==true && data[i].reason == undefined){
+                                    scope.clientsAttendance[i].error = scope.requiredFieldErrorMessage;
+                                    return false;
+                                }else{
+                                    scope.clientsAttendance[i].error = undefined;
+                                }
+                        }
+                    }
+                }
+                return true;
+            };
+
+            scope.validateForMandatoryCollectionReason = function(data){                
+                for(var i in data){
+                    if(data[i].transactionAmount==0){
+                        if(data[i].reasonId==undefined){
+                            if(scope.loanRejectReason[data[i].loanId]==undefined){
+                                scope.loanRejectReason[data[i].loanId] = {};                                
+                            }
+                            scope.loanRejectReason[data[i].loanId].error = scope.requiredFieldErrorMessage;
+                            return false;
+                        }else{
+                            scope.isDescriptionAvailable(scope.loanRejectReason[data[i].loanId]);
+                                if(scope.showText==true && data[i].reason == undefined){
+                                    scope.loanRejectReason[data[i].loanId].error = scope.requiredFieldErrorMessage;
+                                    return false;
+                                }else{
+                                    scope.loanRejectReason[data[i].loanId].error = undefined;
+                                }
+                        }
+
+                    }
+                }
+                return true;
             };
 
             scope.updatebulkRepaymentTransactionsWithReason = function(){

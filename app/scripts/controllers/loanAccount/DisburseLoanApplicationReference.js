@@ -354,9 +354,9 @@
             };
 
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
-                scope.$watch('date.expectedDisbursementDate ', function () {
-                    if (scope.date.expectedDisbursementDate != '' && scope.date.expectedDisbursementDate != undefined) {
-                        scope.date.interestChargedFromDate = scope.date.expectedDisbursementDate;
+                scope.$watch('formRequestData.disburse.actualDisbursementDate', function () {
+                    if (scope.formRequestData.disburse.actualDisbursementDate != '' && scope.formRequestData.disburse.actualDisbursementDate != undefined) {
+                        scope.date.interestChargedFromDate = scope.formRequestData.disburse.actualDisbursementDate;
                     }
                 });
             }
