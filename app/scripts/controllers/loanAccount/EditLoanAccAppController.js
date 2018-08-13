@@ -14,6 +14,7 @@
             scope.clientMembers = [];
             scope.repeatsOnDayOfMonthOptions = [-1];
             scope.selectedOnDayOfMonthOptions = [];
+            scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
             if(scope.response != undefined){
                 scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                 scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;

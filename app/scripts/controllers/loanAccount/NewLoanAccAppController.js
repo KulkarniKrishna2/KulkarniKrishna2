@@ -5,6 +5,7 @@
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
             scope.restrictDate = new Date();
+            scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
             scope.formData = {};
             scope.temp = {};
             scope.chargeFormData = {}; //For charges
