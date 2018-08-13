@@ -19,6 +19,7 @@
 					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
 					<th class="col-md-1"> </th>
+					<th class="col-md-1"> </th>
 					<th class="col-md-2 cell-overflow">{{'label.heading.kotak.approval.status' | translate}} </th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
@@ -50,6 +51,11 @@
 							<a ng-if="activeClientMember.loanAccountBasicData" ng-click="showReviewHistory(activeClientMember.loanAccountBasicData.id)"
 							    class="btn btn-default">
 								{{'label.button.history' | translate}}</a>
+						</td>
+						<td class="col-md-1">
+							<a target="_blank" title="View Kotak Approval Criteria Result" ng-if="activeClientMember.clientLevelCriteriaResultData" data-ng-click="openViewKotakCriteriaResult(activeClientMember.clientLevelCriteriaResultData.ruleResult)">
+								<i class="icon-question-sign"></i>
+							</a>
 						</td>
 						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
 						<td class="col-mod-1" >
