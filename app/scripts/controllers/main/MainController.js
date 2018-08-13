@@ -286,7 +286,7 @@
                     }
                 }
                 location.path('/search/' + searchString).search({exactMatch: exactMatch, resource: scope.currentScope.value});
-
+                scope.search.query=undefined;
             };
 
             scope.logout = function () {
