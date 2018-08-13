@@ -1596,7 +1596,7 @@
                     bankApprovalActionResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId",{bankApproveId:'@bankApproveId'}, {
                         doAction: {method: 'POST', params: {}}
                     }),
-                    taskClientLevelQueryResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId/query/:queryId",{bankApproveId:'@bankApproveId', queryId:'@queryId'}, {
+                    taskClientLevelQueryResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId/:activity/:queryId",{bankApproveId:'@bankApproveId', queryId:'@queryId'}, {
                         raiseQuery: {method: 'POST', params: {}},
                         resolveQuery: {method: 'PUT'}
                     }),

@@ -7425,7 +7425,6 @@
     
     "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
     "validation.msg.eod_process.eodDate.is.greater.than.date" : "Closing date can not be future date",
-     
     "label.view.registered.devices": "View all devices",
     "label.anchor.manage.devices": "Manage Devices",
     "label.input.requred.user": "Requested User",
@@ -7442,6 +7441,12 @@
     "label.last.login.location" : "Last Login Location",
     "label.heading.associated.users": "Associated Users",
     "label.heading.last.login" : "Last login",
-
-    "------ end of tensalation file": "---------"
+    "label.only.text" : "Only Text",
+    "label.heading.kotak.criteria.result": "Kotak approval criteria result",
+    "label.input.availablequery":"Available Query",
+    "label.input.selectedquery":"Selected Query",
+    "label.input.addquery":"Add Query",
+    "label.selectquery": "Select Query",
+    "label.error.add.query":"Please add query",
+     "------ end of tensalation file":"---------"
 }

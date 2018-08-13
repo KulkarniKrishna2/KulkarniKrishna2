@@ -48,9 +48,11 @@
                                         if(clientLevelCriteriaObj.score == 5){
                                               scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                               scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                              scope.isAllClientFinishedThisTask = false;
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                            scope.isAllClientFinishedThisTask = false;
                                         }
                                     }
                               }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){

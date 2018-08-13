@@ -35,15 +35,14 @@
 					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
 					<th class="col-md-1"></th>
-					<th class="col-md-2">{{'label.heading.keyah' | translate}}</th>
+					<th class="col-md-2" data-ng-hide="true">{{'label.heading.keyah' | translate}}</th>
 					<th class="col-md-2"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup">
 					<tr  class="background-gold">
-						<td colspan="11">
-							<span>{{groupMember.fcsmNumber}}
-							</span>
+						<td colspan="10">
+							<span>{{groupMember.fcsmNumber}}</span>
 						</td>
 						<td calss="col-md-1">
 							<a type="button" class="btn btn-danger btn-xs" 
@@ -75,7 +74,7 @@
 							<a ng-show="activeClientMember.loanAccountBasicData.documentId" ng-click="reGenerateDocument(activeClientMember)"><i class="icon-repeat"></i></a>
                       		<a  ng-click="generateDocument(activeClientMember)" tooltip="{{'label.tooltip.generate.document' | translate}}" ng-hide="activeClientMember.loanAccountBasicData.documentId"><i class="icon-link"></i></a></td>
 
-						<td class="col-md-2">
+						<td class="col-md-2" data-ng-hide="true">
 							<div class="progress">
 								<div class="progress-bar" role="progressbar" aria-valuenow="{{activeClientMember.profileRatingScoreData.finalScore*20}}"
 									aria-valuemin="0" aria-valuemax="100" ng-style="{'width': {{score(activeClientMember)}}}">

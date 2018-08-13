@@ -44,9 +44,11 @@
                                         if(clientLevelCriteriaObj.score == 5){
                                               scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                               scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                            scope.isAllClientFinishedThisTask = false;
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                            scope.isAllClientFinishedThisTask = false;
                                         }
                                     }
                               }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
@@ -470,13 +472,15 @@
             }
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = false;
                 $scope.shownidentityform = false;
                 $scope.shownFamilyMembersForm = false;
-                $scope.showLoanAccountForm = false;
+                $scope.showLoanAccountForm = true;
                 $scope.isLoanAccountExist = false;
+                $scope.showLoanProductList = false;
                 $scope.showOnlyLoanTab = true;
                 var UPFRONT_FEE = 'upfrontFee';
                 $scope.displayCashFlow = false;
@@ -700,6 +704,7 @@
                     $scope.entityType = "clients";
                     $scope.formData.locale = scope.optlang.code;
                     $scope.formData.dateFormat = scope.df;
+                    
 
                     if ($scope.formData.countryId == null || $scope.formData.countryId == "") {
                         delete $scope.formData.countryId;
@@ -902,6 +907,15 @@
                     
                 }
 
+                $scope.$watch('familyMembersFormData.dateOfBirth', function (newValue, oldValue) {
+                if ($scope.familyMembersFormData.dateOfBirth != undefined) {
+                    var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
+                    var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    $scope.familyMembersFormData.age=Math.abs(ageDate.getUTCFullYear() - 1970);
+                } 
+            });
+
                 $scope.submitFamilyMembers = function () {
                     $scope.familyMembersFormData.dateFormat = scope.df;
                     $scope.familyMembersFormData.locale = scope.optlang.code;
@@ -910,6 +924,9 @@
                             delete $scope.familyMembersFormData.documentKey;
                             delete $scope.familyMembersFormData.documentTypeId;
                         }
+                    }
+                    if ($scope.familyMembersFormData.dateOfBirth) {
+                        this.familyMembersFormData.dateOfBirth = dateFilter($scope.familyMembersFormData.dateOfBirth, scope.df);
                     }
                     resourceFactory.familyDetails.save({ clientId: $scope.clientId }, $scope.familyMembersFormData, function (data) {
                         $scope.shownFamilyMembersForm = false;

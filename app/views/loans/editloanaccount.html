@@ -764,12 +764,12 @@
         <div class="col-sm-1">
         <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
         </div>
-        <select ng-model="chargeFormData.chargeId" class="form-control width170px"
+        <select ng-show="canAddCharges" ng-model="chargeFormData.chargeId" class="form-control width170px"
                 ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
                 value="{{charge.id}}">
             <option value="">{{'label.selectcharge' | translate}}</option>
         </select>
-        <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
+        <a ng-show="canAddCharges" ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
         </div>
         <table class="table" class="width100" ng-show="charges.length>0">
             <tr class="graybg">

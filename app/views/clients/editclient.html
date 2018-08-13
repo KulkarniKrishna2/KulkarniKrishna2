@@ -59,18 +59,21 @@
 						</label>
 						<div class="col-sm-3">
 							<input placeholder="FIRST NAME" type="text" id="firstname" name="firstname"
-								   ng-model="formData.firstname" class="form-control" ng-required="isFirstnameRequired"/>
-							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+							ng-pattern="/^[a-zA-Z\s]*$/"  ng-model="formData.firstname" class="form-control" ng-required="isFirstnameRequired"/>
+							<span class="error" ng-show="submitted && editclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+							<span class="error" ng-show="editclientform.firstname.$invalid">{{'label.only.text' | translate}}</span>
 						</div>
 						<div class="col-sm-3">
-							<input placeholder="MIDDLE NAME" type="text" id="middlename" name="firstname"
-								   ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
-							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+							<input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename"
+							ng-pattern="/^[a-zA-Z\s]*$/"  ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
+							<span class="error" ng-show="submitted && editclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+							<span class="error" ng-show="editclientform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 						</div>
 						<div class="col-sm-3">
-							<input placeholder="LAST NAME" type="text" id="lastname" name="firstname"
-								   ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
-							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+							<input placeholder="LAST NAME" type="text" id="lastname" name="lastname"
+							ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
+							<span class="error" ng-show="submitted && editclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+							<span class="error" ng-show="editclientform.lastname.$invalid">{{'label.only.text' | translate}}</span>
 						</div>
 					</div>
 				</div>

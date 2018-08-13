@@ -51,14 +51,13 @@
                 scope.finalOutstanding = scope.bssCurrentOutstanding - scope.totalPreclosureAmount;  
                 checkWorkFlowLoanStatus(scope.bankApprovalTemplateData.workflowLoanStatus.code);   
             }
-            if(scope.bankApprovalTemplateData.queryList){
-                var queryData = scope.bankApprovalTemplateData.queryList;
-                for(var i in scope.bankApprovalTemplateData.queryList){
-                    var queryData = scope.bankApprovalTemplateData.queryList[i];
-                    if(queryData.documentId){
-                        var querydocs = {};
-                        querydocs = API_VERSION + '/' + queryData.parentEntityType + '/' + queryData.queryId + '/documents/' + queryData.documentId + '/attachment?';
-                        scope.bankApprovalTemplateData.queryList[i].docUrl = querydocs;
+            if(scope.bankApprovalTemplateData.documentData){
+                for(var i in scope.bankApprovalTemplateData.documentData){
+                    var document = scope.bankApprovalTemplateData.documentData[i];
+                    if(document.id){
+                        var docUrl = {};
+                        docUrl = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+                        scope.bankApprovalTemplateData.documentData[i].docUrl = docUrl;
                     }
 
                 }
@@ -96,10 +95,13 @@
                 $modal.open({
                     templateUrl: 'raisequery.html',
                     controller: RaiseQueryCtrl,
-                    windowClass: 'modalwidth700',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
+                    size: 'lg',
                     resolve: {
                             queryParameterInfo: function () {
-                                return { 'approveId': approveId};
+                                return { 'approveId': approveId,
+                                         'bankEnquiries':scope.bankApprovalTemplateData.BankQueryTypeOptions};
                             }
                         }
                 });
@@ -107,16 +109,66 @@
             var RaiseQueryCtrl = function ($scope, $modalInstance, queryParameterInfo) {
 
                 $scope.bankApproveId = queryParameterInfo.approveId;
+                $scope.bankEnqiryOptions = queryParameterInfo.bankEnquiries;
                 $scope.queryFormData = {};
-                $scope.queryFormData.query = null;
-
+                $scope.available = null;
+                $scope.selected = null;
+                $scope.queryText = {};
+                $scope.availableQueries = [];
+                $scope.selectedQueries = [];
+                $scope.error = false;
                 $scope.cancelRaiseQuery = function () {
                     $modalInstance.dismiss('cancel');
                 };
+                $scope.availableQuery = function(){
+                    if($scope.bankEnqiryOptions){
+                        for(var i in $scope.bankEnqiryOptions){
+                            var queryObj = {};
+                            queryObj.queryId = $scope.bankEnqiryOptions[i].id;
+                            queryObj.query = $scope.bankEnqiryOptions[i].name;
+                            $scope.availableQueries.push(queryObj);
+                        }
+                    }
+                }
+                $scope.availableQuery();
+                $scope.checkOtherQuery = function(availableQueryId){
+                    $scope.showQueryText = false;
+                    for(var i in $scope.bankEnqiryOptions){
+                        if($scope.bankEnqiryOptions[i].id == availableQueryId && $scope.bankEnqiryOptions[i].systemIdentifier === "QUERY"){
+                            $scope.showQueryText = true;
+                        }
+                    }
+                }
+                $scope.addQuery = function(){
+                    if(this.available){
+                        $scope.error = false;
+                        for(var i in $scope.bankEnqiryOptions){
+                            if($scope.bankEnqiryOptions[i].id == this.available){
+                                var queryObj = {}
+                                queryObj.queryId = this.available;
+                                if($scope.bankEnqiryOptions[i].systemIdentifier === "QUERY"){
+                                    queryObj.query = this.queryText.description;
+                                    if(_.isUndefined(queryObj.query)){
+                                        $scope.error = true;
+                                        return false;
+                                    }
+                                }else{
+                                    queryObj.query = $scope.bankEnqiryOptions[i].name;
+                                }
+
+                                $scope.selectedQueries.push(queryObj);
+                                $scope.availableQueries.splice(i,1);
+                                $scope.showQueryText = false;
+                            }
+
+                        }
+                    }
+                }
 
                 $scope.submitQuery = function () {
-
-                    resourceFactory.taskClientLevelQueryResource.raiseQuery({bankApproveId:$scope.bankApproveId}, $scope.queryFormData, function (data) {
+                    $scope.queryFormData.queries = $scope.selectedQueries;
+                    $scope.activity = "query";
+                    resourceFactory.taskClientLevelQueryResource.raiseQuery({bankApproveId:$scope.bankApproveId,activity:$scope.activity}, $scope.queryFormData, function (data) {
                         $modalInstance.close('raisequery');
                         location.path('/workflowbankapprovallist');
                     });

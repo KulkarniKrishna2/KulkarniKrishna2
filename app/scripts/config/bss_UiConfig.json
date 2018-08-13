@@ -7,6 +7,11 @@
 		"browserSecurity": {
 			"isEnabledBrowserSecurity": true
 		},
+		"loanAccount": {
+			"isHiddenField": {
+				"canAddCharge" :false
+			}
+		},
 		"viewClient": {
 			"isHiddenField": {
 				"createClient": true,

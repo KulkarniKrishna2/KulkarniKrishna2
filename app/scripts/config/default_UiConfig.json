@@ -34,7 +34,8 @@
 				"creditApprisalReportButton": true,
 				"netDisbursalAmount": true,
 				"loanPurpose": false,
-				"preferredPaymentChannel": false
+				"preferredPaymentChannel": false,
+				"canAddCharge": true
 			},
 			"isMandatory": {
 				"externalId": false,

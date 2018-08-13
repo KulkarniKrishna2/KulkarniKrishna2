@@ -41,9 +41,11 @@
                                         if(clientLevelCriteriaObj.score == 5){
                                               scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                               scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                              scope.isAllClientFinishedThisTask = false;
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                            scope.isAllClientFinishedThisTask = false;
                                         }
                                     }
                               }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
@@ -94,6 +96,7 @@
                 $scope.shownidentityform = true;
                 $scope.shownFamilyMembersForm = true;
                 $scope.showLoanAccountForm = false;
+                $scope.showLoanProductList = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = false;
 
@@ -125,7 +128,7 @@
                 getClientData();
 
                 $scope.getLoanAccountFormDetails = function () {
-                    $scope.showLoanAccountForm = true;
+                    $scope.showLoanProductList = true;
                     $scope.clientId = $scope.clientId;
                     $scope.groupId = $scope.groupId;
                     $scope.restrictDate = new Date();
