@@ -96,6 +96,7 @@
                 $scope.shownidentityform = true;
                 $scope.shownFamilyMembersForm = true;
                 $scope.showLoanAccountForm = false;
+                $scope.showLoanProductList = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = false;
 
@@ -127,7 +128,7 @@
                 getClientData();
 
                 $scope.getLoanAccountFormDetails = function () {
-                    $scope.showLoanAccountForm = true;
+                    $scope.showLoanProductList = true;
                     $scope.clientId = $scope.clientId;
                     $scope.groupId = $scope.groupId;
                     $scope.restrictDate = new Date();

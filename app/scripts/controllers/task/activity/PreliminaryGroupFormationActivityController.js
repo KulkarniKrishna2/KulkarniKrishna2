@@ -477,8 +477,9 @@
                 $scope.showaddressform = false;
                 $scope.shownidentityform = false;
                 $scope.shownFamilyMembersForm = false;
-                $scope.showLoanAccountForm = false;
+                $scope.showLoanAccountForm = true;
                 $scope.isLoanAccountExist = false;
+                $scope.showLoanProductList = false;
                 $scope.showOnlyLoanTab = true;
                 var UPFRONT_FEE = 'upfrontFee';
                 $scope.displayCashFlow = false;
