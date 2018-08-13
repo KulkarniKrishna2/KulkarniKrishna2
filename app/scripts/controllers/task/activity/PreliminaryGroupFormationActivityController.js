@@ -472,6 +472,7 @@
             }
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = false;
