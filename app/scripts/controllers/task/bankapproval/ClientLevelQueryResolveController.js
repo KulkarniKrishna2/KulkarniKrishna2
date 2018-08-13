@@ -5,13 +5,15 @@
             scope.trackerId = routeParams.trackerId;
             scope.bankApprovalId = routeParams.workflowBankApprovalId;
             scope.resolveFormData = {};
-            scope.resolveFormData.queryResolution = null;
             scope.clientImagePresent = false;
+            scope.formData = {};
+            scope.file = {};
+            scope.entityType = "bank_odu_query";
+            scope.isAllowFlieUpload= false;
 
             //get template
             resourceFactory.taskClientLevelQueryResolveTemplateResource.get({trackerId : scope.trackerId}, function (data) {
                 scope.queryResolveTemplateData = data;
-                scope.queryId = scope.queryResolveTemplateData.queryId;
                 if(scope.queryResolveTemplateData != undefined){
                     scope.cbCriteriaResult = JSON.parse(scope.queryResolveTemplateData.clientLevelCriteriaResultData.ruleResult);     
                 }
@@ -22,19 +24,38 @@
 
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
+                if($files[0].size >0){
+                    scope.isAllowFlieUpload= true;
+                }
             };
 
 
-            scope.submit = function (approveId) {
-                $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION + '/tasktracking/bankapproval/' + scope.bankApprovalId + '/query/' + scope.queryId,
-                    data: {'data' : scope.resolveFormData} ,
-                    file: scope.file
-                }).then(function (data) {
-                    location.path('/workflowbankapprovallist');
+            scope.submit = function () {
+                scope.resolveFormData.queryResolutions = []
+                for(var i in scope.queryResolveTemplateData.queries){
+                    var resolveObj = {};
+                    resolveObj.queryId = scope.queryResolveTemplateData.queries[i].id;
+                    resolveObj.queryResolution = scope.queryResolveTemplateData.queries[i].queryResolution;
+                    scope.resolveFormData.queryResolutions.push(resolveObj);
+                }
+                scope.activity = "resolvequery";
+                resourceFactory.taskClientLevelQueryResource.resolveQuery({bankApproveId:scope.bankApprovalId, activity: scope.activity}, scope.resolveFormData, function (data) {
+                    if(scope.isAllowFlieUpload){
+                        scope.formData.name = "file";
+                        $upload.upload({
+                            url: $rootScope.hostUrl + API_VERSION + '/'+scope.entityType+'/' + scope.bankApprovalId + '/documents',
+                            data: scope.formData,
+                            file: scope.file
+                        }).then(function (filedata) {
+                            location.path('/workflowbankapprovallist');
+                        });
+                    }else{
+                        location.path('/workflowbankapprovallist');
+                    }
+
                 });
-                
-            }    
+
+            }
 
             scope.viewMoreDetails = function(trackerId, workflowBankApprovalId){
                 location.path("/workflowbankapprovalaction/"+ trackerId +'/'+workflowBankApprovalId);

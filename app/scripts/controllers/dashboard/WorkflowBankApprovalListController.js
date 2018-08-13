@@ -81,10 +81,8 @@
 
             scope.goToBankApprovalView = function (bankApproveObj, groupingType) {
                 if(bankApproveObj != undefined){
-                    if(groupingType == 'ManualApprove'){
+                    if(groupingType == 'ManualApprove' || groupingType == 'SystemApprove'){
                          location.path('/workflowbankapprovalaction/' + bankApproveObj.trackerId + '/' + bankApproveObj.bankApproveId);
-                    }else if(groupingType == 'SystemApprove'){
-
                     }else if(groupingType == 'QueryResolve'){
                          location.path('/clientlevelqueryresolve/' + bankApproveObj.trackerId + '/' + bankApproveObj.bankApproveId);
                     }

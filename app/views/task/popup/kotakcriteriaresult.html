@@ -1,15 +1,15 @@
 <div class="modal-header silver">
     <h3 class="bolder">
-        {{'label.heading.cb.criteria.result' | translate}}
+        {{'label.heading.kotak.criteria.result' | translate}}
         <i class="icon-remove pointer pull-right" ng-click="close()"></i>
     </h3>
 </div>
 <div class="modal-body well">
-    <span class="badge {{ 'bucket'+cbCriteriaResult.output.value | StatusLookup}}">{{cbCriteriaResult.output.value}}</span>
-    {{cbCriteriaResult.output.bucket}}&nbsp;[{{cbCriteriaResult.name}}]
-    <span ng-if="cbCriteriaResult.output.error"> - {{cbCriteriaResult.output.error}}</span>
+    <span class="badge {{ 'bucket'+kotakCriteriaResult.output.value | StatusLookup}}">{{kotakCriteriaResult.output.value}}</span>
+    {{kotakCriteriaResult.output.bucket}}&nbsp;[{{kotakCriteriaResult.name}}]
+    <span ng-if="kotakCriteriaResult.output.error"> - {{kotakCriteriaResult.output.error}}</span>
     <ul>
-        <li ng-repeat="dimensionResult in cbCriteriaResult.ruleResultHierarchy">
+        <li ng-repeat="dimensionResult in kotakCriteriaResult.ruleResultHierarchy">
             <span class="badge {{ 'bucket'+dimensionResult.output.value | StatusLookup}}">{{dimensionResult.output.value}}</span>
             {{dimensionResult.output.bucket}}&nbsp;[{{dimensionResult.name}}]
             <span ng-if="dimensionResult.output.error">

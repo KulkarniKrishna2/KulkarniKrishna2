@@ -6,7 +6,7 @@
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
-                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview,workflowloanstatus' }, function (data) {
+                resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,kotakapprovalcriteria,loanproposalreview,workflowloanstatus' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
@@ -242,6 +242,28 @@
                     });
                 };
 
+            }
+            //Kotak approval critieria result view
+            scope.openViewKotakCriteriaResult = function(criteriaResult){
+                var templateUrl = 'views/task/popup/kotakcriteriaresult.html';
+                $modal.open({
+                    templateUrl: templateUrl,
+                    controller: viewKotakCriteriaResultCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'criteriaResult': criteriaResult };
+                        }
+                    }
+                });
+            }
+
+            var viewKotakCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.kotakCriteriaResult = JSON.parse(memberParams.criteriaResult);
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
             }
 
             scope.hideClient = function(activeClientMember){
