@@ -48,7 +48,8 @@
         }
       },
       "isMandatoryField": {
-        "dateOfBirth": true
+        "dateOfBirth": true,
+        "mobileNumber":true
       }
     },
     "viewGroup":{
