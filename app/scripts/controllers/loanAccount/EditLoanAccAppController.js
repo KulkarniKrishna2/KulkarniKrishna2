@@ -281,6 +281,20 @@
                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.amountForUpfrontCollection ;
             }
 
+            scope.changePledge = function(pledgeId){
+                resourceFactory.pledgeResource.get({'pledgeId' : pledgeId,association: 'collateralDetails'}, function(data){
+                    scope.formData.pledgeId = pledgeId;
+                    scope.pledge = data;
+                    scope.formData.collateralUserValue = data.userValue;
+                });
+            };
+
+            scope.getProductPledges = function(data){
+                scope.pledges = data.loanProductCollateralPledgesOptions;
+                scope.formData.pledgeId = data.pledgeId;
+                scope.changePledge(scope.formData.pledgeId);
+            };
+            
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
                 if(data.loanEMIPackData){
@@ -350,6 +364,7 @@
                     });
                 }
 
+                scope.getProductPledges(scope.loanaccountinfo);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
                     scope.collateralOptions = data.loanCollateralOptions || [];
@@ -393,10 +408,11 @@
                 scope.formData.loanPurposeId = data.loanPurposeId;
                 if(data.loanPurposeId){
                     resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
-                    scope.formData.loanPurposeId = data.loanPurposeId;
-                    scope.loanPurposeGroups = loanPurposeGroupsdata;
-                    scope.getParentLoanPurpose(data.loanPurposeId);
-                });
+                        scope.formData.loanPurposeId = data.loanPurposeId;
+                        scope.loanPurposeGroups = loanPurposeGroupsdata;
+                        scope.getParentLoanPurpose(data.loanPurposeId);
+                    });
+                }
                 scope.formData.externalId = data.externalId;
 
                 //update collaterals
@@ -408,7 +424,7 @@
 
                 scope.previewClientLoanAccInfo();
 
-            };
+            });
 
             scope.getParentLoanPurpose = function (loanPurposeId) {
                 if(scope.loanPurposeGroups && scope.loanPurposeGroups.length>0){
@@ -844,27 +860,6 @@
                 }
                 scope.isAllLoanToClose = isAll;
             };
-
-            scope.getProductPledges = function(data){
-                scope.pledges = data.loanProductCollateralPledgesOptions;
-                scope.formData.pledgeId = data.pledgeId;
-                scope.changePledge(scope.formData.pledgeId);
-            };
-
-            scope.changePledge = function(pledgeId){
-                resourceFactory.pledgeResource.get({'pledgeId' : pledgeId,association: 'collateralDetails'}, function(data){
-                    scope.formData.pledgeId = pledgeId;
-                    scope.pledge = data;
-                    scope.formData.collateralUserValue = data.userValue;
-                });
-            };
-
-            scope.getProductPledges = function(data){
-                scope.pledges = data.loanProductCollateralPledgesOptions;
-                scope.formData.pledgeId = data.pledgeId;
-                scope.changePledge(scope.formData.pledgeId);
-            };
-            scope.getProductPledges(scope.loanaccountinfo);
 
             scope.cancel = function () {
                 location.path('/viewloanaccount/' + routeParams.id);
