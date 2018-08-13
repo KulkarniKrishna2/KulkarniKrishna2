@@ -702,7 +702,7 @@
 					</div>
 				</tab>
 
-				<tab heading="{{'label.heading.accounts' | translate}}">
+				<tab heading="{{'label.heading.accounts' | translate}}" ng-if="!showLoanAccountForm">
 					<div>
 						<div class="pull-right" ng-if="!showLoanAccountForm && !isLoanAccountExist">
 							<a href="" ng-click="getLoanAccountFormDetails()" class="btn btn-primary" has-permission='CREATE_LOAN'>
@@ -710,7 +710,7 @@
 								{{'label.button.add'|translate}}
 							</a>
 						</div>
-						<div ng-if="showLoanAccountForm">
+						<div ng-show="showLoanProductList">
 							<api-validate></api-validate>
 							<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()" class="form-horizontal well">
 								<fieldset>
