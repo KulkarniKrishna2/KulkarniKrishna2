@@ -102,7 +102,7 @@
 								<i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
 							<a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_CENTER'>
 								<i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
-							<button class="btn btn-primary" ng-click="addgroup()" ng-disabled="exceedMaxLimit" has-permission='CREATE_GROUP'>
+							<button class="btn btn-primary" ng-click="addgroup()" ng-disabled="exceedMaxLimit" has-permission='CREATE_GROUP' ng-show="canCreateSubGroup">
 								<i class="icon-plus-sign-alt icon-white"></i>{{ 'addgroup' | translate }}</button>
 							<a href="#/managegroupmembers/{{center.id}}" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER' ng-hide="isHideCreateEntity">
 								<i class="icon-edit icon-white"></i>{{'label.button.managegroups' | translate }}</a>
@@ -215,7 +215,7 @@
 												<span ng-if="!isHideReferenceNumber">{{client.referenceNumber}}| </span><span ng-if="!isHideAccountNumber">{{client.accountNo}}-</span>{{client.displayName}}
 											</th>
 											<td align="center" colspan="3">
-												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)" ng-disabled="isHideJlgLoan"><i
+												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)" ng-hide="isHideJlgLoan"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
                                             <td ng-if="isLoanApplication">

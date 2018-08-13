@@ -18,6 +18,8 @@
             scope.isShowMeetingDetails = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.meeting;
             scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
             scope.isHideCreateEntity = false;
+            scope.isShowTransferClients=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.transferClients;
+            scope.isClientCreationEnabled=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;
             }

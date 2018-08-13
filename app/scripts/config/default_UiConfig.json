@@ -323,7 +323,9 @@
 		    "accountNo":false,
 		  "referenceNo": true,
 			"meeting": false,
-			"groupName": false
+			"groupName": false,
+			"transferClients":true,
+			"canAddClients":true
 	  	},
 	    "isReadOnlyField" :{
 		  "groupName" : false,
@@ -378,7 +380,8 @@
 	  "isHiddenField": {
 		"accountNo" : false,
 		"referenceNo": true,
-		"unassignStaffCenter": false
+		"unassignStaffCenter": false,
+		"canCreateSubGroups":true
 	  }
 	},
 	"createOffice":{

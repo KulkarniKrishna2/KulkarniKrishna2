@@ -21,6 +21,7 @@
             scope.showProductShortName = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.showProductShortName;
             scope.showUnAssignStaffButton = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.unassignStaffCenter;
             scope.isHideCreateEntity = false;
+            scope.canCreateSubGroup=scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
