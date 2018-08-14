@@ -215,6 +215,7 @@
                 $scope.isStaffMandatory = false;
                 $scope.isStaffRequired = false;
                 $scope.restrictDate = new Date();
+                $scope.isMaritalStatusMandatory=true;
 
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -249,7 +250,9 @@
                     if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff) {
                         $scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
                     }
-
+                    if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.maritalStatus) {
+                        $scope.isMaritalStatusMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.maritalStatus;
+                    }
                 }
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isMandatoryField.gender) {
