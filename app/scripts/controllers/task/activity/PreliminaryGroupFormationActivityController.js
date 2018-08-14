@@ -199,7 +199,8 @@
                 $scope.clientPersonId = 1;
                 $scope.restrictDate = new Date();
                 $scope.isDateOfBirthMandatory = false;
-                $scope.enableCreateClientLoop = false;
+                $scope.uiData = {};
+                $scope.uiData.enableCreateClientLoop = false;
                 $scope.isClientActive = false;
                 $scope.hideClientClassification = false;
                 $scope.isClientClassificationMandatory = false;
@@ -297,8 +298,8 @@
                     scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
                     $scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
                 }
-                $scope.getMemberTemplate = function () {
 
+                $scope.getMemberTemplate = function () {
                     var requestParams = { 'staffInSelectedOfficeOnly': true };
                     if (groupParameterInfo.groupId) {
                         requestParams.groupId = groupParameterInfo.groupId;
@@ -306,62 +307,70 @@
                     if (groupParameterInfo.officeId) {
                         requestParams.officeId = groupParameterInfo.officeId;
                     }
-                    resourceFactory.clientTemplateResource.get(requestParams, function (data) {
-                        $scope.offices = data.officeOptions;
-                        $scope.staffs = data.staffOptions;
-                        $scope.formData.officeId = $scope.offices[0].id;
-                        $scope.savingproducts = data.savingProductOptions;
-                        $scope.genderOptions = data.genderOptions;
-                        $scope.clienttypeOptions = data.clientTypeOptions;
-                        $scope.clientClassificationOptions = data.clientClassificationOptions;
-                        $scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
-                        $scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
-                        $scope.clientLegalFormOptions = data.clientLegalFormOptions;
-                        $scope.formData.legalFormId = $scope.clientLegalFormOptions[0].id;
-                        $scope.isWorkflowEnabled = data.isWorkflowEnabled;
-                        $scope.maritalStatusOptions = data.maritalStatusOptions;
-                        $scope.formData.active = true;
+                    if($scope.clientTemplateData==undefined){
+                        resourceFactory.clientTemplateResource.get(requestParams, function (data) {
+                            $scope.clientTemplateData = data;
+                            $scope.getMemberTemplateSettings();
+                        });
+                    }else{
+                        $scope.getMemberTemplateSettings();
+                    }
+                }
 
-                        if ($scope.genderOptions[0]) {
-                            $scope.formData.genderId = $scope.genderOptions[0].id;
-                        }
-                        if (scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active) {
-                            $scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
-                            $scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
-                            $scope.choice = 1;
-                        } else {
-                            $scope.choice = 0;
+                $scope.getMemberTemplateSettings = function () {
+                    var data = $scope.clientTemplateData;
+                    $scope.offices = data.officeOptions;
+                    $scope.staffs = data.staffOptions;
+                    $scope.formData.officeId = $scope.offices[0].id;
+                    $scope.savingproducts = data.savingProductOptions;
+                    $scope.genderOptions = data.genderOptions;
+                    $scope.clienttypeOptions = data.clientTypeOptions;
+                    $scope.clientClassificationOptions = data.clientClassificationOptions;
+                    $scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
+                    $scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
+                    $scope.clientLegalFormOptions = data.clientLegalFormOptions;
+                    $scope.formData.legalFormId = $scope.clientLegalFormOptions[0].id;
+                    $scope.isWorkflowEnabled = data.isWorkflowEnabled;
+                    $scope.maritalStatusOptions = data.maritalStatusOptions;
+                    $scope.formData.active = true;
 
-                        }
-                        $scope.formData.dateOfBirth = scope.dateOfBirth;
-                        $scope.formData.clientClassificationId = scope.clientClassificationId;
+                    if ($scope.genderOptions[0]) {
+                        $scope.formData.genderId = $scope.genderOptions[0].id;
+                    }
+                    if (scope.response != undefined && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active) {
+                        $scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                        $scope.formData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                        $scope.choice = 1;
+                    } else {
+                        $scope.choice = 0;
 
-                        if (data.savingProductOptions.length > 0) {
-                            $scope.showSavingOptions = true;
-                        }
-                        if (groupParameterInfo.officeId) {
-                            $scope.formData.officeId = groupParameterInfo.officeId;
-                            for (var i in data.officeOptions) {
-                                if (data.officeOptions[i].id == groupParameterInfo.officeId) {
-                                    $scope.forceOffice = data.officeOptions[i];
-                                    break;
-                                }
+                    }
+                    $scope.formData.dateOfBirth = scope.dateOfBirth;
+                    $scope.formData.clientClassificationId = scope.clientClassificationId;
+
+                    if (data.savingProductOptions.length > 0) {
+                        $scope.showSavingOptions = true;
+                    }
+                    if (groupParameterInfo.officeId) {
+                        $scope.formData.officeId = groupParameterInfo.officeId;
+                        for (var i in data.officeOptions) {
+                            if (data.officeOptions[i].id == groupParameterInfo.officeId) {
+                                $scope.forceOffice = data.officeOptions[i];
+                                break;
                             }
                         }
-                        if (groupParameterInfo.groupId) {
-                            $scope.formData.groupId = groupParameterInfo.groupId;
-                        }
-                        /*if(routeParams.staffId) {
-                            for(var i in $scope.staffs) {
-                                if (scope.staffs[i].id == routeParams.staffId) {
-                                    scope.formData.staffId = scope.staffs[i].id;
-                                    break;
-                                }
+                    }
+                    if (groupParameterInfo.groupId) {
+                        $scope.formData.groupId = groupParameterInfo.groupId;
+                    }
+                    /*if(routeParams.staffId) {
+                        for(var i in $scope.staffs) {
+                            if (scope.staffs[i].id == routeParams.staffId) {
+                                scope.formData.staffId = scope.staffs[i].id;
+                                break;
                             }
-                        }*/
-
-                    });
-
+                        }
+                    }*/
                 };
 
                 $scope.getMemberTemplate();
@@ -439,8 +448,16 @@
                     if (!$scope.dateOfBirthNotInRange || !$scope.invalidClassificationId) {
 
                         resourceFactory.clientResource.save($scope.formData, function (data) {
-                            $modalInstance.close('createmember');
-                            $route.reload();
+                            if(!$scope.uiData.enableCreateClientLoop){
+                                $route.reload();
+                                $modalInstance.close('createmember');
+                            }else{
+                                $scope.newClientId = data.clientId;
+                                $scope.uiData.enableCreateClientLoop = false;
+                                $scope.first.dateOfBirth=undefined;
+                                $scope.formData = {};
+                                $scope.getMemberTemplateSettings();
+                            }
                             scope.reComputeProfileRating(data.clientId);
                         });
                     }

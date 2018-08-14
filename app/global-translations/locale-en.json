@@ -429,6 +429,7 @@
     "label.select":"Select an Option",
     "label.copyright":"Copyright © ",
     "label.conflux.technologies":" Conflux Technologies",
+    "label.alert.member.create.message":"Member created successfully with Id #",
    
     "#Tab Messages":"..",
     "label.tab.myworkflowtasks":"My Workflow Tasks",
