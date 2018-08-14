@@ -412,7 +412,12 @@
 					                <th class="table-bold">{{ 'label.input.mobilenumber' | translate }}</th>
 					                <td><span class="padded-td">{{client.mobileNo}}</span>
 					                </td>
-					            </tr>
+								</tr>
+								<tr data-ng-show="client.alternateMobileNo">
+										<th class="table-bold">{{ 'label.input.alternate.mobilenumber' | translate }}</th>
+										<td><span class="padded-td">{{client.alternateMobileNo}}</span>
+										</td>
+								</tr>
 					            <tr data-ng-show="client.emailId">
 					                <th class="table-bold">{{ 'label.input.email' | translate }}</th>
 					                <td>{{client.emailId}}

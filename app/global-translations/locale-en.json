@@ -914,6 +914,7 @@
     "label.button.getfingerprint": "Get Finger print",
     "label.button.viewguarantees": "View Guarantees",
     "label.heading.uploadedDate": "uploaded Date",
+    "label.input.alternate.mobilenumber":"Alternate Mobile No.",
 
     "#Enumeration & Error Messages": "..",
     "client.search.not.allowed": "Not Allowed to Use Client Search.",
