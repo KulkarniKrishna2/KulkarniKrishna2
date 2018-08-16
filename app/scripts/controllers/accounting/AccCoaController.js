@@ -30,6 +30,10 @@
                     classificationType: scope.classification,
                     companyCode:scope.companyCode
                 };
+                if(scope.searchText){
+                    var searchString = scope.searchText.replace(/(^"|"$)/g, '');
+                    searchParams.searchParam = searchString.trim().replace(" ", "%");
+                }
                 resourceFactory.accountCoaResource.getAllAccountCoasPage(searchParams, function (data) {
                     scope.totalAccounts = data.totalFilteredRecords;
                     scope.coadatasList = data.pageItems;
@@ -46,6 +50,10 @@
                     usage: scope.usageType,
                     classificationType: scope.classification
                 };
+                if(scope.searchText){
+                    var searchString = scope.searchText.replace(/(^"|"$)/g, '');
+                    searchParams.searchParam = searchString.trim().replace(" ", "%");
+                }
                 var items = resourceFactory.accountCoaResource.getAllAccountCoasPage(searchParams, function (data) {
                     scope.coadatasList = data.pageItems;
 
