@@ -493,6 +493,7 @@
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
                 $scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
+                $scope.response = scope.response;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = false;
@@ -808,7 +809,7 @@
                         $scope.documenttypes = data.allowedDocumentTypes;
                         $scope.identityFormData.documentTypeId = data.allowedDocumentTypes[0].id;
                         $scope.statusTypes = data.clientIdentifierStatusOptions;
-                        $scope.identityFormData.status = $scope.statusTypes[1].id;
+                        
                         if (data.clientIdentifierStatusOptions && scope.response &&
                             scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status) {
                             $scope.identityFormData.status = data.clientIdentifierStatusOptions[1].id;
