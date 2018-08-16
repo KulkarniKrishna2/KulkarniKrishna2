@@ -133,7 +133,8 @@
 	    "clientIdentifier": {
 		  "hiddenFields": {
 			"documentExpiryDate": true,
-			"documentIssueDate":true
+			"documentIssueDate":true,
+			"status":true
 		  }
 		}
 	}

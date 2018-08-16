@@ -23,7 +23,7 @@
             </div>
 
             <div ng-hide="response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status"  class="form-group">
-                <label class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}<span
+                <label  class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}<span
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
@@ -33,19 +33,19 @@
                     </select>
                 </div>
             </div>
-             <div class="form-group">
+             <div ng-hide="isHideDocumentIssueDate" class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.issueddate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="dd MMMM yyyy"
+                    <input  id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="dd MMMM yyyy"
                            ng-model="first.documentIssueDate" is-open="opened1" class="form-control"/>
                 </div>
             </div>
-            <div class="form-group">
+            <div ng-hide="isHideDocumentExpiryDate" class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.expirydate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="dd MMMM yyyy"
+                    <input  id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="dd MMMM yyyy"
                            ng-model="first.documentExpiryDate" is-open="opened1" class="form-control"/>
                 </div>
             </div>
