@@ -56,10 +56,17 @@
             </select>
             </td>
             </tr>
-        <tr>
+        <td>
+            <label class="control-label " > {{'label.account.name.gl.code' | translate}}</label>
+        </td>
+        <td>
+            <input ng-model="searchText" type="text"  class="form-control" placeholder="{{'label.account.name.gl.code' | translate}}">
+        </td>     
+    </tr>
+    <tr>
        <td><a ng-click="searchAccounts()" class="btn btn-primary btn-lg btn-space pull-left btn-toolbar">Search<i class="icon-search icon-white"></i></a>
         </td>
-        </tr>
+    </tr>
     </table>
     <div ng-if="coadatasList && !isTreeView">
         <!--<input ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control marginbottom0px" placeholder="{{'label.input.filterbyAccountGlcodeAccounttype' | translate}}">-->
