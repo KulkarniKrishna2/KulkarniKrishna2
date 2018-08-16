@@ -144,6 +144,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/CreatePaymentTypeController',
             'organization/EditPaymentTypeController',
             'organization/OverdueChargeController',
+            'organization/CreateOfficeAddressController',
+            'organization/EditOfficeAddressController',
             'accounting/provisioning/CreateProvisoningEntriesController',
             'accounting/provisioning/ViewProvisioningEntryController',
             'accounting/provisioning/ViewAllProvisoningEntriesController',

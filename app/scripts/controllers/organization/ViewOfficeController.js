@@ -3,7 +3,7 @@
         ViewOfficeController: function (scope, routeParams, route, location, resourceFactory, $rootScope, $modal) {
             scope.charges = [];
             scope.sections = [];
-            
+            scope.enableOfficeAddress = scope.isSystemGlobalConfigurationEnabled('enable-office-address');
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
                 scope.office = data;
                 $rootScope.officeName = data.name;
@@ -163,6 +163,40 @@
                 resourceFactory.officeResource.save({officeId: officeId, command: 'initiateWorkflow'},{}, function (data) {
                     location.path('/officeworkflow/'+data.resourceId+'/workflow');
                 });
+            };
+            
+            scope.entityAddressLoaded = false;
+            scope.fetchEntityAddress = function () {
+                if(!scope.entityAddressLoaded) {
+                    scope.entityType = "offices";
+                    resourceFactory.addressDataResource.getAll({entityType: scope.entityType, entityId: routeParams.id}, function (response) {
+                        if (response != null) {
+                            scope.addressData = response;
+                        }
+                    });
+                    scope.entityAddressLoaded = true;
+                }
+            };
+            scope.deleteAddress = function (addressId) {
+                scope.addressId = addressId;
+                $modal.open({
+                    templateUrl: 'deleteaddress.html',
+                    controller: AddressDeleteCtrl
+                });
+            };
+
+            var AddressDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.entityAddressResource.delete({entityType: scope.entityType, entityId: routeParams.id, addressId: scope.addressId}, function (response) {
+                        $modalInstance.close('delete');
+                        if(response != null) {
+                            route.reload();
+                        }
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
         }
 
