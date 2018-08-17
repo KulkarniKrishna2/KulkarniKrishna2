@@ -7,6 +7,7 @@
 
             resourceFactory.eodProcessTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
+                scope.formData.officeId=scope.offices[0].id;
             });
 
             scope.submit = function(){
