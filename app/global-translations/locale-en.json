@@ -437,6 +437,7 @@
     "label.copyright":"Copyright © ",
     "label.conflux.technologies":" Conflux Technologies",
     "kycAddress" : "KYC Address",
+    "label.alert.member.create.message":"Member created successfully with Id #",
    
     "#Tab Messages":"..",
     "label.tab.myworkflowtasks":"My Workflow Tasks",
@@ -922,6 +923,7 @@
     "label.button.getfingerprint": "Get Finger print",
     "label.button.viewguarantees": "View Guarantees",
     "label.heading.uploadedDate": "uploaded Date",
+    "label.input.alternate.mobilenumber":"Alternate Mobile No.",
 
     "#Enumeration & Error Messages": "..",
     "client.search.not.allowed": "Not Allowed to Use Client Search.",

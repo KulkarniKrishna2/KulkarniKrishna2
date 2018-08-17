@@ -1,8 +1,5 @@
 <div ng-controller="CGTBasicActivityController">
 	<div>
-		<api-validate></api-validate>
-	</div>
-	<div>
 	<table class="table" width="100%">
 	<tr>
 	<td class="col-md-2">
@@ -34,14 +31,14 @@
 					<th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
-					<th class="col-md-1"></th>
+					<th class="col-md-1" data-ng-hide="true"></th>
 					<th class="col-md-2" data-ng-hide="true">{{'label.heading.keyah' | translate}}</th>
-					<th class="col-md-2"></th>
+					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup">
 					<tr  class="background-gold">
-						<td colspan="10">
+						<td colspan="9">
 							<span>{{groupMember.fcsmNumber}}</span>
 						</td>
 						<td calss="col-md-1">
@@ -70,7 +67,7 @@
 						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
 						<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount | number}} &nbsp;</span></td>
 						<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount | number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount | number}} &nbsp;</span></td>
-						<td class="col-md-1"><a ng-show="activeClientMember.loanAccountBasicData.documentId" target="_blank" ng-click="download(activeClientMember)"><i class="icon-cloud-download"></i></a>
+						<td class="col-md-1" data-ng-hide="true"><a ng-show="activeClientMember.loanAccountBasicData.documentId" target="_blank" ng-click="download(activeClientMember)"><i class="icon-cloud-download"></i></a>
 							<a ng-show="activeClientMember.loanAccountBasicData.documentId" ng-click="reGenerateDocument(activeClientMember)"><i class="icon-repeat"></i></a>
                       		<a  ng-click="generateDocument(activeClientMember)" tooltip="{{'label.tooltip.generate.document' | translate}}" ng-hide="activeClientMember.loanAccountBasicData.documentId"><i class="icon-link"></i></a></td>
 

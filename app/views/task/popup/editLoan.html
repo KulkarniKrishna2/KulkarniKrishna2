@@ -8,8 +8,8 @@
 	<div class="modal-body well">
 		<div class="margin-plus-10px">
 			<div ng-if="showLoanAccountForm">
-				<api-validate></api-validate>
-				<form name="newloanaccountform" novalidate="" rc-submit="newLoanAccountSubmit()">
+				<form name="newloanaccountform" novalidate="" rc-submit="EditLoanAccountSubmit()">
+					<api-validate></api-validate>
 					<fieldset>
 						<div class="form-group">
 							<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
@@ -27,7 +27,7 @@
 							</div>
 							<div class="col-sm-4"></div>
 						</div>
-						<br></br>
+						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<label class="control-label col-sm-2">
 								{{ 'label.input.loanpurpose' | translate }}
@@ -35,7 +35,7 @@
 							</label>
 							<div class="col-sm-3">
 								<select id="loanPurposeId" name="loanPurposeId" ng-model="editLoanAccountdata.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-								    class="form-control" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+								    class="form-control" value="{{loanPurpose.id}}" ng-required="isLoanPurposeRequired">
 									<option value="">{{'label.selectpurpose' | translate}}</option>
 								</select>
 							</div>
@@ -44,7 +44,7 @@
 							</div>
 							<div class="col-sm-4"></div>
 						</div>
-						<br></br>
+						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<div>
 								<label class="control-label col-sm-2">
@@ -90,7 +90,7 @@
 								</table>
 							</div>
 						</div>
-						<br></br>	
+						<br>
 						<div class="form-group">
 							<table>
 								<tr class="paddedbottom10">
@@ -148,16 +148,16 @@
 								</td>
 							</tr>
 						</table>
-			</div>
-			<div class="col-md-offset-5 paddedleft">
-				<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
-					{{'label.button.cancel'|translate}}</a>
-				<a id="save" ng-click="EditLoanAccountSubmit()" type="submit" class="btn btn-primary">
-					{{'label.button.save' |translate}}</a>
-			</div>
-			</fieldset>
-			</form>
-		</div>
-	</div>
-</div>
+
+						<div class="col-md-offset-5 paddedleft">
+							<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
+								{{'label.button.cancel'|translate}}</a>
+							<button id="save" type="submit" class="btn btn-primary">
+								{{'label.button.save' |translate}}</button>
+						</div>
+			        </fieldset>
+			    </form>
+		    </div>
+	    </div>
+    </div>
 </div>

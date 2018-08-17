@@ -176,11 +176,11 @@
 								  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
 								  			</a>
 								  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
-									            <button class="btn btn-primary pull-right" ng-click="addMember()" ng-disabled="exceedMaxLimit" has-permission='CREATE_CLIENT'>
+									            <button class="btn btn-primary pull-right" ng-click="addMember()" ng-disabled="exceedMaxLimit" has-permission='CREATE_CLIENT' ng-show="isClientCreationEnabled">
 									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</button>
 									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP' ng-hide="isHideCreateEntity">
 									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
-									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>
+									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP' ng-show="isShowTransferClients">
 									                <i class="icon-arrow-right icon-white"></i>{{'label.button.transferclients' | translate }}</a>
 									        </div>
 									        <table class="table table-condensed marginbottom0" style="display:inline-table;">
@@ -202,7 +202,7 @@
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
 										                </td>
 										                <td>
-															<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)" ng-disabled="isHideJlgLoan"><i
+															<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)" ng-hide="isHideJlgLoan"><i
 																	class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
 
 														</td>

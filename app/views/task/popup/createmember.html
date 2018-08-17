@@ -10,7 +10,9 @@
 			<api-validate></api-validate>
 			<div>
 				<form name="creatememberform" novalidate="" class="form-horizontal well" rc-submit="submit()">
-					<fieldset>
+						<div class="alert alert-success" role="alert" ng-show="newClientId">{{'label.alert.member.create.message' | translate}}:<a ng-href="#/viewclient/{{newClientId}}">{{newClientId}}</a></div>
+						<api-validate></api-validate>
+						<fieldset>
 						<div class="form-group">
 							<label class="control-label col-sm-2">
 								{{'label.input.office' | translate}}
@@ -141,12 +143,12 @@
 							<div data-ng-switch on="showNonPersonOptions">
 								<div data-ng-switch-when="false">
 									<label class="control-label col-sm-2">{{'label.input.marital.status' | translate}}
-										<span ng-show="isElemMandatoryField('maritalStatus')" class="required">*</span>
+										<span ng-show="isMaritalStatusMandatory" class="required">*</span>
 									</label>
 
 									<div class="col-sm-3">
 										<select id="maritalStatusId" ng-model="formData.maritalStatusId" name="maritalStatus" class="form-control" ng-options="maritalStatus.id as maritalStatus.name for maritalStatus in maritalStatusOptions"
-										 value="{{maritalStatus.id}}" ng-required="isElemMandatoryField('maritalStatus')">
+										 value="{{maritalStatus.id}}" ng-required="isMaritalStatusMandatory">
 											<option value="">{{'label.menu.marital.status' | translate}}
 											</option>
 										</select>
@@ -312,8 +314,9 @@
 						<div class="col-md-offset-5">
 							<a id="cancel" ng-click="cancel()" class="btn btn-default">
 								{{'label.button.cancel' | translate}}</a>
-							<button id="save" type="submit" ng-click="submitted=true" class="btn btn-primary" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}
-							</button>
+							<button id="save" type="submit" ng-click="submitted=true" class="btn btn-primary" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
+							<button id="saveandcontinue" type="submit" ng-click = "uiData.enableCreateClientLoop = true" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT' >{{'label.button.save.enableCreateClientLoop' | translate}}</button>
+							<button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
 						</div>
 					</fieldset>
 				</form>

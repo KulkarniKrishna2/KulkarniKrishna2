@@ -50,7 +50,7 @@
 			},
 			"isMandatoryField": {
 				"dateOfBirth": true,
-				"maritalStatus":false,
+				"maritalStatus":true,
 			    "addressType":true
 			},
 			"isValidMobileNumber":{
@@ -82,7 +82,9 @@
 				"accountNo": true,
 				"referenceNo": false,
 				"meeting": true,
-				"groupName": true
+				"groupName": true,
+				"transferClients":false,
+				"canAddClients":false
 			},
 		    "isReadOnlyField" :{
 			 "groupName" : true,
@@ -93,7 +95,8 @@
 			"isHiddenField": {
 				"accountNo": true,
 				"referenceNo": false,
-			  	"unassignStaffCenter": true
+				  "unassignStaffCenter": true,
+				  "canCreateSubGroups":false
 			}
 		},
 		"createOffice": {
@@ -133,7 +136,8 @@
 	    "clientIdentifier": {
 		  "hiddenFields": {
 			"documentExpiryDate": true,
-			"documentIssueDate":true
+			"documentIssueDate":true,
+			"status":true
 		  }
 		}
 	}

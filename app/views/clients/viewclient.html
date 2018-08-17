@@ -204,7 +204,7 @@
 	    </div>
 	</script>
 
-	<tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
+	<tabset class="overflowhidden marginbottom0">
 		<tab heading="{{'label.heading.general' | translate}}">
 			<div class="col-md-12 col-sm-12">
 				<div class="row primarydiv">
@@ -414,7 +414,12 @@
 					                <th class="table-bold">{{ 'label.input.mobilenumber' | translate }}</th>
 					                <td><span class="padded-td">{{client.mobileNo}}</span>
 					                </td>
-					            </tr>
+								</tr>
+								<tr data-ng-show="client.alternateMobileNo">
+										<th class="table-bold">{{ 'label.input.alternate.mobilenumber' | translate }}</th>
+										<td><span class="padded-td">{{client.alternateMobileNo}}</span>
+										</td>
+								</tr>
 					            <tr data-ng-show="client.emailId">
 					                <th class="table-bold">{{ 'label.input.email' | translate }}</th>
 					                <td>{{client.emailId}}

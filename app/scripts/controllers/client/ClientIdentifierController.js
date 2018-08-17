@@ -6,7 +6,9 @@
             scope.first = {};
             scope.documenttypes = [];
             scope.statusTypes =[];
-            resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
+            scope.isHideDocumentIssueDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
+            scope.isHideDocumentExpiryDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
+                resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
                 scope.documenttypes = data.allowedDocumentTypes;
                 scope.allowedDocumentTypesSubCategories = data.allowedDocumentTypesSubCategories;
                 scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
