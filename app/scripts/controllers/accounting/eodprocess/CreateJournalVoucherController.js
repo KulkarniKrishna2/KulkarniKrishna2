@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateJournalVoucherController: function ($scope, resourceFactory, dateFilter,$modalInstance,route) {
+        CreateJournalVoucherController: function ($scope, resourceFactory, dateFilter,$modalInstance,route,$upload,$rootScope,API_VERSION) {
 
             $scope.formData = {};
             $scope.formData.crAccounts = [];
@@ -138,8 +138,64 @@
                 resourceFactory.journalEntriesResource.save(jeTransaction, function (data) {
                     $modalInstance.dismiss('cancel');
                     route.reload();
+                    $scope.eodProcessData=data;
+                    if ($scope.documents && $scope.documents.length > 0) {
+                        uploadDocumets(data);
+                    } else {
+                        relaunch();
+                    }
                 });
             }
+            function relaunch() {
+                route.reload();
+            }
+
+            function uploadDocumets(eodProcessData) {
+                for (var i in $scope.documents) {
+                    uploadProcessDocumets(i, eodProcessData);
+                }
+            }
+
+            var docResponse = 0;
+
+            function uploadProcessDocumets(index, eodProcessData) {
+                var documentData = {};
+                angular.copy($scope.documents[index], documentData);
+                $upload.upload({
+                    url: $rootScope.hostUrl + API_VERSION + '/eodsummary/' + $scope.eodProcessId + '/documents',
+                    data: documentData,
+                    file: $scope.files[index],
+                    progress: function(e){}
+                }).then(function (data) {
+                    // to fix IE not refreshing the model
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                    docResponse++;
+                    if (docResponse == $scope.documents.length) {
+                        relaunch();
+                    }
+                });
+            }
+            $scope.documents = [];
+            $scope.docData = {};
+            $scope.files = [];
+            $scope.onFileSelect = function ($files) {
+                $scope.docData.fName = $files[0].name;
+                $scope.files.push($files[0]);
+                $scope.documents.push($scope.docData);
+                $scope.docData = {};
+            };
+            $scope.deleteDocument = function (index) {
+                $scope.documents.splice(index, 1);
+            };
+            $scope.viewDocument = function (index) {
+
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
@@ -147,7 +203,7 @@
         }
     });
 
-    mifosX.ng.application.controller('CreateJournalVoucherController', ['$scope', 'ResourceFactory', 'dateFilter','$modalInstance','$route', mifosX.controllers.CreateJournalVoucherController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateJournalVoucherController', ['$scope', 'ResourceFactory', 'dateFilter','$modalInstance','$route','$upload','$rootScope','API_VERSION', mifosX.controllers.CreateJournalVoucherController]).run(function ($log) {
         $log.info("CreateJournalVoucherController initialized");
     });
 }(mifosX.controllers || {}));
