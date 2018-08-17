@@ -38,7 +38,7 @@
                     fileprocess.totalPendingRecords = data.totalPendingRecords;
                     fileprocess.totalSuccessRecords = data.totalSuccessRecords;
                     fileprocess.totalFailureRecords = data.totalFailureRecords;
-                    fileProcess.createdDate = data.createdDate;
+                    fileprocess.createdDate = data.createdDate;
                 });
             };
             scope.attachedFileURL = function(){
