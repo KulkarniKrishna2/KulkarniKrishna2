@@ -8,6 +8,8 @@
             resourceFactory.eodProcessTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
                 scope.eodClosureTypeOptions = data.eodClosureTypeOptions;
+                scope.searchConditions.officeId=scope.offices[0].id;
+
             });
 
             var fetchFunction = function (offset, limit, callback) {
@@ -17,7 +19,7 @@
                     limit: limit
                 }, callback);
             };
-
+            
             scope.searchConditions = {};
             scope.searchData = function () {
                 if(!_.isUndefined(scope.first.fromDate)){
