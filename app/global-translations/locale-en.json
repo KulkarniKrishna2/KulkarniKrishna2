@@ -95,6 +95,7 @@
     "label.heading.resourceid": "Resource ID",
     "label.heading.details": "Details",
     "label.heading.identitydocuments":"Identity Documents",
+    "label.heading.subCategoryType": "Sub Category",
     "label.heading.clientapproval":"Client Approval",
     "label.heading.loanapproval":"Loan Approval",
     "label.heading.loandisbursal":"Loan Disbursal",
@@ -171,7 +172,6 @@
     "label.heading.applyadditionalshares": "Apply Additional Shares",
     "label.heading.approveadditionalshares": "Approve Additional Shares",
     "label.heading.rejectadditionalshares": "Reject Additional Shares",
-    "label.heading.rejectadditionalshares": "Redeem Shares",
     "label.heading.sharesapplication" : "Share Account Application",
     "label.heading.dividendperiodstartdate" : "Dividend Period Start Date",
     "label.heading.dividendperiodenddate" : "Dividend Period End Date",
@@ -327,6 +327,7 @@
     "label.input.villages":"Villages",
     "label.input.allowinterestratechart": "Allow Floating Rate Interest ?",
     "label.anchor.accountLimits":"Account Limits",
+    "label.input.document.subCategoryTypeId": "Sub Category Type",
 
     "#Buttons": "..",
     "label.button.previous": "Previous",
@@ -2368,6 +2369,8 @@
     "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
     "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank":"Penalties apply on date is mandatory",
     "error.msg.loan.application.add.insurance.charge.to.loan.application" : "Insurance charge is required to create loan application",
+    "error.msg.repayment.frequency.mismatch" : "Loan Application repayment frequency does not match with Loan Product repayment frequency",
+    "error.msg.center.meeting.not.attached": "Please attach center meeting date to create loan application",
     "#-------": "------------",
 
     "#Savings and Deposit accounts": "....",
@@ -3059,8 +3062,9 @@
     "label.anchor.edittaxgroup":"Edit Tax Group",
     "label.anchor.viewtaxgroup":"View Tax Group",
     "label.anchor.overduecharge":"Apply Overdue Charge",
-
-
+    "label.anchor.viewoffice": "View Office",
+    "label.anchor.add.address": "Add Address",
+    "label.anchor.edit.address": "Edit Address",
 
     "#Inputs": "..",
     "label.input.assignmentdate": "Assignment date",
@@ -5483,7 +5487,6 @@
     "lable.heading.noOfDependentAdults":"Number of dependents above 18 years",
     "lable.heading.noOfDependentSeniors":"Number of dependents above 60 years",
     "lable.heading.noOfDependentsWithSeriousIllnesss":"number of dependents with serious medical condition",
-    "label.heading.name":"Name",
     "label.heading.relationship":"Relationship Type",
     "label.heading.dob":"Date Of Birth",
     "label.heading.age":"Age",

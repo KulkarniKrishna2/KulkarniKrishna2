@@ -51,7 +51,8 @@
         }
       },
       "isMandatoryField": {
-        "dateOfBirth": true
+        "dateOfBirth": true,
+        "mobileNumber":true
       },
       "defaultGender":"Female"
     },

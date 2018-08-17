@@ -14,8 +14,8 @@
             <label class="control-label col-sm-2">{{'label.input.office' | translate}}</label>
             <div class="col-sm-3">
                 <select chosen="offices" id="officeId" ng-model="searchConditions.officeId"  class="form-control"
-                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                    <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}" >
+                    
                 </select>
             </div>
             <label class="control-label col-sm-2">{{'label.input.eod.type' | translate}}</label>

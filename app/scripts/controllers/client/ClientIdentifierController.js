@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientIdentifierController: function (scope, routeParams, location, resourceFactory,dateFilter) {
+        ClientIdentifierController: function (scope, routeParams, location, resourceFactory, dateFilter, $filter) {
             scope.clientId = routeParams.clientId;
             scope.formData = {};
             scope.first = {};
@@ -8,13 +8,32 @@
             scope.statusTypes =[];
             resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
                 scope.documenttypes = data.allowedDocumentTypes;
+                scope.allowedDocumentTypesSubCategories = data.allowedDocumentTypesSubCategories;
                 scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
+                scope.documentCategories = scope.fetchDocumentCategories();
                 scope.statusTypes = data.clientIdentifierStatusOptions;
                 if(data.clientIdentifierStatusOptions && scope.response &&
                     scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status){
                     scope.formData.status = data.clientIdentifierStatusOptions[1].id;
                 }
             });
+            
+            scope.fetchDocumentCategories = function () {
+                var documentCategories = [];
+                if(!_.isUndefined(scope.formData.documentTypeId)) {
+                    var columnIndex = scope.documenttypes.findIndex(x => x.id==scope.formData.documentTypeId) || 0;
+                    var docType = scope.documenttypes[columnIndex];
+                    _.each(scope.allowedDocumentTypesSubCategories, function (categories) {
+                        var matchedSubTypes = ($filter('filter')(categories,  { 'name' : docType.name }));
+                        if (matchedSubTypes.length > 0) {
+                            documentCategories = matchedSubTypes[0].values;
+                        }
+                    });
+                } else {
+                    scope.formData.subCategoryTypeId = "";
+                }
+                return documentCategories;
+            };
 
             scope.validateRsaIdnumber=function()
             {
@@ -117,7 +136,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory','dateFilter',mifosX.controllers.ClientIdentifierController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', '$filter',mifosX.controllers.ClientIdentifierController]).run(function ($log) {
         $log.info("ClientIdentifierController initialized");
     });
 }(mifosX.controllers || {}));

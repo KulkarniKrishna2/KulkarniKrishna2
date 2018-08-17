@@ -47,7 +47,8 @@
         }
       },
       "isMandatoryField": {
-        "dateOfBirth": true
+        "dateOfBirth": true,
+        "mobileNumber":true,
       },
       "defaultGender":"Female"
     },
@@ -71,7 +72,7 @@
       },
       "regexValidations" :{
         "mobileNumber":"^\\d{10}$",
-        "bankIFSCCode":"^[A-Za-z]{4}\\d{7}$",
+        "bankIFSCCode":"^[A-Za-z]{4}0[A-Z0-9a-z]{6}$",
         "bankCity":"^[A-Za-z]{1,20}$",
         "bankName":"^(?!.*?\\s{2})[A-Za-z ]{1,20}$",
         "bankAccountNumber":"^[0-9]{1,50}$",

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditClientIdentifierController: function (scope, routeParams, location, resourceFactory,dateFilter) {
+        EditClientIdentifierController: function (scope, routeParams, location, resourceFactory, dateFilter, $filter) {
             scope.clientId = routeParams.clientId;
             scope.id = routeParams.id;
             scope.formData = {};
@@ -8,39 +8,60 @@
             scope.formData.locale = scope.optlang.code;
             scope.documenttypes = [];
             scope.statusTypes =[];
-            resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
-                scope.documenttypes = data.allowedDocumentTypes;
-                scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
-                scope.statusTypes = data.clientIdentifierStatusOptions;
-                if(data.clientIdentifierStatusOptions && scope.response &&
-                    scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status){
-                    scope.formData.status = data.clientIdentifierStatusOptions[1].id;
+            resourceFactory.clientIdenfierResource.get({ clientId: routeParams.clientId, id: routeParams.id, template: true }, function (data) {
+                if (data) {
+                    scope.documenttypes = data.allowedDocumentTypes;
+                    scope.allowedDocumentTypesSubCategories = data.allowedDocumentTypesSubCategories;
+                    scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
+                    scope.statusTypes = data.clientIdentifierStatusOptions;
+                    if (data.clientIdentifierStatusOptions && scope.response &&
+                        scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status) {
+                        scope.formData.status = data.clientIdentifierStatusOptions[1].id;
+                    }
+                    scope.formData.documentTypeId = data.documentType.id;
+                    if (data.subCategoryType) {
+                        scope.formData.subCategoryTypeId = data.subCategoryType.id;
+                    }
+                    scope.documentCategories = scope.fetchDocumentCategories();
+                    for (var index in scope.statusTypes) {
+                        if (data.status == scope.statusTypes[index].code) {
+                            scope.formData.status = scope.statusTypes[index].id;
+                            break;
+                        }
+                    }
+                    scope.formData.documentKey = data.documentKey;
+                    if (data.description) {
+                        scope.formData.description = data.description;
+                    }
+                    if(data.documentIssueDate){
+                        var issueDate = dateFilter(data.documentIssueDate, scope.df);
+                        scope.first.documentIssueDate = new Date(issueDate);
+                    }
+                    if(data.documentExpiryDate){
+                         var expiryDate = dateFilter(data.documentExpiryDate, scope.df);
+                        scope.first.documentExpiryDate = new Date(expiryDate);
+                    }
                 }
-                resourceFactory.clientIdenfierResource.get({clientId: routeParams.clientId,
-                    id: routeParams.id}, function(data){
-                        if(data){
-                            scope.formData.documentTypeId = data.documentType.id;
-                            for(var index in scope.statusTypes){
-                                if(data.status == scope.statusTypes[index].code){
-                                    scope.formData.status = scope.statusTypes[index].id;
-                                    break;
-                                }
-                            }
-                            scope.formData.documentKey = data.documentKey;
-                            if(data.description){
-                                scope.formData.description = data.description;
-                            }
-                            if(data.documentIssueDate){
-                                var issueDate = dateFilter(data.documentIssueDate, scope.df);
-                                scope.first.documentIssueDate = new Date(issueDate);
-                            }
-                            if(data.documentExpiryDate){
-                                 var expiryDate = dateFilter(data.documentExpiryDate, scope.df);
-                                scope.first.documentExpiryDate = new Date(expiryDate);
-                            }
+            });
+
+            scope.fetchDocumentCategories = function () {
+                var documentCategories = [];
+                if (!_.isUndefined(scope.formData.documentTypeId)) {
+                    var columnIndex = scope.documenttypes.findIndex(x => x.id == scope.formData.documentTypeId) || 0;
+                    var docType = scope.documenttypes[columnIndex];
+                    _.each(scope.allowedDocumentTypesSubCategories, function (categories) {
+                        var matchedSubTypes = ($filter('filter')(categories, {
+                            'name': docType.name
+                        }));
+                        if (matchedSubTypes.length > 0) {
+                            documentCategories = matchedSubTypes[0].values;
                         }
                     });
-            });
+                } else {
+                    scope.formData.subCategoryTypeId = "";
+                }
+                return documentCategories;
+            };
 
             scope.validateRsaIdnumber=function()
             {
@@ -143,7 +164,7 @@
 
         }
     });
-    mifosX.ng.application.controller('EditClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory','dateFilter', mifosX.controllers.EditClientIdentifierController]).run(function ($log) {
+    mifosX.ng.application.controller('EditClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', '$filter', mifosX.controllers.EditClientIdentifierController]).run(function ($log) {
         $log.info("EditClientIdentifierController initialized");
     });
 }(mifosX.controllers || {}));
