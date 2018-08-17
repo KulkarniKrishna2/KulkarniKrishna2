@@ -34,7 +34,7 @@
                     resourceFactory.officeResource.getAllOffices(function (data) {
                         scope.offices = data;
                     });
-                    resourceFactory.codeValueResource.getAllCodeValues({codeId: '66'}, function (data) {
+                    resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'} , function (data) {
                         scope.codevalues = data;
                     });
                     resourceFactory.taxgroup.getAll(function (data) {
@@ -72,7 +72,7 @@
             };
 
             scope.submit = function() {
-                if (scope.formGstData) {
+                if (scope.formGstData.taxGroupId && scope.formGstData.officeId && scope.formGstData.codevalue) {
                     scope.formData.sequenceEntityIdentifier = 'tg_br_cc';
                     scope.formData.sequenceEntityValue = scope.formGstData.taxGroupId + '_' +scope.formGstData.officeId + '_' + scope.formGstData.codevalue;
                 }
