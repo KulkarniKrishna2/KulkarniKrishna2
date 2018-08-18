@@ -2967,6 +2967,8 @@
     "label.button.createuser": "Create User",
     "label.button.changepassword": "Change Password",
     "label.button.unlock":"unlock",
+    "label.input.captcha": "Enter Captcha",
+    "error.captcha.verification.failed":"Captcha Verification failed",
 
     "#Tooltip" : "..",
     "label.tooltip.overridepasswordexpiry" : "Determines if passwords do not expire for this user even if global configuration for password expiry is enabled",
