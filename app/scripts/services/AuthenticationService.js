@@ -105,6 +105,10 @@
                 data.grant_type = 'password';
                 data.client_secret = '123';
                 data.isPasswordEncrypted = isPasswordEncrypted.toString();
+                if(credentials.captchaDetails !=undefined){
+                    data.captcha_reference_id= credentials.captchaDetails.captcha_reference_id;
+                    data.captcha = credentials.captchaDetails.captcha;
+                }
                 httpService.post("/fineract-provider/api/oauth/token", data)
                     .success(oauthTokenSuccess)
                     .error(onFailure);
