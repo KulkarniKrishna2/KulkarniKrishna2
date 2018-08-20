@@ -2,7 +2,7 @@
 	"enableUIDisplayConfiguration": true,
 	"uiDisplayConfigurations": {
 		"loginSecurity": {
-			"isEnabledRecaptcha": false
+			"isEnabledRecaptcha": true
 		},
 		"browserSecurity": {
 			"isEnabledBrowserSecurity": false
