@@ -16,7 +16,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UIConfigService',
             'CommonUtilService',
             'ExcelExportTableService',
-            'PopUpUtilService'
+            'PopUpUtilService',
+            'LoanDetailsService'
         ],
         controllers: [
             'main/MainController',
@@ -646,7 +647,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'TabsPersistenceDirective',
             'ExpressionBuilderDirective',
             'ImageViewerDirective',
-            'ViewDocumentDirective'
+            'ViewDocumentDirective',
+            'LoanHeaderDetailsDirective'
         ]
     };
 

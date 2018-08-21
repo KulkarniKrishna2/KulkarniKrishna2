@@ -1,7 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AddLoanChargeController: function (scope, resourceFactory, routeParams, location, dateFilter) {
-
+        AddLoanChargeController: function (scope, resourceFactory, routeParams, rootScope, location, dateFilter, loanDetailsService) {
+            scope.loandetails= rootScope.headerLoanDetails;
+            delete rootScope.headerLoanDetails;
             scope.charges = [];
             scope.formData = {};
             scope.isCollapsed = true;
@@ -36,9 +37,13 @@
                 });
             };
 
+            scope.getStatusCode = function () {
+                return loanDetailsService.getStatusCode(scope.loandetails);
+            };
+
         }
     });
-    mifosX.ng.application.controller('AddLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.AddLoanChargeController]).run(function ($log) {
+    mifosX.ng.application.controller('AddLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$rootScope', '$location', 'dateFilter',  'LoanDetailsService' , mifosX.controllers.AddLoanChargeController]).run(function ($log) {
         $log.info("AddLoanChargeController initialized");
     });
 }(mifosX.controllers || {}));

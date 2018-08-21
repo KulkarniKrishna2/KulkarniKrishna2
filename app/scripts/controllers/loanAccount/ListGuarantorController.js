@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ListGuarantorController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ListGuarantorController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope, loanDetailsService) {
 
             scope.modified = 0;
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'guarantors'}, function (data) {
@@ -77,9 +77,12 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.getStatusCode = function () {
+                return loanDetailsService.getStatusCode(scope.loandetails);
+            };
         }
     });
-    mifosX.ng.application.controller('ListGuarantorController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ListGuarantorController]).run(function ($log) {
+    mifosX.ng.application.controller('ListGuarantorController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope','LoanDetailsService' , mifosX.controllers.ListGuarantorController]).run(function ($log) {
         $log.info("ListGuarantorController initialized");
     });
 }(mifosX.controllers || {}));

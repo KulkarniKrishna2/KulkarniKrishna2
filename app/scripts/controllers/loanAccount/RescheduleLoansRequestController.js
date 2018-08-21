@@ -1,6 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        RescheduleLoansRequestController: function (scope, resourceFactory, routeParams, location, dateFilter) {
+        RescheduleLoansRequestController: function (scope, resourceFactory, routeParams, rootScope, location, dateFilter, loanDetailsService) {
+            scope.loandetails = rootScope.headerLoanDetails;
+            delete rootScope.headerLoanDetails;
             scope.loanId = routeParams.loanId;
             scope.formData = {};
             scope.rejectData = {};
@@ -35,10 +37,14 @@
                 });
             };
 
+            scope.getStatusCode = function () {
+                return loanDetailsService.getStatusCode(scope.loandetails);
+            };
+
         }
         
     });
-    mifosX.ng.application.controller('RescheduleLoansRequestController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.RescheduleLoansRequestController]).run(function ($log) {
+    mifosX.ng.application.controller('RescheduleLoansRequestController', ['$scope', 'ResourceFactory', '$routeParams', '$rootScope', '$location', 'dateFilter' , 'LoanDetailsService' , mifosX.controllers.RescheduleLoansRequestController]).run(function ($log) {
         $log.info("RescheduleLoansRequestController initialized");
     });
 }(mifosX.controllers || {}));
