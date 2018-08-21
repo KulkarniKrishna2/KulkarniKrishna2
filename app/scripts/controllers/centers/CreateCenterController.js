@@ -38,6 +38,7 @@
 
             if(scope.response != undefined){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
+                scope.isNameReadOnly = scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.name;
             }
 
             scope.$watch('formData.officeId', function() {                
