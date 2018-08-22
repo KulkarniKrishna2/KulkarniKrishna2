@@ -8,6 +8,7 @@
                 <th>{{ 'label.heading.collected' | translate }}</th>
                 <th>{{ 'label.heading.arrears' | translate }}</th>
                 <th>{{ 'label.heading.advance' | translate }}</th>
+                <th>{{ 'label.heading.Preclosure' | translate }}</th>
                 <th>{{ 'label.heading.summary.notes' | translate }}</th>
             </tr>
             </thead>
@@ -18,6 +19,7 @@
                 <td  >{{eodCollection.collectedAmount}}</td>
                 <td >{{eodCollection.arrearsAmount}}</td>
                 <td >{{eodCollection.advanceAmount}}</td>
+                <td >{{eodCollection.preclosureAmount}}</td>
                 <td ng-if="!isProcessed"><textarea id="note" type="text" ng-model="eodCollection.note"></textarea></td>
                 <td ng-if="isProcessed">{{eodCollection.note}}</td>
             </tr>
