@@ -84,6 +84,23 @@
             scope.cancel = function(){
                 scope.$emit("cancelPerformed", {});
             };
+
+            scope.resetExternalId = function () {
+                if(scope.formData.staffId== null)
+                {
+                    scope.isStaffSelected = false;
+                    
+                }
+                else{
+                    scope.isStaffSelected = true ;
+                    scope.formData.externalId = undefined;
+                }
+                if(scope.formData.staffId == null)
+                {
+                    scope.formData.staffId = undefined;
+                }
+
+            };
         }
     });
     mifosX.ng.application.controller('CreateUserCommonController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateUserCommonController]).run(function ($log) {
