@@ -1073,7 +1073,7 @@
                 }else if(actionName === 'activitycomplete'){
                     if(scope.status=='SUMMARY'){
                         if(scope.isPendingForApprovalStageEnabled){ 
-                            if(scope.formData.status.id === scope.loanapplicationApproved){
+                            if(scope.formData.status.id >= scope.loanapplicationApproved){
                                 scope.doActionAndRefresh(actionName);
                             }else{
                                 scope.setTaskActionExecutionError("lable.error.activity.loanapplication.not.submitted");
