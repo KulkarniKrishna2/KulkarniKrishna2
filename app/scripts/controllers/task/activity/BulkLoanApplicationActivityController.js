@@ -422,7 +422,7 @@
                     if ($scope.charges.length > 0) {
                         $scope.loanAccountFormData.charges = [];
                         for (var i in $scope.charges) {
-                            if ($scope.charges[i].amount > 0) {
+                            if ($scope.charges[i].amount > 0 || $scope.charges[i].isSlabBased) {
                                 $scope.loanAccountFormData.charges.push({
                                     chargeId: $scope.charges[i].chargeId,
                                     amount: $scope.charges[i].amount,
@@ -831,7 +831,7 @@
                     if ($scope.charges.length > 0) {
                         $scope.editLoanAccountdata.charges = [];
                         for (var i in $scope.charges) {
-                            if ($scope.charges[i].amountOrPercentage > 0) {
+                            if ($scope.charges[i].amountOrPercentage > 0 || $scope.charges[i].isSlabBased) {
                                 $scope.editLoanAccountdata.charges.push({
                                     id: $scope.charges[i].id,
                                     chargeId: $scope.charges[i].chargeId,
