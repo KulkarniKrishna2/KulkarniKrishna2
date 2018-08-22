@@ -42,6 +42,7 @@
                 scope.showActivation = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.activate;
                 scope.showaddclients = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addclients;
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
+                scope.isNameReadOnly = scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.name;
             }
 
             scope.$watch('formData.officeId', function() {                

@@ -127,4 +127,63 @@
             <input id="bankNumber" type="text" ng-model="formData.bankNumber" class="form-control">
         </div>
     </div>
+    <div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.select.bill' | translate}}<span
+                    class="required"></span></label>
+            <div class="col-sm-3">
+                <input type="text" id="billName" name="billName" ng-model="docData.name"
+                       class="form-control" placeholder="{{'label.heading.filename'|translate}}"/>
+            </div>
+            <div class="col-sm-3">
+                <textarea rows="1" cols="15" ng-model="docData.description" class="form-control"
+                          placeholder="{{'label.input.file.description'|translate}}"></textarea>
+            </div>
+            <div class="col-sm-2" data-ng-if="docData.name && docData.name != ''">
+                <input type="file" id="billFile" name="billFile" ng-file-select="onFileSelect($files)">
+            </div>
+            <div class="col-md-2" data-ng-if="false">
+                <button id="uploadFile" type="submit" class="btn btn-primary">{{'label.button.upload' |
+                    translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">&nbsp;<span class="required"></span></label>
+            <div class="col-sm-8">
+                <table class="table">
+                    <thead>
+                    <tr class="graybg">
+                        <th>#</th>
+                        <th>{{'label.input.bills' | translate}}</th>
+                        <th>{{'label.input.attachments' | translate}}</th>
+                        <th>{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="document in documents track by $index">
+                        <td>
+                            {{($index+1)}}
+                        </td>
+                        <td>
+                            {{document.name}}
+                        </td>
+                        <td>
+                            {{document.fName}}
+                        </td>
+                        <td>
+                            <button ng-if="false" role="button" ng-click="viewDocument($index)" class="btn-link ng-binding">
+                                <i class="icon-eye-open icon-white"></i>
+                            </button>
+                            <button role="button" ng-click="deleteDocument($index)" class="btn-link ng-binding">
+                                <i class="icon-remove icon-white"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

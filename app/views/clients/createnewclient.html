@@ -346,7 +346,7 @@
 						{{'label.input.countryname' | translate}}  <span class="required">*</span>
 					</label>
 					<div class="col-sm-3">
-						<select chosen="countries" id="countryId" name="countries" ng-model="formAddressData.countryId"
+					<select chosen="countries" id="countryId" name="countries" ng-model="formAddressData.countryId"
 								class="form-control" ng-disabled ="isCountryReadOnly"
 								ng-options="country.countryId as country.countryName for country in countries"
 								value="{{country.countryId}}"

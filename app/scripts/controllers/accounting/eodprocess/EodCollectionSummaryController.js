@@ -33,6 +33,7 @@
                     data.collectedAmount = collectionData[i].collectedAmount;
                     data.arrearsAmount = collectionData[i].arrearsAmount;
                     data.advanceAmount = collectionData[i].advanceAmount;
+                    data.preclosureAmount = collectionData[i].preclosureAmount;
                     data.note = collectionData[i].note;
 
                     scope.requestBody.collectionData.push(data);

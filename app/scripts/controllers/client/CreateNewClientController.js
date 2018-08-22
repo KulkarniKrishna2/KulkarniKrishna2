@@ -16,7 +16,7 @@
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
             scope.addressType = [];
-            scope.countrys = [];
+            scope.countries = [];
             scope.states = [];
             scope.districts = [];
             scope.talukas = [];
@@ -252,6 +252,7 @@
                     resourceFactory.addressTemplateResource.get({}, function (data) {
                         scope.addressType = data.addressTypeOptions;
                         scope.countries = data.countryDatas;
+                        scope.countrys = data.countryDatas;
                         scope.setDefaultGISConfig();
                     });
                 }
@@ -345,10 +346,12 @@
                     scope.formAddressData.postalCode = null;
                     scope.districts = null;
                     scope.states= null;
+                    scope.countries = null;
                     resourceFactory.villageResource.get({villageId:villageId},function (response) {
                         if (response.addressData.length > 0) {
                             if(response.villageName){
                                 scope.formAddressData.villageTown = response.villageName;
+                                scope.countries = scope.countrys;
                             }
                             
                             if (response.addressData[0].countryData) {

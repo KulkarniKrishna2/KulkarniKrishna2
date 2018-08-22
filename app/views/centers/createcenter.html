@@ -20,13 +20,13 @@
 				</div>
 			</div>
 
-			<div class="form-group" ng-hide="isHiddenVillageOption">
-				<label class="control-label col-sm-2">{{'label.input.village' | translate}}<span class="required">*</span></label>
+			<div class="form-group" ng-if="!isHiddenVillageOption">
+				<label class="control-label col-sm-2">{{'label.input.village' | translate}}<span ng-if="!createWithoutVillage" class="required">*</span></label>
 
 				<div class="col-sm-3">
 					<select chosen="villages" id="villageId" name="villageId" ng-model="formData.villageId"
 							ng-options="village.villageId as village.villageName for village in villages" value="{{village.villageId}}"
-							ng-change="changeVillage()" class="form-control" ng-required="isHiddenVillageOption == false">
+							ng-change="changeVillage()" class="form-control" ng-required="isHiddenVillageOption == false && !createWithoutVillage">
 						<option value="">{{'label.menu.selectvillage' | translate}}</option>
 					</select>
 				</div>
@@ -38,7 +38,7 @@
 	                    class="required">*</span></label>
 				<div class="col-sm-3">
 	                <input type="text" id="name" name="name" ng-model="formData.name"
-						    class="form-control" ng-disabled="response.uiDisplayConfigurations.createCenter.isReadOnlyField.name"/>
+						    class="form-control" ng-disabled="isNameReadOnly && !createWithoutVillage" required="required" late-Validate/>
 				</div>
 	            <div class="col-sm-3">
 	                <form-validate valattributeform="createcenterform" valattribute="name"/>
