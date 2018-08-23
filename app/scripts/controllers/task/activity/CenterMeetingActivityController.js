@@ -25,6 +25,7 @@
                    associations: 'groupMembers, loanaccounts, collectionMeetingCalendar'
                }, function (data) {
                    scope.centerMeetingData = data;
+                   scope.isEditExpectedDisbursementDateOnly = false;
                    for (var i in scope.centerMeetingData.subGroupMembers) {
                        for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
                            if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {
