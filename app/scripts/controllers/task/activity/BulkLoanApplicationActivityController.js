@@ -95,7 +95,7 @@
                 $scope.showaddressform = true;
                 $scope.shownidentityform = true;
                 $scope.shownFamilyMembersForm = true;
-                $scope.showLoanAccountForm = false;
+                $scope.showLoanAccountForm = true;
                 $scope.showLoanProductList = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = false;
@@ -129,6 +129,7 @@
 
                 $scope.getLoanAccountFormDetails = function () {
                     $scope.showLoanProductList = true;
+                    $scope.isLoanAccountExist = true;
                     $scope.clientId = $scope.clientId;
                     $scope.groupId = $scope.groupId;
                     $scope.restrictDate = new Date();
@@ -496,6 +497,8 @@
                     resourceFactory.clientJlgLoanAccount.get({ type: $scope.type, clientId: $scope.clientId, groupId: $scope.groupId }, function (data) {
                         $scope.loanAccountData = data;
                         $scope.isLoanAccountExist = true;
+                        $scope.showLoanAccountForm = true;
+                        $scope.showLoanProductList = false;
                     });
 
                     if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {

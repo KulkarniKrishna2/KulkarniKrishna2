@@ -101,7 +101,7 @@
                     resolve: {
                             queryParameterInfo: function () {
                                 return { 'approveId': approveId,
-                                         'bankEnquiries':scope.bankApprovalTemplateData.BankQueryTypeOptions};
+                                         'bankEnquiries':scope.bankApprovalTemplateData.bankQueryTypeOptions};
                             }
                         }
                 });

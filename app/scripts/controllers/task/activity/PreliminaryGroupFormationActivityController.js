@@ -500,7 +500,7 @@
                 $scope.showaddressform = false;
                 $scope.shownidentityform = false;
                 $scope.shownFamilyMembersForm = false;
-                $scope.showLoanAccountForm = true;
+                $scope.showLoanAccountForm = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showLoanProductList = false;
                 $scope.showOnlyLoanTab = true;
