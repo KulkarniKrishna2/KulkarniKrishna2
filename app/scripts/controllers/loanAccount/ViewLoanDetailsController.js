@@ -97,6 +97,7 @@
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
+                $rootScope.headerLoanDetails = scope.loandetails;
                 switch (eventName) {
                     case "addloancharge":
                         location.path('/addloancharge/' + accountId);

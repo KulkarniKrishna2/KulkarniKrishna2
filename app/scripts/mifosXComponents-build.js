@@ -13,7 +13,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UIConfigService.js',
             'CommonUtilService.js',
             'ExcelExportTableService.js',
-            'PopUpUtilService.js'
+            'PopUpUtilService.js',
+            'LoanDetailsService.js'
         ],
         controllers: [
             'controllers.js'

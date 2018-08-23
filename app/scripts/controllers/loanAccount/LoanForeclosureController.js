@@ -1,6 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanForeclosureController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, $filter) {
+        LoanForeclosureController: function (scope, routeParams, rootScope, resourceFactory, location, route, http, $modal, dateFilter, $filter, loanDetailsService) {
+            scope.loandetails= rootScope.headerLoanDetails;
+            delete rootScope.headerLoanDetails;
             scope.accountId = routeParams.id;
             scope.formData = {};
             scope.formData.loanId = scope.accountId;
@@ -9,9 +11,6 @@
             scope.formData.transactionDate = new Date();
             scope.restrictDate = new Date();
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
-                scope.loandetails = data;
-            });
             scope.$watch('formData.transactionDate',function(){
                 scope.retrieveLoanForeclosureTemplate();
             });
@@ -74,9 +73,13 @@
             scope.cancel = function () {
                 location.path('/viewloanaccount/' + scope.accountId);
             };
+
+            scope.getStatusCode = function () {
+                return loanDetailsService.getStatusCode(scope.loandetails);
+            };
         }
     });
-    mifosX.ng.application.controller('LoanForeclosureController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter','$filter', mifosX.controllers.LoanForeclosureController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanForeclosureController', ['$scope', '$routeParams', '$rootScope', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter','$filter', 'LoanDetailsService' , mifosX.controllers.LoanForeclosureController]).run(function ($log) {
         $log.info("LoanForeclosureController initialized");
     });
 }(mifosX.controllers || {}));
