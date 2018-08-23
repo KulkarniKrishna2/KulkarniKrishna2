@@ -1,0 +1,57 @@
+<div class="col-md-12" ng-controller="ViewTransferCenterController">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+        </li>
+        <li>
+            <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
+        </li>
+        <li class="active">{{'label.anchor.view.center.transfer' | translate}}</li>
+    </ul>
+    <div class="pull-right btn-group">
+        <a has-permission="CREATE_TRANSFER_ENTITY" href="#/transfer/center" class="btn btn-primary">
+            <i class="icon-plus icon-white"></i>{{ 'label.button.centertransfer' | translate }}</a>
+    </div>
+    <api-validate></api-validate>
+    <table class="table well">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.centers' | translate}}</th>
+                <th>{{'label.heading.office' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="bulkTransfer in bulkTransfers">
+                <td>{{bulkTransfer.status.value}}</td>
+                <td colspan="2" style="width:50%">
+                    <table class="table well ">
+                        <tbody>
+                            <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in bulkTransfer.dataList" style="height:60px;cursor: pointer;">
+                                <td class="pointer" style="width:50%">
+                                    <div class="col-sm-12" ng-repeat="center in data.centers">
+                                        <span>{{center.name}}</span>
+                                    </div>
+                                </td>
+                                <td class="pointer" style="width:50%">{{data.office.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+
+                    <div class="btn-group" ng-show="bulkTransfer.status.id==100">
+                        <button type="button" has-permission="REJECT_TRANSFER_ENTITIES" class="btn btn-danger" ng-click="submit(bulkTransfer.id,'reject')">
+                            <i tooltip="{{'label.tooltip.reject' | translate}}" class="icon-remove icon-white"></i>
+                        </button>
+                        <button type="button" has-permission="APPROVE_TRANSFER_ENTITIES" class="btn btn-info" ng-click="submit(bulkTransfer.id,'approve')">
+                            <i tooltip="{{'label.tooltip.approve' | translate}}" class="icon-ok icon-white"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
