@@ -535,6 +535,7 @@
                                     var charge = scope.productLoanCharges[i].chargeData;
                                     charge.chargeId = charge.id;
                                     charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                    charge.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                     scope.charges.push(charge);
                                     //}
                                     break;
@@ -625,6 +626,7 @@
                             if (scope.productLoanCharges[i].chargeData) {
                                 if (data.chargeId == scope.productLoanCharges[i].chargeData.id) {
                                     data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                    data.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                     break;
                                 }
                             }
