@@ -1,0 +1,73 @@
+<div class="col-md-12" ng-controller="TransferCenterController">
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+            </li>
+            <li>
+                <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.center.transfer' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div ng-show="sameOfficeError" class="error">
+        {{'error.msg.branch.transfer.to.same.office' | translate}}
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12">
+            <select chosen="offices" id="fromOfficeId" ng-model="fromOfficeId" ng-change="getFromCenters()" class="form-control" ng-options="office.id as office.name for office in offices"
+                value="{{office.id}}">
+                <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id)">
+            <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.displayName}}-({{center.referenceNumber}})
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12">
+            <select chosen="offices" id="toOffice" ng-model="toOffice" class="form-control" ng-change="toOfficeChange()" ng-options="office as office.name for office in offices"
+                value="{{office}}">
+                <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-12">
+
+        <div class="col-md-offset-5">
+            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <button id="save" type="submit" ng-click="addCentersToTransfer()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="col-sm-12" ng-show="dataList.length>0">
+        <table class="table well ">
+            <thead>
+                <tr class="graybg" style="height:60px;">
+                    <th>{{'label.heading.centers' | translate}}</th>
+                    <th>{{'label.heading.office' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in dataList" style="height:60px;cursor: pointer;">
+                    <td class="pointer">
+                        <div class="col-sm-12" ng-repeat="center in data.centers">
+                            <span>{{center.name}}</span>
+                        </div>
+                    </td>
+                    <td class="pointer">{{data.office.name}}</td>
+                    <td>
+                        <button type="button" ng-click="remove($index)" class="btn btn-danger">
+                            <i tooltip="Delete" class="icon-trash icon-white"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-offset-5">
+            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <button id="submit" type="submit" ng-click="submitDetails()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.submit' | translate}}</button>
+        </div>
+    </div>
+</div>

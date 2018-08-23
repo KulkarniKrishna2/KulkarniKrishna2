@@ -603,7 +603,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/eodprocess/CreateJournalVoucherController',
             'task/popup/ViewCWFClientsTaskStepsInfoController',
             'organization/registereddevices/RegisteredDeviceController',
-            'organization/registereddevices/ViewRegisteredDeviceController'
+            'organization/registereddevices/ViewRegisteredDeviceController',
+            'transfer/TransferCenterController',
+            'transfer/TransferClientController',
+            'transfer/ViewTransferClientController',
+            'transfer/ViewTransferCenterController'
         ],
         filters: [
             'StatusLookup',
