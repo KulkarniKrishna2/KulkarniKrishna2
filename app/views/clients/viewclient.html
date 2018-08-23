@@ -1002,7 +1002,7 @@
 		    </div>
 		</tab>
 
-		<tab heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD' select="fetchSmartCardData()">
+		<tab ng-show="enableSmartCard" heading="{{'label.heading.smartcard' | translate}}" has-permission='READ_SMARTCARD' select="fetchSmartCardData()">
 			<div class="form-group col-sm-12">
 				<table class="table table-condensed" ng-if="showSmartcard">
 					<tr class="graybg">
