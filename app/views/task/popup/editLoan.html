@@ -137,7 +137,7 @@
 								</td>
 								<td>{{charge.chargeTimeType.value}}</td>
 								<td>
-									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
 									    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
 									    max="'2020-06-22'" />
 								</td>

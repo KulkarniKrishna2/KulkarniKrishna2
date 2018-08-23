@@ -38,7 +38,7 @@
                     <label data-ng-if="editSecurityPDCIndex == $index">
                         <input id="editSecurityChequeDate{{pdc.chequeType.id}}"
                                name="editSecurityChequeDate{{pdc.chequeType.id}}" sort type="text"
-                               datepicker-pop="dd MMMM yyyy"
+                               datepicker-pop="{{df}}"
                                class="form-control"
                                ng-model="editSecurityPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
                                max="restrictDate"/>
@@ -145,7 +145,7 @@
                     <label data-ng-if="editRepaymentPDCIndex == $index">
                         <input id="editChequeDate{{pdc.chequeType.id}}"
                                name="editChequeDate{{pdc.chequeType.id}}" sort type="text"
-                               datepicker-pop="dd MMMM yyyy"
+                               datepicker-pop="{{df}}"
                                class="form-control"
                                ng-model="editRepaymentPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
                                max="restrictDate"/>

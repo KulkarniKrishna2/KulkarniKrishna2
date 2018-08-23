@@ -32,7 +32,7 @@
 	                class="required">*</span></label>
 	
 	        <div class="col-sm-3">
-	            <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy"
+	            <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
 	                   ng-model="date.transactionDate" is-open="opened" class="form-control" required/>
 	        </div>
 			<div class="col-sm-3">
@@ -44,7 +44,7 @@
 			<label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}</label>
 
 			<div class="col-sm-3">
-				<input type="text" id="newtransactionDate" name="newtransactionDate" datepicker-pop="dd MMMM yyyy"
+				<input type="text" id="newtransactionDate" name="newtransactionDate" datepicker-pop="{{df}}"
 					   ng-model="date.newtransactionDate" is-open="opened" class="form-control"/>
 			</div>
 		</div>

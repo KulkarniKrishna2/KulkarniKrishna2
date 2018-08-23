@@ -298,7 +298,7 @@
                                                 class="required">*</span>:</label></td>
                                     <td class="width31 paddedbottom10">
                                         <input id="expectedDisbursementDate" name="expectedDisbursementDate" type="text"
-                                               datepicker-pop="dd MMMM yyyy"
+                                               datepicker-pop="{{df}}"
                                                ng-model="formRequestData.expectedDisbursementDate"
                                                is-open="opened" min="minDate"
                                                max="'2020-06-22'"
@@ -339,7 +339,7 @@
                                                 class="required">*</span>:</label></td>
                                     <td class="width31 paddedbottom10">
                                         <input id="approvedOnDate" name="approvedOnDate" type="text"
-                                               datepicker-pop="dd MMMM yyyy"
+                                               datepicker-pop="{{df}}"
                                                ng-model="formRequestData.approvedOnDate"
                                                is-open="opened" min="minDate"
                                                max="restrictDate"
@@ -373,7 +373,7 @@
                                     <td class="width25 paddedbottom10"
                                         ng-hide="isHiddenRepaymentsStartingFromDate == true">
                                         <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
-                                               type="text" datepicker-pop="dd MMMM yyyy"
+                                               type="text" datepicker-pop="{{df}}"
                                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
                                                min="minDate" max="'2020-06-22'" class="form-control"
                                                ng-required="isMandatoryRepaymentsStartingFromDate"/>
@@ -450,7 +450,7 @@
                                                 class="required">*</span>:</label></td>
                                     <td class="width31 paddedbottom10">
                                         <input id="approvedOnDate1" name="approvedOnDate" type="text"
-                                               datepicker-pop="dd MMMM yyyy"
+                                               datepicker-pop="{{df}}"
                                                ng-model="formRequestData.approvedOnDate"
                                                is-open="opened" min="minDate"
                                                max="restrictDate"
@@ -461,7 +461,7 @@
                                                 class="required">*</span>:</label></td>
                                     <td class="width31 paddedbottom10">
                                         <input id="expectedDisbursementDate1" name="expectedDisbursementDate" type="text"
-                                               datepicker-pop="dd MMMM yyyy"
+                                               datepicker-pop="{{df}}"
                                                ng-model="formRequestData.expectedDisbursementDate"
                                                is-open="opened" min="minDate"
                                                max="'2020-06-22'"
@@ -498,7 +498,7 @@
                                     <td class="width25 paddedbottom10"
                                         ng-hide="isHiddenRepaymentsStartingFromDate == true">
                                         <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate"
-                                               type="text" datepicker-pop="dd MMMM yyyy"
+                                               type="text" datepicker-pop="{{df}}"
                                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
                                                min="minDate" max="'2020-06-22'" class="form-control"
                                                ng-required="isMandatoryRepaymentsStartingFromDate"/>
@@ -713,7 +713,7 @@
                                         <td>
                                             <input id="{{disbursementDetail[$index].expectedTrancheDisbursementDate}}"
                                                    name="expectedTrancheDisbursementDate" type="text"
-                                                   datepicker-pop="dd MMMM yyyy"
+                                                   datepicker-pop="{{df}}"
                                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                                    ng-model="disbursementDetail.expectedTrancheDisbursementDate"
                                                    is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
@@ -916,7 +916,7 @@
                                     <td>{{charge.chargeTimeType.value}}</td>
                                     <td>
                                         <input id="feeCharges[{{$index}}].duedate" type="text"
-                                               datepicker-pop="dd MMMM yyyy"
+                                               datepicker-pop="{{df}}"
                                                class="form-control"
                                                placeholder="{{'label.input.duedate' | translate}}"
                                                ng-model="charge.dueDate"

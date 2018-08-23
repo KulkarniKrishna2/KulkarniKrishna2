@@ -26,7 +26,7 @@
                     <label class="control-label col-sm-2" for="transactionDate">{{'label.input.transactiondate' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input id="transactionDate" type="text" name="transactionDate" datepicker-pop="dd MMMM yyyy"
+                        <input id="transactionDate" type="text" name="transactionDate" datepicker-pop="{{df}}"
                                ng-model="formData.transactionDate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
                     </div>
                     <div class="col-sm-3">

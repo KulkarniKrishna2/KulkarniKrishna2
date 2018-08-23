@@ -510,7 +510,7 @@
                                             <td class="width25 paddedbottom10">
                                                 <input id="actualDisbursementDate" name="actualDisbursementDate"
                                                        type="text"
-                                                       datepicker-pop="dd MMMM yyyy"
+                                                       datepicker-pop="{{df}}"
                                                        placeholder="{{'label.tooltip.disbursementon' | translate}}"
                                                        ng-model="formRequestData.disburse.actualDisbursementDate"
                                                        is-open="opened" min="minDate" max="restrictDate"
@@ -530,7 +530,7 @@
                                             <td class="width25 paddedbottom10"
                                                 ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
                                                 <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
-                                                       type="text" datepicker-pop="dd MMMM yyyy"
+                                                       type="text" datepicker-pop="{{df}}"
                                                        ng-model="date.repaymentsStartingFromDate" is-open="opened3"
                                                        min="minDate" max="'2020-06-22'" class="form-control"
                                                        ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
@@ -569,7 +569,7 @@
                                             <td class="width25 paddedbottom10"
                                                 ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
                                                 <input id="interestChargedFromDate" type="text"
-                                                       datepicker-pop="dd MMMM yyyy"
+                                                       datepicker-pop="{{df}}"
                                                        ng-model="date.interestChargedFromDate"
                                                        is-open="opened2" min="minDate" max="'2020-06-22'"
                                                        class="form-control"

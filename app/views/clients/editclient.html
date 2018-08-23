@@ -101,7 +101,7 @@
 				<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 			
 			    <div class="col-sm-3">
-			        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+			        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}"
 			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory"/>
 					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 				</div>
@@ -128,7 +128,7 @@
 						<label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
 						<div class="col-sm-3">
-							<input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="dd MMMM yyyy"
+							<input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="{{df}}"
 								   ng-model="date.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'"  class="form-control"/>
 						</div>
 					</div>
@@ -276,7 +276,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
+                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="{{df}}"
                            ng-model="date.submittedOnDate" is-open="opened1" max="restrictDate"  class="form-control"/>
                 </div>
                 <div data-ng-switch on="choice">
@@ -285,7 +285,7 @@
 		                        class="required">*</span></label>
 		
 		                <div class="col-sm-3">
-		                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy"
+		                    <input id="activationDate" type="text" datepicker-pop="{{df}}"
 		                           ng-model="date.activationDate" is-open="opened" min="'2000-01-01'"
 		                           max="restrictDate"  class="form-control"/>
 		                </div>

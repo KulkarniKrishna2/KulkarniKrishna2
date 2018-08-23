@@ -8,14 +8,14 @@
                 scope.loanRescheduleDetails = data;
                 scope.loanTermVariationsData = data.loanTermVariationsData;
                 scope.rescheduleFromDate = new Date(scope.loanRescheduleDetails.rescheduleFromDate);
-                scope.rescheduleFromDate = dateFilter(scope.rescheduleFromDate,"dd MMMM yyyy");
+                scope.rescheduleFromDate = dateFilter(scope.rescheduleFromDate,scope.df);
                 scope.submittedOnDate = new Date(scope.loanRescheduleDetails.timeline.submittedOnDate);
-                scope.submittedOnDate = dateFilter(scope.submittedOnDate,"dd MMMM yyyy");
+                scope.submittedOnDate = dateFilter(scope.submittedOnDate,scope.df);
 
                 for(var i in scope.loanTermVariationsData) {
                     if(scope.loanTermVariationsData[i].termType.value == "dueDate") {
                         scope.loanRescheduleDetails.adjustedDueDate = new Date(scope.loanTermVariationsData[i].dateValue);
-                        scope.loanRescheduleDetails.adjustedDueDate = dateFilter(scope.loanTermVariationsData[i].dateValue,"dd MMMM yyyy");
+                        scope.loanRescheduleDetails.adjustedDueDate = dateFilter(scope.loanTermVariationsData[i].dateValue,scope.df);
                         scope.changeRepaymentDate = true;
                     }
 

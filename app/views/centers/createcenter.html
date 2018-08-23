@@ -74,7 +74,7 @@
 		                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 		
 		                <div class="col-sm-3">
-		                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+		                    <input id="activationDate" type="text" datepicker-pop="{{df}}" ng-model="first.date"
 		                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 		                </div>
 		            </div>
@@ -91,7 +91,7 @@
 	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
 	
 	            <div class="col-sm-3">
-	                <input id="submittedon" type="text" readonly name="submittedon" datepicker-pop="dd MMMM yyyy"
+	                <input id="submittedon" type="text" readonly name="submittedon" datepicker-pop="{{df}}"
 	                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 	            </div>
 	        </div>

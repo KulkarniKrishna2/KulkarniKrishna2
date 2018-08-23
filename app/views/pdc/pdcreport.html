@@ -52,7 +52,7 @@
                         <div class="col-sm-3">
                             <input id="fromDate"
                                    name="fromDate" sort type="text"
-                                   datepicker-pop="dd MMMM yyyy"
+                                   datepicker-pop="{{df}}"
                                    class="form-control"
                                    ng-model="formData.fromDate" is-open="opened" min="'2000-01-01'"
                                    max="restrictDate"/>
@@ -62,7 +62,7 @@
                         <div class="col-sm-3">
                             <input id="toDate"
                                    name="toDate" sort type="text"
-                                   datepicker-pop="dd MMMM yyyy"
+                                   datepicker-pop="{{df}}"
                                    class="form-control"
                                    ng-model="formData.toDate" is-open="opened" min="'2000-01-01'"
                                    max="restrictDate"/>

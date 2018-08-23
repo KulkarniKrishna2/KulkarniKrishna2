@@ -327,7 +327,7 @@
 										<label class="control-label col-sm-2">{{'label.input.issueddate' | translate}}</label>
 
 										<div class="col-sm-3">
-											<input id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="dd MMMM yyyy" ng-model="first.documentIssueDate"
+											<input id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="{{df}}" ng-model="first.documentIssueDate"
 											    is-open="opened1" class="form-control" />
 										</div>
 									</div>
@@ -335,7 +335,7 @@
 										<label class="control-label col-sm-2">{{'label.input.expirydate' | translate}}</label>
 
 										<div class="col-sm-3">
-											<input id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="dd MMMM yyyy" ng-model="first.documentExpiryDate"
+											<input id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="{{df}}" ng-model="first.documentExpiryDate"
 											    is-open="opened1" class="form-control" />
 										</div>
 									</div>
@@ -580,7 +580,7 @@
 											   
 											</label>
 											<div class="col-sm-3">
-												<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="familyMembersFormData.dateOfBirth" 
+												<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}" ng-model="familyMembersFormData.dateOfBirth" 
 													 is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
 												<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
 													| translate}}</span>
@@ -865,7 +865,7 @@
 												</td>
 												<td>{{charge.chargeTimeType.value}}</td>
 												<td>
-													<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+													<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
 													    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee"
 													    min="minDate" max="'2020-06-22'" />
 												</td>

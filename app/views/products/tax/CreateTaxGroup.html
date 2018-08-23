@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-sm-3">
                     <input id="taxComponents[{{$index}}].startDate" sort type="text"
-                           datepicker-pop="dd MMMM yyyy" ng-model="taxcomponent.date"
+                           datepicker-pop="{{df}}" ng-model="taxcomponent.date"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>                
                     <div class="col-sm-2">
