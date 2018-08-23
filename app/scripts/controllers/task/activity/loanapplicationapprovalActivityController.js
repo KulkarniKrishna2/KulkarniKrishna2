@@ -774,6 +774,9 @@
                     delete scope.submitData.formRequestData.fixedEmiAmount;
                 }
 
+                if(scope.submitData.formRequestData.loanAccountNumber){
+                    delete scope.submitData.formRequestData.loanAccountNumber;
+                }
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'submitforapproval'
@@ -855,6 +858,9 @@
                         }
                         scope.submitData.formRequestData.charges.push(charge);  
                     }
+                }
+                if(scope.submitData.formRequestData.loanAccountNumber){
+                    delete scope.submitData.formRequestData.loanAccountNumber;
                 }
                 /**
                  * This formValidationData data is required only for validation purpose

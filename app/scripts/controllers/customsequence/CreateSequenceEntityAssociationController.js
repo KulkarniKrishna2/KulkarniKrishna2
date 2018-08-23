@@ -72,9 +72,11 @@
             };
 
             scope.submit = function() {
-                if (scope.formGstData.taxGroupId && scope.formGstData.officeId && scope.formGstData.codevalue) {
+                if(scope.ifApplicableField.indexOf(scope.formData.applicableColumn)>-1){
                     scope.formData.sequenceEntityIdentifier = 'tg_br_cc';
-                    scope.formData.sequenceEntityValue = scope.formGstData.taxGroupId + '_' +scope.formGstData.officeId + '_' + scope.formGstData.codevalue;
+                    if (scope.formGstData.taxGroupId && scope.formGstData.officeId && scope.formGstData.codevalue) {
+                        scope.formData.sequenceEntityValue = scope.formGstData.taxGroupId + '_' +scope.formGstData.officeId + '_' + scope.formGstData.codevalue;
+                    }
                 }
                 scope.formData.selectedSequences = scope.selectedSequences;
                 for (var i = 0; i < scope.formData.selectedSequences.length;) {
