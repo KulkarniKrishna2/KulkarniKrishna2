@@ -110,6 +110,10 @@
                     $modalInstance.dismiss('close');
                     initTask();
                 };
+                $scope.closeLoanAccountForm = function () {
+                    $scope.showLoanProductList = false;
+                    $scope.isLoanAccountExist = false;
+                }
 
                 function getClientData() {
                     resourceFactory.clientResource.get({ clientId: $scope.clientId, associations: 'hierarchyLookup' }, function (data) {
