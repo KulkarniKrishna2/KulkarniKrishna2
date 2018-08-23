@@ -19,6 +19,7 @@
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
+                    scope.centerDetails.isAllChecked = false;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
 
@@ -1532,16 +1533,17 @@
             }
 
 
-             scope.captureMembersToNextStep = function(clientId, loanId, isChecked){
+             scope.captureMembersToNextStep = function(clientId, isChecked){
                     if(isChecked){
                         scope.taskInfoTrackArray.push(
                             {'clientId' : clientId, 
-                             'currentTaskId' : scope.taskData.id,
-                             'loanId' : loanId})
+                             'currentTaskId' : scope.taskData.id
+                            })
                     }else{
                         var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                         if(idx >= 0){
                             scope.taskInfoTrackArray.splice(idx,1);
+                            scope.centerDetails.isAllChecked = false;
                         }
 
                     }
@@ -1652,10 +1654,10 @@
                     for(var i in centerDetails.subGroupMembers){
                         for(var j in centerDetails.subGroupMembers[i].memberData){
                             var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
-                            if(isAllChecked){
+                            if(centerDetails.isAllChecked){
                                 if(activeClientMember.status.code != 'clientStatusType.onHold' && activeClientMember.profileRatingScoreData.finalScore *20 >= scope.clientProfileRatingScoreForSuccess && !activeClientMember.isClientFinishedThisTask){
                                     centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                    scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                    scope.captureMembersToNextStep(activeClientMember.id,  activeClientMember.isMemberChecked);
                                 }
                             }else{
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
