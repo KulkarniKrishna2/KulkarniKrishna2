@@ -17,7 +17,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy"
+                    <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}"
                            ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
                 </div>
             </div>
@@ -173,7 +173,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy"
+                    <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}"
                            ng-model="formData[modelName]" is-open="opened" class="form-control"/>
                 </div>
             </div>

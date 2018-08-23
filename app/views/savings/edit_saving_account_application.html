@@ -26,7 +26,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+            <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="{{df}}"
                    ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control" required late-validate/>
             <form-validate valattributeform="editsavingccountform" valattribute="submittedOnDate"/>
@@ -307,7 +307,7 @@
                     }}&nbsp;<span class="required">*</span></label>
             </td>
             <td class="width36 paddedbottom10">
-                <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="dd MMMM yyyy"
+                <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="{{df}}"
                        ng-model="formData.dpStartDate" is-open="opened" class="form-control" required/>
                 <form-validate valattributeform="editsavingccountform" valattribute="dpStartDate"/>
             </td>
@@ -350,7 +350,7 @@
             </td>
             <td ng-show="charge.chargeTimeType.value=='Specified due date'">
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
-                       type="text" datepicker-pop="dd MMMM yyyy"ng-model="charge.dueDate" 
+                       type="text" datepicker-pop="{{df}}"ng-model="charge.dueDate" 
                        is-open="opened"/>
             </td>
             <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">

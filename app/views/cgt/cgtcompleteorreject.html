@@ -7,7 +7,7 @@
                 <label class="control-label col-sm-2">{{ 'label.heading.completeddate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3" >
-                    <input type="text" id="completeddate" name="completedDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="text" id="completeddate" name="completedDate" datepicker-pop="{{df}}"
                            ng-model="formData.selectedDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
@@ -18,7 +18,7 @@
                 <label class="control-label col-sm-2">{{ 'label.heading.rejecteddate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3" >
-                    <input type="text" id="rejecteddate" name="completedDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="text" id="rejecteddate" name="completedDate" datepicker-pop="{{df}}"
                            ng-model="formData.selectedDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">

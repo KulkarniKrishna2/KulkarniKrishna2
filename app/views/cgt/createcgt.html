@@ -27,7 +27,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.expectedStartDate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="expectedStartDate" name="expectedStartDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="text" id="expectedStartDate" name="expectedStartDate" datepicker-pop="{{df}}"
                            ng-model="formData.expectedStartDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
@@ -39,7 +39,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.expectedEndDate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="expectedEndDate" name="expectedEndDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="text" id="expectedEndDate" name="expectedEndDate" datepicker-pop="{{df}}"
                            ng-model="formData.expectedEndDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">

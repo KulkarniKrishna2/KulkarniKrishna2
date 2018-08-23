@@ -11,7 +11,7 @@
             scope.filterBy = 'Invalid';
             scope.workflowLoanStatusList = [];
             scope.offices = [];
-            scope.dateFormat = "dd MMMM yyyy";
+            scope.dateFormat = scope.df;
 
             resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
                  scope.offices = officelist.allowedParents;

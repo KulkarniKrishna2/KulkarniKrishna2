@@ -43,7 +43,7 @@
             	<label class="control-label col-sm-2">{{'label.input.fromDate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="fromDate" type="text" name="fromDate" datepicker-pop="dd MMMM yyyy"
+                    <input id="fromDate" type="text" name="fromDate" datepicker-pop="{{df}}"
                            ng-model="first.fromDate" is-open="opened1" max="restrictDate"  class="form-control" required late-validate />
                 </div>
                 <div class="col-sm-2">
@@ -55,7 +55,7 @@
             	<label class="control-label col-sm-2">{{'label.input.toDate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="toDate" type="text" name="toDate" datepicker-pop="dd MMMM yyyy"
+                    <input id="toDate" type="text" name="toDate" datepicker-pop="{{df}}"
                            ng-model="first.toDate" is-open="opened2" min="first.fromDate" max="restrictDate"  class="form-control" required late-validate />
                 </div>
                 <div class="col-sm-2">

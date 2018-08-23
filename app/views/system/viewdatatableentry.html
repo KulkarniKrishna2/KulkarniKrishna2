@@ -85,11 +85,11 @@
                 <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && enableDependency"
                        ng-model="formData[columnHeader.columnName]" class="form-control"/>
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && enableDependency" type="text"
-                       datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
+                       datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
                     <div class="form-group">
-                        <input type="text" datepicker-pop="dd MMMM yyyy"
+                        <input type="text" datepicker-pop="{{df}}"
                                ng-model="formDat[columnHeader.columnName].date"
                                is-open="opened{{$index}}" class="form-control"/>
                     </div>
@@ -169,11 +169,11 @@
                         type="text"
                        ng-model="formData[column.columnName]" class="form-control"/>
                     <input ng-show="fieldType(column.columnDisplayType) == 'DATE' && enableDependency" type="text"
-                       datepicker-pop="dd MMMM yyyy" ng-model="formDat[column.columnName]"
+                       datepicker-pop="{{df}}" ng-model="formDat[column.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
                     <div ng-show="fieldType(column.columnDisplayType) == 'DATETIME'" class="form-inline">
                         <div class="form-group">
-                            <input type="text" datepicker-pop="dd MMMM yyyy"
+                            <input type="text" datepicker-pop="{{df}}"
                                ng-model="formDat[column.columnName].date"
                                is-open="opened{{$index}}" class="form-control"/>
                         </div>

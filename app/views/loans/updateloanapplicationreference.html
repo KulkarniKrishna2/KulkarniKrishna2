@@ -214,7 +214,7 @@
                     <label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
                 </td>
                 <td class="width36 paddedbottom10">
-                    <input id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+                    <input id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="{{df}}"
                            class="form-control"
                            ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
                            required/>
@@ -262,13 +262,13 @@
                 <td class="width14" ng-hide="isHiddenExpectedDisbursementDate"><label>{{ 'label.input.expecteddisbursementon' | translate }}:<span class="required" ng-show="isMandatoryExpectedDisbursementDate">*</span>
                 </label>&nbsp;</td>
                 <td class="width36 paddedbottom10" ng-hide="isHiddenExpectedDisbursementDate">
-                    <input id="expectedDisbursementDate" name="expectedDisbursementDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.expectedDisbursementDate" is-open="opened" min="minDate" ng-required="isMandatoryExpectedDisbursementDate"/>
+                    <input id="expectedDisbursementDate" name="expectedDisbursementDate" sort type="text" datepicker-pop="{{df}}" class="form-control" ng-model="formData.expectedDisbursementDate" is-open="opened" min="minDate" ng-required="isMandatoryExpectedDisbursementDate"/>
                     <form-validate valattributeform="updateloanapplicationform" valattribute="expectedDisbursementDate"/>
                 </td>
 
                 <td class="width14" ng-hide="isHiddenFirstRepaymentDate"><label>{{ 'label.input.firstrepaymenton' | translate }}:</label>&nbsp;</td>
                 <td class="width36 paddedbottom10" ng-hide="isHiddenFirstRepaymentDate">
-                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" ng-model="formData.repaymentsStartingFromDate" is-open="opened" ng-required="isMandatoryFirstRepaymentDate" min="minDate" />
+                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" sort type="text" datepicker-pop="{{df}}" class="form-control" ng-model="formData.repaymentsStartingFromDate" is-open="opened" ng-required="isMandatoryFirstRepaymentDate" min="minDate" />
                 </td>
             </tr>
             <tr ng-if="!loanaccountinfo.loanEMIPacks">
@@ -322,7 +322,7 @@
                 <tr ng-repeat="disbursementDetail in formData.disbursementData track by $index">
                     <td>
                         <input id="disbursementDetail[{{$index}}].expectedTrancheDisbursementDate" type="text"
-                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                ng-model="disbursementDetail.expectedTrancheDisbursementDate" is-open="'openedtranche'+$index"
                                min="minDate" max="'2020-06-22'"/>
@@ -388,7 +388,7 @@
                            placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
                 <td>{{charge.chargeTimeType.value}}</td>
                 <td>
-                    <input id="feeCharges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy"
+                    <input id="feeCharges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}"
                            class="form-control"
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
                            is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>

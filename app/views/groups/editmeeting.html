@@ -117,7 +117,7 @@
                 <label class="control-label col-sm-2" ng-show="response.uiDisplayConfigurations.labelChanges.calendarChagesEffectiveFrom">{{'label.input.calendar.next.meeting.falls.on' | translate}}<span
                         class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                    <input id="startDate" type="text" datepicker-pop="{{df}}" ng-model="first.date"
                            is-open="opened" min="minDate" max="'2020-06-22'" class="form-control"/>
                 </div>
             </div>
