@@ -85,20 +85,23 @@
                                             <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"
                                                 required id="pwd" style="border-radius: 5px;">
                                         </div>
-                                        <div ng-if="mainControllerUIConfigData.isEnabledRecaptcha">
-                                            <span><img src="data:image/png;base64,{{captchaData.base64EncodedImage}}"></span> <span class="pad-left-10"><a class="btn btn-default pad-left-10" ng-click="refreshCaptcha()" href="javascript:void(null);"> <i class="icon-refresh"></i></a></span>
-                                        </div>
-                                        <div ng-if="mainControllerUIConfigData.isEnabledRecaptcha">
-                                            <input type="text" data-ng-model="captchaFormData.captchaEntered" placeholder="{{ 'label.input.captcha' | translate }}"
-                                                   class="input-sm form-control" required id="captcha" minlength="6" maxlength="6" style="border-radius: 5px;">
-                                            <br>
-                                        </div>
 
-                                        <!--<span ng-if="mainControllerUIConfigData.isEnabledRecaptcha">-->
-                                            <!--<div style="margin-left: 14px;" vc-recaptcha theme="'light'" key="reCaptchaModel.siteKey" on-create="setWidgetId(widgetId)"-->
-                                                <!--on-success="setResponse(response)"></div>-->
-                                            <!--<br>-->
-                                        <!--</span>-->
+                                        <span ng-if="mainControllerUIConfigData.isEnabledCaptcha">
+                                            <div ng-if="mainControllerUIConfigData.isEnabledPatchca">
+                                                <span><img src="data:image/png;base64,{{captchaData.base64EncodedImage}}"></span> <span class="pad-left-10"><a class="btn btn-default pad-left-10" ng-click="refreshPatchca()" href="javascript:void(null);"> <i class="icon-refresh"></i></a></span>
+                                            </div>
+                                            <div ng-if="mainControllerUIConfigData.isEnabledPatchca">
+                                                <input type="text" data-ng-model="captchaFormData.captchaEntered" placeholder="{{ 'label.input.captcha' | translate }}"
+                                                       class="input-sm form-control" required id="captcha" minlength="6" maxlength="6" style="border-radius: 5px;">
+                                                <br>
+                                            </div>
+                                            <span ng-if="mainControllerUIConfigData.isEnabledRecaptcha">
+                                                <div style="margin-left: 14px;" vc-recaptcha theme="'light'" key="reCaptchaModel.siteKey" on-create="setWidgetId(widgetId)"
+                                                    on-success="setResponse(response)"></div>
+                                                <br>
+                                            </span>
+                                        </span>
+
                                         <div class="form-group" align="center">
                                             <button class="btn btn-success btn-md" type="submit" id="login-button">{{ 'label.button.signin' | translate }}</button>
                                         </div>

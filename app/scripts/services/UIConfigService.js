@@ -22,7 +22,13 @@
                                     scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
                                 }
                                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
+                                    scope.mainControllerUIConfigData.isEnabledCaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledCaptcha;
+                                }
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
                                     scope.mainControllerUIConfigData.isEnabledRecaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledRecaptcha;
+                                }
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
+                                    scope.mainControllerUIConfigData.isEnabledPatchca = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledPatchca;
                                 }
                                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
                                     scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
@@ -48,7 +54,13 @@
                                 scope.currentScope = scope.response.uiDisplayConfigurations.globalSearchScope;
                             }
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
+                                scope.mainControllerUIConfigData.isEnabledCaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledCaptcha;
+                            }
+                            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
                                 scope.mainControllerUIConfigData.isEnabledRecaptcha = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledRecaptcha;
+                            }
+                            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loginSecurity) {
+                                scope.mainControllerUIConfigData.isEnabledPatchca = scope.response.uiDisplayConfigurations.loginSecurity.isEnabledPatchca;
                             }
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
                                 scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
