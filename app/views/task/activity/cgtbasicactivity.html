@@ -23,7 +23,7 @@
 		<div>
 			<table class="table">
 				<thead>
-					<th><input type="checkbox" ng-model="isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
+					<th><input type="checkbox" ng-model="centerDetails.isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, centerDetails.isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
 					<th class="col-md-1">{{'label.heading.name' | translate}}</th>
 					<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>

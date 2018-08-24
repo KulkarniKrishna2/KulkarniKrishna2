@@ -15,6 +15,7 @@
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
+                    scope.centerDetails.isAllChecked = false;
                     for(var i in scope.centerDetails.subGroupMembers){
                         for(var j in scope.centerDetails.subGroupMembers[i].memberData){
                             if(!scope.centerDetails.subGroupMembers[i].memberData[j].cbExistingLoansSummaryData && scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData){
@@ -634,7 +635,7 @@
                     if ($scope.charges.length > 0) {
                         $scope.editLoanAccountdata.charges = [];
                         for (var i in $scope.charges) {
-                            if ($scope.charges[i].amountOrPercentage > 0) {
+                            if ($scope.charges[i].amountOrPercentage > 0 || $scope.charges[i].isSlabBased) {
                                 $scope.editLoanAccountdata.charges.push({
                                     id: $scope.charges[i].id,
                                     chargeId: $scope.charges[i].chargeId,
@@ -881,6 +882,7 @@
                     var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                     if(idx >= 0){
                         scope.taskInfoTrackArray.splice(idx,1);
+                        scope.centerDetails.isAllChecked = false;
                     }
 
                 }
