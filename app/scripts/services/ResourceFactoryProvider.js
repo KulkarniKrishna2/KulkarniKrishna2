@@ -553,6 +553,9 @@
                     standingInstructionHistoryResource: defineResource(apiVer + "/standinginstructionrunhistory", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    captchaResource: defineResource(apiVer + "/captcha/generate", {}, {
+                        generate: {method: 'GET', params: {}}
+                    }),
                     centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId: '@centerId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),

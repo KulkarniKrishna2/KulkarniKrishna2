@@ -30,57 +30,70 @@
             };*/
 
             scope.reCaptchaSubmit = function () {
-                if (scope.mainControllerUIConfigData.isEnabledRecaptcha) {
-                    delete scope.authenticationErrorMessage;
-                    delete scope.authenticationFailed;
-                    if (vcRecaptchaService.getResponse() === "") { //if string is empty
-                        scope.authenticationErrorMessage = 'error.recaptcha.connection.failed';
-                        scope.authenticationFailed = true;
-                        //vcRecaptchaService.reload(scope.widgetId);
-                    } else {
-                        scope.login();
-                        setTimeout(function () {
+                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
+                    if (scope.mainControllerUIConfigData.isEnabledRecaptcha) {
+                        delete scope.authenticationErrorMessage;
+                        delete scope.authenticationFailed;
+                        if (vcRecaptchaService.getResponse() === "") { //if string is empty
+                            scope.authenticationErrorMessage = 'error.recaptcha.connection.failed';
+                            scope.authenticationFailed = true;
+                                //vcRecaptchaService.reload(scope.widgetId);
+                        } else {
+                            scope.login();
+                            setTimeout(function () {
+                                vcRecaptchaService.reload(scope.widgetId);
+                            }, 2000);
+                        }
+                        //var siteVerifyURL = "https://www.google.com/recaptcha/api/siteverify"
+                        /**
+                         * SERVER SIDE VALIDATION
+                         *
+                         * You need to implement your server side validation here.
+                         * Send the reCaptcha response to the server and use some of the server side APIs to validate it
+                         * See https://developers.google.com/recaptcha/docs/verify
+                         */
+                        /*console.log('sending the captcha response to the server', scope.reCaptchaResponse);
+                        if (valid) {
+                            console.log('Success');
+                        } else {
+                            console.log('Failed validation');
+                            // In case of a failed validation you need to reload the captcha
+                            // because each response can be checked just once
                             vcRecaptchaService.reload(scope.widgetId);
-                        }, 2000);
+                        }*/
+                    }else{
+                        scope.login();
                     }
-                    //var siteVerifyURL = "https://www.google.com/recaptcha/api/siteverify"
-                    /**
-                     * SERVER SIDE VALIDATION
-                     *
-                     * You need to implement your server side validation here.
-                     * Send the reCaptcha response to the server and use some of the server side APIs to validate it
-                     * See https://developers.google.com/recaptcha/docs/verify
-                     */
-                    /*console.log('sending the captcha response to the server', scope.reCaptchaResponse);
-
-                    if (valid) {
-                        console.log('Success');
-                    } else {
-                        console.log('Failed validation');
-
-                        // In case of a failed validation you need to reload the captcha
-                        // because each response can be checked just once
-                        vcRecaptchaService.reload(scope.widgetId);
-                    }*/
                 } else {
                     scope.login();
                 }
             };
-            
+
             ///////////////////////////////////////
             scope.loginCredentials = {};
             scope.passwordDetails = {};
+            scope.captchaData = {};
+            scope.captchaFormData = {};
             scope.authenticationFailed = false;
             scope.load = false;
             scope.otpPanel = false;
+            scope.captchaPanel = false;
 
             scope.login = function () {
+                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
+                    if (scope.mainControllerUIConfigData.isEnabledPatchca) {
+                        scope.loginCredentials.captchaDetails = {
+                            captcha: scope.captchaFormData.captchaEntered,
+                            captcha_reference_id: scope.captchaData.captchaReferenceId
+                        };
+                    }
+                }
                 scope.load = true;
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
             };
 
             scope.correctCaptcha = function(response) {
-                alert(response);
+                //console.log(response);
             };
 
             scope.loginWithOTP = function() {
@@ -89,6 +102,22 @@
                     authenticationService.authenticateWithOTP(scope.loginCredentials);
                 }
             };
+
+            scope.refreshPatchca = function(){
+                if (scope.mainControllerUIConfigData.isEnabledPatchca) {
+                    resourceFactory.captchaResource.generate({}, function (data) {
+                        scope.captchaData = data;
+                        scope.loginCredentials.captchaDetails = undefined;
+                        scope.captchaFormData = {};
+                    });
+                }
+            };
+
+            function init() {
+                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
+                    scope.refreshPatchca();
+                }
+            }
 
             scope.showLoginScreen = function() {
                 scope.otpPanel = false;
@@ -105,6 +134,9 @@
                     scope.authenticationErrorMessage = 'error.connection.failed';
                 }
                 scope.load = false;
+                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
+                    init();
+                }
             });
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
@@ -165,6 +197,11 @@
                     authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
                 });
             };
+
+            $timeout(function () {
+                init();
+            }, 500);
+            
         }
     });
     mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', 'ResourceFactory', 'HttpService','$timeout', 'CommonUtilService', 'vcRecaptchaService', mifosX.controllers.LoginFormController]).run(function ($log) {
