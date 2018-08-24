@@ -230,7 +230,7 @@
                         }
                         if(data.globalConfiguration[i].name=='modify_approved_loan'){
                             scope.isEditApprovedLoan = data.globalConfiguration[i].enabled;
-
+                        }
                         if(data.globalConfiguration[i].name == "create_center_without_village"){
                             scope.createWithoutVillage = data.globalConfiguration[i].enabled;
                         }
@@ -239,7 +239,7 @@
                     }
                     constructJsonForSystemGlobalConfigurations();
                 });
-            };
+            }
 
             var systemGlobalConfigurations = {};
             var constructJsonForSystemGlobalConfigurations = function () {
