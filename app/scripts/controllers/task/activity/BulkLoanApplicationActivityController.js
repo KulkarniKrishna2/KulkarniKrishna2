@@ -13,6 +13,7 @@
                     scope.rejectTypes = data.rejectTypes;
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
+                    scope.centerDetails.isAllChecked = false;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
 
@@ -1083,6 +1084,7 @@
                     var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                     if(idx >= 0){
                         scope.taskInfoTrackArray.splice(idx,1);
+                        scope.centerDetails.isAllChecked = false;
                     }
 
                 }

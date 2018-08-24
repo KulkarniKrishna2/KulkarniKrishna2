@@ -13,6 +13,7 @@
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
                     scope.isAllClientFinishedThisTask = true;
+                    scope.centerDetails.isAllChecked = false;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
 
@@ -41,9 +42,11 @@
                                         if(clientLevelCriteriaObj.score == 5){
                                               scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                               scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                              scope.isAllClientFinishedThisTask = false;
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                            scope.isAllClientFinishedThisTask = false;
                                         }
                                     }
                               }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
@@ -145,6 +148,7 @@
                     var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                     if(idx >= 0){
                         scope.taskInfoTrackArray.splice(idx,1);
+                        scope.centerDetails.isAllChecked = false;
                     }
 
                 }

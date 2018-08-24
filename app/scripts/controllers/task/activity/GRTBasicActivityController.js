@@ -24,6 +24,7 @@
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
+                    scope.centerDetails.isAllChecked = false;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
 
@@ -451,7 +452,7 @@
                 if ($scope.charges.length > 0) {
                     $scope.editLoanAccountdata.charges = [];
                     for (var i in $scope.charges) {
-                        if ($scope.charges[i].amountOrPercentage > 0) {
+                        if ($scope.charges[i].amountOrPercentage > 0 || $scope.charges[i].isSlabBased) {
                             $scope.editLoanAccountdata.charges.push({
                                 id: $scope.charges[i].id,
                                 chargeId: $scope.charges[i].chargeId,
@@ -697,6 +698,7 @@
                     var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                     if(idx >= 0){
                         scope.taskInfoTrackArray.splice(idx,1);
+                        scope.centerDetails.isAllChecked = false;
                     }
 
                 }

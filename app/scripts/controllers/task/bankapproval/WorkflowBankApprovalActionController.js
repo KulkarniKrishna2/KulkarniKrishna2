@@ -133,6 +133,7 @@
                 $scope.availableQuery();
                 $scope.checkOtherQuery = function(availableQueryId){
                     $scope.showQueryText = false;
+                    $scope.isDisableAddButton = false;
                     for(var i in $scope.bankEnqiryOptions){
                         if($scope.bankEnqiryOptions[i].id == availableQueryId && $scope.bankEnqiryOptions[i].systemIdentifier === "QUERY"){
                             $scope.showQueryText = true;
@@ -148,7 +149,7 @@
                                 queryObj.queryId = this.available;
                                 if($scope.bankEnqiryOptions[i].systemIdentifier === "QUERY"){
                                     queryObj.query = this.queryText.description;
-                                    if(_.isUndefined(queryObj.query)){
+                                    if(_.isUndefined(queryObj.query) || queryObj.query.trim().length <= 0){
                                         $scope.error = true;
                                         return false;
                                     }
@@ -159,6 +160,7 @@
                                 $scope.selectedQueries.push(queryObj);
                                 $scope.availableQueries.splice(i,1);
                                 $scope.showQueryText = false;
+                                $scope.isDisableAddButton = true;
                             }
 
                         }
