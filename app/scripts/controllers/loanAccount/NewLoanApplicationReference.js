@@ -42,6 +42,7 @@
             scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
+            scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
                 scope.inparams.templateType = 'jlg';
             } else if (scope.groupId && !scope.disbursementToGroupAllowed) {

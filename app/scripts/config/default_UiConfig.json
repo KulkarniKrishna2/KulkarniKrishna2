@@ -327,7 +327,8 @@
         "firstRepaymentDate": false,
         "interestRatePerPeriod": false,
 		"disbursementPaymentMode":false
-      }
+      },
+      "newLoanApplicationLimitAllowed" : false
     }
   }
 }
