@@ -28,6 +28,7 @@
             scope.showNoteField = false;
             scope.showSmartcard = true;
             scope.clientId = routeParams.id;
+            scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
             scope.entityType = routeParams.entityType;
             if(!scope.entityType){
                 scope.entityType = "client";
@@ -1077,7 +1078,7 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?';
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
                             }
                         }
                     if (scope.signature_url != null) {

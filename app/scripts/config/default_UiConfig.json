@@ -109,11 +109,12 @@
 	},
 	"viewClient": {
 	  "isHiddenField": {
-	  	"createClient" : false,
+	  "createClient" : false,
 		"pincode": false,
 		"displayNameInReverseOrder": false,
 		"accountNo":false,
-		"referenceNo": true
+		"referenceNo": true,
+		"enableSmartCard" : true
 	  	},
 	  "familyDeatils":{
 		"isHiddenField": {
