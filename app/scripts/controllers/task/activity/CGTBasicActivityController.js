@@ -1192,9 +1192,11 @@
                             if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask){
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
                                 scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                scope.addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
                             }
                         }else{
                             centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                            scope.addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
                         }
 
                     }
