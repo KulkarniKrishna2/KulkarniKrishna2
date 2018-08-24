@@ -113,7 +113,8 @@
 				"pincode": false,
 				"displayNameInReverseOrder": false,
 				"accountNo": false,
-				"referenceNo": true
+				"referenceNo": true,
+				"enableSmartCard" : true
 			},
 			"familyDeatils": {
 				"isHiddenField": {

@@ -32,13 +32,13 @@
 				    </div>
 				    <div collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
 				        <div class="form-group">
-				            <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy"
+				            <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="{{df}}"
 				                   ng-model="date.from" is-open="opened"  max="'2020-06-22'"
 				                   date-disabled="disabled(date, mode)" class="form-control"/>
 				        </div>
 				        <div class="form-group">
 				            <div>
-				                <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy"
+				                <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="{{df}}"
 				                       ng-model="date.to" is-open="opened1" max="'2020-06-22'"
 				                       date-disabled="disabled(date, mode)" class="form-control"/>
 				            </div>
@@ -192,7 +192,7 @@
         <div class="modal-body modal-big">
             <api-validate></api-validate>
             <br>
-            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+            <input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
                    max="restrictDate"/>
         </div>
         <div class="modal-footer">
@@ -277,7 +277,7 @@
 							<tr>
 								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
-									<input type="text" datepicker-pop="dd MMMM yyyy" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+									<input type="text" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
 								</th>
 								<th>
 									<div class="rowleft">
@@ -309,7 +309,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -399,7 +399,7 @@
 								</th>
 								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
-									<input type="text" datepicker-pop="dd MMMM yyyy" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+									<input type="text" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
 								</th>
 							</tr>
 							<tr>
@@ -456,7 +456,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -569,7 +569,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -672,7 +672,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">

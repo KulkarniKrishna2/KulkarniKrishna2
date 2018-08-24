@@ -1,7 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, $modal, dateFilter, http, API_VERSION, $rootScope, $sce) {
-
+        LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, rootScope, $modal, dateFilter, http, API_VERSION, $rootScope, $sce, loanDetailsService) {
+            
+            scope.loandetails = rootScope.headerLoanDetails;
+            delete rootScope.headerLoanDetails;
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.id;
             scope.formData = {};
@@ -1425,9 +1427,14 @@
             scope.deleteRecord = function(index){
                 scope.multipleBankDisbursalData.splice(index,1);
             };
+
+            scope.getStatusCode = function () {
+                return loanDetailsService.getStatusCode(scope.loandetails);
+            };
+
         }
     });
-    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$modal', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$rootScope', '$modal', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', 'LoanDetailsService' , mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
         $log.info("LoanAccountActionsController initialized");
     });
 }(mifosX.controllers || {}));

@@ -19,7 +19,7 @@
 		<div>
 			<table class="table">
 				<thead>
-						<th class="col-md-1"><input type="checkbox" ng-model="isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
+						<th class="col-md-1"><input type="checkbox" ng-model="centerDetails.isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
 						<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 						<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 						<th class="col-md-1">{{'label.heading.age' | translate}}</th>
@@ -53,7 +53,7 @@
 					    ng-if="!activeClientMember.isClientFinishedThisTask">
 							<td class="col-md-1" ng-if="!validateClient(activeClientMember)"><input type="checkbox" ng-model="activeClientMember.isMemberChecked" data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.complete.data.check.to.continue' | translate}}"
 								ng-disabled="validateClient(activeClientMember) || activeClientMember.isClientFinishedThisTask"
-								ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)"></input></td>
+								ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.isMemberChecked)"></input></td>
 						<td class="col-md-1"ng-if="validateClient(activeClientMember)"><input type="checkbox" ng-model="isMemberChecked" data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.complete.data.check.to.continue' | translate}}"
 													ng-disabled="validateClient(activeClientMember) || activeClientMember.isClientFinishedThisTask"
 													ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked)"></input></td>

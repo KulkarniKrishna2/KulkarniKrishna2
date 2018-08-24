@@ -103,7 +103,7 @@
 									</td>
 									<td>
 										<div class="col-sm-3">
-											<select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+											<select ng-show="canAddCharges" ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
 											    value="{{charge.id}}" class="form-control width170px">
 												<option value="">{{'label.selectcharge' | translate}}</option>
 											</select>
@@ -111,7 +111,7 @@
 										</div>
 									</td>
 									<td>
-										<i class="icon-plus icon-white pointer" ng-click="addCharge()"></i>
+										<i ng-show="canAddCharges" class="icon-plus icon-white pointer" ng-click="addCharge()"></i>
 									</td>
 								</tr>
 								<tr>
@@ -137,7 +137,7 @@
 								</td>
 								<td>{{charge.chargeTimeType.value}}</td>
 								<td>
-									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
 									    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
 									    max="'2020-06-22'" />
 								</td>

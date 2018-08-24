@@ -76,7 +76,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input id="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="start.date"
+                    <input id="startDate" sort type="text" datepicker-pop="{{df}}" ng-model="start.date"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>
             </div>

@@ -16,7 +16,8 @@
 			"isHiddenField": {
 				"createClient": true,
 				"accountNo": true,
-				"referenceNo": false
+				"referenceNo": false,
+				"enableSmartCard" : false
 			},
 		    "familyDeatils":{
 			  "isHiddenField": {

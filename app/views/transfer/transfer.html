@@ -1,0 +1,28 @@
+<div>
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.transfer' | translate}}</li>
+        </ul>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="list-group">
+            <a class="list-group-item" href="#/transfer/viewclienttransfer" has-permission='READ_TRANSFER_ENTITY'>
+                <h4 class="list-group-item-heading">
+                    <i class="icon-mobile-phone icon-large"></i>&nbsp;&nbsp; {{'label.anchor.member.transfer' | translate}}</h4>
+                <p class="list-group-item-text">{{ 'label.define.member.transfer' | translate}}</p>
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="list-group">
+            <a class="list-group-item" href="#/transfer/viewcentertransfer" has-permission='READ_TRANSFER_ENTITY'>
+                <h4 class="list-group-item-heading">
+                    <i class="icon-mobile-phone icon-large"></i>&nbsp;&nbsp; {{'label.anchor.center.transfer' | translate}}</h4>
+                <p class="list-group-item-text">{{ 'label.define.center.transfer' | translate}}</p>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1655,6 +1655,11 @@
                     }),
                     userRegisteredDeviceResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId/users/:userId", {registeredDeviceId : '@registeredDeviceId', userId: '@userId'}, {
                         action: { method: 'PUT', params: {} }
+                    }),
+                    bulkTransferResource: defineResource(apiVer + "/bulktransfer/:branchTransferId", {branchTransferId:'@branchTransferId'}, {
+                        getAll:{method:'GET' , params:{}, isArray:true},
+                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
+                        actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
                     })
                 };
             }];

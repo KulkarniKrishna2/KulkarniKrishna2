@@ -1,0 +1,91 @@
+<div class="col-md-12" ng-controller="TransferClientController">
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+            </li>
+            <li>
+                <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.member.transfer' | translate}}</li>
+        </ul>
+    </div>
+    <div class="col-sm-12 error marginbottom20" ng-show="isClientExceedingLimit">
+        {{'error.msg.selected.client.can.not.be.more.than' | translate}}{{clientRemaining}}
+    </div>
+    <api-validate></api-validate>
+    <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12">
+            <select chosen="offices" id="fromOfficeId" ng-model="fromOfficeId" ng-change="getFromCenters()" class="form-control" ng-options="office.id as office.name for office in offices"
+                value="{{office.id}}">
+                <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="margin-top:10px">
+            <select chosen="fromCenters" id="fromCeneterId" ng-model="fromCeneterId" ng-change="getAllMembers()" class="form-control"
+                ng-options="center.id as center.name for center in fromCenters" value="{{center.id}}">
+                <option value="">{{'label.menu.selectcenter' | translate}}</option>
+            </select>
+        </div>
+        <div ng-repeat="member in members" class="col-sm-12" style="margin-top:10px" ng-init="member.checked=false" ng-show="isClientSelected(member.id)">
+            <input type="checkbox" ng-model="member.checked" ng-change="selectClients(member)"> {{member.displayName}}-({{member.referenceNumber}})
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12">
+            <select chosen="offices" id="toOfficeId" ng-model="toOfficeId" class="form-control" ng-change="getToCenters()" ng-options="office.id as office.name for office in offices"
+                value="{{office.id}}">
+                <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="margin-top:10px">
+            <select chosen="toCenters" id="toCeneterId" ng-model="toCeneterId" ng-change="getAllGroups()" class="form-control" ng-options="center.id as center.name for center in toCenters"
+                value="{{center.id}}">
+                <option value="">{{'label.menu.selectcenter' | translate}}</option>
+            </select>
+        </div>
+
+        <div ng-repeat="group in groups" class="col-sm-12" style="margin-top:10px" ng-show="group.active">
+            <input type="radio" name="selectedGroup" ng-model="selectGroup" ng-value="group" ng-change="addGroup(selectGroup.id, selectGroup.name)">
+            <span ng-show="!isMaxClientInGroupEnable">{{group.name}}</span>
+            <span ng-show="isMaxClientInGroupEnable">{{group.name}}&emsp;({{(maxClientLimit-group.activeClientMembers.length)}})</span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+
+        <div class="col-md-offset-5">
+            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <button id="save" type="submit" ng-click="add()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.add' | translate}}</button>
+        </div>
+    </div>
+    <hr/>
+    <div class="col-sm-12" ng-show="dataList.length>0">
+        <table class="table well ">
+            <thead>
+                <tr class="graybg" style="height:60px;">
+                    <th>{{'label.heading.clients' | translate}}</th>
+                    <th>{{'label.heading.group' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in dataList" style="height:60px;cursor: pointer;">
+                    <td class="pointer">
+                        <div class="col-sm-12" ng-repeat="client in data.clients">
+                            <span>{{client.name}}</span>
+                        </div>
+                    </td>
+                    <td class="pointer">{{data.group.name}}</td>
+                    <td>
+                        <button type="button" ng-click="remove($index)" class="btn btn-danger">
+                            <i tooltip="Delete" class="icon-trash icon-white"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-offset-5">
+            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <button id="submit" type="submit" ng-click="submitDetails()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.submit' | translate}}</button>
+        </div>
+    </div>
+</div>

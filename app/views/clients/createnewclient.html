@@ -100,7 +100,7 @@
 					<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
 					<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 					<div class="col-sm-3">
-					<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
+					<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth"
 						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
 					    <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 					</div>
@@ -130,7 +130,7 @@
 						<label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
 						<div class="col-sm-3">
-							<input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="dd MMMM yyyy"
+							<input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="{{df}}"
 								   ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'"  class="form-control"/>
 						</div>
 					</div>
@@ -440,7 +440,7 @@
 			                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 
 			                <div class="col-sm-3">
-			                    <input id="activationDate" type="text" name="activationdate" datepicker-pop="dd MMMM yyyy"
+			                    <input id="activationDate" type="text" name="activationdate" datepicker-pop="{{df}}"
 			                           ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
 			                </div>
 			            </div>
@@ -451,7 +451,7 @@
 	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
 	            <div class="col-sm-3">
-	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="{{df}}"
 	                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
 	            </div>
 	        </div>

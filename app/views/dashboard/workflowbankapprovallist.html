@@ -41,7 +41,7 @@
             <td  class="col-sm-3>
                 <div">
                     <input id="taskCreatedDate" type="text" name="taskCreatedDate" 
-                       datepicker-pop="dd MMMM yyyy"
+                       datepicker-pop="{{df}}"
                        placeholder="{{'label.placeholder.task.created.date' | translate}}" 
                       ng-model="formData.taskCreatedDate" is-open="opened1" class="form-control"
                       ng-readonly = "true"/>
@@ -51,7 +51,7 @@
             <td  class="col-sm-3">
                 <div>
                     <input id="expectedDisbursementDate" type="text" name="expectedDisbursementDate" 
-                       datepicker-pop="dd MMMM yyyy"
+                       datepicker-pop="{{df}}"
                        placeholder="{{'label.placeholder.expected.disbursement.date' | translate}}"
                      ng-model="formData.expectedDisbursementDate" is-open="opened1" 
                      ng-readonly = "true" class="form-control"/>

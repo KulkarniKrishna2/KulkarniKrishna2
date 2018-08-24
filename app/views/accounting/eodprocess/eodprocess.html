@@ -29,12 +29,12 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}</label>
             <div class="col-sm-3">
-                <input id="fromDate" type="text" name="fromDate" datepicker-pop="dd MMMM yyyy"
+                <input id="fromDate" type="text" name="fromDate" datepicker-pop="{{df}}"
                        ng-model="first.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
             </div>
             <label class="control-label col-sm-2">{{'label.input.todate' | translate}}</label>
             <div class="col-sm-3">
-                <input id="toDate" type="text" name="toDate" datepicker-pop="dd MMMM yyyy"
+                <input id="toDate" type="text" name="toDate" datepicker-pop="{{df}}"
                        ng-model="first.toDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
             </div>
         </div>

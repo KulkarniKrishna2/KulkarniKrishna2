@@ -400,17 +400,16 @@
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.reschedule' | translate}}</h3>
         </div>
-        <div class="modal-body">
-            <api-validate></api-validate>
-            <div class="col-sm-12">
-                <label class="control-label col-sm-2" for="duedate">{{'label.input.duedate' | translate}}
-                    <span class="required">*</span>
-                </label>
-                <div class="col-sm-4">
-                    <span style="padding-left:17px">
-                        <input id="duedate" name="duedate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="rschData.dueDate"
-                               is-open="opened" min="restrictDate" readonly="true" />
-                    </span>
+            <div class="modal-body">
+                <api-validate></api-validate>   
+                <div class="col-sm-12">
+                    <label class="control-label col-sm-2" for="duedate">{{'label.input.duedate' | translate}}<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-4">
+                        <span style="padding-left:17px"><input id="duedate"  name = "duedate" type="text" datepicker-pop="{{df}}" ng-model="rschData.dueDate" is-open="opened" min="restrictDate" readonly="true" /></span>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>                            
                 </div>
             </div>
 

@@ -95,7 +95,7 @@
                 $scope.showaddressform = true;
                 $scope.shownidentityform = true;
                 $scope.shownFamilyMembersForm = true;
-                $scope.showLoanAccountForm = false;
+                $scope.showLoanAccountForm = true;
                 $scope.showLoanProductList = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = false;
@@ -110,6 +110,10 @@
                     $modalInstance.dismiss('close');
                     initTask();
                 };
+                $scope.closeLoanAccountForm = function () {
+                    $scope.showLoanProductList = false;
+                    $scope.isLoanAccountExist = false;
+                }
 
                 function getClientData() {
                     resourceFactory.clientResource.get({ clientId: $scope.clientId, associations: 'hierarchyLookup' }, function (data) {
@@ -129,6 +133,7 @@
 
                 $scope.getLoanAccountFormDetails = function () {
                     $scope.showLoanProductList = true;
+                    $scope.isLoanAccountExist = true;
                     $scope.clientId = $scope.clientId;
                     $scope.groupId = $scope.groupId;
                     $scope.restrictDate = new Date();
@@ -422,7 +427,7 @@
                     if ($scope.charges.length > 0) {
                         $scope.loanAccountFormData.charges = [];
                         for (var i in $scope.charges) {
-                            if ($scope.charges[i].amount > 0) {
+                            if ($scope.charges[i].amount > 0 || $scope.charges[i].isSlabBased) {
                                 $scope.loanAccountFormData.charges.push({
                                     chargeId: $scope.charges[i].chargeId,
                                     amount: $scope.charges[i].amount,
@@ -496,6 +501,8 @@
                     resourceFactory.clientJlgLoanAccount.get({ type: $scope.type, clientId: $scope.clientId, groupId: $scope.groupId }, function (data) {
                         $scope.loanAccountData = data;
                         $scope.isLoanAccountExist = true;
+                        $scope.showLoanAccountForm = true;
+                        $scope.showLoanProductList = false;
                     });
 
                     if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
@@ -831,7 +838,7 @@
                     if ($scope.charges.length > 0) {
                         $scope.editLoanAccountdata.charges = [];
                         for (var i in $scope.charges) {
-                            if ($scope.charges[i].amountOrPercentage > 0) {
+                            if ($scope.charges[i].amountOrPercentage > 0 || $scope.charges[i].isSlabBased) {
                                 $scope.editLoanAccountdata.charges.push({
                                     id: $scope.charges[i].id,
                                     chargeId: $scope.charges[i].chargeId,

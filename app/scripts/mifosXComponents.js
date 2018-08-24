@@ -16,7 +16,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UIConfigService',
             'CommonUtilService',
             'ExcelExportTableService',
-            'PopUpUtilService'
+            'PopUpUtilService',
+            'LoanDetailsService'
         ],
         controllers: [
             'main/MainController',
@@ -620,7 +621,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'customsequence/ViewSequencePatternController',
             'customsequence/ViewSequenceEntityAssociationController',
             'organization/registereddevices/RegisteredDeviceController',
-            'organization/registereddevices/ViewRegisteredDeviceController'
+            'organization/registereddevices/ViewRegisteredDeviceController',
+            'transfer/TransferCenterController',
+            'transfer/TransferClientController',
+            'transfer/ViewTransferClientController',
+            'transfer/ViewTransferCenterController'
         ],
         filters: [
             'StatusLookup',
@@ -663,7 +668,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'TabsPersistenceDirective',
             'ExpressionBuilderDirective',
             'ImageViewerDirective',
-            'ViewDocumentDirective'
+            'ViewDocumentDirective',
+            'LoanHeaderDetailsDirective'
         ]
     };
 

@@ -3,6 +3,7 @@
         <li><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
         <li class="active">{{'label.heading.foreclosure' | translate}}</li>
     </ul>
+    <loan-header-details></loan-header-details>
     <form class="form-horizontal well" novalidate="" name="foreclosureform" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
@@ -11,7 +12,7 @@
                 <label class="control-label col-sm-2">{{'label.input.transactiondate' | translate}}<span
                         class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input id="transactionDate" name="transactionDate" class="form-control" type="text" sort datepicker-pop="dd MMMM yyyy"
+                    <input id="transactionDate" name="transactionDate" class="form-control" type="text" sort datepicker-pop="{{df}}"
                            ng-model="formData.transactionDate" max="'2020-06-22'" is-open="opened"/>
                 </div>
             </div>

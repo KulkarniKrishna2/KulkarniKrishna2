@@ -165,9 +165,9 @@
                         <span class="required">*</span>
                     </label>
                     <div class="col-sm-2">
-                        <input id="surveyedOn" type="text" name="surveyedOn" datepicker-pop="dd MMMM yyyy" max="restrictDate" ng-model="formData.surveyedOn"
-                            is-open="opened1" class="form-control" required/>
-                        <form-validate valattributeform="takesurveyform" valattribute="surveyedOn" />
+                        <input id="surveyedOn" type="text" name="surveyedOn" datepicker-pop="{{df}}" max="restrictDate"
+                               ng-model="formData.surveyedOn" is-open="opened1" class="form-control" required/>
+                        <form-validate valattributeform="takesurveyform" valattribute="surveyedOn"/>
                     </div>
                 </div>
 

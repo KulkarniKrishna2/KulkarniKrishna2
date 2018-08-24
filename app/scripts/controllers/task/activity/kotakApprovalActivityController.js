@@ -54,6 +54,7 @@
                                    if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
                                       scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                       scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                       scope.isAllClientFinishedThisTask = false;
                                    }
                               }
                               if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData != undefined){
@@ -63,9 +64,7 @@
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = true;
                                     }
                               }
-                              if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
-                                  scope.isAllClientFinishedThisTask = false;
-                              }
+
 
                         }
 

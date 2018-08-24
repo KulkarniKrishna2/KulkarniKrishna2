@@ -1,6 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        GuarantorController: function (scope, resourceFactory, routeParams, location, dateFilter) {
+        GuarantorController: function (scope, resourceFactory, routeParams, rootScope, location, dateFilter, loanDetailsService) {
+            scope.loandetails = rootScope.headerLoanDetails;
+            delete rootScope.headerLoanDetails;
             scope.template = {};
             scope.clientview = false;
             scope.temp = true;
@@ -67,9 +69,13 @@
                     location.path('viewloanaccount/' + routeParams.id);
                 });
             };
+
+            scope.getStatusCode = function () {
+                return loanDetailsService.getStatusCode(scope.loandetails);
+            };
         }
     });
-    mifosX.ng.application.controller('GuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.GuarantorController]).run(function ($log) {
+    mifosX.ng.application.controller('GuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$rootScope', '$location', 'dateFilter', 'LoanDetailsService' , mifosX.controllers.GuarantorController]).run(function ($log) {
         $log.info("GuarantorController initialized");
     });
 }(mifosX.controllers || {}));

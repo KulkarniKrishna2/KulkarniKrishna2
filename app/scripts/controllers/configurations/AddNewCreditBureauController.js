@@ -90,7 +90,7 @@
 
                 
              /*   $scope.formData.locale="en";
-                $scope.formData.dateFormat= "dd MMMM yyyy";
+                $scope.formData.dateFormat= $scope.df;
                 $scope.formData.country=localcountry.country;
                 var tempdate=dateFilter($scope.start_date, $scope.df);
                 $scope.formData.start_date=tempdate;

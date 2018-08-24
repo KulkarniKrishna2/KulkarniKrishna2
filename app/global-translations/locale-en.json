@@ -7449,6 +7449,7 @@
     "label.last.login.location" : "Last Login Location",
     "label.heading.associated.users": "Associated Users",
     "label.heading.last.login" : "Last login",
+
     "label.only.text" : "Only Text",
     "label.heading.kotak.criteria.result": "Kotak approval criteria result",
     "label.input.availablequery":"Available Query",
@@ -7457,5 +7458,26 @@
     "label.selectquery": "Select Query",
     "label.error.add.query":"Please add query",
     "label.account.name.gl.code" : "Acc.name/GL Code",
-     "------ end of tensalation file":"---------"
+
+    "--transfer entities--"  : "Transfer entity",
+    "label.anchor.transfer" : "Transfer",
+    "label.define.transfer.client.group.center" : "Transfer member, subgroup and centers",
+    "label.anchor.center.transfer" : "Transfer Centers",
+    "label.define.center.transfer" : "Transfer center to different branch",
+    "label.anchor.member.transfer" : "Transfer Members",
+    "label.define.member.transfer" : "Transfer member to group or center or different office",
+    "label.menu.selectcenter" : "Select Center",
+    "error.msg.selected.client.can.not.be.more.than" : "Selected client can not be more than ",
+    "label.tooltip.reject" : "Reject",
+    "label.tooltip.approve" : "Approve",
+    "label.anchor.view.member.transfer" : "View Member Transfer", 
+    "label.button.clienttransfer" : "Client Transfer",    
+    "error.msg.center.max.member.can.be.added" : "Max `{{params[0].value}}` member can be added to center  `{{params[1].value}}`",
+    "error.msg.group.max.member.can.be.added" : "Max `{{params[0].value}}` member can be added to group `{{params[1].value}}`",
+    "label.anchor.view.center.transfer" : "View Center Transfer",
+    "label.button.centertransfer" : "Center Transfer",
+    "error.msg.branch.transfer.to.same.office" : "Source and destination office can not be same.",
+
+    "------ end of transalation file": "---------"
+
 }

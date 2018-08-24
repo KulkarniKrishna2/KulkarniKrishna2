@@ -39,6 +39,8 @@
                             scope.currentTaskId = task.id;
                             if(task.status.id < 7){
                                 break;
+                            }else if(task.isDefaultLandingStep){
+                                break;
                             }
                         }
                     }

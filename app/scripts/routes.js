@@ -1833,6 +1833,21 @@
             .when('/editofficeaddress/:officeId/:addressId', {
                 templateUrl: 'views/organization/editofficeaddress.html'
             })
+            .when('/transfer', {
+                templateUrl: 'views/transfer/transfer.html'
+            })
+            .when('/transfer/viewclienttransfer', {
+                templateUrl: 'views/transfer/viewtransferclient.html'
+            })
+            .when('/transfer/client', {
+                templateUrl: 'views/transfer/transferclient.html'
+            })
+            .when('/transfer/viewcentertransfer', {
+                templateUrl: 'views/transfer/viewtransfercenter.html'
+            })
+            .when('/transfer/center', {
+                templateUrl: 'views/transfer/transfercenter.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

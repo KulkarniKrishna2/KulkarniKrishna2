@@ -15,7 +15,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="activationDate" name="activationDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.activationDate"
+                        <input id="activationDate" name="activationDate" sort type="text" datepicker-pop="{{df}}" ng-model="formData.activationDate"
                                class="form-control" is-open="opened" min="minDate" max="restrictDate" required
                                />
                     </div>

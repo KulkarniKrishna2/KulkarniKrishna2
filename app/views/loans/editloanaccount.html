@@ -59,7 +59,7 @@
             <label>{{ 'label.input.submittedon' | translate }}<span ng-hide="isSubmittedOnReadOnlyType" class="required">*</span>:&nbsp;</label>
         </td>
         <td class="paddedbottom10">
-            <input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+            <input id="submittedOnDate" sort type="text" datepicker-pop="{{df}}" class="form-control"
                    ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-disabled="submittedOnReadOnlyType"/>
         </td>
         <td>
@@ -67,7 +67,7 @@
                 translate }}<span class="required">*</span>:&nbsp;</label>
         </td>
         <td class="paddedbottom10">
-            <input id="expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+            <input id="expectedDisbursementDate" type="text" datepicker-pop="{{df}}" class="form-control"
                    ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'"
                    date-disabled="disabled(date, mode)" name="expecteddisbursementon" required late-Validate/>
             <form-validate valattributeform="editloanaccountform" valattribute="expecteddisbursementon"/>
@@ -389,14 +389,14 @@
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true"><label>{{ 'label.input.firstrepaymenton' | translate }}
                     <span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate">*</span></label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" name="repaymentsStartingFromDate"
+                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="{{df}}" class="form-control" name="repaymentsStartingFromDate"
                            ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate"
                            max="'2020-06-22'" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-disabled="firstRepaymentDateReadOnlyType"/>
                     <span class="error" ng-show="issubmitted && editloanaccountform.repaymentsStartingFromDate.$error.required">{{'label.error.required' | translate}}</span>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
-                    <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                    <input id="interestChargedFromDate" type="text" datepicker-pop="{{df}}" class="form-control"
                            ng-model="formData.interestChargedFromDate" is-open="opened2" min="minDate"
                            max="'2020-06-22'" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate"/>
                 </td>
@@ -679,7 +679,7 @@
                     <label>{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate }}:&nbsp;</label>
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
-                    <input type="text" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="text" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="{{df}}"
                            ng-model="recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" />
                 </td>
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
@@ -687,7 +687,7 @@
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <input id="recalculationCompoundingFrequencyStartDate" type="text" name="recalculationCompoundingFrequencyStartDate"
-                           datepicker-pop="dd MMMM yyyy" ng-model="recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
+                           datepicker-pop="{{df}}" ng-model="recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
                            class="form-control"/>
                     <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
                 </td>
@@ -719,7 +719,7 @@
                 <tr ng-repeat="disbursementDetail in formData.disbursementData">
                     <td>
                         <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
-                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index"
                                min="minDate" max="'2020-06-22'"/>
@@ -787,7 +787,7 @@
                            placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
                 <td>{{charge.chargeTimeType.value}}</td>
                 <td>
-                    <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                    <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control"
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
                            is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate" max="'2020-06-22'"/>
                 </td>

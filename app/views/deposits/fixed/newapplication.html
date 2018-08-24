@@ -29,7 +29,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="{{df}}"
                    ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control"/>
         </td>
@@ -287,7 +287,7 @@
         </td>
         <td ng-show="charge.chargeTimeType.value=='Specified due date'">
             <input id="charges[{{$index}}].dueDate" class="date-disable form-control"
-                   type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened"/>
+                   type="text" datepicker-pop="{{df}}" ng-model="charge.dueDate" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
             <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM" number-format ng-model="charge.feeOnMonthDay" is-open="opened"/>

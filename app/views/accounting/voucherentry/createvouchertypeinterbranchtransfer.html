@@ -50,7 +50,7 @@
                             class="required">*</span></label>
                     <div class="col-sm-3">
                         <input id="transactionDate" name="transactionDate" type="text" class="date-disable form-control"
-                               datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"
+                               datepicker-pop="{{df}}" ng-model="formData.transactionDate" is-open="opened"
                                min="'2000-01-01'" max="restrictDate" required readonly late-validate=""/>
                     </div>
                     <div class="col-sm-2">
@@ -323,7 +323,7 @@
                                 class="required">*</span></label>
                         <div class="col-sm-3">
                             <input id="instrumentationDate" name="instrumentationDate" type="text" class="date-disable form-control"
-                                   datepicker-pop="dd MMMM yyyy" ng-model="formData.paymentDetails.instrumentationDate"
+                                   datepicker-pop="{{df}}" ng-model="formData.paymentDetails.instrumentationDate"
                                    is-open="opened"
                                    min="'2000-01-01'" max="restrictDate" required readonly required late-validate=""/>
                         </div>
