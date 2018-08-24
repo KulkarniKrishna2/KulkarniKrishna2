@@ -187,7 +187,8 @@
     "createLoanApplication": {
       "isMandatoryField": {
         "disbursementPaymentMode":true
-      }
+      },
+      "newLoanApplicationLimitAllowed" : true
     }
 
   }
