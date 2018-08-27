@@ -5,13 +5,18 @@
             scope.addPrefix = false;
                 resourceFactory.accountNumberResources.getPrefixType({accountNumberFormatId:scope.resourceId},function(data){
                     scope.accountType = data["accountType"].value;
-                    scope.formData ={
-                        prefixType:data.prefixType.id
-                    }
+                    scope.generationType = data.generationType;
+                    scope.sequenceName = data.sequenceDetailName;
                     scope.prefixTypeOptions = data.prefixTypeOptions[data["accountType"].code]
-                    if(scope.formData.prefixType != null){
-                        scope.addPrefix = true;
+                    if( data.prefixType && data.prefixType.id){
+                        scope.formData = {
+                            prefixType:data.prefixType.id
+                        }
+                        if(scope.formData.prefixType &&  scope.formData.prefixType != null){
+                            scope.addPrefix = true;
+                        }
                     }
+                    
                 });
 
             scope.cancel = function(){

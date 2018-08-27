@@ -7,6 +7,14 @@
             resourceFactory.accountNumberTemplateResource.get(function(data){
                 scope.data = data;
                 scope.accountTypeOptions = data.accountTypeOptions;
+                scope.customTypeOptions = data.customTypeOptions;
+                scope.generationType = data.numberFormatGenerationType;
+                scope.generationType.splice(0, 1);
+            });
+
+
+            resourceFactory.customSequenceResource.retrieveAll({}, function(data) {
+                scope.sequenceDetails = data;
             });
 
             scope.getPrefixTypeOptions = function(accountType){
@@ -32,6 +40,11 @@
             }
 
             scope.submit = function(){
+                if(scope.formData.generationType == 'ID_BASED'){
+                    delete scope.formData.sequenceDetailId;
+                } else {
+                    delete scope.formData.prefixType;
+                }
                 resourceFactory.accountNumberResources.save(scope.formData,function (data) {
                     scope.resourceId = data.resourceId;
                     location.path('/viewaccountnumberpreferences/' + scope.resourceId );

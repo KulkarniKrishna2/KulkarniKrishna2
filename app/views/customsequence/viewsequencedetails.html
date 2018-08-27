@@ -23,12 +23,28 @@
                     <span>{{sequenceDetails.endValue}}</span>
                 </div>
                 <div class="form-group paddedtop">
+                    <span><b>{{'label.heading.prefixtype' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.prefixPatternData.patternType }}</span>
+                </div>
+                <div class="form-group paddedtop" ng-show="sequenceDetails.prefixPatternData.patternName">
+                    <span><b>{{'label.heading.patternname' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.prefixPatternData.patternName}}</span>
+                </div>
+                <div class="form-group paddedtop" ng-show="sequenceDetails.prefixPatternData.pattern">
                     <span><b>{{'label.heading.prefix' | translate}}:&nbsp;</b></span>
-                    <span>{{sequenceDetails.prefix }}</span>
+                    <span>{{sequenceDetails.prefixPatternData.pattern}}</span>
                 </div>
                 <div class="form-group paddedtop">
+                    <span><b>{{'label.heading.suffixtype' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.suffixPatternData.patternType }}</span>
+                </div>
+                <div class="form-group paddedtop" ng-show="sequenceDetails.suffixPatternData.patternName">
+                    <span><b>{{'label.heading.patternname' | translate}}:&nbsp;</b></span>
+                    <span>{{sequenceDetails.suffixPatternData.patternName}}</span>
+                </div>
+                <div class="form-group paddedtop" ng-show="sequenceDetails.suffixPatternData.pattern">
                     <span><b>{{'label.heading.suffix' | translate}}:&nbsp;</b></span>
-                    <span>{{sequenceDetails.suffix }}</span>
+                    <span>{{sequenceDetails.suffixPatternData.pattern}}</span>
                 </div>
                 <div class="form-group paddedtop">
                     <span><b>{{'label.input.current.value' | translate}}:&nbsp;</b></span>

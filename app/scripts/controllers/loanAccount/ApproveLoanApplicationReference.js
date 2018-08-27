@@ -607,6 +607,9 @@
                 if(this.formRequestData.netLoanAmount != undefined){
                     delete this.formRequestData.netLoanAmount;
                 }
+                if(this.formRequestData.loanAccountNumber != undefined){
+                    delete this.formRequestData.loanAccountNumber;
+                }
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                     for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
                         scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate, scope.df);

@@ -14,11 +14,17 @@
                     {{accountType}}
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.addPrefix' | translate}}</label>
 
+            <div class="form-group">
+                <label class="col-sm-2">{{'label.input.generationtype' | translate}}</label>
                 <div class="col-sm-3">
-                    <input id="activeCheckbox" type="checkbox" ng-model="addPrefix">
+                    {{generationType}}
+                </div>
+            </div>
+            <div class="form-group" ng-show="sequenceName">
+                <label class="col-sm-2">{{'label.input.sequencename' | translate}}</label>
+                <div class="col-sm-3">
+                    {{sequenceName}}
                 </div>
             </div>
             <div class="form-group" ng-show="addPrefix">
@@ -26,7 +32,7 @@
                 <div class="col-sm-3">
                     <select chosen="prefixTypeOptions"  id="prefixType" ng-model="formData.prefixType"  class="form-control"
                             ng-options="accountNumberPrefixType.id as accountNumberPrefixType.value for accountNumberPrefixType in prefixTypeOptions"
-                            value="{{accountNumberPrefixType.id}}">
+                            value="{{accountNumberPrefixType.id}}" ng-disabled="addPrefix">
                     </select>
                 </div>
             </div>

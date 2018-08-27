@@ -5,6 +5,8 @@
             scope.addPrefix = false;
             resourceFactory.accountNumberResources.get({accountNumberFormatId:scope.resourceId},function(data){
                 scope.accountType = data["accountType"].value;
+                scope.generationType = data.generationType;
+                scope.sequenceName = data.sequenceDetailName;
                 scope.prefixType = data["prefixType"].value;
                 if(scope.prefixType != null){
                     scope.addPrefix = true;

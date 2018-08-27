@@ -103,6 +103,10 @@
                                 <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.submittedOnDate | DateFormat}}</td>
                             </tr>
+                            <tr ng-show="formData.loanAccountNum">
+                                <td><label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</td>
+                                <td>{{formData.loanAccountNum}}</td>
+                            </tr>
                             <tr ng-hide="formData.loanEMIPackData">
                                 <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
                                 <td>{{formData.amountForUpfrontCollection}}</td>
