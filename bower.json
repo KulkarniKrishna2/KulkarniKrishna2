@@ -31,7 +31,8 @@
     "angular-xml2json": "0.0.2",
     "jsencrypt": "2.3.0",
     "angular-ui-sortable": "0.13.4",
-    "angular-recaptcha": "4.1.5"
+    "angular-recaptcha": "4.1.5",
+    "devtools-detect": "v2.2.0"
   },
   "devDependencies": {
     "jasmine": "1.3.1"
