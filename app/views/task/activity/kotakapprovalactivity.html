@@ -20,12 +20,12 @@
 					<th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
 					<th class="col-md-1"> </th>
 					<th class="col-md-1"> </th>
-					<th class="col-md-2 cell-overflow">{{'label.heading.kotak.approval.status' | translate}} </th>
+					<th class="col-md-2">{{'label.heading.kotak.approval.status' | translate}} </th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
 					<tr  class="background-gold">
-						<td colspan="11">
+						<td colspan="12">
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
@@ -57,7 +57,7 @@
 								<i class="icon-question-sign"></i>
 							</a>
 						</td>
-						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
+						<td class="col-md-2">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
 						<td class="col-mod-1" >
 							 <a type="button" class="btn btn-danger btn-xs" ng-hide="hideClient(activeClientMember)" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask || !activeClientMember.loanAccountBasicData.isNotLoanApproved">
 							    <i class="icon-remove-circle pointer"></i>

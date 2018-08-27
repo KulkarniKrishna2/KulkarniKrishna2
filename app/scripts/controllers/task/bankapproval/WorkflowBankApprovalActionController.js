@@ -210,7 +210,7 @@
 
 
             var checkWorkFlowLoanStatus = function(workflowLoanStatus){
-                if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed"){
+                if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed" || workflowLoanStatus == "SystemApproved" || workflowLoanStatus == "SystemApprovedWithDeviation"){
                     scope.showRaiseQueryButton = true;
                     scope.showRejectButton = true;
                     scope.showApproveButton = true;

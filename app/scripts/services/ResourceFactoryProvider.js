@@ -1589,6 +1589,9 @@
                         getAll:{method:'GET' , params:{}, isArray:true},
                         get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
                         actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
+                    }),
+                    bulkBankApprovalActionResource: defineResource(apiVer + "/tasktracking/bulkbankapproval",{}, {
+                        doBulkBankApproval: {method: 'POST', params: {}}
                     })
                 };
             }];

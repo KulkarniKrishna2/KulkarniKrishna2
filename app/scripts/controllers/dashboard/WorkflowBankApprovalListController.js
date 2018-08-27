@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        WorkflowBankApprovalListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams, $rootScope, dateFilter) {
+        WorkflowBankApprovalListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams, $rootScope, dateFilter,route) {
             scope.formData = {};
             scope.taskTypes = [
                 {id: 'tab1', name: "label.tab.kotak.approval.loans", grouping: 'ManualApprove', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_BANK_APPROVE', active: false, showtab : false},
@@ -12,6 +12,9 @@
             scope.workflowLoanStatusList = [];
             scope.offices = [];
             scope.dateFormat = scope.df;
+            scope.approvalIdList = [];
+            scope.isShowBulkApprovalButton = false;
+            scope.bulkApprovalFormData = {};
 
             resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
                  scope.offices = officelist.allowedParents;
@@ -35,6 +38,49 @@
             scope.getWorkFlowBankApprovalTasks = function(filter) {
                 scope.filterBy = filter;
                 scope.taskPagination = paginatorUsingOffsetService.paginate(fetchFunction, scope.pageSize);
+                scope.taskPagination.isAllChecked = false;
+
+            }
+            scope.pushAllApprovalIdIntoList = function(taskPagination,isAllChecked){
+                scope.approvalIdList = [];
+                for(var i in taskPagination.currentPageItems){
+                    if(isAllChecked){
+                        if(taskPagination.currentPageItems[i].bankApproveId){
+                            scope.approvalIdList.push(taskPagination.currentPageItems[i].bankApproveId);
+                            taskPagination.currentPageItems[i].isChecked = true;
+                        }
+                    }else{
+                        taskPagination.currentPageItems[i].isChecked = false;
+                    }
+
+                }
+
+            }
+            scope.pushApprovalIdIntoList = function(workflowBankApproval,index,isChecked){
+                if(isChecked){
+                    scope.approvalIdList.push(workflowBankApproval.bankApproveId);
+                    if(scope.approvalIdList.length == scope.taskPagination.currentPageItems.length){
+                        scope.taskPagination.isAllChecked = true;
+                    }
+                }else{
+                    var idx = scope.approvalIdList.findIndex(x => x == workflowBankApproval.bankApproveId);
+                    if(idx >= 0){
+                        scope.approvalIdList.splice(idx,1);
+                        scope.taskPagination.isAllChecked = false;
+                    }
+                }
+
+            }
+
+            scope.doBulkBankApprovalAction = function(approvalIdList){
+                scope.errorDetails = [];
+                if(approvalIdList.length == 0){
+                    return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                }
+                scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
+                resourceFactory.bulkBankApprovalActionResource.doBulkBankApproval(scope.bulkApprovalFormData, function (data) {
+                    route.reload();
+                });
             }
 
             scope.changeInTab = function(grouping){
@@ -43,16 +89,19 @@
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected'];
                     scope.filterBy = 'ManualApprove';
+                    scope.isShowBulkApprovalButton = false;
                 }
                 if(grouping == 'SystemApprove'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['SystemApproved', 'SystemApprovedWithDeviation'];
                     scope.filterBy = 'SystemApprove';
+                    scope.isShowBulkApprovalButton = true;
                 }
                 if(grouping == 'QueryResolve'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderODUReview'];
                     scope.filterBy = 'QueryResolve';
+                    scope.isShowBulkApprovalButton = false;
                 }
 
                 scope.getWorkFlowBankApprovalTasks(scope.filterBy);
@@ -108,7 +157,7 @@
 
         }
     });
-    mifosX.ng.application.controller('WorkflowBankApprovalListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', '$rootScope', 'dateFilter', mifosX.controllers.WorkflowBankApprovalListController]).run(function ($log) {
+    mifosX.ng.application.controller('WorkflowBankApprovalListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', '$rootScope', 'dateFilter','$route', mifosX.controllers.WorkflowBankApprovalListController]).run(function ($log) {
         $log.info("WorkflowBankApprovalListController initialized");
     });
 }(mifosX.controllers || {}));

@@ -7143,7 +7143,7 @@
     "validation.msg.cgt.completedDate.is.less.than.date" : "CGT completion date cann't be before client or group activation date",
     "validation.msg.cgt.completedDate.is.greater.than.date" : "CGT completion date cann't be future date",
     "label.tooltip.initiate.credit.bureau" : "Intitiate Credit Bureau",
-    "error.msg.select.atleast.one.member" : "Please Select Atlease One Member",
+    "error.msg.select.atleast.one.member" : "Kindly select atleast one member",
     "label.button.relase.client" : "Release Client.",
     "label.button.viewhistory" : "View History",
     "label.heading.viewhistory" : "View History",
@@ -7294,6 +7294,7 @@
     "label.anchor.view.center.transfer" : "View Center Transfer",
     "label.button.centertransfer" : "Center Transfer",
     "error.msg.branch.transfer.to.same.office" : "Source and destination office can not be same.",
+    "label.button.bulk.bank.approval" : "Bulk Bank Approval",
 
     "------ end of transalation file": "---------"
 

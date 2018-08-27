@@ -14,6 +14,7 @@
                     scope.officeId = scope.centerDetails.officeId;
                     scope.isAllClientFinishedThisTask = true;
                     scope.centerDetails.isAllChecked = false;
+                    scope.totalMember = 0;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
 
@@ -63,6 +64,11 @@
                               if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData != undefined){
                                     if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.status.id == 200){
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = false;
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                        var activeMember = scope.centerDetails.subGroupMembers[i].memberData[j];
+                                        scope.captureMembersToNextStep(activeMember.id,activeMember.loanAccountBasicData.id,activeMember.isMemberChecked);
+                                        scope.totalMember++;
+
                                     }else{
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = true;
                                     }
@@ -71,6 +77,9 @@
 
                         }
 
+                    }
+                    if(scope.taskInfoTrackArray.length == scope.totalMember){
+                        scope.centerDetails.isAllChecked = true;
                     }
                 });
 
@@ -143,7 +152,11 @@
                     scope.taskInfoTrackArray.push(
                         {'clientId' : clientId,
                             'currentTaskId' : scope.taskData.id,
-                            'loanId' : loanId})
+                            'loanId' : loanId});
+                    if(scope.taskInfoTrackArray.length == scope.totalMember){
+                        scope.centerDetails.isAllChecked = true;
+                    }
+
                 }else{
                     var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                     if(idx >= 0){
