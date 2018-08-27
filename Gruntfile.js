@@ -106,8 +106,8 @@ module.exports = function(grunt) {
           //:['<%= mifosx.app %>/bower_components/requirejs/require.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/underscore/underscore.min.js'
           :['<%= mifosx.app %>/bower_components/underscore/underscore.js'],
-           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-utils-pagination/dirPagination.min.js'
-                :['<%= mifosx.app %>/bower_components/angular-utils-pagination/dirPagination.js']
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-utils-pagination/dirPagination.min.js'
+          :['<%= mifosx.app %>/bower_components/angular-utils-pagination/dirPagination.js']
         }]
       }
     },
@@ -186,7 +186,7 @@ module.exports = function(grunt) {
             '**/*min.js', 'ckeditor/**', 'require-css/*.js', 'require-less/*.js',
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**',
             'angular-utils-pagination/dirPagination.tpl.html' , 'angular-translate-finflux/**',
-            'angular-loading-bar/**','angular-xml2json/**'
+            'angular-loading-bar/**','angular-xml2json/**','devtools-detect/**'
           ]
         }
         ]
@@ -295,9 +295,9 @@ module.exports = function(grunt) {
           //'<%= mifosx.dist %>/<%=mifosx.target%>/scripts/services/services.js': ['<%= mifosx.app %>/scripts/services/**/*.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/filters/filters.js': ['<%= mifosx.app %>/scripts/filters/**/*.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js':
-            ['<%= mifosx.app %>/scripts/routes.js',
-            '<%= mifosx.app %>/scripts/initialTasks.js',
-            '<%= mifosx.app %>/scripts/webstorage-configuration.js']
+          ['<%= mifosx.app %>/scripts/routes.js',
+          '<%= mifosx.app %>/scripts/initialTasks.js',
+          '<%= mifosx.app %>/scripts/webstorage-configuration.js']
         }
       }
     },
