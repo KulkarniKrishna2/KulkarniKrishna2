@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http, authenticationService, resourceFactory) {
+                  uiConfigService, $http, authenticationService, resourceFactory, $timeout) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
             scope.mainControllerUIConfigData = {};
@@ -140,15 +140,11 @@
             scope.started = false;
             scope.$on('$idleTimeout', function () {
                 scope.logout();
-                $idle.unwatch();
-                scope.started = false;
             });
 
             // Log out the user when the window/tab is closed.
             window.onunload = function () {
                 scope.logout();
-                $idle.unwatch();
-                scope.started = false;
             };
 
             scope.start = function (session) {
@@ -290,10 +286,16 @@
             };
 
             scope.logout = function () {
+                clearAllSession();
+            };
+
+            function clearAllSession(){
                 scope.currentSession = sessionManager.clear();
                 scope.resetPassword = false;
                 $rootScope.isUserSwitched = false;
                 delete $rootScope.proxyToken;
+                $idle.unwatch();
+                scope.started = false;
                 location.path('/').replace();
             };
 
@@ -469,8 +471,34 @@
                             return false;
                         }
                     };
+
+                    if(window.devtools.open){
+                        blockUserActions(true);
+                    };
+
+                    window.addEventListener('devtoolschange', function (e) {
+                        if(scope.mainControllerUIConfigData.isEnabledBrowserSecurity){
+                            if(e.detail.open){
+                                blockUserActions(true);
+                            }
+                        }
+                        //console.log('is DevTools open?', e.detail.open);
+                        //console.log('and DevTools orientation?', e.detail.orientation);
+                    });
                 }
             });
+
+            function blockUserActions(isBlockUserActions){
+                if(scope.currentSession && scope.currentSession.user){
+                    scope.logout();
+                }else{
+                    clearAllSession();
+                }
+                //Do not remove this infinite while loop
+                $timeout(function () {
+                    while(isBlockUserActions){}
+                }, 500);
+            };
 
             sessionManager.restore(function (session) {
                 scope.currentSession = session;
@@ -496,6 +524,7 @@
         '$http',
         'AuthenticationService',
         'ResourceFactory',
+        '$timeout',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");
