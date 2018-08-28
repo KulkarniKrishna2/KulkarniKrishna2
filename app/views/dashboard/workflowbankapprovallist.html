@@ -4,6 +4,9 @@
             <strong>{{'label.heading.kotak.credit.approval.list' | translate}}</strong>
         </h3>
     </div>
+    <div>
+        <api-validate></api-validate>
+    </div>
     <hr/>
         <table class="table">
         <tr>
@@ -78,26 +81,43 @@
                         <tab-heading>
                             {{taskType.name | translate}}
                         </tab-heading>
+                       <a id="bulkapproval" class="btn btn-primary pull-right ng-binding"
+                          ng-click="doBulkBankApprovalAction(approvalIdList)"
+                          ng-if = "isShowBulkApprovalButton && taskPagination.currentPageItems" has-permission = "BULK_APPROVE_TASK_CLIENT_LEVEL_BANK_APPROVE">
+                           {{'label.button.bulk.bank.approval' | translate}}
+                       </a>
                         <div class="table-responsive" 
                             data-ng-show="taskPagination.currentPageItems.length > 0">
                             <table id="bankapprovals" class="table table-striped card-table">
+                                <thead>
+                                <th class="col-md-1" ng-if="taskType.grouping === 'SystemApprove'"><input type="checkbox" ng-model="taskPagination.isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="pushAllApprovalIdIntoList(taskPagination, taskPagination.isAllChecked)" tooltip="{{'label.input.selectall' | translate}}"/></th>
+                                <th class="col-md-2">{{'label.heading.officeName' | translate}}</th>
+                                <th class="col-md-2">{{'label.heading.clientname' | translate}}({{'label.heading.FCSM.No' | translate}})</th>
+                                <th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
+                                <th class="col-md-1">{{'label.heading.status' | translate}}</th>
+                                <th class="col-md-2">{{'label.heading.date' | translate}}</th>
+                                </thead>
                                 <tbody>
-                                <tr ng-repeat="workflowBankApproval in taskPagination.currentPageItems" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
-                                    <td class=" pointer">
+                                <tr ng-repeat="workflowBankApproval in taskPagination.currentPageItems" >
+                                    <td  ng-if="taskType.grouping === 'SystemApprove'">
+                                        <input class="pull-left" type="checkbox" ng-model="workflowBankApproval.isChecked" ng-change="
+						                       pushApprovalIdIntoList(workflowBankApproval,$index,workflowBankApproval.isChecked)" ></th>
+                                    </td>
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         {{workflowBankApproval.officeName}}
                                     </td>
-                                    <td class=" pointer">
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                      <span> {{workflowBankApproval.clientName}} 
                                      ({{workflowBankApproval.clientFCSMNumber}}) </span>
                                     </td>
-                                    <td class=" pointer">
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                       {{workflowBankApproval.productName}}({{workflowBankApproval.requestLoanAmount}})
                                     </td>
-                                    <td class=" pointer">
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         <i tooltip-placement="right" class="icon-circle " ng-style="getColor(workflowBankApproval.workflowLoanStatus.code)"></i>
                                         {{workflowBankApproval.workflowLoanStatus.value}}
                                     </td>    
-                                    <td class=" pointer">
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         {{workflowBankApproval.taskCreatedDate}}
                                     </td>
                                 </tr>
