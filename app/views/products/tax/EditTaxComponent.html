@@ -16,7 +16,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
+                    <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="formData.name"
                            class="form-control"
                            required late-Validate/>
                 </div>
@@ -30,7 +30,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="percentage" type="text" name="percentage" ng-model="formData.percentage"
+                    <input id="percentage" type="text" autocomplete="off" name="percentage" ng-model="formData.percentage"
                            class="form-control" number-format
                            required late-Validate/>
                 </div>
@@ -76,7 +76,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input id="startDate" sort type="text" datepicker-pop="{{df}}" ng-model="start.date"
+                    <input id="startDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="start.date"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>
             </div>

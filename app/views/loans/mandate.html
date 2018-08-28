@@ -37,7 +37,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input name="requestDate" id="requestDate" type="text" class="form-control"
+                    <input name="requestDate" id="requestDate" type="text" autocomplete="off" class="form-control"
                            datepicker-pop="{{df}}" ng-model="formData.requestDate" is-open="opened"
                            required/>
                 </div>
@@ -50,7 +50,7 @@
                 <label class="control-label col-sm-2">{{'label.heading.mandate.umrn' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="umrn" type="text" name="umrn" ng-model="formData.umrn" class="form-control"
+                    <input id="umrn" type="text" autocomplete="off" name="umrn" ng-model="formData.umrn" class="form-control"
                            ng-disabled="true"/>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="bankAccountHolderName" type="text" name="bankAccountHolderName" ng-model="formData.bankAccountHolderName" class="form-control" required late-Validate/>
+                    <input id="bankAccountHolderName" type="text" autocomplete="off" name="bankAccountHolderName" ng-model="formData.bankAccountHolderName" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="bankAccountHolderName"/>
@@ -72,7 +72,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="bankName" type="text" name="bankName" ng-model="formData.bankName" class="form-control" maxlength="50" required late-Validate/>
+                    <input id="bankName" type="text" autocomplete="off" name="bankName" ng-model="formData.bankName" class="form-control" maxlength="50" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="bankName"/>
@@ -83,7 +83,7 @@
                 <label class="control-label col-sm-2" for="branchName">{{'label.heading.mandate.branchName' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="branchName" type="text" name="branchName" ng-model="formData.branchName" class="form-control" maxlength="50">
+                    <input id="branchName" type="text" autocomplete="off" name="branchName" ng-model="formData.branchName" class="form-control" maxlength="50">
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="bankAccountNumber" type="text" name="bankAccountNumber" ng-model="formData.bankAccountNumber" class="form-control" maxlength="20" required late-Validate/>
+                    <input id="bankAccountNumber" type="text" autocomplete="off" name="bankAccountNumber" ng-model="formData.bankAccountNumber" class="form-control" maxlength="20" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="bankAccountNumber"/>
@@ -103,7 +103,7 @@
                 <label class="control-label col-sm-2" for="micr">{{'label.heading.mandate.micr' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="micr" type="text" name="micr" ng-model="formData.micr" maxlength="10" class="form-control"/>
+                    <input id="micr" type="text" autocomplete="off" name="micr" ng-model="formData.micr" maxlength="10" class="form-control"/>
                 </div>
             </div>
 
@@ -112,7 +112,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="ifsc" type="text" name="ifsc" ng-model="formData.ifsc" class="form-control" maxlength="11" required/>
+                    <input id="ifsc" type="text" autocomplete="off" name="ifsc" ng-model="formData.ifsc" class="form-control" maxlength="11" required/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="ifsc"/>
@@ -138,7 +138,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input name="periodFromDate" id="periodFromDate" sort type="text" class="form-control"
+                    <input name="periodFromDate" id="periodFromDate" sort type="text" autocomplete="off" class="form-control"
                            datepicker-pop="{{df}}" ng-model="formData.periodFromDate" is-open="opened"
                            required/>
                 </div>
@@ -151,7 +151,7 @@
                 <label class="control-label col-sm-2" for="periodToDate">{{'label.heading.mandate.periodToDate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="periodToDate" sort type="text" class="form-control"
+                    <input id="periodToDate" sort type="text" autocomplete="off" class="form-control"
                            datepicker-pop="{{df}}" ng-model="formData.periodToDate" is-open="opened"/>
                 </div>
             </div>
@@ -183,7 +183,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="amount" type="text"  number-format name="amount" ng-model="formData.amount" class="form-control" required late-Validate/>
+                    <input id="amount" type="text" autocomplete="off"  number-format name="amount" ng-model="formData.amount" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="mandateform" valattribute="amount"/>

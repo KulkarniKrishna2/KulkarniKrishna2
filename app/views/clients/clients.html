@@ -15,14 +15,14 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.applicantname' | translate }}</label>
                         <div class="col-sm-3">
-                            <input placeholder="FIRST NAME" type="text" id="firstName" name="firstName" ng-model="searchConditions.firstName" class="form-control"/>
+                            <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstName" name="firstName" ng-model="searchConditions.firstName" class="form-control"/>
                         </div>
 
                         <div class="col-sm-3">
-                            <input placeholder="MIDDLE NAME" type="text" id="middleName" name="middleName" ng-model="searchConditions.middleName" class="form-control"/>
+                            <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middleName" name="middleName" ng-model="searchConditions.middleName" class="form-control"/>
                         </div>
                         <div class="col-sm-3">
-                            <input placeholder="LAST NAME" type="text" id="lastName" name="lastName" ng-model="searchConditions.lastName" class="form-control"/>
+                            <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastName" name="lastName" ng-model="searchConditions.lastName" class="form-control"/>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                         <label class="control-label col-sm-2">{{'label.input.mobilenumber' | translate}}</label>
 
                         <div class="col-sm-3">
-                            <input placeholder="MOBILE NUMBER" type="text" id="mobileNo" name="mobileNo" ng-model="searchConditions.mobileNo"
+                            <input placeholder="MOBILE NUMBER" type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="searchConditions.mobileNo"
                                    ng-pattern="/^[0-9]+$/" class="form-control"/>
                             <span ng-show="searchClientsForm.mobileNo.$invalid && searchClientsForm.mobileNo.$dirty">
                                 <small class="required" ng-show="searchClientsForm.mobileNo.$error.pattern">{{'label.mustbenumeric' | translate}}</small>
@@ -60,13 +60,13 @@
                         <label class="control-label col-sm-2">{{'label.input.uniqueidentification' | translate}}</label>
 
                         <div class="col-sm-3">
-                            <input placeholder="Identifier Id" id="documentNumber" type="text" name="documentNumber" ng-model="searchConditions.documentNumber" class="form-control"/>
+                            <input placeholder="Identifier Id" id="documentNumber" type="text" autocomplete="off" name="documentNumber" ng-model="searchConditions.documentNumber" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.clientreferenceno' | translate}}</label>
                         <div class="col-sm-3">
-                            <input placeholder="client ref#" id="referenceNumber" type="text" name="referenceNumber" ng-model="searchConditions.referenceNumber" class="form-control"/>
+                            <input placeholder="client ref#" id="referenceNumber" type="text" autocomplete="off" name="referenceNumber" ng-model="searchConditions.referenceNumber" class="form-control"/>
                         </div>
                         <div class="col-sm-5">
                         </div>

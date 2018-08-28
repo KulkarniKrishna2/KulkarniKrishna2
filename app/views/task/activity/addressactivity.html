@@ -42,7 +42,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control"/>
+                        <input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control"/>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control"/>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                     <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="villagename" ng-model="formData.villageTown"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="villagename" ng-model="formData.villageTown"  class="form-control"/>
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control" required late-validate="" />
+                        <input type="text" autocomplete="off" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control" required late-validate="" />
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="clientaddressform" valattribute="pincode"/>

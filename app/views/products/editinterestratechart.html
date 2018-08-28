@@ -25,7 +25,7 @@
                                         class="required">*</span></label>
 
                             <div class="controls">
-                                <input id="name" ng-autofocus="true" type="text" name="name" ng-model="chart.name"/>
+                                <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="chart.name"/>
                             </div>
                         </div>
                     </td>
@@ -36,7 +36,7 @@
                                 }}</label>
 
                             <div class="controls">
-                                <input id="chdescription" ng-autofocus="true" type="text" name="chdescription"
+                                <input id="chdescription" ng-autofocus="true" type="text" autocomplete="off" name="chdescription"
                                        ng-model="chart.description"/>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 translate }}<span class="required">*</span></label>
 
                             <div class="form-inline">
-                                <input id="fromDate" sort type="text" datepicker-pop="{{df}}"
+                                <input id="fromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                        ng-model="fromDate.date" class="form-control"
                                        is-open="opened" min="minDate" max="restrictDate"/>
                             </div>
@@ -63,7 +63,7 @@
                                 translate }}</label>
 
                             <div class="form-inline">
-                                <input id="endDate" sort type="text" datepicker-pop="{{df}}"
+                                <input id="endDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                        ng-model="endDate.date" class="form-control"
                                        is-open="opened" min="minDate" max="restrictDate"/>
                             </div>
@@ -107,9 +107,9 @@
 
                             <tr ng-repeat="chartSlab in chart.chartSlabs">
                                 <td ng-show="isPrimaryGroupingByAmount">
-                                    <input id="amountRangeFrom1" name="amountRangeFrom" type="text" class="input-mini"
+                                    <input id="amountRangeFrom1" name="amountRangeFrom" type="text" autocomplete="off" class="input-mini"
                                            ng-model="chartSlab.amountRangeFrom"/> -
-                                    <input id="amountRangeTo1" name="amountRangeTo" type="text" class="input-mini"
+                                    <input id="amountRangeTo1" name="amountRangeTo" type="text" autocomplete="off" class="input-mini"
                                            ng-model="chartSlab.amountRangeTo"/>
                                 </td>
                                 <td class="width5">
@@ -122,25 +122,25 @@
                                 <td class="width15">
                                     <table class="width100">
                                         <tr>
-                                            <td><input id="fromPeriod" name="fromPeriod" type="text"
+                                            <td><input id="fromPeriod" name="fromPeriod" type="text" autocomplete="off"
                                                        class="form-control"
                                                        ng-model="chartSlab.fromPeriod"/></td>
                                             <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
-                                            <td><input id="toPeriod" name="toPeriod" type="text" class="form-control"
+                                            <td><input id="toPeriod" name="toPeriod" type="text" autocomplete="off" class="form-control"
                                                        ng-model="chartSlab.toPeriod"/></td>
                                         </tr>
                                     </table>
                                 </td>
                                 <td ng-hide="isPrimaryGroupingByAmount">
-                                    <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
+                                    <input id="amountRangeFrom" name="amountRangeFrom" type="text" autocomplete="off" class="input-mini"
                                            ng-model="chartSlab.amountRangeFrom"/> -
-                                    <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
+                                    <input id="amountRangeTo" name="amountRangeTo" type="text" autocomplete="off" class="input-mini"
                                            ng-model="chartSlab.amountRangeTo"/>
                                 </td>
-                                <td class="width5"><input id="annualInterestRate" name="annualInterestRate" type="text"
+                                <td class="width5"><input id="annualInterestRate" name="annualInterestRate" type="text" autocomplete="off"
                                                           class="form-control"
                                                           ng-model="chartSlab.annualInterestRate"/></td>
-                                <td class="width20"><input id="description" name="description" type="text"
+                                <td class="width20"><input id="description" name="description" type="text" autocomplete="off"
                                                            class="form-control"
                                                            ng-model="chartSlab.description"/></td>
                                 <td class="width8">
@@ -213,7 +213,7 @@
                                     ng-options="type.id as type.name for type in data.clientClassificationOptions"
                                     value="{{type.id}}">
                             </select>
-                            <input id="attributeValue" ng-show="incentiveData.attributeName.id == 3" name="attributeValueclientage" type="text"
+                            <input id="attributeValue" ng-show="incentiveData.attributeName.id == 3" name="attributeValueclientage" type="text" autocomplete="off"
                                    class="form-control"
                                    ng-model="incentiveData.attributeValue"/>
                         </td>
@@ -225,7 +225,7 @@
                         </td>
 
                         <td>
-                            <input id="amount" name="amount" type="text"
+                            <input id="amount" name="amount" type="text" autocomplete="off"
                                    class="form-control"
                                    ng-model="incentiveData.amount"/>
                         </td>

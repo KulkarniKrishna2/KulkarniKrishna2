@@ -12,7 +12,7 @@
                 <div>
                     <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span  class="required">*</span></label>
                     <div class="col-sm-3">
-                        <input ng-disabled="isLoanAssigned"  type="text" id="name" name="name" ng-model="formData.name"  class="form-control" required
+                        <input ng-disabled="isLoanAssigned"  type="text" autocomplete="off" id="name" name="name" ng-model="formData.name"  class="form-control" required
                                late-Validate/>
                     </div>
                     <div class="col-sm-2" >
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-sm-3"  ng-show="isLoanAssigned">
                         <div ng-show="isLoanAssigned" >
-                           <input type="text" value="{{facilityTypeName}}"  ng-disabled="isLoanAssigned" />
+                           <input type="text" autocomplete="off" value="{{facilityTypeName}}"  ng-disabled="isLoanAssigned" />
                         </div>
                     </div>
                     <div class="col-sm-2" >
@@ -56,7 +56,7 @@
                             </select>
                         </div>
                         <div ng-show="isLoanAssigned || isOwn" >
-                            <input type="text" value="{{fundSourceTypeName}}"  ng-disabled="isLoanAssigned || isOwn" />
+                            <input type="text" autocomplete="off" value="{{fundSourceTypeName}}"  ng-disabled="isLoanAssigned || isOwn" />
                         </div>
                     </div>
                     <div class="col-sm-2" >
@@ -76,7 +76,7 @@
                             </select>
                         </div>
                         <div ng-show="isLoanAssigned || isOwn" >
-                            <input type="text" value="{{fundCategoryTypeName}}"  ng-disabled="isLoanAssigned || isOwn" />
+                            <input type="text" autocomplete="off" value="{{fundCategoryTypeName}}"  ng-disabled="isLoanAssigned || isOwn" />
                         </div>
                     </div>
                     <div class="col-sm-2" >
@@ -91,7 +91,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="assignmentStartDate" ng-disabled="isOwn"  type="text" name="assignmentStartDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="assignmentStartDate" ng-disabled="isOwn"  type="text" autocomplete="off" name="assignmentStartDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.assignmentStartDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  required />
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="assignmentEndDate" ng-disabled="isOwn"  type="text" name="assignmentEndDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="assignmentEndDate" ng-disabled="isOwn"  type="text" autocomplete="off" name="assignmentEndDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.assignmentEndDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         {{'label.input.sanctionedamount' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="sanctionedAmount" ng-disabled="isLoanAssigned || isOwn"  name="sanctionedAmount" ng-model="formData.sanctionedAmount"  ng-change="updatePercentAmount(formData.sanctionedAmount)" class="form-control" required/>
+                        <input type="text" autocomplete="off" id="sanctionedAmount" ng-disabled="isLoanAssigned || isOwn"  name="sanctionedAmount" ng-model="formData.sanctionedAmount"  ng-change="updatePercentAmount(formData.sanctionedAmount)" class="form-control" required/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="sanctionedAmount"/>
@@ -136,7 +136,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="sanctionedDate" ng-disabled="isLoanAssigned || isOwn"  type="text" name="sanctionedDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="sanctionedDate" ng-disabled="isLoanAssigned || isOwn"  type="text" autocomplete="off" name="sanctionedDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.sanctionedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                         {{'label.input.disbursedamount' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="disbursedAmount"  ng-disabled="isLoanAssigned || isOwn" name="disbursedAmount" ng-model="formData.disbursedAmount"  class="form-control" required late-Validate/>
+                        <input type="text" autocomplete="off" id="disbursedAmount"  ng-disabled="isLoanAssigned || isOwn" name="disbursedAmount" ng-model="formData.disbursedAmount"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="disbursedAmount"/>
@@ -163,7 +163,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="disbursedDate"  ng-disabled="isLoanAssigned || isOwn" type="text" name="disbursedDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="disbursedDate"  ng-disabled="isLoanAssigned || isOwn" type="text" autocomplete="off" name="disbursedDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.disbursedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                         {{'label.input.tenure' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-2">
-                        <input type="text" id="tenure"  ng-disabled="isLoanAssigned || isOwn" name="tenure" ng-model="formData.tenure"  class="form-control" required late-Validate/>
+                        <input type="text" autocomplete="off" id="tenure"  ng-disabled="isLoanAssigned || isOwn" name="tenure" ng-model="formData.tenure"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-2">
                         <div ng-hide="isLoanAssigned || isOwn">
@@ -188,7 +188,7 @@
                             </select>
                         </div>
                         <div ng-show="isLoanAssigned || isOwn" >
-                           <input type="text" value="{{tenureFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn" />
+                           <input type="text" autocomplete="off" value="{{tenureFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn" />
                         </div>
                     </div>
                     <div class="col-sm-1" >
@@ -201,7 +201,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="maturityDate"  ng-disabled="isLoanAssigned || isOwn" type="text" name="maturityDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="maturityDate"  ng-disabled="isLoanAssigned || isOwn" type="text" autocomplete="off" name="maturityDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.maturityDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -216,7 +216,7 @@
                         {{'label.input.morotoriumperiod' | translate}}
                     </label>
                     <div class="col-sm-2">
-                        <input type="text" id="morotorium" ng-disabled="isLoanAssigned || isOwn"  name="morotorium" ng-model="formData.morotorium"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="morotorium" ng-disabled="isLoanAssigned || isOwn"  name="morotorium" ng-model="formData.morotorium"  class="form-control"/>
                     </div>
                     <div class="col-sm-3">
                         <div ng-hide="isLoanAssigned || isOwn">
@@ -226,7 +226,7 @@
                             </select>
                         </div>
                         <div ng-show="isLoanAssigned || isOwn" >
-                             <input type="text" value="{{morotoriumFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn"  />
+                             <input type="text" autocomplete="off" value="{{morotoriumFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn"  />
                         </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
                             </select>
                         </div>
                         <div ng-show="isLoanAssigned || isOwn" >
-                            <input type="text" value="{{fundRepaymentFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn"  />
+                            <input type="text" autocomplete="off" value="{{fundRepaymentFrequencyTypeName}}"  ng-disabled="isLoanAssigned || isOwn"  />
                         </div>
                     </div>
                     <div class="col-sm-2" >
@@ -263,7 +263,7 @@
                             </select>
                     </div>                    
                     <div class="col-sm-2">
-                        <input placeholder="% Loan Purpose" type="text" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
+                        <input placeholder="% Loan Purpose" type="text" autocomplete="off" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
                         ng-model="loanPurposeAmount"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-1" ng-hide="isLoanAssigned || isOwn">
@@ -305,7 +305,7 @@
                         {{'label.input.rateofinterest' | translate}}<span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="interestRate" ng-disabled="isLoanAssigned || isOwn"  name="interestRate" ng-model="formData.interestRate"  class="form-control" required late-Validate/>
+                        <input type="text" autocomplete="off" id="interestRate" ng-disabled="isLoanAssigned || isOwn"  name="interestRate" ng-model="formData.interestRate"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-3" >
                         <form-validate valattributeform="createfundform" valattribute="interestRate"/>
@@ -321,7 +321,7 @@
                         {{'label.input.rateoflpfinpercentage' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="loanPortfolioFee" ng-disabled="isLoanAssigned || isOwn"  name="loanPortfolioFee" ng-model="formData.loanPortfolioFee"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="loanPortfolioFee" ng-disabled="isLoanAssigned || isOwn"  name="loanPortfolioFee" ng-model="formData.loanPortfolioFee"  class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -334,7 +334,7 @@
                         {{'label.input.bookdebthyphothecationinpercentage' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="bookDebtHypothecation" name="bookDebtHypothecation" ng-model="formData.bookDebtHypothecation"  class="form-control" ng-disabled="isLoanAssigned || isOwn"/>
+                        <input type="text" autocomplete="off" id="bookDebtHypothecation" name="bookDebtHypothecation" ng-model="formData.bookDebtHypothecation"  class="form-control" ng-disabled="isLoanAssigned || isOwn"/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="bookDebtHypothecation"/>
@@ -345,7 +345,7 @@
                         {{'label.input.cashcollateralinpercentage' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="cashCollateral" name="cashCollateral" ng-model="formData.cashCollateral"  ng-disabled="isLoanAssigned || isOwn"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="cashCollateral" name="cashCollateral" ng-model="formData.cashCollateral"  ng-disabled="isLoanAssigned || isOwn"  class="form-control"/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="cashCollateral"/>

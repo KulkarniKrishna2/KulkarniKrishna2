@@ -115,7 +115,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="transferAmount">{{ 'label.input.amount' | translate }}</label>
                 <div class="col-sm-3">
-                    <input type="text" id="transferAmount" name="transferAmount" number-format ng-model="formData.amount"/>
+                    <input type="text" autocomplete="off" id="transferAmount" name="transferAmount" number-format ng-model="formData.amount"/>
                 </div>
             </div>
             <div class="form-group">
@@ -123,13 +123,13 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="validFrom" datepicker-pop="{{df}}" ng-model="formData.validFrom"
+                    <input type="text" autocomplete="off" id="validFrom" datepicker-pop="{{df}}" ng-model="formData.validFrom"
                            is-open="opened" min="restrictDate" />
                 </div>
                  <label class="control-label col-sm-2" for="validTill">{{ 'label.heading.to' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="validTill" datepicker-pop="{{df}}" ng-model="formData.validTill"
+                    <input type="text" autocomplete="off" id="validTill" datepicker-pop="{{df}}" ng-model="formData.validTill"
                            is-open="opened" min="restrictDate"/>
                 </div>
             </div>
@@ -148,7 +148,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="recurrenceInterval">{{ 'label.heading.recurrenceinterval' | translate }}</label>
                 <div class="col-sm-3">
-                    <input type="text" id="recurrenceInterval" name="recurrenceInterval"
+                    <input type="text" autocomplete="off" id="recurrenceInterval" name="recurrenceInterval"
                            ng-model="formData.recurrenceInterval" />
                 </div>
             </div>
@@ -165,7 +165,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="recurrenceOnMonthDay">{{ 'label.heading.recurrenceonmonthday' | translate }}</label>
                 <div class="col-sm-3">
-                    <input type="text" id="recurrenceOnMonthDay" name="recurrenceOnMonthDay"
+                    <input type="text" autocomplete="off" id="recurrenceOnMonthDay" name="recurrenceOnMonthDay"
                            ng-model="recurrenceOnMonthDay" datepicker-pop="dd MMMM" 
                            is-open="opened"/>
                     

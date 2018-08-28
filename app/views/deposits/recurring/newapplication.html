@@ -28,7 +28,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="{{df}}"
+            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                    ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control"/>
         </td>
@@ -110,7 +110,7 @@
         </td>
         <td class="width36 paddedbottom10">
             <div class="form-inline">
-                <input id="lockinPeriodFrequency" type="text" class="form-control"
+                <input id="lockinPeriodFrequency" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.lockinPeriodFrequency">&nbsp;
                 <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
                         class="form-control width170px"
@@ -153,7 +153,7 @@
                     class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input id="mandatoryRecommendedDepositAmount" type="text" class="form-control"
+            <input id="mandatoryRecommendedDepositAmount" type="text" autocomplete="off" class="form-control"
                    number-format ng-model="formData.mandatoryRecommendedDepositAmount">
         </td>
         <td class="width14 paddedbottom10"><label class="control-label">{{ 'label.input.depositperiod' | translate }}&nbsp;</label>
@@ -161,7 +161,7 @@
 
         <td class="width36 paddedbottom10">
             <div class="form-inline">
-                <input id="depositPeriod" class="form-control" type="text" ng-model="formData.depositPeriod">
+                <input id="depositPeriod" class="form-control" type="text" autocomplete="off" ng-model="formData.depositPeriod">
                 <select id="depositPeriodFrequencyId" ng-model="formData.depositPeriodFrequencyId"
                         class="form-control width170px"
                         ng-options="type.id as type.value for type in data.periodFrequencyTypeOptions"
@@ -184,7 +184,7 @@
             }}&nbsp;</label>
         </td>
         <td class="width14">
-            <input id="expectedFirstDepositOnDate" type="text" datepicker-pop="{{df}}"
+            <input id="expectedFirstDepositOnDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
                    ng-model="formData.expectedFirstDepositOnDate" is-open="opened" min="minDate"
                    class="form-control"/>
         </td>
@@ -193,7 +193,7 @@
         </td>
         <td class="width36 paddedbottom10">
             <div class="form-inline">
-                <input id="recurringFrequency" class="form-control" type="text" ng-model="formData.recurringFrequency">
+                <input id="recurringFrequency" class="form-control" type="text" autocomplete="off" ng-model="formData.recurringFrequency">
                 &nbsp;&nbsp;
                 <select id="recurringFrequencyType" ng-model="formData.recurringFrequencyType"
                         class="form-control width170px"
@@ -317,23 +317,23 @@
     <tr ng-repeat="charge in charges">
         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
         <td>{{charge.chargeCalculationType.value}}</td>
-        <td><input id="charges[{{$index}}].amount" class="form-control" number-format type="text" ng-model="charge.amount"
+        <td><input id="charges[{{$index}}].amount" class="form-control" number-format type="text" autocomplete="off" ng-model="charge.amount"
                    placeholder="{{'label.placeholder.amount' | translate}}"/></td>
         <td>{{charge.chargeTimeType.value}}</td>
         <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
             <input id="charges[{{$index}}].feeOnMonthDay" class="date-disable form-control"
-                   type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                   type="text" autocomplete="off" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Specified due date'">
             <input id="charges[{{$index}}].dueDate" class="date-disable form-control"
-                   type="text" datepicker-pop="{{df}}" ng-model="charge.dueDate" is-open="opened"/>
+                   type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="charge.dueDate" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-            <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM"
+            <input class="date-disable form-control" type="text" autocomplete="off" datepicker-pop="dd MMMM"
                    ng-model="charge.feeOnMonthDay" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-            <input id="charges[{{$index}}].amount" class="form-control" number-format type="text"
+            <input id="charges[{{$index}}].amount" class="form-control" number-format type="text" autocomplete="off"
                    ng-model="charge.feeInterval"/>
         </td>
         <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>

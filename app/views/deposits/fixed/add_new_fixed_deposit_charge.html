@@ -29,7 +29,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-sm-3">
-	                    <input class="form-control" id="amount" type="text" number-format name="amount" ng-model="formData.amount" required ng-late-Validate/>
+	                    <input class="form-control" id="amount" type="text" autocomplete="off" number-format name="amount" ng-model="formData.amount" required ng-late-Validate/>
 	                </div>
 	                <div class="col-sm-3">
 	                    <form-validate valattributeform="savingccountchargeform" valattribute="amount"/>
@@ -62,7 +62,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-sm-3">
-	                    <input class="form-control" id="feeOnAnnualMonthDay" sort type="text" datepicker-pop="{{df}}"
+	                    <input class="form-control" id="feeOnAnnualMonthDay" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
 	                           ng-model="date.specificduedate" is-open="opened"/>
 	                </div>
 	            </div>
@@ -71,7 +71,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-sm-3">
-	                    <input class="form-control" id="feeOnMonthDay" sort type="text" datepicker-pop="dd MMMM" ng-model="date.due"
+	                    <input class="form-control" id="feeOnMonthDay" sort type="text" autocomplete="off" datepicker-pop="dd MMMM" ng-model="date.due"
 	                           is-open="opened"/>
 	                </div>
 	            </div>
@@ -80,7 +80,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-sm-3">
-	                    <input class="form-control" type="text" class="input-small" ng-model="formData.feeInterval"/>
+	                    <input class="form-control" type="text" autocomplete="off" class="input-small" ng-model="formData.feeInterval"/>
 	                </div>
 	            </div>
 	        </div>

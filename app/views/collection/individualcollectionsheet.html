@@ -35,7 +35,7 @@
                 class="required">*</span></label>
 
         <div class="col-sm-3">
-            <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
+            <input type="text" autocomplete="off" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
                    ng-model="date.transactionDate" is-open="opened" class="form-control"/>
         </div>
     </div>
@@ -91,7 +91,7 @@
                     <td>{{loan.productShortName}}({{loan.productId}})</td>
                     <td>{{client.clientName}}({{client.clientId}})</td>
                     <td>
-                        <input id="loantotal" type="text" class="input-sm form-control"
+                        <input id="loantotal" type="text" autocomplete="off" class="input-sm form-control"
                                ng-model= "loan.totalDue">
                     </td>
                     <td ng-show = "paymentDetails">
@@ -120,15 +120,15 @@
                                             class="form-control"
                                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
                                             value="{{paymentType.id}}"></select></td>
-                                <td><input type="text" class="form-control"
+                                <td><input type="text" autocomplete="off" class="form-control"
                                            ng-model="loan.accountNumber"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.checkNumber"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.routingCode"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.receiptNumber"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.bankNumber"></td>
                             </tr>
                             </tbody>
@@ -162,7 +162,7 @@
                     <td>{{saving.productName}}({{saving.productId}})</td>
                     <td>{{client.clientName}}({{client.clientId}})</td>
                     <td>
-                        <input id="total" type="text" class="input-sm form-control"
+                        <input id="total" type="text" autocomplete="off" class="input-sm form-control"
                                ng-model="saving.dueAmount">
                     </td>
                     <td  ng-show = "paymentDetails">
@@ -191,15 +191,15 @@
                                             class="form-control"
                                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
                                             value="{{paymentType.id}}"></select></td>
-                                <td><input type="text" class="form-control"
+                                <td><input type="text" autocomplete="off" class="form-control"
                                            ng-model="saving.accountNumber"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.checkNumber"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.routingCode"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.receiptNumber"></td>
-                                <td><input class="form-control" type="text"
+                                <td><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.bankNumber"></td>
                             </tr>
                             </tbody>

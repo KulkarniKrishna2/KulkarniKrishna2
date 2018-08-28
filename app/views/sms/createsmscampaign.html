@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.campaignname' | translate }}<span class="required">*</span></label>
                         <div class="col-sm-3">
-                            <input type="text" name="campaignName" required late-Validate ng-model="formData.campaignName" class="form-control" ></textarea>
+                            <input type="text" autocomplete="off" name="campaignName" required late-Validate ng-model="formData.campaignName" class="form-control" ></textarea>
                         </div>
                         <div class="col-sm-3" >
                             <form-validate valattributeform="createsmscampaign" valattribute="campaignName"/>
@@ -43,7 +43,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3"  ng-switch-when="2">
-                            <input id="recurrenceStartDate" name="recurrenceStartDate" sort type="text" datepicker-pop="dd MM yyyy" ng-model="formData.recurrenceStartDate"
+                            <input id="recurrenceStartDate" name="recurrenceStartDate" sort type="text" autocomplete="off" datepicker-pop="dd MM yyyy" ng-model="formData.recurrenceStartDate"
                                    class="form-control" is-open="opened" min="minDate" max="restrictDate" required/>
                         </div>
 
@@ -56,7 +56,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3"  ng-switch-when="2">
-                            <input type="text" name="recurrence" required late-Validate ng-model="formData.recurrence" class="form-control" ></textarea>
+                            <input type="text" autocomplete="off" name="recurrence" required late-Validate ng-model="formData.recurrence" class="form-control" ></textarea>
                         </div>
 
                         <div class="col-sm-3" >

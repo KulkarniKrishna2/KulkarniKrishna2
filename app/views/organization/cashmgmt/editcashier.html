@@ -13,14 +13,14 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
             <div class="col-sm-3">
-                <input id="office" type="text" ng-model="office" class="form-control"  ng-disabled="true"/>
+                <input id="office" type="text" autocomplete="off" ng-model="office" class="form-control"  ng-disabled="true"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.teller.name' | translate }}</label>
             <div class="col-sm-3">
-               <input id="teller" type="text" ng-model="cashier.tellerName" class="form-control" ng-disabled="true"/>
+               <input id="teller" type="text" autocomplete="off" ng-model="cashier.tellerName" class="form-control" ng-disabled="true"/>
             </div>
         </div>
 
@@ -37,14 +37,14 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.heading.cashmgmt.tellerCashiers.description' | translate}}</label>
             <div class="col-sm-3">
-                <input id="description" type="text" ng-model="formData.description" class="form-control" />
+                <input id="description" type="text" autocomplete="off" ng-model="formData.description" class="form-control" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.teller.cashier.startDate' | translate }}</label>
             <div class="col-sm-3">
-                <input id="startDate" sort type="text" datepicker-pop="{{df}}" ng-model="formData.startDate"
+                <input id="startDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formData.startDate"
                        class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
             </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2"> {{ 'label.input.teller.cashier.endDate' | translate }}</label>
             <div class="col-sm-3">
-                <input id="endDate" sort type="text" datepicker-pop="{{df}}" ng-model="formData.endDate"
+                <input id="endDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formData.endDate"
                        class="form-control" is-open="opened" min="minDate" />
             </div>
         </div>

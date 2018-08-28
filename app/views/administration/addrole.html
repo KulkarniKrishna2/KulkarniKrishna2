@@ -16,7 +16,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="name" type="text" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+                    <input id="name" type="text" autocomplete="off" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="addroleform" valattribute="name"/>
@@ -28,7 +28,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <textarea id="description" type="text" rows="2" name="description" ng-model="formData.description"
+                    <textarea id="description" type="text" autocomplete="off" rows="2" name="description" ng-model="formData.description"
                               class="form-control" required late-Validate></textarea>
                 </div>
                 <div class="col-sm-3">
@@ -51,8 +51,8 @@
             <div class="form-group" ng-show="showRoleBasedLimits" ng-repeat="roleBasedLimit in roleBasedLimits">
                 <label class="control-label col-sm-2"></label>
                 <div class="col-md-6">
-                    <span class="col-sm-4 nopadding"> <input type="text" disabled ="" placeholder="{{roleBasedLimit.displayLabel}}" class="form-control"/> </span>
-                    <span class="col-sm-6"> <input type="text" number-format ng-model="roleBasedLimit.maxLoanApprovalAmount" placeholder=" {{'label.input.approvalamountlimit' | translate}}" class="form-control"/> </span>
+                    <span class="col-sm-4 nopadding"> <input type="text" autocomplete="off" disabled ="" placeholder="{{roleBasedLimit.displayLabel}}" class="form-control"/> </span>
+                    <span class="col-sm-6"> <input type="text" autocomplete="off" number-format ng-model="roleBasedLimit.maxLoanApprovalAmount" placeholder=" {{'label.input.approvalamountlimit' | translate}}" class="form-control"/> </span>
                 </div>
             </div>
 

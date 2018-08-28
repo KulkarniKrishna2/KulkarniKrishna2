@@ -37,7 +37,7 @@
 
                             <div class="col-sm-6">
                                 <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
-                                        type="text" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')"/>
+                                        type="text" autocomplete="off" class="form-control" ng-required="isElemMandatory('bankAccountHolderName')"/>
                                 <div>
                                     <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountHolderName"/>
                                 </div>
@@ -66,7 +66,7 @@
 
                             <div class="col-sm-6">
                                 <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                                       type="text" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
+                                       type="text" autocomplete="off" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
                                 <div>
                                     <form validate valattributeform="checkerbankaccountdetail" valattribute="bankAccountNumber"/>
                                 </div>
@@ -113,7 +113,7 @@
 
                             <div class="col-sm-6">
                                 <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                                       minlength="11" maxlength="11" ng-pattern="/^[a-zA-Z0-9]*$/" type="text" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
+                                       minlength="11" maxlength="11" ng-pattern="/^[a-zA-Z0-9]*$/" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
 
                                 <div>
                                     <span ng-show="checkerbankaccountdetail.bankIFSCCode.$invalid && checkerbankaccountdetail.bankIFSCCode.$dirty">
@@ -130,7 +130,7 @@
                             </label>
                             <div class="col-sm-6">
                                 <input name="micrCode" id="micrCode" ng-model="formData.micrCode"
-                                       type="text" ng-pattern="regexPattern('micrCode')" class="form-control" ng-required="isElemMandatory('micrCode')"/>
+                                       type="text" autocomplete="off" ng-pattern="regexPattern('micrCode')" class="form-control" ng-required="isElemMandatory('micrCode')"/>
                                 <div>
                                     <span ng-show="checkerbankaccountdetail.micrCode.$invalid && checkerbankaccountdetail.micrCode.$dirty">
                                         <small class="required" ng-show="checkerbankaccountdetail.micrCode.$error.pattern">
@@ -147,7 +147,7 @@
 
                             <div class="col-sm-6">
                                 <input name="bankName" id="bankName" ng-model="formData.bankName"
-                                       type="text" class="form-control" ng-required="isElemMandatory('bankName')"/>
+                                       type="text" autocomplete="off" class="form-control" ng-required="isElemMandatory('bankName')"/>
                                 <div>
                                     <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankName"/>
                                 </div>
@@ -159,7 +159,7 @@
                                 <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
                             <div class="col-sm-6">
                                 <input name="branchName" id="branchName" ng-model="formData.branchName"
-                                       type="text" class="form-control"/>
+                                       type="text" autocomplete="off" class="form-control"/>
                                 <div>
                                     <form-validate valattributeform="checkerbankaccountdetail" valattribute="branchName"/>
                                 </div>
@@ -172,7 +172,7 @@
 
                             <div class="col-sm-6">
                                 <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
-                                       type="text" class="form-control" ng-required="isElemMandatory('bankCity')"/>
+                                       type="text" autocomplete="off" class="form-control" ng-required="isElemMandatory('bankCity')"/>
                                 <div>
                                     <form-validate valattributeform="checkerbankaccountdetail" valattribute="bankCity"/>
                                 </div>
@@ -185,7 +185,7 @@
 
                             <div class="col-sm-6">
                                 <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
-                                       type="text"  class="form-control" ng-pattern="regexPattern('mobileNumber')" ng-required="isElemMandatory('mobileNumber')"/>
+                                       type="text" autocomplete="off"  class="form-control" ng-pattern="regexPattern('mobileNumber')" ng-required="isElemMandatory('mobileNumber')"/>
                                 <div class="col-sm-2">
                                      <span ng-show="checkerbankaccountdetail.mobileNumber.$invalid && checkerbankaccountdetail.mobileNumber.$dirty">
                                         <small class="required" ng-show="checkerbankaccountdetail.mobileNumber.$error.pattern">
@@ -198,7 +198,7 @@
                             <label class="control-label col-sm-6" >{{'label.input.last.transaction.date' | translate}}
                                 <span ng-show="isElemMandatory('lastTransactionDate')" class="required">*</span> </label>
                             <div class="col-sm-6">
-                                <input id="lastTransactionDate" type="text" name="lastTransactionDate"
+                                <input id="lastTransactionDate" type="text" autocomplete="off" name="lastTransactionDate"
                                        datepicker-pop="{{df}}" ng-model="formData.lastTransactionDate"
                                        class="form-control" ng-required="isElemMandatory('lastTransactionDate')"/>
                                 <div>

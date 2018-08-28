@@ -48,7 +48,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
-                        <input id="transactionDate" name="transactionDate" type="text" class="date-disable form-control"
+                        <input id="transactionDate" name="transactionDate" type="text" autocomplete="off" class="date-disable form-control"
                                datepicker-pop="{{df}}" ng-model="formData.transactionDate" is-open="opened"
                                min="'2000-01-01'" max="restrictDate" required readonly late-validate=""/>
                     </div>
@@ -121,7 +121,7 @@
                                 <td>
                                     <ng-form name="camountForm{{$index}}">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="camount{{$index}}"
+                                            <input type="text" autocomplete="off" class="form-control" id="camount{{$index}}"
                                                    name="camount"
                                                    ng-model="account.amount"
                                                    number-format required late-validate=""/>
@@ -219,7 +219,7 @@
                                 <td>
                                     <ng-form name="damountForm{{$index}}">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="damount{{$index}}"
+                                            <input type="text" autocomplete="off" class="form-control" id="damount{{$index}}"
                                                    name="damount"
                                                    ng-model="account.amount"
                                                    number-format required late-validate=""/>
@@ -294,7 +294,7 @@
                         <label class="control-label col-sm-2">{{ 'label.heading.instrument.no' | translate}}<span
                                 class="required">*</span></label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="instrumentionNumber"
+                            <input type="text" autocomplete="off" class="form-control" id="instrumentionNumber"
                                    name="instrumentionNumber"
                                    ng-model="formData.paymentDetails.instrumentionNumber" required late-validate=""/>
                         </div>
@@ -307,7 +307,7 @@
                         <label class="control-label col-sm-2">{{ 'label.heading.instrument.date' | translate }}<span
                                 class="required">*</span></label>
                         <div class="col-sm-3">
-                            <input id="instrumentationDate" name="instrumentationDate" type="text" class="date-disable form-control"
+                            <input id="instrumentationDate" name="instrumentationDate" type="text" autocomplete="off" class="date-disable form-control"
                                    datepicker-pop="{{df}}" ng-model="formData.paymentDetails.instrumentationDate"
                                    is-open="opened"
                                    min="'2000-01-01'" max="restrictDate" required readonly required late-validate=""/>
@@ -321,7 +321,7 @@
                         <label class="control-label col-sm-2">{{ 'label.heading.bank' | translate}}<span
                                 class="required">*</span></label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bankName"
+                            <input type="text" autocomplete="off" class="form-control" id="bankName"
                                    name="bankName"
                                    ng-model="formData.paymentDetails.bankName" required late-validate=""/>
                         </div>
@@ -334,7 +334,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.branch' | translate}}<span
                                 class="required">*</span></label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="branchName"
+                            <input type="text" autocomplete="off" class="form-control" id="branchName"
                                    name="branchName"
                                    ng-model="formData.paymentDetails.branchName" required late-validate=""/>
                         </div>

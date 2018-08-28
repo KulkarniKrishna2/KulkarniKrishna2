@@ -51,7 +51,7 @@
 									{{ 'label.heading.chooseloanemipack' | translate }}:
 								</label>
 								<div class="col-sm-3">
-									<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
+									<input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
 								</div>
 							</div>
 							<br>
@@ -132,12 +132,12 @@
 								<td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
 								<td>{{charge.chargeCalculationType.value}}</td>
 								<td>
-									<input id="{{charges[$index].amount}}" class="form-control" number-format type="text" ng-model="charge.amountOrPercentage"
+									<input id="{{charges[$index].amount}}" class="form-control" number-format type="text" autocomplete="off" ng-model="charge.amountOrPercentage"
 									    placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)">
 								</td>
 								<td>{{charge.chargeTimeType.value}}</td>
 								<td>
-									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+									<input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
 									    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
 									    max="'2020-06-22'" />
 								</td>

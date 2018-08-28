@@ -55,7 +55,7 @@
                                 <td class="col-md-3">
                                     <ng-form name="auditDoneOn" rc-submit="submit()">
                                         <input id="submittedon"
-                                               type="text"
+                                               type="text" autocomplete="off"
                                                name="submittedon"
                                                datepicker-pop="{{df}}"
                                                ng-model="centerTemplate.auditDoneOn"
@@ -91,7 +91,7 @@
                             <td class="col-md-3">
                                 <span>
                                     <ng-form name="principalAmountForm" rc-submit="submit()">
-                                        <input type="text"
+                                        <input type="text" autocomplete="off"
                                                id="principalAmountId"
                                                name="principalAmount"
                                                ng-model="utilizationDetails.amount"
@@ -107,7 +107,7 @@
                             <td class="col-md-1"><span ng-show="utilizationDetails.percentailOfUsage">{{utilizationDetails.percentailOfUsage}}%</span></td>
                             <td class="col-md-5">
                                 <ng-form name="commentForm" rc-submit="submit()">
-                                    <textarea type="text"
+                                    <textarea type="text" autocomplete="off"
                                               id="comment"
                                               name="comment"
                                               ng-model="utilizationDetails.comment"

@@ -13,7 +13,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.productname' | translate}}"></i>
 				<div class="col-sm-3">
-					<input id="name" class="form-control" name="name" type="text" ng-model="formData.name"
+					<input id="name" class="form-control" name="name" type="text" autocomplete="off" ng-model="formData.name"
 						   required late-validate/>
 				</div>
 				<div class="col-sm-3">
@@ -24,7 +24,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.shortname' | translate}}"></i>
 				<div class="col-sm-3">
-					<input type="text" id="shortName" name="shortName" class="form-control" ng-model="formData.shortName"
+					<input type="text" autocomplete="off" id="shortName" name="shortName" class="form-control" ng-model="formData.shortName"
 						   maxlength="4" required late-validate/>
 				</div>
 				<div class="col-sm-3">
@@ -46,7 +46,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.product.externalId' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.shortname' | translate}}"></i>
 				<div class="col-sm-3">
-					<input type="text" id="externalId" name="externalId" class="form-control" ng-model="formData.externalId"/>
+					<input type="text" autocomplete="off" id="externalId" name="externalId" class="form-control" ng-model="formData.externalId"/>
 				</div>
 
 			</div>
@@ -63,7 +63,7 @@
 				<label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.decimalplaces' | translate}}"></i>
 				<div class="col-sm-2">
-					<input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
+					<input type="text" autocomplete="off" id="digitsAfterDecimal" name="decimalplace" class="form-control"
 						   ng-model="formData.digitsAfterDecimal" required late-validate/>
 				</div>
 				<div class="col-sm-2">
@@ -74,7 +74,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.multiplesof' | translate }}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.multiplesof' | translate}}"></i>
 				<div class="col-sm-2">
-					<input type="text" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
+					<input type="text" autocomplete="off" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
 						   required late-validate/>
 				</div>
 				<div class="col-sm-2">
@@ -88,7 +88,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.nominalannualinterestrate' | translate }}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.nominalannualinterest' | translate}}"></i>
 				<div class="col-sm-2">
-					<input id="nominalAnnualInterestRate" name="nominalAnnualInterestRate" type="text" class="form-control"
+					<input id="nominalAnnualInterestRate" name="nominalAnnualInterestRate" type="text" autocomplete="off" class="form-control"
 						   ng-model="formData.nominalAnnualInterestRate" required late-validate/>
 				</div>
 				<div class="col-sm-2">
@@ -137,13 +137,13 @@
 				<label class="control-label col-sm-3">{{ 'label.input.minimumopeningbalance' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.minimumopeningbalance' | translate}}"></i>
 				<div class="col-sm-2">
-					<input id="minRequiredOpeningBalance" type="text" class="form-control"
+					<input id="minRequiredOpeningBalance" type="text" autocomplete="off" class="form-control"
 						   number-format ng-model="formData.minRequiredOpeningBalance">
 				</div>
 				<label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.lockinPeriodFrequency' | translate}}"></i>
 				<div class="col-sm-2">
-					<input id="lockinPeriodFrequency" type="text" class="form-control"
+					<input id="lockinPeriodFrequency" type="text" autocomplete="off" class="form-control"
 						   ng-model="formData.lockinPeriodFrequency">
 				</div>
 				<div class="col-sm-2">
@@ -165,7 +165,7 @@
 				<label class="control-label col-sm-2">{{ 'label.input.minbalanceforinterest' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.minbalanceforinterest' | translate}}"></i>
 				<div class="col-sm-2">
-					<input id="minBalanceForInterestCalculation"  type="text" class="form-control"
+					<input id="minBalanceForInterestCalculation"  type="text" autocomplete="off" class="form-control"
 						   number-format ng-model="formData.minBalanceForInterestCalculation">
 				</div>
 			</div>
@@ -179,7 +179,7 @@
 				<label class="control-label col-sm-2">{{'label.input.minRequiredBalance' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.minRequiredBalance' | translate}}"></i>
 				<div class="col-sm-2">
-					<input id="minRequiredBalance" type="text" class="form-control"
+					<input id="minRequiredBalance" type="text" autocomplete="off" class="form-control"
 						   number-format ng-model="formData.minRequiredBalance"/>
 				</div>
 			</div>
@@ -194,7 +194,7 @@
 					<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.overdraftlimit' | translate}}"></i>
 
 					<div class="col-sm-2">
-						<input id="overdraftLimit" name="overdraftLimit" type="text" class="form-control" ng-model="formData.overdraftLimit" required late-validate/>
+						<input id="overdraftLimit" name="overdraftLimit" type="text" autocomplete="off" class="form-control" ng-model="formData.overdraftLimit" required late-validate/>
 					</div>
 					<div class="col-sm-2">
 					   <form-validate valattributeform="createsavingproductform" valattribute="overdraftLimit"/>
@@ -207,14 +207,14 @@
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.nominalannualinterestrateoverdraft' | translate}}"></i>
 
 				<div class="col-sm-2">
-					<input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control" ng-model="formData.nominalAnnualInterestRateOverdraft">
+					<input id="nominalAnnualInterestRateOverdraft" type="text" autocomplete="off" class="form-control" ng-model="formData.nominalAnnualInterestRateOverdraft">
 				</div>
 
 				<label class="control-label col-sm-2">{{'label.input.minoverdraftforinterestcalculation' | translate}}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.minoverdraftforinterestcalculation' | translate}}"></i>
 
 				<div class="col-sm-2">
-					<input id="minOverdraftForInterestCalculation" type="text" class="form-control" ng-model="formData.minOverdraftForInterestCalculation">
+					<input id="minOverdraftForInterestCalculation" type="text" autocomplete="off" class="form-control" ng-model="formData.minOverdraftForInterestCalculation">
 				</div>
 			</div>
 
@@ -266,7 +266,7 @@
 				<label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.interval' | translate}}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.dpfreequncyinterval' | translate}}"></i>
 				<div class="col-sm-2">
-					<input id="dpFrequencyInterval" name="dpFrequencyInterval" type="text" class="form-control"
+					<input id="dpFrequencyInterval" name="dpFrequencyInterval" type="text" autocomplete="off" class="form-control"
 						   ng-model="formData.dpFrequencyInterval" required late-validate>
 				</div>
 				<div class="col-sm-2">
@@ -307,7 +307,7 @@
 					<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.daysToInactive' | translate}}"></i>
 
 					<div class="col-sm-2">
-						<input id="daysToInactive" type="text" class="form-control" ng-model="formData.daysToInactive">
+						<input id="daysToInactive" type="text" autocomplete="off" class="form-control" ng-model="formData.daysToInactive">
 					</div>
 				</div>
 			</div>
@@ -316,14 +316,14 @@
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.daysToDormancy' | translate}}"></i>
 
 				<div class="col-sm-2">
-					<input id="daysToDormancy" type="text" class="form-control" ng-model="formData.daysToDormancy">
+					<input id="daysToDormancy" type="text" autocomplete="off" class="form-control" ng-model="formData.daysToDormancy">
 				</div>
 
 				<label class="control-label col-sm-2">{{'label.input.daysToEscheat' | translate}}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.daysToEscheat' | translate}}"></i>
 
 				<div class="col-sm-2">
-					<input id="daysToEscheat" type="text" class="form-control" ng-model="formData.daysToEscheat">
+					<input id="daysToEscheat" type="text" autocomplete="off" class="form-control" ng-model="formData.daysToEscheat">
 				</div>
 			</div>
 				<div class="form-group" >
@@ -352,7 +352,7 @@
 				<div class="form-group" ng-show="formData.isAllowInterestRateChart">
 						<label class="control-label col-sm-2">{{'label.heading.effectivefromdate' | translate}}</label>
 						<div class="col-sm-3">
-							<input type="text" id="effectiveFromDate"
+							<input type="text" autocomplete="off" id="effectiveFromDate"
 								   name="effectiveFromDate"
 								   datepicker-pop="{{df}}" is-open="opened"
 								   ng-model="floatingInterestRateChart.effectiveFromDate" class="form-control"/>

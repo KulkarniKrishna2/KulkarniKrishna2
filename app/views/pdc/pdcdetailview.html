@@ -56,7 +56,7 @@
                 <td>
                     <div class="form-group">
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="editChequeAmount"
+                            <input type="text" autocomplete="off" class="form-control" id="editChequeAmount"
                                    name="editChequeAmount"
                                    ng-model="editPDCData.chequeAmount"
                                    number-format/>
@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <div class="col-sm-5">
                             <input id="editChequeDate"
-                                   name="editChequeDate" sort type="text"
+                                   name="editChequeDate" sort type="text" autocomplete="off"
                                    datepicker-pop="{{df}}"
                                    class="form-control"
                                    ng-model="editPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
@@ -103,7 +103,7 @@
                     <div ng-if="editPDC" class="form-group">
                         <div class="col-sm-5">
                             <input id="editBankName"
-                                   name="editBankName" type="text" maxlength="100"
+                                   name="editBankName" type="text" autocomplete="off" maxlength="100"
                                    class="form-control" ng-model="editPDCData.bankName"/>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                     <div ng-if="editPDC" class="form-group">
                         <div class="col-sm-5">
                             <input id="editBranchName"
-                                   name="editBranchName" type="text" maxlength="100"
+                                   name="editBranchName" type="text" autocomplete="off" maxlength="100"
                                    class="form-control" ng-model="editPDCData.branchName"/>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                     <div ng-if="editPDC" class="form-group">
                         <div class="col-sm-5">
                             <input id="editIfscCode"
-                                   name="editIfscCode" type="text" maxlength="50"
+                                   name="editIfscCode" type="text" autocomplete="off" maxlength="50"
                                    class="form-control" ng-model="editPDCData.ifscCode"/>
                         </div>
                     </div>

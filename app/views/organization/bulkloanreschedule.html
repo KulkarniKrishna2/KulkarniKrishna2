@@ -46,7 +46,7 @@
 				</label>
 
 				<div class="col-sm-3">
-					<input id="rescheduleFromDate" type="text"
+					<input id="rescheduleFromDate" type="text" autocomplete="off"
 						datepicker-pop="{{df}}" ng-model="first.date"
 						is-open="opened" min="minDate" max="'2020-06-22'"
 						date-disabled="disabled(date, mode)" class="form-control" required
@@ -66,7 +66,7 @@
 				</label>
 
 				<div class="col-sm-3">
-					<input id="rescheduledToDate" type="text"
+					<input id="rescheduledToDate" type="text" autocomplete="off"
 						datepicker-pop="{{df}}" ng-model="second.date"
 						is-open="opened" min="minDate" max="'2020-06-22'"
 						date-disabled="disabled(date, mode)" class="form-control" required
@@ -106,7 +106,7 @@
 					'label.input.submittedon' | translate }}<span class="required">*</span>
 				</label>
 				<div class="col-sm-3">
-					<input id="submittedOn" type="text" datepicker-pop="{{df}}"
+					<input id="submittedOn" type="text" autocomplete="off" datepicker-pop="{{df}}"
 						ng-model="third.date" is-open="opened" min="minDate"
 						max="'2020-06-22'" date-disabled="disabled(date, mode)"
 						class="form-control" required late-Validate />

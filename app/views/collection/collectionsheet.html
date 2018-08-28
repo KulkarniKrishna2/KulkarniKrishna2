@@ -32,7 +32,7 @@
 	                class="required">*</span></label>
 	
 	        <div class="col-sm-3">
-	            <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
+	            <input type="text" autocomplete="off" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
 	                   ng-model="date.transactionDate" is-open="opened" class="form-control" required/>
 	        </div>
 			<div class="col-sm-3">
@@ -44,7 +44,7 @@
 			<label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}</label>
 
 			<div class="col-sm-3">
-				<input type="text" id="newtransactionDate" name="newtransactionDate" datepicker-pop="{{df}}"
+				<input type="text" autocomplete="off" id="newtransactionDate" name="newtransactionDate" datepicker-pop="{{df}}"
 					   ng-model="date.newtransactionDate" is-open="opened" class="form-control"/>
 			</div>
 		</div>
@@ -171,7 +171,7 @@
 								<div  class="form-group">
 									<label data-ng-hide="hideLoanAccountNumber" class="control-label col-sm-4" style="font-size: 12px;">{{'label.heading.loanaccountno' | translate}}:({{loan.accountId}}) </label>
 									<div  class="col-sm-8">
-										<input style="font-weight: bold;" id="total" type="text" number-format
+										<input style="font-weight: bold;" id="total" type="text" autocomplete="off" number-format
 										   ng-model="loan.totalDue" class="input-sm form-control"
 										   ng-change="sumTotalDueCollection();resetCollectionReasons(loan.totalDue,loan.loanId);">
 									</div>
@@ -213,13 +213,13 @@
 								  ng-show="savingsproduct.id === savings.productId" class="col-md-4">
 								<div >
 									<span data-ng-hide="hideSavingsAccountNumber" style="font-size: 12px;">{{'label.heading.savingaccountno' | translate}}:({{savings.accountId}}) </span>
-									<input id="dueAmount" number-format type="text" number-format placeholder="{{'label.heading.deposit' | translate}}"
+									<input id="dueAmount" number-format type="text" autocomplete="off" number-format placeholder="{{'label.heading.deposit' | translate}}"
 										   ng-model="savings.dueAmount"
 										   ng-change="sumTotalDueCollection()">
 								</div>
 								<div ng-show="isWithDrawForSavingsIncludedInCollectionSheet" >
 									<span style="font-size: 12px;">  </span>
-									<input id="withdrawAmount" number-format type="text" number-format
+									<input id="withdrawAmount" number-format type="text" autocomplete="off" number-format
 										   ng-model="savings.withdrawAmount" placeholder="{{'label.heading.withdraw' | translate}}"
 										   ng-change="sumTotalDueCollection()">
 								</div>
@@ -229,7 +229,7 @@
 						<td >
 							<div class="col-md-5 paddinglr0px">
 								<span style="font-size: 12px;"></span>
-								<input ng-show = "isClientChargesIncludedInCollectoonSheet" style="font-weight: bold;" id="charge" type="text" number-format
+								<input ng-show = "isClientChargesIncludedInCollectoonSheet" style="font-weight: bold;" id="charge" type="text" autocomplete="off" number-format
 									   ng-model="client.charge"
 									   ng-change="sumTotalChargeCollection(client,group)">
 							</div>
@@ -283,7 +283,7 @@
 						<td  ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 							  <span ng-repeat="grouptotal in loanGroupsTotal"
 									ng-show="grouptotal.groupId === group.groupId && loanproduct.id === grouptotal.productId">
-								  <input style="font-weight: bold;" type="text"
+								  <input style="font-weight: bold;" type="text" autocomplete="off"
 										 number-format ng-model="grouptotal.dueAmount" disabled="disabled">
 							  </span>
 						</td>
@@ -292,13 +292,13 @@
 						<td ng-hide="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0"  ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							  <span ng-repeat="grouptotal in savingsGroupsTotal"
 									ng-show="grouptotal.groupId === group.groupId && savingsproduct.id === grouptotal.productId">
-								  <input style="font-weight: bold;" class="col-md-5" type="text"
+								  <input style="font-weight: bold;" class="col-md-5" type="text" autocomplete="off"
 										 number-format ng-model="grouptotal.dueAmount" disabled="disabled">
-								  <input ng-show="isWithDrawForSavingsIncludedInCollectionSheet" style="font-weight: bold;" class="col-md-5" type="text"
+								  <input ng-show="isWithDrawForSavingsIncludedInCollectionSheet" style="font-weight: bold;" class="col-md-5" type="text" autocomplete="off"
 										 number-format ng-model="grouptotal.withdrawAmount" disabled="disabled">
 							  </span>
 						</td>
-						<td ><input ng-show="isClientChargesIncludedInCollectoonSheet" type="text" disabled="disabled"
+						<td ><input ng-show="isClientChargesIncludedInCollectoonSheet" type="text" autocomplete="off" disabled="disabled"
 								   number-format ng-model="group.totalClientCharges" ></td>
 						<td></td>
 					</tr>
@@ -312,7 +312,7 @@
 						</td>
 						<td style="height:30px " ng-hide="collectionsheetdata.loanProducts==undefined || collectionsheetdata.loanProducts.length==0" class="width20" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 							  <span ng-repeat="total in loansTotal" ng-show="loanproduct.id == total.productId">
-								<input type="text"  number-format ng-model="total.dueAmount"
+								<input type="text" autocomplete="off"  number-format ng-model="total.dueAmount"
 									   disabled="disabled">
 							  </span>
 						</td>
@@ -321,13 +321,13 @@
 						</td>
 						<td  style="height:30px" ng-hide="collectionsheetdata.savingsProducts==undefined || collectionsheetdata.savingsProducts.length==0" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							  <span ng-repeat="total in savingsTotal" ng-show="savingsproduct.id == total.productId">
-								<input class="col-md-5" type="text"  number-format ng-model="total.dueAmount"
+								<input class="col-md-5" type="text" autocomplete="off"  number-format ng-model="total.dueAmount"
 									   disabled="disabled">
-								<input ng-show="isWithDrawForSavingsIncludedInCollectionSheet" class="col-md-5" type="text" class="input-sm" number-format ng-model="total.withdrawAmount"
+								<input ng-show="isWithDrawForSavingsIncludedInCollectionSheet" class="col-md-5" type="text" autocomplete="off" class="input-sm" number-format ng-model="total.withdrawAmount"
 										 disabled="disabled">
 							  </span>
 						</td>
-						<td ><input ng-show="isClientChargesIncludedInCollectoonSheet" type="text" class="input-sm" disabled="disabled"
+						<td ><input ng-show="isClientChargesIncludedInCollectoonSheet" type="text" autocomplete="off" class="input-sm" disabled="disabled"
 								   number-format ng-model="groupsTotalClientcharges" ></td>
 						<td></td>
 					</tr>
@@ -368,15 +368,15 @@
                             class="form-control"
                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
                             value="{{paymentType.id}}"></select></td>
-                <td><input type="text" class="form-control"
+                <td><input type="text" autocomplete="off" class="form-control"
                            ng-model="paymentDetail.accountNumber"></td>
-                <td><input class="form-control" type="text"
+                <td><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.checkNumber"></td>
-                <td><input class="form-control" type="text"
+                <td><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.routingCode"></td>
-                <td><input class="form-control" type="text"
+                <td><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.receiptNumber"></td>
-                <td><input class="form-control" type="text"
+                <td><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.bankNumber"></td>
             </tr>
             </tbody>

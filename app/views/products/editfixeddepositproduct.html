@@ -13,7 +13,7 @@
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input type="text" id="name" class="form-control" name="name" ng-model="formData.name"
+        <input type="text" autocomplete="off" id="name" class="form-control" name="name" ng-model="formData.name"
                required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -21,7 +21,7 @@
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input type="text" id="shortName" name="shortName" ng-model="formData.shortName"
+        <input type="text" autocomplete="off" id="shortName" name="shortName" ng-model="formData.shortName"
                class="form-control" maxlength="4" required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -40,7 +40,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2">{{ 'label.input.product.externalId' | translate }}</label>
         <div class="col-sm-2">
-            <input type="text" id="externalId" name="externalId" class="form-control" ng-model="formData.externalId"/>
+            <input type="text" autocomplete="off" id="externalId" name="externalId" class="form-control" ng-model="formData.externalId"/>
         </div>
     </div>
 </div>
@@ -56,7 +56,7 @@
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
+        <input type="text" autocomplete="off" id="digitsAfterDecimal" name="decimalplace" class="form-control"
                ng-model="formData.digitsAfterDecimal" required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -66,7 +66,7 @@
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.multiplesof' | translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
+        <input type="text" autocomplete="off" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
                required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -81,7 +81,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input type="text" id="depositAmount" name="depositAmount" class="form-control"
+        <input type="text" autocomplete="off" id="depositAmount" name="depositAmount" class="form-control"
                number-format ng-model="formData.depositAmount" required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -94,7 +94,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input type="text" id="minDepositAmount" name="minDepositAmount" class="form-control"
+        <input type="text" autocomplete="off" id="minDepositAmount" name="minDepositAmount" class="form-control"
                number-format ng-model="formData.minDepositAmount" />
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.maxDepositAmount' | translate }}
@@ -102,7 +102,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input type="text" id="maxDepositAmount" name="maxDepositAmount" class="form-control"
+        <input type="text" autocomplete="off" id="maxDepositAmount" name="maxDepositAmount" class="form-control"
                number-format ng-model="formData.maxDepositAmount" />
     </div>
 </div>
@@ -162,7 +162,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input id="lockinPeriodFrequency" type="text" class="form-control"
+        <input id="lockinPeriodFrequency" type="text" autocomplete="off" class="form-control"
                ng-model="formData.lockinPeriodFrequency">
     </div>
     <div class="col-sm-2">
@@ -178,7 +178,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input id="minimumDepositTerm" type="text" class="form-control" ng-model="formData.minDepositTerm">
+        <input id="minimumDepositTerm" type="text" autocomplete="off" class="form-control" ng-model="formData.minDepositTerm">
     </div>
     <div class="col-sm-2">
         <select id="minDepositTermTypeId" ng-model="formData.minDepositTermTypeId"
@@ -195,7 +195,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input id="inMultiplesOfDepositTerm" type="text" class="form-control"
+        <input id="inMultiplesOfDepositTerm" type="text" autocomplete="off" class="form-control"
                number-format ng-model="formData.inMultiplesOfDepositTerm">
     </div>
     <div class="col-sm-2">
@@ -211,7 +211,7 @@
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input id="maximumDepositTerm" type="text" class="form-control" ng-model="formData.maxDepositTerm">
+        <input id="maximumDepositTerm" type="text" autocomplete="off" class="form-control" ng-model="formData.maxDepositTerm">
     </div>
     <div class="col-sm-2">
         <select id="maxDepositTermTypeId" ng-model="formData.maxDepositTermTypeId"
@@ -234,7 +234,7 @@
         </label>
     </div>
     <div class="col-sm-2">
-        <input id="preClosurePenalInterest" name="preClosurePenalInterest" type="text"
+        <input id="preClosurePenalInterest" name="preClosurePenalInterest" type="text" autocomplete="off"
                number-format class="form-control" ng-model="formData.preClosurePenalInterest"/>
     </div>
     <div class="col-sm-1 col-sm-offset-1">
@@ -276,13 +276,13 @@
     <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.valid.from' |
         translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input id="fromDate" sort type="text" class="form-control" datepicker-pop="{{df}}"
+        <input id="fromDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}"
                ng-model="fromDate.date"
                is-open="opened" min="minDate" max="restrictDate"/>
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2" for="name">{{ 'label.input.interestratechart.valid.to' | translate }}</label>
     <div class="col-sm-2">
-        <input id="endDate" sort type="text" class="form-control" datepicker-pop="{{df}}"
+        <input id="endDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}"
                ng-model="endDate.date" is-open="opened" min="minDate" max="restrictDate"/>
     </div>
 </div>
@@ -316,9 +316,9 @@
 
         <tr ng-repeat="chartSlab in chart.chartSlabs">
             <td ng-show="isPrimaryGroupingByAmount">
-                <input id="amountRangeFrom1" name="amountRangeFrom" type="text" class="input-mini"
+                <input id="amountRangeFrom1" name="amountRangeFrom" type="text" autocomplete="off" class="input-mini"
                        ng-model="chartSlab.amountRangeFrom"/> -
-                <input id="amountRangeTo1" name="amountRangeTo" type="text" class="input-mini"
+                <input id="amountRangeTo1" name="amountRangeTo" type="text" autocomplete="off" class="input-mini"
                        ng-model="chartSlab.amountRangeTo"/>
             </td>
             <td class="width20">
@@ -330,25 +330,25 @@
             <td class="width15">
                 <table class="width100">
                     <tr>
-                        <td><input id="fromPeriod" name="fromPeriod" type="text" class="form-control"
+                        <td><input id="fromPeriod" name="fromPeriod" type="text" autocomplete="off" class="form-control"
                                    ng-model="chartSlab.fromPeriod"/></td><td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
-                        <td><input id="toPeriod" name="toPeriod" type="text" class="form-control"
+                        <td><input id="toPeriod" name="toPeriod" type="text" autocomplete="off" class="form-control"
                                    ng-model="chartSlab.toPeriod"/></td>
                     </tr>
                 </table>
             </td>
             <td ng-hide="isPrimaryGroupingByAmount">
-                <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
+                <input id="amountRangeFrom" name="amountRangeFrom" type="text" autocomplete="off" class="input-mini"
                        ng-model="chartSlab.amountRangeFrom"/> -
-                <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
+                <input id="amountRangeTo" name="amountRangeTo" type="text" autocomplete="off" class="input-mini"
                        ng-model="chartSlab.amountRangeTo"/>
             </td>
             <td class="width15">
-                <input id="annualInterestRate" name="annualInterestRate" type="text"
+                <input id="annualInterestRate" name="annualInterestRate" type="text" autocomplete="off"
                        class="form-control"
                        ng-model="chartSlab.annualInterestRate"/>
             </td>
-            <td class="width20"><input id="description" name="description" type="text" class="form-control"
+            <td class="width20"><input id="description" name="description" type="text" autocomplete="off" class="form-control"
                                        ng-model="chartSlab.description"/></td>
             <td class="width10">
                 <a ng-click="removeRow($index)"><i class="icon-minus-sign icon-white"></i>{{'label.remove.row'
@@ -643,7 +643,7 @@
                             ng-options="type.id as type.name for type in data.clientClassificationOptions"
                             value="{{type.id}}">
                     </select>
-                    <input id="attributeValue" ng-show="incentiveData.attributeName.id == 3" name="attributeValueclientage" type="text"
+                    <input id="attributeValue" ng-show="incentiveData.attributeName.id == 3" name="attributeValueclientage" type="text" autocomplete="off"
                            class="form-control"
                            ng-model="incentiveData.attributeValue"/>
                 </td>
@@ -655,7 +655,7 @@
                 </td>
 
                 <td>
-                    <input id="amount" name="amount" type="text"
+                    <input id="amount" name="amount" type="text" autocomplete="off"
                            class="form-control" number-format
                            ng-model="incentiveData.amount"/>
                 </td>

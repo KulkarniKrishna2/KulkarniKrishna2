@@ -132,13 +132,13 @@
 			               <label  ng-show="formData.approvedDate.operator" class="col-sm-1 control-label">{{formData.approvedDate.operator}}</label>
 			        	</div>
 			            <div class="col-sm-3">
-			                <input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.approvedDate.min" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control">
+			                <input  type="text" autocomplete="off" datepicker-pop="yyyy-MM-dd" ng-model="formData.approvedDate.min" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control">
 			            </div>
 			            <div class="col-sm-1" ng-show="formData.approvedDate.operator=='between'">
 				            	<label  class="control-label">{{'label.and' | translate}}</label>
 				         </div>
 			            <div class="col-sm-3" ng-show="formData.approvedDate.operator=='between'">
-			            	<input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.approvedDate.max" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
+			            	<input  type="text" autocomplete="off" datepicker-pop="yyyy-MM-dd" ng-model="formData.approvedDate.max" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
 			            </div>
 			        </div>
 
@@ -158,13 +158,13 @@
 			               <label  ng-show="formData.disbursementDate.operator" class="col-sm-1 control-label">{{formData.disbursementDate.operator}}</label>
 			        	</div>
 			            <div class="col-sm-3">
-			                <input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.disbursementDate.min" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control">
+			                <input  type="text" autocomplete="off" datepicker-pop="yyyy-MM-dd" ng-model="formData.disbursementDate.min" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control">
 			            </div>
 			            <div class="col-sm-1" ng-show="formData.disbursementDate.operator=='between'">
 				            	<label  class="control-label">{{'label.and' | translate}}</label>
 				         </div>
 			            <div class="col-sm-3" ng-show="formData.disbursementDate.operator=='between'">
-			            	<input  type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.disbursementDate.max" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
+			            	<input  type="text" autocomplete="off" datepicker-pop="yyyy-MM-dd" ng-model="formData.disbursementDate.max" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
 			            </div>
 			        </div>
 
@@ -186,13 +186,13 @@
 			               <label  ng-show="formData.pendingRepayment.operator" class="col-sm-1 control-label">{{formData.pendingRepayment.operator}}</label>
 			        	</div>
 			            <div class="col-sm-3">
-			                <input type="text" ng-model="formData.pendingRepayment.min" class="input-small form-control">
+			                <input type="text" autocomplete="off" ng-model="formData.pendingRepayment.min" class="input-small form-control">
 			            </div>
 			            <div class="col-sm-1" ng-show="formData.pendingRepayment.operator=='between'">
 				            	<label  class="control-label">{{'label.and' | translate}}</label>
 				         </div>
 			            <div class="col-sm-3" ng-show="formData.pendingRepayment.operator=='between'">
-			            	<input type="text" ng-model="formData.pendingRepayment.max" class="input-small form-control">
+			            	<input type="text" autocomplete="off" ng-model="formData.pendingRepayment.max" class="input-small form-control">
 			            </div>
 			        </div>
 
@@ -212,13 +212,13 @@
 			               <label  ng-show="formData.paidRepayment.operator" class="col-sm-1 control-label">{{formData.paidRepayment.operator}}</label>
 			        	</div>
 			            <div class="col-sm-3">
-			                <input type="text" ng-model="formData.paidRepayment.min" class="input-small form-control">
+			                <input type="text" autocomplete="off" ng-model="formData.paidRepayment.min" class="input-small form-control">
 			            </div>
 			            <div class="col-sm-1" ng-show="formData.paidRepayment.operator=='between'">
 				            	<label  class="control-label">{{'label.and' | translate}}</label>
 				         </div>
 			            <div class="col-sm-3" ng-show="formData.paidRepayment.operator=='between'">
-			            	<input type="text" ng-model="formData.paidRepayment.max" class="input-small form-control">
+			            	<input type="text" autocomplete="off" ng-model="formData.paidRepayment.max" class="input-small form-control">
 			            </div>
 			        </div>
 
@@ -238,13 +238,13 @@
 			               <label  ng-show="formData.principalOutstanding.operator" class="col-sm-1 control-label">{{formData.principalOutstanding.operator}}</label>
 			        	</div>
 			            <div class="col-sm-3">
-			                <input type="text" ng-model="formData.principalOutstanding.min" class="input-small form-control">
+			                <input type="text" autocomplete="off" ng-model="formData.principalOutstanding.min" class="input-small form-control">
 			            </div>
 			            <div class="col-sm-1" ng-show="formData.principalOutstanding.operator=='between'">
 				            	<label  class="control-label">{{'label.and' | translate}}</label>
 				         </div>
 			            <div class="col-sm-3" ng-show="formData.principalOutstanding.operator=='between'">
-			            	<input type="text" ng-model="formData.principalOutstanding.max" class="input-small form-control">
+			            	<input type="text" autocomplete="off" ng-model="formData.principalOutstanding.max" class="input-small form-control">
 			            </div>
 			        </div>
 			        <div class="form-group">
@@ -263,13 +263,13 @@
 			               <label  ng-show="formData.overDueFromDays.operator" class="col-sm-1 control-label">{{formData.overDueFromDays.operator}}</label>
 			        	</div>
 			            <div class="col-sm-3">
-			                <input type="text" ng-model="formData.overDueFromDays.min" class="input-small form-control">
+			                <input type="text" autocomplete="off" ng-model="formData.overDueFromDays.min" class="input-small form-control">
 			            </div>
 			            <div class="col-sm-1" ng-show="formData.overDueFromDays.operator=='between'">
 				            	<label  class="control-label">{{'label.and' | translate}}</label>
 				         </div>
 			            <div class="col-sm-3" ng-show="formData.overDueFromDays.operator=='between'">
-			            	<input type="text" ng-model="formData.overDueFromDays.max" class="input-small form-control">
+			            	<input type="text" autocomplete="off" ng-model="formData.overDueFromDays.max" class="input-small form-control">
 			            </div>
 			        </div>
 			        <div class="form-group">

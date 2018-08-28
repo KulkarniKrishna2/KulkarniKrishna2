@@ -120,7 +120,7 @@
                     <fieldset>
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="docData.name" placeholder="File name" class="form-control" required
+                                <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" ng-model="docData.name" placeholder="File name" class="form-control" required
                                        late-Validate/>
                             </div>
 
@@ -360,7 +360,7 @@
                     <label class="control-label col-sm-2" for="duedate">{{'label.input.duedate' | translate}}<span class="required">*</span>
                     </label>
                     <div class="col-sm-4">
-                        <span style="padding-left:17px"><input id="duedate"  name = "duedate" type="text" datepicker-pop="{{df}}" ng-model="rschData.dueDate" is-open="opened" min="restrictDate" readonly="true" /></span>
+                        <span style="padding-left:17px"><input id="duedate"  name = "duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="rschData.dueDate" is-open="opened" min="restrictDate" readonly="true" /></span>
                     </div>
                     <div class="col-sm-6">
                     </div>                            

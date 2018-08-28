@@ -40,7 +40,7 @@
             <label class="control-label col-sm-2">{{ 'label.input.date.of.opening.balances' | translate }}<span class="required">*</span></label>
 
             <div class="col-sm-3">
-                <input class="date-disable form-control" type="text" datepicker-pop="{{df}}" ng-model="first.date"
+                <input class="date-disable form-control" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
                        is-open="opened" min="'2000-01-01'" max="restrictDate"/>
             </div>
         </div>
@@ -66,8 +66,8 @@
                 </td>
                 <td>{{gl.glAccountData.glCode}}</td>
                 <td>{{gl.glAccountData.name}}</td>
-                <td><input type="text" name="debits{{$index}}" ng-model="gl.debit"  number-format class="form-control" ng-change="keyPress()" /></td>
-                <td><input type="text" name="credits{{$index}}" ng-model="gl.credit"  number-format class="form-control" ng-change="keyPress()" /></td>
+                <td><input type="text" autocomplete="off" name="debits{{$index}}" ng-model="gl.debit"  number-format class="form-control" ng-change="keyPress()" /></td>
+                <td><input type="text" autocomplete="off" name="credits{{$index}}" ng-model="gl.credit"  number-format class="form-control" ng-change="keyPress()" /></td>
             </tr>
             </tbody>
         </table>

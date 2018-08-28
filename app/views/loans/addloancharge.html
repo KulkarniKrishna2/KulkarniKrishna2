@@ -29,7 +29,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="amount" type="text" class="form-control" name="amount" ng-model="formData.amount" required
+                        <input id="amount" type="text" autocomplete="off" class="form-control" name="amount" ng-model="formData.amount" required
                                number-format ng-late-Validate>
                     </div>
                     <div class="col-sm-3">
@@ -44,14 +44,14 @@
                     <label class="control-label col-sm-2">{{ 'label.input.chargecalculation' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="{{chargeData.chargeCalculationType.value}}" readonly>
+                        <input type="text" autocomplete="off" class="form-control" value="{{chargeData.chargeCalculationType.value}}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.chargetime' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" value="{{chargeData.chargeTimeType.value}}" readonly>
+                        <input type="text" autocomplete="off" class="form-control" value="{{chargeData.chargeTimeType.value}}" readonly>
                     </div>
                 </div>
                 <div class="form-group" ng-show="chargeData.chargeTimeType.id==2">
@@ -59,7 +59,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="dueDate" type="text" datepicker-pop="{{df}}" class="form-control"
+                        <input id="dueDate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="formData.dueDate"
                                is-open="opened" min="minDate" max="'2020-06-22'"/>
                     </div>

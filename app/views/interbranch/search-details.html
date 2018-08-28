@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <div class="col-lg-6 col-md-4">
                         <div class="input-group">
-                            <input  data-ng-model="formData.searchText" type="text" placeholder="{{'label.input.searchByNameAccNo' | translate}}" class="form-control"/>
+                            <input  data-ng-model="formData.searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchByNameAccNo' | translate}}" class="form-control"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary form-control" ng-click="getDetails();">
                                     <span class="icon-search"></span>
@@ -775,7 +775,7 @@
                             <label class="control-label col-sm-2" for="transferDate">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="transferDate" datepicker-pop="{{df}}" ng-model="transferData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" />
+                                <input type="text" autocomplete="off" id="transferDate" datepicker-pop="{{df}}" ng-model="transferData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" />
                             </div>                    
                             <div class="col-sm-3">
                                 <form-validate valattributeform="accounttransferform" valattribute="transferDate" />
@@ -785,7 +785,7 @@
                             <label class="control-label col-sm-2" for="transferAmount">{{ 'label.input.transfer.amount' | translate }}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="transferAmount" number-format name="transferAmount" ng-model="transferData.transferAmount" class="form-control" required late-validate/>
+                                <input type="text" autocomplete="off" id="transferAmount" number-format name="transferAmount" ng-model="transferData.transferAmount" class="form-control" required late-validate/>
                             </div>
                             <div class="col-sm-3">
                                 <form-validate valattributeform="accounttransferform" valattribute="transferAmount" />
@@ -795,7 +795,7 @@
                             <label class="control-label col-sm-2" for="transferDescription">{{ 'label.input.description' | translate }}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <textarea type="text" id="transferDescription" name="transferDescription" class="form-control" rows="2" ng-model="transferData.transferDescription" required late-validate></textarea>
+                                <textarea type="text" autocomplete="off" id="transferDescription" name="transferDescription" class="form-control" rows="2" ng-model="transferData.transferDescription" required late-validate></textarea>
                             </div>
                             <div class="col-sm-3">
                                 <form-validate valattributeform="accounttransferform" valattribute="transferDescription" />
@@ -827,7 +827,7 @@
                                 translate}}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input id="amount" type="text" name="amount"
+                                <input id="amount" type="text" autocomplete="off" name="amount"
                                        ng-model="payChargeData.amount" class="form-control" number-format required late-Validate/>
                             </div>
                             <div class="col-sm-3">
@@ -839,7 +839,7 @@
                                     class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input id="dueDate" type="text" sort datepicker-pop="{{df}}"
+                                <input id="dueDate" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                                        ng-model="payChargeData.dueDate" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
                             </div>
                         </div>

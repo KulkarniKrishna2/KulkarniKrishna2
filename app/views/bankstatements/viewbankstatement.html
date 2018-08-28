@@ -12,11 +12,11 @@
     <form ng-submit="search()" class="form-horizontal">
         <div class="form-group">
             <div class="col-md-4">
-                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterby.statementname.bankname' | translate}}">
+                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" autocomplete="off" class="form-control" placeholder="{{'label.input.filterby.statementname.bankname' | translate}}">
             </div>
             <div class="col-lg-6 col-md-4">
                 <div class="input-group">
-                    <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchby.statementname.bankname' | translate}}" class="form-control"/>
+                    <input  data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchby.statementname.bankname' | translate}}" class="form-control"/>
                     <span class="input-group-btn">
                         <button class="btn btn-primary form-control">
                             <span class="icon-search"></span>

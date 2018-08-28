@@ -36,16 +36,16 @@
             <div class="col-sm-3">
                 <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && !columnHeader.hideElement" 
                        ng-model="formData[columnHeader.columnName]" class="form-control"/>
-                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && !columnHeader.hideElement" type="text"
+                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && !columnHeader.hideElement" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
 
-                <input ng-show="isShowfieldType(columnHeader.columnDisplayType) && !columnHeader.hideElement" type="text"
+                <input ng-show="isShowfieldType(columnHeader.columnDisplayType) && !columnHeader.hideElement" type="text" autocomplete="off"
                  ng-model="formData[columnHeader.columnName]" class="form-control"/>
 
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME' && !columnHeader.hideElement" class="form-inline">&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
-                        <input type="text" datepicker-pop="{{df}}"
+                        <input type="text" autocomplete="off" datepicker-pop="{{df}}"
                                ng-model="formDat[columnHeader.columnName].date"
                                is-open="opened{{$index}}" class="form-control"/>
                     </div>
@@ -112,14 +112,14 @@
                 <div class="col-sm-3">
                     <textarea ng-if="fieldType(column.columnDisplayType) == 'TEXT' && !column.hideElement" 
                        ng-model="formData[column.columnName]" class="form-control"/>
-                    <input ng-if="fieldType(column.columnDisplayType) == 'DATE' && !column.hideElement" type="text"
+                    <input ng-if="fieldType(column.columnDisplayType) == 'DATE' && !column.hideElement" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" ng-model="formDat[column.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
-                    <input ng-if="isShowfieldType(column.columnDisplayType) && !column.hideElement" type="text" ng-model="formData[column.columnName]"
+                    <input ng-if="isShowfieldType(column.columnDisplayType) && !column.hideElement" type="text" autocomplete="off" ng-model="formData[column.columnName]"
                      class="form-control"/>
                     <div ng-if="fieldType(column.columnDisplayType) == 'DATETIME' && !column.hideElement" class="form-inline"> &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group">
-                            <input type="text" datepicker-pop="{{df}}"
+                            <input type="text" autocomplete="off" datepicker-pop="{{df}}"
                                ng-model="formDat[column.columnName].date"
                                is-open="opened{{$index}}" class="form-control"/>
                         </div>

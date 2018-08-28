@@ -38,7 +38,7 @@
 	                    class="required">*</span></label>
 	
 	            <div class="col-sm-3">
-	                <input type="text" id="name" name="name" ng-model="formData.name"
+	                <input type="text" autocomplete="off" id="name" name="name" ng-model="formData.name"
 						   value="{{villageCount.villageName}} {{count}}" class="form-control"
 						   ng-disabled="response.uiDisplayConfigurations.createCenter.isReadOnlyField.name"/>
 				</div>
@@ -74,7 +74,7 @@
 		                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 		
 		                <div class="col-sm-3">
-		                    <input id="activationDate" type="text" datepicker-pop="{{df}}" ng-model="first.date"
+		                    <input id="activationDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
 		                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 		                </div>
 		            </div>
@@ -84,14 +84,14 @@
 	            <label class="control-label col-sm-2" for="externalid">{{'label.input.centerexternalid' | translate}}</label>
 	
 	            <div class="col-sm-3">
-	                <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+	                <input type="text" autocomplete="off" id="externalId" ng-model="formData.externalId" class="form-control"/>
 	            </div>
 	        </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
 	
 	            <div class="col-sm-3">
-	                <input id="submittedon" type="text" readonly name="submittedon" datepicker-pop="{{df}}"
+	                <input id="submittedon" type="text" autocomplete="off" readonly name="submittedon" datepicker-pop="{{df}}"
 	                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 	            </div>
 	        </div>
@@ -110,7 +110,7 @@
                                 <div ng-repeat="groupMember in addedGroups">
                                     <div class="col-sm-12 col-md-12 marginbuttontop25px">
                                         <input disabled="" class="form-control input-xxlarge" placeholder={{groupMember.name}}
-                                               type="text"/>
+                                               type="text" autocomplete="off"/>
                                     </div>
                                     <div class="col-sm-1 col-md-1">
                                     </div>
