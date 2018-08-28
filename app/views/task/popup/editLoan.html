@@ -30,6 +30,21 @@
 						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<label class="control-label col-sm-2">
+								{{ 'label.input.loanpurposegroup' | translate }}
+							</label>
+							<div class="col-sm-3">
+								<select id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
+										ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
+										class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
+									<option value="">{{'label.selectpurpose' | translate}}</option>
+								</select>
+							</div>
+							<div class="col-sm-3"></div>
+							<div class="col-sm-4"></div>
+						</div>
+						<br>
+						<div class="form-group" ng-if="editLoanAccountdata.productId">
+							<label class="control-label col-sm-2">
 								{{ 'label.input.loanpurpose' | translate }}
 								<span class="required">*</span>:&nbsp;
 							</label>
