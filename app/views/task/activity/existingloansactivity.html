@@ -78,7 +78,7 @@
 	                    </div>
 	                    <label class="control-label col-sm-2">{{ 'label.input.otherlender' | translate }}</label>
 	                    <div class="col-sm-4">
-	                        <input ng-autofocus="true" type="text" id="lenderName" name="lenderName"
+	                        <input ng-autofocus="true" type="text" autocomplete="off" id="lenderName" name="lenderName"
 	                               ng-model="formData.lenderName" class="form-control" required late-validate/>
 	                    </div>
 	                </div>
@@ -106,7 +106,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.disbursedate' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-4">
-	                        <input id="disburseDate" type="text" name="disburseDate" datepicker-pop="{{df}}"
+	                        <input id="disburseDate" type="text" autocomplete="off" name="disburseDate" datepicker-pop="{{df}}"
 	                               ng-model="formData.disbursedDate" is-open="opened1" max="restrictDate"
 	                               class="form-control"/>
 	                    </div>
@@ -125,7 +125,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.amountborrowed' | translate }}<span
 	                            class="required">*</span></label>
 	                    <div class="col-sm-4">
-	                        <input id="amountBorrowed" type="text" name="amountBorrowed"
+	                        <input id="amountBorrowed" type="text" autocomplete="off" name="amountBorrowed"
 	                               ng-model="formData.amountBorrowed"
 	                                   class="form-control" required late-validate/>
 	                        <form-validate valattributeform="existingLoan" valattribute="amountBorrowed"/>
@@ -134,7 +134,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.gt0dpd3mths' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-4">
-	                        <input id="gt0dpd3mths" type="text" name="gt0dpd3mths" ng-model="formData.gt0dpd3mths"
+	                        <input id="gt0dpd3mths" type="text" autocomplete="off" name="gt0dpd3mths" ng-model="formData.gt0dpd3mths"
 	                               class="form-control"/>
 	                    </div>
 	                </div>
@@ -143,7 +143,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.outstanding' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-4">
-	                        <input id="outstanding" type="text" name="outstanding"
+	                        <input id="outstanding" type="text" autocomplete="off" name="outstanding"
 	                               ng-model="formData.currentOutstanding"
 	                               lass="form-control"/>
 	                    </div>
@@ -151,7 +151,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.dpd30mths12' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-2">
-	                        <input id="dpd30mths12" type="text" name="dpd30mths12" ng-model="formData.dpd30mths12"
+	                        <input id="dpd30mths12" type="text" autocomplete="off" name="dpd30mths12" ng-model="formData.dpd30mths12"
 	                               class="form-control"/>
 	                    </div>
 	                </div>
@@ -160,7 +160,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.amtOverdue' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-4">
-	                        <input id="amtOverdue" type="text" name="amtOverdue"
+	                        <input id="amtOverdue" type="text" autocomplete="off" name="amtOverdue"
 	                               ng-model="formData.amtOverdue"
 	                               lass="form-control"/>
 	                    </div>
@@ -168,7 +168,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.dpd30mths24' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-2">
-	                        <input id="dpd30mths24" type="text" name="dpd30mths24" ng-model="formData.dpd30mths24"
+	                        <input id="dpd30mths24" type="text" autocomplete="off" name="dpd30mths24" ng-model="formData.dpd30mths24"
 	                               class="form-control"/>
 	                    </div>
 	                </div>
@@ -177,7 +177,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.WrittenOffAmount' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-4">
-	                        <input id="WrittenOffAmount" type="text" name="WrittenOffAmount"
+	                        <input id="WrittenOffAmount" type="text" autocomplete="off" name="WrittenOffAmount"
 	                               ng-model="formData.writtenOffAmount"
 	                               lass="form-control"/>
 	                    </div>
@@ -185,7 +185,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.dpd60mths24' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-2">
-	                        <input id="dpd60mths24" type="text" name="dpd60mths24" ng-model="formData.dpd60mths24"
+	                        <input id="dpd60mths24" type="text" autocomplete="off" name="dpd60mths24" ng-model="formData.dpd60mths24"
 	                               class="form-control"/>
 	                    </div>
 	                </div>
@@ -194,7 +194,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.installmentAmount' | translate }}<span
 	                            class="required">*</span></label>
 	                    <div class="col-sm-2">
-	                        <input id="installmentAmount" type="text" name="installmentAmount"
+	                        <input id="installmentAmount" type="text" autocomplete="off" name="installmentAmount"
 	                               ng-model="formData.installmentAmount"
 	                               class="form-control" required late-validate/>
 	                        <form-validate valattributeform="existingLoan" valattribute="installmentAmount"/>
@@ -205,7 +205,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.loanTenure' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-2">
-	                        <input id="loanTenure" type="text"
+	                        <input id="loanTenure" type="text" autocomplete="off"
 	                               name="loanTenure"
 	                               ng-model="formData.loanTenure"
 	                               class="form-control"/>
@@ -221,7 +221,7 @@
 	                    <label class="control-label col-sm-2">{{ 'label.input.repaymentFrequency' | translate }}<span
 	                            class="required"></span></label>
 	                    <div class="col-sm-2">
-	                        <input id="repaymentFrequency" type="text"
+	                        <input id="repaymentFrequency" type="text" autocomplete="off"
 	                               name="repaymentFrequency"
 	                               ng-model="formData.repaymentFrequencyMultipleOf"
 	                               class="form-control"/>
@@ -281,7 +281,7 @@
                     </div>
                     <label class="control-label col-sm-2">{{ 'label.input.otherlender' | translate }}</label>
                     <div class="col-sm-4">
-                        <input ng-autofocus="true" type="text" id="lenderName" name="lenderName"
+                        <input ng-autofocus="true" type="text" autocomplete="off" id="lenderName" name="lenderName"
                                ng-model="formData.lenderName" class="form-control" required late-validate/>
                     </div>
                 </div>
@@ -309,7 +309,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.disbursedate' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-4">
-                        <input id="disburseDate" type="text" name="disburseDate" datepicker-pop="{{df}}"
+                        <input id="disburseDate" type="text" autocomplete="off" name="disburseDate" datepicker-pop="{{df}}"
                                ng-model="formData.disbursedDate" is-open="opened1" max="restrictDate"
                                class="form-control"/>
                     </div>
@@ -328,7 +328,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.amountborrowed' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-4">
-                        <input id="amountBorrowed" type="text" name="amountBorrowed"
+                        <input id="amountBorrowed" type="text" autocomplete="off" name="amountBorrowed"
                                ng-model="formData.amountBorrowed"
                                class="form-control"/>
                     </div>
@@ -336,7 +336,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.gt0dpd3mths' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
-                        <input id="gt0dpd3mths" type="text" name="gt0dpd3mths" ng-model="formData.gt0dpd3mths"
+                        <input id="gt0dpd3mths" type="text" autocomplete="off" name="gt0dpd3mths" ng-model="formData.gt0dpd3mths"
                                class="form-control"/>
                     </div>
                 </div>
@@ -345,7 +345,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.outstanding' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-4">
-                        <input id="outstanding" type="text" name="outstanding"
+                        <input id="outstanding" type="text" autocomplete="off" name="outstanding"
                                ng-model="formData.currentOutstanding"
                                lass="form-control"/>
                     </div>
@@ -353,7 +353,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.dpd30mths12' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
-                        <input id="dpd30mths12" type="text" name="dpd30mths12" ng-model="formData.dpd30mths12"
+                        <input id="dpd30mths12" type="text" autocomplete="off" name="dpd30mths12" ng-model="formData.dpd30mths12"
                                class="form-control"/>
                     </div>
                 </div>
@@ -362,7 +362,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.amtOverdue' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-4">
-                        <input id="amtOverdue" type="text" name="amtOverdue"
+                        <input id="amtOverdue" type="text" autocomplete="off" name="amtOverdue"
                                ng-model="formData.amtOverdue"
                                lass="form-control"/>
                     </div>
@@ -370,7 +370,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.dpd30mths24' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
-                        <input id="dpd30mths24" type="text" name="dpd30mths24" ng-model="formData.dpd30mths24"
+                        <input id="dpd30mths24" type="text" autocomplete="off" name="dpd30mths24" ng-model="formData.dpd30mths24"
                                class="form-control"/>
                     </div>
                 </div>
@@ -379,7 +379,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.WrittenOffAmount' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-4">
-                        <input id="WrittenOffAmount" type="text" name="WrittenOffAmount"
+                        <input id="WrittenOffAmount" type="text" autocomplete="off" name="WrittenOffAmount"
                                ng-model="formData.writtenOffAmount"
                                lass="form-control"/>
                     </div>
@@ -387,7 +387,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.dpd60mths24' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
-                        <input id="dpd60mths24" type="text" name="dpd60mths24" ng-model="formData.dpd60mths24"
+                        <input id="dpd60mths24" type="text" autocomplete="off" name="dpd60mths24" ng-model="formData.dpd60mths24"
                                class="form-control"/>
                     </div>
                 </div>
@@ -396,7 +396,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.installmentAmount' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-2">
-                        <input id="installmentAmount" type="text" name="installmentAmount"
+                        <input id="installmentAmount" type="text" autocomplete="off" name="installmentAmount"
                                ng-model="formData.installmentAmount"
                                class="form-control"/>
                     </div>
@@ -406,7 +406,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.loanTenure' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
-                        <input id="loanTenure" type="text"
+                        <input id="loanTenure" type="text" autocomplete="off"
                                name="loanTenure"
                                ng-model="formData.loanTenure"
                                class="form-control"/>
@@ -422,7 +422,7 @@
                     <label class="control-label col-sm-2">{{ 'label.input.repaymentFrequency' | translate }}<span
                             class="required"></span></label>
                     <div class="col-sm-2">
-                        <input id="repaymentFrequency" type="text"
+                        <input id="repaymentFrequency" type="text" autocomplete="off"
                                name="repaymentFrequency"
                                ng-model="formData.repaymentFrequencyMultipleOf"
                                class="form-control"/>

@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.stale.period' | translate }}<span class="required">*</span></label>
                 <div class="col-sm-2">
-                    <input type="text" id="stalePeriod" name="stalePeriod" class="form-control"
+                    <input type="text" autocomplete="off" id="stalePeriod" name="stalePeriod" class="form-control"
                            ng-model="formData.stalePeriod" required late-validate number-format="" maxlength="3"/>
                 </div>
                 <div class="col-sm-2">

@@ -12,7 +12,7 @@
                 <label class="control-label col-sm-2">{{ 'label.heading.scheduledate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="scheduledDate" name="scheduledDate" datepicker-pop="{{df}}" ng-readonly="isComplete"
+                    <input type="text" autocomplete="off" id="scheduledDate" name="scheduledDate" datepicker-pop="{{df}}" ng-readonly="isComplete"
                            ng-model="formData.scheduledDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
@@ -39,7 +39,7 @@
                 <label class="control-label col-sm-2" for="location">{{'label.input.location' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="location" name="location" ng-model="formData.location" ng-readonly="isComplete" class="form-control"/>
+                    <input type="text" autocomplete="off" id="location" name="location" ng-model="formData.location" ng-readonly="isComplete" class="form-control"/>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                 <label class="control-label col-sm-2">{{ 'label.heading.completeddate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="completeddate" name="completedDate" datepicker-pop="{{df}}"
+                    <input type="text" autocomplete="off" id="completeddate" name="completedDate" datepicker-pop="{{df}}"
                            ng-model="formData.completedDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">

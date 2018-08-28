@@ -214,14 +214,14 @@
                                 <span class="required">*</span>:</label>
                         </td>
                         <td class="width31 paddedbottom10">
-                            <input type="text" class="form-control" name="loanAmountApproved" ng-model="formRequestData.loanAmountApproved" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                            <input type="text" autocomplete="off" class="form-control" name="loanAmountApproved" ng-model="formRequestData.loanAmountApproved" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                         </td>
                         <td class="width19">
                             <label>{{'label.input.expecteddisbursementon' | translate}}
                                 <span class="required">*</span>:</label>
                         </td>
                         <td class="width31 paddedbottom10">
-                            <input id="expectedDisbursementDate" name="expectedDisbursementDate" type="text" datepicker-pop="{{df}}" ng-model="formRequestData.expectedDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" />
+                            <input id="expectedDisbursementDate" name="expectedDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.expectedDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" />
                         </td>
                     </tr>
 
@@ -246,14 +246,14 @@
                                 <span class="required">*</span>:</label>
                         </td>
                         <td class="paddedbottom10">
-                            <input id="numberOfRepayments" name="numberOfRepayments" class="form-control" type="text" ng-model="formRequestData.numberOfRepayments" ng-change="calculateTermFrequency()" />
+                            <input id="numberOfRepayments" name="numberOfRepayments" class="form-control" type="text" autocomplete="off" ng-model="formRequestData.numberOfRepayments" ng-change="calculateTermFrequency()" />
                         </td>
 
                         <td>
                             <label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label>
                         </td>
                         <td class="paddedbottom10 ">
-                            <input id="repayEvery" class="form-control input-sm" type="text" name="repayEvery" ng-model="formRequestData.repayEvery" late-validate="" ng-change="calculateTermFrequency()" />
+                            <input id="repayEvery" class="form-control input-sm" type="text" autocomplete="off" name="repayEvery" ng-model="formRequestData.repayEvery" late-validate="" ng-change="calculateTermFrequency()" />
                             <select id="repaymentFrequencyType" name="repaymentFrequencyType" class="form-control input-sm" ng-model="formRequestData.repaymentPeriodFrequencyEnum" ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{repaymentFrequencyType.id}}" required="" late-validate="" ng-change="calculateTermFrequency()" />
                         </td>
                     </tr>
@@ -282,7 +282,7 @@
                             <label>{{ 'label.input.fixedemiamount' | translate }}:
                             </label>&nbsp;</td>
                         <td class="width36 paddedbottom10" ng-if="loanaccountinfo.canDefineInstallmentAmount">
-                            <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" ng-model="formRequestData.fixedEmiAmount" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                            <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formRequestData.fixedEmiAmount" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                         </td>
 
                         <td class="width19">
@@ -290,7 +290,7 @@
                                 <span class="required">*</span>:</label>
                         </td>
                         <td class="width31 paddedbottom10">
-                            <input id="approvedOnDate" name="approvedOnDate" type="text" datepicker-pop="{{df}}" ng-model="formRequestData.approvedOnDate" is-open="opened" min="minDate" max="restrictDate" class="form-control" />
+                            <input id="approvedOnDate" name="approvedOnDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.approvedOnDate" is-open="opened" min="minDate" max="restrictDate" class="form-control" />
                     </tr>
 
                     <tr>
@@ -313,7 +313,7 @@
                             <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                         </td>
                         <td class="width25 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                            <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" type="text" datepicker-pop="{{df}}" ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" />
+                            <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" />
                         </td>
 
                         <td class="width19"></td>
@@ -340,14 +340,14 @@
                                 <span class="required">*</span>:</label>
                         </td>
                         <td class="width31 paddedbottom10">
-                            <input id="approvedOnDate1" name="approvedOnDate" type="text" datepicker-pop="{{df}}" ng-model="formRequestData.approvedOnDate" is-open="opened" min="minDate" max="restrictDate" class="form-control" />
+                            <input id="approvedOnDate1" name="approvedOnDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.approvedOnDate" is-open="opened" min="minDate" max="restrictDate" class="form-control" />
                         </td>
                         <td class="width19">
                             <label>{{'label.input.expecteddisbursementon' | translate}}
                                 <span class="required">*</span>:</label>
                         </td>
                         <td class="width31 paddedbottom10">
-                            <input id="expectedDisbursementDate1" name="expectedDisbursementDate" type="text" datepicker-pop="{{df}}" ng-model="formRequestData.expectedDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" />
+                            <input id="expectedDisbursementDate1" name="expectedDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.expectedDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" />
                         </td>
                     </tr>
 
@@ -373,7 +373,7 @@
                             <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                         </td>
                         <td class="width25 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                            <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate" type="text" datepicker-pop="{{df}}" ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" />
+                            <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" />
                         </td>
 
                         <td class="width19"></td>
@@ -399,7 +399,7 @@
                     </tr>
                     <tr ng-show="loanaccountinfo.loanEMIPacks && changeLoanEMIPack" class="width100">
                         <td colspan="4">
-                            <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}" />
+                            <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}" />
                         </td>
                     </tr>
                     <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
@@ -549,7 +549,7 @@
                                 </label>
                             </td>
                             <td class="width36 paddedbottom10">
-                                <input id="maxOutstandingLoanBalance" type="text" ng-model="formRequestData.maxOutstandingLoanBalance" class="form-control" number-format/>&nbsp;
+                                <input id="maxOutstandingLoanBalance" type="text" autocomplete="off" ng-model="formRequestData.maxOutstandingLoanBalance" class="form-control" number-format/>&nbsp;
                                 <a href="javascript:void(0)" title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()" ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length < loanaccountinfo.product.maxTrancheCount">
                                     <i class="icon-plus icon-white"></i>
                                 </a>
@@ -571,16 +571,16 @@
                             <tr ng-repeat="disbursementDetail in formRequestData.loanApplicationSanctionTrancheDatas track by $index">
                                 <td>{{($index+1)}}</td>
                                 <td>
-                                    <input id="disbursementDetail[{{$index}}].expectedTrancheDisbursementDate" name="expectedTrancheDisbursementDate" type="text" datepicker-pop="{{df}}" placeholder="{{'label.input.expecteddisbursementon' | translate}}" ng-model="disbursementDetail.expectedTrancheDisbursementDate" is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" class="form-control" required ng-disabled="$index == 0" />
+                                    <input id="disbursementDetail[{{$index}}].expectedTrancheDisbursementDate" name="expectedTrancheDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" placeholder="{{'label.input.expecteddisbursementon' | translate}}" ng-model="disbursementDetail.expectedTrancheDisbursementDate" is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" class="form-control" required ng-disabled="$index == 0" />
                                     <form-validate valattributeform="approveloanapplicationform" valattribute="expectedTrancheDisbursementDate" />
                                 </td>
                                 <td>
-                                    <input id="{{disbursementDetail[$index].trancheAmount}}" name="trancheAmount" class="input-sm form-control" number-format type="text" ng-model="disbursementDetail.trancheAmount" placeholder="{{'label.input.principal' | translate}}" required late-validate="">
+                                    <input id="{{disbursementDetail[$index].trancheAmount}}" name="trancheAmount" class="input-sm form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.trancheAmount" placeholder="{{'label.input.principal' | translate}}" required late-validate="">
 
                                     <form-validate valattributeform="approveloanapplicationform" valattribute="trancheAmount" />
                                 </td>
                                 <td ng-if="false">
-                                    <input id="{{disbursementDetail[$index].fixedEmiAmount}}" class="input-sm form-control" number-format type="text" ng-model="disbursementDetail.fixedEmiAmount" placeholder="{{'label.input.fixedemiamount' | translate}}">
+                                    <input id="{{disbursementDetail[$index].fixedEmiAmount}}" class="input-sm form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.fixedEmiAmount" placeholder="{{'label.input.fixedemiamount' | translate}}">
                                 </td>
                                 <td><a ng-click="deleteTranches($index)" ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length > 1"><i class="icon-remove icon-white"></i></a></td>
                             </tr>
@@ -609,12 +609,12 @@
                         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                         <td>{{charge.chargeCalculationType.value}}</td>
                         <td>
-                            <input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
+                            <input id="{{charges[$index].amount}}" class="form-control" type="text" autocomplete="off" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
                         || charge.chargeCalculationType.id == 6">
                         </td>
                         <td>{{charge.chargeTimeType.value}}</td>
                         <td>
-                            <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" />
+                            <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" />
                         </td>
                         <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>

@@ -32,7 +32,7 @@
 	    		<td>{{ 'label.input.teller.cashiertxn.txnDate' | translate }}<span class="required">*</span></td>
 	    		<td>
 	    			<div class="col-sm-8">
-	    			<input id="txnDate" sort type="text" datepicker-pop="{{df}}" ng-model="formData.txnDate"
+	    			<input id="txnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formData.txnDate"
 	                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                     </div>
 				</td>
@@ -49,14 +49,14 @@
 	    		<td>{{ 'label.input.teller.cashiertxn.txnAmount' | translate }}<span class="required">*</span></td>
 	    		<td>
 	    			<div class="col-sm-8">
-                        <input id="txnAmount" type="text" name="txnAmount" number-format
+                        <input id="txnAmount" type="text" autocomplete="off" name="txnAmount" number-format
                                ng-model="formData.txnAmount" class="form-control" required late-Validate/>
                     </div>
 				</td>
 				<td>{{ 'label.input.teller.cashiertxn.txnNote' | translate }}<span class="required">*</span></td>
 	    		<td>
 	    			<div class="col-sm-8">
-	    			<input id="txnNote" sort type="text" ng-model="formData.txnNote" class="form-control" />
+	    			<input id="txnNote" sort type="text" autocomplete="off" ng-model="formData.txnNote" class="form-control" />
                     </div>
 				</td>
 	    	</tr>

@@ -16,7 +16,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
+                        <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" ng-model="formData.name" class="form-control" required
                                late-Validate/>
                     </div>
                     <div class="col-sm-3">
@@ -69,7 +69,7 @@
 
                     <div class="col-sm-3">
                         <textarea name="description" ng-model="formData.description"
-                                  type="text" class="form-control"/>
+                                  type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group" ng-show="showIsCash">
@@ -84,7 +84,7 @@
 
                     <div class="col-sm-3">
                         <input name="position" ng-model="formData.position"
-                                  type="text" class="form-control"/>
+                                  type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="externalservices && showExternalServices">
@@ -105,7 +105,7 @@
 
                     <div class="col-sm-3">
                         <input name="bankName" ng-model="formData.bankAccountDetails.name"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
@@ -114,7 +114,7 @@
 
                     <div class="col-sm-3">
                         <input name="accountNumber" ng-model="formData.bankAccountDetails.accountNumber"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
@@ -131,7 +131,7 @@
 
                     <div class="col-sm-3">
                         <input name="ifscCode" ng-model="formData.bankAccountDetails.ifscCode"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
@@ -139,7 +139,7 @@
 
                     <div class="col-sm-3">
                         <input name="bankName" ng-model="formData.bankAccountDetails.bankName"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
@@ -147,7 +147,7 @@
 
                     <div class="col-sm-3">
                         <input name="bankCity" ng-model="formData.bankAccountDetails.bankCity"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
@@ -155,7 +155,7 @@
 
                     <div class="col-sm-3">
                         <input name="mobileNumber" ng-model="formData.bankAccountDetails.mobileNumber"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
@@ -163,7 +163,7 @@
 
                     <div class="col-sm-3">
                         <input name="email" ng-model="formData.bankAccountDetails.email"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </div>
                 </div>
                 <div class="col-md-offset-2 paddedleft">

@@ -60,7 +60,7 @@
                                     class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="firstname" name="firstname" ng-model="formData.firstname"  class="form-control" required
+                                <input type="text" autocomplete="off" id="firstname" name="firstname" ng-model="formData.firstname"  class="form-control" required
                                        late-Validate/>
                             </div>
                             <div class="col-sm-2">
@@ -76,7 +76,7 @@
                             <label class="control-label col-sm-2" for="middlename">{{'label.input.middlename' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="middlename" ng-model="formData.middlename"  class="form-control"/>
+                                <input type="text" autocomplete="off" id="middlename" ng-model="formData.middlename"  class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                                     class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
+                                <input type="text" autocomplete="off" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
                                        required late-Validate/>
                             </div>
                             <div class="col-sm-2">
@@ -106,7 +106,7 @@
                                     class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="fullname" name="fullname" ng-model="formData.fullname" class="form-control"
+                                <input type="text" autocomplete="off" id="fullname" name="fullname" ng-model="formData.fullname" class="form-control"
                                        required late-Validate/>
                             </div>
                             <div class="col-sm-2">
@@ -119,7 +119,7 @@
                     <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
+                        <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
                                ng-pattern="/^[0-9]+$/"  class="form-control"/>
                     </div>
                     <div class="col-sm-2">
@@ -136,7 +136,7 @@
                     <label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}"
+                        <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}"
                                ng-model="first.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control"/>
                     </div>
                     <span class="error col-sm-2" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
@@ -161,7 +161,7 @@
                             <label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="{{df}}"
+                                <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}"
                                        ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'"  class="form-control"/>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                             <label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber"  class="form-control"/>
+                                <input type="text" autocomplete="off" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber"  class="form-control"/>
                             </div>
 
                             <label class="control-label col-sm-2">{{'label.input.mainBusinessLine' | translate}}</label>
@@ -235,7 +235,7 @@
                             <label class="control-label col-sm-2" for="remarks">{{'label.input.remarks' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <textarea type="text" id="remarks" ng-model="formData.clientNonPersonDetails.remarks" rows="4" class="form-control"/>
+                                <textarea type="text" autocomplete="off" id="remarks" ng-model="formData.clientNonPersonDetails.remarks" rows="4" class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -244,7 +244,7 @@
                     <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="externalId" name="externalId" ng-model="formData.externalId"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="externalId" name="externalId" ng-model="formData.externalId"  class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group" has-permission="ACTIVATE_CLIENT">
@@ -258,7 +258,7 @@
                             <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input id="activationDate" type="text" name="activationdate" datepicker-pop="{{df}}"
+                                <input id="activationDate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}"
                                        ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
                             </div>
                         </div>
@@ -268,7 +268,7 @@
                     <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input id="submittedon" type="text" name="submittedon" datepicker-pop="{{df}}"
+                        <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}"
                                ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
                     </div>
                 </div>

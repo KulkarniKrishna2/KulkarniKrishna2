@@ -34,7 +34,7 @@
             <td class="col-md-1">
             <td class="col-md-3">
                 <div>
-                    <input type="text" id="clientId" ng-model = "formData.clientId" 
+                    <input type="text" autocomplete="off" id="clientId" ng-model = "formData.clientId" 
                     placeholder="{{'label.placeholder.clientId' | translate}}" class="form-control">
                 </div>
             </td>
@@ -43,7 +43,7 @@
         <tr>
             <td  class="col-sm-3>
                 <div">
-                    <input id="taskCreatedDate" type="text" name="taskCreatedDate" 
+                    <input id="taskCreatedDate" type="text" autocomplete="off" name="taskCreatedDate" 
                        datepicker-pop="{{df}}"
                        placeholder="{{'label.placeholder.task.created.date' | translate}}" 
                       ng-model="formData.taskCreatedDate" is-open="opened1" class="form-control"
@@ -53,7 +53,7 @@
             <td class="col-md-1">
             <td  class="col-sm-3">
                 <div>
-                    <input id="expectedDisbursementDate" type="text" name="expectedDisbursementDate" 
+                    <input id="expectedDisbursementDate" type="text" autocomplete="off" name="expectedDisbursementDate" 
                        datepicker-pop="{{df}}"
                        placeholder="{{'label.placeholder.expected.disbursement.date' | translate}}"
                      ng-model="formData.expectedDisbursementDate" is-open="opened1" 

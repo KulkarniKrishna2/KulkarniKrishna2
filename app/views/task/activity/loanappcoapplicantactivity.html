@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">{{ 'label.input.searchforclient' | translate }}</label>
                         <div class="col-sm-4 col-md-4">
-                            <input id="coApplicants" type="text" ng-model="available" class="col-md-4 form-control"
+                            <input id="coApplicants" type="text" autocomplete="off" ng-model="available" class="col-md-4 form-control"
                                    typeahead-min-length="3"
                                    typeahead-editable="false"
                                    typeahead="client as client.displayName for client in clientOptions($viewValue)"

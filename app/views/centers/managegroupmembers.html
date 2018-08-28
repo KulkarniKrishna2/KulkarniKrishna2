@@ -24,7 +24,7 @@
 	                <div class="form-group">
 	                    <label class="control-label col-sm-4">{{ 'label.input.searchforgroup' | translate }}</label>
 	                    <div class="col-sm-4 col-md-4">
-	                        <input id="expert" type="text" data-ng-model="available" class="col-md-4 form-control"
+	                        <input id="expert" type="text" autocomplete="off" data-ng-model="available" class="col-md-4 form-control"
 								   typeahead-min-length="3"
 									typeahead-editable="false"
 									typeahead="groupList as groupList.name +' '+ groupList.externalId for groupList in groupsOptions($viewValue)"
@@ -62,7 +62,7 @@
 	                <div class="form-group" ng-repeat="group in groups">
 	                    <div class="col-sm-6 col-md-6">
 	                        <input disabled="" class="form-control input-xxlarge" placeholder="{{group.name}} (Id: {{group.id}})"
-	                               type="text"/>
+	                               type="text" autocomplete="off"/>
 	                    </div>
 	                    <div class="col-sm-2 col-md-2">
 	                        <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,group.id)">

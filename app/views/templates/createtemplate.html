@@ -31,7 +31,7 @@
 	                    <div class="col-sm-4 col-md-4">
 	                        <div class="form-group">
 	                            <label class="control-label">{{ 'label.input.templatename' | translate }}&nbsp;<span class="required">*</span></label>
-	                            <input id="name" name="templatename" type="text" ng-model="formData.name" class="form-control" required>
+	                            <input id="name" name="templatename" type="text" autocomplete="off" ng-model="formData.name" class="form-control" required>
 	                        </div>
 	                        <div class="col-sm-2">
 							<form-validate valattributeform="createtemplateform" valattribute="templatename"/>
@@ -46,11 +46,11 @@
 	                        <tr ng-show="mapper.defaultAddIcon == 'true'">
 	                            <td class="width8">
 	                                <label class="control-label col-sm-12">{{ 'label.input.mapperkey' | translate }}&nbsp;</label>
-	                                <input type="text" class="input-sm form-control" ng-model="mapper.mapperskey">
+	                                <input type="text" autocomplete="off" class="input-sm form-control" ng-model="mapper.mapperskey">
 	                            </td>
 	                            <td class="width20">
 	                                <label class="control-label col-sm-12">{{ 'label.input.mappervalue' | translate }}&nbsp;</label>
-	                                <input type="text" class="input-sm form-control" ng-model="mapper.mappersvalue">
+	                                <input type="text" autocomplete="off" class="input-sm form-control" ng-model="mapper.mappersvalue">
 	                            </td>
 	                            <td class="width8">
 	                                <button class="btn marginbuttontop25px" ng-click="addMapperKeyValue()">
@@ -61,11 +61,11 @@
 	                        <tr ng-hide="mapper.defaultAddIcon == 'true'">
 	                            <td class="width8">
 	                                <label class="control-label col-sm-12">{{ 'label.input.mapperkey' | translate }}&nbsp;</label>
-	                                <input type="text" class="input-sm form-control" ng-model="mapper.mapperskey">
+	                                <input type="text" autocomplete="off" class="input-sm form-control" ng-model="mapper.mapperskey">
 	                            </td>
 	                            <td class="width20">
 	                                <label class="control-label col-sm-12">{{ 'label.input.mappervalue' | translate }}&nbsp;</label>
-	                                <input type="text" class="input-sm form-control" ng-model="mapper.mappersvalue"`>
+	                                <input type="text" autocomplete="off" class="input-sm form-control" ng-model="mapper.mappersvalue"`>
 	                            </td>
 	                            <td class="width8">
 	                                <button class="btn marginbuttontop25px" ng-click="deleteMapperKeyValue($index)">

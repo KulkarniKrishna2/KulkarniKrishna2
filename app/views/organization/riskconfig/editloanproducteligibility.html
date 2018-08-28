@@ -26,11 +26,11 @@
 
                     <div class="row">
                         <div class="col-sm-2">
-                            <input ng-model="criteriaData.minAmount" name="minAmount" type="text" number-format
+                            <input ng-model="criteriaData.minAmount" name="minAmount" type="text" autocomplete="off" number-format
                                    placeholder="{{'label.input.minamount' | translate}}" class="form-control"/>
                         </div>
                         <div class="col-sm-2">
-                            <input ng-model="criteriaData.maxAmount" name="maxAmount" type="text" number-format
+                            <input ng-model="criteriaData.maxAmount" name="maxAmount" type="text" autocomplete="off" number-format
                                    placeholder="{{'label.input.maxamount' | translate}}" class="form-control"/>
                         </div>
 
@@ -63,11 +63,11 @@
                                 <tbody>
                                 <tr ng-repeat="eligibilityCriteria in formData.criterias">
                                     <td>
-                                        <input ng-model="eligibilityCriteria.minAmount" type="text" number-format
+                                        <input ng-model="eligibilityCriteria.minAmount" type="text" autocomplete="off" number-format
                                                placeholder="{{'label.input.minamount' | translate}}" class="form-control"/>
                                     </td>
                                     <td>
-                                        <input ng-model="eligibilityCriteria.maxAmount" type="text" number-format
+                                        <input ng-model="eligibilityCriteria.maxAmount" type="text" autocomplete="off" number-format
                                                placeholder="{{'label.input.maxamount' | translate}}" class="form-control"/>
                                     </td>
                                     <td>

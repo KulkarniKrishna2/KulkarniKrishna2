@@ -25,7 +25,7 @@
                 <label class="control-label col-sm-2">{{'label.input.village' | translate}}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="villageName" name = "villageName" ng-model="formData.villageName" class="form-control"
+                    <input type="text" autocomplete="off" id="villageName" name = "villageName" ng-model="formData.villageName" class="form-control"
                            required late-Validate />
 
                 </div>
@@ -37,14 +37,14 @@
                 <label class="control-label col-sm-2">{{'label.input.villageCode' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="villageCode" ng-model="formData.villageCode" class="form-control"/>
+                    <input type="text" autocomplete="off" id="villageCode" ng-model="formData.villageCode" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="externalid">{{'label.input.villageexternalid' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                    <input type="text" autocomplete="off" id="externalId" ng-model="formData.externalId" class="form-control"/>
                 </div>
             </div>
 
@@ -119,7 +119,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="pincode" name="pincode" ng-model="formAddressData.postalCode"
+                    <input type="text" autocomplete="off" id="pincode" name="pincode" ng-model="formAddressData.postalCode"
                             class="form-control" ng-pattern="handlePatternPincode" ng-change="validatePincode(formData.stateId)" required late-Validate/>
                 </div>
                 <span class="required" ng-show="showPicodeStartingDigitError">{{'label.error.pincode.startwith'|translate}}{{pincodeStartDigit}}</span>
@@ -145,7 +145,7 @@
                         <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input id="activationDate" type="text" datepicker-pop="{{df}}" ng-model="first.date"
+                            <input id="activationDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
                                    is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                 <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="submittedon" type="text" name="submittedon" datepicker-pop="{{df}}"
+                    <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}"
                            ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
             </div>

@@ -13,7 +13,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="dividendPeriodStartDate" type="text" sort datepicker-pop="{{df}}"
+                    <input id="dividendPeriodStartDate" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                            ng-model="formData.dividendPeriodStartDate" is-open="opened" min="minDate" max="restrictDate"
                            class="form-control"/>
                 </div>
@@ -24,7 +24,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="dividendPeriodEndDate" type="text" sort datepicker-pop="{{df}}"
+                    <input id="dividendPeriodEndDate" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                            ng-model="formData.dividendPeriodEndDate" is-open="opened" min="minDate" max="restrictDate"
                            class="form-control"/>
                 </div>
@@ -35,7 +35,7 @@
                     translate}}<span class="required">*</span>({{shareproductDetails.currency.displaySymbol}})</label>
 
                 <div class="col-sm-3">
-                    <input id="unitprice" type="text" name="unitprice"
+                    <input id="unitprice" type="text" autocomplete="off" name="unitprice"
                            ng-model="formData.dividendAmount" class="form-control" number-format required
                            late-Validate/>
                 </div>
@@ -58,7 +58,7 @@
                     translate}}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" ng-model="accountBalance" readonly/>
+                    <input type="text" autocomplete="off" class="form-control" ng-model="accountBalance" readonly/>
                 </div>
             </div>
             <div ng-show="isTransaction">
@@ -67,7 +67,7 @@
                         translate}}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="transactionAmount" type="text" name="transactionAmount"
+                        <input id="transactionAmount" type="text" autocomplete="off" name="transactionAmount"
                                ng-model="formData.transactionAmount" class="form-control" number-format required
                                late-Validate/>
                     </div>
@@ -104,7 +104,7 @@
                             translate}}</label>
 
                         <div class="col-sm-3">
-                            <input id="accountNumber" type="text" ng-model="formData.accountNumber"
+                            <input id="accountNumber" type="text" autocomplete="off" ng-model="formData.accountNumber"
                                    class="form-control"/>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                             translate}}</label>
 
                         <div class="col-sm-3">
-                            <input id="checkNumber" type="text" ng-model="formData.checkNumber" class="form-control"/>
+                            <input id="checkNumber" type="text" autocomplete="off" ng-model="formData.checkNumber" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -121,7 +121,7 @@
                             translate}}</label>
 
                         <div class="col-sm-3">
-                            <input id="routingCode" type="text" ng-model="formData.routingCode" class="form-control"/>
+                            <input id="routingCode" type="text" autocomplete="off" ng-model="formData.routingCode" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -129,7 +129,7 @@
                             translate}}</label>
 
                         <div class="col-sm-3">
-                            <input id="receiptNumber" type="text" ng-model="formData.receiptNumber"
+                            <input id="receiptNumber" type="text" autocomplete="off" ng-model="formData.receiptNumber"
                                    class="form-control"/>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                             translate}}</label>
 
                         <div class="col-sm-3">
-                            <input id="bankNumber" type="text" ng-model="formData.bankNumber" class="form-control"/>
+                            <input id="bankNumber" type="text" autocomplete="off" ng-model="formData.bankNumber" class="form-control"/>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="amoun" type="text" name="amount" ng-model="formData.amount" required late-Validate/>
+                    <input id="amoun" type="text" autocomplete="off" name="amount" ng-model="formData.amount" required late-Validate/>
           <span ng-show="shareccountactionform.amoun.$invalid">
             <small class="error">
                 {{ 'label.requiredfield' | translate}}
@@ -168,7 +168,7 @@
                 <label class="control-label col-sm-2">{{ labelName | translate}}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="amount" ng-model="formData.amount" class="form-control"/>
+                    <input type="text" autocomplete="off" id="amount" ng-model="formData.amount" class="form-control"/>
                 </div>
             </div>
 
@@ -177,7 +177,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}"
+                    <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                            ng-model="formData[modelName]" is-open="opened" class="form-control"/>
                 </div>
             </div>

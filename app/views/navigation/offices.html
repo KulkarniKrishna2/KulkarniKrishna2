@@ -30,7 +30,7 @@
                 <div class="panel-heading officeheading">
                     <b>{{'label.button.loanofficers' | translate}}</b>
                     <div class="col-sm-6 pull-right">
-                        <input ng-model="filterStaff" type="text" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}" />
+                        <input ng-model="filterStaff" type="text" autocomplete="off" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}" />
                     </div>
                 </div>
                 <div class="panel-body" style="height: 160px;overflow-y:auto;">
@@ -56,7 +56,7 @@
                 <div class="panel-heading" style="height:40px;">
                     <b>{{'label.button.centers' | translate}}</b>
                     <div class="col-sm-6 pull-right">
-                        <input ng-model="filterCenter" type="text" class="form-control"
+                        <input ng-model="filterCenter" type="text" autocomplete="off" class="form-control"
                                placeholder="{{'label.input.filterbyname' | translate}}" />
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                 <div class="panel-heading" style="height:40px;">
                     <b>{{'label.button.groups' | translate}}</b>
                     <div class="col-sm-6 pull-right">
-                        <input ng-model="filterGroup" type="text" class="form-control"
+                        <input ng-model="filterGroup" type="text" autocomplete="off" class="form-control"
                                placeholder="{{'label.input.filterbyname' | translate}}"/>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                             <th class="col-sm-2">{{'label.heading.officeexternalid' | translate}}</th>
                             <th class="col-sm-2">{{'label.heading.office' | translate}}</th>
                             <th class="col-sm-2">{{'label.heading.staff' | translate}}
-                                <input ng-model="filterClient" type="text" class="form-control pull-right"
+                                <input ng-model="filterClient" type="text" autocomplete="off" class="form-control pull-right"
                                        placeholder="{{'label.input.filterbyname' | translate}}"  style="border-radius:24px; width:150px"/>
                             </th>
 

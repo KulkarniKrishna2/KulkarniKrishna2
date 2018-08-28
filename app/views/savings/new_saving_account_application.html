@@ -28,7 +28,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text"
+            <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text" autocomplete="off"
                    datepicker-pop="{{df}}"
                    ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control" required late-validate/>
@@ -79,7 +79,7 @@
             </td>
 
             <td class="width36 paddedbottom10">
-                <input id="nominalAnnualInterestRate" type="text"
+                <input id="nominalAnnualInterestRate" type="text" autocomplete="off"
                        name="nominalannualinterestrate"
                        ng-model="formData.nominalAnnualInterestRate" class="form-control"
                        number-format required late-Validate/>
@@ -103,7 +103,7 @@
                 <label class="control-label">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;</label></td>
             </td>
             <td class="width36 paddedbottom10">
-                <input type="text" value="{{data.currency.inMultiplesOf}}"
+                <input type="text" autocomplete="off" value="{{data.currency.inMultiplesOf}}"
                        class="form-control" readonly/>
             </td>
             <td class="width14">
@@ -140,7 +140,7 @@
                 <label class="control-label">{{ 'label.input.minimumopeningbalance' | translate }}&nbsp;</label>
             </td>
             <td class="width36 paddedbottom10">
-                <input id="minRequiredOpeningBalance" type="text"
+                <input id="minRequiredOpeningBalance" type="text" autocomplete="off"
                        ng-model="formData.minRequiredOpeningBalance" class="form-control" number-format>
             </td>
             <td class="width14">
@@ -148,7 +148,7 @@
             </td>
             <td class="width36 paddedbottom10">
                 <div class="form-inline">
-                    <input id="lockinPeriodFrequency" type="text" class="form-control"
+                    <input id="lockinPeriodFrequency" type="text" autocomplete="off" class="form-control"
                            ng-model="formData.lockinPeriodFrequency">&nbsp;
                     <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
                             class="form-control width170px"
@@ -177,7 +177,7 @@
                 <label class="control-label">{{ 'label.input.overdraftlimit' | translate
                     }}<span class="required">*</span></label></td>
             <td class="width14 paddedbottom10" ng-if="formData.allowOverdraft">
-                <input id="overdraftLimit" name="overdraftLimit" type="text" class="form-control"
+                <input id="overdraftLimit" name="overdraftLimit" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.overdraftLimit" number-format required late-validate/>
                 <form-validate valattributeform="newsavingccountform" valattribute="overdraftLimit"/>
             </td>
@@ -187,14 +187,14 @@
                 <label class="control-label">{{ 'label.input.nominalannualinterestrateoverdraft' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
-                <input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control"
+                <input id="nominalAnnualInterestRateOverdraft" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.nominalAnnualInterestRateOverdraft">
             </td>
             <td class="width14">
                 <label class="control-label">{{ 'label.input.minoverdraftforinterestcalculation' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10">
-                <input id="minOverdraftForInterestCalculation" type="text" class="form-control"
+                <input id="minOverdraftForInterestCalculation" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.minOverdraftForInterestCalculation" number-format>
             </td>
         </tr>
@@ -207,7 +207,7 @@
                 <label class="control-label">{{ 'label.input.minRequiredBalance' | translate
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10" ng-hide="formData.allowOverdraft">
-                <input id="minRequiredBalance" type="text" class="form-control"
+                <input id="minRequiredBalance" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.minRequiredBalance" number-format>
             </td>
         </tr>
@@ -242,7 +242,7 @@
                 <label class="control-label">{{ 'label.input.dplimit' | translate
                     }}&nbsp;<span class="required">*</span></label></td>
             <td class="width36 paddedbottom10" >
-                <input  id="dpLimitAmount" name="dpLimitAmount" type="text" class="form-control"
+                <input  id="dpLimitAmount" name="dpLimitAmount" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.dpLimitAmount" number-format required late-validate>
                 <form-validate valattributeform="newsavingccountform" valattribute="dpLimitAmount"/>
             </td>
@@ -286,7 +286,7 @@
                     }}&nbsp;<span class="required">*</span></label>
             </td>
             <td class="width36 paddedbottom10">
-                <input id="dpCalculateOnAmount" name="dpCalculateOnAmount" type="text" class="form-control"
+                <input id="dpCalculateOnAmount" name="dpCalculateOnAmount" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.dpCalculateOnAmount" number-format required late-validate>
                 <form-validate valattributeform="newsavingccountform" valattribute="dpCalculateOnAmount"/>
             </td>
@@ -296,7 +296,7 @@
                 <label class="control-label">{{ 'label.input.duration' | translate
                     }}&nbsp;<span class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
-                <input id="dpDuration" name="dpDuration" type="text" class="form-control"
+                <input id="dpDuration" name="dpDuration" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.dpDuration" number-format required late-validate maxlength="4">
                 <form-validate valattributeform="newsavingccountform" valattribute="dpDuration"/>
             </td>
@@ -306,7 +306,7 @@
                     }}&nbsp;<span class="required">*</span></label>
             </td>
             <td class="width36 paddedbottom10">
-                <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="{{df}}"
+                <input id="dpStartDate" name="dpStartDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
                        ng-model="formData.dpStartDate" is-open="opened" class="form-control" required/>
                 <form-validate valattributeform="newsavingccountform" valattribute="dpStartDate"/>
             </td>
@@ -339,20 +339,20 @@
         <tr ng-repeat="charge in charges">
             <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
             <td>{{charge.chargeCalculationType.value}}</td>
-            <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
+            <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text" autocomplete="off"
                        ng-model="charge.amount" number-format 
                        placeholder="{{'label.input.amount' | translate}}"/></td>
             <td>{{charge.chargeTimeType.value}}</td>
             <td ng-switch on="charge.chargeTimeType.value">
                 <input id="charges[{{$index}}].feeOnMonthDay" class="input-medium form-control" 
-                       type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" 
+                       type="text" autocomplete="off" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" 
                        is-open="opened" ng-switch-when='Annual Fee' ng-disabled="isDisableField" 
                        readonly="isReadOnlyField"/>
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
-                       type="text" datepicker-pop="{{df}}" ng-model="charge.dueDate" 
+                       type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="charge.dueDate" 
                        is-open="opened" ng-switch-when='Specified due date'/>
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
-                       type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" 
+                       type="text" autocomplete="off" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" 
                        is-open="opened" ng-switch-when='Monthly Fee' ng-disabled="isDisableField" 
                        readonly="isReadOnlyField"/>
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
@@ -360,9 +360,9 @@
                        is-open="opened" ng-switch-when='Weekly Fee'/>
             </td>
             <td ng-switch on="charge.chargeTimeType.value">
-                <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text"
+                <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text" autocomplete="off"
                        ng-model="charge.feeInterval" ng-switch-when='Monthly Fee'/>
-                <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text"
+                <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text" autocomplete="off"
                        ng-model="charge.feeInterval" ng-switch-when='Weekly Fee'/>
             </td>
             <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>

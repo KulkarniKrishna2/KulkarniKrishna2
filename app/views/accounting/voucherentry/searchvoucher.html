@@ -22,13 +22,13 @@
 
                         <label class="control-label col-sm-1">{{ 'label.input.between' | translate }} </label>
                         <div class="col-sm-2">
-                            <input id="fromDate" type="text" name="fromDate" datepicker-pop="{{df}}"
+                            <input id="fromDate" type="text" autocomplete="off" name="fromDate" datepicker-pop="{{df}}"
                                    ng-model="first.fromDate" is-open="opened" min="'2000-01-01'" class="form-control"/>
                         </div>
 
                         <label class="control-label col-sm-1">{{ 'label.input.and' | translate }} </label>
                         <div class="col-sm-2">
-                            <input id="toDate" type="text" name="toDate" datepicker-pop="{{df}}"
+                            <input id="toDate" type="text" autocomplete="off" name="toDate" datepicker-pop="{{df}}"
                                    ng-model="first.toDate" is-open="opened" min="'2000-01-01'" class="form-control"/>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         </div>
                         <label class="control-label col-sm-2">{{ 'label.input.voucher.number' | translate }} </label>
                         <div class="col-sm-2">
-                            <input type="text" id="vouchernumber" name="vouchernumber" class="form-control"
+                            <input type="text" autocomplete="off" id="vouchernumber" name="vouchernumber" class="form-control"
                                    ng-model="voucherNumber"/>
                         </div>
                     </div>

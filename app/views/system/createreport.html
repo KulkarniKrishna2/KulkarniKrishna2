@@ -21,7 +21,7 @@
                                         class="required">*</span></label>
 
                                 <div class="form-inline">
-                                    <input id="reportName" type="text" name="reportName" ng-model="formData.reportName"
+                                    <input id="reportName" type="text" autocomplete="off" name="reportName" ng-model="formData.reportName"
                                            class="form-control"
                                            required late-Validate/>
                                     <form-validate valattributeform="createreportrform" valattribute="reportName"/>
@@ -50,7 +50,7 @@
                                     }}&nbsp;</label>
 
                                 <div class="form-inline">
-                                    <input id="reportCategory" type="text" class="form-control" ng-model="formData.reportCategory">
+                                    <input id="reportCategory" type="text" autocomplete="off" class="form-control" ng-model="formData.reportCategory">
                                 </div>
                             </td>
                             <td class="width20 paddedbottom10">
@@ -179,7 +179,7 @@
                         <tr ng-repeat="reportParameter in reportParameters">
                             <td>{{reportParameter.allowedParameterName | translate}}</td>
                             <td class="width30">
-                                <input type="text" class="form-control" ng-model="reportParameter.reportParameterName">
+                                <input type="text" autocomplete="off" class="form-control" ng-model="reportParameter.reportParameterName">
                             </td>
                             <td><a ng-click="deleteParameter($index)"><i class="icon-remove icon-white"></i></a></td>
                         </tr>

@@ -39,7 +39,7 @@
                 </span>
                 <span style="height:30px" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
                       <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
-                        <input type="text" class="input-sm" number-format ng-model="total.transactionAmount"
+                        <input type="text" autocomplete="off" class="input-sm" number-format ng-model="total.transactionAmount"
                                disabled="disabled">
                       </span>
                 </span>
@@ -70,7 +70,7 @@
     	                  <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
                             <div class="form-group">
                                 <div ng-class="(loan.totalDue==0)?'col-sm-8 col-sm-offset-3':'col-sm-8'">
-                                    <input id="total" type="text" class="form-control" ng-model="loan.totalDue"
+                                    <input id="total" type="text" autocomplete="off" class="form-control" ng-model="loan.totalDue"
                                    number-format ng-change="bulkRepaymentTransactionAmountChange();resetCollectionReasons(loan.totalDue,loan.loanId);">
                                 </div>
                                 <br/>
@@ -152,7 +152,7 @@
     	                    <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
     	                      <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup"
                                     ng-show="loanproduct.id == loanProductArray.productId">
-    	                        <input type="text" class="input-smaller" number-format ng-model="loanProductArray.transactionAmount"
+    	                        <input type="text" autocomplete="off" class="input-smaller" number-format ng-model="loanProductArray.transactionAmount"
                                        disabled="disabled">
     	                      </span>
     	                    </span>

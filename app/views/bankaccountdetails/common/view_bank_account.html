@@ -102,7 +102,7 @@
                 <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
                 <span class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input ng-autofocus="true" type="text" id="name" name="name" ng-model="data.documentName" class="form-control" required late-Validate/>
+                    <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" ng-model="data.documentName" class="form-control" required late-Validate/>
                     <form-validate valattributeform="uploadDocument" valattribute="name"/>
                 </div>
                 <input type="file" ng-file-select="onFileSelect($files)">

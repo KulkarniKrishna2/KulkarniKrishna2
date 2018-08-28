@@ -25,7 +25,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="displayname" name="displayname" ng-model="formData.displayName" class="form-control" required late-Validate/>
+                    <input type="text" autocomplete="off" id="displayname" name="displayname" ng-model="formData.displayName" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="createhookform" valattribute="displayname"/>
@@ -43,7 +43,7 @@
             <label class="control-label col-sm-2" ng-if="s.optional">{{s.fieldName}}</label>
             <label class="control-label col-sm-2" ng-if="s.optional == false">{{s.fieldName}} <span class="required">*</span></label>
                 <div class="col-sm-3" ng-switch on="s.fieldType">
-                    <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
+                    <input ng-switch-when="string" type="text" autocomplete="off" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
                     <input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
                     <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
                 </div>

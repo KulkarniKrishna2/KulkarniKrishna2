@@ -104,7 +104,7 @@
                     </label>
 
                     <div class="col-sm-4">
-                        <input id="principal" name="principalDue" class="form-control" type="text"
+                        <input id="principal" name="principalDue" class="form-control" type="text" autocomplete="off"
                                ng-model="adjustmentData.principalDue" number-format/>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     </label>
 
                     <div class="col-sm-4">
-                        <input id="outstanding" name="outstanding" class="form-control" type="text"
+                        <input id="outstanding" name="outstanding" class="form-control" type="text" autocomplete="off"
                                ng-model="adjustmentData.totalInstallmentAmountForPeriod" number-format/>
                     </div>
                 </div>
@@ -166,14 +166,14 @@
                 <td>
                     <ng-form name="dueDate{{$index}}">
                         <input id="dueDate" name="dueDate" datepicker-pop="{{df}}" class="form-control"
-                               type="text"
+                               type="text" autocomplete="off"
                                ng-model="period.dueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
                                required/>
                         <span class="error" ng-show="visitValidation&&dueDate{{$index}}.dueDate.$error.required">{{ 'label.requirefield' | translate }}</span>
                     </ng-form>
                 </td>
                 <td ng-show="enablePrincipal">
-                    <input id="principalDue" name="principalDue" class="form-control" type="text"
+                    <input id="principalDue" name="principalDue" class="form-control" type="text" autocomplete="off"
                            ng-model="period.principalDue"
                            number-format/>
 
@@ -183,7 +183,7 @@
                 <td>{{period.interestOriginalDue | number}}</td>
                 <td ng-show="enableInstallment">
                     <input id="totalInstallmentAmountForPeriod" name="totalInstallmentAmountForPeriod" class="form-control"
-                           type="text"
+                           type="text" autocomplete="off"
                            ng-model="period.totalInstallmentAmountForPeriod" number-format/>
                 </td>
                 <td ng-show="!enableInstallment">{{period.totalInstallmentAmountForPeriod | number}}</td>

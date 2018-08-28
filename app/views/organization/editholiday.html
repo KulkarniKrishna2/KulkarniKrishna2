@@ -15,7 +15,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" class="form-control" required
+                    <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="formData.name" class="form-control" required
                            late-Validate/>
                 </div>
                 <div class="col-sm-3">
@@ -29,7 +29,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input id="fromDate" sort type="text" datepicker-pop="{{df}}"
+                            <input id="fromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                    ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'"
                                    class="form-control"/>
                         </div>
@@ -39,7 +39,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input id="toDate" sort type="text" datepicker-pop="{{df}}" ng-model="date.toDate"
+                            <input id="toDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.toDate"
                                    is-open="opened1" min="minDate" max="'2020-06-22'" class="form-control"/>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="{{df}}"
+                        <input id="repaymentsRescheduledTo" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                ng-model="date.repaymentsRescheduledTo" is-open="opened2" min="minDate"
                                max="'2020-06-22'" class="form-control"/>
                     </div>
@@ -71,7 +71,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input id="" type="text" data-ng-model="formData.description" class="form-control"/>
+                    <input id="" type="text" autocomplete="off" data-ng-model="formData.description" class="form-control"/>
                 </div>
             </div>
             <div class="col-md-offset-3">

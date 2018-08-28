@@ -12,7 +12,7 @@
                 <div>
                     <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
                     <div class="col-sm-3">
-                        <input type="text" id="name" name="name" ng-model="formData.name"  class="form-control" required
+                        <input type="text" autocomplete="off" id="name" name="name" ng-model="formData.name"  class="form-control" required
                                late-Validate/>
                     </div>
                     <div class="col-sm-2" >
@@ -92,7 +92,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="assignmentStartDate" type="text" name="assignmentStartDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="assignmentStartDate" type="text" autocomplete="off" name="assignmentStartDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.assignmentStartDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate"  ng-disabled="isOwn"  class="form-control"  required />
                         </div>
                     </div>
@@ -107,7 +107,7 @@
 
                     <div class="col-sm-3">
                         <div >
-                            <input id="assignmentEndDate" type="text" name="assignmentEndDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="assignmentEndDate" type="text" autocomplete="off" name="assignmentEndDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.assignmentEndDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required/>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         {{'label.input.sanctionedamount' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="sanctionedAmount" name="sanctionedAmount" ng-model="formData.sanctionedAmount"  class="form-control"  ng-disabled="isOwn" ng-change="updatePercentAmount(formData.sanctionedAmount)" required late-Validate/>
+                        <input type="text" autocomplete="off" id="sanctionedAmount" name="sanctionedAmount" ng-model="formData.sanctionedAmount"  class="form-control"  ng-disabled="isOwn" ng-change="updatePercentAmount(formData.sanctionedAmount)" required late-Validate/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="sanctionedAmount"/>
@@ -140,7 +140,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="sanctionedDate" type="text" name="sanctionedDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="sanctionedDate" type="text" autocomplete="off" name="sanctionedDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.sanctionedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required />
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                         {{'label.input.disbursedamount' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="disbursedAmount" name="disbursedAmount" ng-model="formData.disbursedAmount"  class="form-control"  ng-disabled="isOwn" required late-Validate/>
+                        <input type="text" autocomplete="off" id="disbursedAmount" name="disbursedAmount" ng-model="formData.disbursedAmount"  class="form-control"  ng-disabled="isOwn" required late-Validate/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="disbursedAmount"/>
@@ -168,7 +168,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="disbursedDate" type="text" name="disbursedDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="disbursedDate" type="text" autocomplete="off" name="disbursedDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.disbursedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required />
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                         {{'label.input.tenure' | translate}} <span class="required">*</span>
                     </label>
                     <div class="col-sm-2">
-                        <input type="text" id="tenure" name="tenure" ng-model="formData.tenure"  class="form-control"  ng-disabled="isOwn" required late-Validate/>
+                        <input type="text" autocomplete="off" id="tenure" name="tenure" ng-model="formData.tenure"  class="form-control"  ng-disabled="isOwn" required late-Validate/>
                     </div>
                     <div class="col-sm-2">
                         <div ng-hide="isOwn">
@@ -206,7 +206,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="maturityDate" type="text" name="maturityDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="maturityDate" type="text" autocomplete="off" name="maturityDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.maturityDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-disabled="isOwn"   required/>
                         </div>
                     </div>
@@ -224,7 +224,7 @@
                         {{'label.input.morotoriumperiod' | translate}}
                     </label>
                     <div class="col-sm-2">
-                        <input   ng-disabled="isOwn" type="text" id="morotorium" name="morotorium" ng-model="formData.morotorium"  class="form-control" required late-Validate/>
+                        <input   ng-disabled="isOwn" type="text" autocomplete="off" id="morotorium" name="morotorium" ng-model="formData.morotorium"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-2">
                         <div>
@@ -269,7 +269,7 @@
                             </select>
                     </div>                    
                     <div class="col-sm-2">
-                        <input placeholder="% Loan Purpose" type="text" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
+                        <input placeholder="% Loan Purpose" type="text" autocomplete="off" id="loanPurposeamount"  ng-disabled="isOwn"  name="loanPurposeAmount" 
                         ng-model="loanPurposeAmount"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-1">
@@ -312,7 +312,7 @@
                         {{'label.input.rateofinterest' | translate}}<span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="interestRate"  ng-disabled="isOwn"  name="interestRate" ng-model="formData.interestRate"  class="form-control" required late-Validate/>
+                        <input type="text" autocomplete="off" id="interestRate"  ng-disabled="isOwn"  name="interestRate" ng-model="formData.interestRate"  class="form-control" required late-Validate/>
                     </div>
                     <div class="col-sm-3" >
                         <form-validate valattributeform="createfundform" valattribute="interestRate"/>
@@ -329,7 +329,7 @@
                         {{'label.input.rateoflpfinpercentage' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="loanPortfolioFee"  ng-disabled="isOwn"  name="loanPortfolioFee" ng-model="formData.loanPortfolioFee"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="loanPortfolioFee"  ng-disabled="isOwn"  name="loanPortfolioFee" ng-model="formData.loanPortfolioFee"  class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -343,7 +343,7 @@
                         {{'label.input.bookdebthyphothecationinpercentage' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="bookDebtHypothecation"  ng-disabled="isOwn"  name="bookDebtHypothecation" ng-model="formData.bookDebtHypothecation"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="bookDebtHypothecation"  ng-disabled="isOwn"  name="bookDebtHypothecation" ng-model="formData.bookDebtHypothecation"  class="form-control"/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="bookDebtHypothecation"/>
@@ -354,7 +354,7 @@
                         {{'label.input.cashcollateralinpercentage' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="cashCollateral"  ng-disabled="isOwn"  name="cashCollateral" ng-model="formData.cashCollateral"  class="form-control"/>
+                        <input type="text" autocomplete="off" id="cashCollateral"  ng-disabled="isOwn"  name="cashCollateral" ng-model="formData.cashCollateral"  class="form-control"/>
                     </div>
                     <div class="col-sm-2" >
                         <form-validate valattributeform="createfundform" valattribute="cashCollateral"/>

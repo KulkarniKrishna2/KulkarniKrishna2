@@ -20,7 +20,7 @@
                                 class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="name" name="name" ng-model="ruleData.name"
+                        <input type="text" autocomplete="off" id="name" name="name" ng-model="ruleData.name"
                                class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
@@ -32,7 +32,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="uname" name="uname"
+                        <input type="text" autocomplete="off" id="uname" name="uname"
                                ng-model="ruleData.uname" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
@@ -45,7 +45,7 @@
 
                     <div class="col-sm-3">
                     <textarea name="description" id="description" name="description" ng-model="ruleData.description"
-                              type="text" class="form-control" required late-validate/>
+                              type="text" autocomplete="off" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="editRiskFactor" valattribute="description"/>
@@ -80,7 +80,7 @@
 
                     <div class="row">
                         <div class="col-sm-3">
-                            <input ng-model="bucketData.name" name="bucketName" type="text"
+                            <input ng-model="bucketData.name" name="bucketName" type="text" autocomplete="off"
                                    placeholder="{{'label.input.bucketname' | translate}}" class="form-control"/>
                         </div>
                         <div class="col-sm-3">
@@ -109,7 +109,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="bucket in ruleData.buckets">
-                                    <td><input ng-model="bucket.name" type="text" class="input-sm form-control"
+                                    <td><input ng-model="bucket.name" type="text" autocomplete="off" class="input-sm form-control"
                                                placeholder="{{'label.input.name' | translate}}"/></td>
                                     <td>
                                         <select  ng-options="option.key as option.value for option in ruleData.outputConfiguration.options" ng-model="bucket.output" class="form-control" >&nbsp;&nbsp;</select>

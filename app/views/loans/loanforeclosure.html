@@ -12,14 +12,14 @@
                 <label class="control-label col-sm-2">{{'label.input.transactiondate' | translate}}<span
                         class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input id="transactionDate" name="transactionDate" class="form-control" type="text" sort datepicker-pop="{{df}}"
+                    <input id="transactionDate" name="transactionDate" class="form-control" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                            ng-model="formData.transactionDate" max="'2020-06-22'" is-open="opened"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.heading.principal' | translate }}<span class="required"></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="outstandingPrincipalPortion" name="outstandingPrincipalPortion" ng-model="formData.outstandingPrincipalPortion" class="form-control" number-format readonly/>
+                    <input type="text" autocomplete="off" id="outstandingPrincipalPortion" name="outstandingPrincipalPortion" ng-model="formData.outstandingPrincipalPortion" class="form-control" number-format readonly/>
                 </div>
                 <div class="col-sm-3">
                 </div>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.heading.interest' | translate }}<span class="required"></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="outstandingInterestPortion" name="outstandingInterestPortion" ng-model="formData.outstandingInterestPortion" class="form-control" number-format readonly/>
+                    <input type="text" autocomplete="off" id="outstandingInterestPortion" name="outstandingInterestPortion" ng-model="formData.outstandingInterestPortion" class="form-control" number-format readonly/>
                 </div>
                 <div class="col-sm-3">
                 </div>
@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.heading.fee.amount' | translate}}<span class="required"></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="outstandingFeeChargesPortion" name="outstandingFeeChargesPortion" ng-model="formData.outstandingFeeChargesPortion" class="form-control" number-format readonly/>
+                    <input type="text" autocomplete="off" id="outstandingFeeChargesPortion" name="outstandingFeeChargesPortion" ng-model="formData.outstandingFeeChargesPortion" class="form-control" number-format readonly/>
                 </div>
                 <div class="col-sm-3">
                 </div>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.heading.penalty.amount' | translate}}<span class="required"></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="outstandingPenaltyChargesPortion" name="outstandingPenaltyChargesPortion" ng-model="formData.outstandingPenaltyChargesPortion" class="form-control" number-format readonly/>
+                    <input type="text" autocomplete="off" id="outstandingPenaltyChargesPortion" name="outstandingPenaltyChargesPortion" ng-model="formData.outstandingPenaltyChargesPortion" class="form-control" number-format readonly/>
                 </div>
                 <div class="col-sm-3">
                 </div>
@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.heading.transactionamount' | translate}}<span class="required"></span></label>
                 <div class="col-sm-3">
-                    <input type="text" ng-model="formData.transactionAmount" class="form-control" number-format readonly/>
+                    <input type="text" autocomplete="off" ng-model="formData.transactionAmount" class="form-control" number-format readonly/>
                 </div>
                 <div class="col-sm-3">
                 </div>
@@ -60,7 +60,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.notes' | translate}}</label>
                 <div class="col-sm-3">
-                    <textarea id="note" type="text" rows="2" name="note" ng-model="formData.note" class="form-control" ></textarea>
+                    <textarea id="note" type="text" autocomplete="off" rows="2" name="note" ng-model="formData.note" class="form-control" ></textarea>
                 </div>
             </div>
             <br/>

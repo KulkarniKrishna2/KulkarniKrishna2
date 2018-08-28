@@ -41,7 +41,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}"
+                    <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                            ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         translate}}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="requestedShares" type="text" name="requestedShares"
+                        <input id="requestedShares" type="text" autocomplete="off" name="requestedShares"
                                ng-model="formData.requestedShares" class="form-control" number-format required late-Validate/>
                     </div>
                     <div class="col-sm-3">
@@ -64,7 +64,7 @@
                         translate}}<span class="required">*</span>({{shareaccountdetails.currency.displaySymbol}})</label>
 
                     <div class="col-sm-3">
-                        <input id="unitprice" type="text" name="unitprice" disabled
+                        <input id="unitprice" type="text" autocomplete="off" name="unitprice" disabled
                                ng-model="formData.unitPrice" class="form-control" number-format required late-Validate/>
                     </div>
                     <div class="col-sm-3">
@@ -84,7 +84,7 @@
                 <label class="control-label col-sm-2">{{ labelName | translate}}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="amount" ng-model="formData.amount" class="form-control"/>
+                    <input type="text" autocomplete="off" id="amount" ng-model="formData.amount" class="form-control"/>
                 </div>
             </div>
 
@@ -93,7 +93,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}"
+                    <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                            ng-model="formData[modelName]" is-open="opened" class="form-control"/>
                 </div>
             </div>

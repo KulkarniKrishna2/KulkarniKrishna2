@@ -60,7 +60,7 @@
                     <tr>
                         <td><label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label></td>
                         <td class="paddedbottom10">
-                            <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="{{df}}"
+                            <input type="text" autocomplete="off" id="submittedOnDate" name="submittedon" datepicker-pop="{{df}}"
                                    ng-model="loanApplicationCommonData.submittedOnDate" is-open="opened" class="form-control" required/>
                             <form-validate valattributeform="newjlgloanform" valattribute="submittedon"/>
                         </td>
@@ -69,7 +69,7 @@
                                 translate }}<span class="required">*</span>:&nbsp;</label>
                         </td>
                         <td class="paddedbottom10">
-                            <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
+                            <input id="expectedDisbursementDate" sort type="text" autocomplete="off" name="expecteddisbursementon"
                                    datepicker-pop="{{df}}" ng-model="loanApplicationCommonData.expectedDisbursementDate" is-open="opened1" class="form-control" required/>
                             <form-validate valattributeform="newjlgloanform" valattribute="expecteddisbursementon"/>
                         </td>
@@ -108,7 +108,7 @@
                             </select>
                         </td>
                         <td>
-                            <input  type="text" 
+                            <input  type="text" autocomplete="off" 
                                     class="form-control principal" 
                                     name="principal" 
                                     ng-model="group.clients[outerIndex].principal"
