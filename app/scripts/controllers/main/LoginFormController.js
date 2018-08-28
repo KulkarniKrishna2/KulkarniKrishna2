@@ -113,6 +113,10 @@
                 }
             };
 
+            scope.$on("resetCaptchaEvent", function (event) {
+                init();
+            });
+
             function init() {
                 if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
                     scope.refreshPatchca();
@@ -153,6 +157,7 @@
             scope.$on("UserAuthenticationEnterOTPEvent", function (event, data) {
                 scope.otpPanel = true;
                 scope.loginCredentials.otpTokenId = data.otpTokenId;
+                init();
             });
 
             scope.$on("UnauthorizedRequest", function (event, data) {

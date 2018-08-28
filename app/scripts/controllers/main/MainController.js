@@ -297,6 +297,7 @@
                 $idle.unwatch();
                 scope.started = false;
                 location.path('/').replace();
+                scope.$broadcast("resetCaptchaEvent");
             };
 
             scope.switchToMe = function() {
@@ -496,7 +497,11 @@
                 }
                 //Do not remove this infinite while loop
                 $timeout(function () {
-                    while(isBlockUserActions){}
+                    while(isBlockUserActions){
+                        if(!window.devtools.open){
+                            break;
+                        }
+                    }
                 }, 500);
             };
 
