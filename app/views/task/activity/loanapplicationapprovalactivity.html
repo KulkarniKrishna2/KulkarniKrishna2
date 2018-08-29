@@ -137,6 +137,10 @@
                                         <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                                         <td>{{formData.submittedOnDate | DateFormat}}</td>
                                     </tr>
+                                    <tr>
+                                        <td><label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</td>
+                                        <td>{{formData.loanAccountNum}}</td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
@@ -912,7 +916,7 @@
                                     <td><input id="{{feeCharges[$index].amount}}" class="form-control" type="text"
                                                ng-model="charge.amount"
                                                placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
-                        || charge.chargeCalculationType.id == 6"></td>
+                        || charge.chargeCalculationType.id == 6 || charge.isAmountNonEditable"></td>
                                     <td>{{charge.chargeTimeType.value}}</td>
                                     <td>
                                         <input id="feeCharges[{{$index}}].duedate" type="text"

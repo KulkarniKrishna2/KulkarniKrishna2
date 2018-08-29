@@ -98,6 +98,7 @@
                                     }
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
                                     scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
+                                    scope.charges[i].isAmountNonEditable = scope.loanAppChargeData[j].isAmountNonEditable;
                                 }
                             }
                         }
@@ -715,6 +716,7 @@
                             charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
                         }
                         charge.isMandatory = scope.charges[i].isMandatory;
+                        charge.isAmountNonEditable = scope.charges[i].isAmountNonEditable;
                         scope.submitData.formRequestData.charges.push(charge);
                     }
                 }
@@ -759,6 +761,7 @@
                                 if (scope.productLoanCharges[i].chargeData) {
                                     if (data.chargeId == scope.productLoanCharges[i].chargeData.id) {
                                         data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        data.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
                                         break;
                                     }
                                 }
