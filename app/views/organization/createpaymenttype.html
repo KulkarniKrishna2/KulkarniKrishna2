@@ -35,6 +35,17 @@
                        </select>
                     </div>
                 </div>
+                <div class="form-group">
+                   <label class="control-label col-sm-2" for="defaultValueDateType">{{'label.heading.default.valuedate.type' | translate}}</label>
+
+                   <div class="col-sm-3">
+                       <select id="defaultValueDateType" name="defaultValueDateType" ng-model="formData.defaultValueDateType"
+                           ng-options="defaultValueDateTypeOption.id as defaultValueDateTypeOption.value for defaultValueDateTypeOption in defaultValueDateTypeOptions"
+                           value="{{defaultValueDateTypeOption.id}}" class="form-control">
+                       <option value="">{{'label.selectone' | translate}}</option>
+                      </select>
+                   </div>
+               </div>
                 <div class="form-group" data-ng-switch on="showPaymentModeOptions">
                     <div data-ng-switch-when="true">
                         <label class="control-label col-sm-2" for="applicableOn">{{'label.heading.applicablefor' | translate}}<span

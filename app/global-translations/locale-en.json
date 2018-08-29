@@ -7015,6 +7015,7 @@
     "label.button.repaymentsmode" : "Repayment Mode",
     "label.button.disbursalmode" : "Disbursal Mode",
     "label.input.paymentmode" : "Payment Mode",
+    "label.heading.default.valuedate.type" : "Default value date type",
     
     "error.msg.work.flow.workflow.already.created.for.this.office" : "Entity already mapped to a workflow",
     "error.msg.amount.is.invalid" :"Amount is invalid",
