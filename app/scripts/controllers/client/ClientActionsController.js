@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientActionsController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        ClientActionsController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
 
             scope.action = routeParams.action || "";
             scope.clientId = routeParams.id;
@@ -17,6 +17,9 @@
                 case "activate":
                     resourceFactory.clientResourceTemplate.getActivateTemplate({clientId: routeParams.id, command : 'activate'}, function (data) {
                         scope.client = data;
+                        if(scope.client.subStatus.value === 'Blacklist'){
+                            scope.openClientValidationPopUp();
+                        }
                         if (data.timeline.submittedOnDate) {
                             scope.mindate = new Date(data.timeline.submittedOnDate);
                         }
@@ -180,6 +183,28 @@
                     scope.showActivationDateField = true;
                     scope.showDateField = false;
                     scope.taskPermissionName = 'UNDOWITHDRAWAL_CLIENT';
+                    break;
+                case "blacklist":
+                scope.labelName = 'label.input.blacklistdate';
+                scope.labelNamereason = 'label.input.blacklistreason';
+                scope.breadcrumbName = 'label.anchor.blacklist';
+                scope.modelName = 'blacklistDate';
+                scope.reasonmodelName = 'blacklistReasonId';
+                scope.reasonField = true;
+                scope.showDateField = true;
+                resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'blacklist'}, function (data) {
+                    scope.reasons = data.narrations;
+                    scope.formData.blacklistReasonId = scope.reasons[0].id;
+                });
+                scope.taskPermissionName = 'BLACKLIST_CLIENT';
+                break;
+                case "whitelist":
+                    scope.labelName = 'label.input.whitelistdate';
+                    scope.breadcrumbName = 'label.anchor.whitelist';
+                    scope.modelName = 'whitelistDate';
+                    scope.showActivationDateField = true;
+                    scope.showDateField = false;
+                    scope.taskPermissionName = 'WHITELIST_CLIENT';
                     break;
 
             }
@@ -349,10 +374,37 @@
                         location.path('/viewclient/' + data.clientId);
                     });
                 }
+                if (scope.action == "blacklist") {
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'blacklist'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "whitelist") {
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'whitelist'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
             };
+            scope.openClientValidationPopUp = function() {
+                $modal.open({
+                    templateUrl: 'clientvalidation.html',
+                    controller: ClientValidationCtrl,
+                    backdrop: 'static'
+
+                });
+            }
+            var ClientValidationCtrl =  function($scope,$modalInstance){
+                $scope.confirm = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                    location.path('/viewclient/' + routeParams.id);
+                };
+            }
         }
     });
-    mifosX.ng.application.controller('ClientActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.ClientActionsController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.ClientActionsController]).run(function ($log) {
         $log.info("ClientActionsController initialized");
     });
 }(mifosX.controllers || {}));

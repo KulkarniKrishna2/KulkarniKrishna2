@@ -134,6 +134,13 @@
                         icon: "icon-remove-circle",
                         taskPermissionName: "CLOSE_CLIENT"
                     },
+                    {
+                        name: "label.button.blacklist",
+                        href: "#/client",
+                        subhref: "blacklist",
+                        icon: "icon-ban-circle",
+                        taskPermissionName: "BLACKLIST_CLIENT"
+                    }
 
                 ],
                 "Transfer in progress": [
