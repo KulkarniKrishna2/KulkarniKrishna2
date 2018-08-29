@@ -51,7 +51,7 @@
                     <label class="control-label col-sm-2" for="income">{{ 'label.input.income' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="income" name="income"
+                        <input type="text" autocomplete="off" id="income" name="income"
                                ng-model="formData.totalIncome" class="form-control" ng-change="updateTotalIncome(formData.quintity,formData.totalIncome)"/>
                     </div>
                     <label ng-show="isQuantifierNeeded" class="control-label col-sm-2">{{ 'label.heading.totalincomeamount' | translate }}</label>
@@ -65,7 +65,7 @@
                     <label class="control-label col-sm-2" for="expenses">{{ 'label.input.expenses' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="expenses" name="expenses"
+                        <input type="text" autocomplete="off" id="expenses" name="expenses"
                                ng-model="formData.totalExpense" class="form-control"/>
                     </div>
                 </div>

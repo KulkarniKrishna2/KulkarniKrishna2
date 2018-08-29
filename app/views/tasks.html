@@ -32,13 +32,13 @@
 				    </div>
 				    <div collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
 				        <div class="form-group">
-				            <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="{{df}}"
+				            <input type="text" autocomplete="off" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="{{df}}"
 				                   ng-model="date.from" is-open="opened"  max="'2020-06-22'"
 				                   date-disabled="disabled(date, mode)" class="form-control"/>
 				        </div>
 				        <div class="form-group">
 				            <div>
-				                <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="{{df}}"
+				                <input type="text" autocomplete="off" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="{{df}}"
 				                       ng-model="date.to" is-open="opened1" max="'2020-06-22'"
 				                       date-disabled="disabled(date, mode)" class="form-control"/>
 				            </div>
@@ -63,7 +63,7 @@
 				        </div>
 				        <div class="form-group">
 				            <div>
-				                <input type="text" placeholder="{{'label.input.resourceid' | translate}}"
+				                <input type="text" autocomplete="off" placeholder="{{'label.input.resourceid' | translate}}"
 				                       ng-model="formData.resourceId" class="form-control">
 				            </div>
 				        </div>
@@ -172,7 +172,7 @@
 							</tr>
 							<tr>
 								<th>
-									<input ng-autofocus="true" ng-model="filterText" type="text" class="input-sm form-control"
+									<input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" class="input-sm form-control"
 										   placeholder="{{'label.input.filterbyname' | translate}}">
 								</th>
 								<th>
@@ -192,7 +192,7 @@
         <div class="modal-body modal-big">
             <api-validate></api-validate>
             <br>
-            <input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
+            <input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
                    max="restrictDate"/>
         </div>
         <div class="modal-footer">
@@ -277,7 +277,7 @@
 							<tr>
 								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
-									<input type="text" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
 								</th>
 								<th>
 									<div class="rowleft">
@@ -289,7 +289,7 @@
 							</tr>
 				            <tr>
 				                <th>
-				                    <input ng-autofocus="true" ng-model="filterText1" type="text" class="input-sm form-control"
+				                    <input ng-autofocus="true" ng-model="filterText1" type="text" autocomplete="off" class="input-sm form-control"
 				                           placeholder="{{'label.input.filterbyname' | translate}}">
 				                </th>
 				                <th>
@@ -309,7 +309,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
+							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -399,7 +399,7 @@
 								</th>
 								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
-									<input type="text" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
 								</th>
 							</tr>
 							<tr>
@@ -426,7 +426,7 @@
 				            <thead>
 				            <tr>
 				                <th>
-				                    <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount" class="form-control"
+				                    <input id="transactionAmount" type="text" autocomplete="off" name="amount" ng-model="formData.transactionAmount" class="form-control"
                    					number-format required late-Validate ng-readonly="true">
 				                </th>
 				                <th>
@@ -456,7 +456,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
+							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -488,7 +488,7 @@
 				                <td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.principal | number}}</a></td>
 								<td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.expectedDisbursalPaymentType.name}}</a></td>
 								<td>
-									<input ng-model="loan.receiptNumber" type="text" class="input-sm form-control">
+									<input ng-model="loan.receiptNumber" type="text" autocomplete="off" class="input-sm form-control">
 								</td>
 								<td>
 									<input ng-model="loan.note" type="text" class="input-sm form-control">
@@ -549,7 +549,7 @@
 							</tr>
 							<tr>
 								<th>
-									<input ng-autofocus="true" ng-model="filterText3" type="text" class="input-sm form-control"
+									<input ng-autofocus="true" ng-model="filterText3" type="text" autocomplete="off" class="input-sm form-control"
 										   placeholder="{{'label.input.filterbyname' | translate}}">
 								</th>
 								<th>
@@ -569,7 +569,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
+							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -651,7 +651,7 @@
 							</tr>
 							<tr>
 								<th>
-									<input ng-autofocus="true" ng-model="filterText4" type="text" class="input-sm form-control"
+									<input ng-autofocus="true" ng-model="filterText4" type="text" autocomplete="off" class="input-sm form-control"
 										   placeholder="{{'label.input.filterbyname' | translate}}">
 								</th>
 								<th>
@@ -672,7 +672,7 @@
 						<div class="modal-body modal-big">
 							<api-validate></api-validate>
 							<br>
-							<input type="text" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
+							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
 								   max="restrictDate"/>
 						</div>
 						<div class="modal-footer">
@@ -710,7 +710,7 @@
                             <thead>
                             <tr>
                                 <th>
-                                    <input ng-autofocus="true" ng-model="filterText2" type="text" class="input-sm form-control"
+                                    <input ng-autofocus="true" ng-model="filterText2" type="text" autocomplete="off" class="input-sm form-control"
                                            placeholder="{{'label.input.filterbyname' | translate}}">
                                 </th>
                                 <th>
@@ -810,7 +810,7 @@
 							</tr>
 							<tr>
 								<th>
-									<input ng-autofocus="true" ng-model="filterText2" type="text" class="input-sm form-control"
+									<input ng-autofocus="true" ng-model="filterText2" type="text" autocomplete="off" class="input-sm form-control"
 										   placeholder="{{'label.input.filterbyname' | translate}}">
 								</th>
 								<th>

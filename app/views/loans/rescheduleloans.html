@@ -14,7 +14,7 @@
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="{{df}}"
+                    <input id="rescheduleFromDate" type="text" autocomplete="off" name="rescheduleFromDate" datepicker-pop="{{df}}"
                            class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate"
                            is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
                 </div>
@@ -41,7 +41,7 @@
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-3 paddedbottom10 paddedtop">
 
-                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="{{df}}"
+                    <input id="submittedOnDate" type="text" autocomplete="off" name="submittedOnDate" datepicker-pop="{{df}}"
                            class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
                 </div>
                 <div class="col-sm-1 paddinglr0px">
@@ -67,7 +67,7 @@
                 <label class="control-label col-sm-2 width20" data-ng-show="changeRepaymentDate" style="padding-left: 32px;text-align: left;">{{ 'label.input.installemtrescheduledto' | translate
                     }}<span ng-show="changeRepaymentDate" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" name="adjustedDueDate" datepicker-pop="{{df}}"
+                    <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" autocomplete="off" name="adjustedDueDate" datepicker-pop="{{df}}"
                            class="form-control" ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-required="changeRepaymentDate"/>
                 </div>
                 <div class="col-sm-1 paddinglr0px">
@@ -83,7 +83,7 @@
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnPrincipal' | translate
                     }}&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="principalgrace" type="text" ng-show="introduceGracePeriods"
+                    <input id="principalgrace" type="text" autocomplete="off" ng-show="introduceGracePeriods"
                            class="form-control" ng-model="formData.graceOnPrincipal">
                 </div>
             </div>
@@ -93,7 +93,7 @@
                     }}&nbsp;</label>
 
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="interestgrace" class="form-control" ng-show="introduceGracePeriods" type="text" ng-model="formData.graceOnInterest">
+                    <input id="interestgrace" class="form-control" ng-show="introduceGracePeriods" type="text" autocomplete="off" ng-model="formData.graceOnInterest">
                 </div>
             </div>
             <div class="form-group" data-ng-hide="introduceGracePeriods || specificToInstallment"></div>
@@ -107,7 +107,7 @@
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="extendRepaymentPeriod">{{ 'label.input.noofnewrepayments' | translate
                     }}<span ng-show="extendRepaymentPeriod" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="newrepayments" type="text" name="newrepayments" ng-show="extendRepaymentPeriod" class="form-control"
+                    <input id="newrepayments" type="text" autocomplete="off" name="newrepayments" ng-show="extendRepaymentPeriod" class="form-control"
                            ng-model="formData.extraTerms" ng-required="extendRepaymentPeriod">
                 </div>
                 <div class="col-sm-1 paddinglr0px">
@@ -122,7 +122,7 @@
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
                     }}<span ng-show="adjustinterestrates" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="newinterestrate" name="newinterestrate" type="text" ng-show="adjustinterestrates" class="form-control paddedbottom10"
+                    <input id="newinterestrate" name="newinterestrate" type="text" autocomplete="off" ng-show="adjustinterestrates" class="form-control paddedbottom10"
                            ng-model="formData.newInterestRate" ng-required="adjustinterestrates"></div>
                 <div class="col-sm-1 paddinglr0px">
                     <form-validate valattributeform="createloanrescheduleform" valattribute="newinterestrate"/>
@@ -136,7 +136,7 @@
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinstallmentamount">{{ 'label.input.newinstallmentamount' | translate
                     }}<span ng-show="adjustinstallmentamount" class="required">*</span>&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="newInstallmentAmount" name="newInstallmentAmount" type="text" ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
+                    <input id="newInstallmentAmount" name="newInstallmentAmount" type="text" autocomplete="off" ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
                            ng-model="formData.newInstallmentAmount" ng-required="adjustinstallmentamount"></div>
                 <div class="col-sm-1 paddinglr0px">
                     <form-validate valattributeform="createloanrescheduleform" valattribute="newInstallmentAmount"/>

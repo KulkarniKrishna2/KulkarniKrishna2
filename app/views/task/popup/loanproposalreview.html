@@ -47,7 +47,7 @@
 									<tr ng-repeat="loanAccount in clientLoanAccounts | filter:  '300'">
 										<td>{{loanAccount.loanType.value}} - {{loanAccount.accountNo}}</td>
 										<td>{{loanAccount.loanBalance}}</td>
-										<td> <input id="preclosureDate" name="preclosureDate" class="form-control" type="text" sort datepicker-pop="{{df}}"
+										<td> <input id="preclosureDate" name="preclosureDate" class="form-control" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
 											ng-model="preClosureTempFormData[$index].preclosureDate" max="'2020-06-22'" is-open="opened" ng-disabled="!isAccChecked"/>
 											<form-validate valattributeform="reviewFormData" valattribute="preclosureDate"/></td>
 										<td>

@@ -13,7 +13,7 @@
     <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.shareproductname' | translate}}"></i>
     <div class="col-sm-3">
-        <input ng-autofocus="true" id="name" class="form-control" name="name" type="text" ng-model="formData.name"
+        <input ng-autofocus="true" id="name" class="form-control" name="name" type="text" autocomplete="off" ng-model="formData.name"
                required late-validate/>
     </div>
     <div class="col-sm-3">
@@ -24,7 +24,7 @@
     <label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.shareproductshortname' | translate}}"></i>
     <div class="col-sm-3">
-        <input type="text" id="shortName" name="shortName" class="form-control" ng-model="formData.shortName"
+        <input type="text" autocomplete="off" id="shortName" name="shortName" class="form-control" ng-model="formData.shortName"
                maxlength="4" required late-validate/>
     </div>
     <div class="col-sm-3">
@@ -55,7 +55,7 @@
     <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.shareproductdecimalplaces' | translate}}"></i>
     <div class="col-sm-2">
-        <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
+        <input type="text" autocomplete="off" id="digitsAfterDecimal" name="decimalplace" class="form-control"
                ng-model="formData.digitsAfterDecimal" required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -66,7 +66,7 @@
     <label class="control-label col-sm-2">{{ 'label.input.multiplesof' | translate }}<span class="required">*</span></label>
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.multiplesof' | translate}}"></i>
     <div class="col-sm-2">
-        <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
+        <input type="text" autocomplete="off" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
                required late-validate/>
     </div>
     <div class="col-sm-2">
@@ -91,7 +91,7 @@
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.totalsharestobeissued' | translate}}"></i>
 
     <div class="col-sm-2">
-        <input type="text" id="totalsharestobeissued" name="totalsharestobeissued" ng-model="formData.sharesIssued"
+        <input type="text" autocomplete="off" id="totalsharestobeissued" name="totalsharestobeissued" ng-model="formData.sharesIssued"
                number-format class="form-control"/>
     </div>
 </div>
@@ -111,7 +111,7 @@
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.capitalvalue' | translate}}"></i>
 
     <div class="col-sm-2">
-        <input type="text" id="capitalvalue" name="capitalvaue" ng-model="formData.shareCapital"
+        <input type="text" autocomplete="off" id="capitalvalue" name="capitalvaue" ng-model="formData.shareCapital"
                class="form-control" maxlength="4" disabled/>
     </div>
 </div>
@@ -125,15 +125,15 @@
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.sharesperclient' | translate}}"></i>
 
     <div class="col-sm-2">
-        <input id="minimumshares" placeholder="{{'label.input.minimum' | translate}}" type="text"
+        <input id="minimumshares" placeholder="{{'label.input.minimum' | translate}}" type="text" autocomplete="off"
                class="form-control" ng-model="formData.minimumShares">
     </div>
     <div class="col-sm-2">
-        <input type="text" id="nominalsharesperclient" placeholder="{{'label.input.default' | translate}}"
+        <input type="text" autocomplete="off" id="nominalsharesperclient" placeholder="{{'label.input.default' | translate}}"
                name="interestRatePerPeriod" class="form-control" ng-model="formData.nominalShares" required />
     </div>
     <div class="col-sm-2">
-        <input id="maximumshares" placeholder="{{'label.input.maximum' | translate}}" type="text"
+        <input id="maximumshares" placeholder="{{'label.input.maximum' | translate}}" type="text" autocomplete="off"
                class="form-control" ng-model="formData.maximumShares">
     </div>
     <div class="col-sm-2">
@@ -145,7 +145,7 @@
     <label class="control-label col-sm-3">{{ 'label.input.minimumactiveperiod' | translate }}</label>
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.minimumactiveperiod' | translate}}"></i>
     <div class="col-sm-2">
-        <input id="minimumactiveperiod" type="text" class="form-control"
+        <input id="minimumactiveperiod" type="text" autocomplete="off" class="form-control"
                number-format ng-model="formData.minimumActivePeriodForDividends">
     </div>
 
@@ -163,7 +163,7 @@
     <label class="control-label col-sm-3">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
     <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.shareproductlockinPeriodFrequency' | translate}}"></i>
     <div class="col-sm-2">
-        <input id="lockinPeriodFrequency" type="text" class="form-control"
+        <input id="lockinPeriodFrequency" type="text" autocomplete="off" class="form-control"
                ng-model="formData.lockinPeriodFrequency">
     </div>
     <div class="col-sm-2">
@@ -210,7 +210,7 @@
     <tr ng-repeat="marketpriceperiod in formData.marketPricePeriods">
         <td>
             <ng-form name="fromDate{{$index}}">
-                <input type="text" id="fromDate1" name="fromDate1" datepicker-pop="{{df}}"
+                <input type="text" autocomplete="off" id="fromDate1" name="fromDate1" datepicker-pop="{{df}}"
                        ng-model="marketpriceperiod.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
                        class="form-control" required/>
                 <span class="error" ng-show="visitValidation&&fromDate{{$index}}.fromDate1.$error.required">{{ 'label.requirefield' | translate }}</span>
@@ -218,7 +218,7 @@
         </td>
         <td>
             <ng-form name="shareValue{{$index}}">
-                <input id="shareValue" name="shareValue" class="form-control" type="text"
+                <input id="shareValue" name="shareValue" class="form-control" type="text" autocomplete="off"
                        ng-model="marketpriceperiod.shareValue" number-format required/>
                 <span class="error" ng-show="visitValidation&&shareValue{{$index}}.shareValue.$error.required">{{ 'label.requirefield' | translate }}</span>
             </ng-form>

@@ -51,7 +51,7 @@
             <div ng-repeat="currency in selectedCurrOptions">
                 <div class="col-sm-4 col-md-4">
 					<input disabled="" class="form-control input-xxlarge" placeholder={{currency.displayLabel}}
-                       type="text"/>&nbsp;&nbsp;
+                       type="text" autocomplete="off"/>&nbsp;&nbsp;
 				</div>
                 <div class="col-sm-2 col-md-2">
 					<a ng-click='deleteCur(currency.code)' has-permission='UPDATE_CURRENCY'><i class="icon-remove"></i></a>

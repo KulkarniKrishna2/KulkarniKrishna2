@@ -14,12 +14,12 @@
                     {{'label.survey' | translate}} <span class="required">*</span>
                 </label>
                 <div class="col-sm-2">
-                    <input type="text" id="surveyKey" name="surveyKey" ng-model="formData.key" placeholder="Survey Key"
+                    <input type="text" autocomplete="off" id="surveyKey" name="surveyKey" ng-model="formData.key" placeholder="Survey Key"
                            class="form-control" required
                            late-Validate maxlength="32"/>
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" id="surveyName" name="surveyName" ng-model="formData.name"
+                    <input type="text" autocomplete="off" id="surveyName" name="surveyName" ng-model="formData.name"
                            placeholder="Survey Name" class="form-control" required
                            late-Validate maxlength="250"/>
                 </div>
@@ -71,7 +71,7 @@
                         
                         <div class="col-sm-3">
                             <ng-form name="formcomponentDataKey" novalidate="" rc-submit="submit()">
-                                <input type="text" id="componentDataKey" name="componentDataKey"
+                                <input type="text" autocomplete="off" id="componentDataKey" name="componentDataKey"
                                     ng-model="componentData.key" class="form-control" required
                                     late-Validate maxlength="32" placeholder="Key" ng-required="true"/>
                                 <span class="error"
@@ -81,7 +81,7 @@
                         
                         <div class="col-sm-3">
                             <ng-form name="formcomponentDataText" novalidate="" rc-submit="submit()">
-                                <input type="text" id="componentDataText" name="componentDataText"
+                                <input type="text" autocomplete="off" id="componentDataText" name="componentDataText"
                                        ng-model="componentData.text" class="form-control" required
                                        late-Validate maxlength="250" placeholder="Name" ng-required="true"/>
                                 <span class="error"
@@ -121,7 +121,7 @@
 
                                 <ng-form name="formquestionDataKey" novalidate="" rc-submit="submit()">
                                     <div class="col-sm-3">
-                                        <input type="text" id="questionDataKey" name="questionDataKey"
+                                        <input type="text" autocomplete="off" id="questionDataKey" name="questionDataKey"
                                                ng-model="questionData.key" class="form-control" required
                                                late-Validate maxlength="32" placeholder="Key"/>
                                         <span class="error"
@@ -131,7 +131,7 @@
 
                                 <ng-form name="formquestionDataText" novalidate="" rc-submit="submit()">
                                     <div class="col-sm-3">
-                                        <input type="text" id="questionDataText" name="questionDataText"
+                                        <input type="text" autocomplete="off" id="questionDataText" name="questionDataText"
                                                ng-model="questionData.text" class="form-control" required
                                                late-Validate maxlength="250" placeholder="Name"/>
                                         <span class="error"
@@ -173,7 +173,7 @@
                                             </label>
                                             <ng-form name="formresponseText" novalidate="" rc-submit="submit()">
                                                 <div class="col-sm-2">
-                                                    <input type="text" id="responseText" name="responseText"
+                                                    <input type="text" autocomplete="off" id="responseText" name="responseText"
                                                            ng-model="responseData.text" class="form-control" required
                                                            late-Validate/>
                                                 <span class="error"

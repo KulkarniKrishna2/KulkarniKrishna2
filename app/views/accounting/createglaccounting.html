@@ -31,7 +31,7 @@
 	            <label class="control-label col-sm-2 ">{{'label.input.glcode' | translate}}<span
 	                    class="required">*</span></label>
 	            <div class="col-sm-2">
-	                <input type="text" id="glCode" name="glCode" ng-autofocus="true" ng-model="formData.glCode" class="form-control" required
+	                <input type="text" autocomplete="off" id="glCode" name="glCode" ng-autofocus="true" ng-model="formData.glCode" class="form-control" required
 	                       late-Validate/>
 	            </div>
 	            <div class="col-sm-2 ">
@@ -40,7 +40,7 @@
 	            <label class="control-label col-sm-2" >{{'label.input.accountname' | translate}}<span
 						class="required">*</span></label>
 	            <div class="col-sm-2">
-	                <input id="name" type="text"  name="name"
+	                <input id="name" type="text" autocomplete="off"  name="name"
 							ng-model="formData.name" class="form-control" required late-Validate/>
 	            </div>
 				<div class="col-sm-2">

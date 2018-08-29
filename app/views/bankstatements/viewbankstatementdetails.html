@@ -27,17 +27,17 @@
 	<div class="row">
 		<div class=col-sm-2 align="left">
             <input  ng-autofocus="true" ng-model="searchText.amount"
-                type="text" class="form-control"
+                type="text" autocomplete="off" class="form-control"
                 placeholder="{{'label.input.teller.cashier.amount' | translate}}">
         </div>
          <div class=col-sm-2 align="left">
             <input ng-autofocus="true" ng-model="searchText.transactionType"
-                type="text" class="form-control"
+                type="text" autocomplete="off" class="form-control"
                 placeholder="{{'label.heading.transactionType' | translate}}">
         </div>
         <div class=col-sm-2 align="left">
             <input ng-autofocus="true" ng-model="searchText.transactionDate"
-                type="text" class="form-control"
+                type="text" autocomplete="off" class="form-control"
                 placeholder="{{'label.heading.transactionDate' | translate}}">
         </div>
 		<div class="col-sm-2" align="right">
@@ -263,19 +263,19 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.groupexternalid' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="groupExternalId" type="text" name="groupExternalId" ng-model="formData.groupExternalId" class="form-control" ng-change="checkCriteria();"/>
+                            <input id="groupExternalId" type="text" autocomplete="off" name="groupExternalId" ng-model="formData.groupExternalId" class="form-control" ng-change="checkCriteria();"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="startDate" type="text" name="startDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="startDate" type="text" autocomplete="off" name="startDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-change="checkCriteria()"/>
                         </div>
                         <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="endDate" type="text" name="endDate" datepicker-pop="yyyy-MM-dd" ng-change="checkCriteria()"
+                            <input id="endDate" type="text" autocomplete="off" name="endDate" datepicker-pop="yyyy-MM-dd" ng-change="checkCriteria()"
                                    ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                         </div>
                     </div>
@@ -283,11 +283,11 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.amountrangefrom' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="min" type="text" name="min" ng-model="formData.min"  ng-change="checkCriteria()" class="form-control"/>
+                            <input id="min" type="text" autocomplete="off" name="min" ng-model="formData.min"  ng-change="checkCriteria()" class="form-control"/>
                         </div>
                         <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="max" type="text" name="max" ng-model="formData.max"  ng-change="checkCriteria()" class="form-control"/>
+                            <input id="max" type="text" autocomplete="off" name="max" ng-model="formData.max"  ng-change="checkCriteria()" class="form-control"/>
                         </div>
                         <button id="save" ng-click="submit()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.search' | translate}}</button>
                     </div>
@@ -360,7 +360,7 @@
                     <td class="pointer">{{bankStatementDetail.mobileNumber}}</td>
                     <td class="pointer">{{bankStatementDetail.groupExternalId}}</td>
                     <td>
-                        <input type="text" ng-model="bankStatementDetail.transaction" ng-change="pushTransactionId(bankStatementDetail)">
+                        <input type="text" autocomplete="off" ng-model="bankStatementDetail.transaction" ng-change="pushTransactionId(bankStatementDetail)">
                     </td>
                     <td>
                         <input type="checkbox" ng-checked="isSelected(bankStatementDetail.id)" ng-click="selectForManualReconcile(bankStatementDetail)" ng-value="isSelected(bankStatementDetail.id)"  name="{{bankStatementDetail.id}}">

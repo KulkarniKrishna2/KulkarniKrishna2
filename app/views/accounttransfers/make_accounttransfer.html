@@ -119,7 +119,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.next.emi.amount' | translate}}</label>
                         <div class="col-sm-3">
-                            <input type="text" id="nextEMIAmount" number-format name="nextEMIAmount" ng-model="nextEMIAmount" ng-disabled="true" />
+                            <input type="text" autocomplete="off" id="nextEMIAmount" number-format name="nextEMIAmount" ng-model="nextEMIAmount" ng-disabled="true" />
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-primary" ng-click="transferThisAmount(nextEMIAmount)">{{'label.button.transfer.amount'| translate}}
@@ -137,7 +137,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.heading.total.overdue.amount' | translate}}</label>
                         <div class="col-sm-3">
-                            <input type="text" id="totalOverDueAmount" ng-model="totalOverDueAmount" number-format name="totalOverDueAmount" ng-disabled="true" />
+                            <input type="text" autocomplete="off" id="totalOverDueAmount" ng-model="totalOverDueAmount" number-format name="totalOverDueAmount" ng-disabled="true" />
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-primary" ng-click="transferThisAmount(totalOverDueAmount)">{{'label.button.transfer.amount'| translate}}
@@ -148,7 +148,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.heading.total.overdue.with.next.emi' | translate}}</label>
                         <div class="col-sm-3">
-                            <input type="text" id="overdueWithNextEMIAmount" ng-model="overdueWithNextEMIAmount" number-format name="overdueWithNextEMIAmount" ng-disabled="true" />
+                            <input type="text" autocomplete="off" id="overdueWithNextEMIAmount" ng-model="overdueWithNextEMIAmount" number-format name="overdueWithNextEMIAmount" ng-disabled="true" />
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-primary" ng-click="transferThisAmount(overdueWithNextEMIAmount)">{{'label.button.transfer.amount'| translate}}
@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.heading.total.outstanding.amount' | translate}}</label>
                         <div class="col-sm-3">
-                            <input type="text" id="totalOutstandingAmount" ng-model="totalOutstandingAmount" number-format name="totalOutstandingAmount" ng-disabled="true" />
+                            <input type="text" autocomplete="off" id="totalOutstandingAmount" ng-model="totalOutstandingAmount" number-format name="totalOutstandingAmount" ng-disabled="true" />
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-primary" ng-click="transferThisAmount(totalOutstandingAmount)">{{'label.button.transfer.amount'| translate}}
@@ -175,14 +175,14 @@
                     <label class="control-label col-sm-2" for="transferDate">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="transferDate" datepicker-pop="{{df}}" ng-model="formData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" />
+                        <input type="text" autocomplete="off" id="transferDate" datepicker-pop="{{df}}" ng-model="formData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="transferAmount">{{ 'label.input.transfer.amount' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="transferAmount" number-format name="transferAmount" ng-model="formData.transferAmount" class="form-control" required late-validate/>
+                        <input type="text" autocomplete="off" id="transferAmount" number-format name="transferAmount" ng-model="formData.transferAmount" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="accounttransferform" valattribute="transferAmount" />
@@ -192,7 +192,7 @@
                     <label class="control-label col-sm-2" for="transferDescription">{{ 'label.input.description' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <textarea type="text" id="transferDescription" name="transferDescription" class="form-control" rows="2" ng-model="formData.transferDescription" required late-validate></textarea>
+                        <textarea type="text" autocomplete="off" id="transferDescription" name="transferDescription" class="form-control" rows="2" ng-model="formData.transferDescription" required late-validate></textarea>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="accounttransferform" valattribute="transferDescription" />

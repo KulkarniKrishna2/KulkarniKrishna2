@@ -14,7 +14,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="amount" ng-autofocus="true" type="text" name="value" ng-model="formData.value" class="form-control" required
+                    <input id="amount" ng-autofocus="true" type="text" autocomplete="off" name="value" ng-model="formData.value" class="form-control" required
                            late-Validate/>
                     <form-validate valattributeform="editconfigurationform" valattribute="value"/>
                 </div>
@@ -23,7 +23,7 @@
                 <label class="control-label col-sm-2" >{{ 'label.input.datevalue' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input id="startDate" type="text" name="dateValue" datepicker-pop="{{df}}"
+                    <input id="startDate" type="text" autocomplete="off" name="dateValue" datepicker-pop="{{df}}"
                            ng-model="formData.dateValue" is-open="opened1" max="restrictDate"  class="form-control"/>
                     <form-validate valattributeform="editconfigurationform" valattribute="dateValue"/>
                 </div>

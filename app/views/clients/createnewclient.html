@@ -60,19 +60,19 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-sm-3">
-                            <input placeholder="FIRST NAME" type="text" id="firstname" name="firstname"
+                            <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname"
 							ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.firstname" class="form-control" ng-required="isFirstnameRequired"/>
 							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 							<span class="error" ng-show="createclientform.firstname.$invalid">{{'label.only.text' | translate}}</span>
                         </div>
                         <div class="col-sm-3" ng-show="showMiddleName">
-                            <input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename"
+                            <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename"
 							ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
                             <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 							<span class="error" ng-show="createclientform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 						</div>
                         <div class="col-sm-3">
-                            <input placeholder="LAST NAME" type="text" id="lastname" name="lastname"
+                            <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname"
 							ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
                             <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 							<span class="error" ng-show="createclientform.lastname.$invalid">{{'label.only.text' | translate}}</span>
@@ -86,7 +86,7 @@
 								class="required">*</span></label>
 
 						<div class="col-sm-3">
-							<input type="text" id="fullname" name="fullname" ng-model="formData.fullname" class="form-control"
+							<input type="text" autocomplete="off" id="fullname" name="fullname" ng-model="formData.fullname" class="form-control"
 								   required late-Validate/>
 						</div>
 						<div class="col-sm-2">
@@ -100,7 +100,7 @@
 					<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
 					<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 					<div class="col-sm-3">
-					<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth"
+					<input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth"
 						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
 					    <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 					</div>
@@ -130,7 +130,7 @@
 						<label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
 						<div class="col-sm-3">
-							<input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="{{df}}"
+							<input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}"
 								   ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'"  class="form-control"/>
 						</div>
 					</div>
@@ -156,7 +156,7 @@
                 	<span ng-show="isExternalIdMandatory" class="required">*</span>
                 </label>
                 <div class="col-sm-3" ng-show="showExternalId">
-                	<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control"  ng-required = "isExternalIdMandatory"/>
+                	<input type="text" autocomplete="off" id="externalId" name="external" ng-model="formData.externalId" class="form-control"  ng-required = "isExternalIdMandatory"/>
                 </div>
                 <div class="col-sm-2 paddinglr0px">
                 	<form-validate valattributeform="createclientform" valattribute="external"/>
@@ -193,7 +193,7 @@
 						<label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}</label>
 
 						<div class="col-sm-3">
-							<input type="text" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber"  class="form-control"/>
+							<input type="text" autocomplete="off" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber"  class="form-control"/>
 						</div>
 
 						<label class="control-label col-sm-2">{{'label.input.mainBusinessLine' | translate}}</label>
@@ -234,7 +234,7 @@
 						<label class="control-label col-sm-2" for="remarks">{{'label.input.remarks' | translate}}</label>
 
 						<div class="col-sm-3">
-							<textarea type="text" id="remarks" ng-model="formData.clientNonPersonDetails.remarks" rows="4" class="form-control"/>
+							<textarea type="text" autocomplete="off" id="remarks" ng-model="formData.clientNonPersonDetails.remarks" rows="4" class="form-control"/>
 						</div>
 					</div>
 				</div>
@@ -243,7 +243,7 @@
                 <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}<span ng-show="isMobileNumberMandatory"  class="required">*</span></label>
 
                 <div class="col-sm-3">
-					<input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" 
+					<input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" 
 					ng-pattern="{{mobileNumberPattern}}" ng-required="isMobileNumberMandatory" class="form-control"/>
 					 <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                     <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
@@ -255,7 +255,7 @@
                 <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
                 <div class="col-sm-3">
-                	<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
+                	<input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo"
                 	ng-pattern="{{mobileNumberPattern}}"  class="form-control"/>
                 	<span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
                 		<small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
@@ -318,13 +318,13 @@
 					<label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
 
 					<div class="col-sm-3">
-						<input type="text" id="houseNo" ng-model="formAddressData.houseNo" class="form-control"/>
+						<input type="text" autocomplete="off" id="houseNo" ng-model="formAddressData.houseNo" class="form-control"/>
 					</div>
 
 					<label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}</label>
 
 					<div class="col-sm-3">
-						<input type="text" id="streetname" name="streetName"
+						<input type="text" autocomplete="off" id="streetname" name="streetName"
 							   ng-model="formAddressData.addressLineOne" class="form-control"/>
 					</div>
 					<div class="col-sm-2">
@@ -336,7 +336,7 @@
 						translate}}<span ng-show="isVillageTownMandatory" class="required">*</span></label>
 
 					<div class="col-sm-3">
-						<input type="text" id="villagename" name = "villageTown" ng-model="formAddressData.villageTown"
+						<input type="text" autocomplete="off" id="villagename" name = "villageTown" ng-model="formAddressData.villageTown"
 							   class="form-control" ng-required = "isVillageTownMandatory"/>
 					</div>
 					<div class="col-sm-1 paddinglr0px">
@@ -412,7 +412,7 @@
 					</label>
 
 					<div class="col-sm-3" ng-if="!pincode">
-						<input  type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode"
+						<input  type="text" autocomplete="off" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode"
 							   name="pincode"  ng-pattern= "/^([1-9])([0-9]){5}$/" ng-minlength="6" maxlength="6" ng-model="formAddressData.postalCode" class="form-control" required/>
 					</div>
 					<span class="required" ng-show="submitted && createclientform.pincode.$error.required">{{'label.error.required'|translate}}</span>	
@@ -440,7 +440,7 @@
 			                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 
 			                <div class="col-sm-3">
-			                    <input id="activationDate" type="text" name="activationdate" datepicker-pop="{{df}}"
+			                    <input id="activationDate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}"
 			                           ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
 			                </div>
 			            </div>
@@ -451,7 +451,7 @@
 	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
 	            <div class="col-sm-3">
-	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="{{df}}"
+	                <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}"
 	                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
 	            </div>
 	        </div>

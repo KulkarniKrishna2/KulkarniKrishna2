@@ -20,7 +20,7 @@
                 <td >{{eodCollection.arrearsAmount}}</td>
                 <td >{{eodCollection.advanceAmount}}</td>
                 <td >{{eodCollection.preclosureAmount}}</td>
-                <td ng-if="!isProcessed"><textarea id="note" type="text" ng-model="eodCollection.note"></textarea></td>
+                <td ng-if="!isProcessed"><textarea id="note" type="text" autocomplete="off" ng-model="eodCollection.note"></textarea></td>
                 <td ng-if="isProcessed">{{eodCollection.note}}</td>
             </tr>
             </tbody>

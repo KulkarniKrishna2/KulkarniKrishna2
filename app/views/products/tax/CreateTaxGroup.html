@@ -15,7 +15,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
+                    <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="formData.name"
                            class="form-control"
                            required late-Validate/>
                 </div>
@@ -34,7 +34,7 @@
                     </div>
                     <label class="control-label col-sm-2">{{'label.heading.decimalplaces' | translate}}</label>
                     <div class="col-sm-3">
-                        <input id="decimalPlaces" type="text" ng-model="formData.decimalPlaces"  class="form-control" number-format>
+                        <input id="decimalPlaces" type="text" autocomplete="off" ng-model="formData.decimalPlaces"  class="form-control" number-format>
                     </div>
             </div>
             <h3>{{ 'label.heading.taxcomponent' | translate }}</h3>
@@ -58,7 +58,7 @@
                     </select>
                 </div>
                 <div class="col-sm-3">
-                    <input id="taxComponents[{{$index}}].startDate" sort type="text"
+                    <input id="taxComponents[{{$index}}].startDate" sort type="text" autocomplete="off"
                            datepicker-pop="{{df}}" ng-model="taxcomponent.date"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>                
@@ -70,7 +70,7 @@
                         </select>
                     </div>                    
                     <div class="col-sm-2">
-                        <input id="taxComponents[{{$index}}].decimalPlaces" type="text" ng-model="taxcomponent.decimalPlaces"  class="form-control" number-format>
+                        <input id="taxComponents[{{$index}}].decimalPlaces" type="text" autocomplete="off" ng-model="taxcomponent.decimalPlaces"  class="form-control" number-format>
                     </div>
                 <div class="col-sm-2"><a ng-click="deleteTaxComponent($index)"><i
                         class="icon-remove  icon-white"></i></a></div>

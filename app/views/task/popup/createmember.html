@@ -56,19 +56,19 @@
 										<span class="required">*</span>
 									</label>
 									<div class="col-sm-3">
-										<input placeholder="FIRST NAME" type="text" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control"
+										<input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control"
 										ng-pattern="/^[a-zA-Z\s]*$/" ng-required="isFirstnameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.firstname.$invalid">{{'label.only.text' | translate}}</span>
 									</div>
 									<div class="col-sm-3" ng-show="showMiddleName">
-										<input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename" ng-model="formData.middlename" class="form-control"
+										<input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-model="formData.middlename" class="form-control"
 										ng-pattern="/^[a-zA-Z\s]*$/" ng-required="isMiddlenameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 									</div>
 									<div class="col-sm-3">
-										<input placeholder="LAST NAME" type="text" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
+										<input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
 										ng-pattern="/^[a-zA-Z\s]*$/" ng-required="isLastnameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.lastname.$invalid">{{'label.only.text' | translate}}</span>
@@ -84,7 +84,7 @@
 									</label>
 
 									<div class="col-sm-3">
-										<input type="text" id="fullname" name="fullname" ng-model="formData.fullname" class="form-control" required late-Validate/>
+										<input type="text" autocomplete="off" id="fullname" name="fullname" ng-model="formData.fullname" class="form-control" required late-Validate/>
 									</div>
 									<div class="col-sm-2">
 										<form-validate valattributeform="creatememberform" valattribute="fullname" />
@@ -99,7 +99,7 @@
 								</label>
 								<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 								<div class="col-sm-3">
-									<input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth" min="minDateOfBirth"
+									<input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth" min="minDateOfBirth"
 									 max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
 									<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
 										| translate}}</span>
@@ -132,7 +132,7 @@
 									<label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
 									<div class="col-sm-3">
-										<input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate"
+										<input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate"
 										 is-open="opened1" max="'2020-06-22'" class="form-control" />
 									</div>
 								</div>
@@ -160,7 +160,7 @@
 								<span ng-show="isExternalIdMandatory" class="required">*</span>
 							</label>
 							<div class="col-sm-3" ng-show="showExternalId">
-								<input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control" ng-required="isExternalIdMandatory"
+								<input type="text" autocomplete="off" id="externalId" name="external" ng-model="formData.externalId" class="form-control" ng-required="isExternalIdMandatory"
 								/>
 							</div>
 							<div class="col-sm-2 paddinglr0px">
@@ -199,7 +199,7 @@
 									<label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}</label>
 
 									<div class="col-sm-3">
-										<input type="text" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber" class="form-control" />
+										<input type="text" autocomplete="off" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber" class="form-control" />
 									</div>
 
 									<label class="control-label col-sm-2">{{'label.input.mainBusinessLine' | translate}}</label>
@@ -241,7 +241,7 @@
 									<label class="control-label col-sm-2" for="remarks">{{'label.input.remarks' | translate}}</label>
 
 									<div class="col-sm-3">
-										<textarea type="text" id="remarks" ng-model="formData.clientNonPersonDetails.remarks" rows="4" class="form-control" />
+										<textarea type="text" autocomplete="off" id="remarks" ng-model="formData.clientNonPersonDetails.remarks" rows="4" class="form-control" />
 									</div>
 								</div>
 							</div>
@@ -252,7 +252,7 @@
 							</label>
 
 							<div class="col-sm-3">
-								<input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="{{mobileNumberPattern}}" ng-required="isMobileNumberMandatory"
+								<input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="{{mobileNumberPattern}}" ng-required="isMobileNumberMandatory"
 								 class="form-control" />
 								<span ng-show="creatememberform.mobileNo.$invalid && creatememberform.mobileNo.$dirty">
 									<small class="required" ng-show="creatememberform.mobileNo.$error.pattern">
@@ -265,7 +265,7 @@
 							<label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
 							<div class="col-sm-3">
-								<input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo" ng-pattern="{{mobileNumberPattern}}"
+								<input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo" ng-pattern="{{mobileNumberPattern}}"
 								 class="form-control"/>
 								<span ng-show="creatememberform.alternateMobileNo.$invalid && creatememberform.alternateMobileNo.$dirty">
 									<small class="required" ng-show="creatememberform.alternateMobileNo.$error.pattern">
@@ -290,7 +290,7 @@
 							<label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
 							<div class="col-sm-3">
-								<input id="submittedon" type="text" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1"
+								<input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1"
 								 min="'2000-01-01'" max="restrictDate" class="form-control" />
 							</div>
 						</div>

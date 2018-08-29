@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http, authenticationService, resourceFactory) {
+                  uiConfigService, $http, authenticationService, resourceFactory, $timeout) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
             scope.mainControllerUIConfigData = {};
@@ -149,13 +149,11 @@
 
             // Log out the user when the window/tab is closed.
             window.onunload = function () {
-                scope.currentSession = sessionManager.clear();
-                scope.resetPassword = false;
-                $rootScope.isUserSwitched = false;
-                delete $rootScope.proxyToken;
-                $idle.unwatch();
-                scope.started = false;
-                location.path('/').replace();
+                if(scope.currentSession && scope.currentSession.user){
+                    scope.logout();
+                }else{
+                    clearAllSession();
+                }
             };
 
             scope.start = function (session) {
@@ -304,17 +302,11 @@
 
             scope.logout = function () {
                 resourceFactory.myAccountResource.logout(function (data) {
-                    scope.currentSession = sessionManager.clearAll();
-                    scope.resetPassword = false;
-                    $rootScope.isUserSwitched = false;
-                    delete $rootScope.proxyToken;
-                    $idle.unwatch();
-                    scope.started = false;
-                    location.path('/').replace();
+                    clearAllSession();
                 });
             };
 
-            scope.logoutFromUi = function () {
+            function clearAllSession(){
                 scope.currentSession = sessionManager.clearAll();
                 scope.resetPassword = false;
                 $rootScope.isUserSwitched = false;
@@ -322,6 +314,11 @@
                 $idle.unwatch();
                 scope.started = false;
                 location.path('/').replace();
+                scope.$broadcast("resetCaptchaEvent");
+            };
+
+            scope.logoutFromUi = function () {
+                clearAllSession();
             };
 
             scope.switchToMe = function() {
@@ -496,8 +493,38 @@
                             return false;
                         }
                     };
+
+                    if(window.devtools.open){
+                        blockUserActions(true);
+                    };
+
+                    window.addEventListener('devtoolschange', function (e) {
+                        if(scope.mainControllerUIConfigData.isEnabledBrowserSecurity){
+                            if(e.detail.open){
+                                blockUserActions(true);
+                            }
+                        }
+                        //console.log('is DevTools open?', e.detail.open);
+                        //console.log('and DevTools orientation?', e.detail.orientation);
+                    });
                 }
             });
+
+            function blockUserActions(isBlockUserActions){
+                if(scope.currentSession && scope.currentSession.user){
+                    scope.logout();
+                }else{
+                    clearAllSession();
+                }
+                //Do not remove this infinite while loop
+                $timeout(function () {
+                    while(isBlockUserActions){
+                        if(!window.devtools.open){
+                            break;
+                        }
+                    }
+                }, 500);
+            };
 
             sessionManager.restore(function (session) {
                 scope.currentSession = session;
@@ -523,6 +550,7 @@
         '$http',
         'AuthenticationService',
         'ResourceFactory',
+        '$timeout',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");

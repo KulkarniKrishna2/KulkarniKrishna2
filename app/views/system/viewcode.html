@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.codename' | translate}}</label>
                 <div class="col-sm-3">
-                    <input type="text" data-ng-model="codename.name" class="form-control"/>
+                    <input type="text" autocomplete="off" data-ng-model="codename.name" class="form-control"/>
                 </div>
             </div>
 
@@ -92,22 +92,22 @@
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.name}}</span>
                         <input data-ng-show="codevalue.edit" name="codevalue" ng-model="formData[codevalue.id].name"
-                               type="text" class="form-control" required/>
+                               type="text" autocomplete="off" class="form-control" required/>
                     </td>
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.description}}</span>
                         <textarea data-ng-show="codevalue.edit" name="description" ng-model="formData[codevalue.id].description"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </td>
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.position}}</span>
                         <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </td>
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.codeScore}}</span>
                         <input data-ng-show="codevalue.edit" name="codeScore" ng-model="formData[codevalue.id].codeScore"
-                               type="text" class="form-control"/>
+                               type="text" autocomplete="off" class="form-control"/>
                     </td>
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.isActive}}</span>

@@ -69,7 +69,7 @@
                 <label class="control-label col-sm-3">{{ 'label.input.bankname' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-5">
-                    <input id="bankName" type="text" name="bankName" maxlength="100"
+                    <input id="bankName" type="text" autocomplete="off" name="bankName" maxlength="100"
                            ng-model="pdcDetail.bankName"
                            class="form-control" required late-Validate/>
                 </div>
@@ -82,7 +82,7 @@
                 <label class="control-label col-sm-3">{{ 'label.heading.mandate.branchName' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-5">
-                    <input id="branchName" type="text" name="branchName" maxlength="100"
+                    <input id="branchName" type="text" autocomplete="off" name="branchName" maxlength="100"
                            ng-model="pdcDetail.branchName"
                            class="form-control" required late-Validate/>
                 </div>
@@ -96,7 +96,7 @@
                 <label class="control-label col-sm-3">{{ 'label.input.ifsccode' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-5">
-                    <input id="ifscCode" type="text" name="ifscCode" maxlength="50"
+                    <input id="ifscCode" type="text" autocomplete="off" name="ifscCode" maxlength="50"
                            ng-model="pdcDetail.ifscCode"
                            class="form-control" required late-Validate/>
                 </div>

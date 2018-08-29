@@ -66,7 +66,7 @@
             class="required">*</span></label>
 
     <div class="col-sm-3">
-        <input id="{{modelName}}" sort type="text" datepicker-pop="{{df}}" class="form-control"
+        <input id="{{modelName}}" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                ng-model="formData[modelName]" min="'2000-01-01'" max="'2020-06-22'"/>
     </div>
     <div class="col-sm-3"  ng-show="overduechargespresent || showFetchButton">
@@ -133,7 +133,7 @@
         <label class="control-label col-sm-2" for="repaymentsStartingFromDate">{{'label.input.firstrepaymenton' | translate}}</label>
 
         <div class="col-sm-3">
-            <input id="repaymentsStartingFromDate" sort type="text" datepicker-pop="{{df}}" class="form-control"
+            <input id="repaymentsStartingFromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                    ng-model="formData.repaymentsStartingFromDate" min="minDate"  max="'2020-06-22'"/>
         </div>
     </div>
@@ -142,7 +142,7 @@
         <label class="control-label col-sm-2" for="nextRepaymentDate">{{'label.input.nextrepaymentdate' | translate}}</label>
 
         <div class="col-sm-3">
-            <input id="{{nextRepaymentDate}}" sort type="text" datepicker-pop="{{df}}" class="form-control"
+            <input id="{{nextRepaymentDate}}" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                    ng-model="nextRepaymentDate" min="'2000-01-01'" max="restrictDate" ng-disabled="false"/>
         </div>
     </div>
@@ -150,7 +150,7 @@
         <label class="control-label col-sm-2" for="adjustRepaymentDate">{{'label.input.adjusteddate' | translate}}</label>
 
         <div class="col-sm-3">
-            <input id="{{adjustRepaymentDate}}" sort type="text" datepicker-pop="{{df}}" class="form-control"
+            <input id="{{adjustRepaymentDate}}" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                    ng-model="formData.adjustRepaymentDate" min="minDate" max="'2020-06-22'"/>
         </div>
     </div>
@@ -159,7 +159,7 @@
     <label class="control-label col-sm-2">{{'label.input.expecteddisbursementon' | translate}}</label>
 
     <div class="col-sm-3">
-        <input id="expectedDisbursementDate" sort type="text" class="form-control"
+        <input id="expectedDisbursementDate" sort type="text" autocomplete="off" class="form-control"
                datepicker-pop="{{df}}" ng-model="expectedDisbursementDate"
                min="'2000-01-01'" />
     </div>
@@ -169,7 +169,7 @@
         translate}}</label>
 
     <div class="col-sm-3">
-        <input id="approvedAmt" type="text" name="amount" ng-model="formData.approvedLoanAmount" class="form-control"
+        <input id="approvedAmt" type="text" autocomplete="off" name="amount" ng-model="formData.approvedLoanAmount" class="form-control"
                number-format required late-Validate ng-readonly="isGLIM">
     </div>
 </div>
@@ -195,17 +195,17 @@
             <tr ng-repeat="details in disbursementDetails">
                 <td>{{'label.heading.tranche' | translate}}{{$index + 1}}</td>
                 <td>
-                    <input id="details[{{$index}}].expectedDisbursementDate" type="text"
+                    <input id="details[{{$index}}].expectedDisbursementDate" type="text" autocomplete="off"
                            datepicker-pop="{{df}}" class="form-control"
                            ng-model="details.expectedDisbursementDate" is-open="'openedtranche'+$index"
                            min="minDate" max="'2020-06-22'"/>
                 </td>
                 <td>
-                    <input type="text" class="form-control" id="details[{{$index}}].principal"
+                    <input type="text" autocomplete="off" class="form-control" id="details[{{$index}}].principal"
                            ng-change="addTrancheAmounts()" ng-model="details.principal">
                 </td>
                 <td ng-show="isFlatInterestRate">
-                    <input type="text" class="form-control" id="details[{{$index}}].discountOnDisbursalAmount"
+                    <input type="text" autocomplete="off" class="form-control" id="details[{{$index}}].discountOnDisbursalAmount"
                            ng-change="addTrancheAmounts()" ng-model="details.discountOnDisbursalAmount">
                 </td>
 
@@ -228,7 +228,7 @@
 <div class="form-group" ng-if="isLoanEmiPackEnabled && (action =='approve' || action =='disburse')">
     <label class="control-label col-sm-2">{{ 'label.heading.chooseloanemipack' | translate }}</label>
     <div class="col-sm-3">
-        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control"  placeholder="{{'label.input.filterbytext' | translate}}"/>
+        <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control"  placeholder="{{'label.input.filterbytext' | translate}}"/>
     </div>
 </div>
 <div class="form-group" ng-if="isLoanEmiPackEnabled && (action =='approve' || action =='disburse')">    
@@ -272,7 +272,7 @@
             translate}}<span class="required">*</span></label>
 
         <div class="col-sm-3">
-            <input id="subsidyamountreleased" type="text" name="amount" ng-model="formData.subsidyAmountReleased"
+            <input id="subsidyamountreleased" type="text" autocomplete="off" name="amount" ng-model="formData.subsidyAmountReleased"
                    class="form-control"
                    number-format required late-Validate>
         </div>
@@ -288,7 +288,7 @@
             translate}}<span class="required">*</span></label>
 
         <div class="col-sm-3">
-            <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
+            <input id="transactionAmount" type="text" autocomplete="off" name="amount" ng-model="formData.transactionAmount"
                    class="form-control"
                    number-format required late-Validate ng-readonly="showGlimTransactionSection() || editGlimTransaction()">
         </div>
@@ -301,7 +301,7 @@
                 translate}}</label>
 
             <div class="col-sm-3">
-                <input id="discountOnDisbursalAmount" type="text" name="discountOnDisbursalAmount" ng-model="formData.discountOnDisbursalAmount"
+                <input id="discountOnDisbursalAmount" type="text" autocomplete="off" name="discountOnDisbursalAmount" ng-model="formData.discountOnDisbursalAmount"
                        class="form-control" ng-disabled="disableDiscount"
                        number-format >
             </div>
@@ -341,7 +341,7 @@
                         <td >{{clientMember.clientId}}</td>
                         <td >{{clientMember.clientName}}</td>
                         <td>
-                            <input  type="text"
+                            <input  type="text" autocomplete="off"
                                     class="form-control principal"
                                     name="principal"
                                     ng-model="clientMembers[outerIndex].transactionAmount"
@@ -419,7 +419,7 @@
                         <td >{{clientMember.clientId}}</td>
                         <td >{{clientMember.clientName}}</td>
                         <td>
-                            <input  type="text"
+                            <input  type="text" autocomplete="off"
                                     class="form-control principal"
                                     name="principal"
                                     ng-model="clientMembers[outerIndex].transactionAmount"
@@ -450,7 +450,7 @@
                         <td >{{glim.clientId}}</td>
                         <td >{{glim.clientName}}</td>
                         <td>
-                            <input  type="text"
+                            <input  type="text" autocomplete="off"
                                     class="form-control principal"
                                     name="principal"
                                     ng-model="glimTransactions[outerIndex].transactionAmount"
@@ -475,7 +475,7 @@
         <label class="control-label col-sm-2" for="principalPortion">{{ 'label.input.principal' | translate}}</label>
 
         <div class="col-sm-3">
-            <input id="principalPortion" type="text" name="principa" ng-model="principalPortion" class="form-control"
+            <input id="principalPortion" type="text" autocomplete="off" name="principa" ng-model="principalPortion" class="form-control"
                    number-format readonly>
         </div>
     </div>
@@ -485,7 +485,7 @@
             translate}}<span class="required">*</span></label>
 
         <div class="col-sm-3">
-            <input id="interestPortion" type="text" name="interest" ng-model="interestPortion" class="form-control"
+            <input id="interestPortion" type="text" autocomplete="off" name="interest" ng-model="interestPortion" class="form-control"
                    number-format readonly>
         </div>
     </div>
@@ -495,7 +495,7 @@
             translate}}</label>
 
         <div class="col-sm-3">
-            <input id="writeOffAmount" type="text" name="amount" ng-model="writeOffAmount"
+            <input id="writeOffAmount" type="text" autocomplete="off" name="amount" ng-model="writeOffAmount"
                    class="form-control" readonly>
         </div>
     </div>
@@ -536,7 +536,7 @@
         <label class="control-label col-sm-2" for="fixedEmiAmount">{{ 'label.input.fixedemiamount' | translate}}</label>
 
         <div class="col-sm-3">
-            <input id="transactionAmount" type="text" class="form-control" name="amount"
+            <input id="transactionAmount" type="text" autocomplete="off" class="form-control" name="amount"
                    ng-model="formData.fixedEmiAmount">
         </div>
     </div>
@@ -590,7 +590,7 @@
                 <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="accountNumber" type="text" class="form-control" ng-model="formData.accountNumber">
+                    <input id="accountNumber" type="text" autocomplete="off" class="form-control" ng-model="formData.accountNumber">
                 </div>
             </div>
             <div class="form-group">
@@ -598,7 +598,7 @@
                     translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="checkNumber" class="form-control" type="text" ng-model="formData.checkNumber">
+                    <input id="checkNumber" class="form-control" type="text" autocomplete="off" ng-model="formData.checkNumber">
                 </div>
             </div>
             <div class="form-group">
@@ -606,7 +606,7 @@
                     translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="routingCode" class="form-control" type="text" ng-model="formData.routingCode">
+                    <input id="routingCode" class="form-control" type="text" autocomplete="off" ng-model="formData.routingCode">
                 </div>
             </div>
             <div class="form-group">
@@ -614,7 +614,7 @@
                     translate}}<span ng-if="isRecieptNumbermandatory" class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="receiptNumber" name="receiptNumber" class="form-control" type="text"
+                    <input id="receiptNumber" name="receiptNumber" class="form-control" type="text" autocomplete="off"
                            ng-model="formData.receiptNumber" ng-required="isRecieptNumbermandatory">
                 </div>
                 <div class="col-sm-3">
@@ -625,7 +625,7 @@
                 <label class="control-label col-sm-2" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="bankNumber" class="form-control" type="text" ng-model="formData.bankNumber">
+                    <input id="bankNumber" class="form-control" type="text" autocomplete="off" ng-model="formData.bankNumber">
                 </div>
             </div>
         </div>
@@ -688,7 +688,7 @@
                     <td >{{clientMember.clientName}}</td>
                     <td >{{clientMember.clientExternalID}}</td>
                     <td>
-                        <input  type="text"
+                        <input  type="text" autocomplete="off"
                                 class="form-control principal"
                                 name="principal"
                                 ng-model="clientMembers[outerIndex].transactionAmount"
@@ -720,7 +720,7 @@
             class="required">*</span></label>
 
     <div class="col-sm-3">
-        <input id="{{modelName}}" class="form-control" type="text" sort datepicker-pop="{{df}}"
+        <input id="{{modelName}}" class="form-control" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
                ng-model="formData.transactionDate" is-open="opened" />
     </div>
 </div>
@@ -729,7 +729,7 @@
             class="required">*</span></label>
 
     <div class="col-sm-3">
-        <input type="text" class="form-control" id="amount" ng-model="formData.amount">
+        <input type="text" autocomplete="off" class="form-control" id="amount" ng-model="formData.amount">
     </div>
 </div>
 <div class="form-group" ng-show="showEditChargeDueDate">
@@ -737,7 +737,7 @@
             class="required">*</span></label>
 
     <div class="col-sm-3">
-        <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}" class="form-control"
+        <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}" class="form-control"
                ng-model="formData.dueDate"
                is-open="opened"/>
     </div>
@@ -747,7 +747,7 @@
             class="required">*</span></label>
 
     <div class="col-sm-3">
-        <input id="{{modelName}}" type="text" sort datepicker-pop="{{df}}" class="form-control"
+        <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}" class="form-control"
                ng-model="formData.updatedExpectedDisbursementDate" is-open="opened"/>
     </div>
     <div class="form-group">
@@ -755,7 +755,7 @@
             translate}}<span class="required">*</span></label>
 
         <div class="col-sm-3">
-            <input id="principal" type="text" name="amount" ng-model="formData.updatedPrincipal" class="form-control"
+            <input id="principal" type="text" autocomplete="off" name="amount" ng-model="formData.updatedPrincipal" class="form-control"
                    number-format required late-Validate>
         </div>
     </div>
@@ -773,19 +773,19 @@
         <tbody>
         <tr ng-repeat="disbursementDetail in disbursementDetails">
             <td ng-hide="disbursementDetail.id">
-                <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" class="form-control"
                        placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                        ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index"
                        min="minDate" max="'2020-06-22'"/>
             </td>
             <td ng-hide="disbursementDetail.id">
-                <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text"
+                <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text" autocomplete="off"
                        ng-model="disbursementDetail.principal"
                        placeholder="{{'label.input.principal' | translate}}">
             </td>
             <td ng-hide="disbursementDetail.id || !isFlatInterestRate">
-                <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="form-control" number-format type="text"
+                <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="form-control" number-format type="text" autocomplete="off"
                        ng-model="disbursementDetail.discountOnDisbursalAmount"
                        placeholder="{{'label.input.discountondisbursalamount' | translate}}">
             </td>
@@ -806,7 +806,7 @@
         <tbody>
         <tr ng-repeat="disbursementDetail in disbursementDetails">
             <td>
-                <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" class="form-control"
                        placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                        ng-model="disbursementDetail.expectedDisbursementDate" ng-disabled="true"
@@ -815,13 +815,13 @@
                        min="minDate" max="'2020-06-22'"/>
             </td>
             <td>
-                <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text"
+                <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text" autocomplete="off"
                        ng-model="disbursementDetail.principal"
                        ng-show="disbursementDetail.actualDisbursementDate == null"
                        placeholder="{{'label.input.principal' | translate}}" ng-disabled="true">
             </td>
             <td ng-hide="disbursementDetail.id && !isFlatInterestRate">
-                <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="form-control" number-format type="text"
+                <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="form-control" number-format type="text" autocomplete="off"
                        ng-model="disbursementDetail.discountOnDisbursalAmount"
                        placeholder="{{'label.input.discountondisbursalamount' | translate}}">
             </td>
@@ -859,7 +859,7 @@
             <label class="control-label col-sm-1">{{ 'label.input.amount' | translate }}<span
                         class="required">*</span></label>
             <div class="col-sm-2">
-                <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" class="form-control" ng-pattern="/^[0-9]*$/"/>
+                <input ng-model="bankAccountTemplate.disbursalAmount" name="columnname" type="text" autocomplete="off" class="form-control" ng-pattern="/^[0-9]*$/"/>
             </div>
             <div class="col-sm-2">
                 <a ng-click="addDisbursalAmount()"><i class="icon-plus icon-white"></i></a>

@@ -30,6 +30,21 @@
 						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<label class="control-label col-sm-2">
+								{{ 'label.input.loanpurposegroup' | translate }}
+							</label>
+							<div class="col-sm-3">
+								<select id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
+										ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
+										class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
+									<option value="">{{'label.selectpurpose' | translate}}</option>
+								</select>
+							</div>
+							<div class="col-sm-3"></div>
+							<div class="col-sm-4"></div>
+						</div>
+						<br>
+						<div class="form-group" ng-if="editLoanAccountdata.productId">
+							<label class="control-label col-sm-2">
 								{{ 'label.input.loanpurpose' | translate }}
 								<span class="required">*</span>:&nbsp;
 							</label>
@@ -51,7 +66,7 @@
 									{{ 'label.heading.chooseloanemipack' | translate }}:
 								</label>
 								<div class="col-sm-3">
-									<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
+									<input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
 								</div>
 							</div>
 							<br>
@@ -132,12 +147,12 @@
 								<td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
 								<td>{{charge.chargeCalculationType.value}}</td>
 								<td>
-									<input id="{{charges[$index].amount}}" class="form-control" number-format type="text" ng-model="charge.amountOrPercentage"
+									<input id="{{charges[$index].amount}}" class="form-control" number-format type="text" autocomplete="off" ng-model="charge.amountOrPercentage"
 									    placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)">
 								</td>
 								<td>{{charge.chargeTimeType.value}}</td>
 								<td>
-									<input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+									<input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
 									    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate"
 									    max="'2020-06-22'" />
 								</td>

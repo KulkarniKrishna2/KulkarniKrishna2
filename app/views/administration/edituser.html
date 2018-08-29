@@ -16,7 +16,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required
+                    <input type="text" autocomplete="off" id="username" name="username" ng-model="formData.username" class="form-control" required
                            late-Validate/>
                 </div>
                 <div class="col-sm-3">
@@ -29,7 +29,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="firstname" name="firstname" value="{{user.firstname}}"
+                    <input type="text" autocomplete="off" id="firstname" name="firstname" value="{{user.firstname}}"
                            ng-model="formData.firstname" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
@@ -42,7 +42,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="lastname" name="lastname" value="{{user.lastname}}"
+                    <input type="text" autocomplete="off" id="lastname" name="lastname" value="{{user.lastname}}"
                            ng-model="formData.lastname" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3">
@@ -104,7 +104,7 @@
                 <label class="control-label col-sm-2" for="mobileNo">{{ 'label.input.mobileNo' | translate }}</label>
     
                 <div class="col-sm-3">
-                    <input type="text" id="mobileNo" class="form-control" ng-model="formData.mobileNo">
+                    <input type="text" autocomplete="off" id="mobileNo" class="form-control" ng-model="formData.mobileNo">
                 </div>
             </div>
 
@@ -112,7 +112,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.joinedon' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input id="joiningDate" sort type="text" datepicker-pop="{{df}}" ng-model="formData.joiningDate"
+                    <input id="joiningDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formData.joiningDate"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>
             </div>

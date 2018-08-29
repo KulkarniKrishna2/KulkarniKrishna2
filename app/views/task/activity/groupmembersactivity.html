@@ -91,7 +91,7 @@
                         <legend>{{'label.heading.groupmembers' | translate}}</legend>
                         <div class="form-group" ng-repeat="members in allMembers">
                             <div class="col-sm-6 col-md-6">
-                                <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})" type="text" />
+                                <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})" type="text" autocomplete="off" />
                             </div>
                             <div class="col-sm-2 col-md-2">
                                 <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,members.id)">
@@ -150,15 +150,15 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-3">
-                                <input placeholder="FIRST NAME" type="text" id="firstname" name="firstname" ng-model="addClientformData.firstname" class="form-control" ng-required="isFirstnameRequired" />
+                                <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="addClientformData.firstname" class="form-control" ng-required="isFirstnameRequired" />
                                 <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
                             </div>
                             <div class="col-sm-3">
-                                <input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename" ng-model="addClientformData.middlename" class="form-control" ng-required="isMiddlenameRequired" />
+                                <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-model="addClientformData.middlename" class="form-control" ng-required="isMiddlenameRequired" />
                                 <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
                             </div>
                             <div class="col-sm-3">
-                                <input placeholder="LAST NAME" type="text" id="lastname" name="lastname" ng-model="addClientformData.lastname" class="form-control" ng-required="isLastnameRequired" />
+                                <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-model="addClientformData.lastname" class="form-control" ng-required="isLastnameRequired" />
                                 <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                             <label class="control-label col-sm-2" for="fullname">{{'label.input.fullname' | translate}}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="fullname" name="fullname" ng-model="addClientformData.fullname" class="form-control" required late-Validate/>
+                                <input type="text" autocomplete="off" id="fullname" name="fullname" ng-model="addClientformData.fullname" class="form-control" required late-Validate/>
                             </div>
                             <div class="col-sm-2">
                                 <form-validate valattributeform="createclientform" valattribute="fullname" />
@@ -183,7 +183,7 @@
                         <label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
                         <label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
                         <div class="col-sm-3">
-                            <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth" min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+                            <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth" min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
                             <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
                         </div>
                         <div class="col-sm-1">
@@ -208,7 +208,7 @@
                             <label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input id="incorpValidityTillDate" type="text" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" />
+                                <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                             <span ng-show="isExternalIdMandatory" class="required">*</span>
                     </label>
                     <div class="col-sm-3" ng-show="showExternalId">
-                        <input type="text" id="externalId" name="external" ng-model="addClientformData.externalId" class="form-control"  ng-required = "isExternalIdMandatory"/>
+                        <input type="text" autocomplete="off" id="externalId" name="external" ng-model="addClientformData.externalId" class="form-control"  ng-required = "isExternalIdMandatory"/>
                     </div>
                     <div class="col-sm-2 paddinglr0px">
                         <form-validate valattributeform="createclientform" valattribute="external"/>
@@ -264,7 +264,7 @@
                             <label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="incorpNumber" ng-model="addClientformData.clientNonPersonDetails.incorpNumber" class="form-control" />
+                                <input type="text" autocomplete="off" id="incorpNumber" ng-model="addClientformData.clientNonPersonDetails.incorpNumber" class="form-control" />
                             </div>
 
                             <label class="control-label col-sm-2">{{'label.input.mainBusinessLine' | translate}}</label>
@@ -301,7 +301,7 @@
                             <label class="control-label col-sm-2" for="remarks">{{'label.input.remarks' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <textarea type="text" id="remarks" ng-model="addClientformData.clientNonPersonDetails.remarks" rows="4" class="form-control" />
+                                <textarea type="text" autocomplete="off" id="remarks" ng-model="addClientformData.clientNonPersonDetails.remarks" rows="4" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -310,7 +310,7 @@
                     <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}<span ng-show="isMobileNumberMandatory"  class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="mobileNo" name="mobileNo" ng-model="addClientformData.mobileNo" ng-pattern={{mobileNumberPattern}} ng-required="isMobileNumberMandatory" class="form-control" />
+                        <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="addClientformData.mobileNo" ng-pattern={{mobileNumberPattern}} ng-required="isMobileNumberMandatory" class="form-control" />
                         <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                         <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
 						{{'label.must.be.ten.digits.numeric' | translate}}</small></span>
@@ -319,7 +319,7 @@
                     <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="alternateMobileNo" name="alternateMobileNo" ng-model="addClientformData.alternateMobileNo" ng-pattern="/^[0-9]+$/" class="form-control" />
+                        <input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="addClientformData.alternateMobileNo" ng-pattern="/^[0-9]+$/" class="form-control" />
                         <span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
                                     <small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
                                         {{'label.mustbenumeric' | translate}}</small></span>
@@ -370,11 +370,11 @@
 
                         <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
                         <div class="col-sm-3">
-                            <input type="text" id="houseNo" ng-model="formAddressData.houseNo" class="form-control" />
+                            <input type="text" autocomplete="off" id="houseNo" ng-model="formAddressData.houseNo" class="form-control" />
                         </div>
                         <label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}</label>
                         <div class="col-sm-3">
-                            <input type="text" id="streetname" name="streetName" ng-model="formAddressData.addressLineOne" class="form-control" />
+                            <input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formAddressData.addressLineOne" class="form-control" />
                         </div>
                         <div class="col-sm-2">
                         </div>
@@ -385,7 +385,7 @@
                             <span ng-show="isVillageTownMandatory" class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="villagename" name="villageTown" ng-model="formAddressData.villageTown" class="form-control" ng-required="isVillageTownMandatory" />
+                            <input type="text" autocomplete="off" id="villagename" name="villageTown" ng-model="formAddressData.villageTown" class="form-control" ng-required="isVillageTownMandatory" />
                         </div>
                         <div class="col-sm-1 paddinglr0px">
                             <form-validate valattributeform="createclientform" valattribute="villageTown" />
@@ -449,7 +449,7 @@
                         </label>
 
                         <div class="col-sm-3" ng-if="!pincode">
-                            <input type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode" name="pincode" ng-model="formAddressData.postalCode" class="form-control" required late-validate="" />
+                            <input type="text" autocomplete="off" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode" name="pincode" ng-model="formAddressData.postalCode" class="form-control" required late-validate="" />
                         </div>
                         <div class="col-sm-1 paddinglr0px">
                             <form-validate valattributeform="createclientform" valattribute="pincode" />
@@ -474,7 +474,7 @@
                             <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input id="activationDate" type="text" name="activationdate" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" />
+                                <input id="activationDate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -483,7 +483,7 @@
                     <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input id="submittedon" type="text" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control" />
+                        <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group" ng-show="showSavingOptions && showOpenSavingsProduct">
@@ -565,7 +565,7 @@
                         <label>{{ 'label.input.principal' | translate }}&nbsp;<span class="required">*</span>:</label>
                     </td>
                     <td class="width31 paddedbottom10" ng-show="!loanaccountinfo.loanEMIPacks">
-                        <input type="text" class="form-control" id="loanAmountRequested" name="loanAmountRequested" ng-model="formData.loanAmountRequested" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                        <input type="text" autocomplete="off" class="form-control" id="loanAmountRequested" name="loanAmountRequested" ng-model="formData.loanAmountRequested" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                         <form-validate valattributeform="newloanapplicationform" valattribute="loanAmountRequested" />
                     </td>
                 </tr>
@@ -583,7 +583,7 @@
                         <label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span class="required">*</span>:</label>
                     </td>
                     <td class="width36 paddedbottom10">
-                        <input id="numberOfRepayments" name="numberOfRepayments" class="form-control" type="text" ng-model="formData.numberOfRepayments" ng-change="calculateTermFrequency()" />&nbsp;
+                        <input id="numberOfRepayments" name="numberOfRepayments" class="form-control" type="text" autocomplete="off" ng-model="formData.numberOfRepayments" ng-change="calculateTermFrequency()" />&nbsp;
                         <form-validate valattributeform="newloanapplicationform" valattribute="numberOfRepayments" />
                     </td>
 
@@ -591,7 +591,7 @@
                         <label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label>
                     </td>
                     <td class="paddedbottom10 width500px">
-                        <input id="repayEvery" name="repayEvery" class="form-control" type="text" ng-model="formData.repayEvery" ng-change="calculateTermFrequency()" />
+                        <input id="repayEvery" name="repayEvery" class="form-control" type="text" autocomplete="off" ng-model="formData.repayEvery" ng-change="calculateTermFrequency()" />
                         <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentPeriodFrequencyEnum" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{termFrequencyType.id}}" ng-change="calculateTermFrequency()" />
                         <form-validate valattributeform="newloanapplicationform" valattribute="repayEvery" />
                     </td>
@@ -603,7 +603,7 @@
                 </tr>
                 <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
                     <td colspan="4">
-                        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}" />
+                        <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}" />
                     </td>
                 </tr>
                 <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
@@ -683,14 +683,14 @@
                     <td class="width14" ng-if="false && loanaccountinfo.canDefineInstallmentAmount" ng-show="!loanaccountinfo.loanEMIPacks">
                         <label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
                     <td class="width36 paddedbottom10" ng-if="false && loanaccountinfo.canDefineInstallmentAmount && !loanaccountinfo.loanEMIPacks">
-                        <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                        <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     </td>
 
                     <td class="width14">
                         <label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
                     </td>
                     <td class="width36 paddedbottom10">
-                        <input id="submittedOnDate" name="submittedOnDate" sort type="text" datepicker-pop="{{df}}" class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
+                        <input id="submittedOnDate" name="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
                         <form-validate valattributeform="newloanapplicationform" valattribute="submittedOnDate" />
                     </td>
                 </tr>
@@ -701,13 +701,13 @@
                     <td class="width14">
                         <label>{{ 'label.input.externalid' | translate }} One:</label>&nbsp;</td>
                     <td class="width36 paddedbottom10">
-                        <input type="text" id="externalIdOne" name="externalIdOne" ng-model="formData.externalIdOne" class="form-control" />
+                        <input type="text" autocomplete="off" id="externalIdOne" name="externalIdOne" ng-model="formData.externalIdOne" class="form-control" />
                     </td>
 
                     <td class="width14">
                         <label>{{ 'label.input.externalid' | translate }} Two:</label>&nbsp;</td>
                     <td class="width36 paddedbottom10">
-                        <input type="text" id="externalIdTwo" name="externalIdTwo" ng-model="formData.externalIdTwo" class="form-control" />
+                        <input type="text" autocomplete="off" id="externalIdTwo" name="externalIdTwo" ng-model="formData.externalIdTwo" class="form-control" />
                     </td>
                 </tr>
                 <tr>
@@ -717,7 +717,7 @@
                     <td class="width14">
                         <label>Max no of Tranche:</label>&nbsp;</td>
                     <td class="width36 paddedbottom10">
-                        <input id="noOfTranche" name="noOfTranche" ng-disabled="true" type="text" ng-model="formData.noOfTranche" class="form-control" number-format maxlength="2" />&nbsp;
+                        <input id="noOfTranche" name="noOfTranche" ng-disabled="true" type="text" autocomplete="off" ng-model="formData.noOfTranche" class="form-control" number-format maxlength="2" />&nbsp;
                     </td>
                     <td></td>
                     <td></td>
@@ -747,12 +747,12 @@
                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                     <td>{{charge.chargeCalculationType.value}}</td>
                     <td>
-                        <input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
+                        <input id="{{charges[$index].amount}}" class="form-control" type="text" autocomplete="off" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
                                     || charge.chargeCalculationType.id == 6 || charge.isAmountNonEditable">
                     </td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
-                        <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="'2020-06-22'" />
+                        <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="'2020-06-22'" />
                     </td>
                     <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>

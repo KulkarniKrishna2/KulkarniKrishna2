@@ -204,7 +204,7 @@
                                     <label class="control-label col-sm-2">{{ 'label.heading.instrument.no' | translate}}
                                         <span class="required">*</span></label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="instrumentionNumber"
+                                        <input type="text" autocomplete="off" class="form-control" id="instrumentionNumber"
                                                name="instrumentionNumber"
                                                ng-model="formData.paymentDetails.instrumentionNumber" required
                                                late-validate=""/>
@@ -220,7 +220,7 @@
                                         }}
                                         <span class="required">*</span></label>
                                     <div class="col-sm-3">
-                                        <input id="instrumentationDate" name="instrumentationDate" type="text"
+                                        <input id="instrumentationDate" name="instrumentationDate" type="text" autocomplete="off"
                                                class="form-control" datepicker-pop="{{df}}"
                                                ng-model="formData.paymentDetails.instrumentationDate" is-open="opened"
                                                min="minDate" max="'2020-06-22'" required late-validate=""/>
@@ -235,7 +235,7 @@
                                     <label class="control-label col-sm-2">{{ 'label.heading.bank' | translate}}<span
                                             class="required">*</span></label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="bankName" name="bankName"
+                                        <input type="text" autocomplete="off" class="form-control" id="bankName" name="bankName"
                                                ng-model="formData.paymentDetails.bankName" required late-validate=""/>
                                     </div>
                                     <div class="col-sm-2">
@@ -247,7 +247,7 @@
                                     <label class="control-label col-sm-2">{{ 'label.input.branch' | translate}}<span
                                             class="required">*</span></label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="branchName" name="branchName"
+                                        <input type="text" autocomplete="off" class="form-control" id="branchName" name="branchName"
                                                ng-model="formData.paymentDetails.branchName" required late-validate=""/>
                                     </div>
                                     <div class="col-sm-2">
@@ -314,7 +314,7 @@
                             <label class="control-label col-sm-2">{{'label.input.select.bill' | translate}}<span
                                     class="required"></span></label>
                             <div class="col-sm-3">
-                                <input type="text" id="billName" name="billName" ng-model="docData.name"
+                                <input type="text" autocomplete="off" id="billName" name="billName" ng-model="docData.name"
                                        class="form-control" placeholder="{{'label.heading.filename'|translate}}"/>
                             </div>
                             <div class="col-sm-3">

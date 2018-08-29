@@ -426,7 +426,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <input id="search" type="text" class="form-control" data-ng-model="search.query" placeholder="{{'label.searchorpress'|translate}}">
+                                    <input id="search" type="text" class="form-control" data-ng-model="search.query" placeholder="{{'label.searchorpress'|translate}}" autocomplete="off">
                                 </div>
                             </form>
                         </div>
@@ -457,6 +457,7 @@
 
     <!-- Le javascript -->
     <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
+    <script type="text/javascript" src="bower_components/devtools-detect/index.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@
          </label>
          <div class="col-sm-3">
             <input  name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
-               type="text" class="form-control"  required late-Validate/>
+               type="text" autocomplete="off" class="form-control"  required late-Validate/>
          </div>
          <div class="col-sm-2">
             <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountHolderName"/>
@@ -32,7 +32,7 @@
          <span class="required">*</span></label>
          <div class="col-sm-3">
             <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-               type="text" class="form-control"  required late-Validate onpaste="return false;"/>
+               type="text" autocomplete="off" class="form-control"  required late-Validate onpaste="return false;"/>
          </div>
          <div class="col-sm-2">
             <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumber"/>
@@ -89,7 +89,7 @@
          <span class="required">*</span></label>
          <div class="col-sm-3">
             <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-               ng-minlength="11" maxlength="11" type="text" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control"  required late-Validate onpaste="return false;"/>
+               ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control"  required late-Validate onpaste="return false;"/>
          </div>
          <div class="col-sm-3">
             <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
@@ -105,7 +105,7 @@
          </label>
          <div class="col-sm-3">
             <input name="micrCode" id="micrCode" ng-model="formData.micrCode"
-               type="text" ng-pattern="regexPattern('micrCode')" class="form-control"/>
+               type="text" autocomplete="off" ng-pattern="regexPattern('micrCode')" class="form-control"/>
          </div>
          <div class="col-sm-2">
             <span ng-show="bankaccountdetail.micrCode.$invalid && bankaccountdetail.micrCode.$dirty">
@@ -117,7 +117,7 @@
          <label class="control-label col-sm-3" >{{'label.input.bankname' | translate}}</label>
          <div class="col-sm-3">
             <input name="bankName" id="bankName" ng-model="formData.bankName"
-               type="text" class="form-control"/>
+               type="text" autocomplete="off" class="form-control"/>
          </div>
       </div>
       <div class="form-group" >
@@ -125,7 +125,7 @@
          </label>
          <div class="col-sm-3">
             <input name="branchName" id="branchName" ng-model="formData.branchName"
-               type="text" class="form-control"/>
+               type="text" autocomplete="off" class="form-control"/>
          </div>
       </div>
       <div class="form-group" >
@@ -133,14 +133,14 @@
          </label>
          <div class="col-sm-3">
             <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
-               type="text" class="form-control"/>
+               type="text" autocomplete="off" class="form-control"/>
          </div>
       </div>
       <div class="form-group" >
          <label class="control-label col-sm-3" >{{'label.input.mobilenumber' | translate}}</label>
          <div class="col-sm-3">
             <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
-               type="text"  class="form-control" ng-pattern="regexPattern('mobileNumber')"/>
+               type="text" autocomplete="off"  class="form-control" ng-pattern="regexPattern('mobileNumber')"/>
          </div>
          <div class="col-sm-2">
             <span ng-show="bankaccountdetail.mobileNumber.$invalid && bankaccountdetail.mobileNumber.$dirty">

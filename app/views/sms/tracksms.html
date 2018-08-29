@@ -58,12 +58,12 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="fromDate" type="text" name="fromDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="fromDate" type="text" autocomplete="off" name="fromDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.fromDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                         </div>
                         <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="toDate" type="text" name="toDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="toDate" type="text" autocomplete="off" name="toDate" datepicker-pop="yyyy-MM-dd"
                                    ng-model="formData.toDate" date-disabled="disabled(date, mode)" is-open="opened"  min="'2000-01-01'" max="restrictDate" class="form-control"/>
                         </div>
                         <button id="save" ng-click="searchSms()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.search' | translate}}</button>

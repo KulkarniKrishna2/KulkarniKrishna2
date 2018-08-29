@@ -27,7 +27,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-md-3">
-	                    <input class="form-control" id="amount" type="text" name="amount" number-format ng-model="formData.amount" required ng-late-Validate/>
+	                    <input class="form-control" id="amount" type="text" autocomplete="off" name="amount" number-format ng-model="formData.amount" required ng-late-Validate/>
 	                    <form-validate valattributeform="savingccountchargeform" valattribute="amount"/>
 	                </div>
 	            </div>
@@ -59,7 +59,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-md-3">
-	                    <input class="form-control" id="feeOnAnnualMonthDay" sort type="text" datepicker-pop="{{df}}"
+	                    <input class="form-control" id="feeOnAnnualMonthDay" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
 	                           ng-model="date.specificduedate" is-open="opened"/>
 	                </div>
 	            </div>
@@ -68,7 +68,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-md-3">
-	                    <input class="form-control" id="feeOnMonthDay" sort type="text" datepicker-pop="dd MMMM" ng-model="date.due"
+	                    <input class="form-control" id="feeOnMonthDay" sort type="text" autocomplete="off" datepicker-pop="dd MMMM" ng-model="date.due"
 	                           is-open="opened"/>
 	                </div>
 	            </div>
@@ -77,7 +77,7 @@
 	                        class="required">*</span></label>
 	
 	                <div class="col-md-3">
-	                    <input type="text" class="form-control" ng-model="formData.feeInterval"/>
+	                    <input type="text" autocomplete="off" class="form-control" ng-model="formData.feeInterval"/>
 	                </div>
 	            </div>
 	        </div>

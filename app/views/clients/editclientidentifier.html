@@ -48,7 +48,7 @@
                 <label class="control-label col-sm-2">{{'label.input.issueddate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="documentIssueDate" type="text" name="documentIssueDate" datepicker-pop="{{df}}"
+                    <input id="documentIssueDate" type="text" autocomplete="off" name="documentIssueDate" datepicker-pop="{{df}}"
                            ng-model="first.documentIssueDate" is-open="opened1" class="form-control"/>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <label class="control-label col-sm-2">{{'label.input.expirydate' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input id="documentExpiryDate" type="text" name="documentExpiryDate" datepicker-pop="{{df}}"
+                    <input id="documentExpiryDate" type="text" autocomplete="off" name="documentExpiryDate" datepicker-pop="{{df}}"
                            ng-model="first.documentExpiryDate" is-open="opened1" class="form-control"/>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="documentKey" type="text" name="identification" ng-model="formData.documentKey"
+                    <input id="documentKey" type="text" autocomplete="off" name="identification" ng-model="formData.documentKey"
                            required="required" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-3" id="col-sm-2" >

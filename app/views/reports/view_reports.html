@@ -49,7 +49,7 @@
         <tab ng-repeat="tab in reportCagegories" heading="{{tab.name}}" select="loanReports(tab)">
             <div>
                 <br>
-                <input ng-model="filterText" type="text" ng-keyup="addLocaleReportName();" class="span marginbottom0px form-control" placeholder="{{ 'label.input.filterbyname' | translate }}">
+                <input ng-model="filterText" type="text" autocomplete="off" ng-keyup="addLocaleReportName();" class="span marginbottom0px form-control" placeholder="{{ 'label.input.filterbyname' | translate }}">
                 <table class="table">
                     <thead>
                     <tr class="graybg">

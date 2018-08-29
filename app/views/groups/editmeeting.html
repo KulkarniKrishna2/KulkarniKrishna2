@@ -108,7 +108,7 @@
                     <label class="control-label text-left">{{'label.input.location' |translate}}</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" ng-model="location" class="form-control">
+                    <input type="text" autocomplete="off" ng-model="location" class="form-control">
                 </div>
             </div>
             <div class="form-group col-sm-12">
@@ -117,7 +117,7 @@
                 <label class="control-label col-sm-2" ng-show="response.uiDisplayConfigurations.labelChanges.calendarChagesEffectiveFrom">{{'label.input.calendar.next.meeting.falls.on' | translate}}<span
                         class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input id="startDate" type="text" datepicker-pop="{{df}}" ng-model="first.date"
+                    <input id="startDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
                            is-open="opened" min="minDate" max="'2020-06-22'" class="form-control"/>
                 </div>
             </div>

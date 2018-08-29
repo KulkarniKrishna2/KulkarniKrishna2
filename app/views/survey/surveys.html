@@ -5,7 +5,7 @@
         <li class="active">{{'label.anchor.surveys' | translate}}</li>
     </ul>
 
-    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+    <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
     <a href="#/admin/system/surveys/create" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>{{'label.button.surveys.create' | translate}}</a>
 
     <table class="table">

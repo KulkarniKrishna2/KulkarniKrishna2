@@ -20,7 +20,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="col-sm-3">
-                        <input type="text" id="name" name="name" ng-model="formData.name" class="form-control"  ng-change="validateName(formData.userPrice)" />
+                        <input type="text" autocomplete="off" id="name" name="name" ng-model="formData.name" class="form-control"  ng-change="validateName(formData.userPrice)" />
                     </div>
                     <div class="col-sm-3" ng-show="requiredName">
                         <span  class="ng-scope" >
@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
                     <div class="col-sm-4">
-                        <textarea type="text" rows="4" name="description" ng-model="formData.description" class="form-control"></textarea>
+                        <textarea type="text" autocomplete="off" rows="4" name="description" ng-model="formData.description" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -48,7 +48,7 @@
                     <label class="control-label col-sm-2" ng-show="formData.isPercentage">{{ 'label.input.percentageprice' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
-                        <input type="text" number-format="number" name="price" ng-model="formData.price"  ng-change="validatePrice(formData.userPrice)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' class="form-control"/>
+                        <input type="text" autocomplete="off" number-format="number" name="price" ng-model="formData.price"  ng-change="validatePrice(formData.userPrice)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' class="form-control"/>
                     </div>
                     <div class="col-sm-3" ng-show="requiredPrice">
                         <span  class="ng-scope" >

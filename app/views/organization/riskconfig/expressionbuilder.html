@@ -22,7 +22,7 @@
                         </span>
                         <span ng-if="filterfieldsmap[childnode.expression.parameter].options  == undefined && filterfieldsmap[childnode.expression.parameter].comparatorMap[childnode.expression.comparator].noinput != 'true'">
 
-                            <input ng-model="childnode.expression.value" type="text" value="{{childnode.expression.value}}" />
+                            <input ng-model="childnode.expression.value" type="text" autocomplete="off" value="{{childnode.expression.value}}" />
                         </span>
                         <button ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><i class="icon-remove icon-white"></i></button>
                     </div>

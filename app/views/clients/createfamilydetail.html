@@ -24,7 +24,7 @@
                 <div class="form-group" ng-show="isExisitingClient == true">
                     <label class="control-label col-sm-2">{{ 'label.input.searchformember' | translate }}</label>
                     <div class="col-sm-4 col-md-4">
-                        <input id="members" type="text" ng-model="available" class="col-md-4 form-control" typeahead-min-length="1" typeahead-editable="false"
+                        <input id="members" type="text" autocomplete="off" ng-model="available" class="col-md-4 form-control" typeahead-min-length="1" typeahead-editable="false"
                             typeahead="client as client.entityName for client in clientOptions($viewValue)" typeahead-on-select="viewClient(available)"
                         />
                     </div>
@@ -56,7 +56,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="FIRST NAME" type="text" id="firstname" name="firstname" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.firstname"
+                        <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.firstname"
                             class="form-control" ng-required="isFirstnameRequired" ng-autofocus="true"/>
                     </div>
                     <div class="col-sm-2">
@@ -70,7 +70,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="MIDDLE NAME" type="text" id="middlename" name="middlename" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.middlename"
+                        <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.middlename"
                             class="form-control" ng-required="isMiddlenameRequired" />
                         
                     </div>
@@ -85,7 +85,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="LAST NAME" type="text" id="lastname" name="lastname" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.lastname"
+                        <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.lastname"
                             class="form-control" ng-required="isLastnameRequired" />
                       
                     </div>
@@ -100,7 +100,7 @@
                        
                     </label>
                     <div class="col-sm-3">
-                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="{{df}}" ng-model="formData.dateOfBirth" 
+                        <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="formData.dateOfBirth" 
                              is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
                         <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
                             | translate}}</span>
@@ -115,7 +115,7 @@
                         </label>
     
                         <div class="col-sm-2">
-                            <input id="age" type="text" name="age"
+                            <input id="age" type="text" autocomplete="off" name="age"
                                    ng-model="formData.age" class="form-control" placeholder="{{formData.age}}"/>
                         </div>
                         <div class="col-sm-2">
@@ -162,7 +162,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="documentKey" name="documentKey" ng-model="formData.documentKey" class="form-control" required late-validate/>
+                        <input type="text" autocomplete="off" id="documentKey" name="documentKey" ng-model="formData.documentKey" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createFamilyDetails" valattribute="uniqueNo" />

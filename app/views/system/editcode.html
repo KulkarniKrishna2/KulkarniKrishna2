@@ -13,19 +13,19 @@
         <div class="left paddedbottom10">
         <div class="col-sm-2">
             <input name="codevalue" ng-model="newEle.name" placeholder="{{ 'label.input.codevalue' | translate }}"
-                   type="text" class="form-control"/>
+                   type="text" autocomplete="off" class="form-control"/>
         </div>
         <div class="col-sm-3">
             <textarea name="description" ng-model="newEle.description" placeholder="{{ 'label.input.description' | translate }}"
-                   type="text" class="form-control"/>
+                   type="text" autocomplete="off" class="form-control"/>
         </div>
         <div class="col-sm-2">
             <input name="position" ng-model="newEle.position" placeholder="{{ 'label.input.position' | translate }}"
-                   type="text" class="form-control"/>
+                   type="text" autocomplete="off" class="form-control"/>
         </div>
             <div class="col-sm-2">
                 <input name="position" ng-model="newEle.codeScore" placeholder="{{ 'label.input.codeScore' | translate }}"
-                       type="text" class="form-control"/>
+                       type="text" autocomplete="off" class="form-control"/>
             </div>
             <div class ="col-sm-2">
                 <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
@@ -49,10 +49,10 @@
         </div>
         </div>
     <div  class="left paddedbottom10" data-ng-repeat="codevalue in codevalues">
-        <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;
-        <input disabled="" placeholder={{codevalue.description}} type="text"/>&nbsp;&nbsp;
-        <input disabled="" placeholder={{codevalue.position}} type="text"/>&nbsp;&nbsp;
-        <input disabled="" placeholder={{codevalue.codeScore}} type="text"/>&nbsp;&nbsp;
+        <input disabled="" placeholder={{codevalue.name}} type="text" autocomplete="off"/>&nbsp;&nbsp;
+        <input disabled="" placeholder={{codevalue.description}} type="text" autocomplete="off"/>&nbsp;&nbsp;
+        <input disabled="" placeholder={{codevalue.position}} type="text" autocomplete="off"/>&nbsp;&nbsp;
+        <input disabled="" placeholder={{codevalue.codeScore}} type="text" autocomplete="off"/>&nbsp;&nbsp;
         <a ng-click='deleteCv(codevalue.id)' has-permission='DELETE_CODEVALUE'><i class="icon-remove"></i></a>
     </div>
     <div class="pull-right" data-ng-show="stat">

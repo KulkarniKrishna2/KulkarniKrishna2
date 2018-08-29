@@ -37,7 +37,7 @@
                         DateFormat}}</label>
                     <label data-ng-if="editSecurityPDCIndex == $index">
                         <input id="editSecurityChequeDate{{pdc.chequeType.id}}"
-                               name="editSecurityChequeDate{{pdc.chequeType.id}}" sort type="text"
+                               name="editSecurityChequeDate{{pdc.chequeType.id}}" sort type="text" autocomplete="off"
                                datepicker-pop="{{df}}"
                                class="form-control"
                                ng-model="editSecurityPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
@@ -48,7 +48,7 @@
                     <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.chequeAmount |
                         number}}</label>
                     <label data-ng-if="editSecurityPDCIndex == $index">
-                        <input type="text" class="form-control" id="editSecurityChequeAmount{{pdc.chequeType.id}}"
+                        <input type="text" autocomplete="off" class="form-control" id="editSecurityChequeAmount{{pdc.chequeType.id}}"
                                name="editSecurityChequeAmount{{pdc.chequeType.id}}"
                                ng-model="editSecurityPDCData.chequeAmount"
                                number-format/>
@@ -58,7 +58,7 @@
                     <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.bankName}}</label>
                     <label data-ng-if="editSecurityPDCIndex == $index">
                         <input id="editSecurityBankName{{pdc.chequeType.id}}"
-                               name="editSecurityBankName{{pdc.chequeType.id}}" type="text" maxlength="100"
+                               name="editSecurityBankName{{pdc.chequeType.id}}" type="text" autocomplete="off" maxlength="100"
                                class="form-control" ng-model="editSecurityPDCData.bankName"/>
                     </label>
                 </td>
@@ -66,7 +66,7 @@
                     <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.branchName}}</label>
                     <label data-ng-if="editSecurityPDCIndex == $index">
                         <input id="editSecurityBranchName{{pdc.chequeType.id}}"
-                               name="editSecurityBranchName{{pdc.chequeType.id}}" type="text"
+                               name="editSecurityBranchName{{pdc.chequeType.id}}" type="text" autocomplete="off"
                                maxlength="100" class="form-control"
                                ng-model="editSecurityPDCData.branchName"/>
                     </label>
@@ -75,7 +75,7 @@
                     <label class="pointer" data-ng-if="editSecurityPDCIndex != $index">{{pdc.ifscCode}}</label>
                     <label data-ng-if="editSecurityPDCIndex == $index">
                         <input id="editSecurityIfscCode{{pdc.chequeType.id}}"
-                               name="editSecurityIfscCode{{pdc.chequeType.id}}" type="text" maxlength="50"
+                               name="editSecurityIfscCode{{pdc.chequeType.id}}" type="text" autocomplete="off" maxlength="50"
                                class="form-control" ng-model="editSecurityPDCData.ifscCode"/>
                     </label>
                 </td>
@@ -144,7 +144,7 @@
                         DateFormat}}</label>
                     <label data-ng-if="editRepaymentPDCIndex == $index">
                         <input id="editChequeDate{{pdc.chequeType.id}}"
-                               name="editChequeDate{{pdc.chequeType.id}}" sort type="text"
+                               name="editChequeDate{{pdc.chequeType.id}}" sort type="text" autocomplete="off"
                                datepicker-pop="{{df}}"
                                class="form-control"
                                ng-model="editRepaymentPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
@@ -155,7 +155,7 @@
                     <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.bankName}}</label>
                     <label data-ng-if="editRepaymentPDCIndex == $index">
                         <input id="editBankName{{pdc.chequeType.id}}"
-                               name="editBankName{{pdc.chequeType.id}}" type="text" maxlength="100"
+                               name="editBankName{{pdc.chequeType.id}}" type="text" autocomplete="off" maxlength="100"
                                class="form-control" ng-model="editRepaymentPDCData.bankName"/>
                     </label>
                 </td>
@@ -163,7 +163,7 @@
                     <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.branchName}}</label>
                     <label data-ng-if="editRepaymentPDCIndex == $index">
                         <input id="editBranchName{{pdc.chequeType.id}}"
-                               name="editBranchName{{pdc.chequeType.id}}" type="text"
+                               name="editBranchName{{pdc.chequeType.id}}" type="text" autocomplete="off"
                                maxlength="100" class="form-control"
                                ng-model="editRepaymentPDCData.branchName"/>
                     </label>
@@ -172,7 +172,7 @@
                     <label class="pointer" data-ng-if="editRepaymentPDCIndex != $index">{{pdc.ifscCode}}</label>
                     <label data-ng-if="editRepaymentPDCIndex == $index">
                         <input id="editIfscCode{{pdc.chequeType.id}}"
-                               name="editIfscCode{{pdc.chequeType.id}}" type="text" maxlength="50"
+                               name="editIfscCode{{pdc.chequeType.id}}" type="text" autocomplete="off" maxlength="50"
                                class="form-control" ng-model="editRepaymentPDCData.ifscCode"/>
                     </label>
                 </td>

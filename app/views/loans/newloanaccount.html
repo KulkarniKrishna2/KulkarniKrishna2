@@ -61,7 +61,7 @@
         <td><label>{{ 'label.input.submittedon' | translate }}<span ng-hide="isSubmittedOnReadOnlyType" class="required">*</span>:&nbsp;</label>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.submittedon' | translate}}"></i></td>
         <td class="paddedbottom10">
-            <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="{{df}}"
+            <input type="text" autocomplete="off" id="submittedOnDate" name="submittedon" datepicker-pop="{{df}}"
                    ng-model="date.first" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-disabled="submittedOnReadOnlyType"/>
         </td>
         <td>
@@ -69,7 +69,7 @@
             <i class="icon-question-sign" tooltip="{{'label.tooltip.disbursementon' | translate}}"></i>
         </td>
         <td class="paddedbottom10">
-            <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon" required
+            <input id="expectedDisbursementDate" sort type="text" autocomplete="off" name="expecteddisbursementon" required
                    datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate"
                    max="'2020-06-22'" class="form-control"/>
             <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
@@ -78,12 +78,12 @@
     <tr ng-show="formData.productId && showExternalId">
         <td><label>{{ 'label.input.loanexternalid' | translate }}&nbsp;<span ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId" class="required">*</span></label></td>
         <td class="paddedbottom10" ng-if ="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
-            <input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control"
+            <input type="text" autocomplete="off" id="externalId" name="external" ng-model="formData.externalId" class="form-control"
                    required late-Validate/>
             <form-validate valattributeform="newloanaccountform" valattribute="external"/>
         </td>
         <td class="paddedbottom10" ng-if ="!response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
-            <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control" ng-readonly="extenalIdReadOnlyType"
+            <input type="text" autocomplete="off" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control" ng-readonly="extenalIdReadOnlyType"
                     />
         </td>
     </tr>
@@ -251,7 +251,7 @@
                         </select>
                         </td>
                         <td>
-                            <input  type="text"
+                            <input  type="text" autocomplete="off"
                                     class="form-control principal"
                                     name="principal"
                                     ng-model="client.transactionAmount"
@@ -271,7 +271,7 @@
                     <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
                 </td>
                 <td >
-                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1" placeholder="{{'label.input.filterbytext' | translate}}"/>
+                    <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control width100 col-sm-offset-1" placeholder="{{'label.input.filterbytext' | translate}}"/>
                 </td>
             </tr>
         </table> 
@@ -317,14 +317,14 @@
                 <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
                 <td class="width31 paddedbottom10">
-                    <input type="text"  class="form-control" id="principal" name="principal" ng-model="formData.principal"
-                           number-format required late-Validate  ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                    <input type="text" autocomplete="off" class="form-control" id="principal" name="principal" ng-model="formData.principal"
+                           number-format required late-Validate ng-change="updateSlabBasedAmountOnChangePrincipalOrRepayment()" ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="newloanaccountform" valattribute="principal"/>
                 </td>
                 <td class="width14"><label ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1">{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>
                 </td>
                 <td class="width36 paddedbottom10">
-                    <input ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1" id="loanTermFrequency" class="form-control" name="loanterm" type="text"
+                    <input ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1" id="loanTermFrequency" class="form-control" name="loanterm" type="text" autocomplete="off"
                            ng-model="loanTerm" value="{{loanTermCalculation()}}" required late-Validate/>
                     <select ng-hide="formData.repaymentFrequencyType == 2 && selectedOnDayOfMonthOptions.length > 1" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanTermFrequencyType == true" id="loanTermFrequencyType" class="form-control" ng-model="formData.loanTermFrequencyType"
                             ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
@@ -336,14 +336,14 @@
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.numberOfRepayments == true"><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span class="required">*</span></label>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.numberOfRepayments == true">
-                    <input id="numberOfRepayments" class="form-control" name="numofrepayments" type="text"
+                    <input id="numberOfRepayments" class="form-control" name="numofrepayments" type="text" autocomplete="off"
                            ng-model="formData.numberOfRepayments" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepayment()" required late-Validate/>&nbsp;
                     <form-validate valattributeform="newloanaccountform" valattribute="numofrepayments"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true"><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
                 <td class="paddedbottom10 width500px" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true">
                 
-                    <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
+                    <input id="repaymentEvery" class="form-control" type="text" autocomplete="off" name="repaidevery"
                            ng-model="formData.repaymentEvery" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery" required late-Validate/>
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
@@ -409,7 +409,7 @@
                     <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="{{df}}"
+                    <input id="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
                            ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" name="repaymentsStartingFromDate"
                             ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-disabled="firstRepaymentDateReadOnlyType"/>
                     <form-validate valattributeform="newloanaccountform" valattribute="repaymentsStartingFromDate"/>
@@ -417,7 +417,7 @@
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label>
                 <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
-                    <input id="interestChargedFromDate" type="text" datepicker-pop="{{df}}" ng-model="date.third"
+                    <input id="interestChargedFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.third"
                            is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate"/>
                 </td>
             </tr>
@@ -426,7 +426,7 @@
                 <td><label>{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
-                    <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate" required
+                    <input id="interestRatePerPeriod" class="form-control" type="text" autocomplete="off" name="nominalinterestrate" required
                            ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod" ng-if = "!interestRatesListAvailable"/> 
 
                     <select id="interestRatePerPeriod" ng-model="formData.interestRatePerPeriod"
@@ -449,7 +449,7 @@
                 <td><label>{{ 'label.heading.floatinginterestratedifferential' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
-                    <input id="interestratedifferential" class="form-control" type="text" name="interestratedifferential" ng-model="formData.interestRateDifferential"/>
+                    <input id="interestratedifferential" class="form-control" type="text" autocomplete="off" name="interestratedifferential" ng-model="formData.interestRateDifferential"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="width36 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
@@ -491,13 +491,13 @@
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true"><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true">
-                    <input id="inArrearsTolerance" type="text"
+                    <input id="inArrearsTolerance" type="text" autocomplete="off"
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.inArrearsTolerance"
                            ng-model="formData.inArrearsTolerance" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestCharged == true"><label>{{ 'label.input.interestfreeperiod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestCharged == true">
-                    <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged" class="form-control"/>
+                    <input id="graceOnInterestCharged" type="text" autocomplete="off" ng-model="formData.graceOnInterestCharged" class="form-control"/>
                 </td>
             </tr>
             <tr>
@@ -513,19 +513,19 @@
                     <lable>{{'label.input.grace' | translate }}:</lable>
                     <i class="icon-question-sign" tooltip="{{'label.tooltip.moratorium' | translate}}"></i>
                     <label>{{'label.input.onprincipalpayment' | translate}}</label>
-                    <input id="graceOnPrincipalPayment" type="text" class="input-mini-small"
+                    <input id="graceOnPrincipalPayment" type="text" autocomplete="off" class="input-mini-small"
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
                            ng-model="formData.graceOnPrincipalPayment">
                     <label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true">{{'label.input.oninterestpayment' | translate}}</label>
-                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true" id="graceOnInterestPayment" type="text" class="input-mini-small"
+                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true" id="graceOnInterestPayment" type="text" autocomplete="off" class="input-mini-small"
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
                            ng-model="formData.graceOnInterestPayment">
 					<label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods">{{'label.input.recurringmoratoriumonprincipalperiods' | translate}}</label>
-                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods" id="recurringMoratoriumOnPrincipalPeriods" type="text" class="input-mini-small"
+                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods" id="recurringMoratoriumOnPrincipalPeriods" type="text" autocomplete="off" class="input-mini-small"
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
                            ng-model="formData.recurringMoratoriumOnPrincipalPeriods">
                     <label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true">{{'label.input.onduedate' | translate}}</label>
-                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true" id="graceOnArrearsAgeing" type="text" class="input-mini-small"
+                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true" id="graceOnArrearsAgeing" type="text" autocomplete="off" class="input-mini-small"
                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing" ng-model="formData.graceOnArrearsAgeing">
                 </td>
             </tr>
@@ -546,7 +546,7 @@
             <tr data-ng-show="loanaccountinfo.product.isFlatInterestRate && !loanaccountinfo.product.multiDisburseLoan">
                 <td ><label>{{ 'label.input.discountondisbursalamount' | translate }}</label></td>
                 <td class="paddedbottom10">
-                    <input id="discountOnDisbursalAmount" type="text" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
+                    <input id="discountOnDisbursalAmount" type="text" autocomplete="off" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.allowUpfrontCollection">
@@ -554,7 +554,7 @@
                     <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
                 </td>
                 <td>
-                    <input id="amountForUpfrontCollection" type="text" ng-model="formData.amountForUpfrontCollection"
+                    <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formData.amountForUpfrontCollection"
                            class="form-control" number-format/>
                 </td>
             </tr>
@@ -563,7 +563,7 @@
                     <label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;
                 </td>
                 <td class="paddedbottom10">
-                    <input id="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
+                    <input id="fixedEmiAmount" type="text" autocomplete="off" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
                 </td>
             </tr>
             
@@ -703,14 +703,14 @@
                     <label>{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate }}:&nbsp;</label>
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
-                    <input type="text" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="{{df}}"
+                    <input type="text" autocomplete="off" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="{{df}}"
                            ng-model="recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" />
                 </td>
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <label>{{ 'label.input.frequenc.date.for.compounding' | translate }}:&nbsp;</label>
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
-                    <input id="recalculationCompoundingFrequencyStartDate" type="text" name="recalculationCompoundingFrequencyStartDate"
+                    <input id="recalculationCompoundingFrequencyStartDate" type="text" autocomplete="off" name="recalculationCompoundingFrequencyStartDate"
                            datepicker-pop="{{df}}" ng-model="recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
                            class="form-control"/>
                     <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
@@ -727,7 +727,7 @@
                     <tr>
                         <td class="width14"><label>{{'label.input.outstandingloanbalance' | translate}}:</label></td>
                         <td class="width36 paddedbottom10">
-                            <input id="maxOutstandingLoanBalance" type="text"
+                            <input id="maxOutstandingLoanBalance" type="text" autocomplete="off"
                                    ng-model="formData.maxOutstandingLoanBalance" class="form-control" number-format/>&nbsp;
                             <a title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()"><i
                                     class="icon-plus icon-white"></i></a>
@@ -746,21 +746,21 @@
                     <tbody>
                     <tr ng-repeat="disbursementDetail in formData.disbursementData">
                         <td>
-                            <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                            <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text" autocomplete="off"
                                    datepicker-pop="{{df}}"
                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                    ng-model="disbursementDetail.expectedDisbursementDate"
                                    is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" class="form-control"/>
                         </td>
                         <td>
-                            <input id="{{disbursementDetail[$index].principal}}"  class="input-sm form-control" number-format type="text"
+                            <input id="{{disbursementDetail[$index].principal}}"  class="input-sm form-control" number-format type="text" autocomplete="off"
                                    ng-model="disbursementDetail.principal"
                                    name="trancheAmount" id="trancheAmount" required=""
                                    placeholder="{{'label.input.principal' | translate}}">
                             <form-validate valattributeform="newloanaccountform" valattribute="trancheAmount"/>
                         </td>
                         <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
-                            <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text"
+                            <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text" autocomplete="off"
                                    ng-model="disbursementDetail.discountOnDisbursalAmount"
                                    name="discountOnDisbursalAmount"
                                    placeholder="{{'label.input.discountondisbursalamount' | translate}}">
@@ -785,7 +785,7 @@
                          <form-validate valattributeform="newloanaccountform" valattribute="groupId"/>
                     </div>
                     <div class="col-sm-3" ng-if="parentGroups.length == 1">
-                        <input type="text" value="{{parentGroups[0].name}}" 
+                        <input type="text" autocomplete="off" value="{{parentGroups[0].name}}" 
                         class="form-control" ng-model = "formData.groupId" ng-init="formData.groupId = parentGroups[0].id" readonly/> 
                     </div>
                 </div>
@@ -816,11 +816,11 @@
                 <tr ng-repeat="charge in charges">
                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                     <td>{{charge.chargeCalculationType.value}}</td>
-                    <td><input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount"
+                    <td><input id="{{charges[$index].amount}}" class="form-control" type="text" autocomplete="off" ng-model="charge.amount"
                                placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
-                        <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="{{df}}" class="form-control"
+                        <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
                                is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee" min="minDate" max="'2020-06-22'"/>
                     </td>
@@ -842,7 +842,7 @@
                         <tr ng-repeat="glim in charges[outerIndex].glims">
                             <td>{{glim.displayName}}</td>
                             <td>{{glim.accountNo}}</td>
-                            <td><input id="" class="form-control" type="text" ng-model="glim.upfrontChargeAmount" 
+                            <td><input id="" class="form-control" type="text" autocomplete="off" ng-model="glim.upfrontChargeAmount" 
                                        placeholder="{{'label.input.amount' | translate}}"  ng-change="glimAutoCalFlatFeeAmount(outerIndex, charge.glims)" number-format
                                        ng-readonly="charges[outerIndex].chargeCalculationType.value == slabBasedCharge">
                             </td>
@@ -864,7 +864,7 @@
                         <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
                         <td>{{charge.chargeData.chargeCalculationType.value}}</td>
                         <td ng-if="isAmountNonEditable">{{charge.chargeData.amount | number}}</td>
-                        <td ng-if="!isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text" ng-model="charge.chargeData.amount"
+                        <td ng-if="!isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text" autocomplete="off" ng-model="charge.chargeData.amount"
                             placeholder="{{'label.input.amount' | translate}}" number-format /></td>
                         <td>{{charge.chargeData.chargeTimeType.value}}</td>
                     </tr>
@@ -934,9 +934,9 @@
                         ng-options="collateralTemplate.name for collateralTemplate in collateralOptions"
                         value="{{collateralTemplate.id}}" class="form-control width170px">
                 </select>&nbsp;&nbsp;
-                <input class="form-control" type="text" ng-model="collateralFormData.collateralValueTemplate"
+                <input class="form-control" type="text" autocomplete="off" ng-model="collateralFormData.collateralValueTemplate"
                        placeholder="{{'label.input.value' | translate}}" number-format>&nbsp;&nbsp;
-                <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate"
+                <input type="text" autocomplete="off" ng-model="collateralFormData.collateralDescriptionTemplate"
                        placeholder="{{'label.input.description' | translate}}" class="form-control">
                 <a ng-click="addCollateral()">&nbsp;<i class="icon-plus icon-white"></i></a>
             </div>
@@ -949,10 +949,10 @@
                     <th>{{'label.heading.actions' | translate}}</th>
                 </tr>
                 <tr ng-repeat="collateral in collaterals">
-                    <td><input type="text" class="input-sm form-control" ng-model="collateral.name" readonly></td>
-                    <td><input id="{{collaterals[$index].value}}" type="text" class="form-control"
+                    <td><input type="text" autocomplete="off" class="input-sm form-control" ng-model="collateral.name" readonly></td>
+                    <td><input id="{{collaterals[$index].value}}" type="text" autocomplete="off" class="form-control"
                                ng-model="collateral.value"></td>
-                    <td><input id="{{collaterals[$index].description}}" type="text" ng-model="collateral.description"
+                    <td><input id="{{collaterals[$index].description}}" type="text" autocomplete="off" ng-model="collateral.description"
                                placeholder="{{'label.input.description' | translate}}" class="form-control"/></td>
                     <td><a ng-click="deleteCollateral($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>

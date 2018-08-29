@@ -19,7 +19,7 @@
 		<div>
 			<table class="table">
 				<thead>
-						<th class="col-md-1"><input type="checkbox" ng-model="centerDetails.isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
+						<th class="col-md-1"><input type="checkbox" ng-model="centerDetails.isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllClients(centerDetails, centerDetails.isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask"/></th>
 						<th class="col-md-2">{{'label.heading.name' | translate}}</th>
 						<th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
 						<th class="col-md-1">{{'label.heading.age' | translate}}</th>
@@ -117,7 +117,7 @@
 				</div>
 				<label class="control-label col-sm-2" for="externalId" ng-show="showGroupExternalId">{{'label.input.groupexternalid' | translate}}</label>
 				<div class="col-sm-3" ng-show="showGroupExternalId">
-					<input type="text" name="externalid" id="externalId" ng-model="formData.externalId" class="form-control" />
+					<input type="text" autocomplete="off" name="externalid" id="externalId" ng-model="formData.externalId" class="form-control" />
 				</div>
 			</div>
 		</div>

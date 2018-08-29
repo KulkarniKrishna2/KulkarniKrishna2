@@ -13,7 +13,7 @@
                 <label class="control-label col-sm-2" for="sealnumber">{{ 'label.input.sealnumber' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="sealnumber" name="sealnumber" ng-model="formData.sealNumber"  class="form-control" />
+                    <input type="text" autocomplete="off" id="sealnumber" name="sealnumber" ng-model="formData.sealNumber"  class="form-control" />
                 </div>
             </div>
             <br>
@@ -64,10 +64,10 @@
                     <div  ng-switch="collateralQualityStandards.typeClassifier"  class="form-group"  ng-show="collateralQualityStandards.typeClassifier==1 || collateralQualityStandards.typeClassifier==2">
                         <label class="control-label col-sm-2">{{ 'label.input.grossweightingm' | translate }} <span class="required">*</span></label>
                         <div class="col-sm-4" ng-switch-when="1">
-                            <input type="text" number-format="number" name="grossWeight" ng-model="formData.collateralDetails.grossWeight" ng-change="validateGrossWeight(formData.collateralDetails.grossWeight)" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' />
+                            <input type="text" autocomplete="off" number-format="number" name="grossWeight" ng-model="formData.collateralDetails.grossWeight" ng-change="validateGrossWeight(formData.collateralDetails.grossWeight)" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' />
                         </div>
                         <div class="col-sm-4" ng-switch-when="2">
-                            <input type="text" number-format="number" name="grossWeight"  ng-model="formData.collateralDetails.grossWeight" ng-change="validateGrossWeight(formData.collateralDetails.grossWeight)" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' />
+                            <input type="text" autocomplete="off" number-format="number" name="grossWeight"  ng-model="formData.collateralDetails.grossWeight" ng-change="validateGrossWeight(formData.collateralDetails.grossWeight)" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' />
                         </div>
                         <div class="col-sm-3" ng-show="requiredGrossWeight">
                             <span  class="ng-scope" >
@@ -80,7 +80,7 @@
                     <div class="form-group" ng-show="collateralQualityStandards.typeClassifier==1 || collateralQualityStandards.typeClassifier==2">
                         <label class="control-label col-sm-2">{{ 'label.input.stoneweightingm' | translate }}</label>
                         <div class="col-sm-4" >
-                            <input type="text"  ng-model="formData.collateralDetails.stoneWeight" ng-change="validateStoneWeight(formData.collateralDetails.stoneWeight)" number-format="number" rows="4" name="stoneWeight" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)'/>
+                            <input type="text" autocomplete="off"  ng-model="formData.collateralDetails.stoneWeight" ng-change="validateStoneWeight(formData.collateralDetails.stoneWeight)" number-format="number" rows="4" name="stoneWeight" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)'/>
                         </div>
                         <div class="col-sm-4" ng-show="!invalidStoneWeight">
                             {{'label.netweightis' | translate}} {{formData.collateralDetails.grossWeight-formData.collateralDetails.stoneWeight}} &nbsp;{{'label.gm' | translate}}
@@ -96,14 +96,14 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
                         <div class="col-sm-4">
-                            <textarea type="text" rows="4" name="description" ng-model="formData.collateralDetails.description" class="form-control"></textarea>
+                            <textarea type="text" autocomplete="off" rows="4" name="description" ng-model="formData.collateralDetails.description" class="form-control"></textarea>
                         </div>
                     </div>
                     <hr/>
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.userprice' | translate }}</label>
                         <div class="col-sm-4">
-                            <input type="text" number-format="number" rows="4" name="userPrice"  ng-change="validateUserPrice(formData.collateralDetails.userPrice)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' ng-model="formData.collateralDetails.userPrice" class="form-control"/>
+                            <input type="text" autocomplete="off" number-format="number" rows="4" name="userPrice"  ng-change="validateUserPrice(formData.collateralDetails.userPrice)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' ng-model="formData.collateralDetails.userPrice" class="form-control"/>
                         </div>
                         <div class="col-sm-4" ng-show="((((formData.collateralDetails.grossWeight-formData.collateralDetails.stoneWeight)*(unitPrice))) > -1) && (collateralQualityStandards.typeClassifier != 3) && !invalidUserPrice">
                             {{'label.systemcalculatedpriceis' | translate}} {{((formData.collateralDetails.grossWeight-formData.collateralDetails.stoneWeight)*(unitPrice))}}

@@ -26,7 +26,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="{{df}}"
+            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                    ng-model="formData.submittedDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control"/>
         </td>
@@ -65,7 +65,7 @@
         </td>
 
         <td class="width36 paddedbottom10">
-            <input id="requestedShares" type="text"
+            <input id="requestedShares" type="text" autocomplete="off"
                    name="requestedShares"
                    ng-model="formData.requestedShares" class="form-control"
                    number-format required late-Validate/>
@@ -77,7 +77,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input id="nominalpricevalue" type="text" disabled
+            <input id="nominalpricevalue" type="text" autocomplete="off" disabled
                    name="nominalpricevalue"
                    ng-model="formData.unitPrice" class="form-control"
                    number-format required late-Validate/>
@@ -89,7 +89,7 @@
             <label class="control-label">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;</label></td>
         </td>
         <td class="width36 paddedbottom10">
-            <input type="text" value="{{data.currency.inMultiplesOf}}"
+            <input type="text" autocomplete="off" value="{{data.currency.inMultiplesOf}}"
                    class="form-control" readonly/>
         </td>
         <td class="width14">
@@ -109,7 +109,7 @@
         </td>
         <td class="width36 paddedbottom10">
             <div class="form-inline">
-                <input id="minimumActivePeriod" type="text" class="form-control"
+                <input id="minimumActivePeriod" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.minimumActivePeriod">&nbsp;
                 <select id="minimumActivePeriodFrequencyType" ng-model="formData.minimumActivePeriodFrequencyType"
                         class="form-control width170px"
@@ -124,7 +124,7 @@
         </td>
         <td class="width36 paddedbottom10">
             <div class="form-inline">
-                <input id="lockinPeriodFrequency" type="text" class="form-control"
+                <input id="lockinPeriodFrequency" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.lockinPeriodFrequency">&nbsp;
                 <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
                         class="form-control width170px"
@@ -143,7 +143,7 @@
                 }}&nbsp;<span class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input ng-show="formData.productId" id="applicationdate" sort type="text" datepicker-pop="{{df}}"
+            <input ng-show="formData.productId" id="applicationdate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                    ng-model="formData.applicationDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control"/>
         </td>
@@ -190,7 +190,7 @@
     <tr ng-repeat="charge in charges">
         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
         <td>{{charge.chargeCalculationType.value}}</td>
-        <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
+        <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text" autocomplete="off"
                    ng-model="charge.amount" number-format
                    placeholder="{{'label.input.amount' | translate}}"/></td>
         <td>{{charge.chargeTimeType.value}}</td>
