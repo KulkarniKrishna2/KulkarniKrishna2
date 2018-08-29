@@ -165,8 +165,8 @@
                             var isDocumentRequired = true;
                             for (var i in scope.documentConfiguration.documentRestrictedForTags) {
                                 if (scope.documentConfiguration.documentRestrictedForTags[i].tagName === tagValue) {
-                                    if (scope.documentConfiguration.documentRestrictedForTags[i].reportIdentifiers) {
-                                        if (scope.documentConfiguration.documentRestrictedForTags[i].reportIdentifiers.indexOf(document.reportIdentifier) > -1) {
+                                    if (document.reportIdentifier > 0 && scope.documentConfiguration.documentRestrictedForTags[i].reportIdentifiers) {
+                                        if (scope.documentConfiguration.documentRestrictedForTags[i].reportIdentifiers.indexOf(document.reportIdentifier.toString()) > -1) {
                                             isDocumentRequired = true;
                                         } else {
                                             isDocumentRequired = false;
