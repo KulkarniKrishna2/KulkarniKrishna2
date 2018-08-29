@@ -34,9 +34,10 @@
                 <tr>
                     <th>{{ 'label.heading.name' | translate }}</th>
                     <th>{{ 'label.heading.description' | translate }}</th>
+                    <th>{{ 'label.heading.default.valuedate.type' | translate }}</th>
                     <th>{{ 'label.heading.iscashpayment' | translate }}</th>
                     <th>{{ 'label.heading.position' | translate }}</th>
-                    <th></th>
+                    <th colspan="2">{{ 'label.heading.actions' | translate }}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -46,8 +47,11 @@
                         <span>{{paymentType.name}}</span>
 
                     </td>
-                    <td class="col-md-4">
+                    <td class="col-md-3">
                         <span>{{paymentType.description}}</span>
+                    </td>
+                    <td class="col-md-2">
+                        <span ng-if="paymentType.defaultValueDateType">{{paymentType.defaultValueDateType.value}}</span>
                     </td>
                     <td class="col-md-1">
                         <span>{{paymentType.isCashPayment}}</span>

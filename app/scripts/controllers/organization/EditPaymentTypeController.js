@@ -16,6 +16,7 @@
             scope.showIsCash = true;
             scope.showExternalServices = false;
             scope.showPaymentModeOptions = false;
+            scope.formData = {};
 
 
             resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id,template: 'true'}, function (data) {
@@ -23,6 +24,7 @@
                 scope.applicableOnOptions = data.applicableOnOptions;
                 scope.paymentModeOptions = data.paymentModeOptions;
                 scope.serviceProviderOptions = data.serviceProviderOptions;
+                scope.defaultValueDateTypeOptions = data.defaultValueDateTypeOptions;
 
                 scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
                 scope.formData = {
@@ -72,6 +74,9 @@
                         scope.formData.bankAccountDetails.accountTypeId = data.bankAccountDetails.accountType.id;
                     };
                     scope.formData.bankAccountDetails.locale = scope.optlang.code;
+                }
+                if (!_.isUndefined(data.defaultValueDateType)) {
+                    scope.formData.defaultValueDateType = data.defaultValueDateType.id;
                 }
             });
 

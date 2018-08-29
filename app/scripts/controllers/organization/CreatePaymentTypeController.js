@@ -29,6 +29,7 @@
                     scope.formData.bankAccountDetails.locale = scope.optlang.code;
                 }
                 scope.bankAccountTypeOptions  = data.bankAccountTypeOptions;
+                scope.defaultValueDateTypeOptions = data.defaultValueDateTypeOptions;
             });
  
             scope.changePaymentMode = function(paymentMode){     
