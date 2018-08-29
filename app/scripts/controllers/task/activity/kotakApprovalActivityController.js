@@ -78,9 +78,6 @@
                         }
 
                     }
-                    if(scope.taskInfoTrackArray.length == scope.totalMember){
-                        scope.centerDetails.isAllChecked = true;
-                    }
                 });
 
             };

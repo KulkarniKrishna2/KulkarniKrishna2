@@ -121,6 +121,7 @@
                 $scope.inparams.productApplicableForLoanType = 2;
                 $scope.inparams.entityType = 1;
                 $scope.inparams.entityId = $scope.clientId;
+                $scope.formData = {};
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -351,6 +352,11 @@
                             $scope.interestRatesListAvailable = true;
                         }
                     });
+                    resourceFactory.loanPurposeGroupResource.getAll(function (data) {
+                        $scope.loanPurposeGroups = data;
+                        $scope.editLoanAccountdata.loanPurposeId = null;
+                        $scope.formData.loanPurposeGroupId = null;
+                    });
                 }
 
                 $scope.updateDataFromEmiPack = function(loanEMIPacks){
@@ -457,7 +463,14 @@
                         $scope.editLoanAccountdata.principal = data.loanEMIPackData.sanctionAmount;
                         $scope.editLoanAccountdata.numberOfRepayments = data.loanEMIPackData.numberOfRepayments;
                     }
+                    if($scope.editLoanAccountdata.loanPurposeId) {
+                        resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas: 'true'}, function (loanPurposeGroupsdata) {
+                            $scope.loanPurposeGroups = loanPurposeGroupsdata;
+                            $scope.getParentLoanPurpose($scope.editLoanAccountdata.loanPurposeId);
+                        });
+                    }
                     $scope.getLoanData(data.id);
+
                 }
 
                 $scope.updateSlabBasedChargeForEmiPack = function(loanEMIPackData){
@@ -475,6 +488,28 @@
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
                 };
+                $scope.getParentLoanPurpose = function (loanPurposeId) {
+                    if($scope.loanPurposeGroups && $scope.loanPurposeGroups.length>0){
+                        for(var i=0; i< $scope.loanPurposeGroups.length; i++){
+                            if($scope.loanPurposeGroups[i].loanPurposeDatas && $scope.loanPurposeGroups[i].loanPurposeDatas.length >0){
+
+                                for(var j=0; j< $scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
+                                    if($scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
+                                        $scope.formData.loanPurposeGroupId = $scope.loanPurposeGroups[i].id;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+                $scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
+                    resourceFactory.loanPurposeGroupResource.get({
+                        loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
+                    }, function (data) {
+                        $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                    });
+                }
             }
 
             scope.loanDisburse = function (groupId, activeClientMember) {
