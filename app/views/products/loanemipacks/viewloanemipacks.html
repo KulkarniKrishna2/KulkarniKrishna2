@@ -45,6 +45,7 @@
                     <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 1">{{ 'label.heading.disbursalEmi2' | translate }}</th>
                     <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 2">{{ 'label.heading.disbursalEmi3' | translate }}</th>
                     <th ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 3">{{ 'label.heading.disbursalEmi4' | translate }}</th>
+                    <th>{{'label.input.active' | translate}}</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -83,6 +84,9 @@
                     </td>
                     <td class="col-md-1" ng-show="loanTemplate.multiDisburseLoan && loanTemplate.maxTrancheCount > 3">
                         <span>{{loanEMIPack.disbursalEmi4}}</span>
+                    </td>
+                    <td class="col-md-1">
+                        <span>{{loanEMIPack.isActive}}</span>
                     </td>
                     <td class="col-md-1">
                         <a type="button" has-permission='UPDATE_LOANEMIPACKS'

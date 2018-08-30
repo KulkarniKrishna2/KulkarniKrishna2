@@ -24,10 +24,14 @@
                 scope.formData.disbursalEmi2 = data.disbursalEmi2;
                 scope.formData.disbursalEmi3 = data.disbursalEmi3;
                 scope.formData.disbursalEmi4 = data.disbursalEmi4;
+                scope.formData.isActive = data.isActive;
             });
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
+                if(!this.formData.isActive){
+                    this.formData.isActive = false;
+                }
                 resourceFactory.loanemipack.update({loanProductId:scope.loanProductId, loanEMIPackId:scope.loanEMIPackId},this.formData, function (data) {
                     location.path('/viewloanemipacks/'+scope.loanProductId);
                 });
