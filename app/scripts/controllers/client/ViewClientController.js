@@ -79,7 +79,8 @@
             scope.getCreditBureauReportSummary = function () {
                 if(!scope.clientCreditBureauReportSummaryLoaded){
                     scope.clientCreditBureauReportSummaryLoaded = true;
-                    resourceFactory.creditBureauEnquiriesResource.getAll({
+                    scope.limitForCB = scope.response.uiDisplayConfigurations.creditBureau.getlimit;
+                    resourceFactory.creditBureauEnquiriesResource.getAll({"limit":scope.limitForCB},{
                         entityType: "client",
                         entityId: scope.clientId
                     }, function (data) {
