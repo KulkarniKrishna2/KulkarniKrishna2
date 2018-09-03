@@ -75,7 +75,8 @@
                     return chargesCategory[categoryId];
                 }
             }
-            scope.viewMemberDetails = function (groupId, activeClientMember) {
+
+            scope.openViewMemeberPopUp = function(groupId, activeClientMember){
                 $modal.open({
                     templateUrl: 'views/task/popup/viewmember.html',
                     controller: ViewMemberCtrl,
@@ -88,6 +89,34 @@
                         }
                     }
                 });
+            }
+            scope.openClientValidationPopUp = function(groupId, activeClientMember) {
+                $modal.open({
+                    templateUrl: 'clientvalidation.html',
+                    controller: ClientValidationCtrl,
+                    resolve: {
+                        memberParams: function () {
+                            return { 'groupId': groupId, 'activeClientMember': activeClientMember };
+                        }
+                    }
+                });
+            }
+            var ClientValidationCtrl =  function($scope, $modalInstance,memberParams){
+                $scope.confirm = function () {
+                    $modalInstance.dismiss('cancel');
+                    scope.openViewMemeberPopUp(memberParams.groupId, memberParams.activeClientMember);
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
+            scope.viewMemberDetails = function (groupId, activeClientMember) {
+                if(activeClientMember.subStatus && activeClientMember.subStatus.value === "Blacklist"){
+                    scope.openClientValidationPopUp(groupId, activeClientMember);
+                }else{
+                    scope.openViewMemeberPopUp(groupId, activeClientMember);
+                }
+
             }
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {

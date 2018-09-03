@@ -7275,7 +7275,6 @@
     "label.input.addquery":"Add Query",
     "label.selectquery": "Select Query",
     "label.error.add.query":"Please add query",
-
     "--transfer entities--"  : "Transfer entity",
     "label.anchor.transfer" : "Transfer",
     "label.define.transfer.client.group.center" : "Transfer member, subgroup and centers",
@@ -7295,7 +7294,15 @@
     "label.button.centertransfer" : "Center Transfer",
     "error.msg.branch.transfer.to.same.office" : "Source and destination office can not be same.",
     "label.button.bulk.bank.approval" : "Bulk Bank Approval",
-
-    "------ end of transalation file": "---------"
-
+    "label.button.blacklist" : "Blacklist",
+    "label.input.blacklistdate":"Blacklisted Date",
+    "label.input.blacklistreason":"Blacklisted Reason",
+    "label.anchor.blacklist":"Blacklist",
+    "label.input.whitelistdate":"Whitelisted Date",
+    "label.anchor.whitelist":"Whitelist",
+    "label.button.whitelist":"Whitelist",
+    "validation.msg.client.blacklistDate.cannot.be.blank":"Blacklisted Date should not be blank",
+    "validation.msg.client.whitelistDate.cannot.be.blank" : "Whitelisted Date should not be blank",
+    "label.message.blocked.client":"This client is blocked.Do you want to continue?",
+     "------ end of tensalation file":"---------"
 }
