@@ -768,6 +768,17 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            var DeleteAllDataFromDatatable = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.DataTablesResource.delete({datatablename: scope.apptableNameForDeleteAll, entityId: scope.entityIdforDeleteAll, genericResultSet: 'true'}, {}, function (data) {
+                        $modalInstance.close('delete');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
             var ClientUnassignCtrl = function ($scope, $modalInstance) {
                 $scope.unassign = function () {
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'unassignstaff'}, scope.staffData, function (data) {
@@ -1059,8 +1070,11 @@
                 location.path('/createstandinginstruction/' + scope.client.officeId + '/' + scope.client.id + '/fromsavings');
             };
             scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+                scope.apptableNameForDeleteAll = apptableName;
+                scope.entityIdforDeleteAll = entityId;
+                $modal.open({
+                    templateUrl: 'deletealldatafromdatatable.html',
+                    controller: DeleteAllDataFromDatatable
                 });
             };
 

@@ -97,6 +97,17 @@
         <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
     </div>
 	</script>
+	<script type="text/ng-template" id="deletealldatafromdatatable.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.areyousure.to.delete.all.entries.in.datatable' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+		</script>
     <script type="text/ng-template" id="photo-dialog.html">
         <div class="modal-header silver">
             <img ng-src="{{largeImage}}" alt="Avatar">
