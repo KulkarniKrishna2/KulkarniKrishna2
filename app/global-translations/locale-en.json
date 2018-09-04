@@ -7075,6 +7075,9 @@
     "label.button.reject.eod": "Reject EOD",
     "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
     "validation.msg.eod_process.eodDate.is.greater.than.date" : "Closing date can not be future date",
+
+    "label.sftp.description" : "SFTP server details for transfer",
+    "label.anchor.sftp" : "SFTP",
     
      "------ end of tensalation file":"---------"
 }
