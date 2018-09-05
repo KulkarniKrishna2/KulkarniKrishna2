@@ -12,7 +12,10 @@
                 'MMMM dd yyyy',
                 'MMMM/dd/yyyy',
                 'MM-dd-yy',
-                'yyyy-MM-dd'
+                'yyyy-MM-dd',
+                'dd/MM/yyyy',
+                'dd-MM-yyyy',
+                'dd.MM.yyyy'
             ];
 
             scope.langs = mifosX.models.Langs;
