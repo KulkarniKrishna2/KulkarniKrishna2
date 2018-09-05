@@ -199,7 +199,7 @@
 
                 </div>
                 <div ng-hide="report">
-                    <form class="well form-inline" name="approveloanapplicationform" novalidate="">
+                    <form class="well form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submit()">
                         <div class="span gray-head">
                     <span class="boldlabel">
                           <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
@@ -553,11 +553,13 @@
                                     </td>
                                     <td class="width25 paddedbottom10"
                                         ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                                        <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate"
+                                        <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate1"
                                                type="text" datepicker-pop="dd MMMM yyyy"
                                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
                                                min="minDate" max="'2020-06-22'" class="form-control"
                                                ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                                               <form-validate valattributeform="approveloanapplicationform"
+                                                           valattribute="repaymentsStartingFromDate1"/>
                                     </td>
 
                                     <td class="width19"></td>
@@ -863,8 +865,7 @@
                                     translate}}
                                 </button>
                                 <button id="save" ng-show="formData.status.id === 200"
-                                        type="submit" ng-click="submit()"
-                                        has-permission='APPROVE_LOANAPPLICATIONREFERENCE'
+                                        type="submit" has-permission='APPROVE_LOANAPPLICATIONREFERENCE'
                                         class="btn btn-primary">
                                     {{'label.button.approve' |
                                     translate}}
