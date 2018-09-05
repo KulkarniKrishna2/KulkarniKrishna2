@@ -18,9 +18,9 @@
 
             scope.getFromCenters = function () {
                 scope.sameOfficeError = false;
-                if (fromOfficeId) {
-                    resourceFactory.centerResource.getAllCenters({ officeId: scope.fromOfficeId }, function (data) {
-                        scope.fromCenters = data;
+                if (scope.fromOfficeId) {
+                    resourceFactory.centerResource.getAllCenters({ officeId: scope.fromOfficeId}, function (data) {
+                        scope.fromCenters = data.pageItems;
                     });
                 } else {
                     scope.fromCenters = [];

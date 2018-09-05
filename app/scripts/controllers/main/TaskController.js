@@ -49,7 +49,7 @@
                 if (loanOfficerId) {
                     scope.error =false;
                     resourceFactory.centerResource.getAllCenters({officeId: this.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
-                        scope.centers = data;
+                        scope.centers = data.pageItems;
                     });
 
                     resourceFactory.groupResource.getAllGroups({officeId: this.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
@@ -58,7 +58,7 @@
                 } else {
                     scope.error =false;
                     resourceFactory.centerResource.getAllCenters({officeId: this.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
-                        scope.centers = data;
+                        scope.centers = data.pageItems;
                     });
 
                     resourceFactory.groupResource.getAllGroups({officeId: this.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
@@ -78,7 +78,7 @@
                     });
 
                     resourceFactory.centerResource.getAllCenters({officeId: this.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
-                        scope.centers = data;
+                        scope.centers = data.pageItems;
                     });
 
                     resourceFactory.groupResource.getAllGroups({officeId: this.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
