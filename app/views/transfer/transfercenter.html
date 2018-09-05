@@ -36,7 +36,7 @@
     <div class="col-sm-12">
 
         <div class="col-md-offset-5">
-            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <a id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
             <button id="save" type="submit" ng-click="addCentersToTransfer()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
         </div>
     </div>
@@ -66,7 +66,7 @@
             </tbody>
         </table>
         <div class="col-md-offset-5">
-            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <a id="cancel" class="btn btn-default" ng-click="deleteSubmitDetails()">{{'label.button.cancel' | translate}}</a>
             <button id="submit" type="submit" ng-click="submitDetails()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.submit' | translate}}</button>
         </div>
     </div>
