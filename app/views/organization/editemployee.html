@@ -70,8 +70,15 @@
                 <label class="control-label col-sm-2" for="mobileNo">{{ 'label.input.mobileNo' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="mobileNo" class="form-control" ng-model="formData.mobileNo">
+                    <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" class="form-control" ng-model="formData.mobileNo" ng-pattern="/^[0-9]{10,10}$/">
                 </div>
+                <div class="col-sm-2">
+					<span ng-show="editemployeeform.mobileNo.$invalid && editemployeeform.mobileNo.$dirty">
+						<small class="required" ng-show="editemployeeform.mobileNo.$error.pattern">
+							{{'label.invalid.mobileNumber' | translate}}
+						</small>
+					</span>  
+				</div>
             </div>
 
             <div class="form-group">
@@ -87,7 +94,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.joinedon' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input id="joiningDate" sort type="text" autocomplete="off" readonly datepicker-pop="{{df}}" ng-model="formData.joiningDate"
+                    <input id="joiningDate" sort type="text" autocomplete="off" ng-disabled="true" readonly datepicker-pop="{{df}}" ng-model="formData.joiningDate"
                            class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                 </div>
             </div>
