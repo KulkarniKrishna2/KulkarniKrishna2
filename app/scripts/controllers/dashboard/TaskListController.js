@@ -40,7 +40,7 @@
             };
 
             resourceFactory.centerResource.getAllCenters(function(data){
-                scope.centers = data;
+                scope.centers = data.pageItems;
             });
 
             scope.toggleAll = function() {
