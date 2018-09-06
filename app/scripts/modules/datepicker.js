@@ -403,8 +403,65 @@ angular.module('modified.datepicker', ['strap.position'])
 
                     ngModel.$formatters.push(formatDate);
 
+                    function checkValidDate(value, dateFormat) {
+                        // regular expression to match required date format
+                        var re = "";
+                        if(dateFormat == 'dd/MM/yyyy'){
+                            re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+                        }else if(dateFormat == 'dd-MM-yyyy'){
+                            re = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+                        }else if(dateFormat == 'dd.MM.yyyy'){
+                            re = /^(\d{1,2}).(\d{1,2}).(\d{4})$/;
+                        }
+                        if (value != '') {
+                            if (regs = value.match(re)) {
+                                // day value between 1 and 31
+                                if (regs[1] < 1 || regs[1] > 31) {
+                                    return false;
+                                }
+                                // month value between 1 and 12
+                                if (regs[2] < 1 || regs[2] > 12) {
+                                    return false;
+                                }
+                                // year value between 
+                                if (regs[3].toString().length != 4) {
+                                    return false;
+                                }
+                            } else {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+
                     // TODO: reverse from dateFilter string to Date object
                     function parseDate(value) {
+                        if (_.isUndefined(value) || value == "") {
+                            return;
+                        }
+                        if (dateFormat == 'dd/MM/yyyy' || dateFormat == 'dd-MM-yyyy' || dateFormat == 'dd.MM.yyyy') {
+                            if (!checkValidDate(value, dateFormat)) {
+                                //console.log("Date validation faild : "+value);
+                                return;
+                            }
+                            var re = "";
+                            if(dateFormat == 'dd/MM/yyyy'){
+                                re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+                            }else if(dateFormat == 'dd-MM-yyyy'){
+                                re = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+                            }else if(dateFormat == 'dd.MM.yyyy'){
+                                re = /^(\d{1,2}).(\d{1,2}).(\d{4})$/;
+                            }
+                            if (regs = value.match(re)) {
+                                value = regs[2];
+                                value += "/";
+                                value += regs[1];
+                                value += "/";
+                                value += regs[3];
+                            } else {
+                                return;
+                            }
+                        }
                         if (value) {
                             var date = new Date(value);
                             if (!isNaN(date)) {
@@ -490,9 +547,11 @@ angular.module('modified.datepicker', ['strap.position'])
                     scope.$watch(function () {
                         return ngModel.$modelValue;
                     }, function (value) {
+                        if (_.isUndefined(value) || value == "") {
+                            return;
+                        }
                         if (angular.isString(value)) {
                             var date = parseDate(value);
-
                             if (value && !date) {
                                 $setModelValue(originalScope, null);
                                 throw new Error(value + ' cannot be parsed to a date object.');
