@@ -105,8 +105,16 @@
             };
 
             scope.remove = function (index) {
-                scope.dataList.splice(index, 1)
+                scope.unCheckSelectedCenter(scope.fromCenters,scope.dataList[index]);
+                scope.dataList.splice(index, 1);
             };
+            scope.cancel = function(){
+                location.path('/transfer/viewcentertransfer');
+            }
+            scope.deleteSubmitDetails = function(){
+                scope.unCheckSelectedCenter(scope.fromCenters,scope.dataList)
+                scope.dataList = [];
+            }
 
             scope.submitDetails = function () {
                 scope.formData = {};
@@ -117,6 +125,33 @@
                     location.path('/transfer/viewcentertransfer');
                 });
             };
+            scope.unCheckSelectedCenter = function(centers,dataList){
+                if(angular.isArray(dataList)){
+                    for(var i in dataList){
+                        if (dataList[i].centers) {
+                            for (var j in dataList[i].centers) {
+                                for(var k in centers)
+                                    if (dataList[i].centers[j].id == centers[k].id) {
+                                        centers[k].checked = false;
+                                    }
+                            }
+                        }
+                    }
+                }else{
+                    if(dataList){
+                        if (dataList.centers) {
+                            for (var j in dataList.centers) {
+                                for(var k in centers)
+                                    if (dataList.centers[j].id == centers[k].id) {
+                                        centers[k].checked = false;
+                                    }
+                            }
+                        }
+                    }
+
+                }
+
+            }
         }
     });
     mifosX.ng.application.controller('TransferCenterController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.TransferCenterController]).run(function ($log) {

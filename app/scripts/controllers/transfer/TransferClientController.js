@@ -28,7 +28,7 @@
             scope.getToCenters = function () {
                 if (scope.toOfficeId) {
                     resourceFactory.centerResource.getAllCenters({ officeId: scope.toOfficeId }, function (data) {
-                        scope.toCenters = data;
+                        scope.toCenters = data.pageItems;
                     });
                 } else {
                     scope.toCenters = [];
