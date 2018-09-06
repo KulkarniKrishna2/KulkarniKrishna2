@@ -12,6 +12,9 @@
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
+                if(!this.formData.isActive){
+                    this.formData.isActive = false;
+                }
                 resourceFactory.loanemipack.add({loanProductId:scope.loanProductId},this.formData, function (data) {
                     location.path('/viewloanemipacks/'+scope.loanProductId);
                 });

@@ -189,6 +189,9 @@
         "disbursementPaymentMode":true
       },
       "newLoanApplicationLimitAllowed" : true
+    },
+    "creditBureau":{
+      "getlimit":3
     }
 
   }

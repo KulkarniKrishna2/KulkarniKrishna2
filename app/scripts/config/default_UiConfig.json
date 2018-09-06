@@ -389,6 +389,9 @@
 			},
 			"newLoanApplicationLimitAllowed" : false
 		},
+		"creditBureau":{
+			"getlimit":3
+		},
 		"viewCenter": {
 			"isHiddenField": {
 				"accountNo": false,
