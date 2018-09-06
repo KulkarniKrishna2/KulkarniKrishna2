@@ -189,7 +189,8 @@
                  scope.formAddressData.addressTypes = [];
                  scope.formAddressData.districtId ;
                  var requestParams = {
-                     staffInSelectedOfficeOnly: true
+                     staffInSelectedOfficeOnly: true,
+                     officeId: scope.group.officeId
                  };
                  if (scope.groupId) {
                      requestParams.groupId = scope.groupId;
