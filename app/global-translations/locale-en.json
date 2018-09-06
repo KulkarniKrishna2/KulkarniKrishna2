@@ -2373,7 +2373,7 @@
     "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
     "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank":"Penalties apply on date is mandatory",
     "error.msg.loan.application.add.insurance.charge.to.loan.application" : "Insurance charge is required to create loan application",
-    "error.msg.repayment.frequency.mismatch" : "Loan Application repayment frequency does not match with Loan Product repayment frequency",
+    "error.msg.repayment.frequency.mismatch" : "Loan Application repayment frequency not matching with center meeting repayment frequency",
     "error.msg.center.meeting.not.attached": "Please attach center meeting date to create loan application",
     "#-------": "------------",
 
@@ -7442,6 +7442,9 @@
 
     "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
     "validation.msg.eod_process.eodDate.is.greater.than.date" : "Closing date can not be future date",
+
+    "label.sftp.description" : "SFTP server details for transfer",
+    "label.anchor.sftp" : "SFTP",
     
     "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
     "validation.msg.eod_process.eodDate.is.greater.than.date" : "Closing date can not be future date",
