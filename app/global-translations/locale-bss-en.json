@@ -249,5 +249,8 @@
   "#Report Name localization" : "",
   "Funds Disbursed Between Dates Summary by Office":"Funds Disbursed Between Dates Summary by Field Office",
   "Funds Disbursed Between Dates Summary by Office(Pentaho)":"Funds Disbursed Between Dates Summary by Field Office(Pentaho)",
+  
+  "taskActionType.bulk":"Next",
+  
   "------ end of tensalation file":"---------"
 }

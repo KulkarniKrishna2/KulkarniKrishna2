@@ -371,6 +371,16 @@
                         };
                         scope.buttons.splice(0, 1, activateOption);
                     }
+                    if(data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
+                        var whitelistButton = {
+                            name: "label.button.whitelist",
+                            href: "#/client",
+                            subhref: "whitelist",
+                            icon: "icon-ok-sign ng-scope",
+                            taskPermissionName: "WHITELIST_CLIENT"
+                        };
+                        scope.buttons.splice(9, 1, whitelistButton);
+                    }
     
                     scope.buttonsArray = {
                         options: [

@@ -196,7 +196,8 @@
 									            <tbody>
 										            <tr class="pointer-main" ng-repeat="member in group.clientMembers">
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">
-										                	<i class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
+															<i ng-hide="member.subStatus" class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
+										                	<i ng-show="member.subStatus" class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}({{member.subStatus.value}})"></i>
 															<span ng-if="!isHideReferenceNumber">{{member.referenceNumber}} </span><span ng-if="!isHideAccountNumber">{{member.accountNo}}-</span>
 										                </td>
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>

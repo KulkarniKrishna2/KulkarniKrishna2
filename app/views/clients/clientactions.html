@@ -32,6 +32,7 @@
                 <select id="{{reasonmodelName}}" ng-model="formData[reasonmodelName]"
                         ng-options="reason.id as reason.name for reason in reasons"
                         value="{{reason.id}}" class="form-control">
+                    <option value="">{{'label.menu.selectreason' | translate}}</option>
                 </select>
             </div>
         </div>
@@ -158,6 +159,18 @@
                 </tbody>
             </table>
         </div>
+        <script type="text/ng-template" id="clientvalidation.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.anchor.blacklist' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <api-validate></api-validate>
+                <h4 >{{'label.message.blocked.client' | translate}}</h4>
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
 
         <div class="col-md-offset-3" ng-show="!showDeleteClient">
             <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}

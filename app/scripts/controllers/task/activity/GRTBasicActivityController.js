@@ -9,9 +9,9 @@
             scope.first.date = new Date();
             scope.formData = {};
             scope.loanIds = [];
-            scope.isAllClientFinishedThisTask = true;
 
             function initTask() {
+                scope.isAllClientFinishedThisTask = true;
                 scope.taskInfoTrackArray = [];
                 scope.centerId = scope.taskconfig.centerId;
                 resourceFactory.centerWorkflowResource.get({

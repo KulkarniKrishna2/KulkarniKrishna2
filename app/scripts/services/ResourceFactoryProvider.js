@@ -571,7 +571,7 @@
                     }),
                     centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId: '@centerId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
-                        getAllCenters: {method: 'GET', params: {}, isArray: true},
+                        getAllCenters: {method: 'GET', params: {}},
                         getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),

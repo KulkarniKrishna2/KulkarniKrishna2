@@ -211,7 +211,8 @@
 											<th  colspan="13" class="pointer text-left" data-ng-click="routeToClient(client.id)">
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<i tooltip="Client" class="icon-user icon-small"></i>
-												<i tooltip-placement="right" tooltip="{{client.status.value}}" class="icon-stop {{client.status.code | StatusLookup}}"></i>
+												<i ng-hide="client.subStatus" tooltip-placement="right" tooltip="{{client.status.value}}" class="icon-stop {{client.status.code | StatusLookup}}"></i>
+												<i ng-show="client.subStatus" tooltip-placement="right" tooltip="{{client.status.value}}({{client.subStatus.value}})" class="icon-stop {{client.status.code | StatusLookup}}"></i>
 												<span ng-if="!isHideReferenceNumber">{{client.referenceNumber}}| </span><span ng-if="!isHideAccountNumber">{{client.accountNo}}-</span>{{client.displayName}}
 											</th>
 											<td align="center" colspan="3">

@@ -225,7 +225,7 @@
                                     $scope.clientLoanAccounts = data.loanAccounts;
                                 });
                             }
-                            if($scope.codeValues[i].systemIdentifier == "ERCB"){
+                            if($scope.codeValues[i].systemIdentifier == "ERCB" || $scope.codeValues[i].systemIdentifier == "BLCNT"){
                                 $scope.isReasonNotesMandatory = false;
                                 $scope.isAttachmentMandatory = false;
                                 $scope.isPrepayAtBSSReason = false;

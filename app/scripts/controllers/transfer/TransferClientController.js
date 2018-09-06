@@ -15,9 +15,9 @@
             });
 
             scope.getFromCenters = function () {
-                if (fromOfficeId) {
+                if (scope.fromOfficeId) {
                     resourceFactory.centerResource.getAllCenters({ officeId: scope.fromOfficeId }, function (data) {
-                        scope.fromCenters = data;
+                        scope.fromCenters = data.pageItems;
                     });
                 } else {
                     scope.fromCenters = [];
@@ -28,7 +28,7 @@
             scope.getToCenters = function () {
                 if (scope.toOfficeId) {
                     resourceFactory.centerResource.getAllCenters({ officeId: scope.toOfficeId }, function (data) {
-                        scope.toCenters = data;
+                        scope.toCenters = data.pageItems;
                     });
                 } else {
                     scope.toCenters = [];

@@ -142,7 +142,7 @@
                     });
 
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (centersData) {
-                        scope.centers = centersData;
+                        scope.centers = centersData.pageItems;
                     });
 
                     resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (groupsData) {

@@ -458,6 +458,7 @@
                             }else{
                                 $scope.newClientId = data.clientId;
                                 $scope.uiData.enableCreateClientLoop = false;
+                                $scope.first.submitondate=new Date();
                                 $scope.first.dateOfBirth=undefined;
                                 $scope.formData = {};
                                 $scope.getMemberTemplateSettings();
