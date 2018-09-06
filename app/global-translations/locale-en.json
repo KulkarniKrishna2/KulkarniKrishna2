@@ -5787,6 +5787,8 @@
     "taskActionType.startover":"Start Over",
     "taskActionType.disable":"Disable",
     "taskActionType.reschedule":"Reschedule",
+    "taskActionType.next":"Next",
+    "taskActionType.bulk":"Bulk",
 
     "label.heading.info":"Info",
     "label.heading.makerdata":"Maker Data",

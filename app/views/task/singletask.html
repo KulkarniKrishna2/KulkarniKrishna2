@@ -68,7 +68,7 @@
             </div>
             <div class="row task-action" ng-if = "!isUnresolvedQueryExists">
             <span ng-repeat="action in possibleActions" class="pull-right">
-                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.actionType.value, action)">{{action.actionType.code | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button ng-disabled="!action.hasAccess" class="btn btn-primary" ng-click="initiateTaskAction(action.actionType.value, action)">{{action.actionLabel | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </div>
             <div class="row" ng-show = "isUnresolvedQueryExists">
