@@ -412,7 +412,7 @@
     "label.requirefield":"Required Field",
     "label.none":"None",
     "label.savesuccessfully":"Saved Successfully",
-    "label.nodatafound":"No data was found related to the search parameters entered.",
+    "label.nodatafound":"No data was found related to the search parameters entered ",
     "label.mustbenumeric":"Must be numeric",
     "label.must.be.ten.digits.numeric":"Must be Ten digits numeric",
     "inavalid.ifsc.format":"Invalid IFSC code format",
@@ -7306,5 +7306,9 @@
     "validation.msg.client.blacklistDate.cannot.be.blank":"Blacklisted Date should not be blank",
     "validation.msg.client.whitelistDate.cannot.be.blank" : "Whitelisted Date should not be blank",
     "label.message.blocked.client":"This client is blocked.Do you want to continue?",
+
+    "validation.msg.search.cannot.be.empty":"Enter any one field",
+    "validation.msg.search.valid.mobile.number":"Please enter a valid mobile number",
+    "validation.msg.search.valid.name.size":"Please enter a name of min length 3",
      "------ end of tensalation file":"---------"
 }

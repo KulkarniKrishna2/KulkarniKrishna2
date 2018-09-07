@@ -7,7 +7,7 @@
 			"isEnabledPatchca": true
 		},
 		"browserSecurity": {
-			"isEnabledBrowserSecurity": true
+			"isEnabledBrowserSecurity": true 
 		},
 		"loanAccount": {
 			"isHiddenField": {

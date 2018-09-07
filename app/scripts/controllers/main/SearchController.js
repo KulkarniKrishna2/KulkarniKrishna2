@@ -6,13 +6,13 @@
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
-            
+            scope.prevsearch = routeParams.resource;
             
             if (routeParams.query == 'undefined') {
-                routeParams.query = '';
+                routeParams.query = null;
             }
-            resourceFactory.globalSearch.search({query: routeParams.query, resource: routeParams.resource, exactMatch: routeParams.exactMatch}, function (data) {
-            	
+            resourceFactory.advanceSearch.search({query: routeParams.query, resource: routeParams.resource, officeId : routeParams.officeId , referenceNumber: routeParams.referenceNumber , externalId : routeParams.externalId , mobileNo : routeParams.mobileNo , staffId : routeParams.staffId , accountNo : routeParams.accountNo, identityId : routeParams.identityId ,identityNumber : routeParams.identityNumber }, function (data) {
+            
                 if (data.length > 200) {
                     scope.searchResults = data.slice(0, 201);
                     scope.showMsg = true;
@@ -26,6 +26,7 @@
                     scope.flag = true;
                 }
             });
+            
             scope.getClientDetails = function (clientId) {
 
                 scope.selected = clientId;

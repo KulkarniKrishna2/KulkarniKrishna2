@@ -1592,6 +1592,12 @@
                     }),
                     bulkBankApprovalActionResource: defineResource(apiVer + "/tasktracking/bulkbankapproval",{}, {
                         doBulkBankApproval: {method: 'POST', params: {}}
+                    }),
+                    advanceSearch: defineResource(apiVer + "/search/advsearch", {query: '@query', resource: '@resource'}, {
+                        search: { method: 'GET',
+                            params: { query: '@query' , resource: '@resource'},
+                            isArray: true
+                        }
                     })
                 };
             }];
