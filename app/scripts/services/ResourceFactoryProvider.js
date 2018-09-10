@@ -1592,7 +1592,11 @@
                     }),
                     bulkBankApprovalActionResource: defineResource(apiVer + "/tasktracking/bulkbankapproval",{}, {
                         doBulkBankApproval: {method: 'POST', params: {}}
-                    })
+                    }),
+                    transferHistoryResource: defineResource(apiVer + "/:entityType/:entityId/transferhistory", {entityType:'@entityType',entityId:'@entityId'}, {
+                        get: {method: 'GET', params: {},isArray: true}
+
+                    }),
                 };
             }];
         }
