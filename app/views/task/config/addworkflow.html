@@ -5,10 +5,10 @@
              <li><a href="#/workflows">{{'label.anchor.workflow' | translate}}</a></li>
             <li class="active">{{'label.anchor.addworkflow' | translate}}</li>
         </ul>
-    <form  name="addworkflowform" novalidate="" rc-submit="submit()" >
+    <form  name="addworkflowform" novalidate="" rc-submit="submit()" >  
         <api-validate></api-validate>
         <fieldset>
-            <legend>{{ 'label.heading.addworkflow' | translate}}</legend>
+            <legend>{{ 'label.heading.addworkflow' | translate}}</legend> 
             <div class="form-group">
                 <label class="control-label col-sm-2" >{{'label.input.workflowname' |translate}}
                     <span class="required">*</span></label>
@@ -19,19 +19,32 @@
                 <div class="col-sm-2">
                    <form-validate valattributeform="addworkflowform" valattribute="workflowName"/>
                 </div>                              
-            </div>
-            <br><br>
-            <div class="form-group">
+             </div>
+             <br><br>
+
+             <div class="form-group">
                 <label class="control-label col-sm-2" >{{'label.input.shortName' |translate}}
                     <span class="required">*</span></label>
-                <div class="col-sm-2">
+                 <div class="col-sm-2">
                   <input id="shortName" name="shortName" ng-model="formData.shortName" 
                         class="form-control" required late-Validate />
-                </div>
-                <div class="col-sm-2">
+                 </div>
+                 <div class="col-sm-2">
                    <form-validate valattributeform="addworkflowform" valattribute="shortName"/>
-                </div>                       
+                 </div>
             </div>
+
+            <br><br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{'label.input.criteria' |translate}}</label>
+                <div class="col-sm-2">
+                    <select  id="criteriaId" name="criteriaId" ng-model="formData.criteriaId"
+                        class="form-control" ng-options="riskCriteria.id as riskCriteria.name for riskCriteria in riskCriterias | filter:{isActive:true}">
+                        <option value="" default>-- Select one --</option>
+                    </select>
+                </div>                             
+            </div>                     
+            
             <br><br>
             <div class="col-md-offset-3">
                 <a id="cancel" href="#/workflows" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
