@@ -2,19 +2,23 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         AddWorkflowController: function (scope, resourceFactory, location, routeParams, dateFilter) {
-                 scope.formData = {};
+            scope.formData = {};
 
-                if(routeParams.taskConfigId){
-                   resourceFactory.workflowConfigResource.get({taskConfigId:routeParams.taskConfigId}, function (data) {
-                        scope.taskConfigData = data;
-                        if(scope.taskConfigData){
-                           scope.formData.id = scope.taskConfigData.id;
-                           scope.formData.name = scope.taskConfigData.name;
-                           scope.formData.shortName = scope.taskConfigData.shortName;
-                        }
-                   });
-                }
+            resourceFactory.riskCriteria.getAll(function (data) {
+                scope.riskCriterias = data; 
+            });
 
+            if(routeParams.taskConfigId){
+                resourceFactory.workflowConfigResource.get({taskConfigId:routeParams.taskConfigId}, function (data) {
+                    scope.taskConfigData = data;
+                    if(scope.taskConfigData){
+                        scope.formData.id = scope.taskConfigData.id;
+                        scope.formData.name = scope.taskConfigData.name;
+                        scope.formData.shortName = scope.taskConfigData.shortName;
+                        scope.formData.criteriaId = scope.taskConfigData.criteriaId;
+                    }
+                });
+            }
                    
             scope.submit = function(){
                 this.formData.locale = scope.optlang.code;
