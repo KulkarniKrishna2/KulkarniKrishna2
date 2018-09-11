@@ -519,11 +519,10 @@
                     initTask();
                 };
                 $scope.getSurveyDetails = function() {
-                    $scope.formData = {};
+                    $scope.survayData = {};
                     $scope.isValidEntityType = false;
                     $scope.isSurveyDone = true;
                     scope.surveyEntityTypeId = scope.response.uiDisplayConfigurations.viewClient.surveyEntityTypeId;
-                    $scope.locationUrl= 'views/task/activity/surveycommonactivity.html';
                     if(scope.surveyEntityTypeId.length > 0){
                         resourceFactory.takeSurveysResource.getAll({entityType : scope.surveyEntityTypeId,entityId:$scope.clientId}, function (surveys) {
                             $scope.surveys = surveys;
@@ -548,12 +547,13 @@
                 }
 
                 $scope.submitSurveyDetails = function(){
-                    scope.formData.surveyId = $scope.surveyId;
-                    scope.formData.entityId = $scope.clientId;
-                    scope.formData.surveyedOn = new Date();
-                    scope.formData.surveyedBy = scope.centerDetails.staffId;
-                    if(!_.isUndefined(scope.formData.scorecardValues)){
-                        scope.formData.scorecardValues = [];
+                    $scope.survayData = {};
+                    $scope.survayData.surveyId = $scope.surveyId;
+                    $scope.survayData.entityId = $scope.clientId;
+                    $scope.survayData.surveyedOn = new Date();
+                    $scope.survayData.surveyedBy = scope.centerDetails.staffId;
+                    if(!_.isUndefined($scope.survayData.scorecardValues)){
+                        $scope.survayData.scorecardValues = [];
                     }
                     var responseCount=0;
                     if($scope.questionDatas && $scope.questionDatas.length > 0){
@@ -561,15 +561,15 @@
                             if($scope.questionDatas[i].responseDatas){
                                 for(var j in $scope.questionDatas[i].responseDatas){
                                     if($scope.questionDatas[i].responseDatas[j].responseId && $scope.questionDatas[i].responseDatas[j].responseId > 0){
-                                        if(_.isUndefined(scope.formData.scorecardValues)){
-                                            scope.formData.scorecardValues = [];
+                                        if(_.isUndefined($scope.survayData.scorecardValues)){
+                                            $scope.survayData.scorecardValues = [];
                                         }
                                         responseCount = responseCount+1;
                                         var scorecardValue = {};
                                         scorecardValue.questionId  = $scope.questionDatas[i].id;
                                         scorecardValue.responseId  = $scope.questionDatas[i].responseDatas[j].responseId;
                                         scorecardValue.value  = $scope.questionDatas[i].responseDatas[j].value;
-                                        scope.formData.scorecardValues.push(scorecardValue);
+                                        $scope.survayData.scorecardValues.push(scorecardValue);
                                     }
                                 }
                             }
@@ -581,11 +581,10 @@
                     }else{
                         $scope.isSurveyDone = true;
                     }
-                    resourceFactory.takeSurveysResource.post({entityType: $scope.entityTypeId,entityId: $scope.clientId},scope.formData, function (data) {
+                    resourceFactory.takeSurveysResource.post({entityType: $scope.entityTypeId,entityId: $scope.clientId},$scope.survayData, function (data) {
                         $scope.viewSurveyDetails = true;
                         resourceFactory.takeSurveysResource.getAll({entityType : $scope.entityTypeId,entityId:$scope.clientId}, function (surveys) {
                             $scope.surveys = surveys;
-                            location.path(locationUrl);
                         });
                     });
                 }
