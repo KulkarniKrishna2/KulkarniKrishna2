@@ -28,6 +28,10 @@
             }
             /****************************************************************************************/
 
+            if(scope.response){
+                scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryField.costCenter;            
+            }
+
             if (!_.isUndefined(routeParams.voucherNumber)) {
                 scope.showTransactionDetails = true;
                 scope.voucherData = {
@@ -38,6 +42,11 @@
             }
             resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
                 scope.companyCodeForGlaccountCodeValues = data;
+                if (data != null) {
+                    if (data.length > 0) {
+                        scope.formData.companyCodeForGlaccountCodeValues = data[0].id;
+                    }
+                }
             });
 
             scope.changeAccountsAsPerCompanyCodes = function(companyCodeForGlaccountCode){
