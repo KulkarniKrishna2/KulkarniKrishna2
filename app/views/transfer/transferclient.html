@@ -10,10 +10,11 @@
             <li class="active">{{'label.anchor.member.transfer' | translate}}</li>
         </ul>
     </div>
-    <div class="col-sm-12 error marginbottom20" ng-show="isClientExceedingLimit">
-        {{'error.msg.selected.client.can.not.be.more.than' | translate}}{{clientRemaining}}
-    </div>
     <api-validate></api-validate>
+    <div class="form-group marginbottom0" style="color: red" ng-show="isClientExceedingLimit">
+        {{'error.msg.group.member.limit.exceeded' | translate}}{{maxClientLimit}}
+    </div>
+    <br>
     <div class="col-sm-6 col-md-6">
         <div class="col-sm-12">
             <select chosen="offices" id="fromOfficeId" ng-model="fromOfficeId" ng-change="getFromCenters()" class="form-control" ng-options="office.id as office.name for office in offices"
@@ -54,7 +55,7 @@
     <div class="col-sm-12">
 
         <div class="col-md-offset-5">
-            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <a id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
             <button id="save" type="submit" ng-click="add()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.add' | translate}}</button>
         </div>
     </div>
@@ -84,7 +85,7 @@
             </tbody>
         </table>
         <div class="col-md-offset-5">
-            <a id="cancel" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <a id="cancel" class="btn btn-default" ng-click="deleteSubmitDetails()">{{'label.button.cancel' | translate}}</a>
             <button id="submit" type="submit" ng-click="submitDetails()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.submit' | translate}}</button>
         </div>
     </div>
