@@ -43,14 +43,15 @@
                 <th>{{'label.heading.shortname' | translate}}</th>
                 <th>{{'label.heading.activitytype' | translate}}</th>
                 <th>{{'label.heading.criteria' | translate}}</th>
+                <th>{{'label.heading.default.landing.step'| translate}}</th>
             </thead>
             <tbody ui-sortable="sortableOptions" ng-model="workflowStepsDatalist">
-                <tr class = "pointer" ng-repeat = "stepData in workflowStepsDatalist" 
-                    ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">
-                    <td>{{stepData.name}}</td>
-                    <td>{{stepData.shortName}}</td>
-                    <td>{{stepData.taskActivityName}}</td>
-                    <td>{{stepData.criteriaName}}</td>
+                <tr class = "pointer" ng-repeat = "stepData in workflowStepsDatalist">
+                    <td ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">{{stepData.name}}</td>
+                    <td ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">{{stepData.shortName}}</td>
+                    <td ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">{{stepData.taskActivityName}}</td>
+                    <td ng-click = "viewWorkflowStep(stepData.parentId,stepData.id)">{{stepData.criteriaName}}</td>
+                    <td><input type="radio" name="defaultlandingstep" ng-checked="stepData.isDefaultLandingStep" data-ng-click="defaultLandFunc(stepData)"></td>
                 </tr>
             </tbody>
         </table>
@@ -60,3 +61,18 @@
              data-ng-click="updateWorkflowStepOrder()" has-permission='UPDATE_TASK_CONFIG'>{{'label.button.update.workflowsteps.order'| translate}} </a>
     </div>
  </div>
+
+ <script type="text/ng-template" id="defaultlandalert.html">
+    <form name="popupform" novalidate="">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.alert' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <h3><strong class="center">{{'alert.msg.default.land.msge' | translate}}</strong></h3>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="submit()">{{'label.button.ok' | translate}}</button>
+            <a class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+        </div>
+    </form>
+</script>

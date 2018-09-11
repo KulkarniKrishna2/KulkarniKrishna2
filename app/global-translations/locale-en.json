@@ -6707,7 +6707,7 @@
     "error.msg.validation.input.datatablename" : "Please enter Data Table Name",
     "error.msg.validation.select.enitytype" : "Please select Entity Type",
     "error.msg.workflow.step.order.not.changed" : "Workflow Steps order not changed",
-    "label.button.update.workflowsteps.order" : "Update Workfow Steps Oder",
+    "label.button.update.workflowsteps.order" : "Update Workflow Steps Order",
     "error.msg.validation.add.roles" : "Please add roles to the actions",
     "label.input.workflowstep.name" : "Workflow Step Name",
     "label.input.surveryid" : "SurveyId",
@@ -7313,5 +7313,8 @@
     "label.heading.from.staff":"From Staff",
     "label.heading.to.staff":"To Staff",
     "label.button.view.transfer.history":"View Transfer History",
+    "label.heading.default.landing.step" : "Default Landing Step",
+    "alert.msg.default.land.msge":"Do you want to make it as default step ?",
+
      "------ end of tensalation file":"---------"
 }

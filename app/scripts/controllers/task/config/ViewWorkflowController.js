@@ -1,7 +1,7 @@
 
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewWorkflowController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
+        ViewWorkflowController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal, $route) {
             
             scope.taskConfigData = {};
             scope.taskConfigStepsData = [];
@@ -10,7 +10,7 @@
             scope.formData={};
             scope.isTaskConfigEntityMappingDone = false;
             scope.taskConfigId = routeParams.taskConfigId;
-
+            
             if(routeParams.taskConfigId){
                    resourceFactory.workflowConfigResource.get({taskConfigId:routeParams.taskConfigId}, function (data) {
                         scope.taskConfigData = data;
@@ -68,9 +68,77 @@
                  });
             } 
             
+            scope.defaultLandFunc = function(stepData){
+                $modal.open({
+                    templateUrl: 'defaultlandalert.html',
+                    controller: MakeDefaultLandingStep,
+                    backdrop: 'static',
+                    resolve: {
+                        stepData: function () {
+                            return stepData;
+                        }
+                    }
+                });
+            };
+
+            var MakeDefaultLandingStep = function ($scope, $modalInstance, stepData) {
+                $scope.submit = function () {
+                    resourceFactory.workflowConfigDefaultStepResource.update({taskConfigId:routeParams.taskConfigId,taskConfigStepId:stepData.id},{},function (data) {
+                        $modalInstance.close('defaultLandFunc');
+                        $route.reload();
+                     });
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                    $route.reload();
+                };
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                    $route.reload();
+                };
+            };
+            var activeMembers = 0;
+            var getActiveMembers = function(groupId){
+                activeMembers = 0;
+                if(scope.centerDetails.subGroupMembers){
+                    for(var i in scope.centerDetails.subGroupMembers){
+                        if(groupId == scope.centerDetails.subGroupMembers[i].id){
+                            for(var j in scope.centerDetails.subGroupMembers[i].memberData){
+                                if(scope.centerDetails.subGroupMembers[i].memberData && (scope.centerDetails.subGroupMembers[i].memberData[j].status.value =='Active' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'Transfer in progress')){
+                                    activeMembers = activeMembers + 1;
+                                }
+                            }
+
+                    }   }    
+                }
+            }
+
+            scope.createMemberInGroup = function (groupId, officeId) {
+                scope.exceedMaxSubGroupLimit = false;
+                getActiveMembers(groupId);
+                if(scope.isMaxClientInGroupEnable  && (scope.maxClientLimit <= activeMembers)){
+                    scope.exceedMaxLimit = true;
+                }else{
+                    $modal.open({
+                        templateUrl: 'views/task/popup/createmember.html',
+                        controller: CreateMemberCtrl,
+                        backdrop: 'static',
+                        windowClass: 'app-modal-window-full-screen',
+                        size: 'lg',
+                        resolve: {
+                            groupParameterInfo: function () {
+                                return { 'groupId': groupId, 'officeId': officeId };
+                            }
+                        }
+                    });
+                }
+            }
+            
         }
     });
-    mifosX.ng.application.controller('ViewWorkflowController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', mifosX.controllers.ViewWorkflowController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewWorkflowController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', '$route', mifosX.controllers.ViewWorkflowController]).run(function ($log) {
         $log.info("ViewWorkflowController initialized");
     });
 }(mifosX.controllers || {}));
