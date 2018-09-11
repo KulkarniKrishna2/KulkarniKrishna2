@@ -192,6 +192,11 @@
     },
     "creditBureau":{
       "getlimit":3
+    },
+    "voucherTypeForm":{
+      "isMandatoryField": {
+        "costCenter":true
+      }
     }
 
   }

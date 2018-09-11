@@ -38,13 +38,20 @@
                 <div class="col-sm-2">
                     <form-validate valattributeform="createVoucherForm" valattribute="officeId"/>
                 </div>
-                <label class="control-label col-sm-2">{{ 'label.menu.costcenter' | translate}}</label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.menu.costcenter' | translate}}<span
+                    class="required">*</span></label>
                 <div class="col-sm-3">
                     <select id="costCenterId" name="costCenterId" chosen="costCenterOptions"
                             ng-options="costCenter.id as costCenter.name for costCenter in costCenterOptions"
-                            ng-model="formData.costCenterId" class="form-control" value="{{office.id}}">
+                            ng-model="formData.costCenterId" class="form-control" value="{{office.id}}" ng-required="isCostCenterMandatory">
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="costCenterId"/>
                 </div>
             </div>
 
@@ -66,20 +73,6 @@
             </div>
 
             <div class="form-group">
-                <div>
-                <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
-                        class="required">*</span></label>
-                <div class="col-sm-3">
-                    <input id="transactionDate" name="transactionDate" type="text" class="date-disable form-control"
-                           datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"
-                          min="'2000-01-01'" max="restrictDate" required readonly late-validate=""/>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createVoucherForm" valattribute="transactionDate"/>
-
-                </div>
-                </div>
-                <div>
                     <label class="control-label col-sm-2">{{'label.input.companycodeforglaccounts' | translate}}</label>
                     <div class="col-sm-3">
                         <select id="companyCodeForGlaccountCodeValues" ng-change = "changeAccountsAsPerCompanyCodes(formData.companyCodeForGlaccountCodeValues)" name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues" class="form-control"
@@ -91,6 +84,19 @@
                             <form-validate valattributeform="journalpostingform" valattribute="companyCodeForGlaccountCodeValues"/>
                         </div>
                     </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="transactionDate" name="transactionDate" type="text" class="date-disable form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"
+                          min="'2000-01-01'" max="restrictDate" required readonly late-validate=""/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="transactionDate"/>
                 </div>
             </div>
 
