@@ -7306,5 +7306,12 @@
     "validation.msg.client.blacklistDate.cannot.be.blank":"Blacklisted Date should not be blank",
     "validation.msg.client.whitelistDate.cannot.be.blank" : "Whitelisted Date should not be blank",
     "label.message.blocked.client":"This client is blocked.Do you want to continue?",
+    "label.heading.from.office":"From Office",
+    "label.heading.to.ofiice":"To Office",
+    "label.heading.from.group":"From Group",
+    "label.heading.to.group":"To Group",
+    "label.heading.from.staff":"From Staff",
+    "label.heading.to.staff":"To Staff",
+    "label.button.view.transfer.history":"View Transfer History",
      "------ end of tensalation file":"---------"
 }

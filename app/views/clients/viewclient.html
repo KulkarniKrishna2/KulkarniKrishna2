@@ -233,7 +233,7 @@
 						        {{ 'label.button.more' | translate}}
                                     <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+                            <ul class="dropdown dropdown-menu dropdown-menu-right">
                                         <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
                                             <a href="#/clientscreenreport/{{client.id}}"
 						               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
@@ -278,13 +278,17 @@
 								<li>
 									<a href="#/clients/{{client.id}}/accountlimits" has-permission='READ_CUSTOMERACCOUNTLIMITS'>{{'label.button.accountlimits' | translate }}</a>
 								</li>
-										<li>
-											<a href="#/history/{{entityType}}/{{client.id}}"
+								<li>
+									<a href="#/history/{{entityType}}/{{client.id}}"
 											   has-permission='READ_PORTFOLIOHISTORY'>{{'label.button.viewhistory' |
 												translate }}</a>
-										</li>
+								</li>
+								<li>
+									<a href="#/transferhistory/{{entityType}}/{{client.id}}" has-permission='READ_TRANSFERHISTORY'>{{'label.button.view.transfer.history' |
+												translate }}</a>
+								</li>
 
-									</ul>
+							</ul>
 						</span>
 				    </div>
 				    <div ng-hide="client.isWorkflowEnabled">	
