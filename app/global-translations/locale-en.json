@@ -7285,7 +7285,7 @@
     "label.anchor.member.transfer" : "Transfer Members",
     "label.define.member.transfer" : "Transfer member to group or center or different office",
     "label.menu.selectcenter" : "Select Center",
-    "error.msg.selected.client.can.not.be.more.than" : "Selected client can not be more than ",
+    "error.msg.group.member.limit.exceeded" : "Destination group having max member limit: ",
     "label.tooltip.reject" : "Reject",
     "label.tooltip.approve" : "Approve",
     "label.anchor.view.member.transfer" : "View Member Transfer", 
