@@ -7505,5 +7505,6 @@
     "validation.msg.client.blacklistDate.cannot.be.blank":"Blacklisted Date should not be blank",
     "validation.msg.client.whitelistDate.cannot.be.blank" : "Whitelisted Date should not be blank",
     "label.message.blocked.client":"This client is blocked.Do you want to continue?",
-     "------ end of tensalation file":"---------"
+    "error.msg.unable.to.generate.loan.account.number" :"Can not generate loan account number",
+    "------ end of tensalation file":"---------"
 }
