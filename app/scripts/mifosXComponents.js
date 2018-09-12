@@ -609,6 +609,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'transfer/TransferClientController',
             'transfer/ViewTransferClientController',
             'transfer/ViewTransferCenterController',
+            'search/GlobalSearchController',
             'common/ViewTransferHistoryController'
         ],
         filters: [

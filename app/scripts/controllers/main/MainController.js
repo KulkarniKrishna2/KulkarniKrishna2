@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http, authenticationService, resourceFactory, $timeout) {
+                  uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
             scope.mainControllerUIConfigData = {};
@@ -62,7 +62,6 @@
                     }
                 });
             }
-            setSearchScopes();
             uiConfigService.init(scope, $rootScope.tenantIdentifier);
 
             //hides loader
@@ -241,48 +240,12 @@
                 return false;
             };
 
-            function setSearchScopes (){
-                //var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans,loanapplications"};
-                var clients = {
-                    name: "label.search.scope.clients.and.clientIdentifiers",
-                    value: "clients,clientIdentifiers"
-                };
-                var groups = {
-                    name: "label.search.scope.groups.and.centers",
-                    value: "groups"
-                };
-                var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
-                var loans = {name: "label.search.scope.savings", value: "savings"};
-                var loanapplications = {name: "label.search.scope.loanapplications", value: "loanapplications"};
-                scope.searchScopes = [clients,groups,loans,savings, loanapplications];
-                scope.currentScope = clients;
-            }
-
-            scope.changeScope = function (searchScope) {
-                scope.currentScope = searchScope ;
-            }
-            scope.onSearchRuleChange = function(searchRule){
-               scope.searchRule=searchRule;
-               if(scope.searchRule){
-                scope.searchRuleLabel = 'label.tooltip.exactsearch';
-               }else{
-                scope.searchRuleLabel = 'label.tooltip.likesearch';
-               }
-            }
-            scope.search = function () {
-                var resource;
-                var searchString=scope.search.query;
-                var exactMatch= scope.searchRule;
-                if(searchString != null){
-                    searchString = searchString.replace(/(^"|"$)/g, '');
-                    var n = searchString.localeCompare(scope.search.query);
-                    if(n!=0)
-                    {
-                        exactMatch=true;
-                    }
-                }
-                location.path('/search/' + searchString).search({exactMatch: exactMatch, resource: scope.currentScope.value});
-                scope.search.query=undefined;
+            scope.globalSearch = function(){
+                scope.popUpHeaderName = "Search"
+                scope.includeHTML = 'views/search/advanceglobalsearch.html';
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'GlobalSearchController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
             };
 
             scope.logout = function () {
@@ -473,7 +436,7 @@
                         }
                     };
 
-                    if(window.devtools.open){
+                    if(window.devtools && window.devtools.open ){
                         blockUserActions(true);
                     };
 
@@ -530,6 +493,7 @@
         'AuthenticationService',
         'ResourceFactory',
         '$timeout',
+        'PopUpUtilService',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");

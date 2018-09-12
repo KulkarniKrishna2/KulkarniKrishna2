@@ -1596,6 +1596,12 @@
                     bulkBankApprovalActionResource: defineResource(apiVer + "/tasktracking/bulkbankapproval",{}, {
                         doBulkBankApproval: {method: 'POST', params: {}}
                     }),
+                    advanceSearch: defineResource(apiVer + "/search/advsearch", {query: '@query', resource: '@resource'}, {
+                        search: { method: 'GET',
+                            params: { query: '@query' , resource: '@resource'},
+                            isArray: true
+                        }
+                    }),
                     transferHistoryResource: defineResource(apiVer + "/:entityType/:entityId/transferhistory", {entityType:'@entityType',entityId:'@entityId'}, {
                         get: {method: 'GET', params: {},isArray: true}
 
