@@ -6707,7 +6707,7 @@
     "error.msg.validation.input.datatablename" : "Please enter Data Table Name",
     "error.msg.validation.select.enitytype" : "Please select Entity Type",
     "error.msg.workflow.step.order.not.changed" : "Workflow Steps order not changed",
-    "label.button.update.workflowsteps.order" : "Update Workfow Steps Oder",
+    "label.button.update.workflowsteps.order" : "Update Workflow Steps Order",
     "error.msg.validation.add.roles" : "Please add roles to the actions",
     "label.input.workflowstep.name" : "Workflow Step Name",
     "label.input.surveryid" : "SurveyId",
@@ -7285,7 +7285,7 @@
     "label.anchor.member.transfer" : "Transfer Members",
     "label.define.member.transfer" : "Transfer member to group or center or different office",
     "label.menu.selectcenter" : "Select Center",
-    "error.msg.selected.client.can.not.be.more.than" : "Selected client can not be more than ",
+    "error.msg.group.member.limit.exceeded" : "Destination group having max member limit: ",
     "label.tooltip.reject" : "Reject",
     "label.tooltip.approve" : "Approve",
     "label.anchor.view.member.transfer" : "View Member Transfer", 
@@ -7310,5 +7310,15 @@
     "validation.msg.search.cannot.be.empty":"Enter any one field",
     "validation.msg.search.valid.mobile.number":"Please enter a valid mobile number",
     "validation.msg.search.valid.name.size":"Please enter a name of min length 3",
+    "label.heading.from.office":"From Office",
+    "label.heading.to.ofiice":"To Office",
+    "label.heading.from.group":"From Group",
+    "label.heading.to.group":"To Group",
+    "label.heading.from.staff":"From Staff",
+    "label.heading.to.staff":"To Staff",
+    "label.button.view.transfer.history":"View Transfer History",
+    "label.heading.default.landing.step" : "Default Landing Step",
+    "alert.msg.default.land.msge":"Do you want to make it as default step ?",
+
      "------ end of tensalation file":"---------"
 }

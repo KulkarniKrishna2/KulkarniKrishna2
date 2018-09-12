@@ -1,0 +1,33 @@
+<div ng-class="col-md-12" name="history" ng-controller="ViewTransferHistoryController">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend class="bolder">{{'label.heading.viewhistory' | translate}}</legend>
+    </fieldset>
+    <table class="table span12">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.from.office' | translate}}</th>
+            <th>{{'label.heading.to.ofiice' | translate}}</th>
+            <th ng-show="showgroup">{{'label.heading.from.group' | translate}}</th>
+            <th ng-show="showgroup">{{'label.heading.to.group' | translate}}</th>
+            <th>{{'label.heading.from.staff' | translate}}</th>
+            <th>{{'label.heading.to.staff' | translate}}</th>
+            <th>{{'label.heading.madedate' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="highlight-row pointer" ng-repeat="history in transferHistoryDatas">
+            <td>{{history.formOfficeName}}</td>
+            <td>{{history.toOfficeName}}</td>
+            <td ng-show="showgroup">{{history.fromGroupName}}</td>
+            <td ng-show="showgroup">{{history.toGroupName}}</td>
+            <td>{{history.fromStaffName}}</td>
+            <td>{{history.toStaffName}}</td>
+            <td>{{history.TransferDate | DateFormat}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="col-md-offset-5">
+        <button class="btn btn-default" ng-click="back()">{{'label.button.back' | translate}}</button>
+    </div>
+</div>
