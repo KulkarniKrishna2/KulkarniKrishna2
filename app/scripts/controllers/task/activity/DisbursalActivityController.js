@@ -549,6 +549,7 @@
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
                     $scope.loanId = $scope.loanAccountData.id;
                     $scope.isLoanAccountExist = true;
+                    $scope.formData.actualDisbursementDate = new Date($scope.loanAccountData.expectedDisbursementOnDate);
                 }
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
