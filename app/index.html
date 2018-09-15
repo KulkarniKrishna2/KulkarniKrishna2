@@ -77,6 +77,14 @@
                                         <label class="error" data-ng-show="authenticationFailed">
                                             <strong>{{ authenticationErrorMessage | translate }}</strong>
                                         </label>
+                                        <div ng-if="response.uiDisplayConfigurations.loginSecurity.isEnabledLdap">
+                                            <label>
+                                                <input type="radio" ng-model="loginCredentials.ldap" value="bss"> {{'label.anchor.bssserver' | translate}}
+                                            </label>
+                                            <label style="padding-left:15px">
+                                                <input type="radio" ng-model="loginCredentials.ldap" value="kotak"> {{'label.anchor.kotakserver' | translate}}
+                                            </label>
+                                        </div>
                                         <div class="form-group ">
                                             <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}"
                                                 class="input-sm form-control" required id="uid" style="border-radius: 5px;">
@@ -125,7 +133,7 @@
                                 </div>
                                 <div class="col-md-2"></div>
                             </div>
-                            <div ng-if="resetPassword">
+                            <div ng-if="resetPassword && !response.uiDisplayConfigurations.loginSecurity.isEnabledLdap">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-11">
                                     <form class="form col-md-10" role="form">

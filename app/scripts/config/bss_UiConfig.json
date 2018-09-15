@@ -4,7 +4,8 @@
 		"loginSecurity": {
 			"isEnabledCaptcha": true,
 			"isEnabledRecaptcha": false,
-			"isEnabledPatchca": true
+			"isEnabledPatchca": true,
+			"isEnabledLdap": false
 		},
 		"browserSecurity": {
 			"isEnabledBrowserSecurity": true 
