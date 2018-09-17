@@ -142,6 +142,9 @@
 			"documentIssueDate":true,
 			"status":true
 		  }
+		},
+		"workflowDashboard": {
+			"theme": "bssworkflowstepdashboard"
 		}
 	}
 }

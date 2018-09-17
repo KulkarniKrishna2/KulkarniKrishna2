@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        WorkFlowStepDashboardController: function (scope, resourceFactory, location,$modal) {
+        DefaultWorkFlowStepDashboardController: function (scope, resourceFactory, location,$modal) {
             scope.entityType = undefined;
             scope.entityId = undefined;
             scope.officeId = undefined;
@@ -132,7 +132,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('WorkFlowStepDashboardController', ['$scope', 'ResourceFactory','$location','$modal', mifosX.controllers.WorkFlowStepDashboardController]).run(function ($log) {
-        $log.info("WorkFlowStepDashboardController initialized");
+    mifosX.ng.application.controller('DefaultWorkFlowStepDashboardController', ['$scope', 'ResourceFactory','$location','$modal', mifosX.controllers.DefaultWorkFlowStepDashboardController]).run(function ($log) {
+        $log.info("DefaultWorkFlowStepDashboardController initialized");
     });
 }(mifosX.controllers || {}));

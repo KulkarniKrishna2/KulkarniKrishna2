@@ -1489,7 +1489,7 @@
                 templateUrl: 'views/reports/viewauditreport.html'
             })
             .when('/workflowtaskdashboard', {
-                templateUrl: 'views/dashboard/workflowstepdashboard.html'
+                templateUrl: 'views/dashboard/workflowdashboard.html'
             })
             .when('/tasklist', {
                 templateUrl: 'views/dashboard/tasklist.html'
