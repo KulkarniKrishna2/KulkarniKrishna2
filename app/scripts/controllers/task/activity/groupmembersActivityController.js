@@ -430,6 +430,7 @@
             scope.groupId = scope.groupId;
             scope.restrictDate = new Date();
             scope.formData = {};
+            scope.formData.Workflowtype=scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
 
             scope.paymentOptions = [];
 
