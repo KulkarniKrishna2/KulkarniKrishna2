@@ -194,10 +194,15 @@
       "getlimit":3
     },
     "voucherTypeForm":{
+      "isMandatoryFields": {
+        "costCenter":true,
+        "companyCode":true
+      }
+    },
+    "addJournalEntry":{
       "isMandatoryField": {
-        "costCenter":true
+        "companyCode":true
       }
     }
-
   }
 }

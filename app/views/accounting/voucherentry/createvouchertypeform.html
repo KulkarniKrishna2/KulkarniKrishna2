@@ -42,7 +42,7 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.menu.costcenter' | translate}}<span
-                    class="required">*</span></label>
+                    class="required" ng-show="isCostCenterMandatory">*</span></label>
                 <div class="col-sm-3">
                     <select id="costCenterId" name="costCenterId" chosen="costCenterOptions"
                             ng-options="costCenter.id as costCenter.name for costCenter in costCenterOptions"
@@ -73,17 +73,18 @@
             </div>
 
             <div class="form-group">
-                    <label class="control-label col-sm-2">{{'label.input.companycodeforglaccounts' | translate}}</label>
-                    <div class="col-sm-3">
-                        <select id="companyCodeForGlaccountCodeValues" ng-change = "changeAccountsAsPerCompanyCodes(formData.companyCodeForGlaccountCodeValues)" name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues" class="form-control"
-                                ng-options="companyCodeForGlaccountCode.id as companyCodeForGlaccountCode.name for companyCodeForGlaccountCode  in companyCodeForGlaccountCodeValues"
-                                value="{{companyCodeForGlaccountCode.name}}">
-                            <option value="">{{'label.selectcompanycode' | translate}}</option>
-                        </select>
-                        <div class="col-sm-2">
-                            <form-validate valattributeform="journalpostingform" valattribute="companyCodeForGlaccountCodeValues"/>
-                        </div>
-                    </div>
+                <label class="control-label col-sm-2">{{'label.input.companycodeforglaccounts' | translate}}<span class="required" ng-show="isCompanyCodeMandatory">*</span></label>
+                <div class="col-sm-3">
+                    <select id="companyCodeForGlaccountCodeValues" ng-change="changeAccountsAsPerCompanyCodes(formData.companyCodeForGlaccountCodeValues)"
+                        name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues" class="form-control"
+                        ng-options="companyCodeForGlaccountCode.id as companyCodeForGlaccountCode.name for companyCodeForGlaccountCode  in companyCodeForGlaccountCodeValues"
+                        value="{{companyCodeForGlaccountCode.name}}" ng-required="isCompanyCodeMandatory">
+                        <option value="">{{'label.selectcompanycode' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="companyCodeForGlaccountCodeValues" />
+                </div>
             </div>
             
 

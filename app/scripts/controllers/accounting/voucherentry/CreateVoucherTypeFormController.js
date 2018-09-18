@@ -29,7 +29,8 @@
             /****************************************************************************************/
 
             if(scope.response){
-                scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryField.costCenter;            
+                scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.costCenter;            
+                scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode;            
             }
 
             if (!_.isUndefined(routeParams.voucherNumber)) {

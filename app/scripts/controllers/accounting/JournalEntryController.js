@@ -19,6 +19,11 @@
             scope.numberOfCredits = 1;
             scope.numberOfDebits = 1;
             scope.error = null;
+
+            if(scope.response){           
+                scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.addJournalEntry.isMandatoryField.companyCode;            
+            }
+
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, companyCode:0}, function (data) {
                 scope.glAccounts = data;
             });
