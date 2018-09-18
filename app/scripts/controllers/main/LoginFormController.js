@@ -89,7 +89,12 @@
                     }
                 }
                 scope.load = true;
-                authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+                if(scope.response.uiDisplayConfigurations.loginSecurity.isEnabledLdap){
+                    authenticationService.authenticateWithLdap(scope.loginCredentials);
+                }
+                else{
+                    authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+                }
             };
 
             scope.correctCaptcha = function(response) {

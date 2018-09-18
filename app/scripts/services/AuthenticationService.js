@@ -65,6 +65,13 @@
                 }
             };
 
+            this.authenticateWithLdap= function (credentials) {
+                scope.$broadcast("UserAuthenticationStartEvent");
+                angular.copy(credentials,credentialsData);
+                credentialsData.username = credentials.ldap +"/"+credentials.username;
+                oauthAuthenticateProcesses(credentialsData);
+            };
+
             this.authenticateWithOTP = function(credentials) {
                 var formData = {};
                 formData.client_id = 'community-app';
