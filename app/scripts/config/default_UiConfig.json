@@ -406,6 +406,13 @@
 			"chargeCategoryType": true
 		}
 	},
+	"cashFlow": {
+		"hiddenFields": {
+			"assetDetails": false,
+			"houseHoldExpenses": false
+		}
+
+	},
 	"workflowDashboard": {
 		"theme": "defaultworkflowstepdashboard"
 	}

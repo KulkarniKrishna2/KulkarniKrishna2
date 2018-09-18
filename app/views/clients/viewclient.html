@@ -1197,7 +1197,7 @@
 					</tbody>
 				</table>
 			</div>
-
+      <div ng-hide="assetDetails">
 			<a href="#/clients/{{id}}/createclientassetdetails" class="btn btn-primary pull-right"><i
 					class="icon-plus icon-white"></i>
 				{{'label.button.create.clientasset' | translate}}</a>
@@ -1246,7 +1246,8 @@
 					</tbody>
 				</table>
 			</div>
-
+		</div>
+         <div ng-hide="houseHoldExpenses">
 			<a href="#/clients/{{id}}/createclienthouseholddetails" class="btn btn-primary pull-right"><i
 					class="icon-plus icon-white"></i>
 				{{'label.button.create.household.expense' | translate}}</a>
@@ -1283,7 +1284,7 @@
 					</tbody>
 				</table>
 			</div>
-
+      </div>
 			<div class="well">
 				<h3 class="bolder">{{'label.view.summary' | translate}}</h3>
 					<div class="row">
