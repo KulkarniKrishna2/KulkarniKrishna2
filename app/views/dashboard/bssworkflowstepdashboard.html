@@ -1,0 +1,61 @@
+<div class="col-md-12" data-ng-controller="BSSWorkFlowStepDashboardController">
+    <h3 class="paddedleft"><strong>{{'label.heading.workflow.task.dashboard' | translate}}</strong>
+        <div class="btn-group pull-right col-md-6">
+            <div class="pull-left col-md-4" ng-if="false">
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()" ng-model="entityType" data-ng-options="entityTypes for entityTypes in entityTypeArray" value="{{entityTypes}}">
+                    <option value="">--{{'label.menu.workflow.types' | translate}}--</option>
+                </select>
+            </div>
+            <div class="pull-left col-md-4" ng-if="false">
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()" ng-model="entityId" data-ng-options="product.entityId as product.entityName for product in products" value="{{product.id}}">
+                    <option value="">--{{'label.menu.product' | translate}}--</option>
+                </select>
+            </div>
+            <div class="pull-right col-md-4">
+                <select class="form-control" ng-change="getWorkFlowTaskSummary()"
+                        ng-model="officeId"
+                        data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                    <option value="">--{{'label.menu.office' | translate}}--</option>
+                </select>
+            </div>
+        </div>
+    </h3>
+    <hr/>
+    <div id="home" class="row">
+        <div class="col-md-12">
+            <div ng-if="bssWorkflowDashboardReport.length > 0" ng-repeat="workflow in bssWorkflowDashboardReport track by $index" ng-init="workflowIndex = $index">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            {{workflow.workFlowName}}
+                        </h3>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th>Center Name</th>
+                                <th ng-repeat="taskConfig in workflow.taskConfigs">{{taskConfig.taskConfigName}}</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="center.centerId > 0" ng-repeat="center in workflow.centerDatas">
+                                    <td>{{center.centerName}}</td>
+                                    <td ng-repeat="taskConfigD in center.taskConfigDatas"><a ng-click="viewWorkFlow(center)">{{taskConfigD.clientCount}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="clear"></div>
+                        <!--<label>
+                            <span class="col-md-1">Center Name</span>
+                            <span class="col-md-1" ng-repeat="taskConfig in workflow.taskConfigs" >{{taskConfig.taskConfigName}}</span>
+                        </label>
+                        <label class="nav nav-pills nav-wizard" ng-repeat="center in workflow.centerDatas">
+                            <span class="col-md-1">{{center.centerName}}</span>
+                            <span class="col-md-1" ng-repeat="taskConfigD in center.taskConfigDatas" >{{taskConfigD.clientCount}}</span>
+                        </label>-->
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>

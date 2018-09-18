@@ -404,6 +404,9 @@
 		"isHiddenField": {
 			"chargeCategoryType": true
 		}
+	},
+	"workflowDashboard": {
+		"theme": "defaultworkflowstepdashboard"
 	}
 	}
 }
