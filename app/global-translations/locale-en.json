@@ -7100,7 +7100,6 @@
     "label.button.add.sequence.pattern" : "Add sequence pattern",
     "label.anchor.sequence.management" : "Sequence Management",
     "label.view.sequence.management" : "Sequence Management",
-    "label.view.registered.devices": "View all devices",
     "label.anchor.sequence.associations" : "Sequence Associations",
     "label.anchor.add.sequence.pattern" : "Add Sequence Pattern",
     "label.button.map.sequence" : "Map sequence ",
@@ -7448,9 +7447,7 @@
 
     "label.sftp.description" : "SFTP server details for transfer",
     "label.anchor.sftp" : "SFTP",
-    
-    "error.msg.eod.operational.closure.for.date" : "Operational closure for date `{{params[0].value}}`",
-    "validation.msg.eod_process.eodDate.is.greater.than.date" : "Closing date can not be future date",
+     
     "label.view.registered.devices": "View all devices",
     "label.anchor.manage.devices": "Manage Devices",
     "label.input.requred.user": "Requested User",
@@ -7507,5 +7504,7 @@
     "validation.msg.client.whitelistDate.cannot.be.blank" : "Whitelisted Date should not be blank",
     "label.message.blocked.client":"This client is blocked.Do you want to continue?",
     "error.msg.unable.to.generate.loan.account.number" :"Can not generate loan account number",
-    "------ end of tensalation file":"---------"
+    "label.last.login.date" : "Last Login Date",
+
+    "------ end of tensalation file": "---------"
 }
