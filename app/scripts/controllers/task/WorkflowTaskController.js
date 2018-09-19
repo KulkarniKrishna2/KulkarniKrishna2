@@ -33,13 +33,28 @@
             function initWorkflowTask() {
                 if (scope.tasks != undefined && scope.tasks.length > 0) {
                     scope.currentTaskId = scope.tasks[0].id;
+                    scope.isAllTaskCompleted = true;
+                    for (var t in scope.tasks) {
+                        var task = scope.tasks[t];
+                        if (task.status!= undefined && task.status.value == 'inactive') {
+                            scope.isAllTaskCompleted = false;
+                            break;
+                        }
+                    }
                     for (index in scope.tasks) {
                         var task = scope.tasks[index];
                         if (task.status!= undefined && task.status.value != 'inactive') {
                             scope.currentTaskId = task.id;
                             if(task.status.id < 7){
                                 break;
-                            }else if(task.isDefaultLandingStep){
+                            }
+                        }
+                    }
+                    if(scope.isAllTaskCompleted){
+                        for (index in scope.tasks) {
+                            var task = scope.tasks[index];
+                            if(task.isDefaultLandingStep){
+                                scope.currentTaskId = task.id;
                                 break;
                             }
                         }
