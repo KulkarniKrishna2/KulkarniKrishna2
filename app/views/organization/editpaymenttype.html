@@ -130,14 +130,13 @@
                     <label class="control-label col-sm-2" >{{'label.input.ifsccode' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input name="ifscCode" ng-model="formData.bankAccountDetails.ifscCode"
-                               type="text" autocomplete="off" class="form-control" ng-minlength="11" maxlength="11"/>
+                        <input name="ifscCode" ng-model="formData.bankAccountDetails.ifscCode" type="text" autocomplete="off" class="form-control"
+                            ng-pattern="/^[A-Za-z]{4}[0-9]{7}$/" />
                     </div>
                     <div class="col-sm-3">
-                        <span ng-show="createpaymenttype.ifscCode.$error.minlength">
-                           <small class="required"> {{'error.msg.ifsc.minimum.number' | translate}}</small>
+                        <span ng-show="createpaymenttype.ifscCode.$invalid && createpaymenttype.ifscCode.$dirty">
+                            <small class="required" ng-show="createpaymenttype.ifscCode.$error.pattern"> {{'error.msg.invalid.ifscCode' | translate}}</small>
                         </span>
-                        <form-validate valattributeform="createpaymenttype" valattribute="ifscCode"/>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="showBankDetails()">
