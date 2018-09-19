@@ -3,6 +3,18 @@
         GlobalSearchController: function (scope, resourceFactory, location, $modal) {
             scope.formData = {};
             scope.currentScope = "clients";
+            scope.groups=false;
+            scope.savings=false;
+            scope.loanApplication=false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups) {
+                scope.groups = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups;
+             }
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings) {
+                scope.savings = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings;
+             }
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication) {
+                scope.loanApplication = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication;
+             }
             resourceFactory.userTemplateResource.get(function (data) {
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles;

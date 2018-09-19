@@ -146,6 +146,14 @@
 		},
 		"workflowDashboard": {
 			"theme": "bssworkflowstepdashboard"
-		}
+		},
+		"globalSearch": {
+			"hiddenFields": {
+				"groups": true,
+				"savings": true,
+				"loanApplication": true
+			}
+		  }
+		
 	}
 }
