@@ -64,7 +64,7 @@
     },
     "createClient": {
       "isReadOnlyField": {
-        "staff": true,
+        "staff": false,
         "pincode": true
       },
       "isValidateDOBField": {
@@ -192,7 +192,17 @@
     },
     "creditBureau":{
       "getlimit":3
+    },
+    "voucherTypeForm":{
+      "isMandatoryFields": {
+        "costCenter":true,
+        "companyCode":true
+      }
+    },
+    "addJournalEntry":{
+      "isMandatoryField": {
+        "companyCode":true
+      }
     }
-
   }
 }

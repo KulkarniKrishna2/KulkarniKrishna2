@@ -189,7 +189,8 @@
                  scope.formAddressData.addressTypes = [];
                  scope.formAddressData.districtId ;
                  var requestParams = {
-                     staffInSelectedOfficeOnly: true
+                     staffInSelectedOfficeOnly: true,
+                     officeId: scope.group.officeId
                  };
                  if (scope.groupId) {
                      requestParams.groupId = scope.groupId;
@@ -429,6 +430,7 @@
             scope.groupId = scope.groupId;
             scope.restrictDate = new Date();
             scope.formData = {};
+            scope.formData.Workflowtype=scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
 
             scope.paymentOptions = [];
 

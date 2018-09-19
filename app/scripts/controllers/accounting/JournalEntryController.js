@@ -19,12 +19,22 @@
             scope.numberOfCredits = 1;
             scope.numberOfDebits = 1;
             scope.error = null;
+
+            if(scope.response){           
+                scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.addJournalEntry.isMandatoryField.companyCode;            
+            }
+
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, companyCode:0}, function (data) {
                 scope.glAccounts = data;
             });
 
             resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
                scope.companyCodeForGlaccountCodeValues = data;
+               if (data != null) {
+                if (data.length > 0) {
+                    scope.formData.companyCodeForGlaccountCodeValues = data[0].id;
+                }
+            }
             });
 
             resourceFactory.paymentTypeResource.getAll( function (data) {

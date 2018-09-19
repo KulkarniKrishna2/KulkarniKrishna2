@@ -422,6 +422,17 @@
 			"isHiddenMenu": {
 				"village": false
 			}
+		},
+		"voucherTypeForm":{
+			"isMandatoryFields": {
+				"costCenter":false,
+				"companyCode":false
+			}
+		},
+		"addJournalEntry":{
+			"isMandatoryField": {
+				"companyCode":false
+			}
 		}
 	}
 }

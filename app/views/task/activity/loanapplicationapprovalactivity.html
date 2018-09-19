@@ -98,7 +98,7 @@
     </div>
 
     <div ng-show="status=='UPDATE'">
-        <form class="form-inline" name="approveloanapplicationform" novalidate="">
+        <form class="form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submitForApproval()">
                         <div class="span gray-head">
                             <span class="boldlabel">
                                   <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
@@ -500,12 +500,13 @@
                                            tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                                     </td>
                                     <td class="width25 paddedbottom10"
-                                        ng-hide="isHiddenRepaymentsStartingFromDate == true">
-                                        <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate"
-                                               type="text" autocomplete="off" datepicker-pop="{{df}}"
+                                        ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
+                                        <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate1"
+                                               type="text" datepicker-pop="dd MMMM yyyy"
                                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
                                                min="minDate" max="'2020-06-22'" class="form-control"
-                                               ng-required="isMandatoryRepaymentsStartingFromDate"/>
+                                               ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                                        <form-validate valattributeform="approveloanapplicationform" valattribute="repaymentsStartingFromDate1"/>
                                     </td>
 
                                     <td class="width19"></td>
@@ -965,11 +966,8 @@
                                     {{'label.button.cancel' |
                                     translate}}
                                 </button>
-                                <button id="save" ng-click="submitForApproval()"
-                                        type="submit"
-                                        class="btn btn-primary">
-                                    {{'label.button.save' |
-                                    translate}}
+                                <button id="save" type="submit" class="btn btn-primary">
+                                    {{'label.button.save' | translate}}
                                 </button>
                                  <a class="btn btn-primary" href="javascript:void(0);" data-ng-click="previewRepayments(true)">
                                     {{'label.button.schedulepreview' | translate}}</a>
