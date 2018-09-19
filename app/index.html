@@ -88,6 +88,14 @@
                                         <label class="error" data-ng-show="authenticationFailed">
                                             <strong>{{ authenticationErrorMessage | translate }}</strong>
                                         </label>
+                                        <div ng-if="response.uiDisplayConfigurations.loginSecurity.isEnabledLdap">
+                                            <label>
+                                                <input type="radio" ng-model="loginCredentials.ldap" value="bss"> {{'label.anchor.bssserver' | translate}}
+                                            </label>
+                                            <label style="padding-left:15px">
+                                                <input type="radio" ng-model="loginCredentials.ldap" value="kotak"> {{'label.anchor.kotakserver' | translate}}
+                                            </label>
+                                        </div>
                                         <div class="form-group ">
                                             <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}"
                                                 class="input-sm form-control" required id="uid" style="border-radius: 5px;">
@@ -136,7 +144,7 @@
                                 </div>
                                 <div class="col-md-2"></div>
                             </div>
-                            <div ng-if="resetPassword">
+                            <div ng-if="resetPassword && !response.uiDisplayConfigurations.loginSecurity.isEnabledLdap">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-11">
                                     <form class="form col-md-10" role="form">
@@ -354,6 +362,8 @@
                                     </ul>
                                 </li>
 
+                                
+
                                 <!-- collections start-->
                                 <li class="dropdown" ng-show="showCollections">
                                     <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('collections') }" href="#">
@@ -408,25 +418,9 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
-                                <div class="input-group" style="width:280px">
-                                    <div class="input-group-btn search-panel " style="width:20px">
-                                        <input id="searchRule" ng-bind="searchRuleLabel" tooltip="{{ searchRuleLabel | translate }}" tooltip-placement="tooltip.bottom"
-                                            type="checkbox" ng-model="searchRule" ng-change="onSearchRuleChange(searchRule)">
-                                        </input>
-                                    </div>
-                                    <div class="input-group-btn search-panel">
-                                        <button type="button" class="btn btn-warn dropdown-toggle" data-toggle="dropdown">
-                                            {{currentScope.name | translate}}
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li ng-repeat="searchScope in searchScopes" ng-click="changeScope(searchScope)">
-                                                <a href="">{{ searchScope.name |translate}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <input id="search" type="text" class="form-control" data-ng-model="search.query" placeholder="{{'label.searchorpress'|translate}}" autocomplete="off">
+                            <form  class="navbar-form navbar-right ng-pristine ng-valid">
+                                <div class="input-group">
+                                    <button id="search" ng-click="globalSearch()"  class="btn btn-primary ng-binding" data-ng-model="search.query" placeholder="{{'label.searchorpress'|translate}}" autocomplete="off"><i class="icon-search"></i>{{'label.heading.search' | translate}}</button>
                                 </div>
                             </form>
                         </div>

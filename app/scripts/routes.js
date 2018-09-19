@@ -1489,7 +1489,7 @@
                 templateUrl: 'views/reports/viewauditreport.html'
             })
             .when('/workflowtaskdashboard', {
-                templateUrl: 'views/dashboard/workflowstepdashboard.html'
+                templateUrl: 'views/dashboard/workflowdashboard.html'
             })
             .when('/tasklist', {
                 templateUrl: 'views/dashboard/tasklist.html'
@@ -1847,6 +1847,9 @@
             })
             .when('/transfer/center', {
                 templateUrl: 'views/transfer/transfercenter.html'
+            })
+            .when('/transferhistory/:entityType/:entityId',{
+                templateUrl: 'views/common/viewtransferhistory.html'
             })
         $locationProvider.html5Mode(false);
     };

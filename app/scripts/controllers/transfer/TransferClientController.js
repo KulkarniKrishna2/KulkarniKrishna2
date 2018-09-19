@@ -107,7 +107,7 @@
                 if (scope.selectedGroup != undefined && scope.selectedGroup.id != undefined && scope.selectedClients.length > 0) {
                     if (scope.isMaxClientInGroupEnable) {
                         var availableClientLimit = scope.getAvailableMemberLimit(scope.selectedGroup.id);
-                        if (scope.selectedClients.length > availableClientLimit) {
+                        if (scope.dataList.length > (availableClientLimit -1)  || scope.selectedClients.length > availableClientLimit) {
                             scope.isClientExceedingLimit = true;
                             scope.clientRemaining = availableClientLimit;
                         } else {
@@ -160,6 +160,13 @@
                     location.path('/transfer/viewclienttransfer');
                 });
             };
+            scope.cancel = function(){
+                location.path('/transfer/viewclienttransfer');
+            }
+
+            scope.deleteSubmitDetails = function(){
+                scope.dataList = [];
+            }
 
         }
     });

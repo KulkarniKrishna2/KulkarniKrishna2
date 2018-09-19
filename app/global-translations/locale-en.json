@@ -421,7 +421,7 @@
     "label.requirefield":"Required Field",
     "label.none":"None",
     "label.savesuccessfully":"Saved Successfully",
-    "label.nodatafound":"No data was found related to the search parameters entered.",
+    "label.nodatafound":"No data was found related to the search parameters entered ",
     "label.mustbenumeric":"Must be numeric",
     "label.must.be.ten.digits.numeric":"Must be Ten digits numeric",
     "inavalid.ifsc.format":"Special characters, space and more than 11 characters are not allowed",
@@ -6783,7 +6783,7 @@
     "error.msg.validation.input.datatablename" : "Please enter Data Table Name",
     "error.msg.validation.select.enitytype" : "Please select Entity Type",
     "error.msg.workflow.step.order.not.changed" : "Workflow Steps order not changed",
-    "label.button.update.workflowsteps.order" : "Update Workfow Steps Oder",
+    "label.button.update.workflowsteps.order" : "Update Workflow Steps Order",
     "error.msg.validation.add.roles" : "Please add roles to the actions",
     "label.input.workflowstep.name" : "Workflow Step Name",
     "label.input.surveryid" : "SurveyId",
@@ -7482,7 +7482,7 @@
     "label.anchor.member.transfer" : "Transfer Members",
     "label.define.member.transfer" : "Transfer member to group or center or different office",
     "label.menu.selectcenter" : "Select Center",
-    "error.msg.selected.client.can.not.be.more.than" : "Selected client can not be more than ",
+    "error.msg.group.member.limit.exceeded" : "Destination group having max member limit: ",
     "label.tooltip.reject" : "Reject",
     "label.tooltip.approve" : "Approve",
     "label.anchor.view.member.transfer" : "View Member Transfer", 
@@ -7506,5 +7506,15 @@
     "error.msg.unable.to.generate.loan.account.number" :"Can not generate loan account number",
     "label.last.login.date" : "Last Login Date",
 
-    "------ end of tensalation file": "---------"
+    "validation.msg.search.cannot.be.empty":"Enter any one field",
+    "validation.msg.search.valid.mobile.number":"Please enter a valid mobile number",
+    "validation.msg.search.valid.name.size":"Please enter a name of min length 3",
+    "label.heading.to.ofiice":"To Office",
+    "label.heading.from.group":"From Group",
+    "label.heading.to.group":"To Group",
+    "label.button.view.transfer.history":"View Transfer History",
+    "label.heading.default.landing.step" : "Default Landing Step",
+    "alert.msg.default.land.msge":"Do you want to make it as default step ?",
+
+     "------ end of tensalation file":"---------"
 }

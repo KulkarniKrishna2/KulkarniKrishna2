@@ -15,7 +15,9 @@
   "label.anchor.editofficeglaccount":"Edit Field Office GL Account Mapping",
   "label.anchor.viewofficeglaccount":"View Field Office GL Account Mapping",
   "label.anchor.kotak.approval" : "Kotak Approval",
-  
+  "label.anchor.kotakserver" : "Kotak",
+  "label.anchor.bssserver" : "BSS",
+
   "#Buttons": "..",
   "label.button.creategroup" : "Create Subgroup",
   "label.button.managegroups":"Manage Subgroups",

@@ -495,7 +495,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'reports/IndividualAccountReportController',
-            'dashboard/WorkFlowStepDashboardController',
+            'dashboard/WorkFlowDashboardController',
+            'dashboard/DefaultWorkFlowStepDashboardController',
+            'dashboard/BSSWorkFlowStepDashboardController',
             'dashboard/TaskListController',
             'bankaccountdetails/BankAccountDetailController',
             'bankaccountdetails/common/BankAccountCommonController',
@@ -626,7 +628,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'transfer/TransferCenterController',
             'transfer/TransferClientController',
             'transfer/ViewTransferClientController',
-            'transfer/ViewTransferCenterController'
+            'transfer/ViewTransferCenterController',
+            'search/GlobalSearchController',
+            'common/ViewTransferHistoryController'
         ],
         filters: [
             'StatusLookup',

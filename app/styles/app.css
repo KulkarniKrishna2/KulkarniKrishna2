@@ -1758,3 +1758,9 @@ table.table.table-striped tr.backgroundred td{
 .min-height-250px {
     min-height: 250px !important;
 }
+
+.finflux-alert {
+    padding: 7px;
+    margin-bottom: 20px;
+    border: 1px solid transparent !important;
+}

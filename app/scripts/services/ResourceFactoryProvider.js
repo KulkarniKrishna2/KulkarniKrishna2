@@ -1437,6 +1437,9 @@
                         get: {method: 'GET', params: {}},
                         update:{method: 'PUT', params:{}}
                     }),
+                    workflowConfigDefaultStepResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/:taskConfigStepId/defaultlandingstep",{taskConfigId:'@taskConfigId',taskConfigStepId:'@taskConfigStepId'},{
+                       update:{method: 'PUT', params:{}}
+                    }),
                     inActivateWorkflowConfigStepsResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/:taskConfigStepId/inactivate",{taskConfigId:'@taskConfigId',taskConfigStepId:'@taskConfigStepId'},{
                         update:{method: 'PUT', params:{}}
                     }),
@@ -1663,7 +1666,17 @@
                     }),
                     bulkBankApprovalActionResource: defineResource(apiVer + "/tasktracking/bulkbankapproval",{}, {
                         doBulkBankApproval: {method: 'POST', params: {}}
-                    })
+                    }),
+                    advanceSearch: defineResource(apiVer + "/search/advsearch", {query: '@query', resource: '@resource'}, {
+                        search: { method: 'GET',
+                            params: { query: '@query' , resource: '@resource'},
+                            isArray: true
+                        }
+                    }),
+                    transferHistoryResource: defineResource(apiVer + "/:entityType/:entityId/transferhistory", {entityType:'@entityType',entityId:'@entityId'}, {
+                        get: {method: 'GET', params: {},isArray: true}
+
+                    }),
                 };
             }];
         }
