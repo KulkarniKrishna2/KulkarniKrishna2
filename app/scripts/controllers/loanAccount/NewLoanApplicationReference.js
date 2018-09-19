@@ -439,7 +439,9 @@
                 this.formData.expectedDisbursementDate=dateFilter(this.formData.expectedDisbursementDate,scope.df);
                 this.formData.repaymentsStartingFromDate=dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
                 this.formData.accountType = scope.inparams.templateType;
-                this.formData.groupId = scope.parentGroups[0].id;
+                if (scope.parentGroups.length > 0) {
+                    this.formData.groupId = scope.parentGroups[0].id;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
