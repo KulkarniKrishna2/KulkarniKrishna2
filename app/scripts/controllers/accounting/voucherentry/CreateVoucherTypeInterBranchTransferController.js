@@ -14,8 +14,18 @@
             scope.numberOfDebits = 1;
             scope.costCenterOptions = [];
 
+            if(scope.response){
+                scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.costCenter;            
+                scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode;            
+            }
+
             resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
                 scope.companyCodeForGlaccountCodeValues = data;
+                if (data != null) {
+                    if (data.length > 0) {
+                        scope.formData.companyCodeForGlaccountCodeValues = data[0].id;
+                    }
+                }
             });
 
             resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode,"companyCode":0}, function (data) {
