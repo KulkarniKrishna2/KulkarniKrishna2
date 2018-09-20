@@ -61,6 +61,7 @@
                             if(data.taskConfigId){
                                 taskConfig.taskConfigId = data.taskConfigId;
                                 taskConfig.taskConfigName = data.taskConfigName;
+                                taskConfig.taskId = data.taskId;
                                 taskConfigData.taskConfig = taskConfig;
     
                                 taskConfigData.clientCount = data.clientCount;
@@ -73,8 +74,9 @@
             };
             scope.getWorkFlowTaskSummary();
 
-            scope.viewWorkFlow = function(center) {
-                location.path('/centeronboarding/create/'+ center.centerId+'/workflow');
+            scope.viewWorkFlow = function(center, task) {
+                //console.log(JSON.stringify((task)));
+                location.path('/centeronboarding/create/'+ center.centerId+'/workflow/'+task.taskConfig.taskId);
             };
         }
     });

@@ -59,6 +59,9 @@
                             }
                         }
                     }
+                    if(scope.defaultLandingStepId){
+                        scope.currentTaskId = scope.defaultLandingStepId;
+                    }
                 }
             };
 
