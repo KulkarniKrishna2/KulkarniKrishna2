@@ -7516,5 +7516,7 @@
     "label.heading.default.landing.step" : "Default Landing Step",
     "alert.msg.default.land.msge":"Do you want to make it as default step ?",
 
+    "label.submit.and.continue" : "Submit and Continue",
+
      "------ end of tensalation file":"---------"
 }
