@@ -24,6 +24,8 @@
 			scope.isSectioned = false;
             scope.sectionedColumnHeaders = [];
             scope.associateAppTable = null;
+            scope.count = 0;
+            scope.issubmitcontinue = false ;
             var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
 
             if (routeParams.fromEntity == 'client') {
@@ -62,6 +64,7 @@
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true',associateAppTable: scope.associateAppTable}, function (data) {
 
                 scope.tableDisplayName = data.registeredDataTableDisplayName != null ? data.registeredDataTableDisplayName: scope.tableName;
+                scope.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                 var colName = data.columnHeaders[0].columnName;
                 if (colName == 'id') {
                     data.columnHeaders.splice(0, 1);
@@ -344,6 +347,13 @@
 
 
                 resourceFactory.DataTablesResource.save(params, this.formData, function (data) {
+                    if(scope.issubmitcontinue)
+                    {
+                        scope.formData={};
+                        scope.count=++scope.count;
+                        scope.issubmitcontinue = false ;
+                    }
+                    else{
                     var destination = "";
                     if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
@@ -363,8 +373,15 @@
                         destination = '/viewoffice/' + data.officeId;
                     }
                     location.path(destination);
+                }
                 });
             };
+
+            scope.submitcontinue = function () {
+                scope.issubmitcontinue = true ;
+                scope.submit();
+                };
+
             scope.hideField = function(data){
                if(idList.indexOf(data.columnName) >= 0) {
                 return true;
