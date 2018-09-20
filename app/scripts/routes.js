@@ -1751,6 +1751,8 @@
             })
             .when('/centeronboarding/:eventType/:centerId/workflow', {
                 templateUrl: 'views/task/showcase/centeronboardingworkflow.html'
+            }).when('/centeronboarding/:eventType/:centerId/workflow/:defaultLandingStepId', {
+                templateUrl: 'views/task/showcase/centeronboardingworkflow.html'
             })
             .when('/history/:entityType/:entityId',{
                 templateUrl: 'views/common/viewhistory.html'

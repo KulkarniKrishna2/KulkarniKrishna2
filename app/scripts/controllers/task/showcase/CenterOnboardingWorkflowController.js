@@ -3,6 +3,7 @@
         CenterOnboardingWorkflowController: function (scope, resourceFactory, routeParams, popUpUtilService) {
             scope.eventType = routeParams.eventType;
             scope.centerId = routeParams.centerId;
+            scope.defaultLandingStepId = routeParams.defaultLandingStepId;
 
             function init() {
                 resourceFactory.centerResource.get({
