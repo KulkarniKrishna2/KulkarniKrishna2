@@ -3,7 +3,7 @@
 	<table class="table">
         <tr>
 	        <td colspan="4">
-				<span class="alert alert-dismissible alert-danger" ng-if="isValidForm()"><small>{{'validation.msg.search.cannot.be.empty'
+				<span class="finflux-alert alert-dismissible alert-danger" ng-if="isValidForm()"><small>{{'validation.msg.search.cannot.be.empty'
 						| translate}}</small></span>
 		    </td>
         </tr>
@@ -31,31 +31,28 @@
 		<tr ng-show="showname">
 			<td class="col-md-2"><label class="control-label  "></label>{{'label.heading.name' | translate}}</label></td>
 			<td colspan="3">
-				<input id="fullname" name="fullname" placeholder="{{'label.heading.name' | translate}}" ng-model="search.quer" ng-minlength="3" />
+				<input id="fullname" name="fullname" placeholder="{{'label.heading.name' | translate}}" ng-model="formData.quer" ng-minlength="3" />
 				<span class="finflux-alert alert-dismissible alert-danger" ng-if="searchform.fullname.$invalid  && submitted"><small>{{'validation.msg.search.valid.name.size' | translate}}</small></span>
 			</td>
-			
-			
-			
 		</tr>
 		<tr>
 			<div>
 				<td class="col-md-2" ng-show="showexternalid"><label class="control-label  ">{{'label.heading.externalid' | translate}}</label></td>
-				<td ng-show="showexternalid"><input placeholder="{{'label.heading.externalid' | translate}}" ng-model="search.externalId"></td>
+				<td ng-show="showexternalid"><input placeholder="{{'label.heading.externalid' | translate}}" ng-model="formData.externalId"></td>
 			</div>
 			<div>
 				<td class="col-md-2" ng-show="showreferenceno"><label class="control-label  ">{{'label.input.referencenumber' | translate}}</label></td>
-				<td ng-show="showreferenceno"><input placeholder="{{'label.input.referencenumber' | translate}}" data-ng-model="search.refno"></td>
+				<td ng-show="showreferenceno"><input placeholder="{{'label.input.referencenumber' | translate}}" data-ng-model="formData.refno"></td>
 			</div>
 		</tr>
 		<tr>
 			<div>
 				<td class="col-md-2" ng-show="showaccountno"><label class="control-label  ">{{'label.heading.accountno' | translate}}</label></td>
-				<td ng-show="showaccountno"><input placeholder="{{'label.heading.accountno' | translate}}" ng-model="search.accountno"></td>
+				<td ng-show="showaccountno"><input placeholder="{{'label.heading.accountno' | translate}}" ng-model="formData.accountno"></td>
 			</div>
 			<div>
 				<td class="col-md-2" ng-show="showmobile"><label class="control-label  ">{{'label.input.mobilenumber' | translate}}</label></td>
-				<td ng-show="showmobile"><input name="mobileno" placeholder="{{'label.input.mobilenumber' | translate}}" ng-model="search.mobileNo"
+				<td ng-show="showmobile"><input name="mobileno" placeholder="{{'label.input.mobilenumber' | translate}}" ng-model="formData.mobileNo"
 						ng-minlength="10" ng-maxlength="10"/><span class="finflux-alert alert-dismissible alert-danger" ng-show="searchform.mobileno.$invalid && submitted"><small>{{'validation.msg.search.valid.mobile.number' | translate}}</small></span></td>
 			</div>
 		</tr>
@@ -66,12 +63,12 @@
 					<option value="">{{'label.all' | translate}}</option>
 
 				</select></td>
-				<td ng-if="formData.identityId != null"><input placeholder="{{'label.heading.uniqueidentification' | translate}}" data-ng-model="search.identityNumber"></td>
+			<td ng-if="formData.identityId != null"><input placeholder="{{'label.heading.uniqueidentification' | translate}}" data-ng-model="formData.identityNumber"></td>
 		</tr>
-
-
 	</table>
 </form>
-	<button style="width:100%" type="button" class="btn btn-primary ng-binding" ng-click="validate()">{{'label.heading.search'
+<div class="col-md-offset-5">
+	<button  type="button" class="btn btn-primary ng-binding" ng-click="validate()"><i class="icon-search"></i>{{'label.heading.search'
 			| translate}}</button>
+	</div>
 </div>
