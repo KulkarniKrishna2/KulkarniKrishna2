@@ -61,6 +61,7 @@
                             if(data.taskConfigId){
                                 taskConfig.taskConfigId = data.taskConfigId;
                                 taskConfig.taskConfigName = data.taskConfigName;
+                                taskConfig.taskId = data.taskId;
                                 taskConfigData.taskConfig = taskConfig;
     
                                 taskConfigData.clientCount = data.clientCount;
@@ -77,6 +78,7 @@
                 //console.log(JSON.stringify((task)));
                 $rootScope.defaultLandingStepId = task.taskConfig.taskId;
                 location.path('/centeronboarding/create/'+ center.centerId+'/workflow');
+
             };
         }
     });

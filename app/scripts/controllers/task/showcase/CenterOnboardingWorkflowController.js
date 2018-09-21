@@ -6,6 +6,7 @@
             scope.defaultLandingStepId = $rootScope.defaultLandingStepId;
             delete $rootScope.defaultLandingStepId;
 
+
             function init() {
                 resourceFactory.centerResource.get({
                     centerId: scope.centerId,

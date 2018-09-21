@@ -63,6 +63,9 @@
                         scope.currentTaskId = scope.defaultLandingStepId;
                         scope.defaultLandingStepId = undefined;
                     }
+                    if(scope.defaultLandingStepId){
+                        scope.currentTaskId = scope.defaultLandingStepId;
+                    }
                 }
             };
 

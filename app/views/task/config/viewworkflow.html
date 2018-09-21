@@ -23,6 +23,14 @@
                     <td data-ng-click="routeToView()" class="pointer">{{'label.heading.shortname' | translate}}</td>
                     <td  data-ng-click="routeToView()" class="pointer">{{taskConfigData.shortName}}</td>
                 </tr>
+                <tr>
+                    <td data-ng-click="routeToView()" class="pointer">{{'label.heading.enabled.cyclic.workflow' | translate}}</td>
+                    <td  data-ng-click="routeToView()" class="pointer">{{taskConfigData.isCyclic  ? 'Yes' : 'No'}}</td>
+                </tr>
+                <tr>
+                    <td data-ng-click="routeToView()" class="pointer">{{'label.input.isActive' | translate}}</td>
+                    <td  data-ng-click="routeToView()" class="pointer">{{taskConfigData.isActive  ? 'Active' : 'In Active'}}</td>
+                </tr>
                 <tr ng-if="isTaskConfigEntityMappingDone" >
                     <td data-ng-click="routeToView()" class="pointer">{{'label.heading.entity' | translate}}</td>
                     <td data-ng-click="routeToView()" class="pointer">{{taskConfigData.entityMappingType.value}}</td>

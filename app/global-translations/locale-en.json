@@ -7319,6 +7319,8 @@
     "label.button.view.transfer.history":"View Transfer History",
     "label.heading.default.landing.step" : "Default Landing Step",
     "alert.msg.default.land.msge":"Do you want to make it as default step ?",
+    "label.heading.enabled.cyclic.workflow": "Enabled Cyclic Workflow",
+    "label.input.enable.cyclic.workflow": "Enable Cyclic Workflow",
 
      "------ end of tensalation file":"---------"
 }

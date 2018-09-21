@@ -16,6 +16,7 @@
                         scope.formData.name = scope.taskConfigData.name;
                         scope.formData.shortName = scope.taskConfigData.shortName;
                         scope.formData.criteriaId = scope.taskConfigData.criteriaId;
+                        scope.formData.isCyclic = scope.taskConfigData.isCyclic;
                     }
                 });
             }
@@ -30,6 +31,9 @@
                 }else{
                     //TaskType.WORKFLOW = 1; TaskType.SINGLE = 2;
                     this.formData.taskType = 1;
+                    if(_.isUndefined(this.formData.isCyclic)){
+                        this.formData.isCyclic = false;
+                    }
                     this.formData.isActive = true;
                     resourceFactory.workflowConfigResource.save(this.formData,function (data) {
                         location.path('/viewworkflow/'+data.resourceId);
