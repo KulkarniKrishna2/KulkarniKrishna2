@@ -67,6 +67,7 @@
 
 
             var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+				$scope.df = scope.df;
                 $scope.data = documentDetail;
                 $scope.close = function () {
                     $modalInstance.close('close');
@@ -107,7 +108,7 @@
                 });
             };
             var RaiseQueryCtrl = function ($scope, $modalInstance, queryParameterInfo) {
-
+				$scope.df = scope.df;
                 $scope.bankApproveId = queryParameterInfo.approveId;
                 $scope.bankEnqiryOptions = queryParameterInfo.bankEnquiries;
                 $scope.queryFormData = {};

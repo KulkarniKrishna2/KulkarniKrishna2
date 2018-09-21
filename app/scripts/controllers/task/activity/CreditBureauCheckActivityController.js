@@ -177,7 +177,7 @@
             }
 
             var reviewReasonCtrl = function($scope, $modalInstance, reviewParameterInfo){
-
+				$scope.df = scope.df;
                 $scope.clientId = reviewParameterInfo.clientId;
                 $scope.loanId = reviewParameterInfo.loanId;
                 $scope.reviewId = reviewParameterInfo.reviewId;
@@ -334,6 +334,7 @@
             }
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.showLoanAccountForm = true;
                 $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -802,7 +803,7 @@
                 });
             }
             var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -953,6 +954,7 @@
             }
 
             var viewClientCBCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.cbCriteriaResult = JSON.parse(memberParams.criteriaResult);
 
                 $scope.close = function () {

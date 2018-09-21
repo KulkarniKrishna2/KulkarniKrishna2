@@ -210,6 +210,7 @@
             }
 
             var ViewMemberCtrl = function($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = false;
@@ -611,6 +612,7 @@
         }
 
         var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
+			$scope.df = scope.df;
             $scope.showLoanAccountForm = true;
             $scope.editLoanAccountdata = {};
             $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -1081,7 +1083,7 @@
                 });
             }
             var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -1143,7 +1145,7 @@
                 });
             }
             var groupCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;

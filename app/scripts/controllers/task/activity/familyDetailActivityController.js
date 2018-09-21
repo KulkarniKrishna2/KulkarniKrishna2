@@ -112,6 +112,7 @@
             };
 
             var FamilyDetailsDeleteCtrl = function ($scope, $modalInstance, familyDetailsId) {
+				$scope.df = scope.df;
                 $scope.delete = function () {
                     resourceFactory.familyDetails.delete({
                         clientId: scope.clientId,
