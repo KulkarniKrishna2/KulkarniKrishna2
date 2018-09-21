@@ -1799,6 +1799,9 @@
             .when('/transferhistory/:entityType/:entityId',{
                 templateUrl: 'views/common/viewtransferhistory.html'
             })
+            .when('/assigntask',{
+                templateUrl: 'views/dashboard/assigntask.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

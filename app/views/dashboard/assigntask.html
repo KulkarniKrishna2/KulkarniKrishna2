@@ -1,0 +1,78 @@
+<div class="col-md-12" ng-controller="AssignTaskController">
+	<div>
+		<h3 h3 class="paddedleft">
+			<strong>{{'label.heading.workflow.tasks' | translate}}</strong>
+		</h3>
+	</div>
+	<hr/>
+    <api-validate></api-validate>
+	<table class="table">
+		<tr>
+			<td>
+				<div>
+                    <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control"
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getCenters(formData.officeId);getUsers(formData.officeId)">
+                        <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+                    <select chosen="centers" id="center" ng-model="formData.centerId" class="form-control"
+                            ng-options="center.id as center.name for center in centers" value="{{center.id}}">
+                        <option value="">{{'label.selectcenter' | translate}}</option>
+                    </select>
+                </div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+                    <select chosen="users" id="user" ng-model="formData.userId" class="form-control"
+                            ng-options="user.id as (user.lastname+','+user.firstname) for user in users" value="{{user.id}}"
+                            ng-change="getSameRoleUsers();getAllTasks()">
+                        <option value="">{{'label.menu.select.user' | translate}}</option>
+                    </select>
+                </div>
+			</td>
+			<td>
+				<div>
+                    <select chosen="assignUsers" id="user" ng-model="assignData.toUserId" class="form-control"
+                            ng-options="assignUser.id as (assignUser.lastname+','+assignUser.firstname) for assignUser in assignUsers" value="{{assignUser.id}}">
+                        <option value="">{{'label.menu.assigned.to' | translate}}</option>
+                    </select>
+                </div>
+			</td>
+		</tr>
+	</table>
+	<div class="table-responsive" >
+        <table id="otherTasks" class="table table-striped card-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="formData.isAllSelected" ng-change ="toggleAll()"/></th>
+                    <th >{{'label.title' | translate}}</th>
+                    <th >{{'label.heading.status' | translate}}</th>
+                    <th >{{'label.heading.description' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="taskData in assignTaskList" ng-init="taskData.selected = false">
+                    <td >
+                        <ng-form>
+                            <input type="checkbox" ng-model="taskData.selected" ng-change="taskToggled()"/>
+                        </ng-form>
+                    </td>
+                    <td class="pointer">{{taskData.taskName}}</td>
+                    <td class="pointer">{{taskData.taskStatus}}</td>
+                    <td class="pointer">{{taskData.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-offset-5">
+        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()" ng-show="assignTaskList">{{'label.button.cancel' | translate}}</button>
+        <button id="save" ng-click="assignTask()" type="submit" class="btn btn-primary" ng-show="assignTaskList" has-permission='REASSIGN_TASK'>{{'label.button.assign' | translate}}</button>
+    </div>
+</div>

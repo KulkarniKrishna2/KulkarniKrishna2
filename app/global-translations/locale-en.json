@@ -7321,6 +7321,10 @@
     "alert.msg.default.land.msge":"Do you want to make it as default step ?",
     "label.heading.enabled.cyclic.workflow": "Enabled Cyclic Workflow",
     "label.input.enable.cyclic.workflow": "Enable Cyclic Workflow",
-
+    "label.button.assignTask":"Assign Task",
+    "error.msg.select.atleast.one.task":"Kindly select atleast one task",
+    "label.menu.select.user":"Select user",
+    "label.menu.assigned.to":" Assign to",
+    "error.msg.select.assign.to":"Kindly select assign to",
      "------ end of tensalation file":"---------"
 }
