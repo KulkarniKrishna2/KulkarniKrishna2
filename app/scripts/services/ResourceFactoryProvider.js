@@ -1606,6 +1606,12 @@
                         get: {method: 'GET', params: {},isArray: true}
 
                     }),
+                    sameRoleUserResource: defineResource(apiVer + "/users/:userId/sameroleuser", {userId: '@userId'}, {
+                        getAllUsers: {method: 'GET', params: {},isArray: true}
+                    }),
+                    assignTaskResource: defineResource(apiVer + "/tasks/taskdetails", {}, {
+                        getAllTasks: {method: 'GET', params: {},isArray: true}
+                    }),
                 };
             }];
         }

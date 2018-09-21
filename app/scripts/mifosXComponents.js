@@ -612,7 +612,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'transfer/ViewTransferClientController',
             'transfer/ViewTransferCenterController',
             'search/GlobalSearchController',
-            'common/ViewTransferHistoryController'
+            'common/ViewTransferHistoryController',
+            'dashboard/AssignTaskController'
         ],
         filters: [
             'StatusLookup',
