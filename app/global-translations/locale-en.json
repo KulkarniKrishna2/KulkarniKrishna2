@@ -4792,6 +4792,8 @@
     "label.heading.isEncrypted":"Is Encrypted",
     "externalServiceType.banktransfer":"Bank Transfer",
     "externalServiceType.ldapserver":"LDAP Server",
+    "externalServiceType.bcifserver":"BCIF Server",
+    "externalServiceType.ncifserver":"NCIF Server",
 
     "transactionType.ft": "Fund Transfer",
     "transactionType.imps": "IMPS Transfer",
