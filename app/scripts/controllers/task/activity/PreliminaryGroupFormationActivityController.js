@@ -184,7 +184,7 @@
             }
 
             var CreateMemberCtrl = function ($scope, $modalInstance, groupParameterInfo) {
-
+                $scope.df = scope.df;
                 $scope.offices = [];
                 $scope.staffs = [];
                 $scope.savingproducts = [];
