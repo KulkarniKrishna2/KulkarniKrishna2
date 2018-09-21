@@ -613,7 +613,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'transfer/ViewTransferCenterController',
             'search/GlobalSearchController',
             'common/ViewTransferHistoryController',
-            'dashboard/AssignTaskController'
+            'dashboard/AssignTaskController',
+            'policy/CreatePolicyController',
+            'policy/ClientPolicyDetailsController',
+            'policy/ViewPolicyController',
+            'policy/EditPolicyController',
+            'task/activity/DeceasedDetailsActivityController',
+            'task/activity/ClaimInsurenceActivityController',
+            'task/activity/ClaimSettlementActivityController',
+            'policy/DeceasedOnBoardingWorkflowController'
         ],
         filters: [
             'StatusLookup',

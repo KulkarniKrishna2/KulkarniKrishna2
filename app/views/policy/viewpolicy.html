@@ -1,0 +1,45 @@
+<form name="viewPolicyform" novalidate="" class="row form-horizontal" ng-controller="ViewPolicyController" rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/viewclient/{{clientId}}">{{'label.anchor.client' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.viewpolicy' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right btn-group" ng-show="policy != undefined">
+        <a has-permission="UPDATE_POLICY" href="#/clients/{{clientId}}/editpolicy" class="btn btn-primary">
+            <i class="icon-plus icon-white"></i>{{ 'label.button.editpolicy' | translate }}</a>
+    </div>
+    <div class="pull-right btn-group" ng-show="policy == undefined">
+        <a has-permission="CREATE_POLICY" href="#/clients/{{clientId}}/createpolicy" class="btn btn-primary">
+            <i class="icon-plus icon-white"></i>{{ 'label.button.createpolicy' | translate }}</a>
+    </div>
+    <br>
+    <api-validate></api-validate>
+    <div class="col-sm-offset-1 col-sm-6">
+        <h3>{{'label.heading.policydetails' | translate}}</h3>
+    </div>
+    <div class="col-sm-offset-1 col-sm-6">
+        <table class="table table-bordered table-striped" ng-show="policy != undefined">
+            <tbody class="graybg">
+                <tr>
+                    <th>{{'label.heading.client' | translate}} :</th>
+                    <th>{{policy.clientData.displayName}}</th>
+                </tr>
+                <tr>
+                    <th>{{'label.heading.policyname' | translate}} :</th>
+                    <th>{{policy.policyName}}</th>
+                </tr>
+                <tr>
+                    <th>{{'label.heading.policynumber' | translate}} :</th>
+                    <th>{{policy.policyNumber}}</th>
+                </tr>
+                <tr>
+                    <th>{{'label.heading.amount' | translate}} :</th>
+                    <th>{{policy.amount}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
