@@ -78,7 +78,6 @@
                 //console.log(JSON.stringify((task)));
                 $rootScope.defaultLandingStepId = task.taskConfig.taskId;
                 location.path('/centeronboarding/create/'+ center.centerId+'/workflow');
-
             };
         }
     });

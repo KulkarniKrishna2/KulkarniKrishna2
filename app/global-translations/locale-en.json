@@ -5236,8 +5236,6 @@
     "label.button.create.credit.bureau.mapping": "Create Credit Bureau Mapping",
     "error.msg.loan.product.id.already.mapped.with.credit.bureau.product": "Loan product already mapped with credit bureau product.",
 
-    "------ end of tensalation file":"---------",
-
     "#riskrating":"",
     "label.anchor.auditquestionnaire":"Audit Questionnaire",
     "label.anchor.producteligibilitycritaria":"Product Eligibility Critaria",
@@ -7372,6 +7370,5 @@
     "label.heading.amountreceived" : "Amount Received",
     "label.heading.claimsettlement" : "Claim Settlement",
 
-    
-     "------ end of translation file":"---------"
+     "------ end of tensalation file ------":"---------"
 }
