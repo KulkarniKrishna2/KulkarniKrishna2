@@ -1,0 +1,63 @@
+<div class="col-md-12" ng-controller="EditPolicyController">
+    <ul class="breadcrumb">
+        <li>
+            <a href='#/viewclient/{{clientId}}'>{{'label.anchor.viewclient' | translate}}</a>
+        </li>
+        <li>
+            <a href='#/clients/{{clientId}}/viewpolicy'>{{'label.view.viewpolicy' | translate}}</a>
+        </li>
+        <li class="active">{{'label.anchor.editpolicy' | translate}}</li>
+    </ul>
+    <form name="editpolicyform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createpolicy' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.policyname' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input type="text" autocomplete="off" id="policyName" name="policyName" ng-model="formData.policyName" class="form-control"
+                        required late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editpolicyform" valattribute="policyName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.policynumber' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input type="text" autocomplete="off" id="policyNumber" name="policyNumber" ng-model="formData.policyNumber" class="form-control"
+                        required late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editpolicyform" valattribute="policyNumber" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.amount' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input type="text" autocomplete="off" id="amount" name="amount" ng-model="formData.amount" class="form-control" required
+                        late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editpolicyform" valattribute="amount" />
+                </div>
+            </div>
+            <br/>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/clients/{{clientId}}/viewpolicy" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_POLICY'>{{'label.button.save' | translate}}</button>
+            </div>
+</div>
+
+</fieldset>
+</form>
+</div>

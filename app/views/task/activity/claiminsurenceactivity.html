@@ -1,0 +1,91 @@
+<div class="col-md-12" ng-controller="ClaimInsurenceActivityController">
+    <form name="createclaiminsurenceform" novalidate="" class="form-horizontal well" ng-show="!isClaimInsurenceCreated" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.claiminsurance' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanoutstanding' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="loanOutstanding" type="text" autocomplete="off" name="loanOutstanding" ng-model="formData.loanOutstanding" class="form-control"
+                        number-format required late-Validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createclaiminsurenceform" valattribute="loanOutstanding" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.repaymentdone' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="repaidAmount" type="text" autocomplete="off" name="repaidAmount" ng-model="formData.repaidAmount" class="form-control"
+                        number-format required late-Validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createclaiminsurenceform" valattribute="repaidAmount" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.claimraisedby' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="staffOptions" id="claimRaisedBy" ng-model="formData.claimRaisedBy" class="form-control" ng-options="staff.id as staff.displayName for staff in staffOptions"
+                            value="{{staff.id}}" name="staffOptions" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectperson' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createclaiminsurenceform" valattribute="claimRaisedBy" />
+                </div>
+            </div>
+            <br/>
+            <div class="col-md-offset-5">
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CLAIM_INSURENCE'>{{'label.button.save' | translate}}</button>
+            </div>
+
+
+        </fieldset>
+    </form>
+
+    <div ng-show="isClaimInsurenceCreated">
+        <div class="row">
+            <label class="control-label col-sm-3">
+                {{'label.heading.loansoutstanding' | translate}}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                {{claimInsurenceData.loanOutstanding}}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">{{ 'label.heading.repaymentdone' | translate }}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                {{claimInsurenceData.repaidAmount}}
+
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">{{ 'label.heading.claimraisedby' | translate }}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                {{claimInsurenceData.claimRaisedBy.displayName}}
+
+            </div>
+        </div>
+    </div>
+
+</div>
