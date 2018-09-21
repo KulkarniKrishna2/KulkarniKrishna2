@@ -11,7 +11,7 @@
 			<td>
 				<div>
                     <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control"
-                            ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getCenters(formData.officeId);getUsers(formData.officeId)">
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getCenters(formData.officeId);getUsers()">
                         <option value="">{{'label.menu.selectoffice' | translate}}</option>
                     </select>
                 </div>
@@ -32,7 +32,7 @@
 				<div>
                     <select chosen="users" id="user" ng-model="formData.userId" class="form-control"
                             ng-options="user.id as (user.lastname+','+user.firstname) for user in users" value="{{user.id}}"
-                            ng-change="getSameRoleUsers();getAllTasks()">
+                            ng-change="getSameRoleUsers()">
                         <option value="">{{'label.menu.select.user' | translate}}</option>
                     </select>
                 </div>
@@ -47,6 +47,7 @@
 			</td>
 		</tr>
 	</table>
+    <div class="col-md-offset-5"><button id="search" type="submit" class="btn btn-primary" ng-click="getAllTasks()" data-ng-disabled="enableSearchButtoun">{{'label.button.search' | translate}}</button></div>
 	<div class="table-responsive" >
         <table id="otherTasks" class="table table-striped card-table">
             <thead>
