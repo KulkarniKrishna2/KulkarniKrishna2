@@ -73,6 +73,7 @@
             }
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.showLoanAccountForm = true;
                 $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -529,6 +530,7 @@
             }
 
             var LoanDisburseCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = true;

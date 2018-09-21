@@ -151,6 +151,7 @@
                 });
             };
             var StartOverCtrl = function ($scope, $modalInstance) {
+			    $scope.df = scope.df;
                 $scope.previousTaskList=[];
                 $scope.startOverFormData={};
                 $scope.temp = {};
@@ -211,7 +212,7 @@
             };
 
             var RejectCtrl = function ($scope, $modalInstance) {
-                
+                $scope.df = scope.df;
                 $scope.rejectioReasonsAvailable = false;
                 $scope.displayDescription = false;
                 $scope.isRejectReasonMandatory =  scope.isRejectReasonMandatory;
@@ -415,7 +416,7 @@
             };
 
             var CloseQueryCtrl = function ($scope, $modalInstance, queryDetails) {
-
+			    $scope.df = scope.df;
                 $scope.taskQueries = queryDetails.taskQueries;
                 $scope.closeQueryFormData = {};
 
@@ -470,7 +471,7 @@
             };
 
             var RescheduleCtrl = function ($scope, $modalInstance, rescheduleDetails) {
-
+			    $scope.df = scope.df;
                 $scope.rschData = {};
                 $scope.rescheduleFormData = {};
                 $scope.rschData.dueTime = scope.dueTime;
