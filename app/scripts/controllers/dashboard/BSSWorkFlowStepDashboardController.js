@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BSSWorkFlowStepDashboardController: function (scope, resourceFactory, location) {
+        BSSWorkFlowStepDashboardController: function (scope, $rootScope, resourceFactory, location) {
             scope.officeId = scope.currentSession.user.officeId;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -76,11 +76,13 @@
 
             scope.viewWorkFlow = function(center, task) {
                 //console.log(JSON.stringify((task)));
-                location.path('/centeronboarding/create/'+ center.centerId+'/workflow/'+task.taskConfig.taskId);
+                $rootScope.defaultLandingStepId = task.taskConfig.taskId;
+                location.path('/centeronboarding/create/'+ center.centerId+'/workflow');
+
             };
         }
     });
-    mifosX.ng.application.controller('BSSWorkFlowStepDashboardController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.BSSWorkFlowStepDashboardController]).run(function ($log) {
+    mifosX.ng.application.controller('BSSWorkFlowStepDashboardController', ['$scope', '$rootScope', 'ResourceFactory','$location', mifosX.controllers.BSSWorkFlowStepDashboardController]).run(function ($log) {
         $log.info("BSSWorkFlowStepDashboardController initialized");
     });
 }(mifosX.controllers || {}));

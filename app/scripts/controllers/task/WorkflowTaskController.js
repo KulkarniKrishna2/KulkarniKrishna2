@@ -51,13 +51,17 @@
                         }
                     }
                     if(scope.isAllTaskCompleted){
-                        for (index in scope.tasks) {
+                        /*for (index in scope.tasks) {
                             var task = scope.tasks[index];
                             if(task.isDefaultLandingStep){
-                                scope.currentTaskId = task.id;
+                                //scope.currentTaskId = task.id;
                                 break;
                             }
-                        }
+                        }*/
+                    }
+                    if(!_.isUndefined(scope.defaultLandingStepId)){
+                        scope.currentTaskId = scope.defaultLandingStepId;
+                        scope.defaultLandingStepId = undefined;
                     }
                     if(scope.defaultLandingStepId){
                         scope.currentTaskId = scope.defaultLandingStepId;
