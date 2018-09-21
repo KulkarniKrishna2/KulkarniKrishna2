@@ -194,6 +194,9 @@
                         }
                         if(data.globalConfiguration[i].name=='Allow emi packs for loan'){
                             scope.isLoanEmiPackEnabled = data.globalConfiguration[i].enabled;
+                        }                        
+                        if(data.globalConfiguration[i].name=='work-flow'){
+                            scope.isGlobalWorkflowEnabled = data.globalConfiguration[i].enabled;
                         }
                         if(data.globalConfiguration[i].name=='show reference number as a name in group'){
                             scope.isReferenceNumberAsNameEnable = data.globalConfiguration[i].enabled;
