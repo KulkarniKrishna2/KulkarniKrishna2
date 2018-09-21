@@ -3,6 +3,7 @@
         AssignTaskController: function (scope, resourceFactory, location, routeParams) {
         	scope.formData = {};
             scope.assignData = {};
+            scope.enableSearchButtoun = true;
         	resourceFactory.officeResource.getAllOffices({}, function(data) {
         		scope.offices = data;
         	});
@@ -11,12 +12,13 @@
         			scope.centers = data.pageItems;
         		});
         	} 
-        	scope.getUsers = function(officeId){
-        		resourceFactory.userResource.getAllUsers({officeId: officeId},function(data){
+        	scope.getUsers = function(){
+        		resourceFactory.userResource.getAllUsers({},function(data){
         			scope.users = data;
         		});
         	}
             scope.getSameRoleUsers = function(){
+                scope.enableSearchButtoun = false;
                 resourceFactory.sameRoleUserResource.getAllUsers({userId:scope.formData.userId},function(data){
                     scope.assignUsers = data;
                 });
