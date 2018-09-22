@@ -457,12 +457,14 @@
 							<table class="table">
 								<thead>
 									<tr class="graybg">
+										<th>{{'label.input.query.no' | translate}}</th>
 										<th>{{'label.input.selectedquery' | translate}}</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="selectQuery in selectedQueries">
 										<td>{{$index+1}}. {{selectQuery.query}}</td>
+										<td><textarea type="text" autocomplete="off" id="queryId" name="query" ng-model="selectQuery.query"></textarea></td>
 									</tr>
 								</tbody>
 							</table>
