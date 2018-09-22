@@ -1638,7 +1638,13 @@
                     }),
                     claimSettlementResource: defineResource(apiVer + "/clients/:clientId/claimsettlement", {clientId:'@clientId'}, {
                         get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false}
-                    })
+                    }),
+                    bcifCreateResource: defineResource(apiVer + '/bcif/client', {}, {
+                        post: {method: "POST"}
+                    }),  
+                    overridebcifDedupecrnResource: defineResource(apiVer + '/bcif/crn', {}, {
+                        post: {method: "POST"}
+                    })              
                 };
             }];
         }

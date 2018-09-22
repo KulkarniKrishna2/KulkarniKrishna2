@@ -194,6 +194,105 @@
 				</table>
 				<br>
 		<div>
+		<div ng-if="clientDedupTemplateData!=null">
+				<legend><strong>{{'label.heading.bcif.details' | translate}}</strong></legend>
+				<div>
+					<div ng-if="clientDedupTemplateData.clientDedupeList!=null && clientDedupTemplateData.clientDedupeList.length>0 && !crnGeneration && !deduperrorExists">
+							<table class="table table-striped">
+									<thead >
+									<tr>
+										<th>{{ 'label.heading.crn' | translate }}</th>
+										<th>{{ 'label.heading.name' | translate }}</th>
+										<th>{{ 'label.heading.aadhar' | translate }}</th>
+										<th>{{ 'label.heading.dob' | translate }}</th>
+										<th>{{ 'label.heading.address' | translate }}</th>
+										<th ng-if="clientDedupTemplateData.crn==null">{{ 'label.heading.exactmatch' | translate }}</th>
+										<th ng-if="clientDedupTemplateData.crn==null">{{ 'label.heading.actions' | translate }}</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ng-repeat="record in clientDedupTemplateData.clientDedupeList">
+										<td>{{record.bcifId}}</td>
+										<td>{{record.displayName}}
+										</td>
+										<td>
+											{{record.aadharNumber}}
+										</td>
+										<td>{{record.dateOfBirth}}
+										</td>
+										<td>{{record.address}}</td>
+										<td ng-if="clientDedupTemplateData.crn==null">
+											<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="record.exactDedupMatch"></span>
+											<span class="glyphicon glyphicon-remove" aria-hidden="true" ng-if="!record.exactDedupMatch"></span>
+										</td>
+										<td ng-if="clientDedupTemplateData.crn==null">
+											<span>
+												<button type="button" class="btn btn-secondary" ng-click="overrideCrn(record)">{{'label.button.overridecrn' | translate}}</button>
+											</span>
+										</td>
+		
+									</tr>
+									</tbody>
+								</table>
+								<br>
+					</div>
+					<div ng-if="clientCrnTemplateData !=null && crnGeneration && !creationerrorExists">
+							<table class="table table-striped">
+									<thead >
+									<tr>
+										<th>{{ 'label.heading.crn' | translate }}</th>
+										<th>{{ 'label.heading.name' | translate }}</th>
+										<th>{{ 'label.heading.aadhar' | translate }}</th>
+										<th>{{ 'label.heading.dob' | translate }}</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>{{clientCrnTemplateData.crn}}</td>
+										<td>{{clientCrnTemplateData.clientBasicData.displayName}}
+										</td>
+										<td>
+											{{clientCrnTemplateData.clientBasicData.aadharNumber}}
+										</td>
+										<td>{{clientCrnTemplateData.clientBasicData.dateOfBirth}}
+										</td>
+									</tr>
+									</tbody>
+								</table>
+								<br>
+					</div>
+					<div ng-if="allCrnSuspended && !crnGeneration && !deduperrorExists">
+						<p>{{'description.msg.crnsuspended' | translate}}</p>
+						<br>
+					</div>
+		
+					<div ng-if="noDedupeMatchFound && !crnGeneration && !deduperrorExists">
+						<p>{{'description.msg.nodedupe' | translate}}</p>
+						<br>
+					</div>
+		
+					<div ng-if="deduperrorExists">
+						<p style="color:red">{{deduperror}}</p>
+						<br>
+					</div>
+		
+					<div ng-if="creationerrorExists">
+							<p style="color:red">{{crncreationerror}}</p>
+							<br>
+						</div>
+		
+					<div ng-if="(allCrnSuspended && !deduperrorExists) || (noDedupeMatchFound && !deduperrorExists)">
+						<span class = "pull-left" ng-if="allprobableMatches && !crnExists">
+							<button type="button" class="btn btn-primary" ng-click="createBcif()">{{'label.button.createbcif' | translate}}</button>
+						</span>
+						<br>
+						<br>
+					</div>
+		
+		
+				<div>
+		</div>
+
 		<legend><strong>{{'label.heading.creditbureau' | translate}}</strong></legend>
 		<button ng-click="openCBReport(bankApprovalTemplateData.creditBureauLoansSummaryData.creditBureauEnquiryId)"
 			class = "pull-right" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.viewReport' | translate}}
