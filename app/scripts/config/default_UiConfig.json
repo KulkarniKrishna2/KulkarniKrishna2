@@ -83,6 +83,9 @@
 	  },
 	  "waiveInterest":{
 	  	"isTotalOutstandingInterest": false
+	  },
+	  "disbursement":{
+		"disburseTransactionAuthentication":true
 	  }
 	},
 	"viewLoanAccountDetails": {
