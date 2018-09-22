@@ -3784,6 +3784,7 @@
     "label.input.useborrowerloancounter":"Terms vary based on loan cycle",
     "label.input.borrowercycletype": "Borrower Cycle Type",
     "label.input.cyclenumber":"Loan cycle",
+    "label.heading.cyclenumber":"Loan cycle No",
     "label.input.decimalplaces":"Decimal places",
     "label.input.applywithdrawalfeefortransfers":"Apply withdrawal fee for transfers",
     "label.input.savingstransfersinsuspenpense":"Savings transfers in suspense",
