@@ -353,11 +353,6 @@
                             $scope.interestRatesListAvailable = true;
                         }
                     });
-                    resourceFactory.loanPurposeGroupResource.getAll(function (data) {
-                        $scope.loanPurposeGroups = data;
-                        $scope.editLoanAccountdata.loanPurposeId = null;
-                        $scope.formData.loanPurposeGroupId = null;
-                    });
                 }
 
                 $scope.updateDataFromEmiPack = function(loanEMIPacks){
