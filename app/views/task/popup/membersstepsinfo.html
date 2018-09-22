@@ -4,6 +4,7 @@
             <th>{{'label.heading.clientname' | translate}}</th>
             <th>{{'label.heading.referenceNumber' | translate}}</th>
             <th>{{'label.heading.workflowstep.name' | translate}}</th>
+            <th>{{'label.heading.cyclenumber' | translate}}</th>
             <th>{{'label.heading.isworkflowcompleted' | translate}}</th>
         </thead>
         <tbody>
@@ -11,6 +12,7 @@
                 <td>{{memberStepInfo.clientName}}</td>
                 <td>{{memberStepInfo.fcsmNumber}}</td>
                 <td>{{memberStepInfo.currentTaskName}}</td>
+                <td>{{memberStepInfo.loanCycleNo}}</td>
                 <td>{{memberStepInfo.isWorkflowCompleted}}</td>
             </tr>
         </tbody>
