@@ -8,12 +8,15 @@
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
-			"isEnabledBrowserSecurity": true 
+			"isEnabledBrowserSecurity": true
 		},
 		"loanAccount": {
 			"isHiddenField": {
 				"canAddCharge" :false
-			}
+			},
+		    "disbursement":{
+			    "disburseTransactionAuthentication":false
+		    }
 		},
 		"viewClient": {
 			"isHiddenField": {
