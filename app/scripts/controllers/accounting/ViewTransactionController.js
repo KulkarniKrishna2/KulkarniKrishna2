@@ -37,7 +37,7 @@
                     }
                     scope.isReversalEntry = data.isReversalEntry;
                     scope.manualEntry = data.manualEntry;
-                    // scope.transaction = scope.jetransactions[0];
+                    scope.transaction = scope.jetransactions[0];
                     scope.transactionNumber = scope.transaction.transactionId;
                     scope.parseTransactions(scope.jetransactions);
                 });
