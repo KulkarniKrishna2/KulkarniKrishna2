@@ -7372,6 +7372,7 @@
     "label.input.amountreceived" : "Amount Received",
     "label.heading.amountreceived" : "Amount Received",
     "label.heading.claimsettlement" : "Claim Settlement",
+    "label.input.query.no":"Query No",
 
      "------ end of tensalation file ------":"---------"
 }
