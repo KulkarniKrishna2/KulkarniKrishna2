@@ -36,7 +36,9 @@
                     scope.formData.foreClosureChargesPortion = scope.foreclosuredata.foreClosureChargesPortion;
                     scope.calculateTransactionAmount();
                     scope.paymentTypes = scope.foreclosuredata.paymentTypeOptions;
-
+                    if (scope.paymentTypes.length > 0) {
+                        scope.formData.paymentTypeId = scope.paymentTypes[0].id;
+                    }
                 });
             }
 
