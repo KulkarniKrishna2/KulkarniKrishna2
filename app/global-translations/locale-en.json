@@ -4825,7 +4825,9 @@
     "label.transactionAuthentication":"Customer Authentication During Transaction.",
     "label.externalAuthenticationServices":"External Authentication Serices Configuration",
     "label.aadhaar.description":"Aadhaar Service Configuration",
-
+    "label.heading.configname": "Config Name",
+    "label.heading.config.existing.value": "Existing Value",
+    "label.heading.config.new.value": "New value",
 
     "#Collateral Type": "....",
     "label.heading.baseunitprice" : "Base Unit Price",

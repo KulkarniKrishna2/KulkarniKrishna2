@@ -8,20 +8,21 @@
             $scope.names = [];
             $scope.externalServicesType = $routeParams.externalServicesType;
             //$scope.name = $routeParams.name;
-            var nvObject = {};
+            var currentConfigs = {};
+            var modifiedConfigs = {};
             resourceFactory.externalServicesResource.get({id: $scope.externalServicesType}, function (data) {
                 for (var i in data) {
                     if(data[i] != null && data[i].name != null) {
                         data[i].name.replace(/ /g, '');
                         if (!angular.equals(data[i].name, "")) {
-                            nvObject[data[i].name] = data[i].value;
+                            currentConfigs[data[i].name] = data[i].value;
+                            modifiedConfigs[data[i].name] = undefined;
                             $scope.names.push(data[i].name);
-
                         }
                     }
                 }
-                $scope.formData = nvObject;
-
+                $scope.formData = modifiedConfigs;
+                $scope.currentConfigs = currentConfigs;
 
             });
 

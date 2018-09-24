@@ -10,21 +10,30 @@
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.anchor.editExternalServicesConfiguration' | translate }}</legend>
-            <div class="form-group" ng-repeat="(names, values) in formData">
-                        <label class="control-label col-sm-2" for="configname">{{names}}</label>
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.config.existing.value' | translate}}</th>
+                        <th>{{'label.heading.config.new.value' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(names, values) in formData">
+                        <td>{{names}}</td>
+                        <td>{{currentConfigs[names]}}</td>
+                        <td>
+                            <input type="text" autocomplete="off" id="configname" name="configname" ng-model="formData[names]"
+                                class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                        <div class="col-sm-3">
-                            <input type="text" autocomplete="off" id="configname" name="configname" ng-model="formData[names]" class="form-control" required
-                                   late-Validate/>
-                        </div>
-            </div>
-
-            <div class="col-md-offset-3">
-                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate
-                    }}
-                </button>
-                <button id="save" type="submit" ng-disabled="!editExternalServicesConfigurationForm.$valid" has-permission='UPDATE_EXTERNALSERVICES' class="btn btn-primary">{{
-                    'label.button.save' | translate }}
+            <div class="col-md-offset-4">
+                <a id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" has-permission='UPDATE_EXTERNALSERVICES' class="btn btn-primary">
+                    {{'label.button.save' | translate}}
                 </button>
             </div>
         </fieldset>
