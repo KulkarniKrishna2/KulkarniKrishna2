@@ -112,7 +112,7 @@
                     </div>
                 </td>
                 <td>
-                    <a class="pointer" ng-click="viewloantransactionjournalentries(transaction.entityId,transaction.transactionId)" tooltip="View Journal Entries">
+                    <a class="pointer" ng-hide="transaction.manualEntry" ng-click="viewloantransactionjournalentries(transaction.entityId,transaction.transactionId)" tooltip="View Journal Entries">
                         <i class="icon-circle-arrow-right icon-large coll"></i>
                     </a>
                 </td>
