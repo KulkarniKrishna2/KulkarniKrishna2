@@ -16,6 +16,13 @@
         scope.isDisplayClientLog = false;
         scope.isDisplayLoanLog = false;
         scope.loanLogs = [];
+        scope.allCrnSuspended = false;
+        scope.noDedupeMatchFound = false;
+        scope.deduperrorExists = false;
+        scope.crnGeneration = false;
+        scope.crnExists = false;
+        scope.creationerrorExists = false;
+        scope.allprobableMatches = true;
         resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
             scope.bankApprovalTemplateData = bankApprovalTemplate;
             if(scope.bankApprovalTemplateData != undefined){
@@ -62,11 +69,32 @@
 
                 }
             }
+            if(scope.bankApprovalTemplateData.clientDedupTemplateData != undefined || scope.bankApprovalTemplateData.clientDedupTemplateData!=null){
+                scope.clientDedupTemplateData = scope.bankApprovalTemplateData.clientDedupTemplateData;
+                scope.allCrnSuspended = scope.clientDedupTemplateData.allCrnSuspended;
+                scope.noDedupeMatchFound = scope.clientDedupTemplateData.noDedupeMatchFound;
+                scope.deduperrorExists = scope.clientDedupTemplateData.errorExists;
+                if(scope.deduperrorExists == true){
+                    scope.deduperror=scope.clientDedupTemplateData.errorDescription;
+                }
+                if(scope.clientDedupTemplateData.crn != null){
+                    scope.crnExists = true;
+                }
+                if(!scope.noDedupeMatchFound){
+                    for(var i = 0 ;i < scope.clientDedupTemplateData.clientDedupeList;i++){
+                        if(scope.clientDedupTemplateData.clientDedupeList[i].exactDedupMatch == true){
+                            allprobableMatches = false;
+                            break;
+                        }
+                    }
+                }
+            }
 
         });
 
 
             var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+				$scope.df = scope.df;
                 $scope.data = documentDetail;
                 $scope.close = function () {
                     $modalInstance.close('close');
@@ -107,7 +135,7 @@
                 });
             };
             var RaiseQueryCtrl = function ($scope, $modalInstance, queryParameterInfo) {
-
+				$scope.df = scope.df;
                 $scope.bankApproveId = queryParameterInfo.approveId;
                 $scope.bankEnqiryOptions = queryParameterInfo.bankEnquiries;
                 $scope.queryFormData = {};
@@ -302,6 +330,22 @@
                         }
                      });
                 }
+            }
+
+            scope.createBcif = function () {
+                resourceFactory.bcifCreateResource.post({trackerId: scope.trackerId}, function (data) {
+                    scope.crnGeneration = true;
+                    scope.clientCrnTemplateData=data;
+                    if(scope.clientCrnTemplateData.errorDescription!=null){
+                        scope.creationerrorExists = true;
+                        scope.crncreationerror = scope.clientCrnTemplateData.errorDescription;
+                    }
+                });
+            }
+            scope.overrideCrn = function(record){
+                resourceFactory.overridebcifDedupecrnResource.post({trackerId: scope.trackerId,crn:record.bcifId}, function (data) {
+                    console.log(data);
+                });
             }
 
             scope.openViewDocument = function (docUrl) {

@@ -1797,6 +1797,21 @@
             .when('/transferhistory/:entityType/:entityId',{
                 templateUrl: 'views/common/viewtransferhistory.html'
             })
+            .when('/assigntask',{
+                templateUrl: 'views/dashboard/assigntask.html'
+            })
+            .when('/clients/:clientId/viewpolicy', {
+                templateUrl: 'views/policy/viewpolicy.html'
+            })
+            .when('/clients/:clientId/createpolicy', {
+                templateUrl: 'views/policy/createpolicy.html'
+            })
+            .when('/clients/:clientId/editpolicy', {
+                templateUrl: 'views/policy/editpolicy.html'
+            })
+            .when('/clients/:clientId/deceasedonboarding', {
+                templateUrl: 'views/policy/deceasedonboarding.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

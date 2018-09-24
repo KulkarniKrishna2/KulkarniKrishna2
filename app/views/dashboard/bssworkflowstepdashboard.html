@@ -39,7 +39,7 @@
                             <tbody>
                                 <tr ng-if="center.centerId > 0" ng-repeat="center in workflow.centerDatas">
                                     <td>{{center.centerName}}</td>
-                                    <td ng-repeat="taskConfigD in center.taskConfigDatas"><a ng-click="viewWorkFlow(center)">{{taskConfigD.clientCount}}</a></td>
+                                    <td ng-repeat="taskConfigD in center.taskConfigDatas"><a ng-click="viewWorkFlow(center, taskConfigD)">{{taskConfigD.clientCount}}</a></td>
                                 </tr>
                             </tbody>
                         </table>

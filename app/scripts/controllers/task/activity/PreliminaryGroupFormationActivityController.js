@@ -111,6 +111,7 @@
             };
 
             var CreateSubGroupCtrl = function ($scope, $modalInstance, centerDetails) {
+                $scope.df = scope.df;
                 $scope.subGroupFormData = {};
                 $scope.first = {};
                 $scope.first.submitondate = new Date();
@@ -184,7 +185,7 @@
             }
 
             var CreateMemberCtrl = function ($scope, $modalInstance, groupParameterInfo) {
-
+                $scope.df = scope.df;
                 $scope.offices = [];
                 $scope.staffs = [];
                 $scope.savingproducts = [];
@@ -494,6 +495,7 @@
             }
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.df = scope.df;
                 $scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
                 $scope.response = scope.response;
                 $scope.clientId = memberParams.activeClientMember.id;
@@ -870,6 +872,7 @@
                 }
 
                 var viewDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
+                    $scope.df = scope.df;
                     $scope.data = documentDetail;
                     $scope.close = function () {
                         $modalInstance.close('close');
@@ -1392,8 +1395,9 @@
                     }
                 });
             }
-                var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
 
+            var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -1455,7 +1459,7 @@
                 });
             }
             var groupCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+                $scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -1583,7 +1587,7 @@
             }
 
             var manageMembersCtrl = function ($scope, $modalInstance, manageMembersParamInfo) {
-
+                $scope.df = scope.df;
                  $scope.groupId = manageMembersParamInfo.groupId;
                  $scope.officeId = manageMembersParamInfo.officeId;
                  $scope.group = [];

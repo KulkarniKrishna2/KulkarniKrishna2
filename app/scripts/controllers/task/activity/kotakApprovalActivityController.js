@@ -99,7 +99,7 @@
             }
             
              var reviewHistoryCtrl = function ($scope, $modalInstance, historyParameterInfo) {
-
+				 $scope.df = scope.df;
 
                  $scope.loanId = historyParameterInfo.loanId;
                  $scope.reviewHistory = []
@@ -212,7 +212,7 @@
                 });
             }
             var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -272,6 +272,7 @@
             }
 
             var viewKotakCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.kotakCriteriaResult = JSON.parse(memberParams.criteriaResult);
 
                 $scope.close = function () {

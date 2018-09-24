@@ -16,6 +16,7 @@
                 });
 
                 var InActivateWorkflowEntityMappingAlert = function ($scope, $modalInstance) {
+					$scope.df = scope.df;
                     $scope.continue = function () {
                         $modalInstance.close('Close');
                         scope.inactivateWorkflowEntityMapping();

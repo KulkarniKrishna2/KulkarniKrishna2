@@ -5,8 +5,8 @@
         var baseApiUrl = "https://demo.openmf.org";
         var host = "";
         var portNumber = "";
-        //accessing from openmf server
-        if (mainLink.hostname.indexOf('confluxcloud.com') >= 0) {
+        //accessing from finflux server
+        if (mainLink.hostname.indexOf('confluxcloud.com') >= 0 || mainLink.hostname.indexOf('finflux.io') >= 0) {
             var hostname = window.location.hostname;
             domains = hostname.split('.');
             // For multi tenant hosting

@@ -181,6 +181,7 @@
             };
 
             var MemberDeleteCtrl = function ($scope, $modalInstance) {
+				$scope.df = scope.df;
                 $scope.delete = function () {
                     resourceFactory.loanCoApplicantsResource.delete({loanApplicationReferenceId: scope.loanApplicationReferenceId, coApplicantId: scope.idToBeDeleted}, function (data) {
                         resourceFactory.loanCoApplicantsResource.getAll({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {

@@ -82,6 +82,7 @@
             };
 
             var MakeDefaultLandingStep = function ($scope, $modalInstance, stepData) {
+				$scope.df = scope.df;
                 $scope.submit = function () {
                     resourceFactory.workflowConfigDefaultStepResource.update({taskConfigId:routeParams.taskConfigId,taskConfigStepId:stepData.id},{},function (data) {
                         $modalInstance.close('defaultLandFunc');

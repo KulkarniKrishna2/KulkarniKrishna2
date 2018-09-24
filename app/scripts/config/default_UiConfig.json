@@ -83,6 +83,9 @@
 	  },
 	  "waiveInterest":{
 	  	"isTotalOutstandingInterest": false
+	  },
+	  "disbursement":{
+		"disburseTransactionAuthentication":true
 	  }
 	},
 	"viewLoanAccountDetails": {
@@ -411,11 +414,16 @@
 			"assetDetails": false,
 			"houseHoldExpenses": false
 		}
-
+	},
+	"globalSearch": {
+		"hiddenFields": {
+			"groups": false,
+			"savings": false,
+			"loanApplication": false
+		}
 	},
 	"workflowDashboard": {
 		"theme": "defaultworkflowstepdashboard"
 	}
 	}
 }
-	
