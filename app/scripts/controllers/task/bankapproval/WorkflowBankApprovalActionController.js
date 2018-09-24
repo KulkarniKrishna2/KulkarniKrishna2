@@ -23,75 +23,82 @@
         scope.crnExists = false;
         scope.creationerrorExists = false;
         scope.allprobableMatches = true;
-        resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
-            scope.bankApprovalTemplateData = bankApprovalTemplate;
-            if(scope.bankApprovalTemplateData != undefined){
-                scope.cbCriteriaResult = JSON.parse(scope.bankApprovalTemplateData.clientLevelCriteriaResultData.ruleResult);
-            
-                if(scope.bankApprovalTemplateData.clientIdentifiers != undefined){
-                        for (var i = 0; i < scope.bankApprovalTemplateData.clientIdentifiers.length; i++) {
-                            resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.bankApprovalTemplateData.clientIdentifiers[i].id}, function (data) {
-                                for (var j = 0; j < scope.bankApprovalTemplateData.clientIdentifiers.length; j++) {
-                                    if (data.length > 0 && scope.bankApprovalTemplateData.clientIdentifiers[j].id == data[0].parentEntityId) {
-                                        for (var l in data) {
-                                            var loandocs = {};
-                                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
-                                            data[l].docUrl = loandocs;
-                                        }
-                                        scope.bankApprovalTemplateData.clientIdentifiers[j].documents = data;
-                                    }
-                                }
-                            });
-                        }            
-                }
-                if(scope.bankApprovalTemplateData.memberData != undefined){
-                     getClientImage(scope.bankApprovalTemplateData.memberData.id);
-                }
-                if(scope.bankApprovalTemplateData.existingInternalLoansSummaryData != undefined){
-                     scope.bssCurrentOutstanding = scope.bankApprovalTemplateData.existingInternalLoansSummaryData.totalOutstandingAmount;
-                }
-                if(scope.bankApprovalTemplateData.preclosureLoansList != undefined){
-                    for(var i = 0; i < scope.bankApprovalTemplateData.preclosureLoansList.length; i++){
-                        scope.totalPreclosureAmount = scope.totalPreclosureAmount + scope.bankApprovalTemplateData.preclosureLoansList[i].preclosureAmount;
-                    }
-                }
-                scope.finalOutstanding = scope.bssCurrentOutstanding - scope.totalPreclosureAmount;  
-                checkWorkFlowLoanStatus(scope.bankApprovalTemplateData.workflowLoanStatus.code);   
-            }
-            if(scope.bankApprovalTemplateData.documentData){
-                for(var i in scope.bankApprovalTemplateData.documentData){
-                    var document = scope.bankApprovalTemplateData.documentData[i];
-                    if(document.id){
-                        var docUrl = {};
-                        docUrl = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
-                        scope.bankApprovalTemplateData.documentData[i].docUrl = docUrl;
-                    }
 
+        scope.init = function(){
+            resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
+                scope.bankApprovalTemplateData = bankApprovalTemplate;
+                if(scope.bankApprovalTemplateData != undefined){
+                    scope.cbCriteriaResult = JSON.parse(scope.bankApprovalTemplateData.clientLevelCriteriaResultData.ruleResult);
+                
+                    if(scope.bankApprovalTemplateData.clientIdentifiers != undefined){
+                            for (var i = 0; i < scope.bankApprovalTemplateData.clientIdentifiers.length; i++) {
+                                resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.bankApprovalTemplateData.clientIdentifiers[i].id}, function (data) {
+                                    for (var j = 0; j < scope.bankApprovalTemplateData.clientIdentifiers.length; j++) {
+                                        if (data.length > 0 && scope.bankApprovalTemplateData.clientIdentifiers[j].id == data[0].parentEntityId) {
+                                            for (var l in data) {
+                                                var loandocs = {};
+                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
+                                                data[l].docUrl = loandocs;
+                                            }
+                                            scope.bankApprovalTemplateData.clientIdentifiers[j].documents = data;
+                                        }
+                                    }
+                                });
+                            }            
+                    }
+                    if(scope.bankApprovalTemplateData.memberData != undefined){
+                         getClientImage(scope.bankApprovalTemplateData.memberData.id);
+                    }
+                    if(scope.bankApprovalTemplateData.existingInternalLoansSummaryData != undefined){
+                         scope.bssCurrentOutstanding = scope.bankApprovalTemplateData.existingInternalLoansSummaryData.totalOutstandingAmount;
+                    }
+                    if(scope.bankApprovalTemplateData.preclosureLoansList != undefined){
+                        for(var i = 0; i < scope.bankApprovalTemplateData.preclosureLoansList.length; i++){
+                            scope.totalPreclosureAmount = scope.totalPreclosureAmount + scope.bankApprovalTemplateData.preclosureLoansList[i].preclosureAmount;
+                        }
+                    }
+                    scope.finalOutstanding = scope.bssCurrentOutstanding - scope.totalPreclosureAmount;  
+                    checkWorkFlowLoanStatus(scope.bankApprovalTemplateData.workflowLoanStatus.code);   
                 }
-            }
-            if(scope.bankApprovalTemplateData.clientDedupTemplateData != undefined || scope.bankApprovalTemplateData.clientDedupTemplateData!=null){
-                scope.clientDedupTemplateData = scope.bankApprovalTemplateData.clientDedupTemplateData;
-                scope.allCrnSuspended = scope.clientDedupTemplateData.allCrnSuspended;
-                scope.noDedupeMatchFound = scope.clientDedupTemplateData.noDedupeMatchFound;
-                scope.deduperrorExists = scope.clientDedupTemplateData.errorExists;
-                if(scope.deduperrorExists == true){
-                    scope.deduperror=scope.clientDedupTemplateData.errorDescription;
+                if(scope.bankApprovalTemplateData.documentData){
+                    for(var i in scope.bankApprovalTemplateData.documentData){
+                        var document = scope.bankApprovalTemplateData.documentData[i];
+                        if(document.id){
+                            var docUrl = {};
+                            docUrl = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+                            scope.bankApprovalTemplateData.documentData[i].docUrl = docUrl;
+                        }
+    
+                    }
                 }
-                if(scope.clientDedupTemplateData.crn != null){
-                    scope.crnExists = true;
-                }
-                if(!scope.noDedupeMatchFound){
-                    for(var i = 0 ;i < scope.clientDedupTemplateData.clientDedupeList;i++){
-                        if(scope.clientDedupTemplateData.clientDedupeList[i].exactDedupMatch == true){
-                            allprobableMatches = false;
-                            break;
+                if(scope.bankApprovalTemplateData.clientDedupTemplateData != undefined || scope.bankApprovalTemplateData.clientDedupTemplateData!=null){
+                    scope.clientDedupTemplateData = scope.bankApprovalTemplateData.clientDedupTemplateData;
+                    scope.allCrnSuspended = scope.clientDedupTemplateData.allCrnSuspended;
+                    scope.noDedupeMatchFound = scope.clientDedupTemplateData.noDedupeMatchFound;
+                    scope.deduperrorExists = scope.clientDedupTemplateData.errorExists;
+                    if(scope.deduperrorExists == true){
+                        scope.deduperror=scope.clientDedupTemplateData.errorDescription;
+                    }
+                    if(scope.clientDedupTemplateData.crn != null){
+                        scope.crnExists = true;
+                    }
+                    if(!scope.noDedupeMatchFound){
+                        for(var i = 0 ;i < scope.clientDedupTemplateData.clientDedupeList;i++){
+                            if(scope.clientDedupTemplateData.clientDedupeList[i].exactDedupMatch == true){
+                                scope.allprobableMatches = false;
+                                break;
+                            }
                         }
                     }
                 }
-            }
+                if(scope.bankApprovalTemplateData.ncifDedupTemplateData != undefined || scope.bankApprovalTemplateData.ncifDedupTemplateData != null){
+                    scope.ncifDedupTemplateData = scope.bankApprovalTemplateData.ncifDedupTemplateData;
+                }
+    
+            });
+        };
 
-        });
-
+        scope.init();
 
             var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
 				$scope.df = scope.df;
@@ -344,7 +351,7 @@
             }
             scope.overrideCrn = function(record){
                 resourceFactory.overridebcifDedupecrnResource.post({trackerId: scope.trackerId,crn:record.bcifId}, function (data) {
-                    console.log(data);
+                    scope.init();
                 });
             }
 
