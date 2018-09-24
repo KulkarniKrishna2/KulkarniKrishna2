@@ -663,6 +663,7 @@
             $scope.inparams.entityType = 1;
             $scope.inparams.entityId = $scope.clientId;
             $scope.formData = {};
+            $scope.isEmiAmountEditable= true;
 
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
