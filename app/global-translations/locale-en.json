@@ -7380,6 +7380,9 @@
     "label.heading.amountreceived" : "Amount Received",
     "label.heading.claimsettlement" : "Claim Settlement",
     "label.input.query.no":"Query No",
+    "label.anchor.addnewvillageormodifyvillagedetails":"Add new village or modify village details",
+    "label.anchor.managevillages":"Manage villages",
+
 
      "------ end of tensalation file ------":"---------"
 }

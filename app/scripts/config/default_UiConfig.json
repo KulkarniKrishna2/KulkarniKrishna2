@@ -424,6 +424,14 @@
 	},
 	"workflowDashboard": {
 		"theme": "defaultworkflowstepdashboard"
+	},
+	"headerMenuSettings": {
+		"menuLable": "label.anchor.clients",
+		"menuIcon": "icon-group",
+		"hideMenuOptions": []
+	},
+	"organizationMenuSettings": {
+		"enableManageVillages": false
 	}
 	}
 }

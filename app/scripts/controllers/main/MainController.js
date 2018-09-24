@@ -480,6 +480,23 @@
                     scope.getAllGlobalConfigurations();
                 };
             });
+            scope.isHideMenuOptions = function (type) {
+                if (scope.mainControllerUIConfigData.headerMenuSettings) {
+                    var indexValue = scope.mainControllerUIConfigData.headerMenuSettings.hideMenuOptions.indexOf(type);
+                    if (indexValue > -1) {
+                        if (type == 'READ_CLIENT' && indexValue == 0) {
+                            return true;
+                        } else if (type == 'READ_GROUP' && indexValue == 1) {
+                            return true;
+                        } else if (type == 'READ_CENTER' && indexValue == 2) {
+                            return true;
+                        } if (type == 'READ_VILLAGE' && indexValue == 3) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
         }
     });
     mifosX.ng.application.controller('MainController', [

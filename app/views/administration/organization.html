@@ -28,6 +28,12 @@
                 <p class="list-group-item-text">{{'label.aemployeerepresentsloanofficerswithnoaccesstosystem' |
                     translate}}</p>
             </a>
+        <a ng-show ="mainControllerUIConfigData.enableManageVillages" class = "list-group-item" href="#/villages" has-permission='READ_VILLAGE'>
+            <h4 class="list-group-item-heading"><i class="icon-map-marker"> </i>&nbsp;&nbsp;{{ 'label.anchor.managevillages'
+                 | translate }}</h4>
+            <p class="list-group-item-text">{{'label.anchor.addnewvillageormodifyvillagedetails'
+                | translate}}</p>
+        </a>
             <a class="list-group-item" href="#/standinginstructions/history" has-permission='READ_STANDINGINSTRUCTION'>
                 <h4 class="list-group-item-heading"><i class="icon-book icon-large"></i>&nbsp;&nbsp;
                     {{'label.anchor.standinginstruction.history' | translate}}</h4>
