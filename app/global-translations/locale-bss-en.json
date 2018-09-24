@@ -79,6 +79,7 @@
   "label.heading.crn" : "Bcif Id",
   "label.heading.exactmatch" : "Exact Match",
   "label.heading.actions" : "Actions",
+  "label.heading.ncif.details" : "NCIF Details",
 
   "#Menu Links": "..",
   "label.menu.selectgroup": "Select Subgroup",
