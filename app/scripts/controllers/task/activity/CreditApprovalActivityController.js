@@ -299,7 +299,9 @@
                         });
                     }   
                 }
-
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
