@@ -409,16 +409,21 @@
 			"chargeCategoryType": true
 		}
 	},
+	"cashFlow": {
+		"hiddenFields": {
+			"assetDetails": false,
+			"houseHoldExpenses": false
+		}
+	},
 	"globalSearch": {
 		"hiddenFields": {
 			"groups": false,
 			"savings": false,
 			"loanApplication": false
 		}
-		},
+	},
 	"workflowDashboard": {
 		"theme": "defaultworkflowstepdashboard"
 	}
 	}
 }
-	

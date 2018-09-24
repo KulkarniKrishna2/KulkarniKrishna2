@@ -150,13 +150,18 @@
 		"workflowDashboard": {
 			"theme": "bssworkflowstepdashboard"
 		},
+    "cashFlow": {
+			"hiddenFields": {
+				"assetDetails": true,
+				"houseHoldExpenses": true
+			}
+		}
 		"globalSearch": {
 			"hiddenFields": {
 				"groups": true,
 				"savings": true,
 				"loanApplication": true
 			}
-		  }
-		
+    }
 	}
 }
