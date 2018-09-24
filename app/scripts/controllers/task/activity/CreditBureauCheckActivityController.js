@@ -553,7 +553,7 @@
                     }
                 } 
                 $scope.isChargeAmountNonEditable = function (charge) {
-                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
+                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable || charge.isSlabBased) {
                         return true;
                     }
                     return false;
