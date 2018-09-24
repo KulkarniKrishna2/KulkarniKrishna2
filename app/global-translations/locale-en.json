@@ -6956,7 +6956,7 @@
     "error.message.village.activation.activity.cannot.complete.before.village.activation" : "Village activation activity cannot completed before village activation",
     "error.message.office.activation.activity.cannot.complete.before.office.activation" : "Office activation activity cannot completed before office activation",
     "error.msg.ifsc.minimum.number" : "IFSC number should be 11 characters",
-    "error.msg.invalid.ifscCode" : "Should be 11 characters, first 4 alphabets followed by 7 digits",
+    "error.msg.invalid.ifscCode" : "Should be 11 characters, first 4 Alphabets followed by a Zero & 6 Alphanumeric characters",
     "label.input.specific.reason":"Specify Reason",
     "label.heading.rejection.details" : "Rejection Details",
     "label.heading.rejectionreason" : "Rejection Reason",
