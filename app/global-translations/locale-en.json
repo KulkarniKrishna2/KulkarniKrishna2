@@ -4838,6 +4838,8 @@
 
     "bankAccountType.savingsaccount":"Savings Account",
     "bankAccountType.currentaccount":"Current Account",
+    "bankAccountType.ODaccount":"OD Account",
+    "bankAccountType.CCaccount":"CC Account",
 
     "label.heading.banktransfer":"Bank Transfer",
     "label.heading.loanbankaccountassociation":"Bank Account Details",
