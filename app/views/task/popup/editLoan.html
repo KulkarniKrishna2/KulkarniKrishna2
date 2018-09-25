@@ -46,7 +46,7 @@
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<label class="control-label col-sm-2">
 								{{ 'label.input.loanpurpose' | translate }}
-								<span class="required">*</span>:&nbsp;
+								<span ng-show="isLoanPurposeRequired" class="required">*</span>:&nbsp;
 							</label>
 							<div class="col-sm-3">
 								<select id="loanPurposeId" name="loanPurposeId" ng-model="editLoanAccountdata.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
@@ -86,7 +86,7 @@
 										<tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
 											<td>
 												<input type="radio" ng-model="editLoanAccountdata.loanEMIPackId" name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack)"
-												    value="{{loanEMIPack.id}}" />
+												    value="{{loanEMIPack.id}}" ng-disabled="!isEmiAmountEditable" />
 											</td>
 											<td>
 												<span>{{loanEMIPack.sanctionAmount}}</span>

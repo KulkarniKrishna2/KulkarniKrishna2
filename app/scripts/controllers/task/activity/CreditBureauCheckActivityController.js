@@ -177,7 +177,7 @@
             }
 
             var reviewReasonCtrl = function($scope, $modalInstance, reviewParameterInfo){
-
+				$scope.df = scope.df;
                 $scope.clientId = reviewParameterInfo.clientId;
                 $scope.loanId = reviewParameterInfo.loanId;
                 $scope.reviewId = reviewParameterInfo.reviewId;
@@ -334,6 +334,7 @@
             }
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.showLoanAccountForm = true;
                 $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -383,6 +384,7 @@
                 $scope.inparams.entityType = 1;
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
+                $scope.isEmiAmountEditable= true;
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -551,7 +553,7 @@
                     }
                 } 
                 $scope.isChargeAmountNonEditable = function (charge) {
-                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
+                    if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable || charge.isSlabBased) {
                         return true;
                     }
                     return false;
@@ -802,7 +804,7 @@
                 });
             }
             var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -953,6 +955,7 @@
             }
 
             var viewClientCBCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.cbCriteriaResult = JSON.parse(memberParams.criteriaResult);
 
                 $scope.close = function () {

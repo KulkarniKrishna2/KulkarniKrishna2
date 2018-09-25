@@ -307,21 +307,21 @@
                             </a>
                             <ul class="nav navbar-nav" id="main-menu-left">
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('clients') }" href="#">
-                                        <i class="icon-group"></i> {{ 'label.anchor.clients' | translate }}
+                                    <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('centers') }" href="#">
+                                        <i class="{{mainControllerUIConfigData.headerMenuSettings.menuIcon}}"></i> {{ mainControllerUIConfigData.headerMenuSettings.menuLable | translate }}
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu" id="swatch-menu">
-                                        <li>
+                                        <li ng-if="!isHideMenuOptions('READ_CLIENT')">
                                             <a href="#/clients" has-permission='READ_CLIENT'>{{ 'label.anchor.clients' | translate }}</a>
                                         </li>
-                                        <li>
+                                        <li  ng-if="!isHideMenuOptions('READ_GROUP')">
                                             <a href="#/groups" has-permission='READ_GROUP'>{{ 'label.anchor.groups' | translate }}</a>
                                         </li>
-                                        <li>
+                                        <li ng-if="!isHideMenuOptions('READ_CENTER')">
                                             <a href="#/centers" has-permission='READ_CENTER'>{{ 'label.anchor.centers' | translate }}</a>
                                         </li>
-                                        <li ng-hide="hideVillage">
+                                        <li ng-if="!isHideMenuOptions('READ_VILLAGE')">
                                             <a href="#/villages" has-permission='READ_VILLAGE'>{{ 'label.anchor.villages' | translate }}</a>
                                         </li>
                                     </ul>

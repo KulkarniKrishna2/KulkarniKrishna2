@@ -110,7 +110,7 @@
             }
             
              var reviewHistoryCtrl = function ($scope, $modalInstance, historyParameterInfo) {
-
+				 $scope.df = scope.df;
 
                  $scope.loanId = historyParameterInfo.loanId;
                  $scope.reviewHistory = []
@@ -171,7 +171,7 @@
             }
 
             var reviewReasonCtrl = function($scope, $modalInstance, reviewParameterInfo){
-
+				$scope.df = scope.df;
                 $scope.clientId = reviewParameterInfo.clientId;
                 $scope.loanId = reviewParameterInfo.loanId;
                 $scope.reviewId = reviewParameterInfo.reviewId;
@@ -299,7 +299,9 @@
                         });
                     }   
                 }
-
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
@@ -323,6 +325,7 @@
             }
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.showLoanAccountForm = true;
                 $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -373,6 +376,7 @@
                 $scope.inparams.entityType = 1;
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
+                $scope.isEmiAmountEditable= true;
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -790,7 +794,7 @@
                 });
             }
             var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -851,7 +855,7 @@
                 });
             }
             var groupCloseCtrl = function ($scope, $modalInstance, memberParams) {
-
+				$scope.df = scope.df;
                 $scope.error = null;
                 $scope.isError = false;
                 $scope.isClosureDate = true;
@@ -939,6 +943,7 @@
             }
 
             var viewClientCBCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.cbCriteriaResult = JSON.parse(memberParams.criteriaResult);
 
                 $scope.close = function () {

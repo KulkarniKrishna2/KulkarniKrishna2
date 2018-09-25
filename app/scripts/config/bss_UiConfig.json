@@ -8,12 +8,18 @@
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
-			"isEnabledBrowserSecurity": true 
+			"isEnabledBrowserSecurity": true
 		},
 		"loanAccount": {
 			"isHiddenField": {
 				"canAddCharge" :false
-			}
+			},
+		    "isMandatory": {
+			    "loanPurposeId": true
+		    },
+		    "disbursement":{
+			    "disburseTransactionAuthentication":false
+		    }
 		},
 		"viewClient": {
 			"isHiddenField": {
@@ -146,6 +152,33 @@
 		},
 		"workflowDashboard": {
 			"theme": "bssworkflowstepdashboard"
-		}
+		},
+    "cashFlow": {
+			"hiddenFields": {
+				"assetDetails": true,
+				"houseHoldExpenses": true
+			}
+		},
+		"globalSearch": {
+			"hiddenFields": {
+				"groups": true,
+				"savings": true,
+				"loanApplication": true
+			}
+	},
+	
+	"headerMenuSettings": {
+		"menuLable": "label.anchor.centers",
+		"menuIcon": "icon-map-marker",
+		"hideMenuOptions": [
+			"READ_CLIENT",
+			"READ_GROUP",
+			"NULL",
+			"READ_VILLAGE"
+		]
+	},
+	"organizationMenuSettings": {
+		"enableManageVillages": true
+	}
 	}
 }

@@ -3,6 +3,18 @@
         GlobalSearchController: function (scope, resourceFactory, location, $modal) {
             scope.formData = {};
             scope.currentScope = "clients";
+            scope.groups=false;
+            scope.savings=false;
+            scope.loanApplication=false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups) {
+                scope.groups = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups;
+             }
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings) {
+                scope.savings = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings;
+             }
+             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication) {
+                scope.loanApplication = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication;
+             }
             resourceFactory.userTemplateResource.get(function (data) {
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles;
@@ -29,22 +41,25 @@
             scope.validate = function () {
 
                 scope.submitted = true;
-                if (scope.search.quer == '') {
-                    scope.search.quer = undefined;
+                if (scope.formData.quer == '') {
+                    scope.formData.quer = undefined;
                 }
-                if (scope.search.externalId == '') {
-                    scope.search.externalId = undefined;
+                if (scope.formData.externalId == '') {
+                    scope.formData.externalId = undefined;
                 }
-                if (scope.search.refno == '') {
-                    scope.search.refno = undefined;
+                if (scope.formData.refno == '') {
+                    scope.formData.refno = undefined;
                 }
-                if (scope.search.mobileNo == '') {
-                    scope.search.mobileNo = undefined;
+                if (scope.formData.mobileNo == '') {
+                    scope.formData.mobileNo = undefined;
                 }
-                if (scope.search.accountno == '') {
-                    scope.search.accountno = undefined;
+                if (scope.formData.accountno == '') {
+                    scope.formData.accountno = undefined;
                 }
-                if (scope.search.quer == undefined && scope.search.externalId == undefined && scope.search.refno == undefined && scope.search.mobileNo == undefined && scope.search.accountno == undefined && scope.formData.identityId == undefined) {
+                if (scope.formData.identityNumber == '') {
+                    scope.formData.identityNumber = undefined;
+                }
+                if (scope.formData.quer == undefined && scope.formData.externalId == undefined && scope.formData.refno == undefined && scope.formData.mobileNo == undefined && scope.formData.accountno == undefined && scope.formData.identityNumber == undefined) {
                     scope.minsearchfield = true;
                 }else {
                     scope.minsearchfield = false;
@@ -55,17 +70,16 @@
 
             scope.search = function () {
                 var resource;
-                var searchString = scope.search.quer;
-                var refnum = scope.search.refno;
+                var searchString = scope.formData.quer;
                 if (searchString != null) {
                     searchString = searchString.replace(/(^"|"$)/g, '');
                 }
-                location.path('/search/' + searchString).search({ resource: scope.currentScope, officeId: scope.formData.officeId, referenceNumber: refnum, externalId: scope.search.externalId, mobileNo: scope.search.mobileNo, staffId: scope.formData.staffId, accountNo : scope.search.accountno,identityId: scope.formData.identityId, identityNumber: scope.search.identityNumber });
+                location.path('/search/' + searchString).search({ resource: scope.currentScope, officeId: scope.formData.officeId, referenceNumber: scope.formData.refno, externalId: scope.formData.externalId, mobileNo: scope.formData.mobileNo, staffId: scope.formData.staffId, accountNo : scope.formData.accountno,identityId: scope.formData.identityId, identityNumber: scope.formData.identityNumber });
                 scope.modalInstance.dismiss('');
             };
 
             scope.isValidForm = function () {
-                if (scope.minsearchfield && scope.search.quer == undefined && scope.search.externalId == undefined && scope.search.refno == undefined && scope.search.accountno == undefined && scope.formData.identityId == undefined && scope.search.mobileNo == undefined) {
+                if (scope.minsearchfield && scope.formData.quer == undefined && scope.formData.externalId == undefined && scope.formData.refno == undefined && scope.formData.accountno == undefined && scope.formData.identityNumber == undefined && scope.formData.mobileNo == undefined) {
                     return true;
                 }
                 return false;
@@ -74,6 +88,7 @@
             scope.searchnew = function (searchScope) {
                 scope.selectedsearch = searchScope;
                 scope.currentScope = searchScope;
+                scope.formData = {} ;
 
                 if (scope.selectedsearch == "groups" || scope.selectedsearch == "centers") {
                     scope.showoffice = true;

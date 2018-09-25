@@ -114,6 +114,7 @@
 
             
             var InActivateActionGroupAlert = function ($scope, $modalInstance) {
+					$scope.df = scope.df;
                     $scope.continue = function () {
                         $modalInstance.close('Close');
                          resourceFactory.inActivateActionGroupResource.update({actionGroupId:routeParams.actionGroupId,actionId : scope.tempActionId, command :"inactivate"},{}, function (data) {

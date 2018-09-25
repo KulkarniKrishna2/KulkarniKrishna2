@@ -5,6 +5,7 @@
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
+
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId,eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     //logic to disable and highlight member
@@ -73,6 +74,7 @@
             }
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.showLoanAccountForm = true;
                 $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -122,6 +124,7 @@
                 $scope.inparams.entityType = 1;
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
+                $scope.isEmiAmountEditable= true;
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -130,6 +133,7 @@
                     $scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
                     $scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
                     $scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
+                    $scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
                 }
 
                 resourceFactory.loanResource.get($scope.inparams, function (data) {
@@ -352,11 +356,6 @@
                             $scope.interestRatesListAvailable = true;
                         }
                     });
-                    resourceFactory.loanPurposeGroupResource.getAll(function (data) {
-                        $scope.loanPurposeGroups = data;
-                        $scope.editLoanAccountdata.loanPurposeId = null;
-                        $scope.formData.loanPurposeGroupId = null;
-                    });
                 }
 
                 $scope.updateDataFromEmiPack = function(loanEMIPacks){
@@ -448,10 +447,18 @@
                     $scope.showLoanAccountForm = false;
                 }
 
+                $scope.validateEmiPack = function(loanaccountinfo,principle){
+                    angular.forEach(loanaccountinfo.loanEMIPacks, function(itm,$index){
+                        if(itm.sanctionAmount > principle) {
+                            loanaccountinfo.loanEMIPacks.splice($index);
+                        }
+                    });
+                }
                 $scope.getLoanData = function(loanId){
                     resourceFactory.loanResource.get({loanId: loanId, template: true, associations: 'charges,meeting',staffInSelectedOfficeOnly:true}, function (data) {
                         $scope.loanaccountinfo = data;
                         $scope.charges = data.charges;
+                        $scope.validateEmiPack($scope.loanaccountinfo,$scope.loanaccountinfo.approvedPrincipal);
                     });
                 }
                 $scope.constructFormData = function (data) {
@@ -508,6 +515,7 @@
                         loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
                     }, function (data) {
                         $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                        $scope.editLoanAccountdata.loanPurposeId = null;
                     });
                 }
             }
@@ -529,6 +537,7 @@
             }
 
             var LoanDisburseCtrl = function ($scope, $modalInstance, memberParams) {
+				$scope.df = scope.df;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = true;
@@ -543,7 +552,8 @@
                 $scope.taskPermissionName = 'DISBURSE_LOAN';
                 $scope.formData.actualDisbursementDate = new Date();
                 $scope.taskInfoTrackArray = [];
-
+                $scope.catureFP = false ;
+                $scope.commandParam = "disburse";
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -568,6 +578,22 @@
                         }
                     });
                 }
+                $scope.checkBiometricRequired = function() {
+                    if( $scope.transactionAuthenticationOptions &&  $scope.transactionAuthenticationOptions.length > 0) {
+                        for(var i in $scope.transactionAuthenticationOptions) {
+                            var paymentTypeId = Number($scope.transactionAuthenticationOptions[i].paymentTypeId) ;
+                            var amount = Number($scope.transactionAuthenticationOptions[i].amount) ;
+                            var authenticationType = $scope.transactionAuthenticationOptions[i].authenticationType ;
+                            if(authenticationType === 'Aadhaar fingerprint' && $scope.formData.paymentTypeId === paymentTypeId && $scope.formData.transactionAmount>= amount) {
+                                $scope.formData.disburseTransactionAuthentication= scope.response.uiDisplayConfigurations.loanAccount.disbursement.disburseTransactionAuthentication;
+                                $scope.formData.authenticationType = $scope.transactionAuthenticationOptions[i].authenticationType ;
+                                $scope.catureFP = true ;
+                                return ;
+                            }
+                        }
+                    }
+                    scope.catureFP = false ;
+                };
                 getClientData();
                 function formDisbursementData() {
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: $scope.loanId, command: 'disburse'}, function (data) {
@@ -606,6 +632,7 @@
                         if(data.splitDisbursementForCharges){
                             $scope.formData.paymentTypeIdForChargeDisbursement = data.paymentTypeIdForChargeDisbursement;
                         }
+                        $scope.checkBiometricRequired();
                     });
                 }
                 formDisbursementData();
@@ -647,7 +674,6 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-
                 $scope.submit = function () {
                     if($scope.clientId != null && scope.taskData.id !=null && $scope.loanId){
                         $scope.taskInfoTrackArray = [];
@@ -677,7 +703,8 @@
                             }
                         }
                     }
-                    var relativeUrl = "loans/" + $scope.loanId + "?command=disburse"
+
+                    var relativeUrl = "loans/" + $scope.loanId + "?command="+$scope.commandParam;
                     var requestSequence = 1;
                     $scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeUrl,
                             method: "POST", body: JSON.stringify(this.formData)});
@@ -707,7 +734,12 @@
                     /*resourceFactory.LoanAccountResource.save({loanId: $scope.loanId, command: 'disburse'}, this.formData, function (data) {
                         $modalInstance.dismiss('cancel');
                     });*/
-                }  
+                }
+
+                $scope.forceDisburse = function () {
+                    $scope.commandParam = 'forceDisburse';
+                    $scope.submit();
+                };
 
             }
         }

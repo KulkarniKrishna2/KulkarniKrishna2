@@ -1,0 +1,73 @@
+<div class="col-md-12 col-sm-12" ng-controller="ClientPolicyDetailsController">
+    <div class="row well">
+        <h3>
+            <strong>{{'label.heading.deceasedprocess' | translate}}
+                <span>:</span>
+            </strong>
+        </h3>
+        <div class="row paddedleft paddedtop">
+            <div class="col-sm-6 col-md-6">
+                <table class="table well">
+                    <thead>
+                        <tr class="graybg">
+                            <th colspan="2">
+                                <span>{{'label.heading.customerinfo' | translate}}</span>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{'label.heading.applicantname' | translate}}</td>
+                            <td>{{clientData.displayName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.coapplicants' | translate}}</td>
+                            <td>
+                                <span ng-repeat="coApp in clientData.coApplicantsData">{{coApp.displayName}}
+                                    <br/>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.office' | translate}}</td>
+                            <td>{{clientData.officeName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.staff' | translate}}</td>
+                            <td>{{clientData.staffName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="list-group">
+                    <table class="table well">
+                        <thead>
+                            <tr class="graybg">
+                                <th colspan="2">
+                                    <span>{{'label.heading.insurancepolicyinfo' | translate}}</span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{'label.heading.policyname' | translate}}</td>
+                                <td>{{policyData.policyName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.policynumber' | translate}}</td>
+                                <td>{{policyData.policyNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.insuranceamount' | translate}}</td>
+                                <td>{{policyData.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -97,7 +97,12 @@
 							<div class="col-md-offset-5">
 								<a id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate}}
 								</a>
-								<button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{'label.button.disburse' | translate}}
+								<button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary" ng-hide="catureFP">{{'label.button.disburse' | translate}}
+								</button>
+								<button id="forceDisburse" ng-click="forceDisburse()"
+										has-permission='FORCE_DISBURSE_LOAN'
+										class="btn btn-primary" ng-show="catureFP">
+									{{'label.button.forcedisburse' |translate}}
 								</button>
 							</div>
 						</div>

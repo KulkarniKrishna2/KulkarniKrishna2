@@ -1,8 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CenterOnboardingWorkflowController: function (scope, resourceFactory, routeParams, popUpUtilService) {
+        CenterOnboardingWorkflowController: function (scope, $rootScope, resourceFactory, routeParams, popUpUtilService) {
             scope.eventType = routeParams.eventType;
             scope.centerId = routeParams.centerId;
+            scope.defaultLandingStepId = $rootScope.defaultLandingStepId;
+            delete $rootScope.defaultLandingStepId;
+
 
             function init() {
                 resourceFactory.centerResource.get({
@@ -38,7 +41,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CenterOnboardingWorkflowController', ['$scope', 'ResourceFactory', '$routeParams', 'PopUpUtilService', mifosX.controllers.CenterOnboardingWorkflowController]).run(function ($log) {
+    mifosX.ng.application.controller('CenterOnboardingWorkflowController', ['$scope', '$rootScope', 'ResourceFactory', '$routeParams', 'PopUpUtilService', mifosX.controllers.CenterOnboardingWorkflowController]).run(function ($log) {
         $log.info("CenterOnboardingWorkflowController initialized");
     });
 }(mifosX.controllers || {}));

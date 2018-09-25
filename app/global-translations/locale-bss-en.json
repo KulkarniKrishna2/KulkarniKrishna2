@@ -29,6 +29,8 @@
   "label.button.offices": "Field Offices",
   "label.button.createoffice": "Create Field Office",
   "label.button.addofficeglaccount":"Add Field Office GL Account Mapping",
+  "label.button.createbcif": "Create Bcif",
+  "label.button.overridecrn": "Override",
 
   "#Headings": "..",
   "label.heading.groupexternalid" : "Subgroup External ID",
@@ -72,6 +74,12 @@
   "label.heading.kotak.approval.status" : "Kotak Approval Status",
   "label.heading.kotak.credit.approval.list" : "Kotak Credit Approval Task List",
   "label.heading.bss.loans.summary" : "BSS Loans Summary",
+  "label.heading.bcif.details" : "BCIF Details",
+  "label.heading.aadhar" : "Aadhar Number",
+  "label.heading.crn" : "Bcif Id",
+  "label.heading.exactmatch" : "Exact Match",
+  "label.heading.actions" : "Actions",
+  "label.heading.ncif.details" : "NCIF Details",
 
   "#Menu Links": "..",
   "label.menu.selectgroup": "Select Subgroup",
@@ -237,6 +245,8 @@
   "validation.msg.loan.product.and.office.combination.exists":"For field office `{{params[0].value}}` - credit bureau mapping exisits with selected loan product. To change the credit bureau product, remove the existing mapping.",
   "error.message.office.activation.activity.cannot.complete.before.office.activation" : "Field Office activation activity cannot completed before Field office activation",
   "validation.msg.taskAssign.entityId.cannot.be.blank":"Center/Client/Village/Field Office is mandatory",
+  "description.msg.crnsuspended": "All dedupe matches crn have been suspended. Please do bcif creation",
+  "description.msg.nodedupe": "No dedupe matches have been found. Please do bcif creation",
 
   "#tool tip for creating standing instruction":"..",
   "label.tooltip.csi.toOffice":"The field office where the destination account is located.",

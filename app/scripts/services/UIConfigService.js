@@ -33,6 +33,12 @@
                                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
                                     scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
                                 }
+                                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.headerMenuSettings) {
+                                    scope.mainControllerUIConfigData.headerMenuSettings = scope.response.uiDisplayConfigurations.headerMenuSettings;
+                                }
+                                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.organizationMenuSettings) {
+                                    scope.mainControllerUIConfigData.enableManageVillages = scope.response.uiDisplayConfigurations.organizationMenuSettings.enableManageVillages;
+                                }
                                 scope.$emit("uiConfigServicePerformed", scope.response);
                             }
                         }
@@ -64,6 +70,12 @@
                             }
                             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.browserSecurity) {
                                 scope.mainControllerUIConfigData.isEnabledBrowserSecurity = scope.response.uiDisplayConfigurations.browserSecurity.isEnabledBrowserSecurity;
+                            }
+                            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.headerMenuSettings) {
+                                scope.mainControllerUIConfigData.headerMenuSettings = scope.response.uiDisplayConfigurations.headerMenuSettings;
+                            }
+                            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.organizationMenuSettings) {
+                                scope.mainControllerUIConfigData.enableManageVillages = scope.response.uiDisplayConfigurations.organizationMenuSettings.enableManageVillages;
                             }
                             scope.$emit("uiConfigServicePerformed", scope.response);
                         }

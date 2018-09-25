@@ -28,7 +28,7 @@
             scope.showNoteField = false;
             scope.showSmartcard = true;
             scope.clientId = routeParams.id;
-            scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
+            
             scope.entityType = routeParams.entityType;
             if(!scope.entityType){
                 scope.entityType = "client";
@@ -39,6 +39,9 @@
             scope.pincode = false;
             scope.sections = [];
             scope.displayNameInReverseOrder = false;
+            if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard && scope.response){
+                scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
+            }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
             }
@@ -49,6 +52,12 @@
                 scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField && scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan) {
                 scope.hideNewLoan = scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails) {
+               scope.assetDetails = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses) {
+                scope.houseHoldExpenses = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses;
+             }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
         

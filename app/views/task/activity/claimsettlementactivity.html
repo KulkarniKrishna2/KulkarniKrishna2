@@ -1,0 +1,84 @@
+<div class="col-md-12" ng-controller="ClaimSettlementActivityController">
+    <form name="createclaimsettlementform" novalidate="" class="form-horizontal well" ng-show="!isClaimSettlementCreated" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.claimsettlement' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanoutstanding' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="loanOutstanding" type="text" autocomplete="off" name="loanOutstanding" ng-model="formData.loanOutstanding" class="form-control"
+                        number-format required late-Validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createclaimsettlementform" valattribute="loanOutstanding" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.totalrepayment' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="repaidAmount" type="text" autocomplete="off" name="repaidAmount" ng-model="formData.repaidAmount" class="form-control"
+                        number-format required late-Validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createclaimsettlementform" valattribute="repaidAmount" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.amountreceived' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="isAmountReceived" type="checkbox" name="isAmountReceived" ng-model="formData.isAmountReceived">
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createclaimsettlementform" valattribute="isAmountReceived" />
+                </div>
+            </div>
+            <br/>
+            <div class="col-md-offset-5">
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CLAIM_SETTLEMENT'>{{'label.button.save' | translate}}</button>
+            </div>
+
+
+        </fieldset>
+    </form>
+
+    <div ng-show="isClaimSettlementCreated">
+        <div class="row">
+            <label class="control-label col-sm-3">
+                {{'label.heading.loansoutstanding' | translate}}
+
+            </label>
+
+            <div class="col-sm-3">
+                {{claimSettlementData.loanOutstanding}}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">{{ 'label.heading.totalrepayment' | translate }}
+
+            </label>
+
+            <div class="col-sm-3">
+                {{claimSettlementData.repaidAmount}}
+
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">{{ 'label.heading.amountreceived' | translate }}
+
+            </label>
+
+            <div class="col-sm-3">
+                {{claimSettlementData.isAmountReceived}}
+            </div>
+        </div>
+    </div>
+
+</div>

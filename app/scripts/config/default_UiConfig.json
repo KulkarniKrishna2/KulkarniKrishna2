@@ -436,7 +436,28 @@
 			}
 		}
 	},
+	"cashFlow": {
+		"hiddenFields": {
+			"assetDetails": false,
+			"houseHoldExpenses": false
+		}
+	},
+	"globalSearch": {
+		"hiddenFields": {
+			"groups": false,
+			"savings": false,
+			"loanApplication": false
+		}
+	},
 	"workflowDashboard": {
 		"theme": "defaultworkflowstepdashboard"
+	},
+	"headerMenuSettings": {
+		"menuLable": "label.anchor.clients",
+		"menuIcon": "icon-group",
+		"hideMenuOptions": []
+	},
+	"organizationMenuSettings": {
+		"enableManageVillages": false
 	}
 }
