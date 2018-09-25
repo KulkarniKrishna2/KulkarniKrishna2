@@ -35,7 +35,9 @@
                     scope.formData.foreClosureChargesPortion = scope.foreclosuredata.foreClosureChargesPortion;
                     scope.calculateTransactionAmount();
                     scope.paymentTypes = scope.foreclosuredata.paymentTypeOptions;
-
+                    if (scope.paymentTypes.length > 0) {
+                        scope.formData.paymentTypeId = scope.paymentTypes[0].id;
+                    }
                 });
             }
 
@@ -63,7 +65,13 @@
                     transactionDate: dateFilter(this.formData.transactionDate, scope.df),
                     locale:  scope.optlang.code,
                     dateFormat: scope.df,
-                    note: this.formData.note
+                    note: this.formData.note,
+                    paymentTypeId : this.formData.paymentTypeId,
+                    accountNumber : this.formData.accountNumber,
+                    checkNumber : this.formData.checkNumber,
+                    routingCode : this.formData.routingCode,
+                    receiptNumber : this.formData.receiptNumber,
+                    bankNumber : this.formData.bankNumber
                 };
                 resourceFactory.loanTrxnsResource.save({loanId: routeParams.id, command: 'foreclosure'}, scope.foreclosureFormData, function(data) {
                     location.path('/viewloanaccount/' + scope.accountId);
