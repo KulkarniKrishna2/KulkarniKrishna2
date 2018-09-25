@@ -124,7 +124,7 @@
                 $scope.inparams.entityType = 1;
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
-                $scope.isEmiAmountEditable= false;
+                $scope.isEmiAmountEditable= true;
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -133,6 +133,7 @@
                     $scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
                     $scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
                     $scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
+                    $scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
                 }
 
                 resourceFactory.loanResource.get($scope.inparams, function (data) {
@@ -446,10 +447,18 @@
                     $scope.showLoanAccountForm = false;
                 }
 
+                $scope.validateEmiPack = function(loanaccountinfo,principle){
+                    angular.forEach(loanaccountinfo.loanEMIPacks, function(itm,$index){
+                        if(itm.sanctionAmount > principle) {
+                            loanaccountinfo.loanEMIPacks.splice($index);
+                        }
+                    });
+                }
                 $scope.getLoanData = function(loanId){
                     resourceFactory.loanResource.get({loanId: loanId, template: true, associations: 'charges,meeting',staffInSelectedOfficeOnly:true}, function (data) {
                         $scope.loanaccountinfo = data;
                         $scope.charges = data.charges;
+                        $scope.validateEmiPack($scope.loanaccountinfo,$scope.loanaccountinfo.approvedPrincipal);
                     });
                 }
                 $scope.constructFormData = function (data) {
@@ -506,6 +515,7 @@
                         loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
                     }, function (data) {
                         $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                        $scope.editLoanAccountdata.loanPurposeId = null;
                     });
                 }
             }
