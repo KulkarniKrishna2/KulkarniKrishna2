@@ -3,11 +3,15 @@
  */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewVoucherTypeDetailsController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location, route, $modal, CommonUtilService) {
+        ViewVoucherTypeDetailsController: function (scope, routeParams, resourceFactory, dateFilter, API_VERSION, $upload, $rootScope, location, route, $modal, CommonUtilService, $sce,http) {
             /**
              * Based on the voucher type change the labels
              */
             scope.isUpdatePaymentDetails = false;
+            scope.reportName = 'Journal Voucher';
+            scope.reportOutputType = 'PDF';
+            scope.transactionId=routeParams.transactionId;
+            scope.hidePentahoReport = true;
             scope.debitLabel = 'label.input.paid.to';
             scope.creditLabel = 'label.input.paid.from';
             if (scope.voucherCode === 'cashreceipt' || scope.voucherCode === 'bankreceipt') {
@@ -221,9 +225,28 @@
                 var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
                 window.open(url);
             }
+
+            scope.runReport = function () {
+                scope.hidePentahoReport = false;
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
+                reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale="
+                + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionId;
+
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+
+                http.get(reportURL, {responseType: 'arraybuffer'}).
+                    success(function (data, status, headers, config) {
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], {type: contentType});
+                        var fileContent = URL.createObjectURL(file);
+
+                        scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                    });
+            }
         }
     });
-    mifosX.ng.application.controller('ViewVoucherTypeDetailsController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$location', '$route', '$modal', 'CommonUtilService', mifosX.controllers.ViewVoucherTypeDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewVoucherTypeDetailsController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$location', '$route', '$modal', 'CommonUtilService', '$sce','$http' , mifosX.controllers.ViewVoucherTypeDetailsController]).run(function ($log) {
         $log.info("ViewVoucherTypeDetailsController initialized");
     });
 }(mifosX.controllers || {}));
