@@ -14,6 +14,9 @@
 			"isHiddenField": {
 				"canAddCharge" :false
 			},
+		    "isMandatory": {
+			    "loanPurposeId": true
+		    },
 		    "disbursement":{
 			    "disburseTransactionAuthentication":false
 		    }
