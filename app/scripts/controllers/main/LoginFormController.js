@@ -30,8 +30,8 @@
             };*/
 
             scope.reCaptchaSubmit = function () {
-                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
-                    if (scope.mainControllerUIConfigData.isEnabledRecaptcha) {
+                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
+                    if (scope.mainUIConfigData.loginSecurity.isEnabledRecaptcha) {
                         delete scope.authenticationErrorMessage;
                         delete scope.authenticationFailed;
                         if (vcRecaptchaService.getResponse() === "") { //if string is empty
@@ -80,8 +80,8 @@
             scope.captchaPanel = false;
 
             scope.login = function () {
-                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
-                    if (scope.mainControllerUIConfigData.isEnabledPatchca) {
+                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
+                    if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
                         scope.loginCredentials.captchaDetails = {
                             captcha: scope.captchaFormData.captchaEntered,
                             captcha_reference_id: scope.captchaData.captchaReferenceId
@@ -109,7 +109,7 @@
             };
 
             scope.refreshPatchca = function(){
-                if (scope.mainControllerUIConfigData.isEnabledPatchca) {
+                if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
                     resourceFactory.captchaResource.generate({}, function (data) {
                         scope.captchaData = data;
                         scope.loginCredentials.captchaDetails = undefined;
@@ -123,7 +123,7 @@
             });
 
             function init() {
-                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
+                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
                     scope.refreshPatchca();
                 }
             }
@@ -143,7 +143,7 @@
                     scope.authenticationErrorMessage = 'error.connection.failed';
                 }
                 scope.load = false;
-                if (scope.mainControllerUIConfigData.isEnabledCaptcha) {
+                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
                     init();
                 }
             });

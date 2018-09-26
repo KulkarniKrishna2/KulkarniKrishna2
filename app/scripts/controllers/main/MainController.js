@@ -4,9 +4,7 @@
                   uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
-            scope.mainControllerUIConfigData = {};
-            scope.mainControllerUIConfigData.isEnabledRecaptcha = false;
-            scope.mainControllerUIConfigData.isEnabledBrowserSecurity = false;
+            scope.mainUIConfigData = {};
             if (QueryParameters["username"] != undefined && QueryParameters["username"] != "" && QueryParameters["password"] != undefined &&
                 QueryParameters["password"] != "" && QueryParameters["landingPath"] != undefined && QueryParameters["landingPath"] != "") {
                 scope.hideLoginPannel = true;
@@ -63,7 +61,13 @@
                 });
             }
             uiConfigService.init(scope, $rootScope.tenantIdentifier);
-
+            scope.$on('uiConfigServicePerformed', function(event, response) {
+                scope.response = response;
+                if(scope.response && scope.response.uiDisplayConfigurations) {
+                    scope.mainUIConfigData = scope.response.uiDisplayConfigurations;
+                    //console.log(JSON.stringify(scope.mainUIConfigData));
+                }
+            });
             //hides loader
             scope.domReady = true;
             scope.activity = {};
@@ -414,9 +418,9 @@
                 location.path('/viewclient/' + id);
             };
 
-            scope.$watch('mainControllerUIConfigData.isEnabledBrowserSecurity', function (newValue, oldValue) {
+            scope.$watch('mainUIConfigData.browserSecurity.isEnabled', function (newValue, oldValue) {
                 //Key Ref : https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes  
-                if (!angular.equals(newValue, oldValue) && scope.mainControllerUIConfigData.isEnabledBrowserSecurity) {
+                if (!angular.equals(newValue, oldValue) && scope.mainUIConfigData.browserSecurity.isEnabled) {
                     document.onkeydown = function (e) {
                         if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode ===
                                 117 || e.keycode === 17 || e.keyCode === 88)) {
@@ -444,7 +448,7 @@
                     };
 
                     window.addEventListener('devtoolschange', function (e) {
-                        if(scope.mainControllerUIConfigData.isEnabledBrowserSecurity){
+                        if(scope.mainUIConfigData.browserSecurity.isEnabled){
                             if(e.detail.open){
                                 blockUserActions(true);
                             }
@@ -480,9 +484,10 @@
                     scope.getAllGlobalConfigurations();
                 };
             });
+
             scope.isHideMenuOptions = function (type) {
-                if (scope.mainControllerUIConfigData.headerMenuSettings) {
-                    var indexValue = scope.mainControllerUIConfigData.headerMenuSettings.hideMenuOptions.indexOf(type);
+                if (scope.mainUIConfigData.headerMenuSettings) {
+                    var indexValue = scope.mainUIConfigData.headerMenuSettings.hideMenuOptions.indexOf(type);
                     if (indexValue > -1) {
                         if (type == 'READ_CLIENT' && indexValue == 0) {
                             return true;

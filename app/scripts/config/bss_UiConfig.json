@@ -8,39 +8,39 @@
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
-			"isEnabledBrowserSecurity": true
+			"isEnabled": true
 		},
 		"loanAccount": {
 			"isHiddenField": {
-				"canAddCharge" :false
+				"canAddCharge": false
 			},
-		    "isMandatory": {
-			    "loanPurposeId": true
-		    },
-		    "disbursement":{
-			    "disburseTransactionAuthentication":false
-		    }
+			"isMandatory": {
+				"loanPurposeId": true
+			},
+			"disbursement": {
+				"disburseTransactionAuthentication": false
+			}
 		},
 		"viewClient": {
 			"isHiddenField": {
 				"createClient": true,
 				"accountNo": true,
 				"referenceNo": false,
-				"enableSmartCard" : false
+				"enableSmartCard": false
 			},
-		    "familyDeatils":{
-			  "isHiddenField": {
-			   "salutation": true
-			 }
-		    },
-		  "takeSurveyName":"Member info",
-		  "surveyEntityTypeId":"1",
-		  "activateOnReinitiate":false
+			"familyDeatils": {
+				"isHiddenField": {
+					"salutation": true
+				}
+			},
+			"takeSurveyName": "Member info",
+			"surveyEntityTypeId": "1",
+			"activateOnReinitiate": false
 		},
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
 				"netDisbursedAmount": true,
-				"showProductShortName":true
+				"showProductShortName": true
 			}
 		},
 		"createClient": {
@@ -49,7 +49,7 @@
 				"hideClientClassification": true,
 				"legalForm": true,
 				"clientType": true,
-			  	"staff": true
+				"staff": true
 			},
 			"isValidateDOBField": {
 				"active": true,
@@ -60,11 +60,11 @@
 			},
 			"isMandatoryField": {
 				"dateOfBirth": true,
-				"maritalStatus":true,
-			    "addressType":true
+				"maritalStatus": true,
+				"addressType": true
 			},
-			"isValidMobileNumber":{
-				"mobileNumberPattern":"/^[0-9]{10,10}$/"
+			"isValidMobileNumber": {
+				"mobileNumberPattern": "/^[0-9]{10,10}$/"
 			}
 		},
 		"createCenter": {
@@ -93,20 +93,20 @@
 				"referenceNo": false,
 				"meeting": true,
 				"groupName": true,
-				"transferClients":false,
-				"canAddClients":false
+				"transferClients": false,
+				"canAddClients": false
 			},
-		    "isReadOnlyField" :{
-			 "groupName" : true,
-			  "activationDate" : true
-		    }
+			"isReadOnlyField": {
+				"groupName": true,
+				"activationDate": true
+			}
 		},
 		"viewCenter": {
 			"isHiddenField": {
 				"accountNo": true,
 				"referenceNo": false,
-				  "unassignStaffCenter": true,
-				  "canCreateSubGroups":false
+				"unassignStaffCenter": true,
+				"canCreateSubGroups": false
 			}
 		},
 		"createOffice": {
@@ -119,17 +119,17 @@
 		},
 		"defaultGISConfig": {
 			"address": {
-			"countryName": "India"
+				"countryName": "India"
 			}
 		},
 		"workflow": {
-	  		"PGFValidation" : {
-	  			"profileRatingPercentage" :  80
-			  }
-			},
+			"PGFValidation": {
+				"profileRatingPercentage": 80
+			}
+		},
 		"createVillage": {
 			"isReadOnlyField": {
-			  "active": true
+				"active": true
 			},
 			"autoActivate": true
 		},
@@ -143,17 +143,17 @@
 				"chargeCategoryType": false
 			}
 		},
-	    "clientIdentifier": {
-		  "hiddenFields": {
-			"documentExpiryDate": true,
-			"documentIssueDate":true,
-			"status":true
-		  }
+		"clientIdentifier": {
+			"hiddenFields": {
+				"documentExpiryDate": true,
+				"documentIssueDate": true,
+				"status": true
+			}
 		},
 		"workflowDashboard": {
 			"theme": "bssworkflowstepdashboard"
 		},
-    "cashFlow": {
+		"cashFlow": {
 			"hiddenFields": {
 				"assetDetails": true,
 				"houseHoldExpenses": true
@@ -165,20 +165,19 @@
 				"savings": true,
 				"loanApplication": true
 			}
-	},
-	
-	"headerMenuSettings": {
-		"menuLable": "label.anchor.centers",
-		"menuIcon": "icon-map-marker",
-		"hideMenuOptions": [
-			"READ_CLIENT",
-			"READ_GROUP",
-			"NULL",
-			"READ_VILLAGE"
-		]
-	},
-	"organizationMenuSettings": {
-		"enableManageVillages": true
-	}
+		},
+		"headerMenuSettings": {
+			"menuLable": "label.anchor.centers",
+			"menuIcon": "icon-map-marker",
+			"hideMenuOptions": [
+				"READ_CLIENT",
+				"READ_GROUP",
+				"NULL",
+				"READ_VILLAGE"
+			]
+		},
+		"organizationMenuSettings": {
+			"enableManageVillages": true
+		}
 	}
 }
