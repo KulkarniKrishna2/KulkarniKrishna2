@@ -3139,6 +3139,7 @@
     "validation.msg.office.openingDateFormatted.cannot.be.blank": "You must choose a date to represent when the office commenced services.",
     "validation.msg.office.externalId.exceeds.max.length": "External id exceeds max length of {{params[0].value}} alpha-numeric characters - {{params[1].value}}.",
     "error.msg.office.duplicate.name": "An office with name `{{params[0].value}}` already exists.",
+    "error.msg.collateral.duplicate.name": "A collateral with name `{{params[0].value}}` already exists.",
     "error.msg.office.duplicate.externalId": "An office with external id `{{params[0].value}}` already exists.",
     "error.msg.office.unknown.data.integrity.issue": "An unknown data integrity issue occurred.",
     "validation.msg.fund.name.cannot.be.blank": "Name is mandatory.",
