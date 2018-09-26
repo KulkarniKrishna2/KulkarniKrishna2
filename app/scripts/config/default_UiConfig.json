@@ -5,10 +5,10 @@
 			"isEnabledCaptcha": false,
 			"isEnabledRecaptcha": false,
 			"isEnabledPatchca": false,
-			"isEnabledLdap":false
+			"isEnabledLdap": false
 		},
 		"browserSecurity": {
-			"isEnabledBrowserSecurity": false
+			"isEnabled": false
 		},
 		"loanAccount": {
 			"isHiddenField": {
@@ -117,7 +117,7 @@
 				"displayNameInReverseOrder": false,
 				"accountNo": false,
 				"referenceNo": true,
-				"enableSmartCard" : true
+				"enableSmartCard": true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -153,7 +153,7 @@
 					"maxAge": ""
 				}
 			},
-			"defaultGender":"",
+			"defaultGender": "",
 			"isHiddenField": {
 				"hideClientClassification": false,
 				"clientType": false,
@@ -335,8 +335,8 @@
 				"referenceNo": true,
 				"meeting": false,
 				"groupName": false,
-				"transferClients":true,
-				"canAddClients":true
+				"transferClients": true,
+				"canAddClients": true
 			},
 			"searchForActivegroups": false,
 			"isReadOnlyField": {
@@ -388,17 +388,17 @@
 			"isMandatory": {
 				"trancheData": false
 			},
-			"newLoanApplicationLimitAllowed" : false
+			"newLoanApplicationLimitAllowed": false
 		},
-		"creditBureau":{
-			"getlimit":3
+		"creditBureau": {
+			"getlimit": 3
 		},
 		"viewCenter": {
 			"isHiddenField": {
 				"accountNo": false,
 				"referenceNo": true,
 				"unassignStaffCenter": false,
-				"canCreateSubGroups":true
+				"canCreateSubGroups": true
 			}
 		},
 		"createOffice": {
@@ -424,40 +424,40 @@
 				"village": false
 			}
 		},
-		"voucherTypeForm":{
+		"voucherTypeForm": {
 			"isMandatoryFields": {
-				"costCenter":false,
-				"companyCode":false
+				"costCenter": false,
+				"companyCode": false
 			}
 		},
-		"addJournalEntry":{
+		"addJournalEntry": {
 			"isMandatoryField": {
-				"companyCode":false
+				"companyCode": false
 			}
+		},
+		"cashFlow": {
+			"hiddenFields": {
+				"assetDetails": false,
+				"houseHoldExpenses": false
+			}
+		},
+		"globalSearch": {
+			"hiddenFields": {
+				"groups": false,
+				"savings": false,
+				"loanApplication": false
+			}
+		},
+		"workflowDashboard": {
+			"theme": "defaultworkflowstepdashboard"
+		},
+		"headerMenuSettings": {
+			"menuLable": "label.anchor.clients",
+			"menuIcon": "icon-group",
+			"hideMenuOptions": []
+		},
+		"organizationMenuSettings": {
+			"enableManageVillages": false
 		}
-	},
-	"cashFlow": {
-		"hiddenFields": {
-			"assetDetails": false,
-			"houseHoldExpenses": false
-		}
-	},
-	"globalSearch": {
-		"hiddenFields": {
-			"groups": false,
-			"savings": false,
-			"loanApplication": false
-		}
-	},
-	"workflowDashboard": {
-		"theme": "defaultworkflowstepdashboard"
-	},
-	"headerMenuSettings": {
-		"menuLable": "label.anchor.clients",
-		"menuIcon": "icon-group",
-		"hideMenuOptions": []
-	},
-	"organizationMenuSettings": {
-		"enableManageVillages": false
 	}
 }
