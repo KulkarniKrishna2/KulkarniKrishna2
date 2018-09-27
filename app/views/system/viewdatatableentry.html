@@ -16,6 +16,9 @@
                 ng-href="#/viewclient/{{clientId}}">{{savingsaccountholderclientName}}</a></li>
         <li ng-show="savingsaccount"><a
                 ng-href="#/viewsavingaccount/{{entityId}}">{{savingsAccount}}</a></li>
+        <li ng-show="village"><a
+            ng-href="#/viewvillage/{{entityId}}">{{villageName}}</a>
+        </li>        
     </ul>
 <form class="form-horizontal well" ng-submit="submit()">
     <div ng-show="isViewMode">

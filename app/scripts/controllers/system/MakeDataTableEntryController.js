@@ -17,6 +17,7 @@
             scope.office=false;
             scope.savingsaccount=false;
             scope.loanproduct = false;
+            scope.village=false;
             scope.showSelect = true;
             scope.villageName;
             scope.dataTableName = '';
@@ -26,7 +27,7 @@
             scope.associateAppTable = null;
             scope.count = 0;
             scope.issubmitcontinue = false ;
-            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id'];
 
             if (routeParams.fromEntity == 'client') {
                     scope.clientName = $rootScope.clientname;
@@ -56,6 +57,10 @@
                     scope.savingsaccount=true;
                     scope.clientId=$rootScope.clientId;
                     scope.savingsaccountholderclientName=$rootScope.savingsaccountholderclientName;
+            }
+            if(routeParams.fromEntity == 'village'){
+                scope.village=true;
+                scope.villageName = $rootScope.villageNameDataParameter;
             }
             if(scope.tableName =='Address' && scope.fromEntity == 'client'){
                 scope.showSelect=false;
@@ -314,6 +319,8 @@
                     location.path('/viewoffice/' + routeParams.entityId).search({});
                 } else if (scope.fromEntity == 'journalentry') {
                     location.path('/viewtransactions/' + routeParams.entityId).search({});
+                } else if(scope.fromEntity == 'village'){
+                    location.path('/viewvillage/' + routeParams.entityId).search({});
                 };
             };
             scope.submit = function () {
@@ -357,7 +364,9 @@
                     var destination = "";
                     if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
-                    } else if (data.savingsId) {
+                    }else if(scope.village){
+                        destination = '/viewvillage/'+ routeParams.entityId;
+                    }else if (data.savingsId) {
                         destination = '/viewsavingaccount/' + data.savingsId;
                     } else if (data.clientId) {
                         destination = '/viewclient/' + data.clientId;
@@ -371,7 +380,7 @@
                         destination = '/viewtransactions/' + data.transactionId;
                     } else if (data.officeId) {
                         destination = '/viewoffice/' + data.officeId;
-                    }
+                    } 
                     location.path(destination);
                 }
                 });

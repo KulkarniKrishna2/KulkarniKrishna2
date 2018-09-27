@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewDataTableController: function (scope, routeParams, resourceFactory, location, $modal) {
-            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id'];
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id'];
             resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName}, function (data) {
                 var temp = [];
                 for (var i in data.columnHeaderData){
