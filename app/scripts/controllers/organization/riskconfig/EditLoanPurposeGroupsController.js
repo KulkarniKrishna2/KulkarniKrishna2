@@ -17,6 +17,8 @@
                 scope.formData = data;
                 scope.formData.loanPurposeGroupTypeId = data.loanPurposeGroupType.id;
                 delete scope.formData.loanPurposeGroupType;
+                delete scope.formData.systemCode;
+                delete scope.formData.isSystemDefined;
             });
 
             scope.submit = function () {
