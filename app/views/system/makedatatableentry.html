@@ -16,6 +16,8 @@
                 ng-href="#/viewclient/{{clientId}}">{{savingsaccountholderclientName}}</a></li>
         <li ng-show="savingsaccount"><a
                 ng-href="#/viewsavingaccount/{{entityId}}">{{savingsAccount}}</a></li>
+        <li ng-show="village"><a
+            ng-href="#/viewvillage/{{entityId}}">{{villageName}}</a></li>        
     </ul>
 <form class="form-horizontal well"  ng-submit="submit()">
 
@@ -177,7 +179,7 @@
         <div class="col-md-offset-3">
             <a id="cancel" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_{{tableName}}'>{{ 'label.button.save' | translate }}</button>
-            <button id="save" type="submit" class="btn btn-primary" ng-show="isMultirow" ng-click="submitcontinue()"has-permission='CREATE_{{tableName}}'>{{ 'label.submit.and.continue' | translate }}({{count}})</button></div>
+            <button id="save" type="submit" class="btn btn-primary" ng-if="isMultirow" ng-click="submitcontinue()"has-permission='CREATE_{{tableName}}'>{{ 'label.submit.and.continue' | translate }}({{count}})</button></div>
         </div>
     </fieldset>
 </form>

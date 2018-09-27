@@ -24,7 +24,7 @@
             scope.office=false;
             scope.savingsaccount=false;
             scope.loanproduct = false;
-
+            scope.village = false;
             scope.showSelect = true; //
             scope.villageName;
             scope.isJournalEntry = false;
@@ -36,7 +36,7 @@
             scope.columnValueEntries = {};
             scope.associateAppTable = null;
             var reqparams = {};
-            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'villages_id'];
 
             if(routeParams.tableName =="Address"){
                 scope.showSelect=false;
@@ -75,6 +75,11 @@
                 scope.savingsaccount=true;
                 scope.clientId=$rootScope.clientId;
                 scope.savingsaccountholderclientName=$rootScope.savingsaccountholderclientName;
+            }
+            if(routeParams.fromEntity == 'village'){
+                scope.villageName = $rootScope.villageNameDataParameter;
+                scope.village=true;
+                scope.villageId = $rootScope.entityId;
             }
             var reqparams = {datatablename: scope.tableName, entityId: scope.entityId.toString(), genericResultSet: 'true', command: scope.dataTableName,associateAppTable: scope.associateAppTable};
             if (scope.resourceId) {
@@ -511,7 +516,9 @@
                     var destination = "";
                     if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
-                    } else if (data.savingsId) {
+                    } else if(scope.village){
+                        destination = '/viewvillage/' + scope.villageId;
+                    }else if (data.savingsId) {
                         destination = '/viewsavingaccount/' + data.savingsId;
                     } else if (data.clientId) {
                         destination = '/viewclient/' + data.clientId;

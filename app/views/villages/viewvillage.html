@@ -5,6 +5,33 @@
             <li>{{village.villageName}}</li>
         </ul>
     </div>
+    <H3>{{'datatables' | translate}}</H3>
+    <div>
+            <tabset>
+                    <tab name="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables" has-permission='READ_{{datatable.registeredTableName}}'
+                    select="dataTableChange(datatable)">
+                   <div>
+                       <div class="btn-group pull-right">
+                           <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+                              ng-click="deleteAll(datatable.registeredTableName, village.villageId)" has-permission='DELETE_{{datatable.registeredTableName}}'><i
+                                   class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                           <a data-ng-show="showDataTableAddButton"
+                              ng-href="#/makedatatableentry/{{datatable.registeredTableName}}/{{village.villageId}}?fromEntity=village"
+                              class="btn btn-primary" has-permission='CREATE_{{datatable.registeredTableName}}'><i
+                                   class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                           <a data-ng-show="showDataTableEditButton"
+                              ng-href="#/viewsingledatatableentry/{{datatable.registeredTableName}}/{{village.villageId}}?mode=edit&&fromEntity=village"
+                              class="btn btn-primary" has-permission='UPDATE_{{datatable.registeredTableName}}'><i
+                                   class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                       </div>
+                       <br>
+                       <br>
+                       <div ng-show="datatabledetails.isData" ng-include="'views/system/view_datatable_data.html'">
+                       </div>
+                   </div>
+               </tab>
+            </tabset>
+    </div>
     <div class="row">
         <div class="col-md-8 col-sm-8">
             <h3 class="client-title">
