@@ -39,7 +39,7 @@
         <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}</label></td>
         <td class="paddedbottom10" ng-show = "loanPurposeGroups" >
             <select chosen="loanPurposeGroups" id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
-                    ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
+                    ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | filter:{isActive:true} | orderBy:'name':reverse"
                     class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
