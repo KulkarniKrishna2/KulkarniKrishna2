@@ -177,7 +177,7 @@
     },
     "paymentDetails": {
       "isMandatory": {
-        "receiptNumber" : true
+        "receiptNumber" : false
       }
     },
     "globalSearchScope" : {
