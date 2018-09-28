@@ -17,6 +17,7 @@
             scope.slabBasedCharge = "Slab Based";
             scope.installmentAmountSlabChargeType = 1;
             scope.isTrancheAmoumtReadOnly = false;
+            scope.loanType="individual";
 
             scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
             scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
@@ -652,6 +653,10 @@
                 }
                 if(this.formRequestData.loanAccountNumber != undefined){
                     delete this.formRequestData.loanAccountNumber;
+                }
+                if(this.formValidationData.loanType==scope.loanType)
+                {
+                    delete this.formValidationData.groupId;
                 }
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                     for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
