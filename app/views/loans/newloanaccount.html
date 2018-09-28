@@ -197,7 +197,7 @@
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
         <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
         </div>
-        <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled"  ng-show="previewRepayment" class="width100">
+        <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled" class="width100">
             <tr>
                 <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
                     <label>{{ 'label.input.linksavings' | translate }}:</label>
