@@ -145,14 +145,18 @@
                 scope.logout();
             });
 
-            // Log out the user when the window/tab is closed.
+            // Log out the user when the window/tab is closed.   
             window.onunload = function () {
+                onunload();
+            };
+
+            function onunload(){
                 if(scope.currentSession && scope.currentSession.user){
                     scope.logout();
                 }else{
                     clearAllSession();
                 }
-            };
+            }
 
             scope.start = function (session) {
                 if (session) {
@@ -188,11 +192,7 @@
             });
 
             scope.$on("RefreshAuthenticationFailureEvent", function () {
-                scope.currentSession = sessionManager.clearAll();
-                scope.resetPassword = false;
-                $rootScope.isUserSwitched = false;
-                delete $rootScope.proxyToken;
-                location.path('/').replace();
+                clearAllSession();
             });
 
             scope.configs = [];
@@ -437,6 +437,7 @@
             scope.$watch('mainUIConfigData.browserSecurity.isEnabled', function (newValue, oldValue) {
                 //Key Ref : https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes  
                 if (!angular.equals(newValue, oldValue) && scope.mainUIConfigData.browserSecurity.isEnabled) {
+                    onunload();
                     document.onkeydown = function (e) {
                         if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode ===
                                 117 || e.keycode === 17 || e.keyCode === 88)) {
