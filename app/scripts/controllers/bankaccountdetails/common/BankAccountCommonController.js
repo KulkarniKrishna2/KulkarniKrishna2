@@ -121,7 +121,7 @@
                 resourceFactory.bankAccountDetailResources.create({entityType: getEntityType(),entityId: getEntityId()},scope.formData,
                     function (data) {
                         scope.clientBankAccountDetailAssociationId = data.resourceId;
-                        scope.routeToViewBankAccountdetails();
+                        scope.routeToBankAccountdetails();
                         //enableShowSummary();
                 });
             };
@@ -268,6 +268,7 @@
                     function (data) {
                         populateDetails();
                         enableShowSummary();
+                        scope.routeToBankAccountdetails();
 
                     }
                 );
