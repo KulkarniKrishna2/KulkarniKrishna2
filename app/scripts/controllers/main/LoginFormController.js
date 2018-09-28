@@ -30,7 +30,7 @@
             };*/
 
             scope.reCaptchaSubmit = function () {
-                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
+                if (scope.mainUIConfigData.loginSecurity && scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
                     if (scope.mainUIConfigData.loginSecurity.isEnabledRecaptcha) {
                         delete scope.authenticationErrorMessage;
                         delete scope.authenticationFailed;
@@ -80,7 +80,7 @@
             scope.captchaPanel = false;
 
             scope.login = function () {
-                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
+                if (scope.mainUIConfigData.loginSecurity && scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
                     if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
                         scope.loginCredentials.captchaDetails = {
                             captcha: scope.captchaFormData.captchaEntered,
@@ -109,7 +109,7 @@
             };
 
             scope.refreshPatchca = function(){
-                if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
+                if (scope.mainUIConfigData.loginSecurity && scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
                     resourceFactory.captchaResource.generate({}, function (data) {
                         scope.captchaData = data;
                         scope.loginCredentials.captchaDetails = undefined;
@@ -123,9 +123,7 @@
             });
 
             function init() {
-                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
-                    scope.refreshPatchca();
-                }
+                scope.refreshPatchca();
             }
 
             scope.showLoginScreen = function() {
@@ -143,9 +141,7 @@
                     scope.authenticationErrorMessage = 'error.connection.failed';
                 }
                 scope.load = false;
-                if (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
-                    init();
-                }
+                init();
             });
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
