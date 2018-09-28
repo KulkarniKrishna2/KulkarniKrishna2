@@ -17,6 +17,7 @@
 
                 scope.village = data;
                 $rootScope.villageNameDataParameter = scope.village.villageName;
+                $rootScope.villageId = scope.village.villageId;
                 scope.activationDate = new Date(scope.village.timeline.activatedOnDate);
                 scope.village.timeline.activatedOnDate = dateFilter(scope.activationDate, scope.df);
                 scope.submittedDate = new Date(scope.village.timeline.submittedOnDate);
@@ -24,6 +25,7 @@
             });
 
             scope.dataTableChange = function (datatable) {
+                if(datatable){
                 scope.datatabledetails = {};
                 scope.datatabledetails.isData;
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName, entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
@@ -118,6 +120,7 @@
                         }
                     }
                 });
+            }
             };
 
             scope.expandAll = function (center, expanded) {

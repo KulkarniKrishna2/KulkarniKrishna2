@@ -79,7 +79,7 @@
             if(routeParams.fromEntity == 'village'){
                 scope.villageName = $rootScope.villageNameDataParameter;
                 scope.village=true;
-                scope.villageId = $rootScope.entityId;
+                scope.villageId = $rootScope.villageId;
             }
             var reqparams = {datatablename: scope.tableName, entityId: scope.entityId.toString(), genericResultSet: 'true', command: scope.dataTableName,associateAppTable: scope.associateAppTable};
             if (scope.resourceId) {
@@ -517,7 +517,7 @@
                     if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
                     } else if(scope.village){
-                        destination = '/viewvillage/' + scope.villageId;
+                        destination = '/viewvillage/' + $rootScope.villageId;
                     }else if (data.savingsId) {
                         destination = '/viewsavingaccount/' + data.savingsId;
                     } else if (data.clientId) {
