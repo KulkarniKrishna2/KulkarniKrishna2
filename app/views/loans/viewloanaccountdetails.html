@@ -198,9 +198,6 @@
 
         </div>
         <div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
-            <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
-                translate}}
-            </button>
             <div id="printcontent">
                 <iframe id="rptLoadingFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
             </div>

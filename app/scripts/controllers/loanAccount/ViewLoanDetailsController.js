@@ -1396,7 +1396,16 @@
                     scope.baseURL += "&" + reportParams;
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+                baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+
+                http.get(baseURL, {responseType: 'arraybuffer'}).
+                success(function (data, status, headers, config) {
+                    var contentType = headers('Content-Type');
+                    var file = new Blob([data], {type: contentType});
+                    var fileContent = URL.createObjectURL(file);
+
+                    scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                });
 
             };
 
