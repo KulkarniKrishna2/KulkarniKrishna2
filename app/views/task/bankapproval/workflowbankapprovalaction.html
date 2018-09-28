@@ -235,6 +235,10 @@
 						</table>
 						<br>
 			</div>
+			<div ng-if="clientDedupTemplateData.clientDedupeList!=null && clientDedupTemplateData.clientDedupeList.length==0 && !crnGeneration && !deduperrorExists && !allCrnSuspended">
+				<p>{{'description.msg.nodedupe' | translate}}</p>
+				<br>
+			</div>
 			<div ng-if="clientCrnTemplateData !=null && crnGeneration && !creationerrorExists">
 					<table class="table table-striped">
 							<thead >
