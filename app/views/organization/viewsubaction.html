@@ -1,0 +1,39 @@
+<div class="col-md-12"> 
+    <label class="control-label col-md-4" >{{'label.sub.actions' | translate}}</label>
+    <div class="col-md-4">
+       <select  id="actionType" name="actionType" ng-model="formData.actionSelected" 
+            class="form-control">
+            <option value="" default>-- Select one --</option>
+            <option ng-repeat="action in actions" value="{{action}}">{{action.value}}</option>
+       </select>
+    </div>
+    <div class="col-sm-2">
+       <form-validate valattributeform="addactiongroupsform" valattribute="actionType"/>
+    </div> 
+    <div class="col-md-4">
+        <a  class="btn btn-primary pull-right" data-ng-click="addRolesToAction()" 
+           ng-disabled="!(true && formData.actionSelected)">{{'label.button.add'| translate}} </a>
+    </div>                             
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+           <tr>
+               <th>{{'label.sub.actions.selected' | translate}}</th>
+               <th></th>
+           </tr>
+        </thead>
+        <tbody>
+           <tr  ng-repeat="getInf in selectedSubActions track by $index">
+               <td>{{getInf.actionType.value}}</td>
+               <td ><td><a type="button" class="btn btn-info" ng-click= "deleteActionRoles($index)">
+                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td></td>
+           </tr>        
+        </tbody>
+    </table>
+</div>
+<div class="col-md-offset-3">
+    <a id="cancel" ng-click="close()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+    <button id="save" type="submit" ng-click="submit()" class="btn btn-primary" 
+     has-permission='CREATE_TASKACTIONGROUP'>{{ 'label.button.save' | translate }}</button>
+</div>

@@ -7589,6 +7589,8 @@
     "label.anchor.managevillages":"Manage villages",
     "validation.msg.loan.disbursement.principal.is.greater.than.max":"Loan disburse amount cannot be more than approved amount",
 
+    "label.sub.actions" : "Sub Actions",
+    "label.sub.actions.selected" : "Sub Actions Selected",
 
      "------ end of tensalation file ------":"---------"
 }

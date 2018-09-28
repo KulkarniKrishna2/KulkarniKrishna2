@@ -221,15 +221,32 @@
                         location.path('/workflowbankapprovallist');
                 });
 
-            }    
+            }
 
-           scope.rejectLoan = function (bankApproveId) {
-
-                resourceFactory.bankApprovalActionResource.doAction({bankApproveId:bankApproveId, command : 'reject'}, {} , function (data) {
-                        location.path('/workflowbankapprovallist');
+            scope.rejectLoan = function (bankApproveId) {
+                $modal.open({
+                    templateUrl: 'rejectloan.html',
+                    controller: RejectLoanCtrl,
+                    resolve: {
+                        rejectParameterInfo: function () {
+                            return { 'bankApproveId': bankApproveId};
+                        }
+                    }
                 });
+            };
+            var RejectLoanCtrl = function ($scope, $modalInstance,rejectParameterInfo) {
+                $scope.bankApproveId = rejectParameterInfo.bankApproveId;
+                $scope.reject = function () {
+                    resourceFactory.bankApprovalActionResource.doAction({bankApproveId:$scope.bankApproveId, command : 'reject'}, {} , function (data) {
+                        location.path('/workflowbankapprovallist');
+                        $modalInstance.dismiss('cancel');
 
-            } 
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
 
             scope.undoApproveLoan = function (approveId) {
 
