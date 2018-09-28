@@ -1644,7 +1644,11 @@
                     }),  
                     overridebcifDedupecrnResource: defineResource(apiVer + '/bcif/crn', {}, {
                         post: {method: "POST"}
-                    })              
+                    }),              
+                    subActionResource : defineResource(apiVer + "/taskactiongroups/:actionGroupId/taskactions/:actionId/subactions",{actionGroupId: '@actionGroupId',actionId : '@actionId'},{
+                        save:{method:'POST', params:{}},
+                        get: {method: 'GET', params: {},isArray:true},
+                    }),
                 };
             }];
         }

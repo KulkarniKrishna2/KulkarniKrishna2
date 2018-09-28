@@ -1,4 +1,4 @@
-   <div class="col-md-12" ng-controller="AddActionGroupsController">
+   <div class="col-md-12" ng-controller="AddActionGroupsController">  
         <ul class="breadcrumb">
             <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
             <li><a href="#/workflowentitymappings">{{'label.anchor.workflowentitymapping' | translate}}</a></li>
@@ -89,6 +89,7 @@
                             </td>
                             <td ><a type="button" class="btn btn-info" ng-click= "deleteActionRoles($index)">
                                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
+                                <td><a type="button" class="btn btn-primary" ng-show="getInf.actionType.actionId != null" ng-click="opensubaction($index)">add sub action</a></td>
                         </tr>        
                      </tbody>
                  </table>

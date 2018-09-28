@@ -1,7 +1,6 @@
-
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AddActionGroupsController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
+        AddActionGroupsController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal,popUpUtilService) {
                  scope.formData = {};
                  scope.actionGroupsTemplate = {};
                  scope.actions = [];
@@ -22,25 +21,27 @@
                 });
 
                 if(routeParams.actionGroupId){
-                   resourceFactory.actionGroupsResource.get({actionGroupId:routeParams.actionGroupId}, function (data) {
+                    resourceFactory.actionGroupsResource.get({ actionGroupId: routeParams.actionGroupId }, function (data) {
                         scope.actionGroupData = data;
-                        if(scope.actionGroupData){
-                           scope.formData.id = scope.actionGroupData.id;
-                           scope.formData.actionGroupName = scope.actionGroupData.actionGroupName;
-                           for(var i in scope.actionGroupData.actions){
-                             var temp = {};
-                                 temp.actionType = scope.actionGroupData.actions[i].actionType;
-                                 temp.actionType.actionId = scope.actionGroupData.actions[i].id;
-                                 temp.roles = scope.actionGroupData.actions[i].accessRoles.slice();
-                                 scope.selectedActionsWithRoles.push(temp);
-                                 for(var i in scope.actions){
-                                        if(scope.actions[i].id == temp.actionType.id){
-                                            scope.actions.splice(i,1);
-                                        }
+                        if (scope.actionGroupData) {
+                            scope.formData.id = scope.actionGroupData.id;
+                            scope.formData.actionGroupName = scope.actionGroupData.actionGroupName;
+                            for (var i in scope.actionGroupData.actions) {
+                                var temp = {};
+                                temp.actionType = scope.actionGroupData.actions[i].actionType;
+                                temp.actionType.actionId = scope.actionGroupData.actions[i].id;
+                                temp.roles = scope.actionGroupData.actions[i].accessRoles.slice();
+                                if (scope.actionGroupData.actions[i].parentId == undefined) {
+                                    scope.selectedActionsWithRoles.push(temp);
+                                }
+                                for (var i in scope.actions) {
+                                    if (scope.actions[i].id == temp.actionType.id) {
+                                        scope.actions.splice(i, 1);
                                     }
-                           }
+                                }
+                            }
                         }
-                   }); 
+                    }); 
                    scope.isCreateOperaion = false;
                 }
 
@@ -146,7 +147,7 @@
                 this.formData.actions = [];
                 this.formData.isActive = true;
 
-                for(var i in scope.selectedActionsWithRoles){
+                for(var i in scope.selectedActionsWithRoles){ 
                     var actionType = scope.selectedActionsWithRoles[i].actionType.id;
                     var roles = [];
                     for(var j in scope.selectedActionsWithRoles[i].roles){
@@ -168,10 +169,19 @@
                 }
                   
             } 
+
+            scope.opensubaction = function (idy) {
+                scope.selectedActionId=scope.selectedActionsWithRoles[idy].actionType.actionId;
+                scope.popUpHeaderName = "Sub Action"
+                scope.includeHTML = 'views/organization/viewsubaction.html';
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'AddSubActionController';
+                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
+            }
                
         }
     });
-    mifosX.ng.application.controller('AddActionGroupsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.AddActionGroupsController]).run(function ($log) {
+    mifosX.ng.application.controller('AddActionGroupsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal','PopUpUtilService', mifosX.controllers.AddActionGroupsController]).run(function ($log) {
         $log.info("AddActionGroupsController initialized");
     });
 }(mifosX.controllers || {}));
