@@ -296,7 +296,7 @@
                 scope.changePledge(scope.formData.pledgeId);
             };
             
-            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
+            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
                 if(data.loanEMIPackData){
                     scope.formData.loanEMIPackId = data.loanEMIPackData.id;
