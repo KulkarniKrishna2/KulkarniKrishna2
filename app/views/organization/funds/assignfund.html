@@ -3,7 +3,7 @@
         <li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.assignfund' | translate}}</li>
     </ul>
-    <form name="assignfundform" novalidate="" class="form-horizontal well" >
+    <form name="assignfundform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <div class="form-horizontal">
             <api-validate></api-validate>
             <fieldset>
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-sm-2" >
-                            <form-validate valattributeform="createfundform" valattribute="fund"/>
+                            <form-validate valattributeform="assignfundform" valattribute="fund"/>
                         </div>
                     </div>
                     <div>
@@ -37,16 +37,16 @@
                             <input type="file" id="file" multiple="multiple" ng-file-select="onFileSelect($files)" accept=".csv" ng-required="true"/>
                         </div>
                         <div class="col-sm-3">
-                            <span ng-show="isFileNotSlected && rc.documentform.attempted" class="ng-scope"><small class="error ng-binding">Required Field</small></span>
+                            <span ng-show="isFileNotSlected && rc.assignfundform.attempted" class="ng-scope"><small class="error ng-binding">Required Field</small></span>
                         </div>
                         <div class="col-sm-1">
-                            <form-validate valattributeform="documentform" valattribute="file"/>
+                            <form-validate valattributeform="assignfundform" valattribute="file"/>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-offset-3"><!--   -->
                     <a id="cancel" href="#/organization" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                    <button id="save" type="submit" has-permission='ASSIGN_FUND' ng-click = "submit()" class="btn btn-primary">{{'label.button.assignfund' | translate}}</button>
+                    <button id="save" type="submit" has-permission='ASSIGN_FUND' class="btn btn-primary">{{'label.button.assignfund' | translate}}</button>
                 </div>
             </fieldset>
             </form>
