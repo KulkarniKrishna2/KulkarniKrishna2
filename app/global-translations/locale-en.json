@@ -7539,6 +7539,8 @@
     "label.menu.select.user":"Select user",
     "label.menu.assigned.to":" Assign to",
     "error.msg.select.assign.to":"Kindly select assign to",
+    "error.msg.not.csv.file": "Not a CSV File",
+    "error.msg.no.data.found":"No records found in the uploaded file",
     
     "---start policy---": "---start-policy---",
     "label.anchor.createpolicy" : "Create Policy",
