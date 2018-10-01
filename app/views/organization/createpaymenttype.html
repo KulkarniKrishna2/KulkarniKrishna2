@@ -111,24 +111,24 @@
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="showBankDetails()">
-                    <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}<span
+                    <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}<span data-ng-show="showBankDetails()"
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <input name="accHolderName" ng-model="formData.bankAccountDetails.name"
-                               type="text" autocomplete="off" class="form-control" required/>
+                               type="text" autocomplete="off" class="form-control" ng-required="showBankDetails()"/>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="createpaymenttype" valattribute="accHolderName"/>
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
-                    <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}<span
+                    <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}<span data-ng-show="showBankDetails()"
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <input name="accountNumber" ng-model="formData.bankAccountDetails.accountNumber"
-                               type="text" autocomplete="off" class="form-control" required/>
+                               type="text" autocomplete="off" class="form-control" ng-required = "showBankDetails()"/>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="createpaymenttype" valattribute="accountNumber"/>

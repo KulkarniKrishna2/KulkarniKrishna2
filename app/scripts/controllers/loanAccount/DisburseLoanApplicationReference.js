@@ -121,6 +121,9 @@
                         if (scope.formData.approvedData.fixedEmiAmount) {
                             scope.formRequestData.disburse.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
                         }
+                        if(scope.formData.approvedData.loanEMIPackData){
+                            scope.formRequestData.submitApplication.loanEMIPackId = scope.formData.approvedData.loanEMIPackData.id;
+                        }
                         scope.loanProductChange(scope.formData.loanProductId);
                     });
                 }
@@ -375,7 +378,7 @@
 
             scope.previewRepayments = function (isDisplayData) {
 
-                if (scope.feeCharges.length > 0) {
+                if (scope.feeCharges && scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
                     for (var i in scope.feeCharges) {
                         var chargeData = {};
@@ -492,7 +495,7 @@
 
             scope.finalSubmit = function () {
                 scope.previewRepayments(false);
-                if (scope.feeCharges.length > 0) {
+                if (scope.feeCharges && scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
                     for (var i in scope.feeCharges) {
                         var chargeData = {};
@@ -504,7 +507,7 @@
                         scope.formRequestData.submitApplication.charges.push(chargeData);
                     }
                 }
-                if (scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
+                if (scope.penalCharges && scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
                     scope.formRequestData.submitApplication.overdueCharges = [];
                     for (var i in scope.penalCharges) {
                         var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
