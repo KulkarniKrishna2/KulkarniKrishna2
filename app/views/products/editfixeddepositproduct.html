@@ -21,11 +21,11 @@
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input type="text" autocomplete="off" id="shortName" name="shortName" ng-model="formData.shortName"
+        <input type="text" autocomplete="off" id="shortName" name="shortProductName" ng-model="formData.shortName"
                class="form-control" maxlength="4" required late-validate/>
     </div>
     <div class="col-sm-2">
-        <form-validate valattributeform="editfixeddepositproductform" valattribute="shortName"/>
+        <form-validate valattributeform="editfixeddepositproductform" valattribute="shortProductName"/>
     </div>
 </div>
 <div class="form-group">
@@ -173,12 +173,13 @@
             <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
         </select>
     </div>
-    <label class="control-label col-sm-2">{{ 'label.input.minimumdepositterm' | translate }}
+    <label class="control-label col-sm-2">{{ 'label.input.minimumdepositterm' | translate }}<span class="required">*</span>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.fixeddepositproduct.minimumterm' | translate}}"
            tooltip-append-to-body="true"></i>
     </label>
     <div class="col-sm-2">
-        <input id="minimumDepositTerm" type="text" autocomplete="off" class="form-control" ng-model="formData.minDepositTerm">
+        <input id="minimumDepositTerm" name="minimumDepositTerm" type="text" autocomplete="off" class="form-control" ng-model="formData.minDepositTerm" required>
+        <form-validate valattributeform="editfixeddepositproductform" valattribute="minimumDepositTerm"/>
     </div>
     <div class="col-sm-2">
         <select id="minDepositTermTypeId" ng-model="formData.minDepositTermTypeId"
@@ -276,9 +277,12 @@
     <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.valid.from' |
         translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
-        <input id="fromDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}"
+        <input id="fromDate" name="fromDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}"
                ng-model="fromDate.date"
-               is-open="opened" min="minDate" max="restrictDate"/>
+               is-open="opened" min="minDate" max="restrictDate" required />
+    </div>
+    <div class="col-sm-2">
+            <form-validate valattributeform="editfixeddepositproductform" valattribute="fromDate"/>
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2" for="name">{{ 'label.input.interestratechart.valid.to' | translate }}</label>
     <div class="col-sm-2">
@@ -291,9 +295,12 @@
         translate }}<span class="required">*</span></label>
     <div class="col-sm-2">
         <label class="checkbox">
-            <input id="isPrimaryGroupingByAmount" type="checkbox" ng-model="isPrimaryGroupingByAmount">
+            <input id="isPrimaryGroupingByAmount" name="isPrimaryGroupingByAmount" type="checkbox" ng-model="isPrimaryGroupingByAmount" required >
 
         </label>
+    </div>
+    <div class="col-sm-2">
+            <form-validate valattributeform="editfixeddepositproductform" valattribute="isPrimaryGroupingByAmount"/>
     </div>
 </div>
 <div class="col-md-12">
