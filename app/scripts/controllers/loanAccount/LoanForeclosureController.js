@@ -8,6 +8,8 @@
             scope.subTaskTypeName = 'Foreclosure';
             scope.formData.transactionDate = new Date();
             scope.restrictDate = new Date();
+            scope.paymentModeOptions = [];
+            scope.paymentTypeOptions = [];
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
                 scope.loandetails = data;
@@ -27,6 +29,8 @@
                     scope.foreclosuredata = data;
                     scope.formData.outstandingPrincipalPortion = scope.foreclosuredata.principalPortion;
                     scope.formData.outstandingInterestPortion = scope.foreclosuredata.interestPortion;
+                    scope.paymentModeOptions = scope.foreclosuredata.paymentModeOptions;
+                    scope.paymentTypeOptions = scope.foreclosuredata.paymentTypeOptions;
                     if (scope.foreclosuredata.unrecognizedIncomePortion) {
                         scope.formData.interestAccruedAfterDeath = scope.foreclosuredata.unrecognizedIncomePortion;
                     }
@@ -35,14 +39,14 @@
                     scope.formData.outstandingPenaltyChargesPortion = scope.foreclosuredata.penaltyChargesPortion;
                     scope.formData.foreClosureChargesPortion = scope.foreclosuredata.foreClosureChargesPortion;
                     scope.calculateTransactionAmount();
-                    scope.paymentTypes = scope.foreclosuredata.paymentTypeOptions;
+               
 
                 });
             }
 
             scope.calculateTransactionAmount = function(){
                 var transactionAmount = 0;
-                transactionAmount += parseFloat(scope.foreclosuredata.principalPortion);
+                transactionAmount += parseFloat(scope.foreclosuredata.principalPortion); 
                 transactionAmount += parseFloat(scope.foreclosuredata.interestPortion);
                 transactionAmount += parseFloat(scope.foreclosuredata.feeChargesPortion);
                 transactionAmount += parseFloat(scope.foreclosuredata.penaltyChargesPortion);
@@ -64,7 +68,8 @@
                     transactionDate: dateFilter(this.formData.transactionDate, scope.df),
                     locale:  scope.optlang.code,
                     dateFormat: scope.df,
-                    note: this.formData.note
+                    note: this.formData.note,
+                    paymentTypeId: scope.formData.paymentTypeId
                 };
                 resourceFactory.loanTrxnsResource.save({loanId: routeParams.id, command: 'foreclosure'}, scope.foreclosureFormData, function(data) {
                     location.path('/viewloanaccount/' + scope.accountId);
@@ -74,6 +79,7 @@
             scope.cancel = function () {
                 location.path('/viewloanaccount/' + scope.accountId);
             };
+         
         }
     });
     mifosX.ng.application.controller('LoanForeclosureController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter','$filter', mifosX.controllers.LoanForeclosureController]).run(function ($log) {
