@@ -402,7 +402,10 @@
 			}
 		},
 		"createOffice": {
-			"selfActive": false
+			"selfActive": false,
+			"isMandatoryField": {
+				"addressType": false
+			}
 		},
 		"createJlgLoan": {
 			"isHiddenField": {

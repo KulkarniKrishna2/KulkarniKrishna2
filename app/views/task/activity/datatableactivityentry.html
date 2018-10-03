@@ -6,7 +6,8 @@
 </label>
 
 <div class="col-sm-3">
-    <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
+    <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'"  autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
+    <input ng-show="fieldType(columnHeader.columnDisplayType) == 'STRING'" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
     <input ng-show="isNumericField(columnHeader.columnDisplayType)" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" ng-readonly="columnHeader.readOnly" ng-change="evaluateFormulas()"/>
     <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]" is-open="opened{{$index}}" class="form-control" />
     <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
