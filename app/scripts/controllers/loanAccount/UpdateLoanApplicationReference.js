@@ -453,6 +453,7 @@
 
             scope.deleteCharge = function (index) {
                 scope.charges.splice(index, 1);
+                scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
             }
 
             scope.submit = function () {
