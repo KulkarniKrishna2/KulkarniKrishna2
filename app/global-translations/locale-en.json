@@ -4251,12 +4251,12 @@
     "error.msg.subsidy.amount.for.loan.exceeds.principal.outstanding":"Subsidy amount for the loan exceeds principal outstanding by {{params[0].value}} {{params[1].value}} ",
     "validation.msg.journal.entry.limit.credit.to.one":"multiple credit is not allowed with multiple debit",
     "validation.msg.journal.entry.limit.debit.to.one":"multiple debit is not allowed with multiple credit",
-    "error.msg.product.RD.duplicate.externalId":"RD with externalId already exists",
-    "error.msg.product.FD.duplicate.externalId":"FD with externalId already exists",
-    "error.msg.product.savings.duplicate.externalId":"Savings product with externalId already exists",
+    "error.msg.product.RD.duplicate.externalId":"RD with externalId already {{params[0].value}} exists",
+    "error.msg.product.FD.duplicate.externalId":"FD with externalId already {{params[0].value}} exists",
+    "error.msg.product.savings.duplicate.externalId":"Savings product with externalId {{params[0].value}} already exists",
     "error.msg.product.loan.duplicate.externalId":"Loan product with externalId already exists",
     "error.minimum.one.tranche.required":"Minimum number of Loan Tranche Details should be one for multi disbursal loan",
-
+    
     "#------------------": "------------",
 
     "#Admin-Products": "....",
