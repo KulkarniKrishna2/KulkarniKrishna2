@@ -220,17 +220,19 @@
 						<select id="dpFrequencyNthDay" name="dpFrequencyNthDay" class="form-control"
 								ng-model="formData.dpFrequencyNthDay"
 								ng-options="nthDayType.id as nthDayType.value for nthDayType in product.nthDayTypeOptions"
-								value="{{nthDayType.id}}">
+								value="{{nthDayType.id}}" required late-validate>
 						</select>&nbsp;
+						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyNthDay"/>
 					</div>
 					<div class="col-sm-2"
 						 ng-if="(formData.dpFrequencyType == 1 || formData.dpFrequencyType == 2 )  && formData.dpFrequencyNthDay != -2">
 						<select id="dpFrequencyDayOfWeekType" name="dpFrequencyDayOfWeekType" class="form-control"
 								ng-model="formData.dpFrequencyDayOfWeekType"
 								ng-options="dayOfWeekType.id as dayOfWeekType.value for dayOfWeekType in product.dayOfWeekTypeOptions"
-								value="{{dayOfWeekType.id}}">
+								value="{{dayOfWeekType.id}}" required late-validate>
 							<option ng-if="formData.dpFrequencyNthDay == -1" value="">DAY</option>
 						</select>&nbsp;
+						<form-validate valattributeform="createsavingproductform" valattribute="dpFrequencyDayOfWeekType"/>
 					</div>
 					<div class="col-sm-2"
 						 data-ng-show="formData.dpFrequencyType == 2 && formData.dpFrequencyNthDay == -2">

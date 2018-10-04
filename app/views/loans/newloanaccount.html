@@ -50,7 +50,7 @@
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
         <td class="paddedbottom10">
             <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
-                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions  | filter:{isActive:true} | orderBy:'name':reverse"
                     class="form-control width170px" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
