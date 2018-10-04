@@ -33,6 +33,11 @@
                 scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.reportNames.indexOf(scope.reportName) > 0) {
                 scope.restrictedDate = scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.restrictedDate;
             };
+            if(scope.response  && scope.response.uiDisplayConfigurations &&
+                scope.response.uiDisplayConfigurations.reportParameterConfiguration.defaultReportOutput){
+                scope.defaultReportOutput = scope.response.uiDisplayConfigurations.reportParameterConfiguration.defaultReportOutput;
+            }
+
 
             function  getMaximumRestrictedDate (restrictedDate){
                     restrictedDate.setYear(restrictedDate.getFullYear() + 5);
@@ -349,7 +354,7 @@
                 var reportParams = scope.formData;
                 var displayParams = {};
                 var params = {};
-                reportParams['output-type'] = "CSV";
+                reportParams['output-type'] = scope.defaultReportOutput;
 
                 for (var i = 0; i < scope.reportParams.length; i++) {
                     var element = scope.reportParams[i];
