@@ -229,9 +229,7 @@
             scope.createClientMembersForGLIM = function(){
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                     scope.clientMembers = glimData;
-                    if(glimData.length>0){
-                      scope.isGLIM = glimData[0].isActive;  
-                    }
+                    scope.isGLIM = glimData.length>0;
                     if(scope.isGLIM){
                         for(var i=0;i<glimData.length;i++){
                             scope.clientMembers[i].id = glimData[i].id;
@@ -513,7 +511,7 @@
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
                         if(glimData.length>0 ){
-                            scope.isGLIM = glimData[0].isActive;
+                            scope.isGLIM = true;
                         }
                         resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                             scope.paymentTypes = data.paymentTypeOptions;                            

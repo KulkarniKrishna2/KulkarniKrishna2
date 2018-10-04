@@ -337,10 +337,9 @@
                 }
                 scope.canDisburseToGroupBankAccounts = scope.loanaccountinfo.allowsDisbursementToGroupBankAccounts;
                 if(scope.loanaccountinfo.loanType.value == "GLIM") {
-                    resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
+                    resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id, includeOtherGroupMember: true}, function (glimData) {
                         scope.GLIMData = glimData;
-                        /*scope.isGLIM = (glimData.length > 0);*/
-                        scope.isGLIM = scope.GLIMData[0].isActive;
+                        scope.isGLIM = (glimData.length > 0);
                         if (scope.isGLIM){
                             scope.formData.clientMembers = [];
                             for (var i=0;i<glimData.length;i++) {
@@ -350,7 +349,9 @@
                                 scope.formData.clientMembers[i].clientName = glimData[i].clientName;
                                 scope.formData.clientMembers[i].clientExternalID = glimData[i].clientExternalID;
                                 scope.formData.clientMembers[i].transactionAmount = glimData[i].proposedAmount;
-                                scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
+                                if(glimData[i].loanPurpose){
+                                    scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
+                                }                                
                                 scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
                                 scope.formData.clientMembers[i].accountNo = glimData[i].clientId;
                                 scope.formData.clientMembers[i].displayName = glimData[i].clientName;
