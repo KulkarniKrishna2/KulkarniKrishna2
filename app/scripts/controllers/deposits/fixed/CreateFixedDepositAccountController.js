@@ -45,10 +45,10 @@
 
                     scope.data = data;
                     scope.charges = data.charges;
-
+                    scope.ValidChargeTypeForDueDate = ['Annual Fee','Monthly Fee'];
                     for (var i in scope.charges) {
-                        if (scope.charges[i].chargeTimeType.value === "Annual Fee" && scope.charges[i].feeOnMonthDay) {
-                            scope.charges[i].feeOnMonthDay.push('2013');
+                        if ((scope.ValidChargeTypeForDueDate.indexOf(scope.charges[i].chargeTimeType.value) >= 0) && scope.charges[i].feeOnMonthDay) {
+                            scope.charges[i].feeOnMonthDay.push((new Date()).getFullYear());
                             scope.charges[i].feeOnMonthDay = new Date(dateFilter(scope.charges[i].feeOnMonthDay, scope.df));
                         }
                     }
@@ -111,12 +111,12 @@
                         data.chargeId = data.id;
                         if (data.chargeTimeType.value == "Annual Fee") {
                             if (data.feeOnMonthDay) {
-                                data.feeOnMonthDay.push(2013);
+                                data.feeOnMonthDay.push((new Date()).getFullYear());
                                 data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, scope.df));
                             }
                         } else if (data.chargeTimeType.value == "Monthly Fee") {
                             if (data.feeOnMonthDay) {
-                                data.feeOnMonthDay.push(2013);
+                                data.feeOnMonthDay.push((new Date()).getFullYear());
                                 data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, scope.df));
                             }
                         }
