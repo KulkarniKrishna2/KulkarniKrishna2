@@ -233,6 +233,12 @@
                         if(data.globalConfiguration[i].name == "create_center_without_village"){
                             scope.createWithoutVillage = data.globalConfiguration[i].enabled;
                         }
+                        if(data.globalConfiguration[i].name == "allow-bank-account-for-groups"){
+                            scope.allowBankAccountForGroup = data.globalConfiguration[i].enabled;
+                        }
+                        if(data.globalConfiguration[i].name == "allow-multiple-bank-disbursal"){
+                            scope.allowGroupBankAccountInDisburse = data.globalConfiguration[i].enabled;
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }

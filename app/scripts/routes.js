@@ -1509,8 +1509,14 @@
             .when('/clients/:clientId/bankaccountdetails', {
                 templateUrl: 'views/clients/clientbankaccountdetails.html'
             })
+            .when('/groups/:groupId/bankaccountdetails/:groupBankAccountDetailAssociationId', {
+                templateUrl: 'views/groups/bankaccountdetails/viewgroupbankaccountdetails.html'
+             })
             .when('/:entityType/:entityId/bankaccountdetails/:clientBankAccountDetailAssociationId', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
+            })
+            .when('/groups/:groupId/addbankaccountdetail', {
+                templateUrl: 'views/groups/bankaccountdetails/creategroupbankaccount.html'
             })
             .when('/:entityType/:entityId/addbankaccountdetail', {
                 templateUrl: 'views/bankaccountdetails/common/createbankaccount.html'
@@ -1725,12 +1731,6 @@
             .when('/groups/:groupId/bankaccountdetails', {
                 templateUrl: 'views/groups/bankaccountdetails/groupbankaccountdetails.html'
             })
-            .when('/groups/:groupId/addbankaccountdetail', {
-                templateUrl: 'views/groups/bankaccountdetails/creategroupbankaccount.html'
-            })
-            .when('/groups/:groupId/bankaccountdetails/:groupBankAccountDetailAssociationId', {
-                templateUrl: 'views/groups/bankaccountdetails/viewgroupbankaccountdetails.html'
-             })
             .when('/workflowanalytics', {
                 templateUrl: 'views/task/analytics/taskanalytics.html'
             })

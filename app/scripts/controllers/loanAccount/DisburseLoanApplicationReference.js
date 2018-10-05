@@ -261,7 +261,10 @@
                     }
 
                     scope.formRequestData.submitApplication.clientId = scope.formData.clientId;
-                    if (scope.formData.groupId) {
+                    if (scope.formData.groupId && scope.accountType == 'jlg') {
+                        scope.formRequestData.submitApplication.groupId = scope.formData.groupId;
+                    }
+                    if(scope.formData.groupId && scope.allowGroupBankAccountInDisburse && scope.accountType == 'individual'){
                         scope.formRequestData.submitApplication.groupId = scope.formData.groupId;
                     }
 
