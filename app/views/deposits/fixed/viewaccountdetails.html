@@ -284,9 +284,7 @@
             <th></th>
         </tr>
         <tr ng-repeat="charge in charges">
-            <td>
-                <a href="#">{{charge.name}}</a>
-            </td>
+            <td>{{charge.name}}</td>
             <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
             <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
             <td></td>
