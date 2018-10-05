@@ -10,6 +10,8 @@
             scope.subTaskTypeName = 'Foreclosure';
             scope.formData.transactionDate = new Date();
             scope.restrictDate = new Date();
+            scope.paymentModeOptions = [];
+            scope.paymentTypeOptions = [];
 
             scope.$watch('formData.transactionDate',function(){
                 scope.retrieveLoanForeclosureTemplate();
@@ -26,6 +28,8 @@
                     scope.foreclosuredata = data;
                     scope.formData.outstandingPrincipalPortion = scope.foreclosuredata.principalPortion;
                     scope.formData.outstandingInterestPortion = scope.foreclosuredata.interestPortion;
+                    scope.paymentModeOptions = scope.foreclosuredata.paymentModeOptions;
+                    scope.paymentTypeOptions = scope.foreclosuredata.paymentTypeOptions;
                     if (scope.foreclosuredata.unrecognizedIncomePortion) {
                         scope.formData.interestAccruedAfterDeath = scope.foreclosuredata.unrecognizedIncomePortion;
                     }
@@ -43,7 +47,7 @@
 
             scope.calculateTransactionAmount = function(){
                 var transactionAmount = 0;
-                transactionAmount += parseFloat(scope.foreclosuredata.principalPortion);
+                transactionAmount += parseFloat(scope.foreclosuredata.principalPortion); 
                 transactionAmount += parseFloat(scope.foreclosuredata.interestPortion);
                 transactionAmount += parseFloat(scope.foreclosuredata.feeChargesPortion);
                 transactionAmount += parseFloat(scope.foreclosuredata.penaltyChargesPortion);
