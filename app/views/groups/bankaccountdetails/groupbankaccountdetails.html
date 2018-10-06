@@ -3,7 +3,13 @@
         <div>
             <ul class="breadcrumb">
                 <li>
-                    <a ng-href="#/viewgroup/{{groupId}}">{{'label.heading.group' | translate}}</a>
+                    <a ng-href="#/viewoffice/{{groupData.officeId}}">{{groupData.officeName}}</a>                    <a ng-href="#/viewgroup/{{groupId}}">{{'label.heading.group' | translate}}</a>
+                </li>   
+                <li ng-if="groupData.centerName">   
+                    <a ng-href="#/viewcenter/{{groupData.centerId}}">{{groupData.centerName}}</a>   
+                </li>   
+                <li>    
+                    <a ng-href="#/viewgroup/{{groupData.id}}">{{groupData.name}}</a>
                 </li>
                 <li>{{'label.anchor.bankaccountdetails'|translate}}</li>
             </ul>
@@ -22,16 +28,18 @@
                     <tr class="graybg">
                         <th>{{'label.heading.serialno' | translate}}</th>
                         <th>{{'label.heading.holdername' | translate}}</th>
+                        <th>{{'label.heading.purpose' | translate}}</th>
                         <th>{{'label.heading.accountnumber' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="pointer-main"  ng-repeat="record in bankAccountDetails">
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{$index+1}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.name}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.accountNumber}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.groupBankAccountDetailAssociationId)">{{$index+1}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.groupBankAccountDetailAssociationId)">{{record.bankAccountDetails.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.groupBankAccountDetailAssociationId)">{{record.loanPurpose}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.groupBankAccountDetailAssociationId)">{{record.bankAccountDetails.accountNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.groupBankAccountDetailAssociationId)">{{record.bankAccountDetails.ifscCode}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
         GroupBankAccountDetailsController: function(scope, routeParams, resourceFactory, location, route) {
             scope.formData = {};
-            scope.entityType = "groups";
             scope.bankAccountDetails = [];
             scope.groupData = {};
             scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -10,8 +9,9 @@
 
             function populateDetails() {
                scope.groupId = routeParams.groupId;
-                resourceFactory.bankAccountDetailResources.getAll({entityType: scope.entityType,entityId: scope.groupId}, function(data) {
-                    scope.bankAccountDetails = data;
+                resourceFactory.groupBankAccountResource.retrieveAll({groupId: scope.groupId}, function(data) {
+                    scope.groupData = data.groupData;
+                    scope.bankAccountDetails = data.groupBankAccountDetailsList;
                     scope.showAddButton(data);
                 });
             }

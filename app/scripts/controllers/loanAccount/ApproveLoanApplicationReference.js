@@ -654,7 +654,7 @@
                 if(this.formRequestData.loanAccountNumber != undefined){
                     delete this.formRequestData.loanAccountNumber;
                 }
-                if(this.formValidationData.loanType==scope.loanType)
+                if(this.formValidationData.loanType==scope.loanType && !scope.allowGroupBankAccountInDisburse)
                 {
                     delete this.formValidationData.groupId;
                 }
@@ -945,7 +945,7 @@
             }
 
             scope.showDiscountOnDisbursalAmount = function(){
-                return (!scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);
+                return (scope.loanaccountinfo && !scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);
             };
         }
     });

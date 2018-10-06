@@ -446,6 +446,8 @@
                         }
                         data = scope.updateChargeForSlab(data);
                         scope.charges.push(data);
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                         scope.chargeFormData.chargeId = undefined;
                     });
                 }
