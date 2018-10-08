@@ -49,6 +49,22 @@
             };
 
             scope.submit = function () {
+                scope.errorDetails = [];
+                if(!_.isUndefined(this.formData.lockinPeriodFrequency)){
+                    if(_.isUndefined(this.formData.lockinPeriodFrequencyType)){
+                        return scope.errorDetails.push([{code:'error.msge.undefined.lockinPeriodFrequencyType'}]);
+                    }
+                }
+                if(!_.isUndefined(this.formData.lockinPeriodFrequencyType)){
+                    if(this.formData.lockinPeriodFrequency==""){
+                        return scope.errorDetails.push([{code:'error.msge.undefined.lockinPeriodFrequency'}]);
+                    }
+                }
+                if(!_.isUndefined(this.formData.minimumactiveperiodFrequencyType)){
+                    if(_.isUndefined(this.formData.minimumActivePeriodForDividends)){
+                        return scope.errorDetails.push([{code:'error.msge.undefined.minimumActivePeriod'}]);
+                    }
+                }
                 scope.chargesSelected = [];
                 for (var i in scope.charges) {
                     temp = {
