@@ -7593,6 +7593,11 @@
 
     "label.sub.actions" : "Sub Actions",
     "label.sub.actions.selected" : "Sub Actions Selected",
+    "validation.msg.sharesproduct.nominalShares.not.greater.than.specified.number" : "Default value in shares per client should be greater than or equal to minimum value",
+    "error.msge.undefined.lockinPeriodFrequencyType" : "Select the lockinPeriodFrequencyType",
+    "error.msge.undefined.lockinPeriodFrequency" : "lockinPeriodFrequency can not be blank" ,
+    "error.msge.undefined.minimumActivePeriod" : "minimum Active period can not be blank",
+
 
      "------ end of tensalation file ------":"---------"
 }
