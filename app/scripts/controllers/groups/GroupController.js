@@ -9,6 +9,7 @@
             scope.hideCreateGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
             scope.isHideCreateEntity = false;
             scope.hideGroupName = false;
+            scope.searchRule=false;
             if(scope.isWorkflowEnabled && scope.hideCreateGroup){
                 scope.isHideCreateEntity = true;
             }
