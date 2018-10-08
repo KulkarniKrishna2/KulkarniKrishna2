@@ -241,7 +241,7 @@
                         }
                     }
                 });
-                if (scope.questionDatas.length > 0 && responseCount < enabledQuestionCount) {
+                if ((scope.questionDatas.length > 0 && responseCount < enabledQuestionCount) || (scope.questionDatas.length != responseCount)) {
                     scope.isSurveyDone = false;
                     return false;
                 } else {
