@@ -97,6 +97,11 @@
 			"isMandatory": {
 				"bankIFSCCode": true
 			}
-		}
+		},
+		"reportParameterConfiguration": {
+		
+		"defaultReportOutput":"XLS"
+	        
+	    }
 	}
 }
