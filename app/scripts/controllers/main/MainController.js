@@ -147,7 +147,7 @@
 
             // Log out the user when the window/tab is closed.   
             window.onunload = function () {
-                onunload();
+                clearAllSession();
             };
 
             function onunload(){
