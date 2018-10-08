@@ -146,7 +146,7 @@
                     scope.loanaccountinfo = data;
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
-                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
+                    scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;                    
                     scope.productLoanCharges = data.product.charges || [];
                     if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                         for(var i in scope.productLoanCharges){
@@ -158,7 +158,7 @@
                                             charge.chargeId = charge.id;
                                             charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                             charge.isAmountNonEditable = scope.productLoanCharges[i].isAmountNonEditable;
-                                            if(charge.chargeCalculationType.value == scope.slabBasedCharge && charge.slabs.length > 0){
+                                            if((charge.chargeCalculationType.value == scope.slabBasedCharge || charge.isSlabBased) && charge.slabs.length > 0){
                                                 for(var i in charge.slabs) {
                                                     var slabBasedValue = scope.getSlabBasedAmount(charge.slabs[i],scope.formData.principal,scope.formData.numberOfRepayments);
                                                     if(slabBasedValue != null){
@@ -245,6 +245,20 @@
 
                             }
                             
+                        }
+                    }
+                }
+            });
+
+            scope.$watch('loanaccountinfo.overdueCharges', function(){
+                for(var i in scope.loanaccountinfo.overdueCharges){
+                    if(scope.loanaccountinfo.overdueCharges[i].chargeData.penalty && ( scope.loanaccountinfo.overdueCharges[i].chargeData.chargeCalculationType.value == scope.slabBasedCharge || scope.loanaccountinfo.overdueCharges[i].chargeData.isSlabBased) ){
+                        for(var j in scope.loanaccountinfo.overdueCharges[i].chargeData.slabs) {
+                            var slabBasedValue = scope.getSlabBasedAmount(scope.loanaccountinfo.overdueCharges[i].chargeData.slabs[j],scope.formData.principal,scope.formData.numberOfRepayments);
+                            if(slabBasedValue != null){
+                                scope.loanaccountinfo.overdueCharges[i].chargeData.amount = slabBasedValue;
+                                break;
+                            }
                         }
                     }
                 }
@@ -350,7 +364,7 @@
                             scope.updateChargeForSlab(data);
                         }
                         else {
-                            if(data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs.length > 0){
+                            if((data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased )&& data.slabs.length > 0){
                                 for(var i in data.slabs) {
                                     var slabBasedValue = scope.getSlabBasedAmount(data.slabs[i],scope.formData.principal,scope.formData.numberOfRepayments);
                                     if(slabBasedValue != null){
@@ -399,7 +413,7 @@
                     angular.copy(clientMembers, data.glims);
                     var amount = 0;
                     for(var i in data.glims){
-                         if (data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs){
+                         if (data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased && data.slabs){
                             for(var j in data.slabs){
                                 if(data.glims[i].isClientSelected==true){
                                     var slabBasedValue = scope.getSlabBasedAmount(data.slabs[j],data.glims[i].transactionAmount,scope.formData.numberOfRepayments);

@@ -372,7 +372,6 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
 
-
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
                     scope.$watch('formData.expectedDisbursementDate ', function(){
                         if(scope.formData.expectedDisbursementDate != '' && scope.formData.expectedDisbursementDate != undefined){
@@ -458,6 +457,20 @@
                                 scope.loanaccountinfo.chargeOptions.splice(i,1); 
                             }
                         }                        
+                    }
+                }
+            });
+
+            scope.$watch('loanaccountinfo.overdueCharges', function(){
+                for(var i in scope.loanaccountinfo.overdueCharges){
+                    if(scope.loanaccountinfo.overdueCharges[i].chargeData.penalty && (scope.loanaccountinfo.overdueCharges[i].chargeData.isSlabBased || scope.loanaccountinfo.overdueCharges[i].chargeData.chargeCalculationType.value == scope.slabBasedCharge) ){
+                        for(var j in scope.loanaccountinfo.overdueCharges[i].chargeData.slabs) {
+                            var slabBasedValue = scope.getSlabBasedAmount(scope.loanaccountinfo.overdueCharges[i].chargeData.slabs[j],scope.formData.principal,scope.formData.numberOfRepayments);
+                            if(slabBasedValue != null){
+                                scope.loanaccountinfo.overdueCharges[i].chargeData.amount = slabBasedValue;
+                                break;
+                            }
+                        }
                     }
                 }
             });
