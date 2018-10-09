@@ -1866,6 +1866,9 @@
             .when('/clients/:clientId/deceasedonboarding', {
                 templateUrl: 'views/policy/deceasedonboarding.html'
             })
+            .when('/accounting/transaciontypemappings/postentries', {
+                templateUrl: 'views/accounting/transaciontypemapping_journalentry.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

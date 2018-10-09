@@ -1380,6 +1380,8 @@
     "label.anchor.define.openingbalances":"Migrate Opening Balances",
     "label.heading.daterange" : "Date Range",
     "label.create.provisioning.entries" : "Create Provisioning Entries",
+    "label.heading.transaciontypemappings.journalentries": "Post Transaction Type Entries",
+    "label.heading.transaciontypemappings.journalentries.description": "Post journal entries based on transaction type",
 
     "#Menu Links": "..",
     "label.menu.filterbyoffice": "Filter by office",

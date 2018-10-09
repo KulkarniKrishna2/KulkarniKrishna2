@@ -1720,6 +1720,8 @@
                         save:{method:'POST', params:{}},
                         get: {method: 'GET', params: {},isArray:true},
                     }),
+                    transactionTypeMappingResource: defineResource(apiVer + "/accounting/transactiontypemappings/:mappingId", {mappingId:'@mappingId'},{
+                    })
                 };
             }];
         }
