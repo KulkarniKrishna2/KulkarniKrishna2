@@ -263,6 +263,13 @@
   "Funds Disbursed Between Dates Summary by Office(Pentaho)":"Funds Disbursed Between Dates Summary by Field Office(Pentaho)",
   
   "taskActionType.bulk":"Next",
-  
+  "label.heading.single.double.insurance" : "member/spouse insurance",
+  "label.heading.meetingstartdate " : "center meeting start date",
+  "label.input.meetingstartdate" : "center meeting start date",
+  "label.input.calendar.next.meeting.falls.on" : "center meeting start date",
+  "label.info.totalmembers" : "Total Members in Center",
+  "label.info.activeborrowers" : "Total Borrowers in Center",
+   
+
   "------ end of tensalation file":"---------"
 }
