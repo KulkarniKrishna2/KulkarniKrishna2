@@ -10,7 +10,7 @@
                     {{role.name}},
                 </span> |
                 </small>
-                <small><span >{{'label.heading.duedate' | translate}} {{taskData.dueDate | DateFormat}}&nbsp;{{dueTimeToDisplay}}&nbsp;</span><a ng-if = "canReschedule" 
+                <small><span >{{'label.heading.duedate' | translate}} {{taskData.dueDate | DateFormat}}&nbsp;{{dueTimeToDisplay}}&nbsp;</span><a ng-if = "canReschedule && isShowRescheduleButton" 
                     ng-click = "initiateTaskAction('reschedule')" class = "btn btn-default"><i class="icon-time"></i>&nbsp;{{'label.button.reschedule' | translate}}</a></small>
             </h3>
         </div>
@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <div class="col-sm-12 col-md-12">
                             <span class="pull-right ">
-                                <button class="btn btn-default" type="button" ng-click="addAdhocTask()" has-permission='CREATE_ADHOCTASK'>{{'label.button.createTask' | translate}}
+                                <button class="btn btn-default" type="button" ng-show="isShowCreateTaskButton" ng-click="addAdhocTask()" has-permission='CREATE_ADHOCTASK'>{{'label.button.createTask' | translate}}
                                 </button>
                             </span>
                         </div>

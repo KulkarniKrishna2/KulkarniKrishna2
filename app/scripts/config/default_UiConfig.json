@@ -365,7 +365,9 @@
 			},
 			"PGFValidation": {
 				"profileRatingPercentage": ""
-			}
+			},
+			"showReschedule" : true,
+			"showCreateTask" : true
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
