@@ -125,7 +125,9 @@
 		"workflow": {
 			"PGFValidation": {
 				"profileRatingPercentage": 80
-			}
+			},
+			"showReschedule" : false,
+			"showCreateTask" : false
 		},
 		"createVillage": {
 			"isReadOnlyField": {
