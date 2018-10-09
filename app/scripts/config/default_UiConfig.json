@@ -209,7 +209,7 @@
 				"name": false
 			},
 			"isHiddenField": {
-				"villageOptions": true,
+				"villageOptions": false,
 				"showGroupExternalId": true,
 				"showSubmittedOn": true,
 				"showStaff": true,
