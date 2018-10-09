@@ -361,7 +361,10 @@
 
                                     </ul>
                                 </li>
-
+                                <li ng-show="enableBc">
+                                    <a ng-class="{ activate: isActive('bc') }" href="#/bc">
+                                        <i class="icon-money"></i> {{ 'label.anchor.bc' | translate }}</a>
+                                </li>
                                 
 
                                 <!-- collections start-->

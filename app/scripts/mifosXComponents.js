@@ -641,7 +641,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/ClaimInsurenceActivityController',
             'task/activity/ClaimSettlementActivityController',
             'policy/DeceasedOnBoardingWorkflowController',
-            'organization/AddSubActionController'
+            'organization/AddSubActionController',
+            'accounting/TransactionTypeMappingController',
+            'accounting/CreateNewTransactionTypeController',
+            'accounting/ViewTransactionTypeController',
+            'accounting/EditTransactionTypeController'
         ],
         filters: [
             'StatusLookup',

@@ -1,0 +1,112 @@
+<div class="col-md-12" ng-controller="EditTransactionTypeController">
+    <ul class="breadcrumb">
+        <li><a href="#/transactiontypemapping">{{'label.anchor.transactiontypes' | translate}}</a></li>
+        <li><a ng-click="routeTO(template.id)">{{'label.anchor.viewtransactiontype' | translate}}</a></li>
+        <li class="active">{{'label.anchor.edittransactiontype' | translate}}</li>
+    </ul>
+    <form name="edittransactiontype" novalidate="" class="form-horizontal well" rc-submit="submit(template.id)">
+        <api-validate></api-validate>
+        <legend>{{'label.anchor.edittransactiontype' | translate}}</legend>
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.transactionType' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="transactionTypeOptions" id="transactionTypeId" ng-model="formData.transactionTypeId"
+                            class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
+                            value="{{transactionTypeOption.id}}" ng-disabled="true"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.fromCreditAccount' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="glAccounts" id="fromCreditAccountId" ng-model="formData.fromCreditAccountId"
+                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
+                            value="{{glAccount.id}}"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.fromDebitAccount' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="glAccounts" id="fromDebitAccountId" ng-model="formData.fromDebitAccountId"
+                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
+                            value="{{glAccount.id}}"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.toCreditAccount' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="glAccounts" id="toCreditAccountId" ng-model="formData.toCreditAccountId" class="form-control"
+                            ng-options="glAccount.id as glAccount.name for glAccount in glAccounts" value="{{glAccount.id}}"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.toDebitAccount' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="glAccounts" id="toDebitAccountId" ng-model="formData.toDebitAccountId" class="form-control"
+                            ng-options="glAccount.id as glAccount.name for glAccount in glAccounts" value="{{glAccount.id}}"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.productTypeOptions' | translate}}
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select id="productTypeId" ng-model="formData.productTypeId" class="form-control" ng-options="productTypeOption.id as productTypeOption.value for productTypeOption in productTypeOptions"
+                            value="{{productTypeOption.id}}" ng-change="changeProductType(formData.productTypeId)">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.productOptions' | translate}}
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select id="productId" ng-model="formData.productId" class="form-control" ng-options="productOption.id as productOption.name for productOption in productOptions"
+                            value="{{productOption.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-5">
+                <a id="cancel" ng-click="routeTO(template.id)" class="btn btn-default">{{'label.button.cancel' |
+                    translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" ng-hide="blockUI" has-permission='UPDATE_TRANSACTION_TYPE_MAPPING'>{{'label.button.save'
+                    | translate}}</button>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+        </fieldset>
+    </form>
+</div>

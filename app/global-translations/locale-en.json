@@ -7594,13 +7594,25 @@
     "label.anchor.managevillages":"Manage villages",
     "validation.msg.loan.disbursement.principal.is.greater.than.max":"Loan disburse amount cannot be more than approved amount",
 
-    "label.sub.actions" : "Sub Actions",
-    "label.sub.actions.selected" : "Sub Actions Selected",
-    "validation.msg.sharesproduct.nominalShares.not.greater.than.specified.number" : "Default value in shares per client should be greater than or equal to minimum value",
-    "error.msge.undefined.lockinPeriodFrequencyType" : "Select the lockinPeriodFrequencyType",
-    "error.msge.undefined.lockinPeriodFrequency" : "lockinPeriodFrequency can not be blank" ,
-    "error.msge.undefined.minimumActivePeriod" : "minimum Active period can not be blank",
-
-
+    "label.sub.actions": "Sub Actions",
+    "label.sub.actions.selected": "Sub Actions Selected",
+    "validation.msg.sharesproduct.nominalShares.not.greater.than.specified.number": "Default value in shares per client should be greater than or equal to minimum value",
+    "error.msge.undefined.lockinPeriodFrequencyType": "Select the lockinPeriodFrequencyType",
+    "error.msge.undefined.lockinPeriodFrequency": "lockinPeriodFrequency can not be blank",
+    "error.msge.undefined.minimumActivePeriod": "minimum Active period can not be blank",
+    "label.anchor.bc": "BC",
+    "label.anchor.transactiontypemapping": "Transaction Type Mapping",
+    "label.anchor.screenformappingtransactiontypes": "Screen for mapping transaction types",
+    "label.anchor.transactiontypes": "Transaction Types",
+    "label.anchor.viewtransactiontype": "View Transation Type",
+    "label.button.createtransactiontype": "Create Transaction Type",
+    "label.heading.fromCreditAccount": "From Credit Account",
+    "label.heading.fromDebitAccount": "From Debit Account",
+    "label.heading.toCreditAccount": "To Credit Account",
+    "label.heading.toDebitAccount": "To Debit Account",
+    "label.heading.transactiontypedetails": "Transaction Type Details",
+    "label.anchor.edittransactiontype": "Edit Transaction Type",
+    "label.heading.productTypeOptions": "Product Type",
+    "label.heading.productOptions": "Product",
      "------ end of tensalation file ------":"---------"
 }

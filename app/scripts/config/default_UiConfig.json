@@ -461,6 +461,9 @@
 		},
 		"organizationMenuSettings": {
 			"enableManageVillages": false
+		},
+		"bc": {
+			"enableBc": false
 		}
 	}
 }

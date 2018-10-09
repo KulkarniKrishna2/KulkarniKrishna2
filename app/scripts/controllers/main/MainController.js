@@ -67,6 +67,9 @@
                     scope.mainUIConfigData = scope.response.uiDisplayConfigurations;
                     //console.log(JSON.stringify(scope.mainUIConfigData));
                 }
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bc) {
+                    scope.enableBc = scope.response.uiDisplayConfigurations.bc.enableBc;
+                }
             });
             //hides loader
             scope.domReady = true;
@@ -525,6 +528,7 @@
                 }
                 return false;
             };
+            
         }
     });
     mifosX.ng.application.controller('MainController', [
