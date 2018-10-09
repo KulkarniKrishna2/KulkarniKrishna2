@@ -1721,6 +1721,14 @@
                         get: {method: 'GET', params: {},isArray:true},
                     }),
                     transactionTypeMappingResource: defineResource(apiVer + "/accounting/transactiontypemappings/:mappingId", {mappingId:'@mappingId'},{
+                    }),
+                    transactionTypeMappingTemplateResource: defineResource(apiVer + "/accounting/transactiontypemappings/template", {}, {
+                    }),
+                    transactionTypeMappingResource: defineResource(apiVer + "/accounting/transactiontypemappings/:mappingId", { mappingId: '@mappingId' }, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        getOne: { method: 'GET', params: { mappingId: '@mappingId' }, isArray: false },
+                        update: { method: 'PUT', params: { mappingId: '@mappingId' }, isArray: false }
+
                     })
                 };
             }];

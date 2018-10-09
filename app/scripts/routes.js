@@ -1869,6 +1869,21 @@
             .when('/accounting/transaciontypemappings/postentries', {
                 templateUrl: 'views/accounting/transaciontypemapping_journalentry.html'
             })
+            .when('/bc', {
+                templateUrl: 'views/accounting/bc.html'
+            })
+            .when('/transactiontypemapping', {
+                templateUrl: 'views/accounting/transactiontypemapping.html'
+            })
+            .when('/createtransactiontype', {
+                templateUrl: 'views/accounting/createtransactiontype.html'
+            })
+            .when('/transactiontypemapping/viewtransactiontype/:mappingId', {
+                templateUrl: 'views/accounting/viewtransactiontype.html'
+            })
+            .when('/transactiontypemapping/edittransactiontype/:mappingId', {
+                templateUrl: 'views/accounting/edittransactiontype.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

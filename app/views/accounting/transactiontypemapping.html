@@ -1,0 +1,30 @@
+<div class="col-md-12" ng-controller="TransactionTypeMappingController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.transactiontypes' | translate}}</li>
+    </ul>
+    <a href="#/createtransactiontype" has-permission='READ_TRANSACTION_TYPE_MAPPING' class="btn btn-primary pull-right"><i
+            class="icon-plus icon-white"></i>{{'label.button.createtransactiontype'
+        | translate}}</a>
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.transactionType' | translate}}</th>
+                    <th>{{'label.heading.fromCreditAccount' | translate}}</th>
+                    <th>{{'label.heading.fromDebitAccount' | translate}}</th>
+                    <th>{{'label.heading.toCreditAccount' | translate}}</th>
+                    <th>{{'label.heading.toDebitAccount' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="transactionTypeMapping in transactionTypeMappings">
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.transactionType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.fromCreditAccount.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.fromDebitAccount.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.toCreditAccount.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.toDebitAccount.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
