@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, $q) {
+        PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, $q,$filter) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
@@ -1586,7 +1586,7 @@
                 });
             }
 
-            var manageMembersCtrl = function ($scope, $modalInstance, manageMembersParamInfo) {
+            var manageMembersCtrl = function ($scope,$filter, $modalInstance, manageMembersParamInfo) {
                 $scope.df = scope.df;
                  $scope.groupId = manageMembersParamInfo.groupId;
                  $scope.officeId = manageMembersParamInfo.officeId;
@@ -1617,6 +1617,9 @@
                     }
                     if(data.clientMembers) {
                         $scope.allMembers = data.clientMembers;
+                        $scope.allActiveMembers  = $filter('filter')($scope.allMembers,  function(allMembers){
+                            return allMembers.status.code == 'clientStatusType.active';
+                        }) || [];
                     }
                 });
             
@@ -1673,7 +1676,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', '$q', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', '$q','$filter', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
         $log.info("PreliminaryGroupFormationActivityController initialized");
     });
 }(mifosX.controllers || {}));
