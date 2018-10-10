@@ -269,7 +269,6 @@
   "label.input.calendar.next.meeting.falls.on" : "center meeting start date",
   "label.info.totalmembers" : "Total Members in Center",
   "label.info.activeborrowers" : "Total Borrowers in Center",
-   
-
+  "label.alert.member.create.message":"Previous member created successfully with Id #",
   "------ end of tensalation file":"---------"
 }

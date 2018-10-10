@@ -528,8 +528,11 @@
                     }
 
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
-                        $scope.showLoanAccountForm = false;
                         $scope.clientJlgLoanAccount();
+                        if(data.loanId){
+                            $scope.closeLoanAccountForm();
+                        }
+                        
                     });
                 };
 

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TransferClientController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        TransferClientController: function (scope, resourceFactory, location, dateFilter, http, routeParams, $modal,$rootScope) {
             scope.fromCenters = [];
             scope.toCenters = [];
             scope.offices = [];
@@ -151,15 +151,6 @@
                 scope.dataList.splice(index, 1)
             };
 
-            scope.submitDetails = function () {
-                scope.formData = {};
-                scope.formData.locale = scope.optlang.code;
-                scope.formData.data = scope.dataList;
-                scope.formData.transferType = scope.clientToGroupTransferType;
-                resourceFactory.bulkTransferResource.save({}, scope.formData, function (data) {
-                    location.path('/transfer/viewclienttransfer');
-                });
-            };
             scope.cancel = function(){
                 location.path('/transfer/viewclienttransfer');
             }
@@ -168,9 +159,38 @@
                 scope.dataList = [];
             }
 
+            scope.submitDetails = function () {
+                scope.formData = {};
+                scope.formData.locale = scope.optlang.code;
+                scope.formData.data = scope.dataList;
+                scope.formData.transferType = scope.clientToGroupTransferType;
+                $modal.open({
+                    templateUrl: 'submitdetail.html',
+                    controller: SubmitCtrl,
+                    resolve: {
+                        data: function () {
+                            return scope.formData;
+                        }
+                    }
+                });
+            };
+
+            var SubmitCtrl = function ($scope, $modalInstance, data) {
+                $scope.df = scope.df;
+                $scope.confirm = function () {
+                    resourceFactory.bulkTransferResource.save({}, data, function (data) {
+                        $modalInstance.dismiss('cancel');
+                        location.path('/transfer/viewclienttransfer');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
         }
     });
-    mifosX.ng.application.controller('TransferClientController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.TransferClientController]).run(function ($log) {
+    mifosX.ng.application.controller('TransferClientController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', '$modal', '$rootScope', mifosX.controllers.TransferClientController]).run(function ($log) {
         $log.info("TransferClientController initialized");
     });
 }(mifosX.controllers || {}));
