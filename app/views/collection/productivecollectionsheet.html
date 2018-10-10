@@ -112,7 +112,7 @@
                             <div  class="form-group">
                                     <div class="form-group">
                                             <div ng-class="(attendenceListForReason.indexOf(clientsAttendance[$index].attendanceType)>-1 && showRejectReason)?'col-sm-4 col-sm-offset-3':'col-sm-12'">
-                                                <select id="clientsAttendance[{{$index}}][attendanceType]" ng-model="clientsAttendance[$index].attendanceType" class="col-sm-12"
+                                                <select id="clientsAttendance[{{$index}}][attendanceType]" ng-model="clientsAttendance[$index].attendanceType" ng-init=" clientsAttendance[$index].attendanceType = collectionsheetdata.attendanceTypeOptions[0].id" class="col-sm-12"
                                                         ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
                                                         value="{{attendance.id}}" data-ng-change="setvalues($index)">
                                                 </select>

@@ -20,6 +20,7 @@
             scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
             scope.showProductShortName = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.showProductShortName;
             scope.showUnAssignStaffButton = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.unassignStaffCenter;
+            scope.showAttendance = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAttendance;
             scope.isHideCreateEntity = false;
             scope.canCreateSubGroup=scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){

@@ -125,7 +125,7 @@
 								</a>
 								<ul class="dropdown dropdown-menu dropdown-menu-right">
 									<li>
-										<a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}" data-ng-show="center.collectionMeetingCalendar"
+										<a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}" data-ng-show="showAttendance && center.collectionMeetingCalendar" 
 											has-permission='SAVEORUPDATEATTENDANCE_MEETING'>{{ 'label.button.attendance' | translate }}</a>
 									</li>
 									<li>
