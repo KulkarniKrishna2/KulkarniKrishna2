@@ -122,7 +122,8 @@
 			"familyDeatils": {
 				"isHiddenField": {
 					"salutation": false
-				}
+				},
+				"showTypeAsRadio":false
 			},
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",

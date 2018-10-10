@@ -31,7 +31,8 @@
 			"familyDeatils": {
 				"isHiddenField": {
 					"salutation": true
-				}
+				},
+				"showTypeAsRadio":true
 			},
 			"takeSurveyName": "Member info",
 			"surveyEntityTypeId": "1",

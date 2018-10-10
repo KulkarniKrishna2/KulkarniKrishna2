@@ -12,6 +12,10 @@
                     scope.response.uiDisplayConfigurations.workflow.PGFValidation && scope.response.uiDisplayConfigurations.workflow.PGFValidation.profileRatingPercentage) {
                     scope.clientProfileRatingScoreForSuccess = scope.response.uiDisplayConfigurations.workflow.PGFValidation.profileRatingPercentage;
                 }
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient &&
+                    scope.response.uiDisplayConfigurations.viewClient.familyDeatils) {
+                    scope.showRadioType = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.showTypeAsRadio;
+                }
 
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
@@ -450,20 +454,21 @@
                         $scope.isStaffRequired = true;
                         return false;
                     }
+                    
                     if (!$scope.dateOfBirthNotInRange || !$scope.invalidClassificationId) {
 
                         resourceFactory.clientResource.save($scope.formData, function (data) {
-                            if(!$scope.uiData.enableCreateClientLoop){
+                            if(!$scope.uiData.enableCreateClientLoop){                                
                                 $route.reload();
                                 $modalInstance.close('createmember');
                             }else{
                                 $scope.newClientId = data.clientId;
                                 $scope.uiData.enableCreateClientLoop = false;
                                 $scope.first.submitondate=new Date();
-                                $scope.first.dateOfBirth=undefined;
                                 $scope.formData = {};
                                 $scope.getMemberTemplateSettings();
                             }
+                            $scope.first.dateOfBirth=undefined;
                             scope.reComputeProfileRating(data.clientId);
                         });
                     }
@@ -895,8 +900,10 @@
                     var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
                     window.open(url);
                 }
-
+                $scope.familyConditionTypeOptions = [{id:1,name:'label.input.dependent'},{id:2,name:'label.input.isSeriousIllness'},{id:3,name:'label.input.isDeceased'}];
+                $scope.familyConditionType = {};
                 $scope.familyDetailsLoaded = false;
+                $scope.showRadioType =scope.showRadioType;
                 $scope.getFamilyDetails = function () {
                     if (!$scope.familyDetailsLoaded) {
                         resourceFactory.familyDetails.getAll({ clientId: $scope.clientId }, function (data) {
@@ -916,6 +923,7 @@
                     $scope.subOccupations = [];
                     $scope.isExisitingClient = false;
                     $scope.familyMembersFormData = {};
+                    $scope.familyConditionType = {};
 
 
                     resourceFactory.familyDetailsTemplate.get({ clientId: $scope.clientId }, function (data) {
@@ -949,6 +957,15 @@
                         if ($scope.familyMembersFormData.documentKey != undefined) {
                             delete $scope.familyMembersFormData.documentKey;
                             delete $scope.familyMembersFormData.documentTypeId;
+                        }
+                    }
+                    if($scope.showRadioType && $scope.familyConditionType.type>0){
+                        if($scope.familyConditionType.type==1){
+                            $scope.familyMembersFormData.isDependent = true;
+                        }else if($scope.familyConditionType.type==2){
+                            $scope.familyMembersFormData.isSeriousIllness = true;
+                        }else{
+                            $scope.familyMembersFormData.isDeceased = true;
                         }
                     }
                     if ($scope.familyMembersFormData.dateOfBirth) {
