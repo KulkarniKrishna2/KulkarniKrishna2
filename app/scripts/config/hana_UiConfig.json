@@ -108,6 +108,9 @@
 		  "isHiddenMenu": {
 			"village":true
 		  }
-		}
+		},
+		"reportParameterConfiguration": {
+			"defaultReportOutput":"XLS"
+	    }
 	}
 }

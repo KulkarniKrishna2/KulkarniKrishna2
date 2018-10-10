@@ -277,7 +277,8 @@
 		"reportParameterConfiguration": {
 			"datePicker": {
 				"reportNames": "'Expected Payments By Date - Basic'",
-				"restrictedDate": ""
+				"restrictedDate": "",
+				"defaultReportOutput":"CSV"
 			}
 		},
 		"journalEntryConfiguration": {
