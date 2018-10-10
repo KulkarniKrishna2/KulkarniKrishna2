@@ -58,6 +58,18 @@
                     }
                 }
 
+                for (var i in scope.scopeOptions) {
+                    var key = i;
+                    if(key == entityName[1]) {
+                                for (var k in scope.selected) {
+                                    console.log(JSON.stringify(this.availableScopes));
+                                    if (scope.selected[k].id == this.availableScopes) {
+                                        scope.availableScopes.splice(k, 1);
+                                    }
+                                }
+                            }
+                        }
+
             };
             scope.removeScopeOptions = function (clientscopetype) {
                 for (var i in scope.scopeOptions) {
@@ -88,6 +100,17 @@
                         }
                     }
                 }
+
+                for (var i in scope.scopeOptions) {
+                    var key = i;
+                    if(key == entityName[1]) {
+                                for (var k in scope.selected) {
+                                    if (temp.id == this.selectedScopes) {
+                                        scope.selectedScopes.splice(k, 1);
+                                    }
+                                }
+                            }
+                        }
             };
 
             scope.addColumn = function () {   
