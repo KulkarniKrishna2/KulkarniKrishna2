@@ -106,7 +106,8 @@
 				"accountNo": true,
 				"referenceNo": false,
 				"unassignStaffCenter": true,
-				"canCreateSubGroups": false
+				"canCreateSubGroups": false,
+				"showAttendance":true
 			}
 		},
 		"createOffice": {
