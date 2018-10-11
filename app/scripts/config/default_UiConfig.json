@@ -178,7 +178,9 @@
 				"emailId": false,
 				"maritalStatus": true,
 				"gender": false,
-				"staff": false
+				"staff": false,
+				"streetName":false,
+				"houseNo":false
 			},
 			"isAutoPopulate": {
 				"genderOption": true

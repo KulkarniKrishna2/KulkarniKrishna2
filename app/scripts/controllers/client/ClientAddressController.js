@@ -20,6 +20,8 @@
             scope.isVillageTownMandatory = false;
             scope.isCountryReadOnly = false;
             scope.isAddressTypeMandatory = false;
+            scope.isStreetNameMandatory=false;
+            scope.isHouseNoMandatory=false;
             scope.isShowTaluka = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
@@ -39,7 +41,12 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
             }
-             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown) {
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                scope.isStreetNameMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.streetName;
+                scope.isHouseNoMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.houseNo;
+           
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown) {
                 scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createClient.isHiddenField.villageTown;
             }
             resourceFactory.addressTemplateResource.get({}, function (data) {

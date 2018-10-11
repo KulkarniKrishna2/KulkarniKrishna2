@@ -517,7 +517,7 @@
                 var UPFRONT_FEE = 'upfrontFee';
                 $scope.displayCashFlow = false;
                 $scope.displaySurveyInfo = false;
-
+                $scope.isStreetNameMandatory=false;
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -549,7 +549,10 @@
                     }
 
                 };
-
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                    $scope.isStreetNameMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.streetName;
+                    $scope.isHouseNoMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.houseNo;
+                }
                 $scope.isHideDocumentExpiryDate = scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
                 $scope.isHideDocumentIssueDate = scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
                 $scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
