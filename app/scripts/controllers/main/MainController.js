@@ -65,6 +65,7 @@
                 scope.response = response;
                 if(scope.response && scope.response.uiDisplayConfigurations) {
                     scope.mainUIConfigData = scope.response.uiDisplayConfigurations;
+                    scope.regexFormats = scope.response.uiDisplayConfigurations.regexFormats;
                     //console.log(JSON.stringify(scope.mainUIConfigData));
                 }
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bc) {

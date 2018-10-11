@@ -8,6 +8,11 @@
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.editCalendar.editableFields) {
+                scope.repeat = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeat;
+                scope.repeatsevery = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatsevery;
+                scope.repeatson = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatson;
+             }                         
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {
                 scope.entityType = routeParams.entityType;

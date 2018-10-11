@@ -469,6 +469,16 @@
 		},
 		"bc": {
 			"enableBc": false
+		},
+		"editCalendar": {
+			"editableFields": {
+				"repeat": false,
+				"repeatsevery": false,
+				"repeatson": false
+			}
+		},
+		"regexFormats":{
+			"lastName" :"\/^[a-zA-Z\\s]*$\/"
 		}
 	}
 }

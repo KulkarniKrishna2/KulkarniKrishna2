@@ -182,6 +182,16 @@
 		},
 		"organizationMenuSettings": {
 			"enableManageVillages": true
+		},
+		"editCalendar": {
+			"editableFields": {
+				"repeat": true,
+				"repeatsevery": true,
+				"repeatson": true
+			}
+		},
+		"regexFormats":{
+			"lastName" :"\/^[a-zA-Z\\s.]*$\/"
 		}
 	}
 }
