@@ -166,6 +166,12 @@
                 }
             });
 
+            scope.$watch('first.date', function() {
+                if (scope.first.date && scope.first.date > scope.maxMeetingDate) {
+                    scope.first.date = null;
+                }
+            });
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
