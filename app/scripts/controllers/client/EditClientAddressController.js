@@ -18,6 +18,8 @@
             scope.isVillageTownMandatory = false;
             scope.isCountryReadOnly = false;
             scope.isAddressTypeMandatory = false;
+            scope.isStreetNameMandatory=false;
+            scope.isHouseNoMandatory=false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
             }
@@ -29,6 +31,10 @@
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                 scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                scope.isStreetNameMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.streetName;
+                scope.isHouseNoMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.houseNo;
             }
             resourceFactory.addressTemplateResource.get({},function (data) {
                 scope.addressType = data.addressTypeOptions;

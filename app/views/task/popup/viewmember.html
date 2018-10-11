@@ -48,7 +48,7 @@
 												<option value="">{{'label.menu.addressType' | translate}}</option>
 											</select>
 										</div>
-										<div class="col-sm-1 paddinglr0px">
+										<div class="col-sm-2">
 											<form-validate valattributeform="clientaddressform" valattribute="addressType" />
 										</div>
 									</div>
@@ -73,26 +73,34 @@
 
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}
+												<span ng-show="isHouseNoMandatory" class="required">*</span>
 										</label>
 
 										<div class="col-sm-3" style="width: 275px;" >
-											<input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" />
+											<input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" ng-required = "isHouseNoMandatory"/>
 										</div>
 										<span ng-show="clientaddressform.houseNo.$error.pattern">
 											<small class="required" ng-show="clientaddressform.houseNo.$error.pattern">{{'invalid.houseNo.format' | translate}}</small>
 										</span>
+										<div class="col-sm-2">
+												<form-validate  ng-if ="isHouseNoMandatory" valattributeform="clientaddressform" valattribute="houseNo" />
+											</div>
 									</div>
 
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}
+												<span ng-show="isStreetNameMandatory" class="required">*</span>
 										</label>
 
 										<div class="col-sm-3" style="width: 275px;" >
-											<input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" />
+											<input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" ng-required = "isStreetNameMandatory"/>
 										</div>
 										<span ng-show="clientaddressform.streetName.$error.pattern">
 											<small class="required" ng-show="clientaddressform.streetName.$error.pattern">{{'invalid.streetName.format' | translate}}</small>
 										</span>
+										<div class="col-sm-2">
+												<form-validate ng-if ="isStreetNameMandatory" valattributeform="clientaddressform" valattribute="streetName" />
+											</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}
@@ -106,7 +114,7 @@
 										<span ng-show="clientaddressform.villageTown.$error.pattern">
 											<small class="required" ng-show="clientaddressform.villageTown.$error.pattern">{{'invalid.villageTown.format' | translate}}</small>
 										</span>
-										<div class="col-sm-1 paddinglr0px">
+										<div class="col-sm-2">
 											<form-validate valattributeform="clientaddressform" valattribute="villageTown" />
 										</div>
 									</div>

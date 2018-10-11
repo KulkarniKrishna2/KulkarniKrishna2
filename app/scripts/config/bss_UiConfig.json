@@ -62,7 +62,9 @@
 			"isMandatoryField": {
 				"dateOfBirth": true,
 				"maritalStatus": true,
-				"addressType": true
+				"addressType": true,
+				"streetName" : true,
+				"houseNo" : true
 			},
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{10,10}$/"
