@@ -285,6 +285,10 @@
                                                     }
                                                 }
                                             }
+                                            charge.isShowDate = false;
+                                            if(charge.chargeTimeType.code == 'chargeTimeType.specifiedDueDate'){
+                                                charge.isShowDate = true;
+                                            }
                                             $scope.charges.push(charge);
                                             break;
                                         }
