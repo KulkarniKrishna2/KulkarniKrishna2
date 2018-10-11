@@ -878,10 +878,11 @@
 												</td>
 												<td>{{charge.chargeTimeType.value}}</td>
 												<td>
-													<input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
-													    ng-model="charge.dueDate" is-open="'openedch'+$index" ng-readonly="charge.chargeTimeType.value == upfrontFee"
-													    min="minDate" max="'2020-06-22'" />
+													<input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
+													 placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate"
+													 max="'2020-06-22'" ng-show="charge.isShowDate" />
 												</td>
+												
 												<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>
 													<a ng-click="deleteCharge($index)">
 														<i class="icon-remove icon-white"></i>
