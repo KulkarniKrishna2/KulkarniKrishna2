@@ -523,10 +523,10 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" autocomplete="off" id="lastName" name="lastName" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="familyMembersFormData.lastname" class="form-control"/>
+											<input type="text" autocomplete="off" id="lastName" name="lastName" ng-pattern="{{regexFormats.lastName}}" ng-model="familyMembersFormData.lastname" class="form-control"/>
 										</div>
 										<div class="col-sm-2">
-												<span class="error" ng-show="createFamilyDetails.lastName.$invalid">{{'label.only.text' | translate}}</span>
+												<span class="error" ng-show="createFamilyDetails.lastName.$invalid">{{'label.only.text.lname' | translate}}</span>
 											<form-validate valattributeform="createFamilyDetails" valattribute="firstName" />
 										</div>
 									</div>
@@ -743,7 +743,7 @@
 											{{ 'label.input.loanpurposegroup' | translate }}
 										</label>
 										<div class="col-sm-3">
-											<select id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
+											<select id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId" ng-autofocus="true"
 													ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
 													class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
 												<option value="">{{'label.selectpurpose' | translate}}</option>
@@ -798,7 +798,7 @@
 											{{ 'label.heading.chooseloanemipack' | translate }}:
 											</label>
 											<div class="col-sm-3">
-												<input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
+												<input ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbytext' | translate}}"/>
 											</div>
 									    </div>
 									    <br>

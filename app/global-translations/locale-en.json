@@ -7483,6 +7483,7 @@
     "label.heading.last.login" : "Last login",
 
     "label.only.text" : "Only Text",
+    "label.only.text.lname" : "Only Text/dot",
     "label.heading.kotak.criteria.result": "Kotak approval criteria result",
     "label.input.availablequery":"Available Query",
     "label.input.selectedquery":"Selected Query",

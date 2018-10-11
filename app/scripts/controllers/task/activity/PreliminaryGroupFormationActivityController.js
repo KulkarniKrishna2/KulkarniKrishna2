@@ -189,6 +189,7 @@
             }
 
             var CreateMemberCtrl = function ($scope, $modalInstance, groupParameterInfo) {
+                $scope.regexFormats = scope.regexFormats;
                 $scope.df = scope.df;
                 $scope.offices = [];
                 $scope.staffs = [];
@@ -500,6 +501,7 @@
             }
 
             var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.regexFormats = scope.regexFormats;                
                 $scope.df = scope.df;
                 $scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
                 $scope.response = scope.response;

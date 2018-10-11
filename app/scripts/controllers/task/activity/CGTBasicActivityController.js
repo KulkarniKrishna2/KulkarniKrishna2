@@ -210,6 +210,7 @@
             }
 
             var ViewMemberCtrl = function($scope, $modalInstance, memberParams) {
+                $scope.regexFormats = scope.regexFormats;
 				$scope.df = scope.df;
                 $scope.clientId = memberParams.activeClientMember.id;
                 $scope.groupId = memberParams.groupId;

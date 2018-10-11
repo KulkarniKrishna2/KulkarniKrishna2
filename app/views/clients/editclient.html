@@ -70,10 +70,10 @@
 							<span class="error" ng-show="editclientform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 						</div>
 						<div class="col-sm-3">
-							<input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname"
-							ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
+							<input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" 
+							ng-pattern="{{regexFormats.lastName}}" ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
 							<span class="error" ng-show="submitted && editclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-							<span class="error" ng-show="editclientform.lastname.$invalid">{{'label.only.text' | translate}}</span>
+							<span class="error" ng-show="editclientform.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
 						</div>
 					</div>
 				</div>
