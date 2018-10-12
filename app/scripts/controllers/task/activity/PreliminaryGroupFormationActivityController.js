@@ -152,15 +152,15 @@
                 };
 
             };
-            var activeMembers = 0;
+            scope.activeMembers = 0;
             var getActiveMembers = function(groupId){
-                activeMembers = 0;
+                scope.activeMembers = 0;
                 if(scope.centerDetails.subGroupMembers){
                     for(var i in scope.centerDetails.subGroupMembers){
                         if(groupId == scope.centerDetails.subGroupMembers[i].id){
                             for(var j in scope.centerDetails.subGroupMembers[i].memberData){
                                 if(scope.centerDetails.subGroupMembers[i].memberData && (scope.centerDetails.subGroupMembers[i].memberData[j].status.value =='Active' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'Transfer in progress')){
-                                    activeMembers = activeMembers + 1;
+                                    scope.activeMembers = scope.activeMembers + 1;
                                 }
                             }
 
@@ -170,7 +170,7 @@
             scope.createMemberInGroup = function (groupId, officeId) {
                 scope.exceedMaxSubGroupLimit = false;
                 getActiveMembers(groupId);
-                if(scope.isMaxClientInGroupEnable  && (scope.maxClientLimit <= activeMembers)){
+                if(scope.isMaxClientInGroupEnable  && (scope.maxClientLimit <= scope.activeMembers)){
                     scope.exceedMaxLimit = true;
                 }else{
                     $modal.open({
@@ -223,6 +223,7 @@
                 $scope.isStaffRequired = false;
                 $scope.restrictDate = new Date();
                 $scope.isMaritalStatusMandatory=true;
+                $scope.activeClientCount = scope.activeMembers;
 
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -463,11 +464,15 @@
                                 $route.reload();
                                 $modalInstance.close('createmember');
                             }else{
-                                $scope.newClientId = data.clientId;
-                                $scope.uiData.enableCreateClientLoop = false;
-                                $scope.first.submitondate=new Date();
-                                $scope.formData = {};
-                                $scope.getMemberTemplateSettings();
+                                if(scope.maxClientLimit > (++ $scope.activeClientCount)){
+                                    $scope.newClientId = data.clientId;
+                                    $scope.uiData.enableCreateClientLoop = false;
+                                    $scope.first.submitondate=new Date();
+                                    $scope.formData = {};
+                                    $scope.getMemberTemplateSettings();
+                                }else{
+                                    $scope.close();
+                                }
                             }
                             $scope.first.dateOfBirth=undefined;
                             scope.reComputeProfileRating(data.clientId);
