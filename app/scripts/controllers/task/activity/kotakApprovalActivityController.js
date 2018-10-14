@@ -64,11 +64,12 @@
                               if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData != undefined){
                                     if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.status.id == 200){
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = false;
-                                        scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                        var activeMember = scope.centerDetails.subGroupMembers[i].memberData[j];
-                                        scope.captureMembersToNextStep(activeMember.id,activeMember.loanAccountBasicData.id,activeMember.isMemberChecked);
-                                        scope.totalMember++;
-
+                                        if(clientLevelTaskTrackObj != undefined && scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                            var activeMember = scope.centerDetails.subGroupMembers[i].memberData[j];
+                                            scope.captureMembersToNextStep(activeMember.id,activeMember.loanAccountBasicData.id,activeMember.isMemberChecked);
+                                            scope.totalMember++;
+                                        }
                                     }else{
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = true;
                                     }
