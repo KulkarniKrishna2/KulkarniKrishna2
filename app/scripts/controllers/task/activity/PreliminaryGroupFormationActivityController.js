@@ -460,21 +460,26 @@
                     if (!$scope.dateOfBirthNotInRange || !$scope.invalidClassificationId) {
 
                         resourceFactory.clientResource.save($scope.formData, function (data) {
-                            if(!$scope.uiData.enableCreateClientLoop){                                
+                            if(!$scope.uiData.enableCreateClientLoop){  
+                                $scope.first.dateOfBirth=undefined;                              
                                 $route.reload();
                                 $modalInstance.close('createmember');
                             }else{
+                                $scope.first.dateOfBirth=new Date();
                                 if(scope.maxClientLimit > (++ $scope.activeClientCount)){
                                     $scope.newClientId = data.clientId;
                                     $scope.uiData.enableCreateClientLoop = false;
                                     $scope.first.submitondate=new Date();
                                     $scope.formData = {};
                                     $scope.getMemberTemplateSettings();
+                                    setTimeout(function () {
+                                    $scope.first.dateOfBirth=undefined;
+                                }, 200);
                                 }else{
+                                    $scope.first.dateOfBirth=undefined;
                                     $scope.close();
                                 }
                             }
-                            $scope.first.dateOfBirth=undefined;
                             scope.reComputeProfileRating(data.clientId);
                         });
                     }
