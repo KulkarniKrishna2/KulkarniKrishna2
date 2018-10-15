@@ -61,7 +61,7 @@
 										</label>
 										<div class="col-sm-3">
 											<select chosen="villages" id="villageId" name="villages" ng-model="formData.villageId" class="form-control" ng-options="village.villageId as village.villageName for village in villages"
-											    value="{{village.villageId}}" ng-change="changeVillage()" required late-validate="">
+											    value="{{village.villageId}}" ng-change="changeVillage()" required late-validate="" ng-disabled="disableVillageDropDown">
 												<option value="">{{'label.menu.selectVillages' | translate}}</option>
 											</select>
 										</div>
@@ -894,7 +894,7 @@
 												<td>
 													<input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
 													 placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate"
-													 max="'2020-06-22'" ng-show="charge.isShowDate" />
+													 max="'2020-06-22'" ng-if="charge.isShowDate"/>
 												</td>
 												
 												<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>

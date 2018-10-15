@@ -131,7 +131,8 @@
 				"profileRatingPercentage": 80
 			},
 			"showReschedule" : false,
-			"showCreateTask" : false
+			"showCreateTask" : false,
+			"disableVillageDropDown":true
 		},
 		"createVillage": {
 			"isReadOnlyField": {

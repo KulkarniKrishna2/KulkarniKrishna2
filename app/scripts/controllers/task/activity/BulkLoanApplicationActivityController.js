@@ -969,6 +969,14 @@
                     resourceFactory.loanResource.get({loanId: loanId, template: true, associations: 'charges,meeting',staffInSelectedOfficeOnly:true}, function (data) {
                         $scope.loanaccountinfo = data;
                         $scope.charges = data.charges;
+                        for (var j in $scope.charges) {
+                            var charge = $scope.charges[j];
+                            charge.dueDate = new Date(dateFilter(charge.dueDate, scope.df));
+                            charge.isShowDate = false;
+                            if (charge.chargeTimeType.code == 'chargeTimeType.specifiedDueDate') {
+                                charge.isShowDate = true;
+                            }
+                        }
                     });
                 }
                   
