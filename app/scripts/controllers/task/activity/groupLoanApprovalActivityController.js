@@ -675,6 +675,9 @@
                 if (scope.formRequestData.approvedOnDate) {
                     scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate), scope.df);
                 }
+                if(this.formRequestData.loanAccountNumber != undefined){
+                    delete this.formRequestData.loanAccountNumber;
+                }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
