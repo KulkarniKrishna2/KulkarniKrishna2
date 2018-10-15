@@ -370,6 +370,9 @@
 			"PGFValidation": {
 				"profileRatingPercentage": ""
 			},
+			"CGTValidation": {
+				"profileRatingPercentage": ""
+			},
 			"showReschedule" : true,
 			"showCreateTask" : true
 		},
