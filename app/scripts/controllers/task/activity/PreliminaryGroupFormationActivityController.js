@@ -523,6 +523,12 @@
                 $scope.displayCashFlow = false;
                 $scope.displaySurveyInfo = false;
                 $scope.isStreetNameMandatory=false;
+               
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown) {
+                    $scope.disableVillageDropDown = scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown;
+                }
+
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;

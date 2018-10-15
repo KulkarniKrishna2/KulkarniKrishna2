@@ -371,7 +371,8 @@
 				"profileRatingPercentage": ""
 			},
 			"showReschedule" : true,
-			"showCreateTask" : true
+			"showCreateTask" : true,
+			"disableVillageDropDown":false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
