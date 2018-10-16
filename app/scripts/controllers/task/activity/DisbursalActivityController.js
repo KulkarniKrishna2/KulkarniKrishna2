@@ -536,6 +536,154 @@
                 });
             }
 
+            scope.bulkLoanDisburse = function () {
+                $modal.open({
+                    templateUrl: 'views/task/popup/bulkloandisburse.html',
+                    controller: BulkLoanDisburseCtrl,
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {},
+                    windowClass: 'app-modal-window-full-screen',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'data': scope.centerDetails.subGroupMembers, 'paymentTypes': scope.paymentTypes, 'paymentModeOptions': scope.paymentModeOptions };
+                        }
+                    }
+                });
+            }
+
+            scope.selectAllLoan = false;
+            scope.loanToBulkDisbursement = [];
+            scope.paymentTypes = [];
+            scope.paymentModeOptions = [];
+            scope.paymentTypeOptions = [];
+            scope.isTemplateAvailable = false;
+            scope.addAllLoansToBulkDisburse = function (val) {
+                for (var i in scope.centerDetails.subGroupMembers) {
+                    var groupMember = scope.centerDetails.subGroupMembers[i];
+                    for (var j in groupMember.memberData) {
+                        var activeClientMember = groupMember.memberData[j];
+                        if (!activeClientMember.isClientFinishedThisTask && activeClientMember.loanAccountBasicData) {
+                            activeClientMember.loanAccountBasicData.selected = val;
+                            var disburseDate = new Date(activeClientMember.loanAccountBasicData.expectedDisbursementOnDate);
+                            if(disburseDate>new Date()){
+                                activeClientMember.loanAccountBasicData.selected = false;
+                            }
+                            scope.getDisbursalTemplate(activeClientMember.loanAccountBasicData.id);
+                        }
+                    }
+                }
+            }
+            scope.selectedLoan = function (id) {
+                scope.getDisbursalTemplate(id);
+            }
+            scope.getDisbursalTemplate = function (loanId) {
+                if (!scope.isTemplateAvailable) {
+                    resourceFactory.loanTrxnsTemplateResource.get({ loanId: loanId, command: 'disburse' }, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                    });
+                    scope.isTemplateAvailable = true;
+                }
+            }
+
+            var BulkLoanDisburseCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.paymentTypes = memberParams.paymentTypes;
+                $scope.paymentModeOptions = memberParams.paymentModeOptions;
+                $scope.loanData = memberParams.data;
+                $scope.applicableOnRepayment = 1;
+                $scope.data = {};
+                $scope.taskPermissionName = 'DISBURSE_LOAN';
+                $scope.commandParam = "disburse";
+                $scope.paymentMode = 3;
+                
+                $scope.getPaymentTypeOtions = function (modeId) {
+                    $scope.paymentTypeOptions = [];
+                    if ($scope.paymentTypes) {
+                        var type = $scope.applicableOnRepayment;
+                        for (var i in $scope.paymentTypes) {
+                            if (($scope.paymentTypes[i].paymentMode == undefined ||
+                                $scope.paymentTypes[i].paymentMode.id == modeId) &&
+                                ($scope.paymentTypes[i].applicableOn == undefined || $scope.paymentTypes[i].applicableOn.id != type)) {
+                                 $scope.paymentTypeOptions.push($scope.paymentTypes[i]);
+                            }
+                        }
+                    }
+                }
+                $scope.getPaymentTypeOtions($scope.paymentMode);
+                if($scope.paymentTypeOptions.length>0){
+                    $scope.data.paymentTypeId = $scope.paymentTypeOptions[0].id;
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                
+                $scope.submit = function () {
+                    $scope.batchRequests = [];
+                    for (var i in $scope.loanData) {
+                        var groupMember = $scope.loanData[i];
+                        for (var j in groupMember.memberData) {
+                            var activeClientMember = groupMember.memberData[j];                            
+                            if (!activeClientMember.isClientFinishedThisTask && activeClientMember.loanAccountBasicData) {
+                                if (activeClientMember.loanAccountBasicData.selected == true) {
+                                    $scope.constructRequestBody(activeClientMember.loanAccountBasicData);                                   
+                                }
+                            }
+                        }
+                    }
+                    resourceFactory.batchResource.post({ 'enclosingTransaction': true }, $scope.batchRequests, function (data) {
+                        initTask();
+                    });
+                    
+                }
+
+                $scope.constructRequestBody = function (loanData) {
+                    $scope.formData = {};
+                    $scope.formData.locale = scope.optlang.code;
+                    $scope.formData.dateFormat = scope.df;
+                    $scope.formData.actualDisbursementDate = new Date();
+                    var reqDate = new Date();
+                    if(loanData.expectedDisbursementOnDate){
+                        var disburseDate = new Date(loanData.expectedDisbursementOnDate);
+                        reqDate = dateFilter(disburseDate, scope.df);                        
+                    }else{                        
+                        reqDate = dateFilter($scope.formData.actualDisbursementDate, scope.df);
+                    }
+                    $scope.formData.actualDisbursementDate = reqDate;
+                    $scope.formData.paymentTypeId = $scope.data.paymentTypeId;
+                    $scope.formData.transactionAmount = loanData.principalAmount;
+                    if (loanData.loanEMIPackData) {
+                        $scope.formData.loanEMIPackId = loanData.loanEMIPackData.id;
+                        $scope.formData.fixedEmiAmount = loanData.loanEMIPackData.sanctionAmount;
+                    }
+                    //tracking task 
+                    if (loanData.clientId != null && scope.taskData.id != null && loanData.id) {
+                        $scope.taskInfoTrackArray = [];
+                        $scope.taskInfoTrackArray.push(
+                            {
+                                'clientId': loanData.clientId,
+                                'currentTaskId': scope.taskData.id,
+                                'loanId': loanData.id
+                            })
+                    }
+                    var relativeUrl = "loans/" + loanData.id + "?command=" + $scope.commandParam;
+                    $scope.batchRequests.push({
+                        requestId: ($scope.batchRequests.length+1), relativeUrl: relativeUrl,
+                        method: "POST", body: JSON.stringify(this.formData)
+                    });
+
+                    $scope.taskTrackingFormData = {};
+                    $scope.taskTrackingFormData.taskInfoTrackArray = [];
+                    $scope.taskTrackingFormData.taskInfoTrackArray = $scope.taskInfoTrackArray.slice();
+                    var relativeTrackUrl = "tasktracking/clientlevel";
+                    $scope.batchRequests.push({
+                        requestId: ($scope.batchRequests.length+1), relativeUrl: relativeTrackUrl,
+                        method: "POST", body: JSON.stringify($scope.taskTrackingFormData)
+                    });
+                    
+                }
+            }    
+
             var LoanDisburseCtrl = function ($scope, $modalInstance, memberParams) {
 				$scope.df = scope.df;
                 $scope.clientId = memberParams.activeClientMember.id;
@@ -554,6 +702,7 @@
                 $scope.taskInfoTrackArray = [];
                 $scope.catureFP = false ;
                 $scope.commandParam = "disburse";
+                
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;

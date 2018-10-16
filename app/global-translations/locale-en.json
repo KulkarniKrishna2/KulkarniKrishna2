@@ -7615,6 +7615,8 @@
     "label.heading.productTypeOptions": "Product Type",
     "label.heading.productOptions": "Product",
     "label.heading.transfer.client.active.loan.update.repayment.schedule" : "On transfer repayment schedule will change as per destination group meeting date. Active loans also will be transfered. ",
+    "label.heading.bulkdisburseloanaccount" : "Bulk Loan Disbursement",
+    "label.button.bulkdisburse":"Bulk Disburse",
 
      "------ end of tensalation file ------":"---------"
 }
