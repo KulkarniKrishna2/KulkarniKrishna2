@@ -7618,6 +7618,8 @@
     "label.heading.transfer.client.active.loan.update.repayment.schedule" : "On transfer repayment schedule will change as per destination group meeting date. Active loans also will be transfered. ",
     "label.heading.bulkdisburseloanaccount" : "Bulk Loan Disbursement",
     "label.button.bulkdisburse":"Bulk Disburse",
+    "label.heading.client.deduplication.check": "Client Deduplication Check",
+    "label.button.client.dedupe.tag" : "Client Dedupe Tag",
 
      "------ end of tensalation file ------":"---------"
 }

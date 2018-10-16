@@ -191,6 +191,9 @@
                         taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
                     }
                 ],
+                "Dedupe": [
+                    
+                ],
                 "Assign Staff": {
                     name: "label.button.assignstaff",
                     href: "#/client",

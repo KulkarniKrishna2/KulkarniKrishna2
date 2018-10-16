@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, $q,$filter) {
+        PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, $q,$filter, popUpUtilService) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
@@ -25,54 +25,54 @@
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.centerDetails.isAllChecked = false;
                     //logic to disable and highlight member
-                    for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
-
-                        for(var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++){
-
-                              var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
-                              var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
-                              scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
-                              scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
-                              if(clientLevelTaskTrackObj == undefined || clientLevelTaskTrackObj == null){
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
-                                  scope.isAllClientFinishedThisTask = false;
-                              }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
-                                    if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
-                                        if(clientLevelCriteriaObj.score == 5){
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                    if(scope.centerDetails.subGroupMembers){
+                        for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
+                            if (scope.centerDetails.subGroupMembers[i].memberData) {
+                                for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
+                                    var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
+                                    var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                                    if (clientLevelTaskTrackObj == undefined || clientLevelTaskTrackObj == null) {
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                        scope.isAllClientFinishedThisTask = false;
+                                    } else if (clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined) {
+                                        if (scope.taskData.id != clientLevelTaskTrackObj.currentTaskId) {
+                                            if (clientLevelCriteriaObj.score == 5) {
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                            } else if (clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4) {
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                            }
+                                        } else if (scope.taskData.id == clientLevelTaskTrackObj.currentTaskId) {
+                                            if (clientLevelCriteriaObj.score == 5) {
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                                scope.isAllClientFinishedThisTask = false;
+                                            } else if (clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4) {
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                                scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                                scope.isAllClientFinishedThisTask = false;
+                                            }
+                                        }
+                                    } else if (clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)) {
+                                        if (scope.taskData.id != clientLevelTaskTrackObj.currentTaskId) {
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
-                                        }         
-                                    }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
-                                        if(clientLevelCriteriaObj.score == 5){
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                            scope.isAllClientFinishedThisTask = false;
-                                        }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                        }
+                                        if (scope.taskData.id == clientLevelTaskTrackObj.currentTaskId) {
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
                                             scope.isAllClientFinishedThisTask = false;
                                         }
                                     }
-                              }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
-                                  if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                   }
-                                   if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
-                                      scope.isAllClientFinishedThisTask = false;
-                                   }
-                              }
+                                }
+                            }
                         }
-
                     }
                 });
-
             };
             initTask();
 
@@ -131,13 +131,11 @@
                 $scope.subGroupFormData.active = true;
 
                 $scope.submit = function () {
-
                     if ($scope.first.submitondate) {
                         reqDat = dateFilter($scope.first.submitondate, scope.df);
                         $scope.subGroupFormData.submittedOnDate = reqDat;
                         $scope.subGroupFormData.activationDate = reqDat;
                     }
-
                     resourceFactory.groupResource.save(this.subGroupFormData, function (data) {
                         $modalInstance.close('createsubgroup');
                         $route.reload();
@@ -457,34 +455,36 @@
                         $scope.isStaffRequired = true;
                         return false;
                     }
-                    
-                    if (!$scope.dateOfBirthNotInRange || !$scope.invalidClassificationId) {
 
+                    if (!$scope.dateOfBirthNotInRange || !$scope.invalidClassificationId) {
                         resourceFactory.clientResource.save($scope.formData, function (data) {
-                            if(!$scope.uiData.enableCreateClientLoop){  
-                                $scope.first.dateOfBirth=undefined;                              
-                                $route.reload();
+                            if(data.changes && data.changes.isDeDuplicationCheck){
                                 $modalInstance.close('createmember');
+                                scope.openDeDuplicationCheckPage(data.clientId);
                             }else{
-                                $scope.first.dateOfBirth=new Date();
-                                if(scope.maxClientLimit > (++ $scope.activeClientCount)){
-                                    $scope.newClientId = data.clientId;
-                                    $scope.uiData.enableCreateClientLoop = false;
-                                    $scope.first.submitondate=new Date();
-                                    $scope.formData = {};
-                                    $scope.getMemberTemplateSettings();
-                                    setTimeout(function () {
-                                    $scope.first.dateOfBirth=undefined;
-                                }, 200);
+                                if(!$scope.uiData.enableCreateClientLoop){  
+                                    $scope.first.dateOfBirth=undefined;                              
+                                    $route.reload();
+                                    $modalInstance.close('createmember');
                                 }else{
-                                    $scope.first.dateOfBirth=undefined;
-                                    $scope.close();
+                                    $scope.first.dateOfBirth=new Date();
+                                    if(scope.maxClientLimit > (++ $scope.activeClientCount)){
+                                        $scope.newClientId = data.clientId;
+                                        $scope.uiData.enableCreateClientLoop = false;
+                                        $scope.first.submitondate=new Date();
+                                        $scope.formData = {};
+                                        $scope.getMemberTemplateSettings();
+                                        setTimeout(function () {
+                                            $scope.first.dateOfBirth=undefined;
+                                        }, 150);
+                                    }else{
+                                        $scope.first.dateOfBirth=undefined;
+                                        $scope.close();
+                                    }
                                 }
                             }
-                            scope.reComputeProfileRating(data.clientId);
                         });
                     }
-
                 };
 
                 $scope.cancel = function () {
@@ -495,6 +495,15 @@
                     $modalInstance.dismiss('close');
                 };
             }
+
+            scope.openDeDuplicationCheckPage = function(clientId){
+                scope.dedupeClientId = clientId;
+                scope.popUpHeaderName = "label.heading.client.deduplication.check"
+                scope.includeHTML = 'views/clients/clientdeduplicationcheck.html';
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ClientDeduplicationCheckController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            };
 
             scope.viewMemberDetails = function (groupId, activeClientMember) {
                 $modal.open({
@@ -1734,7 +1743,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', '$q','$filter', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('PreliminaryGroupFormationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', '$q', '$filter', 'PopUpUtilService', mifosX.controllers.PreliminaryGroupFormationActivityController]).run(function ($log) {
         $log.info("PreliminaryGroupFormationActivityController initialized");
     });
 }(mifosX.controllers || {}));

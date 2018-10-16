@@ -56,6 +56,9 @@
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),
+                    clientDedupetagsResource: defineResource(apiVer + "/clients/:clientId/dedupetags", {clientId: '@clientId'}, {
+                        
+                    }),
                     clientsSearchResource: defineResource(apiVer + "/clients/search", {searchConditions: '@searchConditions'}, {
                         getAllClients: {method: 'GET', params: {searchConditions: '@searchConditions'}, isArray: true}
                     }),
