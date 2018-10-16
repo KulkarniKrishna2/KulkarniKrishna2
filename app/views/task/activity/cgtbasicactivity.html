@@ -57,7 +57,7 @@
 					    ng-if="!activeClientMember.isClientFinishedThisTask">
 						<td class="col-md-1">
 							<input class="pull-left" type="checkbox" ng-model="activeClientMember.isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
-							 ng-disabled="activeClientMember.isClientFinishedThisTask" ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked )">
+							 ng-disabled="validateClient(activeClientMember) || activeClientMember.isClientFinishedThisTask" ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked )">
 						</td>
 						<td class="col-md-1">
 							<a href="" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}

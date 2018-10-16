@@ -130,6 +130,9 @@
 			"PGFValidation": {
 				"profileRatingPercentage": 80
 			},
+			"CGTValidation": {
+				"profileRatingPercentage": 100
+			},
 			"showReschedule" : false,
 			"showCreateTask" : false,
 			"disableVillageDropDown":true

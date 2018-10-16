@@ -15,6 +15,11 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.isAllClientFinishedThisTask = true;
+                scope.clientProfileRatingScoreForSuccess = 0;
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.CGTValidation && scope.response.uiDisplayConfigurations.workflow.CGTValidation.profileRatingPercentage) {
+                    scope.clientProfileRatingScoreForSuccess = scope.response.uiDisplayConfigurations.workflow.CGTValidation.profileRatingPercentage;
+                }
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType : scope.eventType,
@@ -156,6 +161,12 @@
                     scope.profileRatingData = data;
                 });
                 initTask();
+            };
+            scope.validateClient = function(activeClientMember){
+                if(activeClientMember.profileRatingScoreData){
+                   return (activeClientMember.profileRatingScoreData.finalScore *20 < scope.clientProfileRatingScoreForSuccess); 
+                }
+                return true;
             };
 
             scope.score = function(activeClientMember){
@@ -587,6 +598,7 @@
                         $scope.viewSurveyDetails = true;
                         resourceFactory.takeSurveysResource.getAll({entityType : $scope.entityTypeId,entityId:$scope.clientId}, function (surveys) {
                             $scope.surveys = surveys;
+                            scope.reComputeProfileRating($scope.clientId);
                         });
                     });
                 }
