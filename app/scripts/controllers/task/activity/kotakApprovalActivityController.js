@@ -23,6 +23,7 @@
                               var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                               var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                               scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                              scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
                               if(clientLevelTaskTrackObj == undefined){
                                 if (scope.eventType && scope.eventType == 'create') {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
@@ -207,7 +208,8 @@
                         memberParams: function () {
                             return { 'memberId': member.id,
                                 'memberName': member.displayName,
-                                'fcsmNumber':member.fcsmNumber };
+                                'fcsmNumber':member.fcsmNumber,
+                                'allowLoanRejection' : member.allowLoanRejection };
                         }
                     }
                 });
@@ -225,6 +227,12 @@
                 $scope.rejectClientData.locale = scope.optlang.code;
                 $scope.rejectClientData.dateFormat = scope.df;
                 $scope.rejectTypes = scope.rejectTypes;
+                if(!memberParams.allowLoanRejection){
+                    var idx = $scope.rejectTypes.findIndex(x => x.code == 'rejectType.loanRejection');
+                    if(idx >= 0){
+                        $scope.rejectTypes.splice(idx,1);
+                    }    
+                }
                 $scope.clientClosureReasons = scope.clientClosureReasons;
                 $scope.rejectClientData.closureDate = dateFilter(new Date(), scope.df);
                 $scope.cancelClientClose = function () {
