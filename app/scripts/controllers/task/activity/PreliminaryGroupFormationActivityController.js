@@ -1576,12 +1576,21 @@
             }
 
 
-             scope.captureMembersToNextStep = function(clientId, isChecked){
+             scope.captureMembersToNextStep = function(clientId,loanId, isChecked){
                     if(isChecked){
-                        scope.taskInfoTrackArray.push(
-                            {'clientId' : clientId, 
-                             'currentTaskId' : scope.taskData.id
-                            })
+                        if(loanId){
+                            scope.taskInfoTrackArray.push(
+                                {'clientId' : clientId,
+                                    'loanId' : loanId,
+                                    'currentTaskId' : scope.taskData.id
+                                })
+                        }else{
+                            scope.taskInfoTrackArray.push(
+                                {'clientId' : clientId,
+                                    'currentTaskId' : scope.taskData.id
+                                })
+                        }
+
                     }else{
                         var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
                         if(idx >= 0){
@@ -1703,6 +1712,9 @@
                             if(isAllChecked){
                                 if(activeClientMember.status.code != 'clientStatusType.onHold' && activeClientMember.profileRatingScoreData.finalScore *20 >= scope.clientProfileRatingScoreForSuccess && !activeClientMember.isClientFinishedThisTask){
                                     centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                    if(activeClientMember.loanAccountBasicData){
+                                        scope.captureMembersToNextStep(activeClientMember.id,activeClientMember.loanAccountBasicData.id,  activeClientMember.isMemberChecked);
+                                    }
                                     scope.captureMembersToNextStep(activeClientMember.id,  activeClientMember.isMemberChecked);
                                 }
                             }else{
