@@ -14,8 +14,7 @@
             scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
 
             scope.$watch('formData.dateOfBirth', function (newValue, oldValue) {
-                if (scope.formData.dateOfBirth != undefined) {
-                    var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
+                if (scope.formData.dateOfBirth != undefined && scope.formData.dateOfBirth != "") {
                     var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
                     var ageDate = new Date(ageDifMs); // miliseconds from epoch
                     scope.formData.age = Math.abs(ageDate.getUTCFullYear() - 1970);

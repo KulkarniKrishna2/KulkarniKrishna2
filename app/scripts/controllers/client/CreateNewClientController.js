@@ -562,34 +562,49 @@
                         if (routeParams.pledgeId) {
                             var updatedData = {};
                             updatedData.clientId = data.clientId;
-                         
-                            resourceFactory.pledgeResource.update({pledgeId: routeParams.pledgeId}, updatedData, function (pledgeData) {
+
+                            resourceFactory.pledgeResource.update({
+                                pledgeId: routeParams.pledgeId
+                            }, updatedData, function (pledgeData) {
 
                             });
                         }
-                        if(scope.loanApplicationReferenceId){
-                            resourceFactory.loanCoApplicantsResource.add({loanApplicationReferenceId: scope.loanApplicationReferenceId, clientId: data.clientId}, function(coappData){
-                                location.path('/viewclient/' + data.clientId+'/'+scope.loanApplicationReferenceId);
+                        if (scope.loanApplicationReferenceId) {
+                            resourceFactory.loanCoApplicantsResource.add({
+                                loanApplicationReferenceId: scope.loanApplicationReferenceId,
+                                clientId: data.clientId
+                            }, function (coappData) {
+                                location.path('/viewclient/' + data.clientId + '/' + scope.loanApplicationReferenceId);
                             });
                         }
-                        resourceFactory.entityTaskExecutionResource.get({entityType:'CLIENT_ONBOARDING',entityId:data.clientId}, function (taskData) {
-                         if(taskData.id==undefined)
-                        {
-                            if (scope.enableCreateClientLoop){
-                                location.path('/createclient/').search({groupId: scope.groupId,officeId: scope.officeId,staffId: scope.staffId,centerId: scope.centerId,clientId: data.clientId});
-                            } else{
-                                if(routeParams.groupId){
-                                    location.path('/viewgroup/' + routeParams.groupId);
-                                }else{
-                                    location.path('/viewclient/' + data.clientId).search('');
+                        resourceFactory.entityTaskExecutionResource.get({
+                            entityType: 'CLIENT_ONBOARDING',
+                            entityId: data.clientId
+                        }, function (taskData) {
+                            if(data.changes && data.changes.isDeDuplicationCheck){
+                                location.path('/client/' + data.clientId + '/activate');
+                            }else{
+                                if (taskData.id == undefined) {
+                                    if (scope.enableCreateClientLoop) {
+                                        location.path('/createclient/').search({
+                                            groupId: scope.groupId,
+                                            officeId: scope.officeId,
+                                            staffId: scope.staffId,
+                                            centerId: scope.centerId,
+                                            clientId: data.clientId
+                                        });
+                                    } else {
+                                        if (routeParams.groupId) {
+                                            location.path('/viewgroup/' + routeParams.groupId);
+                                        } else {
+                                            location.path('/viewclient/' + data.clientId).search('');
+                                        }
+                                    }
+                                } else {
+                                    location.path('/viewtask/' + taskData.id);
                                 }
                             }
-                        }
-                        else
-                        {
-                            location.path('/viewtask/'+ taskData.id);
-                        }
-                         });
+                        });
                     });
                 }
 

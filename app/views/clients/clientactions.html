@@ -179,6 +179,9 @@
             <button id="save" type="submit"  has-permission={{forceActivateClientPermission}} class="btn btn-warning" ng-show="forcedSubmit" ng-click="submit()">
                 {{'label.button.forcedsubmit' | translate}}
             </button>
+            <button id="saveTagClientToMatchedClientId" type="button"  has-permission="TAG_DEDUPE_CLIENT" class="btn btn-success" ng-show="matchClientId" ng-click="tagClientToMatchedClientId()">
+                {{'label.button.client.dedupe.tag' | translate}}
+            </button>
         </div>
     </form>
 </div>

@@ -270,5 +270,7 @@
   "label.info.totalmembers" : "Total Members in Center",
   "label.info.activeborrowers" : "Total Borrowers in Center",
   "label.alert.member.create.message":"Previous member created successfully with Id #",
+  "label.button.client.dedupe.tag" : "Tag the customer",
+
   "------ end of tensalation file":"---------"
 }

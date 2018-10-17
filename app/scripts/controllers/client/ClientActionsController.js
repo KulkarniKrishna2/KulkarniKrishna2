@@ -385,6 +385,15 @@
                     });
                 }
             };
+
+            scope.tagClientToMatchedClientId = function () {
+                var tagFormData = {};
+                tagFormData.clientDedupeId = scope.matchClientId;
+                resourceFactory.clientDedupetagsResource.save({clientId: scope.clientId},tagFormData, function (data) {
+                    location.path('/viewclient/' + scope.clientId);
+                });
+            };
+
             scope.openClientValidationPopUp = function() {
                 $modal.open({
                     templateUrl: 'clientvalidation.html',
