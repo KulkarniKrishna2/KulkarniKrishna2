@@ -36,7 +36,7 @@
                     <div class="col-md-6"><span>{{'label.input.groupName' | translate}}:&nbsp;</span><span><a href="#/viewgroup/{{groupData.id}}"> {{groupData.name}}</a></span></div>
                 </div>             
                 <div class="row">
-                    <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{groupData.officeName}}</div>
+                    <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{getOfficeName(groupData.officeName,groupData.officeReferenceNumber)}}</div>
                     <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{groupData.staffName}}</div>
                 </div>
                 <div class="row">
@@ -56,7 +56,7 @@
                     <div class="col-md-6"><span> {{'label.input.status' | translate}} :&nbsp; {{centerData.status.value}}</span></div>
                 </div>             
                 <div class="row">
-                    <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{centerData.officeName}}</div>
+                    <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{getOfficeName(centerData.officeName,centerData.officeReferenceNumber)}}</div>
                     <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{centerData.staffName}}</div>
                 </div>
                 <div class="row">
@@ -75,7 +75,7 @@
                 <h3><strong>{{'label.heading.eod' | translate}}<span>:</span></strong></h3>
                     <div class="col-md-6"><span>{{'label.input.closingdate' | translate}}:&nbsp;</span><span>{{eodData.eodDate | DateFormat}}</span>
                     </div>
-                    <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{eodData.officeData.name}}</span></div>
+                    <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{getOfficeName(eodData.officeData.name,eodData.officeData.officeReferenceNumber)}}</span></div>
             </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>

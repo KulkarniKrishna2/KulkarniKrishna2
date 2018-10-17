@@ -79,7 +79,7 @@
                 </thead>
                 <tbody>
                 <tr class="pointer-main" ng-repeat="eodProcess in eodProcessDatas.currentPageItems">
-                    <td class="pointer">{{eodProcess.officeData.name}}</td>
+                    <td class="pointer">{{getOfficeName(eodProcess.officeData.name,eodProcess.officeData.officeReferenceNumber)}}</td>
                     <td class="pointer">{{eodProcess.eodDate | DateFormat}}</td>
                     <td class="pointer">{{eodProcess.isOperationalClosureDone}}</td>
                     <td class="pointer">{{eodProcess.isFinancialClosureDone}}</td>

@@ -21,7 +21,7 @@
                 <div class="col-md-6"><span> {{'label.input.status' | translate}} :&nbsp; {{centerData.status.value}}</span></div>
             </div>
             <div class="row">
-                <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{centerData.officeName}}</div>
+                <div class="col-md-6"> {{'label.heading.office' | translate}}:&nbsp;{{getOfficeName(centerData.officeName,centerData.officeReferenceNumber)}}</div>
                 <div class="col-md-6">{{'label.input.staff' | translate}}: &nbsp;{{centerData.staffName}}</div>
             </div>
 

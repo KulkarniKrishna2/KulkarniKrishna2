@@ -10,8 +10,8 @@
             <div class="row">
                  <div class="col-md-6"><span>{{'label.input.closingdate' | translate}}:&nbsp;</span><span>{{eodData.eodDate | DateFormat}}</span>
                  </div>
-                 <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{eodData.officeData.name}}</span></div>
-            </div>
+                 <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{getOfficeName(eodData.officeData.name,eodData.officeData.officeReferenceNumber)}}</span></div>
+                </div>
         </div>
     </div>
     <div ng-if="taskData" ng-include="'views/task/workflowtask.html'"></div>

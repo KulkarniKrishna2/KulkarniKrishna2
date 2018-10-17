@@ -6,6 +6,7 @@
             scope.searchText = "";
             scope.searchResults = [];
             scope.searchRule=false;
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             scope.routeTo = function (id) {
                 location.path('/viewcenter/' + id);
             };
@@ -39,7 +40,14 @@
                     scope.centers = data.pageItems;
                 });
             }
-
+            
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
             scope.initPage = function () {
                 var items = resourceFactory.centerResource.get({
                     offset: 0,

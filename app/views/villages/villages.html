@@ -42,8 +42,8 @@
             <td class="pointer" data-ng-click="routeTo(village.villageId)">
                 <i class="icon-stop {{village.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{village.status.value}}
             </td>
-            <td class="pointer" data-ng-click="routeTo(village.villageId)">{{village.officeName}}</td>
-        </tr>
+            <td class="pointer" data-ng-click="routeTo(village.villageId)">{{getOfficeName(village.officeName,village.officeReferenceNumber)}}</td>
+           </tr>
         </tbody>
     </table>
     <dir-pagination-controls boundary-links="true" pagination-id="villages" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>

@@ -23,6 +23,7 @@
             scope.showAttendance = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAttendance;
             scope.isHideCreateEntity = false;
             scope.canCreateSubGroup=scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
@@ -57,6 +58,7 @@
                 }
                 scope.groupMemberAccountList = data.groupMembers;
                 $rootScope.officeName = data.officeName;
+                $rootScope.officeReferenceNumber=data.officeReferenceNumber;
                 $rootScope.officeId = data.officeId;
                 $rootScope.centerName=data.name;
                 scope.isClosedCenter = scope.center.status.value == 'Closed';
@@ -378,7 +380,14 @@
                     return loan.status.code;
                 }
             };
-
+            
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
             scope.getLoanStatusValue = function (loan, subStatusRequested) {
                 if (loan.status) {
                     if (loan.subStatus && loan.subStatus.code != 'loanSubStatusType.invalid' && subStatusRequested) {

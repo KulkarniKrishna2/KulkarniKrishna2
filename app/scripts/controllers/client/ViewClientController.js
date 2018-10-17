@@ -28,7 +28,7 @@
             scope.showNoteField = false;
             scope.showSmartcard = true;
             scope.clientId = routeParams.id;
-            
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             scope.entityType = routeParams.entityType;
             if(!scope.entityType){
                 scope.entityType = "client";
@@ -1678,7 +1678,13 @@
                     return loan.status.value;
                 }
             };
-
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
         }
     });
 

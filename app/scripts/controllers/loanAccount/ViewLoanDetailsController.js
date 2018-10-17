@@ -40,7 +40,8 @@
             scope.charges = {};
             scope.hideNetDisbursedAmount = false;
             scope.options = [];
-
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
+ 
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
@@ -312,7 +313,6 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
-
             scope.tabs = [
                 { active: true },
                 { active: false },
@@ -341,8 +341,7 @@
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
                 var loanType = data.loanType.code;
-
-                if(loanType == 'accountType.glim') {
+               if(loanType == 'accountType.glim') {
                     scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
                     resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
                             scope.glimClientsDetails = glimData;
@@ -364,7 +363,7 @@
                             scope.isGlim = glimData.length > 0;
                     });
                 }
-
+               
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : false,isFetchAssociateTable: true}, function (data) {
                     scope.datatables = data;
                 });
@@ -675,7 +674,7 @@
                                 }
                             }
                         }
-
+                     
 
                         if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0) {
                             for (var i = 0; i < scope.loandetails.transactions.length; i++) {
@@ -687,6 +686,14 @@
                         }
                     });
 
+                    scope.getOfficeName=function(officeName,officeReferenceNumber){
+                        if(!scope.isOfficeReferenceNumberRequired){
+                            return officeName;
+                        }else{
+                            return officeName+ ' - ' + officeReferenceNumber;
+                        }
+                    }
+                   
                     if (data.canDisburse) {
                         disbursalSettings(data);
                     }else{

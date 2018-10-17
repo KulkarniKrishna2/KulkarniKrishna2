@@ -1,7 +1,7 @@
 <div class="col-md-12" ng-controller="ViewLoanDetailsController">
     <div>
         <ul class="breadcrumb" ng-show="loandetails.clientData">
-            <li><a ng-href="#/viewoffice/{{loandetails.clientData.officeId}}">{{loandetails.clientData.officeName}}</a></li>
+            <li><a ng-href="#/viewoffice/{{loandetails.clientData.officeId}}">{{getOfficeName(loandetails.clientData.officeName,loandetails.clientData.officeReferenceNumber)}}</a></li>
             <li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
             <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
             <li ng-show="group.name"><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
@@ -846,7 +846,7 @@
                                         {{transaction.id}}
                                     </td>
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
-                                        {{transaction.officeName}}
+                                        {{getOfficeName(transaction.officeName,transaction.officeReferenceNumber)}}
                                     </td>
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.date | DateFormat}}

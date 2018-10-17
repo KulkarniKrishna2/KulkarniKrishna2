@@ -20,6 +20,7 @@
             scope.isHideCreateEntity = false;
             scope.isShowTransferClients=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.transferClients;
             scope.isClientCreationEnabled=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;
             }
@@ -385,6 +386,13 @@
                     return loan.status.value;
                 }
             };
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
 
         }
     });
