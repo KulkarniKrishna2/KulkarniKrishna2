@@ -1,7 +1,7 @@
 <div class="col-md-12" ng-controller="ViewClientController" xmlns="http://www.w3.org/1999/html">
 	<div>
 	    <ul class="breadcrumb">
-	        <li ng-if="!loanApplicationReferenceId"><a ng-href="#/viewoffice/{{client.officeId}}">{{client.officeName}}</a></li>
+			<li ng-if="!loanApplicationReferenceId"><a ng-href="#/viewoffice/{{client.officeId}}">{{getOfficeName(client.officeName,client.officeReferenceNumber)}}</a></li>
 			<li ng-if="group.villageData && !loanApplicationReferenceId"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
 			<li ng-if="group.centerName && !loanApplicationReferenceId"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
 			<li ng-if="center.name && !loanApplicationReferenceId"><a ng-href="#/viewcenter/{{center.id}}">{{center.name}}</a></li>

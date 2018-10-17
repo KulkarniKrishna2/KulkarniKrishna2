@@ -44,7 +44,7 @@
             <td class="pointer" data-ng-click="routeTo(center.id)">
                 <i class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
             </td>
-            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.officeName}}</td>
+            <td class="pointer" data-ng-click="routeTo(center.id)">{{getOfficeName(center.officeName,center.officeReferenceNumber)}}</td>
         </tr>
         </tbody>
     </table>

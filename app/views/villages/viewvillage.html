@@ -1,7 +1,7 @@
 <div ng-controller="ViewVillageController" class="col-md-12">
     <div>
         <ul class="breadcrumb">
-            <li><a ng-href="#/viewoffice/{{village.officeId}}">{{village.officeName}}</a></li>
+            <li><a ng-href="#/viewoffice/{{village.officeId}}">{{getOfficeName(village.officeName,village.officeReferenceNumber)}}</a></li>
             <li>{{village.villageName}}</li>
         </ul>
     </div>
@@ -16,7 +16,7 @@
                                         <strong>{{village.villageName}} </strong>
                                         <small>
                                             <i class="icon-barcode"></i> {{ 'label.uniquelyidentifiedwithid' | translate }} {{village.villageId}} |
-                                            <i class="icon-building"></i> {{ 'label.heading.office' | translate }} "{{village.officeName}}
+                                            <i class="icon-building"></i> {{ 'label.heading.office' | translate }} "{{getOfficeName(village.officeName,village.officeReferenceNumber)}}
                                         </small>
                                     </h3>
                                 </div>

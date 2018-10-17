@@ -1,8 +1,8 @@
 <div ng-controller="ViewGroupController" class="col-md-12">
 	<div>
 	    <ul class="breadcrumb">
-	        <li><a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a></li>
-			<li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
+	        <li><a ng-href="#/viewoffice/{{group.officeId}}">{{getOfficeName(group.officeName,group.officeReferenceNumber)}}</a></li>
+		    <li ng-show="group.villageData"><a ng-href="#/viewvillage/{{group.villageData.villageId}}">{{group.villageData.villageName}}</a></li>
 			<li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
 	        <li>{{group.name}}</li>
 	    </ul>
@@ -16,9 +16,9 @@
 	            <small>
 					<i class="icon-barcode"></i> {{ 'label.heading.groupreferenceno' | translate }}: {{group.referenceNumber}} |
 	            	<i class="icon-barcode"></i> {{ 'label.heading.accnum' | translate }}: {{group.accountNo}} |
-	            	<i class="icon-building"></i> {{ 'label.heading.office' | translate }}: "{{group.officeName}}" |
+	            	<i class="icon-building"></i> {{ 'label.heading.office' | translate }}: "{{getOfficeName(group.officeName,group.officeReferenceNumber)}}" |
 	            	<i class="icon-map-marker"></i> {{ 'label.heading.center' | translate }}: "{{group.centerName}}"
-	            </small>
+				</small>
 	        </h3>
 	    </div>
 		<div class="col-md-1 col-sm-1"></div>

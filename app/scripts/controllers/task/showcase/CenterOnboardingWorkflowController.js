@@ -4,8 +4,8 @@
             scope.eventType = routeParams.eventType;
             scope.centerId = routeParams.centerId;
             scope.defaultLandingStepId = $rootScope.defaultLandingStepId;
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             delete $rootScope.defaultLandingStepId;
-
 
             function init() {
                 resourceFactory.centerResource.get({
@@ -28,6 +28,14 @@
             }
 
             init();
+           
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
 
             //Center workflow Members steps info 
             scope.getCWFClientsTaskStepsInfo = function(centerId){

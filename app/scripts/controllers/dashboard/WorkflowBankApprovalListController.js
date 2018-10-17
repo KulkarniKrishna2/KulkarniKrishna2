@@ -15,6 +15,7 @@
             scope.approvalIdList = [];
             scope.isShowBulkApprovalButton = false;
             scope.bulkApprovalFormData = {};
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
 
             resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
                  scope.offices = officelist.allowedParents;
@@ -138,7 +139,6 @@
                 }
             };
 
-
             scope.colorArray = ['#bdbebf', '#0ba50b', '#44f444', '#f4444f', '#000107'];
 
             scope.getColor = function(status){
@@ -154,6 +154,13 @@
                 }
                 return colorStyle;
             };
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
 
         }
     });

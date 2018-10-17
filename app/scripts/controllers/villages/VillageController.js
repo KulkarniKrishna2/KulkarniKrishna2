@@ -5,6 +5,7 @@
             scope.actualVillages = [];
             scope.searchText = "";
             scope.searchResults = [];
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             scope.routeTo = function (id) {
                 location.path('/viewvillage/' + id);
             };
@@ -59,7 +60,13 @@
                 });
             }
             scope.initPage();
-
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
             scope.search = function () {
                 scope.actualVillages = [];
                 scope.searchResults = [];

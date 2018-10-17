@@ -412,6 +412,9 @@
 				"showAttendance":false
 			}
 		},
+		"office": {
+			"isOfficeReferenceNumberRequired": false
+		},
 		"createOffice": {
 			"selfActive": false,
 			"isMandatoryField": {

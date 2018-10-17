@@ -5,7 +5,7 @@
             scope.addressId ;
             scope.datatabledetails = {};
             scope.datatabledetails.isData;
-
+            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'chai_villages', isFetchBasicData: true}, function (data) {
                 scope.datatables = data;
                 if(scope.datatables){
@@ -228,6 +228,13 @@
                     route.reload();
                 });
             };
+            scope.getOfficeName=function(officeName,officeReferenceNumber){
+                if(!scope.isOfficeReferenceNumberRequired){
+                    return officeName;
+                }else{
+                    return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
 
             scope.initiateWorkflow = function (villageId) {
                 resourceFactory.villageResource.save({villageId: villageId, command: 'initiateWorkflow'},{}, function (data) {
