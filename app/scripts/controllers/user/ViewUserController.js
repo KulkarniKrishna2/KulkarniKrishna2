@@ -4,6 +4,7 @@
             scope.user = [];
             scope.uiData = {};
             scope.formData = {};
+            scope.showResetPasssword = (routeParams.id!=scope.currentSession.user.userId);
             resourceFactory.userListResource.get({
                 userId: routeParams.id
             }, function (data) {
