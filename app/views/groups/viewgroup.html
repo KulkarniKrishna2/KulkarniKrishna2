@@ -215,6 +215,11 @@
 																	class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
 
 														</td>
+														<td ng-if="isHideJlgLoan">
+															<a has-permission='READ_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
+																	class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
+
+														</td>
 														<td>
 															<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' ng-show="isLoanApplication === true" class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
 																	class="icon-plus icon-white"></i></a>
