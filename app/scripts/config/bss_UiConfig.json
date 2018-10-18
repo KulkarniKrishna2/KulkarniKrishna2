@@ -113,9 +113,6 @@
 				"showAttendance":true
 			}
 		},
-		"office": {
-			"isOfficeReferenceNumberRequired": true
-		},
 		"createOffice": {
 			"selfActive": true
 		},

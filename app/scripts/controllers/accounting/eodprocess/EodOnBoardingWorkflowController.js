@@ -3,8 +3,7 @@
         EodOnBoardingWorkflowController: function (scope, resourceFactory, routeParams) {
             var eventType = routeParams.eventType;
             scope.eodProcessId = routeParams.eodprocessId;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
-  
+          
             function init(){
                 fetchEodDetails();
                 fetchTask();
@@ -22,7 +21,7 @@
             }
             init();
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;

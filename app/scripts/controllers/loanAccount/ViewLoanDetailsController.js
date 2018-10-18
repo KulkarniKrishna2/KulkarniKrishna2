@@ -40,8 +40,7 @@
             scope.charges = {};
             scope.hideNetDisbursedAmount = false;
             scope.options = [];
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
- 
+          
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
@@ -687,7 +686,7 @@
                     });
 
                     scope.getOfficeName=function(officeName,officeReferenceNumber){
-                        if(!scope.isOfficeReferenceNumberRequired){
+                        if(!scope.isReferenceNumberAsNameEnable){
                             return officeName;
                         }else{
                             return officeName+ ' - ' + officeReferenceNumber;

@@ -6,7 +6,6 @@
             scope.searchText = "";
             scope.searchResults = [];
             scope.searchRule=false;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             scope.routeTo = function (id) {
                 location.path('/viewcenter/' + id);
             };
@@ -42,7 +41,7 @@
             }
             
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;
