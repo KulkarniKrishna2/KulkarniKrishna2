@@ -4,7 +4,6 @@
             scope.eventType = routeParams.eventType;
             scope.centerId = routeParams.centerId;
             scope.defaultLandingStepId = $rootScope.defaultLandingStepId;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             delete $rootScope.defaultLandingStepId;
 
             function init() {
@@ -30,7 +29,7 @@
             init();
            
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;

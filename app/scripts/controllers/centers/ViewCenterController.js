@@ -23,7 +23,6 @@
             scope.showAttendance = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAttendance;
             scope.isHideCreateEntity = false;
             scope.canCreateSubGroup=scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
@@ -382,7 +381,7 @@
             };
             
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;

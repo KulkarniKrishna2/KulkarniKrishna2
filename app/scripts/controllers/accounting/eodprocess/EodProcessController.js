@@ -4,8 +4,7 @@
             scope.searchConditions = {};
             scope.first = {};
             scope.accountClosurePerPage = 10;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
-   
+          
             resourceFactory.eodProcessTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
                 scope.eodClosureTypeOptions = data.eodClosureTypeOptions;
@@ -46,7 +45,7 @@
             scope.searchData();
 
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;

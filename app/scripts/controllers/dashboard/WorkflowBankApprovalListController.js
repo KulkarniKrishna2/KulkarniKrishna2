@@ -15,8 +15,7 @@
             scope.approvalIdList = [];
             scope.isShowBulkApprovalButton = false;
             scope.bulkApprovalFormData = {};
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
-
+           
             resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
                  scope.offices = officelist.allowedParents;
             })
@@ -155,7 +154,7 @@
                 return colorStyle;
             };
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;

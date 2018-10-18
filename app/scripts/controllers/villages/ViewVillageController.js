@@ -5,7 +5,6 @@
             scope.addressId ;
             scope.datatabledetails = {};
             scope.datatabledetails.isData;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'chai_villages', isFetchBasicData: true}, function (data) {
                 scope.datatables = data;
                 if(scope.datatables){
@@ -229,7 +228,7 @@
                 });
             };
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;

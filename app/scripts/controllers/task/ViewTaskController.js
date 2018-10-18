@@ -5,8 +5,7 @@
             scope.taskData = {};
             scope.isWorkflowTask = false;
             scope.isSingleTask = false;
-            scope.isOfficeReferenceNumberRequired =scope.response.uiDisplayConfigurations.office.isOfficeReferenceNumberRequired;
-   
+            
             function getTaskId(){
                 if(routeParams.taskId!=undefined){
                     return routeParams.taskId;
@@ -101,7 +100,7 @@
 
             init();
             scope.getOfficeName=function(officeName,officeReferenceNumber){
-                if(!scope.isOfficeReferenceNumberRequired){
+                if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;
