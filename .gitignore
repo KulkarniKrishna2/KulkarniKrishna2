@@ -32,3 +32,5 @@ app/custom_files
 Gruntfile-custom.js
 .vscode
 .vscode/*
+.creds
+.creds/*
