@@ -6,9 +6,11 @@
                 delete $rootScope.isClientAdditionalDetailTabActive;
             }else{
                 var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
-                delete savedTabs.clientTabset;
-                delete savedTabs.clientADTabset;
-                localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                if(!_.isUndefined(savedTabs)){
+                    delete savedTabs.clientTabset;
+                    delete savedTabs.clientADTabset;
+                    localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                }
             }
             
             scope.client = [];
