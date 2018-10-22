@@ -56,7 +56,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.firstname"
+                        <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-pattern="{{firstNamePattern}}" ng-model="formData.firstname"
                             class="form-control" ng-required="isFirstnameRequired" ng-autofocus="true"/>
                     </div>
                     <div class="col-sm-2">
@@ -115,8 +115,10 @@
                         </label>
     
                         <div class="col-sm-2">
-                            <input id="age" type="text" autocomplete="off" name="age"
-                                   ng-model="formData.age" class="form-control" placeholder="{{formData.age}}"/>
+                            <input id="age" type="number" autocomplete="off" name="age"
+                                   ng-model="formData.age" ng-minlength="1" ng-maxlength="3" min="{{familyMemberMinAge}}" max="{{familyMemberMaxAge}}" 
+                                   class="form-control" placeholder="{{formData.age}}" ng-change="validateAge()"/>
+                            <span class="error" ng-hide="isValidAge">{{'label.input.dob.not.range' | translate}} {{familyMemberMinAge}}{{'label.input.and' | translate}} {{familyMemberMaxAge}}</span>          
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="createFamilyDetails" valattribute="age"/>

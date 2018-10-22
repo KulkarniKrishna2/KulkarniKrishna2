@@ -12,7 +12,14 @@
             scope.isExisitingClient = false;
             scope.formData = {};
             scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
-
+            scope.isValidAge = true;
+            if(scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
+                    scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
+                }
+            if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria){
+                    scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.minAge;
+                    scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.maxAge;
+                }
             scope.$watch('formData.dateOfBirth', function (newValue, oldValue) {
                 if (scope.formData.dateOfBirth != undefined && scope.formData.dateOfBirth != "") {
                     var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
@@ -127,6 +134,14 @@
                     }
                 }
             }
+            scope.validateAge = function(){
+                scope.isValidAge = false;
+                if(scope.formData.age){
+                    if(scope.familyMemberMinAge <= scope.formData.age && scope.formData.age <= scope.familyMemberMaxAge){
+                        scope.isValidAge = true;
+                    }
+                }
+            };
 
         }
     });

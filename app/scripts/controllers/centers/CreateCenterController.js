@@ -20,7 +20,9 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName){
                 scope.isBranchNameIncluded = scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName;
             }
-
+            if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
+                scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
+            }
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
                 scope.villageCount = data.villageCounter;

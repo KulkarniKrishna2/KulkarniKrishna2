@@ -7482,7 +7482,7 @@
     "label.heading.associated.users": "Associated Users",
     "label.heading.last.login" : "Last login",
 
-    "label.only.text" : "Only Text",
+    "label.only.text" : "Allows Only Text with minimun three characters",
     "label.only.text.lname" : "Only Text/dot",
     "label.heading.kotak.criteria.result": "Kotak approval criteria result",
     "label.input.availablequery":"Available Query",
@@ -7620,6 +7620,7 @@
     "label.button.bulkdisburse":"Bulk Disburse",
     "label.heading.client.deduplication.check": "Client Deduplication Check",
     "label.button.client.dedupe.tag" : "Client Dedupe Tag",
+    "label.error.name.range":"Minimum three characters required",
 
      "------ end of tensalation file ------":"---------"
 }

@@ -123,7 +123,11 @@
 				"isHiddenField": {
 					"salutation": false
 				},
-				"showTypeAsRadio":false
+				"showTypeAsRadio":false,
+				"ageCriteria":{
+					"minAge": "1",
+					"maxAge": "130"
+				}
 			},
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",
@@ -187,6 +191,9 @@
 			},
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{10,10}$/"
+			},
+			"isValidateFirstName":{
+				"firstNamePattern":"/^[a-zA-Z\\s]*$/"
 			}
 		},
 		"defaultGISConfig": {
@@ -221,7 +228,10 @@
 			},
 			"isAutoPopulate": {
 				"name": true
-			}
+			},
+		    "isValidateName":{
+			  "namePattern":"/^[a-zA-Z0-9\\s]*$/"
+		   }
 		},
 		"createGroup": {
 			"isReadOnlyField": {
