@@ -1,6 +1,16 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, CommonUtilService) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService) {
+            
+            if(!_.isUndefined($rootScope.isClientAdditionalDetailTabActive)){
+                delete $rootScope.isClientAdditionalDetailTabActive;
+            }else{
+                var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
+                delete savedTabs.clientTabset;
+                delete savedTabs.clientADTabset;
+                localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+            }
+            
             scope.client = [];
             scope.identitydocuments = [];
             scope.buttons = [];
@@ -1088,7 +1098,21 @@
             scope.createstandinginstruction = function () {
                 location.path('/createstandinginstruction/' + scope.client.officeId + '/' + scope.client.id + '/fromsavings');
             };
-            scope.deleteAll = function (apptableName, entityId) {
+
+            scope.addDataTableEntry =  function(datatable, client){
+                $rootScope.isClientAdditionalDetailTabActive = true;
+                ///makedatatableentry/{{datatable.registeredTableName}}/{{client.id}}?fromEntity=client
+                location.path('/makedatatableentry/'+datatable.registeredTableName+'/'+client.id).search({"fromEntity":"client"});
+            };
+
+            scope.editDataTableEntry =  function(datatable, client){
+                $rootScope.isClientAdditionalDetailTabActive = true;
+                ///viewsingledatatableentry/{{datatable.registeredTableName}}/{{client.id}}?mode=edit&&fromEntity=client
+                location.path('/viewsingledatatableentry/'+datatable.registeredTableName+'/'+client.id).search({"mode":"edit","fromEntity":"client"});
+            };
+
+            scope.deleteAllDataTableEntry = function (apptableName, entityId) {
+                $rootScope.isClientAdditionalDetailTabActive = true;
                 scope.apptableNameForDeleteAll = apptableName;
                 scope.entityIdforDeleteAll = entityId;
                 $modal.open({
@@ -1282,13 +1306,13 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?' + commonUtilService.commonParamsForNewWindow();
                             }
                         }
                     if (scope.signature_url != null) {
                         http({
                             method: 'GET',
-                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?'+ CommonUtilService.commonParamsForNewWindow()
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?'+ commonUtilService.commonParamsForNewWindow()
                     }).then(function (docsData) {
                             $scope.largeImage = scope.signature_url;
                         });
@@ -1656,7 +1680,7 @@
             };
 
             scope.download = function(docUrl){
-                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
+                var url = $rootScope.hostUrl + docUrl + commonUtilService.commonParamsForNewWindow();
                 window.open(url);
             };
 
@@ -1687,7 +1711,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));
