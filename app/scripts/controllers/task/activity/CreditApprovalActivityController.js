@@ -16,51 +16,53 @@
                     scope.centerDetails.isAllChecked = false;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
+                        if(scope.centerDetails.subGroupMembers[i].memberData){
 
-                        for(var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++){
+                            for(var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++){
 
-                              var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
-                              var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
-                              scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = true;
-                              scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
-                              if(clientLevelTaskTrackObj == undefined){
-                                if (scope.eventType && scope.eventType == 'create') {
-                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                } else {
-                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                }
-                                  scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
-                              }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
+                                var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
+                                var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                                scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = true;
+                                scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                                if(clientLevelTaskTrackObj == undefined){
+                                    if (scope.eventType && scope.eventType == 'create') {
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                    } else {
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                    }
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
                                     if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
                                         if(clientLevelCriteriaObj.score == 5){
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
-                                        }         
+                                        }
                                     }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
                                         if(clientLevelCriteriaObj.score == 5){
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                              scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                              scope.isAllClientFinishedThisTask = false;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                            scope.isAllClientFinishedThisTask = false;
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
                                             scope.isAllClientFinishedThisTask = false;
                                         }
                                     }
-                              }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
-                                  if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                   }
-                                   if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                      scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
-                                       scope.isAllClientFinishedThisTask = false;
-                                   }
-                              }
+                                }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
+                                    if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
+                                    }
+                                    if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
+                                        scope.isAllClientFinishedThisTask = false;
+                                    }
+                                }
+                            }
                         }
 
                     }

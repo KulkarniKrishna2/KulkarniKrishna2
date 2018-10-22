@@ -483,6 +483,7 @@
                                     }
                                 }
                             }
+                            scope.reComputeProfileRating(data.clientId);
                         });
                     }
                 };
@@ -1732,7 +1733,7 @@
                                     if(activeClientMember.loanAccountBasicData){
                                         scope.captureMembersToNextStep(activeClientMember.id,activeClientMember.loanAccountBasicData.id,  activeClientMember.isMemberChecked);
                                     }
-                                    scope.captureMembersToNextStep(activeClientMember.id,  activeClientMember.isMemberChecked);
+                                    scope.captureMembersToNextStep(activeClientMember.id,null,activeClientMember.isMemberChecked);
                                 }
                             }else{
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;

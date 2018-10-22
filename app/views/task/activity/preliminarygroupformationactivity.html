@@ -51,9 +51,9 @@
 					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMembe"
 					    ng-class ="activeClientMember.color"
 					    ng-if="!activeClientMember.isClientFinishedThisTask">
-						<td class="col-md-1"><input type="checkbox" ng-model="isMemberChecked" data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.complete.data.check.to.continue' | translate}}"
+						<td class="col-md-1"><input type="checkbox" ng-model="activeClientMember.isMemberChecked" data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.complete.data.check.to.continue' | translate}}"
 													ng-disabled="validateClient(activeClientMember) || activeClientMember.isClientFinishedThisTask"
-													ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, isMemberChecked)"></input></td>
+													ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)"></input></td>
 						<td class="col-md-2">
 							<a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewMemberDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
 						</td>
