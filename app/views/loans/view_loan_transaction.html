@@ -32,17 +32,17 @@
 
     <div ng-hide="hideEditUndoTrxnButton" class="pull-right">
         <div class="btn-group">
-            <a ng-if="isValuedateUpdateRequired" ng-click="updateValueDate(transaction.accountId, transaction.id)" class="btn btn-success" has-permission='UPDATE_VALUEDATE_LOANTRANSACTION'>
+            <a ng-if="transaction.status.id == 1 && isValuedateUpdateRequired" ng-click="updateValueDate(transaction.accountId, transaction.id)" class="btn btn-success" has-permission='UPDATE_VALUEDATE_LOANTRANSACTION'>
                 {{ 'label.button.updatevaluedate' | translate}}</a>
-            <a ng-hide="hideEditTrxnButton" href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
+            <a ng-if="transaction.status.id == 1" ng-hide="hideEditTrxnButton" href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary" has-permission='ADJUST_LOAN'><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
-               <a ng-hide="hideEditTrxnButton" href="#/loanaccountrectification/{{transaction.accountId}}?transactionId={{transaction.id}}&transferAmount={{transaction.amount}}"
+            <a ng-if="transaction.status.id == 1" href="#/loanaccountrectification/{{transaction.accountId}}?transactionId={{transaction.id}}&transferAmount={{transaction.amount}}"
                class="btn btn-primary" has-permission='RECTIFY_LOAN'><i class="icon-pencil icon-white"></i>{{ 'label.button.rectify' | translate}}</a>
-            <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='ADJUST_LOAN'><i
+            <a ng-if="transaction.status.id == 1" ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='ADJUST_LOAN'><i
                     class="icon-trash icon-white"></i>{{ 'label.button.undo' | translate}}</a>
         </div>
     </div>
-    <div ng-if="transaction.type.disbursement && isValuedateUpdateRequired" class="pull-right">
+    <div ng-if="transaction.status.id == 1 && transaction.type.disbursement && isValuedateUpdateRequired" class="pull-right">
         <a ng-click="updateValueDate(transaction.accountId, transaction.id)" class="btn btn-success" has-permission='UPDATE_VALUEDATE_LOANTRANSACTION'>
             {{ 'label.button.updatevaluedate' | translate}}</a>
     </div>
@@ -60,6 +60,10 @@
                         (<span style="color: royalblue">{{ transaction.transfer.transferType.code | translate}}</span>)
                     </a>
                 </td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.status' | translate}}</td>
+                <td>{{transaction.status.value}}</td>
             </tr>
             <tr>
                 <td>{{ 'label.heading.date' | translate}}</td>

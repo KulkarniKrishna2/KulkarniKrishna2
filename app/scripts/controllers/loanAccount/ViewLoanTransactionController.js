@@ -10,19 +10,19 @@
 
             function init(){
                 resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
-                scope.transaction = data;
-                scope.glimTransactions = data.glimTransactions;
-                scope.transaction.accountId = routeParams.accountId;
-                scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
-                scope.transaction.updatedDate = new Date(scope.transaction.updatedDate.iLocalMillis);
-                scope.groupBankAccountDetails = data.bankAccountDetailsData;
-                if (scope.transaction.txnValueDateStatus && scope.transaction.txnValueDateStatus.id==1 && !scope.transaction.manuallyReversed) {
-                    scope.isValuedateUpdateRequired = true;
-                }
-                scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
-                scope.isUndoEditTrxnEnabled();
-                scope.getReversalReasonCodes();
-             });
+                    scope.transaction = data;
+                    scope.glimTransactions = data.glimTransactions;
+                    scope.transaction.accountId = routeParams.accountId;
+                    scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
+                    scope.transaction.updatedDate = new Date(scope.transaction.updatedDate.iLocalMillis);
+                    scope.groupBankAccountDetails = data.bankAccountDetailsData;
+                    if (scope.transaction.txnValueDateStatus && scope.transaction.txnValueDateStatus.id==1 && !scope.transaction.manuallyReversed) {
+                        scope.isValuedateUpdateRequired = true;
+                    }
+                    scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
+                    scope.isUndoEditTrxnEnabled();
+                    scope.getReversalReasonCodes();
+                });
             };
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount &&
