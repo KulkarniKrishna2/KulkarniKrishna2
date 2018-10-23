@@ -507,7 +507,7 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" autocomplete="off" id="firstName" name="firstName" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="familyMembersFormData.firstname" class="form-control" ng-autofocus="true"/>
+											<input type="text" autocomplete="off" id="firstName" name="firstName" ng-pattern="{{firstNamePattern}}" ng-model="familyMembersFormData.firstname" class="form-control" ng-autofocus="true"/>
 										</div>
 										<div class="col-sm-2">
 												<span class="error" ng-show="createFamilyDetails.firstName.$invalid  ">{{'label.only.text' | translate}}</span>
@@ -603,8 +603,9 @@
 												</label>
 							
 												<div class="col-sm-2">
-													<input id="age" type="text" autocomplete="off" name="age"
-														   ng-model="familyMembersFormData.age" class="form-control" placeholder="{{familyMembersFormData.age}}"/>
+													<input id="age" type="number" autocomplete="off" name="age"
+														   ng-model="familyMembersFormData.age" ng-minlength="1" ng-maxlength="3" min="{{familyMemberMinAge}}" max="{{familyMemberMaxAge}}" class="form-control" placeholder="{{familyMembersFormData.age}}" ng-change="validateAge()"/>
+													<span class="error" ng-hide="isValidAge">{{'label.input.dob.not.range' | translate}} {{familyMemberMinAge}} {{'label.input.and' | translate}} {{familyMemberMaxAge}}</span>	   
 												</div>
 												<div class="col-sm-2">
 													<form-validate valattributeform="createFamilyDetails" valattribute="age"/>

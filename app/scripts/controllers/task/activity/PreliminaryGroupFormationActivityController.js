@@ -16,7 +16,13 @@
                     scope.response.uiDisplayConfigurations.viewClient.familyDeatils) {
                     scope.showRadioType = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.showTypeAsRadio;
                 }
-
+                if(scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
+                    scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria){
+                    scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.minAge;
+                    scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.maxAge;
+                }
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     scope.officeId = scope.centerDetails.officeId;
@@ -223,6 +229,7 @@
                 $scope.restrictDate = new Date();
                 $scope.isMaritalStatusMandatory=true;
                 $scope.activeClientCount = scope.activeMembers;
+                $scope.firstNamePattern = scope.firstNamePattern;
 
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                     scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
@@ -292,6 +299,7 @@
                 }
                 $scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
                 $scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
+                
                 function getMaximumRestrictedDate(restrictedDate) {
 
                     restrictedDate.setYear(restrictedDate.getFullYear() - $scope.minAge);
@@ -539,6 +547,10 @@
                 $scope.displayCashFlow = false;
                 $scope.displaySurveyInfo = false;
                 $scope.isStreetNameMandatory=false;
+                $scope.firstNamePattern = scope.firstNamePattern;
+                $scope.familyMemberMinAge = scope.familyMemberMinAge;
+                $scope.familyMemberMaxAge = scope.familyMemberMaxAge;
+                $scope.isValidAge = true;
                
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                     scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown) {
@@ -680,6 +692,14 @@
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
                     initTask();
+                };
+                $scope.validateAge = function(){
+                    $scope.isValidAge = false;
+                    if($scope.familyMembersFormData.age){
+                        if($scope.familyMemberMinAge <= $scope.familyMembersFormData.age && $scope.familyMembersFormData.age <= $scope.familyMemberMaxAge){
+                            $scope.isValidAge = true;
+                        }
+                    }
                 };
 
                 function getClientData() {
@@ -956,6 +976,7 @@
                     $scope.isExisitingClient = false;
                     $scope.familyMembersFormData = {};
                     $scope.familyConditionType = {};
+
 
 
                     resourceFactory.familyDetailsTemplate.get({ clientId: $scope.clientId }, function (data) {

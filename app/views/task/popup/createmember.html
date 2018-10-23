@@ -57,7 +57,7 @@
 									</label>
 									<div class="col-sm-3">
 										<input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control"
-										ng-pattern="/^[a-zA-Z\s]*$/" ng-required="isFirstnameRequired" />
+										ng-pattern="{{firstNamePattern}}" ng-required="isFirstnameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.firstname.$invalid">{{'label.only.text' | translate}}</span>
 									</div>

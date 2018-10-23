@@ -146,6 +146,10 @@
             }
             scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
             scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
+
+            if(scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
+                scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
+            }
             function getMaximumRestrictedDate(restrictedDate) {
 
                 restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);

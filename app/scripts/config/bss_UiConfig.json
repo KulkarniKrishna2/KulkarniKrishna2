@@ -68,7 +68,11 @@
 			},
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{10,10}$/"
+			},
+			"isValidateFirstName":{
+				"firstNamePattern":"/^[a-zA-Z\\s]{3,}$/"
 			}
+				
 		},
 		"createCenter": {
 			"isHiddenField": {
@@ -80,7 +84,10 @@
 			},
 			"isAutoPopulate": {
 				"name": false
-			}
+			},
+		    "isValidateName":{
+			   "namePattern":"/^[a-zA-Z0-9\\s]{3,}$/"
+		    }
 		},
 		"createGroup": {
 			"isHiddenMenu": {
