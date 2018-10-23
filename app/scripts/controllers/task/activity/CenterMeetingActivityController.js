@@ -167,7 +167,7 @@
             });
 
             scope.$watch('first.date', function() {
-                if (scope.first.date && scope.first.date > scope.maxMeetingDate) {
+                if (scope.first.date && new Date(dateFilter(scope.first.date, scope.df)) > new Date(dateFilter(scope.maxMeetingDate, scope.df))) {
                     scope.first.date = null;
                 }
             });
