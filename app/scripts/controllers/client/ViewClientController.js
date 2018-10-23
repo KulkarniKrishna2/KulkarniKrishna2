@@ -6,7 +6,7 @@
                 delete $rootScope.isClientAdditionalDetailTabActive;
             }else{
                 var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
-                if(!_.isUndefined(savedTabs)){
+                if(savedTabs){
                     delete savedTabs.clientTabset;
                     delete savedTabs.clientADTabset;
                     localStorageService.addToLocalStorage('tabPersistence', savedTabs);
