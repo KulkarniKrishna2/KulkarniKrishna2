@@ -1516,7 +1516,7 @@
                 $modal.open({
                     templateUrl: 'showschedule.html',
                     controller: PreviewScheduleCtrl,
-                    windowClass: 'app-modal-window'
+                    windowClass: 'app-modal-window-full-screen'
                 });
             };
 
