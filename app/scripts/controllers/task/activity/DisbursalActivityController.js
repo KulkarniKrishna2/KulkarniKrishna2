@@ -654,7 +654,7 @@
                     $scope.formData.transactionAmount = loanData.principalAmount;
                     if (loanData.loanEMIPackData) {
                         $scope.formData.loanEMIPackId = loanData.loanEMIPackData.id;
-                        $scope.formData.fixedEmiAmount = loanData.loanEMIPackData.sanctionAmount;
+                        $scope.formData.fixedEmiAmount = loanData.loanEMIPackData.fixedEmi;
                     }
                     //tracking task 
                     if (loanData.clientId != null && scope.taskData.id != null && loanData.id) {
