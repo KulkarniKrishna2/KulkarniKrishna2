@@ -16,9 +16,10 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" placeholder="{{edit.name}}"
+                        <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" ng-pattern="{{namePattern}}" placeholder="{{edit.name}}"
                                ng-model="formData.name" class="form-control" required late-Validate
                                ng-disabled="response.uiDisplayConfigurations.createCenter.isReadOnlyField.name" />
+                               <span class="error" ng-show="editcenterform.name.$invalid && editcenterform.name.$dirty">{{'label.error.name.range' | translate}}</span>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="editcenterform" valattribute="name"/>

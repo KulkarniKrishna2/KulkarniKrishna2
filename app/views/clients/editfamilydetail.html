@@ -21,7 +21,7 @@
             </div>
         </script>
 
-        <form name="" novalidate="" class="form-horizontal well"
+        <form name="editFamilyDetails" novalidate="" class="form-horizontal well"
               rc-submit="submit()">
             <fieldset>
                 <legend>{{'label.anchor.edit.familymember' | translate}}</legend>
@@ -68,7 +68,7 @@
                         </select>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="salutation"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="salutation"/>
                     </div>
                 </div>
 
@@ -78,10 +78,11 @@
 
                     <div class="col-sm-3">
                         <input ng-autofocus="true" type="text" autocomplete="off" id="firstName" name="firstName"
-                               ng-model="formData.firstname" class="form-control" required late-validate/>
+                               ng-model="formData.firstname" ng-pattern="{{firstNamePattern}}" class="form-control" required late-validate/>
+                               <span class="error" ng-show="editFamilyDetails.firstname.$invalid">{{'label.only.text' | translate}}</span>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="firstName"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="firstName"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -93,7 +94,7 @@
                                ng-model="formData.middlename" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="middleName"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="middleName"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -105,7 +106,7 @@
                                ng-model="formData.lastname" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="lastName"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="lastName"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -151,7 +152,7 @@
                             required late-validate/>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="uniqueNo" />
+                        <form-validate valattributeform="editFamilyDetails" valattribute="uniqueNo" />
                     </div>
                 </div>
 
@@ -165,7 +166,7 @@
                                ng-model="formData.age" class="form-control"/>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="age"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="age"/>
                     </div>
 
                 </div>
@@ -223,7 +224,7 @@
                         </select>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="education"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="education"/>
                     </div>
                 </div>
 

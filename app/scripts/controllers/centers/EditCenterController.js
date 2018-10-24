@@ -6,6 +6,9 @@
             scope.first.date = new Date();
             scope.centerId = routeParams.id;
             scope.restrictDate = new Date();
+            if(scope.response && scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
+                scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
+            }
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
