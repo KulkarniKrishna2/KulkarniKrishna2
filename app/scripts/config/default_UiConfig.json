@@ -230,7 +230,7 @@
 				"name": true
 			},
 		    "isValidateName":{
-			  "namePattern":"/^[a-zA-Z0-9\\s]*$/"
+			  "namePattern":"/^[-@./#&+\\w\\s]*$/"
 		   }
 		},
 		"createGroup": {

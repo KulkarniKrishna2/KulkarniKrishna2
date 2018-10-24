@@ -86,7 +86,7 @@
 				"name": false
 			},
 		    "isValidateName":{
-			   "namePattern":"/^[a-zA-Z0-9\\s]{3,}$/"
+			   "namePattern":"/^[-@./#&+\\w\\s]{3,}$/"
 		    }
 		},
 		"createGroup": {

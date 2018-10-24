@@ -1246,7 +1246,7 @@
                     for(var j in centerDetails.subGroupMembers[i].memberData){
                         var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
                         if(isAllChecked){
-                            if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask){
+                            if(activeClientMember.status.code != 'clientStatusType.onHold' && activeClientMember.profileRatingScoreData.finalScore *20 >= scope.clientProfileRatingScoreForSuccess && !activeClientMember.isClientFinishedThisTask){
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
                                 scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
                                 scope.addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
