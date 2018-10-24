@@ -70,7 +70,7 @@
 				<label ng-hide="isStaffSelected" class="control-label col-sm-2">{{'label.heading.externalid' | translate}}<span
 							class="required">*</span></label>
 						<div class="col-sm-3">
-								<input ng-hide="isStaffSelected" type="text" name="externalId" class="form-control" ng-model="formData.externalId" required late-Validate/>
+								<input ng-hide="isStaffSelected" type="text" name="externalId" class="form-control" ng-model="formData.externalId" ng-required="!isStaffSelected" late-Validate/>
 						</div>
 						<div class="col-sm-3">
 	                        <form-validate valattributeform="createuserform" valattribute="externalId"/>
