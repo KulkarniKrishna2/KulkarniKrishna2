@@ -80,6 +80,11 @@
                                 <label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
                             <td>{{formData.submittedOnDate | DateFormat}}</td>
                         </tr>
+                        <tr ng-if="formRequestData.loanAccountNumber">
+                            <td>
+                                <label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</td>
+                            <td>{{formRequestData.loanAccountNumber}}</td>
+                        </tr>
                     </table>
                 </div>
                 <div class="col-md-6">
