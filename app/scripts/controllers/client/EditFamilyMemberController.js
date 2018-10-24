@@ -13,7 +13,9 @@
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
-
+            if(scope.response && scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
+                scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
+            }
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;
                 scope.relationshipOptions = data.relationshipOptions;
