@@ -63,6 +63,9 @@
                                    }
                               }
                               if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData != undefined){
+                                    if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.workflowLoanStatusEnum.code != "KotakApproved" && scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.workflowLoanStatusEnum.code != "KotakRejected"){
+                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.workflowLoanStatusEnum.value = "pending for approval";
+                                    }
                                     if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.status.id == 200){
                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = false;
                                         if(clientLevelTaskTrackObj != undefined && scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
