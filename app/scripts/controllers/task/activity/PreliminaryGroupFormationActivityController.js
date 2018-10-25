@@ -1753,8 +1753,9 @@
                                     centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
                                     if(activeClientMember.loanAccountBasicData){
                                         scope.captureMembersToNextStep(activeClientMember.id,activeClientMember.loanAccountBasicData.id,  activeClientMember.isMemberChecked);
+                                    }else {
+                                        scope.captureMembersToNextStep(activeClientMember.id, null, activeClientMember.isMemberChecked);
                                     }
-                                    scope.captureMembersToNextStep(activeClientMember.id,null,activeClientMember.isMemberChecked);
                                 }
                             }else{
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;

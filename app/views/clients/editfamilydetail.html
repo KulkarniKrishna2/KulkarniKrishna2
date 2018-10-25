@@ -78,8 +78,9 @@
 
                     <div class="col-sm-3">
                         <input ng-autofocus="true" type="text" autocomplete="off" id="firstName" name="firstName"
-                               ng-model="formData.firstname" ng-pattern="{{firstNamePattern}}" class="form-control" required late-validate/>
-                               <span class="error" ng-show="editFamilyDetails.firstname.$invalid">{{'label.only.text' | translate}}</span>
+                               ng-model="formData.firstname" ng-pattern="{{firstNamePattern}}" class="form-control" ng-required="isFirstnameRequired"/>
+                               <span class="error" ng-show="submitted && editFamilyDetails.firstName.$error.required">{{'label.error.required'|translate}}</span>
+                               <span class="error" ng-show="editFamilyDetails.firstName.$invalid && editFamilyDetails.firstName.$dirty">{{'label.only.text' | translate}}</span>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="editFamilyDetails" valattribute="firstName"/>
@@ -91,7 +92,7 @@
 
                     <div class="col-sm-3">
                         <input ng-autofocus="true" type="text" autocomplete="off" id="middleName" name="middleName"
-                               ng-model="formData.middlename" class="form-control" required late-validate/>
+                               ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="editFamilyDetails" valattribute="middleName"/>
@@ -103,7 +104,7 @@
 
                     <div class="col-sm-3">
                         <input ng-autofocus="true" type="text" autocomplete="off" id="lastName" name="lastName"
-                               ng-model="formData.lastname" class="form-control" required late-validate/>
+                               ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="editFamilyDetails" valattribute="lastName"/>
