@@ -4,11 +4,15 @@
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.restrictDate = new Date();
-
+            scope.maxDate  = new Date();
+            var maxDateInterval = 4;
+            scope.individualAccountTypeCode = "accountType.individual";
+            scope.maxDate.setYear(new Date(scope.maxDate.getFullYear() + maxDateInterval),scope.df);
             scope.formRequestData = {};
             scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.restrictDate), scope.df);
+            scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.restrictDate), scope.df);
             scope.loanApplicationReferenceTrancheDatas = [];
-
+            
             scope.charges = [];
             scope.existingCharges = [];
             var curIndex = 0;
@@ -89,7 +93,7 @@
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
-                if (scope.formData.groupId) {
+                if (scope.formData.groupId && scope.formData.accountType.code != scope.individualAccountTypeCode) {
                     scope.inparams.groupId = scope.formData.groupId;
                 }
                 scope.inparams.staffInSelectedOfficeOnly = true;
@@ -177,9 +181,9 @@
 
             scope.formValidationData = {};
             scope.formDataForValidtion = function () {
-                scope.formValidationData.submittedOnDate = dateFilter(scope.formData.submittedOnDate, scope.df);
+                scope.formValidationData.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
                 scope.formValidationData.clientId = scope.formData.clientId;
-                if (scope.formData.groupId) {
+                if (scope.formData.groupId && scope.formData.accountType.code != scope.individualAccountTypeCode) {
                     scope.formValidationData.groupId = scope.formData.groupId;
                 }
                 scope.previewClientLoanAccInfo();
@@ -320,9 +324,9 @@
 
                 scope.repaymentscheduleinfo = {};
 
-                var reqFirstDate = dateFilter(new Date(scope.formValidationData.submittedOnDate), scope.df);
-                var reqSecondDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
-                var reqThirdDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
+                var reqFirstDate = dateFilter(scope.formValidationData.submittedOnDate, scope.df);
+                var reqSecondDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
+                var reqThirdDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
                 //var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
                 if (scope.charges.length > 0) {
                     scope.formValidationData.charges = [];
@@ -641,7 +645,7 @@
                 scope.formRequestData.expectedDisbursementDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
                 scope.formRequestData.repaymentsStartingFromDate =  dateFilter(scope.formRequestData.repaymentsStartingFromDate, scope.df);
                 if(scope.formRequestData.approvedOnDate){
-                    scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate),scope.df);
+                    scope.formRequestData.approvedOnDate = dateFilter(scope.formRequestData.approvedOnDate,scope.df);
                 }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
