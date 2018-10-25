@@ -1,0 +1,119 @@
+<div class="col-md-12" ng-controller="MemberExchangeController">
+    <script type="text/ng-template" id="submitdetail.html">
+        <div class="modal-header silver">
+            
+        </div>
+        <div class="modal-body ">
+            <h3 class="bolder">{{'label.heading.transfer.client.active.loan.update.repayment.schedule' | translate}}</h3>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+            </li>
+            <li>
+                <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.member.transfer' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div ng-show="isError" class="error">{{errMsg | translate}}</div>
+    <br>
+    <div>
+
+        <div class="col-sm-12 col-md-12">
+            <div class="col-sm-6 col-sm-offset-3">
+                <select chosen="offices" id="OfficeId" ng-model="OfficeId" ng-change="getCenters(OfficeId)" class="form-control" ng-options="office.id as office.name for office in offices"
+                    value="{{office.id}}">
+                    <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-sm-offset-3" style="margin-top:10px">
+                <select chosen="centers" id="centerId" ng-model="centerId" ng-change="getGroupDetails(centerId)" class="form-control" ng-options="center.id as center.name for center in centers"
+                    value="{{center.id}}">
+                    <option value="">{{'label.menu.selectcenter' | translate}}</option>
+                </select>
+            </div>
+        </div>
+        <br/>
+        <div class="col-sm-12 col-md-12 graybg">
+            <div class="col-sm-6 col-md-6 graybg" ng-show="centerId">
+                <label class="control-label col-sm-4">{{'label.heading.fromgroup' | translate}}</label>
+            </div>
+            <div class="col-sm-6 col-md-6 graybg" ng-show="centerId">
+                <label class=" control-label col-sm-4">{{'label.heading.togroup' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6" ng-show="centerId">
+            <div class="col-sm-12">
+                <select chosen="groups" id="fromGroupId" ng-model="fromGroup" ng-change="getClients(fromGroup.activeClientMembers)" class="form-control"
+                    ng-options="group as group.name for group in groups" value="{{group}}">
+                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                </select>
+            </div>
+            <div ng-repeat="client in fromGroup.activeClientMembers" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
+                <input type="checkbox" ng-model="client.checked" ng-change="selectClients(client)"> {{client.displayName}}-({{client.referenceNumber}})
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6" ng-show="centerId">
+            <div class="col-sm-12">
+                <select chosen="groups" id="toGroupId" ng-model="toGroup" class="form-control" ng-options="group as group.name for group in groups"
+                    value="{{group}}">
+                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                </select>
+
+            </div>
+            <div ng-repeat="client in toGroup.activeClientMembers" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
+                <input type="checkbox" ng-model="client.checked" ng-change="selectClients(client)"> {{client.displayName}}-({{client.referenceNumber}})
+            </div>
+        </div>
+        <div class="col-sm-12" ng-show="centerId">
+            <div class="col-md-offset-5">
+                <a id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" ng-click="addDetails(fromGroup,toGroup)" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.add' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-12" ng-show="dataList.length>0">
+        <table class="table well ">
+            <thead>
+                <tr class="graybg" style="height:60px;">
+                    <th colspan="2">{{'label.heading.fromgroup' | translate}}</th>
+                    <th colspan="2">{{'label.heading.togroup' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in dataList" style="height:60px;cursor: pointer;">
+                    <td class="pointer">{{data.fromGroup.name}}</td>
+                    <td class="pointer">
+                        <div class="col-sm-12" ng-repeat="client in data.fromGroup.clients">
+                            <span>{{client.name}}</span>
+                        </div>
+                    </td>
+                    <td class="pointer">{{data.toGroup.name}}</td>
+                    <td class="pointer">
+                        <div class="col-sm-12" ng-repeat="client in data.toGroup.clients">
+                            <span>{{client.name}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="remove($index)" class="btn btn-danger">
+                            <i tooltip="Delete" class="icon-trash icon-white"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-offset-5">
+            <a id="cancel" class="btn btn-default" ng-click="deleteSubmitDetails()">{{'label.button.cancel' | translate}}</a>
+            <button id="submit" type="submit" ng-click="submitDetails()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.submit' | translate}}</button>
+        </div>
+    </div>
+</div>

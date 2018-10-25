@@ -1884,6 +1884,15 @@
             .when('/transactiontypemapping/edittransactiontype/:mappingId', {
                 templateUrl: 'views/accounting/edittransactiontype.html'
             })
+            .when('/exchange/client', {
+                templateUrl: 'views/transfer/memberexchange.html'
+            })
+            .when('/transfer/viewmemberexchange', {
+                templateUrl: 'views/transfer/viewmemberexchange.html'
+            })            
+            .when('/transfer/memberexchange', {
+                templateUrl: 'views/transfer/memberexchange.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
