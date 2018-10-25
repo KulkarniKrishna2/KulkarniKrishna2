@@ -646,7 +646,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/CreateNewTransactionTypeController',
             'accounting/ViewTransactionTypeController',
             'accounting/EditTransactionTypeController',
-            'client/ClientDeduplicationCheckController'
+            'client/ClientDeduplicationCheckController',
+            'transfer/MemberExchangeController',
+            'transfer/ViewMemberExchangeController'
         ],
         filters: [
             'StatusLookup',
