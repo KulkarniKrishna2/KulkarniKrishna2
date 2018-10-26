@@ -215,7 +215,7 @@
 									<span data-ng-hide="hideSavingsAccountNumber" style="font-size: 12px;">{{'label.heading.savingaccountno' | translate}}:({{savings.accountId}}) </span>
 									<input id="dueAmount" number-format type="text" autocomplete="off" number-format placeholder="{{'label.heading.deposit' | translate}}"
 										   ng-model="savings.dueAmount"
-										   ng-change="sumTotalDueCollection()">
+										   ng-change="sumTotalDueCollection()" ng-disabled="isFDAccount(savings)">
 								</div>
 								<div ng-show="isWithDrawForSavingsIncludedInCollectionSheet" >
 									<span style="font-size: 12px;">  </span>
