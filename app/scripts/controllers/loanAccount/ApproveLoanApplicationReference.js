@@ -93,7 +93,7 @@
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
-                if (scope.formData.groupId && scope.formData.accountType.code != scope.individualAccountTypeCode) {
+                if (scope.formData.groupId) {
                     scope.inparams.groupId = scope.formData.groupId;
                 }
                 scope.inparams.staffInSelectedOfficeOnly = true;
@@ -183,7 +183,7 @@
             scope.formDataForValidtion = function () {
                 scope.formValidationData.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
                 scope.formValidationData.clientId = scope.formData.clientId;
-                if (scope.formData.groupId && scope.formData.accountType.code != scope.individualAccountTypeCode) {
+                if (scope.formData.groupId) {
                     scope.formValidationData.groupId = scope.formData.groupId;
                 }
                 scope.previewClientLoanAccInfo();
