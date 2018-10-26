@@ -872,7 +872,9 @@
                     }
                 }
             };
-
+           scope.isFDAccount = function(savings){
+             return (savings.depositAccountType.code == "depositAccountType.fixedDeposit");              
+            }
             scope.isDescriptionAvailable = function(data){
                 scope.showText = false;
                 if(data && data.reasonId && data.codeReasonId){
