@@ -396,7 +396,7 @@
                                         <tr>
                                             <td><label>{{ 'label.input.approvedondate' | translate }}:</label>&nbsp;
                                             </td>
-                                            <td>{{formData.approvedData.approvedOnDate | DateFormat}}</td>
+                                            <td>{{formData.approvedData.approvedOnDate }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -437,7 +437,7 @@
                                         <tr>
                                             <td><label>{{ 'label.input.expecteddisbursementon' | translate }}:</label>&nbsp;
                                             </td>
-                                            <td>{{formData.approvedData.expectedDisbursementDate | DateFormat}}</td>
+                                            <td>{{formData.approvedData.expectedDisbursementDate }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -573,7 +573,7 @@
                                                        datepicker-pop="{{df}}"
                                                        placeholder="{{'label.tooltip.disbursementon' | translate}}"
                                                        ng-model="formRequestData.disburse.actualDisbursementDate"
-                                                       is-open="opened" min="minDate" max="'2020-06-22'"
+                                                       is-open="opened" min="minDate" max="maxDate"
                                                        class="form-control"
                                                        required/>
                                             </td>
@@ -592,7 +592,7 @@
                                                 <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
                                                        type="text" autocomplete="off" datepicker-pop="{{df}}"
                                                        ng-model="date.repaymentsStartingFromDate" is-open="opened3"
-                                                       min="minDate" max="'2020-06-22'" class="form-control"
+                                                       min="minDate" max="maxDate" class="form-control"
                                                        ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
                                             </td>
                                         </tr>
@@ -632,7 +632,7 @@
                                                 <input id="interestChargedFromDate" type="text" autocomplete="off"
                                                        datepicker-pop="{{df}}"
                                                        ng-model="date.interestChargedFromDate"
-                                                       is-open="opened2" min="minDate" max="'2020-06-22'"
+                                                       is-open="opened2" min="minDate" max="maxDate"
                                                        class="form-control"
                                                        ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate"/>
                                             </td>
