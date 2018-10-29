@@ -52,7 +52,7 @@
 
         <div class="col-sm-6 col-md-6" ng-show="centerId">
             <div class="col-sm-12">
-                <select chosen="groups" id="fromGroupId" ng-model="fromGroup" ng-change="getClients(fromGroup.activeClientMembers)" class="form-control"
+                <select chosen="groups" id="fromGroupId" ng-model="fromGroup" ng-change="getClients(fromGroup.activeClientMembers);getToGroupDetails(fromGroup)" class="form-control"
                     ng-options="group as group.name for group in groups" value="{{group}}">
                     <option value="">{{'label.menu.selectone' | translate}}</option>
                 </select>
@@ -63,11 +63,10 @@
         </div>
         <div class="col-sm-6 col-md-6" ng-show="centerId">
             <div class="col-sm-12">
-                <select chosen="groups" id="toGroupId" ng-model="toGroup" class="form-control" ng-options="group as group.name for group in groups"
+                <select chosen="exchangeGroups" id="toGroupId" ng-model="toGroup" class="form-control" ng-options="group as group.name for group in exchangeGroups"
                     value="{{group}}">
                     <option value="">{{'label.menu.selectone' | translate}}</option>
                 </select>
-
             </div>
             <div ng-repeat="client in toGroup.activeClientMembers" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
                 <input type="checkbox" ng-model="client.checked" ng-change="selectClients(client)"> {{client.displayName}}-({{client.referenceNumber}})
