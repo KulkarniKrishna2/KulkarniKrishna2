@@ -632,7 +632,12 @@
                         }
                     }
                     resourceFactory.batchResource.post({ 'enclosingTransaction': true }, $scope.batchRequests, function (data) {
-                        initTask();
+                        if(data.length > 0 && (data[data.length-1].requestId == data.length)){
+                            $modalInstance.close();
+                            initTask();
+                        }else{
+                            $modalInstance.close();
+                        }
                     });
                     
                 }
@@ -870,7 +875,7 @@
 
                     //batch call
                     resourceFactory.batchResource.post({'enclosingTransaction':true},$scope.batchRequests, function (data) {
-                        if(data[data.length-1].requestId == data.length){
+                        if(data.length > 0 && data[data.length-1].requestId == data.length){
                             $modalInstance.close();
                             initTask();
                         }else{
