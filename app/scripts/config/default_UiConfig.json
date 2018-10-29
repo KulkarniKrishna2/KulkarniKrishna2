@@ -426,6 +426,9 @@
 			"selfActive": false,
 			"isMandatoryField": {
 				"addressType": false
+			},
+			"isHiddenField" :{
+				"pincode" : false
 			}
 		},
 		"createJlgLoan": {
