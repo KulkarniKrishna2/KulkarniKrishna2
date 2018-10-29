@@ -623,7 +623,7 @@
             scope.viewSavingsTransactionReceipts = function (transactionId) {
                 scope.report = true;
                 scope.viewTransactionReport = true;
-                scope.viewSavingReport = false;
+                scope.viewSavingReport = true;
                 scope.printbtn = false;
                 scope.viewReport = true;
                 scope.hidePentahoReport = true;
