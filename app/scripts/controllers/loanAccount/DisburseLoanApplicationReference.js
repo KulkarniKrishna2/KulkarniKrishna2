@@ -2,7 +2,10 @@
     mifosX.controllers = _.extend(module, {
 
         DisburseLoanApplicationReference: function (scope, routeParams, resourceFactory, location, $modal, dateFilter, $filter) {
-
+            scope.maxDate  = new Date();
+            var maxDateInterval = 4;
+            scope.maxDate.setYear(new Date(scope.maxDate.getFullYear() + maxDateInterval),scope.df);
+           
             scope.issubmitted = false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.restrictDate = new Date();
@@ -44,6 +47,7 @@
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
+                scope.formData.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate));
                 if(scope.formData.expectedDisbursalPaymentType && scope.formData.expectedDisbursalPaymentType.name){
                     scope.formRequestData.disburse.paymentTypeId = scope.formData.expectedDisbursalPaymentType.id;
                     if(scope.formData.expectedDisbursalPaymentType.paymentMode){
@@ -87,7 +91,10 @@
                     }, function (data) {
                         scope.formData.approvedData = {};
                         scope.formData.approvedData = data;
-                        scope.date.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.expectedDisbursementDate), scope.df);
+                        scope.formData.approvedData.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.expectedDisbursementDate), scope.df);
+                        scope.formData.approvedData.approvedOnDate = dateFilter(new Date(scope.formData.approvedData.approvedOnDate), scope.df);
+                        scope.date.expectedDisbursementDate = scope.formData.approvedData.expectedDisbursementDate;
+                        scope.date.approvedOnDate = scope.formData.approvedData.approvedOnDate;
                         if (scope.formData.approvedData.repaymentsStartingFromDate) {
                             scope.date.repaymentsStartingFromDate = dateFilter(new Date(scope.formData.approvedData.repaymentsStartingFromDate), scope.df);
                         }
@@ -95,7 +102,7 @@
                             for (var j in scope.formData.approvedData.loanApplicationSanctionTrancheDatas) {
                                 if (scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate) {
                                     var disbursementData = {};
-                                    disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate), scope.df);
+                                    disbursementData.expectedDisbursementDate = dateFilter(scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate, scope.df);
                                     disbursementData.principal = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].trancheAmount;
                                     disbursementData.discountOnDisbursalAmount = scope.formData.approvedData.loanApplicationSanctionTrancheDatas[j].discountOnDisbursalAmount;
                                     scope.formRequestData.submitApplication.disbursementData.push(disbursementData);
@@ -416,7 +423,7 @@
                 }
 
                 this.formRequestData.submitApplication.loanType = scope.inparams.templateType;
-                this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.expectedDisbursementDate), scope.df);
+                this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(scope.formData.approvedData.expectedDisbursementDate, scope.df);
                 this.formRequestData.submitApplication.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
                 this.formRequestData.submitApplication.locale = scope.optlang.code;
                 this.formRequestData.submitApplication.dateFormat = scope.df;
@@ -427,7 +434,7 @@
                 scope.formRequestPreveieData = angular.copy(scope.formRequestData.submitApplication);
                 delete scope.formRequestPreveieData.syncRepaymentsWithMeeting;
                 if (scope.formRequestData.disburse.actualDisbursementDate) {
-                    scope.formRequestPreveieData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.actualDisbursementDate), scope.df);
+                    scope.formRequestPreveieData.expectedDisbursementDate = dateFilter(scope.formRequestData.disburse.actualDisbursementDate, scope.df);
                 } else {
                     delete scope.formRequestPreveieData.expectedDisbursementDate;
                 }
@@ -451,7 +458,7 @@
                                 disbursementData.principal = scope.formRequestData.disburse.transactionAmount;
                                 disbursementData.discountOnDisbursalAmount= scope.formRequestData.disburse.discountOnDisbursalAmount;
                             }else{
-                                disbursementData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate), scope.df);
+                                disbursementData.expectedDisbursementDate = dateFilter(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate, scope.df);
                                 disbursementData.principal = scope.formRequestData.submitApplication.disbursementData[i].principal;
                                 disbursementData.discountOnDisbursalAmount= scope.formRequestData.submitApplication.disbursementData[i].discountOnDisbursalAmount;
                             }
@@ -538,8 +545,8 @@
                 }
                 //delete this.formRequestData.submitApplication.syncRepaymentsWithMeeting;
 
-                if (scope.date.interestChargedFromDate) {
-                    this.formRequestData.submitApplication.interestChargedFromDate = dateFilter(new Date(scope.date.interestChargedFromDate), scope.df);
+                if (!_.isUndefined(scope.date.interestChargedFromDate)) {
+                    this.formRequestData.submitApplication.interestChargedFromDate = dateFilter(scope.date.interestChargedFromDate, scope.df);
                 }
                 if (scope.date.repaymentsStartingFromDate) {
                     this.formRequestData.submitApplication.repaymentsStartingFromDate = dateFilter(new Date(scope.date.repaymentsStartingFromDate), scope.df);
@@ -558,7 +565,7 @@
                 }
 
                 this.formRequestData.submitApplication.loanType = scope.inparams.templateType;
-                this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(scope.date.expectedDisbursementDate), scope.df);
+                this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(scope.date.expectedDisbursementDate, scope.df);
                 this.formRequestData.submitApplication.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
 
                 this.formRequestData.submitApplication.createStandingInstructionAtDisbursement = scope.formRequestData.createStandingInstructionAtDisbursement;
@@ -567,7 +574,7 @@
                 this.formRequestData.submitApplication.dateFormat = scope.df;
 
                 if (this.formRequestData.disburse.actualDisbursementDate) {
-                    this.formRequestData.disburse.actualDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.actualDisbursementDate), scope.df)
+                    this.formRequestData.disburse.actualDisbursementDate = dateFilter(this.formRequestData.disburse.actualDisbursementDate, scope.df)
                 }
                 this.formRequestData.disburse.locale = scope.optlang.code;
                 this.formRequestData.disburse.dateFormat = scope.df;
