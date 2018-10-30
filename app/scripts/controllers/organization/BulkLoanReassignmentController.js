@@ -669,9 +669,8 @@
                 this.formData.rescheduleReasonComment = scope.comments;
                 var submittedOn = dateFilter(scope.third.date, scope.df);
                 this.formData.submittedOnDate = submittedOn;
-            delete this.formData.loanOfficerId;
-            delete this.formData.assignmentDate;
-            console.log('this.formData: ',this.formData);
+                delete this.formData.loanOfficerId;
+                delete this.formData.assignmentDate;
                 resourceFactory.loanRescheduleResource.put({command:'bulkcreateandapprove'},this.formData, function (data) {
                 	location.path('/organization')
                 });
