@@ -233,21 +233,21 @@
             <td class="width14"></td>
             <td class="width36 paddedbottom10"></td>
         </tr>
-        <tr ng-if="showDrawingPower">
+        <tr ng-if="showDrawingPower && formData.allowOverdraft">
             <td colspan="2" class="paddedbottom10">
                 <input type="checkbox" ng-model="formData.allowDpLimit" ng-disabled="disableAllowDpLimit"> &nbsp;<span
                     class="control-label">{{ 'label.input.allowdplimit' | translate }}&nbsp;</span>
             </td>
-            <td class="width14" >
+            <td ng-if="formData.allowDpLimit" class="width14" >
                 <label class="control-label">{{ 'label.input.dplimit' | translate
                     }}&nbsp;<span class="required">*</span></label></td>
-            <td class="width36 paddedbottom10" >
+            <td ng-if="formData.allowDpLimit" class="width36 paddedbottom10" >
                 <input  id="dpLimitAmount" name="dpLimitAmount" type="text" autocomplete="off" class="form-control"
                        ng-model="formData.dpLimitAmount" number-format required late-validate>
                 <form-validate valattributeform="newsavingccountform" valattribute="dpLimitAmount"/>
             </td>
         </tr>
-        <tr ng-if="showDrawingPower">
+        <tr ng-if="showDrawingPower && formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
@@ -270,7 +270,7 @@
                 {{savingsProductDrawingPowerDetailsData.frequencyInterval}}
             </td>
         </tr>
-        <tr ng-if="showDrawingPower">
+        <tr ng-if="showDrawingPower && formData.allowOverdraft && formData.allowDpLimit">
             <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
                     class="required">*</span></label></td>
             <td class="width36 paddedbottom10">
