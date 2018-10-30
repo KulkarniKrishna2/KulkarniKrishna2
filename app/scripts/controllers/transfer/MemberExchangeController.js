@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MemberExchangeController: function (scope, resourceFactory, location, dateFilter, http, routeParams, $modal, $rootScope) {
+        MemberExchangeController: function (scope, resourceFactory, location, dateFilter, http, routeParams, $modal, $rootScope,$filter) {
             scope.offices = [];
             scope.centers = [];
             scope.clientToGroupTransferType = 400;
@@ -35,10 +35,44 @@
                 }
 
             };
+            scope.getToGroupDetails = function(fromGroup){
+                scope.exchangeGroups = [];
+                if(!_.isUndefined(fromGroup)){
+                    angular.copy(scope.groups, scope.exchangeGroups);               
+                    var index = scope.exchangeGroups.findIndex(x => x.name == fromGroup.name);
+                    if(index >= 0){
+                        scope.exchangeGroups.splice(index,1); 
+                    }
+                }
+            }
 
 
             scope.remove = function (index) {
-                scope.dataList.splice(index, 1)
+                if(scope.dataList[index]){
+                    if(scope.dataList[index].fromGroup && scope.dataList[index].fromGroup.clients){
+                        var clients = scope.dataList[index].fromGroup.clients;
+                        for(var i in clients){
+                            var idx = scope.fromGroup.oldActiveClientMembers.findIndex(x => x.id == clients[i].id);
+                            if(idx >= 0){
+                               scope.fromGroup.oldActiveClientMembers[idx].checked = false; 
+                               scope.fromGroup.activeClientMembers.push(scope.fromGroup.oldActiveClientMembers[idx]); 
+                            }
+                        }
+
+                    }
+                    if(scope.dataList[index].toGroup && scope.dataList[index].toGroup.clients){
+                        var clients = scope.dataList[index].toGroup.clients;
+                        for(var i in clients){
+                            var idx = scope.toGroup.oldActiveClientMembers.findIndex(x => x.id == clients[i].id);
+                            if(idx >= 0){
+                               scope.toGroup.oldActiveClientMembers[idx].checked = false; 
+                               scope.toGroup.activeClientMembers.push(scope.toGroup.oldActiveClientMembers[idx]); 
+                            }
+                        }
+
+                    }
+                }
+                scope.dataList.splice(index, 1);
             };
 
             scope.cancel = function () {
@@ -64,7 +98,13 @@
                     return;
                     scope.isError = false;
                 }
-            };
+                scope.fromGroup.oldActiveClientMembers = [];
+                scope.toGroup.oldActiveClientMembers = [];
+                angular.copy(scope.fromGroup.activeClientMembers,scope.fromGroup.oldActiveClientMembers);
+                angular.copy(scope.toGroup.activeClientMembers,scope.toGroup.oldActiveClientMembers);
+                scope.fromGroup.activeClientMembers = $filter('filter')(scope.fromGroup.activeClientMembers,{ checked: false }) || [];
+                scope.toGroup.activeClientMembers = $filter('filter')(scope.toGroup.activeClientMembers,{ checked: false }) || [];
+            };  
 
             scope.validateData = function (fromGroup, toGroup) {
                 scope.isError = false;
@@ -138,10 +178,9 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
-
         }
     });
-    mifosX.ng.application.controller('MemberExchangeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', '$modal', '$rootScope', mifosX.controllers.MemberExchangeController]).run(function ($log) {
+    mifosX.ng.application.controller('MemberExchangeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', '$modal', '$rootScope','$filter', mifosX.controllers.MemberExchangeController]).run(function ($log) {
         $log.info("MemberExchangeController initialized");
     });
 }(mifosX.controllers || {}));
