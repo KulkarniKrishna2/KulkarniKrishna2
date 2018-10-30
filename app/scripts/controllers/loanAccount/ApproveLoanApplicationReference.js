@@ -22,6 +22,7 @@
             scope.installmentAmountSlabChargeType = 1;
             scope.isTrancheAmoumtReadOnly = false;
             scope.loanType="individual";
+            scope.showLoanEmiPack = false;
 
             scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
             scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
@@ -57,6 +58,10 @@
                     scope.loanApplicationReferenceTrancheDatas = applicationTrancheData;
                 }
              });
+
+            scope.changeLoanEmiPacks = function(){
+                scope.showLoanEmiPack = true;
+            };
 
             scope.constructExistingCharges = function (index, chargeId) {
                 resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
