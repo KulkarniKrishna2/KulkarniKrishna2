@@ -475,9 +475,13 @@
                                 $scope.loanAccountFormData.charges.push({
                                     chargeId: $scope.charges[i].chargeId,
                                     amount: $scope.charges[i].amount,
-                                    dueDate: dateFilter($scope.charges[i].dueDate, scope.df),
                                     upfrontChargesAmount: $scope.charges[i].glims
                                 });
+                                if(!_.isUndefined($scope.charges[i].dueDate)){
+                                    $scope.loanAccountFormData.charges.push({
+                                        dueDate: dateFilter($scope.charges[i].dueDate, scope.df)
+                                    });
+                                }
                             }
                         }
                     }
@@ -903,9 +907,13 @@
                                 $scope.editLoanAccountdata.charges.push({
                                     id: $scope.charges[i].id,
                                     chargeId: $scope.charges[i].chargeId,
-                                    amount: $scope.charges[i].amountOrPercentage,
-                                    dueDate: dateFilter($scope.charges[i].dueDate, scope.df)
+                                    amount: $scope.charges[i].amountOrPercentage          
                                 });
+                                if(!_.isUndefined($scope.charges[i].dueDate)){
+                                   $scope.editLoanAccountdata.charges.push({
+                                        dueDate: dateFilter($scope.charges[i].dueDate, scope.df)
+                                   }); 
+                                }
                             }
                         }
                     }else{
@@ -973,7 +981,9 @@
                         $scope.charges = data.charges;
                         for (var j in $scope.charges) {
                             var charge = $scope.charges[j];
-                            charge.dueDate = new Date(dateFilter(charge.dueDate, scope.df));
+                            if(!_.isUndefined(charge.dueDate)){
+                                charge.dueDate = new Date(dateFilter(charge.dueDate, scope.df)); 
+                            }
                             charge.isShowDate = false;
                             if (charge.chargeTimeType.code == 'chargeTimeType.specifiedDueDate') {
                                 charge.isShowDate = true;
