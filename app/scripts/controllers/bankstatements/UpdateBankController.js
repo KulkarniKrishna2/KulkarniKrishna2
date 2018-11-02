@@ -8,6 +8,7 @@
                 resourceFactory.accountCoaResource.getAllAccountCoas(function (glAccounts) {
                     scope.glAccounts = glAccounts;
                     scope.formData = data;
+                    scope.formData.glAccount = data.glAccount.id;
 
                 });
             });
