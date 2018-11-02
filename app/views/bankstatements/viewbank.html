@@ -25,8 +25,8 @@
         <tr ng-repeat="bank in banks">
 
             <td>{{bank.name}}</td>
-            <td>{{bank.glAccount}}</td>
-            <td>{{bank.glCode}}</td>
+            <td>{{bank.glAccount.name}}</td>
+            <td>{{bank.glAccount.glCode}}</td>
             <td>{{bank.supportSimplifiedStatement}}</td>
             <td>
                 <a  has-permission="UPDATE_BANK" href='#/updatebank/{{bank.id}}' class="btn btn-primary" role="button"><i class="icon-white icon-edit"></i>{{'label.button.updatebank' | translate}}</a>&nbsp;&nbsp;
