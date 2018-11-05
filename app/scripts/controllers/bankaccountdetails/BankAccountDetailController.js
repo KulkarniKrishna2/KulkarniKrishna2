@@ -5,10 +5,12 @@
             scope.entityId = routeParams.entityId;
             scope.clientId=routeParams.entityId;
             scope.clientBankAccountDetailAssociationId=routeParams.clientBankAccountDetailAssociationId;
+            scope.eventType = "view";
 
             var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
                 entityId:scope.entityId,
-                clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId}};
+                clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,
+                eventType:scope.eventType}};
             if(scope.commonConfig === undefined){
                 scope.commonConfig = {};
             }

@@ -3,6 +3,29 @@
         bankaccountActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
             scope.formData = {};
             scope.bankAccountData ={};
+            scope.isBankAccountDeatilsAvailable = false;
+            function getBankAssociationsDetails(){
+                resourceFactory.bankAccountDetailResource.getAll({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
+                        if(!_.isUndefined(data[0])){
+                            scope.clientBankAccountDetailAssociationId =  data[0].bankAccountAssociationId;
+                            scope.eventType = "view"; 
+                        } else{
+                            scope.eventType = "create";
+                        } 
+                        //multiple bank account activity
+                        if(!_.isUndefined(scope.commonConfig)) {
+                            scope.eventType = scope.commonConfig.bankAccount.eventType;
+                        }
+                        var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
+                                                entityId:scope.entityId,clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,
+                                                eventType:scope.eventType}};
+                        if(scope.commonConfig === undefined){
+                            scope.commonConfig = {};
+                        }
+                        angular.extend(scope.commonConfig,bankAccountConfig); 
+                        scope.isBankAccountDeatilsAvailable = true;                
+                });               
+            }
 
             function initTask() {
                 scope.isTask = true;
@@ -29,15 +52,8 @@
                     scope.entityType = "clients";
                     scope.entityId = scope.taskconfig['clientId'];
                 }
-                var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
-                    entityId:scope.entityId}};
-                if(scope.commonConfig === undefined){
-                    scope.commonConfig = {};
-                }
-                angular.extend(scope.commonConfig,bankAccountConfig);
-
-
-                // populateDetails();
+                
+                getBankAssociationsDetails();
             };
 
             initTask();

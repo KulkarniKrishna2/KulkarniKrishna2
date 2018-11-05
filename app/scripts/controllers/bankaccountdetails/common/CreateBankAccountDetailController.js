@@ -4,9 +4,10 @@
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
             scope.clientId=routeParams.entityId;
+            scope.eventType = "create";
 
             var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
-                entityId:scope.entityId}};
+                entityId:scope.entityId,eventType:scope.eventType}};
             if(scope.commonConfig === undefined){
                 scope.commonConfig = {};
             }
