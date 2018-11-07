@@ -796,7 +796,7 @@
                                                                 <tr class="pointer-main"  ng-repeat="bankAccountDetail in bankAccountDetails">
                                                                     <td class="col-md-1"></td>
                                                                     <td class="col-md-1">
-                                                                        <input type="radio" ng-model="formData.bankAccountDetailId" value="{{bankAccountDetail.id}}"/>
+                                                                        <input type="radio" ng-model="formData.bankAccountDetailId" value="{{bankAccountDetail.id}}" ng-click="radioCheckUncheck()"/>
                                                                     </td>
                                                                     <td class="col-md-1">{{bankAccountDetail.name}}</td>
                                                                     <td class="col-md-1">{{bankAccountDetail.accountNumber}}</td>

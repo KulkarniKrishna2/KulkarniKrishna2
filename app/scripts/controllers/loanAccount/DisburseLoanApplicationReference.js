@@ -721,6 +721,11 @@
                 });
                 
             };
+            scope.radioCheckUncheck = function(){
+                if(this.formData.bankAccountDetailId){
+                    this.formData.bankAccountDetailId = null;
+                }
+            };
         }
     });
     mifosX.ng.application.controller('DisburseLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal','dateFilter', '$filter', mifosX.controllers.DisburseLoanApplicationReference]).run(function ($log) {
