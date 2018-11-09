@@ -144,7 +144,7 @@
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activationDate = reqDate;
-                if(scope.response != undefined && scope.isNameAutoPopulate && !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions){
+                if(scope.response != undefined && scope.isNameAutoPopulate && !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions && !scope.createWithoutVillage){
                     this.formData.name = scope.villageCount.villageName +" "+ (scope.villageCount.counter+1);
                 }
 
