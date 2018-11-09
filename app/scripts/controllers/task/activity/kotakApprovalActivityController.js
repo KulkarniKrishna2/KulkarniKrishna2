@@ -3,6 +3,20 @@
         kotakApprovalActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
+            function initializeLoanAccountStatus(member){
+                if(member.loanAccountBasicData != undefined){
+                    if(member.loanAccountBasicData.status.id == 200){
+                        member.loanAccountBasicData.isNotLoanApproved = false;
+                        member.isMemberChecked = true;
+                        scope.captureMembersToNextStep(member.id,member.loanAccountBasicData.id,member.isMemberChecked);
+                        scope.totalMember++;
+
+                    }else{
+                        member.isNotLoanApproved = true;
+                    }
+                }
+            }
+
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
@@ -45,10 +59,12 @@
                                               scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                               scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
                                               scope.isAllClientFinishedThisTask = false;
+                                              initializeLoanAccountStatus(scope.centerDetails.subGroupMembers[i].memberData[j]);
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
                                             scope.isAllClientFinishedThisTask = false;
+                                            initializeLoanAccountStatus(scope.centerDetails.subGroupMembers[i].memberData[j]);
                                         }
                                     }
                               }else if(clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)){
@@ -60,23 +76,8 @@
                                       scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                       scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
                                        scope.isAllClientFinishedThisTask = false;
+                                       initializeLoanAccountStatus(scope.centerDetails.subGroupMembers[i].memberData[j]);
                                    }
-                              }
-                              if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData != undefined){
-                                    if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.workflowLoanStatusEnum.code != "KotakApproved" && scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.workflowLoanStatusEnum.code != "KotakRejected"){
-                                        scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.workflowLoanStatusEnum.value = "pending for approval";
-                                    }
-                                    if(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.status.id == 200){
-                                       scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = false;
-                                        if(clientLevelTaskTrackObj != undefined && scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                            var activeMember = scope.centerDetails.subGroupMembers[i].memberData[j];
-                                            scope.captureMembersToNextStep(activeMember.id,activeMember.loanAccountBasicData.id,activeMember.isMemberChecked);
-                                            scope.totalMember++;
-                                        }
-                                    }else{
-                                       scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.isNotLoanApproved = true;
-                                    }
                               }
                             }
                         }
