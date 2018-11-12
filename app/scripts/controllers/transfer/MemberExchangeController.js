@@ -19,7 +19,7 @@
                 scope.groups = [];
                 scope.clients = [];
                 if (officeId) {
-                    resourceFactory.centerResource.getAllCenters({ officeId: scope.fromOfficeId}, function (data) {
+                    resourceFactory.centerResource.getAllCenters({ officeId: officeId}, function (data) {
                         scope.centers = data.pageItems;
                     });
                 }

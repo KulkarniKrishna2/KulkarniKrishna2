@@ -204,12 +204,16 @@
 
                 $scope.submitQuery = function () {
                     $scope.queryFormData.queries = $scope.selectedQueries;
-                    $scope.activity = "query";
-                    resourceFactory.taskClientLevelQueryResource.raiseQuery({bankApproveId:$scope.bankApproveId,activity:$scope.activity}, $scope.queryFormData, function (data) {
-                        $modalInstance.close('raisequery');
-                        location.path('/workflowbankapprovallist');
-                    });
-
+                    if($scope.queryFormData.queries.length > 0){
+                        $scope.activity = "query";
+                        resourceFactory.taskClientLevelQueryResource.raiseQuery({bankApproveId:$scope.bankApproveId,activity:$scope.activity}, $scope.queryFormData, function (data) {
+                            $modalInstance.close('raisequery');
+                            location.path('/workflowbankapprovallist');
+                        });
+                    }else{
+                    $scope.error = true;
+                    return false;
+                    }
                 };
 
             };
