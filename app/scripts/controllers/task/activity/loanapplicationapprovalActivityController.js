@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        loanapplicationapprovalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $sce, $modal) {
+        loanapplicationapprovalActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $sce, $modal,$filter) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.approveloanapplicationdetails = "";
             scope.status = 'UPDATE';
@@ -217,10 +217,13 @@
                             }
                         }
                         angular.copy(scope.charges,scope.existingCharges);
-                        scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
+                        if($filter){
+                            scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
                         scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
                         scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                         scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                        }
+                        
                     }
                 });
             };
@@ -1378,7 +1381,7 @@
 
     });
     mifosX.ng.application.controller('loanapplicationapprovalActivityController', ['$controller','$scope', 'ResourceFactory', '$location',
-        'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$sce', '$modal', mifosX.controllers.loanapplicationapprovalActivityController]).run(function ($log) {
+        'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', '$sce', '$modal','$filter', mifosX.controllers.loanapplicationapprovalActivityController]).run(function ($log) {
         $log.info("loanapplicationapprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));

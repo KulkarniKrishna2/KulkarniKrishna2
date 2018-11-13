@@ -556,37 +556,37 @@
                                                     <tbody>
                                                     <tr>
                                                         <td class="col-md-1">
-                                                            <span>{{formRequestData.loanEMIPackData.sanctionAmount}}</span>
+                                                            <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
                                                         </td>
                                                         <td class="col-md-1">
-                                                            <span>{{formRequestData.loanEMIPackData.repaymentEvery}} - {{formRequestData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                                            <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
                                                         </td>
                                                         <td class="col-md-1">
-                                                            <span>{{formRequestData.loanEMIPackData.numberOfRepayments}}</span>
+                                                            <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
                                                         </td>
                                                         <td class="col-md-1">
-                                                            <span>{{formRequestData.loanEMIPackData.fixedEmi}}</span>
+                                                            <span>{{formData.loanEMIPackData.fixedEmi}}</span>
                                                         </td>
                                                         <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount1">
-                                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount1}}</span>
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
                                                         </td>
                                                         <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount2">
-                                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount2}}</span>
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
                                                         </td>
                                                         <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount3">
-                                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount3}}</span>
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
                                                         </td>
                                                         <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount4">
-                                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount4}}</span>
+                                                            <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
                                                         </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div ng-hide="changeLoanEMIPack">
-                                                <button ng-click="changeLoanEMIPack=true" class="btn btn-default ng-binding">{{'label.button.changeemipack'
+                                                <a ng-click="changeLoanEMIPack=true" class="btn btn-default ng-binding">{{'label.button.changeemipack'
                                                     | translate}}
-                                                </button>
+                                                </a>
                                             </div>
                                             <table class="table  table-striped" ng-show="changeLoanEMIPack">
                                                 <thead>
