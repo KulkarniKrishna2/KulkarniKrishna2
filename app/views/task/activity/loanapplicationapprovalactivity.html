@@ -584,9 +584,8 @@
                                                 </table>
                                             </div>
                                             <div ng-hide="changeLoanEMIPack">
-                                                <a ng-click="changeLoanEMIPack=true" class="btn btn-default ng-binding">{{'label.button.changeemipack'
-                                                    | translate}}
-                                                </a>
+                                                <button type="button" ng-click="changeLoanEMIPack=true" class="btn btn-default ng-binding">{{'label.button.changeemipack'| translate}}
+                                                </button>
                                             </div>
                                             <table class="table  table-striped" ng-show="changeLoanEMIPack">
                                                 <thead>
