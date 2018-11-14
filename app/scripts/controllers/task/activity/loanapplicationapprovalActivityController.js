@@ -36,7 +36,7 @@
             scope.loanapplicationSubmitted = 100;
             scope.loanapplicationCBApproved = 201;
             scope.loanapplicationInApproval = 200;
-            scope.loanapplicationApproved=300
+            scope.loanapplicationApproved=300;
             scope.isShowEditButton = true;
 
             scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
@@ -1238,7 +1238,7 @@
                 }else if(actionName === 'activitycomplete'){
                     if(scope.status=='SUMMARY'){
                         if(scope.isPendingForApprovalStageEnabled){ 
-                            if(scope.formData.status.id >= scope.loanapplicationApproved){
+                            if(scope.formData.status.id >= scope.loanapplicationInApproval){
                                 scope.doActionAndRefresh(actionName);
                             }else{
                                 scope.setTaskActionExecutionError("lable.error.activity.loanapplication.not.submitted");
