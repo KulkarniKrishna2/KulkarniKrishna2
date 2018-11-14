@@ -84,8 +84,28 @@
             	ng-document-id="{{data.id}}"></view-document-directive>
         	</div>
 	</script>
-
-
+	<script type="text/ng-template" id="deleteClientIdentifierDocument.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+		</div>
+		<div class="modal-body ">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="deleteClientDocument.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+		</div>
+		<div class="modal-body ">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
 	<script type="text/ng-template" id="deleteClient.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -868,7 +888,7 @@
 		                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"
 		                         has-permission='CREATE_DOCUMENT'><i
 		                              class="icon-cloud-upload"></i></a>&nbsp;
-		                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
+		                      <a ng-click="deleteClientIdentifierDocument(document.id)"
 		                         has-permission='DELETE_CLIENTIDENTIFIER'><i
 		                              class="icon-remove"></i></a>
 		                      <a ng-click="editClientIdentifier(document.id)"
@@ -1013,7 +1033,7 @@
 			            </td>
 			            <td>
 			                <a ng-show="clientdocument.id" target="_blank" ng-click = "download(clientdocument.docUrl)"><i class="icon-cloud-download"></i></a>&nbsp;
-			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
+			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument)"><i class="icon-remove"></i></a>
 							<a ng-show="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
 							<a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)"><i class="icon-link"></i></a>
 			            </td>

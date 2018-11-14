@@ -1154,14 +1154,33 @@
                 }
             };
 
-            scope.deleteDocument = function (document, index, tagValue) {
-                resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: document.id}, '', function (data) {
-                    if(document.reportIdentifier) {
-                        delete document.id ;
-                    }else {
-                        scope.clientdocuments[tagValue].splice(index, 1);
+            scope.deleteDocument = function (doc) {
+                $modal.open({
+                    templateUrl: 'deleteClientDocument.html',
+                    controller: ClientDocumentDeleteCtrl,
+                    resolve: {
+                        document: function () {
+                            return doc;
+                        }
                     }
                 });
+            };
+
+            var ClientDocumentDeleteCtrl = function ($scope, $modalInstance, document) {
+                $scope.delete = function () {
+                    resourceFactory.clientDocumentsResource.delete({ clientId: routeParams.id, documentId: document.id }, '', function (data) {
+                        if (document.reportIdentifier) {
+                            delete document.id;
+                        }
+                        else {
+                            $modalInstance.close('delete');
+                            route.reload();
+                        }
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
 
             scope.generateDocument = function (document){
@@ -1245,15 +1264,34 @@
                 });
             }
 
-            scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
-                resourceFactory.clientIdenfierResource.delete({clientId: clientId, id: entityId}, '', function (data) {
-                    if(scope.enableClientVerification){
-                           resourceFactory.clientResource.get({clientId: scope.formData.clientId, isFetchAdressDetails : true}, function (clientData) {
-                            scope.client.isVerified = clientData.isVerified; 
-                          }); 
-                    }
-                    scope.identitydocuments.splice(index, 1);
+
+            scope.deleteClientIdentifierDocument = function (id) {
+                $modal.open({
+                    templateUrl: 'deleteClientIdentifierDocument.html',
+                    controller: ClientIdentifierDeleteCtrl,
+                    resolve: {
+                        entityId: function () {
+                            return id;
+                        }
+                    }      
                 });
+            };
+ 
+            var ClientIdentifierDeleteCtrl = function ($scope, $modalInstance, entityId) {
+                $scope.delete = function () {
+                    resourceFactory.clientIdenfierResource.delete({ clientId: scope.clientId, id: entityId }, {}, function (data) {
+                        if (scope.enableClientVerification) {
+                            resourceFactory.clientResource.get({ clientId: scope.formData.clientId, isFetchAdressDetails: true }, function (clientData) {
+                                scope.client.isVerified = clientData.isVerified;
+                            });
+                        }
+                        $modalInstance.close('delete');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
 
             scope.downloadClientIdentifierDocument = function (identifierId, documentId) {
