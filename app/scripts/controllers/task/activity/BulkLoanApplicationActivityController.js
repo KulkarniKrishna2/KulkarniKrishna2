@@ -114,7 +114,7 @@
                 };
             }
             scope.viewMemberDetails = function (groupId, activeClientMember) {
-                if(activeClientMember.subStatus && activeClientMember.subStatus.value === "Blacklist"){
+                if(activeClientMember.subStatus && activeClientMember.subStatus.code === "clientSubStatusType.blacklist"){
                     scope.openClientValidationPopUp(groupId, activeClientMember);
                 }else{
                     scope.openViewMemeberPopUp(groupId, activeClientMember);

@@ -46,7 +46,12 @@
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
                 scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
+                scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
             }
+
+            resourceFactory.bankApprovalStatusResource.get({loanId: routeParams.id}, function (bankLoanStatusData) {
+                scope.bankLoanStatus = bankLoanStatusData.value;          
+            });
 
             scope.draftedTransaction = 1;
             scope.submittedTransaction = 2;

@@ -521,6 +521,37 @@
             }
 
             scope.loanDisburse = function (groupId, activeClientMember) {
+                if (activeClientMember.subStatus && activeClientMember.subStatus.code === "clientSubStatusType.blacklist") {
+                    scope.openClientValidationPopUp(groupId, activeClientMember);
+                } else {
+                    scope.openLoanDisbursalPopUp(groupId, activeClientMember);
+                }
+            }
+
+            scope.openClientValidationPopUp = function (groupId, activeClientMember) {
+                $modal.open({
+                    templateUrl: 'clientvalidation.html',
+                    controller: ClientValidationCtrl,
+                    resolve: {
+                        memberParams: function () {
+                            return { 'groupId': groupId, 'activeClientMember': activeClientMember };
+                        }
+                    }
+                });
+            }
+            
+            var ClientValidationCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.df = scope.df;
+                $scope.confirm = function () {
+                    $modalInstance.dismiss('cancel');
+                    scope.openLoanDisbursalPopUp(memberParams.groupId, memberParams.activeClientMember);
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
+
+            scope.openLoanDisbursalPopUp = function (groupId, activeClientMember) {
                 $modal.open({
                     templateUrl: 'views/task/popup/loandisburse.html',
                     controller: LoanDisburseCtrl,
