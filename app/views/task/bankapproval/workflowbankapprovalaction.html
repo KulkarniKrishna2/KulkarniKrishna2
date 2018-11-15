@@ -417,6 +417,11 @@
                    ng-if = "showRejectButton" 
                    has-permission = "REJECT_TASK_CLIENT_LEVEL_BANK_APPROVE">
                    {{'label.button.reject' | translate}}
+				</a>
+				<a id="creditReview" class="btn btn-primar" 
+                   ng-click="creditReview(bankApprovalTemplateData.bankApprovalId)"
+                   has-permission = "REVIEW_CREDIT_REVIEW_CLIENT_LEVEL">
+                   {{'label.credit.reviewed' | translate}}
                 </a>
                 <a id="approve" class="btn btn-primary" 
                    ng-click="approveLoan(bankApprovalTemplateData.bankApprovalId)"

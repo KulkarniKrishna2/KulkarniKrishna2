@@ -933,8 +933,9 @@
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
                 resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
                     initTask();
+                    resourceFactory.bulkClientDedupeCheck.save(scope.taskTrackingFormData, function() {})
                 })
-
+                
             }
 
             //CB critieria result view
