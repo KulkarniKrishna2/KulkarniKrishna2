@@ -11,6 +11,7 @@
                 isActive: true,
                 roles: []
             };
+            scope.isExternalIdRequired = false;
             resourceFactory.userTemplateResource.get(function (data) {
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles;
@@ -75,6 +76,10 @@
                 scope.formData.dateFormat = scope.df;
                 if (scope.formData.joiningDate) {
                     scope.formData.joiningDate = dateFilter(scope.formData.joiningDate, scope.df);
+                }
+                if((scope.formData.externalId == undefined || scope.formData.externalId.length==0 ) && scope.formData.staffId == undefined){
+                    scope.isExternalIdRequired = true;
+                    return ;
                 }
                 resourceFactory.userListResource.save(this.formData, function (data) {
                     scope.$emit("submitPerformed", data);

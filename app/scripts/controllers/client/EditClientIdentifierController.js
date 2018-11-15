@@ -8,6 +8,11 @@
             scope.formData.locale = scope.optlang.code;
             scope.documenttypes = [];
             scope.statusTypes =[];
+            if(scope.response){
+                scope.isHideDocumentIssueDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
+                scope.isHideDocumentExpiryDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
+            }
+            
             resourceFactory.clientIdenfierResource.get({ clientId: routeParams.clientId, id: routeParams.id, template: true }, function (data) {
                 if (data) {
                     scope.documenttypes = data.allowedDocumentTypes;

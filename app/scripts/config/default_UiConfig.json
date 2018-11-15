@@ -391,6 +391,11 @@
 			"name": "label.search.scope.clients.and.clientIdentifiers",
 			"value": "clients,clientIdentifiers"
 		},
+		"preClose": {
+			"hiddenFields": {
+				"paymentType": false
+			}
+		},
 		"createLoanApplication": {
 			"isHiddenField": {
 				"expectedDisbursementDate": true,

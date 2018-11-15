@@ -11,7 +11,7 @@
 			<td>
 				<div>
                     <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control"
-                            ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getCenters(formData.officeId);getUsers()">
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getCenters(formData.officeId);getUsers(formData.officeId)">
                         <option value="">{{'label.menu.selectoffice' | translate}}</option>
                     </select>
                 </div>
