@@ -7639,7 +7639,8 @@
     "SystemApproved" : "Pending for Approval",
     "SystemApprovedWithDeviation" : "Pending for Approval",
     "KotakApproved" : "Kotak Approved",
-    "KotakRejected" : "Kotak Rejected",   
+    "KotakRejected" : "Kotak Rejected", 
+    "error.msg.eodprocess.already.exist" : "Eod process for {{params[0].value}} as of `{{params[1].value}}` is already exist.",  
     
 
      "------ end of tensalation file ------":"---------"
