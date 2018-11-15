@@ -334,7 +334,7 @@
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
              */
 
-            var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
+            var multiTranchDataRequest = "multiDisburseDetails,transactions,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
@@ -686,7 +686,7 @@
                     });
 
                     scope.getOfficeName=function(officeName,officeReferenceNumber){
-                        if(!scope.isReferenceNumberAsNameEnable){
+                        if(!scope.isReferenceNumberAsNameEnable || officeReferenceNumber==undefined){
                             return officeName;
                         }else{
                             return officeName+ ' - ' + officeReferenceNumber;

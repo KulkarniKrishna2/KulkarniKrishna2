@@ -12,8 +12,8 @@
         			scope.centers = data.pageItems;
         		});
         	} 
-        	scope.getUsers = function(){
-        		resourceFactory.userResource.getAllUsers({},function(data){
+        	scope.getUsers = function(officeId){
+        		resourceFactory.userResource.getAllUsers({officeId:officeId},function(data){
         			scope.users = data;
         		});
         	}

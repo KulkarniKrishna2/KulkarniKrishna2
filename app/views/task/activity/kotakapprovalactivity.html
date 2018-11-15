@@ -34,7 +34,7 @@
 					  ng-class ="activeClientMember.color"
 					  ng-if="!activeClientMember.isClientFinishedThisTask">
 					  	<td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
-						ng-disabled = "activeClientMember.isClientFinishedThisTask || activeClientMember.loanAccountBasicData.isNotLoanApproved"
+						ng-disabled = "isDisabled(activeClientMember.isClientFinishedThisTask,activeClientMember.loanAccountBasicData.isNotLoanApproved,activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.code)"
 						ng-model="activeClientMember.isMemberChecked" ng-change="
 						captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
 						</td>
@@ -57,7 +57,7 @@
 								<i class="icon-question-sign"></i>
 							</a>
 						</td>
-						<td class="col-md-2">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.value}}</td>
+						<td class="col-md-2">{{activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.code  | translate}}</td>
 						<td class="col-mod-1" >
 							 <a type="button" class="btn btn-danger btn-xs" ng-hide="hideClient(activeClientMember)" ng-click="clientRejection(activeClientMember)" title="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask || !activeClientMember.loanAccountBasicData.isNotLoanApproved">
 							    <i class="icon-remove-circle pointer"></i>

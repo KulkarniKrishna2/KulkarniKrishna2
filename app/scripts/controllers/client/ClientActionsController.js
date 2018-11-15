@@ -192,6 +192,7 @@
                 scope.reasonmodelName = 'blacklistReasonId';
                 scope.reasonField = true;
                 scope.showDateField = true;
+                scope.formData.blacklistDate = new Date();
                 resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'blacklist'}, function (data) {
                     scope.reasons = data.narrations;
                     scope.formData.blacklistReasonId = scope.reasons[0].id;

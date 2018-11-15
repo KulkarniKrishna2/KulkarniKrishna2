@@ -548,7 +548,7 @@
                             </tbody>
                         </table>
                     </tab>
-                    <tab heading="{{'label.heading.summary' | translate}}" ng-show="loandetails.summary">
+                    <tab heading="{{'label.heading.summary' | translate}}"  active="tabs[1].active" ng-show="loandetails.summary">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -800,9 +800,8 @@
 
                     </tab>
 
-
-                    <tab ng-show="showTransactions" active="tabs[5].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
-                        <div ng-show="loandetails.transactions">
+                    <tab  active="tabs[5].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
+                        <div  ng-show="loandetails.transactions">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
                         <div class="pull-right">
@@ -846,7 +845,12 @@
                                         {{transaction.id}}
                                     </td>
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
-                                        {{getOfficeName(transaction.officeName,transaction.officeReferenceNumber)}}
+                                        <span ng-show="isReferenceNumberAsNameEnable && transaction.officeReferenceNumber">
+                                                {{transaction.officeName}}&nbsp;-&nbsp;{{ transaction.officeReferenceNumber}}
+                                        </span>
+                                        <span ng-show="!(isReferenceNumberAsNameEnable && transaction.officeReferenceNumber)">
+                                                {{transaction.officeName}}
+                                            </span>
                                     </td>
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.date | DateFormat}}

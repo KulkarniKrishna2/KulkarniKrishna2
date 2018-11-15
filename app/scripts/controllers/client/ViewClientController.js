@@ -1265,6 +1265,7 @@
             }
 
 
+
             scope.deleteClientIdentifierDocument = function (id) {
                 $modal.open({
                     templateUrl: 'deleteClientIdentifierDocument.html',
@@ -1273,7 +1274,22 @@
                         entityId: function () {
                             return id;
                         }
-                    }      
+                    }  
+                });
+            };   
+            scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
+                scope.deleteIdentifierdata = {};
+                scope.deleteIdentifierdata.clientId = clientId;
+                scope.deleteIdentifierdata.entityId = entityId;
+                scope.deleteIdentifierdata.index = index;
+                $modal.open({
+                    templateUrl: 'deleteclientidentifier.html',
+                    controller: DeleteClientIdentifierCtrl,
+                    resolve: {
+                        deleteIdentifierdata: function () {
+                            return scope.deleteIdentifierdata;
+                        }
+                    }
                 });
             };
  
@@ -1287,6 +1303,22 @@
                         }
                         $modalInstance.close('delete');
                         route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            var DeleteClientIdentifierCtrl = function ($scope, $modalInstance, deleteIdentifierdata) {
+                $scope.confirm = function () {
+                    resourceFactory.clientIdenfierResource.delete({clientId: deleteIdentifierdata.clientId, id: deleteIdentifierdata.entityId}, '', function (data) {
+                        if(scope.enableClientVerification){
+                               resourceFactory.clientResource.get({clientId: deleteIdentifierdata.clientId, isFetchAdressDetails : true}, function (clientData) {
+                                scope.client.isVerified = clientData.isVerified; 
+                              }); 
+                        }
+                        scope.identitydocuments.splice(deleteIdentifierdata.index, 1);
                     });
                 };
                 $scope.cancel = function () {

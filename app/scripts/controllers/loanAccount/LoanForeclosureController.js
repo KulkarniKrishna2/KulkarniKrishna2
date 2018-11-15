@@ -12,6 +12,11 @@
             scope.restrictDate = new Date();
             scope.paymentModeOptions = [];
             scope.paymentTypeOptions = [];
+            scope.isPaymentTypeHidden = false; 
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.preClose &&
+                scope.response.uiDisplayConfigurations.preClose.hiddenFields) {
+                    scope.isPaymentTypeHidden = scope.response.uiDisplayConfigurations.preClose.hiddenFields.paymentType;
+            }
 
             scope.$watch('formData.transactionDate',function(){
                 scope.retrieveLoanForeclosureTemplate();

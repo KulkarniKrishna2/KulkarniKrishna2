@@ -183,6 +183,11 @@
 				"loanApplication": true
 			}
 		},
+		"preClose": {
+			"hiddenFields": {
+				"paymentType": true
+			}
+		},
 		"headerMenuSettings": {
 			"menuLable": "label.anchor.centers",
 			"menuIcon": "icon-map-marker",

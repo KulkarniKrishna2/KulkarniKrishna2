@@ -7630,6 +7630,17 @@
     "err.msg.member.count.must.be.same.in.both.groups":"Member count should be same in both groups",
     "err.msg.select.one.member":"Please select at least one member.",
     "error.msg.flat.loan.does.not.support" : "Flat loans does not support `{{params[0].value}}` ",
+    "label.heading.remove.client.identifier" : "Want to remove client identifier",
+    "workflow loan status":"--workflow loan status",
+    "Invalid" : "Invalid",
+    "UnderKotakApproval" : "Pending for Approval",
+    "UnderODUReview" : "Pending for Approval",
+    "ODUReviewed" : "Pending for Approval",
+    "SystemApproved" : "Pending for Approval",
+    "SystemApprovedWithDeviation" : "Pending for Approval",
+    "KotakApproved" : "Kotak Approved",
+    "KotakRejected" : "Kotak Rejected",   
+    
 
      "------ end of tensalation file ------":"---------"
 }
