@@ -1732,6 +1732,13 @@
                         getOne: { method: 'GET', params: { mappingId: '@mappingId' }, isArray: false },
                         update: { method: 'PUT', params: { mappingId: '@mappingId' }, isArray: false }
 
+                    }),
+                    bulkClientDedupeCheck: defineResource(apiVer +"/bcif/bulkdedup", {},{
+                        get: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    creditReviewResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId/creditreview",{bankApproveId:'@bankApproveId'}, {
+                        creditReview: {method: 'POST', params: {}}
                     })
                 };
             }];

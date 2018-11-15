@@ -13,9 +13,85 @@
             scope.offices = [];
             scope.dateFormat = scope.df;
             scope.approvalIdList = [];
+            scope.showCrnTextBox = false;
             scope.isShowBulkApprovalButton = false;
             scope.bulkApprovalFormData = {};
-           
+            scope.crnSearchList = ['All CRN Status','Custom CRN Search','BCIF Error','Dedupe Error','CRN Exists','Dedupe Match Found','No Dedupe Match'];
+            scope.crnNumberValue = null;
+            scope.bcifStatus = null;
+            scope.dedupeStatus = null;
+            scope.crnStatus = null;
+            scope.formData.crnNumber = null;
+            scope.dedupeMatchFound = null;
+            scope.formData.crnSelectedOption = scope.crnSearchList[0];
+            scope.crnNumberMandatory = false;
+            scope.showCrnMandatoryMessage = false;
+            scope.checkForOption = function () {
+                if (scope.formData.crnSelectedOption == 'Custom CRN Search') {
+                    scope.showCrnTextBox = true;
+                    scope.crnNumberValue = scope.formData.crnNumber;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = null;
+                    scope.crnNumberMandatory = true;
+                }
+                if (scope.formData.crnSelectedOption == 'BCIF Error') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = 0;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = null;
+                    scope.crnNumberMandatory = false;
+                }
+                if (scope.formData.crnSelectedOption == 'Dedupe Error') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = 0;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = null;
+                    scope.crnNumberMandatory = false;
+                }
+                if (scope.formData.crnSelectedOption == 'CRN Exists') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = 1;
+                    scope.dedupeMatchFound = null;
+                    scope.crnNumberMandatory = false;
+                }
+                if (scope.formData.crnSelectedOption == 'No Dedupe Match') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = 0;
+                    scope.crnNumberMandatory = false;
+                }
+                if (scope.formData.crnSelectedOption == 'Dedupe Match Found') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = 1;
+                    scope.crnNumberMandatory = false;
+                }
+                if (scope.formData.crnSelectedOption == 'All CRN Status') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = null;
+                    scope.crnNumberMandatory = false;
+                    scope.formData.crnNumber = null;
+                }
+            }
             resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
                  scope.offices = officelist.allowedParents;
             })
@@ -30,17 +106,30 @@
                     clientId : scope.formData.clientId,
                     dateFormat : scope.dateFormat,
                     expectedDisbursementDate : (scope.formData.expectedDisbursementDate != undefined) ?  dateFilter(scope.formData.expectedDisbursementDate, scope.df) : null,
-                    taskCreatedDate : (scope.formData.taskCreatedDate != undefined) ?  dateFilter(scope.formData.taskCreatedDate, scope.df) : null
+                    taskCreatedDate : (scope.formData.taskCreatedDate != undefined) ?  dateFilter(scope.formData.taskCreatedDate, scope.df) : null,
+                    crnNumber : scope.crnNumberValue,
+                    bcifStatus : scope.bcifStatus,
+                    dedupeStatus : scope.dedupeStatus,
+                    crnStatus : scope.crnStatus,
+                    dedupeMatchFound : scope.dedupeMatchFound
                 }, callback);
 
             };
 
             scope.getWorkFlowBankApprovalTasks = function(filter) {
+                scope.checkForOption();
+                if(scope.crnNumberMandatory == false || (scope.crnNumberValue != null && scope.crnNumberValue != '' ))
+                {
+                scope.showCrnMandatoryMessage = false;
                 scope.filterBy = filter;
                 scope.taskPagination = paginatorUsingOffsetService.paginate(fetchFunction, scope.pageSize);
                 scope.taskPagination.isAllChecked = false;
-
+                }
+                else {
+                    scope.showCrnMandatoryMessage = true;
+                }
             }
+
             scope.pushAllApprovalIdIntoList = function(taskPagination,isAllChecked){
                 scope.approvalIdList = [];
                 for(var i in taskPagination.currentPageItems){
@@ -85,9 +174,11 @@
 
             scope.changeInTab = function(grouping){
                 scope.filterBy = 'Invalid';
+                scope.formData.crnSelectedOption = 'All CRN Status';
+                scope.checkForOption();
                 if(grouping == 'ManualApprove'){
                     scope.workflowLoanStatusList = [];
-                    scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected'];
+                    scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected','CreditReviewed'];
                     scope.filterBy = 'ManualApprove';
                     scope.isShowBulkApprovalButton = false;
                 }
@@ -150,6 +241,8 @@
                     colorStyle = {'color':scope.colorArray[3]};
                 }else if(status== "KotakRejected"){
                     colorStyle = {'color':scope.colorArray[4]};
+                }else if(status== "CreditReviewed"){
+                    colorStyle = {'color':scope.colorArray[2]};
                 }
                 return colorStyle;
             };
@@ -158,6 +251,31 @@
                     return officeName;
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;
+                }
+            }
+            
+            scope.getCrnStatus = function (bcifCrnId, dedupeMatchExists, dedupeErrorCode , dedupeErrorDescription , crnStatus , crnErrorCode , crnErrorDescription , dedupeStatus) {
+                if (bcifCrnId != null && bcifCrnId != undefined) {
+                    return bcifCrnId;
+                } 
+                else if (crnStatus != null && crnStatus != undefined) {
+                    if(crnStatus == 'ERROR_RESPONSE'){
+                        return 'CRN Creation Failed';
+                    }
+                }
+                else if (dedupeMatchExists != null && dedupeMatchExists != undefined) {
+                    if (dedupeMatchExists == 'MATCH_FOUND') {
+                        return 'Dedupe Match Found';
+                    }
+                    else if(dedupeMatchExists == 'NO_MATCH_FOUND') {
+                        return 'Dedupe Match Not Found';
+
+                    }
+                }
+                else if(dedupeStatus != null && dedupeStatus != undefined){
+                    if(dedupeStatus == 'ERROR_RESPONSE'){
+                        return 'Dedupe Check Failed'
+                    }
                 }
             }
 

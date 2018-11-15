@@ -125,6 +125,12 @@
                 window.open(url);
             } 
 
+            scope.creditReview = function (approveId) {
+              scope.creditReviewClientId = approveId;
+                    resourceFactory.creditReviewResource.creditReview({bankApproveId:scope.creditReviewClientId},function (data) {
+                        location.path('/workflowbankapprovallist');
+                    });
+            };
 
             scope.raiseQuery = function (approveId) {
                 $modal.open({
