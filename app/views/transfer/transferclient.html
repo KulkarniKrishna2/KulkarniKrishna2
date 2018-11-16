@@ -58,7 +58,7 @@
         </div>
 
         <div ng-repeat="group in groups" class="col-sm-12" style="margin-top:10px" ng-show="group.active">
-            <input type="radio" name="selectedGroup" ng-model="selectGroup" ng-value="group" ng-change="addGroup(selectGroup.id, selectGroup.name)">
+            <input type="radio" name="selectGroup" ng-model="destGroup.selectGroup" ng-value="{{group}}" ng-change="addGroup(destGroup.selectGroup.id, destGroup.selectGroup.name)">
             <span ng-show="!isMaxClientInGroupEnable">{{group.name}}</span>
             <span ng-show="isMaxClientInGroupEnable">{{group.name}}&emsp;({{(maxClientLimit-group.activeClientMembers.length)}})</span>
         </div>

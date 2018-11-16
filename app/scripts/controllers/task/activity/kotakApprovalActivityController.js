@@ -307,7 +307,7 @@
                     for(var j in centerDetails.subGroupMembers[i].memberData){
                         var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
                         if(isAllChecked){
-                            if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask && !activeClientMember.loanAccountBasicData.isNotLoanApproved){
+                            if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask && !activeClientMember.loanAccountBasicData.isNotLoanApproved &&  scope.disabledStatus.indexOf(activeClientMember.loanAccountBasicData.workflowLoanStatusEnum.code)<0){
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
                                 scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
                             }

@@ -191,7 +191,7 @@
                                                 <label ng-if="!responseData.image">{{responseData.text}}</label>
                                                 <img ng-if="responseData.image" ng-src="{{responseData.image}}" title="{{responseData.text}}" />
                                             </div>
-                                            <input type="text" name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox"
+                                            <input type="text"  autocomplete="off"  name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox"
                                                 style="width:400px">
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
                                                 <label ng-if="!responseData.image">{{responseData.text}}</label>
                                                 <img ng-if="responseData.image" ng-src="{{responseData.image}}" title="{{responseData.text}}" />
                                             </div>
-                                            <input type="text" name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox"
+                                            <input type="text"  autocomplete="off"  name="other{{questionIndex}}" ng-model="questionData.otherResponse" ng-if="questionData.enableOtherTextBox"
                                                 style="width:400px">
                                         </div>
                                     </div>

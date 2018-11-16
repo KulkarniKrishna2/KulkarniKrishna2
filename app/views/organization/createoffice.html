@@ -85,13 +85,13 @@
 						<label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
 
 						<div class="col-sm-3">
-							<input type="text" id="houseNo" ng-model="formAddressData.houseNo" class="form-control" />
+							<input type="text" autocomplete="off"  id="houseNo" ng-model="formAddressData.houseNo" class="form-control" />
 						</div>
 
 						<label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}</label>
 
 						<div class="col-sm-3">
-							<input type="text" id="streetname" name="streetName" ng-model="formAddressData.addressLineOne" class="form-control" />
+							<input type="text" autocomplete="off"  id="streetname" name="streetName" ng-model="formAddressData.addressLineOne" class="form-control" />
 						</div>
 						<div class="col-sm-2">
 						</div>
@@ -103,7 +103,7 @@
 						</label>
 
 						<div class="col-sm-3">
-							<input type="text" id="villagename" name="villageTown" ng-model="formAddressData.villageTown" class="form-control" ng-required="isVillageTownMandatory"
+							<input type="text" autocomplete="off"  id="villagename" name="villageTown" ng-model="formAddressData.villageTown" class="form-control" ng-required="isVillageTownMandatory"
 							/>
 						</div>
 						<div class="col-sm-1 paddinglr0px">
@@ -177,7 +177,7 @@
 						</label>
 
 						<div class="col-sm-3" ng-if="!pincode">
-							<input type="text" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode" name="pincode"
+							<input type="text"  autocomplete="off" id="pincode" ng-readonly="response.uiDisplayConfigurations.createClient.isReadOnlyField.pincode" name="pincode"
 								ng-pattern="/^([1-9])([0-9]){5}$/" ng-minlength="6" maxlength="6" ng-model="formAddressData.postalCode" class="form-control"
 								required/>
 						</div>
