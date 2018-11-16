@@ -1277,21 +1277,6 @@
                     }  
                 });
             };   
-            scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
-                scope.deleteIdentifierdata = {};
-                scope.deleteIdentifierdata.clientId = clientId;
-                scope.deleteIdentifierdata.entityId = entityId;
-                scope.deleteIdentifierdata.index = index;
-                $modal.open({
-                    templateUrl: 'deleteclientidentifier.html',
-                    controller: DeleteClientIdentifierCtrl,
-                    resolve: {
-                        deleteIdentifierdata: function () {
-                            return scope.deleteIdentifierdata;
-                        }
-                    }
-                });
-            };
  
             var ClientIdentifierDeleteCtrl = function ($scope, $modalInstance, entityId) {
                 $scope.delete = function () {
