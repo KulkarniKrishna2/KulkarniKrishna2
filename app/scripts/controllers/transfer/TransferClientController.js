@@ -10,6 +10,7 @@
             scope.dataList = [];
             scope.isClientExceedingLimit = false;
             scope.clientToGroupTransferType = 200;
+            scope.destGroup = {};
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
