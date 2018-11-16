@@ -207,21 +207,20 @@
         </div>
         <div ng-hide="report">
             <div class="span gray-head" style="margin-left:0%;">
-                      <span style="margin-left: 10px;font-size:20px">
-                            <strong> <i ng-hide="loandetails.inArrears"
-                                        class="icon-stop {{getStatusCode(loandetails) | StatusLookup}}"></i>
-                                <i ng-show="loandetails.inArrears"
-                                   class="icon-stop {{getStatusCode(loandetails) | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
-                      </span>
-
-                    <span class="pull-right" ng-if="loandetails.status.active">
-          						<button class="btn btn-warning" ng-if="!loandetails.isLocked" has-permission="LOCK_LOAN" ng-click="lockOrUnLockLoan()">
-          							<i class="icon-unlock"></i>
-          	                	</button>
-          						<button class="btn btn-warning" ng-if="loandetails.isLocked" has-permission="UNLOCK_LOAN" ng-click="lockOrUnLockLoan()">
-          	                    	<i class="icon-lock"></i>
-          						</button>
-          					</span>
+                <span style="margin-left: 10px;font-size:20px">
+                    <strong> <i ng-hide="loandetails.inArrears" class="icon-stop {{getStatusCode(loandetails) | StatusLookup}}"></i>
+                        <i ng-show="loandetails.inArrears" class="icon-stop {{getStatusCode(loandetails) | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
+                </span>
+        
+                <span class="pull-right" ng-if="loandetails.status.active">
+                    <button class="btn btn-warning" ng-if="!loandetails.isLocked" has-permission="LOCK_LOAN" ng-click="lockOrUnLockLoan()">
+                        <i class="icon-unlock"></i>
+                    </button>
+                    <button class="btn btn-warning" ng-if="loandetails.isLocked" has-permission="UNLOCK_LOAN" ng-click="lockOrUnLockLoan()">
+                        <i class="icon-lock"></i>
+                    </button>
+                </span>
+                <span ng-show="bankLoanStatus && showBankApprovalStatus" style="font-size:18px" class="pull-right"><strong>[{{bankLoanStatus}}]&nbsp;</strong></span>       
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">

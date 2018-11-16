@@ -6,6 +6,7 @@
                 scope.offices = data;
             });
             scope.getWorkFlowTaskSummary = function() {
+                scope.centerName="";
                 resourceFactory.runReportsResource.get({reportSource: 'BSSWorkflowDashboardReport', R_officeId: scope.officeId, genericResultSet: false}, function (bssWorkflowDashboardReport) {
                     scope.bssWorkflowDashboardReport = [];
                     if(bssWorkflowDashboardReport && bssWorkflowDashboardReport.length > 0){
@@ -70,6 +71,9 @@
                         }
                         //console.log(JSON.stringify(scope.bssWorkflowDashboardReport));
                     }     
+                });
+                resourceFactory.centerResource.query({officeId: scope.officeId, paged: false}, function (data) {
+                    scope.centers = data;
                 });
             };
             scope.getWorkFlowTaskSummary();

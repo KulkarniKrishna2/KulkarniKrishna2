@@ -7520,7 +7520,7 @@
     "label.button.whitelist":"Whitelist",
     "validation.msg.client.blacklistDate.cannot.be.blank":"Blacklisted Date should not be blank",
     "validation.msg.client.whitelistDate.cannot.be.blank" : "Whitelisted Date should not be blank",
-    "label.message.blocked.client":"This client is blocked.Do you want to continue?",
+    "label.message.blocked.client":"This client is blacklisted. Do you want to continue?",
     "error.msg.unable.to.generate.loan.account.number" :"Can not generate loan account number",
     "label.last.login.date" : "Last Login Date",
 

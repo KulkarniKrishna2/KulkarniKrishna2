@@ -12,9 +12,15 @@
                 </select>
             </div>
             <div class="pull-right col-md-4">
+                <select class="form-control" ng-model="centerName" data-ng-options="center.name as center.name for center in centers | orderBy:'name'"
+                    value="{{center.name}}">
+                    <option value="">{{'label.menu.selectcenter' | translate}}</option>
+                </select>
+            </div>
+            <div class="pull-right col-md-4">
                 <select class="form-control" ng-change="getWorkFlowTaskSummary()"
                         ng-model="officeId"
-                        data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        data-ng-options="office.id as office.name for office in offices  | orderBy:'name'" value="{{office.id}}">
                     <option value="">--{{'label.menu.office' | translate}}--</option>
                 </select>
             </div>
@@ -37,7 +43,7 @@
                                 <th ng-repeat="taskConfig in workflow.taskConfigs">{{taskConfig.taskConfigName}}</th>
                             </thead>
                             <tbody>
-                                <tr ng-if="center.centerId > 0" ng-repeat="center in workflow.centerDatas">
+                                <tr ng-if="center.centerId > 0" ng-repeat="center in workflow.centerDatas | filter:{'centerName':centerName} | orderBy:'centerName'">
                                     <td>{{center.centerName}}</td>
                                     <td ng-repeat="taskConfigD in center.taskConfigDatas"><a ng-click="viewWorkFlow(center, taskConfigD)">{{taskConfigD.clientCount}}</a></td>
                                 </tr>

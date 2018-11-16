@@ -42,7 +42,8 @@
 			"isHiddenFeild": {
 				"netDisbursedAmount": true,
 				"showProductShortName": true
-			}
+			},
+			"displayBankApprovalStatus":true
 		},
 		"createClient": {
 			"isHiddenField": {

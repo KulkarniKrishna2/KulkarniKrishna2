@@ -572,7 +572,7 @@
                     centerClientResource: defineResource(apiVer + "/centers/:centerId/clientdetails", {centerId: '@centerId'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId: '@centerId', anotherresource: '@anotherresource'}, {
+                    centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId: '@centerId', anotherresource: '@anotherresource', officeId: '@officeId', paged: '@paged'}, {
                         get: {method: 'GET', params: {}},
                         getAllCenters: {method: 'GET', params: {}},
                         getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
@@ -1600,6 +1600,9 @@
                         get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}, isArray: true}
                     }),
                     bankApprovalTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/bankapproval/template",{trackerId:'@trackerId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    bankApprovalStatusResource: defineResource(apiVer + "/tasktracking/bankapprovalstatus/:loanId", {loanId:'@loanId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     bankApprovalActionResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId",{bankApproveId:'@bankApproveId'}, {
