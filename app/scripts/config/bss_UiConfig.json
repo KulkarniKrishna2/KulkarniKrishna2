@@ -65,7 +65,8 @@
 				"maritalStatus": true,
 				"addressType": true,
 				"streetName" : true,
-				"houseNo" : true
+				"houseNo" : true,
+				"mobileNumber" : true
 			},
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{10,10}$/"
