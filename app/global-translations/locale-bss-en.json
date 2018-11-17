@@ -282,6 +282,9 @@
   "label.crn.status" : "CRN",
   "label.all.crn.status" : "All CRN Status",
   "label.credit.reviewed" : "Credit Reviewed",
+  "label.err.code" : "Error Code :",
+  "label.err.desc" : "Error Description :",
+  "label.proceed" : "Proceed",
 
   "------ end of tensalation file":"---------"
 }

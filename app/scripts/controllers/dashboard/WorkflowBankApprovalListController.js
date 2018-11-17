@@ -1,7 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        WorkflowBankApprovalListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams, $rootScope, dateFilter,route) {
+        WorkflowBankApprovalListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams, $rootScope, dateFilter,route,$modal) {
             scope.formData = {};
+            scope.taskPagination = {};
             scope.taskTypes = [
                 {id: 'tab1', name: "label.tab.kotak.approval.loans", grouping: 'ManualApprove', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_APPROVE', active: false, showtab : false},
                 {id: 'tab2', name: "label.tab.system.approved", grouping: 'SystemApprove', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_APPROVE', active: false, showtab : false},
@@ -14,7 +15,7 @@
             scope.dateFormat = scope.df;
             scope.approvalIdList = [];
             scope.showCrnTextBox = false;
-            scope.isShowBulkApprovalButton = false;
+            scope.isShowBulkOperationsButton = true;
             scope.bulkApprovalFormData = {};
             scope.crnSearchList = ['All CRN Status','Custom CRN Search','BCIF Error','Dedupe Error','CRN Exists','Dedupe Match Found','No Dedupe Match'];
             scope.crnNumberValue = null;
@@ -26,6 +27,56 @@
             scope.formData.crnSelectedOption = scope.crnSearchList[0];
             scope.crnNumberMandatory = false;
             scope.showCrnMandatoryMessage = false;
+            scope.actionList = ['No Action Selected','Bulk Approval','Bulk Crn Creation'];
+            scope.formData.actionListSelectedOption = scope.actionList[0];
+            scope.checkBoxDisable = [];
+            scope.formData.showcheckbox = false;
+            scope.currentPageItems = null;
+            scope.disableProceedButton = true;
+            scope.taskPagination.isAllChecked = false;
+            scope.checkForSelectedAction = function (pageItems) {
+                scope.checkBoxDisable = [];
+                scope.taskPagination.isAllChecked = false;
+                for (var i in pageItems) {
+                       pageItems[i].isChecked = false;
+                }
+                if (scope.formData.actionListSelectedOption == scope.actionList[1]) {
+                    scope.disableProceedButton = false;
+                    scope.formData.showcheckbox = true;
+                    var size = pageItems.length;
+                    for (var i = 0; i < size; i++) {
+                        if (pageItems[i].bcifCrnId != undefined) {
+                            if ((pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'CreditReviewed') || (pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'SystemApproved') || (pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'SystemApprovedWithDeviation')) {
+                                scope.checkBoxDisable[i] = false;
+                            }
+                            else {
+                                scope.checkBoxDisable[i] = true;
+                            }
+                        }
+                        else {
+                            scope.checkBoxDisable[i] = true;
+                        }
+                    }
+                }
+                if (scope.formData.actionListSelectedOption == scope.actionList[0]) {
+                    scope.checkBoxDisable = [];
+                    scope.formData.showcheckbox = false;
+                    scope.disableProceedButton = true;
+                }
+                if (scope.formData.actionListSelectedOption == scope.actionList[2]) {
+                    scope.formData.showcheckbox = true;
+                    scope.disableProceedButton = false;
+                    var size = pageItems.length;
+                    for (var i = 0; i < size; i++) {
+                        if ((pageItems[i].bcifCrnId == undefined || pageItems[i].bcifCrnId == null) && (pageItems[i].dedupeMatchExists != undefined && pageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND')) {
+                            scope.checkBoxDisable[i] = false;
+                        }
+                        else {
+                            scope.checkBoxDisable[i] = true;
+                        }
+                    }
+                }
+            }
             scope.checkForOption = function () {
                 if (scope.formData.crnSelectedOption == 'Custom CRN Search') {
                     scope.showCrnTextBox = true;
@@ -118,6 +169,8 @@
 
             scope.getWorkFlowBankApprovalTasks = function(filter) {
                 scope.checkForOption();
+                scope.formData.actionListSelectedOption = scope.actionList[0];
+                scope.checkForSelectedAction();
                 if(scope.crnNumberMandatory == false || (scope.crnNumberValue != null && scope.crnNumberValue != '' ))
                 {
                 scope.showCrnMandatoryMessage = false;
@@ -129,22 +182,43 @@
                     scope.showCrnMandatoryMessage = true;
                 }
             }
-
-            scope.pushAllApprovalIdIntoList = function(taskPagination,isAllChecked){
+            
+            scope.pushAllApprovalIdIntoList = function (taskPagination, isAllChecked) {
                 scope.approvalIdList = [];
-                for(var i in taskPagination.currentPageItems){
-                    if(isAllChecked){
-                        if(taskPagination.currentPageItems[i].bankApproveId){
-                            scope.approvalIdList.push(taskPagination.currentPageItems[i].bankApproveId);
-                            taskPagination.currentPageItems[i].isChecked = true;
+                if (scope.formData.actionListSelectedOption == scope.actionList[1]) {
+                    for (var i in taskPagination.currentPageItems) {
+                        if (isAllChecked) {
+                            if (taskPagination.currentPageItems[i].bankApproveId && ((taskPagination.currentPageItems[i].bcifCrnId != null && taskPagination.currentPageItems[i].workflowLoanStatus.code == 'CreditReviewed' && taskPagination.currentPageItems[i].bcifCrnId != undefined) || (taskPagination.currentPageItems[i].bcifCrnId != null && taskPagination.currentPageItems[i].workflowLoanStatus.code == 'SystemApproved' && taskPagination.currentPageItems[i].bcifCrnId != undefined) || (taskPagination.currentPageItems[i].bcifCrnId != null && taskPagination.currentPageItems[i].workflowLoanStatus.code == 'SystemApprovedWithDeviation' && taskPagination.currentPageItems[i].bcifCrnId != undefined))) {
+                                scope.approvalIdList.push(taskPagination.currentPageItems[i].bankApproveId);
+                                taskPagination.currentPageItems[i].isChecked = true;
+                            }
+                            else {
+                                taskPagination.currentPageItems[i].isChecked = false;
+                            }
+                        } else {
+                            taskPagination.currentPageItems[i].isChecked = false;
                         }
-                    }else{
-                        taskPagination.currentPageItems[i].isChecked = false;
+
                     }
-
                 }
+                if (scope.formData.actionListSelectedOption == scope.actionList[2]) {
+                    for (var i in taskPagination.currentPageItems) {
+                        if (isAllChecked) {
+                            if (taskPagination.currentPageItems[i].bankApproveId && ((taskPagination.currentPageItems[i].bcifCrnId == undefined || taskPagination.currentPageItems[i].bcifCrnId == null) && (taskPagination.currentPageItems[i].dedupeMatchExists != undefined && taskPagination.currentPageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND'))) {
+                                scope.approvalIdList.push(taskPagination.currentPageItems[i].bankApproveId);
+                                taskPagination.currentPageItems[i].isChecked = true;
+                            }
+                            else {
+                                taskPagination.currentPageItems[i].isChecked = false;
+                            }
+                        } else {
+                            taskPagination.currentPageItems[i].isChecked = false;
+                        }
 
+                    }
+                }
             }
+
             scope.pushApprovalIdIntoList = function(workflowBankApproval,index,isChecked){
                 if(isChecked){
                     scope.approvalIdList.push(workflowBankApproval.bankApproveId);
@@ -158,7 +232,15 @@
                         scope.taskPagination.isAllChecked = false;
                     }
                 }
+            }
 
+            scope.proceedAction = function(approvalIdList){
+              if(scope.formData.actionListSelectedOption == scope.actionList[1]){
+                scope.doBulkBankApprovalAction(approvalIdList);
+              }
+              if(scope.formData.actionListSelectedOption == scope.actionList[2]){
+                scope.createBulkCrnAction(approvalIdList);
+              }
             }
 
             scope.doBulkBankApprovalAction = function(approvalIdList){
@@ -172,27 +254,40 @@
                 });
             }
 
+            scope.createBulkCrnAction = function(approvalIdList){
+                scope.errorDetails = [];
+                if(approvalIdList.length == 0){
+                    return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                }
+                scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
+                resourceFactory.bulkCrnCreationResource.doBulkCrnCreation(scope.bulkApprovalFormData, function (data) {
+                    route.reload();
+                });
+            }
+
             scope.changeInTab = function(grouping){
                 scope.filterBy = 'Invalid';
                 scope.formData.crnSelectedOption = 'All CRN Status';
                 scope.checkForOption();
+                scope.formData.actionListSelectedOption = 'No Action Selected';
+                scope.checkForSelectedAction();
                 if(grouping == 'ManualApprove'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected','CreditReviewed'];
                     scope.filterBy = 'ManualApprove';
-                    scope.isShowBulkApprovalButton = false;
+                    scope.isShowBulkOperationsButton = true;
                 }
                 if(grouping == 'SystemApprove'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['SystemApproved', 'SystemApprovedWithDeviation'];
                     scope.filterBy = 'SystemApprove';
-                    scope.isShowBulkApprovalButton = true;
+                    scope.isShowBulkOperationsButton = true;
                 }
                 if(grouping == 'QueryResolve'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderODUReview'];
                     scope.filterBy = 'QueryResolve';
-                    scope.isShowBulkApprovalButton = false;
+                    scope.isShowBulkOperationsButton = false;
                 }
 
                 scope.getWorkFlowBankApprovalTasks(scope.filterBy);
@@ -246,6 +341,7 @@
                 }
                 return colorStyle;
             };
+
             scope.getOfficeName=function(officeName,officeReferenceNumber){
                 if(!scope.isReferenceNumberAsNameEnable){
                     return officeName;
@@ -254,34 +350,66 @@
                 }
             }
             
-            scope.getCrnStatus = function (bcifCrnId, dedupeMatchExists, dedupeErrorCode , dedupeErrorDescription , crnStatus , crnErrorCode , crnErrorDescription , dedupeStatus) {
-                if (bcifCrnId != null && bcifCrnId != undefined) {
-                    return bcifCrnId;
+            scope.getCrnStatus = function (workflowBankApproval) {
+                if (workflowBankApproval.bcifCrnId != undefined && workflowBankApproval.bcifCrnId != null) {
+                    return workflowBankApproval.bcifCrnId;
                 } 
-                else if (crnStatus != null && crnStatus != undefined) {
-                    if(crnStatus == 'ERROR_RESPONSE'){
+                else if (workflowBankApproval.crnStatus != undefined && workflowBankApproval.crnStatus != null) {
+                    if(workflowBankApproval.crnStatus == 'ERROR_RESPONSE'){
                         return 'CRN Creation Failed';
                     }
                 }
-                else if (dedupeMatchExists != null && dedupeMatchExists != undefined) {
-                    if (dedupeMatchExists == 'MATCH_FOUND') {
+                else if (workflowBankApproval.dedupeMatchExists != undefined && workflowBankApproval.dedupeMatchExists != null) {
+                    if (workflowBankApproval.dedupeMatchExists == 'MATCH_FOUND') {
                         return 'Dedupe Match Found';
                     }
-                    else if(dedupeMatchExists == 'NO_MATCH_FOUND') {
+                    else if(workflowBankApproval.dedupeMatchExists == 'NO_MATCH_FOUND') {
                         return 'Dedupe Match Not Found';
 
                     }
                 }
-                else if(dedupeStatus != null && dedupeStatus != undefined){
-                    if(dedupeStatus == 'ERROR_RESPONSE'){
+                else if(workflowBankApproval.dedupeStatus != undefined && workflowBankApproval.dedupeStatus != null){
+                    if(workflowBankApproval.dedupeStatus == 'ERROR_RESPONSE'){
                         return 'Dedupe Check Failed'
                     }
                 }
             }
 
+            scope.openErrorMessage = function (workflowBankApproval) {
+                scope.currentData = workflowBankApproval;
+                var currentCrnStatus = scope.getCrnStatus(workflowBankApproval);
+                $modal.open({
+                    templateUrl: 'errorDisplay.html',
+                    controller: errorDisplayCtrl,
+                    resolve: {
+                        data: function () {
+                            return {'currentData':scope.currentData,'currentCrnStatus' :currentCrnStatus};
+                        }
+                    }
+                });
+            };
+
+            var errorDisplayCtrl = function ($scope, $modalInstance, data) {
+                $scope.currentData = data.currentData;
+                $scope.currentCrnStatus = data.currentCrnStatus;
+                $scope.errCode = null;
+                $scope.errDesc = null;
+                if($scope.currentCrnStatus == 'CRN Creation Failed'){
+                    $scope.errCode = $scope.currentData.crnErrorCode;
+                    $scope.errDesc = $scope.currentData.crnErrorDescription;
+                }
+                if($scope.currentCrnStatus == 'Dedupe Check Failed'){
+                    $scope.errCode = $scope.currentData.dedupeErrorCode;
+                    $scope.errDesc = $scope.currentData.dedupeErrorDescription;
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
         }
     });
-    mifosX.ng.application.controller('WorkflowBankApprovalListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', '$rootScope', 'dateFilter','$route', mifosX.controllers.WorkflowBankApprovalListController]).run(function ($log) {
+    mifosX.ng.application.controller('WorkflowBankApprovalListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', '$rootScope', 'dateFilter','$route','$modal', mifosX.controllers.WorkflowBankApprovalListController]).run(function ($log) {
         $log.info("WorkflowBankApprovalListController initialized");
     });
 }(mifosX.controllers || {}));
