@@ -243,6 +243,9 @@
                         if(data.globalConfiguration[i].name == "allow-multiple-bank-disbursal"){
                             scope.allowGroupBankAccountInDisburse = data.globalConfiguration[i].enabled;
                         }
+                        if(data.globalConfiguration[i].name == "BCIF"){
+                            scope.allowBcifOperations = data.globalConfiguration[i].enabled;
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }

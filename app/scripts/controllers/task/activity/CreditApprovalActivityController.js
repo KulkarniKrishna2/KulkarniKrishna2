@@ -933,7 +933,9 @@
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
                 resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
                     initTask();
+                    if(scope.allowBcifOperations){
                     resourceFactory.bulkClientDedupeCheck.doBulkDedupe(scope.taskTrackingFormData, function() {})
+                    }
                 })
                 
             }
