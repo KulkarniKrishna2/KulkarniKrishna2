@@ -1,0 +1,16 @@
+<div class="col-md-12" ng-controller="OperationalAccountingController">
+    <br>
+    <div>
+        <tabset class="overflowhidden marginbottom0">
+            <tab heading="{{ 'label.heading.Disbursements' | translate }}" active="tabs.tab1" disabled="true">
+                <div ng-include="'views/accounting/operational_accounting_disbursements.html'"></div>
+            </tab>
+            <tab heading="{{ 'label.heading.Repayments' | translate }}" active="tabs.tab2" disabled="true">
+                <div ng-include="'views/accounting/operational_accounting_repayments.html'"></div>
+            </tab>
+            <!----  <tab heading="{{ 'label.heading.apsc' | translate }}" active="tabs.tab3" disabled="true">
+                <div ng-include="'views/accounting/operational_accounting_savings.html'"></div>
+            </tab> -->
+        </tabset>
+    </div>
+</div>

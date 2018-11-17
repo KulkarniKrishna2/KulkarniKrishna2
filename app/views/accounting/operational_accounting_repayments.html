@@ -1,0 +1,54 @@
+<div>
+    <div>
+        <!--class="span gray-head"-->
+        <div>
+            <div>
+                <h4>{{ 'label.heading.fromtime' | translate}}:&nbsp;&nbsp;<span>{{fromTime}}</span>
+                    <div class="pull right">{{ 'label.heading.totime' | translate}}:&nbsp;&nbsp;<span ng-model="toTime">{{toTime}}</span></div>
+                </h4>
+            </div>
+            <div>
+                <h4>{{ 'label.heading.office' | translate}}:&nbsp;&nbsp;<span>{{officeName}}</span>
+                    <div class="pull right"> {{ 'label.heading.date' | translate}}:&nbsp;&nbsp;<span>{{toTime |
+                            DateFormat}}</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <!---- ng-repeat="product in products" -->
+    <div>
+        <h3>{{ 'label.anchor.repayment' | translate }}:</h3>
+        <table class="table-bordered table view-table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.loanProductName' | translate}}</th>
+                    <th>{{'label.heading.glcode' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="repayment in repayments">
+                <!---- ng-repeat="disbursementDetail in disbursementDetails" -->
+                <tr ng-repeat="repaymentDetail in repayment.details">
+                    <td>{{repayment.productDetail.name}}</td>
+                    <td>{{repaymentDetail.gLAccountData.name}}</td>
+                    <td>{{repaymentDetail.amount | number}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">{{'label.input.total' | translate }}</td>
+                    <td>{{repaymentsTotal | number}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="pull-right">
+        <a id="next" type="submit" has-permission='' ng-click="submit()" class="btn btn-primary">{{'label.button.save'
+            | translate}}&nbsp;</a>
+        <!--i class="icon-arrow-right"></i>-->
+    </div>
+    <div class="pull-left">
+        <a id="previous" type="submit" has-permission='' ng-click="previous()" class="btn btn-primary"><i class="icon-arrow-left"></i>&nbsp;{{'label.button.previous'
+            | translate}}</a>
+    </div>
+</div>

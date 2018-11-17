@@ -7645,5 +7645,27 @@
     "error.msg.client.policy.not.exist" : "Client policy does not exist.",
     
 
+    "label.anchor.operationalaccounting": "Operational Accounting",
+    "label.anchor.screenforoperationalaccounting": "Screen For Operational Accounting",
+    "label.heading.disbursements": "Disbursements",
+    "label.heading.apsc": "APSC",
+    "label.heading.fromtime": "From Time",
+    "label.heading.totime": "To Time",
+    "label.anchor.loanprocessingfee": "Loan Processing Fees",
+    "label.anchor.singleinsurancefee": "Single Insurance Fees",
+    "label.anchor.doubleinsurancefee": "Double Insurance Fees",
+    "label.anchor.apsc": "Apsc",
+    "label.anchor.fldg": "FLDG",
+    "label.anchor.screenforfldg": "Screen For FLDG",
+    "label.anchor.gstinvoicing": "GST INVOICING",
+    "label.anchor.screenforgstinvoicing": "Screen For GST Invoicing",
+    "label.anchor.screenforapsc": "Screen For APSC",
+    "label.anchor.fldgreachis": "FLDG Reach Is",
+    "label.anchor.overdueloans": "Over Due Loans",
+    "label.heading.managedby": "Managed By",
+    "label.anchor.APSC": "APSC",
+    "label.anchor.urban": "URBAN",
+    "label.anchor.rural": "RURAL",
+    "label.anchor.generateinvoice": "GENERATE INVOICE",
      "------ end of tensalation file ------":"---------"
 }
