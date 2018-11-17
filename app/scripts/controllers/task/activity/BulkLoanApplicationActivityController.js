@@ -134,6 +134,7 @@
                 $scope.showLoanProductList = false;
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = false;
+                $scope.showDeleteClientIdentifierAction = false;
 
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {

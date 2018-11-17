@@ -461,7 +461,7 @@
 											<a href="" ng-click="uploadClientDocumentIdentifier(document.id)" has-permission='CREATE_DOCUMENT'>
 												<i class="icon-cloud-upload"></i>
 											</a>
-											<a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)" has-permission='DELETE_CLIENTIDENTIFIER'>
+											<a ng-show="showDeleteClientIdentifierAction" ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)" has-permission='DELETE_CLIENTIDENTIFIER'>
 												<i class="icon-remove"></i>
 											</a>
 										</span>
