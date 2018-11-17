@@ -272,28 +272,44 @@
 
 
             var checkWorkFlowLoanStatus = function(workflowLoanStatus){
-                if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed" || workflowLoanStatus == "SystemApproved" || workflowLoanStatus == "SystemApprovedWithDeviation" || workflowLoanStatus == "CreditReviewed"){
+                scope.showApproveButton = false;
+                if(workflowLoanStatus == "CreditReviewed"){
+                    if(scope.crnExists==true){
+                        scope.showApproveButton = true;
+                    }
+                }
+                else if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed" ){
                     scope.showRaiseQueryButton = true;
                     scope.showRejectButton = true;
-                    scope.showApproveButton = true;
+                    scope.showCreditReviewButton = true;
                     scope.showUndoApproveButton = false;
                     scope.showResolveQueryButton = false;
+                }
+                else if(workflowLoanStatus == workflowLoanStatus == "SystemApproved" || workflowLoanStatus == "SystemApprovedWithDeviation"){
+                    scope.showRaiseQueryButton = true;
+                    scope.showRejectButton = true;
+                    scope.showCreditReviewButton = false;
+                    scope.showUndoApproveButton = false;
+                    scope.showResolveQueryButton = false;
+                    if(scope.crnExists==true){
+                        scope.showApproveButton = true;
+                    }
                 }else if(workflowLoanStatus == "KotakApproved"){
                     scope.showRaiseQueryButton = false;
                     scope.showRejectButton = false;
-                    scope.showApproveButton = false;
+                    scope.showCreditReviewButton = false;
                     scope.showUndoApproveButton = true;
                     scope.showResolveQueryButton = false;
                 }else if(workflowLoanStatus == "UnderODUReview"){
                     scope.showRaiseQueryButton = false;
                     scope.showRejectButton = false;
-                    scope.showApproveButton = false;
+                    scope.showCreditReviewButton = false;
                     scope.showUndoApproveButton = false;
                     scope.showResolveQueryButton = true;
                 }else{
                     scope.showRaiseQueryButton = false;
                     scope.showRejectButton = false;
-                    scope.showApproveButton = false;
+                    scope.showCreditReviewButton = false;
                     scope.showUndoApproveButton = false;
                     scope.showResolveQueryButton = false;
                 }
@@ -373,6 +389,9 @@
                     if(scope.clientCrnTemplateData.errorDescription!=null){
                         scope.creationerrorExists = true;
                         scope.crncreationerror = scope.clientCrnTemplateData.errorDescription;
+                    }
+                    else{
+                        scope.init();
                     }
                 });
             }

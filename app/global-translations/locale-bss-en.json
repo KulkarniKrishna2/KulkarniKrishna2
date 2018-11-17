@@ -30,7 +30,7 @@
   "label.button.createoffice": "Create Field Office",
   "label.button.addofficeglaccount":"Add Field Office GL Account Mapping",
   "label.button.createbcif": "Create Bcif",
-  "label.button.overridecrn": "Override",
+  "label.button.overridecrn": "Tag CRN",
 
   "#Headings": "..",
   "label.heading.groupexternalid" : "Subgroup External ID",
