@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         kotakApprovalActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
-            scope.disabledStatus = ['UnderKotakApproval', 'UnderODUReview','ODUReviewed','SystemApproved','SystemApprovedWithDeviation']; 
+            scope.disabledStatus = ['UnderKotakApproval', 'UnderODUReview','ODUReviewed','SystemApproved','SystemApprovedWithDeviation','CreditReviewed']; 
             function initializeLoanAccountStatus(member){
                 if(member.loanAccountBasicData != undefined){
                     if(member.loanAccountBasicData.status.id == 200){

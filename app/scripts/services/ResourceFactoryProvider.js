@@ -1737,12 +1737,14 @@
 
                     }),
                     bulkClientDedupeCheck: defineResource(apiVer +"/bcif/bulkdedup", {},{
-                        get: {method: 'GET', params: {}},
-                        get: {method: 'GET', params: {}, isArray: true}
+                        doBulkDedupe: {method: 'POST', params: {}, isArray: true}
                     }),
                     creditReviewResource: defineResource(apiVer + "/tasktracking/bankapproval/:bankApproveId/creditreview",{bankApproveId:'@bankApproveId'}, {
                         creditReview: {method: 'POST', params: {}}
-                    })
+                    }),
+                    bulkCrnCreationResource: defineResource(apiVer +"/bcif/bulkbcif", {},{
+                        doBulkCrnCreation: {method: 'POST', params: {}}
+                    }),
                 };
             }];
         }
