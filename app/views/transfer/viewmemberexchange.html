@@ -29,7 +29,7 @@
                     <table class="table well ">
                         <tbody>
                             <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in bulkTransfer.dataList" style="height:60px;cursor: pointer;">
-                                <td class="pointer" >{{data.fromGroup.name}}</td>
+                                <td class="pointer  col-sm-4" >{{data.fromGroup.name}}</td>
                                 <td class="pointer" >
                                     <div class="col-sm-12" ng-repeat="client in data.fromGroup.clients">
                                         <span>{{client.name}}</span>
@@ -43,7 +43,7 @@
                         <table class="table well ">
                             <tbody>
                                 <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in bulkTransfer.dataList" style="height:60px;cursor: pointer;">
-                                    <td class="pointer" >{{data.toGroup.name}}</td>
+                                    <td class="pointer  col-sm-4" >{{data.toGroup.name}}</td>
                                     <td class="pointer">
                                             <div class="col-sm-12" ng-repeat="client in data.toGroup.clients">
                                                 <span>{{client.name}}</span>
@@ -57,10 +57,11 @@
 
                     <div class="btn-group" ng-show="bulkTransfer.status.id==100">
                         <button type="button" has-permission="REJECT_TRANSFER_ENTITIES" class="btn btn-danger" ng-click="submit(bulkTransfer.id,'reject')">
-                            <i tooltip="{{'label.tooltip.reject' | translate}}" class="icon-remove icon-white"></i>
+                            <i tooltip="{{'label.tooltip.reject' | translate}}" class="glyphicon glyphicon-remove"></i>
                         </button>
+                        <br>
                         <button type="button" has-permission="APPROVE_TRANSFER_ENTITIES" class="btn btn-info" ng-click="submit(bulkTransfer.id,'approve')">
-                            <i tooltip="{{'label.tooltip.approve' | translate}}" class="icon-ok icon-white"></i>
+                            <i tooltip="{{'label.tooltip.approve' | translate}}" class="glyphicon glyphicon-ok"></i>
                         </button>
                     </div>
                 </td>
