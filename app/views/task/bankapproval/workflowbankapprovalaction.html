@@ -202,10 +202,8 @@
 							<tr>
 								<th>{{ 'label.heading.crn' | translate }}</th>
 								<th>{{ 'label.heading.name' | translate }}</th>
-								<th>{{ 'label.heading.aadhar' | translate }}</th>
 								<th>{{ 'label.heading.dob' | translate }}</th>
 								<th>{{ 'label.heading.address' | translate }}</th>
-								<th ng-if="clientDedupTemplateData.crn==null">{{ 'label.heading.exactmatch' | translate }}</th>
 								<th ng-if="clientDedupTemplateData.crn==null">{{ 'label.heading.actions' | translate }}</th>
 							</tr>
 							</thead>
@@ -214,18 +212,11 @@
 								<td>{{record.bcifId}}</td>
 								<td>{{record.displayName}}
 								</td>
-								<td>
-									{{record.aadharNumber}}
-								</td>
 								<td>{{record.dateOfBirth}}
 								</td>
 								<td>{{record.address}}</td>
 								<td ng-if="clientDedupTemplateData.crn==null">
-									<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="record.exactDedupMatch"></span>
-									<span class="glyphicon glyphicon-remove" aria-hidden="true" ng-if="!record.exactDedupMatch"></span>
-								</td>
-								<td ng-if="clientDedupTemplateData.crn==null">
-									<span ng-if="record.exactDedupMatch">
+									<span>
 										<button type="button" class="btn btn-secondary" ng-click="overrideCrn(record)">{{'label.button.overridecrn' | translate}}</button>
 									</span>
 								</td>
@@ -245,7 +236,6 @@
 							<tr>
 								<th>{{ 'label.heading.crn' | translate }}</th>
 								<th>{{ 'label.heading.name' | translate }}</th>
-								<th>{{ 'label.heading.aadhar' | translate }}</th>
 								<th>{{ 'label.heading.dob' | translate }}</th>
 							</tr>
 							</thead>
@@ -253,9 +243,6 @@
 							<tr>
 								<td>{{clientCrnTemplateData.crn}}</td>
 								<td>{{clientCrnTemplateData.clientBasicData.displayName}}
-								</td>
-								<td>
-									{{clientCrnTemplateData.clientBasicData.aadharNumber}}
 								</td>
 								<td>{{clientCrnTemplateData.clientBasicData.dateOfBirth}}
 								</td>
@@ -274,17 +261,17 @@
 				<br>
 			</div>
 
-			<div ng-if="deduperrorExists">
+			<!-- <div ng-if="deduperrorExists">
 				<p style="color:red">{{deduperror}}</p>
 				<br>
-			</div>
+			</div> -->
 
 			<div ng-if="creationerrorExists">
 					<p style="color:red">{{crncreationerror}}</p>
 					<br>
 				</div>
 
-			<div ng-if="(allCrnSuspended && !deduperrorExists && !crnExists) || (noDedupeMatchFound && !deduperrorExists && !crnExists) || (allprobableMatches && !deduperrorExists && !crnExists)">
+			<div ng-if="!crnExists">
 				<span class = "pull-left" ng-if="!crnGeneration">
 					<button type="button" class="btn btn-primary" ng-click="createBcif()">{{'label.button.createbcif' | translate}}</button>
 				</span>
@@ -418,8 +405,9 @@
                    has-permission = "REJECT_TASK_CLIENT_LEVEL_BANK_APPROVE">
                    {{'label.button.reject' | translate}}
 				</a>
-				<a id="creditReview" class="btn btn-primar" 
-                   ng-click="creditReview(bankApprovalTemplateData.bankApprovalId)"
+				<a id="creditReview" class="btn btn-primary" 
+				   ng-click="creditReview(bankApprovalTemplateData.bankApprovalId)"
+				   ng-if = "showCreditReviewButton"
                    has-permission = "REVIEW_CREDIT_REVIEW_CLIENT_LEVEL">
                    {{'label.credit.reviewed' | translate}}
                 </a>
