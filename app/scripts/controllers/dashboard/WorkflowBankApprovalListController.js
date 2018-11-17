@@ -15,19 +15,25 @@
             scope.dateFormat = scope.df;
             scope.approvalIdList = [];
             scope.showCrnTextBox = false;
-            scope.isShowBulkOperationsButton = true;
             scope.bulkApprovalFormData = {};
-            scope.crnSearchList = ['All CRN Status','Custom CRN Search','BCIF Error','Dedupe Error','CRN Exists','Dedupe Match Found','No Dedupe Match'];
             scope.crnNumberValue = null;
             scope.bcifStatus = null;
             scope.dedupeStatus = null;
             scope.crnStatus = null;
             scope.formData.crnNumber = null;
             scope.dedupeMatchFound = null;
-            scope.formData.crnSelectedOption = scope.crnSearchList[0];
             scope.crnNumberMandatory = false;
             scope.showCrnMandatoryMessage = false;
-            scope.actionList = ['No Action Selected','Bulk Approval','Bulk Crn Creation'];
+            scope.actionList = ['No Action Selected','Bulk Approval'];
+            if (scope.allowBcifOperations) {
+                scope.actionList.push('Bulk Crn Creation');
+                scope.crnSearchList = ['All CRN Status', 'Custom CRN Search', 'BCIF Error', 'Dedupe Error', 'CRN Exists', 'Dedupe Match Found', 'No Dedupe Match'];
+                scope.formData.crnSelectedOption = scope.crnSearchList[0];
+                scope.isShowBulkOperationsButton = true;
+            }
+            else {
+                scope.isShowBulkOperationsButton = false;
+            }
             scope.formData.actionListSelectedOption = scope.actionList[0];
             scope.checkBoxDisable = [];
             scope.formData.showcheckbox = false;
@@ -35,18 +41,19 @@
             scope.disableProceedButton = true;
             scope.taskPagination.isAllChecked = false;
             scope.checkForSelectedAction = function (pageItems) {
+                console.log(scope.actionList);
                 scope.checkBoxDisable = [];
                 scope.taskPagination.isAllChecked = false;
                 for (var i in pageItems) {
                        pageItems[i].isChecked = false;
                 }
-                if (scope.formData.actionListSelectedOption == scope.actionList[1]) {
+                if (scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[1]) {
                     scope.disableProceedButton = false;
                     scope.formData.showcheckbox = true;
                     var size = pageItems.length;
                     for (var i = 0; i < size; i++) {
                         if (pageItems[i].bcifCrnId != undefined) {
-                            if ((pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'CreditReviewed') || (pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'SystemApproved') || (pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'SystemApprovedWithDeviation')) {
+                            if (!scope.allowBcifOperations || ((pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'CreditReviewed') || (pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'SystemApproved') || (pageItems[i].bcifCrnId != null && pageItems[i].workflowLoanStatus.code == 'SystemApprovedWithDeviation'))) {
                                 scope.checkBoxDisable[i] = false;
                             }
                             else {
@@ -58,12 +65,12 @@
                         }
                     }
                 }
-                if (scope.formData.actionListSelectedOption == scope.actionList[0]) {
+                if (scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[0]) {
                     scope.checkBoxDisable = [];
                     scope.formData.showcheckbox = false;
                     scope.disableProceedButton = true;
                 }
-                if (scope.formData.actionListSelectedOption == scope.actionList[2]) {
+                if (scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[2]) {
                     scope.formData.showcheckbox = true;
                     scope.disableProceedButton = false;
                     var size = pageItems.length;
@@ -75,6 +82,17 @@
                             scope.checkBoxDisable[i] = true;
                         }
                     }
+                }
+                if (!scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[1]) {
+                    scope.disableProceedButton = false;
+                    scope.formData.showcheckbox = true;
+                    var size = pageItems.length;
+                    for (var i = 0; i < size; i++) {
+                        scope.checkBoxDisable[i] = false;
+                    }
+                }
+                if (!scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[0]) {
+                    scope.formData.showcheckbox = false;
                 }
             }
             scope.checkForOption = function () {
@@ -168,9 +186,11 @@
             };
 
             scope.getWorkFlowBankApprovalTasks = function(filter) {
-                scope.checkForOption();
-                scope.formData.actionListSelectedOption = scope.actionList[0];
-                scope.checkForSelectedAction();
+                if (scope.allowBcifOperations) {
+                    scope.checkForOption();
+                    scope.formData.actionListSelectedOption = scope.actionList[0];
+                    scope.checkForSelectedAction();
+                }
                 if(scope.crnNumberMandatory == false || (scope.crnNumberValue != null && scope.crnNumberValue != '' ))
                 {
                 scope.showCrnMandatoryMessage = false;
@@ -185,7 +205,7 @@
             
             scope.pushAllApprovalIdIntoList = function (taskPagination, isAllChecked) {
                 scope.approvalIdList = [];
-                if (scope.formData.actionListSelectedOption == scope.actionList[1]) {
+                if (scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[1]) {
                     for (var i in taskPagination.currentPageItems) {
                         if (isAllChecked) {
                             if (taskPagination.currentPageItems[i].bankApproveId && ((taskPagination.currentPageItems[i].bcifCrnId != null && taskPagination.currentPageItems[i].workflowLoanStatus.code == 'CreditReviewed' && taskPagination.currentPageItems[i].bcifCrnId != undefined) || (taskPagination.currentPageItems[i].bcifCrnId != null && taskPagination.currentPageItems[i].workflowLoanStatus.code == 'SystemApproved' && taskPagination.currentPageItems[i].bcifCrnId != undefined) || (taskPagination.currentPageItems[i].bcifCrnId != null && taskPagination.currentPageItems[i].workflowLoanStatus.code == 'SystemApprovedWithDeviation' && taskPagination.currentPageItems[i].bcifCrnId != undefined))) {
@@ -201,7 +221,7 @@
 
                     }
                 }
-                if (scope.formData.actionListSelectedOption == scope.actionList[2]) {
+                if (scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[2]) {
                     for (var i in taskPagination.currentPageItems) {
                         if (isAllChecked) {
                             if (taskPagination.currentPageItems[i].bankApproveId && ((taskPagination.currentPageItems[i].bcifCrnId == undefined || taskPagination.currentPageItems[i].bcifCrnId == null) && (taskPagination.currentPageItems[i].dedupeMatchExists != undefined && taskPagination.currentPageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND'))) {
@@ -215,6 +235,18 @@
                             taskPagination.currentPageItems[i].isChecked = false;
                         }
 
+                    }
+                }
+                if (!scope.allowBcifOperations) {
+                    for (var i in taskPagination.currentPageItems) {
+                        if (isAllChecked) {
+                            if (taskPagination.currentPageItems[i].bankApproveId) {
+                                scope.approvalIdList.push(taskPagination.currentPageItems[i].bankApproveId);
+                                taskPagination.currentPageItems[i].isChecked = true;
+                            }
+                        } else {
+                            taskPagination.currentPageItems[i].isChecked = false;
+                        }
                     }
                 }
             }
@@ -238,7 +270,7 @@
               if(scope.formData.actionListSelectedOption == scope.actionList[1]){
                 scope.doBulkBankApprovalAction(approvalIdList);
               }
-              if(scope.formData.actionListSelectedOption == scope.actionList[2]){
+              if(scope.allowBcifOperations && scope.formData.actionListSelectedOption == scope.actionList[2]){
                 scope.createBulkCrnAction(approvalIdList);
               }
             }
@@ -254,15 +286,17 @@
                 });
             }
 
-            scope.createBulkCrnAction = function(approvalIdList){
-                scope.errorDetails = [];
-                if(approvalIdList.length == 0){
-                    return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+            scope.createBulkCrnAction = function (approvalIdList) {
+                if (scope.allowBcifOperations) {
+                    scope.errorDetails = [];
+                    if (approvalIdList.length == 0) {
+                        return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
+                    }
+                    scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
+                    resourceFactory.bulkCrnCreationResource.doBulkCrnCreation(scope.bulkApprovalFormData, function (data) {
+                        route.reload();
+                    });
                 }
-                scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
-                resourceFactory.bulkCrnCreationResource.doBulkCrnCreation(scope.bulkApprovalFormData, function (data) {
-                    route.reload();
-                });
             }
 
             scope.changeInTab = function(grouping){
@@ -275,7 +309,12 @@
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected','CreditReviewed'];
                     scope.filterBy = 'ManualApprove';
+                    if(scope.allowBcifOperations){
                     scope.isShowBulkOperationsButton = true;
+                    }
+                    else{
+                        scope.isShowBulkOperationsButton = false;
+                    }
                 }
                 if(grouping == 'SystemApprove'){
                     scope.workflowLoanStatusList = [];

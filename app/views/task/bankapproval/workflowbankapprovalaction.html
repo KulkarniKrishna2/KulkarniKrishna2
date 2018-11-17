@@ -194,8 +194,8 @@
 				</table>
 				<br>
 		<div>
-		<legend ng-if="clientDedupTemplateData!=null"><strong>{{'label.heading.bcif.details' | translate}}</strong></legend>
-		<div ng-if="clientDedupTemplateData!=null">
+		<legend ng-if="clientDedupTemplateData!=null && allowBcifOperations"><strong>{{'label.heading.bcif.details' | translate}}</strong></legend>
+		<div ng-if="clientDedupTemplateData!=null && allowBcifOperations">
 			<div ng-if="clientDedupTemplateData.clientDedupeList!=null && clientDedupTemplateData.clientDedupeList.length>0 && !crnGeneration && !deduperrorExists">
 					<table class="table table-striped">
 							<thead >

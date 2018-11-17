@@ -43,14 +43,14 @@
                 </div>
             </td>
             <td class="col-md-3">
-                <div>
+                <div ng-if="allowBcifOperations">
                     <select id="stage" ng-model="formData.crnSelectedOption" class="form-control" ng-options="crnStatuses for crnStatuses in crnSearchList"
                         value="{{crnStatuses}}" ng-change="checkForOption()" >
                     </select>
                 </div>
             </td>
             <td class="col-md-3">
-                    <div>
+                    <div ng-if="allowBcifOperations" >
                         <input ng-model="formData.crnNumber" ng-if="showCrnTextBox" placeholder="Enter the Crn Number">
                         <span class="error" ng-show="showCrnMandatoryMessage">{{'label.error.required'|translate}}</span>
                     </div>
@@ -97,7 +97,7 @@
             <td ng-if="isShowBulkOperationsButton" class="col-md-3">
                 <div>
                     <select id="actioncrn" ng-model="formData.actionListSelectedOption" class="form-control" ng-options="action for action in actionList"
-                        value="{{actionSelected}}" ng-change="checkForSelectedAction(taskPagination.currentPageItems,taskPagination)">
+                        value="{{actionSelected}}" ng-change="checkForSelectedAction(taskPagination.currentPageItems)">
                     </select>
                 </div>
             </td>
@@ -129,7 +129,7 @@
                                 <th class="col-md-2">{{'label.heading.officeName' | translate}}</th>
                                 <th class="col-md-2">{{'label.heading.clientname' | translate}}({{'label.heading.FCSM.No' | translate}})</th>
                                 <th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
-                                <th class="col-md-2">{{'label.crn.status' | translate}}</th> 
+                                <th ng-if="allowBcifOperations" class="col-md-2">{{'label.crn.status' | translate}}</th> 
                                 <th class="col-md-1">{{'label.heading.status' | translate}}</th>
                                 <th class="col-md-2">{{'label.heading.date' | translate}}</th> 
                                 </thead>
@@ -149,7 +149,7 @@
                                     <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                       {{workflowBankApproval.productName}}({{workflowBankApproval.requestLoanAmount}})
                                     </td>
-                                    <td ><span ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)" ng-if="getCrnStatus(workflowBankApproval)!='CRN Creation Failed' && getCrnStatus(workflowBankApproval)!='Dedupe Check Failed'">
+                                    <td ng-if="allowBcifOperations"><span ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)" ng-if="getCrnStatus(workflowBankApproval)!='CRN Creation Failed' && getCrnStatus(workflowBankApproval)!='Dedupe Check Failed'">
                                         {{getCrnStatus(workflowBankApproval)}}
                                     </span>
                                     <span ng-if="getCrnStatus(workflowBankApproval)=='CRN Creation Failed' || getCrnStatus(workflowBankApproval)=='Dedupe Check Failed'"><a style="color:red" ng-click="openErrorMessage(workflowBankApproval)">{{getCrnStatus(workflowBankApproval)}}</a></span>

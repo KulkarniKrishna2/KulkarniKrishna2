@@ -282,7 +282,7 @@
 
   "label.crn.status" : "CRN",
   "label.all.crn.status" : "All CRN Status",
-  "label.credit.reviewed" : "Credit Reviewed",
+  "label.credit.reviewed" : "Credit Review",
   "label.err.code" : "Error Code :",
   "label.err.desc" : "Error Description :",
   "label.proceed" : "Proceed",

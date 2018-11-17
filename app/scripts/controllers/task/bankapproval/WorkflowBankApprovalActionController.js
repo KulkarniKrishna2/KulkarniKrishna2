@@ -81,6 +81,7 @@
                     }
                     if(scope.clientDedupTemplateData.crn != null){
                         scope.crnExists = true;
+                        checkWorkFlowLoanStatus(scope.bankApprovalTemplateData.workflowLoanStatus.code);
                     }
                     if(!scope.noDedupeMatchFound){
                         for(var i = 0 ;i < scope.clientDedupTemplateData.clientDedupeList;i++){
@@ -273,25 +274,41 @@
 
             var checkWorkFlowLoanStatus = function(workflowLoanStatus){
                 scope.showApproveButton = false;
+                scope.showCreditReviewButton = false;
                 if(workflowLoanStatus == "CreditReviewed"){
                     if(scope.crnExists==true){
                         scope.showApproveButton = true;
                     }
-                }
-                else if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed" ){
-                    scope.showRaiseQueryButton = true;
-                    scope.showRejectButton = true;
-                    scope.showCreditReviewButton = true;
-                    scope.showUndoApproveButton = false;
-                    scope.showResolveQueryButton = false;
-                }
-                else if(workflowLoanStatus == workflowLoanStatus == "SystemApproved" || workflowLoanStatus == "SystemApprovedWithDeviation"){
                     scope.showRaiseQueryButton = true;
                     scope.showRejectButton = true;
                     scope.showCreditReviewButton = false;
                     scope.showUndoApproveButton = false;
                     scope.showResolveQueryButton = false;
-                    if(scope.crnExists==true){
+                }
+                else if(workflowLoanStatus == "UnderKotakApproval" || workflowLoanStatus == "ODUReviewed" ){
+                    scope.showRaiseQueryButton = true;
+                    scope.showRejectButton = true;
+                    if(scope.allowBcifOperations){
+                        scope.showCreditReviewButton = true;
+                    }
+                    else{
+                        scope.showApproveButton = true;
+                    }
+                    scope.showUndoApproveButton = false;
+                    scope.showResolveQueryButton = false;
+                }
+                else if(workflowLoanStatus == "SystemApproved" || workflowLoanStatus == "SystemApprovedWithDeviation"){
+                    scope.showRaiseQueryButton = true;
+                    scope.showRejectButton = true;
+                    scope.showCreditReviewButton = false;
+                    scope.showUndoApproveButton = false;
+                    scope.showResolveQueryButton = false;
+                    if(scope.allowBcifOperations){
+                        if(scope.crnExists==true){
+                            scope.showApproveButton = true;
+                        }
+                    }
+                    else{
                         scope.showApproveButton = true;
                     }
                 }else if(workflowLoanStatus == "KotakApproved"){
