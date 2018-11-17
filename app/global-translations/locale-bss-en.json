@@ -278,6 +278,7 @@
   "err.msg.same.group.can.not.be.selected":"Same Subgroup can not selected.",
   "err.msg.member.count.must.be.same.in.both.groups":"Member count should be same in both Subgroups",
   "err.msg.select.one.member":"Please select at least one member.",
+  "error.msg.client.policy.not.exist" : "Member policy does not exist.",
 
   "------ end of tensalation file":"---------"
 }

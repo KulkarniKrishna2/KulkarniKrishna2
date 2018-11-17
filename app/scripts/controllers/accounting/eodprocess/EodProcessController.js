@@ -57,9 +57,9 @@
             scope.viewEOD = function(eodProcessId){
                 location.path('/eodonboarding/create/'+ eodProcessId +'/workflow');
             }
-            scope.rejectEOD = function(eodProcessId){
+            scope.rejectEOD = function(eodProcessId,index){
                 resourceFactory.eodProcessResource.delete({eodProcessId:eodProcessId},function (data) {
-                    scope.searchData();
+                    scope.eodProcessDatas.currentPageItems.splice(index,1);
                 });
             }
         }

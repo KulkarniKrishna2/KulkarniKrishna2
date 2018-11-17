@@ -88,7 +88,7 @@
                     <td class="pointer">{{eodProcess.createdBy.lastname}},{{eodProcess.createdBy.firstname}}</td>
                     <td class="pointer">
                         <button class="btn btn-primary" ng-click="viewEOD(eodProcess.id)" tooltip="{{'label.button.view.eod' | translate}}" has-permission='READ_EOD_PROCESS'><i class="icon-eye-open "></i></button>
-                        <button class="btn btn-danger" ng-click="rejectEOD(eodProcess.id)" tooltip="{{'label.button.reject.eod' | translate}}" has-permission='DELETE_EOD_PROCESS'><i class="icon-remove-circle pointer"></i></button>
+                        <button class="btn btn-danger" ng-click="rejectEOD(eodProcess.id, $index)" tooltip="{{'label.button.reject.eod' | translate}}" has-permission='DELETE_EOD_PROCESS'><i class="icon-remove-circle pointer"></i></button>
                     </td>
                 </tr>
                 </tbody>

@@ -7641,6 +7641,8 @@
     "KotakApproved" : "Kotak Approved",
     "KotakRejected" : "Kotak Rejected", 
     "error.msg.eodprocess.already.exist" : "Eod process for {{params[0].value}} as of `{{params[1].value}}` is already exist.",  
+    "error.msg.client.duplicate.policy.number":"Policy number `{{params[0].value}}` already exist.",
+    "error.msg.client.policy.not.exist" : "Client policy does not exist.",
     
 
      "------ end of tensalation file ------":"---------"
