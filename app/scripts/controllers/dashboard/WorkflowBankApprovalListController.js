@@ -305,6 +305,12 @@
                 scope.checkForOption();
                 scope.formData.actionListSelectedOption = 'No Action Selected';
                 scope.checkForSelectedAction();
+                scope.crnNumberValue = null;
+                scope.bcifStatus = null;
+                scope.dedupeStatus = null;
+                scope.crnStatus = null;
+                scope.formData.workflowLoanStatus = null;
+                scope.dedupeMatchFound = null;
                 if(grouping == 'ManualApprove'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected','CreditReviewed'];
