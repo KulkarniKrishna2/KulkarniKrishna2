@@ -2,40 +2,77 @@
     mifosX.controllers = _.extend(module, {
         ViewCheckerinboxController: function (scope, resourceFactory, routeParams, location, $modal) {
             scope.details = {};
-            resourceFactory.auditResource.get({templateResource: routeParams.id}, function (data) {
+            resourceFactory.auditResource.get({
+                templateResource: routeParams.id
+            }, function (data) {
                 scope.details = data;
                 scope.commandAsJson = data.commandAsJson;
                 var obj = JSON.parse(scope.commandAsJson);
                 var creditdetails = obj.credits || [];
                 var debitdetails = obj.debits || [];
                 scope.jsondata = [];
-                scope.jsondata.push({name: "clientName", property: scope.details.clientName});
+
+                if (scope.details.clientName) {
+                    scope.jsondata.push({
+                        name: "clientName",
+                        property: scope.details.clientName
+                    });
+                }
+
                 _.each(obj, function (value, key) {
-                    scope.jsondata.push({name: key, property: value});
+                    scope.jsondata.push({
+                        name: key,
+                        property: value
+                    });
                 });
-               _.each(creditdetails, function (value) {
-            	scope.credit(value.glAccountId, value.amount);
+
+                if (scope.details.makerRequestData) {
+                    scope.details.makerRequestData = JSON.parse(scope.details.makerRequestData) || [];
+                    _.each(scope.details.makerRequestData, function (value, key) {
+                        for(var j in scope.jsondata){
+                            if(scope.jsondata[j].name === key){
+                                scope.jsondata[j].property = value.value;
+                            }
+                        }
+                    });
+                }
+
+                _.each(creditdetails, function (value) {
+                    scope.credit(value.glAccountId, value.amount);
                 });
+
                 _.each(debitdetails, function (value) {
-            	scope.debit(value.glAccountId, value.amount);
-               });
+                    scope.debit(value.glAccountId, value.amount);
+                });
             });
-        
-       
+
+
             scope.credit = function (obj, amount) {
-        	scope.credits=[];
-        	resourceFactory.accountCoaResource.get({glAccountId: obj}, function (data) {
-        		scope.credits.push({glAccountCode: data.glCode, glAccountName: data.name, glAmount:amount});
-        	});
-          }
-        
+                scope.credits = [];
+                resourceFactory.accountCoaResource.get({
+                    glAccountId: obj
+                }, function (data) {
+                    scope.credits.push({
+                        glAccountCode: data.glCode,
+                        glAccountName: data.name,
+                        glAmount: amount
+                    });
+                });
+            }
+
             scope.debit = function (obj, amount) {
-        	scope.debits=[];
-        	resourceFactory.accountCoaResource.get({glAccountId: obj}, function (data) {
-        		scope.debits.push({glAccountCode: data.glCode, glAccountName: data.name, glAmount:amount});
-        	});
-           }
-            
+                scope.debits = [];
+                resourceFactory.accountCoaResource.get({
+                    glAccountId: obj
+                }, function (data) {
+                    scope.debits.push({
+                        glAccountCode: data.glCode,
+                        glAccountName: data.name,
+                        glAmount: amount
+                    });
+                });
+            }
+
             scope.checkerApprove = function (action) {
                 $modal.open({
                     templateUrl: 'approve.html',
@@ -49,7 +86,10 @@
             };
             var ApproveCtrl = function ($scope, $modalInstance, action) {
                 $scope.approve = function () {
-                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
+                    resourceFactory.checkerInboxResource.save({
+                        templateResource: routeParams.id,
+                        command: action
+                    }, {}, function (data) {
                         $modalInstance.close('approve');
                         location.path('/checkeractionperformed');
                     });
@@ -59,7 +99,7 @@
                 };
             };
 
-			scope.checkerReject = function (action) {
+            scope.checkerReject = function (action) {
                 $modal.open({
                     templateUrl: 'reject.html',
                     controller: RejectCtrl,
@@ -70,9 +110,12 @@
                     }
                 });
             };
-			var RejectCtrl = function ($scope, $modalInstance, action) {
+            var RejectCtrl = function ($scope, $modalInstance, action) {
                 $scope.approve = function () {
-                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
+                    resourceFactory.checkerInboxResource.save({
+                        templateResource: routeParams.id,
+                        command: action
+                    }, {}, function (data) {
                         $modalInstance.close('reject');
                         location.path('/checkeractionperformed');
                     });
@@ -89,7 +132,9 @@
             };
             var DeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
-                    resourceFactory.checkerInboxResource.delete({templateResource: routeParams.id}, {}, function (data) {
+                    resourceFactory.checkerInboxResource.delete({
+                        templateResource: routeParams.id
+                    }, {}, function (data) {
                         $modalInstance.close('delete');
                         location.path('/checkeractionperformed');
                     });

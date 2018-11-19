@@ -466,7 +466,7 @@
 
                     if (!$scope.dateOfBirthNotInRange || !$scope.invalidClassificationId) {
                         resourceFactory.clientResource.save($scope.formData, function (data) {
-                            if(data.changes && data.changes.isDeDuplicationCheck){
+                            if(data.additionalResponseData && data.additionalResponseData.isDeDuplicationCheck){
                                 $modalInstance.close('createmember');
                                 scope.openDeDuplicationCheckPage(data.clientId);
                             }else{
