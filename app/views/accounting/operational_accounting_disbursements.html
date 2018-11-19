@@ -1,0 +1,130 @@
+<div>
+    <div>
+        <!--class="span gray-head"-->
+        <div>
+            <div>
+                <h4>{{ 'label.heading.fromtime' | translate}}:&nbsp;&nbsp;<span>{{fromTime}}</span>
+                    <div class="pull right">{{ 'label.heading.totime' | translate}}:&nbsp;&nbsp;<span>{{toTime}}</span></div>
+                </h4>
+            </div>
+            <div>
+                <h4>{{ 'label.heading.office' | translate}}:&nbsp;&nbsp;<span>{{officeName}}</span>
+                    <div class="pull right"> {{ 'label.heading.date' | translate}}:&nbsp;&nbsp;<span>{{toTime |
+                            DateFormat}}</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <!---- ng-repeat="product in products" -->
+    <h3>{{ 'label.heading.disbursements' | translate }}:</h3>
+    <div>
+        <table class="table-bordered table view-table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.loanProductName' | translate}}</th>
+                    <th>{{'label.heading.glcode' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="disbursement in disbursements">
+                <!---- ng-repeat="disbursementDetail in disbursementDetails" -->
+                <tr ng-repeat="disbursementDetail in disbursement.details">
+                    <td>{{disbursement.productDetail.name}}</td>
+                    <td>{{disbursementDetail.gLAccountData.name}}</td>
+                    <td>{{disbursementDetail.amount | number}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">{{'label.input.total' | translate }}</td>
+                    <td>{{disbursemtsTotal | number}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div>
+        <div ng-if="isProcessingFee">
+            <h3>{{ 'label.anchor.loanprocessingfee' | translate }}:</h3>
+            <table class="table-bordered table view-table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanProductName' | translate}}</th>
+                        <th>{{'label.heading.glcode' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="disbursementCharge in disbursementCharges" ng-if="disbursementCharge.chargeType == 'PROCESSING_FEES'">
+                    <!---- ng-repeat="productdetail in productdetails" -->
+                    <tr ng-repeat="disbursementChargeDetail in disbursementCharge.details">
+                        <td>{{disbursementCharge.productDetail.name}}</td>
+                        <td>{{disbursementChargeDetail.gLAccountData.name}}</td>
+                        <td>{{disbursementChargeDetail.amount | number}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">{{'label.input.total' | translate }}</td>
+                        <td>{{processingFeeTotal | number}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div ng-if="isSingleInsurance">
+            <h3>{{ 'label.anchor.singleinsurancefee' | translate }}:</h3>
+            <table class="table-bordered table view-table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanProductName' | translate}}</th>
+                        <th>{{'label.heading.glcode' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="disbursementCharge in disbursementCharges" ng-if="disbursementCharge.chargeType == 'SINGLE_INSURANCE_CHARGES'">
+                    <!---- ng-repeat="productdetail in productdetails" -->
+                    <tr ng-repeat="disbursementChargeDetail in disbursementCharge.details">
+                        <td>{{disbursementCharge.productDetail.name}}</td>
+                        <td>{{disbursementChargeDetail.gLAccountData.name}}</td>
+                        <td>{{disbursementChargeDetail.amount| number}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">{{'label.input.total' | translate }}</td>
+                        <td>{{singleInsuranceTotal | number}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div ng-if="isDoubleInsurance">
+            <h3>{{ 'label.anchor.doubleinsurancefee' | translate }}:</h3>
+            <table class="table-bordered table view-table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanProductName' | translate}}</th>
+                        <th>{{'label.heading.glcode' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="disbursementCharge in disbursementCharges" ng-if="disbursementCharge.chargeType == 'DOUBLE_INSURANCE_CHARGES'">
+                    <!---- ng-repeat="productdetail in productdetails" -->
+                    <tr ng-repeat="disbursementChargeDetail in disbursementCharge.details">
+                        <td>{{disbursementCharge.productDetail.name}}</td>
+                        <td>{{disbursementChargeDetail.gLAccountData.name}}</td>
+                        <td>{{disbursementChargeDetail.amount | number}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">{{'label.input.total' | translate }}</td>
+                        <td>{{doubleInsuranceTotal | number}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
+        <div class="pull-right">
+            <a id="next" type="submit" has-permission='' ng-click="next()" class="btn btn-primary"></i>{{'label.button.next'
+                | translate}}&nbsp;<i class="icon-arrow-right"></i></a>
+        </div>
+    </div>

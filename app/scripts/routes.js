@@ -1893,6 +1893,15 @@
             .when('/transfer/memberexchange', {
                 templateUrl: 'views/transfer/memberexchange.html'
             })
+            .when('/operationalaccounting', {
+                templateUrl: 'views/accounting/operational_accounting.html'
+            })
+            .when('/fldg', {
+                templateUrl: 'views/accounting/fldg.html'
+            })
+            .when('/gstinvoicing', {
+                templateUrl: 'views/accounting/gst_invoicing.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

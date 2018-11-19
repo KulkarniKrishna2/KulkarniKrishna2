@@ -1,0 +1,51 @@
+<br>
+<div>
+    <form name="gstinvoicingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.gstinvoicing'
+                | translate}}&nbsp;:</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.state' | translate}} <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="transactionTypeOptions" id="transactionTypeId" name="transactionTypeId" ng-model="formData.transactionTypeId"
+                        class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
+                        value="{{transactionTypeOption.id}}" required late-validate>
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createtransactiontypeform" valattribute="transactionTypeId" />
+                </div>
+            </div>
+            <br>
+            <div class="well col-sm-5 col-md-5" style="margin:35px">
+                <h3>{{'label.anchor.urban'
+                    | translate}}&nbsp;:-</h3>
+                <h4><span class="paddedsummary"><b>%&nbsp;{{'label.heading.interest' | translate}}:-&nbsp;</b></span>
+                    <span>{{bankAccountData.name}}</span></h4>
+                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.heading.fees' | translate}}&nbsp;:-</b></span>
+                    <span>{{bankAccountData.name}}</span></h4>
+                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.input.total' | translate}}&nbsp;:-</b></span>
+                    <span>{{bankAccountData.name}}</span></h4>
+            </div>
+
+            <div class="well col-sm-5 col-md-5" style="margin:35px">
+                <h3>{{'label.anchor.rural'
+                    | translate}}&nbsp;:-</h3>
+                <h4><span class="paddedsummary"><b>%&nbsp;{{'label.heading.interest' | translate}}:-&nbsp;</b></span>
+                    <span>{{bankAccountData.name}}</span></h4>
+                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.heading.fees' | translate}}&nbsp;:-</b></span>
+                    <span>{{bankAccountData.name}}</span></h4>
+                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.input.total' | translate}}&nbsp;:-</b></span>
+                    <span>{{bankAccountData.name}}</span></h4>
+            </div>
+        </fieldset>
+        <div class="pull-right">
+            <a id="save" type="submit" has-permission='' ng-click="" class="btn btn-primary">&nbsp;{{'label.anchor.generateinvoice'
+                | translate}}</a>
+        </div>
+    </form>
+</div>

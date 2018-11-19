@@ -1745,6 +1745,9 @@
                     bulkCrnCreationResource: defineResource(apiVer +"/bcif/bulkbcif", {},{
                         doBulkCrnCreation: {method: 'POST', params: {}}
                     }),
+                    batchAccountingResource: defineResource(apiVer + "/batchaccounting/transactions/:officeId", { officeId: '@officeId' }, {
+
+                    })                    
                 };
             }];
         }

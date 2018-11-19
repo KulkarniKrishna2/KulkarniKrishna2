@@ -1,0 +1,91 @@
+<br>
+<form name="fldg" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <api-validate></api-validate>
+    <fieldset>
+        <legend>{{'label.anchor.fldg'
+            | translate}}&nbsp;:</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2">
+                {{'label.input.year' | translate}} <span class="required">*</span>
+            </label>
+            <div class="col-sm-3">
+                <select chosen="transactionTypeOptions" id="transactionTypeId" name="transactionTypeId" ng-model="formData.transactionTypeId"
+                    class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
+                    value="{{transactionTypeOption.id}}" required late-validate>
+                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <form-validate valattributeform="createtransactiontypeform" valattribute="transactionTypeId" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">
+                {{'label.button.month' | translate}} <span class="required">*</span>
+            </label>
+            <div class="col-sm-3">
+                <select chosen="transactionTypeOptions" id="transactionTypeId" name="transactionTypeId" ng-model="formData.transactionTypeId"
+                    class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
+                    value="{{transactionTypeOption.id}}" required late-validate>
+                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <form-validate valattributeform="createtransactiontypeform" valattribute="transactionTypeId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">
+                {{'label.heading.tranche' | translate}}
+            </label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="formdata.tranche" class="input-sm form-control">
+            </div>
+            <div class="col-sm-1">
+                <input type="text" ng-model="formdata.tranchepercent" class="input-sm form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">
+                {{'label.anchor.fldgreachis' | translate}}
+            </label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="formdata.fldg" class="input-sm form-control">
+            </div>
+            <div class="col-sm-1">
+                <input type="text" ng-model="formdata.fldgpercent" class="input-sm form-control">
+            </div>
+        </div>
+        <legend>{{'label.anchor.overdueloans'
+            | translate}}&nbsp;:</legend>
+        <!---- ng-repeat="product in products" -->
+        <div>
+            <table class="table-bordered table view-table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.input.loanproduct' | translate}}</th>
+                        <th>{{'label.heading.managedby' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!---- ng-repeat="productdetail in productdetails" -->
+                    <tr>
+                        <td>XYZ</td>
+                        <td style="width: 600px">
+                            <select chosen="transactionTypeOptions" id="transactionTypeId" name="transactionTypeId"
+                                ng-model="formData.transactionTypeId" class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
+                                value="{{transactionTypeOption.id}}" required late-validate>
+                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="center">
+                <a id="save" type="submit" has-permission='' ng-click="next()" class="btn btn-primary">{{'label.anchor.save'
+                    | translate}}&nbsp;</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
