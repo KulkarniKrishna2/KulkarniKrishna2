@@ -585,7 +585,7 @@
                             entityType: 'CLIENT_ONBOARDING',
                             entityId: data.clientId
                         }, function (taskData) {
-                            if(data.changes && data.changes.isDeDuplicationCheck){
+                            if(data.additionalResponseData && data.additionalResponseData.isDeDuplicationCheck){
                                 location.path('/client/' + data.clientId + '/activate');
                             }else{
                                 if (taskData.id == undefined) {
