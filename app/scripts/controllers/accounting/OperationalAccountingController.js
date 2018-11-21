@@ -56,6 +56,9 @@
                 }
             }
             resourceFactory.batchAccountingResource.query(function (dataArray) {
+                if (dataArray.length == 0) {
+                    return;
+                }
                 var data = dataArray[0];
                 scope.officeName = data.officeName
                 scope.toTime = data.toTime
@@ -110,12 +113,18 @@
                 }
             });
             scope.submit = function () {
-                scope.formData = {
-                    locale: scope.optlang.code,
-                    time: scope.toTime,
-                    dateTimeFormat: "yyyy-MM-dd HH:mm:ss"
-                };
-                resourceFactory.batchAccountingResource.save(scope.formData, function (data) {});
+                if (scope.toTime) {
+                    scope.formData = {
+                        locale: scope.optlang.code,
+                        time: scope.toTime,
+                        timeFormat: "yyyy-MM-dd HH:mm:ss"
+                    };
+                    resourceFactory.batchAccountingResource.save(scope.formData, function (data) {
+                        location.path('/bc');
+                    });
+                } else {
+                    location.path('/bc');
+                }
             }
         }
     });
