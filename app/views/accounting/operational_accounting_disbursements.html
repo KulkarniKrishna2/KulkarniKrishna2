@@ -22,6 +22,7 @@
             <thead>
                 <tr class="graybg">
                     <th>{{'label.heading.loanProductName' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
                     <th>{{'label.heading.glcode' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
                 </tr>
@@ -30,14 +31,15 @@
                 <!---- ng-repeat="disbursementDetail in disbursementDetails" -->
                 <tr ng-repeat="disbursementDetail in disbursement.details">
                     <td>{{disbursement.productDetail.name}}</td>
-                    <td>{{disbursementDetail.gLAccountData.name}}</td>
-                    <td>{{disbursementDetail.amount | number}}</td>
+                    <td>{{disbursement.type.value}}</td>
+                    <td>{{disbursementDetail.gLAccountData.name}} ({{disbursementDetail.gLAccountData.glCode}})</td>
+                    <td align="right">{{disbursementDetail.amount | number:2}}</td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2">{{'label.input.total' | translate }}</td>
-                    <td>{{disbursemtsTotal | number}}</td>
+                    <td colspan="3">{{'label.input.total' | translate }}</td>
+                    <td align="right">{{disbursemtsTotal | number:2}}</td>
                 </tr>
             </tfoot>
         </table>
