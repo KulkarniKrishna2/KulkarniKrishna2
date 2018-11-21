@@ -1902,6 +1902,27 @@
             .when('/gstinvoicing', {
                 templateUrl: 'views/accounting/gst_invoicing.html'
             })
+            .when('/gstmapping', {
+                templateUrl: 'views/accounting/gst_mapping.html'
+            })
+            .when('/gstmapping/loanproducts', {
+                templateUrl: 'views/accounting/loanproduct_gst_mapping.html'
+            })
+            .when('/gstmapping/savingsproducts', {
+                templateUrl: 'views/accounting/savingsproduct_gst_mapping.html'
+            })
+            .when('/gstmapping/charges', {
+                templateUrl: 'views/accounting/charges_gst_mapping.html'
+            })
+            .when('/gstmapping/addcharges', {
+                templateUrl: 'views/accounting/addcharges_gst_mapping.html'
+            })
+            .when('/gstmapping/addloanproducts', {
+                templateUrl: 'views/accounting/addloanproduct_gst_mapping.html'
+            })
+            .when('/gstmapping/addsavingsproducts', {
+                templateUrl: 'views/accounting/addsavingsproduct_gst_mapping.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
