@@ -203,6 +203,9 @@
 		"organizationMenuSettings": {
 			"enableManageVillages": true
 		},
+		"bc": {
+			"enableBc": true
+		},
 		"editCalendar": {
 			"editableFields": {
 				"repeat": true,
