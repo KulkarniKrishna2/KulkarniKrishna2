@@ -24,7 +24,8 @@
                     <th>{{'label.heading.loanProductName' | translate}}</th>
                     <th>{{'label.heading.type' | translate}}</th>
                     <th>{{'label.heading.glcode' | translate}}</th>
-                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.debit' | translate}}</th>
+                    <th>{{'label.heading.credit' | translate}}</th>
                 </tr>
             </thead>
             <tbody ng-repeat="repayment in repayments">
@@ -33,13 +34,19 @@
                     <td>{{repayment.productDetail.name}}</td>
                     <td>{{repaymentDetail.type.value}}</td>
                     <td>{{repaymentDetail.gLAccountData.name}}&nbsp;({{repaymentDetail.gLAccountData.glCode}})</td>
-                    <td align="right">{{repaymentDetail.amount | number:2}}</td>
+                    <td align="right">
+                        <span ng-if="repaymentDetail.type.value=='DEBIT'">{{repaymentDetail.amount | number:2}}</span>
+                    </td>
+                    <td align="right">
+                        <span ng-if="repaymentDetail.type.value=='CREDIT'">{{repaymentDetail.amount | number:2}}</span>
+                    </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3">{{'label.input.total' | translate }}</td>
-                    <td align="right">{{repaymentsTotal | number:2}}</td>
+                    <td align="right">{{drRepaymentsTotal | number:2}}</td>
+                    <td align="right">{{crRepaymentsTotal | number:2}}</td>
                 </tr>
             </tfoot>
         </table>

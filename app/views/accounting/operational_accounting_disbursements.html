@@ -24,7 +24,8 @@
                     <th>{{'label.heading.loanProductName' | translate}}</th>
                     <th>{{'label.heading.type' | translate}}</th>
                     <th>{{'label.heading.glcode' | translate}}</th>
-                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.debit' | translate}}</th>
+                    <th>{{'label.heading.credit' | translate}}</th>
                 </tr>
             </thead>
             <tbody ng-repeat="disbursement in disbursements">
@@ -33,13 +34,19 @@
                     <td>{{disbursement.productDetail.name}}</td>
                     <td>{{disbursementDetail.type.value}}</td>
                     <td>{{disbursementDetail.gLAccountData.name}} ({{disbursementDetail.gLAccountData.glCode}})</td>
-                    <td align="right">{{disbursementDetail.amount | number:2}}</td>
+                    <td align="right">
+                        <span ng-if="disbursementDetail.type.value=='DEBIT'">{{disbursementDetail.amount | number:2}}</span>
+                    </td>
+                    <td align="right">
+                        <span ng-if="disbursementDetail.type.value=='CREDIT'">{{disbursementDetail.amount | number:2}}</span>
+                    </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3">{{'label.input.total' | translate }}</td>
-                    <td align="right">{{disbursemtsTotal | number:2}}</td>
+                    <td align="right">{{drDisbursemtsTotal | number:2}}</td>
+                    <td align="right">{{crDisbursemtsTotal | number:2}}</td>
                 </tr>
             </tfoot>
         </table>
@@ -54,6 +61,8 @@
                         <th>{{'label.heading.type' | translate}}</th>
                         <th>{{'label.heading.glcode' | translate}}</th>
                         <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.heading.debit' | translate}}</th>
+                        <th>{{'label.heading.credit' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="disbursementCharge in disbursementCharges" ng-if="disbursementCharge.chargeType == 'PROCESSING_FEES'">
@@ -61,14 +70,23 @@
                     <tr ng-repeat="disbursementChargeDetail in disbursementCharge.details">
                         <td>{{disbursementCharge.productDetail.name}}</td>
                         <td>{{disbursementChargeDetail.type.value}}</td>
-                        <td>{{disbursementChargeDetail.gLAccountData.name}} ({{disbursementChargeDetail.gLAccountData.glCode}})</td>
-                        <td align="right">{{disbursementChargeDetail.amount | number:2}}</td>
+                        <td>{{disbursementChargeDetail.gLAccountData.name}}
+                            ({{disbursementChargeDetail.gLAccountData.glCode}})</td>
+                        <td align="right">
+                            <span ng-if="disbursementChargeDetail.type.value=='DEBIT'">{{disbursementChargeDetail.amount
+                                | number:2}}</span>
+                        </td>
+                        <td align="right">
+                            <span ng-if="disbursementChargeDetail.type.value=='CREDIT'">{{disbursementChargeDetail.amount
+                                | number:2}}</span>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3">{{'label.input.total' | translate }}</td>
-                        <td align="right">{{processingFeeTotal | number:2}}</td>
+                        <td align="right">{{drProcessingFeeTotal | number:2}}</td>
+                        <td align="right">{{crProcessingFeeTotal | number:2}}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -82,6 +100,8 @@
                         <th>{{'label.heading.type' | translate}}</th>
                         <th>{{'label.heading.glcode' | translate}}</th>
                         <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.heading.debit' | translate}}</th>
+                        <th>{{'label.heading.credit' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="disbursementCharge in disbursementCharges" ng-if="disbursementCharge.chargeType == 'SINGLE_INSURANCE_CHARGES'">
@@ -89,14 +109,23 @@
                     <tr ng-repeat="disbursementChargeDetail in disbursementCharge.details">
                         <td>{{disbursementCharge.productDetail.name}}</td>
                         <td>{{disbursementChargeDetail.type.value}}</td>
-                        <td>{{disbursementChargeDetail.gLAccountData.name}} ({{disbursementChargeDetail.gLAccountData.glCode}})</td>
-                        <td align="right">{{disbursementChargeDetail.amount| number:2}}</td>
+                        <td>{{disbursementChargeDetail.gLAccountData.name}}
+                            ({{disbursementChargeDetail.gLAccountData.glCode}})</td>
+                        <td align="right">
+                            <span ng-if="disbursementChargeDetail.type.value=='DEBIT'">{{disbursementChargeDetail.amount
+                                | number:2}}</span>
+                        </td>
+                        <td align="right">
+                            <span ng-if="disbursementChargeDetail.type.value=='CREDIT'">{{disbursementChargeDetail.amount
+                                | number:2}}</span>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3">{{'label.input.total' | translate }}</td>
-                        <td align="right">{{singleInsuranceTotal | number:2}}</td>
+                        <td align="right">{{drSingleInsuranceTotal | number:2}}</td>
+                        <td align="right">{{crSingleInsuranceTotal | number:2}}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -110,6 +139,8 @@
                         <th>{{'label.heading.type' | translate}}</th>
                         <th>{{'label.heading.glcode' | translate}}</th>
                         <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.heading.debit' | translate}}</th>
+                        <th>{{'label.heading.credit' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="disbursementCharge in disbursementCharges" ng-if="disbursementCharge.chargeType == 'DOUBLE_INSURANCE_CHARGES'">
@@ -118,13 +149,21 @@
                         <td>{{disbursementCharge.productDetail.name}}</td>
                         <td>{{disbursementChargeDetail.type.value}}</td>
                         <td>{{disbursementChargeDetail.gLAccountData.name}}</td>
-                        <td align="right">{{disbursementChargeDetail.amount | number:2}}</td>
+                        <td align="right">
+                            <span ng-if="disbursementChargeDetail.type.value=='DEBIT'">{{disbursementChargeDetail.amount
+                                | number:2}}</span>
+                        </td>
+                        <td align="right">
+                            <span ng-if="disbursementChargeDetail.type.value=='CREDIT'">{{disbursementChargeDetail.amount
+                                | number:2}}</span>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3">{{'label.input.total' | translate }}</td>
-                        <td align="right">{{doubleInsuranceTotal | number:2}}</td>
+                        <td align="right">{{drDoubleInsuranceTotal | number:2}}</td>
+                        <td align="right">{{crDoubleInsuranceTotal | number:2}}</td>
                     </tr>
                 </tfoot>
             </table>

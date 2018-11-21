@@ -7,11 +7,16 @@
                 tab3: false
             }
             scope.index = 0;
-            scope.disbursemtsTotal = 0;
-            scope.processingFeeTotal = 0;
-            scope.singleInsuranceTotal = 0;
-            scope.doubleInsuranceTotal = 0;
-            scope.repaymentsTotal = 0;
+            scope.crDisbursemtsTotal = 0;
+            scope.drDisbursemtsTotal = 0;
+            scope.crProcessingFeeTotal = 0;
+            scope.drProcessingFeeTotal = 0;
+            scope.crSingleInsuranceTotal = 0;
+            scope.drSingleInsuranceTotal = 0;
+            scope.crDoubleInsuranceTotal = 0;
+            scope.drDoubleInsuranceTotal = 0;
+            scope.crRepaymentsTotal = 0;
+            scope.drRepaymentsTotal = 0;
             scope.isProcessingFee = false;
             scope.isSingleInsurance = false;
             scope.isDoubleInsurance = false;
@@ -61,26 +66,46 @@
 
                 for (var i = 0; i < scope.disbursements.length; i++) {
                     for (var j = 0; j < scope.disbursements[i].details.length; j++) {
-                        scope.disbursemtsTotal = scope.disbursemtsTotal + scope.disbursements[i].details[j].amount;
+                        if (scope.disbursements[i].details[j].type.value === 'CREDIT') {
+                            scope.crDisbursemtsTotal += scope.disbursements[i].details[j].amount;
+                        } else {
+                            scope.drDisbursemtsTotal += scope.disbursements[i].details[j].amount;
+                        }
                     }
                 }
                 for (var i = 0; i < scope.disbursementCharges.length; i++) {
                     for (var j = 0; j < scope.disbursementCharges[i].details.length; j++) {
                         if (scope.disbursementCharges[i].chargeType == "PROCESSING_FEES") {
                             scope.isProcessingFee = true;
-                            scope.processingFeeTotal = scope.processingFeeTotal + scope.disbursementCharges[i].details[j].amount;
+                            if (scope.disbursementCharges[i].details[j].type.value === 'CREDIT') {
+                                scope.crProcessingFeeTotal += scope.disbursementCharges[i].details[j].amount;
+                            } else {
+                                scope.drProcessingFeeTotal += scope.disbursementCharges[i].details[j].amount;
+                            }
                         } else if (scope.disbursementCharges[i].chargeType == "SINGLE_INSURANCE_CHARGES") {
                             scope.isSingleInsurance = true;
-                            scope.singleInsuranceTotal = scope.singleInsuranceTotal + scope.disbursementCharges[i].details[j].amount;
+                            if (scope.disbursementCharges[i].details[j].type.value === 'CREDIT') {
+                                scope.crSingleInsuranceTotal += scope.disbursementCharges[i].details[j].amount;
+                            } else {
+                                scope.drSingleInsuranceTotal += scope.disbursementCharges[i].details[j].amount;
+                            }
                         } else if (scope.disbursementCharges[i].chargeType == "DOUBLE_INSURANCE_CHARGES") {
                             scope.isDoubleInsurance = true;
-                            scope.doubleInsuranceTotal = scope.doubleInsuranceTotal + scope.disbursementCharges[i].details[j].amount;
+                            if (scope.disbursementCharges[i].details[j].type.value === 'CREDIT') {
+                                scope.crDoubleInsuranceTotal += scope.disbursementCharges[i].details[j].amount;
+                            } else {
+                                scope.drDoubleInsuranceTotal += scope.disbursementCharges[i].details[j].amount;
+                            }
                         }
                     }
                 }
                 for (var i = 0; i < scope.repayments.length; i++) {
                     for (var j = 0; j < scope.repayments[i].details.length; j++) {
-                        scope.repaymentsTotal = scope.repaymentsTotal + scope.repayments[i].details[j].amount;
+                        if (scope.repayments[i].details[j].type.value === 'CREDIT') {
+                            scope.crRepaymentsTotal += scope.repayments[i].details[j].amount;
+                        } else {
+                            scope.drRepaymentsTotal += scope.repayments[i].details[j].amount;
+                        }
                     }
                 }
             });
