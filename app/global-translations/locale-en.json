@@ -7155,6 +7155,8 @@
     "label.input.amountreceived" : "Amount Received",
     "label.heading.amountreceived" : "Amount Received",
     "label.heading.claimsettlement" : "Claim Settlement",
+    "error.msg.deceased.date.can.not.be.before.date.of.birth":"Deceased date can not be before client date of birth.",
+    "label.tooltip.add.document" : "Add Document",
 
     
      "------ end of translation file":"---------"
