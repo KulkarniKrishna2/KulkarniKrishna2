@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        DeceasedDetailsActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        DeceasedDetailsActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,commonUtilService, $modal) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.deceasedReasonOptions = [];
             scope.deceasedPersonOptions = [];
@@ -8,6 +8,9 @@
             scope.formData.locale = scope.optlang.code;
             scope.formData.dateFormat = scope.df;
             scope.isDeceasedDetailsCreated = false;
+            scope.formDocumentData = {};
+            scope.showUploadDocument = false;
+            scope.documents = [];
 
             scope.getDeceasedDetails = function () {
                 resourceFactory.deceasedDetailsResource.get({ clientId: scope.clientId }, {},
@@ -16,6 +19,7 @@
                             scope.deceasedDetailsData = data;
                             scope.isDeceasedDetailsCreated = true;
                             scope.deceasedDetailsId = data.id;
+                            scope.getDocuments();
                         }
                     });
             }
@@ -27,13 +31,56 @@
                         scope.deceasedPersonOptions = data.deceasedPersonOptions;
                     });
             }
+            scope.getDocuments = function(){
+                if(scope.deceasedDetailsId){
+                    resourceFactory.documentsResource.getAllDocuments({ entityType:'deceased_details',entityId:scope.deceasedDetailsId }, {},
+                        function (data) {
+                            for(var i in data){
+                                var docs = {};
+                                docs = API_VERSION + '/' + data[i].parentEntityType + '/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?';
+                                data[i].docUrl = docs;
+                            }
+                            scope.documents = data;
+                        });
+                }
+                
+            };
+
+            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+                $scope.data = documentDetail;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+               
+            };
+            scope.openViewDocument = function (documentDetail) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
+                });
+            };
+
+            scope.download = function(docUrl){
+                var url = $rootScope.hostUrl + docUrl + commonUtilService.commonParamsForNewWindow();
+                window.open(url);
+            };
 
             scope.init = function () {
+                scope.formDocumentData = {};
+                scope.showUploadDocument = false;
                 scope.getDeceasedDetails();
                 if (!scope.isDeceasedDetailsCreated) {
                     scope.getTemplate();
                 }
+                
             }
+
+            
             scope.init();
             scope.submit = function () {
                 scope.formData.announceDate = dateFilter(scope.announceDate, scope.df);
@@ -63,10 +110,35 @@
                 scope.isDeceasedDetailsCreated = false;
             }
 
+            scope.onFileSelect = function ($files) {
+                scope.file = $files[0];
+            };
+
+            scope.submit = function () {
+                $upload.upload({
+                    url:  $rootScope.hostUrl + API_VERSION + '/deceased_details/' + scope.deceasedDetailsId + '/documents',
+                    data: scope.formDocumentData,
+                    file: scope.file
+                }).then(function (data) {
+                        // to fix IE not refreshing the model
+                        if (!scope.$$phase) {
+                          scope.$apply();
+                        }
+                        scope.init();
+                    });
+            };
+
+            scope.deleteFile = function(file){
+                resourceFactory.documentsResource.delete({ entityType:file.parentEntityType,entityId:file.parentEntityId,documentId: file.id}, {},
+                        function (data) {
+                            scope.getDocuments();
+                        });
+            }
+
 
         }
     });
-    mifosX.ng.application.controller('DeceasedDetailsActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.DeceasedDetailsActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('DeceasedDetailsActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.DeceasedDetailsActivityController]).run(function ($log) {
         $log.info("DeceasedDetailsActivityController initialized");
     });
 }(mifosX.controllers || {}));
