@@ -1923,6 +1923,12 @@
             .when('/gstmapping/addsavingsproducts', {
                 templateUrl: 'views/accounting/addsavingsproduct_gst_mapping.html'
             })
+            .when('/viewtranche', {
+                templateUrl: 'views/accounting/view_tranche.html'
+            })
+            .when('/createtranche', {
+                templateUrl: 'views/accounting/create_tranche.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

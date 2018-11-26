@@ -1,0 +1,33 @@
+<div ng-controller="CreateTrancheController">
+    <form name="viewtranche" novalidate="" class="well form-inline" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.fldgtranche'
+                | translate}}&nbsp;:</legend>
+            <div class="pull-right">
+                <a id="add" type="submit" has-permission='' ng-click="createTranche()" class="btn btn-primary">{{'label.button.create'
+                    | translate}}&nbsp;</a>
+            </div>
+            <table class="table" class="width100">
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.disbursementammount' | translate}}</th>
+                    <th>{{'label.heading.provisioningpercentage' | translate}}</th>
+                    <th>{{'label.input.trancheamount' | translate}}</th>
+                    <th>{{'label.input.fromdate' | translate}}</th>
+                    <th>{{'label.input.todate' | translate}}</th>
+                    <th>{{'label.createdon' |translate}}</th>
+                </tr>
+                <tr ng-repeat="tarnche in ViewTranches">
+                    <th>{{tarnche.name | translate}}</th>
+                    <th>{{tarnche.disbursementAmount | number:2}} </th>
+                    <th>{{tarnche.percentage | number:2}}</th>
+                    <th>{{tarnche.trancheAmount | number:2}}</th>
+                    <th>{{tarnche.fromDate | DateFormat}}</th>
+                    <th>{{tarnche.toDate | DateFormat}}</th>
+                    <th>{{tarnche.createdTime| DateFormat}}</th>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

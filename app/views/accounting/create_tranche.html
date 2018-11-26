@@ -1,0 +1,37 @@
+<div ng-controller="CreateTrancheController">
+    <form name="createtranche" novalidate="" class="well form-inline" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.createtranche'
+                | translate}}&nbsp;:</legend>
+            <div class="col-md-5">
+                <table class="table-bordered table view-table">
+                    <tr>
+                        <td>{{'label.input.fromdate' | translate}}:</td>
+                        <td>{{createTrancheForm.fromDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.todate' | translate}}:</td>
+                        <td>{{createTrancheForm.toDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.disbursementammount' | translate}}:</td>
+                        <td>{{createTrancheForm.disbursementAmount | number:2}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.provisioningpercentage' | translate}}:</td>
+                        <td>{{createTrancheForm.percentage | number:2}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.trancheamount' | translate}}:</td>
+                        <td>{{createTrancheForm.trancheAmount | number:2}}</td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <div class="center">
+            <a id="next" type="submit" has-permission='' ng-click="submitTranche()" class="btn btn-primary"></i>{{'label.button.save'
+                | translate}}&nbsp;</a>
+        </div>
+    </form>
+</div>

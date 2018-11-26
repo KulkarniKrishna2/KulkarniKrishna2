@@ -1749,11 +1749,13 @@
 
                     }),
                     taxconfigurationsResourcetemplate: defineResource(apiVer + "/taxconfigurations/:entityType/template", { entityType: '@entityType' }, {
-
                     }),
                     taxconfigurationsResource: defineResource(apiVer + "/taxconfigurations/:entityType", { entityType: '@entityType' }, {
-
-                    })                 
+                    }),
+                    createTranchetemplate: defineResource(apiVer + "/accounting/fldg/tranche/template", {}, {
+                    }),
+                    createTranche: defineResource(apiVer + "/accounting/fldg/tranche", {}, {
+                    })                
                 };
             }];
         }
