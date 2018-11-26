@@ -1747,7 +1747,13 @@
                     }),
                     batchAccountingResource: defineResource(apiVer + "/batchaccounting/transactions/:officeId", { officeId: '@officeId' }, {
 
-                    })                    
+                    }),
+                    taxconfigurationsResourcetemplate: defineResource(apiVer + "/taxconfigurations/:entityType/template", { entityType: '@entityType' }, {
+
+                    }),
+                    taxconfigurationsResource: defineResource(apiVer + "/taxconfigurations/:entityType", { entityType: '@entityType' }, {
+
+                    })                 
                 };
             }];
         }

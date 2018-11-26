@@ -1,0 +1,28 @@
+<div ng-controller="ChargesGSTMappingController">
+    <form name="savingsproductgstMapping" novalidate="" class="well form-inline" rc-submit="submit()">
+        <api-validate></api-validate>
+
+        <legend>{{'label.anchor.gstmapping'
+            | translate}}&nbsp;:</legend>
+        <div class="pull-right">
+            <a id="add" type="submit" has-permission='' ng-click="addCharge()" class="btn btn-primary">{{'label.button.add'
+                | translate}}&nbsp;</a>
+        </div>
+        <br>
+        <br>
+        <div>
+            <table class="table" class="width100">
+                <tr class="graybg">
+                    <th>{{'label.heading.charges' | translate}}</th>
+                    <th>{{'label.heading.provisioningpercentage' | translate}}</th>
+                    <th>{{'label.input.taxgroup' | translate}}</th>
+                </tr>
+                <tr ng-repeat="charge in chargesData">
+                    <th>{{charge.name}}</th>
+                    <th>{{charge.percentage}}</th>
+                    <th>{{charge.taxGroupName}}</th>
+                </tr>
+        </div>
+        </fieldset>
+    </form>
+</div>

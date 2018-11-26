@@ -649,7 +649,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientDeduplicationCheckController',
             'transfer/MemberExchangeController',
             'transfer/ViewMemberExchangeController',
-            'accounting/OperationalAccountingController'
+            'accounting/OperationalAccountingController',
+            'accounting/LoanProductGSTMappingController',
+            'accounting/SavingsProductGSTMappingController',
+            'accounting/ChargesGSTMappingController'
 
         ],
         filters: [

@@ -1,0 +1,42 @@
+<div ng-controller="LoanProductGSTMappingController">
+    <form name="addloanproductsgstMapping" novalidate="" class="well form-inline" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.gstmapping'
+                | translate}}&nbsp;:</legend>
+            <div class="pull-right">
+                <a id="add" type="submit" has-permission='' ng-click="add()" class="btn btn-primary">{{'label.button.add'
+                    | translate}}&nbsp;</a>
+            </div>
+            <table class="table" class="width100">
+                <tr class="graybg">
+                    <th>{{'label.heading.products' | translate}}</th>
+                    <th>{{'label.heading.provisioningpercentage' | translate}}</th>
+                    <th>{{'label.input.taxgroup' | translate}}</th>
+                </tr>
+                <!-- <tr ng-repeat="product  in products">-->
+                <tr ng-repeat="loanproductOption in loanProducts">
+                    <th> <select ng-model="loanproductOption.productId" ng-options="loanProduct.id as loanProduct.name  for loanProduct in loanProductsOptions"
+                            value="{{loanProduct.id}}" class="form-control width170px">
+                            <option value="">{{'label.selectproduct' | translate}}</option>
+                        </select></th>
+                    <th> <input type="text" class="form-control" ng-model="loanproductOption.percentage" /></th>
+                    <th>
+                        <select ng-model="loanproductOption.taxGroupId" ng-options="taxGroup.id as taxGroup.name  for taxGroup in taxGroupOptions"
+                            value="{{taxGroup.id}}" class="form-control width170px">
+                            <option value="">{{'label.input.selecttaxgroup' | translate}}</option>
+                        </select>
+                        &nbsp;<a ng-click="removeloanProduct($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                    </th>
+                </tr>
+            </table>
+            <div class="pull right">
+                <a id="next" type="submit" has-permission='' ng-click="submit()" class="btn btn-primary">{{'label.button.save'
+                    | translate}}&nbsp;</a>
+            </div>
+            <div class="pull left"><a id="next" type="submit" has-permission='' ng-click="back()" class="btn btn-primary">{{'label.button.back'
+                    | translate}}&nbsp;</a></div>
+
+        </fieldset>
+    </form>
+</div>

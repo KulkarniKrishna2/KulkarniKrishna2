@@ -7670,5 +7670,15 @@
     "label.anchor.urban": "URBAN",
     "label.anchor.rural": "RURAL",
     "label.anchor.generateinvoice": "GENERATE INVOICE",
+    "label.anchor.gstmapping": "GST MAPPING",
+    "label.anchor.screenforgstmapping": "Screen For GST Mapping",
+    "label.input.selecttaxgroup": "Select Tax group",
+    "label.anchor.loanproductgstmapping": "Loan Product GST Mappings",
+    "label.anchor.screenforloanproductgstmapping": "Screen For Loan Product GST Mappings",
+    "label.anchor.chargesgstmapping": "Charges GST Mapping",
+    "label.anchor.screenforchargesgstmapping": "Screen For Charges GST Mappings",
+    "label.anchor.savingsproductgstmapping": "Savings Product GST Mappings ",
+    "label.anchor.screenforsavingsproductgstmapping": "Screen For Savings Product GST Mappings",
+
      "------ end of tensalation file ------":"---------"
 }
