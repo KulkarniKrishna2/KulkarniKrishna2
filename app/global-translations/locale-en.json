@@ -7644,6 +7644,8 @@
     "error.msg.eodprocess.already.exist" : "Eod process for {{params[0].value}} as of `{{params[1].value}}` is already exist.",  
     "error.msg.client.duplicate.policy.number":"Policy number `{{params[0].value}}` already exist.",
     "error.msg.client.policy.not.exist" : "Client policy does not exist.",
+    "error.msg.deceased.date.can.not.be.before.date.of.birth":"Deceased date can not be before client date of birth.",
+    "label.tooltip.add.document" : "Add Document",
     
 
     "label.anchor.operationalaccounting": "Operational Accounting",
