@@ -7679,6 +7679,12 @@
     "label.anchor.screenforchargesgstmapping": "Screen For Charges GST Mappings",
     "label.anchor.savingsproductgstmapping": "Savings Product GST Mappings ",
     "label.anchor.screenforsavingsproductgstmapping": "Screen For Savings Product GST Mappings",
+    "label.anchor.createtranche": "Create Tranche",
+    "label.anchor.screenfortranchecreation": "Screen For Tranche Creation",
+    "label.anchor.fldgsettlement": "FLDG Settlement",
+    "label.anchor.screenforfldgsettlement": "Screen For FLDG Settlement",
+    "label.input.trancheamount": "Tranche Amount",
+    "label.anchor.fldgtranche": "FLDG Tranche",
 
      "------ end of tensalation file ------":"---------"
 }
