@@ -1,11 +1,14 @@
 <div ng-controller="CreateTrancheController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.fldgtranche' | translate}}</li>
+    </ul>
     <form name="viewtranche" novalidate="" class="well form-inline" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.anchor.fldgtranche'
-                | translate}}&nbsp;:</legend>
+                | translate}}&nbsp;</legend>
             <div class="pull-right">
-                <a id="add" type="submit" has-permission='' ng-click="createTranche()" class="btn btn-primary">{{'label.button.create'
+                <a id="add" type="submit" has-permission='CREATE_TRANCHE' ng-click="createTranche()" class="btn btn-primary">{{'label.button.create'
                     | translate}}&nbsp;</a>
             </div>
             <table class="table" class="width100">
@@ -19,13 +22,13 @@
                     <th>{{'label.createdon' |translate}}</th>
                 </tr>
                 <tr ng-repeat="tarnche in ViewTranches">
-                    <th>{{tarnche.name | translate}}</th>
-                    <th>{{tarnche.disbursementAmount | number:2}} </th>
-                    <th>{{tarnche.percentage | number:2}}</th>
-                    <th>{{tarnche.trancheAmount | number:2}}</th>
-                    <th>{{tarnche.fromDate | DateFormat}}</th>
-                    <th>{{tarnche.toDate | DateFormat}}</th>
-                    <th>{{tarnche.createdTime| DateFormat}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.name | translate}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.disbursementAmount | number:2}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.percentage | number:2}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.trancheAmount | number:2}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.fromDate | DateFormat}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.toDate | DateFormat}}</th>
+                    <th class="pointer" data-ng-click="routeTo(tarnche.id)">{{tarnche.createdTime| DateFormat}}</th>
                 </tr>
             </table>
         </fieldset>

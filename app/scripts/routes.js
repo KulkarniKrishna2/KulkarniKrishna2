@@ -1932,6 +1932,9 @@
             .when('/centers/:centerId/apscRepayment', {
                 templateUrl: 'views/accounttransfers/make_apscrepayment.html'
             })
+            .when('/fldgsettlement/:trancheId', {
+                templateUrl: 'views/accounting/fldg_settlement.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

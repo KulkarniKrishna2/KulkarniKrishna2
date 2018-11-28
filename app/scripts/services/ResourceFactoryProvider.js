@@ -1754,7 +1754,7 @@
                     }),
                     createTranchetemplate: defineResource(apiVer + "/accounting/fldg/tranche/template", {}, {
                     }),
-                    createTranche: defineResource(apiVer + "/accounting/fldg/tranche", {}, {
+                    createTranche: defineResource(apiVer + "/accounting/fldg/tranche/:trancheId", { trancheId: '@trancheId' }, {
                     }),               
                     apscRepaymentResource: defineResource(apiVer + "/centers/:centerId/apscRepayment", { centerId: '@centerId' }, {
                         getAll: { method: 'GET', params: {}, isArray: true },
@@ -1762,6 +1762,8 @@
                     apscTransactionResource: defineResource(apiVer + "/accounttransfers/apscRepayment", {}, {
                         doBulkTransaction:{method: 'POST', params: {}}
                     }),
+                    fldgSettlement: defineResource(apiVer + "/accounting/fldg/settlement/:trancheId", { trancheId: '@trancheId' }, {
+                    })                 
                 };
             }];
         }
