@@ -11,6 +11,9 @@
                     location.path('/createtranche');
                 });
             }
+            scope.routeTo = function (id) {
+                location.path('/fldgsettlement/' + id);
+            };
             scope.submitTranche = function () {
                 scope.formData.locale = scope.optlang.code;
 
