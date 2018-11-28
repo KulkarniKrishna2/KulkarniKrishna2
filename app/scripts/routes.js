@@ -1928,6 +1928,9 @@
             })
             .when('/createtranche', {
                 templateUrl: 'views/accounting/create_tranche.html'
+            })    
+            .when('/centers/:centerId/apscRepayment', {
+                templateUrl: 'views/accounttransfers/make_apscrepayment.html'
             })
         $locationProvider.html5Mode(false);
     };

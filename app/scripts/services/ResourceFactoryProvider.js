@@ -1755,7 +1755,13 @@
                     createTranchetemplate: defineResource(apiVer + "/accounting/fldg/tranche/template", {}, {
                     }),
                     createTranche: defineResource(apiVer + "/accounting/fldg/tranche", {}, {
-                    })                
+                    }),               
+                    apscRepaymentResource: defineResource(apiVer + "/centers/:centerId/apscRepayment", { centerId: '@centerId' }, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                    }),
+                    apscTransactionResource: defineResource(apiVer + "/accounttransfers/apscRepayment", {}, {
+                        doBulkTransaction:{method: 'POST', params: {}}
+                    }),
                 };
             }];
         }

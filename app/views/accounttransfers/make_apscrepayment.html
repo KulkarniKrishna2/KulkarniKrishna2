@@ -1,0 +1,44 @@
+<div class="col-md-12" ng-controller="MakeApscRepaymentController">
+	<div>
+		<div>
+	    <ul class="breadcrumb">
+	        <li><a ng-href="#/viewcenter/{{centerId}}">{{'label.heading.centers' | translate}}</a></li>
+			<li>{{'label.heading.view.apsc.repayment' | translate}}</li>
+	    </ul>
+	    <br>
+	</div>
+		<table class="table table-striped card-table">
+			<thead>
+				<tr>
+				    <th class="col-md-1"><input type="checkbox" ng-model="repaymentDatas.isAllChecked" data-toggle="tooltip" data-placement="top" ng-change="validateAllPayment(repaymentDatas, repaymentDatas.isAllChecked)" tooltip="{{'label.input.selectall' | translate}}" /></th>
+					<th class="col-md-1">{{'label.heading.members' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.loanaccount' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.loanAmount' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.emiamount' | translate}}</th>
+					<th class="col-md-1">{{'label.heading.apsc.amount' | translate}}</th>
+					<th class="col-md-2">{{'label.heading.total.overdue.amount' | translate}}</th>
+					<th class="col-md-2">{{'label.heading.payable.from.apsc' | translate}}</th>
+				</tr>	
+			</thead>
+			<tbody>
+				<tr ng-repeat = "accountData in repaymentDatas">
+					<td class="col-md-1">
+                        <input type="checkbox" ng-model="accountData.isMemberChecked" data-toggle="tooltip" data-placement="top" 
+						ng-change="validatePayment(accountData,accountData.isMemberChecked)" ng-disabled="accountData.disableTransfer"></input>
+					</td>
+					<td class="col-md-1">{{accountData.displayName}}</td>
+					<td class="col-md-1">{{accountData.memberLoanData.accountNo}}</td>
+					<td class="col-md-1">{{accountData.memberLoanData.principalAmount}}</td>
+					<td class="col-md-1">{{accountData.memberLoanData.loanEMIAmount}}</td>
+					<td class="col-md-1">{{accountData.memberSavingData.amount}}</td>
+					<td class="col-md-2">{{accountData.memberLoanData.totalOverDueAmount}}</td>
+					<td class="col-md-2">{{accountData.payableFromApscBalance}}</td>				
+				</tr>
+			</tbody>
+		</table>
+		<br>
+	</div>
+	<div class="col-md-offset-5">
+        <button class="btn btn-primary" ng-click="transfer()">{{'label.button.save' | translate}}</button>
+    </div>
+</div>
