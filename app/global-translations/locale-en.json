@@ -7685,6 +7685,9 @@
     "label.anchor.screenforfldgsettlement": "Screen For FLDG Settlement",
     "label.input.trancheamount": "Tranche Amount",
     "label.anchor.fldgtranche": "FLDG Tranche",
-
+    "label.button.view.apsc.repayment":"APSC Repayment",
+    "label.heading.apsc.amount" : "APSC Balance",
+    "label.heading.payable.from.apsc" : "Payable From APSC",
+    "label.heading.view.apsc.repayment":"APSC Repayment",
      "------ end of tensalation file ------":"---------"
 }
