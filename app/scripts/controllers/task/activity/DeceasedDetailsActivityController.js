@@ -114,7 +114,7 @@
                 scope.file = $files[0];
             };
 
-            scope.submit = function () {
+            scope.submitUpload = function () {
                 $upload.upload({
                     url:  $rootScope.hostUrl + API_VERSION + '/deceased_details/' + scope.deceasedDetailsId + '/documents',
                     data: scope.formDocumentData,

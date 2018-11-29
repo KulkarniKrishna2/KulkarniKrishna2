@@ -59,7 +59,10 @@
                 }
 
             };
-            scope.isClientSelected = function (id) {
+            scope.isClientSelected = function (id,subStatus) {
+                if(subStatus && subStatus.code=='clientSubStatusType.deceased'){
+                    return false;
+                }
                 for (var i in scope.dataList) {
                     if (scope.dataList[i].clients) {
                         for (var j in scope.dataList[i].clients) {

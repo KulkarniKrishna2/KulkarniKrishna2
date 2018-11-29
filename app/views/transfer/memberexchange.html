@@ -57,7 +57,7 @@
                     <option value="">{{'label.menu.selectone' | translate}}</option>
                 </select>
             </div>
-            <div ng-repeat="client in fromGroup.activeClientMembers" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
+            <div ng-repeat="client in fromGroup.activeClientMembers" ng-hide="client.subStatus != undefined && client.subStatus.code=='clientSubStatusType.deceased'" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
                 <input type="checkbox" ng-model="client.checked" ng-change="selectClients(client)"> {{client.displayName}}-({{client.referenceNumber}})
             </div>
         </div>
@@ -68,7 +68,7 @@
                     <option value="">{{'label.menu.selectone' | translate}}</option>
                 </select>
             </div>
-            <div ng-repeat="client in toGroup.activeClientMembers" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
+            <div ng-repeat="client in toGroup.activeClientMembers"  ng-hide="client.subStatus != undefined && client.subStatus.code=='clientSubStatusType.deceased'" class="col-sm-12" style="margin-top:10px" ng-init="client.checked=false">
                 <input type="checkbox" ng-model="client.checked" ng-change="selectClients(client)"> {{client.displayName}}-({{client.referenceNumber}})
             </div>
         </div>
