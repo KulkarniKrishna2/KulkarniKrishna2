@@ -156,7 +156,7 @@
 		            <td>
 		                  <span ng-repeat="file in document.documents">
 		                    {{file.fileName}}&nbsp;&nbsp;
-		                    <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
+		                    <a target="_blank" data-ng-click="openViewDocument(file.docUrl)" has-permission='READ_DOCUMENT'><i
 		                            class="icon-eye-open text-success"></i></a>
 		                    <a target="_blank" ng-click = "download(file.docUrl)" has-permission='READ_DOCUMENT'><i
 		                            class="icon-cloud-download"></i></a>
