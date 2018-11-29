@@ -20,6 +20,8 @@
             scope.isProcessingFee = false;
             scope.isSingleInsurance = false;
             scope.isDoubleInsurance = false;
+            scope.crSavingsTotal = 0;
+            scope.drSavingsTotal = 0;
             scope.toTime;
             scope.next = function () {
                 scope.index++;
@@ -55,17 +57,14 @@
                     }
                 }
             }
-            resourceFactory.batchAccountingResource.query(function (dataArray) {
-                if (dataArray.length == 0) {
-                    return;
-                }
-                var data = dataArray[0];
-                scope.officeName = data.officeName
-                scope.toTime = data.toTime
-                scope.fromTime = data.fromTime;
-                scope.disbursements = data.disbursements
-                scope.disbursementCharges = data.disbursementCharges
-                scope.repayments = data.repayments;
+            resourceFactory.batchAccountingResource.get(function (data) {
+                scope.officeName = data.disbursementAndRepaymentsData[0].officeName;
+                scope.toTime = data.disbursementAndRepaymentsData[0].toTime;
+                scope.fromTime = data.disbursementAndRepaymentsData[0].fromTime;
+                scope.disbursements = data.disbursementAndRepaymentsData[0].disbursements
+                scope.disbursementCharges = data.disbursementAndRepaymentsData[0].disbursementCharges
+                scope.repayments = data.disbursementAndRepaymentsData[0].repayments;
+                scope.savings = data.savingsDetailsData[0].savings;
 
                 for (var i = 0; i < scope.disbursements.length; i++) {
                     for (var j = 0; j < scope.disbursements[i].details.length; j++) {
@@ -108,6 +107,15 @@
                             scope.crRepaymentsTotal += scope.repayments[i].details[j].amount;
                         } else {
                             scope.drRepaymentsTotal += scope.repayments[i].details[j].amount;
+                        }
+                    }
+                }
+                for (var i = 0; i < scope.savings.length; i++) {
+                    for (var j = 0; j < scope.savings[i].details.length; j++) {
+                        if (scope.savings[i].details[j].type.value === 'CREDIT') {
+                            scope.crSavingsTotal += scope.savings[i].details[j].amount;
+                        } else {
+                            scope.drSavingsTotal += scope.savings[i].details[j].amount;
                         }
                     }
                 }

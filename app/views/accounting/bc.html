@@ -24,7 +24,7 @@
     </div>
     <div class="col-sm-6 col-md-6">
         <div class="list-group">
-            <a class="list-group-item" href="#/operationalaccounting">
+            <a class="list-group-item" has-permission='READ_BATCH_ACCOUNTING_TRANSACTIONS' href="#/operationalaccounting">
                 <h4 class="list-group-item-heading"><i class="icon-money"></i>&nbsp;&nbsp;{{'label.anchor.operationalaccounting'
                     | translate}}</h4>
                 <p class="list-group-item-text">{{'label.anchor.screenforoperationalaccounting' | translate}}</p>
@@ -38,7 +38,7 @@
             </a>
         </div>
 
-        <div class="list-group" ng-if="false">
+        <div class="list-group" has-permission='READ_TAX_CONFIGURATION'>
             <a class="list-group-item" href="#/gstmapping">
                 <h4 class="list-group-item-heading"><i class="icon-money"></i>&nbsp;&nbsp;{{'label.anchor.gstmapping'
                     |
