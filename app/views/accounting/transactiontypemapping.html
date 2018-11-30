@@ -10,19 +10,17 @@
             <thead>
                 <tr class="graybg">
                     <th>{{'label.heading.transactionType' | translate}}</th>
-                    <th>{{'label.heading.fromCreditAccount' | translate}}</th>
-                    <th>{{'label.heading.fromDebitAccount' | translate}}</th>
-                    <th>{{'label.heading.toCreditAccount' | translate}}</th>
-                    <th>{{'label.heading.toDebitAccount' | translate}}</th>
+                    <th>{{'label.heading.accounting.level' | translate}}</th>
+                    <th>{{'label.heading.productTypeOptions' | translate}}</th>
+                    <th>{{'label.heading.productOptions' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="pointer-main" ng-repeat="transactionTypeMapping in transactionTypeMappings">
                     <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.transactionType.value}}</td>
-                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.fromCreditAccount.name}}</td>
-                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.fromDebitAccount.name}}</td>
-                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.toCreditAccount.name}}</td>
-                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.toDebitAccount.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.accountLevelType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.productType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.productData.name}}</td>
                 </tr>
             </tbody>
         </table>

@@ -24,77 +24,20 @@
                     <form-validate valattributeform="createtransactiontypeform" valattribute="transactionTypeId" />
                 </div>
             </div>
-
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.heading.fromCreditAccount' | translate}} <span class="required">*</span>
+                    {{'label.heading.accounting.level' | translate}} <span class="required">*</span>
                 </label>
 
                 <div class="col-sm-3">
-                    <div>
-                        <select chosen="glAccounts" id="fromCreditAccountId" name="fromCreditAccountId" ng-model="formData.fromCreditAccountId"
-                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
-                            value="{{glAccount.id}}" required late-validate>
-                            <option value="">{{'label.menu.selectone' | translate}}</option>
-                        </select>
-                    </div>
+                    <select chosen="accountLevelTypeOptions" id="accountingLevelId" name="accountingLevel" ng-model="formData.accountingLevelId"
+                        class="form-control" ng-options="accountLevelTypeOption.id as accountLevelTypeOption.value for accountLevelTypeOption in accountLevelTypeOptions"
+                        value="{{accountLevelTypeOption.id}}" required late-validate>
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="createtransactiontypeform" valattribute="fromCreditAccountId" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.heading.fromDebitAccount' | translate}} <span class="required">*</span>
-                </label>
-
-                <div class="col-sm-3">
-                    <div>
-                        <select chosen="glAccounts" id="fromDebitAccountId" name="fromDebitAccountId" ng-model="formData.fromDebitAccountId"
-                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
-                            value="{{glAccount.id}}" required late-validate>
-                            <option value="">{{'label.menu.selectone' | translate}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createtransactiontypeform" valattribute="fromDebitAccountId" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.heading.toCreditAccount' | translate}} <span class="required">*</span>
-                </label>
-
-                <div class="col-sm-3">
-                    <div>
-                        <select chosen="glAccounts" id="toCreditAccountId" name="toCreditAccountId" ng-model="formData.toCreditAccountId"
-                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
-                            value="{{glAccount.id}}" required late-validate>
-                            <option value="">{{'label.menu.selectone' | translate}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createtransactiontypeform" valattribute="toCreditAccountId" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.heading.toDebitAccount' | translate}} <span class="required">*</span>
-                </label>
-
-                <div class="col-sm-3">
-                    <div>
-                        <select chosen="glAccounts" id="toDebitAccountId" name="toDebitAccountId" ng-model="formData.toDebitAccountId"
-                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
-                            value="{{glAccount.id}}" required late-validate>
-                            <option value="">{{'label.menu.selectone' | translate}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createtransactiontypeform" valattribute="toDebitAccountId" />
+                    <form-validate valattributeform="createtransactiontypeform" valattribute="accountingLevel" />
                 </div>
             </div>
             <div class="form-group">
@@ -124,6 +67,55 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.account.mapping' | translate}}
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <a class="btn btn-primary" ng-click="addMapping()"><i class="icon-plus-sign icon-large"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <table class="table" data-ng-show="showAcounting">
+                <tr class="graybg">
+                    <th class="width30">{{'label.heading.transactiontype' | translate}}</th>
+                    <th class="width30">{{'label.heading.creditaccount' | translate}}</th>
+                    <th class="width30">{{'label.heading.debitaccount' | translate}}</th>
+                    <th class="width30">{{'label.heading.actions' | translate}}</th>
+                </tr>
+                <tr ng-repeat="transactionTypeMapping in transactionTypeMappings">
+                    <td class="width30">
+                        <select  id="transactionTypeMapping[{{$index}}].mappingTypeId" name="mappingType" ng-model="transactionTypeMapping.mappingTypeId"
+                        class="form-control" ng-options="transactionMappingOption.id as transactionMappingOption.value for transactionMappingOption in transactionMappingOptions"
+                        value="{{transactionMappingOption.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                    </td>
+                    <td class="width30">
+                        <select  id="transactionTypeMapping[{{$index}}].creditGlId" name="creditGlId" ng-model="transactionTypeMapping.creditGlId"
+                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
+                            value="{{glAccount.id}}" >
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width30">
+                        <select  id="transactionTypeMapping[{{$index}}].debitGlId" name="debitGlId" ng-model="transactionTypeMapping.debitGlId"
+                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
+                            value="{{glAccount.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width30">
+                        <a ng-click="deleteMaping($index)"><i class="icon-remove icon-white"></i></a>
+                    </td>
+                </tr>
+                </table>
             </div>
             <div class="col-md-offset-5">
                 <a id="cancel" ng-href="#/transactiontypemapping" class="btn btn-default">{{'label.button.cancel' |

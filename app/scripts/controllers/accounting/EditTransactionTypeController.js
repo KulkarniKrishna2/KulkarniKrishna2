@@ -1,7 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditTransactionTypeController: function (scope, routeParams, paginatorService, resourceFactory, location, $modal) {
-
+            scope.showAcounting = false;
+            scope.transactionTypeMappings = [];
             resourceFactory.transactionTypeMappingResource.get({ mappingId: routeParams.mappingId, template: true }, function (data) {
                 scope.template = data;
                 scope.transactionTypeOptions = data.transactionTypeOptions;
@@ -9,18 +10,28 @@
                 scope.loanProducts = data.loanProducts;
                 scope.glAccounts = data.glAccounts;
                 scope.savingsProducts = data.savingsProducts;
+                scope.accountLevelTypeOptions = data.accountLevelTypeOptions;
+                scope.bcTransactionTypeGLMapping = data.bcTransactionTypeGLMapping;
+                scope.transactionMappingOptions = data.transactionMappingOptions;
                 scope.formData = {
                     locale: scope.optlang.code,
                     transactionTypeId: data.transactionType.id,
-                    fromCreditAccountId: data.fromCreditAccount.id,
-                    fromDebitAccountId: data.fromDebitAccount.id,
-                    toCreditAccountId: data.toCreditAccount.id,
-                    toDebitAccountId: data.toDebitAccount.id
-                };
+                    accountingLevelId:data.accountLevelType.id
+                }
                 if (data.productType && data.productData) {
                     scope.formData.productTypeId = data.productType.id;
                     scope.formData.productId = data.productData.id;
                     scope.changeProductType(scope.formData.productTypeId);
+                }
+                if(scope.bcTransactionTypeGLMapping.length > 0){
+                    scope.showAcounting = true;
+                    for(var i in scope.bcTransactionTypeGLMapping){
+                       scope.transactionTypeMappings.push({
+                   mappingTypeId: scope.bcTransactionTypeGLMapping[i].transactionMappingType.id,
+                   creditGlId: scope.bcTransactionTypeGLMapping[i].creditAccount.id,
+                   debitGlId: scope.bcTransactionTypeGLMapping[i].debitAccount.id
+                }); 
+                    }
                 }
             });
             scope.changeProductType = function (productTypeId) {
@@ -31,7 +42,30 @@
                     scope.productOptions = scope.savingsProducts;
                 }
             }
+            scope.addMapping = function(){
+                scope.showAcounting = true;
+                scope.transactionTypeMappings.push({
+                   mappingTypeId: scope.transactionMappingOptions.length > 0 ? scope.transactionMappingOptions[0].id : '',
+                   creditGlId: scope.glAccounts.length > 0 ? scope.glAccounts[0].id : '',
+                   debitGlId: scope.glAccounts.length > 0 ? scope.glAccounts[0].id : ''
+                });
+            }
+            scope.deleteMaping = function(index){
+                scope.transactionTypeMappings.splice(index,1);
+                if(scope.transactionTypeMappings.length == 0){
+                   scope.showAcounting = false; 
+                }
+            }
             scope.submit = function (id) {
+                scope.formData.transactionMappings = [];
+                for(var i in scope.transactionTypeMappings){
+                    temp = {
+                       mappingTypeId: scope.transactionTypeMappings[0].mappingTypeId,
+                       creditGlId: scope.transactionTypeMappings[0].creditGlId,
+                       debitGlId: scope.transactionTypeMappings[0].debitGlId
+                    }
+                    scope.formData.transactionMappings.push(temp);
+                }
                 resourceFactory.transactionTypeMappingResource.update({ mappingId: routeParams.mappingId }, scope.formData, function (data) {
                     location.path('/transactiontypemapping/viewtransactiontype/' + id);
                 });
