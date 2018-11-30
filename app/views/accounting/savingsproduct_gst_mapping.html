@@ -1,11 +1,15 @@
 <div ng-controller="SavingsProductGSTMappingController">
+    <ul class="breadcrumb">
+            <li><a  href="#/gstmapping">{{'label.anchor.gstmapping' | translate}}</a></li>
+            <li class="active">{{'label.anchor.savingsproductgstmapping' | translate}}</a></li>
+    </ul>
     <form name="savingsproductgstMapping" novalidate="" class="well form-inline" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-            <legend>{{'label.anchor.gstmapping'
-                | translate}}&nbsp;:</legend>
+            <legend>{{'label.anchor.savingsproductgstmapping'
+                | translate}}&nbsp;</legend>
             <div class="pull-right">
-                <a id="add" type="submit" has-permission='' ng-click="addSavingProduct()" class="btn btn-primary">{{'label.button.add'
+                <a id="add" type="submit" has-permission='CREATE_TAX_CONFIGURATION' ng-click="addSavingProduct()" class="btn btn-primary">{{'label.button.add'
                     | translate}}&nbsp;</a>
             </div>
             <br>

@@ -7689,5 +7689,6 @@
     "label.heading.apsc.amount" : "APSC Balance",
     "label.heading.payable.from.apsc" : "Payable From APSC",
     "label.heading.view.apsc.repayment":"APSC Repayment",
+    "label.anchor.addgstmapping": "Add GST Mapping",
      "------ end of tensalation file ------":"---------"
 }
