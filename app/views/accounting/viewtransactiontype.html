@@ -31,4 +31,25 @@
         </table>
 
     </div>
+    <div class="col-sm-12">
+        <table class="table" data-ng-show="transactionTypeMapping.bcTransactionTypeGLMapping.length>0">
+            <tr class="graybg">
+                <th class="width30">{{'label.heading.transactiontype' | translate}}</th>
+                <th class="width30">{{'label.heading.creditaccount' | translate}}</th>
+                <th class="width30">{{'label.heading.debitaccount' | translate}}</th>
+            </tr>
+            <tr ng-repeat="accountMapping in transactionTypeMapping.bcTransactionTypeGLMapping">
+                <td class="width30">
+                    <span>{{accountMapping.transactionMappingType.value}}</span>
+                </td>
+                <td class="width30">
+                        <span>{{accountMapping.creditAccount.name}}</span>
+                </td>
+                <td class="width30">
+                    <span>{{accountMapping.debitAccount.name}}</span>
+                </td>
+            </tr>
+            </table>
+    </div>
+    
 </div>
