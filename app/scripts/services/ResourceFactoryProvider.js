@@ -1763,7 +1763,11 @@
                         doBulkTransaction:{method: 'POST', params: {}}
                     }),
                     fldgSettlement: defineResource(apiVer + "/accounting/fldg/settlement/:trancheId", { trancheId: '@trancheId' }, {
-                    })                 
+                    }),
+                    taxInvoiceTemplate: defineResource(apiVer + "/accounting/taxinvoice/template", {}, {
+                    }),
+                    taxInvoice: defineResource(apiVer + "/accounting/taxinvoice/generate", {}, {
+                    }),
                 };
             }];
         }

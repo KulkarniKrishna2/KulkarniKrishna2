@@ -1,51 +1,104 @@
 <br>
-<div>
+<div ng-controller="GstInvoicingController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li class="active">{{'label.anchor.gstinvoicing' | translate}}</li>
+    </ul>
     <form name="gstinvoicingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.anchor.gstinvoicing'
-                | translate}}&nbsp;:</legend>
+                | translate}}&nbsp;</legend>
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.heading.state' | translate}} <span class="required">*</span>
+                    {{'label.input.statename' | translate}}
+                    <span class="required">*</span>
                 </label>
                 <div class="col-sm-3">
-                    <select chosen="transactionTypeOptions" id="transactionTypeId" name="transactionTypeId" ng-model="formData.transactionTypeId"
-                        class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
-                        value="{{transactionTypeOption.id}}" required late-validate>
-                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    <select chosen="states" id="stateId" name="states" ng-model="formData.stateId" class="form-control"
+                        ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
+                        required late-validate="">
+                        <option value="">{{'label.menu.selectState' | translate}}</option>
                     </select>
                 </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createtransactiontypeform" valattribute="transactionTypeId" />
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}&nbsp;</label>
+                <div class="col-sm-3">
+                    <span class="form-control" ng-disabled="true">{{tillTime | DateFormat }}</span>
                 </div>
             </div>
-            <br>
-            <div class="well col-sm-5 col-md-5" style="margin:35px">
-                <h3>{{'label.anchor.urban'
-                    | translate}}&nbsp;:-</h3>
-                <h4><span class="paddedsummary"><b>%&nbsp;{{'label.heading.interest' | translate}}:-&nbsp;</b></span>
-                    <span>{{bankAccountData.name}}</span></h4>
-                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.heading.fees' | translate}}&nbsp;:-</b></span>
-                    <span>{{bankAccountData.name}}</span></h4>
-                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.input.total' | translate}}&nbsp;:-</b></span>
-                    <span>{{bankAccountData.name}}</span></h4>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.todate' | translate}}:&nbsp;</label>
+                <div class="col-sm-3">
+                    <input id="toDate" type="text" autocomplete="off" name="toDate" datepicker-pop="{{df}}" ng-model="formData.toDate"
+                        max="restrictDate" ng-disabled="show" class="form-control" />
+                </div>
             </div>
+            <div ng-if="!show" class="center">
+                <a id="generate" type="submit" has-permission='READ_TAX_INVOICE' ng-click="create()" class="btn btn-primary">{{'label.anchor.generateinvoice'
+                    | translate}}&nbsp;</a>
+            </div>
+            <br>
+            <div ng-if="show">
+                <div class="col-sm-5 col-md-5" style="margin:35px">
+                    <h3>{{'label.anchor.urban'
+                        | translate}}&nbsp;</h3>
+                    <table class="table-bordered table view-table">
+                        <tr>
+                            <td>{{'label.anchor.interestAmountofbc' | translate}}&nbsp;(A)</td>
+                            <td align="right">{{urbanInvoiceData.interestAmountOfBC| number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.feesAmountofbc' | translate}}&nbsp;(B)</td>
+                            <td align="right">{{urbanInvoiceData.feesAmountOfBC | number:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.subtotal' | translate}}&nbsp;(A+B)</td>
+                            <td align="right">{{urbanInvoiceData.totalAmount | number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.tdsamount' | translate}}</td>
+                            <td align="right">{{urbanInvoiceData.tdsAmount | number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.gstAmount' | translate}}</td>
+                            <td align="right">{{urbanInvoiceData.gstAmount | number:2}}</td>
+                        </tr>
+                    </table>
+                </div>
 
-            <div class="well col-sm-5 col-md-5" style="margin:35px">
-                <h3>{{'label.anchor.rural'
-                    | translate}}&nbsp;:-</h3>
-                <h4><span class="paddedsummary"><b>%&nbsp;{{'label.heading.interest' | translate}}:-&nbsp;</b></span>
-                    <span>{{bankAccountData.name}}</span></h4>
-                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.heading.fees' | translate}}&nbsp;:-</b></span>
-                    <span>{{bankAccountData.name}}</span></h4>
-                <h4><span class="paddedsummary"><b> %&nbsp;{{'label.input.total' | translate}}&nbsp;:-</b></span>
-                    <span>{{bankAccountData.name}}</span></h4>
+                <div class="col-sm-5 col-md-5" style="margin:35px">
+                    <h3>{{'label.anchor.rural'
+                        | translate}}&nbsp;</h3>
+                    <table class="table-bordered table view-table">
+                        <tr>
+                            <td>{{'label.anchor.interestAmountofbc' | translate}}&nbsp;(A)</td>
+                            <td align="right">{{ruralInvoiceData.interestAmountOfBC | number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.feesAmountofbc' | translate}}&nbsp;(B)</td>
+                            <td align="right">{{ruralInvoiceData.feesAmountOfBC | number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.subtotal' | translate}}&nbsp;(A+B)</td>
+                            <td align="right">{{ruralInvoiceData.totalAmount | number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.tdsamount' | translate}}</td>
+                            <td align="right">{{ruralInvoiceData.tdsAmount | number:2}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.gstAmount' | translate}}</td>
+                            <td align="right">{{0 | number:2}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pull-right">
+                    <a id="save" type="submit" has-permission='CREATE_TAX_INVOICE' ng-click="submit()" class="btn btn-primary">&nbsp;{{'label.button.save'
+                        | translate}}</a>
+                </div>
             </div>
         </fieldset>
-        <div class="pull-right">
-            <a id="save" type="submit" has-permission='' ng-click="" class="btn btn-primary">&nbsp;{{'label.anchor.generateinvoice'
-                | translate}}</a>
-        </div>
     </form>
 </div>
