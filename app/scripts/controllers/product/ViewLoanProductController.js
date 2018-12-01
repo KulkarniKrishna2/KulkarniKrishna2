@@ -129,6 +129,14 @@
                     scope.loanproduct.interestRateVariationsForBorrowerCycle[0].loanInterestRatesListPerCycle.length > 0){
                     scope.isInterestRateListPerCycleNotAvailable = false;
                 }
+                scope.transactionTypeMappings = [];    
+                _.each(scope.loanproduct.transactionTypeToLoanPortfolioMappings, function (transactionTypeMapping) {
+                        scope.transactionTypeMappings.push({
+                            transactionType: transactionTypeMapping.transactionType.value,
+                            loanPortfolioAccountName: transactionTypeMapping.loanPortfolioAccount.name,
+                            accountGlCode: transactionTypeMapping.loanPortfolioAccount.glCode   
+                        })
+                    });
             });
 
             scope.scrollto = function (link) {
