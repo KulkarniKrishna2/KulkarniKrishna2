@@ -85,22 +85,22 @@
                 </tr>
                 <tr ng-repeat="transactionTypeMapping in transactionTypeMappings">
                     <td class="width30">
-                        <select  id="transactionTypeMapping[{{$index}}].mappingTypeId" name="mappingType" ng-model="transactionTypeMapping.mappingTypeId"
+                        <select chosen ="transactionMappingOptions"  id="transactionTypeMapping[{{$index}}].mappingTypeId" name="mappingType" ng-model="transactionTypeMapping.mappingTypeId"
                         class="form-control" ng-options="transactionMappingOption.id as transactionMappingOption.value for transactionMappingOption in transactionMappingOptions"
                         value="{{transactionMappingOption.id}}">
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
                     </td>
                     <td class="width30">
-                        <select  id="transactionTypeMapping[{{$index}}].creditGlId" name="creditGlId" ng-model="transactionTypeMapping.creditGlId"
-                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
+                        <select chosen ="glAccounts" id="transactionTypeMapping[{{$index}}].creditGlId" name="creditGlId" ng-model="transactionTypeMapping.creditGlId"
+                            class="form-control" ng-options="glAccount.id as (glAccount.name +' ('+ glAccount.glCode +')') for glAccount in glAccounts"
                             value="{{glAccount.id}}" >
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>
                     </td>
                     <td class="width30">
-                        <select  id="transactionTypeMapping[{{$index}}].debitGlId" name="debitGlId" ng-model="transactionTypeMapping.debitGlId"
-                            class="form-control" ng-options="glAccount.id as glAccount.name for glAccount in glAccounts"
+                        <select chosen ="glAccounts" id="transactionTypeMapping[{{$index}}].debitGlId" name="debitGlId" ng-model="transactionTypeMapping.debitGlId"
+                            class="form-control" ng-options="glAccount.id as (glAccount.name +' ('+ glAccount.glCode +')') for glAccount in glAccounts"
                             value="{{glAccount.id}}">
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>
