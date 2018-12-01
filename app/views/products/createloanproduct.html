@@ -2131,6 +2131,43 @@
         </tr>
     </table>
     <!-- code value end for write of amount -->
+    <div class="col-md-8">{{'label.heading.mapTransactionTypeToPortfolio' | translate}}</div>
+    <div class="col-md-4">
+        <a class="btn btn-primary" ng-click="mapTransaction()">{{ 'label.button.add' | translate }}</a>
+    </div>
+    <table class="table width100" data-ng-show="tlFlag">
+        <tr class="graybg">
+            <th class="width30">{{'label.heading.transactionType' | translate}}</th>
+            <th></th>
+            <th class="width30">{{'label.heading.loanPortfolio.account' | translate}}</th>
+            <th></th>
+            <th class="width30">{{'label.heading.actions' | translate}}</th>
+        </tr>
+        <tr ng-repeat="transactionTypeMapping in transactionTypeMappings">
+            <td class="width30">
+                <select id="transactionTypeMapping[{{$index}}].transactionTypeId"
+                        ng-model="transactionTypeMapping.transactionTypeId" class="form-control"
+                        ng-options="transactionType.id as transactionType.value for transactionType in transactionTypeOptions"
+                        value="{{transactionType.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
+                </select>
+            </td>
+            <td></td>
+            <td class="width30">
+                <select id="transactionTypeMapping[{{$index}}].loanPortfolioAccountId"
+                        ng-model="transactionTypeMapping.loanPortfolioAccountId"
+                        chosen="assetAndLiabilityAccountOptions"
+                        ng-options="account.id as (account.name +' ('+ account.glCode +')') for account in assetAndLiabilityAccountOptions"
+                        value="{{account.id}}">
+                        <option value="">{{'label.menu.selectone'| translate }}</option>
+                </select>
+            </td>
+            <td></td>
+            <td class="width30">
+                <a ng-click="deleteTransaction($index)"><i class="icon-remove icon-white"></i></a>
+            </td>
+        </tr>
+    </table>
 </div>
 </div>
 

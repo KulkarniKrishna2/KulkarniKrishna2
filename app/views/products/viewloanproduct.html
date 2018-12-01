@@ -778,6 +778,20 @@
                 <td>{{codeValueToAccountMapping.codeValue.name}}</td>
                 <td colspan="3">{{codeValueToAccountMapping.expenseAccount.name}}&nbsp;({{codeValueToAccountMapping.expenseAccount.glCode}})</td>
             </tr>
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+            <tr class="toppadding bottomborder">
+                <td colspan="4">{{'label.heading.mapTransactionTypeToPortfolio' | translate}}</td>
+            </tr>
+            <tr class="bottomborder graybg">
+                <td>{{'label.heading.transactionType' | translate}}</td>
+                <td colspan="3">{{'label.heading.loanPortfolio.account' | translate}}</td>
+            </tr>
+            <tr ng-repeat="transactionTypeMapping in transactionTypeMappings">
+                <td>{{transactionTypeMapping.transactionType}}</td>
+                <td colspan="3">{{transactionTypeMapping.loanPortfolioAccountName}}&nbsp;({{transactionTypeMapping.accountGlCode}})</td>
+            </tr>
         </table>
     </td>
 </tr>

@@ -10,11 +10,13 @@
             scope.specificIncomeAccountMapping = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.codeValueSpecificAccountMappings = [];
+            scope.transactionTypeMappings = [];
             scope.configureFundOption = {};
             scope.date = {};
             scope.irFlag = false;
             scope.pvFlag = false;
             scope.rvFlag = false;
+            scope.tlFlag = false;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
 
             scope.INDIVIDUAL_CLIENT = 2;
@@ -38,6 +40,7 @@
             scope.allowLoanProductForGroupBankAccount = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccount);
             var deleteFeeAccountMappings = [];
             var deletePenaltyAccountMappings = [];
+            scope.transactionTypeMappings = [];
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
@@ -46,10 +49,12 @@
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
                 scope.liabilityAccountOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.assetAndLiabilityAccountOptions = scope.assetAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.paymentTypeOptions = scope.product.paymentTypeOptions || [];
                 scope.charges = [];
+                scope.transactionTypeOptions = data.transactionTypeOptions;
                 for(var i in scope.product.charges){
                     if(scope.product.charges[i].chargeData){
                         var charge = scope.product.charges[i].chargeData;
@@ -408,6 +413,13 @@
                             expenseAccountId: codeValues.expenseAccount.id
                         })
                     });
+                    _.each(scope.product.transactionTypeToLoanPortfolioMappings, function (transactionTypeMapping) {
+                        scope.transactionTypeMappings.push({
+                            transactionTypeId: transactionTypeMapping.transactionType.id,
+                            loanPortfolioAccountId: transactionTypeMapping.loanPortfolioAccount.id     
+                        })
+                    });
+
 
                     if (scope.formData.accountingRule == 3) {
                         scope.formData.npaInterestSuspenseAccountId = scope.product.accountingMappings.npaInterestSuspenseAccount.id;
@@ -542,12 +554,16 @@
             };
 
             scope.deleteFee = function (index) {
-                deleteFeeAccountMappings.push(scope.specificIncomeAccountMapping[index]);
+                if(scope.specificIncomeAccountMapping[index].chargeId){
+                    deleteFeeAccountMappings.push(scope.specificIncomeAccountMapping[index]);
+                }
                 scope.specificIncomeAccountMapping.splice(index, 1);
             };
 
             scope.deletePenalty = function (index) {
-                deletePenaltyAccountMappings.push(scope.penaltySpecificIncomeaccounts[index]);
+                if(scope.penaltySpecificIncomeaccounts[index].chargeId){
+                    deletePenaltyAccountMappings.push(scope.penaltySpecificIncomeaccounts[index]);
+                }  
                 scope.penaltySpecificIncomeaccounts.splice(index, 1);
             };
 
@@ -561,6 +577,17 @@
 
             scope.deleterepaymentVariation = function (index) {
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle.splice(index, 1);
+            };
+
+            scope.mapTransaction = function () {
+                scope.tlFlag = true;
+                scope.transactionTypeMappings.push({
+                    transactionTypeId: scope.transactionTypeOptions.length > 0 ? scope.transactionTypeOptions[0].id : '',
+                    loanPortfolioAccountId: scope.assetAndLiabilityAccountOptions.length > 0 ? scope.assetAndLiabilityAccountOptions[0].id : '',
+                });
+            };
+            scope.deleteTransaction = function (index) {
+                scope.transactionTypeMappings.splice(index, 1);
             };
 
             scope.isAccountingEnabled = function () {
@@ -836,6 +863,15 @@
                     scope.codeValueSpecificAccountMapping.push(temp);
 
                 }
+                //map transaction type to loan portfolio accounts
+                scope.transactionTypeToLoanPortfolioMappings = []; 
+                for (var i in scope.transactionTypeMappings) {
+                    temp = {
+                        transactionTypeId: scope.transactionTypeMappings[i].transactionTypeId,
+                        loanPortfolioAccountId: scope.transactionTypeMappings[i].loanPortfolioAccountId
+                    }
+                    scope.transactionTypeToLoanPortfolioMappings.push(temp);
+                }
 
                 for (var i in scope.charges) {
                     var isMandatory = false;
@@ -883,6 +919,7 @@
                 this.formData.charges = scope.chargesSelected;
                 this.formData.allowAttributeOverrides = scope.selectedConfigurableAttributes;
                 this.formData.codeValueSpecificAccountMapping = scope.codeValueSpecificAccountMapping;
+                this.formData.transactionTypeToLoanPortfolioMappings = scope.transactionTypeToLoanPortfolioMappings
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate;

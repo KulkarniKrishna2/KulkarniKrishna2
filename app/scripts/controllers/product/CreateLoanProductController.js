@@ -12,6 +12,7 @@
             scope.penaltySpecificIncomeaccounts = [];
             scope.codeValueSpecificAccountMappings = [];
             scope.codeValueSpecificAccountMapping = [];
+            scope.transactionTypeMappings = [];
             scope.configureFundOption = {};
             scope.date = {};
             scope.pvFlag = false;
@@ -22,6 +23,7 @@
             scope.frFlag = false;
             scope.fiFlag = false;
             scope.piFlag = false;
+            scope.tlFlag = false;
             scope.amortization = true;
             scope.arrearsTolerance = true;
             scope.graceOnArrearsAging = true;
@@ -55,6 +57,7 @@
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
                 scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.assetAndLiabilityAccountOptions = scope.assetAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.writeOffReasonOptions = [];
@@ -111,6 +114,7 @@
                 scope.formData.trancheAmountLimitType = scope.trancheAmountLimitTypeOptions[0].id;
                 scope.formData.trancheLoanClosureType = scope.trancheLoanClosureTypeOptions[0].id;
                 scope.formData.borrowerCycleType = scope.product.borrowerCycleType.id;
+                scope.transactionTypeOptions = data.transactionTypeOptions;
             });
 
             scope.variableName = function(minDurationType){
@@ -227,6 +231,16 @@
                     chargeId: scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
                     incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : ''
                 });
+            };
+            scope.mapTransaction = function () {
+                scope.tlFlag = true;
+                scope.transactionTypeMappings.push({
+                    transactionTypeId: scope.transactionTypeOptions.length > 0 ? scope.transactionTypeOptions[0].id : '',
+                    loanPortfolioAccountId: scope.assetAndLiabilityAccountOptions.length > 0 ? scope.assetAndLiabilityAccountOptions[0].id : '',
+                });
+            };
+            scope.deleteTransaction = function (index) {
+                scope.transactionTypeMappings.splice(index, 1);
             };
 
             scope.deleteFund = function (index) {
@@ -454,13 +468,21 @@
             }
 
             //map code value to specific expense accounts
-            scope.codeValueSpecificAccountMapping = [];
+            scope.codeValueSpecificAccountMapping = []; 
             for (var i in scope.codeValueSpecificAccountMappings) {
                 temp = {
                     codeValueId: scope.codeValueSpecificAccountMappings[i].codeValueId,
                     expenseAccountId: scope.codeValueSpecificAccountMappings[i].expenseAccountId
                 }
                 scope.codeValueSpecificAccountMapping.push(temp);
+            }
+            scope.transactionTypeToLoanPortfolioMappings = []; 
+            for (var i in scope.transactionTypeMappings) {
+                temp = {
+                    transactionTypeId: scope.transactionTypeMappings[i].transactionTypeId,
+                    loanPortfolioAccountId: scope.transactionTypeMappings[i].loanPortfolioAccountId
+                }
+                scope.transactionTypeToLoanPortfolioMappings.push(temp);
             }
 
             for (var i in scope.charges) {
@@ -514,6 +536,7 @@
             this.formData.startDate = reqFirstDate;
             this.formData.closeDate = reqSecondDate;
             this.formData.interestRatesListPerPeriod = scope.interestratesListPerPeriod;
+            this.formData.transactionTypeToLoanPortfolioMappings = scope.transactionTypeToLoanPortfolioMappings;
 
             //Interest recalculation data
             if (this.formData.isInterestRecalculationEnabled) {

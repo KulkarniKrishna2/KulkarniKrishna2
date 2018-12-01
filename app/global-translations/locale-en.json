@@ -7692,5 +7692,7 @@
     "label.anchor.addgstmapping": "Add GST Mapping",
     "label.heading.accounting.level" : "Account Level",
     "label.heading.account.mapping" : "Accounting Mapping",
+    "label.heading.loanPortfolio.account" : "Loan Portfolio Account",
+    "label.heading.mapTransactionTypeToPortfolio" : "Map transaction type to loan portfolio accounts",
      "------ end of tensalation file ------":"---------"
 }
