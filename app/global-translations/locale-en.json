@@ -7699,5 +7699,7 @@
     "label.anchor.subtotal": "Subtotal",
     "label.anchor.tdsamount": "TDS",
     "label.anchor.gstAmount": "GST",
+    "error.message.invalid.date and.state":"Please select state and date",
+    "error.message.todate.should.lessthan.today":"To date should less than current date",
      "------ end of tensalation file ------":"---------"
 }
