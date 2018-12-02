@@ -1726,7 +1726,7 @@
     <div class="col-sm-3">
         <select id="receivableInterestAccountId" class="form-control"
                 ng-model="formData.receivableInterestAccountId" chosen="assetAccountOptions"
-                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                 value="{{assetAccount.id}}">
                 <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
