@@ -65,6 +65,13 @@
                 </a>
             </div>
 
+            <div class="col-sm-6 col-md-6" ng-repeat="externalService in externalServiceList | filter: { displayRequired: true }">
+                <a class="list-group-item"  has-permission="READ_CONFIGURATION" href="#/externalservices/{{externalService.name}}">
+                    <h4 class="list-group-item-heading"><i class="icon-large icon-cog"></i>&nbsp;&nbsp;{{externalService.displayName | translate}}</h4>
+                    <p class="list-group-item-text">{{'label.anchor.servicesconfiguration' | translate}}</p>
+                </a>
+            </div>
+
         </div>
     </div>
 </div>

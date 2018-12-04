@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="(names, values) in formData">
-                        <td>{{names}}</td>
+                        <td>{{displayNames[names] | translate}}</td>
                         <td>{{currentConfigs[names]}}</td>
                         <td>
                             <input type="text" autocomplete="off" id="configname" name="configname" ng-model="formData[names]"
