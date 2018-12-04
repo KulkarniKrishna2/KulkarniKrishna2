@@ -9,6 +9,7 @@
             $scope.externalServicesType = $routeParams.externalServicesType;
             //$scope.name = $routeParams.name;
             var currentConfigs = {};
+            var displayNames = {};
             var modifiedConfigs = {};
             resourceFactory.externalServicesResource.get({id: $scope.externalServicesType}, function (data) {
                 for (var i in data) {
@@ -16,6 +17,7 @@
                         data[i].name.replace(/ /g, '');
                         if (!angular.equals(data[i].name, "")) {
                             currentConfigs[data[i].name] = data[i].value;
+                            displayNames[data[i].name] = data[i].displayName;
                             modifiedConfigs[data[i].name] = undefined;
                             $scope.names.push(data[i].name);
                         }
@@ -23,6 +25,7 @@
                 }
                 $scope.formData = modifiedConfigs;
                 $scope.currentConfigs = currentConfigs;
+                $scope.displayNames = displayNames;
 
             });
 

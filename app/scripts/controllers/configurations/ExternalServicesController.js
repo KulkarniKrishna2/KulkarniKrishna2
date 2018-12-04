@@ -7,6 +7,7 @@
             scope.S3Configs = [];
             scope.SMTPConfigs = [];
             scope.otherExternalServiceList= [];
+            scope.externalServiceList= [];
             resourceFactory.externalServicesS3Resource.get(function (data) {
                 for (var i in data) {
                     if(data[i] != null && data[i].name != null) {
@@ -29,6 +30,9 @@
 
             resourceFactory.otherExternalServicesResource.getAll(function (data) {
                 scope.otherExternalServiceList = data;
+            });
+            resourceFactory.externalServicesResource.get(function (data) {
+                scope.externalServiceList = data;
             });
         }
 

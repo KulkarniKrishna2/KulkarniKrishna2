@@ -4890,6 +4890,7 @@
     "label.heading.referenceNumber":"Reference Number",
     "label.heading.rrNumber" :"RR",
 
+    "label.anchor.servicesconfiguration":"Service Configuration",
     "label.externalServices":"External Services Configuration",
     "label.S3.description":"S3 Amazon Service Configuration",
     "label.SMTP.description":"Email Service Configuration",
