@@ -7702,5 +7702,6 @@
     "label.anchor.gstAmount": "GST",
     "error.message.invalid.date and.state":"Please select state and date",
     "error.message.todate.should.lessthan.today":"To date should less than current date",
+    "label.heading.remaining.apsc.amount":"Remaining APSC Balance",
      "------ end of tensalation file ------":"---------"
 }
