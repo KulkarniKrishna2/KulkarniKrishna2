@@ -28,10 +28,46 @@
                     </tr>
                 </table>
             </div>
+            <div class="col-md-10"  ng-if ="settledLoans.length>0">
+                    <legend>{{'label.anchor.settledloans'
+                        | translate}}&nbsp;</legend>
+                    <div>
+                        <table class="table-bordered table view-table">
+                            <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.input.loanaccountnumber' | translate}}</th>
+                                    <th>{{'label.heading.amount' | translate}}</th>
+                                    <th>{{'label.heading.settledby' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="settledLoan in settledLoans">
+                                    <td style="width: 300px" ng-model="settledLoan.account">{{settledLoan.accountNumber}}</td>
+                                    <td>{{settledLoan.overDueAmount | number:2}}</td>
+                                    <td>{{settledLoan.settledBy}}</td>                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>  
+                </div>
+            <div class="col-md-10" ng-if ="overdueLoans.length>0">
             <legend>{{'label.anchor.overdueloans'
                 | translate}}&nbsp;</legend>
-            <div class="col-md-10" ng-if ="overdueLoans.length>0">
+            <div>
                 <table class="table-bordered table view-table">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{'label.anchor.bulksettlement' | translate}}</td>
+                            <td style="width: 350px">
+                                <select id="bulksettlementTypeId" name="bulksettlementTypeId" ng-model="bulksettlementId"
+                                    class="form-control" ng-options="bulksettlementTypeOption.id as bulksettlementTypeOption.value for bulksettlementTypeOption in settlementOptions"
+                                    value="{{bulksettlementTypeOption.id}}" ng-change="changeSettlement(bulksettlementId)" required late-validate>
+                                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                                </select>
+                            </td>
+                        </tr>                    
+                    </thead>
                     <thead>
                         <tr class="graybg">
                             <th>{{'label.input.loanaccountnumber' | translate}}</th>
@@ -44,8 +80,8 @@
                             <td style="width: 300px" ng-model="overdueLoan.account">{{overdueLoan.accountNumber}}</td>
                             <td>{{overdueLoan.overDueAmount | number:2}}</td>
                             <td style="width: 350px">
-                                <select chosen="settlementTypeOptions" id="settlementTypeId" name="settlementTypeId"
-                                    ng-model="overdueLoan.settlementId" class="form-control" ng-options="settlementTypeOption.id as settlementTypeOption.value for settlementTypeOption in settlementOptions"
+                                <select  id="overdueLoan[{{$index}}].settlementTypeId" name="settlementType"
+                                    ng-model="overdueLoan.settlementTypeId"  class="form-control" ng-options="settlementTypeOption.id as settlementTypeOption.value for settlementTypeOption in settlementOptions"
                                     value="{{settlementTypeOption.id}}" required late-validate>
                                     <option value="">{{'label.menu.selectone' | translate}}</option>
                                 </select>
@@ -60,6 +96,7 @@
                         | translate}}&nbsp;</a>
                 </div>
             </div>  
+        </div>
         </fieldset>
     </form>
 </div>
