@@ -60,9 +60,9 @@
                 scope.formData.transactionMappings = [];
                 for(var i in scope.transactionTypeMappings){
                     temp = {
-                       mappingTypeId: scope.transactionTypeMappings[0].mappingTypeId,
-                       creditGlId: scope.transactionTypeMappings[0].creditGlId,
-                       debitGlId: scope.transactionTypeMappings[0].debitGlId
+                       mappingTypeId: scope.transactionTypeMappings[i].mappingTypeId,
+                       creditGlId: scope.transactionTypeMappings[i].creditGlId,
+                       debitGlId: scope.transactionTypeMappings[i].debitGlId
                     }
                     scope.formData.transactionMappings.push(temp);
                 }
