@@ -1935,6 +1935,9 @@
             .when('/fldgsettlement/:trancheId', {
                 templateUrl: 'views/accounting/fldg_settlement.html'
             })
+            .when('/editgstmapping/:entityType/:entityId', {
+                templateUrl: 'views/accounting/edit_gstmapping.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

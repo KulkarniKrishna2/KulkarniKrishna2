@@ -7706,5 +7706,6 @@
     "label.heading.remaining.apsc.amount":"Remaining APSC Balance",
     "label.anchor.bulksettlement": "Bulk Settlement",
     "label.anchor.settledloans": "Settled Loans",
+    "label.anchor.editgstmapping": "Edit GST Mapping",
      "------ end of tensalation file ------":"---------"
 }

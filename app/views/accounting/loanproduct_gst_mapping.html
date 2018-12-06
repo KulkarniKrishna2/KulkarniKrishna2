@@ -20,11 +20,13 @@
                         <th>{{'label.heading.products' | translate}}</th>
                         <th>{{'label.heading.provisioningpercentage' | translate}}</th>
                         <th>{{'label.input.taxgroup' | translate}}</th>
+                        <th>{{'label.heading.actions' | translate}}</th>
                     </tr>
                     <tr ng-repeat="loanProduct in loanProductsData">
                         <th>{{loanProduct.name}}</th>
                         <th>{{loanProduct.percentage}}</th>
                         <th>{{loanProduct.taxGroupName}}</th>
+                        <th style="padding-left: 25px"><a ng-click="edit(loanProduct.id)"><i class="icon-edit icon-white"></i></a></th>
                     </tr>
             </div>
         </fieldset>

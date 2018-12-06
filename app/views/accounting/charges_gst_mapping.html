@@ -20,11 +20,13 @@
                     <th>{{'label.heading.charges' | translate}}</th>
                     <th>{{'label.heading.provisioningpercentage' | translate}}</th>
                     <th>{{'label.input.taxgroup' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
                 </tr>
                 <tr ng-repeat="charge in chargesData">
                     <th>{{charge.name}}</th>
                     <th>{{charge.percentage}}</th>
                     <th>{{charge.taxGroupName}}</th>
+                    <th style="padding-left: 25px"><a ng-click="edit(charge.id)"><i class="icon-edit icon-white"></i></a></th>
                 </tr>
         </div>
         </fieldset>

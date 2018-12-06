@@ -25,6 +25,9 @@
             scope.removeCharge = function (index) {
                 scope.charges.splice(index, 1);
             }
+            scope.edit = function (entityId) {
+                location.path('/editgstmapping/charges/' + entityId);
+            }
             scope.submit = function () {
                 var chargeFormData = new Object();
                 chargeFormData.locale = scope.optlang.code;

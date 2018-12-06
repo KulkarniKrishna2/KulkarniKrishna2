@@ -25,6 +25,9 @@
             scope.removeloanProduct = function (index) {
                 scope.loanProducts.splice(index, 1);
             }
+            scope.edit = function (entityId) {
+                location.path('/editgstmapping/loan_products/' + entityId);
+            }
             scope.submit = function () {
                 var loanProductFormData = new Object();
                 loanProductFormData.locale = scope.optlang.code;
