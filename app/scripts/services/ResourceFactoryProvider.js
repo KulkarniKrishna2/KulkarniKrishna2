@@ -1750,7 +1750,8 @@
                     }),
                     taxconfigurationsResourcetemplate: defineResource(apiVer + "/taxconfigurations/:entityType/template", { entityType: '@entityType' }, {
                     }),
-                    taxconfigurationsResource: defineResource(apiVer + "/taxconfigurations/:entityType", { entityType: '@entityType' }, {
+                    taxconfigurationsResource: defineResource(apiVer + "/taxconfigurations/:entityType/:entityId", { entityType: '@entityType', entityId: '@entityId' }, {
+                        update: { method: 'PUT', params: { entityType: '@entityType' }, isArray: false }
                     }),
                     createTranchetemplate: defineResource(apiVer + "/accounting/fldg/tranche/template", {}, {
                     }),

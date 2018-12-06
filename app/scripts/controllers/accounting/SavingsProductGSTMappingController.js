@@ -25,6 +25,9 @@
             scope.removeSavingsProduct = function (index) {
                 scope.savings.splice(index, 1);
             }
+            scope.edit = function (entityId) {
+                location.path('/editgstmapping/saving_products/' + entityId);
+            }
             scope.submit = function () {
                 var savingsFormData = new Object();
                 savingsFormData.locale = scope.optlang.code;
