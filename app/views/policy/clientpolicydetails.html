@@ -1,9 +1,11 @@
 <div class="col-md-12 col-sm-12" ng-controller="ClientPolicyDetailsController">
     <div class="row well">
+        <div class="error" ng-show="!isPolicyExist">{{'error.msg.client.policy.not.exist' | translate}}</div>
         <h3>
             <strong>{{'label.heading.deceasedprocess' | translate}}
                 <span>:</span>
             </strong>
+            
         </h3>
         <div class="row paddedleft paddedtop">
             <div class="col-sm-6 col-md-6">
