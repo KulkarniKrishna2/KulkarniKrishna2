@@ -166,6 +166,7 @@
     "label.heading.pendingforapproval": "Pending for Approval Shares",
     "label.heading.purchasedsharesoverview": "Transactions Overview",
     "label.heading.amonttobepaid" : "Amount to be paid",
+    "label.heading.kotak.credit.approval.list" : "Kotak Credit Approval Task List",
 
     "label.heading.purchasedorredeemedprice":"Purchased/Redeemed Price",
     "label.heading.linkedsavingsaccountnumber":"Linked Savings Account(Dividend Posting)",
@@ -214,6 +215,7 @@
     "label.input.groupName":"Group Name",
     "label.input.code": "Code",
     "label.heading.activatedgroup": "Group is activated",
+    "label.heading.kotak.approval.status" : "Kotak Approval Status",
 
 
     "#Menu Links": "..",
@@ -1124,6 +1126,8 @@
     "label.selectstaff":"Select staff",
     "label.active":"Active",
     "label.selectshareproduct":"Select Share Product",
+    "label.tab.kotak.approval.loans" : "Kotak Approval Loans",
+    "label.tab.ODU.review.loans" : "To Be Reviewed Loans",
 
     "#Enumeration & Error Messages": "..",
     "groupingStatusType.pending": "Pending",
@@ -3978,6 +3982,7 @@
     "label.amount.greaterthan.or.equalto":"Amount greater than or equal to",
     "label.paymenttype":"Select Payment type",
     "label.authenticationtype":"Select authentication type",
+    "label.proceed" : "Proceed",
 
 
     "#Enumeration & Error Messages": "..",
