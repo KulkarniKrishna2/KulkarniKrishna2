@@ -1769,6 +1769,9 @@
                     }),
                     taxInvoice: defineResource(apiVer + "/accounting/taxinvoice/generate", {}, {
                     }),
+                    centerDropDownResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId: '@centerId', anotherresource: '@anotherresource', officeId: '@officeId', paged: '@paged'}, {
+                        getAllCenters: {method: 'GET', params: {}, isArray: true}
+                    })
                 };
             }];
         }
