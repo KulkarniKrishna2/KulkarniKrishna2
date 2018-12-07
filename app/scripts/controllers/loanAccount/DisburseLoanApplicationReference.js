@@ -534,7 +534,7 @@
 
                 if (scope.formRequestData.submitApplication.disbursementData != undefined && scope.formRequestData.submitApplication.disbursementData.length > 0) {
                     for (var i in  scope.formRequestData.submitApplication.disbursementData) {
-                        scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate, scope.df);
+                        scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.submitApplication.disbursementData[i].expectedDisbursementDate), scope.df);
                     }
                 } else {
                     delete  scope.formRequestData.submitApplication.disbursementData;
