@@ -72,7 +72,7 @@
                         //console.log(JSON.stringify(scope.bssWorkflowDashboardReport));
                     }     
                 });
-                resourceFactory.centerResource.query({officeId: scope.officeId, paged: false}, function (data) {
+                resourceFactory.centerDropDownResource.query({officeId: scope.officeId, limit :-1, paged: false}, function (data) {
                     scope.centers = data;
                 });
             };

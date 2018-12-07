@@ -17,8 +17,8 @@
 
             scope.getFromCenters = function () {
                 if (scope.fromOfficeId) {
-                    resourceFactory.centerResource.getAllCenters({ officeId: scope.fromOfficeId }, function (data) {
-                        scope.fromCenters = data.pageItems;
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.fromOfficeId , limit:-1, paged:false}, function (data) {
+                        scope.fromCenters = data;
                     });
                 } else {
                     scope.fromCenters = [];
@@ -28,8 +28,8 @@
 
             scope.getToCenters = function () {
                 if (scope.toOfficeId) {
-                    resourceFactory.centerResource.getAllCenters({ officeId: scope.toOfficeId }, function (data) {
-                        scope.toCenters = data.pageItems;
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.toOfficeId , limit:-1, paged:false}, function (data) {
+                        scope.toCenters = data;
                     });
                 } else {
                     scope.toCenters = [];

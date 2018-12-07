@@ -8,8 +8,8 @@
         		scope.offices = data;
         	});
         	scope.getCenters = function(officeId){
-        		resourceFactory.centerResource.getAllCenters({officeId: officeId},function(data){
-        			scope.centers = data.pageItems;
+        		resourceFactory.centerDropDownResource.getAllCenters({officeId: officeId, limit:-1, paged:false},function(data){
+        			scope.centers = data;
         		});
         	} 
         	scope.getUsers = function(officeId){
