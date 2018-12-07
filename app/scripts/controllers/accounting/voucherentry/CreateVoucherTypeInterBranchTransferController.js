@@ -165,7 +165,7 @@
             };
 
             scope.routeTo = function (vocuher) {
-                $window.open('#/accounting/view/voucherentry/' + scope.voucherCode + '/' + vocuher.voucherId, '_blank');
+                location.path('/accounting/view/voucherentry/' + scope.voucherCode + '/' + vocuher.voucherId, '_blank');
             };
 
         }
