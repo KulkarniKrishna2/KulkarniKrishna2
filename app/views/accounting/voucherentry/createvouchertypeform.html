@@ -370,7 +370,7 @@
                     <div class="col-sm-3">
                         <input type="text" autocomplete="off" class="form-control" id="instrumentionNumber"
                                name="instrumentionNumber"
-                               ng-model="formData.paymentDetails.instrumentionNumber" required late-validate=""/>
+                               ng-model="formData.paymentDetails.instrumentionNumber" required late-validate />
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="instrumentionNumber"/>
@@ -381,10 +381,10 @@
                     <label class="control-label col-sm-2">{{ 'label.heading.instrument.date' | translate }}<span
                             class="required">*</span></label>
                     <div class="col-sm-3">
-                        <input id="instrumentationDate" name="instrumentationDate" type="text" autocomplete="off" class="form-control"
+                        <input id="instrumentationDate" readonly name="instrumentationDate" type="text" autocomplete="off" class="form-control"
                                datepicker-pop="{{df}}" ng-model="formData.paymentDetails.instrumentationDate"
                                is-open="opened"
-                               min="minDate" max="'2020-06-22'" required late-validate=""/>
+                               min="minDate" max="'2020-06-22'" required />
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="instrumentationDate"/>
@@ -397,7 +397,7 @@
                     <div class="col-sm-3">
                         <input type="text" autocomplete="off" class="form-control" id="bankName"
                                name="bankName"
-                               ng-model="formData.paymentDetails.bankName" required late-validate=""/>
+                               ng-model="formData.paymentDetails.bankName" required late-validate/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="bankName"/>
@@ -410,7 +410,7 @@
                     <div class="col-sm-3">
                         <input type="text" autocomplete="off" class="form-control" id="branchName"
                                name="branchName"
-                               ng-model="formData.paymentDetails.branchName" required late-validate=""/>
+                               ng-model="formData.paymentDetails.branchName" required late-validate/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="branchName"/>
