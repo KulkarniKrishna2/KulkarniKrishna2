@@ -46,6 +46,12 @@
                 if (!_.isUndefined(scope.voucherData.journalEntryData.journalEntryDetails)) {
                     if (scope.voucherData.journalEntryData.journalEntryDetails.length > 0) {
                         scope.journalEntryDetails = scope.voucherData.journalEntryData.journalEntryDetails;
+                        for (var i in scope.journalEntryDetails) {
+                            var journalEntryDetail = scope.journalEntryDetails[i];
+                            if(journalEntryDetail.description){
+                               scope.voucherData.journalEntryData.comments = journalEntryDetail.description;
+                        }
+                        }
                         if(!scope.voucherData.isReversed) {
                             for (var i in scope.journalEntryDetails) {
                                 var journalEntryDetail = scope.journalEntryDetails[i];
