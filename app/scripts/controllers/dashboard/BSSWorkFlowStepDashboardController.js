@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         BSSWorkFlowStepDashboardController: function (scope, $rootScope, resourceFactory, location) {
-            scope.officeId = scope.currentSession.user.officeId;
+            scope.officeId = '';
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
