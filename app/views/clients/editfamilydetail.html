@@ -158,6 +158,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}
+                       
+                    </label>
+                    <div class="col-sm-3">
+                        <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="formData.dateOfBirth" 
+                             is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+                        <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
+                            | translate}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editFamilyDetails" valattribute="dateofbirth" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
 
                     <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}<span
                             class="required">*</span></label>

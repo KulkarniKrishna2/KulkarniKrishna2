@@ -16,6 +16,13 @@
             if(scope.response && scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
                 scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
             }
+            scope.$watch('formData.dateOfBirth', function (newValue, oldValue) {
+                if (scope.formData.dateOfBirth != undefined && scope.formData.dateOfBirth != "") {
+                    var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.formData.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                } 
+            });
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;
                 scope.relationshipOptions = data.relationshipOptions;
@@ -37,7 +44,7 @@
                     scope.formData.firstname = data.firstname;
                     scope.formData.middlename = data.middlename;
                     scope.formData.lastname = data.lastname;
-                    if(scope.formData.dateOfBirth){
+                    if(data.dateOfBirth){
                         scope.formData.dateOfBirth = dateFilter(new Date(data.dateOfBirth), scope.df);
                     }
                     scope.formData.age = data.age;
