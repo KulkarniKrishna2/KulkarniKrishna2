@@ -11,13 +11,13 @@
             scope.formDocumentData = {};
             scope.showUploadDocument = false;
             scope.documents = [];
-
+            scope.statusCompleted = "taskStatus.completed";
             scope.getDeceasedDetails = function () {
                 resourceFactory.deceasedDetailsResource.get({ clientId: scope.clientId }, {},
                     function (data) {
                         if (angular.isDefined(data) && angular.isDefined(data.id)) {
                             scope.deceasedDetailsData = data;
-                            scope.isDeceasedDetailsCreated = true;
+                            scope.isDeceasedDetailsCreated = true;                          
                             scope.deceasedDetailsId = data.id;
                             scope.getDocuments();
                         }

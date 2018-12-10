@@ -8,7 +8,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input id="loanOutstanding" type="text" autocomplete="off" name="loanOutstanding" ng-model="formData.loanOutstanding" class="form-control"
+                    <input id="loanOutstanding" type="text" autocomplete="off" ng-readonly="true"  name="loanOutstanding" ng-model="formData.loanOutstanding" class="form-control"
                         number-format required late-Validate>
                 </div>
                 <div class="col-sm-3">
@@ -21,11 +21,24 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input id="repaidAmount" type="text" autocomplete="off" name="repaidAmount" ng-model="formData.repaidAmount" class="form-control"
+                    <input id="repaidAmount" type="text" autocomplete="off" name="repaidAmount" ng-readonly="true"  ng-model="formData.repaidAmount" class="form-control"
                         number-format required late-Validate>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="createclaimsettlementform" valattribute="repaidAmount" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.transactionamount' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="loanOutstanding" type="text" autocomplete="off" name="loanOutstanding" ng-readonly="true"  ng-model="formData.loanOutstanding" class="form-control"
+                        number-format required late-Validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createclaimsettlementform" valattribute="loanOutstanding" />
                 </div>
             </div>
             <div class="form-group">
