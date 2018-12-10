@@ -81,7 +81,7 @@
        </div>
 </script>
     <div ng-show="isDeceasedDetailsCreated">
-        <a role="button" has-permission="UPDATE_DECEASED_DETAILS" ng-click="editDeceasedDetails()" class="btn btn-primary pull-right">
+        <a role="button" ng-hide="taskData.status.code==statusCompleted" has-permission="UPDATE_DECEASED_DETAILS" ng-click="editDeceasedDetails()" class="btn btn-primary pull-right">
             <i class="icon-edit icon-white"></i>
         </a>
         <div class="row">

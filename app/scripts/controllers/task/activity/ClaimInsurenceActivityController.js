@@ -12,6 +12,7 @@
                     function (data) {
                         scope.formData.repaidAmount = data.repaidAmount;
                         scope.formData.loanOutstanding = data.loanOutstanding;
+                        scope.formData.disbursedAmount = data.disbursedAmount;
                         scope.staffOptions = data.staffOptions;
                     });
             };
