@@ -583,7 +583,7 @@
     "label.error.LuhnsAlgorithm.idnumbervalid":"Id Number is valid",
     "label.error.LuhnsAlgorithm.selecId":"Select Identifier Type as Id to validate",
     "label.error.required":"Required",
-    "error.msg.spouse.insurance.not.valid":"Spouse Insurance not valid",
+    "error.msg.spouse.insurance.not.valid":"Spouse Insurance not applicable",
     "label.error.LuhnsAlgorithm.passportnumbervalid":"Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport":"Select Document Type Passport to validate",
     "error.msg.staff.join.on.date.cannot.be.before.office.start.date":"Staff Join Date Cannot be before Office Activation Date",
@@ -7712,5 +7712,7 @@
     "label.anchor.bulksettlement": "Bulk Settlement",
     "label.anchor.settledloans": "Settled Loans",
     "label.anchor.editgstmapping": "Edit GST Mapping",
-     "------ end of tensalation file ------":"---------"
+    "error.msg.loan.refund.account.is.not.active": "Loan refund account is not active",
+
+     "------ end of translation file ------":"---------"
 }
