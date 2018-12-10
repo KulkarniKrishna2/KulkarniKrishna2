@@ -127,35 +127,35 @@
             </div>
         </div>
         <hr/>
-        <div class="row">
-            <label class="control-label col-sm-3">
-                {{'label.heading.documents' | translate}}
-            </label>
+        <div class="row">            
+            <div>
+                    <label class="control-label col-sm-3">
+                            {{'label.heading.documents' | translate}}
+                        </label>
+                <a id="show" ng-click="showUploadDocument=!showUploadDocument">
+                    <i class="icon-cloud-upload"></i>
+                </a>
+            </div>   
+            <br/>         
             <table>
                 <tr  ng-repeat="file in documents">
-                    <td>{{file.fileName}}</td>
+                    <td>{{file.fileName}}&nbsp;</td>
                     <td>
                         <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
-                        class="icon-eye-open text-success"></i></a>
+                        class="icon-eye-open text-success"></i></a>&nbsp;
                     </td>
                     <td>
                         <a target="_blank" ng-click = "download(file.docUrl)" has-permission='READ_DOCUMENT'><i
-                        class="icon-cloud-download"></i></a>
+                        class="icon-cloud-download"></i></a>&nbsp;
                     </td>
                     <td>
                         <a target="_blank" ng-click = "deleteFile(file)" has-permission='READ_DOCUMENT'><i
-                        class="icon-remove"></i></a>
+                        class="icon-remove"></i></a>&nbsp;
                     </td>
                 </tr>
             </table>
         </div>
 
-
-        <div class="row">
-            <a id="show" ng-click="showUploadDocument=!showUploadDocument">
-                <i class="icon-cloud-upload"></i>
-            </a>
-        </div>
         <form name="deceaseddetailsform" novalidate="" ng-show="showUploadDocument" class="form-horizontal well">
             <api-validate></api-validate>
             <fieldset>
