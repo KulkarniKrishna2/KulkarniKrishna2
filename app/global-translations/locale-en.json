@@ -7713,6 +7713,6 @@
     "label.anchor.settledloans": "Settled Loans",
     "label.anchor.editgstmapping": "Edit GST Mapping",
     "error.msg.loan.refund.account.is.not.active": "Loan refund account is not active",
-
+    "label.input.is.field.office": "Is Field Office?",
      "------ end of translation file ------":"---------"
 }

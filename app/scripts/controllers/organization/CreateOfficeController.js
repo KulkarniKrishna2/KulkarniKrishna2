@@ -8,6 +8,7 @@
             scope.isSelfActive = scope.response.uiDisplayConfigurations.createOffice.selfActive;
             scope.isAddressTypeMandatory = false;
             scope.formData = {};
+            scope.formData.isFieldOffice = true
             scope.formAddressData = {};
             scope.formAddressData.addressTypes = [];
             scope.formDataList = [scope.formAddressData];

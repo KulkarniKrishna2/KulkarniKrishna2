@@ -19,7 +19,8 @@
                     name: data.name,
                     externalId: data.externalId,
                     parentId: data.parentId,
-                    officeCodeId: data.officeCodeId
+                    officeCodeId: data.officeCodeId,
+                    isFieldOffice:data.isFieldOffice
                 }
             });
 
