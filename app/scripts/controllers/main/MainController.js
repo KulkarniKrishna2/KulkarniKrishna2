@@ -246,6 +246,10 @@
                         if(data.globalConfiguration[i].name == "BCIF"){
                             scope.allowBcifOperations = data.globalConfiguration[i].enabled;
                         }
+                        if(data.globalConfiguration[i].name=='is-field-office-enable'){
+                            scope.isFieldOfficeEnable = data.globalConfiguration[i].enabled;
+
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }

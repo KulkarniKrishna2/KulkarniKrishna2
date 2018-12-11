@@ -7,6 +7,7 @@
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
                 scope.office = data;
                 $rootScope.officeName = data.name;
+                scope.officeId = data.id;
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_office'}, function (data) {
@@ -130,7 +131,7 @@
 
             var ActivateOfficeCtrl = function ($scope, $modalInstance) {
                 $scope.activate = function () {
-                    resourceFactory.officeResource.save({officeId: routeParams.id, command:'activate'}, {}, function (data) {
+                    resourceFactory.officeResource.save({officeId: scope.officeId, command:'activate'}, {}, function (data) {
                         $modalInstance.close('activate');
                         route.reload();
                     });
