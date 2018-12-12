@@ -42,10 +42,10 @@
                 <td>
 
                     <div class="btn-group" ng-show="bulkTransfer.status.id==100">
-                        <button type="button" has-permission="REJECT_TRANSFER_ENTITIES" class="btn btn-danger" ng-click="submit(bulkTransfer.id,'reject')">
+                        <button type="button" has-permission="REJECT_TRANSFER_ENTITIES" class="btn btn-danger btn-lg" ng-click="submit(bulkTransfer.id,'reject')">
                             <i tooltip="{{'label.tooltip.reject' | translate}}" class="icon-remove icon-white"></i>
                         </button>
-                        <button type="button" has-permission="APPROVE_TRANSFER_ENTITIES" class="btn btn-info" ng-click="submit(bulkTransfer.id,'approve')">
+                        <button type="button" has-permission="APPROVE_TRANSFER_ENTITIES" class="btn btn-info btn-lg" ng-click="submit(bulkTransfer.id,'approve')">
                             <i tooltip="{{'label.tooltip.approve' | translate}}" class="icon-ok icon-white"></i>
                         </button>
                     </div>
@@ -54,4 +54,16 @@
         </tbody>
     </table>
 </div>
+<script type="text/ng-template" id="memberTransferAction.html">
+    <div class="modal-header silver">
+        <h3 class="bolder" ng-show="isApproveAction">{{'label.heading.approve' | translate}}</h3>
+        <h3 class="bolder" ng-hide="isApproveAction">{{'label.heading.reject' | translate}}</h3>
+    </div>
+    <div class="modal-body ">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>
 </div>
