@@ -9,6 +9,9 @@
             if(scope.response && scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
                 scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate != undefined) {
+                scope.activationDate = scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate;
+            }
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
