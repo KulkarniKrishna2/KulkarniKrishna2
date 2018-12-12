@@ -215,6 +215,11 @@
 		},
 		"regexFormats":{
 			"lastName" :"\/^[a-zA-Z\\s.]*$\/"
+		},
+		"editCenter":{
+			"isReadOnlyField": {
+			"activationDate":true
+			}
 		}
 	}
 }

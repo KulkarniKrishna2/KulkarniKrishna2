@@ -48,8 +48,12 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="activationDate" type="text" autocomplete="off" readonly datepicker-pop="{{df}}" ng-model="first.date"
-                               is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        <input ng-if = "!activationDate" id="activationDate" type="text" autocomplete="off" readonly is-open="opened"
+                        ng-model="first.date" datepicker-pop="{{df}}"
+                                min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        <input ng-if = "activationDate" id="activationDate" type="text" autocomplete="off" readonly is-open="opened"
+                        ng-model="first.date" datepicker-pop="{{df}}"
+                                min="'2000-01-01'" max="restrictDate" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="col-md-offset-2 paddedleft120">
