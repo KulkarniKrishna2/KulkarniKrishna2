@@ -607,7 +607,18 @@
                 $scope.closeSurveyForm = function(){
                     $modalInstance.dismiss('takeNewSurveyFrom');
                 }
+                $scope.removeIndex = function (questionIndex, index) {
+                    if (!_.isUndefined(questionIndex) && !_.isUndefined(index)) {
+                        if ($scope.questionDatas[questionIndex] && $scope.questionDatas[questionIndex].responseDatas) {
+                            for (var i = 0; i < $scope.questionDatas[questionIndex].responseDatas.length; i++) {
+                                if (i != index && $scope.questionDatas[questionIndex].responseDatas[i].responseId) {
+                                    $scope.questionDatas[questionIndex].responseDatas[i].responseId = undefined;
+                                }
+                            }
+                        }
+                    }
 
+                };
             }
            //lona account edit 
 
