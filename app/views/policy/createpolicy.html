@@ -28,8 +28,9 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="policyNumber" name="policyNumber" ng-model="formData.policyNumber" class="form-control"
+                    <input type="text" autocomplete="off" id="policyNumber" name="policyNumber" ng-model="formData.policyNumber" class="form-control" ng-pattern="/^[A-Z0-9a-z]*$/"
                         required late-Validate/>
+                    <span class="required" ng-show="createpolicyform.policyNumber.$invalid && createpolicyform.policyNumber.$dirty"><small>{{'label.invalid.policyNumber' | translate}}</small></span>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="createpolicyform" valattribute="policyNumber" />

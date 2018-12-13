@@ -7715,5 +7715,6 @@
     "error.msg.loan.refund.account.is.not.active": "Loan refund account is not active",
     "label.input.is.field.office": "Is Field Office?",
     "label.imei.number" : "IMEI Number",
+    "label.invalid.policyNumber":"Policy number is not valid",
      "------ end of translation file ------":"---------"
 }
