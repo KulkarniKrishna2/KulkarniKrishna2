@@ -236,26 +236,23 @@
                     });
                 }
 
-                $scope.updateSlabBasedChargeForEmiPack = function (principal) {
-                    if (principal) {
-                        $scope.loanAccountFormData.principal = principal;
+                $scope.updateSlabBasedChargeForEmiPack = function (loanEMIPack) {
+                    if (loanEMIPack) {
+                        $scope.loanAccountFormData.principal = loanEMIPack.sanctionAmount;
+                        $scope.loanAccountFormData.numberOfRepayments = loanEMIPack.numberOfRepayments;
                         $scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
                     }
                 }
 
                 $scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function () {
                     if ($scope.loanAccountFormData.principal != '' && $scope.loanAccountFormData.principal != undefined && $scope.loanAccountFormData.numberOfRepayments != '' && $scope.loanAccountFormData.numberOfRepayments != undefined) {
-
                         for (var i in $scope.charges) {
                             if (($scope.charges[i].chargeCalculationType.value == $scope.slabBasedCharge || $scope.charges[i].isSlabBased) && $scope.charges[i].slabs.length > 0) {
-                                for (var j in $scope.charges[i].slabs) {
-                                    var slabBasedValue = $scope.getSlabBasedAmount($scope.charges[i].slabs[j], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
-                                    if (slabBasedValue != null) {
-                                        $scope.charges[i].amount = slabBasedValue;
-                                        break;
-                                    } else {
-                                        $scope.charges[i].amount = undefined;
-                                    }
+                                var slabBasedValue = $scope.getSlabBasedAmount($scope.charges[i].slabs, $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                if (slabBasedValue != null) {
+                                    $scope.charges[i].amount = slabBasedValue;
+                                } else {
+                                    $scope.charges[i].amount = undefined;
                                 }
                             }
                         }
@@ -282,11 +279,9 @@
                                             charge.isMandatory = $scope.productLoanCharges[i].isMandatory;
                                             charge.isAmountNonEditable = $scope.productLoanCharges[i].isAmountNonEditable;
                                             if (charge.chargeCalculationType.value == $scope.slabBasedCharge && charge.slabs.length > 0) {
-                                                for (var i in charge.slabs) {
-                                                    var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs[i], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
-                                                    if (slabBasedValue != null) {
-                                                        charge.amount = slabBasedValue;
-                                                    }
+                                                var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs, $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                                if (slabBasedValue != null) {
+                                                    charge.amount = slabBasedValue;
                                                 }
                                             }
                                             charge.isShowDate = false;
@@ -405,9 +400,11 @@
                             data.isMandatory = false;
                             if (data.chargeCalculationType.value == $scope.slabBasedCharge && data.slabs.length > 0) {
                                 for (var i in data.slabs) {
-                                    var slabBasedValue = $scope.getSlabBasedAmount(data.slabs[i], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                    var slabBasedValue = $scope.getSlabBasedAmount(data.slabs, $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
                                     if (slabBasedValue != null) {
                                         data.amount = slabBasedValue;
+                                    }else{
+                                        data.amount = undefined;
                                     }
                                 }
                             }
@@ -437,25 +434,32 @@
                     return (value >= min && value <= max);
                 };
 
-                $scope.getSlabBasedAmount = function (slab, amount, repayment) {
-                    var slabValue = 0;
-                    slabValue = (slab.type.id == $scope.installmentAmountSlabChargeType) ? amount : repayment;
-                    var subSlabvalue = 0;
-                    subSlabvalue = (slab.type.id != $scope.installmentAmountSlabChargeType) ? amount : repayment;
-                    //check for if value fall in slabs
-                    if ($scope.inRange(slab.minValue, slab.maxValue, slabValue)) {
+                $scope.getSlabBasedAmount = function (slabs, amount, repayment) {
+                    if(slabs){
+                        for(var j in slabs){
+                            var slab = slabs[j];
+                            var slabValue = 0;
+                            slabValue = (slab.type.id == $scope.installmentAmountSlabChargeType) ? amount : repayment;
+                            var subSlabvalue = 0;
+                            subSlabvalue = (slab.type.id != $scope.installmentAmountSlabChargeType) ? amount : repayment;
+                            //check for if value fall in slabs
+                            if ($scope.inRange(slab.minValue, slab.maxValue, slabValue)) {
 
-                        if (slab.subSlabs != undefined && slab.subSlabs.length > 0) {
-                            for (var i in slab.subSlabs) {
-                                //check for sub slabs range
-                                if ($scope.inRange(slab.subSlabs[i].minValue, slab.subSlabs[i].maxValue, subSlabvalue)) {
-                                    return slab.subSlabs[i].amount;
+                                if (slab.subSlabs != undefined && slab.subSlabs.length > 0) {
+                                    for (var i in slab.subSlabs) {
+                                        //check for sub slabs range
+                                        if ($scope.inRange(slab.subSlabs[i].minValue, slab.subSlabs[i].maxValue, subSlabvalue)) {
+                                            return slab.subSlabs[i].amount;
+                                        }
+                                    }
+
                                 }
+                                return slab.amount;
                             }
-
                         }
-                        return slab.amount;
+                        
                     }
+                    
                     return null;
 
                 };
@@ -718,12 +722,10 @@
                                     charge.isMandatory = $scope.productLoanCharges[i].isMandatory;
                                     charge.isAmountNonEditable = $scope.productLoanCharges[i].isAmountNonEditable;
                                     if(charge.chargeCalculationType.value == scope.slabBasedCharge){
-                                        for(var i in charge.slabs) {
-                                            var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs[i],$scope.editLoanAccountdata.principal,$scope.editLoanAccountdata.numberOfRepayments);
+                                        var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs,$scope.editLoanAccountdata.principal,$scope.editLoanAccountdata.numberOfRepayments);
                                             if(slabBasedValue != null){
                                                 charge.amountOrPercentage = slabBasedValue;
                                             }
-                                        }
                                     }
                                     $scope.charges.push(charge);
                                 }
@@ -740,30 +742,36 @@
                     return (value>=min && value<=max);
                 };
 
-                $scope.getSlabBasedAmount = function(slab, amount , repayment){
-                    var slabValue = amount;
-                    if(slab.type.id != 1){
-                        slabValue = repayment;
-                    }
-                    var subSlabvalue = 0;
-                    if(slab.type.id != $scope.installmentAmountSlabChargeType){
-                        subSlabvalue = amount;
-                    }else{
-                        subSlabvalue = repayment;
-                    }
-                    //check for if value fall in slabs
-                    if($scope.inRange(slab.minValue,slab.maxValue,slabValue)){
-                            if(slab.subSlabs != undefined && slab.subSlabs.length>0){
-                                for(var i in slab.subSlabs){
-                                    //check for sub slabs range
-                                    if($scope.inRange(slab.subSlabs[i].minValue,slab.subSlabs[i].maxValue,subSlabvalue)){
-                                        return slab.subSlabs[i].amount;
-                                    }
-                                }
-
+                $scope.getSlabBasedAmount = function(slabs, amount , repayment){
+                    if(slabs){
+                        for(var j in slabs){
+                            var slab = slabs[j];
+                            var slabValue = amount;
+                            if(slab.type.id != 1){
+                                slabValue = repayment;
                             }
-                            return slab.amount;
+                            var subSlabvalue = 0;
+                            if(slab.type.id != $scope.installmentAmountSlabChargeType){
+                                subSlabvalue = amount;
+                            }else{
+                                subSlabvalue = repayment;
+                            }
+                            //check for if value fall in slabs
+                            if($scope.inRange(slab.minValue,slab.maxValue,slabValue)){
+                                    if(slab.subSlabs != undefined && slab.subSlabs.length>0){
+                                        for(var i in slab.subSlabs){
+                                            //check for sub slabs range
+                                            if($scope.inRange(slab.subSlabs[i].minValue,slab.subSlabs[i].maxValue,subSlabvalue)){
+                                                return slab.subSlabs[i].amount;
+                                            }
+                                        }
+
+                                    }
+                                    return slab.amount;
+                            }
+                        }
                     }
+                    
                     return null;
 
                 };
@@ -788,15 +796,12 @@
 
                     $scope.updateChargeForSlab = function(data){
                         if(data.isSlabBased || data.chargeCalculationType.value == $scope.slabBasedCharge){               
-                                for(var j in data.slabs){
-                                    var slabBasedValue = $scope.getSlabBasedAmount(data.slabs[j],$scope.editLoanAccountdata.principal,$scope.editLoanAccountdata.numberOfRepayments);
-                                    if(slabBasedValue != null){
-                                        data.amountOrPercentage = slabBasedValue;
-                                        return data;
-                                    }else {
-                                         data.amountOrPercentage = undefined;
-                                    }
-                                }
+                            var slabBasedValue = $scope.getSlabBasedAmount(data.slabs, $scope.editLoanAccountdata.principal, $scope.editLoanAccountdata.numberOfRepayments);
+                            if (slabBasedValue != null) {
+                                data.amountOrPercentage = slabBasedValue;
+                            } else {
+                                data.amountOrPercentage = undefined;
+                            }
                         }
                         return data;
                     }
@@ -847,12 +852,10 @@
                                             charge.isMandatory = $scope.productLoanCharges[i].isMandatory;
                                             charge.isAmountNonEditable = $scope.productLoanCharges[i].isAmountNonEditable;
                                             if ((charge.chargeCalculationType.value == $scope.slabBasedCharge || charge.isSlabBased) && charge.slabs.length > 0) {
-                                                for (var i in charge.slabs) {
-                                                    var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs[i], $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
+                                                var slabBasedValue = $scope.getSlabBasedAmount(charge.slabs, $scope.loanAccountFormData.principal, $scope.loanAccountFormData.numberOfRepayments);
                                                     if (slabBasedValue != null) {
                                                         charge.amount = slabBasedValue;
                                                     }
-                                                }
                                             }
                                             $scope.charges.push(charge);
                                             break;

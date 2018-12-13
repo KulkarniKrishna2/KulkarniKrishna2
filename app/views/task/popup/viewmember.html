@@ -826,7 +826,7 @@
 												<tbody>
 													<tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
 														<td>
-															<input type="radio" ng-model="loanAccountFormData.loanEMIPackId" name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack.sanctionAmount)"
+															<input type="radio" ng-model="loanAccountFormData.loanEMIPackId" name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack)"
 															    value="{{loanEMIPack.id}}" />
 														</td>
 														<td>
