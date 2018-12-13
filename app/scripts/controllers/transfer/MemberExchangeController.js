@@ -18,19 +18,26 @@
                 scope.centers = [];
                 scope.groups = [];
                 scope.clients = [];
+                scope.exchangeGroups = [];
+                scope.toGroup = undefined;
+                scope.fromGroup = undefined;
                 if (officeId) {
                     resourceFactory.centerDropDownResource.getAllCenters({ officeId: officeId, limit:-1, paged:false}, function (data) {
                         scope.centers = data;
                     });
                 }
             }
-
+               
             scope.getGroupDetails = function (centerId) {
                 scope.groups = [];
                 scope.clients = [];
+                scope.exchangeGroups = [];
+                scope.toGroup = undefined;
+                scope.fromGroup = undefined;
                 if (centerId) {
                     resourceFactory.centerResource.get({ centerId: centerId, associations: 'groupMembers' }, function (data) {
                         scope.groups = data.groupMembers;
+                        
                     });
                 }
 
@@ -43,6 +50,8 @@
                     if(index >= 0){
                         scope.exchangeGroups.splice(index,1); 
                     }
+                }else{
+                    scope.exchangeGroups = [];
                 }
             }
 
@@ -69,7 +78,6 @@
                                scope.toGroup.activeClientMembers.push(scope.toGroup.oldActiveClientMembers[idx]); 
                             }
                         }
-
                     }
                 }
                 scope.dataList.splice(index, 1);
