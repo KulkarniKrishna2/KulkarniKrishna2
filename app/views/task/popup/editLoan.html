@@ -83,7 +83,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText" ng-hide="loanaccountinfo.status.code != 'loanStatusType.submitted.and.pending.approval' && loanaccountinfo.principal<loanEMIPack.sanctionAmount">
+										<tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText" ng-hide="loanaccountinfo.principal<loanEMIPack.sanctionAmount">
 											<td>
 												<input type="radio" ng-model="editLoanAccountdata.loanEMIPackId" name="emipack" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack)"
 												    value="{{loanEMIPack.id}}" ng-disabled="!isEmiAmountEditable" />
