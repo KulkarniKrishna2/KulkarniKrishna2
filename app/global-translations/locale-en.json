@@ -7654,6 +7654,7 @@
     "error.msg.client.policy.not.exist" : "Client policy does not exist.",
     "error.msg.deceased.date.can.not.be.before.date.of.birth":"Deceased date can not be before client date of birth {{params[0].value}} ",
     "label.tooltip.add.document" : "Add Document",
+    "error.msg.Center.deleted.active.groups.exist":"Cannot delete the center because active subgroups",
     
 
     "label.anchor.operationalaccounting": "Operational Accounting",
