@@ -4,6 +4,7 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.showBulkCBInitiate = false;
+            scope.clientMaritalStatus = {};
 
             function initTask() {
                 scope.centerId = scope.taskconfig.centerId;
@@ -464,7 +465,12 @@
                                             }
                                         }
                                     }
-                                    $scope.charges.push(charge);
+                                    if (charge.chargeCategoryType.value != "doubleInsuranceCharge") { $scope.charges.push(charge) }
+                                    else {
+                                        if (scope.clientMaritalStatus.name == "Married") {
+                                            $scope.charges.push(charge)
+                                        }
+                                    }
                                 }
 
                             }
@@ -610,6 +616,10 @@
                                             break;
                                         }
                                     }
+                                }
+                                if(data.maritalStatus != null && data.maritalStatus != undefined)
+                                {
+                                    scope.clientMaritalStatus = data.maritalStatus;
                                 }
                             });
                         }
