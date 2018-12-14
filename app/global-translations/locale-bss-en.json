@@ -286,6 +286,7 @@
   "label.err.code" : "Error Code :",
   "label.err.desc" : "Error Description :",
   "label.proceed" : "Proceed",
+  "label.anchor.centersavingstotal": "Center APSC total",
 
   "------ end of tensalation file":"---------"
 }

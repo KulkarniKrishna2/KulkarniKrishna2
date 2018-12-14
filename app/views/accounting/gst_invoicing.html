@@ -57,13 +57,13 @@
                             <td>{{'label.anchor.subtotal' | translate}}&nbsp;(A+B)</td>
                             <td align="right">{{urbanInvoiceData.totalAmount | number:2}}</td>
                         </tr>
-                        <tr>
-                            <td>{{'label.anchor.tdsamount' | translate}}</td>
-                            <td align="right">{{urbanInvoiceData.tdsAmount | number:2}}</td>
+                        <tr ng-repeat="tds in urbanInvoiceData.tdsAmount">
+                            <td>{{tds.taxComponentData.name}}</td>
+                            <td align="right">{{tds.amount | number:2}}</td>
                         </tr>
-                        <tr>
-                            <td>{{'label.anchor.gstAmount' | translate}}</td>
-                            <td align="right">{{urbanInvoiceData.gstAmount | number:2}}</td>
+                        <tr ng-repeat="gst in urbanInvoiceData.gstAmount">
+                            <td>{{gst.taxComponentData.name}}</td>
+                            <td align="right">{{gst.amount | number:2}}</td>
                         </tr>
                     </table>
                 </div>
@@ -84,13 +84,9 @@
                             <td>{{'label.anchor.subtotal' | translate}}&nbsp;(A+B)</td>
                             <td align="right">{{ruralInvoiceData.totalAmount | number:2}}</td>
                         </tr>
-                        <tr>
-                            <td>{{'label.anchor.tdsamount' | translate}}</td>
-                            <td align="right">{{ruralInvoiceData.tdsAmount | number:2}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{'label.anchor.gstAmount' | translate}}</td>
-                            <td align="right">{{0 | number:2}}</td>
+                        <tr ng-repeat="tds in ruralInvoiceData.tdsAmount">
+                            <td>{{tds.taxComponentData.name}}</td>
+                            <td align="right">{{tds.amount | number:2}}</td>
                         </tr>
                     </table>
                 </div>
