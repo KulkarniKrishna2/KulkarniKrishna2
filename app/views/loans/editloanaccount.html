@@ -17,7 +17,7 @@
         <td class="width36 paddedbottom10">
             <select id="productId" ng-model="formData.productId" class="form-control width170px"
                     ng-options="product.id as product.name for product in loanaccountinfo.productOptions"
-                    value="{{product.id}}" ng-change="loanProductChange(formData.productId)"/>
+                    value="{{product.id}}" ng-change="loanProductChange(formData.productId)" ng-disabled="isProductNameReadOnly"/>
             <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
             </select>
         </td>
@@ -274,7 +274,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText">
+                            <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText" ng-hide="loanaccountinfo.principal<loanEMIPack.sanctionAmount && isRestrictEmiPack">
                                 <td class="col-md-1">
                                     <input type="radio" ng-model="formData.loanEMIPackId" ng-change="updateSlabBasedChargeForEmiPack(loanEMIPack)" value="{{loanEMIPack.id}}"/>
                                 </td>

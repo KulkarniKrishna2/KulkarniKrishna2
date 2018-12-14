@@ -442,6 +442,12 @@
 				"jlgLoan": false
 			}
 		},
+		"editJlgLoan": {
+		    "isReadOnlyField": {
+			    "productName": false
+		    },
+		    "isRestrictEmiPack":false
+	    },
 		"createNewLoan": {
 			"isHiddenField": {
 				"newLoan": false
