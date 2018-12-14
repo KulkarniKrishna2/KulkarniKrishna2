@@ -288,6 +288,7 @@
   "label.proceed" : "Proceed",
   "label.anchor.centersavingstotal": "Center APSC total",
   "error.msg.group.member.can.not.transfer.to.same.group" : "Member can not transfer to same subgroup",
-
+  "label.heading.transfer.client.active.loan.update.repayment.schedule" : "On transfer repayment schedule will change as per destination group meeting date. Active loans and APSC account also will be transferred.",
+  "label.heading.transfer.client.active.loan.savings" : "Active loans and APSC account also will be transferred.",
   "------ end of tensalation file":"---------"
 }
