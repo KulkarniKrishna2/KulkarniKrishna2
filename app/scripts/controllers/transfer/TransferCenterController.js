@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TransferCenterController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope) {
+        TransferCenterController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $modal, $rootScope) {
             scope.fromCenters = [];
             scope.toCenters = [];
             scope.offices = [];
@@ -121,10 +121,30 @@
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.data = scope.dataList;
                 scope.formData.transferType = scope.centerToOfficeTransferType;
-                resourceFactory.bulkTransferResource.save({}, scope.formData, function (data) {
-                    location.path('/transfer/viewcentertransfer');
+                $modal.open({
+                    templateUrl: 'submitdetail.html',
+                    controller: SubmitCtrl,
+                    resolve: {
+                        data: function () {
+                            return scope.formData;
+                        }
+                    }
                 });
             };
+
+            var SubmitCtrl = function ($scope, $modalInstance, data) {
+                $scope.df = scope.df;
+                $scope.confirm = function () {
+                    resourceFactory.bulkTransferResource.save({}, data, function (data) {
+                        $modalInstance.dismiss('cancel');
+                        location.path('/transfer/viewcentertransfer');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
             scope.unCheckSelectedCenter = function(centers,dataList){
                 if(angular.isArray(dataList)){
                     for(var i in dataList){
@@ -154,7 +174,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('TransferCenterController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.TransferCenterController]).run(function ($log) {
+    mifosX.ng.application.controller('TransferCenterController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$modal', '$rootScope', mifosX.controllers.TransferCenterController]).run(function ($log) {
         $log.info("TransferCenterController initialized");
     });
 }(mifosX.controllers || {}));
