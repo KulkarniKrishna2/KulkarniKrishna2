@@ -7716,5 +7716,8 @@
     "label.input.is.field.office": "Is Field Office?",
     "label.imei.number" : "IMEI Number",
     "label.invalid.policyNumber":"Policy number is not valid",
+    "label.anchor.centersavingstotal": "Center Savings total",
+    "label.anchor.centerloantotal":"Center Loan total",
+
      "------ end of translation file ------":"---------"
 }
