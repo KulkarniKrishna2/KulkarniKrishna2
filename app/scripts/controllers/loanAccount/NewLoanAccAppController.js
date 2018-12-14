@@ -236,7 +236,6 @@
                                     } else {
                                         scope.charges[i].amount = undefined;
                                     }
-                                    scope.updateChargeForSlab(scope.charges[i]);
 
                             }
                             
@@ -246,14 +245,17 @@
             });
 
             scope.$watch('loanaccountinfo.overdueCharges', function(){
-                for(var i in scope.loanaccountinfo.overdueCharges){
-                    if(scope.loanaccountinfo.overdueCharges[i].chargeData.penalty && ( scope.loanaccountinfo.overdueCharges[i].chargeData.chargeCalculationType.value == scope.slabBasedCharge || scope.loanaccountinfo.overdueCharges[i].chargeData.isSlabBased) ){
-                        var slabBasedValue = scope.getSlabBasedAmount(scope.loanaccountinfo.overdueCharges[i].chargeData.slabs,scope.formData.principal,scope.formData.numberOfRepayments);
-                        if(slabBasedValue != null){
-                            scope.loanaccountinfo.overdueCharges[i].chargeData.amount = slabBasedValue;
+                if(scope.loanaccountinfo && scope.loanaccountinfo.overdueCharges){
+                    for(var i in scope.loanaccountinfo.overdueCharges){
+                        if(scope.loanaccountinfo.overdueCharges[i].chargeData.penalty && ( scope.loanaccountinfo.overdueCharges[i].chargeData.chargeCalculationType.value == scope.slabBasedCharge || scope.loanaccountinfo.overdueCharges[i].chargeData.isSlabBased) ){
+                            var slabBasedValue = scope.getSlabBasedAmount(scope.loanaccountinfo.overdueCharges[i].chargeData.slabs,scope.formData.principal,scope.formData.numberOfRepayments);
+                            if(slabBasedValue != null){
+                                scope.loanaccountinfo.overdueCharges[i].chargeData.amount = slabBasedValue;
+                            }
                         }
                     }
                 }
+                
             });
 
             scope.updateSlabBasedChargeForGlim = function(chargeData){
@@ -794,9 +796,8 @@
 
             scope.updateSlabBasedChargeForEmiPack = function(loanEMIPack){
                 if(loanEMIPack){
-                    scope.formData.principal = loanEMIPack.sanctionAmount;
                     scope.formData.numberOfRepayments = loanEMIPack.numberOfRepayments;
-                    scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
+                    scope.formData.principal = loanEMIPack.sanctionAmount;
                 }
             }
                 

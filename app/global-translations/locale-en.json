@@ -7718,6 +7718,7 @@
     "label.invalid.policyNumber":"Policy number is not valid",
     "label.anchor.centersavingstotal": "Center Savings total",
     "label.anchor.centerloantotal":"Center Loan total",
+    "error.msg.group.member.can.not.transfer.to.same.group" :"Client can not transfer to same group",
 
      "------ end of translation file ------":"---------"
 }

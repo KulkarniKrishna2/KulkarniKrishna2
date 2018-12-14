@@ -25,6 +25,9 @@
     <div class="form-group marginbottom0" style="color: red" ng-show="isClientExceedingLimit">
         {{'error.msg.group.member.limit.exceeded' | translate}}{{maxClientLimit}}
     </div>
+    <div class="form-group marginbottom0" style="color: red" ng-show="isTransaferToSameGroup">
+            {{'error.msg.group.member.can.not.transfer.to.same.group' | translate}}
+    </div>
     <br>
     <div class="col-sm-6 col-md-6">
         <div class="col-sm-12">

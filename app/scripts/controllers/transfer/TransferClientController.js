@@ -11,6 +11,7 @@
             scope.isClientExceedingLimit = false;
             scope.clientToGroupTransferType = 200;
             scope.destGroup = {};
+            scope.isTransaferToSameGroup = false;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -139,16 +140,24 @@
                 var data = {};
                 data.group = scope.selectedGroup;
                 data.clients = scope.selectedClients;
-                scope.dataList.push(data);
-                for (var j in scope.selectedClients) {
-                    for (var i in scope.members) {
-                        if (scope.selectedClients[j].id == scope.members[i].id) {
-                            scope.members[i].checked = false;
-                        }
-
+                for(var i in data.clients){
+                    var index = data.clients[i].name.indexOf(data.group.name);
+                    if(index>-1){
+                        scope.isTransaferToSameGroup = true;
                     }
                 }
-                scope.selectedClients = [];
+                if(!scope.isTransaferToSameGroup){
+                    scope.dataList.push(data);
+                    for (var j in scope.selectedClients) {
+                        for (var i in scope.members) {
+                            if (scope.selectedClients[j].id == scope.members[i].id) {
+                                scope.members[i].checked = false;
+                            }
+
+                        }
+                    }
+                    scope.selectedClients = [];
+                }
             };
 
             scope.remove = function (index) {
