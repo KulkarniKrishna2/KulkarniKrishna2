@@ -23,7 +23,10 @@
             if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
                 scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
             }
-            resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
+            }            
+            resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly},function (data) {
                 scope.offices = data.officeOptions;
                 scope.villageCount = data.villageCounter;
                 scope.staffs = data.staffOptions;
@@ -44,7 +47,6 @@
                 scope.showActivation = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.activate;
                 scope.showaddclients = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addclients;
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
-                scope.isNameReadOnly = scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.name;
             }
 
             scope.$watch('formData.officeId', function() {                
@@ -73,15 +75,15 @@
             scope.changeOffice = function () {
                 scope.formData.villageId = null;
                 scope.villageCount = null;
-                resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId
+                resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId,loanOfficersOnly:scope.loanOfficersOnly
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 });
-                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true, villageStatus:'active'}, function (data) {
+                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true, villageStatus:'active',loanOfficersOnly:scope.loanOfficersOnly}, function (data) {
                     scope.villages = data.villageOptions;
                 });
-                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId }, function (data) {
+                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId,loanOfficersOnly:scope.loanOfficersOnly }, function (data) {
                     scope.groups = data.groupMembersOptions;
                 });
             };
@@ -89,7 +91,7 @@
             scope.changeVillage = function () {
                 resourceFactory.centerTemplateResource.get({
                     officeId: scope.formData.officeId, villagesInSelectedOfficeOnly: true,
-                    villageId: scope.formData.villageId
+                    villageId: scope.formData.villageId,loanOfficersOnly:scope.loanOfficersOnly
                 }, function (data) {
                     if (scope.isNameAutoPopulate) {
                         scope.villageCount = data.villageCounter;

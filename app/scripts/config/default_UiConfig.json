@@ -232,8 +232,15 @@
 			},
 		    "isValidateName":{
 			  "namePattern":"/^[-@./#&+\\w\\s]*$/"
-		   }
+		   },
+		   "loanOfficersOnly":true
 		},
+		"editJlgLoan": {
+		    "isReadOnlyField": {
+			    "productName": true
+		    },
+		    "isRestrictEmiPack":true
+	    },
 		"createGroup": {
 			"isReadOnlyField": {
 				"staff": false,
