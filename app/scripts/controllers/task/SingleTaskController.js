@@ -39,6 +39,10 @@
             };
             scope.getActivityView();
 
+            resourceFactory.runReportsResource.get({ reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.centerId }, function (data) {
+                scope.summary = data[0];
+            });
+
             function initTask(){
                 if(scope.taskData != undefined){
                     if(scope.taskData.eventType){
