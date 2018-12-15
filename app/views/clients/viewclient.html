@@ -31,7 +31,8 @@
 					{{ 'label.heading.clientreferenceno' | translate }}: {{client.referenceNumber}} |
 	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
-	            	{{ 'label.input.staff' | translate }}: {{client.staffName}}
+	            	{{ 'label.input.staff' | translate }}: {{client.staffName}} |
+	            	{{ 'label.heading.crnNumber' | translate }}: {{client.crnNumber}}
 	            </small>
 				<small data-ng-show="client.closureReason">
 					| {{'label.input.closurereason' | translate}}:{{client.closureReason.name}}

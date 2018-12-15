@@ -4,8 +4,11 @@
             scope.group = [];
             scope.staff = [];
             scope.formData = {};
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
+            }
             if(routeParams.entityType==='centers') {
-                resourceFactory.assignStaffToCenterResource.get({groupOrCenter: routeParams.entityType, CenterId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
+                resourceFactory.assignStaffToCenterResource.get({groupOrCenter: routeParams.entityType, CenterId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly}, function (data) {
                 scope.group = data;
                 scope.staffs = data.staffOptions;
                 scope.formData.staffId = data.staffOptions[0].id;

@@ -12,7 +12,10 @@
             if(scope.response && scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate != undefined) {
                 scope.activationDate = scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate;
             }
-            resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
+            }
+            resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly}, function (data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
                 scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);

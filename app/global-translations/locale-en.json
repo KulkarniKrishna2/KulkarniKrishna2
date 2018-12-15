@@ -7721,6 +7721,7 @@
     "label.anchor.centersavingstotal": "Center Savings total",
     "label.anchor.centerloantotal":"Center Loan total",
     "error.msg.group.member.can.not.transfer.to.same.group" :"Client can not transfer to same group",
+    "label.heading.crnNumber":"CRN Number",
 
      "------ end of translation file ------":"---------"
 }
