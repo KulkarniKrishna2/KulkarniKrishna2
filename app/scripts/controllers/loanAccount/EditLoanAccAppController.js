@@ -22,6 +22,8 @@
                 scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
                 scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
                 scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
+                scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
+                scope.isRestrictEmiPack = scope.response.uiDisplayConfigurations.editJlgLoan.isRestrictEmiPack; 
             }
             
             if(scope.response && scope.response.uiDisplayConfigurations){

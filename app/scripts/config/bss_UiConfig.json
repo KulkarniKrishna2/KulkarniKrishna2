@@ -130,6 +130,12 @@
 				"jlgLoan": true
 			}
 		},
+		"editJlgLoan": {
+		    "isReadOnlyField": {
+			    "productName": true
+		    },
+		    "isRestrictEmiPack":true
+	    },
 		"defaultGISConfig": {
 			"address": {
 				"countryName": "India"
