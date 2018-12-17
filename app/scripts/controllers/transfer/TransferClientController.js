@@ -137,6 +137,7 @@
             };
 
             scope.addMemberToTransfer = function () {
+                scope.isTransaferToSameGroup = false;
                 var data = {};
                 data.group = scope.selectedGroup;
                 data.clients = scope.selectedClients;
