@@ -22,6 +22,7 @@
             }
 
             function initTask() {
+                scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,kotakapprovalcriteria,loanproposalreview,workflowloanstatus' }, function (data) {

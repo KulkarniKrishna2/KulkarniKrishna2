@@ -11,6 +11,7 @@
             scope.loanIds = [];
 
             function initTask() {
+                scope.$parent.clientsCount();
                 scope.isAllClientFinishedThisTask = true;
                 scope.taskInfoTrackArray = [];
                 scope.centerId = scope.taskconfig.centerId;

@@ -3,6 +3,7 @@
         PreliminaryGroupFormationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION, $q,$filter, popUpUtilService) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             function initTask() {
+                scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.clientProfileRatingScoreForSuccess = 0;

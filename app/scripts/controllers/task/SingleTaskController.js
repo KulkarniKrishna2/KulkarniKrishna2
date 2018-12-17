@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         SingleTaskController: function (scope, $modal, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, $route, commonUtilService) {
-
             scope.canView = false;
             scope.canComplete = true;
             scope.possibleActions = [];
@@ -38,11 +37,12 @@
                 return taskView;
             };
             scope.getActivityView();
-
-            resourceFactory.runReportsResource.get({ reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.centerId }, function (data) {
-                scope.summary = data[0];
-            });
-
+            scope.clientsCount = function () {
+                resourceFactory.runReportsResource.get({ reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.centerId }, function (data) {
+                    scope.summary = data[0];
+                });
+            };
+            scope.clientsCount();
             function initTask(){
                 if(scope.taskData != undefined){
                     if(scope.taskData.eventType){
