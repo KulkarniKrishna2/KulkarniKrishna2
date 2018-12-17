@@ -640,8 +640,8 @@
                         }
                         $scope.talukas = $scope.selectDistrict[0].talukaDatas;
                     }
+                    
                 }
-
 
                 $scope.changeVillage = function () {
                     if ($scope.formData.villageId != null && $scope.formData.villageId != undefined) {
@@ -686,6 +686,21 @@
                             }
 
                         });
+                    }
+                }
+                $scope.changeAddressTypeChange = function(addressTypeId){
+                    $scope.address.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled($scope.villageConfig);
+                    var idx = $scope.addressType.findIndex(x => x.id == addressTypeId);
+                    if($scope.addressType[idx].systemIdentifier === "AeKyc" || $scope.addressType[idx].systemIdentifier === "VeKyc"){
+                        $scope.address.isPopulateClientAddressFromVillages = false;
+                        if ($scope.formData.villageId) {
+                            delete $scope.formData.villageId;
+                        }
+                        $scope.formData.villageTown = null;
+                        $scope.formData.postalCode = null;                    
+                    }else{
+                        $scope.formData.villageId =  memberParams.activeClientMember.villageId;
+                        $scope.changeVillage();
                     }
                 }
 
@@ -738,13 +753,14 @@
                     $scope.addressType = [];
                     $scope.countrys = [];
                     $scope.states = [];
+                    $scope.address = {};
                     $scope.districts = [];
                     $scope.talukas = [];
                     $scope.formData = {};
                     $scope.formDataList = [$scope.formData];
                     $scope.formData.addressTypes = [];
-                    var villageConfig = 'populate_client_address_from_villages';
-                    $scope.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled(villageConfig);
+                    $scope.villageConfig = 'populate_client_address_from_villages';
+                    $scope.address.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled($scope.villageConfig);
                     $scope.isCountryReadOnly = false;
                     $scope.pincode = false;
                     $scope.isVillageTownMandatory = false;
@@ -995,7 +1011,7 @@
                 }
 
                 $scope.$watch('familyMembersFormData.dateOfBirth', function (newValue, oldValue) {
-                if ($scope.familyMembersFormData.dateOfBirth != undefined) {
+                if ($scope.familyMembersFormData != undefined && $scope.familyMembersFormData.dateOfBirth != undefined) {
                     var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
                     var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
                     var ageDate = new Date(ageDifMs); // miliseconds from epoch

@@ -132,7 +132,8 @@
 			},
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",
-			"activateOnReinitiate": true
+			"activateOnReinitiate": true,
+			"createSavingAccount": true
 		},
 		"collectionSheet": {
 			"isAutoPopulate": {
