@@ -1507,6 +1507,11 @@
                         getAll: { method: 'GET', params: {}, isArray: true },
                         action: { method: 'PUT', params: {} }
                     }),
+
+                    bankCBApprovalEnquiry: defineResource(apiVer + "/enquiry/creditbureau/approval/loanapplication/:loanApplicationId", {loanApplicationId: '@loanApplicationId'}, {
+                        get:{method: 'GET', params: {}},
+                        post:{ method: 'POST' }
+                    }),
                     userRegisteredDeviceResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId/users/:userId", {registeredDeviceId : '@registeredDeviceId', userId: '@userId'}, {
                         action: { method: 'PUT', params: {} }
                     })
