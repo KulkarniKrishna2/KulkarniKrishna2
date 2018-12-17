@@ -12,6 +12,7 @@
             scope.entityType = "loans";
 
             function initTask() {
+                scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.isAllClientFinishedThisTask = true;

@@ -4,6 +4,7 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             function initTask() {
+                scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
 
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId,eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {

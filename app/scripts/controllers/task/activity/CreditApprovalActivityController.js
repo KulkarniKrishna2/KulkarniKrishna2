@@ -4,6 +4,7 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             function initTask() {
+                scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.isAllClientFinishedThisTask = true;
