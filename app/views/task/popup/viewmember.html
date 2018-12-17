@@ -44,7 +44,7 @@
 										</label>
 										<div class="col-sm-3">
 											<select chosen="addressType" id="addresstypeId" name="addressType" ng-model="formData.addressTypes[0]" class="form-control"
-											    ng-options="address.id as address.name for address in addressType" value="{{address.id}}" ng-required="isAddressTypeMandatory">
+											    ng-options="address.id as address.name for address in addressType" value="{{address.id}}" ng-required="isAddressTypeMandatory" ng-change = "changeAddressTypeChange(formData.addressTypes[0])">
 												<option value="">{{'label.menu.addressType' | translate}}</option>
 											</select>
 										</div>
@@ -53,7 +53,7 @@
 										</div>
 									</div>
 
-									<div class="form-group" ng-if="isPopulateClientAddressFromVillages">
+									<div class="form-group" ng-show="address.isPopulateClientAddressFromVillages">
 										<label class="control-label col-sm-2">
 											{{'label.input.villages' | translate}}
 											<span class="required">*</span>
@@ -61,7 +61,7 @@
 										</label>
 										<div class="col-sm-3">
 											<select chosen="villages" id="villageId" name="villages" ng-model="formData.villageId" class="form-control" ng-options="village.villageId as village.villageName for village in villages"
-											    value="{{village.villageId}}" ng-change="changeVillage()" required late-validate="" ng-disabled="disableVillageDropDown">
+											    value="{{village.villageId}}" ng-change="changeVillage()"  ng-disabled="disableVillageDropDown" ng-required="address.isPopulateClientAddressFromVillages" late-validate>
 												<option value="">{{'label.menu.selectVillages' | translate}}</option>
 											</select>
 										</div>

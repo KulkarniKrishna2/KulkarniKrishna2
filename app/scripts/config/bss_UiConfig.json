@@ -36,7 +36,8 @@
 			},
 			"takeSurveyName": "Member info",
 			"surveyEntityTypeId": "1",
-			"activateOnReinitiate": false
+			"activateOnReinitiate": false,
+			"createSavingAccount": false
 		},
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
@@ -51,7 +52,8 @@
 				"hideClientClassification": true,
 				"legalForm": true,
 				"clientType": true,
-				"staff": true
+				"staff": true,
+				"openSavingsProduct": true
 			},
 			"isValidateDOBField": {
 				"active": true,

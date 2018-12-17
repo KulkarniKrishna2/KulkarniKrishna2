@@ -71,6 +71,9 @@
              }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
+            if(scope.response && scope.response.uiDisplayConfigurations) {
+                scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
+             }
         
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -416,7 +419,9 @@
                     for(var i in scope.buttonsArray.singlebuttons){
                         if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
                             scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
-                            break;
+                        }
+                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_SAVINGSACCOUNT'){
+                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isSavingAccountEnable;
                         }
                     };
 
