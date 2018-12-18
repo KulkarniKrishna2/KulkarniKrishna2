@@ -236,42 +236,42 @@
 						</td>
 						<td>
 							<div class="form-group" >
-								<div ng-class="(attendenceListForReason.indexOf(clientsAttendance[$index].attendanceType)>-1 && showRejectReason)?'col-sm-9 col-sm-offset-3':'col-sm-9'">
+								<div ng-class="(attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason)?'col-sm-9 col-sm-offset-3':'col-sm-9'">
                                     <select id="clientsAttendance[$index].attendanceType"
-										ng-model="clientsAttendance[$index].attendanceType" ng-init=" clientsAttendance[$index].attendanceType = collectionsheetdata.attendanceTypeOptions[0].id" class="input-sm form-control"
-										ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"  data-ng-change="setvalues($index)"
+										ng-model="client.attendanceType" ng-init=" client.attendanceType = collectionsheetdata.attendanceTypeOptions[0].id" class="input-sm form-control"
+										ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"  data-ng-change="setvalues(client.clientId)"
 										value="{{attendance.id}}">
 									</select>
-                                </div>
-								
+                                </div>								
 							</div>
 							
-							<div class="form-group" ng-show="attendenceListForReason.indexOf(clientsAttendance[$index].attendanceType)>-1 && showRejectReason">
+							<div class="form-group" ng-show="attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason">
                                 <label class="control-label col-sm-3" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <select  id="clientsAttendance[$index].codeReasonId" name="codeReasonId" ng-model="clientsAttendance[$index].codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
+                                    <select  id="client.codeReasonId" name="codeReasonId" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
                                     class="input-sm form-control" data-ng-change="getValues($index,clientsAttendance[$index].codeReasonId)">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <br/>
-                            </div>
+							</div>
 
-							 <div class="form-group" ng-show="clientsAttendance[$index].codeReasonId && showRejectReason">
+							 <div class="form-group" ng-show="client.codeReasonId && showRejectReason">
                                 <label class="control-label col-sm-3" >{{'label.input.reason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <select id = "clientsAttendance[$index].reasonId" name="clientsAttendance[$index].reasonId" ng-model="clientsAttendance[$index].reasonId" 
-                                    ng-options="codeValue.id as codeValue.name for codeValue in clientsAttendance[$index].codeValueOptions" value="{{codeValue.id}}" class="input-sm form-control" data-ng-change="initDescription(rejectFormData.reasonCode)">
+                                    <select id = "client.reasonId" name="client.reasonId" ng-model="client.reasonId" 
+                                    ng-options="codeValue.id as codeValue.name for codeValue in client.codeValueOptions" value="{{codeValue.id}}" class="input-sm form-control" data-ng-change="initDescription(rejectFormData.reasonCode)">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <br/>
-                            </div>
-                            <div class="form-group" ng-show="isTextAvailable(clientsAttendance[$index]) && showRejectReason">
+							</div>
+							
+                            <div class="form-group" ng-show="isTextAvailable(client) && showRejectReason">
                                 <label class="control-label col-sm-3" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <textarea row="3" col="3" id="clientsAttendance[$index].reason" name="clientsAttendance[$index].reason" ng-model="clientsAttendance[$index].reason"  class="form-control"></textarea>
+                                    <textarea row="3" col="3" id="client.reason" name="client.reason" ng-model="client.reason"  class="form-control"></textarea>
                                 </div>
                                 <br/>
-                            </div>
+							</div>
 						</td>
 					</tr>
 					<tr>
