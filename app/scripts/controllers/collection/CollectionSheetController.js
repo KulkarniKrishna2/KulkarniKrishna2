@@ -64,26 +64,33 @@
                 scope.collectionReasonList = data;
             });
 
-            scope.setvalues = function(index){
-                scope.clientsAttendance[index].codeReasonId = undefined;
-                scope.clientsAttendance[index].codeValueOptions = undefined;
-                scope.clientsAttendance[index].reason = undefined;
+            scope.setvalues = function(clientId){
+                scope.groups = scope.savingsgroups;
+                var gl = scope.groups.length;
+                for (var i = 0; i < gl; i++) {
+                    scope.clients = scope.groups[i].clients;
+                    var cl = scope.clients.length;
+                    for (var j = 0; j < cl; j++) {
+                        scope.client = scope.clients[j];
+                        if(scope.client.clientId == clientId){
+                            scope.client.reasonId = undefined;
+                            scope.client.codeValueOptions = undefined;
+                            scope.client.reason = undefined;
+                        }
+                    }
+                }
             };
 
-             scope.clientsAttendanceList = function (groups) {
+            scope.clientsAttendanceList = function (groups) {
                 var gl = groups.length;
-                var count = 0;
                 for (var i = 0; i < gl; i++) {
                     scope.clients = groups[i].clients;
                     var cl = scope.clients.length;
                     for (var j = 0; j < cl; j++) {
-                        scope.clientsAttendance[count] = {};
                         scope.client = scope.clients[j];
                         if (scope.client.attendanceType.id === 0) {
-                            scope.clientsAttendance[count].attendanceType = 1;
+                            scope.client.attendanceType = 1;
                         }
-                        scope.clientsAttendance[count].clientId = scope.client.clientId;
-                        count = count+1;
                     }
                 }
             };
@@ -97,7 +104,6 @@
                                     return true;
                                 }
                             }
-                            scope.clientsAttendance[index].codeValueOptions =  scope.reasonAttendenceList[i].values;
                         }
                     }
                 }else{
@@ -105,10 +111,21 @@
                 }
             }
 
-            scope.getValues = function(index, codeId){
-                for(var i in scope.reasonAttendenceList){
-                    if(scope.reasonAttendenceList[i].id==codeId){
-                        scope.clientsAttendance[index].codeValueOptions =  scope.reasonAttendenceList[i].values;
+            scope.getValues = function (clientId, codeId) {
+                for (var i in scope.reasonAttendenceList) {
+                    if (scope.reasonAttendenceList[i].id == codeId) {
+                        scope.groups = scope.savingsgroups;
+                        var gl = scope.groups.length;
+                        for (var j = 0; j < gl; j++) {
+                            scope.clients = scope.groups[j].clients;
+                            var cl = scope.clients.length;
+                            for (var k = 0; k < cl; k++) {
+                                scope.client = scope.clients[k];
+                                if (scope.client.clientId == clientId) {
+                                    scope.client.codeValueOptions = scope.reasonAttendenceList[i].values;
+                                }
+                            }
+                        }
                     }
                 }
                 return [];
@@ -825,17 +842,22 @@
                 scope.errorDetails.push(errorObj);
             };
 
-             scope.updateAttendenceData = function(){
-                scope.formData.clientsAttendance = scope.clientsAttendance;
+            scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                for (var i in scope.clientsAttendance) {
-                    var attendence = {};
-                    attendence.clientId = scope.clientsAttendance[i].clientId;
-                    attendence.reasonId = scope.clientsAttendance[i].reasonId;
-                    attendence.reason = scope.clientsAttendance[i].reason;
-                    attendence.attendanceType = scope.clientsAttendance[i].attendanceType;
-                    if(attendence.clientId) {
-                        clientsAttendanceDetails.push(attendence);
+                scope.groups = scope.savingsgroups;
+                var gl = scope.groups.length;
+                for (var i = 0; i < gl; i++) {
+                    scope.clients = scope.groups[i].clients;
+                    var cl = scope.clients.length;
+                    for (var j = 0; j < cl; j++) {
+                        var attendence = {};
+                        attendence.clientId = scope.clients[j].clientId;
+                        attendence.reasonId = scope.clients[j].reasonId;
+                        attendence.reason = scope.clients[j].reason;
+                        attendence.attendanceType = scope.clients[j].attendanceType;
+                        if (attendence.clientId) {
+                            clientsAttendanceDetails.push(attendence);
+                        }
                     }
                 };
                 scope.formData.clientsAttendance = clientsAttendanceDetails;
