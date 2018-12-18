@@ -4,7 +4,6 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.showBulkCBInitiate = false;
-            scope.clientMaritalStatus = {};
 
             function initTask() {
                 scope.$parent.clientsCount();
@@ -390,6 +389,9 @@
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
                 $scope.isEmiAmountEditable= true;
+                $scope.clientData = {};
+                $scope.clientMaritalStatus = {};
+
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -406,6 +408,13 @@
                     if (data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0) {
                         $scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                         $scope.interestRatesListAvailable = true;
+                    }
+                });
+
+                resourceFactory.clientResource.get({ clientId: $scope.clientId }, function (data) {
+                    if (data != null && data != undefined) {
+                        $scope.clientData = data;
+                        if (data.maritalStatus != null && data.maritalStatus != undefined) { $scope.clientMaritalStatus = data.maritalStatus; }
                     }
                 });
 
@@ -469,7 +478,7 @@
                                     }
                                     if (charge.chargeCategoryType.value != "doubleInsuranceCharge") { $scope.charges.push(charge) }
                                     else {
-                                        if (scope.clientMaritalStatus.name == "Married") {
+                                        if ($scope.clientMaritalStatus.name == "Married") {
                                             $scope.charges.push(charge)
                                         }
                                     }
@@ -610,20 +619,14 @@
                         }
 
                         if ($scope.loanaccountinfo.loanOfficerOptions != undefined && $scope.loanaccountinfo.loanOfficerOptions.length > 0 && !$scope.loanAccountFormData.loanOfficerId) {
-                            resourceFactory.clientResource.get({ clientId: $scope.clientId }, function (data) {
-                                if (data.staffId != null) {
+                                if ($scope.clientData.staffId != null) {
                                     for (var i in $scope.loanaccountinfo.loanOfficerOptions) {
-                                        if ($scope.loanaccountinfo.loanOfficerOptions[i].id == data.staffId) {
-                                            $scope.loanAccountFormData.loanOfficerId = data.staffId;
+                                        if ($scope.loanaccountinfo.loanOfficerOptions[i].id == $scope.clientData.staffId) {
+                                            $scope.loanAccountFormData.loanOfficerId = $scope.clientData.staffId;
                                             break;
                                         }
                                     }
                                 }
-                                if(data.maritalStatus != null && data.maritalStatus != undefined)
-                                {
-                                    scope.clientMaritalStatus = data.maritalStatus;
-                                }
-                            });
                         }
 
                         if (data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0) {
