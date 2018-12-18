@@ -7081,6 +7081,14 @@
 
     "label.sftp.description" : "SFTP server details for transfer",
     "label.anchor.sftp" : "SFTP",
+
+
+    "label.heading.enquiryinfo":"Enquiry Info",
+    "label.heading.enquiryId":"Enquiry Id",
+    "label.heading.approvedamount":"Approved Amount",
+    "label.heading.isapproved": "Approved By Bank",
+    "label.heading.enquiryreason":"Enquiry  Reason",
+    "label.button.enquire.cbapproval":"Enquire Bank CB Approval",
      
     "label.view.registered.devices": "View all devices",
     "label.anchor.manage.devices": "Manage Devices",

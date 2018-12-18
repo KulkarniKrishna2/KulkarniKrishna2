@@ -1,0 +1,40 @@
+<div class="col-md-12 col-sm-12" ng-controller="BankCBApprovalActivityController">
+    <div class="row client">
+        <form class="form-inline">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <div ng-hide="isTaskCompleted() || isEnquiryPresentAndSuccess == true">
+                        <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="fetchFreshEnquiry();"  has-permission='READ_CREDIT_BUREAU_APPROVAL'>{{'label.button.enquire.cbapproval' | translate}}</button>
+                    </div>
+                </div>
+                 <br>
+                <div ng-if="enquiryInfo">
+                    <h3><strong>{{'label.heading.enquiryinfo' | translate}}</strong></h3>
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th><h5><strong>{{'label.heading.enquiryId' | translate}}</strong></h5></th>
+                            <th><h5><strong>{{'label.heading.status' | translate}}</strong></h5></th>
+                            <th><h5><strong>{{'label.heading.isapproved' | translate}}</strong></h5></th>
+                            <th><h5><strong>{{'label.heading.approvedamount' | translate}}</strong></h5></th>
+                            <th><h5><strong>{{'label.heading.enquiryreason' | translate}}</strong></h5></th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                            <td> {{enquiryInfo.enquiryId}}</td>
+                            <td> {{enquiryInfo.status.code}}</td>
+                            <td> {{enquiryInfo.approved}}</td>
+                            <td> {{enquiryInfo.eligibleAmount}}</td>
+                            <td> {{enquiryInfo.reason}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
