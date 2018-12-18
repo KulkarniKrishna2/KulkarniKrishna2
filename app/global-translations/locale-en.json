@@ -7722,6 +7722,7 @@
     "label.anchor.centerloantotal":"Center Loan total",
     "error.msg.group.member.can.not.transfer.to.same.group" :"Client can not transfer to same group",
     "label.heading.crnNumber":"CRN Number",
+    "label.invalid.policyName" : "Policy name is not valid",
 
      "------ end of translation file ------":"---------"
 }
