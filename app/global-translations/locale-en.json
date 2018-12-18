@@ -7725,6 +7725,7 @@
     "error.msg.group.member.can.not.transfer.to.same.group" :"Client can not transfer to same group",
     "label.heading.crnNumber":"CRN Number",
     "label.invalid.policyName" : "Policy name is not valid",
+    "error.client.possible.duplicate.clients":"possible duplicate clients",
 
      "------ end of translation file ------":"---------"
 }
