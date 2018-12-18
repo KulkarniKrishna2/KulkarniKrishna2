@@ -43,7 +43,7 @@
                     </span>
                 </span>
                 
-                <span class="graybg" ng-show="collectionsheetdata.loanProducts">
+                <span class="graybg" ng-show="collectionsheetdata.savingsProducts">
                     {{'label.anchor.centersavingstotal' |
                     translate}}
                 </span>
@@ -52,7 +52,7 @@
                         <input class="input-sm" type="text" autocomplete="off" number-format ng-model="total.totalsavings" disabled="disabled">
                     </span>
                 </td>
-                <span class="graybg">
+                <span class="graybg" ng-show="totalDueCollection">
                     {{'label.input.centertotal' |
                     translate}}
                 </span>
