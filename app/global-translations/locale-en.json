@@ -1029,6 +1029,7 @@
     "error.msg.vouchers.voucher.update.not.supported" : "Voucher update is not supported",
     "error.msg.identifier.documentExpiryDate.in.the.backdate":"document expiry date cannot be before the current date",
     "error.msg.identifier.documentIssueDate.in.the.future":"document issue date cannot be in future date",
+    "error.msg.activate.date.cannot.be. before.office.activation.date":"Village activation date cannot be before Office activation date",
     "#--------": "------------",
 
     "#Groups": "....",
@@ -7655,6 +7656,7 @@
     "error.msg.deceased.date.can.not.be.before.date.of.birth":"Deceased date can not be before client date of birth {{params[0].value}} ",
     "label.tooltip.add.document" : "Add Document",
     "error.msg.Center.deleted.active.groups.exist":"Cannot delete the center because active subgroups",
+    "tranche.cannot.be.created.in.current.month": "Tranche Cannot be Created in Current Month",
     
 
     "label.anchor.operationalaccounting": "Operational Accounting",

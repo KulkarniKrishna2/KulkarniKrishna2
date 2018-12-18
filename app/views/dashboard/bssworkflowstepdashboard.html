@@ -18,7 +18,7 @@
                 </select>
             </div>
             <div class="pull-right col-md-4">
-                <select class="form-control" ng-change="getWorkFlowTaskSummary()"
+                <select class="form-control" ng-change="getWorkFlowTaskSummary();getCenters()"
                         ng-model="officeId"
                         data-ng-options="office.id as office.name for office in offices  | orderBy:'name'" value="{{office.id}}">
                     <option value="">--{{'label.menu.office' | translate}}--</option>

@@ -71,11 +71,13 @@
                         }
                         //console.log(JSON.stringify(scope.bssWorkflowDashboardReport));
                     }     
-                });
+                });             
+            };
+            scope.getCenters = function(){
                 resourceFactory.centerDropDownResource.query({officeId: scope.officeId, limit :-1, paged: false}, function (data) {
                     scope.centers = data;
                 });
-            };
+            }
             scope.getWorkFlowTaskSummary();
 
             scope.viewWorkFlow = function(center, task) {
