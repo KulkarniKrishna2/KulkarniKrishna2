@@ -237,7 +237,7 @@
 						<td>
 							<div class="form-group" >
 								<div ng-class="(attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason)?'col-sm-9 col-sm-offset-3':'col-sm-9'">
-                                    <select id="clientsAttendance[$index].attendanceType"
+                                    <select id="client.attendanceType"
 										ng-model="client.attendanceType" ng-init=" client.attendanceType = collectionsheetdata.attendanceTypeOptions[0].id" class="input-sm form-control"
 										ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"  data-ng-change="setvalues(client.clientId)"
 										value="{{attendance.id}}">
@@ -248,8 +248,8 @@
 							<div class="form-group" ng-show="attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason">
                                 <label class="control-label col-sm-3" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <select  id="client.codeReasonId" name="codeReasonId" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
-                                    class="input-sm form-control" data-ng-change="getValues($index,clientsAttendance[$index].codeReasonId)">
+                                    <select  id="client.codeReasonId" name="client.codeReasonId" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
+                                    class="input-sm form-control" data-ng-change="getValues(client.clientId,client.codeReasonId)">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <br/>
