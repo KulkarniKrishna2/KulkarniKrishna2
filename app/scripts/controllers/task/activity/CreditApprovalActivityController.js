@@ -8,6 +8,7 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.isAllClientFinishedThisTask = true;
+                scope.isLoanPurposeEditable= true;
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,loanaccounts,cbexistingloanssummary,clientcbcriteria,loanproposalreview' }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -752,6 +753,8 @@
                                 for(var j=0; j< $scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
                                     if($scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
                                         $scope.formData.loanPurposeGroupId = $scope.loanPurposeGroups[i].id;
+                                        scope.isLoanPurposeEditable= false;
+                                        $scope.onLoanPurposeGroupChange($scope.formData.loanPurposeGroupId,scope.isLoanPurposeEditable);
                                         break;
                                     }
                                 }
@@ -759,12 +762,19 @@
                         }
                     }
                 };
-                $scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
+                $scope.onLoanPurposeGroupChange = function (loanPurposegroupId,isLoanPurposeEditable) {
+                    if(isLoanPurposeEditable!=false){
+                        $scope.editLoanAccountdata.loanPurposeId = undefined;
+                    }
+                    if(loanPurposegroupId){
                     resourceFactory.loanPurposeGroupResource.get({
                         loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
                     }, function (data) {
-                        $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                        $scope.loanPurposeOptions = data.loanPurposeDatas;
                     });
+                    }else{
+                        $scope.loanPurposeOptions = [];
+                    }
                 }
             }
 

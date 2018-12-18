@@ -8,6 +8,7 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.chargesCategory = [];
+                scope.isLoanPurposeEditable= true;
                 scope.isAllClientFinishedThisTask = true;
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
@@ -574,13 +575,22 @@
                         $scope.showLoanAccountForm = false;
                     }
                 };
-
                 $scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
-                    resourceFactory.loanPurposeGroupResource.get({
-                        loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
-                    }, function (data) {
-                        $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
-                    });
+                    $scope.loanAccountFormData.loanPurposeId = undefined;
+                    $scope.isLoanPurpose = false;
+                    if(loanPurposegroupId){
+                        resourceFactory.loanPurposeGroupResource.get({
+                            loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
+                        }, function (data) {
+                            $scope.loanPurposeOptions = data.loanPurposeDatas;
+                            $scope.isLoanPurpose = true;
+                        });
+                        
+                    }else{
+                        $scope.loanPurposeOptions = [];
+                    }
+                    
+                    
                 }
             }
 
@@ -602,7 +612,7 @@
             }
 
             var editLoanCtrl = function ($scope, $modalInstance, memberParams) {
-				$scope.df = scope.df;
+                $scope.df = scope.df;
                 $scope.showLoanAccountForm = true;
                 $scope.editLoanAccountdata = {};
                 $scope.clientId = memberParams.loanAccountBasicData.clientId;
@@ -638,7 +648,6 @@
                 for (var i = 1; i <= 28; i++) {
                     $scope.repeatsOnDayOfMonthOptions.push(i);
                 }
-
                 $scope.date.first = new Date();//submittedOnDate
                 $scope.date.second = new Date();//expectedDisbursementDate
                 $scope.inparams = { resourceType: 'template', activeOnly: 'true' };
@@ -653,6 +662,12 @@
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
                 $scope.isEmiAmountEditable= true;
+                if($scope.loanAccountData.loanPurposeId) {
+                    resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas: 'true'}, function (loanPurposeGroupsdata) {
+                        $scope.loanPurposeGroups = loanPurposeGroupsdata;
+                        $scope.getParentLoanPurpose($scope.editLoanAccountdata.loanPurposeId);
+                    });
+                }
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -736,7 +751,7 @@
                         }
 
                     }
-
+                    
                 }
 
                 $scope.inRange = function(min,max,value){
@@ -1032,12 +1047,14 @@
                 };
                 $scope.getParentLoanPurpose = function (loanPurposeId) {
                     if($scope.loanPurposeGroups && $scope.loanPurposeGroups.length>0){
-                        for(var i=0; i< $scope.loanPurposeGroups.length; i++){
+                       for(var i=0; i< $scope.loanPurposeGroups.length; i++){
                             if($scope.loanPurposeGroups[i].loanPurposeDatas && $scope.loanPurposeGroups[i].loanPurposeDatas.length >0){
 
                                 for(var j=0; j< $scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
                                     if($scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
                                         $scope.formData.loanPurposeGroupId = $scope.loanPurposeGroups[i].id;
+                                        scope.isLoanPurposeEditable= false;
+                                        $scope.onLoanPurposeGroupChange($scope.formData.loanPurposeGroupId,scope.isLoanPurposeEditable);
                                         break;
                                     }
                                 }
@@ -1045,15 +1062,24 @@
                         }
                     }
                 };
-                $scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
-                    resourceFactory.loanPurposeGroupResource.get({
-                        loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
-                    }, function (data) {
-                        $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
-                    });
+                $scope.onLoanPurposeGroupChange = function (loanPurposegroupId,isLoanPurposeEditable) {
+                    if(isLoanPurposeEditable!=false){
+                        $scope.editLoanAccountdata.loanPurposeId = undefined;
+                    }
+                    if(loanPurposegroupId){
+                        resourceFactory.loanPurposeGroupResource.get({
+                            loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
+                        }, function (data) {
+                            $scope.loanPurposeOptions = data.loanPurposeDatas;
+                        });
+                    }else{
+                        $scope.loanPurposeOptions = [];
+                    }
+                    
+                   
                 }
+
             }
-            
             scope.releaseClient = function (clientId) {
                 var releaseClientFormData = {};
                 releaseClientFormData.locale = scope.optlang.code;

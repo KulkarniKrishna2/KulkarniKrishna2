@@ -14,6 +14,7 @@
             scope.clientMembers = [];
             scope.repeatsOnDayOfMonthOptions = [-1];
             scope.selectedOnDayOfMonthOptions = [];
+            scope.isLoanPurposeEditable= true;
             scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
             if(scope.response != undefined){
                 scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
@@ -443,6 +444,8 @@
                             for(var j=0; j< scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
                                 if(scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
                                     scope.formData.loanPurposeGroupId = scope.loanPurposeGroups[i].id;
+                                    scope.isLoanPurposeEditable= false;
+                                    scope.onLoanPurposeGroupChange(scope.formData.loanPurposeGroupId,scope.isLoanPurposeEditable);
                                     break;
                                 }
                             }
@@ -513,12 +516,19 @@
 
             
 
-            scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
-                resourceFactory.loanPurposeGroupResource.get({
-                    loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
-                }, function (data) {
-                    scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
-                });
+            scope.onLoanPurposeGroupChange = function (loanPurposegroupId,isLoanPurposeEditable) {
+                if(isLoanPurposeEditable!=false){
+                    scope.formData.loanPurposeId = undefined;
+                }
+                if(loanPurposegroupId){
+                    resourceFactory.loanPurposeGroupResource.get({
+                        loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
+                    }, function (data) {
+                        scope.loanPurposeOptions = data.loanPurposeDatas;
+                    });
+                }else{
+                    scope.loanPurposeOptions = [];
+                }
             }
 
             scope.addCharge = function () {

@@ -17,6 +17,7 @@
                 scope.taskInfoTrackArray = [];
                 scope.isAllClientFinishedThisTask = true;
                 scope.clientProfileRatingScoreForSuccess = 0;
+                scope.isLoanPurposeEditable= true;
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                     scope.response.uiDisplayConfigurations.workflow.CGTValidation && scope.response.uiDisplayConfigurations.workflow.CGTValidation.profileRatingPercentage) {
                     scope.clientProfileRatingScoreForSuccess = scope.response.uiDisplayConfigurations.workflow.CGTValidation.profileRatingPercentage;
@@ -1063,6 +1064,8 @@
                             for(var j=0; j< $scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
                                 if($scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
                                     $scope.formData.loanPurposeGroupId = $scope.loanPurposeGroups[i].id;
+                                    scope.isLoanPurposeEditable= false;
+                                    $scope.onLoanPurposeGroupChange($scope.formData.loanPurposeGroupId,scope.isLoanPurposeEditable);
                                     break;
                                 }
                             }
@@ -1070,12 +1073,19 @@
                     }
                 }
             };
-            $scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
+            $scope.onLoanPurposeGroupChange = function (loanPurposegroupId,isLoanPurposeEditable) {
+                if(isLoanPurposeEditable!=false){
+                    $scope.editLoanAccountdata.loanPurposeId = undefined;
+                }
+                if(loanPurposegroupId){
                 resourceFactory.loanPurposeGroupResource.get({
                     loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
                 }, function (data) {
-                    $scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                    $scope.loanPurposeOptions = data.loanPurposeDatas;
                 });
+                }else{
+                    $scope.loanPurposeOptions = [];
+                }
             }
 
         }

@@ -215,11 +215,16 @@
             }
 
             scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
+                scope.formData.loanPurposeId = undefined;
+                if(loanPurposegroupId){
                 resourceFactory.loanPurposeGroupResource.get({
                     loanPurposeGroupsId: loanPurposegroupId, isFetchLoanPurposeDatas : 'true'
                 }, function (data) {
-                    scope.loanaccountinfo.loanPurposeOptions = data.loanPurposeDatas;
+                    scope.loanPurposeOptions = data.loanPurposeDatas;
                 });
+                }else{
+                    scope.loanPurposeOptions = [];
+                }
             }
 
             scope.$watch('formData.principal', function(){

@@ -15,7 +15,7 @@
 							<label class="control-label col-sm-2">{{ 'label.input.product' | translate }}
 								<span class="required">*</span>:&nbsp;
 							</label>
-							<div class="col-sm-3">
+							<div class="col-sm-4">
 								<select id="productId" ng-model="editLoanAccountdata.productId" name="productId" class="form-control" ng-options="product.id as product.name for product in products"
 								    value="{{product.id}}" ng-change="loanProductChange(editLoanAccountdata.productId)" required="required" ng-disabled="true">
 									<option style="display:none" value="">
@@ -25,39 +25,42 @@
 							<div class="col-sm-3">
 								<form-validate valattributeform="newloanaccountform" valattribute="productId" />
 							</div>
-							<div class="col-sm-4"></div>
+							<div class="col-sm-3"></div>
 						</div>
 						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<label class="control-label col-sm-2">
 								{{ 'label.input.loanpurposegroup' | translate }}
+								<span class="required">*</span>:&nbsp;
 							</label>
-							<div class="col-sm-3">
+							<div class="col-sm-4">
 								<select id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
 										ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
-										class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
+										class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId,isLoanPurposeEditable)" ng-required="true">
 									<option value="">{{'label.selectpurpose' | translate}}</option>
 								</select>
 							</div>
+							<div class="col-sm-3">
+								<form-validate valattributeform="newloanaccountform" valattribute="loanPurposeGroup" />
+							</div>
 							<div class="col-sm-3"></div>
-							<div class="col-sm-4"></div>
 						</div>
 						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
 							<label class="control-label col-sm-2">
 								{{ 'label.input.loanpurpose' | translate }}
-								<span ng-show="isLoanPurposeRequired" class="required">*</span>:&nbsp;
+								<span class="required">*</span>:&nbsp;
 							</label>
-							<div class="col-sm-3">
-								<select id="loanPurposeId" name="loanPurposeId" ng-model="editLoanAccountdata.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-								    class="form-control" value="{{loanPurpose.id}}" ng-required="isLoanPurposeRequired">
+							<div class="col-sm-4">
+								<select id="loanPurposeId" name="loanPurpose" ng-model="editLoanAccountdata.loanPurposeId" ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanPurposeOptions | orderBy:'name':reverse"
+								    class="form-control" value="{{loanPurpose.id}}"  ng-required="true">
 									<option value="">{{'label.selectpurpose' | translate}}</option>
 								</select>
 							</div>
 							<div class="col-sm-3">
-								<form-validate valattributeform="newloanaccountform" valattribute="loanPurposeId" />
+								<form-validate valattributeform="newloanaccountform" valattribute="loanPurpose" />
 							</div>
-							<div class="col-sm-4"></div>
+							<div class="col-sm-3"></div>
 						</div>
 						<br>
 						<div class="form-group" ng-if="editLoanAccountdata.productId">
