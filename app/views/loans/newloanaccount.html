@@ -36,21 +36,22 @@
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
         
-        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}</label></td>
+        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label></td>
         <td class="paddedbottom10" ng-show = "loanPurposeGroups" >
             <select chosen="loanPurposeGroups" id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
                     ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | filter:{isActive:true} | orderBy:'name':reverse"
-                    class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)">
+                    class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)" ng-required="true">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
+            <form-validate valattributeform="newloanaccountform" valattribute="loanPurposeGroup"/>
         </td>
 
 
         <td><label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
         <td class="paddedbottom10">
-            <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
-                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions  | filter:{isActive:true} | orderBy:'name':reverse"
+            <select chosen="loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
+                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanPurposeOptions  | filter:{isActive:true} | orderBy:'name':reverse"
                     class="form-control width170px" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
@@ -244,7 +245,7 @@
                         <td >{{client.displayName}}</td>
                         <td >{{client.externalId}}</td>
                         <td><select ng-model="client.loanPurposeId"
-                                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanPurposeOptions | orderBy:'name':reverse"
                                     class="loanPurposeId form-control width170px"
                                     value="{{loanPurpose.id}}">
                             <option value="">{{'label.selectpurpose' | translate}}</option>
