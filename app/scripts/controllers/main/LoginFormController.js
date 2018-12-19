@@ -90,7 +90,14 @@
                 }
                 scope.load = true;
                 if(scope.response.uiDisplayConfigurations.loginSecurity.isEnabledLdap){
-                    authenticationService.authenticateWithLdap(scope.loginCredentials);
+                    if(scope.loginCredentials.ldap !== undefined){
+                        if(scope.loginCredentials.ldap === 'bss'){
+                            authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+                        }
+                        else{
+                            authenticationService.authenticateWithLdap(scope.loginCredentials);
+                        }
+                    }
                 }
                 else{
                     authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
