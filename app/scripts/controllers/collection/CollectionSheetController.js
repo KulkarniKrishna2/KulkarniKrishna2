@@ -40,7 +40,7 @@
                 scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
                 scope.hideLoanAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.loanAccountNumber;
                 scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
-            
+                scope.hideClientForNoRepayments = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.clientForNoRepayments;
             }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;

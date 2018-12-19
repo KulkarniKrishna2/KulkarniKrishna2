@@ -235,6 +235,11 @@
 			"isReadOnlyField": {
 			"activationDate":true
 			}
+		},
+		"collectionSheet": {
+			"isHiddenFeild": {
+				"clientForNoRepayments": true
+			}
 		}
 	}
 }
