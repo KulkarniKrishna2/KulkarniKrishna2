@@ -143,7 +143,8 @@
 				"newtransactionDate": false,
 				"paymentDetails": false,
 				"loanAccountNumber": false,
-				"savingsAccountNumber": false
+				"savingsAccountNumber": false,
+				"clientForNoRepayments": false
 			}
 		},
 		"createClient": {
