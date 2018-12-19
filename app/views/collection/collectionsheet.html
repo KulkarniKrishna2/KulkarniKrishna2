@@ -156,7 +156,7 @@
 						<td colspan="1"   scope="colgroup">&nbsp;</td>
 						<td colspan="1" scope="colgroup">&nbsp;</td>
 					</tr>
-					<tr ng-repeat="client in group.clients track by $index" ng-init="parentIndex = $index" ng-show="client.loans && hideClientForNoRepayments">
+					<tr ng-repeat="client in group.clients track by $index" ng-init="parentIndex = $index" data-ng-hide="(client.loans == undefined || client.loans.length == 0) && hideClientForNoRepayments">
 						<td>
 							<div style="word-wrap: break-word">
 								{{client.clientName}}({{client.clientId}})
