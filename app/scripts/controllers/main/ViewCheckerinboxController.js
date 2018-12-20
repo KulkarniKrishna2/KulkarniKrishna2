@@ -111,7 +111,7 @@
                 });
             };
             var RejectCtrl = function ($scope, $modalInstance, action) {
-                $scope.approve = function () {
+                $scope.reject = function () {
                     resourceFactory.checkerInboxResource.save({
                         templateResource: routeParams.id,
                         command: action
