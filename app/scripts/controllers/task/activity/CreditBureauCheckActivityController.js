@@ -652,7 +652,7 @@
                             }
                         }
                 }
-
+                
                 $scope.updateChargesForEdit = function(){
                     if ($scope.charges.length > 0) {
                         $scope.editLoanAccountdata.charges = [];
@@ -734,7 +734,8 @@
 
                 $scope.constructFormData = function (data) {
                     $scope.editLoanAccountdata.productId = data.loanProductId;
-                    $scope.loanProductChange($scope.editLoanAccountdata.productId);
+                    //since loan product change disabled
+                  //  $scope.loanProductChange($scope.editLoanAccountdata.productId);
                     $scope.editLoanAccountdata.loanPurposeId = data.loanPurposeId;
                     if(data.loanEMIPackData){
                         $scope.editLoanAccountdata.loanEMIPackId = data.loanEMIPackData.id;

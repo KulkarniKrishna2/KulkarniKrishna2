@@ -29,7 +29,7 @@
     <hr/>
     <div id="home" class="row">
         <div class="col-md-12">
-            <div ng-if="bssWorkflowDashboardReport.length > 0" ng-repeat="workflow in bssWorkflowDashboardReport track by $index" ng-init="workflowIndex = $index">
+            <div ng-if="bssWorkflowDashboardReport.length > 0 && officeId" ng-repeat="workflow in bssWorkflowDashboardReport track by $index" ng-init="workflowIndex = $index">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
