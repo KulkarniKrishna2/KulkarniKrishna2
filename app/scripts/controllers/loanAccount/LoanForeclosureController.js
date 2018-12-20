@@ -44,9 +44,6 @@
                     scope.formData.foreClosureChargesPortion = scope.foreclosuredata.foreClosureChargesPortion;
                     scope.calculateTransactionAmount();
                     scope.paymentTypes = scope.foreclosuredata.paymentTypeOptions;
-                    if (scope.paymentTypes.length > 0) {
-                        scope.formData.paymentTypeId = scope.paymentTypes[0].id;
-                    }
                 });
             }
 
@@ -67,6 +64,17 @@
                 transactionAmount -= parseFloat(scope.formData.totalWaivedAmount);
                 scope.formData.transactionAmount = $filter('number')(transactionAmount, 2);
                 scope.formData.transactionAmount =  scope.formData.transactionAmount.replace(/,/g,"");
+            };
+
+            scope.getPaymentTypeOtions = function(paymentMode) {
+              scope.paymentTypeOptions = [];
+              if (scope.paymentTypes) {
+                for (var i in scope.paymentTypes) {
+                  if (scope.paymentTypes[i].paymentMode.id == paymentMode) {
+                    scope.paymentTypeOptions.push(scope.paymentTypes[i]);
+                  }
+                }
+              }
             };
 
             scope.submit = function () {
