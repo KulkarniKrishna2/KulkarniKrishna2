@@ -83,41 +83,61 @@
             };
             initTask();
 
-            scope.initiateCreditBureauReport = function (loanId) {    
-                scope.errorDetails=[];
-
-                scope.entityType = "loan";
-                scope.isForce = false;
-                scope.isClientCBCriteriaToRun = true;
-
-                resourceFactory.creditBureauReportResource.get({
-                    entityType: scope.entityType,
-                    entityId: loanId,
-                    isForce: scope.isForce,
-                    isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
-                }, function (loansSummary) {
-                    scope.checkCBData = loansSummary
-                        resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({'enquiryId' : scope.checkCBData.creditBureauEnquiryId},function(summary){
-                            scope.checkCBData = summary;
-                            if(scope.checkCBData != null && scope.checkCBData.errors == null){
-                                initTask();
-                            }else{
-                                if(scope.checkCBData != null && scope.checkCBData.errors != null){
-                                    var errorObj = new Object();
-                                    errorObj.args = {
-                                        params: []
-                                    };
-                                    var description = scope.checkCBData.errors[0].description;
-                                    errorObj.args.params.push({value: description});
-
-                                    return scope.errorDetails.push(errorObj);
-                                }
-                            }
-                            
-                        })
-                    
-                });
+            scope.initiateCreditBureauReport = function (client) {
+                if(client.pendingCbEnquiryId){
+                    scope.refreshData(client.id,client.pendingCbEnquiryId);
+                }else{
+                    scope.errorDetails=[];
+                    scope.entityType = "loan";
+                    scope.isForce = false;
+                    scope.isClientCBCriteriaToRun = true;
+                    var loanId = client.loanAccountBasicData.id;
+                    resourceFactory.creditBureauReportResource.get({
+                        entityType: scope.entityType,
+                        entityId: loanId,
+                        isForce: scope.isForce,
+                        isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
+                    }, function (loansSummary) {
+                        scope.checkCBData = loansSummary;
+                        scope.getCbEnquiryData(scope.checkCBData.creditBureauEnquiryId);
+                    });
+                }
+                
             };
+
+            scope.getCbEnquiryData = function(enquiryId){
+                resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({'enquiryId' : enquiryId},function(summary){
+                    scope.checkCBData = summary;
+                    if(scope.checkCBData != null && scope.checkCBData.errors == null){
+                        initTask();
+                    }else{
+                        if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                            var errorObj = new Object();
+                            errorObj.args = {
+                                params: []
+                            };
+                            var description = scope.checkCBData.errors[0].description;
+                            errorObj.args.params.push({value: description});
+
+                            return scope.errorDetails.push(errorObj);
+                        }
+                    }
+                    
+                })
+            }
+
+
+            scope.refreshData = function(clientId, enquiryId){
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                    enquiryId: enquiryId,
+                    entityType: "client",
+                    entityId: clientId
+                }, function(data) {
+                    scope.getCbEnquiryData(enquiryId);                    
+                });
+
+            };
+
 
             scope.initiateBulkCreditBureauReport = function () {
                 scope.errorDetails = [];
