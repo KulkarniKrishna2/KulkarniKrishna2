@@ -4,11 +4,16 @@
             scope.user = [];
             scope.uiData = {};
             scope.formData = {};
-            scope.showResetPasssword = (routeParams.id!=scope.currentSession.user.userId);
+            scope.showResetPasssword = false;
             resourceFactory.userListResource.get({
                 userId: routeParams.id
             }, function (data) {
                 scope.user = data;
+                if((scope.response.uiDisplayConfigurations.loginSecurity.isEnabledLdap && scope.user.username.includes("bss")) || !scope.response.uiDisplayConfigurations.loginSecurity.isEnabledLdap){
+                    if((routeParams.id!=scope.currentSession.user.userId)){
+                        scope.showResetPasssword = true;
+                    }
+                }
             });
 
             scope.routeToDevice = function (device) {

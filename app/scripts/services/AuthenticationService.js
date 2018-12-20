@@ -57,15 +57,21 @@
             }
 
             var credentialsData = {};
+            var ldapCredentialsData = {};
             this.authenticateWithUsernamePassword = function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
                 angular.copy(credentials,credentialsData);
+                if(credentials.ldap !== undefined){
+                    if(credentials.ldap === 'bss'){
+                        credentialsData.username = credentials.ldap +"/"+credentials.username;
+                    }
+                }
         		if(SECURITY === 'oauth'){
-                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentials.username)
+                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentialsData.username)
                         .success(onOauthSuccessPublicKeyData)
                         .error(onFailure);
         		} else {                    
-                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentials.username)
+                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentialsData.username)
                         .success(onSuccessPublicKeyData)
                         .error(onFailure);
                 }
@@ -73,9 +79,9 @@
 
             this.authenticateWithLdap= function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
-                angular.copy(credentials,credentialsData);
-                credentialsData.username = credentials.ldap +"/"+credentials.username;
-                oauthAuthenticateProcesses(credentialsData);
+                angular.copy(credentials,ldapCredentialsData);
+                ldapCredentialsData.username = credentials.ldap +"/"+credentials.username;
+                oauthAuthenticateProcesses(ldapCredentialsData);
             };
 
             this.authenticateWithOTP = function(credentials) {

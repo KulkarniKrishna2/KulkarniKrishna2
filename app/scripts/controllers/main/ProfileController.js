@@ -2,8 +2,14 @@
     mifosX.controllers = _.extend(module, {
         ProfileController: function (scope, localStorageService, resourceFactory, $modal, commonUtilService) {
             scope.userDetails = localStorageService.getFromLocalStorage('userData');
+            scope.kotakUser = false;
             resourceFactory.myAccountResource.get(function (data) {
                 scope.user = data;
+                if(data!==undefined){
+                    if(data.username.includes("kotak")){
+                        scope.kotakUser = true;
+                    }
+                }
             });
             scope.status = 'Not Authenticated';
             if (scope.userDetails.authenticated == true) {
