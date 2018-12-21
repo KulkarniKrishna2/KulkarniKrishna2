@@ -202,7 +202,7 @@
 		},
 		"preClose": {
 			"hiddenFields": {
-				"paymentType": true
+				"paymentType": false
 			}
 		},
 		"headerMenuSettings": {
