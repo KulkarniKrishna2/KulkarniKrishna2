@@ -293,6 +293,13 @@
             function getClientData(){
                 resourceFactory.clientResource.get({clientId: routeParams.id, associations:'hierarchyLookup'}, function (data) {
                     scope.client = data;
+                    if(!scope.client.mobileNo){
+                        if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber){
+                            if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber.length>0){
+                                scope.client.mobileNo=scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber;
+                            }                        
+                        }
+                    }
                     if(scope.client.lastname != undefined){
                         scope.client.displayNameInReverseOrder = scope.client.lastname.concat(" ");
                     }

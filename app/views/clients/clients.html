@@ -110,7 +110,8 @@
                         </td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.referenceNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
-                        <td class="pointer" data-ng-click="routeTo(client.id)">{{client.mobileNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)" ng-show="client.mobileNo">{{client.mobileNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)" ng-show="!client.mobileNo">{{defaultMobileNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">
                             <i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
