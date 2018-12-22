@@ -9,6 +9,9 @@
             if(scope.isWorkflowEnabled && scope.hideCreateClient){
                 scope.isHideCreateEntity = true;
             }
+            if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber){
+                scope.defaultMobileNumber = scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber;                        
+            }
             /**
              * Get the record based on the offset limit
              */

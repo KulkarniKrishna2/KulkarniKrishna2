@@ -150,6 +150,13 @@
                         });
                         resourceFactory.clientResource.get({clientId: applicationData.clientId, isFetchAdressDetails : true}, function (clientData) {
                             scope.client = clientData;
+                            if(!scope.client.mobileNo){
+                                if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber){
+                                    if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber.length>0){
+                                        scope.client.mobileNo=scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber;
+                                    }                        
+                                }
+                            }
                             scope.client.dateOfBirth = dateFilter(new Date(scope.client.dateOfBirth), scope.df);
                             scope.address = clientData.addressData[0];
                         });

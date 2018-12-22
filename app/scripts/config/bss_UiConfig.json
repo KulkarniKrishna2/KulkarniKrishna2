@@ -12,7 +12,7 @@
 		},
 		"loanAccount": {
 			"isHiddenField": {
-				"canAddCharge": false
+				"canAddCharge":false
 			},
 			"isMandatory": {
 				"loanPurposeId": true
@@ -68,14 +68,16 @@
 				"addressType": true,
 				"streetName" : true,
 				"houseNo" : true,
-				"mobileNumber" : true
+				"mobileNumber" : false
 			},
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{10,10}$/"
 			},
 			"isValidateFirstName":{
 				"firstNamePattern":"/^[a-zA-Z\\s]{3,}$/"
-			}
+			},
+			"defaultMobileNumber":"0000000000"
+			
 				
 		},
 		"createCenter": {

@@ -197,7 +197,8 @@
 			},
 			"isValidateFirstName":{
 				"firstNamePattern":"/^[a-zA-Z\\s]*$/"
-			}
+			},
+			"defaultMobileNumber":""
 		},
 		"defaultGISConfig": {
 			"address": {
