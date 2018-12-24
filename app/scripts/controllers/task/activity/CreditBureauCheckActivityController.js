@@ -85,7 +85,7 @@
 
             scope.initiateCreditBureauReport = function (client) {
                 if(client.pendingCbEnquiryId){
-                    scope.refreshData(client.id,client.pendingCbEnquiryId);
+                    scope.refreshData(client.loanAccountBasicData.id,client.pendingCbEnquiryId);
                 }else{
                     scope.errorDetails=[];
                     scope.entityType = "loan";
@@ -127,11 +127,12 @@
             }
 
 
-            scope.refreshData = function(clientId, enquiryId){
+            scope.refreshData = function(loanId, enquiryId){
                 resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
                     enquiryId: enquiryId,
-                    entityType: "client",
-                    entityId: clientId
+                    entityType: "loan",
+                    entityId: loanId,
+                    isClientCBCriteriaToRun : true
                 }, function(data) {
                     scope.getCbEnquiryData(enquiryId);                    
                 });
