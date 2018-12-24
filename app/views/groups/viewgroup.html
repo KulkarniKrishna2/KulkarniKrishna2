@@ -202,7 +202,7 @@
 										            </tr>
 									            </thead>
 									            <tbody>
-										            <tr class="pointer-main" ng-repeat="member in group.clientMembers">
+										            <tr class="pointer-main" ng-repeat="member in group.clientMembers | orderBy : 'referenceNumber'">
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">
 															<i ng-hide="member.subStatus" class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
 										                	<i ng-show="member.subStatus" class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}({{member.subStatus.value}})"></i>

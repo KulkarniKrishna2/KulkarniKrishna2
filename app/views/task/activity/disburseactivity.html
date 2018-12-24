@@ -29,7 +29,7 @@
                             </span>
                         </td>
                     </tr>
-                    <tr ng-repeat="activeClientMember in groupMember.memberData" 
+                    <tr ng-repeat="activeClientMember in groupMember.memberData | orderBy : 'fcsmNumber'" 
                       ng-class ="activeClientMember.color"
                       ng-if="!activeClientMember.isClientFinishedThisTask && activeClientMember.loanAccountBasicData">
                         <td><input ng-show="!activeClientMember.isClientFinishedThisTask && activeClientMember.loanAccountBasicData" type="checkbox" ng-model="activeClientMember.loanAccountBasicData.selected" ng-change="selectedLoan(activeClientMember.loanAccountBasicData.id)"></td>

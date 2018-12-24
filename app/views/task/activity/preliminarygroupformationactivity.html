@@ -48,7 +48,7 @@
 							</a>
 						</td>
 					</tr>
-					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMembe"
+					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMembe | orderBy : 'fcsmNumber'"
 					    ng-class ="activeClientMember.color"
 					    ng-if="!activeClientMember.isClientFinishedThisTask">
 						<td class="col-md-1"><input type="checkbox" ng-model="activeClientMember.isMemberChecked" data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.complete.data.check.to.continue' | translate}}"
