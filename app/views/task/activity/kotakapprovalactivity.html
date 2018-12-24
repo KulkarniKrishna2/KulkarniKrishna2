@@ -30,7 +30,7 @@
 							</span>
 						</td>
 					</tr>
-					<tr ng-repeat="activeClientMember in groupMember.memberData" 
+					<tr ng-repeat="activeClientMember in groupMember.memberData | orderBy : 'fcsmNumber'" 
 					  ng-class ="activeClientMember.color"
 					  ng-if="!activeClientMember.isClientFinishedThisTask">
 					  	<td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"

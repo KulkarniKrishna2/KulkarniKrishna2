@@ -39,7 +39,7 @@
 							</a>
 						</td> 
 					</tr>
-					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember"
+					<tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember | orderBy : 'fcsmNumber'"
 					  ng-class ="activeClientMember.color"
 					  ng-if="!activeClientMember.isClientFinishedThisTask && activeClientMember.loanAccountBasicData">
 					  	<td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
