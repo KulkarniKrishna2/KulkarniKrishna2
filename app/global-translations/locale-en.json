@@ -7729,6 +7729,8 @@
     "error.msg.loan.partial.payment" : "Partial Payment not allowed",
     "label.input.tocenter": "To Center",
     "label.input.max.clients.limit.of.group.is.reached.transfer.client.to.other.group": "Maximum Clients limit of this Group is reached. Transfer Client to other Group",
+    "validation.msg.pancard.id.invalid.format" : "Pan number invalid",
+    "validation.msg.passport.uniqueId.invalid.format" : "Passport number invalid",
 
      "------ end of translation file ------":"---------"
 }

@@ -550,7 +550,7 @@
                         if(data.loanId){
                             $scope.closeLoanAccountForm();
                         }
-                        
+                        initTask();
                     });
                 };
 
