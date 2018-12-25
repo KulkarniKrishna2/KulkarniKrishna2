@@ -391,14 +391,18 @@
                             }
                         }
                     }
-                    if(data.status.value == "Closed" && !scope.activateOnReinitiate){
+                    if (data.status.value == "Closed" && !scope.activateOnReinitiate) {
                         var activateOption = {
                             name: "label.button.activate",
-                            href: "#/client",
-                            subhref: "activate",
                             icon: "icon-ok-sign",
                             taskPermissionName: "ACTIVATE_CLIENT"
                         };
+                        if (scope.client && scope.client.isGroupOrCenterCountReached) {
+                            activateOption.href = "#/transferwhileactivation";
+                        } else {
+                            activateOption.href = "#/client";
+                            activateOption.subhref = "activate";
+                        }
                         scope.buttons.splice(0, 1, activateOption);
                     }
                     if(data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
