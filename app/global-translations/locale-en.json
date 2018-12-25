@@ -7727,6 +7727,8 @@
     "label.invalid.policyName" : "Policy name is not valid",
     "error.client.possible.duplicate.clients":"possible duplicate clients",
     "error.msg.loan.partial.payment" : "Partial Payment not allowed",
+    "label.input.tocenter": "To Center",
+    "label.input.max.clients.limit.of.group.is.reached.transfer.client.to.other.group": "Maximum Clients limit of this Group is reached. Transfer Client to other Group",
 
      "------ end of translation file ------":"---------"
 }

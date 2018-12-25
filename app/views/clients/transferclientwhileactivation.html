@@ -1,0 +1,89 @@
+<div class="col-md-12" ng-controller="TransferClientWhileActivationController">
+    <div>
+        <ul class="breadcrumb">
+            <li ng-hide="loanApplicationReferenceId"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li ng-hide="loanApplicationReferenceId"><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' |
+                    translate}}</a></li>
+            <li class="active">{{'label.button.transferclient' | translate}}</li>
+        </ul>
+    </div>
+    <h3></h3>
+    <div class="alert alert-success" role="alert">
+        <span>
+            <h4><strong>{{'label.input.max.clients.limit.of.group.is.reached.transfer.client.to.other.group' |
+                    translate}}&nbsp;&nbsp;&nbsp;</strong></h4>
+        </span>
+    </div>
+    <form name="ClientActivateAndTransfer" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.button.transferclient' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.tooffice' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="offices" id="toOfficeId" ng-model="toOfficeId" name="toOfficeId" class="form-control"
+                        ng-change="getToCenters()" ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                        required late-validate>
+                        <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="ClientActivateAndTransfer" valattribute="toOfficeId" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.tocenter' | translate}} <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="toCenters" id="toCeneterId" name="toCeneterId" ng-model="toCeneterId" ng-change="getAllGroups()"
+                        class="form-control" ng-options="center.id as center.name for center in toCenters" value="{{center.id}}"
+                        required late-validate>
+                        <option value="">{{'label.menu.selectcenter' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="ClientActivateAndTransfer" valattribute="toCeneterId" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.togroup' | translate}} <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="groups" id="groupId" name="groupId" ng-model="formData.groupId" class="form-control"
+                        ng-options='group.id as (group.name + " (" + group.activeClientMembers.length + ")")  for group in groups'
+                        value="{{group.id}}" required late-validate>
+                        <option value="">{{'label.menu.selectgroup' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="ClientActivateAndTransfer" valattribute="groupId" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.activationdate' | translate}}:&nbsp;<span class="required">*</span></label>
+                <div class="col-sm-3" style="width: 275px">
+                    <input id="activationdate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}"
+                        ng-model="formData.activationDate" max="restrictDate" class="form-control" required
+                        late-validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="ClientActivateAndTransfer" valattribute="activationdate" />
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-md-offset-5">
+                    <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.cancel' |
+                        translate}}</a>
+                    <button id="submit" type="submit" class="btn btn-primary" has-permission='CREATE_CLIENT_TRANSFER'>{{'label.button.submit'
+                        | translate}}</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1938,6 +1938,9 @@
             .when('/editgstmapping/:entityType/:entityId', {
                 templateUrl: 'views/accounting/edit_gstmapping.html'
             })
+            .when('/transferwhileactivation/:clientId', {
+                templateUrl: 'views/clients/transferclientwhileactivation.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
