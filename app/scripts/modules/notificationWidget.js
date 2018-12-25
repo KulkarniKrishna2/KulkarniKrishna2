@@ -100,7 +100,11 @@ angular.module('notificationWidget', [])
             }
 
             var setTimer = function(url){
-                $timeout(function(){ delete $rootScope.requestsInProgressAPIs[url];}, 1 * 1200);
+                $timeout(function(){ 
+                    if($rootScope.requestsInProgressAPIs[url]){
+                        delete $rootScope.requestsInProgressAPIs[url];
+                    }
+                }, 1 * 1200);
             };
 
             return {

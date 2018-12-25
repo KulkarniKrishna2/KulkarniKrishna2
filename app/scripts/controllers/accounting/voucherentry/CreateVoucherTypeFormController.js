@@ -228,21 +228,25 @@
                 });
             }
 
+            var docResponse = 0;
+            var uploadURL = null;
             function uploadDocumets(voucherData) {
-                for (var i in scope.documents) {
-                    uploadProcessDocumets(i, voucherData);
+                docResponse = 0;
+                uploadURL = $rootScope.hostUrl + API_VERSION + '/vouchers/' + voucherData.resourceId + '/documents';
+                if(!_.isUndefined(scope.documents) && scope.documents.length > 0){
+                    uploadProcessDocumets();
                 }
             }
 
-            var docResponse = 0;
+            scope.$on('createVouchersDocUpload', function(event) {
+                uploadProcessDocumets();
+            });
 
-            function uploadProcessDocumets(index, voucherData) {
-                var documentData = {};
-                angular.copy(scope.documents[index], documentData);
+            function uploadProcessDocumets() {
                 $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION + '/vouchers/' + voucherData.resourceId + '/documents',
-                    data: documentData,
-                    file: scope.files[index]
+                    url: uploadURL,
+                    data: scope.documents[docResponse],
+                    file: scope.files[docResponse]
                 }).then(function (data) {
                     // to fix IE not refreshing the model
                     if (!scope.$$phase) {
@@ -251,6 +255,11 @@
                     docResponse++;
                     if (docResponse == scope.documents.length) {
                         relaunch();
+                    }else{
+                        if($rootScope.requestsInProgressAPIs["POST" + uploadURL]){
+                            delete $rootScope.requestsInProgressAPIs["POST" + uploadURL];
+                        }
+                        scope.$emit("createVouchersDocUpload");
                     }
                 });
             }
