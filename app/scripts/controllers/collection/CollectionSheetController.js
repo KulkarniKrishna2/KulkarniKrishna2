@@ -162,7 +162,7 @@
                         scope.centers = centersData.pageItems;
                     });
 
-                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (groupsData) {
+                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId,status:'active', orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (groupsData) {
                         scope.groups = groupsData;
                     });
                 }
@@ -184,7 +184,7 @@
                         scope.centers = data;
                     });
 
-                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId,status:'active', staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.groups = data;
                     });
                 } else {
@@ -199,7 +199,12 @@
                     resourceFactory.centerResource.get({'centerId': centerId, associations: 'groupMembers,collectionMeetingCalendar' }, function (data) {
                         scope.centerdetails = data;
                         if (data.groupMembers.length > 0) {
-                            scope.groups = data.groupMembers;
+                            for(var i=0;i<data.groupMembers.length;i++){
+                                if(data.groupMembers[i].status.code== "clientStatusType.closed"){
+                                    data.groupMembers.splice(i,1);
+                                }                         
+                            }  
+                            scope.groups = data.groupMembers;                      
                         }
 
                         if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
