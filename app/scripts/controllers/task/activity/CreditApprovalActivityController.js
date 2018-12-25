@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreditApprovalActivityController: function ($q, $controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
+        CreditApprovalActivityController: function ($q, $controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION,$filter) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             function initTask() {
@@ -114,16 +114,18 @@
                 })
             }
             
-             var reviewHistoryCtrl = function ($scope, $modalInstance, historyParameterInfo) {
+             var reviewHistoryCtrl = function ($scope, $modalInstance, historyParameterInfo,$filter) {
 				 $scope.df = scope.df;
 
                  $scope.loanId = historyParameterInfo.loanId;
-                 $scope.reviewHistory = []
+                 $scope.reviewHistory = [];
+                 $scope.orderReviewHistory = [];
 
                  resourceFactory.loanProposalReviewHistoryResource.getAll({
                      loanId: $scope.loanId
                  }, function (data) {
-                     $scope.reviewHistory = data.slice();
+                     $scope.reviewHistory = data.slice();                    
+                     $scope.orderReviewHistory =  $filter('orderBy')($scope.reviewHistory, '"commandId"',true);
                  });
 
                  $scope.close = function () {
@@ -1015,7 +1017,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreditApprovalActivityController', ['$q', '$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditApprovalActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('CreditApprovalActivityController', ['$q', '$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION','$filter', mifosX.controllers.CreditApprovalActivityController]).run(function ($log) {
         $log.info("CreditApprovalActivityController initialized");
     });
 }(mifosX.controllers || {}));
