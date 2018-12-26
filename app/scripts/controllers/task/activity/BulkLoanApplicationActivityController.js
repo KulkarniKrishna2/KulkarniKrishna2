@@ -16,6 +16,7 @@
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.centerDetails.isAllChecked = false;
+                    $rootScope.isLoanProcessing = false;
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
                         if(scope.centerDetails.subGroupMembers[i].memberData){
@@ -137,7 +138,6 @@
                 $scope.isLoanAccountExist = false;
                 $scope.showOnlyLoanTab = false;
                 $scope.showDeleteClientIdentifierAction = false;
-
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -544,7 +544,7 @@
                             delete $scope.loanAccountFormData.interestRatePerPeriod;
                         }
                     }
-
+                    $rootScope.isLoanProcessing = true;
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
                         $scope.clientJlgLoanAccount();
                         if(data.loanId){
