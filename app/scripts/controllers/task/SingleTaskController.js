@@ -16,17 +16,23 @@
             scope.isRejectCodesMandatory = false;
             scope.isUnresolvedQueryExists = false;
             scope.canReschedule = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
-                scope.response.uiDisplayConfigurations.workflow.isMandatory){
-                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
-                   scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason; 
+            scope.hideReject = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
+                if (scope.response.uiDisplayConfigurations.workflow.isMandatory) {
+                    if (scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason) {
+                        scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason;
+                    }
+                    if (scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription) {
+                        scope.isRejectDescriptionMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription;
+                    }
+                    if (scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectCodes) {
+                        scope.isRejectCodesMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectCodes;
+                    }
                 }
-                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription){
-                   scope.isRejectDescriptionMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectDescription; 
-                }
-                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectCodes){
-                   scope.isRejectCodesMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectCodes; 
-                }
+                if (scope.response.uiDisplayConfigurations.workflow.hideReject) {
+                    scope.hideReject = scope.response.uiDisplayConfigurations.workflow.hideReject;
+                }                
+                
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
                 scope.isShowRescheduleButton = scope.response.uiDisplayConfigurations.workflow.showReschedule;

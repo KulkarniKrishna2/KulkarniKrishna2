@@ -396,7 +396,8 @@
 			},
 			"showReschedule" : true,
 			"showCreateTask" : true,
-			"disableVillageDropDown":false
+			"disableVillageDropDown":false,
+			"hideReject":false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
