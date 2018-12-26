@@ -180,7 +180,7 @@
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
                     scope.loanOfficerId = loanOfficerId;
-                    resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                    resourceFactory.centerDropDownResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1, paged: false}, function (data) {
                         scope.centers = data;
                     });
 
