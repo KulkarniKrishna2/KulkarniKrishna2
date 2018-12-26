@@ -152,10 +152,10 @@
                     isForce: scope.isForce,
                     isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
                 }, function (loansSummary) {
-                    if(loansSummary != null && loansSummary[0].errors == null){
+                    if((loansSummary != null && loansSummary[0] && loansSummary[0].errors == null)){
                         initTask();
                     }else{
-                        if(loansSummary != null && loansSummary[0].errors != null){
+                        if(loansSummary != null && loansSummary[0] && loansSummary[0].errors != null){
                             var errorObj = new Object();
                             var description = loansSummary[0].errors[0].description;
                             errorObj.args = {
@@ -163,6 +163,9 @@
                             };
                             errorObj.args.params.push({value: description});
                             return scope.errorDetails.push(errorObj);
+                        }else{
+                            //on refreshing 
+                            initTask();
                         }
                     }
                 });
