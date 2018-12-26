@@ -161,7 +161,8 @@
 			},
 			"showReschedule" : false,
 			"showCreateTask" : false,
-			"disableVillageDropDown":true
+			"disableVillageDropDown":true,
+			"hideReject":true
 		},
 		"createVillage": {
 			"isReadOnlyField": {
