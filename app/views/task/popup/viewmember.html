@@ -914,7 +914,7 @@
 									<div class="col-md-offset-5">
 										<a id="cancel" href="" ng-click="closeLoanAccountForm()" class="btn btn-default">
 											{{'label.button.cancel'|translate}}</a>
-										<button id="save" type="submit" class="btn btn-primary">
+										<button id="save" type="submit" ng-disabled="isLoanProcessing" class="btn btn-primary">
 											{{'label.button.save' |translate}}</button>
 									</div>
 								</fieldset>
