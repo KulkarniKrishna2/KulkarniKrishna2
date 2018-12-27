@@ -16,10 +16,6 @@
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.centerDetails.isAllChecked = false;
-                    if(isLoanProcessed){
-                        $rootScope.isLoanProcessing = false;
-                    }
-                    
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
                         if(scope.centerDetails.subGroupMembers[i].memberData){
@@ -71,6 +67,9 @@
                         }
 
                     }
+                    if(isLoanProcessed){
+                        $rootScope.isLoanProcessing = false;
+                    }
                 });
 
             };
@@ -120,6 +119,9 @@
                 };
             }
             scope.viewMemberDetails = function (groupId, activeClientMember) {
+                if($rootScope.isLoanProcessing){
+                    return false;
+                }                
                 if(activeClientMember.subStatus && activeClientMember.subStatus.code === "clientSubStatusType.blacklist"){
                     scope.openClientValidationPopUp(groupId, activeClientMember);
                 }else{
