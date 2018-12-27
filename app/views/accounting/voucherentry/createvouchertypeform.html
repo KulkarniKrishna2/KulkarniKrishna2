@@ -282,7 +282,7 @@
                         <input type="file" id="billFile" name="billFile" ng-file-select="onFileSelect($files)">
                     </div>
                     <div class="col-md-2" >
-                        <a id="uploadFile" data-ng-click="addDocument()" class="btn btn-primary">{{'label.button.upload' |
+                        <a id="uploadFile" data-ng-click="addDocument()" ng-show="docData.fName!==undefined" class="btn btn-primary">{{'label.button.upload' |
                             translate}}
                         </a>
                     </div>
