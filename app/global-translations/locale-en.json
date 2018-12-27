@@ -2084,6 +2084,8 @@
     "label.tooltip.frequencycompoundingdate":"The date on which the increased outstanding balance will be calculated.",
     "label.tooltip.valuedatesuspense":"an Asset account that is debited on valuedate initiate and credited on value date completes.",
     "label.tooltip.valuedatesuspensepayable":"an Liability account that is debited on valuedate initiate and credited on value date completes.",
+    "label.tooltip.overdueloanportfolio":"an Asset account that is debited on overdue payment",
+    "label.tooltip.interestreceviable":"an Asset account that is debited",
 
     "label.tooltip.numberofdays":"A loan is in arrears once the number of days entered into this field is exceeded. If this field is blank, the loan will be in arrears the day after a scheduled payment is missed. ",
     "label.tooltip.maxNumberofDays":"A loan is a NPA (non performing asset) once the number of days entered into this field is exceeded. If this field is blank, the loan will be an NPA the day after a scheduled payment is missed.",
@@ -7732,6 +7734,14 @@
     "validation.msg.pancard.id.invalid.format" : "Pan number invalid",
     "validation.msg.passport.uniqueId.invalid.format" : "Passport number invalid",
     "validation.msg.driving.license.uniqueId.invalid.format" : "Driving license number invalid",
+    "label.input.enable.overdue.accounting": "Enable Overdue Accounting",
+    "label.input.enable.accrual.interest.receivable.notdue.due": "Enable Accrual Interest Receivable notDue & Due",
+    "label.input.overdue.loan.portfolio": "Overdue Loan portfolio",
+    "label.input.interest.receivable.and.due": "Interest Receivable and due",
+    "label.input.overdue.interest.on.loans": "Overdue Interest on Loans",
+    "label.input.overdue.income.from.fees": "Overdue Income from Fees",
+    "label.input.overdue.income.from.penalties": "Overdue Income from Penalties",
+    "label.input.interest.receivable.and.not.due": "Interest Receivable and not due",
 
      "------ end of translation file ------":"---------"
 }
