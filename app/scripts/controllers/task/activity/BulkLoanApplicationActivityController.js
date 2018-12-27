@@ -2,8 +2,8 @@
     mifosX.controllers = _.extend(module, {
         BulkLoanApplicationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
-
-            function initTask() {
+            $rootScope.isLoanProcessing = false;
+            function initTask(isLoanProcessed) {
                 scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
@@ -16,7 +16,10 @@
                     scope.clientClosureReasons = data.clientClosureReasons;
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.centerDetails.isAllChecked = false;
-                    $rootScope.isLoanProcessing = false;
+                    if(isLoanProcessed){
+                        $rootScope.isLoanProcessing = false;
+                    }
+                    
                     //logic to disable and highlight member
                     for(var i = 0; i < scope.centerDetails.subGroupMembers.length; i++){
                         if(scope.centerDetails.subGroupMembers[i].memberData){
@@ -71,7 +74,7 @@
                 });
 
             };
-            initTask();
+            initTask(false);
             scope.filterCharges = function (chargeData,categoryId) {
                 if (chargeData != undefined) {
                     var chargesCategory = _.groupBy(chargeData, function (value) {
@@ -146,11 +149,12 @@
 
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
-                    initTask();
+                    initTask(false);
                 };
                 $scope.closeLoanAccountForm = function () {
                     $scope.showLoanProductList = false;
                     $scope.isLoanAccountExist = false;
+                    $rootScope.isLoanProcessing = false;
                 }
 
                 function getClientData() {
@@ -547,11 +551,11 @@
                     }
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
                         $scope.clientJlgLoanAccount();
-                        if(data.loanId){
-                            $scope.closeLoanAccountForm();
-                        }
-                        initTask();
-                    });
+                         if(data.loanId){
+                             $scope.closeLoanAccountForm();
+                         }
+                         initTask(true);
+                     });
                 };
 
                 $scope.clientJlgLoanAccount = function () {
@@ -987,7 +991,7 @@
                     $scope.constructSubmitData();
                     resourceFactory.loanResource.put({loanId: memberParams.loanAccountBasicData.id}, $scope.editLoanAccountdata, function (data) {
                         $scope.closeLoanAccountForm();
-                        initTask();
+                        initTask(false);
                     });
                 };
 
@@ -1087,7 +1091,7 @@
                 releaseClientFormData.reactivationDate = dateFilter(new Date(),scope.df);
                 var queryParams = {clientId: clientId, command: 'reactivate'};
                 resourceFactory.clientResource.save(queryParams,releaseClientFormData, function (data) {
-                    initTask();
+                    initTask(false);
                 });
 
             }
@@ -1156,7 +1160,7 @@
                     }
                     resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
                        $modalInstance.dismiss('cancel');
-                       initTask();
+                       initTask(false);
                     });
                 };
 
@@ -1213,7 +1217,7 @@
                     }
                     resourceFactory.groupResource.save({groupId: memberParams.memberId, command: 'close'}, $scope.rejectGroupData, function (data) {
                         $modalInstance.dismiss('cancel');
-                        initTask();
+                        initTask(false);
                     });
                 };
             }
@@ -1246,7 +1250,7 @@
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
                  
                 resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function(trackRespose) {
-                    initTask();
+                    initTask(false);
                 })
 
             }

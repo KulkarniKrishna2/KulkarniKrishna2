@@ -219,6 +219,7 @@ angular.module('notificationWidget', [])
                     $rootScope.blockUI = false;
                     delete $rootScope.errorStatus;
                     delete $rootScope.errorDetails;
+                    $rootScope.isLoanProcessing = false;
                     removeErrors();
                    
                     // get $http via $injector because of circular dependency problem
