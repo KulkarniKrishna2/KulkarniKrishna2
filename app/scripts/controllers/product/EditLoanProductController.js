@@ -41,6 +41,7 @@
             var deleteFeeAccountMappings = [];
             var deletePenaltyAccountMappings = [];
             scope.transactionTypeMappings = [];
+            scope.interestReceivableLabel = "label.input.receivableinterest";
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
@@ -185,7 +186,9 @@
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
                     calculateIrr:scope.product.calculateIrr,
                     splitDisbursementForCharges:scope.product.splitDisbursementForCharges,
-                    borrowerCycleType : scope.product.borrowerCycleType.id
+                    borrowerCycleType : scope.product.borrowerCycleType.id,
+                    enableoverdueaccounting: scope.product.isOverdueAccountingEnabled,
+                    enableaccrualinterest: scope.product.isInterestAccrualEnabled
                 };
                 if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
                     scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
@@ -329,10 +332,19 @@
                 if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
                     scope.formData.fundSourceAccountId = scope.product.accountingMappings.fundSourceAccount.id;
                     scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
+                    if (scope.formData.enableoverdueaccounting) {
+                        scope.formData.overdueLoanPortfolioAccountId = scope.product.accountingMappings.overdueLoanPortfolioAccount.id;
+                        scope.formData.overdueInterestOnLoansAccountId = scope.product.accountingMappings.overdueInterestOnLoansAccount.id;
+                        scope.formData.overdueIncomeFromFeesAccountId = scope.product.accountingMappings.overdueIncomeFromFeesAccount.id;
+                        scope.formData.overdueIncomeFromPenaltiesAccountId = scope.product.accountingMappings.overdueIncomeFromPenaltiesAccount.id;
+                    }
                     if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
                         scope.formData.receivableInterestAccountId = scope.product.accountingMappings.receivableInterestAccount.id;
                         scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccount.id;
                         scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccount.id;
+                        if (scope.formData.enableaccrualinterest) {
+                            scope.formData.interestReceivableAndDueAccountId = scope.product.accountingMappings.interestReceivableAndDueAccount.id;
+                        }
                     }
                     scope.formData.lossGainWithAdjustmentAccountId = scope.product.accountingMappings.lossGainWithAdjustmentAccount.id;
                     
@@ -747,11 +759,25 @@
                 }
             };
 
-            scope.changeStatus = function() {
-                if(scope.formData.isLinkedToFloatingInterestRates ==  true){
+            scope.changeStatus = function () {
+                if (scope.formData.isLinkedToFloatingInterestRates == true) {
                     scope.configureInterestRatesChart = false;
                 }
             };
+
+            scope.changelabel = function (enableaccrualinterest) {
+                if (enableaccrualinterest) {
+                    scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
+                } else {
+                    scope.interestReceivableLabel = "label.input.receivableinterest";
+                }
+            };
+            scope.resetStatus = function () {
+                scope.formData.enableoverdueaccounting = false;
+                scope.formData.enableaccrualinterest = false;
+                scope.interestReceivableLabel = "label.input.receivableinterest";
+            };
+
 
             scope.changeChargeOfFeeSpecificIncomeAccount = function(oldChargeId) {
                 scope.existFeeSpecificIncomeAccountMapping = [];
@@ -1071,6 +1097,18 @@
                 }
                 this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
+
+                if (!scope.formData.enableoverdueaccounting || _.isUndefined(scope.formData.enableoverdueaccounting) || _.isNull(scope.formData.enableoverdueaccounting)) {
+                    scope.formData.enableoverdueaccounting = false;
+                    delete scope.formData.overdueLoanPortfolioAccountId;
+                    delete scope.formData.overdueInterestOnLoansAccountId;
+                    delete scope.formData.overdueIncomeFromFeesAccountId;
+                    delete scope.formData.overdueIncomeFromPenaltiesAccountId;
+                }
+                if (!scope.formData.enableaccrualinterest || _.isUndefined(scope.formData.enableaccrualinterest) || _.isNull(scope.formData.enableaccrualinterest)) {
+                    scope.formData.enableaccrualinterest = false;
+                    delete scope.formData.interestReceivableAndDueAccountId;
+                }
 
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);

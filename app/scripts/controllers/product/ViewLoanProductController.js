@@ -9,6 +9,7 @@
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.isInterestRateListPerCycleNotAvailable = true;
             scope.isLimitTrnache = false;
+            scope.interestReceivableLabel = "label.heading.receivableinterest";
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.loanproduct = data;
@@ -16,12 +17,15 @@
                 angular.copy(scope.loanproduct,scope.loanProductData);
                 if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccountingEnabled = true;
+                    scope.isOverdueAccountingEnabled = data.isOverdueAccountingEnabled;
                 }
                 if (data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccrualAccountingEnabled = true;
                 }
                 if(data.accountingRule.id == 3){
                     scope.isPeriodicAccrualAccountingEnabled = true;
+                    scope.isInterestAccrualEnabled = data.isInterestAccrualEnabled;
+                    scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
                 }
 
                 if(scope.loanproduct.multiDisburseLoan && scope.loanproduct.maxTrancheCount != undefined) {

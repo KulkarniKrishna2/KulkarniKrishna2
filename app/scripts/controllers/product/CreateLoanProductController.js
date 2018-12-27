@@ -36,6 +36,7 @@
             scope.canCrossMaturityDateOnFixingEMI = true;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
+            scope.interestReceivableLabel ="label.input.receivableinterest";
             scope.minDurationType = [
                     {id :'1',name:"DAYS"},
                     {id :'2',name:"REPAYMENT"}
@@ -428,6 +429,18 @@
                 }
             };
 
+            scope.changelabel = function (enableaccrualinterest) {
+                if (enableaccrualinterest) {
+                    scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
+                } else {
+                    scope.interestReceivableLabel = "label.input.receivableinterest";
+                }
+            };
+            scope.resetStatus = function () {
+                scope.formData.enableoverdueaccounting = false;
+                scope.formData.enableaccrualinterest = false;
+                scope.interestReceivableLabel = "label.input.receivableinterest";
+            };
         scope.submit = function () {
             var reqFirstDate = dateFilter(scope.date.first, scope.df);
             var reqSecondDate = dateFilter(scope.date.second, scope.df);
@@ -662,6 +675,17 @@
                         scope.formData.selectedProfileTypeValues.push(scope.selectedProfileTypeValuesOptions[i].id);
                     }
                 }
+            }
+            if (!scope.formData.enableoverdueaccounting || _.isUndefined(scope.formData.enableoverdueaccounting) || _.isNull(scope.formData.enableoverdueaccounting)) {
+                delete scope.formData.enableoverdueaccounting;
+                delete scope.formData.overdueLoanPortfolioAccountId;
+                delete scope.formData.overdueInterestOnLoansAccountId;
+                delete scope.formData.overdueIncomeFromFeesAccountId;
+                delete scope.formData.overdueIncomeFromPenaltiesAccountId;
+            }
+            if (!scope.formData.enableaccrualinterest || _.isUndefined(scope.formData.enableaccrualinterest) || _.isNull(scope.formData.enableaccrualinterest)) {
+                delete scope.formData.enableaccrualinterest;
+                delete scope.formData.interestReceivableAndDueAccountId;
             }
 
             resourceFactory.loanProductResource.save(this.formData, function (data) {
