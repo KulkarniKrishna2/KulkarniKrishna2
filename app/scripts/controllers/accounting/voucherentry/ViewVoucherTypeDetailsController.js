@@ -14,6 +14,7 @@
             scope.hidePentahoReport = true;
             scope.debitLabel = 'label.input.paid.to';
             scope.creditLabel = 'label.input.paid.from';
+            scope.isDisplayReverse = true;
             if (scope.voucherCode === 'cashreceipt' || scope.voucherCode === 'bankreceipt') {
                 scope.debitLabel = 'label.input.received.by';
                 scope.creditLabel = 'label.input.received.from';
@@ -62,9 +63,10 @@
                     scope.paymentDetails = scope.voucherData.journalEntryData.transactionDetails.paymentDetails;
                 }
             });
-
+            
             scope.isUploadNewDocuments = false;
             scope.getDocuments = function () {
+                scope.isDisplayReverseButton();
                 resourceFactory.documentsResource.getAllDocuments({
                     entityType: 'vouchers',
                     entityId: scope.voucherId
@@ -78,7 +80,14 @@
                     scope.isUploadNewDocuments = false;
                 });
             };
-
+               
+            scope.isDisplayReverseButton = function(){
+                if(scope.isDisplayReverse){
+                    scope.isDisplayReverse = false;
+                }else{
+                    scope.isDisplayReverse = true;
+                }
+            }
             /**
              * Payment Details Related Code
              */

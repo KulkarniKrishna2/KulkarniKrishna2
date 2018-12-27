@@ -18,10 +18,10 @@
     <tabset class="overflowhidden marginbottom0">
         <div class="btn btn-primary pull-right" ng-show="!isReversed">
             <span><a id="run" ng-click="runReport()" class="btn btn-primary icon-print"></i>&nbsp;&nbsp;{{ 'label.button.print' | translate }}</a></span>
-            <a ng-click="reverseTransaction()" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
+                  <a ng-click="reverseTransaction()" ng-show="isDisplayReverse" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
         </div>
         <api-validate></api-validate>
-        <tab heading="{{'label.heading.voucher.details' | translate}}">
+        <tab heading="{{'label.heading.voucher.details' | translate}}" ng-click="isDisplayReverseButton()">
             <div class="col-md-12 col-sm-12">
                 <div class="row div">
                     <div class="col-sm-12 col-md-12 paddingleft0px">
