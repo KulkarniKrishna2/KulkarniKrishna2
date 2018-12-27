@@ -469,6 +469,7 @@
                 $scope.newLoanAccountSubmit = function () {
                     // Make sure charges, overdue charges and collaterals are empty before initializing.
                     delete $scope.loanAccountFormData.charges;
+                    $rootScope.isLoanProcessing = true;
                     var reqFirstDate = dateFilter($scope.date.first, scope.df);
                     var reqSecondDate = dateFilter($scope.date.second, scope.df);
                     var reqThirdDate = dateFilter($scope.date.third, scope.df);
@@ -544,7 +545,6 @@
                             delete $scope.loanAccountFormData.interestRatePerPeriod;
                         }
                     }
-                    $rootScope.isLoanProcessing = true;
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
                         $scope.clientJlgLoanAccount();
                         if(data.loanId){
