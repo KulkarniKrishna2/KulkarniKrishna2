@@ -221,11 +221,11 @@
 												<i ng-show="client.subStatus" tooltip-placement="right" tooltip="{{client.status.value}}({{client.subStatus.value}})" class="icon-stop {{client.status.code | StatusLookup}}"></i>
 												<span ng-if="!isHideReferenceNumber">{{client.referenceNumber}}| </span><span ng-if="!isHideAccountNumber">{{client.accountNo}}-</span>{{client.displayName}}
 											</th>
-											<td align="center" colspan="3" ng-if="!isHideJlgLoan">
+											<td align="center" colspan="4" ng-if="!isHideJlgLoan">
 												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)" ng-hide="isHideJlgLoan"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
-											<td align="center" colspan="3" ng-if="isHideJlgLoan">
+											<td align="center" colspan="4" ng-if="isHideJlgLoan">
 												<a has-permission='CREATE_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
@@ -252,7 +252,7 @@
 											<td class="pointer text-left" colspan="2" data-ng-click="routeToLoan(loan.id)">
 												{{loan.loanBalance}}
 											</td>
-											<td class="pointer text-left" colspan="5" data-ng-click="routeToLoan(loan.id)">
+											<td class="pointer text-left" colspan="6" data-ng-click="routeToLoan(loan.id)">
 												{{loan.amountPaid}}
 											</td>
 											<!--<td class="pointer text-right" colspan="3" data-ng-click="routeToLoan(loan.id)">-->
