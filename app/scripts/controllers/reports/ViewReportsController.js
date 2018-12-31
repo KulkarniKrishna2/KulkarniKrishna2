@@ -77,14 +77,13 @@
             } 
 
             scope.download = function(fileId){
-                // var url = scope.baseUri + fileId +'/download?'+ CommonUtilService.commonParamsForNewWindow();
-                // window.open(url);
                 resourceFactory.fileUrlResource.get({fileId: fileId},function(data){
                     var url = data.locationPath;
                     if(data.storageType==1){
-                        url = scope.baseUri + fileId +'/download?'+ CommonUtilService.commonParamsForNewWindow();
+                        CommonUtilService.downloadFile(url,data.contentType.toLowerCase());
+                    }else{
+                        window.open(url);
                     }
-                    window.open(url);
                 });
             }
             scope.rerunreport = function (report) {
