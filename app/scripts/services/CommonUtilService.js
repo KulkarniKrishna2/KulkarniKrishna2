@@ -3,7 +3,7 @@
  */
 (function (module) {
     mifosX.services = _.extend(module, {
-        CommonUtilService: function ($rootScope,webStorage) {
+        CommonUtilService: function ($rootScope,webStorage,http) {
             this.onDayTypeOptions = function () {
                 var onDayTypeOptions = [];
                 for (var i = 1; i <= 28; i++) {
@@ -29,9 +29,35 @@
                 }
                 return 'tenantIdentifier='+$rootScope.tenantIdentifier + authentication;
             }
+
+            this.downloadFile = function(url,type){
+                http.get(url, {responseType: 'arraybuffer'}).
+                success(function (data, status, headers, config) {
+                    var fileType = '';
+                    var contentType = headers('Content-Type');
+                    if(contentType){
+                        fileType = contentType.split("/").pop();
+                    }else if( type){
+                        contentType = 'application/'+type;
+                        fileType = type;
+                    }
+                    var blob =  new Blob([data], {type: contentType});
+                    var url = window.URL.createObjectURL(blob);
+                    var doc = document.createElement("a");
+                    document.body.appendChild(doc);
+                    doc.href = url;
+                    doc.target = '_blank';
+                    var n = Date.now();
+                    doc.download = 'document_'+n+'.'+fileType;
+                    doc.click();
+                    setTimeout(function(){
+                        window.URL.revokeObjectURL(url)
+                      , 100});
+                });
+            }
         }
     });
-    mifosX.ng.services.service('CommonUtilService', ['$rootScope','webStorage',mifosX.services.CommonUtilService]).run(function ($log) {
+    mifosX.ng.services.service('CommonUtilService', ['$rootScope','webStorage','$http',mifosX.services.CommonUtilService]).run(function ($log) {
         $log.info("CommonUtilService initialized");
     });
 }(mifosX.services || {}));
