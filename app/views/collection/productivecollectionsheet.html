@@ -94,7 +94,7 @@
                         <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
     	                  <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
                             <div class="form-group">
-                                <div ng-class="(loan.totalDue==0)?'col-sm-8 col-sm-offset-3':'col-sm-8'">
+                                <div ng-class="(loan.totalDue==0)?'col-sm-8 col-sm-offset-4':'col-sm-8'">
                                     <input id="total" type="text" autocomplete="off" class="form-control" ng-model="loan.totalDue" number-format
                                         ng-change="sumTotalDueCollection();resetCollectionReasons(loan.totalDue,loan.loanId);">
                                 </div>
@@ -105,17 +105,18 @@
                                 
                             </div>
                             <div class="form-group" ng-show="loan.totalDue==0 && showRejectReason ">
-                                <label class="control-label col-sm-3" >{{'label.input.reasontype' | translate}}<span  class="required">*</span></label>
-                                <div class="col-sm-4">
+                                <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span  class="required">*</span></label>
+                                <div class="col-sm-5">
                                     <select  id="loanRejectReason[loan.loanId].codeReasonId" name="codeReasonId" ng-model="loanRejectReason[loan.loanId].codeReasonId" ng-options="code.id as code.name for code in collectionReasonList" value="{{code.name}}" 
                                     class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <br/>
+                                <br/>
                             </div>
                             <div class="form-group" ng-show="loanRejectReason[loan.loanId].codeReasonId && showRejectReason">
-                                <label class="control-label col-sm-3" >{{'label.input.reason' | translate}}<span  class="required">*</span></label>
-                                <div class="col-sm-4">
+                                <label class="control-label col-sm-4" >{{'label.input.reason' | translate}}<span  class="required">*</span></label>
+                                <div class="col-sm-8">
                                     <select id = "loanRejectReason[loan.loanId].reasonId" name="loanRejectReason[loan.loanId].reasonId" ng-model="loanRejectReason[loan.loanId].reasonId" 
                                     ng-options="codeValue.id as codeValue.name for codeValue in loanRejectReason[loan.loanId].codeValueOptions" value="{{codeValue.id}}" class="input-sm form-control" data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
@@ -158,7 +159,7 @@
 
                             <div  class="form-group">
                                     <div class="form-group">
-                                            <div ng-class="(attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason)?'col-sm-4 col-sm-offset-3':'col-sm-12'">
+                                            <div ng-class="(attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason)?'col-sm-6 col-sm-offset-4':'col-sm-12'">
                                                 <select id="client.attendanceType" ng-model="client.attendanceType" ng-init=" client.attendanceType = collectionsheetdata.attendanceTypeOptions[0].id" class="col-sm-12"
                                                         ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
                                                         value="{{attendance.id}}" data-ng-change="setvalues(client.clientId)">
@@ -172,18 +173,19 @@
                                         </div>
 
                                         <div class="form-group" ng-show="attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason">
-                                            <label class="control-label col-sm-3" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
-                                            <div class="col-sm-4">
+                                            <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
+                                            <div class="col-sm-6">
                                                 <select  id="client.codeReasonId" name="codeReasonId" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
                                                 class="form-control" data-ng-change="getValues(client.clientId, client.codeReasonId)">
                                                 <option value="">{{'label.selectone' | translate}}</option></select>
                                             </div>
                                             <br/>
+                                            <br/>
                                         </div>
 
                                         <div class="form-group" ng-show="client.codeReasonId && showRejectReason">
-                                            <label class="control-label col-sm-3" >{{'label.input.reason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
-                                            <div class="col-sm-4">
+                                            <label class="control-label col-sm-4" >{{'label.input.reason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
+                                            <div class="col-sm-8">
                                                 <select id = "client.reasonId" name="client.reasonId" ng-model="client.reasonId" 
                                                 ng-options="codeValue.id as codeValue.name for codeValue in client.codeValueOptions" value="{{codeValue.id}}" class="form-control" data-ng-change="initDescription(rejectFormData.reasonCode)">
                                                 <option value="">{{'label.selectone' | translate}}</option></select>
