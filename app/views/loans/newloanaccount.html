@@ -38,9 +38,9 @@
         
         <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label></td>
         <td class="paddedbottom10" ng-show = "loanPurposeGroups" >
-            <select chosen="loanPurposeGroups" id="loanPurposeGroup" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
+            <select chosen="loanPurposeGroups" id="loanPurposeGroup" name="loanPurposeGroup" ng-model="loanPurposeGroupId"
                     ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | filter:{isActive:true} | orderBy:'name':reverse"
-                    class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId)" ng-required="true">
+                    class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(loanPurposeGroupId)" required late-validate>
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
             <form-validate valattributeform="newloanaccountform" valattribute="loanPurposeGroup"/>

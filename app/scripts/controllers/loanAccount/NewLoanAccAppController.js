@@ -475,7 +475,6 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
-                delete scope.formData.loanPurposeGroupId;
 
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
