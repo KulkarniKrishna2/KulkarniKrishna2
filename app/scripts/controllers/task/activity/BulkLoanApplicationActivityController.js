@@ -571,6 +571,7 @@
 
                     $scope.closeLoanAccountForm = function () {
                         $scope.showLoanAccountForm = false;
+                        $modalInstance.dismiss('closeLoanAccountForm');
                     }
                 };
                 $scope.onLoanPurposeGroupChange = function (loanPurposegroupId) {
