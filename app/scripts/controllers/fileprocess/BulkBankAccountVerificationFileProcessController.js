@@ -43,14 +43,15 @@
             scope.attachedFileURL = function(){
                 for (var i = 0; i < scope.fileProcesses.length; i++) {
                     var url = {};
-                    url = $rootScope.hostUrl + API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?';
+                    url = $rootScope.hostUrl + API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment';
                     scope.fileProcesses[i].docUrl = url;
                 }
             }
 
-            scope.download = function(docUrl){
-                var url = docUrl + CommonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(file){
+                var url =file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
             }
         }
     });

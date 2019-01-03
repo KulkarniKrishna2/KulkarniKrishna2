@@ -25,7 +25,7 @@
                 this.formData.reportdetail = scope.reportdetail;
 
                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(this.formData.reportName);
-                                reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
+                                reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
                             
                 var inQueryParameters = null;
 

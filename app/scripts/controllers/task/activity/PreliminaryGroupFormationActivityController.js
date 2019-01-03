@@ -858,7 +858,7 @@
                                             for (var l in data) {
 
                                                 var loandocs = {};
-                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
+                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
                                                 data[l].docUrl = loandocs;
                                             }
                                             $scope.identitydocuments[j].documents = data;
@@ -965,9 +965,10 @@
                     });
                 };
 
-                $scope.download = function (docUrl) {
-                    var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
-                    window.open(url);
+                $scope.download = function (file) {
+                    var url =$rootScope.hostUrl + file.docUrl;
+                    var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                    CommonUtilService.downloadFile(url,fileType);
                 }
                 $scope.familyConditionTypeOptions = [{id:1,name:'label.input.dependent'},{id:2,name:'label.input.isSeriousIllness'},{id:3,name:'label.input.isDeceased'}];
                 $scope.familyConditionType = {};

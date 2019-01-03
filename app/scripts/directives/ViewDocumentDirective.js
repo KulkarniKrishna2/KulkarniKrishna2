@@ -20,10 +20,10 @@
                        
                         if($scope.ngEntityType === 'CreditBureau'){
                            var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/'+$scope.ngEntityType+'/'+
-                              $scope.ngEntityId+'/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;                
+                              $scope.ngEntityId+'/attachment';                
                         }else{
                            var url = $rootScope.hostUrl + '/fineract-provider/api/v1' + '/'+$scope.ngEntityType+'/'+
-                              $scope.ngEntityId+'/documents/' + $scope.ngDocumentId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;                        
+                              $scope.ngEntityId+'/documents/' + $scope.ngDocumentId + '/attachment';                        
                         }
                         url = $sce.trustAsResourceUrl(url);
 

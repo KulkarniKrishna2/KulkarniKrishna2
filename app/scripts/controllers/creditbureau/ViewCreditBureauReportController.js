@@ -288,7 +288,7 @@
 
             scope.openViewDocument = function(enquiryId, reportEntityType) {
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
-                    enquiryId + '/attachment?' +commonUtilService.commonParamsForNewWindow();
+                    enquiryId + '/attachment';
                 url = $sce.trustAsResourceUrl(url);
                 $http.get(url, { responseType: 'arraybuffer' }).
                 success(function(data, status, headers, config) {

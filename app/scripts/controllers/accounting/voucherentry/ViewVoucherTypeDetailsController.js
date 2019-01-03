@@ -73,7 +73,7 @@
                 }, function (data) {
                     for (var l in data) {
                         var loandocs = {};
-                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
+                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
                         data[l].docUrl = loandocs;
                     }
                     scope.documents = data;
@@ -239,16 +239,17 @@
                 scope.isUploadNewDocuments = false;
             };
 
-            scope.download = function(docUrl){
-                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(file){
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
             }
 
             scope.runReport = function () {
                 scope.hidePentahoReport = false;
 
                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
-                reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale="
+                reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&locale="
                 + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionId;
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);

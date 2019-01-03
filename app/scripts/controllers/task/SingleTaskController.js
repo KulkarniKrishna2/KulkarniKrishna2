@@ -437,7 +437,7 @@
                     }, function (data) {
                         for (var l in data) {
                             var loandocs = {};
-                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
                             data[l].docUrl = loandocs;
                         }
                         scope.taskDocuments = data;

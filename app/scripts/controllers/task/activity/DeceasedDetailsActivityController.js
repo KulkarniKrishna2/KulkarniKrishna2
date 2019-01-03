@@ -37,7 +37,7 @@
                         function (data) {
                             for(var i in data){
                                 var docs = {};
-                                docs = API_VERSION + '/' + data[i].parentEntityType + '/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?';
+                                docs = API_VERSION + '/' + data[i].parentEntityType + '/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment';
                                 data[i].docUrl = docs;
                             }
                             scope.documents = data;
@@ -65,9 +65,10 @@
                 });
             };
 
-            scope.download = function(docUrl){
-                var url = $rootScope.hostUrl + docUrl + commonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(file){
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                commonUtilService.downloadFile(url,fileType);
             };
 
             scope.init = function () {
@@ -138,7 +139,7 @@
 
         }
     });
-    mifosX.ng.application.controller('DeceasedDetailsActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.DeceasedDetailsActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('DeceasedDetailsActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'commonUtilService', '$modal', mifosX.controllers.DeceasedDetailsActivityController]).run(function ($log) {
         $log.info("DeceasedDetailsActivityController initialized");
     });
 }(mifosX.controllers || {}));

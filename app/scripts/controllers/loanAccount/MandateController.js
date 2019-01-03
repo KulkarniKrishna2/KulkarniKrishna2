@@ -87,7 +87,7 @@
             }
 
             scope.onDocumentChange = function(id){
-                var url = $rootScope.hostUrl + API_VERSION + '/loans/'+scope.loanId+'/documents/' + id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                var url = $rootScope.hostUrl + API_VERSION + '/loans/'+scope.loanId+'/documents/' + id + '/attachment';
                 url = $sce.trustAsResourceUrl(url);
 
                 http.get(url, {responseType: 'arraybuffer'}).

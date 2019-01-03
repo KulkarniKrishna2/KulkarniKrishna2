@@ -3,7 +3,7 @@
         ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope, CommonUtilService) {
             scope.bankStatements  = [];
             scope.baseUri = $rootScope.hostUrl+API_VERSION+'/bankstatement/1/documents/';
-            scope.appendedUri = '/attachment?';
+            scope.appendedUri = '/attachment';
             scope.actualBankStatements = [];
             scope.bankStatementPerPage = 15;
             scope.searchText = "";
@@ -130,9 +130,10 @@
                     }
             }
 
-            scope.download = function(docUrl){
-                var url = docUrl + CommonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(docUrl,fileName){
+                var url = docUrl;
+                var fileType = fileName.substr(fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
             }
         }
     });

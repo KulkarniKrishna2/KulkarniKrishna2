@@ -57,7 +57,7 @@
                         scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment';
                             scope.bankAccountDocuments[i].docUrl = docs;
                         }
                         scope.documentImg =  scope.bankAccountDocuments[0].docUrl;

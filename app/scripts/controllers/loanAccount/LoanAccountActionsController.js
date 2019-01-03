@@ -1297,7 +1297,7 @@
 
             scope.runReport = function(){
                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Credit Appraisal Memo");
-                reportURL += "?output-type=" + encodeURIComponent("XLS") + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
+                reportURL += "?output-type=" + encodeURIComponent("XLS") + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
 
                 var clientIdParam = "R_clientId="+scope.clientId;
                 var loanIdParam = "R_loanId="+scope.accountId;

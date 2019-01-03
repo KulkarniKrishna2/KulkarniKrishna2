@@ -34,9 +34,10 @@
         
         scope.fetchData();
 
-        scope.download = function(docId){
-            var url = scope.baseUri + docId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
-            window.open(url);
+        scope.download = function(file){
+            var url = scope.baseUri + file.cpifKeyDocumentId + '/attachment';
+            var fileType = file.cpifFileName.substr(file.cpifFileName.lastIndexOf('.') + 1);
+            CommonUtilService.downloadFile(url,fileType);
         }
 
     }

@@ -592,7 +592,7 @@
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Saving Transactions");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) +"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
@@ -629,7 +629,7 @@
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Savings Transaction Receipt");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) +"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 var paramName = "R_transactionId";

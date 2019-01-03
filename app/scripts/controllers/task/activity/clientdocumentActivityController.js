@@ -139,7 +139,7 @@
             };
 
             function documentsURL(document){
-                return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+                return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
             };
 
             function getDocuments() {
@@ -243,8 +243,9 @@
             };
 
             scope.download = function(document){
-                var url = $rootScope.hostUrl + document.docUrl + commonUtilService.commonParamsForNewWindow();
-                window.open(url);
+                var url = $rootScope.hostUrl + document.docUrl;
+                var documentType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,documentType);
             };
         }
     });

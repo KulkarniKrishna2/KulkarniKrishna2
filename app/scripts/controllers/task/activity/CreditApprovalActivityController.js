@@ -84,7 +84,7 @@
             scope.openViewDocument = function(enquiryId) {
                 scope.reportEntityType = "CreditBureau";
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + scope.reportEntityType + '/' +
-                    enquiryId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                    enquiryId + '/attachment';
                 url = $sce.trustAsResourceUrl(url);
                 $http.get(url, { responseType: 'arraybuffer' }).
                 success(function(data, status, headers, config) {
@@ -137,7 +137,7 @@
                  $scope.openViewDocument = function (historyId, documentId) {
                     scope.reportEntityType = "loan_proposal_review";
                     var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
-                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                    historyId +'/documents/'+ documentId + '/attachment';
                     url = $sce.trustAsResourceUrl(url);
                     $http.get(url, { responseType: 'arraybuffer' }).
                     success(function(data, status, headers, config) {
@@ -153,11 +153,12 @@
                  };
 
                  //downloan the reason document
-                 $scope.download = function (historyId, documentId) {
+                 $scope.download = function (historyId, document) {
                     scope.reportEntityType = "loan_proposal_review";
                     var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
-                    historyId +'/documents/'+ documentId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
-                     window.open(url);
+                    historyId +'/documents/'+ document.documentId + '/attachment';
+                    var fileType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
+                    CommonUtilService.downloadFile(url,fileType);
                  }
 
              }
