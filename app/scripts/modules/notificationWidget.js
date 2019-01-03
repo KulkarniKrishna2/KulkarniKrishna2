@@ -10,7 +10,7 @@
 // Declare module which depends on filters, and services
 angular.module('notificationWidget', [])
     // set up the interceptor
-    .config(['$httpProvider', function ($httpProvider) {
+    .config(['$httpProvider',  function ($httpProvider) {
         $httpProvider.interceptors.push(function ($q, $injector, $location, $rootScope,$timeout) {
             var notificationChannel, $http;
             $rootScope.requestsInProgressAPIs = {};
@@ -155,7 +155,7 @@ angular.module('notificationWidget', [])
                     // clear previous errors for a success request.
                     delete $rootScope.errorStatus;
                     delete $rootScope.errorDetails;
-
+                    var modalStack = $injector.get("$modalStack");
                     removeErrors();
 
                     //contains the responses successful and failed responses
@@ -207,6 +207,7 @@ angular.module('notificationWidget', [])
                                 return response || $q.when(response);
                             } else {
                                 //redirect if maker checker is enabled
+                                modalStack.dismissAll('close');
                                 $location.path('/viewMakerCheckerTask/' + response.data.commandId);
                             }
                         } else {
