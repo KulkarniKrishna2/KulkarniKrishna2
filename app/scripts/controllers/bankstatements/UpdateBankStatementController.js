@@ -5,7 +5,7 @@
             scope.file = [];
             scope.orgfile = null;
             scope.baseUri = $rootScope.hostUrl+API_VERSION+'/bankstatement/1/documents/';
-            scope.appendedUri = '/attachment?tenantIdentifier='+$rootScope.tenantIdentifier;
+            scope.appendedUri = '/attachment';
             scope.cpifFileName = null;
             scope.orgFileName = null;
             scope.cpifFile = null;

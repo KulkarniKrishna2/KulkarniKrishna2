@@ -93,7 +93,7 @@
                     scope.mappers.push({
                         mappersorder: 0,
                         mapperskey: "loan",
-                        mappersvalue: "loans/{{loanId}}?associations=all&tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        mappersvalue: "loans/{{loanId}}?associations=all",
                         disable: 'true'
                     });
                     scope.loanKeys();
@@ -103,7 +103,7 @@
                     scope.mappers.push({
                         mappersorder: 0,
                         mapperskey: "client",
-                        mappersvalue: "clients/{{clientId}}?tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        mappersvalue: "clients/{{clientId}}",
                         disable: 'true'
                     });
                     scope.clientKeys();

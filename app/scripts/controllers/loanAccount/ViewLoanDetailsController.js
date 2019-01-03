@@ -1077,7 +1077,7 @@
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].id) {
                             var loandocs = {};
-                            loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?';
+                            loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment';
                             data[i].docUrl = loandocs;
                         }
                         if(data[i].tagValue){
@@ -1102,7 +1102,7 @@
                 resourceFactory.documentsGenerateResource.generate({entityType:'loans',entityId: routeParams.id, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
                     document.docUrl = loandocs;
                 })
             };
@@ -1111,7 +1111,7 @@
                 resourceFactory.documentsGenerateResource.reGenerate({entityType:'loans', entityId: routeParams.id, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     var loandocs = {};
-                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+                    loandocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
                     document.docUrl = loandocs;
                 })
             };
@@ -1146,7 +1146,7 @@
                                 || d.mandateStatus.code === 'CANCEL_INPROCESS'){
                                 inProcessExists = true;
                             }
-                            loandocs = API_VERSION + '/loans/' + d.loanId + '/documents/' + d.scannedDocumentId + '/attachment?';
+                            loandocs = API_VERSION + '/loans/' + d.loanId + '/documents/' + d.scannedDocumentId + '/attachment';
                             d.docUrl = loandocs;
                         }
                     }
@@ -1384,7 +1384,7 @@
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&" + CommonUtilService.commonParamsForNewWindow() +"&locale="+scope.optlang.code;
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType)  +"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
@@ -1421,7 +1421,7 @@
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Transaction Receipt");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&" + CommonUtilService.commonParamsForNewWindow() +"&locale="+scope.optlang.code;
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType)  +"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 var paramName = "R_transactionId";
@@ -2031,9 +2031,10 @@
                 return (scope.canDisburseToGroupBankAccount && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
             };
 
-            scope.download = function(docUrl){
-                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(file){
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
             }
 
             scope.selectAllCharges = function () {

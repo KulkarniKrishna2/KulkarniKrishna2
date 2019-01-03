@@ -149,7 +149,7 @@
                 scope.hidePentahoReport = false;
 
                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
-                reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale="
+                reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&locale="
                 + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionNumber;
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);

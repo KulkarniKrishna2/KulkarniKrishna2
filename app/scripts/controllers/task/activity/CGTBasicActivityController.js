@@ -1260,8 +1260,8 @@
             }
             scope.download = function(activeClientMember) {
                 var url = {};
-                url = $rootScope.hostUrl + API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.id + '/documents/' + activeClientMember.loanAccountBasicData.documentId + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                window.open(url);
+                url =$rootScope.hostUrl + API_VERSION + '/' + scope.entityType + '/' + activeClientMember.loanAccountBasicData.id + '/documents/' + activeClientMember.loanAccountBasicData.documentId + '/attachment';
+                commonUtilService.downloadFile(url," ");
             }
             scope.validateAllClients = function(centerDetails,isAllChecked){
                 scope.taskInfoTrackArray = [];

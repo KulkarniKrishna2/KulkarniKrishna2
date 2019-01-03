@@ -351,11 +351,11 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents/' + docId + '/attachment';
                                 scope.clientBasicDetails.isSignaturePresent = true;
                                 http({
                                     method: 'GET',
-                                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + clientId + '/documents/' + docId + '/attachment'
                                 }).then(function (docsData) {
                                     scope.clientBasicDetails.signature = scope.signature_url;
                                 });

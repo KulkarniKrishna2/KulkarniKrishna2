@@ -90,7 +90,7 @@
                     scope.bankAccountDocuments = scope.bankData.bankAccountDocuments || [];
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment';
                             scope.bankAccountDocuments[i].docUrl = docs;   
                         }
             }

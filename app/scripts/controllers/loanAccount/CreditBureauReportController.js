@@ -12,7 +12,7 @@
             scope.trancheDisbursalId = routeParams.trancheDisbursalId;
             scope.clientId = routeParams.clientId;
             scope.reportEntityType = "CreditBureau";
-            scope.url =API_VERSION +'/enquiry/creditbureau'+ '/' +  scope.entityType + '/' +  scope.entityId +'/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+            scope.url =API_VERSION +'/enquiry/creditbureau'+ '/' +  scope.entityType + '/' +  scope.entityId +'/attachment';
             if (scope.entityType === 'loanapplication') {
                 scope.loanApplicationReferenceId = scope.entityId;
                 getLoanApplicationData();
@@ -409,7 +409,7 @@
 
             scope.openViewDocument = function(enquiryId, reportEntityType) {
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
-                    enquiryId + '/attachment?' + commonUtilService.commonParamsForNewWindow();
+                    enquiryId + '/attachment';
                 url = $sce.trustAsResourceUrl(url);
                 $http.get(url, { responseType: 'arraybuffer' }).
                 success(function(data, status, headers, config) {

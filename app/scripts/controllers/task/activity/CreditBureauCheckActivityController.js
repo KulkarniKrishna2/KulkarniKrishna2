@@ -174,7 +174,7 @@
             scope.openViewDocument = function(enquiryId) {
                 scope.reportEntityType = "CreditBureau";
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + scope.reportEntityType + '/' +
-                    enquiryId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                    enquiryId + '/attachment';
                 url = $sce.trustAsResourceUrl(url);
                 $http.get(url, { responseType: 'arraybuffer' }).
                 success(function(data, status, headers, config) {

@@ -18,7 +18,7 @@
                     for(var i=0; i<len; i++){
                         var d = data[i];
                         d.requestDate = new Date(d.requestDate);
-                        d.docUrl = API_VERSION + '/mandates/1/documents/' + d.documentId + '/attachment?';
+                        d.docUrl = API_VERSION + '/mandates/1/documents/' + d.documentId + '/attachment';
                     }
                 }
                 scope.mandates = data;
@@ -49,9 +49,10 @@
                 }
             };
 
-            scope.download = function(docUrl){
-                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(file){
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
             }
 
         }

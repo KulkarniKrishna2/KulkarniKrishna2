@@ -21,25 +21,16 @@
                 return data;
             };
 
-            this.commonParamsForNewWindow = function(){
-                var sessionData = webStorage.get('sessionData');
-                var authentication = "";
-                if(sessionData.authenticationKey){
-                   authentication = '&access_token='+sessionData.authenticationKey;
-                }
-                return 'tenantIdentifier='+$rootScope.tenantIdentifier + authentication;
-            }
-
             this.downloadFile = function(url,type){
                 http.get(url, {responseType: 'arraybuffer'}).
                 success(function (data, status, headers, config) {
                     var fileType = '';
                     var contentType = headers('Content-Type');
-                    if(contentType){
-                        fileType = contentType.split("/").pop();
-                    }else if( type){
+                    if(type !== " "){
                         contentType = 'application/'+type;
                         fileType = type;
+                    }else if(contentType){
+                        fileType = contentType.split("/").pop();
                     }
                     var blob =  new Blob([data], {type: contentType});
                     var url = window.URL.createObjectURL(blob);
@@ -52,7 +43,7 @@
                     doc.click();
                     setTimeout(function(){
                         window.URL.revokeObjectURL(url)
-                      , 100});
+                    , 100});
                 });
             }
         }

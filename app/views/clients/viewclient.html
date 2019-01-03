@@ -889,7 +889,7 @@
 		                    {{file.fileName}}&nbsp;&nbsp;
 		                    <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
 		                            class="icon-eye-open text-success"></i></a>
-		                    <a target="_blank" ng-click = "download(file.docUrl)" has-permission='READ_DOCUMENT'><i
+		                    <a target="_blank" ng-click = "download(file)" has-permission='READ_DOCUMENT'><i
 		                            class="icon-cloud-download"></i></a>
 		                  </span>
 		            </td>
@@ -1045,7 +1045,7 @@
 			            	</span>
 			            </td>
 			            <td>
-			                <a ng-show="clientdocument.id" target="_blank" ng-click = "download(clientdocument.docUrl)"><i class="icon-cloud-download"></i></a>&nbsp;
+			                <a ng-show="clientdocument.id" target="_blank" ng-click = "download(clientdocument)"><i class="icon-cloud-download"></i></a>&nbsp;
 			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument)"><i class="icon-remove"></i></a>
 							<a ng-show="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
 							<a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)"><i class="icon-link"></i></a>

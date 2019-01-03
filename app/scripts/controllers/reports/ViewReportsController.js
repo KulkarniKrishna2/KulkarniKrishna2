@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewReportsController: function (scope, routeParams, resourceFactory, location, route, $rootScope,API_VERSION,CommonUtilService) {
+        ViewReportsController: function (scope, routeParams, resourceFactory, location, route, $rootScope,API_VERSION,commonUtilService) {
             scope.reports = [];
             scope.reportCagegories = [] ;
             scope.requestoffset=0;
@@ -80,7 +80,7 @@
                 resourceFactory.fileUrlResource.get({fileId: fileId},function(data){
                     var url = data.locationPath;
                     if(data.storageType==1){
-                        CommonUtilService.downloadFile(url,data.contentType.toLowerCase());
+                        commonUtilService.downloadFile(url,data.contentType.toLowerCase());
                     }else{
                         window.open(url);
                     }

@@ -44,7 +44,7 @@
             scope.attachedFileURL = function(){
                 for (var i = 0; i < scope.fileProcesses.length; i++) {
                         var url = {};
-                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment?' +commonUtilService.commonParamsForNewWindow();
+                        url = API_VERSION + '/fileprocess/' + scope.fileProcesses[i].id + '/attachment';
                         scope.fileProcesses[i].docUrl = url;
                     }
             }

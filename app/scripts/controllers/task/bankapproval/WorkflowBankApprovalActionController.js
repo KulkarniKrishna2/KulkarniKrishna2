@@ -37,7 +37,7 @@
                                         if (data.length > 0 && scope.bankApprovalTemplateData.clientIdentifiers[j].id == data[0].parentEntityId) {
                                             for (var l in data) {
                                                 var loandocs = {};
-                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?';
+                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
                                                 data[l].docUrl = loandocs;
                                             }
                                             scope.bankApprovalTemplateData.clientIdentifiers[j].documents = data;
@@ -65,7 +65,7 @@
                         var document = scope.bankApprovalTemplateData.documentData[i];
                         if(document.id){
                             var docUrl = {};
-                            docUrl = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment?';
+                            docUrl = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
                             scope.bankApprovalTemplateData.documentData[i].docUrl = docUrl;
                         }
     
@@ -121,9 +121,10 @@
                 });
             };   
             
-            scope.download = function(docUrl){
-                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
-                window.open(url);
+            scope.download = function(file){
+                var url = $rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
             } 
 
             scope.creditReview = function (approveId) {
@@ -336,7 +337,7 @@
             scope.openCBReport = function(enquiryId) {
                 scope.reportEntityType = "CreditBureau";
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + scope.reportEntityType + '/' +
-                    enquiryId + '/attachment?' + CommonUtilService.commonParamsForNewWindow();
+                    enquiryId + '/attachment';
                 url = $sce.trustAsResourceUrl(url);
                 $http.get(url, { responseType: 'arraybuffer' }).
                 success(function(data, status, headers, config) {
@@ -390,7 +391,7 @@
                                 var history = scope.loanLogs[i];
                                 if(history.documentId){
                                     var historyDoc = {};
-                                    var historyDoc = API_VERSION + '/' + history.parentEntityType + '/' + history.id + '/documents/' + history.documentId + '/attachment?';
+                                    var historyDoc = API_VERSION + '/' + history.parentEntityType + '/' + history.id + '/documents/' + history.documentId + '/attachment';
                                     scope.loanLogs[i].docUrl = historyDoc;
                                 }
                             }
@@ -420,7 +421,7 @@
 
             scope.openViewDocument = function (docUrl) {
                 var tabWindowId = window.open('about:blank', '_blank');
-                var url = $rootScope.hostUrl + docUrl + CommonUtilService.commonParamsForNewWindow();
+                var url = $rootScope.hostUrl + docUrl;
                     url = $sce.trustAsResourceUrl(url);
                     $http.get(url, { responseType: 'arraybuffer' }).
                     success(function(data, status, headers, config) {
