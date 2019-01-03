@@ -2,8 +2,8 @@
     mifosX.controllers = _.extend(module, {
         BulkLoanApplicationActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
-            $rootScope.isLoanProcessing = false;
-            function initTask(isLoanProcessed) {
+     
+            function initTask() {
                 scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
@@ -67,9 +67,6 @@
                         }
 
                     }
-                    if(isLoanProcessed){
-                        $rootScope.isLoanProcessing = false;
-                    }
                 });
 
             };
@@ -118,10 +115,7 @@
                     $modalInstance.dismiss('cancel');
                 };
             }
-            scope.viewMemberDetails = function (groupId, activeClientMember) {
-                if($rootScope.isLoanProcessing){
-                    return false;
-                }                
+            scope.viewMemberDetails = function (groupId, activeClientMember) {               
                 if(activeClientMember.subStatus && activeClientMember.subStatus.code === "clientSubStatusType.blacklist"){
                     scope.openClientValidationPopUp(groupId, activeClientMember);
                 }else{
@@ -156,7 +150,6 @@
                 $scope.closeLoanAccountForm = function () {
                     $scope.showLoanProductList = false;
                     $scope.isLoanAccountExist = false;
-                    $rootScope.isLoanProcessing = false;
                 }
 
                 function getClientData() {
@@ -475,7 +468,6 @@
                 $scope.newLoanAccountSubmit = function () {
                     // Make sure charges, overdue charges and collaterals are empty before initializing.
                     delete $scope.loanAccountFormData.charges;
-                    $rootScope.isLoanProcessing = true;
                     var reqFirstDate = dateFilter($scope.date.first, scope.df);
                     var reqSecondDate = dateFilter($scope.date.second, scope.df);
                     var reqThirdDate = dateFilter($scope.date.third, scope.df);
