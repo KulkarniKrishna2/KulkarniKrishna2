@@ -11,7 +11,9 @@
             <li class="active" ng-show="isEdit">{{'label.anchor.mandate.edit' | translate}}</li>
         </ul>
     </div>
-
+    <div class="form-horizontal error" ng-if="isUnsupportedFileFormat">
+			{{ 'error.msge.select.document.of.the.type.image/jpeg.image/jpg.image/png.image/gif.application/pdf' | translate }}
+	</div>
     <form name="mandateform" novalidate="" rc-submit="submit()"  class="form-horizontal well">
         <div class="btn btn-primary pull-right" ng-show="showBankDetails">
             <a ng-click="populateBankDetails()" class="btn btn-primary"><i class="icon-download icon-white"></i>{{'label.button.loadbankdetails' | translate}}</a>

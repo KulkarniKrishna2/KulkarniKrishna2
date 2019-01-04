@@ -6,6 +6,7 @@
             scope.command = routeParams.command;
             scope.formData = {};
             scope.showDoc = false;
+            scope.isUnsupportedFileFormat = false;
             scope.showBankDetails = false ;
             if(scope.command === 'CREATE'){
                 scope.isCreate = true;
@@ -37,6 +38,7 @@
             }else if(scope.isEdit){
                 resourceFactory.mandateResource.getOne({loanId:scope.loanId, mandateId: scope.mandateId}, function (data) {
                     scope.populate(data);
+                    scope.onDocumentChange(data.scannedDocumentId);
                 });
             }
 
@@ -100,14 +102,18 @@
                     if(supportedContentTypes.indexOf(contentType) > -1){
                         scope.docURL = $sce.trustAsResourceUrl(fileContent);
                         scope.showDoc = true;
+                        scope.isUnsupportedFileFormat = false;
                     } else {
-                        scope.showDoc = false;
+                        scope.isUnsupportedFileFormat = true;
                     }
                 });
 
             }
 
             scope.submit = function () {
+                if(scope.isUnsupportedFileFormat){
+                    return;
+                }
                 if(scope.formData.requestDate){
                     scope.formData.requestDate = dateFilter(scope.formData.requestDate,scope.df);
                 }
