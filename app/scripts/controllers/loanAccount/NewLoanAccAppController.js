@@ -588,13 +588,17 @@
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
                     for (var i in scope.charges) {
-                        if (scope.charges[i].amount > 0) {
-                            scope.formData.charges.push({
-                                chargeId: scope.charges[i].chargeId,
-                                amount: scope.charges[i].amount,
-                                dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
-                                upfrontChargesAmount: scope.charges[i].glims
-                            });
+                        if (scope.charges[i].amount > 0 || scope.charges[i].isSlabBased) {
+                            var chargeObject = {
+                                    chargeId: scope.charges[i].chargeId,
+                                    amount: scope.charges[i].amount,
+                                    upfrontChargesAmount: scope.charges[i].glims
+                                };
+
+                            if(!_.isUndefined(scope.charges[i].dueDate)){
+                                chargeObject.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                            }
+                            scope.formData.charges.push(chargeObject);
                         }
                     }
                 }
