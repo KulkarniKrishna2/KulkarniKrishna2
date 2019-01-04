@@ -45,6 +45,7 @@
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
+                scope.changelabel(scope.product.isInterestAccrualEnabled);
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
