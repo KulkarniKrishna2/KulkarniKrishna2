@@ -7742,6 +7742,7 @@
     "label.input.overdue.income.from.fees": "Overdue  Fees Receivable",
     "label.input.overdue.income.from.penalties": "Overdue  Penalties Receivable",
     "label.input.interest.receivable.and.not.due": "Interest Receivable and not due",
+    "error.msge.select.document.of.the.type.image/jpeg.image/jpg.image/png.image/gif.application/pdf" : "Please Select the Document of type:image/jpeg,image/jpg,image/png,image/gif,application/pdf",
 
      "------ end of translation file ------":"---------"
 }
