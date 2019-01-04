@@ -1775,7 +1775,7 @@
     "label.heading.mobile": "Mobile",
     "label.heading.residence": "Residence",
     "label.heading.joindate": "Join Date",
-    "label.heading.overdue": "Over Due",
+    "label.heading.overdue": "Overdue",
     "label.heading.original": "Original",
     "label.heading.penalties": "Penalties",
     "label.heading.repaymentschedule": "Repayment Schedule",
@@ -7738,9 +7738,9 @@
     "label.input.enable.accrual.interest.receivable.notdue.due": "Enable Accrual Interest Receivable notDue & Due",
     "label.input.overdue.loan.portfolio": "Overdue Loan portfolio",
     "label.input.interest.receivable.and.due": "Interest Receivable and due",
-    "label.input.overdue.interest.on.loans": "Overdue Interest on Loans",
-    "label.input.overdue.income.from.fees": "Overdue Income from Fees",
-    "label.input.overdue.income.from.penalties": "Overdue Income from Penalties",
+    "label.input.overdue.interest.on.loans": "Overdue Interest Receivable on Loans",
+    "label.input.overdue.income.from.fees": "Overdue  Fees Receivable",
+    "label.input.overdue.income.from.penalties": "Overdue  Penalties Receivable",
     "label.input.interest.receivable.and.not.due": "Interest Receivable and not due",
 
      "------ end of translation file ------":"---------"

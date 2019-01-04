@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService) {
+                  uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService,$modalStack) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
             scope.mainUIConfigData = {};
@@ -293,6 +293,7 @@
                 scope.resetPassword = false;
                 $rootScope.isUserSwitched = false;
                 delete $rootScope.proxyToken;
+                $modalStack.dismissAll('close');
                 $idle.unwatch();
                 scope.started = false;
                 location.path('/').replace();
@@ -554,6 +555,7 @@
         'ResourceFactory',
         '$timeout',
         'PopUpUtilService',
+        '$modalStack',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");
