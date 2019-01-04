@@ -139,7 +139,7 @@
 
         }
     });
-    mifosX.ng.application.controller('DeceasedDetailsActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'commonUtilService', '$modal', mifosX.controllers.DeceasedDetailsActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('DeceasedDetailsActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.DeceasedDetailsActivityController]).run(function ($log) {
         $log.info("DeceasedDetailsActivityController initialized");
     });
 }(mifosX.controllers || {}));

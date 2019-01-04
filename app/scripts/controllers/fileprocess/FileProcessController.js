@@ -48,6 +48,11 @@
                         scope.fileProcesses[i].docUrl = url;
                     }
             }
+            scope.download = function (file) {
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                commonUtilService.downloadFile(url,fileType);
+            }
         }
     });
     mifosX.ng.application.controller('FileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope','CommonUtilService', mifosX.controllers.FileProcessController]).run(function ($log) {
