@@ -478,16 +478,15 @@
                         $scope.loanAccountFormData.charges = [];
                         for (var i in $scope.charges) {
                             if ($scope.charges[i].amount > 0 || $scope.charges[i].isSlabBased) {
-                                $scope.loanAccountFormData.charges.push({
+                                var chargeObject = {
                                     chargeId: $scope.charges[i].chargeId,
                                     amount: $scope.charges[i].amount,
                                     upfrontChargesAmount: $scope.charges[i].glims
-                                });
-                                if(!_.isUndefined($scope.charges[i].dueDate)){
-                                    $scope.loanAccountFormData.charges.push({
-                                        dueDate: dateFilter($scope.charges[i].dueDate, scope.df)
-                                    });
                                 }
+                                if(!_.isUndefined($scope.charges[i].dueDate)){
+                                    chargeObject.dueDate = dateFilter($scope.charges[i].dueDate, scope.df);
+                                }
+                                $scope.loanAccountFormData.charges.push(chargeObject);
                             }
                         }
                     }
@@ -923,16 +922,15 @@
                         $scope.editLoanAccountdata.charges = [];
                         for (var i in $scope.charges) {
                             if ($scope.charges[i].amountOrPercentage > 0 || $scope.charges[i].isSlabBased) {
-                                $scope.editLoanAccountdata.charges.push({
-                                    id: $scope.charges[i].id,
-                                    chargeId: $scope.charges[i].chargeId,
-                                    amount: $scope.charges[i].amountOrPercentage          
-                                });
+                                var chargeObject = {
+                                        chargeId: $scope.charges[i].chargeId,
+                                        amount: $scope.charges[i].amount,
+                                        upfrontChargesAmount: $scope.charges[i].glims
+                                    }
                                 if(!_.isUndefined($scope.charges[i].dueDate)){
-                                   $scope.editLoanAccountdata.charges.push({
-                                        dueDate: dateFilter($scope.charges[i].dueDate, scope.df)
-                                   }); 
+                                    chargeObject.dueDate = dateFilter($scope.charges[i].dueDate, scope.df);
                                 }
+                                $scope.editLoanAccountdata.charges.push(chargeObject);
                             }
                         }
                     }else{
