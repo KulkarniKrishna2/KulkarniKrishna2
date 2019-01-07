@@ -86,7 +86,7 @@
 
             scope.hideAccruals = function(transaction){
                 if((transaction.type.accrual || transaction.type.accrualSuspense || transaction.type.accrualWrittenOff || transaction.type.accrualSuspenseReverse
-                    || transaction.type.accrualReverse)
+                    || transaction.type.accrualReverse || transaction.type.accrualIRDPosting)
                     && !scope.hideTransactions.type.accrual){
                     return false;
                 }
