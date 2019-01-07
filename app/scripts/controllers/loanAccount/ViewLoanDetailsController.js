@@ -339,7 +339,7 @@
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
              */
 
-            var multiTranchDataRequest = "multiDisburseDetails,repaymentSchedule,originalSchedule,transactions,emiAmountVariations,charges,";
+            var multiTranchDataRequest = "multiDisburseDetails,repaymentSchedule,originalSchedule,transactions,emiAmountVariations,charges";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
