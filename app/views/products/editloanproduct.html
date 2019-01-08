@@ -1934,9 +1934,9 @@
                     <select id="specificIncomeAccountMapping[{{$index}}].chargeId"
                             ng-model="specificMapping.chargeId" class="form-control"
                             ng-options="charge.id as charge.name for charge in chargeOptions"
-                            value="{{charge.id}}" ng-change="changeChargeOfFeeSpecificIncomeAccount('{{specificMapping.chargeId}}')">
-                            <option value="">{{'label.menu.selectone'| translate }}</option>
-                    </select>
+                            value="{{charge.id}}" ng-disabled = "isNotAllowedToChangeCharge(specificMapping.chargeId)" ng-change="changeChargeOfFeeSpecificIncomeAccount('{{specificMapping.chargeId}}')">
+							<option value="">{{'label.menu.selectone'| translate }}</option>
+					</select>
                 </td>
                 <td></td>
                 <td>
