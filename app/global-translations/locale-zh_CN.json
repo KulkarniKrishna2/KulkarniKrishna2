@@ -2101,6 +2101,7 @@
 	"label.heading.cashmgmt.cashier.txnAmountCashIn": "兑现",
 	"label.heading.cashmgmt.cashier.txnAmountCashOut": "现金支出",
 	"label.heading.cashmgmt.cashier.txnAmountSettle": "结算",
+	"label.heading.cashmgmt.cashier.txnAmountDescription":"描述",
 	"label.heading.cashmgmt.cashier.netAmount": "网",
 	"label.input.cashiername": "出纳员",
 	"label.input.teller.cashiertxn.txnDate": "日期",

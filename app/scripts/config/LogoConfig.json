@@ -22,5 +22,11 @@
       "logofoldername":"./images/",
       "largeLogoPath":"./images/logo_eastlanka.png",
       "headerLogoPath":"./images/logo_nav_eastlanka.png"
+   },
+   {
+      "tenantIdentifier":"digamber",
+      "logofoldername":"./images/",
+      "largeLogoPath":"./images/logo_digamber.png",
+      "headerLogoPath":"./images/logo_nav_digamber.png"
    }
 ]

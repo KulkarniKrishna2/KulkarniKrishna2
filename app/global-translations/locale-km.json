@@ -3089,6 +3089,7 @@
 	"label.heading.cashmgmt.cashier.txnAmountCashIn": "សាច់ប្រាក់ចូល",
 	"label.heading.cashmgmt.cashier.txnAmountCashOut": "សាច់ប្រាក់ចេញ",
 	"label.heading.cashmgmt.cashier.txnAmountSettle": "ការទូទាត់",
+	"label.heading.cashmgmt.cashier.txnAmountDescription":"ការពិពណ៌នា",
 	"label.heading.cashmgmt.cashier.netAmount": "សមតុល្យ",
 	"label.input.cashiername": "បេឡាករ",
 	"label.input.cashierallocationdetails": "កំឡុងពេលការងារ",

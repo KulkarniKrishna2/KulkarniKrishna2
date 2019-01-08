@@ -4062,6 +4062,7 @@
 	"label.heading.cashmgmt.cashier.txnAmountCashIn": "ເງິນສົດໃນ",
 	"label.heading.cashmgmt.cashier.txnAmountCashOut": "ເງິນສົດ ອອກ",
 	"label.heading.cashmgmt.cashier.txnAmountSettle": "ການຊຳລະສະສາງ",
+	"label.heading.cashmgmt.cashier.txnAmountDescription":"ລາຍລະອຽດ",
 	"label.heading.cashmgmt.cashier.netAmount": "ສຸດທິ",
 	"label.input.cashiername": "ຄັງເງິນສົດ",
 	"label.input.cashierallocationdetails": "ກຳນົດເວລາ ການມອບໝາຍ",
