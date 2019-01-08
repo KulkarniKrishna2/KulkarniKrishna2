@@ -132,15 +132,17 @@
 
                 <div class="form-group">
 
-                    <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}<span
+                    <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}<span
                             class="required">*</span></label>
+                    </label>
 
-                    <div class="col-sm-2">
-                        <input id="age" type="text" name="age"
-                               ng-model="formData.age" class="form-control"/>
+                    <div class="col-sm-3">
+                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="formData.dateOfBirth"
+                           min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="createFamilyDetails" valattribute="age"/>
+                        <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
+                        <form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
                     </div>
 
                 </div>

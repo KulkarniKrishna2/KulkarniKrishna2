@@ -11,6 +11,41 @@
             scope.subOccupations = [];
             scope.isExisitingClient = false;
             scope.formData = {};
+            scope.first = {};
+            scope.isDateOfBirthMandatory = false;
+            scope.displayAge = false;
+            scope.minAge = 0;
+            scope.maxAge = 0;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
+                scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth){
+                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
+                    scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
+
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge > 0) {
+                    scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
+                }
+            } else{
+                scope.minAge = 0;
+                scope.maxAge = scope.restrictDate;
+
+            }
+            scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
+            scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
+            function getMaximumRestrictedDate(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
+                return restrictedDate;
+            };
+
+            function getMinimumRestrictedDate(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
+                return restrictedDate;
+            };
 
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;
@@ -18,6 +53,18 @@
                 scope.genderOptions = data.genderOptions;
                 scope.educationOptions = data.educationOptions;
                 scope.occupationOptions = data.occupationOptions;
+            });
+
+            scope.$watch('first.dateOfBirth', function(newValue, oldValue){
+                if(scope.first.dateOfBirth != null)
+                {
+                    var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.displayAge = true;
+                    scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                }else{
+                    scope.displayAge = false;
+                }
             });
 
             scope.submit = function () {
@@ -35,6 +82,10 @@
                 }
                 if (scope.educationId) {
                     this.formData.educationId = scope.educationId;
+                }
+                if (scope.first.dateOfBirth) {
+                    this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
+                    this.formData.age = scope.age;
                 }
                 scope.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;

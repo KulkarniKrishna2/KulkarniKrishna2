@@ -62,7 +62,8 @@
       "bankAccountNumber": true,
       "accountType": false,
       "bankIFSCCode": true,
-      "bankName": false,
+      "bankName": true,
+      "branchName": true,
       "bankCity": false,
       "mobileNumber": false,
       "lastTransactionDate": false,
@@ -87,6 +88,9 @@
       "searchForActivegroups": false
     },
     "createLoanApplication": {
+      "isMandatoryField": {
+        "disbursementPaymentType":true
+      },
       "newLoanApplicationLimitAllowed" : true
     }
   }

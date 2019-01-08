@@ -249,6 +249,7 @@
 		"accountType": false,
 		"bankIFSCCode": true,
 		"bankName": false,
+		"branchName": false,
 		"bankCity": false,
 		"mobileNumber": false,
 		"lastTransactionDate": false,
@@ -294,7 +295,7 @@
 	  	"searchForActivegroups": true
 	},
 	"createMandates":{
-			"showEMIBalance": false
+		"showEMIBalance": false
 	},
 	"bulkJLGLoanAccount": {
 		"isMandatory": {
@@ -326,7 +327,8 @@
       "isMandatoryField": {
         "expectedDisbursementDate": false,
         "firstRepaymentDate": false,
-        "interestRatePerPeriod": false
+        "interestRatePerPeriod": false,
+        "disbursementPaymentType":false
       },
       "newLoanApplicationLimitAllowed" : false
     }
