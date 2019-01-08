@@ -393,6 +393,17 @@
                        }
                    }
 
+                   scope.isNotAllowedToChangeCharge = function(chargeId){
+                       var ids = [];
+                        for (var count = 0; count < scope.product.feeToIncomeAccountMappings.length; count++) {
+                               ids.push(scope.product.feeToIncomeAccountMappings[count].charge.id);
+                        }
+                        if(ids.includes(chargeId)){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
                     if(!_.isUndefined(scope.product.penaltyToIncomeAccountMappings)) {
                         for (var count = 0; count < scope.product.penaltyToIncomeAccountMappings.length; count++) {
                             if (scope.penaltySpecificIncomeaccounts.length > 0) {
@@ -522,9 +533,10 @@
 
             scope.mapFees = function () {
                 scope.specificIncomeAccountMapping.push({
-                    chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
-                    incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : '',
-                    fundSourceAccountId: scope.assetAccountOptions.length > 0 ? scope.assetAccountOptions[0].id : ''
+                    chargeId:'',
+                    incomeAccountId:'',
+                    fundSourceAccountId:''
+
                 });
             };
 
