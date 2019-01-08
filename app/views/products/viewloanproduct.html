@@ -727,7 +727,7 @@
                 <td>{{'label.input.overdue.income.from.penalties' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.overdueIncomeFromPenaltiesAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueIncomeFromPenaltiesAccount.glCode}})</td>
             </tr>
-            <tr ng-if="isInterestAccrualEnabled">
+            <tr ng-if="isPostIRDEnabled">
                 <td>{{'label.input.interest.receivable.and.due' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.interestReceivableAndDueAccount.name}}&nbsp;({{loanproduct.accountingMappings.interestReceivableAndDueAccount.glCode}})</td>
             </tr>

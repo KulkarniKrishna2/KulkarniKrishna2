@@ -42,10 +42,13 @@
             var deletePenaltyAccountMappings = [];
             scope.transactionTypeMappings = [];
             scope.interestReceivableLabel = "label.input.receivableinterest";
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanproduct && scope.response.uiDisplayConfigurations.loanproduct.isHiddenFeild) {
+                scope.isIRDEnabledConfig = !scope.response.uiDisplayConfigurations.loanproduct.isHiddenFeild.isIRDEnabledConfig;
+            }
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
-                scope.changelabel(scope.product.isInterestAccrualEnabled);
+                scope.changelabel(scope.product.isPostIRDEnabled);
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
@@ -188,8 +191,8 @@
                     calculateIrr:scope.product.calculateIrr,
                     splitDisbursementForCharges:scope.product.splitDisbursementForCharges,
                     borrowerCycleType : scope.product.borrowerCycleType.id,
-                    enableoverdueaccounting: scope.product.isOverdueAccountingEnabled,
-                    enableaccrualinterest: scope.product.isInterestAccrualEnabled
+                    isOverdueAccountingEnabled: scope.product.isOverdueAccountingEnabled,
+                    isIRDEnabled: scope.product.isPostIRDEnabled
                 };
                 if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
                     scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
@@ -333,7 +336,7 @@
                 if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
                     scope.formData.fundSourceAccountId = scope.product.accountingMappings.fundSourceAccount.id;
                     scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
-                    if (scope.formData.enableoverdueaccounting) {
+                    if (scope.formData.isOverdueAccountingEnabled) {
                         scope.formData.overdueLoanPortfolioAccountId = scope.product.accountingMappings.overdueLoanPortfolioAccount.id;
                         scope.formData.overdueInterestOnLoansAccountId = scope.product.accountingMappings.overdueInterestOnLoansAccount.id;
                         scope.formData.overdueIncomeFromFeesAccountId = scope.product.accountingMappings.overdueIncomeFromFeesAccount.id;
@@ -343,7 +346,7 @@
                         scope.formData.receivableInterestAccountId = scope.product.accountingMappings.receivableInterestAccount.id;
                         scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccount.id;
                         scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccount.id;
-                        if (scope.formData.enableaccrualinterest) {
+                        if (scope.formData.isIRDEnabled) {
                             scope.formData.interestReceivableAndDueAccountId = scope.product.accountingMappings.interestReceivableAndDueAccount.id;
                         }
                     }
@@ -778,16 +781,16 @@
                 }
             };
 
-            scope.changelabel = function (enableaccrualinterest) {
-                if (enableaccrualinterest) {
+            scope.changelabel = function (isIRDEnabled) {
+                if (isIRDEnabled) {
                     scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
                 } else {
                     scope.interestReceivableLabel = "label.input.receivableinterest";
                 }
             };
             scope.resetStatus = function () {
-                scope.formData.enableoverdueaccounting = false;
-                scope.formData.enableaccrualinterest = false;
+                scope.formData.isOverdueAccountingEnabled = false;
+                scope.formData.isIRDEnabled = false;
                 scope.interestReceivableLabel = "label.input.receivableinterest";
             };
 
@@ -1111,15 +1114,15 @@
                 this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
 
-                if (!scope.formData.enableoverdueaccounting || _.isUndefined(scope.formData.enableoverdueaccounting) || _.isNull(scope.formData.enableoverdueaccounting)) {
-                    scope.formData.enableoverdueaccounting = false;
+                if (!scope.formData.isOverdueAccountingEnabled || _.isUndefined(scope.formData.isOverdueAccountingEnabled) || _.isNull(scope.formData.isOverdueAccountingEnabled)) {
+                    scope.formData.isOverdueAccountingEnabled = false;
                     delete scope.formData.overdueLoanPortfolioAccountId;
                     delete scope.formData.overdueInterestOnLoansAccountId;
                     delete scope.formData.overdueIncomeFromFeesAccountId;
                     delete scope.formData.overdueIncomeFromPenaltiesAccountId;
                 }
-                if (!scope.formData.enableaccrualinterest || _.isUndefined(scope.formData.enableaccrualinterest) || _.isNull(scope.formData.enableaccrualinterest)) {
-                    scope.formData.enableaccrualinterest = false;
+                if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
+                    scope.formData.isIRDEnabled = false;
                     delete scope.formData.interestReceivableAndDueAccountId;
                 }
 

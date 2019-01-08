@@ -1704,17 +1704,17 @@
 
     <div class="checkbox col-sm-2">
         <label>
-            <input type="checkbox" ng-model="formData.enableoverdueaccounting" />
+            <input type="checkbox" ng-model="formData.isOverdueAccountingEnabled" />
         </label>
     </div>
 </div>
-<div class="form-group" ng-show="isPeriodicAccrualAccountingEnabled()" ng-if="false">
+<div class="form-group" ng-show="isPeriodicAccrualAccountingEnabled() && isIRDEnabledConfig">
     <label class="control-label col-sm-2 width40">{{ 'label.input.enable.accrual.interest.receivable.notdue.due' |
         translate }}</label>
 
     <div class="checkbox col-sm-2">
         <label>
-            <input type="checkbox" ng-model="formData.enableaccrualinterest" ng-change="changelabel(formData.enableaccrualinterest)" />
+            <input type="checkbox" ng-model="formData.isIRDEnabled" ng-change="changelabel(formData.isIRDEnabled)" />
         </label>
     </div>
 </div>
@@ -1776,7 +1776,7 @@
             <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
-    <div ng-show="formData.enableaccrualinterest">
+    <div ng-show="formData.isIRDEnabled">
         <label class="control-label col-sm-2">{{ 'label.input.interest.receivable.and.due' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.overdueloanportfolio' | translate}}"></i>
         <div class="col-sm-3">
@@ -1979,7 +1979,7 @@
     </div>
     <hr>
 </div>
-<div class="form-group" ng-show="formData.enableoverdueaccounting">
+<div class="form-group" ng-show="formData.isOverdueAccountingEnabled">
     <h3>{{'label.heading.overdue' | translate}}
     </h3>
 
