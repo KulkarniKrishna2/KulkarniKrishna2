@@ -25,7 +25,7 @@
                     staffId: data.staffId
                 };
 
-                if (!scope.isWorkflowEnabled && data.activationDate) {
+                if (data.activationDate) {
                     var newDate = dateFilter(data.activationDate, scope.df);
                     scope.first.date = new Date(newDate);
                 }
