@@ -1,0 +1,205 @@
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' |
+				translate}}</a></li>
+        <li><a href="#/viewbulktransfer">{{'label.anchor.bulk.transfer' |
+				translate}}</a></li>
+        <li class="active">{{'label.anchor.reassign.staff' | translate}}
+        </li>
+    </ul>
+    <form class="form-horizontal well" novalidate="" ng-controller="InitiateBulkTransferController" name="staffReassignForm">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.reassign.staff' | translate}}
+            </legend>
+            <div class="form-group">
+
+                <table class="col-sm-6">
+                    <tbody>
+                        <tr>
+                            <td class="width14">
+                                <label class="control-label">{{'label.menu.selectoffice' | translate }}
+                                    <span class="required">*</span>
+                                </label>
+                            </td>
+                            <td class="width36 paddedbottom10">
+                                <select chosen="offices" name="fromOfficeId" id="fromOfficeId" ng-model="formData.fromOfficeId" data-ng-options="office.id as office.name for office in offices" data-ng-change="getFromStaffOptions(formData.fromOfficeId)" class="form-control">
+                                    <option value="">{{'label.selectoffice' | translate}}</option>
+                                </select>
+                                <form-validate valattributeform="staffReassignForm" valattribute="fromOfficeId" />
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td class="width14">
+                                <label class="control-label">{{ 'label.menu.selectloanofficer' | translate }}<span class="required">*</span>
+                                </label>
+                            </td>
+                            <td class="width36 paddedbottom10">
+                                <select chosen="fromStaffOptions" id="fromStaffId" name="fromStaffId" ng-model="formData.fromStaffId" data-ng-options="officer.id as officer.displayName for officer in fromStaffOptions" class="form-control">
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                                <form-validate valattributeform="staffReassignForm" valattribute="fromStaffId" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="width14" ng-if="showAssignToStaff">
+                                <label class="control-label">
+                                    {{'label.input.assign.to.staff' | translate }}<span class="required">*</span>
+                                </label>
+                            </td>
+
+                            <td class="width36 paddedbottom10" ng-if="showAssignToStaff">
+                                <select chosen="toStaffOptions" id="toStaffId" name="toStaffId" ng-model="formData.toStaffId" data-ng-options="officer.id as officer.displayName for officer in toStaffOptions" class="form-control">
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                                <form-validate valattributeform="staffReassignForm" valattribute="toStaffId" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="width14"></td>
+                            <td class="width36 paddedbottom10">
+                                <button class="btn btn-primary col-md-offset-3" ng-click="getDataForTransfer()">{{'label.button.search'| translate}}
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div ng-if="recordsStatus()">
+                <p> {{'label.message.no.records.found' | translate}} </p>
+            </div>
+
+            <div class="row paddedleft">
+                <div>
+                    <div class="form-group">
+                        <table ng-if="showAssignToStaff">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" ng-model="selectAll.checked" ng-change="selectAll(selectAll.checked)" />
+                                    </td>
+                                    <td>
+                                        <label class="col-offset-sm-1">{{'label.input.selectall' | translate}}</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="centers">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.centerdetails' | translate}}</strong>&nbsp;
+                                    <input type="checkbox" ng-model="allCenter.checked" ng-change="selectAllCenters(allCenter.checked)" />
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat-start="center in centers">
+                                    <td>
+                                        <button type="button" style="border: 0" ng-click="expandAll(center, allExpanded = !allExpanded)">
+                                            <span ng-bind="allExpanded ? '-' : '+'"></span>
+                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td>&nbsp;&nbsp;
+                                        <input class="pull-left" type="checkbox" ng-model="center.checked" ng-change="centerLevel(center.checked,center.id)">&nbsp;&nbsp;<strong>{{center.name}}</strong>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="center.isExpanded">
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat-start="group in center.groupMembers">
+                                                    <td>
+                                                        <button type="button" style="border: 0" ng-if="group.clientMembers" ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
+                                                            <span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+                                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
+                                                </tr>
+                                                <tr ng-repeat-end ng-if="group.isExpanded">
+                                                    <td></td>
+                                                    <td>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr ng-repeat="client in group.clientMembers">
+                                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{client.displayName}}</strong></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="groups">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.groupdetails' | translate}}</strong>&nbsp;
+                                    <input type="checkbox" ng-model="allGroups.checked" ng-change="selectAllGroups(allGroups.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat-start="group in groups">
+                                    <td>
+                                        <button ng-if="group.clientMembers" type="button" style="border: 0" ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
+                                            <span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input class="pull-left" type="checkbox" ng-model="group.checked" ng-change="getSelectedGroupDetails(group.checked, group.id)"><strong>{{group.name}}</strong></td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="group.isExpanded">
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat="client in group.clientMembers">
+                                                    <td><strong>{{client.displayName}}</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="clients">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.clientdetails' | translate}}</strong> &nbsp;
+                                    <input type="checkbox" ng-model="allClients.checked" ng-change="selectAllClients(allClients.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat="client in clients">
+                                    <td>
+                                        <input class="pull-left" type="checkbox" ng-model="client.checked" ng-change="getSelectedClientsDetails(client.checked, client.id)">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td><strong>{{client.displayName}}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-3" ng-if="showAssignToStaff">
+                <a href="#/viewbulktransfer">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button class="btn btn-primary" class="btn btn-primary" ng-click="reassignStaff()" has-permission='SUBMIT_TRANSFER_ENTITIES'>{{'label.button.submit' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

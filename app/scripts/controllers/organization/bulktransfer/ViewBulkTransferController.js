@@ -48,15 +48,21 @@
             };
 
             scope.routeTo = function(id){
-                var uri = '/viewbulktransfer/'+id;
-                location.path(uri);
+                scope.initPage();
             }
-
+         
             scope.submit = function (action) {
             	resourceFactory.bulkTransferResource.actions({branchTransferId:routeParams.id,command : action},{},function (data) {
-                    scope.routeTo(routeParams.id);
+                    scope.initPage();
                 });
             }
+
+            scope.entityExists = function(entityArray, entityId){
+                if(entityArray.findIndex(x=>x.id == entityId) != -1){
+                    return true;
+                } 
+                return false;
+            };
         }
     });
     mifosX.ng.application.controller('ViewBulkTransferController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', mifosX.controllers.ViewBulkTransferController]).run(function ($log) {

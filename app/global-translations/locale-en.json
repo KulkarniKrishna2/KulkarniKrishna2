@@ -7744,6 +7744,13 @@
     "label.input.overdue.income.from.penalties": "Overdue  Penalties Receivable",
     "label.input.interest.receivable.and.not.due": "Interest Receivable and not due",
     "error.msge.select.document.of.the.type.image/jpeg.image/jpg.image/png.image/gif.application/pdf" : "Please Select the Document of type:image/jpeg,image/jpg,image/png,image/gif,application/pdf",
+    "label.anchor.reassign.staff" : "Reassign Staff",
+    "label.define.reassign.staff":"Reassign entities from one staff to another staff",
+    "label.message.no.records.found":"No records found",
+    "validation.msg.bulktransfer.toStaffId.cannot.be.blank" : "Assign to staff cannot be blank",
+    "validation.msg.bulktransfer.fromOfficeId.cannot.be.blank" : "Please select the office ",
+    "validation.msg.bulktransfer.toOfficeId.cannot.be.blank" : "Please select the office",
+    "validation.msg.bulktransfer.fromStaffId.same.as.toStaffId" : "From and to staff cannot be same. ",
 
      "------ end of translation file ------":"---------"
 }

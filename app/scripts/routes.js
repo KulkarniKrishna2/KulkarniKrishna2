@@ -1941,6 +1941,9 @@
             .when('/transferwhileactivation/:clientId', {
                 templateUrl: 'views/clients/transferclientwhileactivation.html'
             })
+            .when('/reassignstaff/:isStaffReassignment', {
+                templateUrl: 'views/organization/bulktransfer/bulkstaffreassign.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

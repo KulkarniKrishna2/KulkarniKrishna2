@@ -2,7 +2,7 @@
 	<ul class="breadcrumb">
 		<li><a href="#/organization">{{'label.anchor.organization' |
 				translate}}</a></li>
-		<li><a href="#/bulktransfer">{{'label.anchor.bulk.transfer' |
+		<li><a href="#/bulktransfer">{{'label.anchor.view.bulk.transfer' |
 				translate}}</a></li>
 		<li class="active">{{'label.anchor.bulk.transfer.request' |
 			translate}}</li>
@@ -28,18 +28,18 @@
                     <b>{{ 'label.heading.from.staff' | translate }}:</b>
                 </td>
                 <td  class="col-sm-3" align="left">
-                    <label>{{bulkTransfer.fromStaff.name}}</label>
+                    <label>{{bulkTransfer.fromStaff.displayName}}</label>
                 </td>
                 <td  class="col-sm-3" align="right">
                     <b>{{ 'label.heading.to.staff' | translate }}:</b>
                 </td>
                 <td  class="col-sm-3" align="left">
-                    <label>{{bulkTransfer.toStaff.name}}</label>
+                    <label>{{bulkTransfer.toStaff.displayName}}</label>
                 </td>
 
             </tr>
             <tr>
-                <td  class="col-sm-3"align="right">
+                <td  class="col-sm-3" align="right">
                     <b>{{ 'label.heading.is.transfer.staff' | translate }}:</b>
                 </td>
                 <td  class="col-sm-2" align="left">
@@ -59,7 +59,7 @@
 			<legend>{{'label.heading.requested.data' |
 				translate}}</legend>
 
-			<div class="row paddedleft">
+			<div class="row paddedleft" ng-if="bulkTransfer.status.id==pendingState">
 				<div>
 					<div class="form-group" data-ng-show="centers">
 						<table>
@@ -69,15 +69,13 @@
 									<hr/>
 								</tr>
 								<tr ng-repeat-start="center in centers">
-									<td>
+									<td ng-if= "entityExists(selectedCenters, center.id)">
 										<button type="button" style="border: 0"
 											ng-click="expandAll(center, allExpanded = !allExpanded)">
 											<span ng-bind="allExpanded ? '-' : '+'"></span>
 										</button>&nbsp;&nbsp;&nbsp;&nbsp;
-									</td>
-									<td>&nbsp;&nbsp;<input class="pull-left" type="checkbox"
-										ng-model="center.checked"
-										ng-checked="selectedCenters.indexOf(center.id) != -1" ng-disabled = "true">&nbsp;&nbsp;<strong>{{center.name}}</strong>
+									</td>{{center.id}}
+									<td ng-if= "entityExists(selectedCenters, center.id)">&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{center.name}}</strong>
 									</td>
 								</tr>
 								<tr ng-repeat-end ng-if="center.isExpanded">
@@ -93,57 +91,15 @@
 																ng-bind="goupExpanded ? '-' : '+'"></span>
 														</button>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td>
-													<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="pull-left"
-														type="checkbox" ng-model="group.checked"
-														ng-change="groupLevel(group.checked, center.id, group.id)">&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
 												</tr>
 												<tr ng-repeat-end ng-if="group.isExpanded">
 													<td></td>
 													<td>
 														<table>
 															<tbody>
-																<tr ng-repeat-end
-																	ng-if="group.isExpanded && group.loanAccountSummaryDatas.length>0 && group.loanAccountSummaryDatas!=undefined">
-																	<td></td>
-																	<td>
-																		<table>
-																			<tbody>
-																				<tr
-																					ng-repeat="loan in group.loanAccountSummaryDatas">
-																					<td><input class="pull-left" value="loan.id"
-																						type="checkbox" ng-model="loan.checked"
-																						ng-change="loanAccountLevelOnlyGroup(loan.checked, center.id, group.id,loan.id);accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
-																				</tr>
-																			</tbody>
-																		</table>
-																	</td>
-																</tr>
-																<tr ng-repeat-start="client in group.clientMembers">
-																	<td>
-																		<button type="button" style="border: 0"
-																			ng-click="expandClient(client, clientExpanded = !clientExpanded)">
-																			<span ng-bind="clientExpanded ? '-' : '+'"></span>
-																		</button>&nbsp;&nbsp;&nbsp;&nbsp;
-																	</td>
-																	<td>&nbsp;&nbsp;&nbsp;&nbsp;<input
-																		class="pull-left" type="checkbox"
-																		ng-model="client.checked"
-																		ng-change="clientLevel(client.checked, center.id, group.id, client.id)" ng-disabled = "true">&nbsp;&nbsp;<strong>{{client.displayName}}</strong></td>
-																</tr>
-																<tr ng-repeat-end ng-if="client.isExpanded">
-																	<td></td>
-																	<td>
-																		<table>
-																			<tbody>
-																				<tr
-																					ng-repeat="loan in client.loanAccountSummaryDatas">
-																					<td><input class="pull-left" value="loan.id"
-																						type="checkbox" ng-model="loan.checked"
-																						ng-change="loanAccountLevel(loan.checked, center.id, group.id, client.id, loan.id);accounts(loan.checked,loan.id)">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
-																				</tr>
-																			</tbody>
-																		</table>
-																	</td>
+																<tr ng-repeat="client in group.clientMembers">
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{client.displayName}}</strong></td>
 																</tr>
 															</tbody>
 														</table>
@@ -165,39 +121,20 @@
 									<hr/>
 								</tr>
 								<tr ng-repeat-start="group in groups">
-									<td>
+									<td ng-if= "entityExists(selectedGroups, group.id)">
 										<button type="button" style="border: 0"
 											ng-click="expandGroup(group, goupExpanded = !goupExpanded)">
 											<span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
 										</button>&nbsp;&nbsp;&nbsp;&nbsp;
 									</td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="pull-left"
-										type="checkbox" ng-checked="selectedGroups.indexOf(group.id) != -1" ng-disabled = "true"><strong>{{group.name}}</strong></td>
+									<td ng-if= "entityExists(selectedGroups, group.id)">&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
 								</tr>
 								<tr ng-repeat-end ng-if="group.isExpanded">
 									<td></td>
 									<td>
 										<table>
 											<tbody>
-												<tr ng-repeat-end
-													ng-if="group.isExpanded && group.loanAccountSummaryDatas.length>0 && group.loanAccountSummaryDatas!=undefined">
-													<td></td>
-													<td>
-														<table>
-															<tbody>
-																<tr ng-repeat="loan in group.loanAccountSummaryDatas">
-																	<td>{{loan.productName}}({{loan.accountNo}})<td>				
-																</tr>
-															</tbody>
-														</table>
-													</td>
-												</tr>
 												<tr ng-repeat="client in group.clientMembers">
-													<td>
-														<button type="button" style="border: 0">
-															<span>-</span>
-														</button>&nbsp;&nbsp;&nbsp;&nbsp;
-													</td>
 													<td><strong>{{client.displayName}}</strong></td>
 												</tr>
 											</tbody>
@@ -215,27 +152,72 @@
 									<strong>{{'label.heading.clientdetails' | translate}}</strong>
 									<hr/>
 								</tr>
-								<tr ng-repeat="client in clients">
-									<td><input class="pull-left"
-										type="checkbox" ng-checked="selectedClients.indexOf(client.id) != -1" ng-disabled = "true">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-								    <td><strong>{{client.displayName}}</strong></td>
+								<tr ng-repeat="client in clients"  ng-if= "entityExists(selectedClients, client.id)">
+										<td>
+												<button type="button" style="border: 0">
+													<span>-</span>
+												</button>&nbsp;&nbsp;&nbsp;&nbsp;
+											</td>
+								    <td ng-if= "entityExists(selectedClients, client.id)"><strong>{{client.displayName}}</strong></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-offset-3" ng-show="bulkTransfer.status.id==pendingState">
+			<div class="col-md-offset-3" ng-if="bulkTransfer.status.id==pendingState">
 				<a>
-					<button type="button" ng-click="submit('reject')" class="btn btn-default">{{'label.button.reject'
+					<button type="button" ng-click="submit('reject')" class="btn btn-default" has-permission='REJECT_TRANSFER_ENTITIES'>{{'label.button.reject'
 						| translate}}</button>
 				</a>
 				<a class="btn btn-primary" class="btn btn-primary"
-					ng-click="submit('approve')">{{'label.button.approve' |
+					ng-click="submit('approve')"  has-permission='APPROVE_TRANSFER_ENTITIES'>{{'label.button.approve' |
 					translate}}</a>
+			</div>
+		
+			<div class="row paddedleft" ng-if="bulkTransfer.status.id!=pendingState">
+				<div>
+					<div class="form-group" data-ng-show="selectedCenters">
+						<table>
+							<tbody>
+								<tr><strong>{{'label.heading.centerdetails' | translate}}</strong>
+									<hr/>
+								</tr>	
+								<tr ng-repeat="center in selectedCenters">
+									<td><button type="button" style="border: 0"><span>-</span>
+									</button></td>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{center.name}}</strong></td>
+									</tr>							
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedGroups">
+						<table>
+							<tbody>
+								<tr>
+									<hr/><strong>{{'label.heading.groupdetails' | translate}}</strong><hr/>
+								</tr>
+								<tr ng-repeat="group in selectedGroups">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>	
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{group.name}}</strong></td>
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedClients">
+						<table>
+							<tbody>
+								<tr><hr/><strong>{{'label.heading.clientdetails' | translate}}</strong><hr/></tr>
+								<tr ng-repeat="client in selectedClients">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>
+									<td><strong>{{client.name}}</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</fieldset>
 	</form>
-
     </div>
 </div>
