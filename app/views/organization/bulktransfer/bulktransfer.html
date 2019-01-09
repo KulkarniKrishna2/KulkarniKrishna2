@@ -3,7 +3,7 @@
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li><a href="#/viewbulktransfer">{{'label.anchor.bulk.transfer' |
                 translate}}</a></li>
-        <li class="active">{{'label.anchor.bulk.transfer' | translate}}</li>
+        <li class="active">{{'label.anchor.view.bulk.transfer' | translate}}</li>
     </ul>
     <table class="table well" >
         <thead>
@@ -21,8 +21,8 @@
             <td>{{bulkTransfer.status.value}}</td>
             <td>{{bulkTransfer.fromOffice.name}}</td>
             <td>{{bulkTransfer.toOffice.name}}</td>
-            <td>{{bulkTransfer.fromStaff.name}}</td>
-            <td>{{bulkTransfer.toStaff.name}}</td>
+            <td>{{bulkTransfer.fromStaff.displayName}}</td>
+            <td>{{bulkTransfer.toStaff.displayName}}</td>
             <td>{{bulkTransfer.isStaffTransfer}}</td>
         </tr>
         </tbody>
