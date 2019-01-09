@@ -2970,6 +2970,7 @@
 	"label.heading.cashmgmt.cashier.txnAmountCashIn": "uang masuk",
 	"label.heading.cashmgmt.cashier.txnAmountCashOut": "uang keluar",
 	"label.heading.cashmgmt.cashier.txnAmountSettle": "penyelesaian",
+	"label.heading.cashmgmt.cashier.txnAmountDescription":"Deskripsi",
 	"label.heading.cashmgmt.cashier.netAmount": "net",
 	"label.input.cashiername": "kasir",
 	"label.input.cashierallocationdetails": "periode tugas",

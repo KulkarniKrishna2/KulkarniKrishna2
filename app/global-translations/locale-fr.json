@@ -3573,6 +3573,7 @@
 	"label.heading.cashmgmt.cashier.txnAmountCashIn": "Encaisser",
 	"label.heading.cashmgmt.cashier.txnAmountCashOut": "Payer",
 	"label.heading.cashmgmt.cashier.txnAmountSettle": "Accord",
+	"label.heading.cashmgmt.cashier.txnAmountDescription":"La description",
 	"label.heading.cashmgmt.cashier.netAmount": "Net",
 	"label.input.cashiername": "Caisse",
 	"label.input.cashierallocationdetails": "Période d'affectation",

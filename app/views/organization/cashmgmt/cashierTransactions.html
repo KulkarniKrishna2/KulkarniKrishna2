@@ -50,6 +50,7 @@
                 <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountCashIn' | translate}}: {{cashierSummaryAndTxns.sumInwardCash | number}}</th>
                 <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountCashOut' | translate}}: {{cashierSummaryAndTxns.sumOutwardCash | number}}</th>
                 <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountSettle' | translate}}: {{cashierSummaryAndTxns.sumCashSettlement | number}}</th>
+                <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountDescription' | translate}} </th>
                 <th></th>
 
             </tr>
@@ -76,6 +77,7 @@
                 <td >
                     <span ng-if="txn.txnType.value == 'Settle Cash'">{{txn.txnAmount | number}}</span>
                 </td>
+                <td>{{txn.txnNote }}</td>
             </tr>
             </tbody>
         </table>

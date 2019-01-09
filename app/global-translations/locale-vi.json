@@ -3368,6 +3368,7 @@
 	"label.heading.cashmgmt.cashier.txnAmountCashIn": "Tiền vào",
 	"label.heading.cashmgmt.cashier.txnAmountCashOut": "Tiền ra",
 	"label.heading.cashmgmt.cashier.txnAmountSettle": "Giải quyết/Duyệt",
+	"label.heading.cashmgmt.cashier.txnAmountDescription":"Sự miêu tả",
 	"label.heading.cashmgmt.cashier.netAmount": "Tịnh/Net",
 	"label.input.cashiername": "Thu ngân",
 	"label.input.cashierallocationdetails": "Giai đoạn đưa ra",
