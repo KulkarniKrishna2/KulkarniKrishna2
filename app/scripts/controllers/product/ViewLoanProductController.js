@@ -24,8 +24,10 @@
                 }
                 if(data.accountingRule.id == 3){
                     scope.isPeriodicAccrualAccountingEnabled = true;
-                    scope.isInterestAccrualEnabled = data.isInterestAccrualEnabled;
-                    scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
+                    scope.isPostIRDEnabled = data.isPostIRDEnabled;
+                    if (scope.isPostIRDEnabled) {
+                        scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
+                    }
                 }
 
                 if(scope.loanproduct.multiDisburseLoan && scope.loanproduct.maxTrancheCount != undefined) {

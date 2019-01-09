@@ -526,6 +526,11 @@
 			"isReadOnlyField": {
 			"activationDate":false
 			}
+		},
+		"loanproduct": {
+			"isHiddenFeild": {
+				"isIRDEnabledConfig": true
+			}
 		}
 	}
 }

@@ -50,6 +50,9 @@
             scope.interestRate = {};
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanproduct && scope.response.uiDisplayConfigurations.loanproduct.isHiddenFeild) {
+                scope.isIRDEnabledConfig = !scope.response.uiDisplayConfigurations.loanproduct.isHiddenFeild.isIRDEnabledConfig;
+            }
             scope.allowLoanProductForGroupBankAccount = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccount);
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -429,16 +432,16 @@
                 }
             };
 
-            scope.changelabel = function (enableaccrualinterest) {
-                if (enableaccrualinterest) {
+            scope.changelabel = function (isIRDEnabled) {
+                if (isIRDEnabled) {
                     scope.interestReceivableLabel = "label.input.interest.receivable.and.not.due";
                 } else {
                     scope.interestReceivableLabel = "label.input.receivableinterest";
                 }
             };
             scope.resetStatus = function () {
-                scope.formData.enableoverdueaccounting = false;
-                scope.formData.enableaccrualinterest = false;
+                scope.formData.isOverdueAccountingEnabled = false;
+                scope.formData.isIRDEnabled = false;
                 scope.interestReceivableLabel = "label.input.receivableinterest";
             };
         scope.submit = function () {
@@ -676,15 +679,15 @@
                     }
                 }
             }
-            if (!scope.formData.enableoverdueaccounting || _.isUndefined(scope.formData.enableoverdueaccounting) || _.isNull(scope.formData.enableoverdueaccounting)) {
-                delete scope.formData.enableoverdueaccounting;
+            if (!scope.formData.isOverdueAccountingEnabled || _.isUndefined(scope.formData.isOverdueAccountingEnabled) || _.isNull(scope.formData.isOverdueAccountingEnabled)) {
+                delete scope.formData.isOverdueAccountingEnabled;
                 delete scope.formData.overdueLoanPortfolioAccountId;
                 delete scope.formData.overdueInterestOnLoansAccountId;
                 delete scope.formData.overdueIncomeFromFeesAccountId;
                 delete scope.formData.overdueIncomeFromPenaltiesAccountId;
             }
-            if (!scope.formData.enableaccrualinterest || _.isUndefined(scope.formData.enableaccrualinterest) || _.isNull(scope.formData.enableaccrualinterest)) {
-                delete scope.formData.enableaccrualinterest;
+            if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
+                delete scope.formData.isIRDEnabled;
                 delete scope.formData.interestReceivableAndDueAccountId;
             }
 

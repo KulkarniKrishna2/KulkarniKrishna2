@@ -243,6 +243,11 @@
 			"isHiddenFeild": {
 				"clientForNoRepayments": true
 			}
+		},
+		"loanproduct": {
+			"isHiddenFeild": {
+				"isIRDEnabledConfig": false
+			}
 		}
 	}
 }
