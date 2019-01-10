@@ -24,6 +24,11 @@
             scope.applicableOnDisbursement = 2;
             scope.manualPaymentMode = 3;
 
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {
+                scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
+            }
+
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.applicationData = applicationData;
                 scope.formData.clientId = applicationData.clientId;
@@ -34,20 +39,20 @@
                     if(scope.applicationData.expectedDisbursalPaymentType.paymentMode){
                         scope.disbursementMode = scope.applicationData.expectedDisbursalPaymentType.paymentMode.id;
                     }else{
-                        scope.disbursementMode = scope.manualPaymentMode;
+                        //scope.disbursementMode = scope.manualPaymentMode;
                     }
                 }else{
-                        scope.disbursementMode = scope.manualPaymentMode;
+                        //scope.disbursementMode = scope.manualPaymentMode;
                 }
                 if(scope.applicationData.expectedRepaymentPaymentType){
                     scope.formData.expectedRepaymentPaymentType = scope.applicationData.expectedRepaymentPaymentType.id;
                     if(scope.applicationData.expectedRepaymentPaymentType.paymentMode){
                         scope.repaymentMode = scope.applicationData.expectedRepaymentPaymentType.paymentMode.id;
                     }else{
-                        scope.repaymentMode = scope.manualPaymentMode;
+                        //scope.repaymentMode = scope.manualPaymentMode;
                     }
                 }else{
-                        scope.repaymentMode = scope.manualPaymentMode;
+                        //scope.repaymentMode = scope.manualPaymentMode;
                 }
                 
                 if(scope.applicationData.allowUpfrontCollection || scope.applicationData.amountForUpfrontCollection){
@@ -448,6 +453,10 @@
                                 scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.disbursementMode) && 
                                 (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
                                 scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                            }else{
+                                if(scope.formData && scope.formData.expectedDisbursalPaymentType){
+                                    scope.formData.expectedDisbursalPaymentType = undefined;
+                                }                               
                             }
                         }
                 }
