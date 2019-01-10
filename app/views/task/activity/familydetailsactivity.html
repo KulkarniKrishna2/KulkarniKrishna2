@@ -83,12 +83,17 @@
 
                     <div class="form-group">
 
-                        <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}<span
-                                class="required">*</span></label>
+                        <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}<span
+                            class="required">*</span></label>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="formData.dateOfBirth"
+                            min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
+                        </div>
                         <div class="col-sm-2">
-                            <input id="age" type="text" name="age"
-                                   ng-model="formData.age" class="form-control" required late-validate/>
-                                <form-validate valattributeform="createFamilyDetails" valattribute="age"/>
+                            <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
+                            <form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
                         </div>
 
                     </div>
@@ -168,6 +173,7 @@
             <tr>
                 <th>{{ 'label.heading.name' | translate }}</th>
                 <th>{{ 'label.heading.relationship' | translate }}</th>
+                <th>{{ 'label.input.dateOfBirth' | translate }}</th>
                 <th>{{ 'label.heading.age' | translate }}</th>
                 <th>{{ 'label.heading.dependent' | translate }}</th>
                 <th>{{ 'label.heading.medical.condition' | translate }}</th>
@@ -180,6 +186,7 @@
             <tr ng-repeat="familyMember in familyMembers">
                 <td>{{familyMember.firstname}} {{familyMember.lastname}}</td>
                 <td>{{familyMember.relationship.name}}</td>
+                <td>{{familyMember.dateOfBirth | DateFormat}}</td>
                 <td>{{familyMember.age}}</td>
                 <td>{{familyMember.isDependent == true ? 'Yes' : 'No'}}</td>
                 <td>{{familyMember.isSeriousIllness == true ? 'Yes' : 'No'}}</td>

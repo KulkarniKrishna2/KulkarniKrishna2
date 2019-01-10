@@ -6,6 +6,8 @@
             scope.familyDetailId = routeParams.familyDetailId;
             scope.isExisitingClient = false;
             scope.showOrHideSearch = false;
+            scope.formData = {};
+            scope.isDateOfBirthMandatory = false;
 
             scope.salutationOptions = [];
             scope.relationshipOptions = [];
@@ -13,6 +15,38 @@
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
+            scope.minAge = 0;
+            scope.maxAge = 0;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
+                scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth){
+                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
+                    scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
+
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge > 0) {
+                    scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
+                }
+            } else{
+                scope.minAge = 0;
+                scope.maxAge = scope.restrictDate;
+
+            }
+            scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
+            scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
+            function getMaximumRestrictedDate(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
+                return restrictedDate;
+            };
+
+            function getMinimumRestrictedDate(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
+                return restrictedDate;
+            };
 
             resourceFactory.familyDetailsTemplate.get({clientId: scope.clientId}, function (data) {
                 scope.salutationOptions = data.salutationOptions;
@@ -26,13 +60,14 @@
                     familyDetailId: scope.familyDetailId
                 }, function (data) {
                     //console.log(JSON.stringify(data));
-                    scope.formData = {};
                     scope.formData.firstname = data.firstname;
                     scope.formData.middlename = data.middlename;
                     scope.formData.lastname = data.lastname;
-                    if(scope.formData.dateOfBirth){
+                    if(data.dateOfBirth){
                         scope.formData.dateOfBirth = dateFilter(new Date(data.dateOfBirth), scope.df);
                     }
+                    scope.age = data.age;
+                    scope.displayAge = true;
                     scope.formData.age = data.age;
                     scope.formData.isDependent = data.isDependent;
                     scope.formData.isSeriousIllness = data.isSeriousIllness;
@@ -62,7 +97,19 @@
                 });
             });
 
-
+            scope.$watch('formData.dateOfBirth', function(newValue, oldValue){
+                if(scope.formData.dateOfBirth != null)
+                {
+                    var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    scope.displayAge = true;
+                    scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    scope.formData.age = scope.age;
+                }else{
+                    scope.displayAge = false;
+                }
+            });
+               
 
             scope.routeTo = function () {
                 if( scope.formData.clientReference ){
@@ -123,9 +170,11 @@
                             scope.formData.dateOfBirth  = dateOfBirth;
                             var age = Math.floor((new Date() - new Date(dateOfBirth)) / (31557600000));
                             scope.formData.age = age;
+                            scope.age = age;
                         } else {
                             scope.formData.dateOfBirth = undefined;
                             scope.formData.age = undefined;
+                            scope.age = undefined;
                         }
                     }
                 });
