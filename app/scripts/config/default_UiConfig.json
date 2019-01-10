@@ -397,7 +397,10 @@
 			"showReschedule" : true,
 			"showCreateTask" : true,
 			"disableVillageDropDown":false,
-			"hideReject":false
+			"hideReject": false,
+			"isReadOnlyField": {
+				"createSubGroupDate": false
+			}
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",

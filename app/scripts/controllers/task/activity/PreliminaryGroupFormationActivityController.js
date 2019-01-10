@@ -136,6 +136,10 @@
                 $scope.subGroupFormData.locale = scope.optlang.code;
                 $scope.subGroupFormData.dateFormat = scope.df;
                 $scope.subGroupFormData.active = true;
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.isReadOnlyField && scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.createSubGroupDate) {
+                    $scope.disableCreateSubGroupDate = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.createSubGroupDate;
+                }
 
                 $scope.submit = function () {
                     if ($scope.first.submitondate) {
