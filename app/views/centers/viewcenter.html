@@ -45,7 +45,7 @@
 	</div>
 
 	<div ng-if="center.isWorkflowEnabled">
-		<table ng-if="workFlows">
+		<table ng-if="workFlows  && !isClosedCenter">
 			<tr ng-repeat="workFlow in workFlows" ng-if="workFlow.parentWorkFlowStep && workFlow.status.value == 'initiated'">
 				<td>
 					{{'label.input.pending' | translate}}&nbsp;:&nbsp;
