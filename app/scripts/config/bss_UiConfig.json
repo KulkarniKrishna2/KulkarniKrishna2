@@ -131,7 +131,7 @@
 				"unassignStaffCenter": true,
 				"canCreateSubGroups": false,
 				"showAttendance":true
-			}
+			}			
 		},
 		"createOffice": {
 			"selfActive": true
@@ -162,7 +162,10 @@
 			"showReschedule" : false,
 			"showCreateTask" : false,
 			"disableVillageDropDown":true,
-			"hideReject":true
+			"hideReject": true,
+			"isReadOnlyField": {
+				"createSubGroupDate": true
+			}
 		},
 		"createVillage": {
 			"isReadOnlyField": {

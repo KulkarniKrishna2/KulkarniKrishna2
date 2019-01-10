@@ -36,7 +36,7 @@
 				<label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
 				<div class="col-sm-3">
 					<input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1"
-					min="'2000-01-01'" max="restrictDate" class="form-control" />
+					min="'2000-01-01'" max="restrictDate" class="form-control" ng-disabled="disableCreateSubGroupDate" />
 				</div>
 			</div>
 			<div class="form-group">
