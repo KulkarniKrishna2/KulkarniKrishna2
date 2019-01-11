@@ -33,7 +33,7 @@
 	    		<td>
 	    			<div class="col-sm-8">
 	    			<input id="txnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formData.txnDate"
-	                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+	                           class="form-control" is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                     </div>
 				</td>
 				<td>{{ 'label.input.currency' | translate }}<span class="required">*</span></td>

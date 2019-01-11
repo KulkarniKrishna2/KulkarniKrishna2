@@ -59,7 +59,7 @@
 
                 <div class="col-sm-3">
                     <input id="feeOnAnnualMonthDay" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
-                           ng-model="date.specificduedate" is-open="opened" class="form-control"/>
+                           ng-model="date.specificduedate" is-open="opened" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group" ng-show="!dueDateNotRequired && chargeTimeTypeAnnualOrMonth">

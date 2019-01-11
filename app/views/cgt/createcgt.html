@@ -28,7 +28,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" autocomplete="off" id="expectedStartDate" name="expectedStartDate" datepicker-pop="{{df}}"
-                           ng-model="formData.expectedStartDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                           ng-model="formData.expectedStartDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="createcgtform" valattribute="expectedStartDate"/>
@@ -40,7 +40,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" autocomplete="off" id="expectedEndDate" name="expectedEndDate" datepicker-pop="{{df}}"
-                           ng-model="formData.expectedEndDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                           ng-model="formData.expectedEndDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="createcgtform" valattribute="expectedEndDate"/>

@@ -397,7 +397,7 @@
                                        ng-model="formRequestData.expectedDisbursementDate"
                                        is-open="opened" min="minDate"
                                        max="'2020-06-22'"
-                                       class="form-control" required/>
+                                       class="form-control"  ng-readonly="isDatePickerReadOnly" required/>
                             </td>
                         </tr>
 
@@ -489,7 +489,7 @@
                                        ng-model="formRequestData.approvedOnDate"
                                        is-open="opened" min="minDate"
                                        max="restrictDate"
-                                       class="form-control" required/>
+                                       class="form-control" ng-readonly="isDatePickerReadOnly" required/>
                             </td>
                         </tr>
 
@@ -628,7 +628,7 @@
                                            placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                            ng-model="disbursementDetail.expectedTrancheDisbursementDate"
                                            is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
-                                           class="form-control" required ng-disabled="$index == 0"/>
+                                           class="form-control" ng-readonly="isDatePickerReadOnly" required ng-disabled="$index == 0"/>
 
                                     <label>
                                 <span class="error"
@@ -695,7 +695,7 @@
                                        class="form-control"
                                        placeholder="{{'label.input.duedate' | translate}}"
                                        ng-model="charge.dueDate"
-                                       is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
+                                       is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
                             </td>
                             <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i
                                     class="icon-remove icon-white"></i></a></td>

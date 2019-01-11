@@ -28,7 +28,7 @@
 	
 	                <div class="col-sm-3">
 	                    <input id="fromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
-	                           ng-model="date.first" is-open="opened" min="minDat" max="'2050-06-22'" class="form-control"/>
+	                           ng-model="date.first" is-open="opened" min="minDat" max="'2050-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 	                </div>
 	            </div>
 	            <div>
@@ -38,7 +38,7 @@
 	                <div class="col-sm-3">
 	                    <input id="toDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
 	                           ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"
-	                           class="form-control"/>
+	                           class="form-control" ng-readonly="isDatePickerReadOnly"/>
 	                </div>
 	            </div>
 	        </div>
@@ -62,7 +62,7 @@
 	
 	            <div class="col-sm-3">
 	                <input id="repaymentsRescheduledTo" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
-	                       ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control"/>
+	                       ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 	            </div>
 	        </div>
 	        <div class="form-group">

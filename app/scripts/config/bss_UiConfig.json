@@ -251,6 +251,9 @@
 			"isHiddenFeild": {
 				"isIRDEnabledConfig": false
 			}
+		},
+		"readOnlyFields": {
+			"datePicker": true
 		}
 	}
 }

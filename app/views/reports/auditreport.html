@@ -37,12 +37,12 @@
                     <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
                     <div class="col-sm-3">
                         <input id="startDate" type="text" autocomplete="off" name="startDate" datepicker-pop="{{df}}"
-                               ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened"  max="restrictDate" class="form-control"  ng-change="checkCriteria()"/>
+                               ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened"  max="restrictDate" class="form-control"  ng-change="checkCriteria()" ng-readonly="isDatePickerReadOnly"/>
                     </div>
                     <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                     <div class="col-sm-3">
                         <input id="endDate" type="text" autocomplete="off" name="endDate" datepicker-pop="{{df}}" ng-change="checkCriteria()"
-                               ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened"  max="restrictDate" class="form-control"/>
+                               ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened"  max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     </div>
                 </div>
 

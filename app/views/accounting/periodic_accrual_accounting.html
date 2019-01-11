@@ -14,7 +14,7 @@
 
                 <div class="col-sm-3">
                     <input id="accrueTill" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" is-open="opened"
-                           ng-model="accrueTill" min="'2000-01-01'" max="restrictDate"/>
+                           ng-model="accrueTill" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="col-md-offset-3">

@@ -336,7 +336,7 @@
 
 										<div class="col-sm-3">
 											<input id="documentIssueDate" type="text" autocomplete="off" name="documentIssueDate" datepicker-pop="{{df}}" ng-model="first.documentIssueDate"
-											    is-open="opened1" class="form-control" />
+											    is-open="opened1" class="form-control" ng-readonly="isDatePickerReadOnly" />
 										</div>
 									</div>
 									<div class="form-group" ng-hide="isHideDocumentExpiryDate">
@@ -344,7 +344,7 @@
 
 										<div class="col-sm-3">
 											<input id="documentExpiryDate" type="text" autocomplete="off" name="documentExpiryDate" datepicker-pop="{{df}}" ng-model="first.documentExpiryDate"
-											    is-open="opened1" class="form-control" />
+											    is-open="opened1" class="form-control" ng-readonly="isDatePickerReadOnly" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -588,7 +588,7 @@
 											</label>
 											<div class="col-sm-3">
 												<input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="familyMembersFormData.dateOfBirth" 
-													 is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+													 is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly" />
 												<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
 													| translate}}</span>
 											</div>
@@ -899,7 +899,7 @@
 												<td>
 													<input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
 													 placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate"
-													 max="'2020-06-22'" ng-if="charge.isShowDate"/>
+													 max="'2020-06-22'" ng-if="charge.isShowDate" ng-readonly="isDatePickerReadOnly"/>
 												</td>
 												
 												<td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'>

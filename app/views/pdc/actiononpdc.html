@@ -18,7 +18,7 @@
                                    datepicker-pop="{{df}}"
                                    class="form-control"
                                    ng-model="pdcActionData.date" is-open="opened" min="'2000-01-01'"
-                                   max="restrictDate" required/>
+                                   max="restrictDate" ng-readonly="isDatePickerReadOnly" required/>
                         </div>
                         <div class="col-sm-3">
                             <form-validate valattributeform="actiononpdcform" valattribute="onDate"/>

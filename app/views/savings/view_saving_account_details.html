@@ -116,7 +116,7 @@
             <div class="col-sm-3">
             	<input id="fromDate" class="date-disable form-control" readonly type="text" autocomplete="off"
 		                datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
-		                max="restrictDate"/>
+		                max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
             </div>
             <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
                     class="required">*</span></label>

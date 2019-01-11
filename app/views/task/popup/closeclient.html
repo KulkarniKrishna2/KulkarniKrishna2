@@ -17,7 +17,7 @@
                 <label class="control-label col-sm-3">{{ 'label.input.rejectdate' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-sm-4">
-                    <input id="closureDate" class="date-disable form-control col-sm-3" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="rejectClientData.closureDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  required late-Validate/>
+                    <input id="closureDate" class="date-disable form-control col-sm-3" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="rejectClientData.closureDate" is-open="opened" min="'2000-01-01'" max="restrictDate"  ng-readonly="isDatePickerReadOnly" required late-Validate/>
                 </div>
                 <div class="col-sm-5" ng-show="!isClosureDate">
                     <span class="error">{{'label.requiredfield' | translate}}</span>

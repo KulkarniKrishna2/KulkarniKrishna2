@@ -574,7 +574,7 @@
                                                        placeholder="{{'label.tooltip.disbursementon' | translate}}"
                                                        ng-model="formRequestData.disburse.actualDisbursementDate"
                                                        is-open="opened" min="minDate" max="maxDate"
-                                                       class="form-control"
+                                                       class="form-control" ng-readonly="isDatePickerReadOnly"
                                                        required/>
                                             </td>
 
@@ -593,7 +593,7 @@
                                                        type="text" autocomplete="off" datepicker-pop="{{df}}"
                                                        ng-model="date.repaymentsStartingFromDate" is-open="opened3"
                                                        min="minDate" max="maxDate" class="form-control"
-                                                       ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                                                       ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -634,7 +634,7 @@
                                                        ng-model="date.interestChargedFromDate"
                                                        is-open="opened2" min="minDate" max="maxDate"
                                                        class="form-control"
-                                                       ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate"/>
+                                                       ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
                                         </tr>
                                         <tr>

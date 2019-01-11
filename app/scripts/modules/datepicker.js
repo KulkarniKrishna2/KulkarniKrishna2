@@ -233,6 +233,11 @@ angular.module('modified.datepicker', ['strap.position'])
                 "        <strong><a ng-click=\"select(todayDate.date)\">{{'label.today' | translate}}: {{todayDate.label | translate}}</a></strong>\n" +
                 "      </td>\n" +
                 "    </tr>\n" +
+                "    <tr>\n" +
+                "      <td colspan=\"{{rows[0].length + showWeekNumbers}}\" class=\"text-center\" style=\"padding-top: 5px\">\n" +
+                "        <strong><a ng-click=\"clearAll()\">{{'label.button.clear' | translate}}</a></strong>\n" +
+                "      </td>\n" +
+                "    </tr>\n" +
                 "  </tbody>\n" +
                 "</table>\n",
             scope: {
@@ -242,7 +247,7 @@ angular.module('modified.datepicker', ['strap.position'])
             controller: 'DatepickController',
             link: function (scope, element, attrs, ctrls) {
                 var datepickerCtrl = ctrls[0], ngModel = ctrls[1];
-
+                
                 if (!ngModel) {
                     return; // do nothing if no ng-model
                 }
@@ -350,6 +355,10 @@ angular.module('modified.datepicker', ['strap.position'])
                         selected = date;
                         setMode(mode - 1);
                     }
+                };
+                scope.clearAll = function () {
+                    var date = undefined;
+                    ngModel.$setViewValue(date);
                 };
                 scope.move = function (direction) {
                     var step = datepickerCtrl.modes[mode].step;

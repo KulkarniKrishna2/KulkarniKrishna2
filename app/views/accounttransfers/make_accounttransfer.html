@@ -175,7 +175,7 @@
                     <label class="control-label col-sm-2" for="transferDate">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" autocomplete="off" id="transferDate" datepicker-pop="{{df}}" ng-model="formData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" />
+                        <input type="text" autocomplete="off" id="transferDate" datepicker-pop="{{df}}" ng-model="formData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly" />
                     </div>
                 </div>
                 <div class="form-group">

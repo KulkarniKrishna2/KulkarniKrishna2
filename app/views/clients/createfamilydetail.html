@@ -101,7 +101,7 @@
                     </label>
                     <div class="col-sm-3">
                         <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="formData.dateOfBirth" 
-                             is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+                             is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"  ng-readonly="isDatePickerReadOnly" />
                         <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year'
                             | translate}}</span>
                     </div>

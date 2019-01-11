@@ -49,7 +49,7 @@
 
                 <div class="col-sm-3">
                     <input id="documentIssueDate" type="text" autocomplete="off" name="documentIssueDate" datepicker-pop="{{df}}"
-                           ng-model="first.documentIssueDate" is-open="opened1" class="form-control"/>
+                           ng-model="first.documentIssueDate" is-open="opened1" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group" ng-hide="isHideDocumentExpiryDate">
@@ -57,7 +57,7 @@
 
                 <div class="col-sm-3">
                     <input id="documentExpiryDate" type="text" autocomplete="off" name="documentExpiryDate" datepicker-pop="{{df}}"
-                           ng-model="first.documentExpiryDate" is-open="opened1" class="form-control"/>
+                           ng-model="first.documentExpiryDate" is-open="opened1" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group">

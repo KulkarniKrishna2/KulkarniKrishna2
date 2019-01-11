@@ -48,7 +48,7 @@
 
                         <div class="col-sm-3">
                             <input id="activationDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
-                                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                 <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
                         class="required">*</span></label>
                 <!--<div class="col-sm-3">
-                    <input class="form-control" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened" min="mindate" max="restrictDate"/>
+                    <input class="form-control" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened" min="mindate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                 </div>-->
                 <div class="col-sm-3">
                     <input id="activatedOnDate" type="text" autocomplete="off" name="activatedOnDate" datepicker-pop="{{df}}"
-                           ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                           ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group">

@@ -26,7 +26,7 @@
 
             <div class="col-sm-3">
                 <input class="form-control" id="closingDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
-                       is-open="opened" min="'2000-01-01'" max="restrictDate" />
+                       is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly" />
             </div>
         </div>
 

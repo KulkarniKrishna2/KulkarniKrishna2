@@ -71,6 +71,9 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bc) {
                     scope.enableBc = scope.response.uiDisplayConfigurations.bc.enableBc;
                 }
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.readOnlyFields) {
+                    scope.isDatePickerReadOnly = scope.response.uiDisplayConfigurations.readOnlyFields.datePicker;
+                }
             });
             //hides loader
             scope.domReady = true;

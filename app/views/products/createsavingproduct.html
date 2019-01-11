@@ -358,7 +358,7 @@
 							<input type="text" autocomplete="off" id="effectiveFromDate"
 								   name="effectiveFromDate"
 								   datepicker-pop="{{df}}" is-open="opened"
-								   ng-model="floatingInterestRateChart.effectiveFromDate" class="form-control"/>
+								   ng-model="floatingInterestRateChart.effectiveFromDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 
                     			<small class="required" ng-show="effectiveFromDateRequired">
 									{{'label.error.required' | translate}}

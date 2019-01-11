@@ -158,7 +158,7 @@
                         <div class="col-sm-3">
                             <input id="startDate" class="date-disable form-control" readonly type="text" autocomplete="off"
                                    datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
-                                   max="restrictDate"/>
+                                   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                         <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
                                 class="required">*</span></label>
@@ -166,7 +166,7 @@
                         <div class="col-sm-3">
                             <input id="endDate" class="date-disable form-control" readonly type="text" autocomplete="off"
                                    datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
-                                   max="restrictDate"/>
+                                   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                     </div>
                     <div class="col-md-11 center" ng-show="viewLoanReport">
@@ -518,7 +518,7 @@
                                                        placeholder="{{'label.tooltip.disbursementon' | translate}}"
                                                        ng-model="formRequestData.disburse.actualDisbursementDate"
                                                        is-open="opened" min="minDate" max="restrictDate"
-                                                       class="form-control"
+                                                       class="form-control" ng-readonly="isDatePickerReadOnly"
                                                        required/>
                                             </td>
 
@@ -537,7 +537,7 @@
                                                        type="text" autocomplete="off" datepicker-pop="{{df}}"
                                                        ng-model="date.repaymentsStartingFromDate" is-open="opened3"
                                                        min="minDate" max="'2020-06-22'" class="form-control"
-                                                       ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                                                       ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -577,7 +577,7 @@
                                                        ng-model="date.interestChargedFromDate"
                                                        is-open="opened2" min="minDate" max="'2020-06-22'"
                                                        class="form-control"
-                                                       ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate"/>
+                                                       ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
                                         </tr>
                                         <tr>

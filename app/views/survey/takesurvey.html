@@ -26,7 +26,7 @@
                 <label class="control-label col-sm-2">{{'label.survey.done.on' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-2">
                     <input id="surveyedOn" type="text" autocomplete="off" name="surveyedOn" datepicker-pop="{{df}}"
-                           ng-model="formData.surveyedOn" is-open="opened1" class="form-control" required/>
+                           ng-model="formData.surveyedOn" is-open="opened1" class="form-control" ng-readonly="isDatePickerReadOnly" required/>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="takesurveyform" valattribute="surveyedOn"/>

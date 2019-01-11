@@ -31,7 +31,7 @@
             <input ng-if="formData.productId" id="submittedOnDate" name="submittedOnDate" sort type="text" autocomplete="off"
                    datepicker-pop="{{df}}"
                    ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
-                   class="form-control" required late-validate/>
+                   class="form-control" ng-readonly="isDatePickerReadOnly" required late-validate/>
             <form-validate valattributeform="newsavingccountform" valattribute="submittedOnDate"/>
         </td>
     </tr>
@@ -307,7 +307,7 @@
             </td>
             <td class="width36 paddedbottom10">
                 <input id="dpStartDate" name="dpStartDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
-                       ng-model="formData.dpStartDate" is-open="opened" class="form-control" required/>
+                       ng-model="formData.dpStartDate" is-open="opened" class="form-control"  ng-readonly="isDatePickerReadOnly" required/>
                 <form-validate valattributeform="newsavingccountform" valattribute="dpStartDate"/>
             </td>
         </tr>
@@ -350,14 +350,14 @@
                        readonly="isReadOnlyField"/>
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
                        type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="charge.dueDate" 
-                       is-open="opened" ng-switch-when='Specified due date'/>
+                       is-open="opened" ng-readonly="isDatePickerReadOnly" ng-switch-when='Specified due date'/>
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
                        type="text" autocomplete="off" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" 
                        is-open="opened" ng-switch-when='Monthly Fee' ng-disabled="isDisableField" 
                        readonly="isReadOnlyField"/>
                 <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
                        datepicker-pop="{{df}}" ng-model="charge.dueDate" 
-                       is-open="opened" ng-switch-when='Weekly Fee'/>
+                       is-open="opened" ng-readonly="isDatePickerReadOnly" ng-switch-when='Weekly Fee'/>
             </td>
             <td ng-switch on="charge.chargeTimeType.value">
                 <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text" autocomplete="off"

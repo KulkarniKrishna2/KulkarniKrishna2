@@ -41,7 +41,7 @@
                                datepicker-pop="{{df}}"
                                class="form-control"
                                ng-model="editSecurityPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
-                               max="restrictDate"/>
+                               max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                     </label>
                 </td>
                 <td class="pointer" data-ng-click="routeSecurityPDCTo(pdc.id,$index)">
@@ -148,7 +148,7 @@
                                datepicker-pop="{{df}}"
                                class="form-control"
                                ng-model="editRepaymentPDCData.chequeDate" is-open="opened" min="'2000-01-01'"
-                               max="restrictDate"/>
+                               max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                     </label>
                 </td>
                 <td class="pointer" data-ng-click="routeRepaymentPDCTo(pdc.id,$index)">

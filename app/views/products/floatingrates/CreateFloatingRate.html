@@ -66,7 +66,7 @@
                         <ng-form name="fromDate{{$index}}">
                         <input type="text" autocomplete="off" id="fromDate1" name="fromDate1" datepicker-pop="{{df}}"
                                ng-model="rateperiod.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
-                               class="form-control" required/>
+                               class="form-control" ng-readonly="isDatePickerReadOnly" required/>
                             <span class="error" ng-show="visitValidation&&fromDate{{$index}}.fromDate1.$error.required">{{ 'label.requirefield' | translate }}</span>
                         </ng-form>
                     </td>

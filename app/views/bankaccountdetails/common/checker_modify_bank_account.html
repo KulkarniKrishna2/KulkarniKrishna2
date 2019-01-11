@@ -203,7 +203,7 @@
                             <div class="col-sm-6">
                                 <input id="lastTransactionDate" type="text" autocomplete="off" name="lastTransactionDate"
                                        datepicker-pop="{{df}}" ng-model="formData.lastTransactionDate"
-                                       class="form-control" ng-required="isElemMandatory('lastTransactionDate')"/>
+                                       class="form-control" ng-readonly="isDatePickerReadOnly" ng-required="isElemMandatory('lastTransactionDate')"/>
                                 <div>
                                     <form-validate valattributeform="checkerbankaccountdetail" valattribute="lastTransactionDate"/>
                                 </div>

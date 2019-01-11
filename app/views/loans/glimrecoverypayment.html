@@ -16,7 +16,7 @@
                         <input id="transactionDate" type="text" autocomplete="off" 
                           class="form-control" datepicker-pop="{{df}}" min="minDate" 
                           max="'2020-06-22'"
-                          ng-model="formData.transactionDate"/>
+                          ng-model="formData.transactionDate" ng-readonly="isDatePickerReadOnly"/>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="glimrecoverypayment" valattribute="transactionDate"/>

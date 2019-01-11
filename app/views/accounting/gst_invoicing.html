@@ -32,7 +32,7 @@
                 <label class="control-label col-sm-2">{{'label.input.todate' | translate}}:&nbsp;</label>
                 <div class="col-sm-3">
                     <input id="toDate" type="text" autocomplete="off" name="toDate" datepicker-pop="{{df}}" ng-model="formData.toDate"
-                        max="restrictDate" ng-disabled="show" class="form-control" />
+                        max="restrictDate" ng-disabled="show" class="form-control" ng-readonly="isDatePickerReadOnly" />
                 </div>
             </div>
             <div ng-if="!show" class="center">

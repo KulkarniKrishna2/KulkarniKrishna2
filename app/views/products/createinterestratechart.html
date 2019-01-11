@@ -54,7 +54,7 @@
                             <div class="controls">
                                 <input id="fromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                        ng-model="fromDate.date"
-                                       is-open="opened" min="minDate" max="restrictDate"/>
+                                       is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                             </div>
                         </div>
                     </td>
@@ -66,7 +66,7 @@
                             <div class="controls">
                                 <input id="endDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                        ng-model="endDate.date"
-                                       is-open="opened" min="minDate" max="restrictDate"/>
+                                       is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                             </div>
                         </div>
                     </td>

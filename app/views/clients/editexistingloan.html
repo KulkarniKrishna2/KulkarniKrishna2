@@ -72,7 +72,7 @@
                     <div class="col-sm-3">
                         <input id="disburseDate" type="text" autocomplete="off" name="disburseDate" datepicker-pop="{{df}}"
                                ng-model="formData.disbursedDate" is-open="opened1" max="restrictDate"
-                               class="form-control"/>
+                               class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     </div>
 
                     <label class="control-label col-sm-2">{{ 'label.input.loan.status' | translate }}</label>

@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class ="control-label col-sm-3 text-right"><b> {{'label.heading.expecteddisbursementdate' | translate}}</b> </label>
                     <div class="col-sm-2">
-                   <input id="expectedDisbursementOnDate" type="text" autocomplete="off" name="expectedDisbursementOnDate" datepicker-pop="{{df}}" ng-model="formData.expectedDisbursementDate" is-open="opened" class="form-control"/></div>
+                   <input id="expectedDisbursementOnDate" type="text" autocomplete="off" name="expectedDisbursementOnDate" datepicker-pop="{{df}}" ng-model="formData.expectedDisbursementDate" is-open="opened" class="form-control" ng-readonly="isDatePickerReadOnly"/></div>
                 </div>
             </div>
             <br/>
@@ -26,7 +26,7 @@
                         </td>
                         <td class="col-sm-2">
                             <input id="startDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened"  min="minMeetingDate"
-                                max="maxMeetingDate" class="form-control" />
+                                max="maxMeetingDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                         </td>
                         <td class="col-sm-2 text-right">
                             <label class="control-label">{{'label.input.meetingtime' | translate}}
@@ -173,7 +173,7 @@
                                 <i class="icon-edit icon-white"></i>
                             </a>
                         </span>
-                        <input ng-if="isEditExpectedDisbursementDateOnly" id="editExpectedDisbursementOnDate" type="text" autocomplete="off" name="editExpectedDisbursementOnDate" datepicker-pop="{{df}}" ng-model="formData.expectedDisbursementDate" is-open="opened" class="form-control"/>
+                        <input ng-if="isEditExpectedDisbursementDateOnly" id="editExpectedDisbursementOnDate" type="text" autocomplete="off" name="editExpectedDisbursementOnDate" datepicker-pop="{{df}}" ng-model="formData.expectedDisbursementDate" is-open="opened" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     </td>
                 </tr>
                 <tr>

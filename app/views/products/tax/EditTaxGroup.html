@@ -63,7 +63,7 @@
                 <div class="col-sm-2" ng-show="taxcomponent.new">
                     <input id="taxComponents[{{$index}}].startDate" sort type="text" autocomplete="off"
                            datepicker-pop="{{df}}" ng-model="taxcomponent.date"
-                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                 </div>
                 <div class="col-sm-2" ng-hide="taxcomponent.new">
                     {{taxcomponent.date | DateFormat}}
@@ -71,7 +71,7 @@
                 <div class="col-sm-2" ng-show="taxcomponent.canModify">
                     <input id="taxComponents[{{$index}}].endDate" sort type="text" autocomplete="off"
                            datepicker-pop="{{df}}" ng-model="taxcomponent.endDate"
-                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                 </div>
                 <div class="col-sm-2" ng-hide="taxcomponent.canModify">
                     {{taxcomponent.endDate | DateFormat}}
