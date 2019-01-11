@@ -33,6 +33,12 @@
                     });
                 }
             };
+            scope.getClientLimit = function(group){
+                if (group.activeClientMembers) {
+                    return  scope.maxClientLimit  - group.activeClientMembers.length;
+                } 
+                return scope.maxClientLimit;
+            } 
 
             scope.submit = function () {
                 this.formData.activationDate = dateFilter(scope.formData.activationDate, scope.df);

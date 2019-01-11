@@ -56,7 +56,7 @@
                 </label>
                 <div class="col-sm-3">
                     <select chosen="groups" id="groupId" name="groupId" ng-model="formData.groupId" class="form-control"
-                        ng-options='group.id as (group.name + " (" + group.activeClientMembers.length + ")")  for group in groups'
+                        ng-options='group.id as (group.name + " (" + getClientLimit(group) + ")")  for group in groups'
                         value="{{group.id}}" required late-validate>
                         <option value="">{{'label.menu.selectgroup' | translate}}</option>
                     </select>
