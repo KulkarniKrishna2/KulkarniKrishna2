@@ -84,6 +84,7 @@
                     scope.transactionAmountField = true;
                     scope.showPaymentDetails = false;
                     scope.taskPermissionName = 'DEPOSIT_SAVINGSACCOUNT';
+                    scope.formData[scope.modelName] = new Date();
                     if(scope.isTransactionAmountAutopopulate ){
                         scope.formData.transactionAmount = scope.amount;
                     }
