@@ -134,7 +134,7 @@
 
                 <div class="col-sm-3">
                     <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}"
-                           ng-model="first.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control"/>
+                           ng-model="first.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
                 <div data-ng-switch on="showNonPersonOptions">
                     <div data-ng-switch-when="false">
@@ -154,7 +154,7 @@
 
                         <div class="col-sm-3">
                             <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}"
-                                   ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'"  class="form-control"/>
+                                   ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
 
                             <div class="col-sm-3">
                                 <input id="activationDate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}"
-                                       ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
+                                       ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
                             </div>
                         </div>
                     </div>
@@ -266,7 +266,7 @@
 
                 <div class="col-sm-3">
                     <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}"
-                           ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
+                           ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group" ng-show="showSavingOptions">

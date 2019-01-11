@@ -60,7 +60,7 @@
                 <div class="col-sm-3">
                     <input id="taxComponents[{{$index}}].startDate" sort type="text" autocomplete="off"
                            datepicker-pop="{{df}}" ng-model="taxcomponent.date"
-                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                 </div>                
                     <div class="col-sm-2">
                         <select id="taxComponents[{{$index}}].roundingMode" name="roundingMode" ng-model="taxcomponent.roundingMode"

@@ -183,7 +183,7 @@
                         <label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
                         <label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
                         <div class="col-sm-3">
-                            <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth" min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" />
+                            <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth" min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly" />
                             <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
                         </div>
                         <div class="col-sm-1">
@@ -208,7 +208,7 @@
                             <label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" />
+                                <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
                             </div>
                         </div>
                     </div>
@@ -474,7 +474,7 @@
                             <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
-                                <input id="activationDate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" />
+                                <input id="activationDate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                             </div>
                         </div>
                     </div>
@@ -483,7 +483,7 @@
                     <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control" />
+                        <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                     </div>
                 </div>
                 <div class="form-group" ng-show="showSavingOptions && showOpenSavingsProduct">
@@ -690,7 +690,7 @@
                         <label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
                     </td>
                     <td class="width36 paddedbottom10">
-                        <input id="submittedOnDate" name="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" required/>
+                        <input id="submittedOnDate" name="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly" required/>
                         <form-validate valattributeform="newloanapplicationform" valattribute="submittedOnDate" />
                     </td>
                 </tr>
@@ -752,7 +752,7 @@
                     </td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
-                        <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="'2020-06-22'" />
+                        <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
                     </td>
                     <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>

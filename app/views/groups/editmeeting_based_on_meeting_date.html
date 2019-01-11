@@ -20,7 +20,7 @@
             <label class="control-label col-sm-2">{{'label.input.revisedmeetingdates' | translate}}</label>
             <div class="col-sm-3">
                 <input id="newmeetingdateId" type="text" autocomplete="off" name="newmeetingdate" datepicker-pop="{{df}}"
-                       ng-model="formData.newMeetingDate" class="form-control"/>
+                       ng-model="formData.newMeetingDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
             </div>
 
         </div>

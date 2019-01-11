@@ -216,7 +216,7 @@
                 <td class="width36 paddedbottom10">
                     <input id="submittedOnDate" name="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                            class="form-control"
-                           ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
+                           ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly"
                            required/>
                     <form-validate valattributeform="updateloanapplicationform" valattribute="submittedOnDate"/>
                 </td>
@@ -262,13 +262,13 @@
                 <td class="width14" ng-hide="isHiddenExpectedDisbursementDate"><label>{{ 'label.input.expecteddisbursementon' | translate }}:<span class="required" ng-show="isMandatoryExpectedDisbursementDate">*</span>
                 </label>&nbsp;</td>
                 <td class="width36 paddedbottom10" ng-hide="isHiddenExpectedDisbursementDate">
-                    <input id="expectedDisbursementDate" name="expectedDisbursementDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.expectedDisbursementDate" is-open="opened" min="minDate" ng-required="isMandatoryExpectedDisbursementDate"/>
+                    <input id="expectedDisbursementDate" name="expectedDisbursementDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.expectedDisbursementDate" is-open="opened" min="minDate" ng-required="isMandatoryExpectedDisbursementDate" ng-readonly="isDatePickerReadOnly"/>
                     <form-validate valattributeform="updateloanapplicationform" valattribute="expectedDisbursementDate"/>
                 </td>
 
                 <td class="width14" ng-hide="isHiddenFirstRepaymentDate"><label>{{ 'label.input.firstrepaymenton' | translate }}:</label>&nbsp;</td>
                 <td class="width36 paddedbottom10" ng-hide="isHiddenFirstRepaymentDate">
-                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.repaymentsStartingFromDate" is-open="opened" ng-required="isMandatoryFirstRepaymentDate" min="minDate" />
+                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" ng-model="formData.repaymentsStartingFromDate" is-open="opened" ng-required="isMandatoryFirstRepaymentDate" min="minDate" ng-readonly="isDatePickerReadOnly" />
                 </td>
             </tr>
             <tr ng-if="!loanaccountinfo.loanEMIPacks">
@@ -325,7 +325,7 @@
                                datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                ng-model="disbursementDetail.expectedTrancheDisbursementDate" is-open="'openedtranche'+$index"
-                               min="minDate" max="'2020-06-22'"/>
+                               min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
                     </td>
                     <td>
                         <input id="{{disbursementDetail[$index].trancheAmount}}" class="form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.trancheAmount" name="trancheAmount" required=""placeholder="{{'label.input.principal' | translate}}">
@@ -391,7 +391,7 @@
                     <input id="feeCharges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}"
                            class="form-control"
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                           is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
+                           is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
                 </td>
                 <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
             </tr>

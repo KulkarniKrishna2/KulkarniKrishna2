@@ -302,13 +302,13 @@
     <div class="col-sm-2">
         <input id="fromDate" name="fromDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}"
                ng-model="fromDate.date"
-               is-open="opened" min="minDate" max="restrictDate" required/>
+               is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly" required/>
         <form-validate valattributeform="editrecurringdepositproductform" valattribute="fromDate"/>       
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2" for="endDate">{{ 'label.input.interestratechart.valid.to' | translate }}</label>
     <div class="col-sm-2">
         <input id="endDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}"
-               ng-model="endDate.date" is-open="opened" min="minDate" max="restrictDate"/>
+               ng-model="endDate.date" is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
     </div>
 </div>
 <div class="form-group">

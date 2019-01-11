@@ -34,13 +34,13 @@
 				        <div class="form-group">
 				            <input type="text" autocomplete="off" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="{{df}}"
 				                   ng-model="date.from" is-open="opened"  max="'2020-06-22'"
-				                   date-disabled="disabled(date, mode)" class="form-control"/>
+				                   date-disabled="disabled(date, mode)" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 				        </div>
 				        <div class="form-group">
 				            <div>
 				                <input type="text" autocomplete="off" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="{{df}}"
 				                       ng-model="date.to" is-open="opened1" max="'2020-06-22'"
-				                       date-disabled="disabled(date, mode)" class="form-control"/>
+				                       date-disabled="disabled(date, mode)" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 				            </div>
 				        </div>
 				        <div class="form-group">
@@ -193,7 +193,7 @@
             <api-validate></api-validate>
             <br>
             <input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
-                   max="restrictDate"/>
+                   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -277,7 +277,7 @@
 							<tr>
 								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
-									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
 								</th>
 								<th>
 									<div class="rowleft">
@@ -310,7 +310,7 @@
 							<api-validate></api-validate>
 							<br>
 							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
-								   max="restrictDate"/>
+								   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -399,7 +399,7 @@
 								</th>
 								<th>
 									<label class="control-label col-sm-5">{{ 'label.input.expecteddisbursementon' | translate }}</label>
-									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate"/>
+									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "expectedDisbursementOn" ng-model="expectedDisbursementOn" is-open="opened" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
 								</th>
 							</tr>
 							<tr>
@@ -457,7 +457,7 @@
 							<api-validate></api-validate>
 							<br>
 							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
-								   max="restrictDate"/>
+								   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -570,7 +570,7 @@
 							<api-validate></api-validate>
 							<br>
 							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
-								   max="restrictDate"/>
+								   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -673,7 +673,7 @@
 							<api-validate></api-validate>
 							<br>
 							<input type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.actDate" is-open="opened"
-								   max="restrictDate"/>
+								   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>

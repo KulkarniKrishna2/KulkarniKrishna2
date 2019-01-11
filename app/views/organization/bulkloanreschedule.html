@@ -50,7 +50,7 @@
 					<input id="rescheduleFromDate" type="text" autocomplete="off"
 						datepicker-pop="{{df}}" ng-model="first.date"
 						is-open="opened" min="minDate" max="'2020-06-22'"
-						date-disabled="disabled(date, mode)" class="form-control" required
+						date-disabled="disabled(date, mode)" class="form-control" ng-readonly="isDatePickerReadOnly" required
 						late-Validate />
 				</div>
 
@@ -70,7 +70,7 @@
 					<input id="rescheduledToDate" type="text" autocomplete="off"
 						datepicker-pop="{{df}}" ng-model="second.date"
 						is-open="opened" min="minDate" max="'2020-06-22'"
-						date-disabled="disabled(date, mode)" class="form-control" required
+						date-disabled="disabled(date, mode)" class="form-control" ng-readonly="isDatePickerReadOnly" required
 						late-Validate />
 				</div>
 			</div>
@@ -109,7 +109,7 @@
 				<div class="col-sm-3">
 					<input id="submittedOn" type="text" autocomplete="off" datepicker-pop="{{df}}"
 						ng-model="third.date" is-open="opened" min="minDate"
-						max="'2020-06-22'" date-disabled="disabled(date, mode)"
+						max="'2020-06-22'" date-disabled="disabled(date, mode)" ng-readonly="isDatePickerReadOnly"
 						class="form-control" required late-Validate />
 				</div>
 			</div>

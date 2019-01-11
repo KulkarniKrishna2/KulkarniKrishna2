@@ -14,7 +14,7 @@
 
                 <div class="col-sm-3">
                     <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}" class="form-control"
-                           ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate"/>
+                           ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group" ng-show="showAmount">
@@ -157,7 +157,7 @@
 
                 <div class="col-sm-3">
                     <input id="{{modelName}}" type="text" autocomplete="off" sort datepicker-pop="{{df}}" class="form-control"
-                           ng-model="formData[modelName]" is-open="opened"/>
+                           ng-model="formData[modelName]" is-open="opened" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
 

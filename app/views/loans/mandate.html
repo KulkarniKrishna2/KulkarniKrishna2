@@ -40,7 +40,7 @@
 
                 <div class="col-sm-3">
                     <input name="requestDate" id="requestDate" type="text" autocomplete="off" class="form-control"
-                           datepicker-pop="{{df}}" ng-model="formData.requestDate" is-open="opened"
+                           datepicker-pop="{{df}}" ng-model="formData.requestDate" is-open="opened" ng-readonly="isDatePickerReadOnly"
                            required/>
                 </div>
                 <div class="col-sm-3">
@@ -141,7 +141,7 @@
 
                 <div class="col-sm-3">
                     <input name="periodFromDate" id="periodFromDate" sort type="text" autocomplete="off" class="form-control"
-                           datepicker-pop="{{df}}" ng-model="formData.periodFromDate" is-open="opened"
+                           datepicker-pop="{{df}}" ng-model="formData.periodFromDate" is-open="opened" ng-readonly="isDatePickerReadOnly"
                            required/>
                 </div>
                 <div class="col-sm-3">
@@ -154,7 +154,7 @@
 
                 <div class="col-sm-3">
                     <input id="periodToDate" sort type="text" autocomplete="off" class="form-control"
-                           datepicker-pop="{{df}}" ng-model="formData.periodToDate" is-open="opened"/>
+                           datepicker-pop="{{df}}" ng-model="formData.periodToDate" is-open="opened" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
 

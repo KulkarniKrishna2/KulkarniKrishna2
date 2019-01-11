@@ -55,7 +55,7 @@
                                    datepicker-pop="{{df}}"
                                    class="form-control"
                                    ng-model="formData.fromDate" is-open="opened" min="'2000-01-01'"
-                                   max="restrictDate"/>
+                                   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                         <label class="control-label col-sm-1">{{ 'label.input.teller.cashier.endDate' | translate
                             }}</label>
@@ -65,7 +65,7 @@
                                    datepicker-pop="{{df}}"
                                    class="form-control"
                                    ng-model="formData.toDate" is-open="opened" min="'2000-01-01'"
-                                   max="restrictDate"/>
+                                   max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                     </div>
 

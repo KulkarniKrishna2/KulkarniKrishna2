@@ -15,7 +15,7 @@
                 <div class="col-sm-3">
                     <input type="text" autocomplete="off" id="submittedOnDate" name="submittedon" datepicker-pop="{{df}}"
                            ng-model="submitteddate" is-open="opened" min="'2000-01-01'" max="restrictDate"
-                           class="form-control"/>
+                           class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
 
                 <div class="col-sm-3">

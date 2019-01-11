@@ -12,7 +12,7 @@
                 <label class="control-label col-sm-2">{{ 'label.heading.scheduledate' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="scheduledDate" name="scheduledDate" datepicker-pop="{{df}}" ng-readonly="isComplete"
+                    <input type="text" autocomplete="off" id="scheduledDate" name="scheduledDate" datepicker-pop="{{df}}" ng-readonly="isDatePickerReadOnly || isComplete"
                            ng-model="formData.scheduledDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
@@ -24,7 +24,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.loanofficer' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="loanOfficerId" ng-model="formData.loanOfficerId" name="loanOfficer" ng-readonly="isComplete"
+                    <select id="loanOfficerId" ng-model="formData.loanOfficerId" name="loanOfficer" ng-readonly="isDatePickerReadOnly || isComplete"
                             ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in cgtdays.loanOfficerOptions  | orderBy:'displayName':reverse"
                             class="form-control" value="{{loanOfficer.id}}">
                         <option value="">{{'label.selectloanofficer' | translate}}</option>
@@ -39,7 +39,7 @@
                 <label class="control-label col-sm-2" for="location">{{'label.input.location' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="location" name="location" ng-model="formData.location" ng-readonly="isComplete" class="form-control"/>
+                    <input type="text" autocomplete="off" id="location" name="location" ng-model="formData.location" ng-readonly="isDatePickerReadOnly || isComplete" class="form-control"/>
                 </div>
             </div>
 

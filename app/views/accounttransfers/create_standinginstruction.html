@@ -250,7 +250,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" autocomplete="off" id="validTill" datepicker-pop="{{df}}" ng-model="formData.validTill"
-                           is-open="opened" min="restrictDate" class="form-control"/>
+                           is-open="opened" min="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group">

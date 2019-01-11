@@ -28,7 +28,7 @@
 
                 <div class="col-sm-3">
                     <input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}" ng-model="deceasedDate"
-                        is-open="opened1" max="'2020-06-22'" class="form-control" />
+                        is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
 
                 </div>
                 <div class="col-sm-2">
@@ -42,7 +42,7 @@
 
                 <div class="col-sm-3">
                     <input id="announceDate" type="text" autocomplete="off" name="announceDate" datepicker-pop="{{df}}" ng-model="announceDate"
-                        is-open="opened1" max="'2020-06-22'" class="form-control" />
+                        is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
 
                 </div>
                 <div class="col-sm-2">

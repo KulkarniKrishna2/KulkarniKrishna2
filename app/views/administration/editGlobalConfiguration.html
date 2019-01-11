@@ -24,7 +24,7 @@
                         class="required">*</span></label>
                 <div class="col-sm-3">
                     <input id="startDate" type="text" autocomplete="off" name="dateValue" datepicker-pop="{{df}}"
-                           ng-model="formData.dateValue" is-open="opened1" max="restrictDate"  class="form-control"/>
+                           ng-model="formData.dateValue" is-open="opened1" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     <form-validate valattributeform="editconfigurationform" valattribute="dateValue"/>
                 </div>
             </div>

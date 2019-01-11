@@ -29,7 +29,7 @@
                     <td class="width36 paddedbottom10">
                         <input id="submittedOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}"
                                ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
-                               class="form-control"/>
+                               class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     </td>
                     <td class="width14">
                         <label>{{ 'label.input.fieldofficer' | translate }}:&nbsp;</label>

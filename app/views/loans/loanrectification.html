@@ -43,7 +43,7 @@
                     <label class="control-label col-sm-2" for="transactionDate">{{'label.heading.transactiondate' | translate}}</label>
                     <div class="col-sm-3">
                         <input id="transactionDate" sort type="text" datepicker-pop="{{df}}" class="form-control"
-                               ng-model="formData.transactionDate" min="uiData.minRestrictDate" max="uiData.maxRestrictDate"/>
+                               ng-model="formData.transactionDate" min="uiData.minRestrictDate" max="uiData.maxRestrictDate" ng-readonly="isDatePickerReadOnly"/>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                     <label class="control-label col-sm-2" for="valueDate">{{'label.input.valuedate' | translate}}</label>
                     <div class="col-sm-3">
                         <input id="valueDate" sort type="text" datepicker-pop="{{df}}" class="form-control"
-                               ng-model="formData.valueDate" min="uiData.maxRestrictDate" max="uiData.maxRestrictDate"/>
+                               ng-model="formData.valueDate" min="uiData.maxRestrictDate" max="uiData.maxRestrictDate" ng-readonly="isDatePickerReadOnly"/>
                     </div>
                 </div>
 

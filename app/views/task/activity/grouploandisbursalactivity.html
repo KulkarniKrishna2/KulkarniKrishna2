@@ -333,7 +333,7 @@
                                     <label>{{ 'label.input.disbursedon' | translate }}<span class="required">*</span>:&nbsp;</label>
                                 </td>
                                 <td class="width25 paddedbottom10">
-                                    <input id="actualDisbursementDate" name="actualDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" placeholder="{{'label.tooltip.disbursementon' | translate}}" ng-model="formRequestData.disburse.actualDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" required/>
+                                    <input id="actualDisbursementDate" name="actualDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" placeholder="{{'label.tooltip.disbursementon' | translate}}" ng-model="formRequestData.disburse.actualDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" required/>
                                 </td>
 
                                 <td class="width25" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
@@ -342,7 +342,7 @@
                                     <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                                 </td>
                                 <td class="width25 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" />
+                                    <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-readonly="isDatePickerReadOnly" />
                                 </td>
                             </tr>
                             <tr>
@@ -370,7 +370,7 @@
                                     <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i>
                                 </td>
                                 <td class="width25 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
-                                    <input id="interestChargedFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.interestChargedFromDate" is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" />
+                                    <input id="interestChargedFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.interestChargedFromDate" is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly" />
                                 </td>
                             </tr>
                             <tr>

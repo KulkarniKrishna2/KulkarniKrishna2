@@ -70,7 +70,7 @@
                 <div class="col-sm-3" style="width: 275px">
                     <input id="activationdate" type="text" autocomplete="off" name="activationdate" datepicker-pop="{{df}}"
                         ng-model="formData.activationDate" max="restrictDate" class="form-control" required
-                        late-validate />
+                        late-validate ng-readonly="isDatePickerReadOnly" />
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="ClientActivateAndTransfer" valattribute="activationdate" />
