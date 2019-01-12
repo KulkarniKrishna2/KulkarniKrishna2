@@ -148,7 +148,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="documentTypeId">{{'label.input.familymembertypeid' | translate}}
+                    <label class="control-label col-sm-2" for="documentTypeId">{{'label.input.familymembertypeid' | translate}}</label>
+                    <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}<span
+                            class="required">*</span></label>
                     </label>
                     <div class="col-sm-3">
                         <select id="documentTypeId" ng-model="formData.documentTypeId" name="documentTypeId" ng-options="documentType.id as documentType.name for documentType in documentTypes"
@@ -168,6 +170,15 @@
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createFamilyDetails" valattribute="uniqueNo" />
+                    </div>
+                    
+                    <div class="col-sm-3">
+                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
+                           min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
+                        <form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
                     </div>
                 </div>
              

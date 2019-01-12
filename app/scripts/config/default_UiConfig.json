@@ -315,6 +315,7 @@
 				"accountType": false,
 				"bankIFSCCode": true,
 				"bankName": false,
+				"branchName": false,
 				"bankCity": false,
 				"mobileNumber": false,
 				"lastTransactionDate": false,

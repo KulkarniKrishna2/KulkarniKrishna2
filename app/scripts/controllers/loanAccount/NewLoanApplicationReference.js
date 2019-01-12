@@ -42,6 +42,7 @@
             scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
             scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
             scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
+            scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
@@ -394,22 +395,22 @@
                 this.formData.charges = [];
                 for (var i = 0; i < scope.charges.length; i++) {
                     //if(scope.charges[i].amount > 0) {
-                        var charge = {};
-                        if (scope.charges[i].id) {
-                            charge.chargeId = scope.charges[i].id;
-                        }
-                        if (scope.charges[i].chargeId) {
-                            charge.chargeId = scope.charges[i].chargeId;
-                        }
-                        charge.amount = scope.charges[i].amount;
-                        if (scope.charges[i].dueDate) {
-                            charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
-                        }
-                        charge.isMandatory = scope.charges[i].isMandatory;
-                        charge.isAmountNonEditable = scope.charges[i].isAmountNonEditable;
-                        charge.locale = scope.optlang.code;
-                        charge.dateFormat = scope.df;
-                        this.formData.charges.push(charge);
+                    var charge = {};
+                    if (scope.charges[i].id) {
+                        charge.chargeId = scope.charges[i].id;
+                    }
+                    if (scope.charges[i].chargeId) {
+                        charge.chargeId = scope.charges[i].chargeId;
+                    }
+                    charge.amount = scope.charges[i].amount;
+                    if (scope.charges[i].dueDate) {
+                        charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                    }
+                    charge.isMandatory = scope.charges[i].isMandatory;
+                    charge.isAmountNonEditable = scope.charges[i].isAmountNonEditable;
+                    charge.locale = scope.optlang.code;
+                    charge.dateFormat = scope.df;
+                    this.formData.charges.push(charge);
                     //}
                 }
                 if (scope.loanaccountinfo.overdueCharges && scope.loanaccountinfo.overdueCharges.length > 0) {
@@ -435,11 +436,11 @@
                 }else{
                     delete this.formData.disbursementData;
                 }
-                this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
-                this.formData.expectedDisbursementDate=dateFilter(this.formData.expectedDisbursementDate,scope.df);
-                this.formData.repaymentsStartingFromDate=dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
+                this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
+                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
+                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.accountType = scope.inparams.templateType;
-                if (scope.parentGroups.length > 0 && !scope.canDisburseToGroupsBanks()) {
+                if (scope.parentGroups != undefined && scope.parentGroups.length > 0 && !scope.canDisburseToGroupsBanks()) {
                     this.formData.groupId = scope.parentGroups[0].id;
                 }
                 this.formData.locale = scope.optlang.code;
