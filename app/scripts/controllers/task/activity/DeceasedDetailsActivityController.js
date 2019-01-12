@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        DeceasedDetailsActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,commonUtilService, $modal) {
+        DeceasedDetailsActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.deceasedReasonOptions = [];
             scope.deceasedPersonOptions = [];
@@ -68,7 +68,7 @@
             scope.download = function(file){
                 var url =$rootScope.hostUrl + file.docUrl;
                 var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
-                commonUtilService.downloadFile(url,fileType);
+                CommonUtilService.downloadFile(url,fileType);
             };
 
             scope.init = function () {
