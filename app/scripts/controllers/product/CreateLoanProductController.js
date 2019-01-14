@@ -682,9 +682,9 @@
             if (!scope.formData.isOverdueAccountingEnabled || _.isUndefined(scope.formData.isOverdueAccountingEnabled) || _.isNull(scope.formData.isOverdueAccountingEnabled)) {
                 delete scope.formData.isOverdueAccountingEnabled;
                 delete scope.formData.overdueLoanPortfolioAccountId;
-                delete scope.formData.overdueInterestOnLoansAccountId;
-                delete scope.formData.overdueIncomeFromFeesAccountId;
-                delete scope.formData.overdueIncomeFromPenaltiesAccountId;
+                delete scope.formData.overdueReceivableInterestAccountId;
+                delete scope.formData.overdueReceivableFeeAccountId;
+                delete scope.formData.overdueReceivablePenaltyAccountId;
             }
             if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
                 delete scope.formData.isIRDEnabled;

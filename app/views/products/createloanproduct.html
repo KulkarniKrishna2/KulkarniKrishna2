@@ -1987,8 +1987,8 @@
         <label class="control-label col-sm-2">{{ 'label.input.overdue.loan.portfolio' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.overdueloanportfolio' | translate}}"></i>
         <div class="col-sm-3">
-            <select id="overdueLoanPortfolioAccountId" ng-model="formData.overdueLoanPortfolioAccountId" chosen="assetAccountOptions"
-                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+            <select id="overdueLoanPortfolioAccountId" ng-model="formData.overdueLoanPortfolioAccountId" chosen="assetAndLiabilityAccountOptions"
+                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                 value="{{assetAccount.id}}">
                 <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
@@ -1996,8 +1996,8 @@
         <label class="control-label col-sm-2">{{ 'label.input.overdue.interest.on.loans' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.overdueloanportfolio' | translate}}"></i>
         <div class="col-sm-3">
-            <select id="overdueInterestOnLoansAccountId" ng-model="formData.overdueInterestOnLoansAccountId" chosen="assetAccountOptions"
-                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+            <select id="overdueReceivableInterestAccountId" ng-model="formData.overdueReceivableInterestAccountId" chosen="assetAndLiabilityAccountOptions"
+                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                 value="{{assetAccount.id}}">
                 <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
@@ -2007,8 +2007,8 @@
         <label class="control-label col-sm-2">{{ 'label.input.overdue.income.from.fees' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.overdueloanportfolio' | translate}}"></i>
         <div class="col-sm-3">
-            <select id="overdueIncomeFromFeesAccountId" ng-model="formData.overdueIncomeFromFeesAccountId" chosen="assetAccountOptions"
-                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+            <select id="overdueReceivableFeeAccountId" ng-model="formData.overdueReceivableFeeAccountId" chosen="assetAndLiabilityAccountOptions"
+                ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                 value="{{assetAccount.id}}">
                 <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
@@ -2016,8 +2016,8 @@
         <label class="control-label col-sm-2">{{ 'label.input.overdue.income.from.penalties' | translate }}<span class="required">*</span></label>
         <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.overdueloanportfolio' | translate}}"></i>
         <div class="col-sm-3">
-            <select id="overdueIncomeFromPenaltiesAccountId" ng-model="formData.overdueIncomeFromPenaltiesAccountId"
-                chosen="assetAccountOptions" ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+            <select id="overdueReceivablePenaltyAccountId" ng-model="formData.overdueReceivablePenaltyAccountId"
+                chosen="assetAndLiabilityAccountOptions" ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                 value="{{assetAccount.id}}">
                 <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
