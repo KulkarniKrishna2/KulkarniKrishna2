@@ -12,7 +12,7 @@
                 </select>
             </div>
             <div class="pull-right col-md-4">
-                <select class="form-control" ng-model="centerName" data-ng-options="center.name as center.name for center in centers | orderBy:'name'"
+                <select class="form-control" ng-model="centerName" data-ng-options="center.name as (center.name+'('+center.referenceNumber+')') for center in centers | orderBy:'name'"
                     value="{{center.name}}">
                     <option value="">{{'label.menu.selectcenter' | translate}}</option>
                 </select>
