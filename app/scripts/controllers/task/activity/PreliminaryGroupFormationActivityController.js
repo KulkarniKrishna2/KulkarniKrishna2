@@ -562,6 +562,13 @@
                     $scope.disableVillageDropDown = scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown;
                 }
 
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField) {
+                    $scope.isAgeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
+                    $scope.isfamilyMemeberIDTypeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+                    $scope.isAgeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
+                    $scope.isfamilyMemeberIDTypeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+                }
+
                 //loan account
                 if(memberParams.activeClientMember.loanAccountBasicData){
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -1062,7 +1069,29 @@
                             }
                         }
                     }
-                }
+                    $scope.changeMandatoryFields(value);
+                };
+                $scope.changeMandatoryFields = function (value) {
+                    $scope.isAgeMandatory = $scope.isAgeRequired;
+                    $scope.isfamilyMemeberIDTypeMandatory = $scope.isfamilyMemeberIDTypeRequired;
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.relationshipOptions && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor.length > 0) {
+                        $scope.AgeMandatoryRelationshipOptions = scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor;
+                    }
+                    if ($scope.relationshipOptions && $scope.relationshipOptions.length > 0) {
+                        for (var i in $scope.relationshipOptions) {
+                            if ($scope.relationshipOptions[i].id == value) {
+                                if ($scope.AgeMandatoryRelationshipOptions) {
+                                    for (var j in $scope.AgeMandatoryRelationshipOptions) {
+                                        if ($scope.relationshipOptions[i].name.toLowerCase() == $scope.AgeMandatoryRelationshipOptions[j].toLowerCase()) {
+                                            $scope.isAgeMandatory = true;
+                                            $scope.isfamilyMemeberIDTypeMandatory = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
 
 
                 $scope.closeFamilyMembersForm = function () {

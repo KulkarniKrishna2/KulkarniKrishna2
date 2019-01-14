@@ -226,7 +226,9 @@
                 resourceFactory.loanProposalReviewTemplateResource.get({loanId: $scope.loanId}, function (data) {
                    $scope.codeValues = data;
                 });
-
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanProposalReview && scope.response.uiDisplayConfigurations.loanProposalReview.isHiddenField) {
+                    $scope.ispreCloseDateHidden = scope.response.uiDisplayConfigurations.loanProposalReview.isHiddenField.preCloseDate;
+                };
                 $scope.reviewReasonChange = function(reviewReasonId){
                     for(var i = 0; i < $scope.codeValues.length; i++){
                         if($scope.codeValues[i].id == reviewReasonId){
@@ -320,7 +322,7 @@
                                 var reqDate = dateFilter($scope.preClosureTempFormData[i].preclosureDate, scope.df);
                                 $scope.preClosureTempFormData[i].preclosureDate = reqDate;
                                 $scope.errorDetails = [];
-                            } else {
+                            } else if (!$scope.ispreCloseDateHidden) {
                                 return $scope.errorDetails.push([{
                                     code: 'error.msg.preclosure.date.required'
                                 }]);

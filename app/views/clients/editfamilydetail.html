@@ -114,11 +114,9 @@
                     <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <select id="relationship" name="relationship" ng-model="formData.relationshipId"
-                                class="form-control"
-                                ng-change="findRelationCodeValue(formData.relationshipId)"
-                                ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions "
-                                value="relationshipOption.id">
+                        <select id="relationship" name="relationship" ng-model="formData.relationshipId" class="form-control" ng-change="findRelationCodeValue(formData.relationshipId)"
+                            ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions "
+                            value="relationshipOption.id">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
@@ -134,12 +132,16 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="documentTypeId">{{'label.input.familymembertypeid' | translate}}
+                        <span ng-if="isfamilyMemeberIDTypeMandatory" class="required">*</span>
                     </label>
                     <div class="col-sm-3">
                         <select id="documentTypeId" ng-model="formData.documentTypeId" name="documentTypeId" ng-options="documentType.id as documentType.name for documentType in documentTypes"
-                         ng-change="documentTypeChange()" value="{{documenttype.id}}" class="form-control" >
+                            ng-change="documentTypeChange()" value="{{documenttype.id}}" class="form-control" ng-required="isfamilyMemeberIDTypeMandatory">
                             <option value="">{{'label.menu.select' | translate}}</option>
                         </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editFamilyDetails" valattribute="documentTypeId" />
                     </div>
                 </div>
 
@@ -174,28 +176,17 @@
 
 
                 <div class="form-group">
-
-                    <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}<span
-                            class="required">*</span></label>
-                    </label>
-
+                
+                    <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}<span ng-if="isAgeMandatory" class="required">*</span></label>
+                
                     <div class="col-sm-2">
-                        <input id="age" type="text" autocomplete="off" name="age"
-                               ng-model="formData.age" class="form-control"/>
+                        <input id="age" type="text" autocomplete="off" name="age" ng-model="formData.age" class="form-control"
+                            ng-required="isAgeMandatory" />
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="editFamilyDetails" valattribute="age"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="age" />
                     </div>
-                    
-                    <div class="col-sm-3">
-                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="formData.dateOfBirth"
-                           min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
-                        <form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
-                    </div>
-
+                
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2"></label>
@@ -242,26 +233,24 @@
 
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.education' | translate }}</label>
-
+                
                     <div class="col-sm-3">
-                        <select id="education" name="education" ng-model="formData.educationId" class="form-control"
-                                ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
-                                value="occupationOption.id">
+                        <select id="education" name="education" ng-model="formData.educationId" class="form-control" ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
+                            value="occupationOption.id">
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="editFamilyDetails" valattribute="education"/>
+                        <form-validate valattributeform="editFamilyDetails" valattribute="education" />
                     </div>
                 </div>
-
-
+                
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/listfamilydetails/{{clientId}}" class="btn btn-default">{{'label.button.cancel'
                         |
                         translate}}</a>
-                    <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
-                        translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
                 </div>
             </fieldset>
         </form>

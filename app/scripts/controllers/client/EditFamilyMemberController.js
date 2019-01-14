@@ -18,6 +18,12 @@
             if(scope.response && scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
                 scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField) {
+                scope.isAgeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
+                scope.isfamilyMemeberIDTypeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+                scope.isAgeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
+                scope.isfamilyMemeberIDTypeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+            }
             scope.$watch('formData.dateOfBirth', function (newValue, oldValue) {
                 if (scope.formData.dateOfBirth != undefined && scope.formData.dateOfBirth != "") {
                     var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
@@ -98,6 +104,7 @@
                     }
                     if(data.relationship){
                         scope.formData.relationshipId = data.relationship.id;
+                        scope.changeMandatoryFields(data.relationship.id);
                     }
                     if(data.gender){
                         scope.formData.genderId = data.gender.id;
@@ -239,7 +246,29 @@
                         }
                     }
                 }
-            }
+                scope.changeMandatoryFields(value);
+            };
+            scope.changeMandatoryFields = function (value) {
+                scope.isAgeMandatory = scope.isAgeRequired;
+                scope.isfamilyMemeberIDTypeMandatory = scope.isfamilyMemeberIDTypeRequired;
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.relationshipOptions && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor.length > 0) {
+                    scope.AgeMandatoryRelationshipOptions = scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor;
+                }
+                if (scope.relationshipOptions && scope.relationshipOptions.length > 0) {
+                    for (var i in scope.relationshipOptions) {
+                        if (scope.relationshipOptions[i].id == value) {
+                            if (scope.AgeMandatoryRelationshipOptions) {
+                                for (var j in scope.AgeMandatoryRelationshipOptions) {
+                                    if (scope.relationshipOptions[i].name.toLowerCase() == scope.AgeMandatoryRelationshipOptions[j].toLowerCase()) {
+                                        scope.isAgeMandatory = true;
+                                        scope.isfamilyMemeberIDTypeMandatory = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
 
             scope.submit = function () {
                 if(scope.formData.dateOfBirth) {

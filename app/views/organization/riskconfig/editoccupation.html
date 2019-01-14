@@ -101,15 +101,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.default.income' | translate }}<span
+                    <label class="control-label col-sm-2">{{ 'label.input.default.income' | translate }}<span ng-if="isDefaultIncomeMandatory"
                             class="required">*</span></label>
-
+                
                     <div class="col-sm-3">
-                        <input id="income" name="income" type="number" ng-model="formData.defaultIncome"
-                               class="form-control">
+                        <input id="income" name="income" type="number" ng-model="formData.defaultIncome" class="form-control"
+                            ng-required="isDefaultIncomeMandatory">
                     </div>
                     <div class="col-sm-2">
-                        <form-validate valattributeform="editOccupation" valattribute="income"/>
+                        <form-validate valattributeform="editOccupation" valattribute="income" />
                     </div>
                 </div>
 
