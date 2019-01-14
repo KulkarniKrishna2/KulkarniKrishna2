@@ -717,15 +717,15 @@
             </tr>
             <tr ng-if="isOverdueAccountingEnabled">
                 <td>{{'label.input.overdue.interest.on.loans' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.overdueInterestOnLoansAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueInterestOnLoansAccount.glCode}})</td>
+                <td colspan="3">{{loanproduct.accountingMappings.overdueReceivableInterestAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueReceivableInterestAccount.glCode}})</td>
             </tr>
             <tr ng-if="isOverdueAccountingEnabled">
                 <td>{{'label.input.overdue.income.from.fees' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.overdueIncomeFromFeesAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueIncomeFromFeesAccount.glCode}})</td>
+                <td colspan="3">{{loanproduct.accountingMappings.overdueReceivableFeeAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueReceivableFeeAccount.glCode}})</td>
             </tr>
             <tr ng-if="isOverdueAccountingEnabled">
                 <td>{{'label.input.overdue.income.from.penalties' | translate}}:</td>
-                <td colspan="3">{{loanproduct.accountingMappings.overdueIncomeFromPenaltiesAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueIncomeFromPenaltiesAccount.glCode}})</td>
+                <td colspan="3">{{loanproduct.accountingMappings.overdueReceivablePenaltyAccount.name}}&nbsp;({{loanproduct.accountingMappings.overdueReceivablePenaltyAccount.glCode}})</td>
             </tr>
             <tr ng-if="isPostIRDEnabled">
                 <td>{{'label.input.interest.receivable.and.due' | translate}}:</td>

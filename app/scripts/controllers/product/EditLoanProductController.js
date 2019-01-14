@@ -338,9 +338,9 @@
                     scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
                     if (scope.formData.isOverdueAccountingEnabled) {
                         scope.formData.overdueLoanPortfolioAccountId = scope.product.accountingMappings.overdueLoanPortfolioAccount.id;
-                        scope.formData.overdueInterestOnLoansAccountId = scope.product.accountingMappings.overdueInterestOnLoansAccount.id;
-                        scope.formData.overdueIncomeFromFeesAccountId = scope.product.accountingMappings.overdueIncomeFromFeesAccount.id;
-                        scope.formData.overdueIncomeFromPenaltiesAccountId = scope.product.accountingMappings.overdueIncomeFromPenaltiesAccount.id;
+                        scope.formData.overdueReceivableInterestAccountId = scope.product.accountingMappings.overdueReceivableInterestAccount.id;
+                        scope.formData.overdueReceivableFeeAccountId = scope.product.accountingMappings.overdueReceivableFeeAccount.id;
+                        scope.formData.overdueReceivablePenaltyAccountId = scope.product.accountingMappings.overdueReceivablePenaltyAccount.id;
                     }
                     if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
                         scope.formData.receivableInterestAccountId = scope.product.accountingMappings.receivableInterestAccount.id;
@@ -1117,9 +1117,9 @@
                 if (!scope.formData.isOverdueAccountingEnabled || _.isUndefined(scope.formData.isOverdueAccountingEnabled) || _.isNull(scope.formData.isOverdueAccountingEnabled)) {
                     scope.formData.isOverdueAccountingEnabled = false;
                     delete scope.formData.overdueLoanPortfolioAccountId;
-                    delete scope.formData.overdueInterestOnLoansAccountId;
-                    delete scope.formData.overdueIncomeFromFeesAccountId;
-                    delete scope.formData.overdueIncomeFromPenaltiesAccountId;
+                    delete scope.formData.overdueReceivableInterestAccountId;
+                    delete scope.formData.overdueReceivableFeeAccountId;
+                    delete scope.formData.overdueReceivablePenaltyAccountId;
                 }
                 if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
                     scope.formData.isIRDEnabled = false;
