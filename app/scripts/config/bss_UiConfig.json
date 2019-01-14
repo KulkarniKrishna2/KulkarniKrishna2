@@ -32,7 +32,10 @@
 				"isHiddenField": {
 					"salutation": true
 				},
-				"showTypeAsRadio":true
+				"showTypeAsRadio": true,
+				"isMandatoryField": {
+					"age": false
+				}
 			},
 			"takeSurveyName": "Member info",
 			"surveyEntityTypeId": "1",
@@ -248,12 +251,27 @@
 			}
 		},
 		"loanproduct": {
-			"isHiddenFeild": {
+			"isHiddenField": {
 				"isIRDEnabledConfig": false
 			}
 		},
 		"readOnlyFields": {
 			"datePicker": true
+		},
+		"subOccuption": {
+			"isMandatory": {
+				"defaultOccupationIncome": false
+			}
+		},
+		"relationshipOptions": {
+			"AgeMandatoryFor": [
+				"Spouse"
+			]
+		},
+		"loanProposalReview": {
+			"isHiddenField": {
+				"preCloseDate": true
+			}
 		}
 	}
 }

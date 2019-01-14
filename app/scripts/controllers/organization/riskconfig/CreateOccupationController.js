@@ -10,6 +10,9 @@
             scope.formData.isActive = true;
             scope.stabilityEnumOptions = [];
             scope.cashFlowCategories = {};
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.subOccuption && scope.response.uiDisplayConfigurations.subOccuption.isMandatory) {
+                scope.isDefaultIncomeMandatory = scope.response.uiDisplayConfigurations.subOccuption.isMandatory.defaultOccupationIncome;
+            }
 
             resourceFactory.incomeExpensesTemplate.get(function (response) {
                 scope.cashFlowCategoryOptions = response.cashFlowCategoryOptions;

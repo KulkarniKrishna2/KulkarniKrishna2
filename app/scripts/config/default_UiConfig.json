@@ -124,10 +124,14 @@
 				"isHiddenField": {
 					"salutation": false
 				},
-				"showTypeAsRadio":false,
-				"ageCriteria":{
+				"showTypeAsRadio": false,
+				"ageCriteria": {
 					"minAge": "1",
 					"maxAge": "130"
+				},
+				"isMandatoryField": {
+					"age": true,
+					"familyMemeberIDType": false
 				}
 			},
 			"takeSurveyName": "",
@@ -532,12 +536,22 @@
 			}
 		},
 		"loanproduct": {
-			"isHiddenFeild": {
+			"isHiddenField": {
 				"isIRDEnabledConfig": true
 			}
 		},
 		"readOnlyFields": {
 			"datePicker": false
+		},
+		"subOccuption": {
+			"isMandatory": {
+				"defaultOccupationIncome": true
+			}
+		},
+		"loanProposalReview": {
+			"isHiddenField": {
+				"preCloseDate": false
+			}
 		}
 	}
 }

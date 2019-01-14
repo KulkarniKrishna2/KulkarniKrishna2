@@ -39,17 +39,18 @@
 								<thead>
 									<th>{{'label.heading.loan' | translate}}</th>
 									<th>{{'label.heading.prepay.amount' | translate}}</th>
-									<th>{{'label.heading.preclosure.date' | translate}}<span
-										class="required">*</span></th>
+									<th ng-if="!ispreCloseDateHidden">{{'label.heading.preclosure.date' | translate}}<span class="required">*</span></th>
 									<th></th>
 								</thead>
 								<tbody>
 									<tr ng-repeat="loanAccount in clientLoanAccounts | filter:  '300'">
 										<td>{{loanAccount.loanType.value}} - {{loanAccount.accountNo}}</td>
 										<td>{{loanAccount.loanBalance}}</td>
-										<td> <input id="preclosureDate" name="preclosureDate" class="form-control" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
-											ng-model="preClosureTempFormData[$index].preclosureDate" max="'2020-06-22'" is-open="opened" ng-readonly="isDatePickerReadOnly" ng-disabled="!isAccChecked"/>
-											<form-validate valattributeform="reviewFormData" valattribute="preclosureDate"/></td>
+										<td ng-if="!ispreCloseDateHidden"> <input id="preclosureDate" name="preclosureDate" class="form-control" type="text"
+											 autocomplete="off" sort datepicker-pop="{{df}}" ng-model="preClosureTempFormData[$index].preclosureDate" max="'2020-06-22'"
+											 is-open="opened" ng-readonly="isDatePickerReadOnly" ng-disabled="!isAccChecked" />
+											<form-validate valattributeform="reviewFormData" valattribute="preclosureDate" />
+										</td>
 										<td>
 											<input type="checkbox" ng-model="isAccChecked" ng-change="detectPreclosureAccount(loanAccount, isAccChecked, $index)"></input>
 										</td>

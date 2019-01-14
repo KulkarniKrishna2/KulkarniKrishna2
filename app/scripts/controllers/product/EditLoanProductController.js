@@ -42,8 +42,8 @@
             var deletePenaltyAccountMappings = [];
             scope.transactionTypeMappings = [];
             scope.interestReceivableLabel = "label.input.receivableinterest";
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanproduct && scope.response.uiDisplayConfigurations.loanproduct.isHiddenFeild) {
-                scope.isIRDEnabledConfig = !scope.response.uiDisplayConfigurations.loanproduct.isHiddenFeild.isIRDEnabledConfig;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanproduct && scope.response.uiDisplayConfigurations.loanproduct.isHiddenField) {
+                scope.isIRDEnabledConfig = !scope.response.uiDisplayConfigurations.loanproduct.isHiddenField.isIRDEnabledConfig;
             }
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
