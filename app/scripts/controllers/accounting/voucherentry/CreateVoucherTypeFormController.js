@@ -14,6 +14,7 @@
             scope.restrictDate = new Date();
             scope.showTransactionDetails = false;
             scope.costCenterOptions = [];
+            scope.isBankPayment = false;
             /**
              * Based on the voucher type change the labels
              */
@@ -27,7 +28,9 @@
                 scope.creditLabel = 'label.input.gl.accounts';
             }
             /****************************************************************************************/
-
+           if(scope.voucherCode === 'bankpayment'){
+               scope.isBankPayment = true;
+           };
             if(scope.response){
                 scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.costCenter;            
                 scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode;            
