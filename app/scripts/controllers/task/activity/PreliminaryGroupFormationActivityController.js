@@ -169,7 +169,7 @@
                     for(var i in scope.centerDetails.subGroupMembers){
                         if(groupId == scope.centerDetails.subGroupMembers[i].id){
                             for(var j in scope.centerDetails.subGroupMembers[i].memberData){
-                                if(scope.centerDetails.subGroupMembers[i].memberData && (scope.centerDetails.subGroupMembers[i].memberData[j].status.value =='Active' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'Transfer in progress')){
+                                if(scope.centerDetails.subGroupMembers[i].memberData && (scope.centerDetails.subGroupMembers[i].memberData[j].status.value =='Active' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'Transfer in progress' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'On hold')){
                                     scope.activeMembers = scope.activeMembers + 1;
                                 }
                             }
@@ -1755,7 +1755,7 @@
                     if(data.clientMembers) {
                         $scope.allMembers = data.clientMembers;
                         $scope.allActiveMembers  = $filter('filter')($scope.allMembers,  function(allMembers){
-                            return allMembers.status.code == 'clientStatusType.active';
+                            return allMembers.status.code == 'clientStatusType.active' || allMembers.status.code == 'clientStatusType.onHold';
                         }) || [];
                     }
                 });
