@@ -154,14 +154,14 @@
             scope.officeSelected = function (officeId) {
                 scope.officeId = officeId;
                 if (officeId) {
+                    var searchConditions = {};
+                    searchConditions.officeId = officeId;
                     resourceFactory.employeeResource.getAllEmployees({officeId: scope.officeId, status: 'active'}, function (loanOfficerData) {
                         scope.loanOfficers = loanOfficerData.pageItems;
                     });
-
-                    resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (centersData) {
-                        scope.centers = centersData.pageItems;
+                    resourceFactory.centerSearchResource.getAllCenters({searchConditions: searchConditions, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (centersData) {
+                        scope.centers = centersData;
                     });
-
                     resourceFactory.groupResource.getAllGroups({officeId: scope.officeId,status:'active', orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (groupsData) {
                         scope.groups = groupsData;
                     });
@@ -179,8 +179,10 @@
 
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
-                    scope.loanOfficerId = loanOfficerId;
-                    resourceFactory.centerDropDownResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1, paged: false}, function (data) {
+                    var searchConditions = {};
+                    searchConditions.officeId = scope.officeId;
+                    searchConditions.staffId = loanOfficerId;
+                    resourceFactory.centerSearchResource.getAllCenters({searchConditions: searchConditions, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.centers = data;
                     });
 

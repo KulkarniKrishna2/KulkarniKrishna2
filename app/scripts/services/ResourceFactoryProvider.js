@@ -572,6 +572,9 @@
                     centerClientResource: defineResource(apiVer + "/centers/:centerId/clientdetails", {centerId: '@centerId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    centerSearchResource: defineResource(apiVer + "/centers/search", {searchConditions: '@searchConditions'}, {
+                        getAllCenters: {method: 'GET', params: {searchConditions: '@searchConditions'}, isArray: true}
+                    }),
                     centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId: '@centerId', anotherresource: '@anotherresource', officeId: '@officeId', paged: '@paged'}, {
                         get: {method: 'GET', params: {}},
                         getAllCenters: {method: 'GET', params: {}},
