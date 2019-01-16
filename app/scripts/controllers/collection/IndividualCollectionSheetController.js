@@ -156,16 +156,21 @@
                 var data = {};
                 data.dateFormat = scope.df;
                 data.locale = scope.optlang.code;
+                data.transactionDate = scope.formData.transactionDate;
 
-                if (scope.date.transactionDate) {
-                    data.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
+                if (scope.loanOfficerId){
+                    data.staffId = scope.loanOfficerId;
+
                 }
-                data.actualDisbursementDate = this.formData.transactionDate;
+                data.actualDisbursementDate = scope.formData.transactionDate;
                 data.bulkDisbursementTransactions = [];
                 //construct loan repayment and savings due transactions
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
                 data.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 data.bulkSavingsTransactions = scope.bulkSavingsDueTransactions;
+                if(scope.response.uiDisplayConfigurations.collectionSheet.isMandatory.officeId){
+                    data.officeId = scope.officeId;
+                }
                 resourceFactory.collectionSheetResource.save({command: 'saveCollectionSheet'}, data, function (data) {
                     localStorageService.addToLocalStorage('Success', true);
                     route.reload();

@@ -52,6 +52,9 @@
 		"collectionSheet": {
 			"isHiddenFeild": {
 				"paymentDetails": true
+			},
+			"isMandatory": {
+				"officeId": true
 			}
 		},
 		"createClient": {

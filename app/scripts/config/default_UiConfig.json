@@ -149,6 +149,9 @@
 				"loanAccountNumber": false,
 				"savingsAccountNumber": false,
 				"clientForNoRepayments": false
+			},
+			"isMandatory": {
+				"officeId": false
 			}
 		},
 		"createClient": {
