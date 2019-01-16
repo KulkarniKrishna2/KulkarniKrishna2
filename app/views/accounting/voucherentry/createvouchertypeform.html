@@ -39,7 +39,18 @@
                     <form-validate valattributeform="createVoucherForm" valattribute="officeId"/>
                 </div>
             </div>
-
+            <div class="form-group" ng-if="isBankPayment">
+                <label class="control-label col-sm-2">{{ 'label.input.relayOnFieldOffice' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <select id="relayOnOfficeId" name="relayOnOfficeId" chosen="officeOptions" ng-options="office.id as office.name for office in officeOptions"
+                        ng-model="formData.relayOnOfficeId" class="form-control" value="{{office.id}}" required late-validate="">
+                        <option value="">{{'label.menu.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createVoucherForm" valattribute="relayOnOfficeId" />
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.menu.costcenter' | translate}}<span
                     class="required" ng-show="isCostCenterMandatory">*</span></label>

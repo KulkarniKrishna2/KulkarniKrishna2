@@ -7762,6 +7762,8 @@
     "error.msg.savingsaccount.transaction.in.the.future" : "savings account transaction cannot be done on future date",
     "label.input.monthly.family.income": "Income Amount",
     "validation.msg.collectionsheet.officeId.cannot.be.blank" : "Please select office",
+    "label.input.relayOnFieldOffice": "Select Relay On Field Office",
+    "label.input.relayOnOffice": "Relay On Office",
 
      "------ end of translation file ------":"---------"
 }
