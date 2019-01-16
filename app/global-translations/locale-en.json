@@ -7761,6 +7761,7 @@
     "validation.msg.bulktransfer.fromStaffId.same.as.toStaffId" : "From and to staff cannot be same. ",
     "error.msg.savingsaccount.transaction.in.the.future" : "savings account transaction cannot be done on future date",
     "label.input.monthly.family.income": "Income Amount",
+    "validation.msg.collectionsheet.officeId.cannot.be.blank" : "Please select office",
 
      "------ end of translation file ------":"---------"
 }
