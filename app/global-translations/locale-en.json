@@ -7668,6 +7668,10 @@
     "label.tooltip.add.document" : "Add Document",
     "error.msg.Center.deleted.active.groups.exist":"Cannot delete the center because active subgroups",
     "tranche.cannot.be.created.in.current.month": "Tranche Cannot be Created in Current Month",
+    "error.msg.loan.id.invalid":"Loan with AccountNumber {{params[0].value}} not found",
+    "error.message.loan.with.accountNumber.doesnot.belong.to.this.tranche":"Loan with AccountNumber {{params[0].value}} doesnot belong to Tranche {{params[1].value}}",
+    "error.msg.loan.with.accountNumber.already.settled":"Loan with this AccountNumber is already Settled",
+    "error.message.loan.with.accountNumber.is.active":"Loan with AccountNumber {{params[0].value}} is active",
     
 
     "label.anchor.operationalaccounting": "Operational Accounting",
@@ -7764,6 +7768,8 @@
     "validation.msg.collectionsheet.officeId.cannot.be.blank" : "Please select office",
     "label.input.relayOnFieldOffice": "Select Relay On Field Office",
     "label.input.relayOnOffice": "Relay On Office",
+    "label.input.manualsettlement": "Manual Settlement",
+    "label.input.closedLoans": "Closed Loan",
 
      "------ end of translation file ------":"---------"
 }
