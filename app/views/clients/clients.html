@@ -73,6 +73,7 @@
                     </div>
 
                     <div class="col-md-offset-5">
+                        <button id="back" type="button" data-ng-click="back()" class="btn btn-default">{{'label.button.back'| translate}}</button>
                         <button id="reset" type="button" data-ng-click="resetSearchData()" class="btn btn-primary">{{'label.button.reset'| translate}}</button>
                         <button id="search" type="button" data-ng-click="searchData()" class="btn btn-primary"
                                 has-permission='READ_CLIENT'>{{'label.button.search'| translate}}
@@ -85,7 +86,7 @@
         <div ng-if="isSearchData">
             <div class="pull-left">
                 <div class="btn-group">
-                    <button type="button" data-ng-click="back()" class="btn btn-primary">{{'label.button.search' |
+                    <button type="button" data-ng-click="newSearch()" class="btn btn-primary">{{'label.button.search' |
                         translate}}
                     </button>
                 </div>

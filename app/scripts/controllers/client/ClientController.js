@@ -29,7 +29,13 @@
                 scope.isSearchData = true;
             };
             scope.searchData();
+
             scope.back = function () {
+                scope.isSearchData = true;
+                scope.searchConditions = {};
+            };
+
+            scope.newSearch = function () {
                 scope.isSearchData = false;
                 if(_.isUndefined(scope.officeOptions)){
                     resourceFactory.clientSearchTemplateResource.get(function (data) {

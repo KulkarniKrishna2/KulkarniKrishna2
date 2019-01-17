@@ -2,51 +2,101 @@
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.centers' | translate}}</li>
     </ul>
-
-    <a href="#/createcenter" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i class="icon-plus icon-white"></i>{{'label.button.createcenter' | translate}}</a>
+    <a href="#/createcenter" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i class="icon-plus icon-white"></i>{{'label.button.createcenter'
+        | translate}}</a>
     <div class="clearfix"></div>
-    <form ng-submit="search()" class="form-horizontal">
-        <div class="form-group">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input  data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchByNameExternalIdforcenter' | translate}}" class="form-control"/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary form-control">
-                            <span class="icon-search"></span>
-                        </button>
-                    </span>
+    <div class="form-horizontal">
+        <form ng-submit="newSearch()" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchByNameExternalIdforcenter' | translate}}"
+                            class="form-control" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary form-control">
+                                <span class="icon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()"
+                        class="span form-control" placeholder="{{'label.input.filterbynameorstatusorofficeforcenter' | translate}}">
                 </div>
             </div>
-            <div class="col-md-4">
-                <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusorofficeforcenter' | translate}}">
+        </form>
+        <div ng-if="!isSearchData">
+            <form name="searchForm">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.applicantname' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstName" name="firstName"
+                                ng-model="searchConditions.firstName" class="form-control" />
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middleName" name="middleName"
+                                ng-model="searchConditions.middleName" class="form-control" />
+                        </div>
+                        <div class="col-sm-3">
+                            <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastName" name="lastName"
+                                ng-model="searchConditions.lastName" class="form-control" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div ng-if="isSearchData">
+            <div ng-if="false" class="pull-left">
+                <div class="btn-group">
+                    <button type="button" data-ng-click="searchByConditions()" class="btn btn-primary">{{'label.button.search'
+                        |
+                        translate}}
+                    </button>
+                </div>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th> {{'label.heading.centerreferenceno' | translate}}</th>
+                            <th> {{'label.heading.accnum' | translate}}</th>
+                            <th> {{'label.heading.centerexternalid' | translate}}</th>
+                            <th>{{'label.heading.status' | translate}}</th>
+                            <th>{{'label.heading.office' | translate}}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="pointer-main" ng-repeat="center in centers.currentPageItems | orderBy:'name':reverse  | filter:filterText"
+                            total-items="totalCenters" pagination-id="centers">
+                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
+                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.referenceNumber}}</td>
+                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
+                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
+                            <td class="pointer" data-ng-click="routeTo(center.id)">
+                                <i class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
+                            </td>
+                            <td class="pointer" data-ng-click="routeTo(center.id)">{{getOfficeName(center.officeName,center.officeReferenceNumber)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ul class="pager">
+                    <li class="previous">
+                        <a id="prev" ng-click="centers.previous()" href="" ng-hide="!centers.hasPrevious()">&larr;
+                            {{'label.button.previous' | translate}}</a>
+                    </li>
+                    <li class="next">
+                        <a id="next" ng-click="centers.next()" href="" ng-hide="!centers.hasNext()">{{'label.button.next'
+                            | translate}} &rarr;</a></li>
+                </ul>
             </div>
         </div>
-    </form>
+    </div>
 
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{'label.heading.name' | translate}}</th>
-            <th> {{'label.heading.centerreferenceno' | translate}}</th>
-            <th> {{'label.heading.accnum' | translate}}</th>
-            <th> {{'label.heading.centerexternalid' | translate}}</th>
-            <th>{{'label.heading.status' | translate}}</th>
-            <th>{{'label.heading.office' | translate}}</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr class="pointer-main" dir-paginate="center in centers | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: centersPerPage" total-items="totalCenters" pagination-id="centers">
-            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
-            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.referenceNumber}}</td>
-            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
-            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
-            <td class="pointer" data-ng-click="routeTo(center.id)">
-                <i class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
-            </td>
-            <td class="pointer" data-ng-click="routeTo(center.id)">{{getOfficeName(center.officeName,center.officeReferenceNumber)}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <dir-pagination-controls boundary-links="true" pagination-id="centers" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
