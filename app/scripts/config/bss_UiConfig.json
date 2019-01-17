@@ -34,7 +34,18 @@
 				},
 				"showTypeAsRadio": true,
 				"isMandatoryField": {
-					"age": false
+					"age": false,
+					"dateOfBirth": false
+				},
+				"isValidateDOBField": {
+					"active": true,
+					"ageCriteria": {
+						"minAge": "18",
+						"maxAge": "58"
+					}
+				},
+				"isValidateFirstName":{
+					"firstNamePattern":"/^[a-zA-Z\\s]{3,}$/"
 				}
 			},
 			"takeSurveyName": "Member info",

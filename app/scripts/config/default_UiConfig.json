@@ -131,8 +131,19 @@
 				},
 				"isMandatoryField": {
 					"age": true,
-					"familyMemeberIDType": false
-				}
+					"familyMemeberIDType": false,
+					"dateOfBirth": false
+				},
+				"isValidateDOBField": {
+					"active": false,
+					"ageCriteria": {
+						"minAge": "",
+						"maxAge": ""
+					}
+				},
+				"isValidateFirstName":{
+					"firstNamePattern":"/^[a-zA-Z\\s]{3,}$/"
+				}					
 			},
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",
