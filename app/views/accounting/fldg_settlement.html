@@ -8,6 +8,10 @@
         <fieldset>
             <legend>{{'label.anchor.fldgsettlement'
                 | translate}}&nbsp;</legend>
+                <div class="pull-right">
+                    <a id="manualSettlement" type="submit" has-permission='CREATE_FLDG_SETTLEMENT' ng-click="manualSettlement()" class="btn btn-primary">{{'label.input.manualsettlement'
+                        | translate}}&nbsp;</a>
+                </div>
             <div class="col-md-5">
                 <table class="table-bordered table view-table">
                     <tr>
@@ -28,7 +32,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-10"  ng-if ="settledLoans.length>0">
+            <div class="col-md-10"  ng-if ="settledLoans.length>0 && !isManualSettlement">
                     <legend>{{'label.anchor.settledloans'
                         | translate}}&nbsp;</legend>
                     <div>
@@ -50,53 +54,101 @@
                         </table>
                     </div>  
                 </div>
-            <div class="col-md-10" ng-if ="overdueLoans.length>0">
-            <legend>{{'label.anchor.overdueloans'
-                | translate}}&nbsp;</legend>
-            <div>
-                <table class="table-bordered table view-table">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td>{{'label.anchor.bulksettlement' | translate}}</td>
-                            <td style="width: 350px">
-                                <select id="bulksettlementTypeId" name="bulksettlementTypeId" ng-model="bulksettlementId"
-                                    class="form-control" ng-options="bulksettlementTypeOption.id as bulksettlementTypeOption.value for bulksettlementTypeOption in settlementOptions"
-                                    value="{{bulksettlementTypeOption.id}}" ng-change="changeSettlement(bulksettlementId)" required late-validate>
-                                    <option value="">{{'label.menu.selectone' | translate}}</option>
-                                </select>
-                            </td>
-                        </tr>                    
-                    </thead>
-                    <thead>
-                        <tr class="graybg">
-                            <th>{{'label.input.loanaccountnumber' | translate}}</th>
-                            <th>{{'label.heading.amount' | translate}}</th>
-                            <th>{{'label.heading.settledby' | translate}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="overdueLoan in overdueLoans">
-                            <td style="width: 300px" ng-model="overdueLoan.account">{{overdueLoan.accountNumber}}</td>
-                            <td>{{overdueLoan.overDueAmount | number:2}}</td>
-                            <td style="width: 350px">
-                                <select  id="overdueLoan[{{$index}}].settlementTypeId" name="settlementType"
-                                    ng-model="overdueLoan.settlementTypeId"  class="form-control" ng-options="settlementTypeOption.id as settlementTypeOption.value for settlementTypeOption in settlementOptions"
-                                    value="{{settlementTypeOption.id}}" required late-validate>
-                                    <option value="">{{'label.menu.selectone' | translate}}</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="center">
-                    <a id="cancel" href="#/viewtranche" type="submit" class="btn btn-default">{{'label.button.cancel'
-                        | translate}}&nbsp;</a>&nbsp;
-                    <a id="save" type="submit" has-permission='CREATE_FLDG_SETTLEMENT' ng-click="submit()" class="btn btn-primary">{{'label.anchor.save'
-                        | translate}}&nbsp;</a>
-                </div>
-            </div>  
-        </div>
+                    <div class="col-md-10" ng-if="overdueLoans.length>0 || isManualSettlement">
+                        <legend>{{ fldgLabel
+                            | translate}}&nbsp;</legend>
+                        <div ng-if="overdueLoans.length>0 && !isManualSettlement">
+                            <table class="table-bordered table view-table">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>{{'label.anchor.bulksettlement' | translate}}</td>
+                                        <td style="width: 350px">
+                                            <select id="bulksettlementTypeId" name="bulksettlementTypeId" ng-model="bulksettlementId" class="form-control"
+                                                ng-options="bulksettlementTypeOption.id as bulksettlementTypeOption.value for bulksettlementTypeOption in settlementOptions"
+                                                value="{{bulksettlementTypeOption.id}}" ng-change="changeSettlement(bulksettlementId)"
+                                                required late-validate>
+                                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr class="graybg">
+                                        <th>{{'label.input.loanaccountnumber' | translate}}</th>
+                                        <th>{{'label.heading.amount' | translate}}</th>
+                                        <th>{{'label.heading.settledby' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="overdueLoan in overdueLoans">
+                                        <td style="width: 300px" ng-model="overdueLoan.account">{{overdueLoan.accountNumber}}</td>
+                                        <td>{{overdueLoan.overDueAmount | number:2}}</td>
+                                        <td style="width: 350px">
+                                            <select id="overdueLoan[{{$index}}].settlementTypeId" name="settlementType" ng-model="overdueLoan.settlementTypeId"
+                                                class="form-control" ng-options="settlementTypeOption.id as settlementTypeOption.value for settlementTypeOption in settlementOptions"
+                                                value="{{settlementTypeOption.id}}" required late-validate>
+                                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-if="isManualSettlement">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">
+                                    {{'label.input.loanaccountnumber' | translate}}&nbsp;
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-3">
+                                    <input id="accountNumber" type="text" autocomplete="off" name="accountNumber" ng-model="overdueLoans[0].accountNumber"
+                                        class="form-control" required late-validate />
+                                </div>
+                                <div class="col-sm-2">
+                                    <form-validate valattributeform="fldg" valattribute="accountNumber" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">{{'label.heading.amount' | translate}}&nbsp;<span class="required">*</span></label>
+                                <div class="col-sm-3">
+                                    <input id="overDueAmount" type="text" autocomplete="off" name="overDueAmount" ng-model="overdueLoans[0].overDueAmount"
+                                        class="form-control" required late-validate />
+                                </div>
+                                <div class="col-sm-2">
+                                    <form-validate valattributeform="fldg" valattribute="overDueAmount" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">{{'label.heading.settledby' | translate}}&nbsp;<span class="required">*</span></label>
+                                <div class="col-sm-3">
+                                    <select id="settlementTypeId" name="settlementTypeId" ng-model="overdueLoans[0].settlementTypeId" class="form-control"
+                                        ng-options="settlementTypeOption.id as settlementTypeOption.value for settlementTypeOption in settlementOptions"
+                                        value="{{settlementTypeOption.id}}" required late-validate>
+                                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <form-validate valattributeform="fldg" valattribute="settlementTypeId" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}
+                                </label>
+                    
+                                <div class="col-sm-3">
+                                    <textarea rows="2" class="form-control" ng-model="overdueLoans[0].description"></textarea>
+                                </div>
+                            </div>
+                    
+                        </div>
+                        <div class="center">
+                            <a id="cancel" href="#/viewtranche" type="submit" class="btn btn-default">{{'label.button.cancel'
+                                | translate}}&nbsp;</a>&nbsp;
+                            <button id="save" type="submit" has-permission='CREATE_FLDG_SETTLEMENT' class="btn btn-primary">{{'label.anchor.save'
+                                | translate}}&nbsp;</button>
+                        </div>
+                    </div>
         </fieldset>
     </form>
 </div>
