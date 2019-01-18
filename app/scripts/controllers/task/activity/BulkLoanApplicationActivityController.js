@@ -924,7 +924,7 @@
                             if ($scope.charges[i].amountOrPercentage > 0 || $scope.charges[i].isSlabBased) {
                                 var chargeObject = {
                                         chargeId: $scope.charges[i].chargeId,
-                                        amount: $scope.charges[i].amount,
+                                        amount: $scope.charges[i].amountOrPercentage,
                                         upfrontChargesAmount: $scope.charges[i].glims
                                     }
                                 if(!_.isUndefined($scope.charges[i].dueDate)){
