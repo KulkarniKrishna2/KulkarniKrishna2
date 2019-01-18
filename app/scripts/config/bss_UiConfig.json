@@ -19,6 +19,9 @@
 			},
 			"disbursement": {
 				"disburseTransactionAuthentication": false
+			},
+			"isDefaultValue": {
+				"syncDisbursementWithMeeting": true
 			}
 		},
 		"viewClient": {
