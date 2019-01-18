@@ -61,7 +61,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <select id="toOfficeId" ng-model="formData.toOfficeId" name="office" class="form-control" ng-options="toOffice.id as toOffice.name for toOffice in toOffices"
+                        <select id="toOfficeId" ng-model="formData.toOfficeId" name="office" class="form-control" ng-options="toOffice.id as toOffice.name for toOffice in toOffices"   
                             ng-change="changeoffice()" value="{{toOffice.id}}" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
@@ -73,9 +73,12 @@
                         <span class="required">*</span>
                     </label>
 
-                    <div class="col-sm-3">
-                        <input id="toClientId" ng-model="formData.toClientData" name="client" class="form-control" type="text" typeahead="(toClient.id + ' ' + toClient.displayName) as (toClient.id + ' ' + toClient.displayName) for toClient in toClients | filter:$viewValue | limitTo:8"
-                            typeahead-on-select="changeClient($item)" autocomplete="off" required>
+                    <div class="col-sm-3 ">
+                        <select id="toClientId" ng-model="formData.toClientData" name="client" class="form-control" type="text" 
+                        ng-options="(toClient.id + ' ' + toClient.displayName) as (toClient.id + ' ' + toClient.displayName) for toClient in toClients"
+                        chosen="toClients" value="{{(toClient.id + ' ' + toClient.displayName)}}" ng-change="changeClient(formData.toClientData)" required>
+                        <option value="">{{'label.selectone'| translate }}</option>
+                        </select>
                         <form-validate valattributeform="rectificationform" valattribute="client" />
                     </div>
                 </div>
