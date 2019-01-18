@@ -32,7 +32,8 @@
             });
 
             scope.changeClient = function (client) {
-                scope.formData.toClientId = client.id;
+                var fields = client.split(" ");
+                scope.formData.toClientId = fields[0];
                 scope.formData.toAccountId = undefined;
                 scope.changeEvent();
             };
