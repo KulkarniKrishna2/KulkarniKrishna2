@@ -19,7 +19,7 @@
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType : scope.eventType,
-                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria'
+                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,collectionMeetingCalendar'
                 }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -73,6 +73,9 @@
                         }
                     }
 
+                    }
+                    if(scope.centerDetails.collectionMeetingCalendar){
+                       scope.first.date = dateFilter(new Date(scope.centerDetails.collectionMeetingCalendar.nextTenRecurringDates[0]),scope.df)
                     }
                 });
 
@@ -132,7 +135,9 @@
 
                 //batch call
                 resourceFactory.batchResource.post({'enclosingTransaction':true},scope.batchRequests, function (data) {
-                    initTask();
+                    if(data[0].statusCode == 200){
+                        initTask();
+                    }                    
                 });
             };
 

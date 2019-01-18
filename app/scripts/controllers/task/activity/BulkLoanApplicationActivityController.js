@@ -511,7 +511,11 @@
                     $scope.loanAccountFormData.locale = scope.optlang.code;
                     $scope.loanAccountFormData.dateFormat = scope.df;
                     $scope.loanAccountFormData.loanType = $scope.inparams.templateType;
-                    $scope.loanAccountFormData.expectedDisbursementDate = reqSecondDate;
+                    if($scope.loanAccountFormData.syncDisbursementWithMeeting != undefined && $scope.loanAccountFormData.syncDisbursementWithMeeting){
+                        $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
+                    }else{
+                        $scope.loanAccountFormData.expectedDisbursementDate = reqSecondDate;
+                    }                    
                     $scope.loanAccountFormData.submittedOnDate = reqFirstDate;
                     $scope.loanAccountFormData.recalculationRestFrequencyStartDate = dateFilter($scope.recalculationRestFrequencyStartDate, scope.df);
                     $scope.loanAccountFormData.recalculationCompoundingFrequencyStartDate = dateFilter($scope.recalculationCompoundingFrequencyStartDate, scope.df);
