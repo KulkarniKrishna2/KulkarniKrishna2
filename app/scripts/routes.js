@@ -1944,6 +1944,9 @@
             .when('/reassignstaff/:isStaffReassignment', {
                 templateUrl: 'views/organization/bulktransfer/bulkstaffreassign.html'
             })
+            .when('/fldgManualsettlement/:trancheId', {
+                templateUrl: 'views/accounting/fldg_manual_settlement.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

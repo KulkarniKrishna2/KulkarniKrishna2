@@ -7770,6 +7770,7 @@
     "label.input.relayOnOffice": "Relay On Office",
     "label.input.manualsettlement": "Manual Settlement",
     "label.input.closedLoans": "Closed Loan",
+    "label.input.fldgmanualsettelemnt":"FLDG Manual Settlement",
 
      "------ end of translation file ------":"---------"
 }
