@@ -12,6 +12,9 @@
 	    </ul>
 	</div>
 	
+	<div class="form-horizontal error" ng-show="showInitiateCreditBureauError">
+		{{ 'error.msg.cannot.initiate.credit.bureau.enquiry.for.closed.client' | translate }}
+	</div>
 	<div class="row">
 	    <div class="col-md-8 col-sm-8">
 	        <h3 class="client-title">
@@ -249,7 +252,7 @@
     </script>
 
 	<tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
-		<tab heading="{{'label.heading.general' | translate}}">
+		<tab heading="{{'label.heading.general' | translate}}" select = "displayInitiateCreditBureauError()" >
 			<div class="col-md-12 col-sm-12">
 				<div class="row primarydiv">
 				    <div class="pull-right" ng-hide="loanApplicationReferenceId">
