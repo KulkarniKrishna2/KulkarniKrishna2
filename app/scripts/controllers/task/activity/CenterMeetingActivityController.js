@@ -191,9 +191,16 @@
                     updateFormData.locale = scope.optlang.code;
                     updateFormData.dateFormat = scope.df;
                     updateFormData.reschedulebasedOnMeetingDates = true;
-                    var startDate = new Date(dateFilter(scope.centerMeetingData.collectionMeetingCalendar.startDate, scope.df));
+                    updateFormData.changeMeetingDate = true;
+                    if(scope.isEditExpectedDisbursementDateOnly){
+                        updateFormData.reschedulebasedOnMeetingDates = false;
+                        updateFormData.changeMeetingDate = false;
+                    }else{
+                        var startDate = new Date(dateFilter(scope.centerMeetingData.collectionMeetingCalendar.startDate, scope.df));
                     updateFormData.presentMeetingDate = dateFilter(startDate, scope.df);
                     updateFormData.newMeetingDate = dateFilter(scope.first.date, scope.df);
+                    }
+                    
                     updateFormData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                     resourceFactory.attachMeetingResource.update({
                         groupOrCenter: scope.entityType,
