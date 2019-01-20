@@ -44,7 +44,7 @@
 					"active": true,
 					"ageCriteria": {
 						"minAge": "18",
-						"maxAge": "58"
+						"maxAge": "55"
 					}
 				},
 				"isValidateFirstName":{
