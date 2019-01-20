@@ -7772,6 +7772,7 @@
     "label.input.closedLoans": "Closed Loan",
     "label.input.fldgmanualsettelemnt":"FLDG Manual Settlement",
     "error.msg.cannot.initiate.credit.bureau.enquiry.for.closed.client": "Cannot initiate Credit Bureau Enquiry for closed client",
+    "error.msg.client.close.loan.approved": "Client cannot be closed because of approved loans.",
 
      "------ end of translation file ------":"---------"
 }
