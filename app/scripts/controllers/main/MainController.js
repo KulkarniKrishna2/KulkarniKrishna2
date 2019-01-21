@@ -253,6 +253,10 @@
                             scope.isFieldOfficeEnable = data.globalConfiguration[i].enabled;
 
                         }
+                        if (data.globalConfiguration[i].name == 'batch-accounting') {
+                            scope.isBatchAccountingEnabled = data.globalConfiguration[i].enabled;
+
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
