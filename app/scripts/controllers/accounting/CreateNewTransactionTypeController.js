@@ -16,6 +16,7 @@
                 scope.savingsProducts = data.savingsProducts;
                 scope.accountLevelTypeOptions = data.accountLevelTypeOptions;
                 scope.transactionMappingOptions = data.transactionMappingOptions;
+                scope.bcAccountingTypeOptions = data.bcAccountingTypeOptions;
 
             });
             scope.changeProductType = function (productTypeId) {

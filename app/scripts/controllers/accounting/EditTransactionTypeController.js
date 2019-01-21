@@ -13,10 +13,13 @@
                 scope.accountLevelTypeOptions = data.accountLevelTypeOptions;
                 scope.bcTransactionTypeGLMapping = data.bcTransactionTypeGLMapping;
                 scope.transactionMappingOptions = data.transactionMappingOptions;
+                scope.bcAccountingTypeOptions = data.bcAccountingTypeOptions;
                 scope.formData = {
                     locale: scope.optlang.code,
                     transactionTypeId: data.transactionType.id,
-                    accountingLevelId:data.accountLevelType.id
+                    accountingLevelId: data.accountLevelType.id,
+                    bcAccountingTypeId: data.accountingType.id,
+                    istransfer: data.isTransfer
                 }
                 if (data.productType && data.productData) {
                     scope.formData.productTypeId = data.productType.id;

@@ -7771,6 +7771,10 @@
     "label.input.manualsettlement": "Manual Settlement",
     "label.input.closedLoans": "Closed Loan",
     "label.input.fldgmanualsettelemnt":"FLDG Manual Settlement",
+    "label.input.classification": "Classification",
+    "label.input.istransfer": "Is Transfer",
+    "label.input.searchtransactiontype": "Search Transaction Type",
+    "label.input.transactionEntryType": "Transaction Entry Type",
 
      "------ end of translation file ------":"---------"
 }

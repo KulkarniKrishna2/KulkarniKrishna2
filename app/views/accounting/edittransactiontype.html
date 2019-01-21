@@ -62,6 +62,29 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.classification' | translate}}
+                </label>
+            
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="bcAccountingTypeOptions" id="bcAccountingTypeId" ng-model="formData.bcAccountingTypeId"
+                            class="form-control" ng-options="accountingType.id as accountingType.value for accountingType in bcAccountingTypeOptions"
+                            value="{{accountingType.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.istransfer' | translate }}</label>
+                <div class="col-sm-2">
+                    <label class="checkbox control-label">
+                        <input id="istransfer" type="checkbox" ng-model="formData.istransfer">
+                    </label>
+                </div>
+            </div>
             <br>
             <div class="form-group">
                 <label class="control-label col-sm-2">

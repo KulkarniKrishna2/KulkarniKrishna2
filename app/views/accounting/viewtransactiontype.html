@@ -28,6 +28,14 @@
                 <td>{{'label.heading.productOptions' | translate}}:</td>
                 <td>{{transactionTypeMapping.productData.name}}</td>
             </tr>
+            <tr ng-if="transactionTypeMapping.accountingType.code!='bcAccountingType.invalid'">
+                <td>{{'label.input.classification' | translate}}:</td>
+                <td>{{transactionTypeMapping.accountingType.value}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.input.istransfer' | translate}}:</td>
+                <td>{{transactionTypeMapping.isTransfer}}</td>
+            </tr>
         </table>
 
     </div>
