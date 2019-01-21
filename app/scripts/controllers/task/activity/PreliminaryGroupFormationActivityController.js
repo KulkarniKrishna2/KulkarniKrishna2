@@ -168,14 +168,16 @@
                 if(scope.centerDetails.subGroupMembers){
                     for(var i in scope.centerDetails.subGroupMembers){
                         if(groupId == scope.centerDetails.subGroupMembers[i].id){
-                            for(var j in scope.centerDetails.subGroupMembers[i].memberData){
+                            /*for(var j in scope.centerDetails.subGroupMembers[i].memberData){
                                 if(scope.centerDetails.subGroupMembers[i].memberData && (scope.centerDetails.subGroupMembers[i].memberData[j].status.value =='Active' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'Transfer in progress' || scope.centerDetails.subGroupMembers[i].memberData[j].status.value == 'On hold')){
                                     scope.activeMembers = scope.activeMembers + 1;
                                 }
-                            }
-
-                    }   }    
+                            }*/
+                            scope.activeMembers = scope.centerDetails.subGroupMembers[i].totalActiveAndHoldClients;
+                        }   
+                    }    
                 }
+
             }
             scope.createMemberInGroup = function (groupId, officeId) {
                 scope.exceedMaxSubGroupLimit = false;

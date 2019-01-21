@@ -43,7 +43,7 @@
 									<th></th>
 								</thead>
 								<tbody>
-									<tr ng-repeat="loanAccount in clientLoanAccounts | filter:  '300'">
+									<tr ng-repeat="loanAccount in clientLoanAccounts | filter:status.code = 'loanStatusType.active'">
 										<td>{{loanAccount.loanType.value}} - {{loanAccount.accountNo}}</td>
 										<td>{{loanAccount.loanBalance}}</td>
 										<td ng-if="!ispreCloseDateHidden"> <input id="preclosureDate" name="preclosureDate" class="form-control" type="text"
