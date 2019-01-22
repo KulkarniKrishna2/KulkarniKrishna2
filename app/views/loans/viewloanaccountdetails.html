@@ -935,7 +935,7 @@
                             </tr>
                         </table>
                     </tab>
-                    <tab has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}">
+                    <tab has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}" select="fetchBankDetailAssociation()">
                         <div class="pull-right">
                               <a has-permission='CREATE_ASSIGNBANKACCOUNTDETAIL' ng-hide="loanBankAccountDetailAssociation" href="#/client/{{loandetails.clientId}}/bankaccountdetails/loan/{{loandetails.id}}" ng-show="createPossible" class="btn btn-primary">{{'label.button.add.bankaccount' | translate}} </a>
                         </div>

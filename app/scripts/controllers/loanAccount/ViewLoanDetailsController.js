@@ -48,10 +48,11 @@
                 scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
                 scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
             }
-
-            resourceFactory.bankApprovalStatusResource.get({loanId: routeParams.id}, function (bankLoanStatusData) {
-                scope.bankLoanStatus = bankLoanStatusData.value;          
-            });
+            if(scope.showBankApprovalStatus){
+                resourceFactory.bankApprovalStatusResource.get({loanId: routeParams.id}, function (bankLoanStatusData) {
+                    scope.bankLoanStatus = bankLoanStatusData.value;          
+                });
+            }
 
             scope.draftedTransaction = 1;
             scope.submittedTransaction = 2;
@@ -339,7 +340,7 @@
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
              */
 
-            var multiTranchDataRequest = "multiDisburseDetails,repaymentSchedule,originalSchedule,transactions,emiAmountVariations,charges";
+            var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
             var loanApplicationReferenceId = "loanApplicationReferenceId";
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
@@ -664,31 +665,32 @@
                             taskPermissionName: 'READ_LOANAPPLICATIONREFERENCE'
                         });
                     }
-
-                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.loandetails.id, associations: 'transactions', isFetchSpecificData: true}, function (transactionData) {
-                        scope.loandetails.transactions = transactionData.transactions;
-                        if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
-                            for(var i = 0; i < scope.loandetails.transactions.length; i++){
-                                if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
-                                    scope.buttons.options.unshift({
-                                        name: "button.revokesubsidy",
-                                        taskPermissionName: 'READ_SUBSIDY'
-                                    });
-                                    break;
+                    if (!angular.isUndefined(scope.loandetails.interestRecalculationData) && scope.loandetails.interestRecalculationData.isSubsidyApplicable) {
+                        resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.loandetails.id, associations: 'transactions', isFetchSpecificData: true,exclude:'loanBasicDetails'}, function (transactionData) {
+                            scope.loandetails.transactions = transactionData.transactions;
+                            if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0){
+                                for(var i = 0; i < scope.loandetails.transactions.length; i++){
+                                    if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
+                                        scope.buttons.options.unshift({
+                                            name: "button.revokesubsidy",
+                                            taskPermissionName: 'READ_SUBSIDY'
+                                        });
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                     
+                        
 
-                        if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0) {
-                            for (var i = 0; i < scope.loandetails.transactions.length; i++) {
-                                if (angular.isUndefined(scope.loandetails.interestRecalculationData) || !scope.loandetails.interestRecalculationData.isSubsidyApplicable) {
-                                    scope.buttons.options.splice(0, 1);
-                                    break;
+                            if(scope.loandetails.transactions && scope.loandetails.transactions.length > 0) {
+                                for (var i = 0; i < scope.loandetails.transactions.length; i++) {
+                                    if (angular.isUndefined(scope.loandetails.interestRecalculationData) || !scope.loandetails.interestRecalculationData.isSubsidyApplicable) {
+                                        scope.buttons.options.splice(0, 1);
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
 
                     scope.getOfficeName=function(officeName,officeReferenceNumber){
                         if(!scope.isReferenceNumberAsNameEnable || officeReferenceNumber==undefined){
@@ -827,7 +829,7 @@
                     fetchBankTransferDetails();
                 }
                 scope.isOverPaidOrGLIM();
-                fetchBankDetailAssociation();
+                // fetchBankDetailAssociation();
                 //enableOrDisableLoanLockButtons();
             });
 
@@ -855,10 +857,12 @@
                 });
             };
 
-            fetchBankDetailAssociation = function(){
-                resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: routeParams.id}, function (data) {
-                    scope.loanBankAccountDetailAssociation = data;
-                });
+            scope.fetchBankDetailAssociation = function(){
+                if(angular.isUndefined(scope.loanBankAccountDetailAssociation)){
+                    resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: routeParams.id}, function (data) {
+                        scope.loanBankAccountDetailAssociation = data;
+                    });
+                }
             };
 
             function disbursalSettings(data) {
@@ -962,7 +966,7 @@
             scope.isRepaymentSchedule = false;
             scope.istransactions = false;
             scope.iscollateral = false;
-            scope.isMultiDisburseDetails = false;
+            scope.isMultiDisburseDetails = true;
             scope.isInterestRatesPeriods = false;
             scope.ischarges = false;
             scope.isFutureSchedule = false;
@@ -993,7 +997,7 @@
                     scope.isDataAlreadyFetched = true;
                 }
                 if(!scope.isDataAlreadyFetched){
-                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations, isFetchSpecificData: true}, function (data) {
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations, isFetchSpecificData: true,exclude:'loanBasicDetails'}, function (data) {
                         scope.loanSpecificData = data;
                         if(associations === 'repaymentSchedule' || associations === 'repaymentSchedule,originalSchedule'){
                             scope.isRepaymentSchedule = true;
@@ -1021,7 +1025,6 @@
                         }else if(associations === 'charges'){
                             scope.ischarges = true;
                             scope.loandetails.charges = scope.loanSpecificData.charges;
-                            scope.loandetails.overdueCharges = scope.loanSpecificData.overdueCharges;
                             if (scope.loandetails.charges) {
                                 scope.charges = scope.loandetails.charges;
                                 for (var i in scope.charges) {
