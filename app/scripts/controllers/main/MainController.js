@@ -72,7 +72,7 @@
                     scope.enableBc = scope.response.uiDisplayConfigurations.bc.enableBc;
                 }
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.readOnlyFields) {
-                    scope.isDatePickerReadOnly = scope.response.uiDisplayConfigurations.readOnlyFields.datePicker;
+                    $rootScope.isDatePickerReadOnly = scope.response.uiDisplayConfigurations.readOnlyFields.datePicker;
                 }
             });
             //hides loader
