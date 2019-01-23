@@ -35,8 +35,8 @@
             scope.maxAge = 0;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
                 scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
-                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth){
-                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth) {
+                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth;
                 }
                 if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
                     scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
