@@ -7,10 +7,14 @@
             scope.reversalReasons = [];
             scope.isRejectReasonRequired = false;
             scope.isValuedateUpdateRequired = false;
+            scope.isRefundTransaction = false;
 
             function init(){
                 resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                     scope.transaction = data;
+                    if(scope.transaction.type.code === "loanTransactionType.refund"){
+                        scope.isRefundTransaction = true;
+                    }
                     scope.glimTransactions = data.glimTransactions;
                     scope.transaction.accountId = routeParams.accountId;
                     scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
