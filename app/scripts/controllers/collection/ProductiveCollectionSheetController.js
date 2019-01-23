@@ -45,6 +45,9 @@
                    scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason; 
                 }
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet && scope.response.uiDisplayConfigurations.collectionSheet.attendanceType) {
+                scope.defaultAttendanceValue = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.defaultValue;
+            }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild) {
                 scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
                 scope.hideClientForNoRepayments = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.clientForNoRepayments;
@@ -195,6 +198,11 @@
 
                     if (!_.isUndefined(scope.attendanceTypeOptions)) {
                         scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
+                    }
+                    if (!_.isUndefined(scope.defaultAttendanceValue)) {
+                        scope.defaultClientAttendanceType = {};
+                    } else {
+                        scope.defaultClientAttendanceType = scope.collectionsheetdata.attendanceTypeOptions[0].id
                     }
                     scope.savingsgroups = data.groups;
                     scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
@@ -423,7 +431,11 @@
                         attendence.clientId = scope.clients[j].clientId;
                         attendence.reasonId = scope.clients[j].reasonId;
                         attendence.reason = scope.clients[j].reason;
-                        attendence.attendanceType = scope.clients[j].attendanceType;
+                        if (!_.isUndefined(scope.defaultAttendanceValue)) {
+                            attendence.attendanceType = scope.defaultAttendanceValue;
+                        } else {
+                            attendence.attendanceType = scope.clients[j].attendanceType;
+                        }
                         if (attendence.clientId) {
                             clientsAttendanceDetails.push(attendence);
                         }
