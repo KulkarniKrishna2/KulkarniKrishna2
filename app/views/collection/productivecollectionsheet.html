@@ -160,7 +160,7 @@
                             <div  class="form-group">
                                     <div class="form-group">
                                             <div ng-class="(attendenceListForReason.indexOf(client.attendanceType)>-1 && showRejectReason)?'col-sm-6 col-sm-offset-4':'col-sm-12'">
-                                                <select id="client.attendanceType" ng-model="client.attendanceType" ng-init=" client.attendanceType = collectionsheetdata.attendanceTypeOptions[0].id" class="col-sm-12"
+                                                <select id="client.attendanceType" ng-model="client.attendanceType" ng-init=" client.attendanceType = defaultClientAttendanceType" class="col-sm-12"
                                                         ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
                                                         value="{{attendance.id}}" data-ng-change="setvalues(client.clientId)">
                                                 </select>
