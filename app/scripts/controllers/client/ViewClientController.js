@@ -104,12 +104,7 @@
             };
 
             scope.initiateCreditBureauEnquiry = function () {
-                if(scope.isClosedClient){
-                    scope.showInitiateCreditBureauError = true;
-                }else{
-                    scope.showInitiateCreditBureauError = false;
-                    location.path('/create/creditbureau/client/' + scope.clientId);
-                }
+                location.path('/create/creditbureau/client/' + scope.clientId);
             }
             scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
             function constructActiveLoanSummary() {
@@ -529,13 +524,8 @@
                 }
             };
 
-            scope.displayInitiateCreditBureauError = function(){
-                scope.showInitiateCreditBureauError = false;
-            }
-
             scope.clientAccountsLoaded = false;
             scope.getClientAccounts = function(){
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.clientAccountsLoaded){
                     scope.clientAccountsLoaded = true;
                     resourceFactory.clientAccountsOverviewsResource.get({clientId: routeParams.id}, function (data) {
@@ -593,7 +583,6 @@
 
             scope.clientDatatablesLoaded = false;
             scope.getClientDatatables = function (){
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.clientDatatablesLoaded){
                     if(!_.isUndefined(scope.client.id)){
                         isLoadClientDataTables = true;
@@ -614,7 +603,6 @@
 
             scope.clientChargesLoaded = false;
             scope.getClientCharges = function(){
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.clientChargesLoaded){
                     scope.clientChargesLoaded = true;
                     resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true, chargeStatus:"active"}, function (data) {
@@ -897,7 +885,6 @@
 
             scope.isGetAllClientsNotes = false;
             scope.getAllClientsNotes = function () {
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.isGetAllClientsNotes){
                     resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id}, function (data) {
                         scope.clientNotes = data;
@@ -918,7 +905,6 @@
 
             scope.entityAddressLoaded = false;
             scope.fetchEntityAddress = function () {
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.entityAddressLoaded) {
                     scope.entityType = "clients";
                     resourceFactory.addressDataResource.getAll({
@@ -955,7 +941,6 @@
             };
             scope.smartCardDataLoaded = false;
             scope.fetchSmartCardData = function() {
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.smartCardDataLoaded) {
                     scope.entityType = "clients";
                     resourceFactory.smartCardDataResource.getAll({
@@ -992,7 +977,6 @@
             };
             scope.clientIdentityDocumentsLoaded = false;
             scope.getClientIdentityDocuments = function () {
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.clientIdentityDocumentsLoaded) {
                     resourceFactory.clientResource.getAllClientDocuments({
                         clientId: routeParams.id,
@@ -1157,7 +1141,6 @@
 
             scope.clientDocumentsLoaded = false;
             scope.getClientDocuments = function () {
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.clientDocumentsLoaded) {
                     resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id}, function (data) {
                         scope.clientdocuments = {};
@@ -1459,7 +1442,6 @@
 
             scope.familyDetailsLoaded = false;
             scope.familyDetails = function(){
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.familyDetailsLoaded) {
                     resourceFactory.familyDetails.getAll({clientId: routeParams.id}, function (data) {
                         scope.familyMembers = data;
@@ -1520,7 +1502,6 @@
             };
             scope.incomeAndexpenseLoaded = false;
             scope.incomeAndexpense = function(){
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.incomeAndexpenseLoaded) {
                     resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({clientId: routeParams.id}, function (data) {
                         scope.incomeAndExpenses = data;
@@ -1598,7 +1579,6 @@
 
             scope.existingLoansLoaded = false;
             scope.existingLoans = function(){
-                scope.showInitiateCreditBureauError = false;
                 if(!scope.existingLoansLoaded) {
                     resourceFactory.clientExistingLoan.getAll({clientId: routeParams.id}, function (data) {
                         scope.existingLoans = data;
