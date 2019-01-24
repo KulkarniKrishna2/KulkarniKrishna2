@@ -24,7 +24,29 @@
                 location.path('/tellers/' + routeParams.tellerId + "/cashiers/" + routeParams.cashierId  +"/txns/" +  scope.formData.currencyCode);
 
             };
+            scope.routeToSummary = function(){
+                route.reload();
+                location.path('/tellers/' + routeParams.tellerId + "/cashiers/" + routeParams.cashierId  +"/summary/" +  scope.formData.currencyCode);
 
+            };
+
+            scope.routeToEntity = function(entityType, entityId)
+            {
+                if(entityType === 'loans')
+                {
+                    location.path('/viewloanaccount/' + entityId);
+                }
+                else if (entityType === 'savings')  
+                {
+                    location.path('/viewsavingaccount/' + entityId);
+                }
+                else if (entityType === 'client')  
+                {
+                    location.path('/viewclient/' + entityId);
+                }
+
+             };
+             
             resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
                 scope.currencyOptions = data.selectedCurrencyOptions;
                 scope.formData.currencyCode = routeParams.currencyCode;

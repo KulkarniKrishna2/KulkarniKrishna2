@@ -1947,6 +1947,9 @@
             .when('/fldgManualsettlement/:trancheId', {
                 templateUrl: 'views/accounting/fldg_manual_settlement.html'
             })
+            .when('/tellers/:tellerId/cashiers/:cashierId/summary/:currencyCode', {
+                templateUrl: 'views/organization/cashmgmt/viewCashierSummary.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

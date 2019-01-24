@@ -3618,6 +3618,7 @@
     "label.anchor.createTeller":"Create Teller",
     "label.anchor.createCashier":"Create Cashier",
     "label.anchor.cashiertransactions":"Transactions",
+    "label.anchor.cashierSummary": "Summary",
     "label.anchor.cashier.allocatefunds":" Allocate Cash",
     "label.anchor.cashier.settlefunds":" Settle Cash",
     "label.button.createteller":"New Teller",
@@ -3682,6 +3683,13 @@
     "label.input.teller.cashiertxn.txnNote": "Notes/Comments",
     "label.button.addpaymentdetail": "Add Payment Detail",
     "label.anchor.individualcollectionsheet": "Individual Collection Sheet",
+    "label.heading.cashmgmt.cashier.sumRepayment": "Loan Repayments",
+    "label.heading.cashmgmt.cashier.sumDisbursement": "Loan Disbursements",
+    "label.heading.cashmgmt.cashier.sumDeposit": "Deposits",
+    "label.heading.cashmgmt.cashier.sumWithdrawal":"Withdrawn",
+    "label.heading.cashmgmt.cashier.sumPayCharge":"Charges Collected",
+    "label.button.cashier.showSummary": "Show Summary",
+    "label.heading.cashmgmt.cashier.txntype": "Transaction Type",
 
     "------------------": "------------",
 
