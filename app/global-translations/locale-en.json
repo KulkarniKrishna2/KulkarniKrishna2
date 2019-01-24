@@ -4711,6 +4711,7 @@
     "label.anchor.createTeller":"Create Teller",
     "label.anchor.createCashier":"Create Cashier",
     "label.anchor.cashiertransactions":"Transactions",
+    "label.anchor.cashierSummary": "Summary",
     "label.anchor.cashier.allocatefunds":" Allocate Cash",
     "label.anchor.cashier.settlefunds":" Settle Cash",
     "label.button.createteller":"New Teller",
@@ -4781,6 +4782,15 @@
     "label.input.dplimitreductionevery": "Drawing power Reduction Every",
     "label.input.dplimitcalculationType": "Drawing power Calculation Type",
     "label.input.duration" : "Drawing power Duration",
+    "label.heading.cashmgmt.cashier.sumRepayment": "Loan Repayments",
+    "label.heading.cashmgmt.cashier.sumDisbursement": "Loan Disbursements",
+    "label.heading.cashmgmt.cashier.sumDeposit": "Deposits",
+    "label.heading.cashmgmt.cashier.sumWithdrawal":"Withdrawn",
+    "label.heading.cashmgmt.cashier.sumPayCharge":"Charges Collected",
+    "label.button.cashier.showSummary": "Show Summary",
+    "label.heading.cashmgmt.cashier.txntype": "Transaction Type",
+    "label.heading.cashmgmt.cashier.txnAllocateCash":"Allocate Cash",
+    "label.heading.cashmgmt.cashier.txnSettleCash": "Settle Cash",
 
     "------------------": "------------",
 

@@ -30,7 +30,7 @@
             scope.routeToView = function (tellerId, cashierId) {
                     location.path('/tellers/' + tellerId + "/cashiers/" + cashierId);
             };
-
+            
             scope.allocate = function (tellerId, cashierId) {
                 location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/actions/allocate/");
             };
@@ -39,6 +39,10 @@
             };
             scope.transactions = function (tellerId, cashierId) {
                 location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/txns/" + scope.currencyCode );
+            };
+
+            scope.routeToSummary = function (tellerId, cashierId) {
+                location.path('/tellers/' + tellerId + "/cashiers/" + cashierId  +"/summary/" +  scope.currencyCode);
             };
 
             scope.compare = function (x, y) {

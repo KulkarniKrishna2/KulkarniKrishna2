@@ -60,24 +60,27 @@
             <tr dir-paginate="txn in cashierTransactions | orderBy:'txn.txnDate' | filter:filterText | itemsPerPage: txnPerPage" total-items="totaltxn">
                 <td>{{txn.txnDate | DateFormat}}</td>
 
-                <td>{{txn.txnType.value}}</td>
+                <td>{{txn.txnTypeEnum.code}}</td>
 
                 <td >
-                    <span ng-if="txn.txnType.value == 'Allocate Cash'">{{txn.txnAmount | number}}</span>
+                    <span ng-if="txn.txnType == 'ALLOCATE'">{{txn.txnAmount | number}}</span>
+                </td>
+                <td>
+                    <span ng-if="txn.txnType == 'INWARD_CASH_TXN'">{{txn.txnAmount | number}}</span>
                 </td>
 
                 <td>
-                    <span ng-if="txn.txnType.value == 'Cash In'">{{txn.txnAmount | number}}</span>
-                </td>
-
-                <td>
-                    <span ng-if="txn.txnType.value == 'Cash Out'">{{txn.txnAmount | number}}</span>
+                    <span ng-if="txn.txnType == 'OUTWARD_CASH_TXN'">{{txn.txnAmount | number}}</span>
                 </td>
 
                 <td >
-                    <span ng-if="txn.txnType.value == 'Settle Cash'">{{txn.txnAmount | number}}</span>
+                    <span ng-if="txn.txnType == 'SETTLE'">{{txn.txnAmount | number}}</span>
                 </td>
                 <td>{{txn.txnNote }}</td>
+                <td><a class="pointer ng-scope" ng-show="txn.txnType == 'INWARD_CASH_TXN' || txn.txnType == 'OUTWARD_CASH_TXN'" ng-click="routeToEntity(txn.entityType, txn.entityId)" tooltip="Click here for more details">
+                        <i class="icon-circle-arrow-right icon-large coll"></i>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
