@@ -18,8 +18,10 @@
                     locale: scope.optlang.code,
                     transactionTypeId: data.transactionType.id,
                     accountingLevelId: data.accountLevelType.id,
-                    bcAccountingTypeId: data.accountingType.id,
                     istransfer: data.isTransfer
+                }
+                if (data.accountingType && data.accountingType.code && data.accountingType.code != "bcAccountingType.invalid") {
+                    scope.formData.bcAccountingTypeId = data.accountingType.id;
                 }
                 if (data.productType && data.productData) {
                     scope.formData.productTypeId = data.productType.id;

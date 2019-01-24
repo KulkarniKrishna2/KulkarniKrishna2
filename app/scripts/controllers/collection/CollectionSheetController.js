@@ -42,6 +42,9 @@
                 scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
                 scope.hideClientForNoRepayments = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.clientForNoRepayments;
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet && scope.response.uiDisplayConfigurations.collectionSheet.attendanceType) {
+                scope.defaultAttendanceValue = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.defaultValue;
+            }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 if (scope.currentSession.user.officeId) {
@@ -349,6 +352,11 @@
 
             scope.parseClientCharge = function (data) {
                 scope.groups = data.groups;
+                if (!_.isUndefined(scope.defaultAttendanceValue)) {
+                    scope.defaultClientAttendanceType = {};
+                } else {
+                    scope.defaultClientAttendanceType = data.attendanceTypeOptions[0].id
+                }
                 scope.groupsTotalClientcharges = 0;
                 angular.forEach(data.groups, function (group) {
                     group.totalClientCharges = 0;
@@ -861,7 +869,11 @@
                         attendence.clientId = scope.clients[j].clientId;
                         attendence.reasonId = scope.clients[j].reasonId;
                         attendence.reason = scope.clients[j].reason;
-                        attendence.attendanceType = scope.clients[j].attendanceType;
+                        if (!_.isUndefined(scope.defaultAttendanceValue)) {
+                            attendence.attendanceType = scope.defaultAttendanceValue;
+                        } else {
+                            attendence.attendanceType = scope.clients[j].attendanceType;
+                        }
                         if (attendence.clientId) {
                             clientsAttendanceDetails.push(attendence);
                         }

@@ -262,6 +262,9 @@
 		"collectionSheet": {
 			"isHiddenFeild": {
 				"clientForNoRepayments": true
+			},
+			"attendanceType": {
+				"defaultValue": 0
 			}
 		},
 		"loanproduct": {
