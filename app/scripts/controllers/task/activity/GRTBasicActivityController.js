@@ -74,11 +74,22 @@
                     }
 
                     }
-                    if(scope.centerDetails.collectionMeetingCalendar){
-                       scope.first.date = dateFilter(new Date(scope.centerDetails.collectionMeetingCalendar.nextTenRecurringDates[0]),scope.df)
-                    }
-                });
-
+                    function  updateExpectedDisbursementDate(){
+                        var reqSecondDate = scope.first.date;
+                       if(scope.centerDetails.collectionMeetingCalendar){
+                            for(var i in scope.centerDetails.collectionMeetingCalendar.recurringDates){
+                                if(reqSecondDate < new Date(scope.centerDetails.collectionMeetingCalendar.recurringDates[i])){
+                                    scope.first.date = dateFilter(new Date(scope.centerDetails.collectionMeetingCalendar.recurringDates[i]),scope.df);
+                                    break;
+                                }else if(reqSecondDate  == new Date(scope.centerDetails.collectionMeetingCalendar.recurringDates[i])){
+                                    scope.first.date = dateFilter(new Date(scope.centerDetails.collectionMeetingCalendar.recurringDates[i]),scope.df);
+                                    break;
+                                }
+                            }
+                        }
+                    };
+                    updateExpectedDisbursementDate();
+                });                
             };
             initTask();
 

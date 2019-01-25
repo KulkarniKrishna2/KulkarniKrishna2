@@ -512,7 +512,7 @@
                     $scope.loanAccountFormData.dateFormat = scope.df;
                     $scope.loanAccountFormData.loanType = $scope.inparams.templateType;
                     if($scope.loanAccountFormData.syncDisbursementWithMeeting != undefined && $scope.loanAccountFormData.syncDisbursementWithMeeting){
-                        $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
+                        updateExpectedDisbursementDate();
                     }else{
                         $scope.loanAccountFormData.expectedDisbursementDate = reqSecondDate;
                     }                    
@@ -553,6 +553,21 @@
                          }
                          initTask(true);
                      });
+
+                    function  updateExpectedDisbursementDate(){
+                        var reqSecondDate = $scope.date.second;
+                       if($scope.loanaccountinfo.calendarOptions){
+                            for(var i in $scope.loanaccountinfo.calendarOptions[0].recurringDates){
+                                if(reqSecondDate < new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i])){
+                                    $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i]),scope.df);
+                                    break;
+                                }else if(reqSecondDate  == new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i])){
+                                    $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i]),scope.df);
+                                    break;
+                                }
+                            }
+                        }
+                    };
                 };
 
                 $scope.clientJlgLoanAccount = function () {
