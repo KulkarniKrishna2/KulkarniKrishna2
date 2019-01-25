@@ -27,7 +27,7 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
-                scope.location=data.location;
+                scope.locationOptions = data.meetingLocations;
                 var today  =  new Date();
                 if(data.meetingTime == undefined){
                     scope.meetingtime = new Date();
@@ -65,6 +65,9 @@
                     if (scope.calendarData.repeatsOnDayOfMonth) {
                         scope.selectedOnDayOfMonthOptions = scope.calendarData.repeatsOnDayOfMonth;
                     }
+                }
+                if(data.locationId != undefined){
+                    scope.formData.locationId = data.locationId;
                 }
             });
 
@@ -127,7 +130,6 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.timeFormat='HH:mm:ss';
                 this.formData.typeId = "1";
-                this.formData.location=scope.location;
                 this.formData.meetingtime = dateFilter(scope.meetingtime ,'HH:mm');
                 this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 if (this.formData.interval < 0) {

@@ -500,6 +500,7 @@
                     if (isNaN(withdrawAmount)) {
                         withdrawAmount = 0;
                     }
+                    var totalsavings = 0;
                     var existing = _.findWhere(scope.savingsTotal, { productId: group.productId });
                     if (existing == undefined || !(_.isObject(existing))) {
                         var gp = {
