@@ -1,0 +1,8 @@
+{
+        "enableUIDisplayConfiguration": true,
+        "uiDisplayConfigurations": {
+                "headerMenuSettings": {
+                        "hideMenuOptions": ["NULL","NULL","READ_CENTER", "READ_VILLAGE"]
+                }
+        }
+}
