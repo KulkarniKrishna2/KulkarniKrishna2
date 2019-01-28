@@ -7788,6 +7788,7 @@
     "error.msg.cannot.initiate.credit.bureau.enquiry.for.closed.client": "Cannot initiate Credit Bureau Enquiry for closed client",
     "error.msg.client.close.loan.approved": "Client cannot be closed because of approved loans.",
     "error.msg.staff.duplicate.externalId" : "Staff external id `{{params[0].value}}` already exist.",
+    "validation.msg.DECEASED_DETAILS.announceDate.is.less.than.date" : "Announce date should not be less than deceased date",
 
      "------ end of translation file ------":"---------"
 }

@@ -512,7 +512,7 @@
                     $scope.loanAccountFormData.dateFormat = scope.df;
                     $scope.loanAccountFormData.loanType = $scope.inparams.templateType;
                     if($scope.loanAccountFormData.syncDisbursementWithMeeting != undefined && $scope.loanAccountFormData.syncDisbursementWithMeeting){
-                        $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
+                        updateExpectedDisbursementDate();
                     }else{
                         $scope.loanAccountFormData.expectedDisbursementDate = reqSecondDate;
                     }                    
@@ -553,6 +553,21 @@
                          }
                          initTask(true);
                      });
+
+                    function  updateExpectedDisbursementDate(){
+                        var reqSecondDate = $scope.date.second;
+                       if($scope.loanaccountinfo.calendarOptions){
+                            for(var i in $scope.loanaccountinfo.calendarOptions[0].recurringDates){
+                                if(reqSecondDate < new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i])){
+                                    $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i]),scope.df);
+                                    break;
+                                }else if(reqSecondDate  == new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i])){
+                                    $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i]),scope.df);
+                                    break;
+                                }
+                            }
+                        }
+                    };
                 };
 
                 $scope.clientJlgLoanAccount = function () {
@@ -943,7 +958,6 @@
                 };
 
                 $scope.constructDataFromLoanAccountInfo = function(){
-                    $scope.editLoanAccountdata.syncDisbursementWithMeeting = false;
                     $scope.editLoanAccountdata.createStandingInstructionAtDisbursement = false;
                     $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
                     
@@ -978,12 +992,9 @@
 
                 $scope.EditLoanAccountSubmit = function () {
                     $scope.editLoanAccountdata.dateFormat = scope.df;  
-                    $scope.editLoanAccountdata.locale = scope.optlang.code; 
-                    var todaydate = dateFilter(new Date(),scope.df);                   
-                    $scope.editLoanAccountdata.interestChargedFromDate = todaydate;
-                    $scope.editLoanAccountdata.submittedOnDate = todaydate;
-                   $scope.editLoanAccountdata.loanType = $scope.inparams.templateType = 'jlg';
-                    $scope.editLoanAccountdata.expectedDisbursementDate = todaydate;                 
+                    $scope.editLoanAccountdata.locale = scope.optlang.code;                  
+                    $scope.editLoanAccountdata.loanType = $scope.inparams.templateType = 'jlg';
+                    $scope.editLoanAccountdata.expectedDisbursementDate = dateFilter(new Date(dateFilter($scope.loanAccountData.expectedDisbursementOnDate,scope.df)),scope.df);                 
                     $scope.editLoanAccountdata.disbursementData = [];                    
                     $scope.constructSubmitData();
                     resourceFactory.loanResource.put({loanId: memberParams.loanAccountBasicData.id}, $scope.editLoanAccountdata, function (data) {

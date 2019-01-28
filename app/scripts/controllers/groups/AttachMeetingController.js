@@ -21,6 +21,7 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
+                scope.locationOptions = data.meetingLocations;
                 scope.repeatsEveryOptions = ["1", "2", "3"];
                 //to display default in select boxes
                 scope.formData = {
@@ -87,7 +88,6 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 this.formData.timeFormat='HH:mm:ss';
-                this.formData.location=scope.formData.location;
                 this.formData.meetingtime = dateFilter(scope.meetingtime,'HH:mm');
                this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 if (routeParams.entityType == "groups") {
