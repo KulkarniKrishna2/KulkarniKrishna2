@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CenterController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
-            scope.isSearchData = true;
             scope.itemsPerPage = 15;
             /**
              * Get the record based on the offset limit
@@ -19,13 +18,8 @@
             scope.searchConditions = {};
             scope.searchData = function () {
                 scope.centers = paginatorUsingOffsetService.paginate(fetchFunction, scope.itemsPerPage);
-                scope.isSearchData = true;
             };
             scope.searchData();
-
-            scope.searchByConditions = function () {
-                scope.isSearchData = false;
-            };
 
             scope.routeTo = function (id) {
                 location.path('/viewcenter/' + id);

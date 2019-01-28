@@ -21,82 +21,46 @@
                 </div>
                 <div class="col-md-4">
                     <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()"
-                        class="span form-control" placeholder="{{'label.input.filterbynameorstatusorofficeforcenter' | translate}}">
+                        class="span form-control" placeholder="{{'label.input.filterbynameorstatusorofficeforcenter' | translate}}" />
                 </div>
             </div>
         </form>
-        <div ng-if="!isSearchData">
-            <form name="searchForm">
-                <api-validate></api-validate>
-                <fieldset>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.applicantname' | translate }}</label>
-                        <div class="col-sm-3">
-                            <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstName" name="firstName"
-                                ng-model="searchConditions.firstName" class="form-control" />
-                        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th> {{'label.heading.centerreferenceno' | translate}}</th>
+                        <th> {{'label.heading.accnum' | translate}}</th>
+                        <th> {{'label.heading.centerexternalid' | translate}}</th>
+                        <th>{{'label.heading.status' | translate}}</th>
+                        <th>{{'label.heading.office' | translate}}</th>
+                    </tr>
+                </thead>
 
-                        <div class="col-sm-3">
-                            <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middleName" name="middleName"
-                                ng-model="searchConditions.middleName" class="form-control" />
-                        </div>
-                        <div class="col-sm-3">
-                            <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastName" name="lastName"
-                                ng-model="searchConditions.lastName" class="form-control" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+                <tbody>
+                    <tr class="pointer-main" ng-repeat="center in centers.currentPageItems | orderBy:'name':reverse  | filter:filterText">
+                        <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(center.id)">{{center.referenceNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
+                        <td class="pointer" data-ng-click="routeTo(center.id)">
+                            <i class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
+                        </td>
+                        <td class="pointer" data-ng-click="routeTo(center.id)">{{getOfficeName(center.officeName,center.officeReferenceNumber)}}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <div ng-if="isSearchData">
-            <div ng-if="false" class="pull-left">
-                <div class="btn-group">
-                    <button type="button" data-ng-click="searchByConditions()" class="btn btn-primary">{{'label.button.search'
-                        |
-                        translate}}
-                    </button>
-                </div>
-            </div>
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr class="graybg">
-                            <th>{{'label.heading.name' | translate}}</th>
-                            <th> {{'label.heading.centerreferenceno' | translate}}</th>
-                            <th> {{'label.heading.accnum' | translate}}</th>
-                            <th> {{'label.heading.centerexternalid' | translate}}</th>
-                            <th>{{'label.heading.status' | translate}}</th>
-                            <th>{{'label.heading.office' | translate}}</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr class="pointer-main" ng-repeat="center in centers.currentPageItems | orderBy:'name':reverse  | filter:filterText"
-                            total-items="totalCenters" pagination-id="centers">
-                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
-                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.referenceNumber}}</td>
-                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
-                            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
-                            <td class="pointer" data-ng-click="routeTo(center.id)">
-                                <i class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
-                            </td>
-                            <td class="pointer" data-ng-click="routeTo(center.id)">{{getOfficeName(center.officeName,center.officeReferenceNumber)}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <ul class="pager">
-                    <li class="previous">
-                        <a id="prev" ng-click="centers.previous()" href="" ng-hide="!centers.hasPrevious()">&larr;
-                            {{'label.button.previous' | translate}}</a>
-                    </li>
-                    <li class="next">
-                        <a id="next" ng-click="centers.next()" href="" ng-hide="!centers.hasNext()">{{'label.button.next'
-                            | translate}} &rarr;</a></li>
-                </ul>
-            </div>
+            <ul class="pager">
+                <li class="previous">
+                    <a id="prev" ng-click="centers.previous()" href="" ng-hide="!centers.hasPrevious()">&larr;
+                        {{'label.button.previous' | translate}}</a>
+                </li>
+                <li class="next">
+                    <a id="next" ng-click="centers.next()" href="" ng-hide="!centers.hasNext()">{{'label.button.next'
+                        | translate}} &rarr;</a></li>
+            </ul>
         </div>
     </div>
-
 </div>
