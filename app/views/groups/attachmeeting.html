@@ -38,7 +38,10 @@
                             <label class="control-label">{{'label.input.location' |translate}}</label>
                         </td>
                         <td class="col-sm-2">
-                            <input type="text" autocomplete="off" ng-model="formData.location" class="form-control">
+                                <select ng-model="formData.locationId" class="form-control"  ng-options="location.id as location.name for location in locationOptions"
+                                value="{{location.id}}">
+                                <option style="display:none" value="">{{'label.selectone' | translate}}</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
