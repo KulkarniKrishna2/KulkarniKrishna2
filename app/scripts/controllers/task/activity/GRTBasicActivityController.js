@@ -527,12 +527,9 @@
 
             $scope.EditLoanAccountSubmit = function () {
                 $scope.editLoanAccountdata.dateFormat = scope.df;  
-                $scope.editLoanAccountdata.locale = scope.optlang.code; 
-                var todaydate = dateFilter(new Date(),scope.df);                   
-                $scope.editLoanAccountdata.interestChargedFromDate = todaydate;
-                $scope.editLoanAccountdata.submittedOnDate = todaydate;
+                $scope.editLoanAccountdata.locale = scope.optlang.code;                   
                $scope.editLoanAccountdata.loanType = $scope.inparams.templateType = 'jlg';
-                $scope.editLoanAccountdata.expectedDisbursementDate = todaydate;                 
+                $scope.editLoanAccountdata.expectedDisbursementDate = dateFilter(new Date(dateFilter($scope.loanAccountData.expectedDisbursementOnDate,scope.df)),scope.df);                 
                 $scope.editLoanAccountdata.disbursementData = [];                    
                 $scope.constructSubmitData();
                 resourceFactory.loanResource.put({loanId: memberParams.loanAccountBasicData.id}, $scope.editLoanAccountdata, function (data) {
