@@ -4,7 +4,7 @@
     </ul>
     <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP' ng-hide="isHideCreateEntity"><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
     <div class="clearfix"></div>
-    <form ng-submit="search()" class="form-horizontal">
+    <form ng-submit="newSearch()" class="form-horizontal">
         <div class="form-group">
             <div class="col-lg-6">
                 <div class="input-group">
@@ -17,33 +17,45 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
+                <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}" />
             </div>
         </div>
     </form>
-    <table class="table">
-        <thead>
-            <tr class="graybg">
-                <th ng-hide="hideGroupName">{{'label.heading.name' | translate}}</th>
-                <th> {{'label.heading.groupreferenceno' | translate}}</th>
-                <th> {{'label.heading.accnum' | translate}}</th>
-                <th> {{'label.heading.groupexternalid' | translate}}</th>
-                <th>{{'label.heading.status' | translate}}</th>
-                <th>{{'label.heading.office' | translate}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups"  pagination-id="groups">
-                <td class="pointer" data-ng-click="routeTo(group.id)" ng-hide="hideGroupName">{{group.name}}</td>
-                <td class="pointer" data-ng-click="routeTo(group.id)">{{group.referenceNumber}}</td>
-                <td class="pointer" data-ng-click="routeTo(group.id)">{{group.accountNo}}</td>
-                <td class="pointer" data-ng-click="routeTo(group.id)">{{group.externalId}}</td>
-                <td data-ng-click="routeTo(group.id)">
-                    <i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}
-                </td>
-                <td data-ng-click="routeTo(group.id)">{{group.officeName}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <dir-pagination-controls boundary-links="true"  pagination-id="groups" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th ng-hide="hideGroupName">{{'label.heading.name' | translate}}</th>
+                    <th> {{'label.heading.groupreferenceno' | translate}}</th>
+                    <th> {{'label.heading.accnum' | translate}}</th>
+                    <th> {{'label.heading.groupexternalid' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.office' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="group in groups.currentPageItems | orderBy:'name':reverse  | filter:filterText">
+                    <td class="pointer" data-ng-click="routeTo(group.id)" ng-hide="hideGroupName">{{group.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(group.id)">{{group.referenceNumber}}</td>
+                    <td class="pointer" data-ng-click="routeTo(group.id)">{{group.accountNo}}</td>
+                    <td class="pointer" data-ng-click="routeTo(group.id)">{{group.externalId}}</td>
+                    <td data-ng-click="routeTo(group.id)">
+                        <i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}
+                    </td>
+                    <td data-ng-click="routeTo(group.id)">{{group.officeName}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul class="pager">
+            <li class="previous">
+                <a id="prev" ng-click="groups.previous()" href="" ng-hide="!groups.hasPrevious()">&larr;
+                    {{'label.button.previous' | translate}}</a>
+            </li>
+            <li class="next">
+                <a id="next" ng-click="groups.next()" href="" ng-hide="!groups.hasNext()">{{'label.button.next'
+                    | translate}} &rarr;</a></li>
+        </ul>
+    </div>
+    
 </div>

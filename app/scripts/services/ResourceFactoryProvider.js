@@ -140,6 +140,9 @@
                         post: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    groupSearchResource: defineResource(apiVer + "/groups/search", {searchConditions: '@searchConditions'}, {
+                        getAllGroups: {method: 'GET', params: {searchConditions: '@searchConditions'}, isArray: true}
+                    }),
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
