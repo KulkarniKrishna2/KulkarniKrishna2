@@ -7779,6 +7779,8 @@
     "error.msg.client.close.loan.approved": "Client cannot be closed because of approved loans.",
     "error.msg.staff.duplicate.externalId" : "Staff external id `{{params[0].value}}` already exist.",
     "validation.msg.DECEASED_DETAILS.announceDate.is.less.than.date" : "Announce date should not be less than deceased date",
+    "error.msg.client.deceased" : "Client `{{params[0].value}}` is already marked as deceased.",
+    "validation.msg.POLICY.amount.not.greater.than.zero" : "Policy amount must be greater than zero.",
 
      "------ end of translation file ------":"---------"
 }

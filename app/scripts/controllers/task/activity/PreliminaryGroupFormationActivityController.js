@@ -408,6 +408,11 @@
                     }
                 };
 
+                $scope.routeToNewClient = function(clientId){
+                    $modalInstance.close('createmember');
+                    location.path('/viewclient/'+clientId);
+                }
+
                 $scope.submit = function () {
                     var reqDate = dateFilter($scope.first.date, scope.df);
 
