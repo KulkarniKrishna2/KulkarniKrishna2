@@ -7779,6 +7779,7 @@
     "error.msg.client.close.loan.approved": "Client cannot be closed because of approved loans.",
     "error.msg.staff.duplicate.externalId" : "Staff external id `{{params[0].value}}` already exist.",
     "validation.msg.DECEASED_DETAILS.announceDate.is.less.than.date" : "Announce date should not be less than deceased date",
+    "error.msg.clients.submittedActivationDate.before.closure.date" : "submitted activation date cannot be before `{{params[0].value}}` ",
 
      "------ end of translation file ------":"---------"
 }
