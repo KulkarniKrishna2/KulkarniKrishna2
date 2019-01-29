@@ -141,7 +141,7 @@
             scope.showDebitAccountRunningBalance = function (index) {
                 resourceFactory.accountCoaResource.get({
                         glAccountId: scope.debitAccounts[index].glAccountId,
-                        template: 'true', officeId: scope.formData.officeId, fetchOfficeRunningBalance: true
+                        officeId: scope.formData.officeId, fetchOfficeRunningBalance: true
                     },
                     function (data) {
                         scope.debitAccounts[index].officeRunningBalance = data.officeRunningBalance;
@@ -158,11 +158,10 @@
             scope.showCreditAccountRunningBalance = function (index) {
                 resourceFactory.accountCoaResource.get({
                         glAccountId: scope.creditAccounts[index].glAccountId,
-                        template: 'true', officeId: scope.formData.officeId, fetchOfficeRunningBalance: true
+                        officeId: scope.formData.officeId, fetchOfficeRunningBalance: true
                     },
                     function (data) {
                         scope.creditAccounts[index].officeRunningBalance = data.officeRunningBalance;
-
                     });
                 for (var i in scope.creditAccountingOptions) {
                     if (scope.creditAccountingOptions[i].id == scope.creditAccounts[index].glAccountId) {
