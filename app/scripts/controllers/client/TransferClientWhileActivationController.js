@@ -16,7 +16,7 @@
 
             scope.getToCenters = function () {
                 if (scope.toOfficeId) {
-                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.toOfficeId, limit: -1, paged: false }, function (data) {
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.toOfficeId, limit: -1, paged: false, excludeStatus:'600,700'  }, function (data) {
                         scope.toCenters = data;
                     });
                 } else {
@@ -29,7 +29,12 @@
                 scope.groups = [];
                 if (scope.toCeneterId) {
                     resourceFactory.centerLookupResource.get({ centerId: scope.toCeneterId }, function (data) {
-                        scope.groups = data;
+                        scope.groups = [];
+                        for(var i in data){
+                            if(data[i].status && (data[i].status.code !='groupingStatusType.closed' && data[i].status.code != 'groupingStatusType.rejected')){
+                                scope.groups.push(data[i]);
+                            }
+                        }
                     });
                 }
             };
