@@ -25,6 +25,7 @@
                     scope.formData.isLoanOfficer = data.staff.isLoanOfficer;
                     scope.formData.mobileNo = data.staff.mobileNo;
                     scope.formData.isActive = data.staff.isActive;
+                    scope.formData.externalId = data.staff.externalId;
                     if (data.staff.joiningDate) {
                         var editDate = dateFilter(data.staff.joiningDate, scope.df);
                         scope.formData.joiningDate = new Date(editDate);
