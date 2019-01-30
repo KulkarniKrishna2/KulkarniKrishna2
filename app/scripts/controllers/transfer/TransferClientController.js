@@ -17,8 +17,9 @@
             });
 
             scope.getFromCenters = function () {
+                scope.members = [];
                 if (scope.fromOfficeId) {
-                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.fromOfficeId , limit:-1, paged:false}, function (data) {
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.fromOfficeId , limit:-1, paged:false, excludeStatus:'600,700'}, function (data) {
                         scope.fromCenters = data;
                     });
                 } else {
@@ -28,8 +29,9 @@
             };
 
             scope.getToCenters = function () {
+                scope.groups = [];
                 if (scope.toOfficeId) {
-                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.toOfficeId , limit:-1, paged:false}, function (data) {
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.toOfficeId , limit:-1, paged:false, excludeStatus:'600,700'}, function (data) {
                         scope.toCenters = data;
                     });
                 } else {
