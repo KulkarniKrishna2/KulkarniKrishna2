@@ -53,7 +53,7 @@
         <div class="col-sm-6 col-md-6" ng-show="centerId">
             <div class="col-sm-12">
                 <select chosen="groups" id="fromGroupId" ng-model="fromGroup" ng-change="getClients(fromGroup.activeClientMembers);getToGroupDetails(fromGroup)" class="form-control"
-                    ng-options="group as group.name for group in groups" value="{{group}}" ng-show="group.status.code!='clientStatusType.closed'">
+                    ng-options="group as group.name for group in groups" value="{{group}}" ng-show="group.status.code!='groupingStatusType.closed'">
                     <option value="">{{'label.menu.selectone' | translate}}</option>
                 </select>
             </div>
