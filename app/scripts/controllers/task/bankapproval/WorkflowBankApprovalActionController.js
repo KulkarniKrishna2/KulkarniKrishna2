@@ -27,6 +27,7 @@
         scope.init = function(){
             resourceFactory.bankApprovalTemplateResource.get({trackerId : scope.trackerId}, function (bankApprovalTemplate) {
                 scope.bankApprovalTemplateData = bankApprovalTemplate;
+                scope.closureReasons = scope.bankApprovalTemplateData.closureReasons;
                 if(scope.bankApprovalTemplateData != undefined){
                     scope.cbCriteriaResult = JSON.parse(scope.bankApprovalTemplateData.clientLevelCriteriaResultData.ruleResult);
                 
@@ -241,15 +242,20 @@
                     controller: RejectLoanCtrl,
                     resolve: {
                         rejectParameterInfo: function () {
-                            return { 'bankApproveId': bankApproveId};
+                            return { 'bankApproveId': bankApproveId,
+                                     'closureReasons':scope.closureReasons
+                                   };
                         }
                     }
                 });
             };
             var RejectLoanCtrl = function ($scope, $modalInstance,rejectParameterInfo) {
                 $scope.bankApproveId = rejectParameterInfo.bankApproveId;
+                $scope.closureReasons = rejectParameterInfo.closureReasons;
+                $scope.formData = {};
                 $scope.reject = function () {
-                    resourceFactory.bankApprovalActionResource.doAction({bankApproveId:$scope.bankApproveId, command : 'reject'}, {} , function (data) {
+                    $scope.formData.locale = scope.optlang.code;
+                    resourceFactory.bankApprovalActionResource.doAction({bankApproveId:$scope.bankApproveId, command : 'reject'}, $scope.formData , function (data) {
                         location.path('/workflowbankapprovallist');
                         $modalInstance.dismiss('cancel');
 
