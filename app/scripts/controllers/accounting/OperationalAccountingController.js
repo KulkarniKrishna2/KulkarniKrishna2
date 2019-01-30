@@ -23,6 +23,8 @@
             scope.crSavingsTotal = 0;
             scope.drSavingsTotal = 0;
             scope.toTime;
+            scope.crOverDueRepaymentsTotal = 0;
+            scope.drOverDueRepaymentsTotal = 0;
             scope.next = function () {
                 scope.index++;
                 if (scope.index == 1) {
@@ -65,7 +67,7 @@
                     scope.disbursements = data.disbursementAndRepaymentsData[0].disbursements
                     scope.disbursementCharges = data.disbursementAndRepaymentsData[0].disbursementCharges
                     scope.repayments = data.disbursementAndRepaymentsData[0].repayments;
-
+                    scope.overDueRepayments = data.disbursementAndRepaymentsData[0].overDueRepayments;
                     for (var i = 0; i < scope.disbursements.length; i++) {
                         for (var j = 0; j < scope.disbursements[i].details.length; j++) {
                             if (scope.disbursements[i].details[j].type.value === 'CREDIT') {
@@ -107,6 +109,15 @@
                                 scope.crRepaymentsTotal += scope.repayments[i].details[j].amount;
                             } else {
                                 scope.drRepaymentsTotal += scope.repayments[i].details[j].amount;
+                            }
+                        }
+                    }
+                    for (var i = 0; i < scope.overDueRepayments.length; i++) {
+                        for (var j = 0; j < scope.overDueRepayments[i].details.length; j++) {
+                            if (scope.overDueRepayments[i].details[j].type.value === 'CREDIT') {
+                                scope.crOverDueRepaymentsTotal += scope.overDueRepayments[i].details[j].amount;
+                            } else {
+                                scope.drOverDueRepaymentsTotal += scope.overDueRepayments[i].details[j].amount;
                             }
                         }
                     }

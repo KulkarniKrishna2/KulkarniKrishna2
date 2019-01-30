@@ -7787,6 +7787,7 @@
     "groupingStatusType.transfer.on.hold": "Transfer On Hold",
     "groupingStatusType.rejected": "Rejected",
     "Can't.update.staff.to.other.than.parent.staff.when.LoanOfficerToCenterHierarchy.is.enabled" : "Cannot update staff to other than parent staff when LoanOfficerToCenterHierarchy is enabled",
-
+    "label.anchor.overDueRepayment" : "OverDueRepayment",
+    
      "------ end of translation file ------":"---------"
 }
