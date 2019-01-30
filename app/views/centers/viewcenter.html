@@ -196,7 +196,7 @@
 											<th class="highlightcol text-left" scope="colgroup" colspan="18">{{'label.heading.groups' | translate}}</th>
 										</tr>
 
-										<tbody ng-repeat="group in groupMemberAccountList">
+										<tbody ng-repeat="group in groupMemberAccountList  | orderBy : 'referenceNumber'">
 										<tr ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
 											<th colspan="13" class="pointer" data-ng-click="routeToGroup(group.id)">
 												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
