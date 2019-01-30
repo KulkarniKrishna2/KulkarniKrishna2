@@ -38,7 +38,7 @@
                     resourceFactory.centerResource.get({ centerId: centerId, associations: 'groupMembers' }, function (data) {
                         scope.groups = data.groupMembers;
                         for(var i in data.groupMembers){
-                            if(data.groupMembers[i].status.code=="clientStatusType.closed"){
+                            if(data.groupMembers[i].status.code=="groupingStatusType.closed"){
                                 scope.groups.splice(i,1);
                             }
                         }
