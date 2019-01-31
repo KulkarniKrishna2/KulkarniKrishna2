@@ -84,8 +84,10 @@
                         }
                         else{
                             element.translate(0,0);
-                            angular.element('#canvas').attr('data-girar', 0);
-                            drawImage();
+                            setTimeout(function(){
+                                angular.element('#canvas').attr('data-girar', 0);
+                                drawImage();
+                            },1000);
                         }
                     };
 
