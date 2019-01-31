@@ -408,6 +408,11 @@
                     }
                 };
 
+                $scope.routeToNewClient = function(clientId){
+                    $modalInstance.close('createmember');
+                    location.path('/viewclient/'+clientId);
+                }
+
                 $scope.submit = function () {
                     var reqDate = dateFilter($scope.first.date, scope.df);
 
@@ -483,6 +488,9 @@
                                     $modalInstance.close('createmember');
                                 }else{
                                     $scope.first.dateOfBirth=new Date();
+                                    if($scope.activeClientCount==undefined){
+                                        $scope.activeClientCount=0;
+                                    }
                                     if(scope.maxClientLimit > (++ $scope.activeClientCount)){
                                         $scope.newClientId = data.clientId;
                                         $scope.uiData.enableCreateClientLoop = false;
