@@ -206,8 +206,15 @@
                     //clear the old authorization token
                     httpService.cancelAuthorization();
                     scope.authenticationFailed = false;
-                    scope.loginCredentials.password = scope.passwordDetails.password;
-                    authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+                    if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
+                        scope.resetPassword = false;
+                        scope.refreshPatchca();
+                        scope.loginCredentials.password = '';
+                    }else{
+                        scope.loginCredentials.password = scope.passwordDetails.password;
+                        authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+                    }
+                    
                 });
             };
 
