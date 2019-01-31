@@ -10,7 +10,7 @@
 			<api-validate></api-validate>
 			<div>
 				<form name="creatememberform" novalidate="" class="form-horizontal well" rc-submit="submit()">
-						<div class="alert alert-success" role="alert" ng-show="newClientId">{{'label.alert.member.create.message' | translate}}:<a ng-href="#/viewclient/{{newClientId}}">{{newClientId}}</a></div>
+						<div class="alert alert-success" role="alert" ng-show="newClientId">{{'label.alert.member.create.message' | translate}}:<a ng-click="routeToNewClient(newClientId)">{{newClientId}}</a></div>
 						<api-validate></api-validate>
 						<fieldset>
 						<div class="form-group">
