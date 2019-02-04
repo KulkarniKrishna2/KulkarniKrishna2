@@ -76,8 +76,12 @@
                 scope.clientId=$rootScope.clientId;
                 scope.savingsaccountholderclientName=$rootScope.savingsaccountholderclientName;
             }
+            if (routeParams.fromEntity == 'staff') {
+                scope.staffId =  scope.entityId;
+            }
+            
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
-                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
+                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'staff_id'];
                 scope.isJournalEntry = data.columnHeaders.findIndex(x=>x.columnName == 'journal_entry_id') >= 0 ? true : false;
                 if(scope.isJournalEntry){
                        reqparams.command = 'f_journal_entry';
@@ -232,7 +236,7 @@
 
             scope.editDatatableEntry = function () {
                 scope.isViewMode = false;
-                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
+                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'staff_id'];
                 for (var i in scope.columnHeaders) {
                     var colName = scope.columnHeaders[i].columnName;
                     if(colName == 'id'){
@@ -440,7 +444,9 @@
                 $scope.delete = function () {
                     resourceFactory.DataTablesResource.delete(reqparams, {}, function (data) {
                         var destination = "";
-                        if (data.loanId) {
+                        if(scope.staffId){
+                            destination = '/viewemployee/' + scope.staffId;
+                        } else if (data.loanId) {
                             destination = '/viewloanaccount/' + data.loanId;
                         } else if (data.savingsId) {
                             destination = '/viewsavingaccount/' + data.savingsId;
@@ -504,7 +510,9 @@
 
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
                     var destination = "";
-                    if (data.loanId) {
+                    if(scope.staffId){
+                        destination = '/viewemployee/' + scope.staffId;
+                    } else if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
                     } else if (data.savingsId) {
                         destination = '/viewsavingaccount/' + data.savingsId;
@@ -520,6 +528,8 @@
                         destination = '/viewtransactions/' + scope.entityId.toString();
                     } else if (data.officeId) {
                         destination = '/viewoffice/' + data.officeId;
+                    } else if (data.staffId) {
+                        destination = '/viewemployee/' + data.staffId;
                     }
                     location.path(destination);
                 });
