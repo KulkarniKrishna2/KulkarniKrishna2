@@ -196,6 +196,7 @@
     "label.heading.countryname":"Country",
     "label.heading.statename":"State",
     "label.heading.districtname":"District",
+    "label.heading.staff" : "Staff",
     "label.heading.pincode":"Pincode",
     "label.heading.cardnumber":"Card Number",
     "label.heading.cardtype":"Card Type",

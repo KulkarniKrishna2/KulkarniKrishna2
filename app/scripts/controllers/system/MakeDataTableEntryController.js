@@ -55,6 +55,9 @@
             if(scope.tableName =='Address' && scope.fromEntity == 'client'){
                 scope.showSelect=false;
             }
+            if (routeParams.fromEntity == 'staff') {
+                scope.staffId = scope.entityId;
+            }
 
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
@@ -69,7 +72,7 @@
                     data.columnHeaders.splice(0, 1);
                     scope.dataTableName = 'f_journal_entry';
                 }
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id') {
+                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'gl_journal_entry_id' || colName == 'staff_id') {
                     data.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
@@ -301,6 +304,8 @@
                     location.path('/viewoffice/' + routeParams.entityId).search({});
                 } else if (scope.fromEntity == 'journalentry') {
                     location.path('/viewtransactions/' + routeParams.entityId).search({});
+                }else if(scope.fromEntity == 'employee'){
+                    location.path('/viewemployee/' + routeParams.entityId).search({});
                 };
             };
             scope.submit = function () {
@@ -332,7 +337,9 @@
 
                 resourceFactory.DataTablesResource.save(params, this.formData, function (data) {
                     var destination = "";
-                    if (data.loanId) {
+                    if(scope.staffId){
+                        destination = '/viewemployee/' + scope.staffId;
+                    } else if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
                     } else if (data.savingsId) {
                         destination = '/viewsavingaccount/' + data.savingsId;
