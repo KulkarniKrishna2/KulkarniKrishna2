@@ -99,7 +99,7 @@
                 if(activeClientMember.profileRatingScoreData){
                    return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore *20 < scope.clientProfileRatingScoreForSuccess); 
                 }
-                return activeClientMember.status.code === 'clientStatusType.onHold';
+                return true;
             };
 
             scope.createSubGroup = function (centerDetails) {
