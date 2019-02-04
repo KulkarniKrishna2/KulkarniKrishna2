@@ -518,12 +518,16 @@
 			"isMandatoryFields": {
 				"costCenter": false,
 				"companyCode": false
-			}
+			},
+			"isDefaultCompanyCode": false,
+			"defaultCompanyCode": ""
 		},
 		"addJournalEntry": {
 			"isMandatoryField": {
 				"companyCode": false
-			}
+			},
+			"isDefaultCompanyCode": false,
+			"defaultCompanyCode": ""
 		},
 		"cashFlow": {
 			"hiddenFields": {

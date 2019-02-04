@@ -31,9 +31,19 @@
            if(scope.voucherCode === 'bankpayment'){
                scope.isBankPayment = true;
            };
-            if(scope.response){
-                scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.costCenter;            
-                scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode;            
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.voucherTypeForm) {
+                if (scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.costCenter) {
+                    scope.isCostCenterMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.costCenter;
+                }
+                if (scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode) {
+                    scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode;
+                }
+                if (scope.response.uiDisplayConfigurations.voucherTypeForm.isDefaultCompanyCode) {
+                    scope.isDefaultCompanyCode = scope.response.uiDisplayConfigurations.voucherTypeForm.isDefaultCompanyCode;
+                }
+                if (scope.response.uiDisplayConfigurations.voucherTypeForm.defaultCompanyCode) {
+                    scope.defaultCompanyCode = scope.response.uiDisplayConfigurations.voucherTypeForm.defaultCompanyCode;
+                }
             }
 
             if (!_.isUndefined(routeParams.voucherNumber)) {
@@ -44,9 +54,22 @@
                     transactionId: routeParams.transactionId
                 };
             }
-            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {  
-                if (!_.isUndefined(data)) {
-                    scope.companyCodeForGlaccountCodeValues = data;
+
+            resourceFactory.codeValueByCodeNameResources.get({ codeName: 'company code for gl accounts', searchConditions: '{"codeValueIsActive":true}' }, function (data) {
+                scope.companyCodeForGlaccountCodeValues = data;
+                if (data != null && data.length > 0) {
+                    if (scope.isDefaultCompanyCode) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].name == scope.defaultCompanyCode) {
+                                scope.formData.companyCodeForGlaccountCodeValues = data[i].id;
+                                scope.getVoucherTemplate(data[i].id);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else {
+                    scope.getVoucherTemplate(0);
                 }
             });
 
@@ -69,9 +92,10 @@
             }
 
             /**
-             * Getting Voucher Template Data based on the voucher code
+             * Getting Voucher Template Data based on the voucher code and company code
              */
-            resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode,"companyCode":0}, function (data) {
+            scope.getVoucherTemplate = function(companyCode){
+             resourceFactory.voucherTemplateResource.get({"voucherType": scope.voucherCode,"companyCode":companyCode}, function (data) {
                 scope.officeOptions = data.templateData.officeOptions;
                 scope.currencyOptions = data.templateData.currencyOptions;
                 scope.costCenterOptions = data.templateData.costCenterOptions;
@@ -82,7 +106,8 @@
                 }
                 scope.formData.currencyCode = localStorageService.getFromCookies('currencyCode') || scope.currencyOptions[0].code;
                 scope.formData.officeId = parseInt(localStorageService.getFromCookies('officeId')) || scope.officeOptions[0].id;
-            });
+             });
+            }
 
             scope.addDebitAccount = function () {
                 scope.limitingDebitToOne();

@@ -195,16 +195,20 @@
     "creditBureau":{
       "getlimit":3
     },
-    "voucherTypeForm":{
+    "voucherTypeForm": {
       "isMandatoryFields": {
-        "costCenter":true,
-        "companyCode":true
-      }
+        "costCenter": true,
+        "companyCode": true
+      },
+      "isDefaultCompanyCode": true,
+      "defaultCompanyCode": "CIFCPL"
     },
-    "addJournalEntry":{
+    "addJournalEntry": {
       "isMandatoryField": {
-        "companyCode":true
-      }
+        "companyCode": true
+      },
+      "isDefaultCompanyCode": true,
+      "defaultCompanyCode": "CIFCPL"
     },
     "workflow": {
       "showReschedule": true
