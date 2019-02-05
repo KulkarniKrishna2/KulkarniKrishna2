@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewUserController: function (scope, routeParams, route, location, resourceFactory, $modal, commonUtilService) {
+        ViewUserController: function (scope, routeParams, route, location, resourceFactory, $modal, commonUtilService, dateFilter) {
             scope.user = [];
             scope.uiData = {};
             scope.formData = {};
@@ -14,9 +14,10 @@
                         scope.showResetPasssword = true;
                     }
                 }
+                scope.joiningDate = dateFilter(new Date(scope.user.staff.joiningDate), scope.df);
+            
             });
-
-            scope.routeToDevice = function (device) {
+           scope.routeToDevice = function (device) {
                 location.path('/organization/registereddevices/' + device.id);
             };
 
@@ -115,7 +116,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewUserController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', 'CommonUtilService', mifosX.controllers.ViewUserController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewUserController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', 'CommonUtilService', 'dateFilter', mifosX.controllers.ViewUserController]).run(function ($log) {
         $log.info("ViewUserController initialized");
     });
 }(mifosX.controllers || {}));
