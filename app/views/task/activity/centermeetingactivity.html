@@ -214,6 +214,14 @@
                         <span class="padded-td">{{meetingTime | date:"h:mma"}}</span>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <strong>{{'label.input.centermeetinglocation' |translate}}</strong>
+                    </td>
+                    <td>
+                        <span class="padded-td">{{centerMeetingData.collectionMeetingCalendar.locationData.name}}</span>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="col-sm-12 center paddedbottom10" ng-if="isEditExpectedDisbursementDateOnly">
