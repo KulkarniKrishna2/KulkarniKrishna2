@@ -71,7 +71,7 @@
                     scope.formData.associateWithLoan = true;
                 }
                 var temp = [];
-                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id'];
+                var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id', 'staff_id'];
                 for (var i in data.columnHeaderData) {
                     var colName = data.columnHeaderData[i].columnName;
                     if(colName == 'id'){

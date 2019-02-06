@@ -5,64 +5,92 @@
         <li class="active">{{employee.firstname}}&nbsp;&nbsp;{{employee.lastname}}</li>
     </ul>
 
-    <div class="well">
-		<div class="row primarydiv">
-			<div class="pull-right">
-				<div class="btn-group">
-					<a href="#/editemployee/{{employee.id}}" class="btn btn-primary" has-permission='UPDATE_STAFF'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
-				</div>
-				<span class="btn-group dropdown" on-toggle="toggled(open)">
-					<a class="btn btn-primary dropdown-toggle">
-						{{ 'label.button.more' | translate}}
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown dropdown-menu dropdown-menu-right">
-						<li>
-							<a href="#/staffs/{{employee.id}}/surveys">{{'label.button.view.surveys' |
-								translate }}</a>
-						</li>
-					</ul>
-				</span>
-			</div>
-		</div>
-        <h3 class="bolder">{{employee.displayName}}</h3>
-		<div class="row">
-			<div class="col-md-6">
-		        <table class="table table-bordered table-striped">
-		            <tr>
-		                <td width="20%">{{ 'label.heading.firstname' | translate }}</td>
-		                <td width="80%">{{employee.firstname}}</td>
-		            </tr>
-		            <tr>
-		                <td>{{ 'label.heading.lastname' | translate }}</td>
-		                <td>{{employee.lastname}}</td>
-		            </tr>
-		            <tr>
-		                <td>{{ 'label.heading.externalid' | translate }}</td>
-		                <td>{{employee.externalId}}</td>
-		            </tr>
-		            <tr>
-		                <td>{{ 'label.heading.office' | translate }}</td>
-		                <td>{{employee.officeName}}</td>
-		            </tr>
-		            <tr>
-		                <td>{{ 'label.heading.isLoanOfficer' | translate }}</td>
-		                <td>{{employee.isLoanOfficer}}</td>
-		            </tr>
-		            <tr>
-		                <td>{{ 'label.heading.mobileNo' | translate }}</td>
-		                <td>{{employee.mobileNo}}</td>
-		            </tr>
-		            <tr>
-		                <td>{{ 'label.active' | translate }}</td>
-		                <td>{{employee.isActive}}</td>
-		            </tr>
-                    <tr>
-                        <td>{{ 'label.heading.joiningDate' | translate }}</td>
-                        <td>{{employee.joiningDate | DateFormat}}</td>
-                    </tr>
-		        </table>
-			</div>
-		</div>
-    </div>
-</div>      
+
+    <tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
+        <tab heading="{{'label.heading.general' | translate}}">
+            <div class="well">
+                <div class="row primarydiv">
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <a href="#/editemployee/{{employee.id}}" class="btn btn-primary" has-permission='UPDATE_STAFF'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                        </div>
+                        <span class="btn-group dropdown" on-toggle="toggled(open)">
+									<a class="btn btn-primary dropdown-toggle">
+										{{ 'label.button.more' | translate}}
+										<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="#/staffs/{{employee.id}}/surveys">{{'label.button.view.surveys' |
+												translate }}</a>
+                            </li>
+                        </ul>
+                        </span>
+                    </div>
+                </div>
+                <h3 class="bolder">{{employee.displayName}}</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <td width="20%">{{ 'label.heading.firstname' | translate }}</td>
+                                <td width="80%">{{employee.firstname}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.lastname' | translate }}</td>
+                                <td>{{employee.lastname}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.externalid' | translate }}</td>
+                                <td>{{employee.externalId}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.office' | translate }}</td>
+                                <td>{{employee.officeName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.isLoanOfficer' | translate }}</td>
+                                <td>{{employee.isLoanOfficer}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.mobileNo' | translate }}</td>
+                                <td>{{employee.mobileNo}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.active' | translate }}</td>
+                                <td>{{employee.isActive}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.joiningDate' | translate }}</td>
+                                <td>{{employee.joiningDate | DateFormat}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </tab>
+
+        <tab heading="{{ 'label.heading.additional.details' | translate }}" select="getEmployeeDatatables()">
+            <tabset>
+                <tab heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables" select="dataTableChange(datatable)" has-permission='READ_{{datatable.registeredTableName}}'>
+                    <div>
+                        <div class="btn-group pull-right">
+                            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(datatable.registeredTableName, employee.id)" has-permission='DELETE_{{datatable.registeredTableName}}'><i
+											class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                            <a data-ng-show="showDataTableAddButton" ng-href="#/makedatatableentry/{{datatable.registeredTableName}}/{{employee.id}}?fromEntity=staff" class="btn btn-primary" has-permission='CREATE_{{datatable.registeredTableName}}'><i
+											class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                            <a data-ng-show="showDataTableEditButton" ng-href="#/viewsingledatatableentry/{{datatable.registeredTableName}}/{{employee.id}}?mode=edit&&fromEntity=staff" class="btn btn-primary" has-permission='UPDATE_{{datatable.registeredTableName}}'><i
+											class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                        </div>
+                        <br>
+                        <br>
+                        <div ng-show="datatabledetails.isData" ng-include="'views/system/view_datatable_data.html'">
+
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </tab>
+    </tabset>
+
+</div>

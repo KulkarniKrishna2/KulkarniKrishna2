@@ -27,45 +27,41 @@
             scope.associateAppTable = null;
             scope.count = 0;
             scope.issubmitcontinue = false ;
-            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id'];
+            var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id', 'staff_id'];
 
             if (routeParams.fromEntity == 'client') {
-                    scope.clientName = $rootScope.clientname;
-                    scope.client=true;
-            }
-            if (routeParams.fromEntity == 'group') {
-                    scope.groupName = $rootScope.groupNameDataParameter;
-                    scope.group=true;
-            }
-            if (routeParams.fromEntity == 'center') {
-                    scope.centerName = $rootScope.centerName;
-                    scope.center=true;
-            }
-            if (routeParams.fromEntity == 'loan') {
-                    scope.loanproductName = $rootScope.loanproductName;
-                    scope.loanproduct = true;
-                    scope.clientId = $rootScope.clientId;
-                    scope.LoanHolderclientName = $rootScope.LoanHolderclientName;
-                    scope.associateAppTable = 'm_loan';
-            }
-            if (routeParams.fromEntity == 'office') {
-                    scope.officeName =  $rootScope.officeName;
-                    scope.office=true;
-            }
-            if (routeParams.fromEntity == 'savings') {
-                    scope.savingsAccount =  $rootScope.savingsAccount;
-                    scope.savingsaccount=true;
-                    scope.clientId=$rootScope.clientId;
-                    scope.savingsaccountholderclientName=$rootScope.savingsaccountholderclientName;
-            }
-            if(routeParams.fromEntity == 'village'){
+                scope.clientName = $rootScope.clientname;
+                scope.client=true;
+            }else if (routeParams.fromEntity == 'group') {
+                scope.groupName = $rootScope.groupNameDataParameter;
+                scope.group=true;
+            }else if (routeParams.fromEntity == 'center') {
+                scope.centerName = $rootScope.centerName;
+                scope.center=true;
+            }else if (routeParams.fromEntity == 'loan') {
+                scope.loanproductName = $rootScope.loanproductName;
+                scope.loanproduct = true;
+                scope.clientId = $rootScope.clientId;
+                scope.LoanHolderclientName = $rootScope.LoanHolderclientName;
+                scope.associateAppTable = 'm_loan';
+            }else if (routeParams.fromEntity == 'office') {
+                scope.officeName =  $rootScope.officeName;
+                scope.office=true;
+            }else if (routeParams.fromEntity == 'savings') {
+                scope.savingsAccount =  $rootScope.savingsAccount;
+                scope.savingsaccount=true;
+                scope.clientId=$rootScope.clientId;
+                scope.savingsaccountholderclientName=$rootScope.savingsaccountholderclientName;
+            }else if(routeParams.fromEntity == 'village'){
                 scope.village=true;
                 scope.villageName = $rootScope.villageNameDataParameter;
+            }else if (routeParams.fromEntity == 'staff') {
+                scope.staffId = scope.entityId;
             }
             if(scope.tableName =='Address' && scope.fromEntity == 'client'){
                 scope.showSelect=false;
             }
-
+            
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true',associateAppTable: scope.associateAppTable}, function (data) {
 
                 scope.tableDisplayName = data.registeredDataTableDisplayName != null ? data.registeredDataTableDisplayName: scope.tableName;
@@ -74,7 +70,6 @@
                 if (colName == 'id') {
                     data.columnHeaders.splice(0, 1);
                 }
-
                 colName = data.columnHeaders[0].columnName;
                 if (colName == 'journal_entry_id') {
                     data.columnHeaders.splice(0, 1);
@@ -321,6 +316,8 @@
                     location.path('/viewtransactions/' + routeParams.entityId).search({});
                 } else if(scope.fromEntity == 'village'){
                     location.path('/viewvillage/' + routeParams.entityId).search({});
+                }else if(scope.fromEntity == 'employee'){
+                    location.path('/viewemployee/' + routeParams.entityId).search({});
                 };
             };
             scope.submit = function () {
@@ -362,7 +359,9 @@
                     }
                     else{
                     var destination = "";
-                    if (data.loanId) {
+                    if(scope.staffId){
+                        destination = '/viewemployee/' + scope.staffId;
+                    } else if (data.loanId) {
                         destination = '/viewloanaccount/' + data.loanId;
                     }else if(scope.village){
                         destination = '/viewvillage/'+ routeParams.entityId;
