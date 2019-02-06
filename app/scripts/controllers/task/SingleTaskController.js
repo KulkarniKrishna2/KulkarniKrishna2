@@ -48,7 +48,10 @@
                     scope.summary = data[0];
                 });
             };
-            scope.clientsCount();
+            if(routeParams.centerId){
+                scope.clientsCount();
+            }
+            
             function initTask(){
                 if(scope.taskData != undefined){
                     if(scope.taskData.eventType){
