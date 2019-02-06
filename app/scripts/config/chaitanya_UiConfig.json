@@ -208,6 +208,11 @@
     },
     "workflow": {
       "showReschedule": true
+      },
+    "glAccount": {
+      "isMandatoryField": {
+        "companyCode":true
+      }
     }
   }
 }
