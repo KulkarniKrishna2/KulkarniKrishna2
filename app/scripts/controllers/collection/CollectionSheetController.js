@@ -205,7 +205,7 @@
                         scope.centerdetails = data;
                         if (data.groupMembers.length > 0) {
                             for(var i=0;i<data.groupMembers.length;i++){
-                                if(data.groupMembers[i].status.code== "clientStatusType.closed"){
+                                if(data.groupMembers[i].status.code== "groupingStatusType.closed" || data.groupMembers[i].status.code== "groupingStatusType.rejected"){
                                     data.groupMembers.splice(i,1);
                                 }                         
                             }  

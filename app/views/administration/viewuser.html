@@ -48,6 +48,10 @@
                                 <td>{{user.email}}</td>
                             </tr>
                             <tr>
+                                <td>{{'label.heading.externalid' | translate}}:</td>
+                                <td>{{user.staff.externalId}}</td>
+                            </tr>
+                            <tr>
                                 <td>{{'label.heading.lastlogintime' | translate}}:</td>
                                 <td>{{user.lastLoginDate}}</td>
                             </tr>
@@ -58,6 +62,14 @@
                             <tr data-ng-show="user.staff">
                                 <td>{{'label.heading.staff' | translate}}:</td>
                                 <td>{{user.staff.displayName}}</td>
+                            </tr>
+                            <tr>
+                                    <td>{{'label.heading.mobilenumber' | translate}}:</td>
+                                    <td>{{user.mobileNo}}</td>
+                            </tr>
+                            <tr>
+                                    <td>{{'label.heading.joiningDate' | translate}}:</td>
+                                    <td>{{joiningDate}}</td>
                             </tr>
                             <tr>
                                 <td valign="top">{{'label.heading.roles' | translate}}:</td>

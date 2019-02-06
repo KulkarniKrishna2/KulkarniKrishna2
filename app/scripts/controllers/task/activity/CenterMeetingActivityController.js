@@ -26,20 +26,6 @@
                }, function (data) {
                    scope.centerMeetingData = data;
                    scope.isEditExpectedDisbursementDateOnly = false;
-                   for (var i in scope.centerMeetingData.subGroupMembers) {
-                       for (var j in scope.centerMeetingData.subGroupMembers[i].memberData) {
-                           if (scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate) {
-                               scope.formData.expectedDisbursementDate = new Date(dateFilter(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate, scope.df));
-                               scope.disbursementDateFound = true;
-                               scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
-                               break;
-                           }
-                       }
-                       if (scope.disbursementDateFound) {
-                           break;
-                       }
-
-                   }
                    if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
                        scope.isCenterMeetingAttached = true;
                        scope.isCenterMeetingEdit = false;
@@ -47,6 +33,17 @@
                        if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
                            scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                        }
+                       for(var i in scope.centerMeetingData.collectionMeetingCalendar.recurringDates){
+                            if(today < new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i])){
+                                scope.formData.expectedDisbursementDate = dateFilter(new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i]),scope.df);
+                                scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
+                                break;
+                            }else if(today  == new Date(scope.centerDetails.collectionMeetingCalendar.recurringDates[i])){
+                                scope.formData.expectedDisbursementDate = dateFilter(new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i]),scope.df);
+                                scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
+                                break;
+                            }
+                        }
                    }
                    if (scope.formData.expectedDisbursementDate != undefined) {
                        var twoWeeks = 1000 * 60 * 60 * 24 * 14;

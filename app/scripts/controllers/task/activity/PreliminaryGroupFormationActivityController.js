@@ -99,7 +99,7 @@
                 if(activeClientMember.profileRatingScoreData){
                    return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore *20 < scope.clientProfileRatingScoreForSuccess); 
                 }
-                return activeClientMember.status.code === 'clientStatusType.onHold';
+                return true;
             };
 
             scope.createSubGroup = function (centerDetails) {
@@ -488,6 +488,9 @@
                                     $modalInstance.close('createmember');
                                 }else{
                                     $scope.first.dateOfBirth=new Date();
+                                    if($scope.activeClientCount==undefined){
+                                        $scope.activeClientCount=0;
+                                    }
                                     if(scope.maxClientLimit > (++ $scope.activeClientCount)){
                                         $scope.newClientId = data.clientId;
                                         $scope.uiData.enableCreateClientLoop = false;

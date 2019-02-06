@@ -582,9 +582,24 @@
 		</div>
 		<div class="modal-body ">
 			<api-validate></api-validate>
-			<br>
-			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			<button class="btn btn-primary" ng-click="reject()">{{'label.button.confirm' | translate}}</button>
+			<br>			
+			<form name="popupform" novalidate="" class="form-horizontal well">
+			    <fieldset>
+			    	<div class="form-group">
+						<label class="control-label col-sm-3">{{'label.heading.rejectionreason' | translate}}</label>
+						<div class="col-sm-5">
+							<select id="rejectReasonId" ng-model="formData.rejectReasonId" class="form-control" ng-options="closureReason.id as closureReason.name for closureReason in closureReasons"
+									 value="{{closureReason.id}}"></select>
+						</div>
+					</div>
+					<div class="col-md-offset-5">
+					    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
+					    </button>
+			            <button class="btn btn-primary" ng-click="reject()">{{'label.button.confirm' | translate}}
+			            </button>
+			        </div>    
+			    </fieldset>
+			</form>			
 		</div>
 	</script>
 </div>

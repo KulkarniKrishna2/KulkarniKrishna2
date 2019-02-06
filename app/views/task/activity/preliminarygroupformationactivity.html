@@ -27,7 +27,7 @@
 						<th class="col-md-2" data-ng-hide="true">{{'label.heading.keyah' | translate}}</th>
 						<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
-				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup">
+				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup | orderBy : 'fcsmNumber'">
 					<tr ng-show = "groupMember.active" class="background-gold">
 						<td colspan="5" class="col-md-8">
 							<span>

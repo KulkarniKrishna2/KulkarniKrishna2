@@ -500,16 +500,16 @@
                     if (isNaN(withdrawAmount)) {
                         withdrawAmount = 0;
                     }
-                    var totalsavings = 0;
+                    var totalsavings =group.dueAmount - group.withdrawAmount;
                     var existing = _.findWhere(scope.savingsTotal, { productId: group.productId });
                     if (existing == undefined || !(_.isObject(existing))) {
                         var gp = {
                             productId: group.productId,
                             currencyCode: group.currencyCode,
                             currencySymbol: group.currencySymbol,
-                            dueAmount: dueAmount,
-                            withdrawAmount: withdrawAmount,
-                            totalsavings: dueAmount - withdrawAmount
+                            dueAmount: group.dueAmount,
+                            withdrawAmount: group.withdrawAmount,
+                            totalsavings: totalsavings
                         };
                         scope.savingsTotal.push(gp);
                     } else {

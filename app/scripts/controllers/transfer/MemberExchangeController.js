@@ -22,7 +22,7 @@
                 scope.toGroup = undefined;
                 scope.fromGroup = undefined;
                 if (officeId) {
-                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: officeId, limit:-1, paged:false}, function (data) {
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: officeId, limit:-1, paged:false, excludeStatus:'600,700'}, function (data) {
                         scope.centers = data;
                     });
                 }
@@ -38,7 +38,7 @@
                     resourceFactory.centerResource.get({ centerId: centerId, associations: 'groupMembers' }, function (data) {
                         scope.groups = data.groupMembers;
                         for(var i in data.groupMembers){
-                            if(data.groupMembers[i].status.code=="groupingStatusType.closed"){
+                            if(data.groupMembers[i].status.code=="groupingStatusType.closed" || data.groupMembers[i].status.code=="groupingStatusType.rejected"){
                                 scope.groups.splice(i,1);
                             }
                         }
@@ -93,6 +93,31 @@
             }
 
             scope.deleteSubmitDetails = function () {
+                if(scope.dataList){
+                    for(var i in scope.dataList){
+                        if(scope.dataList[i].fromGroup){
+                            var clients = scope.dataList[i].fromGroup.clients;
+                            for(var j in clients){
+                                var idx = scope.fromGroup.oldActiveClientMembers.findIndex(x => x.id == clients[j].id);
+                                if(idx >= 0){
+                                    scope.fromGroup.oldActiveClientMembers[idx].checked = false; 
+                                    scope.fromGroup.activeClientMembers.push(scope.fromGroup.oldActiveClientMembers[idx]); 
+                                }
+                            }
+                        }
+
+                        if(scope.dataList[i].toGroup){
+                            var clients = scope.dataList[i].toGroup.clients;
+                            for(var j in clients){
+                                var idx = scope.toGroup.oldActiveClientMembers.findIndex(x => x.id == clients[j].id);
+                                if(idx >= 0){
+                                    scope.toGroup.oldActiveClientMembers[idx].checked = false; 
+                                    scope.toGroup.activeClientMembers.push(scope.toGroup.oldActiveClientMembers[idx]); 
+                                }
+                            }
+                        }    
+                    }
+                }
                 scope.dataList = [];
             }
 

@@ -22,7 +22,7 @@
 					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
-				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup">
+				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup | orderBy : 'fcsmNumber'">
 					<tr class="background-gold">
 						<td colspan="11">
 							<span>{{groupMember.fcsmNumber}}

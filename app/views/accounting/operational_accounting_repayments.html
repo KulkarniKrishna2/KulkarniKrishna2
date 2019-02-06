@@ -50,6 +50,38 @@
                 </tr>
             </tfoot>
         </table>
+        <h3>{{ 'label.anchor.overDueRepayment' | translate }}:</h3>
+        <table class="table-bordered table view-table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.loanProductName' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.glcode' | translate}}</th>
+                    <th>{{'label.heading.debit' | translate}}</th>
+                    <th>{{'label.heading.credit' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="repayment in overDueRepayments">
+                <tr ng-repeat="repaymentDetail in repayment.details">
+                    <td>{{repayment.productDetail.name}}</td>
+                    <td>{{repaymentDetail.type.value}}</td>
+                    <td>{{repaymentDetail.gLAccountData.name}}&nbsp;({{repaymentDetail.gLAccountData.glCode}})</td>
+                    <td align="right">
+                        <span ng-if="repaymentDetail.type.value=='DEBIT'">{{repaymentDetail.amount | number:2}}</span>
+                    </td>
+                    <td align="right">
+                        <span ng-if="repaymentDetail.type.value=='CREDIT'">{{repaymentDetail.amount | number:2}}</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">{{'label.input.total' | translate }}</td>
+                    <td align="right">{{drOverDueRepaymentsTotal | number:2}}</td>
+                    <td align="right">{{crOverDueRepaymentsTotal | number:2}}</td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
     <div class="pull-right">
         <a id="next" type="submit" ng-click="next()" class="btn btn-primary"></i>{{'label.button.next'

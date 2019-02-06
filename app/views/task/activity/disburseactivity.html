@@ -22,7 +22,7 @@
                         </button>
                     </th>
                 </thead>
-                <tbody ng-repeat="groupMember in centerDetails.subGroupMembers">
+                <tbody ng-repeat="groupMember in centerDetails.subGroupMembers | orderBy : 'fcsmNumber'">
                     <tr>
                         <td colspan="11" class="background-gold">
                             <span>{{groupMember.fcsmNumber}}

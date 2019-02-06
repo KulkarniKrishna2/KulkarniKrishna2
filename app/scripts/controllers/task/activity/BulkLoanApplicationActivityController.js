@@ -1114,6 +1114,13 @@
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
+                            if(member.loanAccountBasicData){
+                                return { 'memberId': member.id,
+                                'memberName': member.displayName,
+                                'fcsmNumber':member.fcsmNumber,
+                                'loanId':member.loanAccountBasicData.id,
+                                'allowLoanRejection' : member.allowLoanRejection };
+                            }
                             return { 'memberId': member.id,
                                 'memberName': member.displayName,
                                 'fcsmNumber':member.fcsmNumber,
@@ -1135,6 +1142,9 @@
                 $scope.rejectClientData.locale = scope.optlang.code;
                 $scope.rejectClientData.dateFormat = scope.df;
                 $scope.rejectTypes = scope.rejectTypes;
+                if(memberParams.loanId){
+                   $scope.loanId =  memberParams.loanId;
+                }
                 /*if(!memberParams.allowLoanRejection){
                     var idx = $scope.rejectTypes.findIndex(x => x.code == 'rejectType.loanRejection');
                     if(idx >= 0){
@@ -1166,10 +1176,25 @@
                     if($scope.rejectClientData.closureDate){
                         $scope.rejectClientData.closureDate = dateFilter($scope.rejectClientData.closureDate, scope.df);
                     }
-                    resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
+                    if($scope.rejectClientData.rejectType != 4){
+                        resourceFactory.clientResource.save({clientId: memberParams.memberId, command: 'close'}, $scope.rejectClientData, function (data) {
                        $modalInstance.dismiss('cancel');
                        initTask(false);
                     });
+                    }else{
+                        var loanRejectData = {rejectedOnDate:$scope.rejectClientData.closureDate,
+                                              locale:scope.optlang.code,
+                                              dateFormat:scope.df,
+                                              rejectReasonId:$scope.rejectClientData.closureReasonId
+                                             };
+
+                        var params = {command: 'reject',loanId:$scope.loanId};
+                        resourceFactory.LoanAccountResource.save(params, loanRejectData, function (data) {
+                            $modalInstance.dismiss('cancel');
+                            initTask(false);
+                        });
+                    }
+                    
                 };
 
             }
