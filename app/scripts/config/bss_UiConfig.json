@@ -260,6 +260,9 @@
 			}
 		},
 		"collectionSheet": {
+			"isAutoPopulate": {
+				"cashPaymentType": true
+			},
 			"isHiddenFeild": {
 				"clientForNoRepayments": true
 			},

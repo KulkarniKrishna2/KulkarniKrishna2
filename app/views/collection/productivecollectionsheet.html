@@ -4,6 +4,29 @@
     </ul>
 
     <api-validate></api-validate>
+    <script type="text/ng-template" id="submitCollectionSheet.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.anchor.collectionsheet' | translate}}</h3>
+            </div>
+            <br>
+            <div class="modal-body">
+                <label class="control-label col-sm-3" >{{'label.input.paymenttype' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-4">
+                    <select  id="paymentTypeId" name="paymentTypeId" ng-model="paymentDetail.paymentTypeId" ng-options="paymenttype.id as paymenttype.name for paymenttype in paymentTypeOptions" value="{{paymenttype.id}}" 
+                    class="input-sm form-control"   required late-Validate>
+                    <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>                
+                
+                <div class="col-sm-5" ng-show="isRequired">
+                    <span class="error">{{'label.requiredfield' | translate}}</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+
+                <button class="btn btn-primary" ng-click="submitCollectionSheet()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
     <div>
         <div class="col-md-offset-9 paddedtop">
             <button class="btn btn-primary" ng-click="viewFullScreen()">{{'label.button.viewfullscreen' | translate}}
@@ -230,13 +253,13 @@
                         </table>
             </div>
             <div class="col-md-offset-9 paddedtop">
-                <button id="save" type="submit" class="btn btn-primary" ng-show="submitNextShow" ng-click="submit()">
+                <button id="save" type="submit" class="btn btn-primary" ng-show="submitNextShow" ng-click="submitCollection()">
                     {{'label.button.submitandnextcenter' | translate}}
                 </button>
-                <button id="save" type="submit" class="btn btn-primary" ng-show="submitShow" ng-click="submit()">
+                <button id="save" type="submit" class="btn btn-primary" ng-show="submitShow" ng-click="submitCollection()">
                     {{'label.button.save' | translate}}
                 </button>
-                <button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit" ng-click="submit()">
+                <button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit" ng-click="submitCollection()">
                     {{'label.button.forcedsubmit' | translate}}
                 </button>
             </div>
