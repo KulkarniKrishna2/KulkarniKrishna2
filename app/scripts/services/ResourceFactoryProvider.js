@@ -1774,7 +1774,7 @@
                     apscTransactionResource: defineResource(apiVer + "/accounttransfers/apscRepayment", {}, {
                         doBulkTransaction:{method: 'POST', params: {}}
                     }),
-                    fldgSettlement: defineResource(apiVer + "/accounting/fldg/settlement/:trancheId", { trancheId: '@trancheId' }, {
+                    fldgSettlement: defineResource(apiVer + "/accounting/fldg/settlement/:trancheId/:mannual", { trancheId: '@trancheId',mannual:'@mannual' }, {
                     }),
                     taxInvoiceTemplate: defineResource(apiVer + "/accounting/taxinvoice/template", {}, {
                     }),
