@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ProductiveCollectionSheetController: function (scope, routeParams, resourceFactory, dateFilter, location) {
+        ProductiveCollectionSheetController: function (scope, routeParams, resourceFactory, dateFilter, location,$modal) {
             var params = {};
             params.locale = scope.optlang.code;
             params.dateFormat = scope.df;
@@ -727,9 +727,67 @@
                 }
                 );
             };
+
+            scope.submitCollection = function () {
+                if(!scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType){
+                    scope.submit();
+                }else{
+                    var templateUrl = 'submitCollectionSheet.html';               
+                    $modal.open({
+                        templateUrl: templateUrl,
+                        controller: submitCollectionSheetCtrl,
+                        size: 'lg',
+                        windowClass: 'modalwidth500',
+                        resolve: {
+                            collectionParams: function () {
+                                return {
+                                    'paymentTypeOption': scope.collectionsheetdata.paymentTypeOptions
+                                };  
+                            }
+                        }
+                    });
+                }
+                
+            }
+
+            var submitCollectionSheetCtrl = function ($scope, $modalInstance, collectionParams) {
+                $scope.paymentTypeOptions = collectionParams.paymentTypeOption;
+                $scope.showPaymentDetailsFn = function () {
+                $scope.paymentDetail = {};
+                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
+                    for(var i in $scope.paymentTypeOptions){
+                        if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType && $scope.paymentTypeOptions[i].isCashPayment){
+                            $scope.paymentDetail.paymentTypeId = $scope.paymentTypeOptions[i].id;
+                            break;
+                        }
+                    }
+                }else{
+                    $scope.paymentDetail.paymentTypeId = "";
+                }
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+                }
+            };
+                $scope.showPaymentDetailsFn();
+                $scope.isRequired = false;
+                $scope.submitCollectionSheet = function () {
+                    if(_.isUndefined($scope.paymentDetail.paymentTypeId)){
+                        $scope.isRequired = true;
+                        return false;
+                    }
+                    scope.formData.paymentTypeId = $scope.paymentDetail.paymentTypeId;
+                    scope.submit();
+                    $modalInstance.dismiss('cancel');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+               
+            };
+
         }
     });
-    mifosX.ng.application.controller('ProductiveCollectionSheetController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', '$location', mifosX.controllers.ProductiveCollectionSheetController]).run(function ($log) {
+    mifosX.ng.application.controller('ProductiveCollectionSheetController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', '$location','$modal', mifosX.controllers.ProductiveCollectionSheetController]).run(function ($log) {
         $log.info("ProductiveCollectionSheetController initialized");
     });
 }(mifosX.controllers || {}));
