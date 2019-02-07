@@ -615,6 +615,9 @@
     "error.msg.tranche.actual.disbursement.date.does.not.match.with.expected.disbursal.date.of.tranche" : "Tranche actual disbursement date does not match with expected disbursement date of tranche",
     "validation.msg.loanapplicationreference.repaymentsStartingFromDate.is.less.than.date" : "Invalid First Repayment Date",
     "error.message.sum.of.settlements.in.tranche.should.be.less.than.or.equal.to.tarnche.amount": "Sum of Settled Amounts Should be less than or equal to tranche amount {{params[0].value |number:2}}",
+    "error.msg.duplicate.product.to.accState.mappings":"This Product To AccountingStateMapping already exists",
+    "error.msg.duplicate.accState.mapping.details":"Accounting State Mapping Details already exists",
+    "error.msg.duplicate.accState.mappings":"Accounting State Mapping with name {{params[0].value}} already exists",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
@@ -7782,7 +7785,7 @@
     "label.input.manualsettlement": "Manual Settlement",
     "label.input.closedLoans": "Closed Loan",
     "label.input.fldgmanualsettelemnt":"FLDG Manual Settlement",
-    "label.input.classification": "Classification",
+    "label.input.classification": "Accounting Classification",
     "label.input.istransfer": "Is Transfer",
     "label.input.searchtransactiontype": "Search Transaction Type",
     "label.input.transactionEntryType": "Transaction Entry Type",
@@ -7797,9 +7800,24 @@
     "groupingStatusType.transfer.in.progress": "Transfer in Progress",
     "groupingStatusType.transfer.on.hold": "Transfer On Hold",
     "groupingStatusType.rejected": "Rejected",
-
     "can.not.update.staff.to.other.than.parent.staff.when.LoanOfficerToCenterHierarchy.is.enabled" : "Cannot update staff to other than parent staff when LoanOfficerToCenterHierarchy is enabled",
     "label.anchor.overDueRepayment" : "OverDueRepayment",
+    "label.anchor.accountingStateMappings": "Accounting State Mappings",
+    "label.anchor.screenForAccStateMappings": "Screen For GL Mappings Based on Accounting State ",
+    "label.anchor.viewAccountingStateMappings": "View Mappings",
+    "label.anchor.createMappings": "Create Mappings",
+    "label.anchor.createMappingDetails": "Create Mapping Details",
+    "label.anchor.viewAccountingMappingDetails": "View Mapping Details",
+    "label.anchor.accountingSubType": "Accounting Sub Type",
+    "label.anchor.GLMappings": "GL Mappings",
+    "label.anchor.createGLMappings": "Create GL Mappings",
+    "label.anchor.editGLMappings": "Edit GL Mappings",
+    "label.anchor.accStateProductMapping": "Accounting State Product Mappings",
+    "label.anchor.screenForAccountingStateProductMapping": " Screen To Map Accounting State And Product",
+    "label.anchor.accountingConfig": "Accounting Configuration",
+    "label.anchor.createProductMapping": "Create Product Mappings",
+    "label.anchor.editMappings": "Edit Mappings",
+    "label.anchor.editMappingDetails": "Edit Mapping Details",
     
-     "------ end of translation file ------":"---------"
+    "------ end of translation file ------": "---------"
 }

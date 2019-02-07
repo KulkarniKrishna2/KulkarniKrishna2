@@ -8,17 +8,26 @@
             </a>
         </div>
         <div class="list-group">
-            <a class="list-group-item"  has-permission='READ_TRANCHE' href="#/viewtranche">
+            <a class="list-group-item" has-permission='READ_TRANCHE' href="#/viewtranche">
                 <h4 class="list-group-item-heading"><i class="icon-money"></i>&nbsp;&nbsp;{{'label.anchor.fldg' |
                     translate}}</h4>
                 <p class="list-group-item-text">{{'label.anchor.screenforfldg' | translate}}</p>
             </a>
         </div>
-        <div class="list-group" ng-if="false">
-            <a class="list-group-item" href="#/operationalaccounting">
-                <h4 class="list-group-item-heading"><i class="icon-money"></i>&nbsp;&nbsp;{{'label.anchor.APSC' |
+        <div class="list-group">
+            <a class="list-group-item" has-permission='READ_ACCOUNTING_STATE_MAPPING' href="#/accountingstatemappings">
+                <h4 class="list-group-item-heading"><i class="icon-money"></i>&nbsp;&nbsp;{{'label.anchor.accountingStateMappings'
+                    |
                     translate}}</h4>
-                <p class="list-group-item-text">{{'label.anchor.screenforapsc' | translate}}</p>
+                <p class="list-group-item-text">{{'label.anchor.screenForAccStateMappings' | translate}}</p>
+            </a>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item" has-permission='READ_ACCOUNTING_STATE_TO_PRODUCT_MAPPING' href="#/accountingstate/productmappings">
+                <h4 class="list-group-item-heading"><i class="icon-money"></i>&nbsp;&nbsp;{{'label.anchor.accStateProductMapping'
+                    |
+                    translate}}</h4>
+                <p class="list-group-item-text">{{'label.anchor.screenForAccountingStateProductMapping' | translate}}</p>
             </a>
         </div>
     </div>

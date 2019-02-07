@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/accountingstatemappings">{{'label.anchor.viewAccountingStateMappings' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createMappings' | translate}}</li>
+    </ul>
+    <form name="createAccountingMappingsForm" novalidate="" class="form-horizontal well" ng-controller="CreateAccountingMappingsController"
+        rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.createMappings'|translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.heading.name' | translate }}<span class="required">*</span>
+                </label>
+                <div class="col-sm-2">
+                    <input type="text" autocomplete="off" id="name" class="form-control" name="name" ng-model="formData.accMappingName"
+                        required late-validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createAccountingMappingsForm" valattribute="name" />
+                </div>
+            </div>
+            <div class="center">
+                <a id="cancel" href="#/accountingstatemappings" type="reset" class="btn btn-warning">{{'label.button.cancel'
+                    | translate}}
+                </a>
+                <button id="save" type="submit" ng-click="submitted = true" class="btn btn-primary" has-permission=''>{{'label.button.save'
+                    | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

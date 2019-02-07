@@ -1,0 +1,34 @@
+<div class="col-md-12" ng-controller="ViewAccountingMappingsController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewAccountingStateMappings' | translate}}</li>
+    </ul>
+    <form name="viewAccountingMappingsForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="pull-right">
+                <a href="#/createaccountingmappings" class="btn btn-primary" has-permission='CREATE_ACCOUNTING_STATE_MAPPING'><i
+                        class="icon-plus icon-white"></i>{{'label.anchor.createMappings'
+                    | translate}}</a>
+            </div>
+            <legend>{{'label.anchor.viewAccountingStateMappings' | translate}}</legend>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pointer-main" ng-repeat="accountingMapping in accountingMappings">
+                            <td class="pointer" data-ng-click="routeTo(accountingMapping.accMappingId)">{{accountingMapping.accMappingName}}</td>
+                            <td><a has-permission='UPDATE_ACCOUNTING_STATE_MAPPING' ng-click="editMapping(accountingMapping.accMappingId)">&nbsp;<i
+                                        class="icon-edit icon-white"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

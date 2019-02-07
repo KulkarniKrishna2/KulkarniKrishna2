@@ -1,0 +1,36 @@
+<div class="col-md-12" ng-controller="ViewAccountingMappingsDetailsController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/accountingstatemappings">{{'label.anchor.viewAccountingStateMappings' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewAccountingMappingDetails' | translate}}</li>
+    </ul>
+    <form name="viewaccountingmappingsdetailsForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.viewAccountingMappingDetails' | translate}}</legend>
+            <div class="pull-right">
+                <a href="#/createaccountingmappingsdetails/{{mappingId}}" class="btn btn-primary" has-permission='CREATE_ACCOUNTING_STATE_MAPPING_DETAILS'><i
+                        class="icon-plus icon-white"></i>{{'label.anchor.createMappings' | translate}}</a>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.accountingtype' | translate}}</th>
+                            <th>{{'label.anchor.accountingSubType'| translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pointer-main" ng-repeat="accountingMappingDetail in accountingMappingDetails">
+                            <td data-ng-click="routeTo(accountingMappingDetail.accStateMappingDetailsId)" class="pointer">{{accountingMappingDetail.bcAccTypeEnum.value}}</td>
+                            <td data-ng-click="routeTo(accountingMappingDetail.accStateMappingDetailsId)" class="pointer">{{accountingMappingDetail.paymentType.name}}</td>
+                            <td><a has-permission='UPDATE_ACCOUNTING_STATE_MAPPING_DETAILS' ng-click="editMappingDetails(accountingMappingDetail.bcAccTypeEnum.id,accountingMappingDetail.paymentType.id)">&nbsp;<i
+                                        class="icon-edit icon-white"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>
