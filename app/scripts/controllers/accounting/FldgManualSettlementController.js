@@ -12,17 +12,9 @@
                 scope.settlementOptions = data.settlementOptions;
             });
             scope.submit = function () {
-                var overDueLoanDetails = {};
-                overDueLoanDetails.locale = scope.optlang.code;
-                overDueLoanDetails.fldgSettlements = [];
-                if (scope.formData.settledById) {
-                    overDueLoanDetails.fldgSettlements.push(scope.formData);
-                };
-                if (overDueLoanDetails.fldgSettlements.length > 0) {
-                    resourceFactory.fldgSettlement.save({ trancheId: routeParams.trancheId }, overDueLoanDetails, function (data) {
-                        location.path('/fldgsettlement/' + routeParams.trancheId);
-                    });
-                }
+                resourceFactory.fldgSettlement.save({ trancheId: routeParams.trancheId,mannual:"mannual"}, scope.formData, function (data) {
+                    location.path('/fldgsettlement/' + routeParams.trancheId);
+                });
             };
         }
     });
