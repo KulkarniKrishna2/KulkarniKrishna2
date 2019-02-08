@@ -1950,6 +1950,43 @@
             .when('/tellers/:tellerId/cashiers/:cashierId/summary/:currencyCode', {
                 templateUrl: 'views/organization/cashmgmt/viewCashierSummary.html'
             })
+            .when('/accountingstatemappings', {
+                templateUrl: 'views/accounting/accounting_state_mappings.html'
+            })
+            .when('/createaccountingmappings', {
+                templateUrl: 'views/accounting/create_accounting_mappings.html'
+            })
+            .when('/createaccountingmappingsdetails/:mappingId', {
+                templateUrl: 'views/accounting/create_mappings_details.html'
+            })
+            .when('/viewaccountingmappingsdetails/:mappingId', {
+                templateUrl: 'views/accounting/View_accounting_mapping_details.html'
+            })
+            .when('/viewaccountingglmappings/:mappingId/accstate/:accStateId', {
+                templateUrl: 'views/accounting/accstate_to_gl_mappings.html'
+            })
+            .when('/createglmappings/:mappingId/accstate/:accStateId', {
+                templateUrl: 'views/accounting/create_gl_mappings.html'
+            })
+            .when('/editglmappings/:mappingId/accstate/:accStateId', {
+                templateUrl: 'views/accounting/edit_gl_mappings.html'
+            })
+            .when('/accountingstate/productmappings', {
+                templateUrl: 'views/accounting/accstate_product_mapping.html'
+            })
+            .when('/createaccountingstate/productmappings', {
+                templateUrl: 'views/accounting/create_accstate_product_mapping.html'
+            })
+            .when('/editaccountingmappings/:mappingId', {
+                templateUrl: 'views/accounting/edit_accounting_mappings.html'
+            })
+            .when('/editaccountingmappingsdetails/:mappingId/accstate/:accStateId', {
+                templateUrl: 'views/accounting/edit_mapping_details.html'
+            })
+            .when('/editaccountingmappingsdetails/:mappingId/accstate/:accStateId/subtype/:subTypeId', {
+                templateUrl: 'views/accounting/edit_mapping_details.html'
+            })
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

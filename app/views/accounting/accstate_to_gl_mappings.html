@@ -1,0 +1,224 @@
+<div class="col-md-12" ng-controller="ViewAccountingStateToGLMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/accountingstatemappings">{{'label.anchor.viewAccountingStateMappings' | translate}}</a></li>
+        <li><a href="#/viewaccountingmappingsdetails/{{mappingId}}">{{'label.anchor.viewAccountingMappingDetails' |
+                translate}}</a></li>
+        <li class="active">{{'label.anchor.GLMappings' | translate}}</li>
+    </ul>
+    <form name="viewAccStateToGLMappingsForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.GLMappings' | translate}}</legend>
+            <div ng-if="isEmpty" class="pull-right">
+                <a href="#/createglmappings/{{mappingId}}/accstate/{{accStateId}}" class="btn btn-primary"
+                    has-permission='CREATE_ACCOUNTING_STATE_TO_GL_MAPPING'><i class="icon-plus icon-white"></i>{{'label.button.create'
+                    | translate}}</a>
+            </div>
+            <div ng-if="!isEmpty" class="pull-right">
+                <a href="#/editglmappings/{{mappingId}}/accstate/{{accStateId}}" class="btn btn-primary" has-permission='UPDATE_ACCOUNTING_STATE_TO_GL_MAPPING'><i
+                        class="icon-edit icon-white"></i>&nbsp;{{'label.button.edit' | translate}}</a>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th style="width:50%;">{{'label.heading.accounttype' | translate}}</th>
+                        <th>{{'label.heading.account'| translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            <table width="100%">
+                                <tr ng-if="accountingMappings.fundSourceAccount!=undefined" class="toppadding">
+                                    <td>{{'label.heading.fundsource' | translate}}:</td>&nbsp;
+                                    <td colspan="3">{{accountingMappings.fundSourceAccount.name}}&nbsp;({{accountingMappings.fundSourceAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.loanPortfolioAccount!=undefined">
+                                    <td>{{'label.heading.loanportfolio' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.loanPortfolioAccount.name}}&nbsp;({{accountingMappings.loanPortfolioAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.receivableInterestAccount!=undefined">
+                                    <td>{{ 'label.input.receivableinterest' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.receivableInterestAccount.name}}&nbsp;({{accountingMappings.receivableInterestAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.receivableFeeAccount!=undefined">
+                                    <td>{{'label.heading.receivablefees' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.receivableFeeAccount.name}}&nbsp;({{accountingMappings.receivableFeeAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.receivablePenaltyAccount!=undefined">
+                                    <td>{{'label.heading.receivablepenalties' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.receivablePenaltyAccount.name}}&nbsp;({{accountingMappings.receivablePenaltyAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.transfersInSuspenseAccount!=undefined">
+                                    <td>{{'label.heading.transfersinsuspenpense' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.transfersInSuspenseAccount.name}}&nbsp;({{accountingMappings.transfersInSuspenseAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.valueDateSuspenseAccount!=undefined">
+                                    <td>{{'label.heading.valuedatesuspense' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.valueDateSuspenseAccount.name}}&nbsp;({{accountingMappings.valueDateSuspenseAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.interestOnLoanAccount!=undefined">
+                                    <td>{{'label.heading.incomefrominterest' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.interestOnLoanAccount.name}}&nbsp;({{accountingMappings.interestOnLoanAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.lossGainWithAdjustmentAccount!=undefined">
+                                    <td>{{'label.heading.lossandgainfromadjustment' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.lossGainWithAdjustmentAccount.name}}&nbsp;({{accountingMappings.lossGainWithAdjustmentAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.incomeFromFeeAccount!=undefined">
+                                    <td>{{'label.heading.incomefromfees' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.incomeFromFeeAccount.name}}&nbsp;({{accountingMappings.incomeFromFeeAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.incomeFromPenaltyAccount!=undefined">
+                                    <td>{{'label.heading.incomefrompenalties' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.incomeFromPenaltyAccount.name}}&nbsp;({{accountingMappings.incomeFromPenaltyAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.npaInterestSuspenseAccount!=undefined">
+                                    <td>{{'label.heading.npainterestsuspense' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.npaInterestSuspenseAccount.name}}&nbsp;({{accountingMappings.npaInterestSuspenseAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.npaFeeSuspenseAccount!=undefined">
+                                    <td>{{'label.heading.npafeessuspense' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.npaFeeSuspenseAccount.name}}&nbsp;({{accountingMappings.npaFeeSuspenseAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.npaPenaltySuspenseAccount!=undefined">
+                                    <td>{{'label.heading.npapenaltiessuspense' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.npaPenaltySuspenseAccount.name}}&nbsp;({{accountingMappings.npaPenaltySuspenseAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.incomeFromRecoveryAccount!=undefined">
+                                    <td>{{'label.heading.recoverypayments' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.incomeFromRecoveryAccount.name}}&nbsp;({{accountingMappings.incomeFromRecoveryAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.writeOffAccount!=undefined">
+                                    <td>{{'label.heading.loseswrittenoff' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.writeOffAccount.name}}&nbsp;({{accountingMappings.writeOffAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.overpaymentLiabilityAccount!=undefined">
+                                    <td>{{'label.heading.overpaymentliability' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.overpaymentLiabilityAccount.name}}&nbsp;({{accountingMappings.overpaymentLiabilityAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.subsidyFundSourceId!=undefined">
+                                    <td>{{'label.input.subsidyFundSource' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.subsidyFundSourceId.name}}&nbsp;({{accountingMappings.subsidyFundSourceId.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.subsidyAccountId!=undefined">
+                                    <td>{{'label.input.subsidyAccount' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.subsidyAccountId.name}}&nbsp;({{accountingMappings.subsidyAccountId.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.valueDateSuspensePayableAccount!=undefined">
+                                    <td>{{'label.heading.valuedatesuspensepayable' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.valueDateSuspensePayableAccount.name}}&nbsp;({{accountingMappings.valueDateSuspensePayableAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.overdueLoanPortfolioAccount!=undefined">
+                                    <td>{{'label.input.overdue.loan.portfolio' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.overdueLoanPortfolioAccount.name}}&nbsp;({{accountingMappings.overdueLoanPortfolioAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.overdueReceivableInterestAccount!=undefined">
+                                    <td>{{'label.input.overdue.interest.on.loans' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.overdueReceivableInterestAccount.name}}&nbsp;({{accountingMappings.overdueReceivableInterestAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.overdueReceivableFeeAccount!=undefined">
+                                    <td>{{'label.input.overdue.income.from.fees' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.overdueReceivableFeeAccount.name}}&nbsp;({{accountingMappings.overdueReceivableFeeAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.overdueReceivablePenaltyAccount!=undefined">
+                                    <td>{{'label.input.overdue.income.from.penalties' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.overdueReceivablePenaltyAccount.name}}&nbsp;({{accountingMappings.overdueReceivablePenaltyAccount.glCode}})</td>
+                                </tr>
+                                <tr ng-if="accountingMappings.interestReceivableAndDueAccount!=undefined">
+                                    <td>{{'label.input.interest.receivable.and.due' | translate}}:</td>
+                                    <td colspan="3">{{accountingMappings.interestReceivableAndDueAccount.name}}&nbsp;({{accountingMappings.interestReceivableAndDueAccount.glCode}})</td>
+                                </tr>
+                                <!-- <div ng-show = "false">
+                                <tr>
+                                    <td colspan="3"><br /></td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>
+                                        <strong>{{'label.heading.advancedaccountingrules' | translate}}</strong>
+                                    </td>
+                                </tr>
+                                <tr class="toppadding bottomborder">
+                                    <td colspan="4">{{'label.heading.fundsourcesforpayment' | translate}}</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.heading.paymenttype' | translate}}</td>
+                                    <td colspan="3">{{'label.heading.fundsource' | translate}}</td>
+                                </tr>
+                                <tr ng-repeat="paymentChannel in loanproduct.paymentChannelToFundSourceMappings">
+                                    <td>{{paymentChannel.paymentType.name}}</td>
+                                    <td colspan="3">{{paymentChannel.fundSourceAccount.name}}&nbsp;({{paymentChannel.fundSourceAccount.glCode}})</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr class="toppadding bottomborder">
+                                    <td colspan="4">{{'label.heading.feestospecificincome' | translate}}</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.heading.fees' | translate}}</td>
+                                    <td>{{'label.heading.incomeaccount' | translate}}</td>
+                                    <td>{{'label.heading.fundsource' | translate}}</td>
+                                </tr>
+                                <tr ng-repeat="feeToIncomeAccount in feeToIncomeAccountMappingsData">
+                                    <td>{{feeToIncomeAccount.feeToIncomeAccountChargeName}}</td>
+                                    <td>{{feeToIncomeAccount.feeToIncomeAccountName}}&nbsp;({{feeToIncomeAccount.incomeAccountGlCode}})</td>
+                                    <td>{{feeToIncomeAccount.feeToDebitAccountName}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr class="toppadding bottomborder">
+                                    <td colspan="4">{{'label.heading.penaltiesspecifictoincomeacc' | translate}}</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.heading.penalty' | translate}}</td>
+                                    <td>{{'label.heading.incomeaccount' | translate}}</td>
+                                    <td>{{'label.heading.fundsource' | translate}}</td>
+                                </tr>
+                                <tr ng-repeat="penaltyToIncomeAccount in penaltyToIncomeAccountMappingsData">
+                                    <td>{{penaltyToIncomeAccount.chargeName}}</td>
+                                    <td>{{penaltyToIncomeAccount.incomeAccountName}}&nbsp;({{penaltyToIncomeAccount.glCode}})</td>
+                                    <td>{{penaltyToIncomeAccount.debitAccountName}}</td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr class="toppadding bottomborder">
+                                    <td colspan="4">{{'label.heading.writeoffreasontoexpenseaccounts' | translate}}</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.heading.writeoffreason' | translate}}</td>
+                                    <td colspan="3">{{'label.heading.expenseaccount' | translate}}</td>
+                                </tr>
+                                <tr ng-repeat="codeValueToAccountMapping in writeOffReasonsToExpenseAccountMappings">
+                                    <td>{{codeValueToAccountMapping.codeValue.name}}</td>
+                                    <td colspan="3">{{codeValueToAccountMapping.expenseAccount.name}}&nbsp;({{codeValueToAccountMapping.expenseAccount.glCode}})</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr class="toppadding bottomborder">
+                                    <td colspan="4">{{'label.heading.mapTransactionTypeToPortfolio' | translate}}</td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>{{'label.heading.transactionType' | translate}}</td>
+                                    <td colspan="3">{{'label.heading.loanPortfolio.account' | translate}}</td>
+                                </tr>
+                                <tr ng-repeat="transactionTypeMapping in transactionTypeMappings">
+                                    <td>{{transactionTypeMapping.transactionType}}</td>
+                                    <td colspan="3">{{transactionTypeMapping.loanPortfolioAccountName}}&nbsp;({{transactionTypeMapping.accountGlCode}})</td>
+                                </tr>
+                            </div> -->
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

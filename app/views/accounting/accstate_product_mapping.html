@@ -1,0 +1,35 @@
+<div class="col-md-12" ng-controller="AccountingStateProductMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li class="active">{{'label.anchor.accStateProductMapping' | translate}}</li>
+    </ul>
+
+    <form name="accStateProductMappingsForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="pull-right">
+                <a href="#/createaccountingstate/productmappings" class="btn btn-primary" has-permission='CREATE_ACCOUNTING_STATE_TO_PRODUCT_MAPPING'><i class="icon-plus icon-white"></i>{{'label.anchor.createMappings'
+                    | translate}}</a>
+            </div>
+
+            <legend>{{'label.anchor.accStateProductMapping' | translate}}</legend>
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr class="graybg">
+                            <th style="width:50%">{{'label.anchor.accountingConfig' | translate}}</th>
+                            <th>{{'label.input.product' | translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pointer-main" ng-repeat="accStateToProductMapping in accStateToProductMappings">
+                            <td style="width:50%" class="pointer">{{accStateToProductMapping.mappingDetails.accMappingName}}</td>
+                            <td class="pointer">{{accStateToProductMapping.loanProductData.name}}</td>
+                            <td><a  has-permission='DELETE_ACCOUNTING_STATE_TO_PRODUCT_MAPPING' ng-click="deleteMapping(accStateToProductMapping.MappingId)">&nbsp;<i class="icon-remove icon-white"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+</div>

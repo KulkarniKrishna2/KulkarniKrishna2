@@ -660,7 +660,18 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/GstInvoicingController',
             'accounting/EditGSTMappingController',
             'client/TransferClientWhileActivationController',
-            'accounting/FldgManualSettlementController'
+            'accounting/FldgManualSettlementController',
+            'accounting/CreateAccountingMappingsController',
+            'accounting/ViewAccountingMappingsController',
+            'accounting/CreateAccountingMappingDetailsController',
+            'accounting/ViewAccountingMappingsDetailsController',
+            'accounting/ViewAccountingStateToGLMappingController',
+            'accounting/CreateGLMappingsController',
+            'accounting/EditGLMappingsController',
+            'accounting/AccountingStateProductMappingController',
+            'accounting/CreateAccStateProductMappingController',
+            'accounting/EditAccountingMappingsController',
+            'accounting/EditAccountingMappingDetailsController'
 
         ],
         filters: [

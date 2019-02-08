@@ -1,0 +1,59 @@
+<div class="col-md-12" ng-controller="CreateAccountingMappingDetailsController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/accountingstatemappings">{{'label.anchor.accountingStateMappings' | translate}} </a></li>
+        <li><a href="#/viewaccountingmappingsdetails/{{mappingId}}">{{'label.anchor.viewAccountingMappingDetails' |
+                translate}} </a></li>
+        <li class="active">{{'label.anchor.createMappingDetails' | translate}}</li>
+    </ul>
+    <form name="createAccountingMappingDetailsForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.createMappingDetails' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    {{'label.input.classification' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="bcAccountingTypeOptions" id="bcAccountingTypeId" name="bcAccountingTypeId" ng-model="formData.accStateId"
+                        class="form-control" ng-options="bcAccountingTypeOption.id as bcAccountingTypeOption.value for bcAccountingTypeOption in bcAccountingTypeOptions"
+                        value="{{bcAccountingTypeOption.id}}" ng-change="isPaymentType(formData.accStateId)" required
+                        late-validate>
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createAccountingMappingDetailsForm" valattribute="bcAccountingTypeId" />
+                </div>
+            </div>
+            <div ng-if="displayPaymentType" class="form-group">
+                <label class="control-label col-sm-3">
+                    {{'label.heading.paymenttype' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="paymentTypeOptions" id="paymentTypeId" name="paymentTypeId" ng-model="formData.accStateSubTypeId"
+                        class="form-control" ng-options="paymentTypeOption.id as paymentTypeOption.name for paymentTypeOption in paymentTypeOptions"
+                        value="{{paymentTypeOption.id}}" required late-validate>
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createAccountingMappingDetailsForm" valattribute="paymentTypeId" />
+                </div>
+            </div>&nbsp;
+
+            <div class="center">
+                <a id="cancel" href="#/viewaccountingmappingsdetails/{{mappingId}}" type="reset" class="btn btn-warning">{{'label.button.cancel'
+                    |
+                    translate}}
+                </a>
+                <button id="save" type="submit" class="btn btn-primary">{{'label.button.save'
+                    | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

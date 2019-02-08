@@ -1784,6 +1784,23 @@
                         getAllCenters: {method: 'GET', params: {}, isArray: true}
                     }),
                     ClientActivateAndTransfer: defineResource(apiVer + "/activate/transfer/client", {}, {
+                    }),
+                    AdvancedAccountingMappings: defineResource(apiVer + "/advancedaccounting/mappings/:mappingId", { mappingId: '@mappingId' }, {
+                        update: { method: 'PUT' }
+                    }),
+                    AdvancedAccountingMappingDetailsTemplate: defineResource(apiVer + "/advancedaccounting/mappingdetails/template", {}, {
+                    }),
+                    AdvancedAccountingMappingDetails: defineResource(apiVer + "/advancedaccounting/mappingdetails/:accountingMappingId/:accountingStateId", { accountingMappingId: '@accountingMappingId', accountingStateId: '@accountingStateId' }, {
+                        update: { method: 'PUT', params: { mappingId: '@mappingId' } }
+                    }),
+                    AdvancedAccountingGLMapping: defineResource(apiVer + "/advancedaccounting/glmappings", {}, {
+                        update: { method: 'PUT' }
+                    }),
+                    AdvancedAccountingGLMappingTemplate: defineResource(apiVer + "/advancedaccounting/glmappings/template", {}, {
+                    }),
+                    AdvancedAccountingProductMappingTemplate: defineResource(apiVer + "/advancedaccounting/productmappings/template", {}, {
+                    }),
+                    AdvancedAccountingProductMapping: defineResource(apiVer + "/advancedaccounting/productmappings/:mappingId", { mappingId: '@mappingId' }, {
                     })
                 };
             }];

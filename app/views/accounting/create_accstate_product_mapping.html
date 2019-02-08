@@ -1,0 +1,56 @@
+<div class="col-md-12" ng-controller="CreateAccStateProductMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/accountingstate/productmappings">{{'label.anchor.accStateProductMapping' | translate}} </a></li>
+        <li class="active">{{'label.anchor.createProductMapping' | translate}}</li>
+    </ul>
+    <form name="createAccStateProductMappingsForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.createProductMapping' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    {{'label.anchor.accountingStateMappings' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="accStateMappings" id="accMappingId" name="accMappingId" ng-model="formData.accMappingId"
+                        class="form-control" ng-options="accStateMapping.accMappingId as accStateMapping.accMappingName for accStateMapping in accStateMappings"
+                        value="{{accStateMapping.accMappingId}}" required late-validate>
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createAccStateProductMappingsForm" valattribute="accMappingId" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    {{'label.anchor.loanproducts' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="loanProducts" id="loanProductId" name="loanProductId" ng-model="formData.loanProductId"
+                        class="form-control" ng-options="loanProduct.id as loanProduct.name for loanProduct in loanProducts"
+                        value="{{loanProduct.id}}" required late-validate>
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createAccStateProductMappingsForm" valattribute="loanProductId" />
+                </div>
+            </div>&nbsp;
+
+            <div class="center">
+                <a id="cancel" href="#/accountingstate/productmappings" type="reset" class="btn btn-warning">{{'label.button.cancel'
+                    |
+                    translate}}
+                </a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission=''>{{'label.button.save'
+                    | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
