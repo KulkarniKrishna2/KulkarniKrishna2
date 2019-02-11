@@ -443,9 +443,9 @@
 
                             for(var j=0; j< scope.loanPurposeGroups[i].loanPurposeDatas.length; j++){
                                 if(scope.loanPurposeGroups[i].loanPurposeDatas[j].id == loanPurposeId){
-                                    scope.formData.loanPurposeGroupId = scope.loanPurposeGroups[i].id;
+                                    scope.loanPurposeGroupId = scope.loanPurposeGroups[i].id;
                                     scope.isLoanPurposeEditable= false;
-                                    scope.onLoanPurposeGroupChange(scope.formData.loanPurposeGroupId,scope.isLoanPurposeEditable);
+                                    scope.onLoanPurposeGroupChange(scope.loanPurposeGroupId,scope.isLoanPurposeEditable);
                                     break;
                                 }
                             }
@@ -473,14 +473,17 @@
             });
 
             scope.$watch('loanaccountinfo.overdueCharges', function(){
-                for(var i in scope.loanaccountinfo.overdueCharges){
+                if(angular.isDefined(scope.loanaccountinfo) && angular.isDefined(scope.loanaccountinfo.overdueCharges)){
+                   for(var i in scope.loanaccountinfo.overdueCharges){
                     if(scope.loanaccountinfo.overdueCharges[i].chargeData.penalty && (scope.loanaccountinfo.overdueCharges[i].chargeData.isSlabBased || scope.loanaccountinfo.overdueCharges[i].chargeData.chargeCalculationType.value == scope.slabBasedCharge) ){
                         var slabBasedValue = scope.getSlabBasedAmount(scope.loanaccountinfo.overdueCharges[i].chargeData.slabs,scope.formData.principal,scope.formData.numberOfRepayments);
                         if(slabBasedValue != null){
                             scope.loanaccountinfo.overdueCharges[i].chargeData.amount = slabBasedValue;
                         }
                     }
+                } 
                 }
+                
             });
 
             scope.loanProductChange = function (loanProductId) {
@@ -667,7 +670,6 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
-                delete scope.formData.loanPurposeGroupId;
 
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
