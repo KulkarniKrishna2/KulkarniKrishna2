@@ -7819,6 +7819,9 @@
     "label.anchor.createProductMapping": "Create Product Mappings",
     "label.anchor.editMappings": "Edit Mappings",
     "label.anchor.editMappingDetails": "Edit Mapping Details",
+    "label.anchor.principalOverdue":"principal Overdue",
+    "label.anchor.principalFutureDue":"Principal Future Due",
+    "label.anchor.interestOverdue":"Interest Overdue",
     
     "------ end of translation file ------": "---------"
 }
