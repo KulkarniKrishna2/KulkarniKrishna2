@@ -152,7 +152,8 @@
 		},
 		"collectionSheet": {
 			"isAutoPopulate": {
-				"paymentTypeOption": true
+				"paymentTypeOption": true,
+				"cashPaymentType": false
 			},
 			"isHiddenFeild": {
 				"newtransactionDate": false,
@@ -163,6 +164,9 @@
 			},
 			"isMandatory": {
 				"officeId": false
+			},
+			"attendanceType": {
+				"defaultValue": ""
 			}
 		},
 		"createClient": {

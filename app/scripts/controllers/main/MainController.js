@@ -257,6 +257,10 @@
                             scope.isBatchAccountingEnabled = data.globalConfiguration[i].enabled;
 
                         }
+                        if (data.globalConfiguration[i].name == 'apply-loan-officer-to-center-hierarchy') {
+                            scope.isLoanOfficerHierarchy = data.globalConfiguration[i].enabled;
+
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }

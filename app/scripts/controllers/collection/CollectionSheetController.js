@@ -251,8 +251,8 @@
                 scope.showPaymentDetails = true;
                 if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
                     for(var i in scope.paymentTypeOptions){
-                        if(angular.lowercase(scope.paymentTypeOptions[i].id) == scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId){
-                            scope.paymentDetail.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+                        if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType && scope.paymentTypeOptions[i].isCashPayment){
+                            scope.paymentDetail.paymentTypeId = scope.paymentTypeOptions[i].id;
                             break;
                         }
                     }
