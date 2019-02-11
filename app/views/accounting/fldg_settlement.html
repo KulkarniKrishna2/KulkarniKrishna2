@@ -48,7 +48,7 @@
                             <tbody>
                                 <tr ng-repeat="settledLoan in settledLoans">
                                     <td style="width: 300px" ng-model="settledLoan.account">{{settledLoan.accountNumber}}</td>
-                                    <td>{{settledLoan.overDueAmount | number:2}}</td>
+                                    <td>{{settledLoan.totalAmount | number:2}}</td>
                                     <td>{{settledLoan.settledBy}}</td>                                   
                                 </tr>
                             </tbody>
@@ -62,8 +62,11 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>{{'label.anchor.bulksettlement' | translate}}</td>
-                                        <td style="width: 350px">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td >{{'label.anchor.bulksettlement' | translate}}</td>
+                                        <td style="width: 250px">
                                             <select id="bulksettlementTypeId" name="bulksettlementTypeId" ng-model="bulksettlementId" class="form-control"
                                                 ng-options="bulksettlementTypeOption.id as bulksettlementTypeOption.value for bulksettlementTypeOption in settlementOptions"
                                                 value="{{bulksettlementTypeOption.id}}" ng-change="changeSettlement(bulksettlementId)">
@@ -75,15 +78,21 @@
                                 <thead>
                                     <tr class="graybg">
                                         <th>{{'label.input.loanaccountnumber' | translate}}</th>
+                                        <th>{{'label.anchor.principalOverdue' | translate}}</th>
+                                        <th>{{'label.anchor.principalFutureDue' | translate}}</th>
+                                        <th>{{'label.anchor.interestOverdue' | translate}}</th>
                                         <th>{{'label.heading.amount' | translate}}</th>
                                         <th>{{'label.heading.settledby' | translate}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="overdueLoan in overdueLoans">
-                                        <td style="width: 300px" ng-model="overdueLoan.account">{{overdueLoan.accountNumber}}</td>
-                                        <td>{{overdueLoan.overDueAmount | number:2}}</td>
-                                        <td style="width: 350px">
+                                        <td ng-model="overdueLoan.account">{{overdueLoan.accountNumber}}</td>
+                                        <td>{{overdueLoan.principalOverdue | number:2}}</td>
+                                        <td>{{overdueLoan.principalFutureDue | number:2}}</td>
+                                        <td>{{overdueLoan.interestOverdue | number:2}}</td>
+                                        <td>{{overdueLoan.totalAmount | number:2}}</td>
+                                        <td>
                                             <select id="overdueLoan[{{$index}}].settlementTypeId" name="settlementType" ng-model="overdueLoan.settlementTypeId"
                                                 class="form-control" ng-options="settlementTypeOption.id as settlementTypeOption.value for settlementTypeOption in settlementOptions"
                                                 value="{{settlementTypeOption.id}}">

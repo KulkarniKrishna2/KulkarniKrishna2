@@ -26,7 +26,12 @@
                     if (scope.overdueLoans[i] && scope.overdueLoans[i].settlementTypeId) {
                         var temp = {};
                         temp.loanId = scope.overdueLoans[i].loanId;
-                        temp.amount = scope.overdueLoans[i].overDueAmount;
+                        temp.principalOverdue = scope.overdueLoans[i].principalOverdue;
+                        temp.principalFutureDue = scope.overdueLoans[i].principalFutureDue;
+                        temp.interestOverdue = scope.overdueLoans[i].interestOverdue;
+                        temp.amount = scope.overdueLoans[i].totalAmount;
+                        temp.feesOverdue = scope.overdueLoans[i].feesOverdue;
+                        temp.penaltyOverdue = scope.overdueLoans[i].penaltyOverdue;
                         temp.settledById = scope.overdueLoans[i].settlementTypeId;
                         overDueLoanDetails.fldgSettlements.push(temp);
                     }
