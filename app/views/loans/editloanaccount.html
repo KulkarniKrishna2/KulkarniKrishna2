@@ -33,12 +33,12 @@
         </td>
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
-        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span class="required">*</span></label></td>
+        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span></label></td>
         <td class="paddedbottom10" ng-show = "loanPurposeGroups" >
-            <select chosen="loanPurposeGroups" id="loanPurposeGroupId" name="loanPurposeGroup" ng-model="formData.loanPurposeGroupId"
-                    ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse"
-                    class="form-control width170px" value="{{loanPurposeGroup.id}}" ng-change="onLoanPurposeGroupChange(formData.loanPurposeGroupId,true)"
-                    ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+            <select chosen="loanPurposeGroups" id="loanPurposeGroupId" name="loanPurposeGroup" ng-model="loanPurposeGroupId"
+                    ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse" value="{{loanPurposeGroup.id}}"
+                    class="form-control width170px"  ng-change="onLoanPurposeGroupChange(loanPurposeGroupId,true)"
+                    ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId" late-Validate>
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
             <form-validate valattributeform="editloanaccountform" valattribute="loanPurposeGroup"/>
@@ -49,10 +49,10 @@
         <td class="paddedbottom10">
             <select chosen="loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId" class="form-control width170px"
                     ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanPurposeOptions | orderBy:'name':reverse"
-                    value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+                    value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId" late-Validate>
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
-            <span class="error" ng-show="issubmitted && editloanaccountform.loanpurpose.$error.required">{{'label.error.required' | translate}}</span>
+            <form-validate valattributeform="editloanaccountform" valattribute="loanpurpose"/>
         </td>
 
     </tr>
@@ -71,7 +71,7 @@
         <td class="paddedbottom10">
             <input id="expectedDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                    ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'"
-                   date-disabled="disabled(date, mode)" name="expecteddisbursementon" ng-readonly="isDatePickerReadOnly" required late-Validate/>
+                   date-disabled="disabled(date, mode)" name="expecteddisbursementon" ng-readonly="isDatePickerReadOnly" required />
             <form-validate valattributeform="editloanaccountform" valattribute="expecteddisbursementon"/>
         </td>
     </tr>
