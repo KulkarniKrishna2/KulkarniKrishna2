@@ -9,9 +9,11 @@
     </ul>
     <form class="form-horizontal well" novalidate="" ng-controller="InitiateBulkTransferController" name="staffReassignForm">
         <api-validate></api-validate>
+        <div class="form-horizontal error" ng-if="displayError()">
+                        {{labelEmptyListErrorMessage | translate}}
+        </div>
         <fieldset>
-            <legend>{{'label.anchor.reassign.staff' | translate}}
-            </legend>
+        <legend>{{'label.anchor.reassign.staff' | translate}}</legend>
             <div class="form-group">
 
                 <table class="col-sm-6">
@@ -37,7 +39,7 @@
                                 </label>
                             </td>
                             <td class="width36 paddedbottom10">
-                                <select chosen="fromStaffOptions" id="fromStaffId" name="fromStaffId" ng-model="formData.fromStaffId" data-ng-options="officer.id as officer.displayName for officer in fromStaffOptions" class="form-control">
+                                <select chosen="fromStaffOptions" id="fromStaffId" name="fromStaffId" ng-model="formData.fromStaffId" data-ng-options="officer.id as officer.displayName for officer in fromStaffOptions" class="form-control" ng-change= "getDataForTransfer()">
                                     <option value="">{{'label.selectone' | translate}}</option>
                                 </select>
                                 <form-validate valattributeform="staffReassignForm" valattribute="fromStaffId" />
@@ -55,14 +57,6 @@
                                     <option value="">{{'label.selectone' | translate}}</option>
                                 </select>
                                 <form-validate valattributeform="staffReassignForm" valattribute="toStaffId" />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="width14"></td>
-                            <td class="width36 paddedbottom10">
-                                <button class="btn btn-primary col-md-offset-3" ng-click="getDataForTransfer()">{{'label.button.search'| translate}}
-                                </button>
                             </td>
                         </tr>
                     </tbody>

@@ -7822,6 +7822,11 @@
     "label.anchor.principalOverdue":"principal Overdue",
     "label.anchor.principalFutureDue":"Principal Future Due",
     "label.anchor.interestOverdue":"Interest Overdue",
-    
+    "label.error.select.entities" : "Please select center/group/client for staff reassignment.",
+    "reassignstafftrue" : "Staff Reassignment",
+    "viewbulktransfer" : "Bulk Transfer",
+    "organizationregistereddevices" : "Registered devices",
+    "bulktransfer" : "Bulk Transfer",
+
     "------ end of translation file ------": "---------"
 }
