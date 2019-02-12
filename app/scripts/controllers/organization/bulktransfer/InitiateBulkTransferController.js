@@ -15,6 +15,8 @@
             scope.allClients = {};
             scope.recordExists = true;
             scope.isStaffReassignment = false;
+            scope.isEntityNotSelectedForReassignment = true;
+            scope.showErrorMessage = false;
             if(routeParams.isStaffReassignment){
                scope.isStaffReassignment = true;
             }
@@ -54,6 +56,8 @@
                 loanAccounts=[];
                 scope.selectAll.checked=false;
                 scope.reschedule = true;
+                scope.isEntityNotSelectedForReassignment = true;
+                scope.showErrorMessage = false;
                 resourceFactory.bulkTransferTemplateResource.get({'officeId': scope.formData.fromOfficeId, staffId: scope.formData.fromStaffId}, function (data) {
                     scope.centers = data.centerDataList;
                     scope.groups = data.groups;
@@ -165,7 +169,16 @@
 
             scope.reassignStaff = function () {
                 this.formData.toOfficeId = this.formData.fromOfficeId;
-                scope.submitDetails();
+                if(scope.isSubmitDetailsEmpty()){
+                    scope.isEntityNotSelectedForReassignment = true;
+                    scope.showErrorMessage = true;
+                    scope.labelEmptyListErrorMessage = "label.error.select.entities";
+                    return;
+                }else{
+                    scope.isEntityNotSelectedForReassignment = false; 
+                    scope.showErrorMessage = false;
+                    scope.submitDetails();
+                }
             };
 
             scope.submitDetails = function () {
@@ -198,10 +211,10 @@
             scope.getSelectedClientsDetails = function(value, id){
                 if(value){
                     var index = -1;
-                    index = scope.getSelectedClients.findIndex(x=>x.id == entityId);
+                    index = scope.getSelectedClients.findIndex(x=>x.id == id);
                     if (index == -1) {
-                        var i = scope.clients.findIndex(x=>x.id == entityId);
-                        scope.getSelectedClients.push({"id":entityId,"name":scope.clients[i].displayName});
+                        var i = scope.clients.findIndex(x=>x.id == id);
+                        scope.getSelectedClients.push({"id":id,"name":scope.clients[i].displayName});
                     }
                 }else{
                     scope.removeEntity(scope.getSelectedClients, id);
@@ -211,6 +224,15 @@
             scope.recordsStatus = function (){
                 return !scope.showAssignToStaff && !scope.recordExists;
             }; 
+
+            scope.isSubmitDetailsEmpty = function(){
+                return (scope.getSelectedClients.length < 1 && scope.getSelectedGroups.length < 1 && scope.getSelectedCenters.length < 1);
+            };
+
+            scope.displayError = function(){
+                return (scope.showErrorMessage && scope.isEntityNotSelectedForReassignment);
+            };
+
         }
     });
     mifosX.ng.application.controller('InitiateBulkTransferController', ['$scope' , '$location', 'ResourceFactory', '$route', 'dateFilter', '$rootScope', '$routeParams', mifosX.controllers.InitiateBulkTransferController]).run(function ($log) {
