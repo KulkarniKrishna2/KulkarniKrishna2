@@ -7827,6 +7827,9 @@
     "viewbulktransfer" : "Bulk Transfer",
     "organizationregistereddevices" : "Registered devices",
     "bulktransfer" : "Bulk Transfer",
-
-    "------ end of translation file ------": "---------"
+    "label.button.prudentialwriteoff" : "Prudential Write-Off",
+    "label.anchor.prudentialwriteoff" : "Prudential Write-Off",
+    "label.heading.prudential.write.off.loanaccount" : "Prudential Write-Off LoanAccount",
+    
+     "------ end of translation file ------":"---------"
 }

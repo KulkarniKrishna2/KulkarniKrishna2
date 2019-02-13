@@ -662,6 +662,18 @@
                         }
                     });
                     break;
+                case "prudentialwriteoff":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        scope.writeOffAmount = data.amount;
+                        scope.reasons = data.writeOffReasonOptions;
+                        scope.isLoanWriteOff = true;
+                    });
+                    scope.title = 'label.heading.prudential.write.off.loanaccount';
+                    scope.labelName = 'label.input.writeoffondate';
+                    scope.taskPermissionName = 'PRUDENTIAL_WRITEOFF';
+                    break;
                 case "returnloan":
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'returnloan'}, function (data) {
@@ -1134,7 +1146,7 @@
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
                     || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment" || scope.action == "refundByCash"
-                    || scope.action == "returnloan") {
+                    || scope.action == "returnloan" || scope.action == "prudentialwriteoff") {
 
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
