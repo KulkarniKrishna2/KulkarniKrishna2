@@ -106,6 +106,7 @@
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
+                console.log('eventName: ',eventName);
                 $rootScope.headerLoanDetails = scope.loandetails;
                 switch (eventName) {
                     case "addloancharge":
@@ -175,6 +176,9 @@
                     case "writeoff":
                         location.path('/loanaccount/' + accountId + '/writeoff');
                         break;
+                    case "prudentialwriteoff":
+                            location.path('/loanaccount/' + accountId + '/prudentialwriteoff');
+                            break;
                     case "returnloan":
                         location.path('/loanaccount/' + accountId + '/returnloan');
                         break;
@@ -606,6 +610,10 @@
                             {
                                 name: "button.writeoff",
                                 taskPermissionName: 'WRITEOFF_LOAN'
+                            },
+                            {
+                                name: "button.prudentialwriteoff",
+                                taskPermissionName: 'PRUDENTIAL_WRITEOFF'
                             },
                             {
                                 name: "button.close-rescheduled",
