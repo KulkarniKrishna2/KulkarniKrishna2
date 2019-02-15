@@ -75,6 +75,29 @@
                             value="{{paymentType.id}}"></select>
                 </div>
             </div>
+
+            <div class="form-group" ng-if="showPreclosureReason">
+                <label class="control-label col-sm-2" >{{'label.input.preclosure.reason' | translate}}<span  class="required" >*</span></label>
+                 <div class="col-sm-3">
+                    <select  id="codeReasonId" name="codeReasonId" ng-model="formData.codeReasonId" ng-options="code.id as code.name for code in preclosureReasonList" value="{{code.name}}" 
+                    class="input-sm form-control" ng-change="getPreclosureReasonValues(formData.codeReasonId)" required late-Validate>
+                    <option value="">{{'label.selectone' | translate}}</option></select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="foreclosureform" valattribute="codeReasonId"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="showReasonDescription()" >
+                <label class="control-label col-sm-2" >{{'label.input.reason.description' | translate}}<span  class="required">*</span></label>
+                 <div class="col-sm-3">
+                    <input name="reasonDescription" id="reasonDescription"
+                         ng-model="formData.reasonDescription" type="text" autocomplete="off" value = "{{reasonDescription}}" class="form-control" required late-Validate />
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="foreclosureform" valattribute="reasonDescription"/>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label ng-hide="isRecieptNumbermandatory" class="control-label col-sm-2">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
     
@@ -88,6 +111,7 @@
                     <h3>{{ 'label.heading.paymentdetails' | translate}}</h3>
                 </div>
             </div>
+
             <div ng-show="showPaymentDetails || isRecieptNumbermandatory">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>

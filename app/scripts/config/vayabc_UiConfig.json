@@ -7,6 +7,9 @@
       },
       "isAutoPopulate": {
         "interestChargedFromDate": true
+      },
+      "isMandatory": {
+        "isPreclosureReasonEnabled" : true
       }
     },
     "createCenter": {
@@ -48,7 +51,7 @@
       },
       "isMandatoryField": {
         "dateOfBirth": true,
-        "mobileNumber":true,
+        "mobileNumber":true
       },
       "defaultGender":"Female"
     },

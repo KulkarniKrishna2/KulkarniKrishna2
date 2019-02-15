@@ -89,6 +89,14 @@
                 <td>{{ 'label.heading.reversalreason' | translate}}</td>
                 <td>{{transaction.reversalReason.name}}</td>
             </tr>
+            <tr ng-show="transaction.preclosureReason">
+                <td>{{ 'label.heading.preclosure.reason' | translate}}</td>
+                <td>{{transaction.preclosureReason}}</td>
+            </tr>
+            <tr ng-show="transaction.reasonDescription">
+                <td>{{ 'label.heading.preclosure.reason.descrition' | translate}}</td>
+                <td>{{transaction.reasonDescription}}</td>
+            </tr>
             <tr class="span2"></tr>
         </table>
         <table width="100%" ng-show="transaction.paymentDetailData">
