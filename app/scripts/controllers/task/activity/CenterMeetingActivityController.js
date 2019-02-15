@@ -26,6 +26,8 @@
                }, function (data) {
                    scope.centerMeetingData = data;
                    scope.isEditExpectedDisbursementDateOnly = false;
+                   scope.formData.expectedDisbursementDate = dateFilter(new Date(),scope.df);
+                                    
                    if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
                        scope.isCenterMeetingAttached = true;
                        scope.isCenterMeetingEdit = false;
@@ -38,7 +40,7 @@
                                 scope.formData.expectedDisbursementDate = dateFilter(new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i]),scope.df);
                                 scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
                                 break;
-                            }else if(today  == new Date(scope.centerDetails.collectionMeetingCalendar.recurringDates[i])){
+                            }else if(today  == new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i])){
                                 scope.formData.expectedDisbursementDate = dateFilter(new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i]),scope.df);
                                 scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
                                 break;
