@@ -8,7 +8,13 @@
             scope.subTaskTypeName = 'Foreclosure';
             scope.formData.transactionDate = new Date();
             scope.restrictDate = new Date();
-
+            scope.showPreclosureReason = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.isPreclosureReasonEnabled;
+            scope.specifyReason = false;            
+            
+            scope.showReasonDescription = function() {
+                return scope.specifyReason && scope.showPreclosureReason;
+            };
+            
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
                 scope.loandetails = data;
             });
@@ -61,6 +67,22 @@
                 scope.formData.transactionAmount =  scope.formData.transactionAmount.replace(/,/g,"");
             };
 
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'PreclosureReasons',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
+                scope.preclosureReasonList = data;
+            });
+
+            scope.getPreclosureReasonValues = function(codeId) {
+                scope.specifyReason = false;
+                if (codeId != undefined) {
+                    var index = scope.preclosureReasonList.findIndex(x => x.id == codeId);
+                    if (index > -1) {
+                        if (scope.preclosureReasonList[index].name === 'Others' || scope.preclosureReasonList[index].name === 'others') {
+                            scope.specifyReason = true;
+                        }
+                    }
+                }
+            };
+
             scope.submit = function () {
                 scope.foreclosureFormData = {
                     transactionDate: dateFilter(this.formData.transactionDate, scope.df),
@@ -72,7 +94,9 @@
                     checkNumber : this.formData.checkNumber,
                     routingCode : this.formData.routingCode,
                     receiptNumber : this.formData.receiptNumber,
-                    bankNumber : this.formData.bankNumber
+                    bankNumber : this.formData.bankNumber,
+                    preclosureReasonId : this.formData.codeReasonId,
+                    reasonDescription : this.formData.reasonDescription
                 };
                 resourceFactory.loanTrxnsResource.save({loanId: routeParams.id, command: 'foreclosure'}, scope.foreclosureFormData, function(data) {
                     location.path('/viewloanaccount/' + scope.accountId);

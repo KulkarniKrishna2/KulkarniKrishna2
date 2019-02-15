@@ -7106,6 +7106,10 @@
     "label.anchor.linked.devices" : "Linked Devices",
     "label.last.login.date" : "Last Login Date",
     "label.last.login.location" : "Last Login Location",
+    "label.input.preclosure.reason" : "Preclosure reason",
+    "label.input.reason.description" : "Reason Description",
+    "label.heading.preclosure.reason": "Preclosure reason",
+    "label.heading.preclosure.reason.descrition": "Preclosure Reason Description",
 
     "------ end of tensalation file": "---------"
 }

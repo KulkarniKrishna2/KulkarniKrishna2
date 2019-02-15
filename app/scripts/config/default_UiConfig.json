@@ -34,7 +34,8 @@
 		"externalId": false,
 		"repaymentsStartingFromDate": false,
 		"loanPurposeId": false,
-		"undoTransactionReason" :false
+		"undoTransactionReason" :false,
+		"isPreclosureReasonEnabled" : false
 	  },
 	  "isHiddenSection": {
 		"interestRecalculationSection": false,
