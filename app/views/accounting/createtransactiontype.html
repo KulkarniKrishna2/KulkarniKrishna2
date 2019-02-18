@@ -42,30 +42,36 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.heading.productTypeOptions' | translate}}
+                    {{'label.heading.productTypeOptions' | translate}} <span class="required">*</span>
                 </label>
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen ="productTypeOptions" id="productTypeId" ng-model="formData.productTypeId" class="form-control" ng-options="productTypeOption.id as productTypeOption.value for productTypeOption in productTypeOptions"
-                            value="{{productTypeOption.id}}" ng-change="changeProductType(formData.productTypeId)">
+                        <select chosen ="productTypeOptions" id="productTypeId" name = "productType" ng-model="formData.productTypeId" class="form-control" ng-options="productTypeOption.id as productTypeOption.value for productTypeOption in productTypeOptions"
+                            value="{{productTypeOption.id}}" ng-change="changeProductType(formData.productTypeId)" required late-validate>
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>
                     </div>
                 </div>
+                <div class="col-sm-2">
+                        <form-validate valattributeform="createtransactiontypeform" valattribute="productType" />
+                </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.heading.productOptions' | translate}}
+                    {{'label.heading.productOptions' | translate}} <span class="required">*</span>
                 </label>
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen ="productOptions" id="productId" ng-model="formData.productId" class="form-control" ng-options="productOption.id as productOption.name for productOption in productOptions"
-                            value="{{productOption.id}}">
+                        <select chosen ="productOptions" id="productId" name ="product" ng-model="formData.productId" class="form-control" ng-options="productOption.id as productOption.name for productOption in productOptions"
+                            value="{{productOption.id}}" required late-validate>
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-sm-2">
+                        <form-validate valattributeform="createtransactiontypeform" valattribute="product" />
                 </div>
             </div>
             <div class="form-group">

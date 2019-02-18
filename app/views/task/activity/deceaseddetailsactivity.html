@@ -139,6 +139,7 @@
             <br/>         
             <table>
                 <tr  ng-repeat="file in documents">
+                    <td>{{file.name}}&nbsp;</td>
                     <td>{{file.fileName}}&nbsp;</td>
                     <td>
                         <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
@@ -187,7 +188,7 @@
                 </div>
     
                 <div class="col-md-offset-3">
-                    <a id="cancel" href="#/viewclient/{{clientId}}">
+                    <a id="cancel" href="#/viewclient/{{clientId}}"  ng-click="cancel()">
                         <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                     </a>
                     <button id="saves" ng-click="submitUpload()" ng-disabled="!deceaseddetailsform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>

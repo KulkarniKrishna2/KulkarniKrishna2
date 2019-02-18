@@ -214,7 +214,7 @@
                         <span class="padded-td">{{meetingTime | date:"h:mma"}}</span>
                     </td>
                 </tr>
-                <tr>
+                <tr ng-show="centerMeetingData.collectionMeetingCalendar.locationData">
                     <td>
                         <strong>{{'label.input.centermeetinglocation' |translate}}</strong>
                     </td>
