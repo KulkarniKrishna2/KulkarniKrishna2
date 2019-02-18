@@ -77,7 +77,7 @@
                                 <tr class="pointer graybg">
                                     <th colspan="13" class="pointer" data-ng-click="routeToCenter(center.id)">
                                         <i tooltip="Center"></i>
-                                        <i tooltip-placement="right" tooltip="{{center.status}}"></i>
+                                        <i class="icon-circle {{center.status.code | StatusLookup}}"></i>
                                         {{center.name}}
                                     </th>
                                     <th>
