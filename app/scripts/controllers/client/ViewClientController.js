@@ -35,6 +35,7 @@
             scope.pincode = false;
             scope.sections = [];
             scope.displayNameInReverseOrder = false;
+            scope.isStalePeriodExceeded = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
             }
@@ -72,7 +73,25 @@
             };
 
             scope.initiateCreditBureauEnquiry = function () {
-                location.path('/create/creditbureau/client/' + scope.clientId);
+                if (!scope.isStalePeriodExceeded) {
+                    $modal.open({
+                        templateUrl: 'confirmCbEnquiry.html',
+                        controller: confirmCbEnquiryCtrl
+                    });
+                }
+                else {
+                    location.path('/create/creditbureau/client/' + scope.clientId);
+                }
+            };
+
+            var confirmCbEnquiryCtrl = function ($scope, $modalInstance) {
+                $scope.initiateCBEnquiry = function () {
+                    $modalInstance.close('initiateCBEnquiry');
+                    location.path('/create/creditbureau/client/' + scope.clientId);
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
 
             scope.clientCreditBureauReportSummaryLoaded = false;
@@ -85,7 +104,27 @@
                         entityId: scope.clientId
                     }, function (data) {
                         scope.creditBureauEnquiries = data;
+                        scope.checkIfStalePeriodExpired();
                     });
+                }
+            }
+
+
+            scope.checkIfStalePeriodExpired = function () {
+                var lastInitiatedDate = new Date('10/15/1800');
+                if (scope.creditBureauEnquiries.length > 0) {
+                    for (var i = 0; i < scope.creditBureauEnquiries.length; i++) {
+                        if (scope.creditBureauEnquiries[i].status.code != "ERROR") {
+                            var tempDate = new Date(scope.creditBureauEnquiries[i].createdDate);
+                            if (tempDate > lastInitiatedDate) {
+                                var lastInitiatedDate = tempDate;
+                                var j = i;
+                            }
+                        }
+                    }
+                    if (j != undefined) {
+                        scope.isStalePeriodExceeded = scope.creditBureauEnquiries[j].isStalePeriodExceeded;
+                    }
                 }
             }
            

@@ -203,6 +203,9 @@
       "isMandatoryField": {
         "companyCode":true
       }
+    },
+    "loanDisbursalStep": {
+      "checkForStalePeriodExpiry": true
     }
   }
 }

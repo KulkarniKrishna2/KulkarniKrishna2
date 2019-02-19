@@ -340,11 +340,14 @@
         "companyCode":false
       }
     },
-    "addJournalEntry":{
-      "isMandatoryField": {
-        "companyCode":false
-      }
-    }
+		"addJournalEntry": {
+			"isMandatoryField": {
+				"companyCode": false
+			}
+		},
+		"loanDisbursalStep": {
+			"checkForStalePeriodExpiry": false
+		}
   }
 }
 	
