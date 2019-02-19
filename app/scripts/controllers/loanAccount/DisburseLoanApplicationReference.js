@@ -34,11 +34,6 @@
             scope.isInvalid = false;
             scope.applicableOnRepayment = 1;
             scope.paymentTypes = [];
-            scope.isStalePeriodExceeded = false;
-
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanDisbursalStep) {
-                scope.isStalePeriodCheck = scope.response.uiDisplayConfigurations.loanDisbursalStep.checkForStalePeriodExpiry;
-            }
 
             resourceFactory.loanApplicationReferencesTemplateResource.get({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
@@ -48,9 +43,6 @@
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
-                if (data.isStalePeriodExceeded != undefined && data.isStalePeriodExceeded != null) {
-                    scope.isStalePeriodExceeded = data.isStalePeriodExceeded;
-                }
                 if(scope.formData.expectedDisbursalPaymentType && scope.formData.expectedDisbursalPaymentType.name){
                     scope.formRequestData.disburse.paymentTypeId = scope.formData.expectedDisbursalPaymentType.id;
                     if(scope.formData.expectedDisbursalPaymentType.paymentMode){
@@ -452,22 +444,11 @@
             }
 
             scope.submit = function () {
-                if (scope.isStalePeriodCheck && scope.isStalePeriodExceeded) {
-                    scope.errorDetails = [];
-                    var errorObj = new Object();
-                    errorObj.args = {
-                        params: []
-                    };
-                    errorObj.args.params.push({ value: 'label.error.stale.period.expired' });
-                    scope.errorDetails.push(errorObj);
-                }
-                else {
-                    scope.checkBiometricRequired();
-                    if (scope.catureFP == true) {
-                        scope.getFingerPrint();
-                    } else {
-                        scope.finalSubmit();
-                    }
+                scope.checkBiometricRequired();
+                if (scope.catureFP == true) {
+                    scope.getFingerPrint();
+                } else {
+                    scope.finalSubmit();
                 }
             };
 

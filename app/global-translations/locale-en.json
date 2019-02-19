@@ -7096,7 +7096,7 @@
      "label.menu.selectcolumn" : "Select Column",
      "validation.msg.Sequence Patterns.patterns.cannot.be.empty" : "Sequence patterns cannot be empty",
      "error.msg.already.exits" : "Name already exits",
-     "label.heading.stale.period.not.expired" : "Stale Period is not expired, do you still want to Initiate CB Request",
-     "label.error.stale.period.expired": "Cannot Disburse the loan as the Stale Period is Expired",
+     "label.heading.stale.period.not.expired" : "Previous CB report is still not expired, do you want to Re-Initiate CB Request?",
+     "error.msg.stale.period.expired": "Cannot Disburse the loan as the CB report has Expired. Initiate a new CB request to disburse the loan.",
     "------ end of tensalation file":"---------"
 }

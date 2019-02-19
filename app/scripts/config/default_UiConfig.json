@@ -344,9 +344,6 @@
 			"isMandatoryField": {
 				"companyCode": false
 			}
-		},
-		"loanDisbursalStep": {
-			"checkForStalePeriodExpiry": false
 		}
   }
 }
