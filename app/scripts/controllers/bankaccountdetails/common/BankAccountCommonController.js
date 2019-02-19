@@ -82,12 +82,15 @@
                         disableShowSummary();
                     }
 
-                    scope.bankAccountDocuments = data.bankAccountDocuments || [];
+                    if (!_.isUndefined(data.bankAccountDocuments)) {
+                        scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
                             docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment?' + commonUtilService.commonParamsForNewWindow();
-                            scope.bankAccountDocuments[i].docUrl = docs;   
+                            scope.bankAccountDocuments[i].docUrl = docs;
                         }
+                        scope.documentImg = scope.bankAccountDocuments[0].docUrl;
+                    }
                 });
             }
 
@@ -320,27 +323,9 @@
                 };
             };
 
-
-            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
-                $scope.data = documentDetail;
-                $scope.data.parentEntityId = getEntityId();
-                $scope.data.parentEntityType = getEntityType();
-                $scope.close = function () {
-                    $modalInstance.close('close');
-                };   
-            };
-
-            scope.viewDocument = function (documentDetail) {
-                $modal.open({
-                    templateUrl: 'viewDocument.html',
-                    controller: viewDocumentCtrl,
-                    resolve: {
-                        documentDetail: function () {
-                            return documentDetail;
-                        }
-                    }
-                });
-            };
+            scope.viewDocument = function(document){
+                scope.documentImg = document.docUrl;
+            }
 
             scope.deleteDocument = function (documentId){
                 scope.formData.locale = scope.optlang.code;

@@ -1,4 +1,5 @@
 <div class="col-md-12" >
+       
     <api-validate></api-validate>
     <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
     <div class="row">
@@ -73,10 +74,11 @@
                 </tr>
                 </tbody>
             </table>
+            <image-viewer image="documentImg"></image-viewer>
         </div>
     </div>
-        
     </div>
+    
     <div class="col-md-offset-2 paddedleft paddedtop" >
         <a id="attachDocument" ng-if="editable()" ng-click="uploadDocument()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.attach.document' | translate}}</a>
         <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
@@ -84,11 +86,6 @@
         <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
     </div>
     <div>
-        <script type="text/ng-template" id="viewDocument.html">
-            <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
-                <img ng-src="{{data.docUrl}}" width="600" height="400" />
-            </div>
-        </script>
 
         <script type="text/ng-template" id="uploadDocument.html">
         <div class="modal-header silver">
