@@ -570,6 +570,9 @@
 			"isHiddenField": {
 				"preCloseDate": false
 			}
+		},
+		"shares":{
+			"hidesharesmodule":true
 		}
 	}
 }

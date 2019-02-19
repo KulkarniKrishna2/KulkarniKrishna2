@@ -13,7 +13,7 @@
 
                 <p class="list-group-item-text">{{'label.addnewsavingproductor' | translate}}</p>
             </a>
-            <a class="list-group-item" href="#/shareproducts" has-permission='READ_SHAREPRODUCT'>
+            <a class="list-group-item" href="#/shareproducts" has-permission='READ_SHAREPRODUCT' ng-hide="response.uiDisplayConfigurations.shares.hidesharesmodule">
                 <h4 class="list-group-item-heading"><i class="icon-large icon-briefcase"></i>&nbsp;&nbsp;{{
                     'label.anchor.shareproducts' | translate }}</h4>
 

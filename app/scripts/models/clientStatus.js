@@ -111,12 +111,6 @@
                         taskPermissionName: "CREATE_SAVINGSACCOUNT"
                     },
                     {
-                        name: "label.button.newshareaccount",
-                        href: "#/createshareaccount",
-                        icon: "icon-plus",
-                        taskPermissionName: "CREATE_SHAREACCOUNT"
-                    },
-                    {
                         name: "label.button.newcharge",
                         href: "#/viewclient",
                         subhref: "addcharge",
