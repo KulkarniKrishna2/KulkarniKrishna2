@@ -364,6 +364,14 @@
                             }
                         ];
                     }
+                    if(data.status.value == "Active" && !scope.response.uiDisplayConfigurations.shares.hidesharesmodule){
+                        scope.buttons.push({
+                            name: "label.button.newshareaccount",
+                            href: "#/createshareaccount",
+                            icon: "icon-plus",
+                            taskPermissionName: "CREATE_SHAREACCOUNT"
+                        });
+                    }
     
                     if (data.status.value == "Pending" || data.status.value == "Active") {
                         if (data.staffId) {
