@@ -7007,6 +7007,7 @@
     "validation.msg.Custom Sequences.startValue.cannot.be.blank" : "Start value cann't be blank",
     "validation.msg.Custom Sequences.endValue.not.greater.than.specified.number" : "Sequence end value must be greater than sequence start value",
     "error.msg.sequence.generation.is.enabled.for.External Id.but.all.sequences.are.either.inactive.or.limit.exceded" : "Internal External id generation is enabled for this  loan type, but specified ranges are either inactive or limit exceeded. Please contact the administrator.",
+    "error.msg.client.deceased" : "Client `{{params[0].value}}` is already marked as deceased.",
 
      "error.msg.amount.is.invalid" :"Amount is invalid",
      "error.msg.bank.account.not.selected":"Bank account not selected",
