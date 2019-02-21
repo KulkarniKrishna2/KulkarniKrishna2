@@ -134,6 +134,20 @@
                         icon: "icon-remove-circle",
                         taskPermissionName: "CLOSE_CLIENT"
                     },
+                    {
+                        name: "label.button.viewpolicy",
+                        href: "#/clients",
+                        subhref: "viewpolicy",
+                        icon: "icon-eye-open",
+                        taskPermissionName: "READ_POLICY"
+                    },
+                    {
+                        name: "label.button.markasdeceased",
+                        href: "#/clients",
+                        subhref: "deceasedonboarding",
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_DECEASED_WORKFLOW"
+                    }
 
                 ],
                 "Transfer in progress": [

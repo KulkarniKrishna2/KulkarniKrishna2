@@ -1514,6 +1514,33 @@
                     }),
                     userRegisteredDeviceResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId/users/:userId", {registeredDeviceId : '@registeredDeviceId', userId: '@userId'}, {
                         action: { method: 'PUT', params: {} }
+                    }),
+                    policyResource: defineResource(apiVer + "/clients/:clientId/policy/:policyId", {clientId:'@clientId',policyId:'@policyId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false},
+                        update:{method:'PUT' , params:{clientId:'@clientId',policyId:'@policyId'}}
+                    }),
+                    deceasedDetailsWorkflowResource: defineResource(apiVer + "/clients/:clientId/deceasedworkflow", {clientId:'@clientId'}, {
+                        save:{method:'POST' , params:{clientId:'@clientId'}, isArray:false}
+                    }),
+                    deceasedDetailsTemplateResource: defineResource(apiVer + "/clients/:clientId/deceaseddetails/template", {clientId:'@clientId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false}
+                    }),
+                    deceasedDetailsResource: defineResource(apiVer + "/clients/:clientId/deceaseddetails/:deceasedDetailsId", {clientId:'@clientId',deceasedDetailsId:'@deceasedDetailsId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false},
+                        update:{method:'PUT' , params:{clientId:'@clientId',deceasedDetailsId:'@deceasedDetailsId'}}
+                    }),
+                    claimInsurenceTemplateResource: defineResource(apiVer + "/clients/:clientId/claiminsurence/template", {clientId:'@clientId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false}
+                    }),
+                    claimInsurenceResource: defineResource(apiVer + "/clients/:clientId/claiminsurence", {clientId:'@clientId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false},
+                        update:{method:'PUT' , params:{clientId:'@clientId',claimInsurenceId:'@claimInsurenceId'}}
+                    }),
+                    claimSettlementTemplateResource: defineResource(apiVer + "/clients/:clientId/claimsettlement/template", {clientId:'@clientId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false}
+                    }),
+                    claimSettlementResource: defineResource(apiVer + "/clients/:clientId/claimsettlement", {clientId:'@clientId'}, {
+                        get:{method:'GET' , params:{clientId:'@clientId'}, isArray:false}
                     })
                 };
             }];

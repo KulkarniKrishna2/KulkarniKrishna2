@@ -1,0 +1,202 @@
+<div class="col-md-12" ng-controller="DeceasedDetailsActivityController">
+    <form name="createdeceaseddetailsform" novalidate="" ng-show="!isDeceasedDetailsCreated" class="form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.deceaseddetails' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.deceasedperson' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="deceasedPersonOptions" id="deceasedPerson" ng-model="formData.deceasedPerson" class="form-control" ng-options="person.id as person.value for person in deceasedPersonOptions"
+                            value="{{person.id}}" name="deceasedPerson" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectperson' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createdeceaseddetailsform" valattribute="deceasedPerson" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.deceaseddate' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}" ng-model="deceasedDate"
+                        is-open="opened1" max="'2020-06-22'" class="form-control" />
+
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createdeceaseddetailsform" valattribute="deceasedDate" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.announcedate' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input id="announceDate" type="text" autocomplete="off" name="announceDate" datepicker-pop="{{df}}" ng-model="announceDate"
+                        is-open="opened1" max="'2020-06-22'" class="form-control" />
+
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createdeceaseddetailsform" valattribute="announceDate" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.deceasedreason' | translate}}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="deceasedReasonOptions" id="deceasedReason" ng-model="formData.deceasedReason" class="form-control" ng-options="reason.id as reason.name for reason in deceasedReasonOptions"
+                            value="{{reason.id}}" name="deceasedReason" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectreason' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createdeceaseddetailsform" valattribute="deceasedReason" />
+                </div>
+            </div>
+            <br/>
+            <div class="col-md-offset-5">
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_DECEASED_DETAILS'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+    <script type="text/ng-template" id="viewDocument.html">
+        <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+           <view-document-directive  ng-entity-type="{{data.parentEntityType}}"
+           ng-entity-id="{{data.parentEntityId}}"
+           ng-document-id="{{data.id}}"></view-document-directive>
+       </div>
+</script>
+    <div ng-show="isDeceasedDetailsCreated">
+        <a role="button" has-permission="UPDATE_DECEASED_DETAILS" ng-click="editDeceasedDetails()" class="btn btn-primary pull-right">
+            <i class="icon-edit icon-white"></i>
+        </a>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                {{'label.heading.deceasedperson' | translate}}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                {{deceasedDetailsData.deceasedPerson.value}}
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">{{ 'label.heading.deceaseddate' | translate }}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                {{deceasedDetailsData.deceasedDate | DateFormat}}
+
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">{{ 'label.heading.announcedate' | translate }}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                {{deceasedDetailsData.announceDate | DateFormat}}
+
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                {{'label.heading.deceasedreason' | translate}}
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                <div>
+                    {{deceasedDetailsData.deceasedReason.name}}
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <label class="control-label col-sm-3">
+                {{'label.heading.documents' | translate}}
+            </label>
+            <table>
+                <tr  ng-repeat="file in documents">
+                    <td>{{file.fileName}}</td>
+                    <td>
+                        <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
+                        class="icon-eye-open text-success"></i></a>
+                    </td>
+                    <td>
+                        <a target="_blank" ng-click = "download(file.docUrl)" has-permission='READ_DOCUMENT'><i
+                        class="icon-cloud-download"></i></a>
+                    </td>
+                    <td>
+                        <a target="_blank" ng-click = "deleteFile(file)" has-permission='READ_DOCUMENT'><i
+                        class="icon-remove"></i></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="row">
+            <a id="show" ng-click="showUploadDocument=!showUploadDocument">
+                <i class="icon-cloud-upload"></i>
+            </a>
+        </div>
+        <form name="deceaseddetailsform" novalidate="" ng-show="showUploadDocument" class="form-horizontal well">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.anchor.uploaddocument' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                            class="required">*</span></label>
+    
+                    <div class="col-sm-3">
+                        <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="formDocumentData.name" class="form-control" required
+                               late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <span ng-show="deceaseddetailsform.name.$invalid">
+                            <small class="error" ng-show="deceaseddetailsform.name.$error.req">
+                                Required Field
+                            </small>
+                        </span>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
+                            class="required">*</span></label>
+    
+                    <div class="col-sm-3">
+                        <input type="file" id="file" ng-file-select="onFileSelect($files)">
+                    </div>
+                </div>
+    
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/viewclient/{{clientId}}">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="saves" ng-click="submitUpload()" ng-disabled="!deceaseddetailsform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+    
+</div>

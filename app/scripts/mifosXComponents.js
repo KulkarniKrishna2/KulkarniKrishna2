@@ -593,7 +593,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/eodprocess/EodOperationalSummaryController',
             'accounting/eodprocess/CreateJournalVoucherController',
             'organization/registereddevices/RegisteredDeviceController',
-            'organization/registereddevices/ViewRegisteredDeviceController'
+            'organization/registereddevices/ViewRegisteredDeviceController',
+            'policy/CreatePolicyController',
+            'policy/ClientPolicyDetailsController',
+            'policy/ViewPolicyController',
+            'policy/EditPolicyController',
+            'task/activity/DeceasedDetailsActivityController',
+            'task/activity/ClaimInsurenceActivityController',
+            'task/activity/ClaimSettlementActivityController',
+            'policy/DeceasedOnBoardingWorkflowController'
         ],
         filters: [
             'StatusLookup',

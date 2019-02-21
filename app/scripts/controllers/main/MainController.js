@@ -190,6 +190,9 @@
                         if(data.globalConfiguration[i].name == "create_center_without_village"){
                             scope.createWithoutVillage = data.globalConfiguration[i].enabled;
                         }
+                        if(data.globalConfiguration[i].name=='work-flow'){
+                            scope.isGlobalWorkflowEnabled = data.globalConfiguration[i].enabled;
+                        }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
