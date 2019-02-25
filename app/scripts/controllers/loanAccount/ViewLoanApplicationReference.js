@@ -1,6 +1,6 @@
-(function (module) {
+(function (module) { 
     mifosX.controllers = _.extend(module, {
-        ViewLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter, $filter) {
+        ViewLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter, $filter,$modal) {
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             var curIndex = 0;
@@ -9,6 +9,7 @@
             scope.riskCaluculation = {};
             scope.riskCheckDone = false;
             scope.showRiskDetail =false;
+            scope.codes = [];
 
             scope.isWorkflowEnabled = false;
 
@@ -157,9 +158,73 @@
                     location.path('/viewclient/' + scope.formData.clientId);
                 });
             };
+
+            scope.rejectWithReason = function (){
+                resourceFactory.loanApplicationRejectReasonsResource.get({},function (data) {
+                    scope.codes =  data;
+                    scope.reject();
+                });
+            };
+            scope.reject = function () {
+                $modal.open({
+                    templateUrl: 'reject.html',
+                    controller: RejectCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
+
+            var RejectCtrl = function ($scope, $modalInstance) {
+                $scope.rejectioReasonsAvailable = false;
+                $scope.displayDescription = false;
+                $scope.isRejectReasonMandatory =  scope.isRejectReasonMandatory;
+                $scope.error = null;
+                $scope.rejectFormData = {};
+                $scope.values = [];
+                $scope.otherReason = false;
+                if(scope.codes && scope.codes.length >= 1){ 
+                    $scope.codes = scope.codes; 
+                    $scope.rejectioReasonsAvailable= true;
+                }else{
+                    $scope.rejectioReasonsAvailable= false;
+                }
+
+                $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.submitReject = function () {
+                    if ($scope.rejectioReasonsAvailable == true) {
+                        if (($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
+                            $scope.error = "label.specify.rejection.reason";
+                            return false;
+                        }
+                    }
+                    resourceFactory.loanApplicationReferencesResource.update({
+                        loanApplicationReferenceId: scope.loanApplicationReferenceId,
+                        command: 'reject'
+                    }, $scope.rejectFormData, function (data) {
+                        $modalInstance.close('reject');
+                        location.path('/viewclient/' + scope.formData.clientId);
+                    });
+                };
+
+                $scope.getDependentCodeValues = function(codeName){
+                    $scope.otherReason = codeName.indexOf("Others")>-1;
+                    $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
+                };
+
+                $scope.initDescription = function(reasonId){
+                    $scope.subOtherReason = $scope.values[$scope.values.findIndex(x => x.id == reasonId)].name.indexOf("Other")>-1;
+                    if($scope.subOtherReason==true && $scope.otherReason==true ){
+                        $scope.displayDescription = true;
+                      }else{
+                        $scope.displayDescription = false;
+                      }
+                };
+            };
         }
     });
-    mifosX.ng.application.controller('ViewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.ViewLoanApplicationReference]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter','$modal', mifosX.controllers.ViewLoanApplicationReference]).run(function ($log) {
         $log.info("ViewLoanApplicationReference initialized");
     });
 }(mifosX.controllers || {}));

@@ -7887,6 +7887,7 @@
     "error.msg.charge.cannot.be.applied.toclient": "Charge cannot be applied to client",
 
     "label.self.service.user" : "Self Service Users",
+    "label.specify.rejection.reason" : "Specify Rejection Reason",
     
     "------ end of translation file ------": "----------"
 }

@@ -1831,6 +1831,14 @@
                     gstHeadersResource: defineResource(apiVer + "/pushgsttransactions/headers/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {id: '@id'}},
                         getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    followUpResource: defineResource(apiVer + "/recoveriesfollowup/:entityTypeId/:entityId/:followUpId", {entityTypeId:'@entityTypeId',entityId:'@entityId',followUpId:'@followUpId'}, {
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get: {method: 'GET', params: {},isArray:false},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    loanApplicationRejectReasonsResource: defineResource(apiVer + "/loanapplicationreferences/rejectreasons/template",{}, {
+                        get: {method: 'GET', params: {},isArray:true}
                     })
                 };
             }];
