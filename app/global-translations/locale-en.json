@@ -7158,7 +7158,7 @@
     "label.heading.claimsettlement" : "Claim Settlement",
     "error.msg.deceased.date.can.not.be.before.date.of.birth":"Deceased date can not be before client date of birth.",
     "label.tooltip.add.document" : "Add Document",
-
-    
-     "------ end of translation file":"---------"
+     "label.heading.stale.period.not.expired" : "Previous CB report is still not expired, do you want to Re-Initiate CB Request?",
+     "error.msg.stale.period.expired": "Cannot Disburse the loan as the CB report has Expired. Initiate a new CB request to disburse the loan.",
+    "------ end of translation file":"---------"
 }

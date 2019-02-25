@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
 
         DisburseLoanApplicationReference: function (scope, routeParams, resourceFactory, location, $modal, dateFilter) {
-
             scope.issubmitted = false;
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.restrictDate = new Date();
@@ -444,12 +443,12 @@
                 }
             }
 
-              scope.submit = function () {
-                scope.checkBiometricRequired() ;
-                if(scope.catureFP==true) {
-                    scope.getFingerPrint() ;
-                }else {
-                    scope.finalSubmit() ;
+            scope.submit = function () {
+                scope.checkBiometricRequired();
+                if (scope.catureFP == true) {
+                    scope.getFingerPrint();
+                } else {
+                    scope.finalSubmit();
                 }
             };
 

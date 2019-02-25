@@ -327,17 +327,50 @@
                 return status;
             };
 
-            scope.creditBureauReport = function (isForce) {                
-                resourceFactory.creditBureauReportResource.get({
-                    entityType: scope.entityType,
-                    entityId: scope.entityId,
-                    isForce: isForce
-                }, function (loansSummary) {
-                    scope.isResponPresent = false;
-                    scope.isStalePeriodExceeded = false;
-                    getCreditBureauReportSummary();
-                });
-            };
+            scope.creditBureauReport = function (isForce) {
+                if (!scope.isStalePeriodExceeded && isForce) {
+                    $modal.open({
+                        templateUrl: 'creditBureauReport.html',
+                        controller: CreditBureauReportCtrl,
+                        resolve: {
+                            isForce: function () {
+                                return isForce;
+                            }
+                        }
+                    });
+                }
+                else {
+                    scope.creditBureauReport = function (isForce) {
+                        resourceFactory.creditBureauReportResource.get({
+                            entityType: scope.entityType,
+                            entityId: scope.entityId,
+                            isForce: isForce
+                        }, function (loansSummary) {
+                            scope.isResponPresent = false;
+                            scope.isStalePeriodExceeded = false;
+                            getCreditBureauReportSummary();
+                        });
+                    };
+                }
+            }
+
+                var CreditBureauReportCtrl = function ($scope, $modalInstance, isForce) {
+                    $scope.creditBureauReport = function () {
+                        resourceFactory.creditBureauReportResource.get({
+                            entityType: scope.entityType,
+                            entityId: scope.entityId,
+                            isForce: isForce
+                        }, function (loansSummary) {
+                            $modalInstance.close('creditBureauReport');
+                            scope.isResponPresent = false;
+                            scope.isStalePeriodExceeded = false;
+                            getCreditBureauReportSummary();
+                        });
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }
 
             function convertByteToString(content, status) {
                 scope.errorMessage = undefined;

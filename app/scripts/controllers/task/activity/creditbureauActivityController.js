@@ -21,6 +21,7 @@
             scope.cbStatusSuccess="SUCCESS";
             scope.cbStatusError="ERROR";
             scope.reportEntityType = "CreditBureau";
+            scope.isStalePeriodExceeded = false;
 
             getCreditBureauReportSummary();
 
@@ -238,6 +239,10 @@
                             if(scope.creditBureauEnquiry.errors){
                                scope.errorMessage = scope.creditBureauEnquiry.errors;
                             }
+
+                            if(scope.creditBureauEnquiry.isStalePeriodExceeded != undefined){
+                                scope.isStalePeriodExceeded = scope.creditBureauEnquiry.isStalePeriodExceeded;
+                             }
                              
                             if(scope.creditBureauEnquiry.creditBureauProduct){
                                getCreditbureauLoanProductData(scope.creditBureauEnquiry.creditBureauProduct.id);
@@ -258,20 +263,52 @@
                 });
             };
 
-
             scope.creditBureauReport = function (isForce) {
-                resourceFactory.creditBureauReportResource.get({
-                    entityType: scope.entityType,
-                    entityId: scope.entityId,
-                    isForce: isForce
-                }, function (loansSummary) {
-                    scope.loansSummary = loansSummary;
-                    if (scope.loansSummary && scope.loansSummary.cbStatus) {
-                        scope.isResponPresent = true;
-                    }
-                    getCreditBureauReportSummary();
-                });
-            };
+                if (!scope.isStalePeriodExceeded && isForce) {
+                    $modal.open({
+                        templateUrl: 'creditBureauReport.html',
+                        controller: CreditBureauReportCtrl,
+                        resolve: {
+                            isForce: function () {
+                                return isForce;
+                            }
+                        }
+                    });
+                }
+                else {
+                    resourceFactory.creditBureauReportResource.get({
+                        entityType: scope.entityType,
+                        entityId: scope.entityId,
+                        isForce: isForce
+                    }, function (loansSummary) {
+                        scope.loansSummary = loansSummary;
+                        if (scope.loansSummary && scope.loansSummary.cbStatus) {
+                            scope.isResponPresent = true;
+                        }
+                        getCreditBureauReportSummary();
+                    });
+                };
+            }
+
+            var CreditBureauReportCtrl = function ($scope, $modalInstance, isForce) {
+                $scope.creditBureauReport = function () {
+                    resourceFactory.creditBureauReportResource.get({
+                        entityType: scope.entityType,
+                        entityId: scope.entityId,
+                        isForce: isForce
+                    }, function (loansSummary) {
+                        $modalInstance.close('creditBureauReport');
+                        scope.loansSummary = loansSummary;
+                        if (scope.loansSummary && scope.loansSummary.cbStatus) {
+                            scope.isResponPresent = true;
+                        }
+                        getCreditBureauReportSummary();
+                    });
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
 
             scope.proceedToNext = function () {
                 resourceFactory.loanApplicationReferencesResource.update({
