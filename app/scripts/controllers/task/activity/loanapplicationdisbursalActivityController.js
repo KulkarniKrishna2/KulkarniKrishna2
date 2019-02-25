@@ -27,11 +27,6 @@
             scope.paymentModeOptions = [];
             scope.paymentTypes = [];
             scope.paymentTypeOptions = [];
-            scope.isStalePeriodExceeded = false;
-
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanDisbursalStep) {
-                scope.isStalePeriodCheck = scope.response.uiDisplayConfigurations.loanDisbursalStep.checkForStalePeriodExpiry;
-            }
 
             scope.filterPaymentTypes = function(data){
                 scope.paymentTypes = [];
@@ -89,9 +84,6 @@
             scope.isAlreadyDisbursed = false;
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
-                if (data.isStalePeriodExceeded != undefined && data.isStalePeriodExceeded != null) {
-                    scope.isStalePeriodExceeded = data.isStalePeriodExceeded;
-                }
                 resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (tempData) {
                     scope.paymentModeOptions = tempData.paymentModeOptions;
                     scope.filterPaymentTypes(tempData.paymentOptions);
@@ -377,10 +369,6 @@
             }
 
             scope.submit = function () {
-                if (scope.isStalePeriodCheck && scope.isStalePeriodExceeded) {
-                    scope.setTaskActionExecutionError("label.error.stale.period.expired");
-                }
-                else {
                 scope.previewRepayments(false);
                 if (scope.charges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
@@ -457,7 +445,6 @@
                     scope.activityDone();
                     getLoanAccountDetails(data.changes.loanId);
                 });
-                }
             };
 
             scope.undoApprovalLoanAppRef = function () {
