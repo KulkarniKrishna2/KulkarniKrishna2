@@ -306,4 +306,13 @@
                 ng-entity-id="{{data.enquiryId}}"></view-document-directive>
             </div>
     </script>
+    <script type="text/ng-template" id="creditBureauReport.html">
+        <div class="modal-header silver"></div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <h3 class="bolder">{{'label.heading.stale.period.not.expired' | translate}}</h3><br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="creditBureauReport()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
 </div>

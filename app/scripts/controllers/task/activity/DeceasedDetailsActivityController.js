@@ -1,6 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
+<<<<<<< HEAD
         DeceasedDetailsActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
+=======
+        DeceasedDetailsActivityController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,commonUtilService, $modal) {
+>>>>>>> v18.01.1.2_RC
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.deceasedReasonOptions = [];
             scope.deceasedPersonOptions = [];
@@ -11,13 +15,21 @@
             scope.formDocumentData = {};
             scope.showUploadDocument = false;
             scope.documents = [];
+<<<<<<< HEAD
             scope.statusCompleted = "taskStatus.completed";
+=======
+
+>>>>>>> v18.01.1.2_RC
             scope.getDeceasedDetails = function () {
                 resourceFactory.deceasedDetailsResource.get({ clientId: scope.clientId }, {},
                     function (data) {
                         if (angular.isDefined(data) && angular.isDefined(data.id)) {
                             scope.deceasedDetailsData = data;
+<<<<<<< HEAD
                             scope.isDeceasedDetailsCreated = true;                          
+=======
+                            scope.isDeceasedDetailsCreated = true;
+>>>>>>> v18.01.1.2_RC
                             scope.deceasedDetailsId = data.id;
                             scope.getDocuments();
                         }
@@ -37,7 +49,11 @@
                         function (data) {
                             for(var i in data){
                                 var docs = {};
+<<<<<<< HEAD
                                 docs = API_VERSION + '/' + data[i].parentEntityType + '/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment';
+=======
+                                docs = API_VERSION + '/' + data[i].parentEntityType + '/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?';
+>>>>>>> v18.01.1.2_RC
                                 data[i].docUrl = docs;
                             }
                             scope.documents = data;
@@ -65,10 +81,16 @@
                 });
             };
 
+<<<<<<< HEAD
             scope.download = function(file){
                 var url =$rootScope.hostUrl + file.docUrl;
                 var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
                 CommonUtilService.downloadFile(url,fileType);
+=======
+            scope.download = function(docUrl){
+                var url = $rootScope.hostUrl + docUrl + commonUtilService.commonParamsForNewWindow();
+                window.open(url);
+>>>>>>> v18.01.1.2_RC
             };
 
             scope.init = function () {
@@ -128,10 +150,13 @@
                         scope.init();
                     });
             };
+<<<<<<< HEAD
             
             scope.cancel = function () {
                 scope.init();
             };
+=======
+>>>>>>> v18.01.1.2_RC
 
             scope.deleteFile = function(file){
                 resourceFactory.documentsResource.delete({ entityType:file.parentEntityType,entityId:file.parentEntityId,documentId: file.id}, {},

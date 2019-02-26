@@ -1,5 +1,6 @@
 <div class="col-md-12" ng-controller="DeceasedDetailsActivityController">
-    <form name="createdeceaseddetailsform" novalidate="" ng-show="!isDeceasedDetailsCreated" class="form-horizontal well" rc-submit="submit()">
+    <form name="createdeceaseddetailsform" novalidate="" ng-show="!isDeceasedDetailsCreated" class="form-horizontal well"
+        rc-submit="submit()">
         <fieldset>
             <legend>{{'label.heading.deceaseddetails' | translate}}</legend>
             <div class="form-group">
@@ -10,7 +11,8 @@
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen="deceasedPersonOptions" id="deceasedPerson" ng-model="formData.deceasedPerson" class="form-control" ng-options="person.id as person.value for person in deceasedPersonOptions"
+                        <select chosen="deceasedPersonOptions" id="deceasedPerson" ng-model="formData.deceasedPerson"
+                            class="form-control" ng-options="person.id as person.value for person in deceasedPersonOptions"
                             value="{{person.id}}" name="deceasedPerson" required late-Validate>
                             <option value="" style="display:none;">--{{'label.menu.selectperson' | translate}}--</option>
                         </select>
@@ -27,8 +29,8 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}" ng-model="deceasedDate"
-                        is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
+                    <input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}"
+                        ng-model="deceasedDate" is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
 
                 </div>
                 <div class="col-sm-2">
@@ -41,8 +43,8 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input id="announceDate" type="text" autocomplete="off" name="announceDate" datepicker-pop="{{df}}" ng-model="announceDate"
-                        is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
+                    <input id="announceDate" type="text" autocomplete="off" name="announceDate" datepicker-pop="{{df}}"
+                        ng-model="announceDate" is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
 
                 </div>
                 <div class="col-sm-2">
@@ -57,7 +59,8 @@
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen="deceasedReasonOptions" id="deceasedReason" ng-model="formData.deceasedReason" class="form-control" ng-options="reason.id as reason.name for reason in deceasedReasonOptions"
+                        <select chosen="deceasedReasonOptions" id="deceasedReason" ng-model="formData.deceasedReason"
+                            class="form-control" ng-options="reason.id as reason.name for reason in deceasedReasonOptions"
                             value="{{reason.id}}" name="deceasedReason" required late-Validate>
                             <option value="" style="display:none;">--{{'label.menu.selectreason' | translate}}--</option>
                         </select>
@@ -67,9 +70,10 @@
                     <form-validate valattributeform="createdeceaseddetailsform" valattribute="deceasedReason" />
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="col-md-offset-5">
-                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_DECEASED_DETAILS'>{{'label.button.save' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_DECEASED_DETAILS'>{{'label.button.save'
+                    | translate}}</button>
             </div>
         </fieldset>
     </form>
@@ -81,7 +85,8 @@
        </div>
 </script>
     <div ng-show="isDeceasedDetailsCreated">
-        <a role="button" ng-hide="taskData.status.code==statusCompleted" has-permission="UPDATE_DECEASED_DETAILS" ng-click="editDeceasedDetails()" class="btn btn-primary pull-right">
+        <a role="button" ng-hide="taskData.status.code==statusCompleted" has-permission="UPDATE_DECEASED_DETAILS"
+            ng-click="editDeceasedDetails()" class="btn btn-primary pull-right">
             <i class="icon-edit icon-white"></i>
         </a>
         <div class="row">
@@ -126,48 +131,51 @@
                 </div>
             </div>
         </div>
-        <hr/>
-        <div class="row">            
+        <hr />
+        <div class="row">
             <div>
-                    <label class="control-label col-sm-3">
-                            {{'label.heading.documents' | translate}}
-                        </label>
+                <label class="control-label col-sm-3">
+                    {{'label.heading.documents' | translate}}
+                </label>
                 <a id="show" ng-click="showUploadDocument=!showUploadDocument">
                     <i class="icon-cloud-upload"></i>
                 </a>
-            </div>   
-            <br/>         
+            </div>
+            <br />
             <table>
-                <tr  ng-repeat="file in documents">
+                <tr ng-repeat="file in documents">
                     <td>{{file.name}}&nbsp;</td>
                     <td>{{file.fileName}}&nbsp;</td>
                     <td>
                         <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
-                        class="icon-eye-open text-success"></i></a>&nbsp;
+                                class="icon-eye-open text-success"></i></a>&nbsp;
                     </td>
                     <td>
-                        <a target="_blank" ng-click = "download(file)" has-permission='READ_DOCUMENT'><i
-                        class="icon-cloud-download"></i></a>&nbsp;
+                        <a target="_blank" ng-click="download(file)" has-permission='READ_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
                     </td>
                     <td>
-                        <a target="_blank" ng-click = "deleteFile(file)" has-permission='READ_DOCUMENT'><i
-                        class="icon-remove"></i></a>&nbsp;
+                        <a target="_blank" ng-click="deleteFile(file)" has-permission='READ_DOCUMENT'><i class="icon-remove"></i></a>&nbsp;
                     </td>
                 </tr>
             </table>
         </div>
 
+
+        <div class="row">
+            <a id="show" ng-click="showUploadDocument=!showUploadDocument">
+                <i class="icon-cloud-upload"></i>
+            </a>
+        </div>
         <form name="deceaseddetailsform" novalidate="" ng-show="showUploadDocument" class="form-horizontal well">
             <api-validate></api-validate>
             <fieldset>
                 <legend>{{'label.anchor.uploaddocument' | translate}}</legend>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
-                            class="required">*</span></label>
-    
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span class="required">*</span></label>
+
                     <div class="col-sm-3">
-                        <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="formDocumentData.name" class="form-control" required
-                               late-Validate/>
+                        <input id="name" ng-autofocus="true" type="text" autocomplete="off" name="name" ng-model="formDocumentData.name"
+                            class="form-control" required late-Validate />
                     </div>
                     <div class="col-sm-3">
                         <span ng-show="deceaseddetailsform.name.$invalid">
@@ -177,21 +185,22 @@
                         </span>
                     </div>
                 </div>
-    
+
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
                             class="required">*</span></label>
-    
+
                     <div class="col-sm-3">
                         <input type="file" id="file" ng-file-select="onFileSelect($files)">
                     </div>
                 </div>
-    
+
                 <div class="col-md-offset-3">
-                    <a id="cancel" href="#/viewclient/{{clientId}}"  ng-click="cancel()">
+                    <a id="cancel" href="#/viewclient/{{clientId}}">
                         <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                     </a>
-                    <button id="saves" ng-click="submitUpload()" ng-disabled="!deceaseddetailsform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
+                    <button id="saves" ng-click="submitUpload()" ng-disabled="!deceaseddetailsform.$valid" class="btn btn-primary"
+                        has-permission='CREATE_CLIENTIDENTIFIER'>
                         {{'label.button.save' | translate}}
                     </button>
                 </div>
@@ -199,5 +208,5 @@
         </form>
 
     </div>
-    
+
 </div>

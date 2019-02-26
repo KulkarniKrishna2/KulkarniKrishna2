@@ -1986,7 +1986,6 @@
             .when('/editaccountingmappingsdetails/:mappingId/accstate/:accStateId/subtype/:subTypeId', {
                 templateUrl: 'views/accounting/edit_mapping_details.html'
             })
-
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -15,13 +15,12 @@
             };
 
             this.statusTypes = {
-                "Pending": [
-                    {
+                "Pending": [{
                         name: "label.button.newloanapplicationreferences",
                         href: "#/newloanapplicationreference",
                         icon: "icon-plus",
                         taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE",
-                        isEnableButton : false
+                        isEnableButton: false
                     },
                     {
                         name: "label.button.bankaccountdetails",
@@ -52,8 +51,7 @@
                         taskPermissionName: "WITHDRAW_CLIENT"
                     }
                 ],
-                "Closed":[
-                    {
+                "Closed": [{
                         name: "label.button.reactivate",
                         href: "#/client",
                         subhref: "reactivate",
@@ -62,8 +60,7 @@
                     }
 
                 ],
-                "Rejected":[
-                    {
+                "Rejected": [{
                         name: "label.button.undoReject",
                         href: "#/client",
                         subhref: "undoReject",
@@ -72,8 +69,7 @@
                     }
 
                 ],
-                "Withdrawn":[
-                    {
+                "Withdrawn": [{
                         name: "label.button.undoWithdrawn",
                         href: "#/client",
                         subhref: "undoWithdrawn",
@@ -83,13 +79,12 @@
 
 
                 ],
-                "Active": [
-                    {
+                "Active": [{
                         name: "label.button.newloanapplicationreferences",
                         href: "#/newloanapplicationreference",
                         icon: "icon-plus",
                         taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE",
-                        isEnableButton : false
+                        isEnableButton: false
                     },
                     {
                         name: "label.button.newloan",
@@ -153,8 +148,7 @@
                     }
 
                 ],
-                "Transfer in progress": [
-                    {
+                "Transfer in progress": [{
                         name: "label.button.accepttransfer",
                         href: "#/client",
                         subhref: "acceptclienttransfer",
@@ -176,17 +170,15 @@
                         taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
                     }
                 ],
-                "Transfer on hold": [
-                    {
-                        name: "label.button.undotransfer",
-                        href: "#/client",
-                        subhref: "undotransfer",
-                        icon: "icon-undo",
-                        taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
-                    }
-                ],
+                "Transfer on hold": [{
+                    name: "label.button.undotransfer",
+                    href: "#/client",
+                    subhref: "undotransfer",
+                    icon: "icon-undo",
+                    taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
+                }],
                 "Dedupe": [
-                    
+
                 ],
                 "Assign Staff": {
                     name: "label.button.assignstaff",

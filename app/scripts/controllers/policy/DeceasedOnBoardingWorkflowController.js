@@ -3,7 +3,9 @@
         DeceasedOnBoardingWorkflowController: function (scope, resourceFactory, routeParams) {
             scope.clientId = routeParams.clientId;
             scope.initiateWorkflow = function () {
-                resourceFactory.deceasedDetailsWorkflowResource.save({ clientId: scope.clientId }, {},
+                resourceFactory.deceasedDetailsWorkflowResource.save({
+                        clientId: scope.clientId
+                    }, {},
                     function (data) {
                         scope.fetchTask();
                     });

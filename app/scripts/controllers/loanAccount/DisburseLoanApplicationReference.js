@@ -475,12 +475,12 @@
                 }
             }
 
-              scope.submit = function () {
-                scope.checkBiometricRequired() ;
-                if(scope.catureFP==true) {
-                    scope.getFingerPrint() ;
-                }else {
-                    scope.finalSubmit() ;
+            scope.submit = function () {
+                scope.checkBiometricRequired();
+                if (scope.catureFP == true) {
+                    scope.getFingerPrint();
+                } else {
+                    scope.finalSubmit();
                 }
             };
 

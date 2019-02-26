@@ -672,7 +672,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/CreateAccStateProductMappingController',
             'accounting/EditAccountingMappingsController',
             'accounting/EditAccountingMappingDetailsController'
-
         ],
         filters: [
             'StatusLookup',
