@@ -128,6 +128,10 @@
                         scope.init();
                     });
             };
+            
+            scope.cancel = function () {
+                scope.init();
+            };
 
             scope.deleteFile = function(file){
                 resourceFactory.documentsResource.delete({ entityType:file.parentEntityType,entityId:file.parentEntityId,documentId: file.id}, {},

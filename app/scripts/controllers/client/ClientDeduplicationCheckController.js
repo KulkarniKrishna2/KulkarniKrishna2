@@ -95,6 +95,9 @@
                 });
             };
 
+            scope.cancel = function(){
+                scope.close();
+            }
             scope.tagClientToMatchedClientId = function () {
                 var tagFormData = {};
                 tagFormData.clientDedupeId = scope.uiData.matchClientId;

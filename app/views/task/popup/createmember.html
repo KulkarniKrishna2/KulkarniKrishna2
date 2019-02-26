@@ -106,7 +106,7 @@
 								</div>
 								<div class="col-sm-2">
 									<label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
-									<form-validate valattributeform="creatememberform" valattribute="dateofbirth" />
+									<span class="error" ng-show="(submitted || uiData.enableCreateClientLoop) && creatememberform.dateofbirth.$error.required">{{'label.error.required'|translate}}</span>
 								</div>
 
 								<div calss="row" data-ng-switch on="showNonPersonOptions">
@@ -153,7 +153,9 @@
 											</option>
 										</select>
 									</div>
-									<form-validate valattributeform="creatememberform" valattribute="maritalStatus" />
+									<div class="col-sm-2">
+										<span class="error" ng-show="(submitted || uiData.enableCreateClientLoop) && creatememberform.maritalStatus.$error.required">{{'label.error.required'|translate}}</span>
+									</div>	
 								</div>
 							</div>
 							<label class="control-label col-sm-2" for="externalId" ng-show="showExternalId">{{'label.input.externalid' | translate}}
