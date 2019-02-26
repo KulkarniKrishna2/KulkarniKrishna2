@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateUserCommonController: function (scope, resourceFactory, location, dateFilter) {
+        CreateUserCommonController: function (scope, resourceFactory, location, dateFilter,commonUtilService) {
             scope.offices = [];
             scope.available = [];
             scope.selected = [];
@@ -77,6 +77,12 @@
                 if (scope.formData.joiningDate) {
                     scope.formData.joiningDate = dateFilter(scope.formData.joiningDate, scope.df);
                 }
+                if (scope.formData.password) {
+                    scope.formData.password = commonUtilService.encrypt(scope.formData.password);
+                }
+                if (scope.formData.repeatPassword) {
+                    scope.formData.repeatPassword = commonUtilService.encrypt(scope.formData.repeatPassword);
+                }
                 if((scope.formData.externalId == undefined || scope.formData.externalId.length==0 ) && scope.formData.staffId == undefined){
                     scope.isExternalIdRequired = true;
                     return ;
@@ -108,7 +114,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateUserCommonController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateUserCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateUserCommonController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','CommonUtilService', mifosX.controllers.CreateUserCommonController]).run(function ($log) {
         $log.info("CreateUserCommonController initialized");
     });
 }(mifosX.controllers || {}));
