@@ -45,7 +45,7 @@
 				"repaymentsStartingFromDate": false,
 				"loanPurposeId": false,
 				"undoTransactionReason": false,
-				"isPreclosureReasonEnabled" : false
+				"isPreclosureReasonEnabled": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": false,
@@ -105,7 +105,7 @@
 				"netDisbursedAmount": false,
 				"showProductShortName": false
 			},
-			"displayBankApprovalStatus":false
+			"displayBankApprovalStatus": false
 		},
 		"clientAccount": {
 			"isMandatory": {
@@ -142,9 +142,9 @@
 						"maxAge": ""
 					}
 				},
-				"isValidateFirstName":{
-					"firstNamePattern":"/^[a-zA-Z\\s]{3,}$/"
-				}					
+				"isValidateFirstName": {
+					"firstNamePattern": "/^[a-zA-Z\\s]{3,}$/"
+				}
 			},
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",
@@ -209,8 +209,8 @@
 				"maritalStatus": true,
 				"gender": false,
 				"staff": false,
-				"streetName":false,
-				"houseNo":false
+				"streetName": false,
+				"houseNo": false
 			},
 			"isAutoPopulate": {
 				"genderOption": true
@@ -218,10 +218,10 @@
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{10,10}$/"
 			},
-			"isValidateFirstName":{
-				"firstNamePattern":"/^[a-zA-Z\\s]*$/"
+			"isValidateFirstName": {
+				"firstNamePattern": "/^[a-zA-Z\\s]*$/"
 			},
-			"defaultMobileNumber":""
+			"defaultMobileNumber": ""
 		},
 		"defaultGISConfig": {
 			"address": {
@@ -256,17 +256,17 @@
 			"isAutoPopulate": {
 				"name": true
 			},
-		    "isValidateName":{
-			  "namePattern":"/^[-@./#&+\\w\\s]*$/"
-		   },
-		   "loanOfficersOnly":true
+			"isValidateName": {
+				"namePattern": "/^[-@./#&+\\w\\s]*$/"
+			},
+			"loanOfficersOnly": true
 		},
 		"editJlgLoan": {
-		    "isReadOnlyField": {
-			    "productName": true
-		    },
-		    "isRestrictEmiPack":true
-	    },
+			"isReadOnlyField": {
+				"productName": true
+			},
+			"isRestrictEmiPack": true
+		},
 		"createGroup": {
 			"isReadOnlyField": {
 				"staff": false,
@@ -326,7 +326,7 @@
 				"reportNames": "'Expected Payments By Date - Basic'",
 				"restrictedDate": ""
 			},
-			"defaultReportOutput":"CSV"
+			"defaultReportOutput": "CSV"
 		},
 		"journalEntryConfiguration": {
 			"allowMultipleCreditAndDebitEntries": false
@@ -418,9 +418,9 @@
 			"CGTValidation": {
 				"profileRatingPercentage": ""
 			},
-			"showReschedule" : true,
-			"showCreateTask" : true,
-			"disableVillageDropDown":false,
+			"showReschedule": true,
+			"showCreateTask": true,
+			"disableVillageDropDown": false,
 			"hideReject": false,
 			"isReadOnlyField": {
 				"createSubGroupDate": false
@@ -463,7 +463,7 @@
 				"referenceNo": true,
 				"unassignStaffCenter": false,
 				"canCreateSubGroups": true,
-				"showAttendance":false
+				"showAttendance": false
 			}
 		},
 		"createOffice": {
@@ -471,8 +471,8 @@
 			"isMandatoryField": {
 				"addressType": false
 			},
-			"isHiddenField" :{
-				"pincode" : false
+			"isHiddenField": {
+				"pincode": false
 			}
 		},
 		"createJlgLoan": {
@@ -481,11 +481,11 @@
 			}
 		},
 		"editJlgLoan": {
-		    "isReadOnlyField": {
-			    "productName": false
-		    },
-		    "isRestrictEmiPack":false
-	    },
+			"isReadOnlyField": {
+				"productName": false
+			},
+			"isRestrictEmiPack": false
+		},
 		"createNewLoan": {
 			"isHiddenField": {
 				"newLoan": false
@@ -546,12 +546,12 @@
 				"repeatson": false
 			}
 		},
-		"regexFormats":{
-			"lastName" :"\/^[a-zA-Z\\s]*$\/"
+		"regexFormats": {
+			"lastName": "\/^[a-zA-Z\\s]*$\/"
 		},
-		"editCenter":{
+		"editCenter": {
 			"isReadOnlyField": {
-			"activationDate":false
+				"activationDate": false
 			}
 		},
 		"loanproduct": {
@@ -572,8 +572,8 @@
 				"preCloseDate": false
 			}
 		},
-		"shares":{
-			"hidesharesmodule":true
+		"shares": {
+			"hidesharesmodule": true
 		}
 	}
 }

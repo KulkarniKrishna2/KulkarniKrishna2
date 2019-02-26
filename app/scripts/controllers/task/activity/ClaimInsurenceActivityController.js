@@ -12,10 +12,7 @@
                     function (data) {
                         scope.formData.repaidAmount = data.repaidAmount;
                         scope.formData.loanOutstanding = data.loanOutstanding;
-<<<<<<< HEAD
                         scope.formData.disbursedAmount = data.disbursedAmount;
-=======
->>>>>>> v18.01.1.2_RC
                         scope.staffOptions = data.staffOptions;
                     });
             };
