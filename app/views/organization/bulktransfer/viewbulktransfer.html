@@ -153,11 +153,6 @@
 									<hr/>
 								</tr>
 								<tr ng-repeat="client in clients"  ng-if= "entityExists(selectedClients, client.id)">
-										<td>
-												<button type="button" style="border: 0">
-													<span>-</span>
-												</button>&nbsp;&nbsp;&nbsp;&nbsp;
-											</td>
 								    <td ng-if= "entityExists(selectedClients, client.id)"><strong>{{client.displayName}}</strong></td>
 								</tr>
 							</tbody>
