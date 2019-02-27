@@ -14,6 +14,7 @@
                 scope.bcTransactionTypeGLMapping = data.bcTransactionTypeGLMapping;
                 scope.transactionMappingOptions = data.transactionMappingOptions;
                 scope.bcAccountingTypeOptions = data.bcAccountingTypeOptions;
+                scope.paymentTypeOptions = data.paymentTypeOptions;
                 scope.formData = {
                     locale: scope.optlang.code,
                     transactionTypeId: data.transactionType.id,
@@ -22,6 +23,10 @@
                 }
                 if (data.accountingType && data.accountingType.code && data.accountingType.code != "bcAccountingType.invalid") {
                     scope.formData.bcAccountingTypeId = data.accountingType.id;
+                    scope.isPaymentType(data.accountingType.id);
+                    if (data.paymentType) {
+                        scope.formData.bcAccountingSubTypeId = data.paymentType.id;
+                    }
                 }
                 if (data.productType && data.productData) {
                     scope.formData.productTypeId = data.productType.id;
@@ -61,6 +66,14 @@
                    scope.showAcounting = false; 
                 }
             }
+            scope.isPaymentType = function (bcAccountingTypeId) {
+                scope.displayPaymentType = false;
+                for (var i in scope.bcAccountingTypeOptions) {
+                    if (scope.bcAccountingTypeOptions[i].id == bcAccountingTypeId && scope.bcAccountingTypeOptions[i].code == 'bcAccountingType.paymentType') {
+                        scope.displayPaymentType = true;
+                    }
+                }
+            };
             scope.submit = function (id) {
                 scope.formData.transactionMappings = [];
                 for(var i in scope.transactionTypeMappings){
@@ -71,6 +84,9 @@
                     }
                     scope.formData.transactionMappings.push(temp);
                 }
+                if (!scope.displayPaymentType) {
+                    delete scope.formData.bcAccountingSubTypeId;
+                }           
                 resourceFactory.transactionTypeMappingResource.update({ mappingId: routeParams.mappingId }, scope.formData, function (data) {
                     location.path('/transactiontypemapping/viewtransactiontype/' + id);
                 });
