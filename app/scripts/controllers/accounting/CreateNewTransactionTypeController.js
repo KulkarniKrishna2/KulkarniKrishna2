@@ -8,6 +8,7 @@
             scope.transactionTypeMappings = [];
             scope.transactionTypeOptions = [];
             scope.productTypeOptions = [];
+            scope.tempvar = {};
             resourceFactory.transactionTypeMappingTemplateResource.get(function (data) {
                 scope.transactionTypeOptions = data.transactionTypeOptions;
                 scope.productTypeOptions = data.productTypeOptions;
@@ -17,6 +18,7 @@
                 scope.accountLevelTypeOptions = data.accountLevelTypeOptions;
                 scope.transactionMappingOptions = data.transactionMappingOptions;
                 scope.bcAccountingTypeOptions = data.bcAccountingTypeOptions;
+                scope.paymentTypeOptions = data.paymentTypeOptions;
 
             });
             scope.changeProductType = function (productTypeId) {
@@ -26,8 +28,15 @@
                 else if (scope.formData.productTypeId == 2) {
                     scope.productOptions = scope.savingsProducts;
                 }
-            }
-
+            };
+            scope.isPaymentType = function (bcAccountingTypeId) {
+                scope.tempvar.displayPaymentType = false;
+                for (var i in scope.bcAccountingTypeOptions) {
+                    if (scope.bcAccountingTypeOptions[i].id == bcAccountingTypeId && scope.bcAccountingTypeOptions[i].code == 'bcAccountingType.paymentType') {
+                        scope.tempvar.displayPaymentType = true;
+                    }
+                }
+            };
             scope.addMapping = function(){
                 scope.showAcounting = true;
                 scope.transactionTypeMappings.push({
@@ -51,6 +60,9 @@
                        debitGlId: scope.transactionTypeMappings[i].debitGlId
                     }
                     scope.formData.transactionMappings.push(temp);
+                }
+                if (!scope.tempvar.displayPaymentType) {
+                    delete scope.formData.bcAccountingSubTypeId;
                 }
                 resourceFactory.transactionTypeMappingResource.save(scope.formData, function (data) {
                     location.path('/transactiontypemapping');

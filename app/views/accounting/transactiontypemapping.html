@@ -102,14 +102,17 @@
                     <th>{{'label.heading.accounting.level' | translate}}</th>
                     <th>{{'label.heading.productTypeOptions' | translate}}</th>
                     <th>{{'label.heading.productOptions' | translate}}</th>
+                    <th>{{'label.input.classification' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="pointer-main" ng-repeat="transactionTypeMapping in transactionTypeMappings">
                     <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.transactionType.value}}</td>
                     <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.accountLevelType.value}}</td>
-                    <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.productType.value}}</td>
+                    <td ng-if ="transactionTypeMapping.productType.value!='Invalid'" class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.productType.value}}</td>
+                    <td ng-if ="transactionTypeMapping.productType.value =='Invalid'"></td>
                     <td class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.productData.name}}</td>
+                    <td ng-if ="transactionTypeMapping.accountingType.value!='invalid'" class="pointer" data-ng-click="routeTo(transactionTypeMapping.id)">{{transactionTypeMapping.accountingType.value}}</td>
                 </tr>
             </tbody>
         </table>

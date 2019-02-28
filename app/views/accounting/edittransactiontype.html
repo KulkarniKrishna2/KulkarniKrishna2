@@ -16,10 +16,13 @@
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen="transactionTypeOptions" id="transactionTypeId" ng-model="formData.transactionTypeId"
+                        <select chosen="transactionTypeOptions" id="transactionTypeId" name ="transactionTypeId" ng-model="formData.transactionTypeId"
                             class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
-                            value="{{transactionTypeOption.id}}" ng-disabled="true"></select>
+                            value="{{transactionTypeOption.id}}" ng-disabled="true" required late-validate></select>
                     </div>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="edittransactiontype" valattribute="transactionTypeId" />
                 </div>
             </div>
             <div class="form-group">
@@ -30,9 +33,12 @@
                 <div class="col-sm-3">
                     <select chosen="accountLevelTypeOptions" id="accountingLevelId" name="accountingLevel" ng-model="formData.accountingLevelId"
                         class="form-control" ng-options="accountLevelTypeOption.id as accountLevelTypeOption.value for accountLevelTypeOption in accountLevelTypeOptions"
-                        value="{{accountLevelTypeOption.id}}">
+                        value="{{accountLevelTypeOption.id}}" required late-validate>
                         <option value="">{{'label.menu.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="edittransactiontype" valattribute="accountingLevel" />
                 </div>
             </div>
             <div class="form-group">
@@ -78,13 +84,28 @@
                     <div>
                         <select chosen="bcAccountingTypeOptions" id="bcAccountingTypeId" ng-model="formData.bcAccountingTypeId"
                             class="form-control" ng-options="accountingType.id as accountingType.value for accountingType in bcAccountingTypeOptions"
-                            value="{{accountingType.id}}">
+                            value="{{accountingType.id}}" ng-change="isPaymentType(formData.bcAccountingTypeId)">
                             <option value="">{{'label.menu.selectone' | translate}}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+
+            <div ng-if="displayPaymentType" class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.heading.paymenttype' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="paymentTypeOptions" id="paymentTypeId" name="paymentTypeId" ng-model="formData.bcAccountingSubTypeId"
+                        class="form-control" ng-options="paymentTypeOption.id as paymentTypeOption.name for paymentTypeOption in paymentTypeOptions"
+                        value="{{paymentTypeOption.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+            </div>&nbsp;
+
+            <div ng-if="false" class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.istransfer' | translate }}</label>
                 <div class="col-sm-2">
                     <label class="checkbox control-label">
