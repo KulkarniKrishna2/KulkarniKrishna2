@@ -2307,6 +2307,7 @@
     "error.msg.loan.application.disbursement.date.cannot.be.before.meeting.start.date": "Expected disbursement date `{{params[0].value}}` cannot be before meeting start date `{{params[1].value}}`.",
     "error.msg.loan.application.first.repayment.date.cannot.be.before.meeting.start.date": "First repayment date `{{params[0].value}}` cannot be before meeting start date `{{params[1].value}}`.",
     "error.msg.loan.application.actual.disbursement.date.cannot.be.before.meeting.start.date": "Actual disbursement date `{{params[0].value}}` cannot be before meeting start date `{{params[1].value}}`.",
+    "validation.msg.loanapplicationreference.repaymentsStartingFromDate.cannot.be.blank" : "First repayment cannot be blank as sync repayments with meeting checked",
     "validation.msg.loan.days.between.first.repayment.and.disbursal.are.less than.minimum.number.of.days.required":"Number of days between disbursal date and first repayment date can't be less than minimum numbers of days required between first repayment and disbursal date in the product definition",
     "error.msg.loan.disbursement.cannot.be.a.edited": "Disbursement details cannot be edited for a loan which is already disbursed",
     "error.msg.loan.product.does.not.support.multiple.disbursals": "This loan product does not support multiple disbursals",
