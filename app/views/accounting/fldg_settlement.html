@@ -42,6 +42,7 @@
                             <thead>
                                 <tr class="graybg">
                                     <th>{{'label.input.loanaccountnumber' | translate}}</th>
+                                    <th>{{'label.input.loanproduct' | translate}}</th>
                                     <th>{{'label.heading.amount' | translate}}</th>
                                     <th>{{'label.heading.settledby' | translate}}</th>
                                 </tr>
@@ -49,6 +50,7 @@
                             <tbody>
                                 <tr ng-repeat="settledLoan in settledLoans">
                                     <td style="width: 300px" ng-model="settledLoan.account">{{settledLoan.accountNumber}}</td>
+                                    <td>{{settledLoan.loanProductName}}</td>   
                                     <td>{{settledLoan.totalAmount | number:2}}</td>
                                     <td>{{settledLoan.settledBy}}</td>                                   
                                 </tr>
@@ -66,6 +68,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                         <td >{{'label.anchor.bulksettlement' | translate}}</td>
                                         <td style="width: 250px">
                                             <select id="bulksettlementTypeId" name="bulksettlementTypeId" ng-model="bulksettlementId" class="form-control"
@@ -79,6 +82,7 @@
                                 <thead>
                                     <tr class="graybg">
                                         <th>{{'label.input.loanaccountnumber' | translate}}</th>
+                                        <th>{{'label.input.loanproduct' | translate}}</th>
                                         <th>{{'label.anchor.principalOverdue' | translate}}</th>
                                         <th>{{'label.anchor.principalFutureDue' | translate}}</th>
                                         <th>{{'label.anchor.interestOverdue' | translate}}</th>
@@ -89,6 +93,7 @@
                                 <tbody>
                                     <tr ng-repeat="overdueLoan in overdueLoans">
                                         <td ng-model="overdueLoan.account">{{overdueLoan.accountNumber}}</td>
+                                        <td>{{overdueLoan.loanProductName}}</td>
                                         <td>{{overdueLoan.principalOverdue | number:2}}</td>
                                         <td>{{overdueLoan.principalFutureDue | number:2}}</td>
                                         <td>{{overdueLoan.interestOverdue | number:2}}</td>
