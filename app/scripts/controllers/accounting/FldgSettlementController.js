@@ -33,6 +33,7 @@
                         temp.feesOverdue = scope.overdueLoans[i].feesOverdue;
                         temp.penaltyOverdue = scope.overdueLoans[i].penaltyOverdue;
                         temp.settledById = scope.overdueLoans[i].settlementTypeId;
+                        temp.productId = scope.overdueLoans[i].loanProductId;
                         overDueLoanDetails.fldgSettlements.push(temp);
                     }
                 };
