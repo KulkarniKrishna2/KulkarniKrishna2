@@ -7828,9 +7828,11 @@
     "label.button.prudentialwriteoff": "Prudential Write-Off",
     "label.anchor.prudentialwriteoff": "Prudential Write-Off",
     "label.heading.prudential.write.off.loanaccount": "Prudential Write-Off LoanAccount",
-
     "label.heading.stale.period.not.expired": "Previous CB report is still not expired, do you want to Re-Initiate CB Request?",
     "error.msg.stale.period.expired": "Cannot Disburse the loan as the CB report has Expired. Initiate a new CB request to disburse the loan.",
-
-    "------ end of tensalation file": "---------"
+    "label.input.wardAndVillage" : "Ward/Village",
+    "label.menu.selectward.village" : "Select Ward/Village",
+    "error.msg.Aadhaar Address.address.with.addresstype.already.exists": "Address type Aadhaar already exists",
+    
+     "------ end of translation file ------":"---------"
 }

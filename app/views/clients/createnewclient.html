@@ -346,10 +346,17 @@
 						{{'label.input.countryname' | translate}}  <span class="required">*</span>
 					</label>
 					<div class="col-sm-3">
-					<select chosen="countries" id="countryId" name="countries" ng-model="formAddressData.countryId"
+						<select chosen="countries" id="countryId" ng-if ="!isLevelBasedAddressEnabled" name="countries" ng-model="formAddressData.countryId"
 								class="form-control" ng-disabled ="isCountryReadOnly"
 								ng-options="country.countryId as country.countryName for country in countries"
 								value="{{country.countryId}}"
+								ng-change="changeCountry(formAddressData.countryId)" required late-validate="">
+							<option value="">{{'label.menu.selectCountry' | translate}}</option>
+						</select>
+						<select chosen="countries" id="countryId" ng-if ="isLevelBasedAddressEnabled" name="countries" ng-model="formAddressData.countryId"
+								class="form-control" ng-disabled ="isCountryReadOnly"
+								ng-options="country.id as country.name for country in countries"
+								value="{{country.id}}"
 								ng-change="changeCountry(formAddressData.countryId)" required late-validate="">
 							<option value="">{{'label.menu.selectCountry' | translate}}</option>
 						</select>
@@ -366,9 +373,15 @@
 						{{'label.input.statename' | translate}}  <span class="required">*</span>
 					</label>
 					<div class="col-sm-2">
-						<select chosen="states" id="stateId" name="states" ng-model="formAddressData.stateId" class="form-control"
+						<select chosen="states" id="stateId" name="states" ng-if ="!isLevelBasedAddressEnabled" ng-model="formAddressData.stateId" class="form-control"
 								ng-options="state.stateId as state.stateName for state in states"
 								value="{{state.stateId}}"
+								ng-change="changeState(formAddressData.stateId)" required late-validate="">
+							<option value="">{{'label.menu.selectState' | translate}}</option>
+						</select>
+						<select chosen="states" id="stateId" name="states" ng-if ="isLevelBasedAddressEnabled" ng-model="formAddressData.stateId" class="form-control"
+								ng-options="state.id as state.name for state in states"
+								value="{{state.id}}" 
 								ng-change="changeState(formAddressData.stateId)" required late-validate="">
 							<option value="">{{'label.menu.selectState' | translate}}</option>
 						</select>
@@ -381,9 +394,15 @@
 					</label>
 
 					<div class="col-sm-3">
-						<select chosen="districts" id="districtId" name="districts" ng-model="formAddressData.districtId"
+						<select chosen="districts" id="districtId" ng-if ="!isLevelBasedAddressEnabled" name="districts" ng-model="formAddressData.districtId"
 								ng-options="district.districtId as district.districtName for district in districts"
 								value="{{district.districtId}}"
+								ng-change="changeDistrict(formAddressData.districtId)" required late-validate="">
+							<option value="">{{'label.menu.selectDistrict' | translate}}</option>
+						</select>
+						<select chosen="districts" id="districtId" ng-if ="isLevelBasedAddressEnabled" name="districts" ng-model="formAddressData.districtId"
+								ng-options="district.id as district.name for district in districts"
+								value="{{district.id}}"
 								ng-change="changeDistrict(formAddressData.districtId)" required late-validate="">
 							<option value="">{{'label.menu.selectDistrict' | translate}}</option>
 						</select>
@@ -398,14 +417,32 @@
 						{{'label.input.talukname' | translate}}  <span ng-if="showTalukas" class="required">*</span>
 					</label>
 					<div ng-if="showTalukas" class="col-sm-2">
-						<select chosen="talukas" id="talukaId" name="talukas" ng-model="formAddressData.talukaId"
+						<select chosen="talukas" id="talukaId" name="talukas" ng-if ="!isLevelBasedAddressEnabled" ng-model="formAddressData.talukaId"
 								ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
 								value="{{taluka.talukaId}}" required late-validate="">
+							<option value="">{{'label.menu.selectTaluka' | translate}}</option>
+						</select>
+						<select chosen="talukas" id="talukaId" name="talukas" ng-if ="isLevelBasedAddressEnabled" ng-model="formAddressData.talukaId"
+								ng-options="taluka.id as taluka.name for taluka in talukas"
+								value="{{taluka.id}}" ng-change="changeTaluka(formAddressData.talukaId)" required late-validate="">
 							<option value="">{{'label.menu.selectTaluka' | translate}}</option>
 						</select>
 					</div>
 					<div ng-if="showTalukas" class="col-sm-1 paddinglr0px">
 						<form-validate valattributeform="createclientform" valattribute="talukas"/>
+					</div>
+					<label ng-if="showWardAndVillages" class="control-label col-sm-2">
+						{{'label.input.wardAndVillage' | translate}}  <span ng-if="showWardAndVillages" class="required">*</span>
+					</label>
+					<div ng-if="showWardAndVillages" class="col-sm-2">
+						<select chosen="wardAndVillages" id="wardAndVillageId" name="wardAndVillages" ng-model="formAddressData.wardAndVillagesId"
+								ng-options="wardAndVillage.id as wardAndVillage.name for wardAndVillage in wardAndVillages"  
+								value="{{wardAndVillage.id}}" required late-validate="">
+							<option value="">{{'label.menu.selectward.village' | translate}}</option>
+						</select>
+					</div>
+					<div ng-if="showWardAndVillages" class="col-sm-1 paddinglr0px">
+						<form-validate valattributeform="createclientform" valattribute="wardAndVillages"/>
 					</div>
 					<label ng-show = "!pincode" class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
 						<span class="required">*</span>
