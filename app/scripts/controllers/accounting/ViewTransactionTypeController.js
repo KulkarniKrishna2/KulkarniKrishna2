@@ -3,12 +3,15 @@
         ViewTransactionTypeController: function (scope, routeParams, paginatorService, resourceFactory, location, $modal) {
             scope.transactionTypeMappings = {}
             scope.display = false;
+            scope.displaySubType = false;
             resourceFactory.transactionTypeMappingResource.getOne({ mappingId: routeParams.mappingId }, function (data) {
                 scope.transactionTypeMapping = data;
                 if (data.productType && data.productData) {
                     scope.display = true;
                 }
-
+                if (!angular.equals({}, data.paymentType)) {
+                    scope.displaySubType = true;
+                }
             });
 
             scope.edit = function (id) {

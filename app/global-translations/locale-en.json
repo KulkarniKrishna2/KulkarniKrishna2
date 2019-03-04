@@ -7686,7 +7686,8 @@
     "error.message.loan.with.accountNumber.doesnot.belong.to.this.tranche": "Loan with AccountNumber {{params[0].value}} doesnot belong to Tranche {{params[1].value}}",
     "error.msg.loan.with.accountNumber.already.settled": "Loan with this AccountNumber is already Settled",
     "error.message.loan.with.accountNumber.is.active": "Loan with AccountNumber {{params[0].value}} is active",
-
+    "validation.msg.TRANSACTION_TYPE_MAPPING.bcAccountingSubTypeId.cannot.be.blank": "Payment Type is Mandatory",
+    "validation.msg.TRANSACTION_TYPE_MAPPING.transactionMappings.cannot.be.empty" : "Accounting Mappings is Empty",
 
     "label.anchor.operationalaccounting": "Operational Accounting",
     "label.anchor.screenforoperationalaccounting": "Screen For Operational Accounting",

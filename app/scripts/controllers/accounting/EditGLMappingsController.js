@@ -17,6 +17,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.assetAndLiabilityAccountOptions = scope.assetAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.assetLiabilityAndIncomeAccountOptions = scope.assetAndLiabilityAccountOptions.concat(scope.incomeAccountOptions);
+                scope.glAccountOptions = scope.assetLiabilityAndIncomeAccountOptions.concat(scope.expenseAccountOptions);
                 scope.formData.fundSourceAccountId = scope.accountingMappings.fundSourceAccount.id;
                 scope.formData.loanPortfolioAccountId = scope.accountingMappings.loanPortfolioAccount.id;
                 if (scope.accountingMappings.overdueLoanPortfolioAccount) {

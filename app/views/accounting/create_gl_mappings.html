@@ -19,8 +19,8 @@
                     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.fundsource' | translate}}"></i>
 
                     <div class="col-sm-3">
-                        <select id="fundSourceAccountId" ng-model="formData.fundSourceAccountId" chosen="assetAccountOptions"
-                            ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+                        <select id="fundSourceAccountId" ng-model="formData.fundSourceAccountId" chosen="glAccountOptions"
+                            ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in glAccountOptions"
                             value="{{assetAccount.id}}">
                             <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>
@@ -29,7 +29,7 @@
                     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.loanportfolio' | translate}}"></i>
                     <div class="col-sm-3">
                         <select id="loanPortfolioAccountId" class="form-control" ng-model="formData.loanPortfolioAccountId"
-                            chosen="assetAccountOptions" ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+                            chosen="assetAndLiabilityAccountOptions" ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                             value="{{assetAccount.id}}">
                             <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>
@@ -41,7 +41,7 @@
 
                     <div class="col-sm-3">
                         <select id="receivableInterestAccountId" class="form-control" ng-model="formData.receivableInterestAccountId"
-                            chosen="assetAccountOptions" ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
+                            chosen="assetAndLiabilityAccountOptions" ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                             value="{{assetAccount.id}}">
                             <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>
@@ -49,8 +49,8 @@
                     <label class="control-label col-sm-2">{{ 'label.input.receivablefees' | translate }}</label>
                     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.receivablefees' | translate}}"></i>
                     <div class="col-sm-3">
-                        <select id="receivableFeeAccountId" ng-model="formData.receivableFeeAccountId" chosen="assetAccountOptions"
-                            ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+                        <select id="receivableFeeAccountId" ng-model="formData.receivableFeeAccountId" chosen="assetAndLiabilityAccountOptions"
+                            ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                             value="{{assetAccount.id}}">
                             <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>
@@ -61,8 +61,8 @@
                     <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.receivablepenalties' | translate}}"></i>
 
                     <div class="col-sm-3">
-                        <select id="receivablePenaltyAccountId" ng-model="formData.receivablePenaltyAccountId" chosen="assetAccountOptions"
-                            ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAccountOptions"
+                        <select id="receivablePenaltyAccountId" ng-model="formData.receivablePenaltyAccountId" chosen="assetAndLiabilityAccountOptions"
+                            ng-options="assetAccount.id as (assetAccount.name +' ('+ assetAccount.glCode +')') for assetAccount in assetAndLiabilityAccountOptions"
                             value="{{assetAccount.id}}">
                             <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>
