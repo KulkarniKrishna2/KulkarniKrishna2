@@ -50,6 +50,9 @@
             scope.pincode = false;
             scope.sections = [];
             scope.displayNameInReverseOrder = false;
+            var levelVasedAddressConfig = 'enable_level_based_address';
+            scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
+
             if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard && scope.response){
                 scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
             }
@@ -1828,7 +1831,11 @@
                 }else{
                     return officeName+ ' - ' + officeReferenceNumber;
                 }
-            }
+            };
+
+            scope.talukaLevelValueExists = function(address){
+                return(scope.isLevelBasedAddressEnabled && (address.addressRegionValueData.Taluka || address.addressRegionValueData.Town || address.addressRegionValueData.VillageTract));
+            };
         }
     });
 

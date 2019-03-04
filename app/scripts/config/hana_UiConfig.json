@@ -68,7 +68,13 @@
 				"externalId": true,
 				"submittedOn": true,
 				"openSavingsProduct": true,
-				"villageTown": true
+				"villageTown": true,
+				"pincode": true
+			}
+		},
+		"viewClient": {
+			"isHiddenField": {
+				"pincode": true
 			}
 		},
 		"createCenter": {
