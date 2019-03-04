@@ -16,6 +16,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.assetAndLiabilityAccountOptions = scope.assetAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.assetLiabilityAndIncomeAccountOptions = scope.assetAndLiabilityAccountOptions.concat(scope.incomeAccountOptions);
+                scope.glAccountOptions = scope.assetLiabilityAndIncomeAccountOptions.concat(scope.expenseAccountOptions);
             });
             scope.routeTo = function () {
                 location.path('/viewaccountingglmappings/' + routeParams.mappingId + '/accstate/' + routeParams.accStateId);
