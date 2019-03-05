@@ -541,14 +541,14 @@
                         scope.talukas = _.filter(talukasTemp, function (taluka) {
                             return taluka.parentId == districtId;
                         });
+                        scope.showTalukas = (scope.talukas.length > 0); 
                     }else{
                         scope.selectDistrict = _.filter(scope.districts, function (districts) {
                             return districts.districtId == districtId;
                         });
                         scope.talukas = scope.selectDistrict[0].talukaDatas;
+                        scope.showTalukas = true;
                     }
-                    
-                    scope.showTalukas = (scope.talukas.length > 0); 
                 }
             };
 

@@ -147,7 +147,7 @@
                         }
 
                         if(scope.talukas.length >0 && scope.formData.talukaId){
-                            scope.isShowTaluka= true;
+                            scope.isShowTaluka = true;
                         }
 
                         if(scope.showWardAndVillages){
@@ -178,9 +178,7 @@
                         for(var i in scope.districts){
                             if( data.districtData && data.districtData.districtId == scope.districts[i].districtId){
                                 scope.talukas = scope.districts[i].talukaDatas;
-                                if(scope.talukas.length >0){
-                                    scope.isShowTaluka= true;
-                                }
+                                scope.isShowTaluka = true;
                             }
                         }
                         if (data.talukaData && data.talukaData.talukaId) {
@@ -306,11 +304,7 @@
                             return districts.districtId == districtId;
                         });
                         scope.talukas = scope.selectDistrict[0].talukaDatas;
-                        if(scope.talukas.length > 0){
-                            scope.isShowTaluka = true;
-                        }else{
-                            scope.isShowTaluka= false;
-                        }
+                        scope.isShowTaluka = true;
                     }
                 }
             }
