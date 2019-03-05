@@ -254,10 +254,11 @@
                     })
                     scope.formData.addressRegionValueId = talukaId;
 
-                    var levelLists = ['wardleaf','village'];             
+                    var levelLists = ['wardleaf','village'];     
+                    scope.wardAndVillagesTemp = [];                 
                     for(var i in scope.addressLevels){
                         if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
-                            scope.wardAndVillagesTemp = scope.addressData[scope.addressLevels[i].identifier];
+                            scope.wardAndVillagesTemp = scope.wardAndVillagesTemp.concat(scope.addressData[scope.addressLevels[i].identifier]);
                         }
                     }
                     scope.wardAndVillages = _.filter(scope.wardAndVillagesTemp, function (wardAndVillages) {
