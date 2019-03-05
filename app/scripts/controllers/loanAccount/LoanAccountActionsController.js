@@ -380,7 +380,7 @@
                                 scope.formData.loanEMIPackId = data.loanEMIPackData.id;
                             }
                         }
-                        
+                        scope.sanctionAmount = data.amount;
                         scope.paymentModeOptions = data.paymentModeOptions;
                         scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
                         scope.updatePaymentType(data.expectedPaymentId);
@@ -442,6 +442,7 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.accountId, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.clientId = data.clientId;
+                        scope.sanctionAmount = data.principal;
                         if(data.loanEMIPacks && scope.isLoanEmiPackEnabled){
                             scope.loanEMIPacks = data.loanEMIPacks;
                             if(data.loanEMIPackData){

@@ -797,7 +797,7 @@
                                $scope.formData.loanEMIPackId = data.loanEMIPackData.id;
                             }
                         }
-                        
+                        $scope.sanctionAmount = data.amount;
                         $scope.paymentModeOptions = data.paymentModeOptions;
                         $scope.transactionAuthenticationOptions = data.transactionAuthenticationOptions ;
                         $scope.updatePaymentType(data.expectedPaymentId);
