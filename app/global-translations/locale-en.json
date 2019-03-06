@@ -7834,6 +7834,8 @@
     "label.input.wardAndVillage" : "Ward/Village",
     "label.menu.selectward.village" : "Select Ward/Village",
     "error.msg.Aadhaar Address.address.with.addresstype.already.exists": "Address type Aadhaar already exists",
+    "error.msg.transfer.amount.should.be.greater.than.zero": "Amount to be transferred must be greater than zero",
+    "label.error.entities.under.the.staff.have.already.been.transferred": "Entities under the staff have already been transferred",
     
      "------ end of translation file ------":"---------"
 }
