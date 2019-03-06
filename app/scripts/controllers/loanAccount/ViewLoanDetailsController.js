@@ -40,10 +40,11 @@
             scope.charges = {};
             scope.hideNetDisbursedAmount = false;
             scope.options = [];
-          
+            scope.hideWriteoff = false;
             if(scope.response != undefined){
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
+                scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
                 scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
                 scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
@@ -429,7 +430,8 @@
                         {
                             name: "button.addloancharge",
                             icon: "icon-plus-sign",
-                            taskPermissionName: 'CREATE_LOANCHARGE'
+                            taskPermissionName: 'CREATE_LOANCHARGE',
+                            isHidden:scope.isGlim
                         },
                         {
                             name: "button.approve",
@@ -525,7 +527,8 @@
                         options: [
                             {
                                 name: "button.addloancharge",
-                                taskPermissionName: 'CREATE_LOANCHARGE'
+                                taskPermissionName: 'CREATE_LOANCHARGE',
+                                isHidden:scope.isGlim
                             },
                             {
                                 name: "button.listguarantor",
@@ -585,7 +588,8 @@
                         {
                             name: "button.addloancharge",
                             icon: "icon-plus-sign",
-                            taskPermissionName: 'CREATE_LOANCHARGE'
+                            taskPermissionName: 'CREATE_LOANCHARGE',
+                            isHidden:scope.isGlim
                         },
                         {
                             name: "button.makerepayment",
@@ -609,7 +613,8 @@
                             },
                             {
                                 name: "button.writeoff",
-                                taskPermissionName: 'WRITEOFF_LOAN'
+                                taskPermissionName: 'WRITEOFF_LOAN',
+                                isHidden:scope.hideWriteoff
                             },
                             {
                                 name: "button.prudentialwriteoff",
@@ -736,7 +741,8 @@
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: "button.foreclosure",
                             icon: "icon-money",
-                            taskPermissionName: 'FORECLOSURE_LOAN'
+                            taskPermissionName: 'FORECLOSURE_LOAN',
+                            isHidden:scope.isGlim
                         });
                         if (!scope.hidePrepayButton) {
                             scope.buttons.singlebuttons.splice(1, 0, {
@@ -790,12 +796,14 @@
                         {
                             name: "button.refund",
                             icon: "icon-exchange",
-                            taskPermissionName: 'REFUND_LOAN'
+                            taskPermissionName: 'REFUND_LOAN',
+                            isHidden:scope.isGlim
                         });
                     scope.singlebuttons.push({
                             name: "button.transferFunds",
                             icon: "icon-exchange",
-                            taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
+                            taskPermissionName: 'CREATE_ACCOUNTTRANSFER',
+                            isHidden:scope.isGlim
                         });
                 }
                 
@@ -2128,6 +2136,13 @@
                     }
                 }
             };
+
+            scope.isHiddenButton = function(isHide){
+                if(isHide){
+                    return (isHide==true);
+                }
+                return false;
+            }
         }
     });
 
