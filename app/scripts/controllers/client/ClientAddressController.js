@@ -234,11 +234,7 @@
                             return districts.districtId == districtId;
                         })
                         scope.talukas = scope.selectDistrict[0].talukaDatas;
-                        if(scope.talukas.length > 0){
-                            scope.isShowTaluka = true;
-                        }else{
-                            scope.isShowTaluka = false;
-                        }
+                        scope.isShowTaluka = true;
                     }
                 }
             };
