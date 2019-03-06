@@ -168,12 +168,15 @@
 					</div>
 				</div>
 			</div>
+			<div ng-show = "noDataToTransferInPendingState()" class="error">
+				{{"label.error.entities.under.the.staff.have.already.been.transferred"| translate}}
+			</div>
 			<div class="col-md-offset-3" ng-if="bulkTransfer.status.id==pendingState">
 				<a>
 					<button type="button" ng-click="submit('reject')" class="btn btn-default" has-permission='REJECT_TRANSFER_ENTITIES'>{{'label.button.reject'
 						| translate}}</button>
 				</a>
-				<a class="btn btn-primary" class="btn btn-primary"
+				<a class="btn btn-primary" class="btn btn-primary" ng-if = "!noDataToTransferInPendingState()"
 					ng-click="submit('approve')"  has-permission='APPROVE_TRANSFER_ENTITIES'>{{'label.button.approve' |
 					translate}}</a>
 			</div>

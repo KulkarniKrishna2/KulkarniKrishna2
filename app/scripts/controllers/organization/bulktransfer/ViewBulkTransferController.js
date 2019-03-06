@@ -6,7 +6,7 @@
 			scope.selectedGroups = [];
             scope.selectedClients = [];
             scope.pendingState = 100;
-
+            scope.entityCount = 0;
 
             scope.initPage = function () {
             	resourceFactory.bulkTransferResource.get({branchTransferId:routeParams.id},function (data) {
@@ -17,7 +17,7 @@
                     scope.selectedClients = json.clients;
                     var staffId = null;
                     if(scope.bulkTransfer.fromStaff){
-                    	if(scope.bulkTransfer.fromStaff.id ==0){
+                    	if(scope.bulkTransfer.fromStaff.id == 0){
                     		staffId = null;
                     	}else{
                     		staffId = scope.bulkTransfer.fromStaff.id;
@@ -56,12 +56,24 @@
                     scope.initPage();
                 });
             }
-
+            
             scope.entityExists = function(entityArray, entityId){
                 if(entityArray.findIndex(x=>x.id == entityId) != -1){
+                    ++scope.entityCount;
                     return true;
-                } 
+                }
                 return false;
+            };
+          
+            scope.isTransferDataEmpty = function (){
+                if(scope.entityCount>0){
+                    return false;
+                }
+                    return true;
+            };
+            
+            scope.noDataToTransferInPendingState = function (){
+                return (scope.bulkTransfer.status.id == scope.pendingState) &&  scope.isTransferDataEmpty() ;
             };
         }
     });
