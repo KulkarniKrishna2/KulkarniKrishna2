@@ -224,8 +224,8 @@
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons" ng-if="button.isEnableButton == undefined || button.isEnableButton === true" ng-hide="glimAllowedFunctionaility(button.taskPermissionName)">
-                          <a ng-show="((button.name && !isGlim) || ((button.taskPermissionName !='CREATE_LOANCHARGE') && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
+                      <span ng-repeat="button in buttons.singlebuttons" ng-if="button.isEnableButton == undefined || button.isEnableButton === true" ng-hide="isHiddenButton(button.isHidden)">
+                          <a ng-show="button.name"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
@@ -241,8 +241,8 @@
                               <span class="caret"></span>
                           </a>
                           <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
-                              <li class="{{button.icon}}" ng-repeat="button in buttons.options" ng-hide="( (button.taskPermissionName =='CREATE_LOANCHARGE') && isGlim)">
-                                  <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options" ng-hide="isHiddenButton(button.isHidden)">
+                                <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
                               </li>

@@ -38,7 +38,8 @@
 				"netDisbursalAmount": true,
 				"loanPurpose": false,
 				"preferredPaymentChannel": false,
-				"canAddCharge": true
+				"canAddCharge": true,
+				"writeOff": false
 			},
 			"isMandatory": {
 				"externalId": false,

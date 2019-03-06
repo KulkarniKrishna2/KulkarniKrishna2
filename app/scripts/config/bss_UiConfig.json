@@ -12,7 +12,8 @@
 		},
 		"loanAccount": {
 			"isHiddenField": {
-				"canAddCharge":false
+				"canAddCharge":false,				
+				"writeOff": true
 			},
 			"isMandatory": {
 				"loanPurposeId": true
