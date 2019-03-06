@@ -26,7 +26,8 @@
                }, function (data) {
                    scope.centerMeetingData = data;
                    scope.isEditExpectedDisbursementDateOnly = false;
-                   scope.formData.expectedDisbursementDate = dateFilter(new Date(),scope.df);
+                   scope.formData.expectedDisbursementDate = new Date();
+                   scope.expectedDisbursementOnDate  = dateFilter(new Date(),scope.df);
                                     
                    if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
                        scope.isCenterMeetingAttached = true;
@@ -35,17 +36,17 @@
                        if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
                            scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                        }
-                       for(var i in scope.centerMeetingData.collectionMeetingCalendar.recurringDates){
-                            if(today < new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i])){
-                                scope.formData.expectedDisbursementDate = dateFilter(new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i]),scope.df);
-                                scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
-                                break;
-                            }else if(today  == new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i])){
-                                scope.formData.expectedDisbursementDate = dateFilter(new Date(scope.centerMeetingData.collectionMeetingCalendar.recurringDates[i]),scope.df);
-                                scope.expectedDisbursementOnDate = scope.formData.expectedDisbursementDate;
-                                break;
-                            }
-                        }
+                        for(var i in scope.centerMeetingData.subGroupMembers){
+                            for(var j in scope.centerMeetingData.subGroupMembers[i].memberData){
+                                 if(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.status.code === 'loanStatusType.approved'){
+                                       var actualExpectedDisburseDate = dateFilter(new Date(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate),scope.df);
+                                       if(scope.expectedDisbursementOnDate < actualExpectedDisburseDate) {
+                                            scope.formData.expectedDisbursementDate = actualExpectedDisburseDate;
+                                            scope.expectedDisbursementOnDate = actualExpectedDisburseDate;        
+                                       }     
+                                 }       
+                            }       
+                       }                     
                    }
                    if (scope.formData.expectedDisbursementDate != undefined) {
                        var twoWeeks = 1000 * 60 * 60 * 24 * 14;
