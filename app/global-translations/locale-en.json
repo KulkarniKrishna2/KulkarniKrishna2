@@ -7837,5 +7837,9 @@
     "error.msg.transfer.amount.should.be.greater.than.zero": "Amount to be transferred must be greater than zero",
     "label.error.entities.under.the.staff.have.already.been.transferred": "Entities under the staff have already been transferred",
     
-     "------ end of translation file ------":"---------"
+    "error.msg.loan.prudential.written.off.action.not.supported" : "`{{params[0].value}}` can not be done as loan prudential written off. ",
+    "error.msg.loan.prudential.written.off" : "Loan is prudential written off.",
+    "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
+
+    "------ end of translation file ------": "----------"
 }

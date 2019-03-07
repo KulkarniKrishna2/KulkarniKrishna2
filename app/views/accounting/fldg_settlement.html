@@ -34,7 +34,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-10"  ng-if ="settledLoans.length>0">
+            <div class="col-md-12"  ng-if ="settledLoans.length>0">
                     <legend>{{'label.anchor.settledloans'
                         | translate}}&nbsp;</legend>
                     <div>
@@ -43,14 +43,20 @@
                                 <tr class="graybg">
                                     <th>{{'label.input.loanaccountnumber' | translate}}</th>
                                     <th>{{'label.input.loanproduct' | translate}}</th>
+                                    <th>{{'label.anchor.principalOverdue' | translate}}</th>
+                                    <th>{{'label.anchor.principalFutureDue' | translate}}</th>
+                                    <th>{{'label.anchor.interestOverdue' | translate}}</th>
                                     <th>{{'label.heading.amount' | translate}}</th>
                                     <th>{{'label.heading.settledby' | translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="settledLoan in settledLoans">
-                                    <td style="width: 300px" ng-model="settledLoan.account">{{settledLoan.accountNumber}}</td>
-                                    <td>{{settledLoan.loanProductName}}</td>   
+                                    <td ng-model="settledLoan.account">{{settledLoan.accountNumber}}</td>
+                                    <td>{{settledLoan.loanProductName}}</td>
+                                    <td>{{settledLoan.principalOverdue | number:2}}</td>
+                                    <td>{{settledLoan.principalFutureDue | number:2}}</td>
+                                    <td>{{settledLoan.interestOverdue | number:2}}</td>   
                                     <td>{{settledLoan.totalAmount | number:2}}</td>
                                     <td>{{settledLoan.settledBy}}</td>                                   
                                 </tr>
@@ -58,7 +64,7 @@
                         </table>
                     </div>  
                 </div>
-                    <div class="col-md-10" ng-if="overdueLoans.length>0">
+                    <div class="col-md-12" ng-if="overdueLoans.length>0">
                         <legend>{{ 'label.anchor.overdueloans'
                             | translate}}&nbsp;</legend>
                             <table class="table-bordered table view-table">
