@@ -17,7 +17,7 @@
                 <div class="col-sm-3">
                     <select chosen="states" id="stateId" name="states" ng-model="formData.stateId" class="form-control"
                         ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
-                        required late-validate="">
+                        ng-change=stateChange(); required late-validate="">
                         <option value="">{{'label.menu.selectState' | translate}}</option>
                     </select>
                 </div>
