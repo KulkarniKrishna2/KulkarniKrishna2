@@ -7835,6 +7835,8 @@
     "error.msg.loan.prudential.written.off" : "Loan is prudential written off.",
     "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
     "label.anchor.repaidamount":"Repaid Amount",
-    
-     "------ end of translation file ------":"---------"
+    "error.msg.village.activation.date.can.not.be.beforesubmitted.date" : "Village activation date ban not be before submitted on date `{{params[0].value}}` ",
+
+    "------ end of translation file ------": "----------"
+
 }
