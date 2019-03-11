@@ -6,7 +6,7 @@
                 dateFormat: scope.df
             };
             scope.states = [];
-            scope.tillTime = {};
+            scope.tillTime = new Date();
             scope.restrictDate = new Date();
             scope.show = false;
             resourceFactory.addressTemplateResource.get({}, function (data) {
@@ -27,9 +27,13 @@
                     }
                 }
             };
-            resourceFactory.taxInvoiceTemplate.get(function (data) {
-                scope.tillTime = data.tilldate;
-            });
+
+            scope.stateChange = function () {
+                var queryParams = { stateId: scope.formData.stateId };
+                resourceFactory.taxInvoiceTemplate.get(queryParams, function (data) {
+                    scope.tillTime = data.tilldate;
+                });
+            }
             scope.create = function () {
                 var queryParams = { toDate: dateFilter(scope.formData.toDate, scope.df), stateId: scope.formData.stateId, locale: scope.optlang.code, dateFormat: scope.df };
                 resourceFactory.taxInvoice.query(queryParams, function (data) {

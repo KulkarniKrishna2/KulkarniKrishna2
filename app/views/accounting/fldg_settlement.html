@@ -47,6 +47,7 @@
                                     <th>{{'label.anchor.principalFutureDue' | translate}}</th>
                                     <th>{{'label.anchor.interestOverdue' | translate}}</th>
                                     <th>{{'label.heading.amount' | translate}}</th>
+                                    <th>{{'label.anchor.repaidamount' | translate}}</th>
                                     <th>{{'label.heading.settledby' | translate}}</th>
                                 </tr>
                             </thead>
@@ -58,6 +59,7 @@
                                     <td>{{settledLoan.principalFutureDue | number:2}}</td>
                                     <td>{{settledLoan.interestOverdue | number:2}}</td>   
                                     <td>{{settledLoan.totalAmount | number:2}}</td>
+                                    <td>{{settledLoan.repaidAmount | number:2}}</td>
                                     <td>{{settledLoan.settledBy}}</td>                                   
                                 </tr>
                             </tbody>

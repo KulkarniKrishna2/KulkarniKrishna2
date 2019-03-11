@@ -39,6 +39,7 @@
   },
   "resolutions": {
     "angular": "=1.2.29",
-    "d3": "3.3.9"
+    "d3": "3.3.9",
+    "angular-mocks": "1.2.29"
   }
 }

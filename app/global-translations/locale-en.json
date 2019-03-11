@@ -7840,6 +7840,7 @@
     "error.msg.loan.prudential.written.off.action.not.supported" : "`{{params[0].value}}` can not be done as loan prudential written off. ",
     "error.msg.loan.prudential.written.off" : "Loan is prudential written off.",
     "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
-
-    "------ end of translation file ------": "----------"
+    "label.anchor.repaidamount":"Repaid Amount",
+    
+     "------ end of translation file ------":"---------"
 }

@@ -960,8 +960,9 @@
                 $scope.constructDataFromLoanAccountInfo = function(){
                     $scope.editLoanAccountdata.createStandingInstructionAtDisbursement = false;
                     $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
-                    
-
+                    if(!_.isUndefined($scope.loanaccountinfo.calendarOptions)){
+                        $scope.editLoanAccountdata.calendarId = $scope.loanaccountinfo.calendarOptions[0].id;
+                    }
                     $scope.editLoanAccountdata.amortizationType = $scope.loanaccountinfo.amortizationType.id;
                     $scope.editLoanAccountdata.isTopup = $scope.loanaccountinfo.isTopup;
                     $scope.editLoanAccountdata.deferPaymentsForHalfTheLoanTerm = $scope.loanaccountinfo.deferPaymentsForHalfTheLoanTerm;
@@ -976,9 +977,7 @@
                       
                     $scope.editLoanAccountdata.interestCalculationPeriodType = $scope.loanaccountinfo.interestCalculationPeriodType.id;
                     $scope.editLoanAccountdata.allowPartialPeriodInterestCalcualtion = $scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
-                    if($scope.loanaccountinfo.clientId){
-                        $scope.editLoanAccountdata.clientId = $scope.loanaccountinfo.clientId;
-                    }                    
+                                       
                     $scope.editLoanAccountdata.interestRatePerPeriod = $scope.loanaccountinfo.interestRatePerPeriod;
                 };
 
