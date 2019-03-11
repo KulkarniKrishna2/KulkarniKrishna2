@@ -27,10 +27,10 @@
                 </thead>
                 <tbody>
                     <tr class="pointer-main"  ng-repeat="record in bankAccountDetails">
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{$index+1}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.name}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.accountNumber}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.id)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{$index+1}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
                     </tr>
                 </tbody>
             </table>
